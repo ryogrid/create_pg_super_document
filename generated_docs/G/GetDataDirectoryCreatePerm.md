@@ -34,3 +34,23 @@ This frontend-only function retrieves the file system permissions of the specifi
 - On non-Windows platforms, automatically configures permission globals; on Windows, only validates directory accessibility
 - Commonly used by PostgreSQL utilities that need to operate with the same permissions as the data directory
 - Essential for maintaining consistent file permissions across PostgreSQL's various command-line tools
+
+## Simplified Source
+
+```c
+bool GetDataDirectoryCreatePerm(const char *dataDir)
+{
+    struct stat statBuf;
+
+    // Try to get directory status - return false if it fails
+    if (stat(dataDir, &statBuf) == -1)
+        return false;
+
+    // Set permissions to match the data directory (non-Windows only)
+    #if !defined(WIN32) && !defined(__CYGWIN__)
+        SetDataDirectoryCreatePerm(statBuf.st_mode);
+    #endif
+
+    return true;
+}
+```

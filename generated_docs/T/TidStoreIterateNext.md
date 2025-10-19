@@ -36,3 +36,29 @@ The function delegates to specialized iteration functions based on whether the T
 - Block numbers are returned in ascending order across iterations
 - Offsets within each block are guaranteed to be ordered
 - The function automatically handles both shared and local TidStore variants
+
+## Simplified Source
+
+```c
+TidStoreIterResult *
+TidStoreIterateNext(TidStoreIter *iter)
+{
+    uint64 key;
+    BlocktableEntry *page;
+
+    // Get next page from appropriate iterator type
+    if (TidStoreIsShared(iter->ts))
+        page = shared_ts_iterate_next(iter->tree_iter.shared, &key);
+    else
+        page = local_ts_iterate_next(iter->tree_iter.local, &key);
+
+    // Return NULL if iteration is complete
+    if (page == NULL)
+        return NULL;
+
+    // Extract TIDs from the key-value pair into output buffer
+    tidstore_iter_extract_tids(iter, (BlockNumber) key, page);
+
+    return &(iter->output);
+}
+```

@@ -307,3 +307,18 @@ Text creation and manipulation
 - This function is the companion to replorigin_desc, providing short identifiers vs. detailed descriptions
 - Part of the rmgr (resource manager) identification system for WAL records
 - Located in src/backend/access/rmgrdesc/replorigindesc.c:51-62
+
+## Simplified Source
+
+```c
+const char *replorigin_identify(uint8 info) {
+    switch (info) {
+        case XLOG_REPLORIGIN_SET:
+            return "SET";
+        case XLOG_REPLORIGIN_DROP:
+            return "DROP";
+        default:
+            return NULL;
+    }
+}
+```

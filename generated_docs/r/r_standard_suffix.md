@@ -60,3 +60,59 @@ The function sets bracket markers (bra/ket) to define the text segment for opera
 - Error handling propagates negative return values from slice operations
 - The backward search strategy (find_among_b) processes suffixes from the end of the word
 - Different replacement strings (s_6, s_7, s_8) allow for morphological transformations rather than simple deletion
+
+## Simplified Source
+
+```c
+static int r_standard_suffix(struct SN_env * z) {
+    // Set end boundary and search for suffix pattern
+    z->ket = z->c;
+    int suffix_type = find_among_b(z, a_2, 200);
+
+    if (!suffix_type) {
+        return 0;  // No suffix pattern found
+    }
+
+    z->bra = z->c;  // Set start boundary
+
+    // Apply appropriate removal/replacement based on suffix type
+    switch (suffix_type) {
+        case 1:
+            // Simple deletion if in R1 region
+            if (r_R1(z)) {
+                return slice_del(z);
+            }
+            break;
+
+        case 2:
+            // Simple deletion if in R2 region (more restrictive)
+            if (r_R2(z)) {
+                return slice_del(z);
+            }
+            break;
+
+        case 3:
+            // Replace with 3-character string if in R2
+            if (r_R2(z)) {
+                return slice_from_s(z, 3, s_6);
+            }
+            break;
+
+        case 4:
+            // Replace with 2-character string if in R2
+            if (r_R2(z)) {
+                return slice_from_s(z, 2, s_7);
+            }
+            break;
+
+        case 5:
+            // Replace with 1-character string if in R1
+            if (r_R1(z)) {
+                return slice_from_s(z, 1, s_8);
+            }
+            break;
+    }
+
+    return 1;  // Pattern found but conditions not met
+}
+```

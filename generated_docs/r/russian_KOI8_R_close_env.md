@@ -25,3 +25,13 @@ The function calls SN_close_env with parameter 0, indicating that no string arra
 
 ## Notes and Other Information
 This function is essential for proper memory management in PostgreSQL's Russian text processing capabilities. It should always be called for every environment created with russian_KOI8_R_create_env to prevent memory leaks. The function is safe to call with a NULL pointer, as the underlying SN_close_env handles this case gracefully. Proper pairing of create/close calls is critical in long-running database applications where text processing operations may be performed frequently.
+
+## Simplified Source
+
+```c
+extern void russian_KOI8_R_close_env(struct SN_env * z) {
+    // Clean up Snowball environment for Russian KOI8-R stemming
+    // Parameter 0 matches the string slots parameter from create_env
+    SN_close_env(z, 0);
+}
+```

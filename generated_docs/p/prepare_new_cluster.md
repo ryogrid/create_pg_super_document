@@ -41,3 +41,29 @@ The function carefully sequences these operations - analyze before freeze - to p
 - Essential for maintaining frozenxids restored during schema loading
 - Part of the final preparation phase before completing the upgrade process
 - Ensures the new cluster is immediately ready for production use
+
+## Simplified Source
+
+```c
+static void prepare_new_cluster(void) {
+    // Analyze all databases to generate query planner statistics
+    // Done before freeze to preserve restored frozenxids
+    prep_status("Analyzing all rows in the new cluster");
+    exec_prog(UTILITY_LOG_FILE, NULL, true, true,
+              "\"%s/vacuumdb\" %s --all --analyze %s",
+              new_cluster.bindir,
+              cluster_conn_opts(&new_cluster),
+              log_opts.verbose ? "--verbose" : "");
+    check_ok();
+
+    // Freeze all rows to establish clean transaction ID baseline
+    // Done after analyze so pg_statistic tables are also frozen
+    prep_status("Freezing all rows in the new cluster");
+    exec_prog(UTILITY_LOG_FILE, NULL, true, true,
+              "\"%s/vacuumdb\" %s --all --freeze %s",
+              new_cluster.bindir,
+              cluster_conn_opts(&new_cluster),
+              log_opts.verbose ? "--verbose" : "");
+    check_ok();
+}
+```

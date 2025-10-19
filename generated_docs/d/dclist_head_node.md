@@ -31,3 +31,22 @@ The `dclist_head_node` function retrieves the first node in a doubly-linked coun
 - Located in src/include/lib/ilist.h:900-908
 - Returns a pointer to the first dlist_node in the list
 - Uses dlist_head_element_off with offset 0 since we want the node itself, not a containing structure
+
+## Simplified Source
+
+```c
+static inline dlist_node *
+dclist_head_node(dclist_head *head)
+{
+    // Ensure list has at least one node
+    Assert(head->count > 0);
+
+    // Return first node using offset 0 (the node itself)
+    return (dlist_node *) dlist_head_element_off(&head->dlist, 0);
+}
+```
+
+**Key Points:**
+- Simple wrapper around `dlist_head_element_off` with safety assertion
+- Returns the actual dlist_node pointer (offset 0 means no container struct)
+- Inline function for optimal performance in hot code paths

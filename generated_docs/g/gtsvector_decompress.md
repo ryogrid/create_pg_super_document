@@ -35,3 +35,30 @@ The function performs a simple but critical operation: it checks if the entry ke
 - Creates a new GISTENTRY only when detoasting is actually needed, avoiding unnecessary memory allocation
 - Part of the standard GiST operator class interface for TSVector data types
 - The comment emphasizes that other gtsvector support functions cannot handle toasted values, making this function crucial for the index infrastructure
+
+## Simplified Source
+
+```c
+Datum
+gtsvector_decompress(PG_FUNCTION_ARGS)
+{
+    GISTENTRY *entry = (GISTENTRY *) PG_GETARG_POINTER(0);
+
+    // Detoast the SignTSVector data if needed
+    SignTSVector *key = (SignTSVector *) PG_DETOAST_DATUM(entry->key);
+
+    // If detoasting was needed, create new GISTENTRY with detoasted data
+    if (key != (SignTSVector *) DatumGetPointer(entry->key)) {
+        GISTENTRY *retval = (GISTENTRY *) palloc(sizeof(GISTENTRY));
+
+        gistentryinit(*retval, PointerGetDatum(key),
+                      entry->rel, entry->page,
+                      entry->offset, false);
+
+        PG_RETURN_POINTER(retval);
+    }
+
+    // No detoasting needed, return original entry
+    PG_RETURN_POINTER(entry);
+}
+```

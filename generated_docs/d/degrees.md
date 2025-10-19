@@ -29,3 +29,15 @@ The  function performs a straightforward mathematical conversion from radians to
 - Uses PostgreSQL's division function to handle potential division errors
 - Located in src/backend/utils/adt/float.c:2554-2565
 - Complementary function to  which performs the inverse conversion
+
+## Simplified Source
+
+```c
+Datum degrees(PG_FUNCTION_ARGS) {
+    // Convert radians to degrees using standard conversion factor
+    double radians = PG_GETARG_FLOAT8(0);
+
+    // degrees = radians / (π/180)
+    PG_RETURN_FLOAT8(float8_div(radians, RADIANS_PER_DEGREE));
+}
+```

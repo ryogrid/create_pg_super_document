@@ -44,3 +44,122 @@ The network byte order is assumed throughout the conversion process, meaning tha
 - Hexadecimal format supports both uppercase and lowercase digits
 - The function extends the network representation to cover the actual mask if needed
 - Validates that CIDR prefix length doesn't exceed 32 bits for IPv4
+
+## Simplified Source
+
+```c
+static int inet_cidr_pton_ipv4(const char *src, u_char *dst, size_t size) {
+    const u_char *odst = dst;
+    int ch = *src++;
+    int bits = -1;
+
+    // Buffer size validation
+    if (size <= 0U) goto emsgsize;
+
+    // Parse hexadecimal format (0x prefix)
+    if (ch == '0' && (src[0] == 'x' || src[0] == 'X') &&
+        isxdigit((unsigned char) src[1])) {
+
+        src++; // Skip 'x' or 'X'
+        int tmp = 0, dirty = 0;
+
+        while ((ch = *src++) != '\0' && isxdigit((unsigned char) ch)) {
+            int n = (ch >= '0' && ch <= '9') ? ch - '0' :
+                    (tolower(ch) >= 'a' && tolower(ch) <= 'f') ? tolower(ch) - 'a' + 10 : 0;
+
+            if (dirty == 0) {
+                tmp = n;
+            } else {
+                tmp = (tmp << 4) | n;
+            }
+
+            if (++dirty == 2) {
+                if (size-- <= 0U) goto emsgsize;
+                *dst++ = (u_char) tmp;
+                dirty = 0;
+            }
+        }
+
+        // Handle odd trailing nybble
+        if (dirty) {
+            if (size-- <= 0U) goto emsgsize;
+            *dst++ = (u_char) (tmp << 4);
+        }
+    }
+    // Parse decimal dotted notation
+    else if (isdigit((unsigned char) ch)) {
+        for (;;) {
+            int tmp = 0;
+
+            // Parse one decimal octet
+            do {
+                int n = ch - '0';
+                tmp = tmp * 10 + n;
+                if (tmp > 255) goto enoent;
+            } while ((ch = *src++) != '\0' && isdigit((unsigned char) ch));
+
+            if (size-- <= 0U) goto emsgsize;
+            *dst++ = (u_char) tmp;
+
+            if (ch == '\0' || ch == '/') break;
+            if (ch != '.') goto enoent;
+
+            ch = *src++;
+            if (!isdigit((unsigned char) ch)) goto enoent;
+        }
+    }
+    else {
+        goto enoent; // Invalid format
+    }
+
+    // Parse CIDR prefix if present
+    if (ch == '/' && isdigit((unsigned char) src[0]) && dst > odst) {
+        ch = *src++; // Skip '/'
+        bits = 0;
+
+        do {
+            int n = ch - '0';
+            bits = bits * 10 + n;
+        } while ((ch = *src++) != '\0' && isdigit((unsigned char) ch));
+
+        if (ch != '\0') goto enoent;
+        if (bits > 32) goto emsgsize;
+    }
+
+    // Must reach end of string
+    if (ch != '\0') goto enoent;
+    if (dst == odst) goto enoent; // No address found
+
+    // Infer classful network width if no CIDR specified
+    if (bits == -1) {
+        if (*odst >= 240)       bits = 32;  // Class E
+        else if (*odst >= 224)  bits = 8;   // Class D
+        else if (*odst >= 192)  bits = 24;  // Class C
+        else if (*odst >= 128)  bits = 16;  // Class B
+        else                    bits = 8;   // Class A
+
+        // Widen if specified octets require more bits
+        int octet_bits = (dst - odst) * 8;
+        if (bits < octet_bits) bits = octet_bits;
+
+        // Special case for 224.0.0.0 exactly
+        if (bits == 8 && *odst == 224) bits = 4;
+    }
+
+    // Extend network to cover the actual mask
+    while (bits > ((dst - odst) * 8)) {
+        if (size-- <= 0U) goto emsgsize;
+        *dst++ = '\0';
+    }
+
+    return bits;
+
+enoent:
+    errno = ENOENT;
+    return -1;
+
+emsgsize:
+    errno = EMSGSIZE;
+    return -1;
+}
+```

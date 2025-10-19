@@ -62,3 +62,22 @@ Range restrictions cannot be used in combination with synchronized scanning (`al
 - Part of the table access method abstraction layer
 - Used internally by `table_index_build_scan()` with full table parameters
 - Primarily used by BRIN indexes for summarizing specific block ranges
+
+## Simplified Source
+```c
+static inline double
+table_index_build_range_scan(Relation table_rel, Relation index_rel,
+                              struct IndexInfo *index_info, bool allow_sync,
+                              bool anyvisible, bool progress,
+                              BlockNumber start_blockno, BlockNumber numblocks,
+                              IndexBuildCallback callback, void *callback_state,
+                              TableScanDesc scan)
+{
+    // Scan specified block range during index construction
+    // anyvisible mode indexes tuples visible to any transaction
+    // Cannot combine range restrictions with synchronized scanning
+    return table_rel->rd_tableam->index_build_range_scan(
+        table_rel, index_rel, index_info, allow_sync, anyvisible,
+        progress, start_blockno, numblocks, callback, callback_state, scan);
+}
+```

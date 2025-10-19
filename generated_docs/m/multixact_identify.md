@@ -41,3 +41,22 @@ If an unknown operation code is provided, the function returns NULL.
 - Part of the resource manager identification interface for multixact operations
 - Essential for WAL dump utilities and debugging tools that need to display operation names
 - Complements the multixact_desc function by providing operation type identification
+
+## Simplified Source
+
+```c
+const char *multixact_identify(uint8 info) {
+    // Extract operation type from WAL record info
+    switch (info & ~XLR_INFO_MASK) {
+        case XLOG_MULTIXACT_ZERO_OFF_PAGE:
+            return "ZERO_OFF_PAGE";
+        case XLOG_MULTIXACT_ZERO_MEM_PAGE:
+            return "ZERO_MEM_PAGE";
+        case XLOG_MULTIXACT_CREATE_ID:
+            return "CREATE_ID";
+        case XLOG_MULTIXACT_TRUNCATE_ID:
+            return "TRUNCATE_ID";
+    }
+    return NULL;  // Unknown operation type
+}
+```

@@ -33,4 +33,14 @@ The function returns a selectivity estimate as a floating-point value between 0 
 - The current implementation is a placeholder that doesn't perform actual pattern analysis
 - Works in conjunction with PostgreSQL's operator class system for the  (does not match regex) operator
 - Used for estimating selectivity of expressions like 
-- The negation logic is handled by passing  as the third parameter to 
+- The negation logic is handled by passing  as the third parameter to
+
+## Simplified Source
+
+```c
+Datum regexnejoinsel(PG_FUNCTION_ARGS) {
+    // Estimate join selectivity for negated regex patterns (!~)
+    // Delegates to generic pattern join selectivity function with negation flag
+    return patternjoinsel(fcinfo, Pattern_Type_Regex, true);
+}
+```

@@ -33,3 +33,13 @@ The function is a thin wrapper around the generic  function, specifically config
 - The  parameter passed to  indicates this is for non-matching (negated) operations
 - Located in 
 - Returns a selectivity estimate as a float8 value between 0.0 and 1.0
+
+## Simplified Source
+
+```c
+// Simplified version of icregexnejoinsel
+Datum icregexnejoinsel(PG_FUNCTION_ARGS) {
+    // Join selectivity for case-insensitive regex non-match
+    return patternjoinsel(fcinfo, Pattern_Type_Regex_IC, true);
+}
+```

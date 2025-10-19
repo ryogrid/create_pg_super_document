@@ -34,3 +34,14 @@ This is part of a broader challenge with GiST (Generalized Search Tree) indexes 
 - The conservative estimate is intentional to favor index usage
 - Accuracy is limited without knowledge of actual geometric data distribution
 - Related to GiST index cost estimation challenges where multiple subtree searches are often required
+
+## Simplified Source
+
+```c
+Datum areasel(PG_FUNCTION_ARGS) {
+    // Return conservative selectivity estimate for area-based operators
+    PG_RETURN_FLOAT8(0.005);
+}
+```
+
+This selectivity function returns a hardcoded estimate of 0.5% for geometric operators that depend on area calculations (like overlap). The conservative value encourages the optimizer to use geometric indexes when available, despite the difficulty of accurate selectivity estimation without knowing actual data distribution.

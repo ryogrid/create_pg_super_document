@@ -34,3 +34,18 @@ The function performs a simple check to see if the iteration is already complete
 - The specific traversal order depends on the RBTOrderControl value passed to rbt_begin_iterate()
 - Tree modifications during iteration result in unspecified behavior
 - The returned RBTNode pointer should not be freed by the caller - it points to nodes owned by the tree structure
+
+## Simplified Source
+
+```c
+RBTNode *
+rbt_iterate(RBTreeIterator *iter)
+{
+    // Check if iteration is complete
+    if (iter->is_over)
+        return NULL;
+
+    // Call the appropriate iterator function (set by rbt_begin_iterate)
+    return iter->iterate(iter);
+}
+```

@@ -39,3 +39,28 @@ The function was originally authored by Paul Vixie (ISC) in June 1996 and has be
 - Returns -1 on failure with errno set appropriately (ENOENT indicates invalid network specification)
 - The size parameter determines the parsing mode: -1 for network address parsing, positive value for CIDR block parsing
 - Supports both IPv4 and IPv6 address families through delegation to specialized parsing functions
+
+## Simplified Source
+
+```c
+int pg_inet_net_pton(int af, const char *src, void *dst, size_t size) {
+    // Dispatch to appropriate IPv4/IPv6 parser based on address family
+    switch (af) {
+        case PGSQL_AF_INET:
+            // Choose parsing function based on size parameter
+            return size == -1 ?
+                inet_net_pton_ipv4(src, dst) :      // Network address parsing
+                inet_cidr_pton_ipv4(src, dst, size); // CIDR block parsing
+
+        case PGSQL_AF_INET6:
+            // Choose parsing function based on size parameter
+            return size == -1 ?
+                inet_net_pton_ipv6(src, dst) :      // Network address parsing
+                inet_cidr_pton_ipv6(src, dst, size); // CIDR block parsing
+
+        default:
+            errno = EAFNOSUPPORT;  // Unsupported address family
+            return -1;
+    }
+}
+```

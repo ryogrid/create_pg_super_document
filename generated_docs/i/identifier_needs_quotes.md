@@ -42,3 +42,30 @@ The function is conservative, requiring quotes for any non-ASCII characters, mat
 - Uses case-insensitive keyword comparison but assumes input is already lowercase
 - Conservative approach: quotes anything that's not ASCII, similar to backend behavior
 - The keyword list used may not exactly match the server's but is sufficient for tab-completion purposes
+
+## Simplified Source
+
+```c
+static bool
+identifier_needs_quotes(const char *ident)
+{
+    int kwnum;
+
+    // Check if identifier starts with valid character (lowercase letter or underscore)
+    if (!((ident[0] >= 'a' && ident[0] <= 'z') || ident[0] == '_'))
+        return true;
+
+    // Check if all characters are valid (lowercase letters, digits, underscore, dollar)
+    if (strspn(ident, "abcdefghijklmnopqrstuvwxyz0123456789_$") != strlen(ident))
+        return true;
+
+    // Check if identifier is a reserved keyword
+    kwnum = ScanKeywordLookup(ident, &ScanKeywords);
+
+    // Quote if it's a keyword that's not unreserved
+    if (kwnum >= 0 && ScanKeywordCategories[kwnum] != UNRESERVED_KEYWORD)
+        return true;
+
+    return false;
+}
+```

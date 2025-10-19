@@ -48,3 +48,59 @@ The function handles boundary conditions gracefully, adjusting slice parameters 
 - Memory allocation uses PostgreSQL's palloc system for proper memory context management
 - The function can optimize performance by early return when slicelength is zero
 - TOAST table access uses AccessShareLock for data consistency during retrieval
+
+## Simplified Source
+
+```c
+static struct varlena *toast_fetch_datum_slice(struct varlena *attr, int32 sliceoffset,
+                                               int32 slicelength) {
+    Relation toastrel;
+    struct varlena *result;
+    struct varatt_external toast_pointer;
+    int32 attrsize;
+
+    // Validate input is an external on-disk datum
+    if (!VARATT_IS_EXTERNAL_ONDISK(attr))
+        elog(ERROR, "toast_fetch_datum_slice shouldn't be called for non-ondisk datums");
+
+    // Extract toast pointer and validate compressed datum restrictions
+    VARATT_EXTERNAL_GET_POINTER(toast_pointer, attr);
+    Assert(!VARATT_EXTERNAL_IS_COMPRESSED(toast_pointer) || 0 == sliceoffset);
+
+    attrsize = VARATT_EXTERNAL_GET_EXTSIZE(toast_pointer);
+
+    // Adjust slice parameters for boundary conditions
+    if (sliceoffset >= attrsize) {
+        sliceoffset = 0;
+        slicelength = 0;
+    }
+
+    // Account for compression metadata overhead
+    if (VARATT_EXTERNAL_IS_COMPRESSED(toast_pointer) && slicelength > 0)
+        slicelength = slicelength + sizeof(int32);
+
+    // Adjust length if it exceeds available data
+    if (((sliceoffset + slicelength) > attrsize) || slicelength < 0)
+        slicelength = attrsize - sliceoffset;
+
+    // Allocate result and set appropriate header
+    result = (struct varlena *) palloc(slicelength + VARHDRSZ);
+
+    if (VARATT_EXTERNAL_IS_COMPRESSED(toast_pointer))
+        SET_VARSIZE_COMPRESSED(result, slicelength + VARHDRSZ);
+    else
+        SET_VARSIZE(result, slicelength + VARHDRSZ);
+
+    // Early return for zero-length slice
+    if (slicelength == 0)
+        return result;
+
+    // Fetch the specified slice from toast table
+    toastrel = table_open(toast_pointer.va_toastrelid, AccessShareLock);
+    table_relation_fetch_toast_slice(toastrel, toast_pointer.va_valueid,
+                                     attrsize, sliceoffset, slicelength, result);
+    table_close(toastrel, AccessShareLock);
+
+    return result;
+}
+```

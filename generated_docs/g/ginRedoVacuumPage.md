@@ -42,3 +42,21 @@ Key functionality:
 - Part of PostgreSQL's GIN index vacuum recovery mechanism
 - Simpler than other GIN redo functions as it only needs to restore a complete page image
 - Used specifically for entry tree pages, not data leaf pages (which have a separate function)
+
+## Simplified Source
+
+```c
+static void
+ginRedoVacuumPage(XLogReaderState *record)
+{
+    Buffer buffer;
+
+    // Restore page from full-page image in WAL record
+    if (XLogReadBufferForRedo(record, 0, &buffer) != BLK_RESTORED) {
+        elog(ERROR, "replay of gin entry tree page vacuum did not restore the page");
+    }
+
+    // Release buffer
+    UnlockReleaseBuffer(buffer);
+}
+```

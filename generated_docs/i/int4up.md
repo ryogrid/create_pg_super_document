@@ -32,3 +32,15 @@ The function follows PostgreSQL's standard function interface pattern, using PG_
 - Unlike int4um (unary minus), this function requires no overflow checking since no computation is performed
 - Serves as a identity function for int4 values in the context of unary plus expressions
 - Demonstrates PostgreSQL's commitment to providing complete operator coverage even for trivial operations
+
+## Simplified Source
+
+```c
+Datum int4up(PG_FUNCTION_ARGS) {
+    // Extract the int32 argument
+    int32 arg = PG_GETARG_INT32(0);
+
+    // Unary plus: return the value unchanged
+    PG_RETURN_INT32(arg);
+}
+```

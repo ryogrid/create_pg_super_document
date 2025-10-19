@@ -48,3 +48,52 @@ This function creates a ForeignPath node representing a foreign join operation. 
 - The function sets parallel_aware to false and parallel_workers to 0, indicating limited parallel execution support
 - If target is NULL, the function defaults to using rel->reltarget
 - The created path has pathtype T_ForeignScan and param_info set to NULL due to parameter limitations
+
+## Simplified Source
+
+```c
+/*
+ * Create a path node for foreign join operations.
+ * Called by FDW's GetForeignJoinPaths function to represent
+ * joins executed on the foreign server.
+ */
+ForeignPath *
+create_foreign_join_path(PlannerInfo *root, RelOptInfo *rel,
+                        PathTarget *target, double rows,
+                        Cost startup_cost, Cost total_cost,
+                        List *pathkeys, Relids required_outer,
+                        Path *fdw_outerpath, List *fdw_restrictinfo,
+                        List *fdw_private)
+{
+    // Parameterized foreign joins not yet supported
+    if (!bms_is_empty(required_outer) || !bms_is_empty(rel->lateral_relids))
+        elog(ERROR, "parameterized foreign joins are not supported yet");
+
+    // Create new ForeignPath node
+    ForeignPath *pathnode = makeNode(ForeignPath);
+
+    // Set basic path properties
+    pathnode->path.pathtype = T_ForeignScan;
+    pathnode->path.parent = rel;
+    pathnode->path.pathtarget = target ? target : rel->reltarget;
+    pathnode->path.param_info = NULL;  // No parameterization yet
+
+    // Set parallel execution properties
+    pathnode->path.parallel_aware = false;
+    pathnode->path.parallel_safe = rel->consider_parallel;
+    pathnode->path.parallel_workers = 0;
+
+    // Set cost estimates (provided by FDW)
+    pathnode->path.rows = rows;
+    pathnode->path.startup_cost = startup_cost;
+    pathnode->path.total_cost = total_cost;
+    pathnode->path.pathkeys = pathkeys;
+
+    // Set FDW-specific fields
+    pathnode->fdw_outerpath = fdw_outerpath;
+    pathnode->fdw_restrictinfo = fdw_restrictinfo;
+    pathnode->fdw_private = fdw_private;
+
+    return pathnode;
+}
+```

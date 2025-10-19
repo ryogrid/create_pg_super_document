@@ -27,3 +27,32 @@ This function sets the bit corresponding to a specific block number in the datap
 - The bitmap is byte-oriented with 8 bits per byte, using simple modulo arithmetic to determine byte offset and bit position
 - Dynamic allocation strategy includes 10-byte headroom to optimize for sequential block additions
 - Part of the pg_rewind utility's data page tracking system for PostgreSQL database synchronization
+
+## Simplified Source
+
+```c
+void datapagemap_add(datapagemap_t *map, BlockNumber blkno)
+{
+    int offset;
+    int bitno;
+
+    // Calculate byte offset and bit position
+    offset = blkno / 8;
+    bitno = blkno % 8;
+
+    // Expand bitmap if needed
+    if (map->bitmapsize <= offset)
+    {
+        int oldsize = map->bitmapsize;
+        int newsize = offset + 1 + 10; // Add headroom for sequential access
+
+        // Reallocate and zero new region
+        map->bitmap = pg_realloc(map->bitmap, newsize);
+        memset(&map->bitmap[oldsize], 0, newsize - oldsize);
+        map->bitmapsize = newsize;
+    }
+
+    // Set the bit for this block
+    map->bitmap[offset] |= (1 << bitno);
+}
+```

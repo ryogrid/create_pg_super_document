@@ -31,3 +31,16 @@ The int4ge function implements the ">=" (greater than or equal) comparison opera
 - The function is registered in the system catalogs and can be invoked via SQL queries
 - Returns true if arg1 >= arg2, false otherwise
 - Located in src/backend/utils/adt/int.c:441-449
+
+## Simplified Source
+
+```c
+Datum int4ge(PG_FUNCTION_ARGS) {
+    // Extract two 32-bit integer arguments
+    int32 first_value = PG_GETARG_INT32(0);
+    int32 second_value = PG_GETARG_INT32(1);
+
+    // Return true if first >= second, false otherwise
+    PG_RETURN_BOOL(first_value >= second_value);
+}
+```

@@ -38,3 +38,33 @@ The conversion is straightforward as both POLYGON and PATH structures store poin
 - All coordinate precision is preserved during the conversion
 - The dummy field is explicitly set to 0 to prevent instability in unused padding bytes
 - Located in src/backend/utils/adt/geo_ops.c:4564-4610
+
+## Simplified Source
+
+```c
+Datum
+poly_path(PG_FUNCTION_ARGS)
+{
+    POLYGON *poly = PG_GETARG_POLYGON_P(0);
+    PATH *path;
+    int size, i;
+
+    // Allocate memory for path structure with all polygon points
+    size = offsetof(PATH, p) + sizeof(path->p[0]) * poly->npts;
+    path = (PATH *) palloc(size);
+
+    // Set path properties
+    SET_VARSIZE(path, size);
+    path->npts = poly->npts;
+    path->closed = true;    // Polygons are always closed
+    path->dummy = 0;        // Prevent instability in unused bytes
+
+    // Copy all points from polygon to path
+    for (i = 0; i < poly->npts; i++) {
+        path->p[i].x = poly->p[i].x;
+        path->p[i].y = poly->p[i].y;
+    }
+
+    PG_RETURN_PATH_P(path);
+}
+```

@@ -47,3 +47,22 @@ This step targets common Arabic noun endings that need to be stripped to find th
 - Maintains minimum word length of 4 characters after suffix removal to prevent over-stemming
 - The a_12 array contains 3 entries, each representing one of the target suffixes
 - This step is applied multiple times in the stemming process at different stages
+
+## Simplified Source
+
+```c
+static int r_Suffix_Noun_Step2a(struct SN_env * z) {
+    // Find Arabic suffix pattern (و, ي, or ا)
+    z->ket = z->c;
+    if (!find_among_b(z, a_12, 3)) return 0;  // 3 common suffixes
+    z->bra = z->c;
+
+    // Remove suffix if minimum length > 4
+    if (len_utf8(z->p) > 4) {
+        slice_del(z);
+        return 1;
+    }
+
+    return 0;
+}
+```

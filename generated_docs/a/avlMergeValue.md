@@ -27,3 +27,19 @@ The avlMergeValue function provides a convenient interface for inserting pivot f
 
 ## Notes and Other Information
 This function is part of PostgreSQL's crosstab view implementation in psql, which allows users to display query results in a cross-tabulated format. The rank assignment using tree->count ensures that fields are numbered in the order they are first encountered. The function is typically called during the processing of query results to build up the set of unique pivot values that will become columns in the cross-tabulated output. The separation of concerns between avlMergeValue (field construction) and avlInsertNode (tree insertion) makes the code more maintainable and provides clear abstraction layers.
+
+## Simplified Source
+
+```c
+static void avlMergeValue(avl_tree *tree, char *name, char *sort_value) {
+    pivot_field field;
+
+    // Construct pivot field with provided values
+    field.name = name;
+    field.rank = tree->count;  // Assign rank based on insertion order
+    field.sort_value = sort_value;
+
+    // Insert into tree (no-op if already exists)
+    avlInsertNode(tree, &tree->root, field);
+}
+```

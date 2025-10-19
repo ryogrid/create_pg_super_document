@@ -45,3 +45,29 @@ Key behaviors:
 - The  parameter is used purely for error message context and can be NULL
 - Does not validate the SQL command before execution
 - Part of the vacuumdb utility's command execution pipeline
+
+## Simplified Source
+
+```c
+static void run_vacuum_command(PGconn *conn, const char *sql, bool echo,
+                               const char *table) {
+    bool status;
+
+    // Echo command if requested
+    if (echo)
+        printf("%s\n", sql);
+
+    // Send query asynchronously
+    status = PQsendQuery(conn, sql) == 1;
+
+    // Report errors with appropriate context
+    if (!status) {
+        if (table)
+            pg_log_error("vacuuming of table \"%s\" in database \"%s\" failed: %s",
+                         table, PQdb(conn), PQerrorMessage(conn));
+        else
+            pg_log_error("vacuuming of database \"%s\" failed: %s",
+                         PQdb(conn), PQerrorMessage(conn));
+    }
+}
+```

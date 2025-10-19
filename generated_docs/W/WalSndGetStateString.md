@@ -35,3 +35,21 @@ WalSndGetStateString is a utility function that converts WalSndState enum values
 - The strings returned are: "startup", "backup", "catchup", "streaming", "stopping"
 - Used primarily for the pg_stat_replication system view
 - Located in src/backend/replication/walsender.c at lines 3870-3888
+
+## Simplified Source
+
+```c
+static const char *WalSndGetStateString(WalSndState state)
+{
+    switch (state)
+    {
+        case WALSNDSTATE_STARTUP:    return "startup";
+        case WALSNDSTATE_BACKUP:     return "backup";
+        case WALSNDSTATE_CATCHUP:    return "catchup";
+        case WALSNDSTATE_STREAMING:  return "streaming";
+        case WALSNDSTATE_STOPPING:   return "stopping";
+    }
+
+    return "UNKNOWN";  // Fallback for invalid states
+}
+```

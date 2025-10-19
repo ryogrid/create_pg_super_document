@@ -35,3 +35,24 @@ The function allocates memory for a new macaddr8 result and performs the NOT ope
 - Uses palloc0 to ensure the result structure is zero-initialized before setting values
 - Each byte of the result (a, b, c, d, e, f, g, h) corresponds to one byte of the 8-byte EUI-64/MAC-8 address
 - This is typically exposed to SQL users through bitwise operators for macaddr8 type
+
+## Simplified Source
+
+```c
+macaddr8* macaddr8_not(macaddr8 *addr) {
+    // Create new MAC address with all bits inverted
+    macaddr8 *result = allocate_macaddr8();
+
+    // Perform bitwise NOT on each byte of the 8-byte MAC address
+    result->a = ~addr->a;
+    result->b = ~addr->b;
+    result->c = ~addr->c;
+    result->d = ~addr->d;
+    result->e = ~addr->e;
+    result->f = ~addr->f;
+    result->g = ~addr->g;
+    result->h = ~addr->h;
+
+    return result;
+}
+```

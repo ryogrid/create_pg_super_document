@@ -32,3 +32,15 @@ The locking mechanism uses the radix tree's built-in lock support, as the primar
 - Must be paired with a corresponding unlock operation to avoid deadlocks
 - Primarily used to protect write operations that modify the shared TID data structure
 - The lock protects the shared radix tree data, which is the core data structure needing synchronization
+
+## Simplified Source
+
+```c
+void
+TidStoreLockExclusive(TidStore *ts)
+{
+    // Only lock if this is a shared TidStore (multi-process access)
+    if (TidStoreIsShared(ts))
+        shared_ts_lock_exclusive(ts->tree.shared);
+}
+```

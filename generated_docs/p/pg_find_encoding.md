@@ -35,3 +35,23 @@ The function supports PostgreSQL's binary data encoding formats used primarily w
 - Currently supports "hex", "base64", and "escape" encoding formats
 - The returned structure contains function pointers for all four operations: encode_len, decode_len, encode, and decode
 - Used as part of PostgreSQL's binary_encode() and binary_decode() SQL functions
+
+## Simplified Source
+
+```c
+static const struct pg_encoding *
+pg_find_encoding(const char *name)
+{
+    // Search through the encoding list array
+    for (int i = 0; enclist[i].name; i++) {
+        // Case-insensitive comparison of encoding names
+        if (pg_strcasecmp(enclist[i].name, name) == 0) {
+            return &enclist[i].enc;  // Return pointer to matching encoding
+        }
+    }
+
+    return NULL;  // Encoding not found
+}
+```
+
+**Simplified Logic**: This function performs a straightforward linear search through a null-terminated array of encoding definitions. It uses case-insensitive string comparison to match the requested encoding name and returns a pointer to the corresponding encoding structure, or NULL if not found.

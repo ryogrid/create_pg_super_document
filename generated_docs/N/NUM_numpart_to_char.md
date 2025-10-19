@@ -58,3 +58,156 @@ The function maintains careful state management to ensure signs are written exac
 - Coordinates sign placement timing to avoid duplication
 - Debug logging available when DEBUG_TO_FROM_CHAR is enabled
 - Must handle the complex interaction between zero padding, fill mode, and decimal positioning
+
+## Simplified Source
+
+```c
+static void
+NUM_numpart_to_char(NUMProc *Np, int id)
+{
+    // Skip Roman numeral processing
+    if (IS_ROMAN(Np->Num))
+        return;
+
+    Np->num_in = false;
+
+    // Write sign if appropriate (once per number, at correct position)
+    if (!Np->sign_wrote &&
+        (Np->num_curr >= Np->out_pre_spaces ||
+         (IS_ZERO(Np->Num) && Np->Num->zero_start == Np->num_curr)) &&
+        (!IS_PREDEC_SPACE(Np) || (Np->last_relevant && *Np->last_relevant == '.')))
+    {
+        if (IS_LSIGN(Np->Num) && Np->Num->lsign == NUM_LSIGN_PRE)
+        {
+            // Locale-specific pre-sign
+            if (Np->sign == '-')
+                strcpy(Np->inout_p, Np->L_negative_sign);
+            else
+                strcpy(Np->inout_p, Np->L_positive_sign);
+            Np->inout_p += strlen(Np->inout_p);
+            Np->sign_wrote = true;
+        }
+        else if (IS_BRACKET(Np->Num))
+        {
+            // Bracket notation: positive=' ', negative='<'
+            *Np->inout_p = (Np->sign == '+') ? ' ' : '<';
+            ++Np->inout_p;
+            Np->sign_wrote = true;
+        }
+        else if (Np->sign == '+')
+        {
+            // Positive sign (space in non-fill mode)
+            if (!IS_FILLMODE(Np->Num))
+            {
+                *Np->inout_p = ' ';
+                ++Np->inout_p;
+            }
+            Np->sign_wrote = true;
+        }
+        else if (Np->sign == '-')
+        {
+            // Negative sign
+            *Np->inout_p = '-';
+            ++Np->inout_p;
+            Np->sign_wrote = true;
+        }
+    }
+
+    // Process digits, decimal points, and spacing
+    if (id == NUM_9 || id == NUM_0 || id == NUM_D || id == NUM_DEC)
+    {
+        if (Np->num_curr < Np->out_pre_spaces &&
+            (Np->Num->zero_start > Np->num_curr || !IS_ZERO(Np->Num)))
+        {
+            // Write leading space (unless in fill mode)
+            if (!IS_FILLMODE(Np->Num))
+            {
+                *Np->inout_p = ' ';
+                ++Np->inout_p;
+            }
+        }
+        else if (IS_ZERO(Np->Num) &&
+                 Np->num_curr < Np->out_pre_spaces &&
+                 Np->Num->zero_start <= Np->num_curr)
+        {
+            // Write leading zero
+            *Np->inout_p = '0';
+            ++Np->inout_p;
+            Np->num_in = true;
+        }
+        else
+        {
+            // Process decimal point or digit
+            if (*Np->number_p == '.')
+            {
+                // Write decimal point if needed
+                if (!Np->last_relevant || *Np->last_relevant != '.' ||
+                    (IS_FILLMODE(Np->Num) && Np->last_relevant && *Np->last_relevant == '.'))
+                {
+                    strcpy(Np->inout_p, Np->decimal);
+                    Np->inout_p += strlen(Np->inout_p);
+                }
+            }
+            else
+            {
+                // Write digit or handle special spacing
+                if (Np->last_relevant && Np->number_p > Np->last_relevant && id != NUM_0)
+                {
+                    // Skip trailing insignificant digits
+                }
+                else if (IS_PREDEC_SPACE(Np))
+                {
+                    // Handle predecimal spacing: "0.1" -> " .1"
+                    if (!IS_FILLMODE(Np->Num))
+                    {
+                        *Np->inout_p = ' ';
+                        ++Np->inout_p;
+                    }
+                    else if (Np->last_relevant && *Np->last_relevant == '.')
+                    {
+                        *Np->inout_p = '0';
+                        ++Np->inout_p;
+                    }
+                }
+                else
+                {
+                    // Write the actual digit
+                    *Np->inout_p = *Np->number_p;
+                    ++Np->inout_p;
+                    Np->num_in = true;
+                }
+            }
+
+            // Advance number pointer if valid
+            if (*Np->number_p)
+                ++Np->number_p;
+        }
+
+        // Handle end-of-number post-signs
+        int end = Np->num_count + (Np->out_pre_spaces ? 1 : 0) + (IS_DECIMAL(Np->Num) ? 1 : 0);
+        if (Np->last_relevant && Np->last_relevant == Np->number_p)
+            end = Np->num_curr;
+
+        if (Np->num_curr + 1 == end)
+        {
+            if (Np->sign_wrote && IS_BRACKET(Np->Num))
+            {
+                // Close bracket: positive=' ', negative='>'
+                *Np->inout_p = (Np->sign == '+') ? ' ' : '>';
+                ++Np->inout_p;
+            }
+            else if (IS_LSIGN(Np->Num) && Np->Num->lsign == NUM_LSIGN_POST)
+            {
+                // Locale-specific post-sign
+                if (Np->sign == '-')
+                    strcpy(Np->inout_p, Np->L_negative_sign);
+                else
+                    strcpy(Np->inout_p, Np->L_positive_sign);
+                Np->inout_p += strlen(Np->inout_p);
+            }
+        }
+    }
+
+    ++Np->num_curr;
+}
+```

@@ -35,3 +35,13 @@ This environment must be created before any Indonesian stemming operations can b
 - Part of the public API for the Indonesian Snowball stemmer
 - The integer parameters (0, 2) specify the number of string and integer variables needed by the Indonesian stemming algorithm
 - Follows the standard Snowball library pattern for language-specific environment creation
+
+## Simplified Source
+
+```c
+extern struct SN_env * indonesian_ISO_8859_1_create_env(void) {
+    // Create Snowball environment for Indonesian stemming
+    // 0 string variables, 2 integer variables needed for algorithm
+    return SN_create_env(0, 2);
+}
+```

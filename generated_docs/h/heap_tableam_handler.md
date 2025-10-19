@@ -37,3 +37,14 @@ Unlike GetHeapamTableAmRoutine() which is an internal C function, heap_tableam_h
 - Part of PostgreSQL's extensible table access method framework, allowing heap tables to be treated as a pluggable access method
 - The function signature follows PostgreSQL's Version-1 function calling convention
 - Critical for PostgreSQL's initialization and dynamic loading of the heap access method
+
+## Simplified Source
+
+```c
+Datum
+heap_tableam_handler(PG_FUNCTION_ARGS)
+{
+    // Return pointer to the heap access method's function table
+    PG_RETURN_POINTER(&heapam_methods);
+}
+```

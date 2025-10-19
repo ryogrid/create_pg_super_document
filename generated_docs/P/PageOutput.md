@@ -40,3 +40,54 @@ This function evaluates whether output should be sent through a pager program ba
 - Manages SIGPIPE signal handling around pager process creation to handle broken pipe scenarios gracefully
 - Falls back to stdout silently if pager program fails to start
 - Requires both stdin and stdout to be TTYs for pager to be used
+
+## Simplified Source
+
+```c
+FILE *
+PageOutput(int lines, const printTableOpt *topt)
+{
+    // Check if pager is needed and available
+    if (topt && topt->pager && isatty(fileno(stdin)) && isatty(fileno(stdout))) {
+#ifdef TIOCGWINSZ
+        // Get terminal window size to determine if paging is needed
+        struct winsize screen_size;
+        int result = ioctl(fileno(stdout), TIOCGWINSZ, &screen_size);
+
+        // Use pager if:
+        // - Can't get screen size, OR
+        // - Lines exceed screen height and minimum threshold, OR
+        // - Forced pager mode (pager > 1)
+        if (result == -1 ||
+            (lines >= screen_size.ws_row && lines >= topt->pager_min_lines) ||
+            topt->pager > 1)
+#endif
+        {
+            // Determine pager program: PSQL_PAGER -> PAGER -> DEFAULT_PAGER
+            const char *pagerprog = getenv("PSQL_PAGER");
+            if (!pagerprog)
+                pagerprog = getenv("PAGER");
+            if (!pagerprog)
+                pagerprog = DEFAULT_PAGER;
+            else {
+                // Skip pager if PAGER is empty or whitespace-only
+                if (strspn(pagerprog, " \t\r\n") == strlen(pagerprog))
+                    return stdout;
+            }
+
+            // Launch pager process
+            fflush(NULL);
+            disable_sigpipe_trap();
+            FILE *pagerpipe = popen(pagerprog, "w");
+
+            if (pagerpipe)
+                return pagerpipe;
+
+            // If pager fails, restore signals and fall back to stdout
+            restore_sigpipe_trap();
+        }
+    }
+
+    return stdout;
+}
+```

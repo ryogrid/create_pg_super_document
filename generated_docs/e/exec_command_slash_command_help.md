@@ -38,3 +38,36 @@ The function follows the conditional execution pattern, only processing when `ac
 - Uses pset.popt.topt.pager to determine whether output should be paged
 - Supports three help categories: "commands" (backslash commands), "options" (command-line options), and "variables" (psql variables)
 - Part of the psql interactive help system, providing comprehensive documentation for users
+
+## Simplified Source
+
+```c
+// Simplified version of exec_command_slash_command_help
+static backslashResult exec_command_slash_command_help(PsqlScanState scan_state, bool active_branch) {
+    if (active_branch) {
+        // Get help category parameter
+        char *opt0 = psql_scan_slash_option(scan_state, OT_NORMAL, NULL, false);
+
+        // Display appropriate help based on category
+        if (!opt0 || strcmp(opt0, "commands") == 0) {
+            // Default: show backslash command help
+            slashUsage(pset.popt.topt.pager);
+        } else if (strcmp(opt0, "options") == 0) {
+            // Show command-line options help
+            usage(pset.popt.topt.pager);
+        } else if (strcmp(opt0, "variables") == 0) {
+            // Show psql variables help
+            helpVariables(pset.popt.topt.pager);
+        } else {
+            // Unrecognized parameter: default to command help
+            slashUsage(pset.popt.topt.pager);
+        }
+
+        free(opt0);
+    } else {
+        ignore_slash_options(scan_state);
+    }
+
+    return PSQL_CMD_SKIP_LINE;
+}
+```

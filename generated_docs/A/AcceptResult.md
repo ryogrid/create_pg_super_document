@@ -36,3 +36,56 @@ AcceptResult is a static function in psql that serves as a centralized result va
 
 ## Notes and Other Information
 This function is fundamental to psql's error handling strategy, providing a consistent way to validate query results across different execution contexts. It distinguishes between acceptable result states (including successful operations and expected conditions like empty queries) and various error conditions. The function's design allows callers to control whether error messages are displayed, enabling silent validation when appropriate. The connection check performed after error detection helps maintain session integrity by verifying the database connection is still functional.
+
+## Simplified Source
+
+```c
+static bool
+AcceptResult(const PGresult *result, bool show_error)
+{
+    bool is_valid;
+
+    // Check for null result
+    if (!result) {
+        is_valid = false;
+    } else {
+        // Evaluate result status
+        switch (PQresultStatus(result)) {
+            case PGRES_COMMAND_OK:
+            case PGRES_TUPLES_OK:
+            case PGRES_TUPLES_CHUNK:
+            case PGRES_EMPTY_QUERY:
+            case PGRES_COPY_IN:
+            case PGRES_COPY_OUT:
+                // These are all acceptable result states
+                is_valid = true;
+                break;
+
+            case PGRES_BAD_RESPONSE:
+            case PGRES_NONFATAL_ERROR:
+            case PGRES_FATAL_ERROR:
+                // Known error states
+                is_valid = false;
+                break;
+
+            default:
+                // Unexpected status code
+                is_valid = false;
+                pg_log_error("unexpected PQresultStatus: %d", PQresultStatus(result));
+                break;
+        }
+    }
+
+    // Handle error display and connection check
+    if (!is_valid && show_error) {
+        const char *error = PQerrorMessage(pset.db);
+
+        if (strlen(error))
+            pg_log_info("%s", error);
+
+        CheckConnection();
+    }
+
+    return is_valid;
+}
+```

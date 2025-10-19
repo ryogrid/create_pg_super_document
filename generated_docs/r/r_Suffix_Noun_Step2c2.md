@@ -50,3 +50,24 @@ This step targets the Arabic letter "ة" (ta marbuta), which is the primary femi
 - This is the final step in the Step 2c series, focusing specifically on feminine nouns
 - Ta marbuta is one of the most common suffixes in Arabic, marking feminine gender
 - Used less frequently than other step 2 functions, appearing only once in the main stemming algorithm
+
+## Simplified Source
+
+```c
+static int r_Suffix_Noun_Step2c2(struct SN_env * z) {
+    // Check for Arabic character (169) and find ة suffix pattern
+    z->ket = z->c;
+    if (z->c - 1 <= z->lb || z->p[z->c - 1] != 169) return 0;
+
+    if (!find_among_b(z, a_15, 1)) return 0;  // Find ة (ta marbuta - feminine)
+    z->bra = z->c;
+
+    // Remove suffix if minimum length >= 4
+    if (len_utf8(z->p) >= 4) {
+        slice_del(z);
+        return 1;
+    }
+
+    return 0;
+}
+```

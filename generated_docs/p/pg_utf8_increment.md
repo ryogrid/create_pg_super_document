@@ -37,3 +37,68 @@ The function is designed for use in range operations where exhaustive enumeratio
 - Handles 4-byte character limits (0xF4 prefix limited to 0x8F)  
 - Returns false if no valid increment is possible
 - Critical for PostgreSQL's range type operations and string indexing performance
+
+## Simplified Source
+
+```c
+static bool
+pg_utf8_increment(unsigned char *charptr, int length)
+{
+    unsigned char current_byte;
+    unsigned char limit;
+
+    switch (length) {
+        case 4:
+            // Try to increment 4th byte (continuation byte)
+            current_byte = charptr[3];
+            if (current_byte < 0xBF) {
+                charptr[3]++;
+                return true;
+            }
+            // Fall through to try 3rd byte
+
+        case 3:
+            // Try to increment 3rd byte (continuation byte)
+            current_byte = charptr[2];
+            if (current_byte < 0xBF) {
+                charptr[2]++;
+                return true;
+            }
+            // Fall through to try 2nd byte
+
+        case 2:
+            // Try to increment 2nd byte with special limits
+            current_byte = charptr[1];
+
+            // Set limits based on first byte to avoid invalid UTF-8
+            if (*charptr == 0xED)      // Surrogate pair avoidance
+                limit = 0x9F;
+            else if (*charptr == 0xF4) // 4-byte char limit
+                limit = 0x8F;
+            else
+                limit = 0xBF;
+
+            if (current_byte < limit) {
+                charptr[1]++;
+                return true;
+            }
+            // Fall through to try 1st byte
+
+        case 1:
+            // Try to increment first byte
+            current_byte = *charptr;
+
+            // Check if at boundary values that can't be incremented
+            if (current_byte == 0x7F || current_byte == 0xDF ||
+                current_byte == 0xEF || current_byte == 0xF4)
+                return false;
+
+            charptr[0]++;
+            return true;
+
+        default:
+            // Reject unsupported lengths (5, 6+ bytes)
+            return false;
+    }
+}
+```

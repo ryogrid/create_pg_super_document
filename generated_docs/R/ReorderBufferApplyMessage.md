@@ -37,3 +37,22 @@ ReorderBufferApplyMessage is an internal helper function that processes message 
 - The function serves as an abstraction layer that allows the same message processing code to work in both streaming and non-streaming contexts
 - Message data is accessed through change->data.msg structure containing prefix, message_size, and message content
 - The LSN (Log Sequence Number) from the change is passed to maintain proper ordering and consistency
+
+## Simplified Source
+```c
+static inline void ReorderBufferApplyMessage(ReorderBuffer *rb, ReorderBufferTXN *txn,
+                                           ReorderBufferChange *change, bool streaming)
+{
+    // Extract message data from change
+    char *prefix = change->data.msg.prefix;
+    Size message_size = change->data.msg.message_size;
+    char *message = change->data.msg.message;
+
+    // Choose between streaming and regular message processing
+    if (streaming) {
+        rb->stream_message(rb, txn, change->lsn, true, prefix, message_size, message);
+    } else {
+        rb->message(rb, txn, change->lsn, true, prefix, message_size, message);
+    }
+}
+```

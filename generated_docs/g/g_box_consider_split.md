@@ -45,3 +45,72 @@ The function uses different comparison criteria depending on whether the candida
 - The cross-dimensional comparison logic (using non-negative overlap) is specifically designed to prevent the creation of highly elongated MBRs that would degrade search performance
 - The algorithm prioritizes splits with minimal overlap within the same dimension, but uses range as a secondary criterion across dimensions to maintain more quadratic (balanced) MBR shapes
 - This function is critical for maintaining the performance characteristics of GiST indexes on geometric data types like boxes, polygons, and circles
+
+## Simplified Source
+
+```c
+static inline void g_box_consider_split(ConsiderSplitContext *context, int dimNum,
+                                      float8 rightLower, int minLeftCount,
+                                      float8 leftUpper, int maxLeftCount)
+{
+    int leftCount, rightCount;
+    float4 ratio, overlap;
+    float8 range;
+
+    // Calculate balanced distribution of entries
+    if (minLeftCount >= (context->entriesCount + 1) / 2) {
+        leftCount = minLeftCount;
+    } else if (maxLeftCount <= context->entriesCount / 2) {
+        leftCount = maxLeftCount;
+    } else {
+        leftCount = context->entriesCount / 2;
+    }
+    rightCount = context->entriesCount - leftCount;
+
+    // Calculate split ratio (size of smaller group / total entries)
+    ratio = float4_div(Min(leftCount, rightCount), context->entriesCount);
+
+    // Only consider splits with acceptable balance
+    if (ratio > LIMIT_RATIO)
+    {
+        bool selectthis = false;
+
+        // Calculate overlap and range for this dimension
+        if (dimNum == 0)
+            range = float8_mi(context->boundingBox.high.x, context->boundingBox.low.x);
+        else
+            range = float8_mi(context->boundingBox.high.y, context->boundingBox.low.y);
+
+        overlap = float8_div(float8_mi(leftUpper, rightLower), range);
+
+        // Select this split if it's the first one
+        if (context->first) {
+            selectthis = true;
+        }
+        // Within same dimension: prefer smaller overlap, then better ratio
+        else if (context->dim == dimNum) {
+            if (overlap < context->overlap ||
+                (overlap == context->overlap && ratio > context->ratio))
+                selectthis = true;
+        }
+        // Across dimensions: prefer smaller non-negative overlap, then larger range
+        else {
+            if (non_negative(overlap) < non_negative(context->overlap) ||
+                (range > context->range &&
+                 non_negative(overlap) <= non_negative(context->overlap)))
+                selectthis = true;
+        }
+
+        // Update context with selected split
+        if (selectthis) {
+            context->first = false;
+            context->ratio = ratio;
+            context->range = range;
+            context->overlap = overlap;
+            context->rightLower = rightLower;
+            context->leftUpper = leftUpper;
+            context->dim = dimNum;
+        }
+    }
+}
+```

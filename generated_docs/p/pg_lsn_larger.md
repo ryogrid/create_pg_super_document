@@ -32,3 +32,16 @@ The function uses a ternary operator to efficiently select and return the larger
 - Part of PostgreSQL's pg_lsn utility functions for WAL position management
 - The comparison is based on the natural ordering of LSN values in the write-ahead log sequence
 - Commonly used in replication lag monitoring and synchronization point determination
+
+## Simplified Source
+
+```c
+Datum pg_lsn_larger(PG_FUNCTION_ARGS) {
+    // Extract both LSN values from function arguments
+    XLogRecPtr lsn1 = PG_GETARG_LSN(0);
+    XLogRecPtr lsn2 = PG_GETARG_LSN(1);
+
+    // Return the larger (more recent) LSN value
+    PG_RETURN_LSN((lsn1 > lsn2) ? lsn1 : lsn2);
+}
+```

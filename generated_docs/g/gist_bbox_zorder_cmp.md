@@ -34,3 +34,31 @@ This function implements a comparison operation based on Z-order (Morton code) v
 - Part of PostgreSQL's GiST fast index build infrastructure that leverages spatial locality
 - Z-order comparison enables efficient spatial sorting that maintains locality properties
 - The SortSupport parameter follows the PostgreSQL sorting interface but is not used in this implementation
+
+## Simplified Source
+
+```c
+static int
+gist_bbox_zorder_cmp(Datum a, Datum b, SortSupport ssup)
+{
+    // Extract lower-left corner points from bounding boxes
+    Point *p1 = &(DatumGetBoxP(a)->low);
+    Point *p2 = &(DatumGetBoxP(b)->low);
+
+    // Quick equality check to avoid expensive Z-order computation
+    if (p1->x == p2->x && p1->y == p2->y)
+        return 0;
+
+    // Compute Z-order values for comparison
+    uint64 z1 = point_zorder_internal(p1->x, p1->y);
+    uint64 z2 = point_zorder_internal(p2->x, p2->y);
+
+    // Return comparison result (-1, 0, or 1)
+    if (z1 > z2)
+        return 1;
+    else if (z1 < z2)
+        return -1;
+    else
+        return 0;
+}
+```

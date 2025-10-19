@@ -44,3 +44,28 @@ The function specifically handles multi-object loops (as opposed to simple view-
 - The dummy_view flag causes pg_dump to emit a CREATE VIEW statement without the actual query definition initially
 - The separate flag ensures the rule gets its own independent dump operation
 - Moving the rule to post-data phase (via postDataBoundId dependency) ensures it's dumped after all table data but before final cleanup operations
+
+## Simplified Source
+
+```c
+static void repairViewRuleMultiLoop(DumpableObject *viewobj,
+                                   DumpableObject *ruleobj) {
+    TableInfo *viewinfo = (TableInfo *) viewobj;
+    RuleInfo *ruleinfo = (RuleInfo *) ruleobj;
+
+    // Break the dependency cycle: remove view's dependency on rule
+    removeObjectDependency(viewobj, ruleobj->dumpId);
+
+    // Configure view to be dumped with dummy definition (allows forward reference)
+    viewinfo->dummy_view = true;
+
+    // Make rule a separately-dumped object
+    ruleinfo->separate = true;
+
+    // Restore rule's dependency on view (ensures correct order)
+    addObjectDependency(ruleobj, viewobj->dumpId);
+
+    // Move rule to post-data phase since it's now separate
+    addObjectDependency(ruleobj, postDataBoundId);
+}
+```

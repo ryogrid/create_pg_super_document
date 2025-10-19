@@ -37,3 +37,38 @@ On the first call for a scan, it initializes the scan position using _hash_first
 - Maintains killedItems array to track tuples marked for deletion
 - Can handle scan direction changes gracefully
 - Returns boolean indicating whether a valid tuple was found
+
+## Simplified Source
+
+```c
+bool hashgettuple(IndexScanDesc scan, ScanDirection dir)
+{
+    HashScanOpaque so = (HashScanOpaque) scan->opaque;
+    bool res;
+
+    // Hash indexes are always lossy (store only hash codes)
+    scan->xs_recheck = true;
+
+    // Initialize scan or advance to next tuple
+    if (!HashScanPosIsValid(so->currPos))
+        res = _hash_first(scan, dir);
+    else
+    {
+        // Handle tuple killing optimization
+        if (scan->kill_prior_tuple)
+        {
+            // Track tuples to be marked dead later
+            if (so->killedItems == NULL)
+                so->killedItems = (int *) palloc(MaxIndexTuplesPerPage * sizeof(int));
+
+            if (so->numKilled < MaxIndexTuplesPerPage)
+                so->killedItems[so->numKilled++] = so->currPos.itemIndex;
+        }
+
+        // Continue scan
+        res = _hash_next(scan, dir);
+    }
+
+    return res;
+}
+```

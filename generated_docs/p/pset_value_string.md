@@ -44,3 +44,88 @@ The function uses a large if-else chain to handle each supported parameter, with
 - [String](../S/String.md) values are properly quoted and escaped to handle special characters
 - Static function scope limits usage to within command.c
 - Essential for implementing the \pset command's parameter display functionality
+
+## Simplified Source
+
+```c
+static char *pset_value_string(const char *param, printQueryOpt *popt) {
+    Assert(param != NULL);
+
+    // Numeric parameters
+    if (strcmp(param, "border") == 0)
+        return psprintf("%d", popt->topt.border);
+    else if (strcmp(param, "columns") == 0)
+        return psprintf("%d", popt->topt.columns);
+    else if (strcmp(param, "pager") == 0)
+        return psprintf("%d", popt->topt.pager);
+    else if (strcmp(param, "pager_min_lines") == 0)
+        return psprintf("%d", popt->topt.pager_min_lines);
+
+    // String parameters (quoted)
+    else if (strcmp(param, "csv_fieldsep") == 0)
+        return pset_quoted_string(popt->topt.csvFieldSep);
+    else if (strcmp(param, "fieldsep") == 0)
+        return pset_quoted_string(popt->topt.fieldSep.separator
+                                 ? popt->topt.fieldSep.separator : "");
+    else if (strcmp(param, "recordsep") == 0)
+        return pset_quoted_string(popt->topt.recordSep.separator
+                                 ? popt->topt.recordSep.separator : "");
+    else if (strcmp(param, "null") == 0)
+        return pset_quoted_string(popt->nullPrint ? popt->nullPrint : "");
+    else if (strcmp(param, "tableattr") == 0)
+        return popt->topt.tableAttr ? pset_quoted_string(popt->topt.tableAttr)
+                                    : pstrdup("");
+    else if (strcmp(param, "title") == 0)
+        return popt->title ? pset_quoted_string(popt->title) : pstrdup("");
+
+    // Boolean parameters
+    else if (strcmp(param, "fieldsep_zero") == 0)
+        return pstrdup(pset_bool_string(popt->topt.fieldSep.separator_zero));
+    else if (strcmp(param, "footer") == 0)
+        return pstrdup(pset_bool_string(popt->topt.default_footer));
+    else if (strcmp(param, "numericlocale") == 0)
+        return pstrdup(pset_bool_string(popt->topt.numericLocale));
+    else if (strcmp(param, "recordsep_zero") == 0)
+        return pstrdup(pset_bool_string(popt->topt.recordSep.separator_zero));
+    else if (strcmp(param, "tuples_only") == 0)
+        return pstrdup(pset_bool_string(popt->topt.tuples_only));
+
+    // Special case parameters
+    else if (strcmp(param, "expanded") == 0)
+        return pstrdup(popt->topt.expanded == 2 ? "auto"
+                      : pset_bool_string(popt->topt.expanded));
+    else if (strcmp(param, "format") == 0)
+        return pstrdup(_align2string(popt->topt.format));
+    else if (strcmp(param, "linestyle") == 0)
+        return pstrdup(get_line_style(&popt->topt)->name);
+
+    // Unicode line style parameters
+    else if (strcmp(param, "unicode_border_linestyle") == 0)
+        return pstrdup(_unicode_linestyle2string(popt->topt.unicode_border_linestyle));
+    else if (strcmp(param, "unicode_column_linestyle") == 0)
+        return pstrdup(_unicode_linestyle2string(popt->topt.unicode_column_linestyle));
+    else if (strcmp(param, "unicode_header_linestyle") == 0)
+        return pstrdup(_unicode_linestyle2string(popt->topt.unicode_header_linestyle));
+
+    // Complex xheader_width parameter
+    else if (strcmp(param, "xheader_width") == 0) {
+        if (popt->topt.expanded_header_width_type == PRINT_XHEADER_FULL)
+            return pstrdup("full");
+        else if (popt->topt.expanded_header_width_type == PRINT_XHEADER_COLUMN)
+            return pstrdup("column");
+        else if (popt->topt.expanded_header_width_type == PRINT_XHEADER_PAGE)
+            return pstrdup("page");
+        else {
+            // PRINT_XHEADER_EXACT_WIDTH
+            char wbuff[32];
+            snprintf(wbuff, sizeof(wbuff), "%d",
+                    popt->topt.expanded_header_exact_width);
+            return pstrdup(wbuff);
+        }
+    }
+
+    // Unknown parameter
+    else
+        return pstrdup("ERROR");
+}
+```

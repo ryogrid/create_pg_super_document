@@ -35,3 +35,29 @@ This function implements the Murmur2 hash algorithm, a non-cryptographic hash fu
 - Part of pgbench's standard function evaluation system
 - Reference implementation available at https://github.com/aappleby/smhasher
 - Located in src/bin/pgbench/pgbench.c:1270-1302
+
+## Simplified Source
+
+```c
+static int64 getHashMurmur2(int64 val, uint64 seed) {
+    // Initialize result with seed and constant
+    uint64 result = seed ^ MM2_MUL_TIMES_8;
+    uint64 k = (uint64) val;
+
+    // Apply Murmur2 mixing to input value
+    k *= MM2_MUL;
+    k ^= k >> MM2_ROT;
+    k *= MM2_MUL;
+
+    // Combine with result
+    result ^= k;
+    result *= MM2_MUL;
+
+    // Final mixing steps for better distribution
+    result ^= result >> MM2_ROT;
+    result *= MM2_MUL;
+    result ^= result >> MM2_ROT;
+
+    return (int64) result;
+}
+```

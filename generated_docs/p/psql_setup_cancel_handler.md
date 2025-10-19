@@ -33,3 +33,12 @@ psql_setup_cancel_handler serves as a wrapper function that sets up the cancella
 - Works in conjunction with psql_cancel_callback to provide complete cancellation support
 - Part of the layered signal handling architecture in PostgreSQL client applications
 - Ensures consistent signal handling behavior across different PostgreSQL client tools
+
+## Simplified Source
+
+```c
+void psql_setup_cancel_handler(void) {
+    // Register psql's cancellation callback with the signal handler
+    setup_cancel_handler(psql_cancel_callback);
+}
+```

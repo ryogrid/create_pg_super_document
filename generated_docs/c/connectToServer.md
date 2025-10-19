@@ -39,3 +39,29 @@ This function establishes a connection to a specific database on a PostgreSQL se
 - Automatically sets a secure search path using ALWAYS_SECURE_SEARCH_PATH_SQL after successful connection
 - Used extensively throughout pg_upgrade for various database checks and operations
 - Part of the PostgreSQL upgrade utility's server connection infrastructure
+
+## Simplified Source
+
+```c
+PGconn *connectToServer(ClusterInfo *cluster, const char *db_name) {
+    // Attempt to establish database connection
+    PGconn *conn = get_db_conn(cluster, db_name);
+
+    // Check if connection was successful
+    if (conn == NULL || PQstatus(conn) != CONNECTION_OK) {
+        // Log error and exit on failure
+        pg_log(PG_REPORT, "%s", PQerrorMessage(conn));
+
+        if (conn)
+            PQfinish(conn);
+
+        printf(_("Failure, exiting\n"));
+        exit(1);
+    }
+
+    // Set secure search path after successful connection
+    PQclear(executeQueryOrDie(conn, ALWAYS_SECURE_SEARCH_PATH_SQL));
+
+    return conn;
+}
+```

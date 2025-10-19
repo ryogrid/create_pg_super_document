@@ -42,3 +42,43 @@ This function performs the cleanup and finalization tasks for LZ4 compression in
 - Safe to call with NULL state (early return)
 - Ensures proper LZ4 frame termination by calling LZ4F_compressEnd()
 - Critical for preventing memory leaks and ensuring proper file format compliance
+
+## Simplified Source
+
+```c
+static void
+EndCompressorLZ4(ArchiveHandle *AH, CompressorState *cs)
+{
+    LZ4State *state = (LZ4State *) cs->private_data;
+    size_t status;
+
+    // Nothing to do if state is NULL
+    if (!state)
+        return;
+
+    // Write header if it hasn't been written yet (empty relation case)
+    if (state->needs_header_flush)
+        cs->writeF(AH, state->buffer, state->compressedlen);
+
+    // Finalize compression and write any remaining data
+    status = LZ4F_compressEnd(state->ctx,
+                              state->buffer, state->buflen,
+                              NULL);
+    if (LZ4F_isError(status))
+        pg_fatal("could not end compression: %s", LZ4F_getErrorName(status));
+
+    cs->writeF(AH, state->buffer, status);
+
+    // Cleanup LZ4 context
+    status = LZ4F_freeCompressionContext(state->ctx);
+    if (LZ4F_isError(status))
+        pg_fatal("could not end compression: %s", LZ4F_getErrorName(status));
+
+    // Free allocated memory
+    pg_free(state->buffer);
+    pg_free(state);
+
+    // Clear pointer to prevent reuse
+    cs->private_data = NULL;
+}
+```

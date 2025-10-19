@@ -39,3 +39,31 @@ This is specifically designed for length histogram bins where values represent r
 - The linear interpolation formula ensures accurate positioning within finite numeric ranges
 - Complements the range bound positioning done by `get_position()` for complete selectivity estimation
 - Essential for PostgreSQL query planner's cost estimation when dealing with range length-based predicates
+
+## Simplified Source
+
+```c
+static double get_len_position(double value, double hist1, double hist2) {
+    // Both bounds are finite - use linear interpolation
+    if (!isinf(hist1) && !isinf(hist2)) {
+        // Safety check: if value is infinite between finite bounds, return middle
+        if (isinf(value))
+            return 0.5;
+
+        // Linear interpolation: calculate relative position in bin
+        return 1.0 - (hist2 - value) / (hist2 - hist1);
+    }
+    // Lower bound infinite, upper finite - value is far from lower bound
+    else if (isinf(hist1) && !isinf(hist2)) {
+        return 1.0;
+    }
+    // Upper bound infinite, lower finite - value is close to lower bound
+    else if (!isinf(hist1) && isinf(hist2)) {
+        return 0.0;
+    }
+    // Both bounds infinite - assume middle position
+    else {
+        return 0.5;
+    }
+}
+```

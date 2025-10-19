@@ -39,3 +39,19 @@ The control file contains critical cluster metadata including system identifier,
 - Delegates actual file reading and validation to get_controlfile_by_exact_path
 - Used extensively by PostgreSQL utilities and backend functions that need to examine cluster state
 - The CRC check is crucial for detecting control file corruption which could indicate serious cluster problems
+
+## Simplified Source
+
+```c
+ControlFileData *
+get_controlfile(const char *DataDir, bool *crc_ok_p)
+{
+    char control_file_path[MAXPGPATH];
+
+    // Construct standard control file path: DataDir/global/pg_control
+    snprintf(control_file_path, MAXPGPATH, "%s/global/pg_control", DataDir);
+
+    // Delegate to the exact-path version
+    return get_controlfile_by_exact_path(control_file_path, crc_ok_p);
+}
+```

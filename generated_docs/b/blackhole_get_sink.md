@@ -37,3 +37,13 @@ The blackhole target is primarily useful for testing scenarios where backup oper
 - Useful for testing backup generation performance without storage overhead
 - Demonstrates the flexibility of the bbsink chaining architecture
 - The "blackhole" target name is registered in the builtin_backup_targets array
+
+## Simplified Source
+
+```c
+static bbsink *blackhole_get_sink(bbsink *next_sink, void *detail_arg) {
+    // Blackhole target discards data by not adding any processing layer
+    // Simply return the next sink to maintain the chain
+    return next_sink;
+}
+```

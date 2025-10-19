@@ -33,3 +33,14 @@ spg_xlog_startup(void)
 - Part of the SP-GiST access method's recovery initialization infrastructure
 - Located in src/backend/access/spgist/spgxlog.c:976-983
 - The memory context created here helps prevent memory leaks during long recovery processes by providing a dedicated space that can be easily reset after each operation
+
+## Simplified Source
+```c
+void spg_xlog_startup(void)
+{
+    // Create temporary memory context for SP-GiST WAL operations
+    opCtx = AllocSetContextCreate(CurrentMemoryContext,
+                                  "SP-GiST temporary context",
+                                  ALLOCSET_DEFAULT_SIZES);
+}
+```

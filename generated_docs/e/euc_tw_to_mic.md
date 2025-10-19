@@ -41,3 +41,24 @@ The conversion process transforms EUC_TW characters (including those from differ
 - MIC encoding is PostgreSQL's internal format that can represent multiple character sets in a single string
 - Error handling is controlled by the noError parameter - [when](../w/when.md) true, conversion stops on invalid characters without throwing errors
 - Part of PostgreSQL's multibyte character encoding conversion system located in src/backend/utils/mb/conversion_procs/euc_tw_and_big5/euc_tw_and_big5.c:81-96
+
+## Simplified Source
+
+```c
+Datum
+euc_tw_to_mic(PG_FUNCTION_ARGS)
+{
+    // Extract function parameters
+    unsigned char *src = (unsigned char *) PG_GETARG_CSTRING(2);
+    unsigned char *dest = (unsigned char *) PG_GETARG_CSTRING(3);
+    int len = PG_GETARG_INT32(4);
+    bool noError = PG_GETARG_BOOL(5);
+
+    // Validate encoding conversion request
+    CHECK_ENCODING_CONVERSION_ARGS(PG_EUC_TW, PG_MULE_INTERNAL);
+
+    // Perform the actual conversion and return result
+    int converted = euc_tw2mic(src, dest, len, noError);
+    PG_RETURN_INT32(converted);
+}
+```

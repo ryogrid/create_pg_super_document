@@ -44,3 +44,73 @@ The function checks for the presence of a `+` modifier in the command to determi
 - Error handling includes validation of object names and existence
 - Uses EditableObjectType enumeration to distinguish between functions and views
 - Source code location: src/bin/psql/command.c:2522-2604
+
+## Simplified Source
+
+```c
+static backslashResult
+exec_command_sf_sv(PsqlScanState scan_state, bool active_branch,
+                   const char *cmd, bool is_func)
+{
+    backslashResult status = PSQL_CMD_SKIP_LINE;
+
+    if (active_branch) {
+        // Check for line number option (+)
+        bool show_linenumbers = (strchr(cmd, '+') != NULL);
+        PQExpBuffer buf = createPQExpBuffer();
+        char *obj_desc;
+        Oid obj_oid = InvalidOid;
+        EditableObjectType eot = is_func ? EditableFunction : EditableView;
+
+        // Parse object name from command line
+        obj_desc = psql_scan_slash_option(scan_state, OT_WHOLE_LINE, NULL, true);
+
+        if (!obj_desc) {
+            // Report missing function/view name
+            pg_log_error(is_func ? "function name is required" : "view name is required");
+            status = PSQL_CMD_ERROR;
+        }
+        else if (!lookup_object_oid(eot, obj_desc, &obj_oid)) {
+            // Object lookup failed
+            status = PSQL_CMD_ERROR;
+        }
+        else if (!get_create_object_cmd(eot, obj_oid, buf)) {
+            // Failed to get object definition
+            status = PSQL_CMD_ERROR;
+        }
+        else {
+            // Output the source code
+            FILE *output;
+            bool is_pager;
+
+            // Determine output destination (pager vs direct)
+            if (pset.queryFout == stdout) {
+                int lineno = count_lines_in_buf(buf);
+                output = PageOutput(lineno, &(pset.popt.topt));
+                is_pager = true;
+            } else {
+                output = pset.queryFout;
+                is_pager = false;
+            }
+
+            // Output with or without line numbers
+            if (show_linenumbers) {
+                print_with_linenumbers(output, buf->data, is_func);
+            } else {
+                fputs(buf->data, output);
+            }
+
+            if (is_pager)
+                ClosePager(output);
+        }
+
+        free(obj_desc);
+        destroyPQExpBuffer(buf);
+    }
+    else {
+        ignore_slash_whole_line(scan_state);
+    }
+
+    return status;
+}
+```

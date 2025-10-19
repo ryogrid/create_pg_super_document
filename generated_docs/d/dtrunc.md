@@ -34,3 +34,20 @@ This approach ensures that the result is always closer to zero than the original
 - Located in src/backend/utils/adt/float.c which contains various floating-point utility functions
 - The implementation uses floor() for positive values and -floor(-arg1) for negative values to achieve truncation towards zero
 - Follows standard PostgreSQL function conventions for SQL-callable functions
+
+## Simplified Source
+
+```c
+Datum dtrunc(PG_FUNCTION_ARGS) {
+    float8 arg1 = PG_GETARG_FLOAT8(0);
+    float8 result;
+
+    // Truncate towards zero: floor for positive, -floor(-x) for negative
+    if (arg1 >= 0)
+        result = floor(arg1);
+    else
+        result = -floor(-arg1);
+
+    PG_RETURN_FLOAT8(result);
+}
+```

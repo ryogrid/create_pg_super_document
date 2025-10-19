@@ -39,3 +39,23 @@ The function supports:
 - The function is part of the pg_be_sasl_mech interface for SCRAM authentication
 - Mechanism names are defined as constants (SCRAM_SHA_256_NAME, SCRAM_SHA_256_PLUS_NAME)
 - The ordering prioritizes more secure mechanisms (with channel binding) first
+
+## Simplified Source
+
+```c
+static void
+scram_get_mechanisms(Port *port, StringInfo buf)
+{
+    // Add channel-binding variant if SSL is available
+#ifdef USE_SSL
+    if (port->ssl_in_use) {
+        appendStringInfoString(buf, SCRAM_SHA_256_PLUS_NAME);
+        appendStringInfoChar(buf, '\0');
+    }
+#endif
+
+    // Always add standard SCRAM-SHA-256
+    appendStringInfoString(buf, SCRAM_SHA_256_NAME);
+    appendStringInfoChar(buf, '\0');
+}
+```

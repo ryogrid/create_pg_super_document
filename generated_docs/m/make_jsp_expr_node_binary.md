@@ -34,3 +34,21 @@ This function is a helper utility that constructs a binary expression node in th
 - Part of the PostgreSQL GIN (Generalized Inverted Index) infrastructure for efficient JSONB querying
 - The function assumes exactly 2 arguments and allocates space accordingly
 - Located in src/backend/utils/adt/jsonb_gin.c:395-407
+
+## Simplified Source
+
+```c
+static JsonPathGinNode *
+make_jsp_expr_node_binary(JsonPathGinNodeType type,
+                          JsonPathGinNode *arg1, JsonPathGinNode *arg2)
+{
+    // Create expression node for exactly 2 arguments
+    JsonPathGinNode *node = make_jsp_expr_node(type, 2);
+
+    // Set the two child arguments
+    node->args[0] = arg1;
+    node->args[1] = arg2;
+
+    return node;
+}
+```

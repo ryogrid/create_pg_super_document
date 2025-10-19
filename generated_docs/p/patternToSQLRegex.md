@@ -63,3 +63,95 @@ The function intelligently distributes pattern components across the provided bu
 - Used primarily by PostgreSQL utilities for pattern matching in database object queries
 - [Complex](../C/Complex.md) state machine handles quote processing and component separation
 - Part of frontend utilities library for advanced pattern processing
+
+## Simplified Source
+
+```c
+void patternToSQLRegex(int encoding, PQExpBuffer dbnamebuf, PQExpBuffer schemabuf,
+                      PQExpBuffer namebuf, const char *pattern, bool force_escape,
+                      bool want_literal_dbname, int *dotcnt) {
+    PQExpBufferData buf[3];
+    PQExpBuffer curbuf = &buf[0];
+    PQExpBuffer maxbuf;
+    bool inquotes = false;
+    const char *cp = pattern;
+
+    *dotcnt = 0;
+
+    // Determine maximum buffer based on available output buffers
+    if (dbnamebuf != NULL) maxbuf = &buf[2];
+    else if (schemabuf != NULL) maxbuf = &buf[1];
+    else maxbuf = &buf[0];
+
+    // Initialize current buffer with regex anchor
+    initPQExpBuffer(curbuf);
+    appendPQExpBufferStr(curbuf, "^(");
+
+    // Process each character in the pattern
+    while (*cp) {
+        char ch = *cp;
+
+        if (ch == '"') {
+            // Handle quoted identifier escaping
+            if (inquotes && cp[1] == '"') {
+                appendPQExpBufferChar(curbuf, '"');  // Escaped quote
+                cp++;
+            } else {
+                inquotes = !inquotes;  // Toggle quote state
+            }
+        }
+        else if (!inquotes && isupper((unsigned char) ch)) {
+            // Convert unquoted uppercase to lowercase
+            appendPQExpBufferChar(curbuf, pg_tolower((unsigned char) ch));
+        }
+        else if (!inquotes && ch == '*') {
+            // Shell wildcard: * -> .*
+            appendPQExpBufferStr(curbuf, ".*");
+        }
+        else if (!inquotes && ch == '?') {
+            // Shell wildcard: ? -> .
+            appendPQExpBufferChar(curbuf, '.');
+        }
+        else if (!inquotes && ch == '.') {
+            // Component separator - switch to next buffer if available
+            (*dotcnt)++;
+            if (curbuf < maxbuf) {
+                appendPQExpBufferStr(curbuf, ")$");
+                curbuf++;
+                initPQExpBuffer(curbuf);
+                appendPQExpBufferStr(curbuf, "^(");
+            } else {
+                appendPQExpBufferChar(curbuf, '.');  // Literal dot
+            }
+        }
+        else if (ch == '$') {
+            // Always escape $ (valid in SQL identifiers)
+            appendPQExpBufferStr(curbuf, "\\$");
+        }
+        else {
+            // Regular character - escape regex specials if needed
+            if ((inquotes || force_escape) && strchr("|*+?()[]{}.^$\\", ch)) {
+                appendPQExpBufferChar(curbuf, '\\');
+            }
+            appendPQExpBufferChar(curbuf, ch);
+        }
+        cp++;
+    }
+
+    // Close final regex anchor
+    appendPQExpBufferStr(curbuf, ")$");
+
+    // Distribute results to output buffers (rightmost first)
+    if (namebuf && curbuf >= buf) {
+        appendPQExpBufferStr(namebuf, curbuf->data);
+        curbuf--;
+    }
+    if (schemabuf && curbuf >= buf) {
+        appendPQExpBufferStr(schemabuf, curbuf->data);
+        curbuf--;
+    }
+    if (dbnamebuf && curbuf >= buf) {
+        appendPQExpBufferStr(dbnamebuf, curbuf->data);
+    }
+}
+```

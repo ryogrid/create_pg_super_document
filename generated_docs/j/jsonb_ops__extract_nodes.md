@@ -42,3 +42,68 @@ This function is responsible for extracting indexable nodes from JSON path expre
 - The lax mode affects how strings in array contexts are interpreted
 - Part of PostgreSQL's GIN indexing infrastructure for efficient JSONB path queries
 - Located in src/backend/utils/adt/jsonb_gin.c:408-477
+
+## Simplified Source
+
+```c
+static List *
+jsonb_ops__extract_nodes(JsonPathGinContext *cxt, JsonPathGinPath path,
+                         JsonbValue *scalar, List *nodes)
+{
+    JsonPathGinPathItem *pentry;
+
+    if (scalar)
+    {
+        JsonPathGinNode *node;
+
+        // Extract path entry nodes for keys only
+        for (pentry = path.items; pentry; pentry = pentry->parent)
+        {
+            if (pentry->type == jpiKey)
+                nodes = lappend(nodes, make_jsp_entry_node(pentry->keyName));
+        }
+
+        // Handle scalar values, especially strings that might be keys
+        if (scalar->type == jbvString)
+        {
+            JsonPathGinPathItem *last = path.items;
+            GinTernaryValue key_entry;
+
+            // Determine if string should be treated as key, value, or both
+            if (cxt->lax)
+                key_entry = GIN_MAYBE;  // Could be either in lax mode
+            else if (!last)             // Root level
+                key_entry = GIN_FALSE;
+            else if (last->type == jpiAnyArray || last->type == jpiIndexArray)
+                key_entry = GIN_TRUE;   // Array context treats as key
+            else if (last->type == jpiAny)
+                key_entry = GIN_MAYBE;  // Ambiguous context
+            else
+                key_entry = GIN_FALSE;
+
+            // Create appropriate node(s) based on determination
+            if (key_entry == GIN_MAYBE)
+            {
+                // Create OR node for both key and non-key possibilities
+                JsonPathGinNode *n1 = make_jsp_entry_node_scalar(scalar, true);
+                JsonPathGinNode *n2 = make_jsp_entry_node_scalar(scalar, false);
+                node = make_jsp_expr_node_binary(JSP_GIN_OR, n1, n2);
+            }
+            else
+            {
+                // Create single node as key or non-key
+                node = make_jsp_entry_node_scalar(scalar, key_entry == GIN_TRUE);
+            }
+        }
+        else
+        {
+            // Non-string scalars are always treated as values
+            node = make_jsp_entry_node_scalar(scalar, false);
+        }
+
+        nodes = lappend(nodes, node);
+    }
+
+    return nodes;
+}
+```

@@ -36,3 +36,24 @@ This function provides a platform-specific mechanism to disable Address Space La
 - Related to shared memory attachment issues that can occur with EXEC_BACKEND on Unix
 - Complements platform-specific workarounds like the macOS hack in sysv_shmem.c
 - Essential for reliable testing of Windows-specific code paths on Unix development systems
+
+## Simplified Source
+
+```c
+int pg_disable_aslr(void) {
+    // Try Linux approach: use personality() system call
+    #if defined(HAVE_SYS_PERSONALITY_H)
+        return personality(ADDR_NO_RANDOMIZE);
+
+    // Try BSD approach: use procctl() system call
+    #elif defined(HAVE_SYS_PROCCTL_H) && defined(PROC_ASLR_FORCE_DISABLE)
+        int disable_flag = PROC_ASLR_FORCE_DISABLE;
+        return procctl(P_PID, 0, PROC_ASLR_CTL, &disable_flag);
+
+    // Platform not supported
+    #else
+        errno = ENOSYS;
+        return -1;
+    #endif
+}
+```

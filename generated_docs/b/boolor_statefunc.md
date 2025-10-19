@@ -33,3 +33,12 @@ This function serves as the state transition function for PostgreSQL's Boolean O
 - Used in plain aggregate mode only, not in moving-aggregate mode
 - The aggregate returns true if any input value is true, false if all input values are false
 - Named bool_or instead of ANY/SOME due to SQL parsing conflicts with those keywords
+
+## Simplified Source
+```c
+bool boolor_statefunc(bool current_state, bool new_value) {
+    // Logical OR for aggregate: accumulate OR across all values
+    // Returns true if either current state or new value is true
+    return current_state || new_value;
+}
+```

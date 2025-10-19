@@ -32,3 +32,20 @@ This function performs complete memory cleanup for a gzip decompressor streamer 
 - Does not explicitly call inflateEnd() on the zlib stream (this may be handled elsewhere or assumed to be done during finalization)
 - Critical for preventing memory leaks in long-running backup operations
 - Called through the function pointer in the bbstreamer_ops structure during cleanup
+
+## Simplified Source
+
+```c
+static void
+bbstreamer_gzip_decompressor_free(bbstreamer *streamer)
+{
+    // Free downstream streamer chain
+    bbstreamer_free(streamer->bbs_next);
+
+    // Free internal buffer
+    pfree(streamer->bbs_buffer.data);
+
+    // Free the streamer structure itself
+    pfree(streamer);
+}
+```

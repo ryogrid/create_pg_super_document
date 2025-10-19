@@ -35,3 +35,23 @@ The function implements a critical safety check by refusing to create restart po
 - Invalid page references are tracked to ensure data consistency across restart points
 - The stored checkpoint information includes ReadRecPtr, EndRecPtr, and the complete CheckPoint structure
 - This is part of PostgreSQL's crash recovery and restart point mechanism for optimizing recovery time
+
+## Simplified Source
+
+```c
+static void RecoveryRestartPoint(const CheckPoint *checkPoint, XLogReaderState *record) {
+    // Safety check: Don't create restart point if invalid pages exist
+    // This prevents losing cross-references to dropped relations
+    if (XLogHaveInvalidPages()) {
+        elog(DEBUG2, "skipping restart point due to invalid page references");
+        return;
+    }
+
+    // Copy checkpoint record to shared memory for checkpointer process
+    SpinLockAcquire(&XLogCtl->info_lck);
+    XLogCtl->lastCheckPointRecPtr = record->ReadRecPtr;
+    XLogCtl->lastCheckPointEndPtr = record->EndRecPtr;
+    XLogCtl->lastCheckPoint = *checkPoint;
+    SpinLockRelease(&XLogCtl->info_lck);
+}
+```

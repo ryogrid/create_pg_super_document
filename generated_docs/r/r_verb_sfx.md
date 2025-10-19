@@ -42,3 +42,36 @@ The pre-filtering optimization (using bit pattern 282896) helps avoid expensive 
 - The bit pattern check (282896 >> (character & 0x1f)) provides fast rejection of impossible verb suffix candidates
 - Uses both RV and R1 regions, making it more flexible than functions that only use R1/R2 boundaries
 - This function is called after derivational suffix processing in the overall Irish stemming algorithm
+
+## Simplified Source
+
+```c
+static int r_verb_sfx(struct SN_env * z) {
+    // Set boundary for verb suffix search
+    z->ket = z->c;
+
+    // Quick character-based pre-filter for efficiency
+    if (z->c - 2 <= z->lb || z->p[z->c - 1] >> 5 != 3 ||
+        !((282896 >> (z->p[z->c - 1] & 0x1f)) & 1))
+        return 0;
+
+    // Find verb suffix pattern
+    int among_var = find_among_b(z, a_3, 12);
+    if (!among_var) return 0;
+
+    z->bra = z->c;
+
+    // Remove suffix based on morphological region
+    switch (among_var) {
+        case 1:
+            // Delete if in RV (vowel) region
+            if (r_RV(z) > 0) slice_del(z);
+            break;
+        case 2:
+            // Delete if in R1 region
+            if (r_R1(z) > 0) slice_del(z);
+            break;
+    }
+    return 1;
+}
+```

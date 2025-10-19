@@ -35,3 +35,32 @@ This function provides a secure password input mechanism for psql with proper si
 - The password input is hidden from display for security
 - Part of psql's connection establishment and authentication infrastructure
 - Sets up signal handling to allow graceful cancellation of password prompts
+
+## Simplified Source
+
+```c
+static char *prompt_for_password(const char *username, bool *canceled) {
+    char *result;
+    PromptInterruptContext prompt_ctx;
+
+    // Set up signal handling for SIGINT cancellation
+    prompt_ctx.jmpbuf = sigint_interrupt_jmp;
+    prompt_ctx.enabled = &sigint_interrupt_enabled;
+    prompt_ctx.canceled = false;
+
+    // Choose appropriate prompt message
+    if (username == NULL || username[0] == '\0') {
+        result = simple_prompt_extended("Password: ", false, &prompt_ctx);
+    } else {
+        char *prompt_text = psprintf(_("Password for user %s: "), username);
+        result = simple_prompt_extended(prompt_text, false, &prompt_ctx);
+        free(prompt_text);
+    }
+
+    // Return cancellation status if requested
+    if (canceled)
+        *canceled = prompt_ctx.canceled;
+
+    return result;
+}
+```

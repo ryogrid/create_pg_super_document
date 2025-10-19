@@ -47,3 +47,51 @@ The function returns a pointer to the first matching WordEntry, or NULL if no ma
 - Critical component of PostgreSQL's text search ranking system, used to locate query terms within documents
 - The function maintains proper bounds checking and handles edge cases where no matches are found
 - Returns NULL when no matches are found, with nitem set to 0
+
+## Simplified Source
+
+```c
+static WordEntry *find_wordentry(TSVector t, TSQuery q, QueryOperand *item, int32 *nitem) {
+    // Set up binary search boundaries
+    WordEntry *low = ARRPTR(t);
+    WordEntry *high = (WordEntry *) STRPTR(t);
+    WordEntry *middle = high;
+    *nitem = 0;
+
+    // Binary search for the target item
+    while (low < high) {
+        middle = low + (high - low) / 2;
+        int comparison = WordECompareQueryItem(STRPTR(t), GETOPERAND(q), middle, item, false);
+
+        if (comparison == 0) {
+            // Found exact match
+            high = middle;
+            *nitem = 1;
+            break;
+        } else if (comparison > 0) {
+            low = middle + 1;
+        } else {
+            high = middle;
+        }
+    }
+
+    // Handle prefix searches - find all consecutive matches
+    if (item->prefix) {
+        if (low >= high) {
+            middle = high;
+        }
+
+        *nitem = 0;
+
+        // Count all entries that match the prefix
+        while (middle < (WordEntry *) STRPTR(t) &&
+               WordECompareQueryItem(STRPTR(t), GETOPERAND(q), middle, item, true) == 0) {
+            (*nitem)++;
+            middle++;
+        }
+    }
+
+    // Return pointer to first match, or NULL if no matches
+    return (*nitem > 0) ? high : NULL;
+}
+```

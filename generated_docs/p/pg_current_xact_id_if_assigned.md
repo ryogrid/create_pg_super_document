@@ -37,3 +37,19 @@ This function provides a non-intrusive way to check the current toplevel transac
 - Part of PostgreSQL's xid8 (8-byte transaction ID) function family
 - Useful for monitoring or diagnostic purposes where transaction ID assignment should be avoided
 - Located in src/backend/utils/adt/xid8funcs.c as part of the extended transaction ID support
+
+## Simplified Source
+
+```c
+Datum pg_current_xact_id_if_assigned(PG_FUNCTION_ARGS) {
+    // Get the toplevel transaction ID if one exists (without assigning a new one)
+    FullTransactionId topfxid = GetTopFullTransactionIdIfAny();
+
+    // Return NULL if no transaction ID has been assigned yet
+    if (!FullTransactionIdIsValid(topfxid))
+        PG_RETURN_NULL();
+
+    // Return the existing transaction ID
+    PG_RETURN_FULLTRANSACTIONID(topfxid);
+}
+```

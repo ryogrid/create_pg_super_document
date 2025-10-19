@@ -41,3 +41,24 @@ The conversion transforms Big5 multibyte characters into MIC format, which uses 
 - MIC encoding is PostgreSQL's internal format that allows multiple character sets to coexist in the same string
 - Error handling is controlled by the noError parameter - [when](../w/when.md) true, conversion stops on invalid characters without throwing errors
 - Part of PostgreSQL's multibyte character encoding conversion system located in src/backend/utils/mb/conversion_procs/euc_tw_and_big5/euc_tw_and_big5.c:113-128
+
+## Simplified Source
+
+```c
+Datum
+big5_to_mic(PG_FUNCTION_ARGS)
+{
+    // Extract function parameters
+    unsigned char *src = (unsigned char *) PG_GETARG_CSTRING(2);
+    unsigned char *dest = (unsigned char *) PG_GETARG_CSTRING(3);
+    int len = PG_GETARG_INT32(4);
+    bool noError = PG_GETARG_BOOL(5);
+
+    // Validate encoding conversion request
+    CHECK_ENCODING_CONVERSION_ARGS(PG_BIG5, PG_MULE_INTERNAL);
+
+    // Perform the actual conversion and return result
+    int converted = big52mic(src, dest, len, noError);
+    PG_RETURN_INT32(converted);
+}
+```

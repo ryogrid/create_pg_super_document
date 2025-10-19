@@ -43,3 +43,63 @@ The function initializes an XLogReader with the SimpleXLogPageRead page reading 
 - Uses a global xlogreadfd file descriptor that gets closed when processing completes
 - Error handling includes detailed LSN information for debugging WAL read failures
 - The function assumes WalSegSz is properly initialized before being called
+
+## Simplified Source
+
+```c
+void
+extractPageMap(const char *datadir, XLogRecPtr startpoint, int tliIndex,
+               XLogRecPtr endpoint, const char *restoreCommand)
+{
+    XLogRecord *record;
+    XLogReaderState *xlogreader;
+    char *errormsg;
+    XLogPageReadPrivate private;
+
+    // Initialize WAL reader with timeline and restore command
+    private.tliIndex = tliIndex;
+    private.restoreCommand = restoreCommand;
+    xlogreader = XLogReaderAllocate(WalSegSz, datadir,
+                                    XL_ROUTINE(.page_read = &SimpleXLogPageRead),
+                                    &private);
+    if (xlogreader == NULL)
+        pg_fatal("out of memory while allocating a WAL reading processor");
+
+    // Start reading from the specified position
+    XLogBeginRead(xlogreader, startpoint);
+
+    // Process records until reaching endpoint
+    do
+    {
+        record = XLogReadRecord(xlogreader, &errormsg);
+
+        if (record == NULL)
+        {
+            XLogRecPtr errptr = xlogreader->EndRecPtr;
+
+            if (errormsg)
+                pg_fatal("could not read WAL record at %X/%X: %s",
+                         LSN_FORMAT_ARGS(errptr), errormsg);
+            else
+                pg_fatal("could not read WAL record at %X/%X",
+                         LSN_FORMAT_ARGS(errptr));
+        }
+
+        // Extract page information from this record
+        extractPageInfo(xlogreader);
+    } while (xlogreader->EndRecPtr < endpoint);
+
+    // Validate that endpoint is exactly at a record boundary
+    if (xlogreader->EndRecPtr != endpoint)
+        pg_fatal("end pointer %X/%X is not a valid end point; expected %X/%X",
+                 LSN_FORMAT_ARGS(endpoint), LSN_FORMAT_ARGS(xlogreader->EndRecPtr));
+
+    // Clean up resources
+    XLogReaderFree(xlogreader);
+    if (xlogreadfd != -1)
+    {
+        close(xlogreadfd);
+        xlogreadfd = -1;
+    }
+}
+```

@@ -34,3 +34,19 @@ The function automatically manages memory by freeing the old footer content and 
 - Falls back to printTableAddFooter when no footers exist, maintaining consistent behavior
 - Footer strings are automatically duplicated, so the original string does not need to persist
 - Primarily used for updating dynamic footer content that may change based on query results or user preferences
+
+## Simplified Source
+
+```c
+void printTableSetFooter(printTableContent *content, const char *footer) {
+    // Update existing footer or add new one
+    if (content->footers != NULL) {
+        // Replace last footer content
+        free(content->footer->data);
+        content->footer->data = pg_strdup(footer);
+    } else {
+        // No footers exist, add new one
+        printTableAddFooter(content, footer);
+    }
+}
+```

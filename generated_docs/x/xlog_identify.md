@@ -37,3 +37,43 @@ This function is part of the resource manager framework and is registered in rmg
 - Used primarily by pg_waldump and other WAL analysis tools to provide human-readable record type names
 - The returned strings are static and should not be modified or freed
 - Part of the standardized resource manager interface for all PostgreSQL subsystems
+
+## Simplified Source
+
+```c
+const char *xlog_identify(uint8 info) {
+    // Extract record type by masking out flag bits
+    switch (info & ~XLR_INFO_MASK) {
+        case XLOG_CHECKPOINT_SHUTDOWN:
+            return "CHECKPOINT_SHUTDOWN";
+        case XLOG_CHECKPOINT_ONLINE:
+            return "CHECKPOINT_ONLINE";
+        case XLOG_NOOP:
+            return "NOOP";
+        case XLOG_NEXTOID:
+            return "NEXTOID";
+        case XLOG_SWITCH:
+            return "SWITCH";
+        case XLOG_BACKUP_END:
+            return "BACKUP_END";
+        case XLOG_PARAMETER_CHANGE:
+            return "PARAMETER_CHANGE";
+        case XLOG_RESTORE_POINT:
+            return "RESTORE_POINT";
+        case XLOG_FPW_CHANGE:
+            return "FPW_CHANGE";
+        case XLOG_END_OF_RECOVERY:
+            return "END_OF_RECOVERY";
+        case XLOG_OVERWRITE_CONTRECORD:
+            return "OVERWRITE_CONTRECORD";
+        case XLOG_FPI:
+            return "FPI";
+        case XLOG_FPI_FOR_HINT:
+            return "FPI_FOR_HINT";
+        case XLOG_CHECKPOINT_REDO:
+            return "CHECKPOINT_REDO";
+        default:
+            return NULL;
+    }
+}
+```

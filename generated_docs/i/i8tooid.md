@@ -34,3 +34,19 @@ This function performs a type conversion from PostgreSQL's 64-bit integer type (
 - OIDs are fundamental to PostgreSQL's internal object management system
 - Part of PostgreSQL's type system for safe conversions to OID type
 - Uses unlikely() hints for branch prediction optimization on error conditions
+
+## Simplified Source
+
+```c
+Datum i8tooid(PG_FUNCTION_ARGS) {
+    int64 arg = PG_GETARG_INT64(0);
+
+    // Check if value is within valid OID range (0 to PG_UINT32_MAX)
+    if (arg < 0 || arg > PG_UINT32_MAX) {
+        ereport(ERROR, (errcode(ERRCODE_NUMERIC_VALUE_OUT_OF_RANGE),
+                       errmsg("OID out of range")));
+    }
+
+    return PG_RETURN_OID((Oid) arg);
+}
+```

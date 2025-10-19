@@ -38,3 +38,20 @@ This incremental approach allows efficient computation of statistical measures w
 - Part of pgbench's real-time statistics collection during benchmark execution
 - Does not perform any validation on the input value - assumes caller provides valid doubles
 - Located in src/bin/pgbench/pgbench.c:1403-1417
+
+## Simplified Source
+
+```c
+static void addToSimpleStats(SimpleStats *ss, double val) {
+    // Update min/max on first value or new extremes
+    if (ss->count == 0 || val < ss->min)
+        ss->min = val;
+    if (ss->count == 0 || val > ss->max)
+        ss->max = val;
+
+    // Accumulate count, sum, and sum of squares
+    ss->count++;
+    ss->sum += val;
+    ss->sum2 += val * val;  // For variance calculation
+}
+```

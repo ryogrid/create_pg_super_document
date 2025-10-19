@@ -31,3 +31,17 @@ This function provides a way to retrieve the descriptive name of an SLRU cache g
 - The slru_names array includes standard PostgreSQL SLRU types plus a catch-all "other" entry
 - Enables dynamic discovery of available SLRU caches without hardcoding the number of elements
 - Part of the PostgreSQL statistics system's user-facing interface for SLRU monitoring
+
+## Simplified Source
+
+```c
+const char *pgstat_get_slru_name(int slru_idx)
+{
+    // Validate index bounds
+    if (slru_idx < 0 || slru_idx >= SLRU_NUM_ELEMENTS)
+        return NULL;
+
+    // Return corresponding SLRU name
+    return slru_names[slru_idx];
+}
+```

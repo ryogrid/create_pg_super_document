@@ -36,3 +36,15 @@ Note that the function only explicitly frees the regular expression - the AuthTo
 - The function is designed to be safe to call even if the token doesn't contain a regular expression
 - Regular expressions in AuthTokens are used for pattern matching in authentication rules
 - Proper resource cleanup is essential to prevent memory leaks in long-running server processes
+
+## Simplified Source
+
+```c
+static void
+free_auth_token(AuthToken *token)
+{
+    // Free compiled regular expression if present
+    if (token_has_regexp(token))
+        pg_regfree(token->regex);
+}
+```

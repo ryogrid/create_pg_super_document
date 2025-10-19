@@ -30,3 +30,12 @@ The function is part of the standard lifecycle management for Snowball stemmer e
 - After calling this function, the environment pointer should not be used again
 - Part of the standard Snowball stemmer interface pattern used across all language implementations for proper resource management
 - The function returns void, indicating it always succeeds in cleanup operations
+
+## Simplified Source
+
+```c
+extern void indonesian_UTF_8_close_env(struct SN_env * z) {
+    // Clean up Snowball environment resources
+    SN_close_env(z, 0);
+}
+```

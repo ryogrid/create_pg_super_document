@@ -37,3 +37,13 @@ The returned environment structure contains all the necessary state information 
 - Returns a pointer to the allocated SN_env structure, or NULL if allocation fails
 - The caller is responsible for eventually freeing the returned environment using the appropriate cleanup function
 - This environment must be used with irish_UTF_8_stem for actual stemming operations
+
+## Simplified Source
+
+```c
+extern struct SN_env * irish_UTF_8_create_env(void) {
+    // Create Snowball environment for Irish stemming
+    // 0 strings, 3 integers needed for Irish morphological analysis
+    return SN_create_env(0, 3);
+}
+```

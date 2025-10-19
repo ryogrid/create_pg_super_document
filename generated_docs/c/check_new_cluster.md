@@ -63,3 +63,42 @@ Additionally, it performs standard checks such as verifying the installation use
 - Validates logical replication components for clusters that support them
 - Function has external linkage and can be called from other compilation units
 - Essential prerequisite check before any data migration begins
+
+## Simplified Source
+
+```c
+void
+check_new_cluster(void)
+{
+    // Get database, relation, and slot information for new cluster
+    get_db_rel_and_slot_infos(&new_cluster, false);
+
+    // Verify new cluster is empty and ready
+    check_new_cluster_is_empty();
+    check_loadable_libraries();
+
+    // Validate selected data transfer method
+    switch (user_opts.transfer_mode)
+    {
+        case TRANSFER_MODE_CLONE:
+            check_file_clone();
+            break;
+        case TRANSFER_MODE_COPY:
+            // No additional checks needed
+            break;
+        case TRANSFER_MODE_COPY_FILE_RANGE:
+            check_copy_file_range();
+            break;
+        case TRANSFER_MODE_LINK:
+            check_hard_link();
+            break;
+    }
+
+    // Perform standard cluster validation checks
+    check_is_install_user(&new_cluster);
+    check_for_prepared_transactions(&new_cluster);
+    check_for_new_tablespace_dir();
+    check_new_cluster_logical_replication_slots();
+    check_new_cluster_subscription_configuration();
+}
+```

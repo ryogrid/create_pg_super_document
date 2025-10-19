@@ -38,3 +38,38 @@ The function provides user feedback by displaying the current timing state unles
 - The setting persists for the duration of the psql session unless changed again
 - Does not affect the timing of meta-commands, only SQL queries
 - Source code location: src/bin/psql/command.c:2649-2680
+
+## Simplified Source
+
+```c
+static backslashResult
+exec_command_timing(PsqlScanState scan_state, bool active_branch)
+{
+    bool success = true;
+
+    if (active_branch) {
+        // Parse optional on/off parameter
+        char *opt = psql_scan_slash_option(scan_state, OT_NORMAL, NULL, false);
+
+        if (opt) {
+            // Parse explicit boolean value
+            success = ParseVariableBool(opt, "\\timing", &pset.timing);
+        } else {
+            // Toggle current timing setting
+            pset.timing = !pset.timing;
+        }
+
+        // Show current timing state unless in quiet mode
+        if (!pset.quiet) {
+            puts(pset.timing ? _("Timing is on.") : _("Timing is off."));
+        }
+
+        free(opt);
+    }
+    else {
+        ignore_slash_options(scan_state);
+    }
+
+    return success ? PSQL_CMD_SKIP_LINE : PSQL_CMD_ERROR;
+}
+```

@@ -36,3 +36,28 @@ This function performs a binary search in the Red-Black Tree to locate a node th
 - Time complexity is O(log n) for balanced trees
 - The search is read-only and does not modify the tree structure
 - Comparison result interpretation: 0 = equal, < 0 = data is less than node, > 0 = data is greater than node
+
+## Simplified Source
+
+```c
+RBTNode *
+rbt_find(RBTree *rbt, const RBTNode *data)
+{
+    RBTNode *node = rbt->root;
+
+    // Standard binary search tree traversal
+    while (node != RBTNIL)
+    {
+        int cmp = rbt->comparator(data, node, rbt->arg);
+
+        if (cmp == 0)
+            return node;        // Found exact match
+        else if (cmp < 0)
+            node = node->left;  // Search left subtree
+        else
+            node = node->right; // Search right subtree
+    }
+
+    return NULL; // Not found
+}
+```

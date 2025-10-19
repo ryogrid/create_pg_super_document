@@ -30,3 +30,12 @@ The function is part of the Snowball stemming library integrated into PostgreSQL
 - Memory allocated by this function should be freed using the corresponding `tamil_UTF_8_close_env` function
 - Part of PostgreSQL's Snowball stemmer integration for supporting Tamil full-text search
 - Located in the auto-generated stemmer code for Tamil language processing
+
+## Simplified Source
+
+```c
+extern struct SN_env * tamil_UTF_8_create_env(void) {
+    // Create Tamil stemming environment with 0 string arrays and 2 integer variables
+    return SN_create_env(0, 2);
+}
+```

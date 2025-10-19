@@ -37,3 +37,14 @@ This function serves as a basic fallback estimator in PostgreSQL's cost-based qu
 - Part of the selectivity estimation framework in src/backend/utils/adt/selfuncs.c
 - Provides consistent behavior with other scalar inequality join selectivity estimators
 - Location: src/backend/utils/adt/selfuncs.c:2910-2918
+
+## Simplified Source
+
+```c
+// Simple selectivity estimator for scalar "<=" join operations
+Datum scalarlejoinsel(PG_FUNCTION_ARGS) {
+    // Returns default inequality selectivity constant
+    // Ignores all input parameters for simplicity
+    PG_RETURN_FLOAT8(DEFAULT_INEQ_SEL);
+}
+```

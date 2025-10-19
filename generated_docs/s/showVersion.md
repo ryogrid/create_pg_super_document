@@ -34,3 +34,11 @@ This function provides a simple, standardized way to display the psql version in
 - This is typically invoked when the --version or -V command-line option is specified
 - The function has no return value and performs direct console output
 - Simple implementation focused solely on version display without additional information
+
+## Simplified Source
+
+```c
+static void showVersion(void) {
+    puts("psql (PostgreSQL) " PG_VERSION);
+}
+```

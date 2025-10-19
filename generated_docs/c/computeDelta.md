@@ -45,3 +45,44 @@ The function also includes debugging capability when WAL_DEBUG is enabled, allow
 - The two-region approach is an optimization that avoids logging the free space between pd_lower and pd_upper
 - Part of PostgreSQL's generic WAL logging system for custom access methods
 - The debug verification creates a temporary copy of the current page, applies the computed delta, and verifies the result matches the target page
+
+## Simplified Source
+
+```c
+static void
+computeDelta(PageData *pageData, Page curpage, Page targetpage)
+{
+    // Extract page boundaries from headers
+    int targetLower = ((PageHeader) targetpage)->pd_lower;
+    int targetUpper = ((PageHeader) targetpage)->pd_upper;
+    int curLower = ((PageHeader) curpage)->pd_lower;
+    int curUpper = ((PageHeader) curpage)->pd_upper;
+
+    pageData->deltaLen = 0;
+
+    // Compute delta for lower part of page (header and line pointers)
+    computeRegionDelta(pageData, curpage, targetpage,
+                       0, targetLower,
+                       0, curLower);
+
+    // Compute delta for upper part of page (tuple data)
+    // Ignore free space between lower and upper regions
+    computeRegionDelta(pageData, curpage, targetpage,
+                       targetUpper, BLCKSZ,
+                       curUpper, BLCKSZ);
+
+#ifdef WAL_DEBUG
+    // Verify delta correctness if debugging enabled
+    if (XLOG_DEBUG) {
+        PGAlignedBlock tmp;
+        memcpy(tmp.data, curpage, BLCKSZ);
+        applyPageRedo(tmp.data, pageData->delta, pageData->deltaLen);
+
+        if (memcmp(tmp.data, targetpage, targetLower) != 0 ||
+            memcmp(tmp.data + targetUpper, targetpage + targetUpper,
+                   BLCKSZ - targetUpper) != 0)
+            elog(ERROR, "result of generic xlog apply does not match");
+    }
+#endif
+}
+```

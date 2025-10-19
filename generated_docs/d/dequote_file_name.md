@@ -44,3 +44,37 @@ The function handles two scenarios:
 - Returns malloc'd memory that the caller (typically readline) is expected to free
 - Handles edge case of empty strings by returning the original fname pointer
 - Part of the broader filename completion infrastructure in psql
+
+## Simplified Source
+
+```c
+static char *
+dequote_file_name(char *fname, int quote_char)
+{
+    char *unquoted_fname;
+
+    // If quote_char is set, we need to reconstruct the full quoted string
+    if (quote_char == '\'') {
+        char *workspace = (char *) pg_malloc(strlen(fname) + 2);
+
+        workspace[0] = quote_char;
+        strcpy(workspace + 1, fname);
+        unquoted_fname = strtokx(workspace, "", NULL, "'", *completion_charp,
+                                false, true, pset.encoding);
+        free(workspace);
+    } else {
+        // Process filename directly without added quotes
+        unquoted_fname = strtokx(fname, "", NULL, "'", *completion_charp,
+                                false, true, pset.encoding);
+    }
+
+    // Handle empty string case
+    if (!unquoted_fname) {
+        Assert(*fname == '\0');
+        unquoted_fname = fname;
+    }
+
+    // Return malloc'd copy for readline compatibility
+    return pg_strdup(unquoted_fname);
+}
+```

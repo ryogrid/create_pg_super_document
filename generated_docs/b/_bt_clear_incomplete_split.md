@@ -50,3 +50,32 @@ The function only performs the operation if the buffer requires redo (BLK_NEEDS_
 - Properly manages buffer lifecycle with conditional UnlockReleaseBuffer call
 - Essential for maintaining B-tree consistency during recovery by completing interrupted split operations
 - The flag clearing represents the final step in completing a B-tree split operation during recovery
+
+## Simplified Source
+
+```c
+static void _bt_clear_incomplete_split(XLogReaderState *record, uint8 block_id)
+{
+    XLogRecPtr lsn = record->EndRecPtr;
+    Buffer buf;
+
+    // Read buffer for redo if needed
+    if (XLogReadBufferForRedo(record, block_id, &buf) == BLK_NEEDS_REDO)
+    {
+        Page page = (Page) BufferGetPage(buf);
+        BTPageOpaque pageop = BTPageGetOpaque(page);
+
+        // Verify the flag is set, then clear it
+        Assert(P_INCOMPLETE_SPLIT(pageop));
+        pageop->btpo_flags &= ~BTP_INCOMPLETE_SPLIT;
+
+        // Update LSN and mark dirty
+        PageSetLSN(page, lsn);
+        MarkBufferDirty(buf);
+    }
+
+    // Clean up buffer
+    if (BufferIsValid(buf))
+        UnlockReleaseBuffer(buf);
+}
+```

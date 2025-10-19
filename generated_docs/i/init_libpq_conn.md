@@ -50,3 +50,47 @@ The prepared statement uses PostgreSQL's  function with  to fetch multiple file 
 - All timeout settings are disabled to prevent interruptions during potentially long-running file transfer operations
 - The prepared statement 'fetch_chunks_stmt' is used later for efficient batch file retrieval
 - Read-only mode provides an additional safety layer to prevent accidental modifications during the rewind process
+
+## Simplified Source
+
+```c
+static void init_libpq_conn(PGconn *conn)
+{
+    PGresult *result;
+    char *setting_value;
+
+    // Disable all timeouts to prevent interruptions during long operations
+    run_simple_command(conn, "SET statement_timeout = 0");
+    run_simple_command(conn, "SET lock_timeout = 0");
+    run_simple_command(conn, "SET idle_in_transaction_session_timeout = 0");
+    run_simple_command(conn, "SET transaction_timeout = 0");
+
+    // Set connection to read-only mode for safety
+    run_simple_command(conn, "SET default_transaction_read_only = on");
+
+    // Secure the search_path to prevent security issues
+    result = PQexec(conn, ALWAYS_SECURE_SEARCH_PATH_SQL);
+    if (PQresultStatus(result) != PGRES_TUPLES_OK)
+        pg_fatal("could not clear \"search_path\": %s",
+                PQresultErrorMessage(result));
+    PQclear(result);
+
+    // Verify that full_page_writes is enabled (required for torn page protection)
+    setting_value = run_simple_query(conn, "SHOW full_page_writes");
+    if (strcmp(setting_value, "on") != 0)
+        pg_fatal("\"full_page_writes\" must be enabled in the source server");
+    pg_free(setting_value);
+
+    // Prepare statement for efficient batch file fetching
+    result = PQprepare(conn, "fetch_chunks_stmt",
+                      "SELECT path, begin,\n"
+                      "  pg_read_binary_file(path, begin, len, true) AS chunk\n"
+                      "FROM unnest ($1::text[], $2::int8[], $3::int4[]) as x(path, begin, len)",
+                      3, NULL);
+
+    if (PQresultStatus(result) != PGRES_COMMAND_OK)
+        pg_fatal("could not prepare statement to fetch file contents: %s",
+                PQresultErrorMessage(result));
+    PQclear(result);
+}
+```

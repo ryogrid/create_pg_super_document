@@ -43,3 +43,26 @@ The function returns NULL for empty input sets (N == 0) since population standar
 - Part of PostgreSQL's statistical aggregate infrastructure
 - Located in src/backend/utils/adt/float.c:3182-3203
 - Relies on numerically stable Sxx values computed by accumulator functions
+
+## Simplified Source
+
+```c
+Datum
+float8_stddev_pop(PG_FUNCTION_ARGS)
+{
+    ArrayType *transarray = PG_GETARG_ARRAYTYPE_P(0);
+
+    // Extract N (count) and Sxx (sum of squared deviations) from transition state
+    float8 *transvalues = check_float8_array(transarray, "float8_stddev_pop", 3);
+    float8 N = transvalues[0];    // Count of values
+    // transvalues[1] (Sx) ignored for standard deviation calculation
+    float8 Sxx = transvalues[2];  // Sum of squared deviations
+
+    // Population standard deviation undefined for empty set
+    if (N == 0.0)
+        PG_RETURN_NULL();
+
+    // Return population standard deviation: sqrt(Sxx / N)
+    PG_RETURN_FLOAT8(sqrt(Sxx / N));
+}
+```

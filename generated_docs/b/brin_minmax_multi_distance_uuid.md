@@ -42,3 +42,26 @@ The approximation is sufficient for BRIN index purposes, where perfect accuracy 
 - Returns distance as a float8 value for consistency across BRIN distance functions
 - Part of the BRIN minmax multi access method implementation
 - Located in src/backend/access/brin/brin_minmax_multi.c:2047-2079
+
+## Simplified Source
+
+```c
+Datum brin_minmax_multi_distance_uuid(PG_FUNCTION_ARGS) {
+    float8 delta = 0;
+
+    // Extract UUID arguments
+    Datum a1 = PG_GETARG_DATUM(0);
+    Datum a2 = PG_GETARG_DATUM(1);
+    pg_uuid_t *u1 = DatumGetUUIDP(a1);
+    pg_uuid_t *u2 = DatumGetUUIDP(a2);
+
+    // Approximate delta using weighted byte differences
+    // Process from most significant to least significant byte
+    for (int i = UUID_LEN - 1; i >= 0; i--) {
+        delta += (int) u2->data[i] - (int) u1->data[i];
+        delta /= 256;  // Scale down for next byte position
+    }
+
+    PG_RETURN_FLOAT8(delta);
+}
+```

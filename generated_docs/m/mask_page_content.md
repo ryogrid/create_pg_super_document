@@ -42,3 +42,17 @@ This aggressive masking ensures that pages undergoing deletion or recycling proc
 - Only used by index access methods that recycle deleted pages
 - Essential for consistency checks of index structures that undergo page recycling operations
 - The function preserves only the most basic page header structure while obliterating all content and space management information
+
+## Simplified Source
+
+```c
+void mask_page_content(Page page) {
+    // Mask all page content after the header
+    memset(page + SizeOfPageHeaderData, MASK_MARKER,
+           BLCKSZ - SizeOfPageHeaderData);
+
+    // Mask pd_lower and pd_upper pointers since they're meaningless for deleted pages
+    memset(&((PageHeader) page)->pd_lower, MASK_MARKER, sizeof(uint16));
+    memset(&((PageHeader) page)->pd_upper, MASK_MARKER, sizeof(uint16));
+}
+```

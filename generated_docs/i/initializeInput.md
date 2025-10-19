@@ -55,3 +55,64 @@ The readline integration provides users with command editing capabilities, inclu
 - The rl_variable_bind call sets "comment-begin" to "-- " to provide appropriate SQL comment handling in readline
 - History lines are tracked via history_lines_added counter for proper management
 - Tilde expansion is performed on custom history file paths to support ~/path notation
+
+## Simplified Source
+
+```c
+void initializeInput(int flags) {
+#ifdef USE_READLINE
+    if (flags & 1) { // Enable readline and history
+        const char *histfile;
+        char home[MAXPGPATH];
+
+        // Configure readline
+        useReadline = true;
+        initialize_readline();
+
+        #ifdef HAVE_RL_VARIABLE_BIND
+            // Set SQL comment marker for readline
+            (void) rl_variable_bind("comment-begin", "-- ");
+        #endif
+
+        // Initialize readline (reads ~/.inputrc)
+        rl_initialize();
+
+        // Initialize history functionality
+        useHistory = true;
+        using_history();
+        history_lines_added = 0;
+
+        // Determine history file location
+        histfile = GetVariable(pset.vars, "HISTFILE");
+
+        // Try PSQL_HISTORY environment variable if HISTFILE not set
+        if (histfile == NULL) {
+            char *envhist = getenv("PSQL_HISTORY");
+            if (envhist != NULL && strlen(envhist) > 0) {
+                histfile = envhist;
+            }
+        }
+
+        // Use default location in home directory if no explicit file
+        if (histfile == NULL) {
+            if (get_home_path(home)) {
+                psql_history = psprintf("%s/%s", home, PSQLHISTORY);
+            }
+        } else {
+            // Use specified file with tilde expansion
+            psql_history = pg_strdup(histfile);
+            expand_tilde(&psql_history);
+        }
+
+        // Load existing history from file
+        if (psql_history) {
+            read_history(psql_history);
+            decode_history(); // Convert encoded newlines
+        }
+    }
+#endif
+
+    // Register cleanup function for program exit
+    atexit(finishInput);
+}
+```

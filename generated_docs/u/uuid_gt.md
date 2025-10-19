@@ -37,3 +37,16 @@ The  function is a PostgreSQL built-in function that compares two UUID values an
 - Enables sorting and indexing operations on UUID columns
 - The comparison is byte-wise lexicographic, not based on UUID timestamp or version
 - Used internally by the PostgreSQL query executor for UUID comparison operations
+
+## Simplified Source
+
+```c
+Datum uuid_gt(PG_FUNCTION_ARGS) {
+    // Extract two UUID arguments from function call
+    pg_uuid_t *uuid1 = PG_GETARG_UUID_P(0);
+    pg_uuid_t *uuid2 = PG_GETARG_UUID_P(1);
+
+    // Return true if first UUID > second UUID lexicographically
+    PG_RETURN_BOOL(uuid_internal_cmp(uuid1, uuid2) > 0);
+}
+```

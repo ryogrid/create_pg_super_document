@@ -40,3 +40,90 @@ This function handles command-line argument parsing for the pg_test_fsync utilit
 - Supports internationalization through ngettext for plural forms
 - Exits with status 0 for help/version, status 1 for errors
 - File location: src/bin/pg_test_fsync/pg_test_fsync.c:148-230
+
+## Simplified Source
+
+```c
+static void
+handle_args(int argc, char *argv[])
+{
+    static struct option long_options[] = {
+        {"filename", required_argument, NULL, 'f'},
+        {"secs-per-test", required_argument, NULL, 's'},
+        {NULL, 0, NULL, 0}
+    };
+
+    int option;
+    int optindex = 0;
+    unsigned long optval;
+    char *endptr;
+
+    // Handle --help and --version requests first
+    if (argc > 1)
+    {
+        if (strcmp(argv[1], "--help") == 0 || strcmp(argv[1], "-?") == 0)
+        {
+            printf("Usage: %s [-f FILENAME] [-s SECS-PER-TEST]\n", progname);
+            exit(0);
+        }
+        if (strcmp(argv[1], "--version") == 0 || strcmp(argv[1], "-V") == 0)
+        {
+            puts("pg_test_fsync (PostgreSQL) " PG_VERSION);
+            exit(0);
+        }
+    }
+
+    // Parse command-line options
+    while ((option = getopt_long(argc, argv, "f:s:", long_options, &optindex)) != -1)
+    {
+        switch (option)
+        {
+            case 'f':
+                // Set test filename
+                filename = pg_strdup(optarg);
+                break;
+
+            case 's':
+                // Parse and validate test duration
+                errno = 0;
+                optval = strtoul(optarg, &endptr, 10);
+
+                if (endptr == optarg || *endptr != '\0' ||
+                    errno != 0 || optval != (unsigned int) optval)
+                {
+                    pg_log_error("invalid argument for option %s", "--secs-per-test");
+                    pg_log_error_hint("Try \"%s --help\" for more information.", progname);
+                    exit(1);
+                }
+
+                secs_per_test = (unsigned int) optval;
+                if (secs_per_test == 0)
+                    pg_fatal("%s must be in range %u..%u", "--secs-per-test", 1, UINT_MAX);
+                break;
+
+            default:
+                pg_log_error_hint("Try \"%s --help\" for more information.", progname);
+                exit(1);
+        }
+    }
+
+    // Check for extra arguments
+    if (argc > optind)
+    {
+        pg_log_error("too many command-line arguments (first is \"%s\")", argv[optind]);
+        pg_log_error_hint("Try \"%s --help\" for more information.", progname);
+        exit(1);
+    }
+
+    // Display test duration and platform I/O capabilities
+    printf(ngettext("%u second per test\n", "%u seconds per test\n", secs_per_test), secs_per_test);
+
+#if defined(O_DIRECT)
+    printf("O_DIRECT supported on this platform for open_datasync and open_sync.\n");
+#elif defined(F_NOCACHE)
+    printf("F_NOCACHE supported on this platform for open_datasync and open_sync.\n");
+#else
+    printf("Direct I/O is not supported on this platform.\n");
+#endif
+}
+```

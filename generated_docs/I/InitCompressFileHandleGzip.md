@@ -40,9 +40,23 @@ The function provides a complete file handle interface for gzip-compressed files
 
 ## Notes and Other Information
 - The function is part of PostgreSQL's Compress File API for handling compressed files
-- Conditionally compiled based on HAVE_LIBZ preprocessor definition  
+- Conditionally compiled based on HAVE_LIBZ preprocessor definition
 - When zlib is not available, calling this function results in program termination
 - Sets up a complete file interface including specialized functions for opening write files with .gz extension
 - The private_data field is initialized to NULL and used to store the gzFile handle during operations
 - Located in src/bin/pg_dump/compress_gzip.c:406-422 (HAVE_LIBZ version) and lines 432-437 (no-libz version)
 - Supports both file descriptor and path-based file opening through the open_func pointer
+
+## Simplified Source
+
+```c
+#ifndef HAVE_LIBZ
+void
+InitCompressFileHandleGzip(CompressFileHandle *CFH,
+                           const pg_compress_specification compression_spec)
+{
+    // Error: gzip support not compiled in
+    pg_fatal("this build does not support compression with %s", "gzip");
+}
+#endif
+```

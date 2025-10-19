@@ -34,3 +34,13 @@ The function operates by:
 - This is the simplest of the marking functions, requiring no vowel harmony checks
 - This function is automatically generated code from snowball stemming algorithms
 - Uses exact string matching rather than pattern matching like other suffix functions
+
+## Simplified Source
+
+```c
+static int r_mark_ki(struct SN_env * z) {
+    // Simple exact match for "ki" suffix
+    if (!eq_s_b(z, 2, s_3)) return 0;
+    return 1;
+}
+```

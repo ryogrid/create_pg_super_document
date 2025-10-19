@@ -46,3 +46,27 @@ The implementation includes validation through GenerationBlockIsValid to ensure 
 - Returns the actual MemoryContext header rather than the Generation-specific context structure
 - Used by PostgreSQL's memory context debugging and analysis tools
 - Thread-safe operation through proper memory access patterns
+
+## Simplified Source
+
+```c
+MemoryContext GenerationGetChunkContext(void *pointer) {
+    MemoryChunk *chunk = PointerGetMemoryChunk(pointer);
+    GenerationBlock *block;
+
+    // Allow access to chunk header for analysis
+    VALGRIND_MAKE_MEM_DEFINED(chunk, Generation_CHUNKHDRSZ);
+
+    // Get the block containing this chunk
+    if (MemoryChunkIsExternal(chunk))
+        block = ExternalChunkGetBlock(chunk);
+    else
+        block = (GenerationBlock *) MemoryChunkGetBlock(chunk);
+
+    // Restore memory protection
+    VALGRIND_MAKE_MEM_NOACCESS(chunk, Generation_CHUNKHDRSZ);
+
+    // Return the memory context from the block
+    return &block->context->header;
+}
+```

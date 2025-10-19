@@ -42,3 +42,15 @@ The implementation uses a mathematically sophisticated approach: instead of dire
 - Used as a building block for more complex trigonometric computations in both sine and cosine calculations
 - The volatile qualifier on  helps ensure consistent floating-point behavior across different compiler optimizations
 - Located in src/backend/utils/adt/float.c:2259-2271
+
+## Simplified Source
+
+```c
+static double cosd_0_to_60(double x) {
+    // Calculate cosine for angles 0-60 degrees with exact results
+    // Returns exactly 1.0 for x=0, exactly 0.5 for x=60
+
+    double one_minus_cos_result = 1.0 - cos(x * RADIANS_PER_DEGREE);
+    return 1.0 - (one_minus_cos_result / one_minus_cos_60) / 2.0;
+}
+```

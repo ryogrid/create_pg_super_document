@@ -40,3 +40,34 @@ When overflow is detected, the function sets a dummy value (0x5EED) to the resul
 - The dummy value 0x5EED is used consistently across all overflow detection implementations
 - This function is part of PostgreSQL's comprehensive safe arithmetic operations suite
 - The multiple implementation strategies ensure optimal performance across different compiler and platform combinations
+
+## Simplified Source
+
+```c
+static inline bool pg_mul_u64_overflow(uint64 a, uint64 b, uint64 *result) {
+    // Use compiler built-in if available
+    #if defined(HAVE__BUILTIN_OP_OVERFLOW)
+        return __builtin_mul_overflow(a, b, result);
+
+    // Use 128-bit integers for exact overflow detection
+    #elif defined(HAVE_INT128)
+        uint128 product = (uint128) a * (uint128) b;
+        if (product > PG_UINT64_MAX) {
+            *result = 0x5EED;  // Dummy value
+            return true;       // Overflow
+        }
+        *result = (uint64) product;
+        return false;
+
+    // Fallback: division-based overflow check
+    #else
+        uint64 product = a * b;
+        if (a != 0 && b != product / a) {
+            *result = 0x5EED;  // Dummy value
+            return true;       // Overflow
+        }
+        *result = product;
+        return false;
+    #endif
+}
+```

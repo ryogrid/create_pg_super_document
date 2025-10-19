@@ -44,3 +44,93 @@ The query joins multiple system catalogs (, , ) and uses a correlated subquery t
 - The query uses visibility functions like  to handle schema-qualified names appropriately
 - Applicable types are aggregated using  to show all types supported by operator classes within the family
 - When filtering by type pattern, the function uses an EXISTS clause with a join to  to find families that contain operator classes for matching types
+
+## Simplified Source
+
+```c
+bool listOperatorFamilies(const char *access_method_pattern,
+                         const char *type_pattern, bool verbose) {
+    PQExpBufferData buf;
+    PGresult *res;
+    printQueryOpt myopt = pset.popt;
+    bool have_where = false;
+
+    initPQExpBuffer(&buf);
+
+    // Build main query with operator family information
+    printfPQExpBuffer(&buf,
+        "SELECT "
+        "am.amname AS \"AM\", "
+        "CASE "
+        "  WHEN pg_catalog.pg_opfamily_is_visible(f.oid) "
+        "  THEN pg_catalog.format('%%I', f.opfname) "
+        "  ELSE pg_catalog.format('%%I.%%I', n.nspname, f.opfname) "
+        "END AS \"Operator family\", "
+        "(SELECT "
+        "  pg_catalog.string_agg(pg_catalog.format_type(oc.opcintype, NULL), ', ') "
+        " FROM pg_catalog.pg_opclass oc "
+        " WHERE oc.opcfamily = f.oid) \"Applicable types\"");
+
+    // Add verbose columns if requested
+    if (verbose) {
+        appendPQExpBuffer(&buf,
+            ", pg_catalog.pg_get_userbyid(f.opfowner) AS \"Owner\"");
+    }
+
+    // Add FROM clause with joins
+    appendPQExpBufferStr(&buf,
+        " FROM pg_catalog.pg_opfamily f "
+        "LEFT JOIN pg_catalog.pg_am am ON am.oid = f.opfmethod "
+        "LEFT JOIN pg_catalog.pg_namespace n ON n.oid = f.opfnamespace");
+
+    // Apply access method pattern filter
+    if (access_method_pattern) {
+        if (!validateSQLNamePattern(&buf, access_method_pattern,
+                                   false, false, NULL, "am.amname",
+                                   NULL, NULL, &have_where, 1))
+            goto error_return;
+    }
+
+    // Apply type pattern filter using EXISTS subquery
+    if (type_pattern) {
+        appendPQExpBuffer(&buf,
+            " %s EXISTS ("
+            "  SELECT 1 "
+            "  FROM pg_catalog.pg_type t "
+            "  JOIN pg_catalog.pg_opclass oc ON oc.opcintype = t.oid "
+            "  LEFT JOIN pg_catalog.pg_namespace tn ON tn.oid = t.typnamespace "
+            "  WHERE oc.opcfamily = f.oid",
+            have_where ? "AND" : "WHERE");
+
+        if (!validateSQLNamePattern(&buf, type_pattern, true, false,
+                                   "tn.nspname", "t.typname",
+                                   "pg_catalog.format_type(t.oid, NULL)",
+                                   "pg_catalog.pg_type_is_visible(t.oid)",
+                                   NULL, 3))
+            goto error_return;
+
+        appendPQExpBufferStr(&buf, " )");
+    }
+
+    appendPQExpBufferStr(&buf, " ORDER BY 1, 2;");
+
+    // Execute query
+    res = PSQLexec(buf.data);
+    termPQExpBuffer(&buf);
+    if (!res)
+        return false;
+
+    // Set up output formatting and display results
+    myopt.title = "List of operator families";
+    myopt.translate_header = true;
+
+    printQuery(res, &myopt, pset.queryFout, false, pset.logfile);
+    PQclear(res);
+
+    return true;
+
+error_return:
+    termPQExpBuffer(&buf);
+    return false;
+}
+```

@@ -39,3 +39,64 @@ This function automatically sets the SQLSTATE error code for the current error b
   - All other errors → ERRCODE_INTERNAL_ERROR
 - Does not increment recursion depth counter
 - Located in src/backend/utils/error/elog.c:880-952
+
+## Simplified Source
+
+```c
+int errcode_for_file_access(void) {
+    ErrorData *edata = &errordata[errordata_stack_depth];
+
+    CHECK_STACK_DEPTH();
+
+    // Map errno values to appropriate SQLSTATE codes
+    switch (edata->saved_errno) {
+        // Permission denied errors
+        case EPERM:
+        case EACCES:
+        case EROFS:
+            edata->sqlerrcode = ERRCODE_INSUFFICIENT_PRIVILEGE;
+            break;
+
+        // File not found
+        case ENOENT:
+            edata->sqlerrcode = ERRCODE_UNDEFINED_FILE;
+            break;
+
+        // File already exists
+        case EEXIST:
+            edata->sqlerrcode = ERRCODE_DUPLICATE_FILE;
+            break;
+
+        // Wrong object type
+        case ENOTDIR:
+        case EISDIR:
+        case ENOTEMPTY:
+            edata->sqlerrcode = ERRCODE_WRONG_OBJECT_TYPE;
+            break;
+
+        // Resource limitations
+        case ENOSPC:
+            edata->sqlerrcode = ERRCODE_DISK_FULL;
+            break;
+        case ENOMEM:
+            edata->sqlerrcode = ERRCODE_OUT_OF_MEMORY;
+            break;
+        case ENFILE:
+        case EMFILE:
+            edata->sqlerrcode = ERRCODE_INSUFFICIENT_RESOURCES;
+            break;
+
+        // Hardware failure
+        case EIO:
+            edata->sqlerrcode = ERRCODE_IO_ERROR;
+            break;
+
+        // All other errors
+        default:
+            edata->sqlerrcode = ERRCODE_INTERNAL_ERROR;
+            break;
+    }
+
+    return 0;
+}
+```

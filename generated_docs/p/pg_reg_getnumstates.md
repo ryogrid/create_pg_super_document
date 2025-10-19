@@ -30,3 +30,17 @@ This function extracts and returns the total count of states from the NFA struct
 - The function includes an assertion to validate that the regex pointer is not NULL and that the regex has the correct magic number (REMAGIC)
 - Accesses the internal `search` field of the compiled NFA structure to retrieve the `nstates` count
 - This is part of the regex export API that provides access to internal regex structures for analysis and debugging purposes
+
+## Simplified Source
+
+```c
+int pg_reg_getnumstates(const regex_t *regex) {
+    // Validate regex structure
+    assert(regex != NULL && regex->re_magic == REMAGIC);
+
+    // Get compiled NFA from regex internals
+    struct cnfa *cnfa = &((struct guts *) regex->re_guts)->search;
+
+    return cnfa->nstates;  // Return state count
+}
+```

@@ -35,3 +35,18 @@ This function is part of the pg_dump utility's object lookup system. It searches
 - Uses an assertion to ensure type safety - the found object must be of DO_NAMESPACE type
 - Part of the pg_dump utility's internal object management system
 - The function is specific to namespace objects and cannot be used for other database object types
+
+## Simplified Source
+
+```c
+NamespaceInfo *findNamespaceByOid(Oid oid) {
+    // Create catalog ID for namespace lookup
+    CatalogId catId;
+    catId.tableoid = NamespaceRelationId;
+    catId.oid = oid;
+
+    // Find object and return as NamespaceInfo
+    DumpableObject *dobj = findObjectByCatalogId(catId);
+    return (NamespaceInfo *) dobj;  // Returns NULL if not found
+}
+```

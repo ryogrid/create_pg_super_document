@@ -24,3 +24,23 @@ This function initializes or resets a QueryRepresentation structure by iterating
 
 ## Notes and Other Information
 This is a static function within the tsrank.c module, indicating it's an internal utility function for text search ranking operations. The function is essential for ensuring clean state before performing new ranking calculations on the same QueryRepresentation structure.
+
+## Simplified Source
+
+```c
+static void
+resetQueryRepresentation(QueryRepresentation *qr, bool reverseinsert)
+{
+    int i;
+
+    // Reset all operand data to initial state
+    for (i = 0; i < qr->query->size; i++)
+    {
+        qr->operandData[i].operandexists = false;      // No operands exist yet
+        qr->operandData[i].reverseinsert = reverseinsert; // Set insertion order
+        qr->operandData[i].npos = 0;                   // No positions recorded
+    }
+}
+```
+
+This simplified version shows the straightforward initialization process: iterate through all operands in the query and reset their existence flags, insertion mode, and position counters to prepare for new ranking calculations.

@@ -46,3 +46,32 @@ This processing is essential for Hungarian morphological analysis since factive 
 - Returns 1 on successful factive processing, 0 if conditions aren't met, and negative values on errors
 - The factive case often appears in formal or literary Hungarian and legal/administrative texts
 - This function is part of PostgreSQL's comprehensive Hungarian stemming for full-text search capabilities
+
+## Simplified Source
+
+```c
+static int r_factive(struct SN_env * z) {
+    // Set end marker and check for factive vowel endings (á=225, é=233)
+    z->ket = z->c;
+    if (z->c <= z->lb || (z->p[z->c - 1] != 225 && z->p[z->c - 1] != 233))
+        return 0;
+
+    // Find factive pattern ('á' or 'é')
+    if (!find_among_b(z, a_7, 2)) return 0;
+
+    // Set start marker and verify in R1 region
+    z->bra = z->c;
+    if (r_R1(z) <= 0) return 0;
+
+    // Check for doubled consonants before removal
+    if (r_double(z) <= 0) return 0;
+
+    // Remove the factive suffix
+    if (slice_del(z) < 0) return -1;
+
+    // Handle consonant undoubling after removal
+    if (r_undouble(z) <= 0) return 0;
+
+    return 1;
+}
+```

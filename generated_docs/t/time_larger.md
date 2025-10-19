@@ -30,3 +30,12 @@ This function compares two time values and returns the one that represents a lat
 - Located in src/backend/utils/adt/date.c at lines 1759-1767
 - Part of PostgreSQL's suite of comparison functions for the time data type
 - Returns the time argument that represents a later point in the day
+
+## Simplified Source
+
+```c
+TimeADT time_larger(TimeADT time1, TimeADT time2) {
+    // Return the later of the two times (maximum)
+    return (time1 > time2) ? time1 : time2;
+}
+```

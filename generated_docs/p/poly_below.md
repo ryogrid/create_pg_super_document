@@ -36,3 +36,12 @@ The function follows the same pattern as the horizontal comparison functions (`p
 - Typically invoked through PostgreSQL's operator system (likely a vertical positioning operator for polygons)
 - Essential for R-tree spatial indexing operations on polygon data
 - Memory management carefully handles toasted polygon data to prevent leaks
+
+## Simplified Source
+
+```c
+bool poly_below(POLYGON *polya, POLYGON *polyb) {
+    // Check if polygon A's highest point is below polygon B's lowest point
+    return polya->boundbox.high.y < polyb->boundbox.low.y;
+}
+```

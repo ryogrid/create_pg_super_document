@@ -35,3 +35,20 @@ The `box_center` function calculates and returns the center point of a BOX geome
 - Returns a Point data type containing the x,y coordinates of the box's center
 - Part of the geometric operations suite for the BOX data type in PostgreSQL
 - The actual center calculation is delegated to the `box_cn` helper function
+
+## Simplified Source
+
+```c
+Datum box_center(PG_FUNCTION_ARGS) {
+    // Extract the box argument
+    BOX *box = PG_GETARG_BOX_P(0);
+
+    // Allocate memory for the result point
+    Point *result = (Point *) palloc(sizeof(Point));
+
+    // Calculate center coordinates using helper function
+    box_cn(result, box);
+
+    return PG_RETURN_POINT_P(result);
+}
+```

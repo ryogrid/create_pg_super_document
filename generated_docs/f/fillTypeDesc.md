@@ -39,3 +39,27 @@ The function is a utility routine used internally by the SP-GiST access method t
 - Includes error handling for invalid/missing types
 - Essential for SP-GiST's type-aware operations and storage management
 - The populated SpGistTypeDesc structure is used throughout SP-GiST operations for type-specific handling
+
+## Simplified Source
+
+```c
+static void fillTypeDesc(SpGistTypeDesc *desc, Oid type)
+{
+    // Look up type information in system catalog
+    HeapTuple tp = SearchSysCache1(TYPEOID, ObjectIdGetDatum(type));
+    if (!HeapTupleIsValid(tp))
+        elog(ERROR, "cache lookup failed for type %u", type);
+
+    // Extract type information from catalog tuple
+    Form_pg_type typtup = (Form_pg_type) GETSTRUCT(tp);
+
+    // Fill in type descriptor fields
+    desc->type = type;
+    desc->attlen = typtup->typlen;        // Type length
+    desc->attbyval = typtup->typbyval;    // Pass by value flag
+    desc->attalign = typtup->typalign;    // Alignment requirement
+    desc->attstorage = typtup->typstorage; // Storage strategy
+
+    ReleaseSysCache(tp);
+}
+```

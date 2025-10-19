@@ -30,3 +30,17 @@ The  function is a signal handler specifically designed to handle the SIGHUP sig
 - The handler provides a signal-safe way to request file reopening without interrupting the main processing
 - Commonly used in conjunction with log rotation tools that send SIGHUP after rotating log files
 - The simple flag-setting approach ensures signal safety and avoids complex operations within the signal handler context
+
+## Simplified Source
+
+```c
+/*
+ * Trigger the output file to be reopened.
+ */
+static void
+sighup_handler(SIGNAL_ARGS)
+{
+    // Signal main loop to reopen output files (for log rotation)
+    output_reopen = true;
+}
+```

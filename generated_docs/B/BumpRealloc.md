@@ -32,3 +32,15 @@ BumpRealloc is an intentionally non-functional implementation of the memory cont
 - The 'keep compiler quiet' comment explains why NULL is returned after the error (unreachable code)
 - Consistent with bump allocator design philosophy where memory management is simplified by eliminating individual allocation manipulation
 - Applications requiring dynamic resizing must use different memory context types or implement resizing through allocation of new memory and copying data
+
+## Simplified Source
+
+```c
+void *
+BumpRealloc(void *pointer, Size size, int flags)
+{
+    // Bump allocator doesn't support memory resizing
+    elog(ERROR, "realloc is not supported by the bump memory allocator");
+    return NULL; // Keep compiler quiet
+}
+```

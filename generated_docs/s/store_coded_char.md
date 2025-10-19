@@ -34,3 +34,29 @@ The function uses bit masking and shifting operations to extract individual byte
 - Uses big-endian byte ordering when storing the multibyte sequence
 - Part of PostgreSQLs multibyte character encoding conversion subsystem
 - Critical utility function used extensively in both UTF-8 to local and local to UTF-8 conversion routines
+
+## Simplified Source
+
+```c
+static inline unsigned char *store_coded_char(unsigned char *dest, uint32 code) {
+    // Store only non-zero bytes in big-endian order (MSB first)
+
+    // Store byte 4 (most significant) if present
+    if (code & 0xff000000)
+        *dest++ = code >> 24;
+
+    // Store byte 3 if present
+    if (code & 0x00ff0000)
+        *dest++ = code >> 16;
+
+    // Store byte 2 if present
+    if (code & 0x0000ff00)
+        *dest++ = code >> 8;
+
+    // Store byte 1 (least significant) if present
+    if (code & 0x000000ff)
+        *dest++ = code;
+
+    return dest;  // Return pointer to next position
+}
+```

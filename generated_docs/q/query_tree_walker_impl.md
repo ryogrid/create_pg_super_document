@@ -49,3 +49,63 @@ The traversal is performed using a callback mechanism where a user-provided walk
 - [WindowClause](../W/WindowClause.md) expressions are walked even when SortGroupClause nodes are ignored, ensuring window function expressions are not missed
 - The function assumes the Query node is valid and uses Assert to verify this
 - Early termination is supported - if any walker callback returns true, the entire traversal stops and returns true
+
+## Simplified Source
+
+```c
+bool query_tree_walker_impl(Query *query, tree_walker_callback walker, void *context, int flags)
+{
+    Assert(query != NULL && IsA(query, Query));
+
+    // Walk the main expression lists of the query
+    if (WALK(query->targetList)) return true;
+    if (WALK(query->withCheckOptions)) return true;
+    if (WALK(query->onConflict)) return true;
+    if (WALK(query->mergeActionList)) return true;
+    if (WALK(query->mergeJoinCondition)) return true;
+    if (WALK(query->returningList)) return true;
+    if (WALK(query->jointree)) return true;
+    if (WALK(query->setOperations)) return true;
+    if (WALK(query->havingQual)) return true;
+    if (WALK(query->limitOffset)) return true;
+    if (WALK(query->limitCount)) return true;
+
+    // Handle sorting/grouping clauses based on flags
+    if (flags & QTW_EXAMINE_SORTGROUP) {
+        // Walk all sort/group clause structures
+        if (WALK(query->groupClause)) return true;
+        if (WALK(query->windowClause)) return true;
+        if (WALK(query->sortClause)) return true;
+        if (WALK(query->distinctClause)) return true;
+    } else {
+        // Even if not examining sort groups, still walk window expressions
+        ListCell *lc;
+        foreach(lc, query->windowClause) {
+            WindowClause *wc = lfirst_node(WindowClause, lc);
+            if (WALK(wc->startOffset)) return true;
+            if (WALK(wc->endOffset)) return true;
+        }
+    }
+
+    // Handle CTEs unless explicitly ignored
+    if (!(flags & QTW_IGNORE_CTE_SUBQUERIES)) {
+        if (WALK(query->cteList)) return true;
+    }
+
+    // Handle range table unless explicitly ignored
+    if (!(flags & QTW_IGNORE_RANGE_TABLE)) {
+        if (range_table_walker(query->rtable, walker, context, flags)) return true;
+    }
+
+    return false;
+}
+```
+
+This simplified version reduces the original ~110 lines to ~40 lines (~36% of original size) while preserving the essential query traversal logic. Key simplifications:
+
+- Removed extensive comments and kept only essential ones
+- Maintained the core traversal pattern for all query components
+- Preserved the flag-based conditional logic for optional components
+- Kept the essential WALK macro pattern for expression traversal
+- Maintained early termination semantics (return true on walker success)
+- Preserved the special handling of window clauses and range tables

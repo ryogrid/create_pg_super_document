@@ -38,3 +38,20 @@ The function works by making a single call to `psql_scan_slash_option()` with th
 - The function is static to the command.c file, indicating it's an internal utility for command processing
 - Proper memory management is ensured by immediately freeing the option string after reading
 - The critical nature of this function is emphasized by the *MUST* comment, indicating potential parsing errors if not used correctly
+
+## Simplified Source
+
+```c
+static void ignore_slash_filepipe(PsqlScanState scan_state)
+{
+    // Read and discard exactly one FILEPIPE option
+    char *arg = psql_scan_slash_option(scan_state, OT_FILEPIPE, NULL, false);
+    free(arg);
+}
+```
+
+**Simplified Logic:**
+1. Read exactly one FILEPIPE option from the input stream
+2. Immediately free the option string to prevent memory leaks
+
+This function is critical for maintaining parsing consistency between active and inactive conditional branches. FILEPIPE options can consume varying amounts of text, so this ensures the same text consumption regardless of execution state.

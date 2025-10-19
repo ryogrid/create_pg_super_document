@@ -45,3 +45,22 @@ The function is essential for validating that the two clusters can be safely upg
 - [Port](../P/Port.md) conflict checking is critical for live upgrades to prevent the upgrade process from interfering with the running old cluster
 - Control data validation includes checks for system identifiers, page checksums, WAL block sizes, and other fundamental database parameters
 - This function complements version checking by examining the actual database internals rather than just version numbers
+
+## Simplified Source
+
+```c
+void check_cluster_compatibility(bool live_check) {
+    // Get control data from both clusters
+    get_control_data(&old_cluster, live_check);
+    get_control_data(&new_cluster, false);
+
+    // Validate control data compatibility
+    check_control_data(&old_cluster.controldata, &new_cluster.controldata);
+
+    // Ensure different ports for live server checks
+    if (live_check && old_cluster.port == new_cluster.port) {
+        pg_fatal("When checking a live server, "
+                 "the old and new port numbers must be different.");
+    }
+}
+```

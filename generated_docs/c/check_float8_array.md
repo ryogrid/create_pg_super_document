@@ -61,3 +61,23 @@ If any validation fails, the function throws an error with context about which c
 - Returns direct pointer to array data, avoiding unnecessary data copying
 - Used extensively in PostgreSQL's statistical and mathematical aggregate functions
 - Critical for maintaining data integrity in complex statistical calculations
+
+## Simplified Source
+
+```c
+static float8 *
+check_float8_array(ArrayType *transarray, const char *caller, int n)
+{
+    // Validate array structure: must be 1D, exact size, no nulls, float8 type
+    if (ARR_NDIM(transarray) != 1 ||
+        ARR_DIMS(transarray)[0] != n ||
+        ARR_HASNULL(transarray) ||
+        ARR_ELEMTYPE(transarray) != FLOAT8OID)
+    {
+        elog(ERROR, "%s: expected %d-element float8 array", caller, n);
+    }
+
+    // Return direct pointer to array data
+    return (float8 *) ARR_DATA_PTR(transarray);
+}
+```

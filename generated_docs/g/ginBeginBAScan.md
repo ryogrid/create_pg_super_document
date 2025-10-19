@@ -35,3 +35,12 @@ The function is a thin wrapper around the red-black tree library's rbt_begin_ite
 - Part of the scanning interface for BuildAccumulator along with ginGetBAEntry
 - Essential for the bulk index construction workflow where sorted entry processing is required
 - The function modifies the tree_walk state within the BuildAccumulator structure
+
+## Simplified Source
+
+```c
+void ginBeginBAScan(BuildAccumulator *accum) {
+    // Initialize iterator for left-to-right tree traversal
+    rbt_begin_iterate(accum->tree, LeftRightWalk, &accum->tree_walk);
+}
+```

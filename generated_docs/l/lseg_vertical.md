@@ -34,3 +34,15 @@ The  function tests whether a line segment is vertical. A line segment is consid
 - Part of PostgreSQL's geometric data type operations for line segments
 - A vertical line segment has an undefined (infinite) slope
 - Located in geo_ops.c alongside other geometric utility functions
+
+## Simplified Source
+
+```c
+Datum lseg_vertical(PG_FUNCTION_ARGS) {
+    // Get the line segment from function arguments
+    LSEG *lseg = PG_GETARG_LSEG_P(0);
+
+    // Check if both endpoints have same x-coordinate (vertical line)
+    PG_RETURN_BOOL(FPeq(lseg->p[0].x, lseg->p[1].x));
+}
+```

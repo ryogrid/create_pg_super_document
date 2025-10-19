@@ -51,3 +51,55 @@ This function implements the database-wide clustering functionality for the clus
 - Excludes template databases and those that don't allow connections
 - Provides user-friendly progress feedback showing current database being processed
 - Handles both specific table lists and database-wide clustering scenarios
+
+## Simplified Source
+
+```c
+static void cluster_all_databases(ConnParams *cparams, SimpleStringList *tables,
+                                 const char *progname, bool verbose, bool echo,
+                                 bool quiet)
+{
+    PGconn *conn;
+    PGresult *result;
+    int i;
+
+    // Connect to maintenance database and get list of databases
+    conn = connectMaintenanceDatabase(cparams, progname, echo);
+    result = executeQuery(conn,
+                         "SELECT datname FROM pg_database WHERE datallowconn AND datconnlimit <> -2 ORDER BY 1;",
+                         echo);
+    PQfinish(conn);
+
+    // Process each database
+    for (i = 0; i < PQntuples(result); i++)
+    {
+        char *dbname = PQgetvalue(result, i, 0);
+
+        // Show progress (unless quiet)
+        if (!quiet)
+        {
+            printf(_("%s: clustering database \"%s\"\n"), progname, dbname);
+            fflush(stdout);
+        }
+
+        // Update connection parameters for this database
+        cparams->override_dbname = dbname;
+
+        // Cluster specific tables or all tables
+        if (tables->head != NULL)
+        {
+            // Cluster each specified table
+            SimpleStringListCell *cell;
+            for (cell = tables->head; cell; cell = cell->next)
+                cluster_one_database(cparams, cell->val, progname, verbose, echo);
+        }
+        else
+        {
+            // Cluster all eligible tables in database
+            cluster_one_database(cparams, NULL, progname, verbose, echo);
+        }
+    }
+
+    PQclear(result);
+}
+```

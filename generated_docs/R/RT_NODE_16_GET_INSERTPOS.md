@@ -51,3 +51,45 @@ The SIMD implementation is more complex as it works around the lack of unsigned 
 - The SIMD version processes chunks in parallel using vector operations
 - Contains assertions to verify consistency between SIMD and non-SIMD implementations when both are compiled
 - Part of the node-16 specific operations within the radixtree template system
+
+## Simplified Source
+
+```c
+static inline int
+RT_NODE_16_GET_INSERTPOS(RT_NODE_16 *node, uint8 chunk)
+{
+    int count = node->base.count;
+
+    // Optimization: check if appending (common case for ordered insertions)
+    if (node->chunks[count - 1] < chunk)
+        return count;
+
+#ifdef USE_NO_SIMD
+    // Scalar version: linear search for insertion position
+    for (int index = 0; index < count; index++) {
+        if (node->chunks[index] > chunk)
+            return index;
+    }
+    return count;
+#else
+    // SIMD version: parallel search using vector operations
+    Vector8 spread_chunk = vector8_broadcast(chunk);
+    Vector8 haystack1, haystack2, min1, min2, cmp1, cmp2;
+    uint32 bitfield;
+
+    // Load chunks and find positions where chunk <= haystack (using min trick)
+    vector8_load(&haystack1, &node->chunks[0]);
+    vector8_load(&haystack2, &node->chunks[sizeof(Vector8)]);
+    min1 = vector8_min(spread_chunk, haystack1);
+    min2 = vector8_min(spread_chunk, haystack2);
+
+    // Compare to find positions where chunk <= haystack[i] (meaning haystack[i] >= chunk)
+    cmp1 = vector8_eq(spread_chunk, min1);
+    cmp2 = vector8_eq(spread_chunk, min2);
+
+    // Convert to bitfield and find first match
+    bitfield = vector8_highbit_mask(cmp1) | (vector8_highbit_mask(cmp2) << sizeof(Vector8));
+    return pg_rightmost_one_pos32(bitfield);
+#endif
+}
+```

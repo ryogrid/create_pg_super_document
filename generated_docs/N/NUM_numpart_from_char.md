@@ -56,3 +56,123 @@ The function processes input character by character, maintaining state about wha
 - Must handle various ambiguous sign positioning scenarios in fill mode (FM)
 - Supports bracket notation where '<' represents negative sign
 - Carefully manages input position to coordinate with NUM_processor() main loop
+
+## Simplified Source
+
+```c
+static void
+NUM_numpart_from_char(NUMProc *Np, int id, int input_len)
+{
+    bool isread = false;
+
+    // Skip boundary checks for simplification
+    if (*Np->inout_p == ' ')
+        Np->inout_p++;
+
+    // Read sign before number (only if no digits read yet)
+    if (*Np->number == ' ' && (id == NUM_0 || id == NUM_9) &&
+        (Np->read_pre + Np->read_post) == 0)
+    {
+        if (IS_LSIGN(Np->Num) && Np->Num->lsign == NUM_LSIGN_PRE)
+        {
+            // Try to match locale-specific negative/positive signs
+            int x = strlen(Np->L_negative_sign);
+            if (x && strncmp(Np->inout_p, Np->L_negative_sign, x) == 0)
+            {
+                Np->inout_p += x;
+                *Np->number = '-';
+            }
+            else if ((x = strlen(Np->L_positive_sign)) &&
+                     strncmp(Np->inout_p, Np->L_positive_sign, x) == 0)
+            {
+                Np->inout_p += x;
+                *Np->number = '+';
+            }
+        }
+        else
+        {
+            // Handle simple +/- or bracket notation
+            if (*Np->inout_p == '-' ||
+                (IS_BRACKET(Np->Num) && *Np->inout_p == '<'))
+            {
+                *Np->number = '-';
+                Np->inout_p++;
+            }
+            else if (*Np->inout_p == '+')
+            {
+                *Np->number = '+';
+                Np->inout_p++;
+            }
+        }
+    }
+
+    // Read digit or decimal point
+    if (isdigit((unsigned char) *Np->inout_p))
+    {
+        // Stop if we've read all post-decimal digits allowed
+        if (Np->read_dec && Np->read_post == Np->Num->post)
+            return;
+
+        // Copy digit to number buffer
+        *Np->number_p = *Np->inout_p;
+        Np->number_p++;
+
+        // Update digit counters
+        if (Np->read_dec)
+            Np->read_post++;
+        else
+            Np->read_pre++;
+
+        isread = true;
+    }
+    else if (IS_DECIMAL(Np->Num) && !Np->read_dec)
+    {
+        // Try to read decimal point
+        int x = strlen(Np->decimal);
+        if (x && strncmp(Np->inout_p, Np->decimal, x) == 0)
+        {
+            Np->inout_p += x - 1;
+            *Np->number_p = '.';
+            Np->number_p++;
+            Np->read_dec = true;
+            isread = true;
+        }
+    }
+
+    // Read post-number sign if we have digits and no sign yet
+    if (*Np->number == ' ' && Np->read_pre + Np->read_post > 0)
+    {
+        if (IS_LSIGN(Np->Num) && isread &&
+            (Np->inout_p + 1) < Np->inout + input_len &&
+            !isdigit((unsigned char) *(Np->inout_p + 1)))
+        {
+            // Try locale post-sign
+            int x;
+            char *tmp = Np->inout_p++;
+
+            if ((x = strlen(Np->L_negative_sign)) &&
+                strncmp(Np->inout_p, Np->L_negative_sign, x) == 0)
+            {
+                Np->inout_p += x - 1;
+                *Np->number = '-';
+            }
+            else if ((x = strlen(Np->L_positive_sign)) &&
+                     strncmp(Np->inout_p, Np->L_positive_sign, x) == 0)
+            {
+                Np->inout_p += x - 1;
+                *Np->number = '+';
+            }
+
+            if (*Np->number == ' ')
+                Np->inout_p = tmp;  // Reset if no sign found
+        }
+        else if (!isread && !IS_LSIGN(Np->Num) &&
+                 (IS_PLUS(Np->Num) || IS_MINUS(Np->Num)))
+        {
+            // Simple post-sign for non-locale formats
+            if (*Np->inout_p == '-' || *Np->inout_p == '+')
+                *Np->number = *Np->inout_p;
+        }
+    }
+}
+```

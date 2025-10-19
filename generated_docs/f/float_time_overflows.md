@@ -42,3 +42,26 @@ The float_time_overflows function provides validation for time components where 
 - Handles floating-point edge cases more carefully than the integer version
 - Essential for validating floating-point time inputs in PostgreSQL's time construction functions
 - Part of the date/time validation infrastructure in src/backend/utils/adt/date.c
+
+## Simplified Source
+
+```c
+bool float_time_overflows(int hour, int min, double sec) {
+    // Check hour and minute ranges
+    if (hour < 0 || hour > HOURS_PER_DAY || min < 0 || min >= MINS_PER_HOUR)
+        return true;
+
+    // Handle floating-point seconds: check for NaN and round to microseconds
+    if (isnan(sec))
+        return true;
+    sec = rint(sec * USECS_PER_SEC);
+    if (sec < 0 || sec > SECS_PER_MINUTE * USECS_PER_SEC)
+        return true;
+
+    // Check total time doesn't exceed 24:00:00
+    if (((((hour * MINS_PER_HOUR + min) * SECS_PER_MINUTE) * USECS_PER_SEC) + (int64) sec) > USECS_PER_DAY)
+        return true;
+
+    return false;
+}
+```

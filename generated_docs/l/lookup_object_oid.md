@@ -44,3 +44,54 @@ For functions, it constructs queries using regproc (for simple function names) o
 - Part of psql's object editing and inspection infrastructure
 - Does not validate object types beyond basic existence - type validation occurs in downstream functions
 - Essential for psql commands that need to operate on specific database objects by name
+
+## Simplified Source
+
+```c
+static bool lookup_object_oid(EditableObjectType obj_type, const char *desc,
+                             Oid *obj_oid) {
+    bool result = true;
+    PQExpBuffer query = createPQExpBuffer();
+    PGresult *res;
+
+    // Build type-specific lookup query
+    switch (obj_type) {
+        case EditableFunction:
+            // Use regproc for simple names, regprocedure for signatures with parentheses
+            appendPQExpBufferStr(query, "SELECT ");
+            appendStringLiteralConn(query, desc, pset.db);
+            appendPQExpBuffer(query, "::pg_catalog.%s::pg_catalog.oid",
+                            strchr(desc, '(') ? "regprocedure" : "regproc");
+            break;
+
+        case EditableView:
+            // Convert view/relation name to OID using regclass
+            appendPQExpBufferStr(query, "SELECT ");
+            appendStringLiteralConn(query, desc, pset.db);
+            appendPQExpBufferStr(query, "::pg_catalog.regclass::pg_catalog.oid");
+            break;
+    }
+
+    // Execute lookup query
+    if (!echo_hidden_command(query->data)) {
+        destroyPQExpBuffer(query);
+        return false;
+    }
+
+    res = PQexec(pset.db, query->data);
+
+    // Check result and extract OID
+    if (PQresultStatus(res) == PGRES_TUPLES_OK && PQntuples(res) == 1) {
+        *obj_oid = atooid(PQgetvalue(res, 0, 0));
+    } else {
+        minimal_error_message(res);
+        result = false;
+    }
+
+    // Cleanup
+    PQclear(res);
+    destroyPQExpBuffer(query);
+
+    return result;
+}
+```

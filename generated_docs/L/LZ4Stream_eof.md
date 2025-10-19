@@ -35,3 +35,16 @@ This function implements end-of-file detection for LZ4-compressed streams in Pos
 - The dual condition check prevents premature EOF detection when data remains in buffers
 - Analogous to standard library EOF detection but accounting for decompression buffering
 - Critical for stream-based reading operations that need to know when all data is exhausted
+
+## Simplified Source
+
+```c
+static bool
+LZ4Stream_eof(CompressFileHandle *CFH)
+{
+    LZ4State *state = (LZ4State *) CFH->private_data;
+
+    // EOF only when no buffered data AND underlying file at EOF
+    return state->overflowlen == 0 && feof(state->fp);
+}
+```

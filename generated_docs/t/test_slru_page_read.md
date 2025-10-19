@@ -40,3 +40,30 @@ This function provides a testing interface for reading data from SLRU (Simple Lo
 - Returns the raw page buffer contents as a text string
 - Part of the SLRU testing infrastructure for validating read operations
 - The function will load pages from disk if they are not already in the buffer cache
+
+## Simplified Source
+```c
+Datum
+test_slru_page_read(PG_FUNCTION_ARGS)
+{
+    int64 pageno = PG_GETARG_INT64(0);
+    bool write_ok = PG_GETARG_BOOL(1);
+    char *data = NULL;
+    int slotno;
+
+    // Get exclusive lock for the page bank
+    LWLock *lock = SimpleLruGetBankLock(TestSlruCtl, pageno);
+    LWLockAcquire(lock, LW_EXCLUSIVE);
+
+    // Read page from disk/cache, loading if necessary
+    slotno = SimpleLruReadPage(TestSlruCtl, pageno, write_ok, InvalidTransactionId);
+
+    // Get page data from buffer
+    data = (char *) TestSlruCtl->shared->page_buffer[slotno];
+
+    LWLockRelease(lock);
+
+    // Return page contents as PostgreSQL text
+    PG_RETURN_TEXT_P(cstring_to_text(data));
+}
+```

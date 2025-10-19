@@ -40,3 +40,54 @@ When connected via Unix socket, it displays the socket path, but if a hostaddr i
 - Distinguishes between Unix socket and network connections in output formatting
 - Shows additional security information (SSL/GSS) when available
 - Part of the psql interactive command system located in src/bin/psql/command.c:671-714
+
+## Simplified Source
+
+```c
+static backslashResult
+exec_command_conninfo(PsqlScanState scan_state, bool active_branch)
+{
+    if (active_branch)
+    {
+        char *db = PQdb(pset.db);
+
+        if (db == NULL)
+        {
+            printf(_("You are currently not connected to a database.\n"));
+        }
+        else
+        {
+            char *host = PQhost(pset.db);
+            char *hostaddr = PQhostaddr(pset.db);
+
+            // Display connection information based on connection type
+            if (is_unixsock_path(host))
+            {
+                // Unix socket connection
+                if (hostaddr && *hostaddr)
+                    printf(_("You are connected to database \"%s\" as user \"%s\" on address \"%s\" at port \"%s\".\n"),
+                           db, PQuser(pset.db), hostaddr, PQport(pset.db));
+                else
+                    printf(_("You are connected to database \"%s\" as user \"%s\" via socket in \"%s\" at port \"%s\".\n"),
+                           db, PQuser(pset.db), host, PQport(pset.db));
+            }
+            else
+            {
+                // Network connection
+                if (hostaddr && *hostaddr && strcmp(host, hostaddr) != 0)
+                    printf(_("You are connected to database \"%s\" as user \"%s\" on host \"%s\" (address \"%s\") at port \"%s\".\n"),
+                           db, PQuser(pset.db), host, hostaddr, PQport(pset.db));
+                else
+                    printf(_("You are connected to database \"%s\" as user \"%s\" on host \"%s\" at port \"%s\".\n"),
+                           db, PQuser(pset.db), host, PQport(pset.db));
+            }
+
+            // Display additional security information
+            printSSLInfo();
+            printGSSInfo();
+        }
+    }
+
+    return PSQL_CMD_SKIP_LINE;
+}
+```

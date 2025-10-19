@@ -37,3 +37,22 @@ This function takes no parameters.
 - Part of PostgreSQL's logical replication slot synchronization infrastructure
 - Critical for proper cleanup of synchronization state to prevent deadlocks or incorrect state tracking
 - The function modifies both shared (SlotSyncCtx->syncing) and local (syncing_slots) synchronization flags
+
+## Simplified Source
+
+```c
+/*
+ * Reset syncing flag.
+ */
+static void
+reset_syncing_flag()
+{
+    // Safely reset shared sync flag
+    SpinLockAcquire(&SlotSyncCtx->mutex);
+    SlotSyncCtx->syncing = false;
+    SpinLockRelease(&SlotSyncCtx->mutex);
+
+    // Reset process-local sync flag
+    syncing_slots = false;
+}
+```

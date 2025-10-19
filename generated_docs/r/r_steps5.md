@@ -50,3 +50,30 @@ The function follows the standard snowball stemmer pattern of backward matching 
 - The among_var variable determines which of two possible replacements to apply
 - Part of the sequential stemming process where each step handles specific morphological patterns
 - Bounds checking (z->c > z->lb) prevents buffer underruns during pattern matching
+
+## Simplified Source
+
+```c
+static int r_steps5(struct SN_env * z) {
+    // Phase 1: Find and delete suffix patterns from array a_11
+    z->ket = z->c;
+    if (!(find_among_b(z, a_11, 11))) return 0;
+    z->bra = z->c;
+    slice_del(z);  // Delete matched suffix
+    z->I[0] = 0;   // Reset counter
+
+    // Phase 2: Apply conditional replacement from array a_10
+    z->ket = z->c;
+    z->bra = z->c;
+    int pattern_type = find_among_b(z, a_10, 40);
+    if (!pattern_type) return 0;
+    if (z->c > z->lb) return 0;  // Bounds check
+
+    // Apply appropriate replacement based on pattern type
+    switch (pattern_type) {
+        case 1: slice_from_s(z, 2, s_43); break;  // Replace with s_43
+        case 2: slice_from_s(z, 6, s_44); break;  // Replace with s_44
+    }
+    return 1;  // Success
+}
+```

@@ -34,3 +34,22 @@ This function is essential for operations that need to understand the valid rang
 - Bounds checking ensures that returned values are always within the valid MultiXact ID range
 - The oldest ID represents the boundary below which MultiXact data may be safely truncated
 - The next ID represents the next MultiXact ID that will be assigned to a new MultiXact
+
+## Simplified Source
+
+```c
+void ReadMultiXactIdRange(MultiXactId *oldest, MultiXactId *next)
+{
+    // Acquire shared lock to read MultiXact state consistently
+    LWLockAcquire(MultiXactGenLock, LW_SHARED);
+    *oldest = MultiXactState->oldestMultiXactId;
+    *next = MultiXactState->nextMXact;
+    LWLockRelease(MultiXactGenLock);
+
+    // Ensure returned values are within valid range
+    if (*oldest < FirstMultiXactId)
+        *oldest = FirstMultiXactId;
+    if (*next < FirstMultiXactId)
+        *next = FirstMultiXactId;
+}
+```

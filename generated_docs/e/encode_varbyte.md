@@ -33,3 +33,26 @@ The function processes the value in 7-bit chunks, encoding them from least signi
 - The value is encoded in little-endian fashion (least significant 7-bit chunks first)
 - This variable-length encoding saves space when storing many small integers in posting lists
 - The maximum encoded length for a 64-bit value is 10 bytes (9 bytes with continuation bit + 1 final byte)
+
+## Simplified Source
+
+```c
+static void
+encode_varbyte(uint64 val, unsigned char **ptr)
+{
+    unsigned char *p = *ptr;
+
+    // Encode value in 7-bit chunks with continuation bits
+    while (val > 0x7F) {
+        // Set continuation bit (0x80) and store lower 7 bits
+        *(p++) = 0x80 | (val & 0x7F);
+        val >>= 7;  // Move to next 7-bit chunk
+    }
+
+    // Store final byte without continuation bit
+    *(p++) = (unsigned char) val;
+
+    // Update pointer to next available position
+    *ptr = p;
+}
+```

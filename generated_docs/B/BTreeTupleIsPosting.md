@@ -36,3 +36,19 @@ The function performs two validation checks: first ensuring the tuple has altern
 
 ## Notes and Other Information
 Posting list tuples are a key feature of PostgreSQL's B-tree deduplication optimization, introduced to handle indexes with many duplicate values more efficiently. This function is extensively used throughout B-tree operations to distinguish posting tuples from regular leaf tuples and pivot tuples, as they require different processing logic. The posting list format allows multiple heap TIDs to be stored in a single index tuple, significantly reducing index bloat for non-unique indexes with high cardinality of duplicate values.
+
+## Simplified Source
+
+```c
+static inline bool BTreeTupleIsPosting(IndexTuple itup) {
+    // Check if tuple has alternative TID info (required for posting)
+    if ((itup->t_info & INDEX_ALT_TID_MASK) == 0)
+        return false;
+
+    // Posting tuples have BT_IS_POSTING flag in offset number
+    if ((ItemPointerGetOffsetNumberNoCheck(&itup->t_tid) & BT_IS_POSTING) == 0)
+        return false;
+
+    return true;  // Has alt TID and posting flag = posting tuple
+}
+```

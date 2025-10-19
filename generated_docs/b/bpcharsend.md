@@ -30,3 +30,12 @@ Notably, this function simply delegates to `textsend` since the binary represent
 - The implementation reuses textsend code, demonstrating PostgreSQL's efficient code sharing between related data types
 - Part of the binary I/O protocol infrastructure for the bpchar data type
 - The binary format for bpchar is identical to text, reflecting their similar underlying storage
+
+## Simplified Source
+
+```c
+Datum bpcharsend(PG_FUNCTION_ARGS) {
+    // Delegate to textsend since bpchar and text have identical binary format
+    return textsend(fcinfo);
+}
+```

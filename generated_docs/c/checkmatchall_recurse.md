@@ -51,3 +51,87 @@ The function marks states as "busy" during traversal to detect cycles and preven
 - Critical for enabling regex engine optimizations when patterns only test string length
 - Handles the complex case where infinite path lengths must be represented within finite data structures
 - Memory allocated for haspath arrays is managed by the calling checkmatchall function
+
+## Simplified Source
+
+```c
+static bool
+checkmatchall_recurse(struct nfa *nfa, struct state *s, bool **haspaths)
+{
+    bool result = false;
+    bool foundloop = false;
+    bool *haspath;
+    struct arc *a;
+
+    // Prevent stack overflow and check for cancellation
+    if (STACK_TOO_DEEP(nfa->v->re))
+        return false;
+    INTERRUPT(nfa->v->re);
+
+    // Allocate path length array for this state
+    haspath = (bool *) MALLOC((DUPINF + 2) * sizeof(bool));
+    if (haspath == NULL)
+        return false;
+    memset(haspath, 0, (DUPINF + 2) * sizeof(bool));
+
+    // Mark state as being visited (cycle detection)
+    s->tmp = s;
+
+    // Examine all outgoing RAINBOW arcs
+    for (a = s->outs; a != NULL; a = a->outchain) {
+        if (a->co != RAINBOW)
+            continue;  // ignore pseudocolor arcs
+
+        if (a->to == nfa->post) {
+            // Found path to end state
+            result = true;
+            haspath[0] = true;
+        } else if (a->to == s) {
+            // Self-loop - handle after main loop
+            foundloop = true;
+        } else if (a->to->tmp != NULL) {
+            // Multi-state cycle detected - fail
+            result = false;
+            break;
+        } else {
+            // Recurse on unvisited states
+            if (haspaths[a->to->no] == NULL) {
+                result = checkmatchall_recurse(nfa, a->to, haspaths);
+                if (!result)
+                    break;
+            } else {
+                result = true;
+            }
+
+            // Merge path lengths from target state
+            bool *nexthaspath = haspaths[a->to->no];
+            if (nexthaspath[DUPINF] != nexthaspath[DUPINF + 1]) {
+                result = false;  // Cannot represent path lengths
+                break;
+            }
+
+            // Add 1 to all path lengths from target
+            for (int i = 0; i < DUPINF; i++)
+                haspath[i + 1] |= nexthaspath[i];
+            haspath[DUPINF + 1] |= nexthaspath[DUPINF + 1];
+        }
+    }
+
+    // Handle self-loops: make all longer paths possible
+    if (result && foundloop) {
+        int i;
+        for (i = 0; i <= DUPINF; i++) {
+            if (haspath[i])
+                break;
+        }
+        for (i++; i <= DUPINF + 1; i++)
+            haspath[i] = true;
+    }
+
+    // Store result and clean up
+    haspaths[s->no] = haspath;
+    s->tmp = NULL;
+
+    return result;
+}
+```

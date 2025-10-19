@@ -39,3 +39,24 @@ For non-NULL items with distance-based ordering, the function allocates addition
 - Distance array is only populated if the item is non-NULL and there are ORDER BY clauses
 - Part of the memory management infrastructure for SP-GiST KNN search operations
 - The returned item must eventually be freed using spgFreeSearchItem to prevent memory leaks
+
+## Simplified Source
+
+```c
+static SpGistSearchItem *spgAllocSearchItem(SpGistScanOpaque so, bool isnull, double *distances) {
+    // Calculate size: allocate distance array only for non-NULL items
+    int numDistances = isnull ? 0 : so->numberOfNonNullOrderBys;
+    SpGistSearchItem *item = palloc(SizeOfSpGistSearchItem(numDistances));
+
+    // Set NULL flag
+    item->isNull = isnull;
+
+    // Copy distances if this is a non-NULL item with ORDER BY clauses
+    if (!isnull && so->numberOfNonNullOrderBys > 0) {
+        memcpy(item->distances, distances,
+               sizeof(item->distances[0]) * so->numberOfNonNullOrderBys);
+    }
+
+    return item;
+}
+```

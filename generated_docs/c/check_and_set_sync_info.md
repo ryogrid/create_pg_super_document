@@ -48,3 +48,44 @@ The function prevents race conditions between multiple sync attempts and ensures
 - Raises specific PostgreSQL error codes for different failure scenarios
 - Essential component of the slot synchronization coordination mechanism
 - Must be called before beginning any slot synchronization operations
+
+## Simplified Source
+
+```c
+/*
+ * Emit an error if a promotion or a concurrent sync call is in progress.
+ * Otherwise, advertise that a sync is in progress.
+ */
+static void
+check_and_set_sync_info(pid_t worker_pid)
+{
+    SpinLockAcquire(&SlotSyncCtx->mutex);
+
+    // Check if promotion is stopping slot sync
+    if (SlotSyncCtx->stopSignaled)
+    {
+        SpinLockRelease(&SlotSyncCtx->mutex);
+        ereport(ERROR,
+                errcode(ERRCODE_OBJECT_NOT_IN_PREREQUISITE_STATE),
+                errmsg("cannot synchronize replication slots when standby promotion is ongoing"));
+    }
+
+    // Check if another sync is already running
+    if (SlotSyncCtx->syncing)
+    {
+        SpinLockRelease(&SlotSyncCtx->mutex);
+        ereport(ERROR,
+                errcode(ERRCODE_OBJECT_NOT_IN_PREREQUISITE_STATE),
+                errmsg("cannot synchronize replication slots concurrently"));
+    }
+
+    // Set sync in progress and record worker PID
+    SlotSyncCtx->syncing = true;
+    SlotSyncCtx->pid = worker_pid;
+
+    SpinLockRelease(&SlotSyncCtx->mutex);
+
+    // Set module-level flag
+    syncing_slots = true;
+}
+```

@@ -36,3 +36,39 @@ The  function converts a closed PATH geometric type to a POLYGON type. It valida
 - The function preserves the exact coordinates of all points from the source path
 - A bounding box is automatically computed for the resulting polygon to optimize geometric operations
 - Located in src/backend/utils/adt/geo_ops.c:4452-4493
+
+## Simplified Source
+
+```c
+Datum
+path_poly(PG_FUNCTION_ARGS)
+{
+    PATH *path = PG_GETARG_PATH_P(0);
+    POLYGON *poly;
+    int size, i;
+
+    // Validate that path is closed (required for polygon conversion)
+    if (!path->closed)
+        ereport(ERROR, (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                errmsg("open path cannot be converted to polygon")));
+
+    // Allocate memory for polygon structure with all points
+    size = offsetof(POLYGON, p) + sizeof(poly->p[0]) * path->npts;
+    poly = (POLYGON *) palloc(size);
+
+    // Set polygon properties
+    SET_VARSIZE(poly, size);
+    poly->npts = path->npts;
+
+    // Copy all points from path to polygon
+    for (i = 0; i < path->npts; i++) {
+        poly->p[i].x = path->p[i].x;
+        poly->p[i].y = path->p[i].y;
+    }
+
+    // Calculate and set bounding box for polygon
+    make_bound_box(poly);
+
+    PG_RETURN_POLYGON_P(poly);
+}
+```

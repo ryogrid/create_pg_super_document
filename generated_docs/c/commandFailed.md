@@ -43,3 +43,17 @@ The function formats and logs a standardized error message that includes:
 - The error message format is standardized to facilitate log parsing and analysis
 - Called from both SQL command execution paths and meta-command processing
 - Essential for troubleshooting benchmark failures in production environments
+
+## Simplified Source
+
+```c
+static void commandFailed(CState *st, const char *cmd, const char *message) {
+    // Log detailed error information for client failure
+    pg_log_error("client %d aborted in command %d (%s) of script %d; %s",
+                 st->id,       // Client identifier
+                 st->command,  // Command sequence number
+                 cmd,          // Command description
+                 st->use_file, // Script file identifier
+                 message);     // Error details
+}
+```

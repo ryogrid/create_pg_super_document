@@ -34,3 +34,30 @@ The function uses a simple switch statement to map each file action constant to 
 - Returns "unknown" for any file action values not explicitly handled in the switch statement
 - Used primarily for debugging and user-friendly output when showing the file operations that pg_rewind will perform
 - Part of the pg_rewind utility which helps recover from failover by rewinding a PostgreSQL server to an earlier state
+
+## Simplified Source
+
+```c
+static const char *
+action_to_str(file_action_t action)
+{
+    // Convert file action enum to string representation
+    switch (action)
+    {
+        case FILE_ACTION_NONE:
+            return "NONE";
+        case FILE_ACTION_COPY:
+            return "COPY";
+        case FILE_ACTION_TRUNCATE:
+            return "TRUNCATE";
+        case FILE_ACTION_COPY_TAIL:
+            return "COPY_TAIL";
+        case FILE_ACTION_CREATE:
+            return "CREATE";
+        case FILE_ACTION_REMOVE:
+            return "REMOVE";
+        default:
+            return "unknown";
+    }
+}
+```

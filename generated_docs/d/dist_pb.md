@@ -34,3 +34,16 @@ The `dist_pb` function is a PostgreSQL built-in function that computes the minim
 - Returns the actual distance value, not the squared distance
 - Part of PostgreSQL's geometric operator family for spatial indexing and queries
 - Complementary to `dist_bp` which calculates distance from box to point (same result due to symmetry)
+
+## Simplified Source
+
+```c
+Datum dist_pb(PG_FUNCTION_ARGS) {
+    // Get point and box arguments
+    Point *pt = PG_GETARG_POINT_P(0);
+    BOX *box = PG_GETARG_BOX_P(1);
+
+    // Calculate and return minimum distance from point to box
+    PG_RETURN_FLOAT8(box_closept_point(NULL, box, pt));
+}
+```

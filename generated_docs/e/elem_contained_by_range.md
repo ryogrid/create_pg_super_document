@@ -36,3 +36,19 @@ The  function is a PostgreSQL built-in function that checks if a given element v
 - The actual containment logic is implemented in , making this function primarily a PostgreSQL function interface wrapper
 - The function uses PostgreSQL's type cache system to handle different range element types efficiently
 - Located in src/backend/utils/adt/rangetypes.c:557-572
+
+## Simplified Source
+
+```c
+Datum elem_contained_by_range(PG_FUNCTION_ARGS) {
+    // Extract element value and range from function arguments
+    Datum element_val = PG_GETARG_DATUM(0);
+    RangeType *range = PG_GETARG_RANGE_P(1);
+
+    // Get type cache for this range's element type
+    TypeCacheEntry *typcache = range_get_typcache(fcinfo, RangeTypeGetOid(range));
+
+    // Check if element is contained in range and return result
+    return PG_RETURN_BOOL(range_contains_elem_internal(typcache, range, element_val));
+}
+```

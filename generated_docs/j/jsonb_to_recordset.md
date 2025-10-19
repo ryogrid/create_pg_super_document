@@ -28,3 +28,15 @@ The `jsonb_to_recordset` function is a wrapper that provides the SQL interface f
 - This is a thin wrapper that calls populate_recordset_worker with parameters (fcinfo, "jsonb_to_recordset", false, false)
 - The `false, false` parameters indicate: not JSON (is JSONB), and no record argument provided
 - Part of PostgreSQL`s extensive JSON/JSONB support for treating JSON data relationally
+
+## Simplified Source
+
+```c
+Datum jsonb_to_recordset(PG_FUNCTION_ARGS) {
+    // Convert JSONB array to recordset using worker function
+    // Parameters: validate_json=false (JSONB pre-validated),
+    //           from_json=false (no record template argument)
+    return populate_recordset_worker(fcinfo, "jsonb_to_recordset",
+                                     false, false);
+}
+```

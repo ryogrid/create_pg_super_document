@@ -46,3 +46,42 @@ The function includes paranoid checks to avoid zero-length chunks, which would b
 - Performs error checking on deflate operations and uses pg_fatal for stream errors
 - Writes compressed data through the CompressorState's writeF callback function
 - The function is static and located in src/bin/pg_dump/compress_gzip.c:102-143
+
+## Simplified Source
+
+```c
+static void DeflateCompressorCommon(ArchiveHandle *AH, CompressorState *cs, bool flush)
+{
+    GzipCompressorState *gzipcs = (GzipCompressorState *) cs->private_data;
+    z_streamp zp = gzipcs->zp;
+    void *out = gzipcs->outbuf;
+    int res = Z_OK;
+
+    // Process data while input available or flushing
+    while (zp->avail_in != 0 || flush) {
+        // Compress data - use Z_FINISH when flushing, Z_NO_FLUSH otherwise
+        res = deflate(zp, flush ? Z_FINISH : Z_NO_FLUSH);
+        if (res == Z_STREAM_ERROR)
+            pg_fatal("could not compress data: %s", zp->msg);
+
+        // Write output when buffer fills or conditions met
+        if ((flush && (zp->avail_out < gzipcs->outsize)) ||
+            (zp->avail_out == 0) ||
+            (zp->avail_in != 0)) {
+
+            // Avoid zero-length chunks (EOF markers in custom format)
+            if (zp->avail_out < gzipcs->outsize) {
+                size_t len = gzipcs->outsize - zp->avail_out;
+                cs->writeF(AH, (char *) out, len);
+            }
+
+            // Reset output buffer for next iteration
+            zp->next_out = out;
+            zp->avail_out = gzipcs->outsize;
+        }
+
+        if (res == Z_STREAM_END)
+            break;
+    }
+}
+```

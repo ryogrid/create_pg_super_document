@@ -29,3 +29,19 @@ None - this function takes no parameters.
 - The function is simple and self-contained, using only the standard puts() function for output
 - Located at src/bin/psql/help.c:736-756
 - No return value - purely for display purposes
+
+## Simplified Source
+
+```c
+void print_copyright(void) {
+    // Print PostgreSQL copyright notice and BSD-style license
+    puts("PostgreSQL Database Management System\n"
+         "(also known as Postgres, formerly known as Postgres95)\n\n"
+         "Portions Copyright (c) 1996-2024, PostgreSQL Global Development Group\n\n"
+         "Portions Copyright (c) 1994, The Regents of the University of California\n\n"
+         // License terms...
+         "Permission to use, copy, modify, and distribute this software...\n"
+         // Full warranty disclaimers and liability limitations follow
+         );
+}
+```

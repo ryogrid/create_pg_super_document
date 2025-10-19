@@ -46,3 +46,28 @@ This function updates the union keys for both sides of a GiST index page split a
 - Union keys are always recomputed for all index columns to ensure accuracy despite potentially duplicated work
 - Part of the GiST index splitting process that finalizes the representative keys for the new child nodes
 - The dontcare mechanism allows certain tuples to be excluded from union computation without affecting the split decision
+
+## Simplified Source
+
+```c
+static void
+gistunionsubkey(GISTSTATE *giststate, IndexTuple *itvec, GistSplitVector *spl)
+{
+    GistSplitUnion gsvp;
+    gsvp.dontcare = spl->spl_dontcare;
+
+    // Process left side
+    gsvp.entries = spl->splitVector.spl_left;
+    gsvp.len = spl->splitVector.spl_nleft;
+    gsvp.attr = spl->spl_lattr;
+    gsvp.isnull = spl->spl_lisnull;
+    gistunionsubkeyvec(giststate, itvec, &gsvp);
+
+    // Process right side
+    gsvp.entries = spl->splitVector.spl_right;
+    gsvp.len = spl->splitVector.spl_nright;
+    gsvp.attr = spl->spl_rattr;
+    gsvp.isnull = spl->spl_risnull;
+    gistunionsubkeyvec(giststate, itvec, &gsvp);
+}
+```

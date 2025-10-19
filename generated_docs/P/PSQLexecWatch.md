@@ -48,3 +48,32 @@ The function is optimized for repeated execution scenarios and provides detailed
 - Designed specifically for the \watch command's repeated execution model
 - Supports output redirection separate from standard query execution
 - Integrates cancellation handling to allow graceful interruption during watch operations
+
+## Simplified Source
+
+```c
+int PSQLexecWatch(const char *query, const printQueryOpt *opt, FILE *printQueryFout, int min_rows) {
+    bool timing = pset.timing;
+    double elapsed_msec = 0;
+    int res;
+
+    // Check database connection
+    if (!pset.db) {
+        pg_log_error("You are currently not connected to a database.");
+        return 0;
+    }
+
+    // Set up cancellation and execute query with full result processing
+    SetCancelConn(pset.db);
+    res = ExecQueryAndProcessResults(query, &elapsed_msec, NULL, true, min_rows, opt, printQueryFout);
+    ResetCancelConn();
+
+    // Display timing information if enabled
+    if (timing)
+        PrintTiming(elapsed_msec);
+
+    return res;
+}
+```
+
+This simplified version preserves the essential functionality: connection validation, query execution with timing measurement, cancellation handling, and conditional timing display for the \watch command.

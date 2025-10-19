@@ -46,3 +46,50 @@ The function builds the potential loop path in the workspace array as it recurse
 - Can find any arbitrary cycle if the starting object participates in multiple cycles
 - Critical component of pg_dump's dependency loop detection and resolution system
 - Guarantees workspace array won't overflow due to cycle detection in current path
+
+## Simplified Source
+
+```c
+static int findLoop(DumpableObject *obj, DumpId startPoint,
+                   bool *processed, DumpId *searchFailed,
+                   DumpableObject **workspace, int depth) {
+    // Skip already-processed objects to avoid overlapping loops
+    if (processed[obj->dumpId])
+        return 0;
+
+    // Skip if we've already proven no path from here to startPoint
+    if (searchFailed[obj->dumpId] == startPoint)
+        return 0;
+
+    // Check if object is already in current search path (prevents infinite recursion)
+    for (int i = 0; i < depth; i++) {
+        if (workspace[i] == obj)
+            return 0;
+    }
+
+    // Add current object to the workspace path
+    workspace[depth++] = obj;
+
+    // Check if any direct dependency leads back to startPoint
+    for (int i = 0; i < obj->nDeps; i++) {
+        if (obj->dependencies[i] == startPoint)
+            return depth;  // Found loop!
+    }
+
+    // Recursively search through all dependencies
+    for (int i = 0; i < obj->nDeps; i++) {
+        DumpableObject *nextobj = findObjectByDumpId(obj->dependencies[i]);
+        if (!nextobj)
+            continue;  // Skip undumped objects
+
+        int newDepth = findLoop(nextobj, startPoint, processed,
+                               searchFailed, workspace, depth);
+        if (newDepth > 0)
+            return newDepth;  // Found loop in recursive call
+    }
+
+    // No loop found - memoize this negative result
+    searchFailed[obj->dumpId] = startPoint;
+    return 0;
+}
+```

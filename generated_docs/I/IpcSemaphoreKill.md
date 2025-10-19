@@ -37,3 +37,19 @@ The function includes a union semun parameter that is unused for the IPC_RMID op
 - Once a semaphore set is removed with this function, the semId becomes invalid and should not be used again
 - This function is typically called during PostgreSQL shutdown or cleanup operations to prevent semaphore resource leaks
 - Semaphore removal is a system-wide operation that affects all processes that might be using the semaphore set
+
+## Simplified Source
+
+```c
+static void IpcSemaphoreKill(IpcSemaphoreId semId) {
+    union semun semun;
+
+    // Initialize unused parameter to keep compiler quiet
+    semun.val = 0;
+
+    // Remove the semaphore set from the system
+    if (semctl(semId, 0, IPC_RMID, semun) < 0) {
+        elog(LOG, "semctl(%d, 0, IPC_RMID, ...) failed: %m", semId);
+    }
+}
+```

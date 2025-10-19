@@ -53,3 +53,75 @@ The function always sets the recheck flag to true because the GIN index alone ca
 - For existence queries (?, ?|, ?&), the function handles different logical combinations of key presence
 - JSONPath queries use special execution logic via execute_jsp_gin_node function
 - The function is located in src/backend/utils/adt/jsonb_gin.c:929-1012
+
+## Simplified Source
+
+```c
+Datum
+gin_consistent_jsonb(PG_FUNCTION_ARGS)
+{
+    bool *check = (bool *) PG_GETARG_POINTER(0);
+    StrategyNumber strategy = PG_GETARG_UINT16(1);
+    int32 nkeys = PG_GETARG_INT32(3);
+    Pointer *extra_data = (Pointer *) PG_GETARG_POINTER(4);
+    bool *recheck = (bool *) PG_GETARG_POINTER(5);
+    bool res = true;
+    int32 i;
+
+    // Handle different JSONB query strategies
+    if (strategy == JsonbContainsStrategyNumber)
+    {
+        // For @> operator: all query keys must be present
+        *recheck = true;  // Always recheck due to structural requirements
+        for (i = 0; i < nkeys; i++)
+        {
+            if (!check[i])
+            {
+                res = false;  // Missing key means no match
+                break;
+            }
+        }
+    }
+    else if (strategy == JsonbExistsStrategyNumber)
+    {
+        // For ? operator: key exists (but always recheck for context)
+        *recheck = true;
+        res = true;  // If we got here, at least one key exists
+    }
+    else if (strategy == JsonbExistsAnyStrategyNumber)
+    {
+        // For ?| operator: any key exists
+        *recheck = true;
+        res = true;  // If we got here, at least one key exists
+    }
+    else if (strategy == JsonbExistsAllStrategyNumber)
+    {
+        // For ?& operator: all keys must exist
+        *recheck = true;
+        for (i = 0; i < nkeys; i++)
+        {
+            if (!check[i])
+            {
+                res = false;  // Missing key means no match
+                break;
+            }
+        }
+    }
+    else if (strategy == JsonbJsonpathPredicateStrategyNumber ||
+             strategy == JsonbJsonpathExistsStrategyNumber)
+    {
+        // For JSONPath queries: evaluate expression tree
+        *recheck = true;
+        if (nkeys > 0)
+        {
+            Assert(extra_data && extra_data[0]);
+            res = execute_jsp_gin_node((JsonPathGinNode *) extra_data[0],
+                                      check, false) != GIN_FALSE;
+        }
+    }
+    else
+        elog(ERROR, "unrecognized strategy number: %d", strategy);
+
+    PG_RETURN_BOOL(res);
+}
+```

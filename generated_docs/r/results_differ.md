@@ -40,3 +40,104 @@ This function is the core comparison engine for PostgreSQL's regression testing 
 - Appends formatted diffs to the global difffilename for failed tests
 - Uses both basic_diff_opts for comparison and pretty_diff_opts for final output
 - Critical component of PostgreSQL's regression testing infrastructure that enables cross-platform testing with multiple valid expected outputs
+
+## Simplified Source
+
+```c
+static bool results_differ(const char *testname, const char *resultsfile, const char *default_expectfile) {
+    char expectfile[MAXPGPATH];
+    char diff[MAXPGPATH];
+    char cmd[MAXPGPATH * 3];
+    char best_expect_file[MAXPGPATH];
+    int best_line_count;
+    const char *platform_expectfile;
+
+    // Get platform-specific expected file if available
+    platform_expectfile = get_expectfile(testname, resultsfile);
+
+    // Set up the primary expected file to use
+    strlcpy(expectfile, default_expectfile, sizeof(expectfile));
+    if (platform_expectfile) {
+        char *p = strrchr(expectfile, '/');
+        if (p)
+            strcpy(++p, platform_expectfile);
+    }
+
+    // Create temporary diff file
+    snprintf(diff, sizeof(diff), "%s.diff", resultsfile);
+
+    // Compare with primary expected file
+    snprintf(cmd, sizeof(cmd), "diff %s \"%s\" \"%s\" > \"%s\"",
+             basic_diff_opts, expectfile, resultsfile, diff);
+
+    if (run_diff(cmd, diff) == 0) {
+        unlink(diff);
+        return false;  // Files match - test passed
+    }
+
+    // Track the best match (smallest diff)
+    best_line_count = file_line_count(diff);
+    strcpy(best_expect_file, expectfile);
+
+    // Try alternative expected files (0-9)
+    for (int i = 0; i <= 9; i++) {
+        char *alt_expectfile = get_alternative_expectfile(expectfile, i);
+        if (!alt_expectfile)
+            bail("Unable to check secondary comparison files: %m");
+
+        if (!file_exists(alt_expectfile)) {
+            free(alt_expectfile);
+            continue;
+        }
+
+        // Test against this alternative
+        snprintf(cmd, sizeof(cmd), "diff %s \"%s\" \"%s\" > \"%s\"",
+                 basic_diff_opts, alt_expectfile, resultsfile, diff);
+
+        if (run_diff(cmd, diff) == 0) {
+            unlink(diff);
+            free(alt_expectfile);
+            return false;  // Perfect match found
+        }
+
+        // Check if this is a better match
+        int line_count = file_line_count(diff);
+        if (line_count < best_line_count) {
+            best_line_count = line_count;
+            strlcpy(best_expect_file, alt_expectfile, sizeof(best_expect_file));
+        }
+        free(alt_expectfile);
+    }
+
+    // If using platform file, also try default as fallback
+    if (platform_expectfile) {
+        snprintf(cmd, sizeof(cmd), "diff %s \"%s\" \"%s\" > \"%s\"",
+                 basic_diff_opts, default_expectfile, resultsfile, diff);
+
+        if (run_diff(cmd, diff) == 0) {
+            unlink(diff);
+            return false;
+        }
+
+        int line_count = file_line_count(diff);
+        if (line_count < best_line_count) {
+            strlcpy(best_expect_file, default_expectfile, sizeof(best_expect_file));
+        }
+    }
+
+    // Generate formatted diff output using best match
+    FILE *difffile = fopen(difffilename, "a");
+    if (difffile) {
+        fprintf(difffile, "diff %s %s %s\n",
+                pretty_diff_opts, best_expect_file, resultsfile);
+        fclose(difffile);
+    }
+
+    snprintf(cmd, sizeof(cmd), "diff %s \"%s\" \"%s\" >> \"%s\"",
+             pretty_diff_opts, best_expect_file, resultsfile, difffilename);
+    run_diff(cmd, difffilename);
+
+    unlink(diff);
+    return true;  // Differences found - test failed
+}
+```

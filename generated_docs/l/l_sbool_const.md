@@ -29,5 +29,18 @@ This utility function creates LLVM constant boolean values specifically designed
 - Specifically designed for storage contexts, distinguishing it from boolean values used in conditional logic
 - The function casts the boolean to int before passing to LLVMConstInt
 - Uses TypeStorageBool which must match PostgreSQL's internal boolean storage representation
-- The third parameter  in LLVMConstInt indicates the value is not sign-extended
+- The third parameter in LLVMConstInt indicates the value is not sign-extended
 - Critical for ensuring proper boolean handling in data structures and storage operations within JIT-compiled code
+
+## Simplified Source
+
+```c
+static inline LLVMValueRef
+l_sbool_const(bool i)
+{
+    // Create LLVM constant for storage boolean (global vars, structs)
+    return LLVMConstInt(TypeStorageBool, (int) i, false);
+}
+```
+
+This helper creates LLVM constants for boolean values in storage contexts. It converts C bool to int and uses TypeStorageBool to match PostgreSQL's internal boolean storage representation in data structures.

@@ -41,3 +41,26 @@ The function returns NULL for empty input sets (N == 0) since population varianc
 - Part of PostgreSQL's statistical aggregate infrastructure
 - Located in src/backend/utils/adt/float.c:3138-3159
 - Relies on numerically stable Sxx values computed by accumulator functions
+
+## Simplified Source
+
+```c
+Datum
+float8_var_pop(PG_FUNCTION_ARGS)
+{
+    ArrayType *transarray = PG_GETARG_ARRAYTYPE_P(0);
+
+    // Extract N (count) and Sxx (sum of squared deviations) from transition state
+    float8 *transvalues = check_float8_array(transarray, "float8_var_pop", 3);
+    float8 N = transvalues[0];    // Count of values
+    // transvalues[1] (Sx) ignored for variance calculation
+    float8 Sxx = transvalues[2];  // Sum of squared deviations
+
+    // Population variance undefined for empty set
+    if (N == 0.0)
+        PG_RETURN_NULL();
+
+    // Return population variance: Sxx / N (guaranteed non-negative)
+    PG_RETURN_FLOAT8(Sxx / N);
+}
+```

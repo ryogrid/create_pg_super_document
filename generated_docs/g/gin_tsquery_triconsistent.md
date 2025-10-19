@@ -37,3 +37,32 @@ The function evaluates a TSQuery against the available index information using t
 - Part of PostgreSQL's optimized GIN index support for full-text search
 - The extra_data[0] contains the mapping from query items to operands
 - Located in src/backend/utils/adt/tsginidx.c:263-303
+
+## Simplified Source
+
+```c
+Datum
+gin_tsquery_triconsistent(PG_FUNCTION_ARGS)
+{
+    GinTernaryValue *check = (GinTernaryValue *) PG_GETARG_POINTER(0);
+    TSQuery query = PG_GETARG_TSQUERY(2);
+    Pointer *extra_data = (Pointer *) PG_GETARG_POINTER(4);
+    GinTernaryValue res = GIN_FALSE;
+
+    if (query->size > 0) {
+        GinChkVal gcv;
+
+        // Set up context for ternary execution
+        gcv.first_item = GETQUERY(query);
+        gcv.check = check;
+        gcv.map_item_operand = (int *) (extra_data[0]);
+
+        // Execute query with ternary logic, get direct ternary result
+        res = TS_execute_ternary(GETQUERY(query), &gcv,
+                                 TS_EXEC_PHRASE_NO_POS,
+                                 checkcondition_gin);
+    }
+
+    PG_RETURN_GIN_TERNARY_VALUE(res);
+}
+```

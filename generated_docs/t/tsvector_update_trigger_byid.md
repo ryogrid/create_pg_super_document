@@ -37,3 +37,15 @@ This trigger function is typically used in scenarios where the text search confi
 - [Trigger](../T/Trigger.md) arguments follow a specific pattern: tsvector_column, regconfig_column, text_column1, [text_column2, ...]
 - The regconfig column should contain valid text search configuration OIDs
 - Automatically called when INSERT or UPDATE operations occur on the table where this trigger is installed
+
+## Simplified Source
+
+```c
+Datum
+tsvector_update_trigger_byid(PG_FUNCTION_ARGS)
+{
+    // Delegate to main trigger function with byid=false parameter
+    // This indicates configuration should be looked up by regconfig column ID
+    return tsvector_update_trigger(fcinfo, false);
+}
+```

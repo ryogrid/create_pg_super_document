@@ -29,3 +29,15 @@ This function is part of the MemoryContext interface but is intentionally unimpl
 - The function returns 0 to keep the compiler quiet, but this line is never reached due to the ERROR
 - Part of the standard MemoryContext interface but not meaningful for bump allocation strategy
 - Located in src/backend/utils/mmgr/bump.c:649-659
+
+## Simplified Source
+
+```c
+Size
+BumpGetChunkSpace(void *pointer)
+{
+    // Bump allocator doesn't track individual chunk sizes
+    elog(ERROR, "GetMemoryChunkSpace is not supported by the bump memory allocator");
+    return 0; // Keep compiler quiet
+}
+```

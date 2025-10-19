@@ -42,9 +42,31 @@ The character check (bytes 212/0xD4 and 216/0xD8) corresponds to the final chara
 ## Notes and Other Information
 - This function handles a critical step in Russian morphological analysis by removing common abstract noun suffixes
 - The R2 constraint (via r_R2 function call) ensures morphologically sound stemming by preventing removal from word roots
-- Processes only 2 specific patterns but these are very common in Russian derivational morphology  
+- Processes only 2 specific patterns but these are very common in Russian derivational morphology
 - Character codes 212 (0xD4) and 216 (0xD8) correspond to 'т' and 'и' in KOI8-R encoding
 - Returns 1 on successful suffix removal, 0 if no pattern matched or R2 constraint failed
 - Part of the automatically generated Snowball stemmer code
 - This step typically occurs later in the stemming pipeline after inflectional suffixes have been processed
 - The derivational suffixes "ость"/"ости" are highly productive in Russian for creating abstract nouns from adjectives
+
+## Simplified Source
+
+```c
+static int r_derivational(struct SN_env * z) {
+    // Set end boundary and check for derivational ending characters (т, и)
+    z->ket = z->c;
+    if (z->c - 2 <= z->lb || !is_derivational_ending_char(z->p[z->c - 1])) return 0;
+
+    // Match against derivational patterns in a_6 array (ость, ости)
+    if (!find_among_b(z, a_6, 2)) return 0;
+
+    z->bra = z->c;
+
+    // Only remove if within R2 region (prevents over-stemming)
+    if (r_R2(z) <= 0) return 0;
+
+    // Remove the derivational suffix
+    slice_del(z);
+    return 1;
+}
+```

@@ -42,3 +42,26 @@ The function first compares the high-order 24 bits (octets a, b, c), and only if
 - This function is the foundation for all MAC address comparison operations in PostgreSQL
 - Static function, only accessible within the mac.c compilation unit
 - Optimized for performance in sorting and indexing operations
+
+## Simplified Source
+
+```c
+// Simplified version of macaddr_cmp_internal
+static int macaddr_cmp_internal(macaddr *a1, macaddr *a2) {
+    // Compare high-order 24 bits first (octets a, b, c)
+    if (hibits(a1) < hibits(a2))
+        return -1;
+    else if (hibits(a1) > hibits(a2))
+        return 1;
+
+    // High bits equal, compare low-order 24 bits (octets d, e, f)
+    else if (lobits(a1) < lobits(a2))
+        return -1;
+    else if (lobits(a1) > lobits(a2))
+        return 1;
+
+    // All bits equal
+    else
+        return 0;
+}
+```

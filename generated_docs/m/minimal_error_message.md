@@ -42,3 +42,37 @@ The function is designed to provide user-friendly error reporting by filtering o
 - Memory management is handled properly with createPQExpBuffer/destroyPQExpBuffer pairing
 - Specifically designed to reduce noise in error reporting by excluding secondary diagnostic information
 - Commonly used in psql command implementations where detailed error context is not needed
+
+## Simplified Source
+
+```c
+static void
+minimal_error_message(PGresult *res)
+{
+    PQExpBuffer msg;
+    const char *severity;
+    const char *primary_msg;
+
+    msg = createPQExpBuffer();
+
+    // Get error severity, default to "ERROR:" if not available
+    severity = PQresultErrorField(res, PG_DIAG_SEVERITY);
+    if (severity)
+        printfPQExpBuffer(msg, "%s:  ", severity);
+    else
+        printfPQExpBuffer(msg, "ERROR:  ");
+
+    // Get primary error message, default to "(not available)" if missing
+    primary_msg = PQresultErrorField(res, PG_DIAG_MESSAGE_PRIMARY);
+    if (primary_msg)
+        appendPQExpBufferStr(msg, primary_msg);
+    else
+        appendPQExpBufferStr(msg, "(not available)");
+
+    // Add newline and output the message
+    appendPQExpBufferChar(msg, '\n');
+    pg_log_error("%s", msg->data);
+
+    destroyPQExpBuffer(msg);
+}
+```

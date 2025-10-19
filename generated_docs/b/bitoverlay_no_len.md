@@ -38,3 +38,20 @@ This function serves as a convenience wrapper around the internal `bit_overlay` 
 - Provides a more convenient interface than the full 4-parameter overlay function
 - The replacement length is automatically determined from the replacement string
 - Error handling and bounds checking are performed in the internal bit_overlay function
+
+## Simplified Source
+
+```c
+Datum bitoverlay_no_len(PG_FUNCTION_ARGS) {
+    // Extract arguments: target string, replacement string, start position
+    VarBit *target = PG_GETARG_VARBIT_P(0);
+    VarBit *replacement = PG_GETARG_VARBIT_P(1);
+    int start_pos = PG_GETARG_INT32(2);
+
+    // Use replacement string length as default length
+    int length = VARBITLEN(replacement);
+
+    // Delegate to internal overlay function
+    PG_RETURN_VARBIT_P(bit_overlay(target, replacement, start_pos, length));
+}
+```

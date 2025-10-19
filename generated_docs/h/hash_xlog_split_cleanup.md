@@ -40,3 +40,30 @@ During replay, the function reads the buffer specified in the WAL record, checks
 - The function follows the standard pattern for WAL replay handlers: read buffer, check if redo needed, apply changes, update LSN, mark dirty
 - The LH_BUCKET_NEEDS_SPLIT_CLEANUP flag is part of the hash index split mechanism to track which buckets need post-split cleanup
 - Buffer management (lock/unlock) is handled properly to avoid resource leaks during recovery
+
+## Simplified Source
+
+```c
+static void
+hash_xlog_split_cleanup(XLogReaderState *record)
+{
+    XLogRecPtr lsn = record->EndRecPtr;
+    Buffer buffer;
+
+    // Read buffer and check if redo is needed
+    if (XLogReadBufferForRedo(record, 0, &buffer) == BLK_NEEDS_REDO) {
+        Page page = (Page) BufferGetPage(buffer);
+        HashPageOpaque bucket_opaque = HashPageGetOpaque(page);
+
+        // Clear the split cleanup flag
+        bucket_opaque->hasho_flag &= ~LH_BUCKET_NEEDS_SPLIT_CLEANUP;
+
+        PageSetLSN(page, lsn);
+        MarkBufferDirty(buffer);
+    }
+
+    // Release buffer
+    if (BufferIsValid(buffer))
+        UnlockReleaseBuffer(buffer);
+}
+```

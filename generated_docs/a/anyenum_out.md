@@ -29,3 +29,12 @@ The anyenum_out function serves as a text output function for the anyenum pseudo
 - Works in conjunction with enum_out which converts internal enum OID values to their string representations
 - Text output functions are essential for displaying enum values in query results and client applications
 - This pseudotype enables writing generic functions that can work with different enum types without knowing their specific structure at compile time
+
+## Simplified Source
+
+```c
+Datum anyenum_out(PG_FUNCTION_ARGS) {
+    // Simple wrapper that delegates to enum_out for text output
+    return enum_out(fcinfo);
+}
+```

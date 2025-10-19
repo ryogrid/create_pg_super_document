@@ -52,3 +52,18 @@ The function follows the GUC check_hook interface:
 - This validation occurs at configuration time, preventing runtime errors that would occur if invalid buffer counts were used
 - Different SLRU subsystems (CLOG, SUBTRANS, MultiXact, etc.) all use this same validation function through their specific check_hook implementations
 - The validation helps maintain the performance benefits of the banking system across all SLRU instances
+
+## Simplified Source
+
+```c
+bool check_slru_buffers(const char *name, int *newval)
+{
+    // Validate that buffer count is a multiple of SLRU_BANK_SIZE
+    if (*newval % SLRU_BANK_SIZE == 0)
+        return true;
+
+    // Provide detailed error message if validation fails
+    GUC_check_errdetail("\"%s\" must be a multiple of %d", name, SLRU_BANK_SIZE);
+    return false;
+}
+```

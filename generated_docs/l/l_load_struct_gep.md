@@ -39,3 +39,21 @@ The function automatically determines the correct type for the load operation by
 - The combination of GEP + load is so common in PostgreSQL's JIT code that this helper significantly reduces code duplication
 - Essential for implementing tuple deformation and expression evaluation where struct members need to be frequently accessed
 - The automatic type resolution using `LLVMStructGetTypeAtIndex` ensures the load operation uses the correct type, preventing type mismatches in the generated IR
+
+## Simplified Source
+
+```c
+static inline LLVMValueRef
+l_load_struct_gep(LLVMBuilderRef b, LLVMTypeRef t, LLVMValueRef v, int32 idx, const char *name)
+{
+    // Combine struct member access (GEP) with loading the value
+    // 1. Get pointer to struct member
+    // 2. Load value from that pointer with correct type
+    return l_load(b,
+                  LLVMStructGetTypeAtIndex(t, idx),  // Get member type
+                  l_struct_gep(b, t, v, idx, ""),    // Get member pointer
+                  name);
+}
+```
+
+This convenience function combines the common pattern of accessing a struct member and loading its value. It automatically handles type resolution and provides a clean interface for reading struct fields in JIT-compiled code.

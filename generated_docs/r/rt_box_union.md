@@ -35,3 +35,17 @@ The function calculates the union by taking the maximum of the high coordinates 
 - The union operation is commutative - [rt_box_union](rt_box_union.md)(n, a, b) produces the same result as rt_box_union(n, b, a)
 - Part of the PostgreSQL GiST access method implementation for spatial data types
 - Located in src/backend/access/gist/gistproc.c:55-67
+
+## Simplified Source
+
+```c
+static void
+rt_box_union(BOX *n, const BOX *a, const BOX *b)
+{
+    // Calculate union by taking max of high coordinates and min of low coordinates
+    n->high.x = float8_max(a->high.x, b->high.x);
+    n->high.y = float8_max(a->high.y, b->high.y);
+    n->low.x = float8_min(a->low.x, b->low.x);
+    n->low.y = float8_min(a->low.y, b->low.y);
+}
+```

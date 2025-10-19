@@ -41,3 +41,62 @@ The function sets the appropriate locale code (lc) parameter to indicate which C
 - Always applies 0x8080 mask to successful conversions for proper byte formatting
 - Handles the complex multi-plane structure of CNS 11643-1992 encoding
 - Critical component of PostgreSQL's multi-byte character encoding support for Traditional Chinese text
+
+## Simplified Source
+
+```c
+unsigned short
+BIG5toCNS(unsigned short big5, unsigned char *lc)
+{
+    unsigned short cns = 0;
+    int i;
+
+    if (big5 < 0xc940U)
+    {
+        // Level 1: Check special cases first
+        for (i = 0; i < sizeof(b1c4) / (sizeof(unsigned short) * 2); i++)
+        {
+            if (b1c4[i][0] == big5)
+            {
+                *lc = LC_CNS11643_4;
+                return (b1c4[i][1] | 0x8080U);
+            }
+        }
+
+        // Use binary search for Level 1 to Plane 1 mapping
+        if (0 < (cns = BinarySearchRange(big5Level1ToCnsPlane1, 23, big5)))
+            *lc = LC_CNS11643_1;
+    }
+    else if (big5 == 0xc94aU)
+    {
+        // Special case: direct mapping to Plane 1
+        *lc = LC_CNS11643_1;
+        cns = 0x4442;
+    }
+    else
+    {
+        // Level 2: Check special cases first
+        for (i = 0; i < sizeof(b2c3) / (sizeof(unsigned short) * 2); i++)
+        {
+            if (b2c3[i][0] == big5)
+            {
+                *lc = LC_CNS11643_3;
+                return (b2c3[i][1] | 0x8080U);
+            }
+        }
+
+        // Use binary search for Level 2 to Plane 2 mapping
+        if (0 < (cns = BinarySearchRange(big5Level2ToCnsPlane2, 46, big5)))
+            *lc = LC_CNS11643_2;
+    }
+
+    if (cns == 0)
+    {
+        // No mapping found - return error marker
+        *lc = 0;
+        return (unsigned short) '?';
+    }
+
+    return cns | 0x8080;
+}
+```

@@ -58,3 +58,70 @@ This is essential for correct Turkish morphological analysis, as suffix attachme
 - The function is heavily used by suffix marking functions, indicating its central role in Turkish morphological processing
 - The complex branching structure reflects the intricate nature of Turkish vowel harmony rules
 - Part of the automatically generated Snowball stemmer code for Turkish language processing within PostgreSQL's full-text search capabilities
+
+## Simplified Source
+
+```c
+static int r_check_vowel_harmony(struct SN_env * z) {
+    // Save current position for restoration
+    int original_pos = z->l - z->c;
+
+    // Find the last vowel before current position
+    if (out_grouping_b_U(z, g_vowel, 97, 305, 1) < 0)
+        return 0;  // No vowel found
+
+    int vowel_pos = z->l - z->c;
+
+    // Check vowel harmony based on the found vowel
+    // Turkish has 8 vowels: a, e, ı, i, o, ö, u, ü
+
+    if (z->p[z->c - 1] == 'a') {
+        z->c--;
+        // 'a' harmonizes with back unrounded vowels (group1)
+        if (out_grouping_b_U(z, g_vowel1, 97, 305, 1) < 0)
+            goto harmony_failed;
+    } else if (z->p[z->c - 1] == 'e') {
+        z->c--;
+        // 'e' harmonizes with front vowels (group2)
+        if (out_grouping_b_U(z, g_vowel2, 101, 252, 1) < 0)
+            goto harmony_failed;
+    } else if (eq_s_b(z, 2, s_0)) {  // 'ı' character
+        // 'ı' harmonizes with back vowels (group3)
+        if (out_grouping_b_U(z, g_vowel3, 97, 305, 1) < 0)
+            goto harmony_failed;
+    } else if (z->p[z->c - 1] == 'i') {
+        z->c--;
+        // 'i' harmonizes with front unrounded vowels (group4)
+        if (out_grouping_b_U(z, g_vowel4, 101, 105, 1) < 0)
+            goto harmony_failed;
+    } else if (z->p[z->c - 1] == 'o') {
+        z->c--;
+        // 'o' harmonizes with back rounded vowels (group5)
+        if (out_grouping_b_U(z, g_vowel5, 111, 117, 1) < 0)
+            goto harmony_failed;
+    } else if (eq_s_b(z, 2, s_1)) {  // 'ö' character
+        // 'ö' harmonizes with front rounded vowels (group6)
+        if (out_grouping_b_U(z, g_vowel6, 246, 252, 1) < 0)
+            goto harmony_failed;
+    } else if (z->p[z->c - 1] == 'u') {
+        z->c--;
+        // 'u' harmonizes with back rounded vowels (group5)
+        if (out_grouping_b_U(z, g_vowel5, 111, 117, 1) < 0)
+            goto harmony_failed;
+    } else if (eq_s_b(z, 2, s_2)) {  // 'ü' character
+        // 'ü' harmonizes with front rounded vowels (group6)
+        if (out_grouping_b_U(z, g_vowel6, 246, 252, 1) < 0)
+            goto harmony_failed;
+    } else {
+        goto harmony_failed;
+    }
+
+    // Restore original position and return success
+    z->c = z->l - original_pos;
+    return 1;
+
+harmony_failed:
+    z->c = z->l - original_pos;
+    return 0;
+}
+```

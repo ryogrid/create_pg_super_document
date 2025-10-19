@@ -39,3 +39,36 @@ The function abstracts the complexity of different output types and provides con
 - Error messages use the %m format specifier to include system error descriptions
 - The function flushes all streams before opening pipes to prevent output ordering issues
 - Returns false on error with appropriate error logging, true on success
+
+## Simplified Source
+
+```c
+bool
+openQueryOutputFile(const char *fname, FILE **fout, bool *is_pipe)
+{
+    if (!fname || fname[0] == '\0') {
+        // Use standard output
+        *fout = stdout;
+        *is_pipe = false;
+    }
+    else if (*fname == '|') {
+        // Open pipe command
+        fflush(NULL);  // Ensure output ordering
+        *fout = popen(fname + 1, "w");
+        *is_pipe = true;
+    }
+    else {
+        // Open regular file
+        *fout = fopen(fname, "w");
+        *is_pipe = false;
+    }
+
+    // Check for errors
+    if (*fout == NULL) {
+        pg_log_error("%s: %m", fname);
+        return false;
+    }
+
+    return true;
+}
+```

@@ -45,3 +45,34 @@ The function is a callback used by LLVM's JIT stack creation process and is esse
 - Event listener registration depends on runtime configuration variables (jit_debugging_support, jit_profiling_support)
 - Essential component of PostgreSQL's LLVM JIT infrastructure
 - Provides the foundation for loading and executing JIT-compiled PostgreSQL functions
+
+## Simplified Source
+
+```c
+static LLVMOrcObjectLayerRef
+llvm_create_object_layer(void *Ctx, LLVMOrcExecutionSessionRef ES, const char *Triple)
+{
+    // Create object layer with appropriate memory manager
+#ifdef USE_LLVM_BACKPORT_SECTION_MEMORY_MANAGER
+    LLVMOrcObjectLayerRef objlayer =
+        LLVMOrcCreateRTDyldObjectLinkingLayerWithSafeSectionMemoryManager(ES);
+#else
+    LLVMOrcObjectLayerRef objlayer =
+        LLVMOrcCreateRTDyldObjectLinkingLayerWithSectionMemoryManager(ES);
+#endif
+
+    // Add GDB debugging support if available and enabled
+    if (jit_debugging_support) {
+        LLVMJITEventListenerRef listener = LLVMCreateGDBRegistrationListener();
+        LLVMOrcRTDyldObjectLinkingLayerRegisterJITEventListener(objlayer, listener);
+    }
+
+    // Add Perf profiling support if available and enabled
+    if (jit_profiling_support) {
+        LLVMJITEventListenerRef listener = LLVMCreatePerfJITEventListener();
+        LLVMOrcRTDyldObjectLinkingLayerRegisterJITEventListener(objlayer, listener);
+    }
+
+    return objlayer;
+}
+```

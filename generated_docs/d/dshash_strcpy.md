@@ -33,3 +33,17 @@ dshash_strcpy is a copy function that forwards to the standard library strcpy() 
 - The function includes safety checks via Assert() to prevent buffer overflows
 - The  parameter is not used but is included to match the expected function signature for copy callbacks
 - The function assumes null-terminated strings as it uses strlen() and strcpy()
+
+## Simplified Source
+
+```c
+void
+dshash_strcpy(void *dest, const void *src, size_t size, void *arg)
+{
+    // Safety check to ensure source string fits in destination buffer
+    Assert(strlen((const char *) src) < size);
+
+    // Simple wrapper around standard strcpy (void cast ignores return value)
+    (void) strcpy((char *) dest, (const char *) src);
+}
+```

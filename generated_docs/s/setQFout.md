@@ -44,3 +44,36 @@ The function ensures atomic behavior - either the output redirection succeeds co
 - The function provides transactional behavior - partial updates are not possible
 - Used by both interactive commands (\o) and command-line options (-o)
 - Exit status of pipe commands is captured and made available through shell result variables
+
+## Simplified Source
+
+```c
+bool
+setQFout(const char *fname)
+{
+    FILE *fout;
+    bool is_pipe;
+
+    // First validate that we can open the new output destination
+    if (!openQueryOutputFile(fname, &fout, &is_pipe))
+        return false;
+
+    // Close old output file/pipe (but protect stdout/stderr)
+    if (pset.queryFout && pset.queryFout != stdout && pset.queryFout != stderr) {
+        if (pset.queryFoutPipe)
+            SetShellResultVariables(pclose(pset.queryFout));  // Close pipe
+        else
+            fclose(pset.queryFout);  // Close file
+    }
+
+    // Update global state with new output
+    pset.queryFout = fout;
+    pset.queryFoutPipe = is_pipe;
+
+    // Configure SIGPIPE handling for new output type
+    set_sigpipe_trap_state(is_pipe);
+    restore_sigpipe_trap();
+
+    return true;
+}
+```

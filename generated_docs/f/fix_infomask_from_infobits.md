@@ -47,3 +47,30 @@ The function first clears relevant bits in both infomask fields, then selectivel
 - Essential for maintaining proper tuple header state consistency during recovery
 - The function ensures clean bit transitions by clearing relevant bits before setting new ones
 - Part of the space optimization strategy used in PostgreSQL WAL logging
+
+## Simplified Source
+
+```c
+static void fix_infomask_from_infobits(uint8 infobits, uint16 *infomask, uint16 *infomask2) {
+    // Clear relevant bits in both infomask fields first
+    *infomask &= ~(HEAP_XMAX_IS_MULTI | HEAP_XMAX_LOCK_ONLY |
+                   HEAP_XMAX_KEYSHR_LOCK | HEAP_XMAX_EXCL_LOCK);
+    *infomask2 &= ~HEAP_KEYS_UPDATED;
+
+    // Set infomask bits based on compressed WAL infobits
+    if (infobits & XLHL_XMAX_IS_MULTI)
+        *infomask |= HEAP_XMAX_IS_MULTI;
+    if (infobits & XLHL_XMAX_LOCK_ONLY)
+        *infomask |= HEAP_XMAX_LOCK_ONLY;
+    if (infobits & XLHL_XMAX_EXCL_LOCK)
+        *infomask |= HEAP_XMAX_EXCL_LOCK;
+    if (infobits & XLHL_XMAX_KEYSHR_LOCK)
+        *infomask |= HEAP_XMAX_KEYSHR_LOCK;
+
+    // Set infomask2 bits
+    if (infobits & XLHL_KEYS_UPDATED)
+        *infomask2 |= HEAP_KEYS_UPDATED;
+
+    // Note: HEAP_XMAX_SHR_LOCK is intentionally not handled
+}
+```

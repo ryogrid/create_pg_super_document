@@ -34,8 +34,20 @@ This function takes no parameters and returns void.
 ## Notes and Other Information
 - Designed to be called multiple times for incremental verbosity increases
 - Each call moves one level toward more verbose output
-- Includes bounds checking to prevent invalid log level values  
+- Includes bounds checking to prevent invalid log level values
 - Commonly used in command-line argument processing for --verbose flags
 - The enum design (lower values = more verbose) is counterintuitive but allows this simple decrement operation
 - Will not decrease the log level below PG_LOG_DEBUG level due to the boundary check
 - Changes take effect immediately for all subsequent logging calls
+
+## Simplified Source
+
+```c
+void pg_logging_increase_verbosity(void)
+{
+    // Increase verbosity by decreasing log level (lower values = more verbose)
+    // Include bounds checking to prevent invalid levels
+    if (__pg_log_level > PG_LOG_NOTSET + 1)
+        __pg_log_level--;
+}
+```

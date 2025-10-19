@@ -38,3 +38,15 @@ The function follows PostgreSQL's function call convention, taking arguments thr
 - Uses PostgreSQL's standard function calling conventions with PG_FUNCTION_ARGS
 - Part of PostgreSQL's variable-length character data handling utilities
 - Located in src/backend/utils/adt/varlena.c, which contains various variable-length data type operations
+
+## Simplified Source
+
+```c
+Datum text_substr_no_len(PG_FUNCTION_ARGS) {
+    // Extract substring from start position to end of string
+    PG_RETURN_TEXT_P(text_substring(PG_GETARG_DATUM(0),    // text input
+                                   PG_GETARG_INT32(1),     // start position
+                                   -1,                     // length = -1 (to end)
+                                   true));                 // no explicit length
+}
+```

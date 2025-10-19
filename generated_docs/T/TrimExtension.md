@@ -35,3 +35,20 @@ This utility function is commonly used in pg_archivecleanup to normalize WAL fil
 - The filename length must be greater than the extension length for removal to occur
 - The modification is performed in-place by setting a null terminator, which permanently shortens the original string
 - Located at src/bin/pg_archivecleanup/pg_archivecleanup.c:75-90
+
+## Simplified Source
+
+```c
+static void TrimExtension(char *filename, char *extension) {
+    // Return early if no extension specified
+    if (extension == NULL)
+        return;
+
+    int elen = strlen(extension);
+    int flen = strlen(filename);
+
+    // Remove extension if filename ends with it
+    if (flen > elen && strcmp(filename + flen - elen, extension) == 0)
+        filename[flen - elen] = '\0';  // Truncate filename
+}
+```

@@ -34,3 +34,27 @@ This command is essential for data import/export operations in psql, allowing us
 - Returns PSQL_CMD_SKIP_LINE on success, PSQL_CMD_ERROR on failure
 - Memory management handled properly with free() for the parsed option string
 - Part of the psql interactive command system located in src/bin/psql/command.c:715-736
+
+## Simplified Source
+
+```c
+static backslashResult
+exec_command_copy(PsqlScanState scan_state, bool active_branch)
+{
+    bool success = true;
+
+    if (active_branch) {
+        // Parse entire command line as copy statement
+        char *opt = psql_scan_slash_option(scan_state, OT_WHOLE_LINE, NULL, false);
+
+        // Execute the copy operation
+        success = do_copy(opt);
+        free(opt);
+    } else {
+        // Skip parsing if not in active branch
+        ignore_slash_whole_line(scan_state);
+    }
+
+    return success ? PSQL_CMD_SKIP_LINE : PSQL_CMD_ERROR;
+}
+```

@@ -49,3 +49,80 @@ The algorithm uses a geometric series formula to estimate subtree sizes and appl
 - The function includes extensive comments explaining the mathematical foundations of the buffering algorithm
 - Buffering mode is particularly beneficial for large indexes where random I/O becomes the bottleneck
 - Debug logging is included to help monitor when buffering mode is enabled/disabled and with what parameters
+
+## Simplified Source
+
+```c
+static void
+gistInitBuffering(GISTBuildState *buildstate)
+{
+    Relation index = buildstate->indexrel;
+    int pagesPerBuffer;
+    Size pageFreeSpace;
+    Size itupAvgSize, itupMinSize;
+    double avgIndexTuplesPerPage, maxIndexTuplesPerPage;
+    int levelStep;
+
+    // Calculate available space on index page for tuples
+    pageFreeSpace = BLCKSZ - SizeOfPageHeaderData - sizeof(GISTPageOpaqueData)
+                    - sizeof(ItemIdData) - buildstate->freespace;
+
+    // Calculate average tuple size from gathered statistics
+    itupAvgSize = (double) buildstate->indtuplesSize / (double) buildstate->indtuples;
+
+    // Calculate minimum possible tuple size based on index metadata
+    itupMinSize = (Size) MAXALIGN(sizeof(IndexTupleData));
+    for (int i = 0; i < index->rd_att->natts; i++) {
+        if (TupleDescAttr(index->rd_att, i)->attlen < 0)
+            itupMinSize += VARHDRSZ;  // Variable length attribute
+        else
+            itupMinSize += TupleDescAttr(index->rd_att, i)->attlen;
+    }
+
+    // Calculate how many tuples fit per page
+    avgIndexTuplesPerPage = pageFreeSpace / itupAvgSize;
+    maxIndexTuplesPerPage = pageFreeSpace / itupMinSize;
+
+    // Find optimal levelStep (subtree depth for buffering)
+    // levelStep determines subtree size - higher is better but must fit in cache
+    levelStep = 1;
+    for (;;) {
+        double subtreesize, maxlowestlevelpages;
+
+        // Calculate subtree size using geometric series formula
+        subtreesize = (1 - pow(avgIndexTuplesPerPage, (double) (levelStep + 1))) /
+                      (1 - avgIndexTuplesPerPage);
+
+        // Calculate max pages needed at lowest level
+        maxlowestlevelpages = pow(maxIndexTuplesPerPage, (double) levelStep);
+
+        // Check if subtree fits in cache (with safety factor of 4)
+        if (subtreesize > effective_cache_size / 4)
+            break;
+
+        // Check if it fits in maintenance_work_mem
+        if (maxlowestlevelpages > ((double) maintenance_work_mem * 1024) / BLCKSZ)
+            break;
+
+        levelStep++;
+    }
+    levelStep--;  // Use last acceptable value
+
+    // Fall back to plain inserts if insufficient memory
+    if (levelStep <= 0) {
+        elog(DEBUG1, "failed to switch to buffered GiST build");
+        buildstate->buildMode = GIST_BUFFERING_DISABLED;
+        return;
+    }
+
+    // Calculate buffer size and initialize buffering system
+    pagesPerBuffer = calculatePagesPerBuffer(buildstate, levelStep);
+    buildstate->gfbb = gistInitBuildBuffers(pagesPerBuffer, levelStep,
+                                           gistGetMaxLevel(index));
+    gistInitParentMap(buildstate);
+    buildstate->buildMode = GIST_BUFFERING_ACTIVE;
+
+    elog(DEBUG1, "switched to buffered GiST build; level step = %d, pagesPerBuffer = %d",
+         levelStep, pagesPerBuffer);
+}
+```

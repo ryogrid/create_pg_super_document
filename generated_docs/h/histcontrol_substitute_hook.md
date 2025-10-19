@@ -27,3 +27,17 @@ This function serves as a substitute hook for the HISTCONTROL psql variable. Whe
 - The function is static to startup.c, indicating it's only used within the psql startup module
 - Works in conjunction with histcontrol_hook which validates and processes the actual HISTCONTROL values
 - Located in src/bin/psql/startup.c:1069-1076
+
+## Simplified Source
+
+```c
+static char *
+histcontrol_substitute_hook(char *newval)
+{
+    // Default to "none" when HISTCONTROL variable is unset
+    if (newval == NULL)
+        newval = pg_strdup("none");
+
+    return newval;
+}
+```

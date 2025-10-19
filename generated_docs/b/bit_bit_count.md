@@ -37,3 +37,17 @@ The function uses the highly optimized `pg_popcount` function to perform the act
 - Returns count as int64 to handle very large bit strings
 - Operates on the entire bit string including any padding bits in the final byte
 - The pg_popcount function provides optimal performance across different CPU architectures
+
+## Simplified Source
+
+```c
+Datum bit_bit_count(PG_FUNCTION_ARGS) {
+    // Extract the bit string argument
+    VarBit *arg = PG_GETARG_VARBIT_P(0);
+
+    // Count set bits using optimized population count function
+    int64 count = pg_popcount((char *) VARBITS(arg), VARBITBYTES(arg));
+
+    PG_RETURN_INT64(count);
+}
+```

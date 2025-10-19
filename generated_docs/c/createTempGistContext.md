@@ -36,3 +36,17 @@ The temporary context is created as a child of the current memory context and us
 - The context should be switched to before calling user-defined functions and reset/deleted after use
 - Uses PostgreSQL's standard AllocSet memory context implementation with default sizing parameters
 - Located in src/backend/access/gist/gist.c:122-132
+
+## Simplified Source
+
+```c
+MemoryContext
+createTempGistContext(void)
+{
+    // Create temporary memory context for GiST operations
+    // Prevents memory leaks from user-provided functions
+    return AllocSetContextCreate(CurrentMemoryContext,
+                                "GiST temporary context",
+                                ALLOCSET_DEFAULT_SIZES);
+}
+```

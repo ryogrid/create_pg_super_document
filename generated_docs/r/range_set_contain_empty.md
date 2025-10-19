@@ -31,3 +31,15 @@ This function modifies an existing range object by setting the RANGE_CONTAIN_EMP
 - Not available through range_serialize - must be applied as a post-processing step
 - Critical for proper GiST index behavior when dealing with collections that may contain empty ranges
 - The flag indicates containment of empty ranges rather than the range itself being empty
+
+## Simplified Source
+
+```c
+void range_set_contain_empty(RangeType *range) {
+    // Get pointer to the flags byte (last byte of the range object)
+    char *flagsp = (char *) range + VARSIZE(range) - 1;
+
+    // Set the RANGE_CONTAIN_EMPTY flag bit
+    *flagsp |= RANGE_CONTAIN_EMPTY;
+}
+```

@@ -33,3 +33,15 @@ The function is implemented as a static inline function for performance, as it's
 - This is a performance-critical function implemented as static inline
 - Used extensively during B-tree navigation, page splitting, deletion, and WAL recovery operations
 - The downlink information is stored in the tuple's t_tid field, which normally stores heap tuple location but is repurposed in pivot tuples to store child page references
+
+## Simplified Source
+
+```c
+static inline BlockNumber
+BTreeTupleGetDownLink(IndexTuple pivot)
+{
+    // Extract child page block number from pivot tuple's t_tid field
+    // Uses NoCheck version to avoid false positives in !heapkeyspace indexes
+    return ItemPointerGetBlockNumberNoCheck(&pivot->t_tid);
+}
+```

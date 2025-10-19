@@ -35,3 +35,20 @@ The function extracts the variable-length data from the PostgreSQL text type usi
 - Performs in-place conversion, modifying the original data
 - Cannot handle conversions that change string length due to in-place design
 - Returns the same text pointer that was passed in (modified in-place)
+
+## Simplified Source
+
+```c
+static text *encode_to_ascii(text *data, int enc) {
+    // Convert text to ASCII in-place using the specified encoding
+    // Source and destination are the same (in-place conversion)
+    pg_to_ascii((unsigned char *) VARDATA(data),           // source data
+               (unsigned char *) (data) + VARSIZE(data),    // source end
+               (unsigned char *) VARDATA(data),             // destination (same as source)
+               enc);                                        // encoding type
+
+    return data;
+}
+```
+
+This function performs in-place ASCII conversion by calling `pg_to_ascii()` with the same buffer as both source and destination. The conversion cannot change string length since it modifies the data in place. It extracts the text data using PostgreSQL's variable-length data macros.

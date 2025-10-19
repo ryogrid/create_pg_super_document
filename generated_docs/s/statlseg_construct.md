@@ -33,3 +33,17 @@ The `statlseg_construct` function is an internal utility function that initializ
 - Called by functions including: `lseg_construct`, `box_diagonal`, `path_inter`, `path_distance`, `box_closept_point`, `box_closept_lseg`, `box_interpt_lseg`, `inter_lb`, and `poly_distance`
 - Essential building block for many geometric calculations involving line segments
 - The naming follows PostgreSQL's convention where 'stat' prefix indicates static/internal functions
+
+## Simplified Source
+
+```c
+static inline void statlseg_construct(LSEG *lseg, Point *pt1, Point *pt2) {
+    // Copy first point coordinates to line segment start
+    lseg->p[0].x = pt1->x;
+    lseg->p[0].y = pt1->y;
+
+    // Copy second point coordinates to line segment end
+    lseg->p[1].x = pt2->x;
+    lseg->p[1].y = pt2->y;
+}
+```

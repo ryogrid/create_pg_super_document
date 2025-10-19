@@ -39,3 +39,25 @@ This function serves as the cleanup and finalization routine for ZSTD compressio
 - Always frees output buffer regardless of mode since it may be allocated in either case
 - Critical for preventing memory leaks in PostgreSQL's compression subsystem
 - Registered as a callback function during compressor initialization
+
+## Simplified Source
+```c
+static void EndCompressorZstd(ArchiveHandle *AH, CompressorState *cs) {
+    ZstdCompressorState *zstdcs = (ZstdCompressorState *) cs->private_data;
+
+    // Handle decompression cleanup
+    if (cs->readF != NULL) {
+        ZSTD_freeDStream(zstdcs->dstream);
+        pg_free(zstdcs->input.src);
+    }
+    // Handle compression cleanup
+    else if (cs->writeF != NULL) {
+        _ZstdWriteCommon(AH, cs, true);  // Flush remaining data
+        ZSTD_freeCStream(zstdcs->cstream);
+    }
+
+    // Free shared resources
+    pg_free(zstdcs->output.dst);
+    pg_free(zstdcs);
+}
+```

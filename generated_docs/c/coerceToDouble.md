@@ -36,3 +36,25 @@ Unlike coerceToInt, this function does not need overflow checking when convertin
 - Conversion from int64 to double is generally safe and does not require overflow checking
 - Used in evalStandardFunc for mathematical operations that require floating-point operands
 - Complementary function to coerceToInt for numeric type conversions in pgbench expressions
+
+## Simplified Source
+
+```c
+static bool coerceToDouble(PgBenchValue *pval, double *dval) {
+    // Direct assignment for double values
+    if (pval->type == PGBT_DOUBLE) {
+        *dval = pval->u.dval;
+        return true;
+    }
+
+    // Safe conversion from int to double
+    if (pval->type == PGBT_INT) {
+        *dval = (double) pval->u.ival;
+        return true;
+    }
+
+    // Cannot convert boolean or null to double
+    pg_log_error("cannot coerce %s to double", valueTypeName(pval));
+    return false;
+}
+```

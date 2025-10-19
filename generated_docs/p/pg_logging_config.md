@@ -32,3 +32,13 @@ The function simply assigns the new flags value to the static log_flags variable
 - PG_LOG_FLAG_TERSE is currently the only defined flag, used primarily for regression testing
 - The function can be called multiple times to change logging behavior during program execution
 - No memory allocation or deallocation is involved in this operation
+
+## Simplified Source
+
+```c
+void pg_logging_config(int new_flags)
+{
+    // Simply update the global logging flags
+    log_flags = new_flags;
+}
+```

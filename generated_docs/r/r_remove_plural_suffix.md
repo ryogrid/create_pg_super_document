@@ -47,3 +47,65 @@ The function follows Tamil morphological rules where plural forms are transforme
 - Contains sophisticated backtracking logic to handle overlapping or ambiguous patterns
 - Pattern arrays and strings (s_46-s_52, a_13) contain Tamil-specific morphological data
 - Error handling follows Snowball conventions with negative return values for processing errors
+
+## Simplified Source
+
+```c
+static int r_remove_plural_suffix(struct SN_env * z) {
+    // Initialize state flag
+    z->I[1] = 0;
+
+    // Set up backward processing boundaries
+    z->lb = z->c;
+    z->c = z->l;
+
+    int saved_position = z->l - z->c;
+
+    // Try 18-character pattern with context validation
+    z->ket = z->c;
+    if (eq_s_b(z, 18, s_46)) {
+        // Validate context - ensure pattern is not in exclusion list
+        if (!find_among_b(z, a_13, 6)) {
+            z->bra = z->c;
+            slice_from_s(z, 3, s_47); // Replace with 3-character form
+            goto success;
+        }
+        // Pattern found in exclusion list, try next pattern
+    }
+
+    // Reset position and try 15-character pattern (first variant)
+    z->c = z->l - saved_position;
+    z->ket = z->c;
+    if (eq_s_b(z, 15, s_48)) {
+        z->bra = z->c;
+        slice_from_s(z, 6, s_49); // Replace with 6-character form
+        goto success;
+    }
+
+    // Reset position and try 15-character pattern (second variant)
+    z->c = z->l - saved_position;
+    z->ket = z->c;
+    if (eq_s_b(z, 15, s_50)) {
+        z->bra = z->c;
+        slice_from_s(z, 6, s_51); // Replace with 6-character form
+        goto success;
+    }
+
+    // Reset position and try 9-character pattern (fallback)
+    z->c = z->l - saved_position;
+    z->ket = z->c;
+    if (eq_s_b(z, 9, s_52)) {
+        z->bra = z->c;
+        slice_del(z); // Simple deletion for this pattern
+        goto success;
+    }
+
+    // No patterns matched
+    return 0;
+
+success:
+    z->I[1] = 1;     // Mark successful plural suffix processing
+    z->c = z->lb;    // Reset cursor to beginning
+    return 1;        // Success
+}
+```

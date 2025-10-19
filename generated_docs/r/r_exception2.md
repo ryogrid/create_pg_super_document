@@ -34,3 +34,32 @@ The function only matches complete words (cursor must be at the beginning of the
 - These words are preserved because they would be incorrectly modified by normal stemming rules
 - Called early in the stemming process before any standard morphological rules are applied
 - Essential for maintaining accuracy with irregular English words that do not follow standard morphological patterns
+
+## Simplified Source
+
+```c
+static int r_exception2(struct SN_env * z) {
+    // Mark end position for suffix
+    z->ket = z->c;
+
+    // Quick check: only process words ending in 'd' or 'g'
+    // and with sufficient length (at least 6 characters)
+    if (z->c - 5 <= z->lb || (z->p[z->c - 1] != 100 && z->p[z->c - 1] != 103)) {
+        return 0; // Not ending in 'd' or 'g', or too short
+    }
+
+    // Check if the word matches one of 8 exceptional patterns
+    if (!find_among_b(z, a_9, 8)) {
+        return 0; // No exception found
+    }
+
+    z->bra = z->c;
+
+    // Must be a complete word (cursor at beginning)
+    if (z->c > z->lb) {
+        return 0; // Not at word beginning, partial match
+    }
+
+    return 1; // Exception found - preserve this word
+}
+```

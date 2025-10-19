@@ -40,3 +40,26 @@ This function handles the \f command which changes the field separator character
 - When active_branch is false, arguments are consumed but not processed
 - The do_pset() function handles the actual validation and setting of the field separator value
 - The pset.quiet flag is passed to do_pset() to control whether status messages are displayed
+
+## Simplified Source
+
+```c
+static backslashResult
+exec_command_f(PsqlScanState scan_state, bool active_branch)
+{
+    bool success = true;
+
+    if (active_branch) {
+        // Parse field separator argument
+        char *fname = psql_scan_slash_option(scan_state, OT_NORMAL, NULL, false);
+
+        // Set the field separator using pset system
+        success = do_pset("fieldsep", fname, &pset.popt, pset.quiet);
+        free(fname);
+    } else {
+        ignore_slash_options(scan_state);
+    }
+
+    return success ? PSQL_CMD_SKIP_LINE : PSQL_CMD_ERROR;
+}
+```

@@ -41,3 +41,31 @@ This function serves as a callback during backup manifest parsing for WAL (Write
 - The linked list preserves the chronological order of WAL ranges as specified in the manifest
 - Memory allocation uses palloc, which is PostgreSQL's memory management function
 - This function is part of the pg_verifybackup utility's WAL verification pipeline
+
+## Simplified Source
+
+```c
+static void
+verifybackup_per_wal_range_cb(JsonManifestParseContext *context,
+                              TimeLineID tli,
+                              XLogRecPtr start_lsn, XLogRecPtr end_lsn)
+{
+    manifest_data *manifest = context->private_data;
+    manifest_wal_range *range;
+
+    // Allocate and initialize new WAL range structure
+    range = palloc(sizeof(manifest_wal_range));
+    range->tli = tli;
+    range->start_lsn = start_lsn;
+    range->end_lsn = end_lsn;
+    range->prev = manifest->last_wal_range;
+    range->next = NULL;
+
+    // Add to end of linked list
+    if (manifest->first_wal_range == NULL)
+        manifest->first_wal_range = range;
+    else
+        manifest->last_wal_range->next = range;
+    manifest->last_wal_range = range;
+}
+```

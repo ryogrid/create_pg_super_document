@@ -32,3 +32,51 @@ The function implements robust error handling through the escontext mechanism, a
 
 ## Notes and Other Information
 The function carefully handles quoted identifiers with escape sequences, where two consecutive double quotes within a quoted identifier represent a literal double quote character. The parsing state machine tracks whether currently inside quotes to properly handle quote characters. Length validation prevents buffer overflows and ensures compliance with PostgreSQL's identifier length restrictions.
+
+## Simplified Source
+
+```c
+static const char *getid(const char *s, char *n, Node *escontext) {
+    int len = 0;
+    bool in_quotes = false;
+
+    // Skip leading whitespace
+    while (isspace(*s))
+        s++;
+
+    // Parse identifier characters
+    while (*s != '\0' && (in_quotes || *s == '"' || is_safe_acl_char(*s, true))) {
+        if (*s == '"') {
+            if (!in_quotes) {
+                in_quotes = true;  // Start quoted section
+                s++;
+                continue;
+            }
+            // Check for escaped quote (double quote)
+            if (*(s + 1) != '"') {
+                in_quotes = false;  // End quoted section
+                s++;
+                continue;
+            }
+            s++;  // Skip escape character
+        }
+
+        // Check identifier length limit
+        if (len >= NAMEDATALEN - 1) {
+            return ereturn(escontext, NULL,
+                          (errcode(ERRCODE_NAME_TOO_LONG),
+                           errmsg("identifier too long")));
+        }
+
+        n[len++] = *s++;
+    }
+
+    n[len] = '\0';
+
+    // Skip trailing whitespace
+    while (isspace(*s))
+        s++;
+
+    return s;
+}
+```

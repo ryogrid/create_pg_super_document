@@ -33,3 +33,22 @@ float4_cmp_internal is an internal utility function that implements three-way co
 - Used primarily by B-tree indexing operations for float4 columns
 - The function is part of PostgreSQL's comparison operator infrastructure for single-precision floating-point arithmetic
 - Located in src/backend/utils/adt/float.c:809-818
+
+## Simplified Source
+
+```c
+int
+float4_cmp_internal(float4 a, float4 b)
+{
+    // Three-way comparison for float4 values
+    // Returns: 1 if a > b, -1 if a < b, 0 if a == b
+
+    if (float4_gt(a, b))
+        return 1;    // a is greater than b
+
+    if (float4_lt(a, b))
+        return -1;   // a is less than b
+
+    return 0;        // a equals b (or both are NaN)
+}
+```

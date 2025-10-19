@@ -33,3 +33,34 @@ The create_fullpage_directory function is responsible for setting up a directory
 - The directory creation uses pg_dir_create_mode permissions, typically 0700 (owner read/write/execute only)
 - Return codes from pg_check_dir(): 0 = doesn't exist, 1 = exists and empty, 2/3/4 = exists and not empty, -1 = access error
 - This function is part of pg_waldump's full-page image extraction feature, which helps with debugging and analysis
+
+## Simplified Source
+
+```c
+static void create_fullpage_directory(char *path) {
+    int ret = pg_check_dir(path);
+
+    switch (ret) {
+        case 0:
+            // Directory doesn't exist - create it
+            if (pg_mkdir_p(path, pg_dir_create_mode) < 0)
+                pg_fatal("could not create directory \"%s\": %m", path);
+            break;
+
+        case 1:
+            // Directory exists and is empty - good to proceed
+            break;
+
+        case 2:
+        case 3:
+        case 4:
+            // Directory exists but is not empty - error
+            pg_fatal("directory \"%s\" exists but is not empty", path);
+            break;
+
+        default:
+            // Cannot access directory - error
+            pg_fatal("could not access directory \"%s\": %m", path);
+    }
+}
+```

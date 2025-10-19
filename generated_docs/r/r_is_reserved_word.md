@@ -37,3 +37,25 @@ The function uses backward string matching to detect these patterns and returns 
 - Part of the final validation phase in Turkish word stemming
 - Generated automatically by Snowball 2.2.0 stemmer generator
 - Helps maintain semantic meaning by preventing over-stemming of culturally significant words
+
+## Simplified Source
+
+```c
+static int r_is_reserved_word(struct SN_env * z) {
+    // Check if word ends with "ad" (Turkish for "name")
+    if (!eq_s_b(z, 2, s_16)) return 0;
+
+    // Try to match "soyad" (surname) - optional "soy" prefix
+    int saved_pos = z->l - z->c;
+    if (!eq_s_b(z, 3, s_17)) {
+        z->c = z->l - saved_pos;  // Restore position if no match
+    }
+
+    // Ensure we're at the start of the word
+    if (z->c > z->lb) return 0;
+
+    return 1;  // Reserved word found
+}
+```
+
+**Key Logic**: Detects Turkish reserved words "ad" (name) and "soyad" (surname) by checking for the "ad" suffix and optionally the "soy" prefix, ensuring the match occurs at word boundaries to prevent over-stemming of culturally significant terms.

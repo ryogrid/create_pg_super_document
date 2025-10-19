@@ -30,3 +30,15 @@ AllocSetIsEmpty provides a simple check to determine if an AllocSet memory conte
 - Includes validation assertion to ensure the context is a valid AllocSet
 - Part of PostgreSQL's memory context system for determining context state
 - The comment indicates this simplified approach is intentional and sufficient for current usage patterns
+
+## Simplified Source
+
+```c
+bool
+AllocSetIsEmpty(MemoryContext context)
+{
+    // Simple check: empty if context has been reset
+    // Could examine freelists but not worth the complexity
+    return context->isReset;
+}
+```

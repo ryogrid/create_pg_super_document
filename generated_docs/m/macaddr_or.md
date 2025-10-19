@@ -33,3 +33,26 @@ The  function implements bitwise OR operation for PostgreSQL's  data type. It ta
 - Memory for the result is allocated in the current memory context
 - This function follows PostgreSQL's V1 calling convention for built-in functions
 - Commonly used for setting specific bits or combining MAC address patterns
+
+## Simplified Source
+
+```c
+Datum macaddr_or(PG_FUNCTION_ARGS) {
+    // Extract input MAC addresses
+    macaddr *addr1 = PG_GETARG_MACADDR_P(0);
+    macaddr *addr2 = PG_GETARG_MACADDR_P(1);
+
+    // Allocate memory for result
+    macaddr *result = (macaddr *) palloc(sizeof(macaddr));
+
+    // Perform bitwise OR on each byte
+    result->a = addr1->a | addr2->a;
+    result->b = addr1->b | addr2->b;
+    result->c = addr1->c | addr2->c;
+    result->d = addr1->d | addr2->d;
+    result->e = addr1->e | addr2->e;
+    result->f = addr1->f | addr2->f;
+
+    PG_RETURN_MACADDR_P(result);
+}
+```

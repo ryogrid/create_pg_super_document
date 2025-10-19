@@ -34,3 +34,13 @@ This function provides the same wide character to multibyte conversion functiona
 - Currently appears to be unused in the main codebase, but provides important API completeness for encoding operations
 - Useful for future implementations that may need to convert wide characters to specific target encodings
 - Part of the complete set of encoding-flexible conversion functions in PostgreSQL's multibyte character handling system
+
+## Simplified Source
+
+```c
+int pg_encoding_wchar2mb_with_len(int encoding, const pg_wchar *from, char *to, int len) {
+    // Convert wide chars to multibyte using specified encoding
+    // Delegate to encoding-specific conversion function
+    return pg_wchar_table[encoding].wchar2mb_with_len(from, (unsigned char *) to, len);
+}
+```

@@ -34,3 +34,27 @@ The  function implements MAC address truncation for PostgreSQL's  data type. It 
 - Memory for the result is allocated in the current memory context
 - This function follows PostgreSQL's V1 calling convention for built-in functions
 - The OUI (first 3 bytes) uniquely identifies the manufacturer/vendor of the network interface
+
+## Simplified Source
+
+```c
+Datum macaddr_trunc(PG_FUNCTION_ARGS) {
+    // Extract input MAC address
+    macaddr *addr = PG_GETARG_MACADDR_P(0);
+
+    // Allocate memory for result
+    macaddr *result = (macaddr *) palloc(sizeof(macaddr));
+
+    // Keep manufacturer bytes (OUI)
+    result->a = addr->a;
+    result->b = addr->b;
+    result->c = addr->c;
+
+    // Zero out device-specific bytes
+    result->d = 0;
+    result->e = 0;
+    result->f = 0;
+
+    PG_RETURN_MACADDR_P(result);
+}
+```

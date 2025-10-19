@@ -49,3 +49,43 @@ The function includes validation to ensure the environment variable name is vali
 - The function properly handles conditional execution by ignoring options when not in an active branch
 - Returns  if the variable name is missing or contains invalid characters, otherwise returns 
 - Changes made to environment variables persist for the duration of the psql session and affect any external commands executed from within psql
+
+## Simplified Source
+
+```c
+static backslashResult exec_command_setenv(PsqlScanState scan_state, bool active_branch, const char *cmd) {
+    if (!active_branch) {
+        ignore_slash_options(scan_state);
+        return PSQL_CMD_SKIP_LINE;
+    }
+
+    // Parse environment variable name and optional value
+    char *envvar = psql_scan_slash_option(scan_state, OT_NORMAL, NULL, false);
+    char *envval = psql_scan_slash_option(scan_state, OT_NORMAL, NULL, false);
+    bool success = true;
+
+    if (!envvar) {
+        // Missing required variable name
+        pg_log_error("\\%s: missing required argument", cmd);
+        success = false;
+    }
+    else if (strchr(envvar, '=') != NULL) {
+        // Invalid variable name containing '='
+        pg_log_error("\\%s: environment variable name must not contain \"=\"", cmd);
+        success = false;
+    }
+    else if (!envval) {
+        // No value provided: unset the environment variable
+        unsetenv(envvar);
+    }
+    else {
+        // Set environment variable to the provided value
+        setenv(envvar, envval, 1);  // Overwrite if exists
+    }
+
+    free(envvar);
+    free(envval);
+
+    return success ? PSQL_CMD_SKIP_LINE : PSQL_CMD_ERROR;
+}
+```

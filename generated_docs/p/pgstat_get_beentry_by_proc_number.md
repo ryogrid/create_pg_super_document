@@ -42,3 +42,20 @@ This function serves as a support function for PostgreSQL's SQL-callable pgstat*
 - Returns NULL if the specified process number is not found or doesn't correspond to an active session
 - Part of PostgreSQL's statistics collection system, enabling monitoring of backend processes through SQL functions
 - The returned PgBackendStatus pointer provides access to detailed information about the backend's current state and activity
+
+## Simplified Source
+
+```c
+PgBackendStatus *
+pgstat_get_beentry_by_proc_number(ProcNumber procNumber)
+{
+    // Get local backend entry for the given process number
+    LocalPgBackendStatus *local_entry = pgstat_get_local_beentry_by_proc_number(procNumber);
+
+    // Return the backend status part if found, otherwise NULL
+    if (local_entry)
+        return &local_entry->backendStatus;
+
+    return NULL;
+}
+```

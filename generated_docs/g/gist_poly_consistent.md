@@ -43,3 +43,31 @@ The function uses the same internal consistency logic for both leaf and internal
 - Properly manages memory for toasted (compressed) polygon data to prevent leaks
 - Part of PostgreSQL's spatial indexing infrastructure enabling efficient polygon queries
 - The approximation nature allows fast spatial filtering with exact verification deferred to recheck phase
+
+## Simplified Source
+
+```c
+Datum gist_poly_consistent(PG_FUNCTION_ARGS) {
+    GISTENTRY *entry = (GISTENTRY *) PG_GETARG_POINTER(0);
+    POLYGON *query = PG_GETARG_POLYGON_P(1);
+    StrategyNumber strategy = (StrategyNumber) PG_GETARG_UINT16(2);
+    bool *recheck = (bool *) PG_GETARG_POINTER(4);
+    bool result;
+
+    // All polygon comparisons require recheck since we use bounding boxes
+    *recheck = true;
+
+    // Handle NULL cases
+    if (DatumGetBoxP(entry->key) == NULL || query == NULL)
+        PG_RETURN_BOOL(false);
+
+    // Compare bounding boxes using R-tree logic
+    result = rtree_internal_consistent(DatumGetBoxP(entry->key),
+                                       &(query->boundbox), strategy);
+
+    // Clean up toasted polygon data
+    PG_FREE_IF_COPY(query, 1);
+
+    PG_RETURN_BOOL(result);
+}
+```

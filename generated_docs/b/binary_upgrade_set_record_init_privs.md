@@ -37,3 +37,20 @@ The function can only be executed when the server is running in binary upgrade m
 - Part of the comprehensive privilege preservation system that ensures security contexts are maintained across version upgrades
 - Essential for databases with complex permission structures that need to preserve access control settings
 - The boolean flag set by this function influences privilege recording behavior throughout the upgrade process
+
+## Simplified Source
+
+```c
+Datum binary_upgrade_set_record_init_privs(PG_FUNCTION_ARGS)
+{
+    bool record_init_privs = PG_GETARG_BOOL(0);
+
+    // Verify we're in binary upgrade mode
+    CHECK_IS_BINARY_UPGRADE;
+
+    // Set the flag for recording initial privileges during upgrade
+    binary_upgrade_record_init_privs = record_init_privs;
+
+    PG_RETURN_VOID();
+}
+```

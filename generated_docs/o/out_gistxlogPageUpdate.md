@@ -34,3 +34,13 @@ The function is called as part of the WAL record description mechanism, specific
 - The function currently has an empty implementation, suggesting it may be a placeholder or the page update details are considered self-explanatory
 - Part of PostgreSQL's resource manager description framework for WAL record debugging
 - Located in src/backend/access/rmgrdesc/gistdesc.c at lines 21-25
+
+## Simplified Source
+
+```c
+static void out_gistxlogPageUpdate(StringInfo buf, gistxlogPageUpdate *xlrec) {
+    // Empty implementation - no output formatting for GiST page updates
+    // The record structure contains ntodelete and ntoinsert fields
+    // but they are not currently being displayed
+}
+```

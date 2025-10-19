@@ -34,3 +34,17 @@ This function formats subtransaction assignment record information from WAL (Wri
 - Used specifically for XLOG_XACT_ASSIGNMENT WAL records
 - Part of the transaction management system for tracking subtransaction relationships
 - Used as part of the WAL record description infrastructure for transaction debugging
+
+## Simplified Source
+
+```c
+static void xact_desc_assignment(StringInfo buf, xl_xact_assignment *xlrec) {
+    // Add label for subtransaction assignments
+    appendStringInfoString(buf, "subxacts:");
+
+    // Append each assigned subtransaction ID
+    for (int i = 0; i < xlrec->nsubxacts; i++) {
+        appendStringInfo(buf, " %u", xlrec->xsub[i]);
+    }
+}
+```

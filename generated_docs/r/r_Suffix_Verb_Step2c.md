@@ -49,3 +49,49 @@ This step uses character-specific filtering like Step2b but with a different tar
 - Part of the sequential verb stemming process alongside Step2a and Step2b
 - Final step in the Step2 series of verb suffix removal functions
 - Returns 1 on successful suffix removal and 0 when conditions are not met or no applicable suffix is found
+
+## Simplified Source
+
+```c
+static int r_Suffix_Verb_Step2c(struct SN_env * z) {
+    int suffix_category;
+
+    // Mark current position as end boundary
+    z->ket = z->c;
+
+    // Pre-filter: Check if word ends with specific Arabic character (136)
+    if (z->c - 1 <= z->lb || z->p[z->c - 1] != 136) {
+        return 0;  // Doesn't end with required character
+    }
+
+    // Find matching verb suffix from small predefined array (2 suffixes)
+    suffix_category = find_among_b(z, a_20, 2);
+    if (!suffix_category) {
+        return 0;  // No suffix found
+    }
+
+    // Mark start boundary for deletion
+    z->bra = z->c;
+
+    // Apply different minimum length requirements based on suffix type
+    switch (suffix_category) {
+        case 1:  // Category 1: minimum 4 UTF-8 characters
+            if (len_utf8(z->p) >= 4) {
+                slice_del(z);  // Delete the suffix
+            } else {
+                return 0;  // Word too short
+            }
+            break;
+
+        case 2:  // Category 2: minimum 6 UTF-8 characters
+            if (len_utf8(z->p) >= 6) {
+                slice_del(z);
+            } else {
+                return 0;
+            }
+            break;
+    }
+
+    return 1;  // Successfully processed suffix
+}
+```

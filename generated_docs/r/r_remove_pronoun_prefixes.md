@@ -47,3 +47,40 @@ The function follows the standard Snowball stemmer return convention where 1 ind
 - The function uses hardcoded pattern arrays (a_11, a_12) and suffix patterns (s_45) specific to Tamil grammar
 - Error handling follows the Snowball convention where negative return values indicate processing errors
 - The I[1] flag is used to communicate successful prefix removal to other parts of the stemming algorithm
+
+## Simplified Source
+
+```c
+static int r_remove_pronoun_prefixes(struct SN_env * z) {
+    // Initialize state flag for this operation
+    z->I[1] = 0;
+
+    // Set up boundary for pattern matching
+    z->bra = z->c;
+
+    // Validate character at position (Tamil-specific character check)
+    if (z->c + 2 >= z->l || z->p[z->c + 2] >> 5 != 4 ||
+        !((672 >> (z->p[z->c + 2] & 0x1f)) & 1)) {
+        return 0; // Invalid character, no match
+    }
+
+    // Match pronoun prefix patterns in sequence
+    if (!find_among(z, a_11, 3)) return 0;  // First pattern set
+    if (!find_among(z, a_12, 10)) return 0; // Second pattern set
+    if (!eq_s(z, 3, s_45)) return 0;        // Required suffix pattern
+
+    // All patterns matched - remove the prefix
+    z->ket = z->c;
+    slice_del(z);
+
+    // Mark successful operation
+    z->I[1] = 1;
+
+    // Fix any "va" patterns that may need adjustment after prefix removal
+    int saved_position = z->c;
+    r_fix_va_start(z);
+    z->c = saved_position; // Restore position
+
+    return 1; // Success
+}
+```

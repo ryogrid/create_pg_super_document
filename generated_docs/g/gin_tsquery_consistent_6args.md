@@ -33,3 +33,18 @@ Following the same pattern as other compatibility functions in the file, this fu
 - Should not be used in new code; use gin_tsquery_consistent directly instead
 - Located in src/backend/utils/adt/tsginidx.c:328-339
 - Maintains PostgreSQL's commitment to backward compatibility for existing installations
+
+## Simplified Source
+
+```c
+Datum
+gin_tsquery_consistent_6args(PG_FUNCTION_ARGS)
+{
+    // Validate argument count - should have 8 args despite "6args" name
+    if (PG_NARGS() < 8)
+        elog(ERROR, "gin_tsquery_consistent requires eight arguments");
+
+    // Delegate to actual implementation
+    return gin_tsquery_consistent(fcinfo);
+}
+```

@@ -37,3 +37,13 @@ The parameter (0) passed to SN_close_env corresponds to the S_size parameter use
 - Part of the resource management pattern in the Snowball stemming library
 - Should be called exactly once for each successfully created environment
 - The function provides no return value, as cleanup operations are expected to always succeed
+
+## Simplified Source
+
+```c
+extern void spanish_ISO_8859_1_close_env(struct SN_env * z) {
+    // Clean up Spanish stemming environment
+    // Parameter 0 matches S_size used in creation (no string arrays to free)
+    SN_close_env(z, 0);
+}
+```

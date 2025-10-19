@@ -38,3 +38,23 @@ The operation runs in O(1) constant time and is implemented as an inline functio
 - The function assumes both head and node pointers are valid (non-NULL)
 - Primarily used as a building block for other list traversal functions like slist_next_node
 - The head parameter is required even though the actual check only uses the node, because it enables list integrity validation
+
+## Simplified Source
+
+```c
+static inline bool
+slist_has_next(const slist_head *head, const slist_node *node)
+{
+    // Validate list integrity
+    slist_check(head);
+
+    // Check if next pointer is not NULL
+    return node->next != NULL;
+}
+```
+
+**Key Points:**
+- Simple NULL check on the next pointer to determine if there's a following node
+- Includes list integrity validation for safety
+- Const parameters ensure the function doesn't modify the list
+- Returns true if there's a next node, false if this is the last node

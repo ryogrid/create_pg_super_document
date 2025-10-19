@@ -40,3 +40,35 @@ Key behaviors include:
 - ALPN (Application-Layer Protocol Negotiation) support indicates HTTP/2 compatibility for protocols that support it
 - All displayed text uses PostgreSQL's internationalization framework for proper localization
 - The function provides essential security information that helps users verify their connection meets security requirements
+
+## Simplified Source
+
+```c
+static void printSSLInfo(void)
+{
+    // Only proceed if SSL is active
+    if (!PQsslInUse(pset.db))
+        return;
+
+    // Retrieve SSL connection attributes
+    const char *protocol = PQsslAttribute(pset.db, "protocol");
+    const char *cipher = PQsslAttribute(pset.db, "cipher");
+    const char *compression = PQsslAttribute(pset.db, "compression");
+    const char *alpn = PQsslAttribute(pset.db, "alpn");
+
+    // Display SSL connection information with fallback values
+    printf("SSL connection (protocol: %s, cipher: %s, compression: %s, ALPN: %s)\n",
+           protocol ? protocol : "unknown",
+           cipher ? cipher : "unknown",
+           (compression && strcmp(compression, "off") != 0) ? "on" : "off",
+           (alpn && alpn[0] != '\0') ? alpn : "none");
+}
+```
+
+**Simplified Logic:**
+1. **Check SSL status**: Return early if no SSL connection is active
+2. **Retrieve attributes**: Get SSL protocol, cipher, compression, and ALPN information
+3. **Format output**: Display SSL details with appropriate fallback values for missing information
+4. **Handle special cases**: Convert compression status to "on"/"off" and show "none" for empty ALPN
+
+This function provides users with essential SSL/TLS connection security information, helping them verify their database connection encryption status and configuration.

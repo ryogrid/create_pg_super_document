@@ -47,3 +47,35 @@ The function implements an array-based lookup system with a linear search, which
 - The returned page image serves as the 'target' page for delta computation during finalization
 - Part of PostgreSQL's extensibility framework allowing custom access methods to leverage WAL logging
 - Memory copying ensures that modifications don't affect the original buffer until the transaction commits
+
+## Simplified Source
+
+```c
+Page
+GenericXLogRegisterBuffer(GenericXLogState *state, Buffer buffer, int flags)
+{
+    int block_id;
+
+    // Search for existing registration or empty slot
+    for (block_id = 0; block_id < MAX_GENERIC_XLOG_PAGES; block_id++) {
+        PageData *page = &state->pages[block_id];
+
+        if (BufferIsInvalid(page->buffer)) {
+            // Found empty slot - register new buffer
+            page->buffer = buffer;
+            page->flags = flags;
+            memcpy(page->image, BufferGetPage(buffer), BLCKSZ);
+            return (Page) page->image;
+        }
+        else if (page->buffer == buffer) {
+            // Buffer already registered - return existing image
+            return (Page) page->image;
+        }
+    }
+
+    // Too many buffers registered
+    elog(ERROR, "maximum number %d of generic xlog buffers is exceeded",
+         MAX_GENERIC_XLOG_PAGES);
+    return NULL;
+}
+```

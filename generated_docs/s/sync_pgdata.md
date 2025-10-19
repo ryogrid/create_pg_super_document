@@ -50,3 +50,68 @@ Special handling is provided for:
 - When using fsync method, performs pre-sync operations when PG_FLUSH_DATA_WORKS is available for performance optimization
 - Tablespace directories may be processed twice in fsync mode to handle both regular directories and symlinks
 - Critical for data durability in PostgreSQL utilities like initdb, pg_basebackup, and pg_rewind
+
+## Simplified Source
+
+```c
+void sync_pgdata(const char *pg_data, int serverVersion, DataDirSyncMethod sync_method)
+{
+    bool xlog_is_symlink;
+    char pg_wal[MAXPGPATH];
+    char pg_tblspc[MAXPGPATH];
+
+    // Build paths - handle pg_xlog vs pg_wal naming change
+    snprintf(pg_wal, MAXPGPATH, "%s/%s", pg_data,
+             serverVersion < MINIMUM_VERSION_FOR_PG_WAL ? "pg_xlog" : "pg_wal");
+    snprintf(pg_tblspc, MAXPGPATH, "%s/pg_tblspc", pg_data);
+
+    // Check if WAL directory is a symlink
+    struct stat st;
+    xlog_is_symlink = false;
+    if (lstat(pg_wal, &st) >= 0 && S_ISLNK(st.st_mode))
+        xlog_is_symlink = true;
+
+    switch (sync_method)
+    {
+        case DATA_DIR_SYNC_METHOD_SYNCFS:
+            // Use Linux syncfs() for whole filesystem sync
+            do_syncfs(pg_data);
+
+            // Sync each tablespace filesystem
+            DIR *dir = opendir(pg_tblspc);
+            if (dir != NULL) {
+                struct dirent *de;
+                while ((de = readdir(dir)) != NULL) {
+                    if (strcmp(de->d_name, ".") == 0 || strcmp(de->d_name, "..") == 0)
+                        continue;
+                    char subpath[MAXPGPATH * 2];
+                    snprintf(subpath, sizeof(subpath), "%s/%s", pg_tblspc, de->d_name);
+                    do_syncfs(subpath);
+                }
+                closedir(dir);
+            }
+
+            // Sync WAL if it's a symlink
+            if (xlog_is_symlink)
+                do_syncfs(pg_wal);
+            break;
+
+        case DATA_DIR_SYNC_METHOD_FSYNC:
+            // Use traditional fsync() on individual files
+            // Optional pre-sync hint for performance
+            #ifdef PG_FLUSH_DATA_WORKS
+                walkdir(pg_data, pre_sync_fname, false);
+                if (xlog_is_symlink)
+                    walkdir(pg_wal, pre_sync_fname, false);
+                walkdir(pg_tblspc, pre_sync_fname, true);
+            #endif
+
+            // Perform actual fsync operations
+            walkdir(pg_data, fsync_fname, false);
+            if (xlog_is_symlink)
+                walkdir(pg_wal, fsync_fname, false);
+            walkdir(pg_tblspc, fsync_fname, true);
+            break;
+    }
+}
+```

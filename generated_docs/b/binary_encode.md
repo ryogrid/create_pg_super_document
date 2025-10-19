@@ -42,3 +42,38 @@ The function performs encoding length estimation to allocate the appropriate amo
 - Raises FATAL error if encoding estimate is insufficient, as this indicates memory corruption
 - Supports dynamic encoding method selection at runtime
 - Part of PostgreSQL's binary data handling utilities in encode.c
+
+## Simplified Source
+
+```c
+Datum binary_encode(PG_FUNCTION_ARGS) {
+    // Extract input arguments
+    bytea *data = PG_GETARG_BYTEA_PP(0);
+    char *encoding_name = TextDatumGetCString(PG_GETARG_DATUM(1));
+
+    // Find the encoding method
+    const struct pg_encoding *enc = pg_find_encoding(encoding_name);
+    if (enc == NULL)
+        ereport(ERROR, (errmsg("unrecognized encoding: \"%s\"", encoding_name)));
+
+    // Get data pointer and length
+    char *dataptr = VARDATA_ANY(data);
+    size_t datalen = VARSIZE_ANY_EXHDR(data);
+
+    // Calculate output length and check for overflow
+    uint64 resultlen = enc->encode_len(dataptr, datalen);
+    if (resultlen > MaxAllocSize - VARHDRSZ)
+        ereport(ERROR, (errmsg("result of encoding conversion is too large")));
+
+    // Allocate result buffer and encode
+    text *result = palloc(VARHDRSZ + resultlen);
+    uint64 actual_len = enc->encode(dataptr, datalen, VARDATA(result));
+
+    // Verify encoding didn't overflow (critical safety check)
+    if (actual_len > resultlen)
+        elog(FATAL, "overflow - encode estimate too small");
+
+    SET_VARSIZE(result, VARHDRSZ + actual_len);
+    PG_RETURN_TEXT_P(result);
+}
+```

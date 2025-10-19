@@ -38,3 +38,15 @@ The function outputs critical information including the transaction ID of the la
 - The downlinkOffset helps identify which entry in the parent page was removed to complete the deletion
 - This operation is part of GiST index maintenance to reclaim empty pages
 - Located in src/backend/access/rmgrdesc/gistdesc.c at lines 52-60
+
+## Simplified Source
+
+```c
+static void out_gistxlogPageDelete(StringInfo buf, gistxlogPageDelete *xlrec) {
+    // Format page deletion info: delete transaction ID and downlink offset
+    appendStringInfo(buf, "deleteXid %u:%u; downlink %u",
+                     EpochFromFullTransactionId(xlrec->deleteXid),
+                     XidFromFullTransactionId(xlrec->deleteXid),
+                     xlrec->downlinkOffset);
+}
+```

@@ -31,3 +31,21 @@ This function computes the geometric center point of a line segment by calculati
 - Located in src/backend/utils/adt/geo_ops.c:2316-2337
 - Uses PostgreSQL's arithmetic functions for floating-point operations to ensure consistency with the database's numeric handling
 - Memory for the result point is allocated using palloc, which integrates with PostgreSQL's memory management system
+
+## Simplified Source
+
+```c
+Datum lseg_center(PG_FUNCTION_ARGS) {
+    // Get the line segment from function arguments
+    LSEG *lseg = PG_GETARG_LSEG_P(0);
+
+    // Allocate memory for the result point
+    Point *result = (Point *) palloc(sizeof(Point));
+
+    // Calculate center point coordinates as average of endpoints
+    result->x = float8_div(float8_pl(lseg->p[0].x, lseg->p[1].x), 2.0);
+    result->y = float8_div(float8_pl(lseg->p[0].y, lseg->p[1].y), 2.0);
+
+    PG_RETURN_POINT_P(result);
+}
+```

@@ -33,3 +33,21 @@ The function sets up the node type and argument count but leaves the actual argu
 
 ## Notes and Other Information
 The memory allocation uses a flexible array member pattern where the args array size is determined at runtime. The caller is responsible for populating the args array after node creation. This function serves as a foundation for building more complex query expression trees in the JSONB GIN indexing system.
+
+## Simplified Source
+
+```c
+static JsonPathGinNode *
+make_jsp_expr_node(JsonPathGinNodeType type, int nargs)
+{
+    // Allocate memory for base structure plus space for nargs arguments
+    JsonPathGinNode *node = palloc(offsetof(JsonPathGinNode, args) +
+                                   sizeof(node->args[0]) * nargs);
+
+    // Initialize node type and argument count
+    node->type = type;
+    node->val.nargs = nargs;
+
+    return node;
+}
+```

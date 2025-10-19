@@ -34,3 +34,16 @@ This function implements the division operation for mixed-precision floating-poi
 - Division by zero handling is delegated to the float8_div function
 - The function follows PostgreSQL's naming convention: float48div indicates float4 / float8 division
 - Located in src/backend/utils/adt/float.c:3804-3818
+
+## Simplified Source
+
+```c
+Datum float48div(PG_FUNCTION_ARGS) {
+    // Get arguments: float4 / float8
+    float4 arg1 = PG_GETARG_FLOAT4(0);  // Single-precision dividend
+    float8 arg2 = PG_GETARG_FLOAT8(1);  // Double-precision divisor
+
+    // Promote float4 to float8 and divide using float8_div
+    PG_RETURN_FLOAT8(float8_div((float8) arg1, arg2));
+}
+```

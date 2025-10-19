@@ -40,3 +40,67 @@ strtoint64 is a specialized string parsing function that converts string represe
 - Essential for safe parsing of numeric values in pgbench scripts and configuration
 - Allows trailing whitespace but rejects other trailing characters for strict validation
 - Returns conversion success status while storing the actual result via output parameter
+
+## Simplified Source
+
+```c
+bool
+strtoint64(const char *str, bool errorOK, int64 *result)
+{
+    const char *ptr = str;
+    int64 tmp = 0;
+    bool neg = false;
+
+    // Skip leading whitespace
+    while (*ptr && isspace((unsigned char) *ptr))
+        ptr++;
+
+    // Handle optional sign
+    if (*ptr == '-') {
+        ptr++;
+        neg = true;
+    } else if (*ptr == '+')
+        ptr++;
+
+    // Require at least one digit
+    if (unlikely(!isdigit((unsigned char) *ptr)))
+        goto invalid_syntax;
+
+    // Process digits with overflow checking
+    // Note: Accumulate as negative to handle INT64_MIN correctly
+    while (*ptr && isdigit((unsigned char) *ptr)) {
+        int8 digit = (*ptr++ - '0');
+
+        if (unlikely(pg_mul_s64_overflow(tmp, 10, &tmp)) ||
+            unlikely(pg_sub_s64_overflow(tmp, digit, &tmp)))
+            goto out_of_range;
+    }
+
+    // Allow trailing whitespace only
+    while (*ptr != '\0' && isspace((unsigned char) *ptr))
+        ptr++;
+
+    if (unlikely(*ptr != '\0'))
+        goto invalid_syntax;
+
+    // Convert result to positive if needed
+    if (!neg) {
+        if (unlikely(tmp == PG_INT64_MIN))
+            goto out_of_range;
+        tmp = -tmp;
+    }
+
+    *result = tmp;
+    return true;
+
+out_of_range:
+    if (!errorOK)
+        pg_log_error("value \"%s\" is out of range for type bigint", str);
+    return false;
+
+invalid_syntax:
+    if (!errorOK)
+        pg_log_error("invalid input syntax for type bigint: \"%s\"", str);
+    return false;
+}
+```

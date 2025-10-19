@@ -34,3 +34,27 @@ This function adds a socket file descriptor to a socket_set structure for use wi
 - The idx parameter appears to be unused in the current implementation but may be reserved for future use
 - Part of pgbench's socket management system for handling concurrent database connections
 - The validation logic references connect_slot() for background information on the implementation approach
+
+## Simplified Source
+
+```c
+static void
+add_socket_to_set(socket_set *sa, int fd, int idx)
+{
+    // Platform-specific validation of file descriptor limits
+#ifdef WIN32
+    if (sa->fds.fd_count + 1 >= FD_SETSIZE)
+        pg_log_error("too many concurrent database clients for this platform: %d",
+                     sa->fds.fd_count + 1), exit(1);
+#else
+    if (fd < 0 || fd >= FD_SETSIZE)
+        pg_log_error("socket file descriptor out of range for select(): %d", fd),
+        pg_log_error_hint("Try fewer concurrent database clients."), exit(1);
+#endif
+
+    // Add socket to the set and update max fd
+    FD_SET(fd, &sa->fds);
+    if (fd > sa->maxfd)
+        sa->maxfd = fd;
+}
+```

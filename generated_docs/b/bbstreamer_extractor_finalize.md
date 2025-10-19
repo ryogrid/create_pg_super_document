@@ -34,3 +34,16 @@ This function is part of the bbstreamer framework's three-phase lifecycle: conte
 - The mystreamer variable is marked with PG_USED_FOR_ASSERTS_ONLY, indicating it's only used in debug builds for assertions
 - The assertion verifies that mystreamer->file is NULL, ensuring no files remain open at finalization time
 - Located in src/bin/pg_basebackup/bbstreamer_file.c at lines 378-389
+
+## Simplified Source
+
+```c
+static void
+bbstreamer_extractor_finalize(bbstreamer *streamer)
+{
+    bbstreamer_extractor *extractor = (bbstreamer_extractor *) streamer;
+
+    // Verify that no file is currently open
+    Assert(extractor->file == NULL);
+}
+```

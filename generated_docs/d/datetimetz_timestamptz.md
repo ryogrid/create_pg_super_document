@@ -49,3 +49,33 @@ This function creates a timestamp with timezone by combining a date and a time w
 - The function follows PostgreSQL's standard function interface using PG_FUNCTION_ARGS
 - Originally implemented by Thomas Lockhart in March 2000
 - Critical for ensuring timezone-aware timestamp creation from separate date and time components
+
+## Simplified Source
+
+```c
+Datum datetimetz_timestamptz(PG_FUNCTION_ARGS) {
+    DateADT date = PG_GETARG_DATEADT(0);
+    TimeTzADT *time = PG_GETARG_TIMETZADT_P(1);
+    TimestampTz result;
+
+    // Handle infinite dates
+    if (DATE_IS_NOBEGIN(date)) {
+        TIMESTAMP_NOBEGIN(result);
+    } else if (DATE_IS_NOEND(date)) {
+        TIMESTAMP_NOEND(result);
+    } else {
+        // Check date upper boundary for timestamp range
+        if (date >= (TIMESTAMP_END_JULIAN - POSTGRES_EPOCH_JDATE))
+            ereport(ERROR, "date out of range for timestamp");
+
+        // Combine date + time + timezone adjustment to UTC
+        result = date * USECS_PER_DAY + time->time + time->zone * USECS_PER_SEC;
+
+        // Final timestamp range validation after timezone adjustment
+        if (!IS_VALID_TIMESTAMP(result))
+            ereport(ERROR, "date out of range for timestamp");
+    }
+
+    PG_RETURN_TIMESTAMP(result);
+}
+```

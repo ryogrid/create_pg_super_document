@@ -39,3 +39,19 @@ This validation occurs whenever the  setting is modified, whether through config
 - The function is registered in the GUC system alongside  as part of the recovery_prefetch parameter configuration
 - Platform compatibility is determined at compile time, making this a static validation
 - The error message specifically mentions the lack of  support to help administrators understand the limitation
+
+## Simplified Source
+
+```c
+bool check_recovery_prefetch(int *new_value, void **extra, GucSource source) {
+#ifndef USE_PREFETCH
+    // Reject ON setting if platform lacks posix_fadvise() support
+    if (*new_value == RECOVERY_PREFETCH_ON) {
+        GUC_check_errdetail("recovery_prefetch not supported without posix_fadvise()");
+        return false;
+    }
+#endif
+
+    return true;  // Valid configuration
+}
+```

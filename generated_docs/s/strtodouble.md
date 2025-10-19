@@ -36,3 +36,35 @@ The function uses  to detect range errors from  and performs additional validati
 - Part of pgbench utility for PostgreSQL performance testing
 - The  macro is used for branch prediction optimization, indicating error conditions are expected to be rare
 - Error messages follow PostgreSQL's standard logging format for consistency with other pgbench operations
+
+## Simplified Source
+
+```c
+bool
+strtodouble(const char *str, bool errorOK, double *dv)
+{
+    char *end;
+
+    // Attempt conversion
+    errno = 0;
+    *dv = strtod(str, &end);
+
+    // Check for overflow/underflow
+    if (unlikely(errno != 0))
+    {
+        if (!errorOK)
+            pg_log_error("value \"%s\" is out of range for type double", str);
+        return false;
+    }
+
+    // Check for invalid syntax (partial parsing)
+    if (unlikely(end == str || *end != '\0'))
+    {
+        if (!errorOK)
+            pg_log_error("invalid input syntax for type double: \"%s\"", str);
+        return false;
+    }
+
+    return true;
+}
+```

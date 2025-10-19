@@ -39,3 +39,13 @@ The function handles NULL pointers gracefully and performs no operation if passe
 - This is part of the public API for the French Snowball stemmer
 - Thread-safe operation - each environment is independent
 - Essential for proper resource management in long-running applications
+
+## Simplified Source
+
+```c
+extern void french_ISO_8859_1_close_env(struct SN_env * z) {
+    // Clean up Snowball environment
+    // Parameter 0 matches the S_size used in create_env
+    SN_close_env(z, 0);
+}
+```

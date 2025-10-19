@@ -41,3 +41,34 @@ The function uses the same optimization strategy as other ranking window functio
 - The monotonicity information enables optimizations like 'Incremental Sort' and early termination in certain query patterns
 - Support functions are automatically called by PostgreSQL during query planning phases
 - The optimization is particularly beneficial for percent_rank() since it needs to access the entire partition anyway to determine the total row count
+
+## Simplified Source
+
+```c
+Datum
+window_percent_rank_support(PG_FUNCTION_ARGS)
+{
+    Node *rawreq = (Node *) PG_GETARG_POINTER(0);
+
+    // Handle monotonicity request
+    if (IsA(rawreq, SupportRequestWFuncMonotonic)) {
+        SupportRequestWFuncMonotonic *req = (SupportRequestWFuncMonotonic *) rawreq;
+        req->monotonic = MONOTONICFUNC_INCREASING;  // percent_rank() always increases
+        PG_RETURN_POINTER(req);
+    }
+
+    // Handle frame optimization request
+    if (IsA(rawreq, SupportRequestOptimizeWindowClause)) {
+        SupportRequestOptimizeWindowClause *req = (SupportRequestOptimizeWindowClause *) rawreq;
+
+        // Use ROWS framing instead of RANGE for better performance
+        req->frameOptions = (FRAMEOPTION_NONDEFAULT |
+                           FRAMEOPTION_ROWS |
+                           FRAMEOPTION_START_UNBOUNDED_PRECEDING |
+                           FRAMEOPTION_END_CURRENT_ROW);
+        PG_RETURN_POINTER(req);
+    }
+
+    PG_RETURN_POINTER(NULL);  // Unrecognized request type
+}
+```

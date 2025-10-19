@@ -37,3 +37,48 @@ The stop_streaming function serves as the main control mechanism for terminating
 - The function accounts for the fact that timeline switches may not align perfectly with WAL segment boundaries
 - Part of pg_receivewal's core streaming control logic
 - Responds to the global time_to_stop flag for graceful shutdown on interrupts
+
+## Simplified Source
+
+```c
+static bool stop_streaming(XLogRecPtr xlogpos, uint32 timeline, bool segment_finished) {
+    static uint32 prevtimeline = 0;
+    static XLogRecPtr prevpos = InvalidXLogRecPtr;
+
+    // Log segment completion if verbose mode enabled
+    if (verbose && segment_finished) {
+        pg_log_info("finished segment at %X/%X (timeline %u)",
+                    LSN_FORMAT_ARGS(xlogpos), timeline);
+    }
+
+    // Check if we've reached the specified end position
+    if (!XLogRecPtrIsInvalid(endpos) && endpos < xlogpos) {
+        if (verbose) {
+            pg_log_info("stopped log streaming at %X/%X (timeline %u)",
+                        LSN_FORMAT_ARGS(xlogpos), timeline);
+        }
+        time_to_stop = true;
+        return true;
+    }
+
+    // Log timeline switches
+    if (verbose && prevtimeline != 0 && prevtimeline != timeline) {
+        pg_log_info("switched to timeline %u at %X/%X",
+                    timeline, LSN_FORMAT_ARGS(prevpos));
+    }
+
+    // Update state for next call
+    prevtimeline = timeline;
+    prevpos = xlogpos;
+
+    // Check for interrupt signal
+    if (time_to_stop) {
+        if (verbose) {
+            pg_log_info("received interrupt signal, exiting");
+        }
+        return true;
+    }
+
+    return false;  // Continue streaming
+}
+```

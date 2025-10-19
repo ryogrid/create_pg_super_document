@@ -39,3 +39,24 @@ This function serves as a PostgreSQL conversion function wrapper that converts t
 - Uses PostgreSQL's standard function argument macros for parameter extraction
 - Performs encoding validation before attempting conversion
 - Part of PostgreSQL's multibyte character encoding conversion system
+
+## Simplified Source
+
+```c
+Datum euc_jis_2004_to_shift_jis_2004(PG_FUNCTION_ARGS) {
+    // Extract function arguments
+    unsigned char *src = (unsigned char *) PG_GETARG_CSTRING(2);   // Source string
+    unsigned char *dest = (unsigned char *) PG_GETARG_CSTRING(3);  // Destination buffer
+    int len = PG_GETARG_INT32(4);                                   // Source length
+    bool noError = PG_GETARG_BOOL(5);                              // Error handling flag
+
+    // Validate encoding conversion arguments
+    CHECK_ENCODING_CONVERSION_ARGS(PG_EUC_JIS_2004, PG_SHIFT_JIS_2004);
+
+    // Perform actual character encoding conversion
+    int converted = euc_jis_20042shift_jis_2004(src, dest, len, noError);
+
+    // Return number of bytes successfully converted
+    PG_RETURN_INT32(converted);
+}
+```

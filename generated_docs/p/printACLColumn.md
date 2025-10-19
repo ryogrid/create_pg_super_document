@@ -54,3 +54,18 @@ This standardized approach ensures consistent privilege display across all psql 
 - Uses newline separators (E'\\n') to make multi-privilege entries more readable
 - Part of psql's internationalization framework with gettext_noop for translatable strings
 - The function only appends the SQL expression without adding decorative whitespace or commas
+
+## Simplified Source
+
+```c
+static void printACLColumn(PQExpBuffer buf, const char *colname) {
+    // Generate standardized SQL expression for ACL display
+    appendPQExpBuffer(buf,
+        "CASE"
+        " WHEN pg_catalog.array_length(%s, 1) = 0 THEN '%s'"
+        " ELSE pg_catalog.array_to_string(%s, E'\\n')"
+        " END AS \"%s\"",
+        colname, gettext_noop("(none)"),
+        colname, gettext_noop("Access privileges"));
+}
+```

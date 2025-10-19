@@ -39,3 +39,30 @@ Swap:        8388608           0     8388608 (standard library function for memo
 - Part of initdb's file output system
 - The function is destructive - input data is freed and cannot be reused after the call
 - Ensures proper file closure even if errors occur during writing
+
+## Simplified Source
+
+```c
+static void
+writefile(char *path, char **lines)
+{
+    FILE *out_file;
+
+    // Open file for text writing
+    if ((out_file = fopen(path, "w")) == NULL)
+        pg_fatal("could not open file \"%s\" for writing: %m", path);
+
+    // Write each line and free its memory
+    for (char **line = lines; *line != NULL; line++)
+    {
+        if (fputs(*line, out_file) < 0)
+            pg_fatal("could not write file \"%s\": %m", path);
+        free(*line);
+    }
+
+    // Close file and free the array
+    if (fclose(out_file))
+        pg_fatal("could not close file \"%s\": %m", path);
+    free(lines);
+}
+```

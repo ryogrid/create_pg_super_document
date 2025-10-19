@@ -43,3 +43,28 @@ This function is typically used as a final function in PostgreSQL's aggregate sy
 - For a vertical line (all x-values identical), the slope is undefined and NULL is returned per SQL specification
 - Requires exactly 6 elements in the input transition array
 - The slope value represents the change in y per unit change in x
+
+## Simplified Source
+
+```c
+Datum float8_regr_slope(PG_FUNCTION_ARGS) {
+    ArrayType *transarray = PG_GETARG_ARRAYTYPE_P(0);
+
+    // Extract regression values from 6-element array
+    float8 *transvalues = check_float8_array(transarray, "float8_regr_slope", 6);
+    float8 N = transvalues[0];   // Count of data points
+    float8 Sxx = transvalues[2]; // Sum of squares for X
+    float8 Sxy = transvalues[5]; // Sum of cross-products
+
+    // Return NULL if no data points
+    if (N < 1.0)
+        PG_RETURN_NULL();
+
+    // Return NULL for vertical line (undefined slope)
+    if (Sxx == 0)
+        PG_RETURN_NULL();
+
+    // Return slope: Sxy / Sxx
+    PG_RETURN_FLOAT8(Sxy / Sxx);
+}
+```

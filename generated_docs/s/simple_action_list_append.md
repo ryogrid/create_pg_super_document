@@ -34,3 +34,26 @@ This function implements a linked list append operation for psql's action queue 
 - The function safely handles NULL values by checking before string duplication
 - Memory for both the cell and string value is allocated and managed by PostgreSQL's memory management system
 - The function maintains proper linked list invariants by updating both head and tail pointers appropriately
+
+## Simplified Source
+
+```c
+static void simple_action_list_append(SimpleActionList *list,
+                                    enum _actions action, const char *val) {
+    // Allocate new list cell
+    SimpleActionListCell *cell = pg_malloc_object(SimpleActionListCell);
+
+    // Initialize the cell
+    cell->next = NULL;
+    cell->action = action;
+    cell->val = val ? pg_strdup(val) : NULL;
+
+    // Append to end of list
+    if (list->tail)
+        list->tail->next = cell;
+    else
+        list->head = cell;  // First item in empty list
+
+    list->tail = cell;
+}
+```

@@ -37,3 +37,27 @@ The function uses the standard psql option parsing mechanism and delegates the a
 - Setting an empty value (`\T` with no parameter) clears any previously set attributes
 - The setting persists for the duration of the psql session unless changed again
 - Source code location: src/bin/psql/command.c:2627-2648
+
+## Simplified Source
+
+```c
+static backslashResult
+exec_command_T(PsqlScanState scan_state, bool active_branch)
+{
+    bool success = true;
+
+    if (active_branch) {
+        // Parse HTML table attributes string
+        char *value = psql_scan_slash_option(scan_state, OT_NORMAL, NULL, false);
+
+        // Set tableattr option for HTML output format
+        success = do_pset("tableattr", value, &pset.popt, pset.quiet);
+        free(value);
+    }
+    else {
+        ignore_slash_options(scan_state);
+    }
+
+    return success ? PSQL_CMD_SKIP_LINE : PSQL_CMD_ERROR;
+}
+```

@@ -40,3 +40,32 @@ The GinFormInteriorTuple function creates interior (non-leaf) tuples for GIN ind
 - Properly adjusts tuple size header when truncating posting list data
 - Essential for maintaining B-tree structure in GIN index interior nodes
 - Uses MAXALIGN for proper memory alignment of truncated tuples
+
+## Simplified Source
+
+```c
+static IndexTuple GinFormInteriorTuple(IndexTuple itup, Page page, BlockNumber childblk) {
+    IndexTuple newTuple;
+
+    if (GinPageIsLeaf(page) && !GinIsPostingTree(itup)) {
+        // Tuple contains posting list - copy only key data before posting offset
+        uint32 origsize = GinGetPostingOffset(itup);
+
+        origsize = MAXALIGN(origsize);
+        newTuple = (IndexTuple) palloc(origsize);
+        memcpy(newTuple, itup, origsize);
+
+        // Fix size header field for truncated tuple
+        newTuple->t_info &= ~INDEX_SIZE_MASK;
+        newTuple->t_info |= origsize;
+    } else {
+        // Copy entire tuple as-is (no posting list to exclude)
+        newTuple = (IndexTuple) palloc(IndexTupleSize(itup));
+        memcpy(newTuple, itup, IndexTupleSize(itup));
+    }
+
+    // Set downlink pointer to child block
+    GinSetDownlink(newTuple, childblk);
+    return newTuple;
+}
+```

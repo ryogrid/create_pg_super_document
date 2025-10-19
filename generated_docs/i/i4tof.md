@@ -32,3 +32,14 @@ This function implements the PostgreSQL built-in function for converting int4 (3
 - This is a straightforward type conversion function that relies on C's built-in casting
 - The conversion may result in loss of precision for very large integer values that exceed the precision limits of single-precision floating-point representation
 - Part of PostgreSQL's type conversion system for numeric types
+
+## Simplified Source
+
+```c
+Datum i4tof(PG_FUNCTION_ARGS) {
+    int32 num = PG_GETARG_INT32(0);
+
+    // Simple cast from int32 to float4
+    PG_RETURN_FLOAT4((float4) num);
+}
+```

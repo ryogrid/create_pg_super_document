@@ -35,3 +35,18 @@ This function is typically used during relation mapping operations where the sub
 - Essential for attribute name resolution in logical replication
 - Simple and straightforward implementation suitable for typical relation sizes
 - Part of the logical replication relation mapping infrastructure
+
+## Simplified Source
+
+```c
+static int logicalrep_rel_att_by_name(LogicalRepRelation *remoterel, const char *attname) {
+    // Linear search through all attributes in the relation
+    for (int i = 0; i < remoterel->natts; i++) {
+        if (strcmp(remoterel->attnames[i], attname) == 0)
+            return i;
+    }
+
+    // Return -1 if attribute not found
+    return -1;
+}
+```

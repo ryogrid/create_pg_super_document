@@ -38,3 +38,25 @@ The `decmul` function multiplies two decimal numbers (`n1` * `n2`) and stores th
 - Sets errno internally to communicate error conditions to the caller
 - Located in src/interfaces/ecpg/compatlib/informix.c:337-358
 - Unlike division, multiplication does not need to handle divide-by-zero errors
+
+## Simplified Source
+
+```c
+int decmul(decimal *n1, decimal *n2, decimal *result) {
+    // Clear errno and perform multiplication using helper function
+    errno = 0;
+    int i = deccall3(n1, n2, result, PGTYPESnumeric_mul);
+
+    // Handle errors if multiplication failed
+    if (i != 0) {
+        switch (errno) {
+            case PGTYPES_NUM_OVERFLOW:
+                return ECPG_INFORMIX_NUM_OVERFLOW;
+            default:
+                return ECPG_INFORMIX_NUM_UNDERFLOW;
+        }
+    }
+
+    return 0;  // Success
+}
+```

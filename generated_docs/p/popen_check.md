@@ -29,9 +29,30 @@ This function serves as a wrapper around the standard popen() function, providin
 
 ## Notes and Other Information
 - Returns FILE* pointer on success, NULL on failure (same as standard popen)
-- Provides consistent error messaging format across PostgreSQL utilities  
+- Provides consistent error messaging format across PostgreSQL utilities
 - Flushes stdio buffers to prevent output ordering issues in subprocess communication
 - Clears errno before popen call for accurate error detection
 - Part of initdb's process management utilities
 - Integrates with PostgreSQL's standardized logging and error handling system
 - Used primarily for executing PostgreSQL server processes during database initialization
+
+## Simplified Source
+
+```c
+static FILE *
+popen_check(const char *command, const char *mode)
+{
+    FILE *cmdfd;
+
+    // Flush buffers to avoid output ordering issues
+    fflush(NULL);
+    errno = 0;
+
+    // Execute command and check for errors
+    cmdfd = popen(command, mode);
+    if (cmdfd == NULL)
+        pg_log_error("could not execute command \"%s\": %m", command);
+
+    return cmdfd;
+}
+```

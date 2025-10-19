@@ -42,3 +42,22 @@ The function constructs an ObjectAccessPostAlter structure with the provided par
 - The is_internal flag allows extensions to differentiate between user-initiated changes and internal PostgreSQL operations (e.g., constraint modifications during CLUSTER)
 - This is part of PostgreSQL's extensibility framework, enabling custom change tracking, audit systems, and security policy enforcement
 - Extensions can use this hook to implement row-level security updates, cache invalidation, or replication triggers
+
+## Simplified Source
+
+```c
+void RunObjectPostAlterHook(Oid classId, Oid objectId, int subId,
+                           Oid auxiliaryId, bool is_internal)
+{
+    ObjectAccessPostAlter pa_arg;
+
+    // Initialize structure with auxiliary information
+    memset(&pa_arg, 0, sizeof(ObjectAccessPostAlter));
+    pa_arg.auxiliary_id = auxiliaryId;
+    pa_arg.is_internal = is_internal;
+
+    // Call registered object access hook for post-alter event
+    (*object_access_hook)(OAT_POST_ALTER, classId, objectId, subId,
+                         (void *) &pa_arg);
+}
+```

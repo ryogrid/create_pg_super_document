@@ -38,3 +38,13 @@ This function should always be called to prevent memory leaks when a stemming en
 - The parameter  matches the string variable count used during environment creation
 - Essential for proper memory management in applications using the Porter UTF-8 stemmer
 - File location: src/backend/snowball/libstemmer/stem_UTF_8_porter.c:722-723
+
+## Simplified Source
+
+```c
+extern void porter_UTF_8_close_env(struct SN_env * z) {
+    // Clean up and deallocate the stemming environment
+    // Parameter 0 indicates no string variables to clean up
+    SN_close_env(z, 0);
+}
+```

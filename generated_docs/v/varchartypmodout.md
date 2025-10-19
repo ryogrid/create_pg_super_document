@@ -30,3 +30,20 @@ This function serves as the type modifier output handler for the VARCHAR data ty
 - The function shares implementation logic with `bpchartypmodout` through the common `anychar_typmodout` helper function
 - The input typmod value includes VARHDRSZ offset, which is subtracted to get the actual user-specified length
 - Returns an empty string for unspecified length constraints, formatted "(length)" string for specified constraints
+
+## Simplified Source
+
+```c
+Datum varchartypmodout(PG_FUNCTION_ARGS) {
+    // Extract the type modifier value
+    int32 typmod = PG_GETARG_INT32(0);
+
+    // Delegate to shared character type modifier output function
+    PG_RETURN_CSTRING(anychar_typmodout(typmod));
+}
+```
+
+**Key Points:**
+- Simple wrapper function that extracts the typmod argument
+- Delegates all conversion logic to `anychar_typmodout()`
+- Returns string representation like "(50)" for VARCHAR(50) or empty string for unconstrained VARCHAR

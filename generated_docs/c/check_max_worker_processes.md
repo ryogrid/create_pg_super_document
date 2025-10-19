@@ -38,3 +38,16 @@ This function serves as a validation hook for the max_worker_processes GUC param
 - This validation ensures that increasing max_worker_processes won't compromise system stability
 - The function is automatically called by the GUC system when max_worker_processes is being set or modified
 - Worker processes include parallel query workers, logical replication workers, and custom background workers
+
+## Simplified Source
+
+```c
+bool check_max_worker_processes(int *newval, void **extra, GucSource source) {
+    // Check if total backend processes would exceed system limit
+    // Includes: max_connections + autovacuum workers + new worker processes + WAL senders + 1 overhead
+    if (MaxConnections + autovacuum_max_workers + 1 + *newval + max_wal_senders > MAX_BACKENDS)
+        return false;
+
+    return true;  // Configuration is valid
+}
+```

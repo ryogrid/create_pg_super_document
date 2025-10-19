@@ -41,3 +41,27 @@ The function returns true if r1's lower bound is greater than or equal to r2's l
 - The function ensures type safety by checking that both ranges have the same OID
 - Part of the range operator family, complementary to range_overleft_internal
 - Compares lower bounds with >= 0 condition (opposite of overleft's <= 0 condition on upper bounds)
+
+## Simplified Source
+
+```c
+bool range_overright_internal(TypeCacheEntry *typcache, const RangeType *r1, const RangeType *r2) {
+    RangeBound lower1, upper1, lower2, upper2;
+    bool empty1, empty2;
+
+    // Verify both ranges have the same type
+    if (RangeTypeGetOid(r1) != RangeTypeGetOid(r2))
+        elog(ERROR, "range types do not match");
+
+    // Extract bounds and empty status from both ranges
+    range_deserialize(typcache, r1, &lower1, &upper1, &empty1);
+    range_deserialize(typcache, r2, &lower2, &upper2, &empty2);
+
+    // Empty ranges are neither before nor after any other range
+    if (empty1 || empty2)
+        return false;
+
+    // r1 does not extend to left of r2 if r1's lower bound >= r2's lower bound
+    return (range_cmp_bounds(typcache, &lower1, &lower2) >= 0);
+}
+```

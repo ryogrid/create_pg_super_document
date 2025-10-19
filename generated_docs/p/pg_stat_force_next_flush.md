@@ -33,3 +33,16 @@ The function is useful in scenarios where immediate visibility of statistics upd
 - Only affects the current backend's pending statistics, not system-wide statistics flushing
 - No special privileges are required to call this function beyond normal database access
 - Commonly used in conjunction with pg_stat_clear_snapshot() to get fresh statistics data
+
+## Simplified Source
+
+```c
+Datum
+pg_stat_force_next_flush(PG_FUNCTION_ARGS)
+{
+    // Force statistics to be reported at the next occasion
+    pgstat_force_next_flush();
+
+    PG_RETURN_VOID();
+}
+```

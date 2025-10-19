@@ -34,3 +34,15 @@ The function examines the compiled NFA's  array, which contains two color values
 - These are "pseudo-colors" that represent positions rather than actual characters
 - The function provides a simple binary check and may be extended in the future for more refined handling of pseudo-colors
 - Returns true (non-zero) if the color is a beginning pseudo-color, false (0) otherwise
+
+## Simplified Source
+
+```c
+int pg_reg_colorisbegin(const regex_t *regex, int co) {
+    // Validate input and get the compiled NFA
+    struct cnfa *cnfa = &((struct guts *) regex->re_guts)->search;
+
+    // Check if color matches beginning-of-string or beginning-of-line
+    return (co == cnfa->bos[0] || co == cnfa->bos[1]);
+}
+```

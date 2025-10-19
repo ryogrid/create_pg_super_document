@@ -32,3 +32,19 @@ The verify_directory function performs a simple but essential validation check t
 - Returns true if the directory exists and is accessible, false otherwise
 - Used for validating both WAL directory paths and output directory paths in pg_waldump
 - The function performs minimal validation - it does not check directory permissions beyond basic read access
+
+## Simplified Source
+
+```c
+static bool verify_directory(const char *directory) {
+    DIR *dir = opendir(directory);
+
+    // Return false if directory cannot be opened (preserves errno)
+    if (dir == NULL)
+        return false;
+
+    // Clean up and return success
+    closedir(dir);
+    return true;
+}
+```

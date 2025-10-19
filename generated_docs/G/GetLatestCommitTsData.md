@@ -32,3 +32,30 @@ This function retrieves information about the most recently committed transactio
 - Both output parameters are optional and can be passed as NULL if the corresponding data is not needed
 - Located in src/backend/access/transam/commit_ts.c:360-380
 - Part of PostgreSQL's commit timestamp tracking infrastructure used primarily for logical replication and debugging
+
+## Simplified Source
+
+```c
+TransactionId
+GetLatestCommitTsData(TimestampTz *ts, RepOriginId *nodeid)
+{
+    TransactionId xid;
+
+    // Acquire shared lock for safe concurrent access
+    LWLockAcquire(CommitTsLock, LW_SHARED);
+
+    // Check if commit timestamp module is enabled
+    if (!commitTsShared->commitTsActive)
+        error_commit_ts_disabled();
+
+    // Get latest commit data from shared memory
+    xid = commitTsShared->xidLastCommit;
+    if (ts)
+        *ts = commitTsShared->dataLastCommit.time;
+    if (nodeid)
+        *nodeid = commitTsShared->dataLastCommit.nodeid;
+
+    LWLockRelease(CommitTsLock);
+    return xid;
+}
+```

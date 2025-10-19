@@ -38,3 +38,83 @@ The function formats the output to be useful for error messages and debugging, p
 - Used primarily for error reporting when dependency loops cannot be resolved
 - Output format consistently includes object type, name (when available), dump ID, and catalog OID
 - Located in src/bin/pg_dump/pg_dump_sort.c:1474-1728
+
+## Simplified Source
+
+```c
+static void describeDumpableObject(DumpableObject *obj, char *buf, int bufsize) {
+    // Generate human-readable description for database objects
+    switch (obj->objType) {
+        // Basic database objects
+        case DO_NAMESPACE:
+            snprintf(buf, bufsize, "SCHEMA %s  (ID %d OID %u)",
+                    obj->name, obj->dumpId, obj->catId.oid);
+            return;
+
+        case DO_TABLE:
+            snprintf(buf, bufsize, "TABLE %s  (ID %d OID %u)",
+                    obj->name, obj->dumpId, obj->catId.oid);
+            return;
+
+        case DO_FUNC:
+            snprintf(buf, bufsize, "FUNCTION %s  (ID %d OID %u)",
+                    obj->name, obj->dumpId, obj->catId.oid);
+            return;
+
+        case DO_TYPE:
+            snprintf(buf, bufsize, "TYPE %s  (ID %d OID %u)",
+                    obj->name, obj->dumpId, obj->catId.oid);
+            return;
+
+        case DO_INDEX:
+            snprintf(buf, bufsize, "INDEX %s  (ID %d OID %u)",
+                    obj->name, obj->dumpId, obj->catId.oid);
+            return;
+
+        case DO_CONSTRAINT:
+            snprintf(buf, bufsize, "CONSTRAINT %s  (ID %d OID %u)",
+                    obj->name, obj->dumpId, obj->catId.oid);
+            return;
+
+        // Special cases with additional info
+        case DO_ATTRDEF:
+            snprintf(buf, bufsize, "ATTRDEF %s.%s  (ID %d OID %u)",
+                    ((AttrDefInfo *) obj)->adtable->dobj.name,
+                    ((AttrDefInfo *) obj)->adtable->attnames[((AttrDefInfo *) obj)->adnum - 1],
+                    obj->dumpId, obj->catId.oid);
+            return;
+
+        case DO_CAST:
+            snprintf(buf, bufsize, "CAST %u to %u  (ID %d OID %u)",
+                    ((CastInfo *) obj)->castsource,
+                    ((CastInfo *) obj)->casttarget,
+                    obj->dumpId, obj->catId.oid);
+            return;
+
+        case DO_TRANSFORM:
+            snprintf(buf, bufsize, "TRANSFORM %u lang %u  (ID %d OID %u)",
+                    ((TransformInfo *) obj)->trftype,
+                    ((TransformInfo *) obj)->trflang,
+                    obj->dumpId, obj->catId.oid);
+            return;
+
+        // Boundary markers (no OID)
+        case DO_PRE_DATA_BOUNDARY:
+            snprintf(buf, bufsize, "PRE-DATA BOUNDARY  (ID %d)", obj->dumpId);
+            return;
+
+        case DO_POST_DATA_BOUNDARY:
+            snprintf(buf, bufsize, "POST-DATA BOUNDARY  (ID %d)", obj->dumpId);
+            return;
+
+        // Additional object types (extensions, operators, rules, triggers, etc.)
+        // ... similar patterns for DO_EXTENSION, DO_OPERATOR, DO_RULE, etc.
+
+        default:
+            // Fallback for unknown object types
+            snprintf(buf, bufsize, "object type %d  (ID %d OID %u)",
+                    (int) obj->objType, obj->dumpId, obj->catId.oid);
+            return;
+    }
+}
+```

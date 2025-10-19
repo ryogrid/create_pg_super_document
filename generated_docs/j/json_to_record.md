@@ -44,3 +44,16 @@ This function is the JSON equivalent of , handling text-based JSON input instead
 - Requires the output record type to be determinable from the calling context
 - Differs from  in that it doesn't require an existing record template
 - The JSON input is processed as text and parsed during execution, unlike JSONB which is pre-parsed
+
+## Simplified Source
+
+```c
+Datum json_to_record(PG_FUNCTION_ARGS) {
+    // Convert JSON object to record using worker function
+    // Parameters: validate_json=true (JSON needs parsing/validation),
+    //           from_json=false (no record template needed),
+    //           parent_name=NULL (top-level call)
+    return populate_record_worker(fcinfo, "json_to_record",
+                                  true, false, NULL);
+}
+```

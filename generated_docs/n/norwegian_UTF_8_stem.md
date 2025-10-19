@@ -49,3 +49,25 @@ Each processing step uses the test-and-restore pattern to ensure cursor consiste
 - Critical component for Norwegian language support in PostgreSQL's text search functionality
 - The pipeline architecture allows for modular processing and easy maintenance of individual stemming phases
 - UTF-8 encoding support enables proper handling of Norwegian special characters (æ, ø, å)
+
+## Simplified Source
+
+```c
+extern int norwegian_UTF_8_stem(struct SN_env * z) {
+    // Phase 1: Analyze word structure and mark morphological regions
+    r_mark_regions(z);
+
+    // Phase 2: Set up for backward processing from end of word
+    z->lb = z->c;
+    z->c = z->l;
+
+    // Phase 3: Apply stemming transformations in sequence
+    r_main_suffix(z);       // Remove primary suffixes
+    r_consonant_pair(z);    // Handle doubled consonants
+    r_other_suffix(z);      // Process secondary suffixes
+
+    // Restore cursor to start position
+    z->c = z->lb;
+    return 1;
+}
+```

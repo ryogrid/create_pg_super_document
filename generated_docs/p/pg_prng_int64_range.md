@@ -40,3 +40,25 @@ The function performs safe type conversions by:
 - Carefully avoids implementation-defined behavior for signed integer overflow
 - Modern compilers will optimize the safe conversion logic to a simple assignment when possible
 - Part of PostgreSQL's common PRNG interface for consistent random number generation across the system
+
+## Simplified Source
+
+```c
+int64
+pg_prng_int64_range(pg_prng_state *state, int64 rmin, int64 rmax)
+{
+    // Handle empty range case
+    if (rmax <= rmin)
+        return rmin;
+
+    // Use unsigned arithmetic to avoid overflow issues
+    uint64 uval = (uint64) rmin +
+                  pg_prng_uint64_range(state, 0, (uint64) rmax - (uint64) rmin);
+
+    // Convert back to signed int64 safely
+    if (uval > PG_INT64_MAX)
+        return (int64) (uval - PG_INT64_MIN) + PG_INT64_MIN;
+    else
+        return (int64) uval;
+}
+```

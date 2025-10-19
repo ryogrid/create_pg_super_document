@@ -30,3 +30,12 @@ The function is part of the bbstreamer_tar_archiver_ops operation table and is c
 - This is a simple pass-through finalization - the tar archiver doesn't require special cleanup beyond delegating to the next component
 - Part of the bbstreamer operation contract where each component must implement content, finalize, and free operations
 - Ensures proper cleanup ordering in the bbstreamer processing pipeline
+
+## Simplified Source
+
+```c
+static void bbstreamer_tar_archiver_finalize(bbstreamer *streamer) {
+    // Simple pass-through: delegate finalization to next streamer
+    bbstreamer_finalize(streamer->bbs_next);
+}
+```

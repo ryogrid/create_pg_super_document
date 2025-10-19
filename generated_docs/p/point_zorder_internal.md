@@ -32,3 +32,19 @@ This function implements the Z-order curve (also known as Morton code) mapping a
 - The resulting Z-order value preserves spatial locality, making it suitable for spatial sorting and indexing
 - Part of PostgreSQL's GiST fast index build infrastructure
 - The algorithm maps 2D coordinates to a 1D space while maintaining the property that nearby points in 2D remain nearby in the 1D mapping
+
+## Simplified Source
+
+```c
+static uint64
+point_zorder_internal(float4 x, float4 y)
+{
+    // Convert IEEE 754 floats to order-preserving unsigned integers
+    uint32 ix = ieee_float32_to_uint32(x);
+    uint32 iy = ieee_float32_to_uint32(y);
+
+    // Interleave bits from X and Y coordinates to create Z-order value
+    // X bits go in even positions, Y bits go in odd positions
+    return part_bits32_by2(ix) | (part_bits32_by2(iy) << 1);
+}
+```

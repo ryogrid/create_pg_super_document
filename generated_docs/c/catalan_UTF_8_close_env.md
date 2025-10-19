@@ -34,3 +34,13 @@ The function ensures proper memory cleanup by deallocating all resources associa
 - Should always be paired with `catalan_UTF_8_create_env` for proper resource management
 - The function safely handles NULL pointers (through the underlying `SN_close_env` implementation)
 - Part of PostgreSQL's text search functionality, enabling full-text search capabilities for Catalan language documents
+
+## Simplified Source
+
+```c
+extern void catalan_UTF_8_close_env(struct SN_env * z) {
+    // Clean up and deallocate the Snowball environment
+    // Pass 0 as S_size since this stemmer doesn't use string arrays
+    SN_close_env(z, 0);
+}
+```

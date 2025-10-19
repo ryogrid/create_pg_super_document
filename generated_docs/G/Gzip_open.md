@@ -46,3 +46,37 @@ Upon successful opening, the gzFile handle is stored in the CompressFileHandle's
 - Part of the gzip compression backend for PostgreSQL's pg_dump utility
 - Requires HAVE_LIBZ to be defined for compilation (depends on zlib library)
 - Essential for initializing gzip file handles for both reading and writing compressed data
+
+## Simplified Source
+
+```c
+static bool
+Gzip_open(const char *path, int fd, const char *mode, CompressFileHandle *CFH)
+{
+    gzFile gzfp;
+    char mode_with_compression[32];
+
+    // Build mode string with compression level if specified
+    if (CFH->compression_spec.level != Z_DEFAULT_COMPRESSION) {
+        // Append compression level digit to mode (e.g., "w6")
+        snprintf(mode_with_compression, sizeof(mode_with_compression),
+                 "%s%d", mode, CFH->compression_spec.level);
+    } else {
+        strcpy(mode_with_compression, mode);
+    }
+
+    // Open file using either file descriptor or path
+    if (fd >= 0)
+        gzfp = gzdopen(dup(fd), mode_with_compression);
+    else
+        gzfp = gzopen(path, mode_with_compression);
+
+    // Check for failure
+    if (gzfp == NULL)
+        return false;
+
+    // Store gzip handle in compression wrapper
+    CFH->private_data = gzfp;
+    return true;
+}
+```

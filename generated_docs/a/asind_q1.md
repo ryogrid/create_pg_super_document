@@ -34,3 +34,22 @@ The  function calculates the arcsine of a value and returns the result in degree
 - The volatile temporary variables ensure consistent rounding on machines with wide float registers
 - Both calculation branches are guaranteed to return exactly 30.0 when x = 0.5, ensuring continuity
 - Part of PostgreSQL's degree-based trigonometric function suite for improved accuracy
+
+## Simplified Source
+
+```c
+static double asind_q1(double x) {
+    // Calculate inverse sine in degrees for x in [0,1]
+    // Returns exact values: 0° for x=0, 30° for x=0.5, 90° for x=1
+
+    if (x <= 0.5) {
+        // For small values, use asin scaling
+        double asin_result = asin(x);
+        return (asin_result / asin_0_5) * 30.0;
+    } else {
+        // For larger values, use acos scaling
+        double acos_result = acos(x);
+        return 90.0 - (acos_result / acos_0_5) * 60.0;
+    }
+}
+```

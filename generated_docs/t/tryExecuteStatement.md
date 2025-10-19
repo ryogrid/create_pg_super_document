@@ -38,3 +38,28 @@ The `tryExecuteStatement` function is a more permissive counterpart to `executeS
 - Proper memory management with PQclear() regardless of success/failure
 - Used primarily in pgbench's main function for cleanup and optional initialization tasks
 - Located in src/bin/pgbench/pgbench.c:1516-1530 and complements the stricter executeStatement function
+
+## Simplified Source
+
+```c
+static void tryExecuteStatement(PGconn *con, const char *sql) {
+    // Execute SQL statement and log errors but continue on failure
+
+    PGresult *res = PQexec(con, sql);
+
+    // Check if command failed, but don't exit
+    if (PQresultStatus(res) != PGRES_COMMAND_OK) {
+        // Log error but explicitly indicate continuation
+        pg_log_error("%s", PQerrorMessage(con));
+        pg_log_error_detail("(ignoring this error and continuing anyway)");
+    }
+
+    PQclear(res);  // Always clean up result
+}
+```
+
+**Key Points:**
+- More permissive alternative to executeStatement
+- Logs errors but doesn't terminate the program
+- Suitable for optional or cleanup operations where failure is acceptable
+- Explicitly indicates that errors are being ignored

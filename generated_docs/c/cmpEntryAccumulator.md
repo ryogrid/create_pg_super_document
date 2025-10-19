@@ -29,3 +29,19 @@ This function serves as a comparison callback for the red-black tree implementat
 - This is a static function used internally within the GIN bulk loading module
 - The function relies on ginCompareAttEntries to perform the actual comparison logic
 - Part of the GIN access method's bulk loading optimization strategy using red-black trees
+
+## Simplified Source
+
+```c
+static int cmpEntryAccumulator(const RBTNode *a, const RBTNode *b, void *arg) {
+    // Cast nodes to entry accumulators
+    const GinEntryAccumulator *ea = (const GinEntryAccumulator *) a;
+    const GinEntryAccumulator *eb = (const GinEntryAccumulator *) b;
+    BuildAccumulator *accum = (BuildAccumulator *) arg;
+
+    // Compare entries using GIN's standard comparison function
+    return ginCompareAttEntries(accum->ginstate,
+                               ea->attnum, ea->key, ea->category,
+                               eb->attnum, eb->key, eb->category);
+}
+```

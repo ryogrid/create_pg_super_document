@@ -34,3 +34,24 @@ The reservation process also triggers closure of Virtual File Descriptors (VFDs)
 - Provides platform-specific error messages and hints (different for Windows vs Unix-like systems)
 - The function assumes each PostgreSQL connection will consume exactly one long-lived file descriptor
 - Must be called before any PQconnectStart* function calls in the connection establishment sequence
+
+## Simplified Source
+
+```c
+static inline void libpqsrv_connect_prepare(void) {
+    // Reserve a file descriptor for the connection
+    // This also closes VFDs if needed to make room
+    if (!AcquireExternalFD()) {
+        // Throw error with platform-specific hints
+        ereport(ERROR,
+                (errcode(ERRCODE_SQLCLIENT_UNABLE_TO_ESTABLISH_SQLCONNECTION),
+                 errmsg("could not establish connection"),
+                 errdetail("There are too many open files on the local server."),
+#ifndef WIN32
+                 errhint("Raise the server's max_files_per_process and/or \"ulimit -n\" limits.")));
+#else
+                 errhint("Raise the server's max_files_per_process setting.")));
+#endif
+    }
+}
+```

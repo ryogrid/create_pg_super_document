@@ -37,3 +37,38 @@ If all conditions are met, it sets the boundary markers (ket and bra) and return
 - The bit manipulation (262 >> (z->p[z->c - 1] & 0x1f)) & 1) is used for efficient character classification in UTF-8 Nepali text
 - Used as a precondition check before attempting category 2 suffix removal operations
 - Part of the automatically generated code from Snowball stemming rules
+
+## Simplified Source
+
+```c
+static int r_check_category_2(struct SN_env * z) {
+    // Set boundary for pattern matching
+    z->ket = z->c;
+
+    // Perform multiple validation checks before pattern matching:
+
+    // 1. Boundary check: ensure at least 2 characters from left boundary
+    if (z->c - 2 <= z->lb) {
+        return 0;
+    }
+
+    // 2. UTF-8 encoding check: verify character at c-1 has expected high bits (4)
+    if (z->p[z->c - 1] >> 5 != 4) {
+        return 0;
+    }
+
+    // 3. Bitmask check: validate character properties using bit manipulation
+    if (!((262 >> (z->p[z->c - 1] & 0x1f)) & 1)) {
+        return 0;
+    }
+
+    // 4. Pattern matching: look for category 2 patterns (3 patterns in a_1 array)
+    if (!find_among_b(z, a_1, 3)) {
+        return 0;
+    }
+
+    // All checks passed - set deletion boundary and return success
+    z->bra = z->c;
+    return 1;
+}
+```

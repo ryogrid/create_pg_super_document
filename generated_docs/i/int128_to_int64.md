@@ -31,3 +31,13 @@ This is an inline utility function that performs type conversion from a 128-bit 
 - Primarily used in hash function implementations where the full precision of INT128 is not needed
 - The comment explicitly mentions this works for casting to uint64 as well, since the bit pattern is preserved
 - Callers should be aware that this is a potentially lossy conversion and handle overflow cases appropriately
+
+## Simplified Source
+
+```c
+static inline int64 int128_to_int64(INT128 val) {
+    // Truncate 128-bit value to 64-bit (potentially lossy)
+    // High-order 64 bits are discarded
+    return (int64) val;
+}
+```

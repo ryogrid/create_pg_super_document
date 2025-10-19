@@ -35,3 +35,21 @@ The function performs a two-step validation:
 - The ending character check for 'a' or 'e' helps narrow down potential matches before pattern matching
 - Uses a small pattern array (2 patterns) indicating fewer variations compared to other Turkish suffixes
 - Part of the comprehensive Turkish morphological analysis system in PostgreSQL's full-text search
+
+## Simplified Source
+
+```c
+static int r_mark_cAsInA(struct SN_env * z) {
+    // Check minimum length (5 chars) and ending with 'a' or 'e'
+    if (z->c - 5 <= z->lb || (z->p[z->c - 1] != 97 && z->p[z->c - 1] != 101)) {
+        return 0;
+    }
+
+    // Look for Turkish 'cAsInA' suffix patterns
+    if (!find_among_b(z, a_19, 2)) {
+        return 0;
+    }
+
+    return 1;  // Found valid suffix
+}
+```

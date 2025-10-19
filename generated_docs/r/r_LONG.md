@@ -30,3 +30,13 @@ Unlike more complex morphological functions, r_LONG is a simple predicate that e
 
 ## Notes and Other Information
 This function is part of the Finnish-specific morphological analysis in the Snowball stemming library. The name 'LONG' likely refers to long vowels or vowel sequences that are phonologically significant in Finnish. Finnish distinguishes between short and long vowels, and this distinction affects morphological processes. The function is used as a condition check in more complex morphological transformations, helping to ensure that stemming rules are applied appropriately based on the phonological context. The 7 patterns in a_5 represent the specific vowel sequences that are considered 'long' or otherwise significant for the Finnish stemming algorithm.
+
+## Simplified Source
+
+```c
+static int r_LONG(struct SN_env * z) {
+    // Check if current position matches any long vowel pattern
+    // Returns 1 if found, 0 if not found
+    return find_among_b(z, a_5, 7) ? 1 : 0;
+}
+```

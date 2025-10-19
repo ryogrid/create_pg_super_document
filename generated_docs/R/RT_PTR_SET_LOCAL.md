@@ -55,3 +55,26 @@ This function is a critical component of PostgreSQL's shared memory radix tree i
 The RT_CHILD_PTR type is designed as a struct in shared memory mode (containing separate alloc and local fields) and as a union in local memory mode (where both fields refer to the same memory). This function ensures proper pointer translation only when needed, making it an efficient abstraction for memory management in the radix tree.
 
 This function must be called whenever a DSA pointer needs to be dereferenced, which happens frequently during tree traversal, node allocation, and other tree operations.
+
+## Simplified Source
+
+```c
+#define RT_PTR_SET_LOCAL RT_MAKE_NAME(ptr_set_local)
+
+static inline void
+RT_PTR_SET_LOCAL(RT_RADIX_TREE *tree, RT_CHILD_PTR *node)
+{
+#ifdef RT_SHMEM
+    // Convert DSA allocation to local process pointer
+    node->local = dsa_get_address(tree->dsa, node->alloc);
+#endif
+    // In non-shared memory mode, this is a no-op
+}
+```
+
+**Key Points:**
+- Macro that generates function name for shared memory pointer translation
+- Only active when `RT_SHMEM` is defined (shared memory mode)
+- Converts DSA allocation identifier to local process pointer
+- No-op in local memory mode where allocation and local pointers are the same
+- Critical for safe pointer dereferencing in shared memory radix trees

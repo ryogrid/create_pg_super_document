@@ -41,3 +41,18 @@ Unlike win32_exec_prog, this function always returns 0 (success) as the transfer
 - Error handling: Delegates error handling to transfer_all_new_dbs function
 - Thread lifecycle: Function return terminates the thread
 - Performance: Enables concurrent database transfers on Windows systems
+
+## Simplified Source
+
+```c
+DWORD
+win32_transfer_all_new_dbs(transfer_thread_arg *args)
+{
+    // Execute database transfer using standard function
+    transfer_all_new_dbs(args->old_db_arr, args->new_db_arr, args->old_pgdata,
+                         args->new_pgdata, args->old_tablespace);
+
+    // Return terminates the thread (always successful)
+    return 0;
+}
+```

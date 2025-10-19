@@ -36,3 +36,17 @@ This function serves as the B-tree operator class comparison function for float4
 - The actual comparison logic is implemented in  for code reuse across different comparison contexts
 - Located in 
 - Returns a Datum-wrapped int32 value following PostgreSQL's function calling conventions
+
+## Simplified Source
+
+```c
+Datum btfloat4cmp(PG_FUNCTION_ARGS) {
+    // Extract the two float4 arguments from SQL call
+    float4 arg1 = PG_GETARG_FLOAT4(0);
+    float4 arg2 = PG_GETARG_FLOAT4(1);
+
+    // Delegate to internal comparison function and return integer result
+    // Returns: -1 if arg1 < arg2, 0 if equal, +1 if arg1 > arg2
+    return PG_RETURN_INT32(float4_cmp_internal(arg1, arg2));
+}
+```

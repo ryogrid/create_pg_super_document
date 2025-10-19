@@ -40,3 +40,33 @@ The function ensures proper organization of the output data structure by setting
 - The function is static and used internally within the BRIN minmax-multi implementation
 - Essential for the final step of range compaction and storage in BRIN indexes
 - Maintains the separation between multi-value ranges and single-point values for optimal storage efficiency
+
+## Simplified Source
+
+```c
+static void store_expanded_ranges(Ranges *ranges, ExpandedRange *eranges, int neranges) {
+    int idx = 0;
+
+    // First store regular ranges (need min/max pairs)
+    ranges->nranges = 0;
+    for (int i = 0; i < neranges; i++) {
+        if (!eranges[i].collapsed) {
+            ranges->values[idx++] = eranges[i].minval;
+            ranges->values[idx++] = eranges[i].maxval;
+            ranges->nranges++;
+        }
+    }
+
+    // Then store collapsed ranges (single values)
+    ranges->nvalues = 0;
+    for (int i = 0; i < neranges; i++) {
+        if (eranges[i].collapsed) {
+            ranges->values[idx++] = eranges[i].minval;
+            ranges->nvalues++;
+        }
+    }
+
+    // Mark all values as sorted
+    ranges->nsorted = ranges->nvalues;
+}
+```

@@ -49,3 +49,76 @@ The function queries `pg_database` to examine all databases and their connection
 - Template0 is treated as a special case due to pg_dumpall restore requirements
 - Function provides detailed user guidance for resolving datallowconn issues
 - Uses MAXPGPATH constant for output path buffer sizing
+
+## Simplified Source
+
+```c
+static void check_proper_datallowconn(ClusterInfo *cluster)
+{
+    int dbnum;
+    PGconn *conn_template1;
+    PGresult *dbres;
+    int ntups;
+    int i_datname, i_datallowconn;
+    FILE *script = NULL;
+    char output_path[MAXPGPATH];
+
+    prep_status("Checking database connection settings");
+
+    // Setup output file for problematic databases
+    snprintf(output_path, sizeof(output_path), "%s/%s",
+             log_opts.basedir, "databases_with_datallowconn_false.txt");
+
+    conn_template1 = connectToServer(cluster, "template1");
+
+    // Get all database names and their datallowconn settings
+    dbres = executeQueryOrDie(conn_template1,
+                             "SELECT datname, datallowconn "
+                             "FROM pg_catalog.pg_database");
+
+    i_datname = PQfnumber(dbres, "datname");
+    i_datallowconn = PQfnumber(dbres, "datallowconn");
+
+    ntups = PQntuples(dbres);
+    for (dbnum = 0; dbnum < ntups; dbnum++) {
+        char *datname = PQgetvalue(dbres, dbnum, i_datname);
+        char *datallowconn = PQgetvalue(dbres, dbnum, i_datallowconn);
+
+        if (strcmp(datname, "template0") == 0) {
+            // template0 must NOT allow connections (for pg_dumpall restore)
+            if (strcmp(datallowconn, "t") == 0) {
+                pg_fatal("template0 must not allow connections, "
+                         "i.e. its pg_database.datallowconn must be false");
+            }
+        } else {
+            // All other databases MUST allow connections (or they'll be skipped)
+            if (strcmp(datallowconn, "f") == 0) {
+                if (script == NULL) {
+                    script = fopen_priv(output_path, "w");
+                    if (!script) {
+                        pg_fatal("could not open file \"%s\": %m", output_path);
+                    }
+                }
+                fprintf(script, "%s\n", datname);
+            }
+        }
+    }
+
+    PQclear(dbres);
+    PQfinish(conn_template1);
+
+    if (script) {
+        fclose(script);
+        pg_log(PG_REPORT, "fatal");
+        pg_fatal("All non-template0 databases must allow connections, i.e. their\n"
+                 "pg_database.datallowconn must be true. Your installation contains\n"
+                 "non-template0 databases with their pg_database.datallowconn set to\n"
+                 "false. Consider allowing connection for all non-template0 databases\n"
+                 "or drop the databases which do not allow connections. A list of\n"
+                 "databases with the problem is in the file:\n"
+                 "    %s", output_path);
+    } else {
+        check_ok();
+    }
+}
+```

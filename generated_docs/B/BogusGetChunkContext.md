@@ -32,3 +32,17 @@ The function is part of the BOGUS_MCTX (bogus memory context) infrastructure, wh
 - The function provides valuable debugging information by showing both the invalid pointer and its header contents
 - Part of PostgreSQL's defensive programming approach to catch memory management errors early
 - The function is static, meaning it's only accessible within the mcxt.c compilation unit
+
+## Simplified Source
+
+```c
+static MemoryContext
+BogusGetChunkContext(void *pointer)
+{
+    // Report error with pointer address and header for debugging
+    elog(ERROR, "GetMemoryChunkContext called with invalid pointer %p (header 0x%016llx)",
+         pointer, (unsigned long long) GetMemoryChunkHeader(pointer));
+
+    return NULL; // Never reached, keeps compiler quiet
+}
+```

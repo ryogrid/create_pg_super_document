@@ -35,3 +35,21 @@ This function implements a comparison operation that returns the smaller of two 
 - Returns result using PostgreSQL's Datum system
 - Implements minimum selection logic for SQL operations
 - Complementary function to `float8larger`
+
+## Simplified Source
+
+```c
+Datum
+float8smaller(PG_FUNCTION_ARGS)
+{
+    // Extract both float8 arguments
+    float8 arg1 = PG_GETARG_FLOAT8(0);
+    float8 arg2 = PG_GETARG_FLOAT8(1);
+
+    // Return the smaller value using PostgreSQL's float8 comparison
+    if (float8_lt(arg1, arg2))
+        PG_RETURN_FLOAT8(arg1);
+    else
+        PG_RETURN_FLOAT8(arg2);
+}
+```

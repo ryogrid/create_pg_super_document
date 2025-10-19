@@ -41,3 +41,30 @@ If adding the attribute would cause a buffer overflow, the function logs a warni
 - If buffer overflow would occur, the attribute is silently dropped with only a warning logged
 - The function directly manipulates the packet buffer memory layout to append the new attribute
 - Part of PostgreSQL's RADIUS authentication implementation for external authentication servers
+
+## Simplified Source
+
+```c
+static void
+radius_add_attribute(radius_packet *packet, uint8 type, const unsigned char *data, int len)
+{
+    radius_attribute *attr;
+
+    // Check if adding attribute would exceed buffer size
+    if (packet->length + len > RADIUS_BUFFER_SIZE) {
+        elog(WARNING,
+             "adding attribute code %d with length %d would create oversize packet, ignoring",
+             type, len);
+        return;
+    }
+
+    // Add attribute to end of packet
+    attr = (radius_attribute *) ((unsigned char *) packet + packet->length);
+    attr->attribute = type;
+    attr->length = len + 2;  // Include type and length fields
+    memcpy(attr->data, data, len);
+
+    // Update packet length
+    packet->length += attr->length;
+}
+```

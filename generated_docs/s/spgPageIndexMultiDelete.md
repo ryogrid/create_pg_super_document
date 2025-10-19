@@ -53,3 +53,57 @@ This function performs a bulk deletion operation on an SP-GiST index page by rep
 - The function handles the case where nitems is 0 by returning early
 - Dead tuple reuse optimization: reuses the same dead tuple structure when consecutive items have the same state
 - Located in src/backend/access/spgist/spgdoinsert.c:131-185
+
+## Simplified Source
+
+```c
+void spgPageIndexMultiDelete(SpGistState *state, Page page,
+                            OffsetNumber *itemnos, int nitems,
+                            int firststate, int reststate,
+                            BlockNumber blkno, OffsetNumber offnum)
+{
+    OffsetNumber firstItem;
+    OffsetNumber sortednos[MaxIndexTuplesPerPage];
+    SpGistDeadTuple tuple = NULL;
+    int i;
+
+    // Early return if nothing to delete
+    if (nitems == 0)
+        return;
+
+    // Sort offset numbers for efficient processing
+    // (copy array to avoid modifying caller's data)
+    memcpy(sortednos, itemnos, sizeof(OffsetNumber) * nitems);
+    if (nitems > 1)
+        qsort(sortednos, nitems, sizeof(OffsetNumber), cmpOffsetNumbers);
+
+    // Remove original tuples from page
+    PageIndexMultiDelete(page, sortednos, nitems);
+
+    firstItem = itemnos[0];
+
+    // Replace each deleted tuple with appropriate dead tuple
+    for (i = 0; i < nitems; i++)
+    {
+        OffsetNumber itemno = sortednos[i];
+        int tupstate;
+
+        // First item gets firststate, others get reststate
+        tupstate = (itemno == firstItem) ? firststate : reststate;
+
+        // Create dead tuple if needed (reuse when possible)
+        if (tuple == NULL || tuple->tupstate != tupstate)
+            tuple = spgFormDeadTuple(state, tupstate, blkno, offnum);
+
+        // Add dead tuple back to page at original position
+        if (PageAddItem(page, (Item) tuple, tuple->size, itemno, false, false) != itemno)
+            elog(ERROR, "failed to add dead tuple to SPGiST index page");
+
+        // Update page metadata counters
+        if (tupstate == SPGIST_REDIRECT)
+            SpGistPageGetOpaque(page)->nRedirection++;
+        else if (tupstate == SPGIST_PLACEHOLDER)
+            SpGistPageGetOpaque(page)->nPlaceholder++;
+    }
+}
+```

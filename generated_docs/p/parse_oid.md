@@ -43,3 +43,25 @@ The function is designed to be robust against malformed input and provides clear
 - The function is used in pg_combinebackup utility for parsing OIDs from filesystem directory names, particularly for tablespace processing
 - OIDs in PostgreSQL are 32-bit unsigned integers used as unique identifiers for database objects
 - The validation ensures compatibility with PostgreSQL's internal OID handling and prevents invalid values from being processed
+
+## Simplified Source
+
+```c
+static bool
+parse_oid(char *s, Oid *result)
+{
+    Oid oid;
+    char *ep;
+
+    // Parse string to unsigned long, base 10
+    errno = 0;
+    oid = strtoul(s, &ep, 10);
+
+    // Validate: no errors, full string consumed, valid OID range (1 to max)
+    if (errno != 0 || *ep != '\0' || oid < 1 || oid > PG_UINT32_MAX)
+        return false;
+
+    *result = oid;
+    return true;
+}
+```

@@ -34,3 +34,15 @@ The time_eq function implements the equality operator (=) for TIME data types in
 - Located in src/backend/utils/adt/date.c:1680-1688
 - Returns a PostgreSQL boolean Datum that can be used in SQL expressions
 - Complemented by time_ne for inequality comparisons
+
+## Simplified Source
+
+```c
+Datum time_eq(PG_FUNCTION_ARGS) {
+    TimeADT time1 = PG_GETARG_TIMEADT(0);
+    TimeADT time2 = PG_GETARG_TIMEADT(1);
+
+    // Compare times for equality
+    PG_RETURN_BOOL(time1 == time2);
+}
+```

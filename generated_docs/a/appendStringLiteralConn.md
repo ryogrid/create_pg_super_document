@@ -46,3 +46,31 @@ For strings without special escape sequences, the function delegates to libpq's 
 - Special escape string syntax handling for PostgreSQL 8.1+ servers
 - Widely used throughout PostgreSQL client utilities for safe SQL generation
 - Ensures proper spacing when using escape string syntax to avoid identifier adjacency issues
+
+## Simplified Source
+
+```c
+void appendStringLiteralConn(PQExpBuffer buf, const char *str, PGconn *conn) {
+    size_t length = strlen(str);
+
+    // Special handling for strings with backslashes on newer servers
+    if (strchr(str, '\\') != NULL && PQserverVersion(conn) >= 80100) {
+        // Ensure space before escape string syntax to avoid identifier issues
+        if (buf->len > 0 && buf->data[buf->len - 1] != ' ')
+            appendPQExpBufferChar(buf, ' ');
+
+        // Use escape string syntax E'...'
+        appendPQExpBufferChar(buf, ESCAPE_STRING_SYNTAX);
+        appendStringLiteral(buf, str, PQclientEncoding(conn), false);
+        return;
+    }
+
+    // Standard case: use libpq's connection-aware escaping
+    if (!enlargePQExpBuffer(buf, 2 * length + 2))
+        return;
+
+    appendPQExpBufferChar(buf, '\'');
+    buf->len += PQescapeStringConn(conn, buf->data + buf->len, str, length, NULL);
+    appendPQExpBufferChar(buf, '\'');
+}
+```

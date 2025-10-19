@@ -46,3 +46,27 @@ When executed within a conditional block, the function respects the active_branc
 - Integrates with conditional execution system via active_branch parameter
 - Uses ignore_slash_filepipe() to consume unused arguments when not executing
 - The output redirection persists until changed by another \\o command or psql exit
+
+## Simplified Source
+
+```c
+static backslashResult exec_command_out(PsqlScanState scan_state, bool active_branch) {
+    if (active_branch) {
+        // Parse optional filename or pipe command
+        char *fname = psql_scan_slash_option(scan_state, OT_FILEPIPE, NULL, true);
+
+        // Handle tilde expansion for home directory
+        expand_tilde(&fname);
+
+        // Set query output destination (file, pipe, or stdout)
+        bool success = setQFout(fname);
+
+        free(fname);
+        return success ? PSQL_CMD_SKIP_LINE : PSQL_CMD_ERROR;
+    } else {
+        // Skip execution in inactive conditional branch
+        ignore_slash_filepipe(scan_state);
+        return PSQL_CMD_SKIP_LINE;
+    }
+}
+```

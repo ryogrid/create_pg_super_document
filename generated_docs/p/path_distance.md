@@ -38,3 +38,48 @@ The function handles both open and closed paths correctly - for closed paths, it
 - Returns the minimum distance as a float8 value
 - Part of PostgreSQL's geometric distance calculation operations suite
 - The cartesian product approach ensures the globally minimum distance is found
+
+## Simplified Source
+
+```c
+Datum path_distance(PG_FUNCTION_ARGS) {
+    // Extract two PATH objects from function arguments
+    PATH *p1 = PG_GETARG_PATH_P(0);
+    PATH *p2 = PG_GETARG_PATH_P(1);
+    float8 min_distance = 0.0;
+    bool have_min = false;
+
+    // Compare all segment pairs between the two paths
+    for (int i = 0; i < p1->npts; i++) {
+        // Determine previous point index for path1 segment
+        int iprev = (i > 0) ? i - 1 : (p1->closed ? p1->npts - 1 : -1);
+        if (iprev == -1) continue; // Skip if open path and at first point
+
+        for (int j = 0; j < p2->npts; j++) {
+            // Determine previous point index for path2 segment
+            int jprev = (j > 0) ? j - 1 : (p2->closed ? p2->npts - 1 : -1);
+            if (jprev == -1) continue; // Skip if open path and at first point
+
+            // Create line segments from consecutive points
+            LSEG seg1, seg2;
+            statlseg_construct(&seg1, &p1->p[iprev], &p1->p[i]);
+            statlseg_construct(&seg2, &p2->p[jprev], &p2->p[j]);
+
+            // Calculate distance between the two segments
+            float8 distance = lseg_closept_lseg(NULL, &seg1, &seg2);
+
+            // Track minimum distance found
+            if (!have_min || float8_lt(distance, min_distance)) {
+                min_distance = distance;
+                have_min = true;
+            }
+        }
+    }
+
+    // Return NULL if no segments were compared
+    if (!have_min)
+        PG_RETURN_NULL();
+
+    PG_RETURN_FLOAT8(min_distance);
+}
+```

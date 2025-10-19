@@ -35,3 +35,12 @@ This compatibility layer allows for seamless upgrades while maintaining backward
 - The function exists solely to maintain backward compatibility during PostgreSQL upgrades
 - No functional logic is implemented here - it's purely a forwarding wrapper
 - Users with old tsearch2 installations should eventually recreate their opclasses to use the proper signature
+
+## Simplified Source
+
+```c
+Datum gtsvector_consistent_oldsig(PG_FUNCTION_ARGS) {
+    // Simple compatibility wrapper - forward all arguments to current implementation
+    return gtsvector_consistent(fcinfo);
+}
+```

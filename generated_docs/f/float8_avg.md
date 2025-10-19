@@ -40,3 +40,26 @@ The function expects a 3-element transition array but only uses the first two el
 - Part of PostgreSQL's aggregate function infrastructure
 - Located in src/backend/utils/adt/float.c:3118-3137
 - Handles the final step of AVG aggregate computation after accumulation phase
+
+## Simplified Source
+
+```c
+Datum
+float8_avg(PG_FUNCTION_ARGS)
+{
+    ArrayType *transarray = PG_GETARG_ARRAYTYPE_P(0);
+
+    // Extract N (count) and Sx (sum) from transition state
+    float8 *transvalues = check_float8_array(transarray, "float8_avg", 3);
+    float8 N = transvalues[0];   // Count of values
+    float8 Sx = transvalues[1];  // Sum of values
+    // transvalues[2] (Sxx) ignored for average calculation
+
+    // SQL standard: AVG of empty set returns NULL
+    if (N == 0.0)
+        PG_RETURN_NULL();
+
+    // Return arithmetic mean: sum / count
+    PG_RETURN_FLOAT8(Sx / N);
+}
+```

@@ -34,3 +34,20 @@ The HISTSIZE variable in psql controls how many previous commands are kept in me
 - This hook is part of psql's variable management system that allows variables to have default values
 - The returned string becomes the actual value used for the HISTSIZE variable
 - When returning the default value, memory is allocated using pg_strdup which must eventually be freed
+
+## Simplified Source
+
+```c
+static char *histsize_substitute_hook(char *newval) {
+    // If value is NULL, provide default history size of "500"
+    if (newval == NULL)
+        newval = pg_strdup("500");
+    return newval;
+}
+```
+
+This substitute hook:
+1. Checks if the HISTSIZE value is NULL (unset)
+2. If NULL, allocates and returns "500" as the default history size
+3. Otherwise, returns the original value unchanged
+4. Ensures HISTSIZE always has a valid numeric value for command history limit

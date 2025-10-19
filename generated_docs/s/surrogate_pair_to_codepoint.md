@@ -33,3 +33,15 @@ The conversion formula extracts the 10-bit payload from each surrogate (using ma
 - The 0x10000 offset corresponds to the beginning of Plane 1 in Unicode
 - Critical for proper handling of emoji, mathematical symbols, and other supplementary Unicode characters
 - Used in PostgreSQL's Unicode escape sequence processing and string literal parsing
+
+## Simplified Source
+
+```c
+static inline pg_wchar surrogate_pair_to_codepoint(pg_wchar first, pg_wchar second) {
+    // Extract 10-bit payloads from high and low surrogates
+    // Combine using UTF-16 decoding formula: (high_payload << 10) + 0x10000 + low_payload
+    return ((first & 0x3FF) << 10) + 0x10000 + (second & 0x3FF);
+}
+```
+
+This function converts a UTF-16 surrogate pair into its Unicode code point by extracting the 10-bit values from each surrogate and combining them with the standard UTF-16 formula to produce code points in the supplementary Unicode planes (U+10000-U+10FFFF).

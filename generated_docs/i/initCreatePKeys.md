@@ -38,3 +38,39 @@ The function iterates through a predefined array of DDL statements and executes 
 - Supports optional index tablespace specification for performance tuning
 - Uses proper identifier escaping when handling tablespace names to prevent SQL injection
 - Located in src/bin/pgbench/pgbench.c:5175-5212
+
+## Simplified Source
+
+```c
+static void initCreatePKeys(PGconn *con)
+{
+    // DDL statements to create primary keys on pgbench tables
+    static const char *const DDLINDEXes[] = {
+        "alter table pgbench_branches add primary key (bid)",
+        "alter table pgbench_tellers add primary key (tid)",
+        "alter table pgbench_accounts add primary key (aid)"
+    };
+
+    PQExpBufferData query;
+
+    fprintf(stderr, "creating primary keys...\n");
+    initPQExpBuffer(&query);
+
+    // Execute each primary key creation statement
+    for (int i = 0; i < lengthof(DDLINDEXes); i++) {
+        resetPQExpBuffer(&query);
+        appendPQExpBufferStr(&query, DDLINDEXes[i]);
+
+        // Add tablespace specification if provided
+        if (index_tablespace != NULL) {
+            char *escape_tablespace = PQescapeIdentifier(con, index_tablespace, strlen(index_tablespace));
+            appendPQExpBuffer(&query, " using index tablespace %s", escape_tablespace);
+            PQfreemem(escape_tablespace);
+        }
+
+        executeStatement(con, query.data);
+    }
+
+    termPQExpBuffer(&query);
+}
+```

@@ -36,3 +36,27 @@ Note that this function only retrieves the leftmost node without unlinking it fr
 - The original implementation included an unlink step, but this was removed to provide cleaner separation of concerns
 - Commonly used in conjunction with rbt_delete when implementing operations that need to remove the minimum element
 - The function is safe to call on empty trees
+
+## Simplified Source
+
+```c
+RBTNode *
+rbt_leftmost(RBTree *rbt)
+{
+    RBTNode *node = rbt->root;
+    RBTNode *leftmost = rbt->root;
+
+    // Keep going left to find minimum value
+    while (node != RBTNIL)
+    {
+        leftmost = node;
+        node = node->left;
+    }
+
+    // Return leftmost node, or NULL if tree is empty
+    if (leftmost != RBTNIL)
+        return leftmost;
+
+    return NULL;
+}
+```

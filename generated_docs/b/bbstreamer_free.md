@@ -42,3 +42,15 @@ The function performs a basic assertion to ensure the streamer is not NULL befor
 - Different bbstreamer implementations free various resources: file handles, compression contexts, buffers, and the streamer structure itself
 - The Assert macro ensures defensive programming by catching NULL streamer pointers in debug builds
 - Should be called on all bbstreamer instances to ensure proper cleanup in the pg_basebackup utility
+
+## Simplified Source
+
+```c
+static inline void bbstreamer_free(bbstreamer *streamer) {
+    // Validate streamer exists
+    Assert(streamer != NULL);
+
+    // Delegate to streamer-specific free handler
+    streamer->bbs_ops->free(streamer);
+}
+```

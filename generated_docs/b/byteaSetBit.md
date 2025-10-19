@@ -43,3 +43,42 @@ This function creates a copy of the input bytea value and modifies the Nth bit a
 - Returns a new bytea instance with the modified bit value
 - Part of PostgreSQL's bytea data type manipulation functions in varlena.c
 - Located in src/backend/utils/adt/varlena.c:3308-3358
+
+## Simplified Source
+
+```c
+Datum byteaSetBit(PG_FUNCTION_ARGS) {
+    // Get arguments: bytea copy, bit index, new bit value
+    bytea *res = PG_GETARG_BYTEA_P_COPY(0);
+    int64 n = PG_GETARG_INT64(1);
+    int32 newBit = PG_GETARG_INT32(2);
+
+    // Calculate bytea length (excluding header)
+    int len = VARSIZE(res) - VARHDRSZ;
+
+    // Validate bit index is within range [0, len*8-1]
+    if (n < 0 || n >= (int64) len * 8)
+        ereport(ERROR, (errcode(ERRCODE_ARRAY_SUBSCRIPT_ERROR),
+                errmsg("index %lld out of valid range, 0..%lld",
+                       (long long) n, (long long) len * 8 - 1)));
+
+    // Calculate byte position and bit position within byte
+    int byteNo = (int) (n / 8);
+    int bitNo = (int) (n % 8);
+
+    // Validate new bit value is 0 or 1
+    if (newBit != 0 && newBit != 1)
+        ereport(ERROR, (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                errmsg("new bit must be 0 or 1")));
+
+    // Update the specific bit using bit manipulation
+    int oldByte = ((unsigned char *) VARDATA(res))[byteNo];
+    int newByte = (newBit == 0) ?
+        oldByte & (~(1 << bitNo)) :    // Clear bit
+        oldByte | (1 << bitNo);        // Set bit
+
+    ((unsigned char *) VARDATA(res))[byteNo] = newByte;
+
+    PG_RETURN_BYTEA_P(res);
+}
+```

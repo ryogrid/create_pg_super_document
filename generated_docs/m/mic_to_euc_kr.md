@@ -41,3 +41,24 @@ This function serves as a PostgreSQL-callable wrapper for MULE to EUC-KR encodin
 - Returns the number of bytes converted as an integer value
 - Part of PostgreSQL's multi-byte character encoding conversion subsystem
 - Complementary function to euc_kr_to_mic, providing bidirectional conversion capability
+
+## Simplified Source
+
+```c
+Datum
+mic_to_euc_kr(PG_FUNCTION_ARGS)
+{
+    // Extract function parameters
+    unsigned char *src = (unsigned char *) PG_GETARG_CSTRING(2);
+    unsigned char *dest = (unsigned char *) PG_GETARG_CSTRING(3);
+    int len = PG_GETARG_INT32(4);
+    bool noError = PG_GETARG_BOOL(5);
+
+    // Validate encoding conversion request
+    CHECK_ENCODING_CONVERSION_ARGS(PG_MULE_INTERNAL, PG_EUC_KR);
+
+    // Perform the actual conversion and return result
+    int converted = mic2euc_kr(src, dest, len, noError);
+    PG_RETURN_INT32(converted);
+}
+```

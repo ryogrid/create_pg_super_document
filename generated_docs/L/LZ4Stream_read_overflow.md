@@ -38,3 +38,35 @@ This static function manages the overflow buffer mechanism used in LZ4 decompres
 - The function uses memmove() instead of memcpy() for buffer compaction because the source and destination memory regions may overlap
 - Returns 0 when the overflow buffer is empty, allowing callers to determine when fresh decompression is needed
 - The buffer compaction ensures efficient memory usage by keeping unread data at the beginning of the buffer
+
+## Simplified Source
+
+```c
+static int
+LZ4Stream_read_overflow(LZ4State *state, void *ptr, int size, bool eol_flag)
+{
+    char *p;
+    int readlen = 0;
+
+    // Return 0 if overflow buffer is empty
+    if (state->overflowlen == 0)
+        return 0;
+
+    // Determine how much to read (limited by available data or requested size)
+    readlen = (state->overflowlen >= size) ? size : state->overflowlen;
+
+    // If line mode is enabled, stop at first newline within readlen
+    if (eol_flag && (p = memchr(state->overflowbuf, '\n', readlen)))
+        readlen = p - state->overflowbuf + 1; // Include newline
+
+    // Copy data to caller's buffer
+    memcpy(ptr, state->overflowbuf, readlen);
+    state->overflowlen -= readlen;
+
+    // Compact overflow buffer by moving remaining data to beginning
+    if (state->overflowlen > 0)
+        memmove(state->overflowbuf, state->overflowbuf + readlen, state->overflowlen);
+
+    return readlen;
+}
+```

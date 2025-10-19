@@ -36,3 +36,63 @@ This function is part of PostgreSQL's WAL record description system, specificall
 - For VACUUM and DELETE operations, it delegates to  for detailed item descriptions when block data is present
 - The function is essential for debugging B-tree operations and understanding WAL record contents during recovery or analysis
 - Each operation type has its own specific format for displaying relevant information such as offsets, levels, transaction IDs, and page numbers
+
+## Simplified Source
+
+```c
+void btree_desc(StringInfo buf, XLogReaderState *record) {
+    // Extract record data and operation type
+    char *rec = XLogRecGetData(record);
+    uint8 info = XLogRecGetInfo(record) & ~XLR_INFO_MASK;
+
+    switch (info) {
+        // Insert operations (leaf, upper, meta, post)
+        case XLOG_BTREE_INSERT_LEAF:
+        case XLOG_BTREE_INSERT_UPPER:
+        case XLOG_BTREE_INSERT_META:
+        case XLOG_BTREE_INSERT_POST: {
+            xl_btree_insert *xlrec = (xl_btree_insert *) rec;
+            appendStringInfo(buf, "off: %u", xlrec->offnum);
+            break;
+        }
+
+        // Page split operations
+        case XLOG_BTREE_SPLIT_L:
+        case XLOG_BTREE_SPLIT_R: {
+            xl_btree_split *xlrec = (xl_btree_split *) rec;
+            appendStringInfo(buf, "level: %u, firstrightoff: %d, newitemoff: %d, postingoff: %d",
+                           xlrec->level, xlrec->firstrightoff, xlrec->newitemoff, xlrec->postingoff);
+            break;
+        }
+
+        // Deduplication operation
+        case XLOG_BTREE_DEDUP: {
+            xl_btree_dedup *xlrec = (xl_btree_dedup *) rec;
+            appendStringInfo(buf, "nintervals: %u", xlrec->nintervals);
+            break;
+        }
+
+        // Vacuum operation
+        case XLOG_BTREE_VACUUM: {
+            xl_btree_vacuum *xlrec = (xl_btree_vacuum *) rec;
+            appendStringInfo(buf, "ndeleted: %u, nupdated: %u", xlrec->ndeleted, xlrec->nupdated);
+            if (XLogRecHasBlockData(record, 0))
+                delvacuum_desc(buf, XLogRecGetBlockData(record, 0, NULL), xlrec->ndeleted, xlrec->nupdated);
+            break;
+        }
+
+        // Delete operation
+        case XLOG_BTREE_DELETE: {
+            xl_btree_delete *xlrec = (xl_btree_delete *) rec;
+            appendStringInfo(buf, "snapshotConflictHorizon: %u, ndeleted: %u, nupdated: %u, isCatalogRel: %c",
+                           xlrec->snapshotConflictHorizon, xlrec->ndeleted, xlrec->nupdated,
+                           xlrec->isCatalogRel ? 'T' : 'F');
+            if (XLogRecHasBlockData(record, 0))
+                delvacuum_desc(buf, XLogRecGetBlockData(record, 0, NULL), xlrec->ndeleted, xlrec->nupdated);
+            break;
+        }
+
+        // Additional cases for page operations, newroot, etc. follow similar pattern...
+    }
+}
+```

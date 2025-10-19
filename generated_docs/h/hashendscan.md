@@ -39,3 +39,34 @@ Finally, it deallocates the memory used by the hash-specific scan state, includi
 - Sets the opaque pointer to NULL to prevent accidental access after cleanup
 - Essential for preventing memory and buffer leaks in long-running database sessions
 - Should always be called when a scan is no longer needed
+
+## Simplified Source
+
+```c
+void
+hashendscan(IndexScanDesc scan)
+{
+    HashScanOpaque so = (HashScanOpaque) scan->opaque;
+    Relation rel = scan->indexRelation;
+
+    // Process any remaining killed items
+    if (HashScanPosIsValid(so->currPos))
+    {
+        if (so->numKilled > 0)
+            _hash_kill_items(scan);
+    }
+
+    // Release any held buffers
+    _hash_dropscanbuf(rel, so);
+
+    // Free killed items array if allocated
+    if (so->killedItems != NULL)
+        pfree(so->killedItems);
+
+    // Free hash-specific scan state
+    pfree(so);
+
+    // Clear the opaque pointer
+    scan->opaque = NULL;
+}
+```

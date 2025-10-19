@@ -37,3 +37,39 @@ The `findBuiltin` function implements a smart lookup mechanism for built-in benc
 - Located in src/bin/pgbench/pgbench.c at lines 6156-6191
 - Multiple calls from main() indicate this is used extensively for script selection in various benchmark scenarios
 - The function ensures user-friendly script selection while maintaining precision through disambiguation
+
+## Simplified Source
+
+```c
+static const BuiltinScript *
+findBuiltin(const char *name)
+{
+    int found = 0;
+    int len = strlen(name);
+    const BuiltinScript *result = NULL;
+
+    // Search through all built-in scripts using prefix matching
+    for (int i = 0; i < lengthof(builtin_script); i++)
+    {
+        if (strncmp(builtin_script[i].name, name, len) == 0)
+        {
+            result = &builtin_script[i];
+            found++;
+        }
+    }
+
+    // Return if exactly one match found (unambiguous)
+    if (found == 1)
+        return result;
+
+    // Handle error cases: no match or multiple matches
+    if (found == 0)
+        pg_log_error("no builtin script found for name \"%s\"", name);
+    else
+        pg_log_error("ambiguous builtin name: %d builtin scripts found for prefix \"%s\"", found, name);
+
+    // Show available options and exit
+    listAvailableScripts();
+    exit(1);
+}
+```

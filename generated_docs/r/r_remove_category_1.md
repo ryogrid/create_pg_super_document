@@ -36,3 +36,42 @@ The function operates on the word boundary markers (ket and bra) and uses backtr
 - Part of the automatically generated code from Snowball stemming rules
 - Returns 1 on successful pattern match and processing, 0 if no pattern matched
 - Error conditions from slice_del are propagated upward
+
+## Simplified Source
+
+```c
+static int r_remove_category_1(struct SN_env * z) {
+    // Set boundary for pattern matching
+    z->ket = z->c;
+
+    // Find which category 1 pattern matches (17 patterns in a_0 array)
+    int pattern_id = find_among_b(z, a_0, 17);
+    if (!pattern_id) return 0;
+
+    z->bra = z->c;
+
+    switch (pattern_id) {
+        case 1:
+            // Simple deletion of matched suffix
+            slice_del(z);
+            break;
+
+        case 2:
+            // Conditional deletion - check for specific preceding patterns
+            int saved_pos = z->l - z->c;
+
+            // Check if preceded by specific pattern s_0 or s_1
+            if (eq_s_b(z, 3, s_0) || eq_s_b(z, 3, s_1)) {
+                // Don't delete if preceded by these patterns
+                break;
+            }
+
+            // Restore position and delete suffix
+            z->c = z->l - saved_pos;
+            slice_del(z);
+            break;
+    }
+
+    return 1;
+}
+```

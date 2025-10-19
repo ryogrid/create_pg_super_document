@@ -33,3 +33,21 @@ The `bbstreamer_plain_writer_free` function is responsible for freeing memory al
 - Part of PostgreSQL's memory management for backup streaming components
 - Must be called only after finalization has completed successfully
 - Located in src/bin/pg_basebackup/bbstreamer_file.c:149-160
+
+## Simplified Source
+
+```c
+static void
+bbstreamer_plain_writer_free(bbstreamer *streamer)
+{
+    bbstreamer_plain_writer *writer = (bbstreamer_plain_writer *) streamer;
+
+    // Verify cleanup state before freeing
+    Assert(!writer->should_close_file);    // File should be closed
+    Assert(writer->base.bbs_next == NULL); // No downstream streamers
+
+    // Free allocated memory
+    pfree(writer->pathname);
+    pfree(writer);
+}
+```

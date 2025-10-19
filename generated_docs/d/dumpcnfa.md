@@ -48,3 +48,34 @@ The function formats the output to show:
 - Works in conjunction with dumpcstate to provide complete NFA state machine visualization
 - The output format uses specific conventions: states followed by ':' indicate CNFA_NOPROGRESS flag, while '.' indicates normal states
 - DUPINF represents infinite repetition in match-all scenarios
+
+## Simplified Source
+
+```c
+static void dumpcnfa(struct cnfa *cnfa, FILE *f) {
+    // Print NFA header information
+    fprintf(f, "pre %d, post %d", cnfa->pre, cnfa->post);
+
+    // Print boundary conditions if set
+    if (cnfa->bos[0] != COLORLESS) fprintf(f, ", bos [%ld]", (long) cnfa->bos[0]);
+    if (cnfa->bos[1] != COLORLESS) fprintf(f, ", bol [%ld]", (long) cnfa->bos[1]);
+    if (cnfa->eos[0] != COLORLESS) fprintf(f, ", eos [%ld]", (long) cnfa->eos[0]);
+    if (cnfa->eos[1] != COLORLESS) fprintf(f, ", eol [%ld]", (long) cnfa->eos[1]);
+
+    // Print special flags
+    if (cnfa->flags & HASLACONS) fprintf(f, ", haslacons");
+    if (cnfa->flags & MATCHALL) {
+        fprintf(f, ", minmatchall %d", cnfa->minmatchall);
+        if (cnfa->maxmatchall == DUPINF)
+            fprintf(f, ", maxmatchall inf");
+        else
+            fprintf(f, ", maxmatchall %d", cnfa->maxmatchall);
+    }
+    fprintf(f, "\n");
+
+    // Dump each state in detail
+    for (int st = 0; st < cnfa->nstates; st++)
+        dumpcstate(st, cnfa, f);
+    fflush(f);
+}
+```

@@ -41,3 +41,29 @@ The function uses the file_copy strategy instead of wal_log during initdb becaus
 - The function ensures template0 has no collation-dependent objects by unsetting datcollversion
 - Both template databases have public privileges revoked for security
 - The file_copy strategy is preferred during initdb for performance reasons
+
+## Simplified Source
+
+```c
+static void make_template0(FILE *cmdfd) {
+    // Create template0 database with fixed OID for pg_upgrade compatibility
+    // Use file_copy strategy for better performance during initdb
+    PG_CMD_PUTS("CREATE DATABASE template0 IS_TEMPLATE = true ALLOW_CONNECTIONS = false"
+                " OID = " CppAsString2(Template0DbOid)
+                " STRATEGY = file_copy;\n\n");
+
+    // Clear collation version to disable version checks for new databases
+    PG_CMD_PUTS("UPDATE pg_database SET datcollversion = NULL WHERE datname = 'template0';\n\n");
+
+    // Set proper collation version on template1
+    PG_CMD_PUTS("UPDATE pg_database SET datcollversion = pg_database_collation_actual_version(oid) WHERE datname = 'template1';\n\n");
+
+    // Revoke public privileges for security
+    PG_CMD_PUTS("REVOKE CREATE,TEMPORARY ON DATABASE template1 FROM public;\n\n");
+    PG_CMD_PUTS("REVOKE CREATE,TEMPORARY ON DATABASE template0 FROM public;\n\n");
+
+    // Add descriptive comment and cleanup
+    PG_CMD_PUTS("COMMENT ON DATABASE template0 IS 'unmodifiable empty database';\n\n");
+    PG_CMD_PUTS("VACUUM pg_database;\n\n");
+}
+```

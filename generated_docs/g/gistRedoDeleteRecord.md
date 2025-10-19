@@ -49,3 +49,44 @@ Unlike vacuum records which handle conflicts globally, individual GiST delete re
 - The conflict resolution must happen before updating the page to maintain query consistency
 - Different from heap vacuum records in terms of conflict handling approach
 - Updates both the page state flags and LSN to maintain recovery consistency
+
+## Simplified Source
+
+```c
+static void gistRedoDeleteRecord(XLogReaderState *record)
+{
+    XLogRecPtr lsn = record->EndRecPtr;
+    gistxlogDelete *xldata = (gistxlogDelete *) XLogRecGetData(record);
+    Buffer buffer;
+    Page page;
+    OffsetNumber *toDelete = xldata->offsets;
+
+    // Handle Hot Standby conflicts before updating page
+    if (InHotStandby)
+    {
+        RelFileLocator rlocator;
+        XLogRecGetBlockTag(record, 0, &rlocator, NULL, NULL);
+        ResolveRecoveryConflictWithSnapshot(xldata->snapshotConflictHorizon,
+                                           xldata->isCatalogRel, rlocator);
+    }
+
+    // Redo deletion if needed
+    if (XLogReadBufferForRedo(record, 0, &buffer) == BLK_NEEDS_REDO)
+    {
+        page = (Page) BufferGetPage(buffer);
+
+        // Remove dead tuples from the page
+        PageIndexMultiDelete(page, toDelete, xldata->ntodelete);
+
+        // Clear page flags and update LSN
+        GistClearPageHasGarbage(page);
+        GistMarkTuplesDeleted(page);
+        PageSetLSN(page, lsn);
+        MarkBufferDirty(buffer);
+    }
+
+    // Clean up buffer
+    if (BufferIsValid(buffer))
+        UnlockReleaseBuffer(buffer);
+}
+```

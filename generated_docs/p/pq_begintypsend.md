@@ -37,3 +37,20 @@ This function is typically used at the beginning of output functions for custom 
 - Used extensively by built-in data types for their binary output functions
 - The length field will be properly set when the corresponding  function is called
 - Essential for implementing custom data types that need binary serialization support
+
+## Simplified Source
+
+```c
+void
+pq_begintypsend(StringInfo buf)
+{
+    // Initialize the string buffer
+    initStringInfo(buf);
+
+    // Reserve four bytes for the bytea length word (protocol requirement)
+    appendStringInfoCharMacro(buf, '\0');
+    appendStringInfoCharMacro(buf, '\0');
+    appendStringInfoCharMacro(buf, '\0');
+    appendStringInfoCharMacro(buf, '\0');
+}
+```

@@ -42,3 +42,23 @@ This caching approach avoids repeated signature extraction and conversion during
 - The caching mechanism eliminates redundant signature processing during complex index operations
 - Functionally equivalent to `hemdist` but operates on preprocessed cache structures
 - Located in src/backend/utils/adt/tsgistidx.c:605-620
+
+## Simplified Source
+
+```c
+static int hemdistcache(CACHESIGN *a, CACHESIGN *b, int siglen) {
+    // Handle ALLTRUE signature cases
+    if (a->allistrue) {
+        if (b->allistrue)
+            return 0;  // Both ALLTRUE - identical
+        else
+            return SIGLENBIT(siglen) - sizebitvec(b->sign, siglen);
+    }
+    else if (b->allistrue) {
+        return SIGLENBIT(siglen) - sizebitvec(a->sign, siglen);
+    }
+
+    // Both are regular signatures - compute Hamming distance
+    return hemdistsign(a->sign, b->sign, siglen);
+}
+```

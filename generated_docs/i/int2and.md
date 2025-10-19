@@ -31,3 +31,16 @@ The  function implements the bitwise AND operation for PostgreSQL's  data type (
 - Part of PostgreSQL's arithmetic and bitwise operations for integer types
 - The function follows PostgreSQL's standard function interface using  and return macros
 - Typically accessed through the SQL bitwise AND operator  rather than direct function calls
+
+## Simplified Source
+
+```c
+Datum int2and(PG_FUNCTION_ARGS) {
+    // Extract two 16-bit integers from function arguments
+    int16 arg1 = PG_GETARG_INT16(0);
+    int16 arg2 = PG_GETARG_INT16(1);
+
+    // Perform bitwise AND operation and return result
+    PG_RETURN_INT16(arg1 & arg2);
+}
+```

@@ -38,3 +38,40 @@ The `checkcondition_HL` function serves as a callback for the TS_execute framewo
 - Positions are stored in ascending order to optimize subsequent processing
 - Returns TS_YES when matches are found, TS_NO otherwise
 - Located in src/backend/tsearch/wparser_def.c:1981-2031
+
+## Simplified Source
+
+```c
+static TSTernaryValue
+checkcondition_HL(void *opaque, QueryOperand *val, ExecPhraseData *data)
+{
+    hlCheck *checkval = (hlCheck *) opaque;
+
+    // Search through headline words for matches
+    for (int i = 0; i < checkval->len; i++) {
+        if (checkval->words[i].item == val) {
+            // If no position data needed, return match immediately
+            if (!data)
+                return TS_YES;
+
+            // Collect position information for phrase matching
+            if (!data->pos) {
+                // First match - allocate position array
+                data->pos = palloc(sizeof(WordEntryPos) * checkval->len);
+                data->allocated = true;
+                data->npos = 1;
+                data->pos[0] = checkval->words[i].pos;
+            }
+            else if (data->pos[data->npos - 1] < checkval->words[i].pos) {
+                // Add position if it's after the last recorded position
+                data->pos[data->npos++] = checkval->words[i].pos;
+            }
+        }
+    }
+
+    // Return match status based on whether positions were found
+    return (data && data->npos > 0) ? TS_YES : TS_NO;
+}
+```
+
+This simplified version shows the essential logic: scan headline words for query matches, optionally collect position data for phrase matching, and return whether matches were found. The function maintains lexeme positions for accurate text search highlighting.

@@ -41,3 +41,23 @@ The function supports different compression algorithms:
 - The function allocates MAXPGPATH bytes for the filename buffer
 - Memory allocated by this function must be freed by the caller
 - Part of the directory-based WAL writing method implementation in pg_basebackup
+
+## Simplified Source
+
+```c
+static char *
+dir_get_file_name(WalWriteMethod *wwmethod,
+                  const char *pathname, const char *temp_suffix)
+{
+    char *filename = pg_malloc0(MAXPGPATH * sizeof(char));
+
+    // Build filename with compression extension and optional suffix
+    snprintf(filename, MAXPGPATH, "%s%s%s",
+             pathname,
+             wwmethod->compression_algorithm == PG_COMPRESSION_GZIP ? ".gz" :
+             wwmethod->compression_algorithm == PG_COMPRESSION_LZ4 ? ".lz4" : "",
+             temp_suffix ? temp_suffix : "");
+
+    return filename;
+}
+```

@@ -51,3 +51,37 @@ This is particularly important for queries with array operators (e.g., `column =
 - The serialization of array key elements ensures that parallel workers can continue with the correct array key positioning
 - Only schedules a new primitive scan if the page hasn't changed and the scan is idle, preventing race conditions
 - This function is crucial for maintaining consistency in parallel scans with complex predicates involving array operations
+
+## Simplified Source
+
+```c
+void _bt_parallel_primscan_schedule(IndexScanDesc scan, BlockNumber prev_scan_page)
+{
+    BTScanOpaque so = (BTScanOpaque) scan->opaque;
+    BTParallelScanDesc btscan = get_parallel_scan_desc(scan);
+
+    // Must have array keys for this operation
+    Assert(so->numArrayKeys);
+
+    // Acquire lock for atomic operation
+    SpinLockAcquire(&btscan->btps_mutex);
+
+    // Check if scan state is still valid and idle
+    if (btscan->btps_scanPage == prev_scan_page &&
+        btscan->btps_pageStatus == BTPARALLEL_IDLE)
+    {
+        // Mark as needing new primitive scan
+        btscan->btps_scanPage = InvalidBlockNumber;
+        btscan->btps_pageStatus = BTPARALLEL_NEED_PRIMSCAN;
+
+        // Copy current array key positions to shared state
+        for (int i = 0; i < so->numArrayKeys; i++)
+        {
+            BTArrayKeyInfo *array = &so->arrayKeys[i];
+            btscan->btps_arrElems[i] = array->cur_elem;
+        }
+    }
+
+    SpinLockRelease(&btscan->btps_mutex);
+}
+```

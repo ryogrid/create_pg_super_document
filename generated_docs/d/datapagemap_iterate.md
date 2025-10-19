@@ -28,3 +28,19 @@ This function creates a new iterator object that can be used to sequentially tra
 - The iterator starts at block number 0 and will traverse all set bits in ascending order
 - Used in conjunction with datapagemap_next() to implement the iteration pattern
 - Part of the pg_rewind utility's bitmap traversal system for processing modified data pages
+
+## Simplified Source
+
+```c
+datapagemap_iterator_t *datapagemap_iterate(datapagemap_t *map)
+{
+    datapagemap_iterator_t *iter;
+
+    // Allocate and initialize iterator
+    iter = pg_malloc(sizeof(datapagemap_iterator_t));
+    iter->map = map;
+    iter->nextblkno = 0;  // Start iteration from block 0
+
+    return iter;
+}
+```

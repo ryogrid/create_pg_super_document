@@ -32,3 +32,17 @@ The `float4up` function is a PostgreSQL built-in function that returns the same 
 - Follows PostgreSQL's function calling convention using PG_FUNCTION_ARGS macro
 - Returns result using PostgreSQL's Datum system for type-safe value passing
 - This function exists for syntactic completeness to support the unary + operator in SQL expressions
+
+## Simplified Source
+
+```c
+Datum
+float4up(PG_FUNCTION_ARGS)
+{
+    // Extract the float4 argument
+    float4 arg = PG_GETARG_FLOAT4(0);
+
+    // Unary plus operation: return the value unchanged
+    PG_RETURN_FLOAT4(arg);
+}
+```

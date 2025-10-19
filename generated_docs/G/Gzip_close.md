@@ -30,3 +30,18 @@ The function is part of PostgreSQL's compression abstraction layer used by pg_du
 - This is a static function, so it's only accessible within the compress_gzip.c file
 - Part of the gzip compression backend for PostgreSQL's pg_dump utility
 - Requires HAVE_LIBZ to be defined for compilation (depends on zlib library)
+
+## Simplified Source
+
+```c
+static bool Gzip_close(CompressFileHandle *CFH)
+{
+    gzFile gzfp = (gzFile) CFH->private_data;
+
+    // Clear private data to prevent further access
+    CFH->private_data = NULL;
+
+    // Close gzip file and return success status
+    return gzclose(gzfp) == Z_OK;
+}
+```

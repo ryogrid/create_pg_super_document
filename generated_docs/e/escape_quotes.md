@@ -37,3 +37,18 @@ The function is particularly useful during database initialization (initdb) when
 - Part of the initdb utilitys string processing infrastructure
 - The `static` keyword indicates this function has internal linkage within initdb.c
 - Designed specifically for PostgreSQL configuration and SQL contexts where E-string syntax is used
+
+## Simplified Source
+
+```c
+static char *escape_quotes(const char *src) {
+    // Escape single quotes and backslashes for safe SQL/config use
+    char *result = escape_single_quotes_ascii(src);
+
+    // Handle out of memory condition
+    if (!result)
+        pg_fatal("out of memory");
+
+    return result;
+}
+```

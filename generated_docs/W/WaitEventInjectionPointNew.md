@@ -38,3 +38,12 @@ Like other wait event creation functions, this ensures name uniqueness - if a wa
 - This function is typically used in testing modules and debugging scenarios rather than in production code
 - The function is thread-safe and can be called from multiple processes concurrently
 - Injection point wait events help developers understand timing and synchronization behavior during testing
+
+## Simplified Source
+
+```c
+uint32 WaitEventInjectionPointNew(const char *wait_event_name) {
+    // Create a new wait event specifically for injection points
+    return WaitEventCustomNew(PG_WAIT_INJECTIONPOINT, wait_event_name);
+}
+```

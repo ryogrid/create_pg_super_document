@@ -42,3 +42,55 @@ The function sets up an XLogReader, reads one record at the specified position, 
 - Includes comprehensive error handling with LSN formatting for debugging
 - Similar setup to extractPageMap but designed for single-record operations
 - Uses the same global xlogreadfd management pattern
+
+## Simplified Source
+
+```c
+XLogRecPtr
+readOneRecord(const char *datadir, XLogRecPtr ptr, int tliIndex,
+              const char *restoreCommand)
+{
+    XLogRecord *record;
+    XLogReaderState *xlogreader;
+    char *errormsg;
+    XLogPageReadPrivate private;
+    XLogRecPtr endptr;
+
+    // Initialize WAL reader with timeline and restore command
+    private.tliIndex = tliIndex;
+    private.restoreCommand = restoreCommand;
+    xlogreader = XLogReaderAllocate(WalSegSz, datadir,
+                                    XL_ROUTINE(.page_read = &SimpleXLogPageRead),
+                                    &private);
+    if (xlogreader == NULL)
+        pg_fatal("out of memory while allocating a WAL reading processor");
+
+    // Start reading from the specified position
+    XLogBeginRead(xlogreader, ptr);
+
+    // Read exactly one record
+    record = XLogReadRecord(xlogreader, &errormsg);
+    if (record == NULL)
+    {
+        if (errormsg)
+            pg_fatal("could not read WAL record at %X/%X: %s",
+                     LSN_FORMAT_ARGS(ptr), errormsg);
+        else
+            pg_fatal("could not read WAL record at %X/%X",
+                     LSN_FORMAT_ARGS(ptr));
+    }
+
+    // Get the end position of the record
+    endptr = xlogreader->EndRecPtr;
+
+    // Clean up resources
+    XLogReaderFree(xlogreader);
+    if (xlogreadfd != -1)
+    {
+        close(xlogreadfd);
+        xlogreadfd = -1;
+    }
+
+    return endptr;
+}
+```

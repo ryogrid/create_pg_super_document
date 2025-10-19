@@ -52,3 +52,48 @@ The function was specifically designed to replace the previous use of  for displ
 - Error handling includes specific messages for file creation failures
 - Designed specifically to avoid the encoding and compatibility issues present in saveHistory() for display purposes
 - The pager integration allows comfortable viewing of long command histories without overwhelming the terminal
+
+## Simplified Source
+
+```c
+bool printHistory(const char *fname, unsigned short int pager) {
+#ifdef USE_READLINE
+    FILE *output;
+    bool is_pager;
+
+    if (!useHistory) return false;
+
+    if (fname == NULL) {
+        // Console output with optional pager
+        output = PageOutput(INT_MAX, pager ? &(pset.popt.topt) : NULL);
+        is_pager = true;
+    } else {
+        // File output
+        output = fopen(fname, "w");
+        if (output == NULL) {
+            pg_log_error("could not save history to file \"%s\": %m", fname);
+            return false;
+        }
+        is_pager = false;
+    }
+
+    // Print all history entries
+    BEGIN_ITERATE_HISTORY(cur_hist);
+    {
+        fprintf(output, "%s\n", cur_hist->line);
+    }
+    END_ITERATE_HISTORY();
+
+    // Cleanup
+    if (is_pager)
+        ClosePager(output);
+    else
+        fclose(output);
+
+    return true;
+#else
+    pg_log_error("history is not supported by this installation");
+    return false;
+#endif
+}
+```

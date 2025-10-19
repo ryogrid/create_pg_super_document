@@ -34,3 +34,13 @@ This callback ensures that consumers of replication slot statistics can determin
 - The function assumes the header parameter points to a valid PgStatShared_ReplSlot structure
 - No error checking is performed as this is an internal callback with controlled usage
 - Located in src/backend/utils/activity/pgstat_replslot.c:218-223
+
+## Simplified Source
+
+```c
+void pgstat_replslot_reset_timestamp_cb(PgStatShared_Common *header, TimestampTz ts)
+{
+    // Update reset timestamp for replication slot statistics
+    ((PgStatShared_ReplSlot *) header)->stats.stat_reset_timestamp = ts;
+}
+```

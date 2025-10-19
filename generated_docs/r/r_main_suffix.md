@@ -57,3 +57,49 @@ The function uses backward searching (find_among_b) to match suffixes from the e
 - The among_var determines which deletion rule to apply based on the matched suffix
 - Case 2 adds an additional constraint requiring specific preceding characters (s_ending group)
 - The temporary boundary manipulation ensures suffix matching occurs only in appropriate word regions
+
+## Simplified Source
+
+```c
+static int r_main_suffix(struct SN_env * z) {
+    // Ensure we're in the correct region (beyond R1 boundary)
+    if (z->c < z->I[1]) return 0;
+
+    // Set up boundary limits for suffix matching
+    int saved_boundary = z->lb;
+    z->lb = z->I[1];
+    z->ket = z->c;
+
+    // Quick character filter before expensive pattern matching
+    if (z->c <= z->lb || z->p[z->c - 1] >> 5 != 3 ||
+        !((1851440 >> (z->p[z->c - 1] & 0x1f)) & 1)) {
+        z->lb = saved_boundary;
+        return 0;
+    }
+
+    // Try to match one of 32 Danish suffix patterns
+    int suffix_match = find_among_b(z, a_0, 32);
+    if (!suffix_match) {
+        z->lb = saved_boundary;
+        return 0;
+    }
+
+    z->bra = z->c;
+    z->lb = saved_boundary;
+
+    // Apply appropriate deletion rule
+    switch (suffix_match) {
+        case 1:
+            // Simple suffix deletion
+            slice_del(z);
+            break;
+        case 2:
+            // Conditional deletion - check for s-ending character
+            if (in_grouping_b(z, g_s_ending, 97, 229, 0)) return 0;
+            slice_del(z);
+            break;
+    }
+
+    return 1; // Success
+}
+```

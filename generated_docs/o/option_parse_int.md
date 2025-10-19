@@ -55,3 +55,41 @@ On success, the function returns true and optionally stores the parsed value. On
 - Provides detailed error messages that include the option name and acceptable range
 - Part of the fe_utils library for consistent option parsing across PostgreSQL tools
 - Essential for validating numeric parameters in command-line utilities
+
+## Simplified Source
+
+```c
+bool option_parse_int(const char *optarg, const char *optname,
+                     int min_range, int max_range, int *result) {
+    char *endptr;
+    int val;
+
+    // Parse integer from string
+    errno = 0;
+    val = strtoint(optarg, &endptr, 10);
+
+    // Skip trailing whitespace
+    while (*endptr != '\0' && isspace((unsigned char) *endptr)) {
+        endptr++;
+    }
+
+    // Check for invalid characters
+    if (*endptr != '\0') {
+        pg_log_error("invalid value \"%s\" for option %s", optarg, optname);
+        return false;
+    }
+
+    // Check range and overflow
+    if (errno == ERANGE || val < min_range || val > max_range) {
+        pg_log_error("%s must be in range %d..%d", optname, min_range, max_range);
+        return false;
+    }
+
+    // Store result if requested
+    if (result) {
+        *result = val;
+    }
+
+    return true;
+}
+```

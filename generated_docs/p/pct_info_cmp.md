@@ -34,3 +34,24 @@ The comparison follows standard C library comparator conventions, returning:
 - The function assumes that both input pointers are valid and point to pct_info structures
 - Used specifically in the context of percentile calculations for ordered set aggregates like percentile_disc and percentile_cont
 - The sorting order (ascending by first_row, then by second_row) is crucial for the correct operation of percentile aggregate functions
+
+## Simplified Source
+
+```c
+static int pct_info_cmp(const void *pa, const void *pb) {
+    // Cast void pointers to pct_info structures
+    const struct pct_info *a = (const struct pct_info *) pa;
+    const struct pct_info *b = (const struct pct_info *) pb;
+
+    // Primary sort: compare first_row values
+    if (a->first_row != b->first_row)
+        return (a->first_row < b->first_row) ? -1 : 1;
+
+    // Secondary sort: compare second_row values if first_row equal
+    if (a->second_row != b->second_row)
+        return (a->second_row < b->second_row) ? -1 : 1;
+
+    // Both fields equal
+    return 0;
+}
+```

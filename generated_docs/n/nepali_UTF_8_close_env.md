@@ -31,3 +31,13 @@ The function should be called when stemming operations are complete to prevent m
 - This is an external function that should be called to properly clean up resources after stemming operations are complete
 - Part of PostgreSQL's memory management strategy for text search functionality
 - The function safely handles NULL pointers through the underlying SN_close_env implementation
+
+## Simplified Source
+
+```c
+extern void nepali_UTF_8_close_env(struct SN_env * z) {
+    // Clean up and deallocate Nepali stemming environment
+    // Parameter 0 indicates no additional string arrays to free
+    SN_close_env(z, 0);
+}
+```

@@ -34,3 +34,21 @@ The function handles floating-point comparisons correctly, including proper hand
 - Used in array statistics and selectivity estimation calculations
 - Simple implementation without handling of special float values (NaN, infinity)
 - Part of PostgreSQL's array analysis and query optimization infrastructure
+
+## Simplified Source
+
+```c
+static int float_compare_desc(const void *key1, const void *key2) {
+    // Extract float values from void pointers
+    float d1 = *((const float *) key1);
+    float d2 = *((const float *) key2);
+
+    // Compare for descending order: larger values come first
+    if (d1 > d2)
+        return -1;  // d1 should come before d2
+    else if (d1 < d2)
+        return 1;   // d2 should come before d1
+    else
+        return 0;   // equal values
+}
+```

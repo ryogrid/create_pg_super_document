@@ -40,3 +40,39 @@ This static function provides a centralized mechanism for outputting formatted m
 - Automatically handles HTML formatting when output format is HTML
 - Supports dual output to both query output stream and log file
 - Part of psql's large object management subsystem
+
+## Simplified Source
+
+```c
+static void print_lo_result(const char *fmt, ...) {
+    va_list ap;
+
+    // Output to console unless quiet mode is set
+    if (!pset.quiet) {
+        // Add HTML paragraph tags if in HTML format
+        if (pset.popt.topt.format == PRINT_HTML) {
+            fputs("<p>", pset.queryFout);
+        }
+
+        // Print formatted message
+        va_start(ap, fmt);
+        vfprintf(pset.queryFout, fmt, ap);
+        va_end(ap);
+
+        // Close HTML tags or add newline
+        if (pset.popt.topt.format == PRINT_HTML) {
+            fputs("</p>\n", pset.queryFout);
+        } else {
+            fputs("\n", pset.queryFout);
+        }
+    }
+
+    // Also log to file if logging is enabled
+    if (pset.logfile) {
+        va_start(ap, fmt);
+        vfprintf(pset.logfile, fmt, ap);
+        va_end(ap);
+        fputs("\n", pset.logfile);
+    }
+}
+```

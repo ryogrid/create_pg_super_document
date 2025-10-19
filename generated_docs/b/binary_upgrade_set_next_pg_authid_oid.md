@@ -34,3 +34,20 @@ The function can only be called when the server is running in binary upgrade mod
 - Essential for preserving security contexts and role-based permissions across PostgreSQL version upgrades
 - Part of the comprehensive OID preservation system that ensures database consistency during binary upgrades
 - Critical for multi-user databases where role ownership and permissions must be maintained exactly
+
+## Simplified Source
+
+```c
+Datum binary_upgrade_set_next_pg_authid_oid(PG_FUNCTION_ARGS)
+{
+    Oid authoid = PG_GETARG_OID(0);
+
+    // Verify we're in binary upgrade mode
+    CHECK_IS_BINARY_UPGRADE;
+
+    // Store the OID for the next role/user to be created
+    binary_upgrade_next_pg_authid_oid = authoid;
+
+    PG_RETURN_VOID();
+}
+```

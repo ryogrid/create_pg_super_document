@@ -37,3 +37,13 @@ The function abstracts the complexity of environment setup and provides a simple
 - Follows the standard Snowball pattern where each language provides its own create_env function
 - The integer count of 2 aligns with the typical R1/R2 region tracking used in Romance language stemmers
 - Memory management responsibility falls to the caller - the environment should be freed after use
+
+## Simplified Source
+
+```c
+extern struct SN_env * catalan_UTF_8_create_env(void) {
+    // Create Snowball environment with 0 string size and 2 integer variables
+    // The 2 integers are typically used for R1/R2 region tracking
+    return SN_create_env(0, 2);
+}
+```

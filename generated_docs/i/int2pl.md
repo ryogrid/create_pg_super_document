@@ -37,3 +37,22 @@ The function uses PostgreSQL's safe arithmetic functions (pg_add_s16_overflow) t
 - Throws ERRCODE_NUMERIC_VALUE_OUT_OF_RANGE error if overflow occurs
 - Part of PostgreSQL's arithmetic operator family for the int2/smallint data type
 - Uses the unlikely() macro hint to optimize for the common case where overflow does not occur
+
+## Simplified Source
+
+```c
+Datum int2pl(PG_FUNCTION_ARGS) {
+    // Extract arguments
+    int16 arg1 = PG_GETARG_INT16(0);
+    int16 arg2 = PG_GETARG_INT16(1);
+    int16 result;
+
+    // Perform addition with overflow checking
+    if (unlikely(pg_add_s16_overflow(arg1, arg2, &result))) {
+        ereport(ERROR, (errcode(ERRCODE_NUMERIC_VALUE_OUT_OF_RANGE),
+                       errmsg("smallint out of range")));
+    }
+
+    PG_RETURN_INT16(result);
+}
+```

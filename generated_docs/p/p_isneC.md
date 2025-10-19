@@ -33,3 +33,12 @@ While  checks for equality,  checks for inequality, which is useful in state mac
 - Less frequently used compared to  in the codebase
 - Part of the character classification system for the text search word parser
 - Provides semantic clarity when checking for character inequality in parsing logic
+
+## Simplified Source
+
+```c
+static int p_isneC(TParser *prs) {
+    // Check if current character does NOT equal the stored character
+    return !p_iseq(prs, prs->c);
+}
+```

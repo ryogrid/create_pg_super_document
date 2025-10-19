@@ -48,3 +48,34 @@ The function uses backward matching (find_among_b) which is typical for suffix p
 - The varying length requirements prevent over-stemming of words with different suffix types
 - Array `a_10` contains 10 different suffix patterns for comprehensive noun suffix coverage
 - Called earlier in the stemming process (line 1503) compared to prefix processing steps
+
+## Simplified Source
+
+```c
+static int r_Suffix_Noun_Step1a(struct SN_env * z) {
+    // Find noun suffix pattern (10 possible patterns)
+    z->ket = z->c;
+    int pattern = find_among_b(z, a_10, 10);
+    if (!pattern) return 0;
+
+    z->bra = z->c;
+
+    // Remove suffix based on pattern with minimum length requirements
+    switch (pattern) {
+        case 1:
+            if (len_utf8(z->p) >= 4) slice_del(z);  // Min length 4
+            else return 0;
+            break;
+        case 2:
+            if (len_utf8(z->p) >= 5) slice_del(z);  // Min length 5
+            else return 0;
+            break;
+        case 3:
+            if (len_utf8(z->p) >= 6) slice_del(z);  // Min length 6
+            else return 0;
+            break;
+    }
+
+    return 1;  // Success
+}
+```

@@ -32,3 +32,45 @@ The  function creates a shallow copy of a JsonbParseState linked list structure.
 - Returns NULL for NULL input, maintaining null-safety
 - Each node in the linked list is individually allocated and copied
 - Essential for maintaining isolation between aggregate processing phases
+
+## Simplified Source
+
+```c
+static JsonbParseState *clone_parse_state(JsonbParseState *state) {
+    JsonbParseState *result, *icursor, *ocursor;
+
+    // Return NULL for NULL input
+    if (state == NULL) {
+        return NULL;
+    }
+
+    // Allocate first node and set up cursors
+    result = palloc(sizeof(JsonbParseState));
+    icursor = state;
+    ocursor = result;
+
+    // Clone each node in the linked list
+    for (;;) {
+        // Copy essential fields
+        ocursor->contVal = icursor->contVal;
+        ocursor->size = icursor->size;
+        ocursor->unique_keys = icursor->unique_keys;
+        ocursor->skip_nulls = icursor->skip_nulls;
+
+        // Move to next node
+        icursor = icursor->next;
+        if (icursor == NULL) {
+            break;
+        }
+
+        // Allocate next node and advance output cursor
+        ocursor->next = palloc(sizeof(JsonbParseState));
+        ocursor = ocursor->next;
+    }
+
+    // Terminate the list
+    ocursor->next = NULL;
+
+    return result;
+}
+```

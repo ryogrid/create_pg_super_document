@@ -45,3 +45,62 @@ The  function performs type inference and conversion on a variable that currentl
 - [Integer](../I/Integer.md) overflow during conversion results in failure
 - Double conversion allows for scientific notation and handles malformed input gracefully
 - Part of pgbench's expression evaluation system for dynamic typing
+
+## Simplified Source
+
+```c
+static bool makeVariableValue(Variable *var) {
+    // Convert string variable to appropriate typed value
+
+    if (var->value.type != PGBT_NO_VALUE) {
+        return true;  // Already converted
+    }
+
+    size_t slen = strlen(var->svalue);
+    if (slen == 0) return false;  // Empty strings not allowed
+
+    // Check for NULL value
+    if (pg_strcasecmp(var->svalue, "null") == 0) {
+        setNullValue(&var->value);
+    }
+    // Check for boolean TRUE values (allows prefixes: y, ye, yes, t, tr, tru, true)
+    else if (pg_strncasecmp(var->svalue, "true", slen) == 0 ||
+             pg_strncasecmp(var->svalue, "yes", slen) == 0 ||
+             pg_strcasecmp(var->svalue, "on") == 0) {
+        setBoolValue(&var->value, true);
+    }
+    // Check for boolean FALSE values (allows prefixes: n, no, f, fa, fal, fals, false)
+    else if (pg_strncasecmp(var->svalue, "false", slen) == 0 ||
+             pg_strncasecmp(var->svalue, "no", slen) == 0 ||
+             pg_strcasecmp(var->svalue, "off") == 0 ||
+             pg_strcasecmp(var->svalue, "of") == 0) {
+        setBoolValue(&var->value, false);
+    }
+    // Check for integer values
+    else if (is_an_int(var->svalue)) {
+        int64 iv;
+        if (!strtoint64(var->svalue, false, &iv)) {
+            return false;  // Integer overflow
+        }
+        setIntValue(&var->value, iv);
+    }
+    // Default to double conversion
+    else {
+        double dv;
+        if (!strtodouble(var->svalue, true, &dv)) {
+            pg_log_error("malformed variable \"%s\" value: \"%s\"",
+                        var->name, var->svalue);
+            return false;
+        }
+        setDoubleValue(&var->value, dv);
+    }
+
+    return true;
+}
+```
+
+**Key Points:**
+- Performs type inference: null → boolean → integer → double (in that order)
+- Supports flexible boolean parsing with prefixes and common aliases
+- Returns false for empty strings or conversion failures
+- Essential for pgbench's dynamic typing system in expressions

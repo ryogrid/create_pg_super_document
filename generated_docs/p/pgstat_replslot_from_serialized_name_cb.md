@@ -39,3 +39,24 @@ The function handles the case where a replication slot might have been deleted b
 - The objoid field is set to the slot index returned by get_replslot_index
 - Part of the broader PostgreSQL statistics deserialization framework
 - Located in src/backend/utils/activity/pgstat_replslot.c:202-217
+
+## Simplified Source
+
+```c
+bool pgstat_replslot_from_serialized_name_cb(const NameData *name, PgStat_HashKey *key)
+{
+    // Get slot index from name
+    int slot_index = get_replslot_index(NameStr(*name), true);
+
+    // Check if slot still exists
+    if (slot_index == -1)
+        return false;
+
+    // Build hash key for replication slot statistics
+    key->kind = PGSTAT_KIND_REPLSLOT;
+    key->dboid = InvalidOid;
+    key->objoid = slot_index;
+
+    return true;
+}
+```

@@ -28,3 +28,13 @@ This hook function is responsible for updating the psql prompt2 setting when the
 - The function always returns true, indicating successful processing
 - PROMPT2 is typically used for continuation lines when entering multi-line SQL commands
 - Located in src/bin/psql/startup.c:1105
+
+## Simplified Source
+
+```c
+static bool prompt2_hook(const char *newval) {
+    // Set prompt2 to new value or empty string if NULL
+    pset.prompt2 = newval ? newval : "";
+    return true;  // Always succeeds - no validation needed
+}
+```

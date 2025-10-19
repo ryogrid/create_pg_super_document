@@ -43,3 +43,58 @@ The function iterates through all actions stored in the WAL record, extracting s
 - It handles unrecognized actions gracefully by displaying an error message and terminating parsing
 - The function formats segment numbers and action descriptions for debugging WAL replay operations
 - Part of PostgreSQL's WAL record description infrastructure for GIN indexes
+
+## Simplified Source
+
+```c
+static void
+desc_recompress_leaf(StringInfo buf, ginxlogRecompressDataLeaf *insertData)
+{
+    char       *walbuf = ((char *) insertData) + sizeof(ginxlogRecompressDataLeaf);
+
+    appendStringInfo(buf, " %d segments:", (int) insertData->nactions);
+
+    // Process each recompression action
+    for (int i = 0; i < insertData->nactions; i++)
+    {
+        uint8 a_segno = *((uint8 *) (walbuf++));
+        uint8 a_action = *((uint8 *) (walbuf++));
+        uint16 nitems = 0;
+
+        // Handle data for insert/replace actions
+        if (a_action == GIN_SEGMENT_INSERT || a_action == GIN_SEGMENT_REPLACE)
+        {
+            int newsegsize = SizeOfGinPostingList((GinPostingList *) walbuf);
+            walbuf += SHORTALIGN(newsegsize);
+        }
+
+        // Handle additional items
+        if (a_action == GIN_SEGMENT_ADDITEMS)
+        {
+            memcpy(&nitems, walbuf, sizeof(uint16));
+            walbuf += sizeof(uint16);
+            walbuf += nitems * sizeof(ItemPointerData);
+        }
+
+        // Format action description
+        switch (a_action)
+        {
+            case GIN_SEGMENT_ADDITEMS:
+                appendStringInfo(buf, " %d (add %d items)", a_segno, nitems);
+                break;
+            case GIN_SEGMENT_DELETE:
+                appendStringInfo(buf, " %d (delete)", a_segno);
+                break;
+            case GIN_SEGMENT_INSERT:
+                appendStringInfo(buf, " %d (insert)", a_segno);
+                break;
+            case GIN_SEGMENT_REPLACE:
+                appendStringInfo(buf, " %d (replace)", a_segno);
+                break;
+            default:
+                appendStringInfo(buf, " %d unknown action %d ???", a_segno, a_action);
+                return; // Stop processing on unknown action
+        }
+    }
+}
+```

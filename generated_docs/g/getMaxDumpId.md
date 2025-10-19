@@ -35,3 +35,14 @@ This function provides read-only access to the current maximum DumpId value by r
 - Used by topological sorting and cycle detection routines in pg_dump_sort.c
 - The returned value represents the count of all DumpIds assigned, including both DumpableObjects and standalone DumpIds created by createDumpId()
 - Critical for memory allocation and array sizing in sorting algorithms
+
+## Simplified Source
+
+```c
+DumpId
+getMaxDumpId(void)
+{
+    // Return the current highest assigned DumpId
+    return lastDumpId;
+}
+```

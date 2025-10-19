@@ -40,3 +40,28 @@ The function implements a key optimization principle: rather than immediately pl
 - Memory size calculations carefully avoid integer overflow by using appropriate type conversions and bounds checking
 - Buffer size management implements multiple safety checks: work_mem limit, integer overflow protection (INT_MAX), and allocator limits (MaxAllocSize)
 - The optimization may not be effective in all scenarios - if it fails, subsequent vacuum operations may need to fall back to cleanup-only mode
+
+## Simplified Source
+
+```c
+void _bt_pendingfsm_init(Relation rel, BTVacState *vstate, bool cleanuponly) {
+    // Skip optimization for cleanup-only operations - no new deletions expected
+    if (cleanuponly)
+        return;
+
+    // Calculate maximum buffer size based on work_mem, with overflow protection
+    vstate->bufsize = 256;  // Initial buffer size
+    int64 maxbufsize = (work_mem * 1024L) / sizeof(BTPendingFSM);
+
+    // Apply safety limits to prevent overflow and allocation issues
+    maxbufsize = Min(maxbufsize, INT_MAX);
+    maxbufsize = Min(maxbufsize, MaxAllocSize / sizeof(BTPendingFSM));
+    maxbufsize = Max(maxbufsize, vstate->bufsize);  // Ensure minimum size
+
+    vstate->maxbufsize = maxbufsize;
+
+    // Allocate buffer and initialize pending page count
+    vstate->pendingpages = palloc(sizeof(BTPendingFSM) * vstate->bufsize);
+    vstate->npendingpages = 0;
+}
+```

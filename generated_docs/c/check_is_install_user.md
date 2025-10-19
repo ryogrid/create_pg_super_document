@@ -47,3 +47,48 @@ The function connects to the template1 database to perform these checks, using p
 - Function assumes global os_info variable contains current user information
 - Terminates upgrade process with pg_fatal if validation fails
 - Connects specifically to template1 database for user queries
+
+## Simplified Source
+
+```c
+static void check_is_install_user(ClusterInfo *cluster)
+{
+    PGresult *res;
+    PGconn *conn = connectToServer(cluster, "template1");
+
+    prep_status("Checking database user is the install user");
+
+    // Verify current user is the install user (bootstrap superuser)
+    res = executeQueryOrDie(conn,
+                           "SELECT rolsuper, oid "
+                           "FROM pg_catalog.pg_roles "
+                           "WHERE rolname = current_user "
+                           "AND rolname !~ '^pg_'");
+
+    // Must be exactly one result with bootstrap superuser OID
+    if (PQntuples(res) != 1 ||
+        atooid(PQgetvalue(res, 0, 1)) != BOOTSTRAP_SUPERUSERID) {
+        pg_fatal("database user \"%s\" is not the install user", os_info.user);
+    }
+    PQclear(res);
+
+    // Count non-system users in the cluster
+    res = executeQueryOrDie(conn,
+                           "SELECT COUNT(*) "
+                           "FROM pg_catalog.pg_roles "
+                           "WHERE rolname !~ '^pg_'");
+
+    if (PQntuples(res) != 1) {
+        pg_fatal("could not determine the number of users");
+    }
+
+    // New cluster must have only the install user to prevent conflicts
+    if (cluster == &new_cluster && strcmp(PQgetvalue(res, 0, 0), "1") != 0) {
+        pg_fatal("Only the install user can be defined in the new cluster.");
+    }
+
+    PQclear(res);
+    PQfinish(conn);
+    check_ok();
+}
+```

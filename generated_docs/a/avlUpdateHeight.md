@@ -36,3 +36,14 @@ This function is typically called after tree modifications (insertions, rotation
 - Part of the minimalistic AVL tree implementation used for crosstab distinct value collection
 - Assumes that child nodes already have correct height values
 - Simple but critical operation for AVL tree self-balancing functionality
+
+## Simplified Source
+
+```c
+static void avlUpdateHeight(avl_node *n) {
+    // Set height to 1 + max(left_child_height, right_child_height)
+    n->height = 1 + (n->children[0]->height > n->children[1]->height ?
+                     n->children[0]->height :
+                     n->children[1]->height);
+}
+```

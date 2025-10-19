@@ -33,3 +33,21 @@ The  function is a static helper function that handles uncompressed data writing
 - The function uses the ENOSPC error code when fwrite returns a short write count but errno is not set
 - The function is static, limiting its scope to the compress_none.c file
 - Part of the modular compression system in pg_dump that allows different compression methods to be plugged in
+
+## Simplified Source
+
+```c
+static void
+write_none(const void *ptr, size_t size, CompressFileHandle *CFH)
+{
+    // Write data using standard file I/O
+    errno = 0;
+    size_t ret = fwrite(ptr, 1, size, (FILE *) CFH->private_data);
+
+    // Check for write errors or incomplete writes
+    if (ret != size) {
+        errno = (errno) ? errno : ENOSPC;
+        pg_fatal("could not write to file: %m");
+    }
+}
+```

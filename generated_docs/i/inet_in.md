@@ -33,3 +33,16 @@ This function serves as the standard input conversion function for PostgreSQL's 
 - Uses PostgreSQL's standard function calling convention with Datum return type
 - Part of the INET/CIDR family of network data types in PostgreSQL
 - Handles both IPv4 and IPv6 address formats through the underlying network_in function
+
+## Simplified Source
+
+```c
+Datum inet_in(PG_FUNCTION_ARGS) {
+    // Extract input string from function arguments
+    char *src = PG_GETARG_CSTRING(0);
+
+    // Convert string to inet format using network_in
+    // Pass false for is_cidr to allow host bits beyond network mask
+    PG_RETURN_INET_P(network_in(src, false, fcinfo->context));
+}
+```

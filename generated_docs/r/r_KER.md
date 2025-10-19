@@ -33,3 +33,17 @@ This function validates a specific morphological pattern in Indonesian words whe
 - The s_0 constant is defined as { 'e', 'r' } in the stemmer
 - Used specifically in second-order prefix removal logic where 'be' prefix requires the remaining word to start with consonant+'er'
 - Generated automatically by Snowball compiler from Indonesian stemming rules
+
+## Simplified Source
+
+```c
+static int r_KER(struct SN_env * z) {
+    // Check if current character is a consonant (not a vowel)
+    if (out_grouping(z, g_vowel, 97, 117, 0)) return 0;
+
+    // Check if next 2 characters are 'er'
+    if (!(eq_s(z, 2, s_0))) return 0; // s_0 contains "er"
+
+    return 1; // Pattern matches: consonant + "er"
+}
+```

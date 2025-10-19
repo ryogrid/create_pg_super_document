@@ -38,3 +38,21 @@ The configuration enables efficient text searching by utilizing prefix-based par
 - The function is typically registered as part of SP-GiST operator class definitions
 - The longValuesOK setting is crucial for text data as it enables suffixing compression for long strings
 - The canReturnData flag enables covering index functionality where indexed columns can be returned without accessing the heap
+
+## Simplified Source
+
+```c
+Datum spg_text_config(PG_FUNCTION_ARGS)
+{
+    // Get output configuration structure
+    spgConfigOut *cfg = (spgConfigOut *) PG_GETARG_POINTER(1);
+
+    // Configure SP-GiST for text data
+    cfg->prefixType = TEXTOID;      // Store text prefixes in inner nodes
+    cfg->labelType = INT2OID;       // Use 2-byte integers for labels
+    cfg->canReturnData = true;      // Support covering indexes
+    cfg->longValuesOK = true;       // Handle long strings with suffixing
+
+    PG_RETURN_VOID();
+}
+```

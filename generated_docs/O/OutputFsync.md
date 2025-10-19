@@ -40,3 +40,26 @@ The function is crucial for ensuring data durability in logical replication scen
 - Part of the durability guarantees required for logical replication clients
 - Fsync frequency can be controlled via command-line options to balance performance vs. durability
 - The function intelligently skips fsync for non-file outputs (stdout, pipes, etc.) where fsync is not applicable
+
+## Simplified Source
+
+```c
+static bool
+OutputFsync(TimestampTz now)
+{
+    // Update fsync tracking timestamps and LSN
+    output_last_fsync = now;
+    output_fsync_lsn = output_written_lsn;
+
+    // Skip fsync if disabled, not needed, or not a regular file
+    if (fsync_interval <= 0 || !output_needs_fsync || !output_isfile)
+        return true;
+
+    // Reset fsync flag and perform actual sync
+    output_needs_fsync = false;
+    if (fsync(outfd) != 0)
+        pg_fatal("could not fsync file \"%s\": %m", outfile);
+
+    return true;
+}
+```

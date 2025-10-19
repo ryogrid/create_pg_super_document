@@ -43,3 +43,31 @@ The hole-based approach avoids unnecessary data copying by only storing the fina
 - Time complexity is O(log n) in the worst case (height of the heap)
 - Essential for maintaining heap invariants after insertion or specific node removal operations
 - The comparison direction depends on whether its a min-heap or max-heap
+
+## Simplified Source
+
+```c
+static void sift_up(binaryheap *heap, int node_off) {
+    bh_node_type node_val = heap->bh_nodes[node_off];
+
+    // Use hole-based optimization: move parents down until correct position found
+    while (node_off != 0) {
+        int parent_off = parent_offset(node_off);
+        bh_node_type parent_val = heap->bh_nodes[parent_off];
+
+        // Compare node with parent using heap's comparison function
+        int cmp = heap->bh_compare(node_val, parent_val, heap->bh_arg);
+
+        // If node <= parent, heap property satisfied, stop
+        if (cmp <= 0)
+            break;
+
+        // Move parent down into current position (creating hole above)
+        heap->bh_nodes[node_off] = parent_val;
+        node_off = parent_off;
+    }
+
+    // Fill the final hole with the original node value
+    heap->bh_nodes[node_off] = node_val;
+}
+```

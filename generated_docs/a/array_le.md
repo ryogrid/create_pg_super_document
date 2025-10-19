@@ -37,3 +37,13 @@ The comparison is performed element-by-element using the appropriate comparison 
 - NULL handling follows PostgreSQL standards (NULLs are considered equal, NULL > non-NULL)
 - Used internally by the query planner and executor for array comparisons
 - Performance depends on array size and element type comparison complexity
+
+## Simplified Source
+
+```c
+Datum array_le(PG_FUNCTION_ARGS) {
+    // Use array_cmp for comparison and return true if result <= 0
+    // (first array is lexicographically less than or equal to second array)
+    PG_RETURN_BOOL(array_cmp(fcinfo) <= 0);
+}
+```

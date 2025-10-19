@@ -46,7 +46,42 @@ The function ensures that words don't retain inappropriate suffixes after the ma
 - Both processing categories require R1 region validation, indicating these are still morphologically significant elements
 - The function handles both deletion and replacement operations, showing that some residual patterns need transformation rather than simple removal
 - It is used across multiple Romance language stemmers (Catalan, French, Portuguese, Spanish) but notably not in Italian or other languages
-- Returns 1 on successful processing, 0 if no residual suffix matched, and negative values on error  
+- Returns 1 on successful processing, 0 if no residual suffix matched, and negative values on error
 - The replacement string s_9 is language-specific and typically represents a common morphological ending
 - This function typically runs as one of the final steps in the stemming algorithm, after main morphological processing
 - The static function scope indicates it's only used within specific stemmer implementation files
+
+## Simplified Source
+
+```c
+static int r_residual_suffix(struct SN_env * z) {
+    // Set end boundary and search for residual suffix pattern
+    z->ket = z->c;
+    int residual_category = find_among_b(z, a_4, 22);
+
+    if (!residual_category) {
+        return 0;  // No residual suffix pattern found
+    }
+
+    z->bra = z->c;  // Set start boundary
+
+    // Apply cleanup operation based on residual suffix category
+    switch (residual_category) {
+        case 1:
+            // Category 1: Complete deletion of residual suffix
+            if (r_R1(z)) {
+                return slice_del(z);
+            }
+            break;
+
+        case 2:
+            // Category 2: Replace with normalized ending (s_9)
+            if (r_R1(z)) {
+                return slice_from_s(z, 2, s_9);
+            }
+            break;
+    }
+
+    return 1;  // Pattern found but R1 region requirement not met
+}
+```

@@ -32,3 +32,16 @@ This function compares two Interval values and returns an integer result indicat
 - This is the primary comparison function used by PostgreSQL for interval ordering operations
 - Used internally for sorting intervals and implementing B-tree index operations
 - Standard PostgreSQL V1 function following the PG_FUNCTION_ARGS calling convention
+
+## Simplified Source
+
+```c
+Datum interval_cmp(PG_FUNCTION_ARGS) {
+    // Extract two interval arguments
+    Interval *interval1 = PG_GETARG_INTERVAL_P(0);
+    Interval *interval2 = PG_GETARG_INTERVAL_P(1);
+
+    // Return comparison result: negative, zero, or positive
+    PG_RETURN_INT32(interval_cmp_internal(interval1, interval2));
+}
+```

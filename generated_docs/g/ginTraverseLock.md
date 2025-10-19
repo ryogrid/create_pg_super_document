@@ -28,3 +28,33 @@ ginTraverseLock is a critical function in PostgreSQL's GIN (Generalized Inverted
 
 ## Notes and Other Information
 The function implements a sophisticated locking strategy that balances concurrency with data integrity. The relock mechanism handles the edge case where page structure changes during lock upgrade, which can occur in high-concurrency scenarios. The returned access value indicates the final lock type held, which callers use to determine subsequent unlock behavior.
+
+## Simplified Source
+
+```c
+int ginTraverseLock(Buffer buffer, bool searchMode) {
+    int access = GIN_SHARE;
+
+    // Start with shared lock
+    LockBuffer(buffer, GIN_SHARE);
+    Page page = BufferGetPage(buffer);
+
+    // Check if we need exclusive access for modifications
+    if (GinPageIsLeaf(page) && !searchMode) {
+        // Upgrade to exclusive lock for leaf modifications
+        LockBuffer(buffer, GIN_UNLOCK);
+        LockBuffer(buffer, GIN_EXCLUSIVE);
+
+        // Handle rare case: page became non-leaf during relock
+        if (!GinPageIsLeaf(page)) {
+            // Revert to shared lock
+            LockBuffer(buffer, GIN_UNLOCK);
+            LockBuffer(buffer, GIN_SHARE);
+        } else {
+            access = GIN_EXCLUSIVE;
+        }
+    }
+
+    return access;
+}
+```

@@ -30,3 +30,14 @@ BumpFree is an intentionally non-functional implementation of the memory context
 - This design pattern is common in specialized allocators where individual deallocation would compromise performance or simplicity
 - Developers using bump contexts must rely on context reset or destruction to free memory
 - The bump allocator is optimized for scenarios with many small, short-lived allocations that don't need individual cleanup
+
+## Simplified Source
+
+```c
+void
+BumpFree(void *pointer)
+{
+    // Bump allocator doesn't support individual chunk freeing
+    elog(ERROR, "pfree is not supported by the bump memory allocator");
+}
+```

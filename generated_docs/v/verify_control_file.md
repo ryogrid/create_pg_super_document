@@ -39,3 +39,36 @@ This function implements critical validation logic specifically for PostgreSQL's
 - Memory management includes proper cleanup with pfree for the control file data structure
 - This function is only called for manifest version 2 and higher, as version 1 doesn't include system identifiers
 - Part of the specialized validation pipeline for critical PostgreSQL system files
+
+## Simplified Source
+
+```c
+static void
+verify_control_file(const char *controlpath, uint64 manifest_system_identifier)
+{
+    ControlFileData *control_file;
+    bool crc_ok;
+
+    // Read control file
+    pg_log_debug("reading \"%s\"", controlpath);
+    control_file = get_controlfile_by_exact_path(controlpath, &crc_ok);
+
+    // Validate CRC integrity
+    if (!crc_ok)
+        report_fatal_error("%s: CRC is incorrect", controlpath);
+
+    // Check control file version compatibility
+    if (control_file->pg_control_version != PG_CONTROL_VERSION)
+        report_fatal_error("%s: unexpected control file version", controlpath);
+
+    // Verify system identifier matches manifest
+    if (manifest_system_identifier != control_file->system_identifier)
+        report_fatal_error("%s: manifest system identifier is %llu, but control file has %llu",
+                           controlpath,
+                           (unsigned long long) manifest_system_identifier,
+                           (unsigned long long) control_file->system_identifier);
+
+    // Clean up memory
+    pfree(control_file);
+}
+```

@@ -41,3 +41,18 @@ This function provides the core comparison logic for double-precision floating-p
 - Part of the float8 comparison operations suite as indicated by the comment
 - Used extensively throughout PostgreSQL's indexing and sorting infrastructure
 - Provides consistent comparison semantics for double-precision floating-point values
+
+## Simplified Source
+
+```c
+int float8_cmp_internal(float8 a, float8 b) {
+    // Three-way comparison for double-precision floats
+    // Returns: 1 if a > b, -1 if a < b, 0 if equal
+
+    if (float8_gt(a, b))
+        return 1;
+    if (float8_lt(a, b))
+        return -1;
+    return 0;  // Equal values
+}
+```

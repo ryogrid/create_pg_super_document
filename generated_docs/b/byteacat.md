@@ -33,3 +33,17 @@ This function provides bytea concatenation functionality by taking two bytea arg
 - Uses PG_GETARG_BYTEA_PP for potentially packed bytea arguments for memory efficiency
 - The function is cloned from textcat but adapted for binary data (bytea) instead of text
 - Located in src/backend/utils/adt/varlena.c:2938-2952
+
+## Simplified Source
+
+```c
+// PostgreSQL function to concatenate two bytea values
+Datum byteacat(PG_FUNCTION_ARGS) {
+    // Extract the two bytea arguments
+    bytea *first_bytea = PG_GETARG_BYTEA_PP(0);
+    bytea *second_bytea = PG_GETARG_BYTEA_PP(1);
+
+    // Delegate to the core concatenation function and return result
+    return PG_RETURN_BYTEA_P(bytea_catenate(first_bytea, second_bytea));
+}
+```

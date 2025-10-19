@@ -38,3 +38,33 @@ The function includes safety checks for NaN values and integer overflow when con
 - The function follows PostgreSQL's error handling patterns by returning boolean success/failure status
 - Overflow checking is critical when converting floating-point values to integers to prevent undefined behavior
 - Used extensively in evalStandardFunc for mathematical operations that require integer operands
+
+## Simplified Source
+
+```c
+static bool coerceToInt(PgBenchValue *pval, int64 *ival) {
+    // Direct assignment for integer values
+    if (pval->type == PGBT_INT) {
+        *ival = pval->u.ival;
+        return true;
+    }
+
+    // Convert double to int with overflow checking
+    if (pval->type == PGBT_DOUBLE) {
+        double rounded_value = rint(pval->u.dval);
+
+        // Check for NaN and overflow
+        if (isnan(rounded_value) || !FLOAT8_FITS_IN_INT64(rounded_value)) {
+            pg_log_error("double to int overflow for %f", rounded_value);
+            return false;
+        }
+
+        *ival = (int64) rounded_value;
+        return true;
+    }
+
+    // Cannot convert boolean or null to int
+    pg_log_error("cannot coerce %s to int", valueTypeName(pval));
+    return false;
+}
+```

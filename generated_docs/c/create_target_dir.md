@@ -34,3 +34,22 @@ This is a static helper function within the pg_rewind utility's file operations 
 - Provides detailed error messages including the full path and system error details
 - Part of the pg_rewind utility which synchronizes PostgreSQL data directories
 - Function assumes the parent directory already exists and will fail if the parent path is missing
+
+## Simplified Source
+
+```c
+static void create_target_dir(const char *path) {
+    char dstpath[MAXPGPATH];
+
+    // Skip actual operation in dry run mode
+    if (dry_run)
+        return;
+
+    // Build full target path
+    snprintf(dstpath, sizeof(dstpath), "%s/%s", datadir_target, path);
+
+    // Create directory with PostgreSQL permissions
+    if (mkdir(dstpath, pg_dir_create_mode) != 0)
+        pg_fatal("could not create directory \"%s\": %m", dstpath);
+}
+```

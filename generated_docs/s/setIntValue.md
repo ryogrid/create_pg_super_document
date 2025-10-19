@@ -38,3 +38,15 @@ This function provides a consistent way to create integer values throughout the 
 - Part of the value management system alongside setNullValue, setBoolValue, etc.
 - Handles 64-bit integers to support large numeric values in pgbench expressions
 - Critical component of the arithmetic evaluation pipeline in pgbench
+
+## Simplified Source
+
+```c
+static void setIntValue(PgBenchValue *pv, int64 ival) {
+    // Set value type to integer
+    pv->type = PGBT_INT;
+
+    // Store the integer value
+    pv->u.ival = ival;
+}
+```

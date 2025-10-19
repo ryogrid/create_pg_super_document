@@ -31,3 +31,18 @@ The `path_open` function is a PostgreSQL built-in function that takes a PATH geo
 - Setting the closed flag affects how the path is interpreted geometrically (as a polyline vs polygon)
 - Part of PostgreSQL's geometric data type operations suite
 - Complementary function to `path_close`
+
+## Simplified Source
+
+```c
+Datum path_open(PG_FUNCTION_ARGS) {
+    // Get a copy of the PATH object from function argument
+    PATH *path = PG_GETARG_PATH_P_COPY(0);
+
+    // Set the closed flag to false (convert closed path to open)
+    path->closed = false;
+
+    // Return the modified path
+    PG_RETURN_PATH_P(path);
+}
+```

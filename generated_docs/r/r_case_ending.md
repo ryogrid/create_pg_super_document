@@ -47,3 +47,61 @@ The switch statement handles 8 different categories of endings:
 - Case 8 validates vowel-consonant patterns using g_V1 and g_C character groups
 - Returns 1 on successful processing, 0 on failure
 - Located in stem_ISO_8859_1_finnish.c indicating ISO 8859-1 character encoding support
+
+## Simplified Source
+
+```c
+static int r_case_ending(struct SN_env * z) {
+    int case_type;
+
+    // Set boundaries to R1 region for case ending processing
+    if (z->c < z->I[1]) return 0;
+    int saved_boundary = z->lb;
+    z->lb = z->I[1];
+
+    // Find case ending from predefined list (30 patterns)
+    z->ket = z->c;
+    case_type = find_among_b(z, a_6, 30);
+    if (!case_type) {
+        z->lb = saved_boundary;
+        return 0;
+    }
+    z->bra = z->c;
+    z->lb = saved_boundary;
+
+    // Apply removal rules based on case type
+    switch (case_type) {
+        case 1: case 2: case 3: case 4: case 5: case 6:
+            // Cases 1-6: Simple vowel endings (a, e, i, o, ä, ö)
+            // Check preceding character and move cursor back
+            char required_vowels[] = {'a', 'e', 'i', 'o', 0xE4, 0xF6};
+            if (z->c <= z->lb || z->p[z->c - 1] != required_vowels[case_type - 1]) {
+                return 0;
+            }
+            z->c--;
+            break;
+
+        case 7:
+            // Complex case: Check for LONG pattern or specific sequence
+            if (r_LONG(z) <= 0) {
+                if (!eq_s_b(z, 2, s_2)) return 0;
+            }
+            if (z->c > z->lb) z->c--;
+            z->bra = z->c;
+            break;
+
+        case 8:
+            // Vowel-consonant pattern validation
+            if (in_grouping_b(z, g_V1, 97, 246, 0)) return 0;
+            if (in_grouping_b(z, g_C, 98, 122, 0)) return 0;
+            break;
+    }
+
+    // Remove the matched case ending
+    slice_del(z);
+
+    // Set flag indicating case ending was processed
+    z->I[2] = 1;
+    return 1;
+}
+```

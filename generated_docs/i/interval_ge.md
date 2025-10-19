@@ -31,3 +31,16 @@ This function compares two Interval values and returns true if the first interva
 - The function returns true (>=) when interval_cmp_internal returns a value >= 0
 - This is a standard PostgreSQL V1 function that follows the PG_FUNCTION_ARGS calling convention
 - Used internally by PostgreSQL to implement the >= operator for interval comparisons in SQL queries
+
+## Simplified Source
+
+```c
+Datum interval_ge(PG_FUNCTION_ARGS) {
+    // Extract two interval arguments
+    Interval *interval1 = PG_GETARG_INTERVAL_P(0);
+    Interval *interval2 = PG_GETARG_INTERVAL_P(1);
+
+    // Compare intervals and return true if first is greater than or equal to second
+    PG_RETURN_BOOL(interval_cmp_internal(interval1, interval2) >= 0);
+}
+```

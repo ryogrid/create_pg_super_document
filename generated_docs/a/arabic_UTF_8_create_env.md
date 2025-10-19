@@ -31,3 +31,13 @@ This is a language-specific constructor function that creates a new Snowball env
 - These integer variables correspond to the I[0], I[1], I[2] flags used throughout the stemming algorithm to control processing paths
 - Memory allocation failures return NULL, so callers should check the return value
 - Part of the standard Snowball stemmer API pattern where each language has its own create_env and close_env functions
+
+## Simplified Source
+
+```c
+extern struct SN_env * arabic_UTF_8_create_env(void) {
+    // Create Arabic-specific Snowball environment
+    // Parameters: 0 string arrays, 3 integer variables
+    return SN_create_env(0, 3);
+}
+```

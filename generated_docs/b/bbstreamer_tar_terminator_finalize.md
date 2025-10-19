@@ -35,3 +35,19 @@ This ensures that the resulting TAR archive is properly formatted and can be pro
 - Located in src/bin/pg_basebackup/bbstreamer_tar.c:496-509
 - Essential for creating valid TAR archives when using pg_basebackup
 - Addresses a server-side limitation in TAR termination handling
+
+## Simplified Source
+
+```c
+static void bbstreamer_tar_terminator_finalize(bbstreamer *streamer) {
+    char buffer[2 * TAR_BLOCK_SIZE];
+
+    // Create NUL termination blocks that server fails to provide
+    memset(buffer, 0, 2 * TAR_BLOCK_SIZE);
+    bbstreamer_content(streamer->bbs_next, NULL, buffer,
+                       2 * TAR_BLOCK_SIZE, BBSTREAMER_UNKNOWN);
+
+    // Complete finalization
+    bbstreamer_finalize(streamer->bbs_next);
+}
+```

@@ -30,3 +30,20 @@ This function handles the \gdesc backslash command in psql. When executed, it se
 - Returns PSQL_CMD_SEND to indicate the next query should be processed with describe mode
 - No command-line options are processed for this command
 - The actual description logic is handled elsewhere in the query processing pipeline
+
+## Simplified Source
+
+```c
+static backslashResult exec_command_gdesc(PsqlScanState scan_state, bool active_branch) {
+    // Skip line processing if not in active branch
+    backslashResult status = PSQL_CMD_SKIP_LINE;
+
+    if (active_branch) {
+        // Enable describe mode for next query
+        pset.gdesc_flag = true;
+        status = PSQL_CMD_SEND;
+    }
+
+    return status;
+}
+```

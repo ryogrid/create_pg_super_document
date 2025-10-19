@@ -33,3 +33,13 @@ audit_failure is a semantic wrapper function that provides a clear interface for
 - Currently used primarily by executor permission checking, but available for other hook types
 - Memory management for action and objName parameters is handled by emit_audit_message()
 - Essential for verifying that security policies correctly block unauthorized access attempts
+
+## Simplified Source
+
+```c
+static void audit_failure(const char *hook, char *action, char *objName)
+{
+    // Log access denial event with "denied" type
+    emit_audit_message("denied", hook, action, objName);
+}
+```

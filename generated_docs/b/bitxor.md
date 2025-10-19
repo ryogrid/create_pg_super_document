@@ -42,3 +42,37 @@ The `bitxor` function implements bitwise logical XOR (exclusive OR) operation be
 - Error message: "cannot XOR bit strings of different sizes"
 - XOR is useful for bit manipulation, encryption, and finding differences between bit patterns
 - Located in `src/backend/utils/adt/varbit.c:1324-1364`
+
+## Simplified Source
+
+```c
+Datum
+bitxor(PG_FUNCTION_ARGS)
+{
+    VarBit *arg1 = PG_GETARG_VARBIT_P(0);
+    VarBit *arg2 = PG_GETARG_VARBIT_P(1);
+    VarBit *result;
+    int bitlen1, bitlen2, i;
+    bits8 *p1, *p2, *r;
+
+    // Check that both bit strings have the same length
+    bitlen1 = VARBITLEN(arg1);
+    bitlen2 = VARBITLEN(arg2);
+    if (bitlen1 != bitlen2)
+        ereport(ERROR, "cannot XOR bit strings of different sizes");
+
+    // Allocate result with same size as input
+    result = (VarBit *) palloc(VARSIZE(arg1));
+    SET_VARSIZE(result, VARSIZE(arg1));
+    VARBITLEN(result) = bitlen1;
+
+    // Perform bitwise XOR operation byte by byte
+    p1 = VARBITS(arg1);
+    p2 = VARBITS(arg2);
+    r = VARBITS(result);
+    for (i = 0; i < VARBITBYTES(arg1); i++)
+        *r++ = *p1++ ^ *p2++;
+
+    return result;
+}
+```

@@ -41,3 +41,34 @@ The function handles two critical edge cases: (1) division by zero, which raises
 - Uses the unlikely() macro hint to optimize for the rare overflow case
 - The PG_RETURN_NULL() after the division by zero error is included as a compiler hint to prevent spurious warnings, but will never actually execute since ereport with ERROR level does not return
 - For all other division operations, no overflow is possible and the standard division is performed safely
+
+## Simplified Source
+
+```c
+Datum int2div(PG_FUNCTION_ARGS) {
+    // Extract arguments
+    int16 arg1 = PG_GETARG_INT16(0);  // dividend
+    int16 arg2 = PG_GETARG_INT16(1);  // divisor
+
+    // Check for division by zero
+    if (arg2 == 0) {
+        ereport(ERROR, (errcode(ERRCODE_DIVISION_BY_ZERO),
+                       errmsg("division by zero")));
+        PG_RETURN_NULL();
+    }
+
+    // Handle special case: INT16_MIN / -1 would overflow
+    if (arg2 == -1) {
+        if (unlikely(arg1 == PG_INT16_MIN)) {
+            ereport(ERROR, (errcode(ERRCODE_NUMERIC_VALUE_OUT_OF_RANGE),
+                           errmsg("smallint out of range")));
+        }
+        // Division by -1 is just negation
+        PG_RETURN_INT16(-arg1);
+    }
+
+    // Perform the division
+    int16 result = arg1 / arg2;
+    PG_RETURN_INT16(result);
+}
+```

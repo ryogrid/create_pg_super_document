@@ -34,3 +34,14 @@ The implementation delegates to PostgreSQL's internal pg_cmp_s32() utility funct
 - Provides ascending order sorting (smallest ranks first)
 - Leverages PostgreSQL's internal comparison utilities for consistency and safety
 - Part of the crosstab column ordering mechanism that allows custom arrangement of pivot columns
+
+## Simplified Source
+
+```c
+static int
+rankCompare(const void *a, const void *b)
+{
+    // Compare two 32-bit integers for sorting
+    return pg_cmp_s32(*(const int *) a, *(const int *) b);
+}
+```

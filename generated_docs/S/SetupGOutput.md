@@ -34,3 +34,24 @@ The function is designed to be called before query execution to ensure output re
 - SIGPIPE handling is automatically disabled for pipe outputs to prevent unexpected termination
 - Returns false on error, true on success or when no action is needed
 - Works in conjunction with CloseGOutput for proper resource management
+
+## Simplified Source
+
+```c
+static bool
+SetupGOutput(FILE **gfile_fout, bool *is_pipe)
+{
+    // Open output file/pipe if specified and not already open
+    if (pset.gfname != NULL && *gfile_fout == NULL) {
+        if (openQueryOutputFile(pset.gfname, gfile_fout, is_pipe)) {
+            // Disable SIGPIPE for pipe outputs
+            if (*is_pipe)
+                disable_sigpipe_trap();
+        }
+        else
+            return false;  // Failed to open
+    }
+
+    return true;
+}
+```

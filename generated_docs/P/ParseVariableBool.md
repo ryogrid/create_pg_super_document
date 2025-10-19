@@ -40,3 +40,48 @@ Special handling is implemented for "on" and "off" values where a minimum of 2 c
 - Does not modify *result when parsing fails, preserving the original value
 - Used extensively throughout psql for parsing boolean configuration variables and command options
 - Case-insensitive matching allows flexible user input ("TRUE", "True", "true" all work)
+
+## Simplified Source
+
+```c
+bool
+ParseVariableBool(const char *value, const char *name, bool *result)
+{
+    size_t len;
+    bool valid = true;
+
+    // Treat NULL as empty string (will cause error)
+    if (value == NULL)
+        value = "";
+
+    len = strlen(value);
+
+    // Check various boolean representations with partial matching
+    if (len > 0 && pg_strncasecmp(value, "true", len) == 0)
+        *result = true;
+    else if (len > 0 && pg_strncasecmp(value, "false", len) == 0)
+        *result = false;
+    else if (len > 0 && pg_strncasecmp(value, "yes", len) == 0)
+        *result = true;
+    else if (len > 0 && pg_strncasecmp(value, "no", len) == 0)
+        *result = false;
+    // 'o' alone is ambiguous - require at least 2 chars for on/off
+    else if (pg_strncasecmp(value, "on", (len > 2 ? len : 2)) == 0)
+        *result = true;
+    else if (pg_strncasecmp(value, "off", (len > 2 ? len : 2)) == 0)
+        *result = false;
+    else if (pg_strcasecmp(value, "1") == 0)
+        *result = true;
+    else if (pg_strcasecmp(value, "0") == 0)
+        *result = false;
+    else {
+        // Invalid value - don't modify result, optionally log error
+        if (name)
+            pg_log_error("unrecognized value \"%s\" for \"%s\": Boolean expected",
+                        value, name);
+        valid = false;
+    }
+
+    return valid;
+}
+```

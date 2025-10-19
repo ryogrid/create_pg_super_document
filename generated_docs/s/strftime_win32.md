@@ -48,3 +48,38 @@ This approach ensures that locale-aware date/time strings are properly encoded i
 - Returns 0 on failure (when wcsftime fails or conversion fails)
 - The  macro redirects all strftime calls in the file to this function
 - Does not affect  calls elsewhere in the backend, which are not locale-aware
+
+## Simplified Source
+
+```c
+static size_t strftime_win32(char *dst, size_t dstlen,
+                            const char *format, const struct tm *tm) {
+    wchar_t wformat[8];        // Wide-char format buffer
+    wchar_t wbuf[MAX_L10N_DATA];  // Wide-char result buffer
+
+    // Convert ASCII format string to wide characters (UTF-16)
+    size_t len = MultiByteToWideChar(CP_UTF8, 0, format, -1,
+                                     wformat, lengthof(wformat));
+    if (len == 0) {
+        elog(ERROR, "could not convert format string from UTF-8: error code %lu",
+             GetLastError());
+    }
+
+    // Format date/time using wide-character strftime
+    len = wcsftime(wbuf, MAX_L10N_DATA, wformat, tm);
+    if (len == 0) {
+        return 0;  // Formatting failed
+    }
+
+    // Convert wide-char result back to UTF-8
+    len = WideCharToMultiByte(CP_UTF8, 0, wbuf, len, dst, dstlen - 1,
+                              NULL, NULL);
+    if (len == 0) {
+        elog(ERROR, "could not convert string to UTF-8: error code %lu",
+             GetLastError());
+    }
+
+    dst[len] = '\0';  // Null-terminate result
+    return len;
+}
+```

@@ -32,3 +32,12 @@ This function evaluates an error status value and returns true if the error repr
 - Part of pgbench's intelligent retry logic for handling database concurrency issues
 - The function is static with internal linkage within pgbench.c
 - Helps distinguish between permanent errors (which should not be retried) and temporary conflicts
+
+## Simplified Source
+```c
+static bool canRetryError(EStatus estatus) {
+    // Only serialization failures and deadlocks can be retried
+    return (estatus == ESTATUS_SERIALIZATION_ERROR ||
+            estatus == ESTATUS_DEADLOCK_ERROR);
+}
+```

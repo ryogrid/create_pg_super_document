@@ -38,3 +38,32 @@ This function is crucial for table formatting operations where text needs to be 
 - Essential for PostgreSQL's table formatting system in frontend utilities
 - Properly accounts for the difference between byte length and display width in multibyte encodings
 - Returns byte offset from string start, while updating target_width with actual display positions used
+
+## Simplified Source
+
+```c
+static int strlen_max_width(unsigned char *str, int *target_width, int encoding) {
+    unsigned char *start = str;
+    unsigned char *end = str + strlen((char *) str);
+    int curr_width = 0;
+
+    while (str < end) {
+        int char_width = PQdsplen((char *) str, encoding);
+
+        // Stop if adding this character would exceed target width
+        // Exception: always include the first character
+        if (*target_width < curr_width + char_width && curr_width != 0)
+            break;
+
+        curr_width += char_width;
+        str += PQmblen((char *) str, encoding);
+
+        // Prevent buffer overrun on invalid strings
+        if (str > end)
+            str = end;
+    }
+
+    *target_width = curr_width;
+    return str - start;
+}
+```

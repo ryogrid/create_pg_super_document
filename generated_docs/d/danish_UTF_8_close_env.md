@@ -33,3 +33,13 @@ The function ensures that all allocated memory including string buffers, integer
 - After calling this function, the pointer `z` should not be used again as it points to freed memory
 - Part of the standard Snowball stemmer API pattern ensuring proper resource management for each language-specific stemmer
 - Essential for applications that process large amounts of text or run for extended periods
+
+## Simplified Source
+
+```c
+extern void danish_UTF_8_close_env(struct SN_env * z) {
+    // Clean up Danish stemming environment
+    // Parameter 1 indicates number of string buffers to free
+    SN_close_env(z, 1);
+}
+```

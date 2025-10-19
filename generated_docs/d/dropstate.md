@@ -39,3 +39,22 @@ The  function performs complete removal of a state from an NFA structure. It sys
 - Used during NFA simplification processes like empty state removal
 - Critical for maintaining NFA integrity during transformations
 - The state becomes invalid after this call and should not be referenced again
+
+## Simplified Source
+
+```c
+static void dropstate(struct nfa *nfa, struct state *s) {
+    struct arc *a;
+
+    // Remove all incoming arcs
+    while ((a = s->ins) != NULL)
+        freearc(nfa, a);
+
+    // Remove all outgoing arcs
+    while ((a = s->outs) != NULL)
+        freearc(nfa, a);
+
+    // Deallocate the state itself
+    freestate(nfa, s);
+}
+```

@@ -47,3 +47,41 @@ The function ensures that question words are properly normalized while maintaini
 - The a_14 array contains 3 different question suffix patterns specific to Tamil grammar
 - Post-processing through r_fix_endings ensures proper word formation after suffix removal
 - Part of the comprehensive Tamil stemming pipeline that handles various morphological transformations
+
+## Simplified Source
+
+```c
+static int r_remove_question_suffixes(struct SN_env * z) {
+    // Check minimum word length before processing
+    int ret = r_has_min_length(z);
+    if (ret <= 0) return ret;
+
+    // Initialize state flag
+    z->I[1] = 0;
+
+    // Set up backward processing boundaries
+    z->lb = z->c;
+    z->c = z->l;
+
+    // Save current position for potential backtracking
+    int saved_position = z->l - z->c;
+
+    // Look for question suffix patterns
+    z->ket = z->c;
+    if (find_among_b(z, a_14, 3)) {
+        // Question suffix found - replace with standardized form
+        z->bra = z->c;
+        slice_from_s(z, 3, s_53);
+        z->I[1] = 1; // Mark successful processing
+    }
+
+    // Restore position regardless of match result
+    z->c = z->l - saved_position;
+    z->c = z->lb;
+
+    // Perform post-processing to fix any morphological issues
+    r_fix_endings(z);
+
+    return 1; // Always return success after processing
+}
+```

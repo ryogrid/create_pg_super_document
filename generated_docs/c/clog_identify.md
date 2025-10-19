@@ -39,3 +39,22 @@ If an unknown operation type is encountered, the function returns NULL, indicati
 - Typically used in conjunction with `clog_desc` for comprehensive WAL record analysis
 - Essential for tools like `pg_waldump` that need to categorize and display WAL record types
 - The returned string identifiers are concise, uppercase names suitable for logging and display
+
+## Simplified Source
+
+```c
+const char *
+clog_identify(uint8 info)
+{
+    // Map CLOG operation types to string identifiers
+    switch (info & ~XLR_INFO_MASK)
+    {
+        case CLOG_ZEROPAGE:
+            return "ZEROPAGE";
+        case CLOG_TRUNCATE:
+            return "TRUNCATE";
+        default:
+            return NULL;
+    }
+}
+```

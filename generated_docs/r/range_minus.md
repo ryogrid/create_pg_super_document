@@ -36,3 +36,29 @@ The range_minus function is a PostgreSQL built-in function that implements the r
 - Throws an error if range types don't match
 - The actual computation is delegated to range_minus_internal for modularity
 - Part of PostgreSQL's range type system introduced in version 9.2
+
+## Simplified Source
+
+```c
+Datum range_minus(PG_FUNCTION_ARGS) {
+    // Extract the two range arguments
+    RangeType *r1 = PG_GETARG_RANGE_P(0);
+    RangeType *r2 = PG_GETARG_RANGE_P(1);
+
+    // Ensure both ranges are of the same type
+    if (RangeTypeGetOid(r1) != RangeTypeGetOid(r2))
+        elog(ERROR, "range types do not match");
+
+    // Get type cache for range operations
+    TypeCacheEntry *typcache = range_get_typcache(fcinfo, RangeTypeGetOid(r1));
+
+    // Compute the difference using internal function
+    RangeType *result = range_minus_internal(typcache, r1, r2);
+
+    // Return result or NULL if empty
+    if (result)
+        PG_RETURN_RANGE_P(result);
+    else
+        PG_RETURN_NULL();
+}
+```

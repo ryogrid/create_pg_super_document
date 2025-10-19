@@ -36,3 +36,34 @@ The function uses a comprehensive switch statement to handle all standard Postgr
 - Critical for ACL introspection and debugging functionality
 - Throws an error for invalid or unrecognized privilege values to ensure data integrity
 - Used primarily by functions that need to display privilege information to users
+
+## Simplified Source
+
+```c
+static const char *
+convert_aclright_to_string(int aclright)
+{
+    // Convert ACL privilege bits to human-readable strings
+    switch (aclright)
+    {
+        case ACL_INSERT:     return "INSERT";
+        case ACL_SELECT:     return "SELECT";
+        case ACL_UPDATE:     return "UPDATE";
+        case ACL_DELETE:     return "DELETE";
+        case ACL_TRUNCATE:   return "TRUNCATE";
+        case ACL_REFERENCES: return "REFERENCES";
+        case ACL_TRIGGER:    return "TRIGGER";
+        case ACL_EXECUTE:    return "EXECUTE";
+        case ACL_USAGE:      return "USAGE";
+        case ACL_CREATE:     return "CREATE";
+        case ACL_CREATE_TEMP: return "TEMPORARY";
+        case ACL_CONNECT:    return "CONNECT";
+        case ACL_SET:        return "SET";
+        case ACL_ALTER_SYSTEM: return "ALTER SYSTEM";
+        case ACL_MAINTAIN:   return "MAINTAIN";
+        default:
+            elog(ERROR, "unrecognized aclright: %d", aclright);
+            return NULL; // Never reached
+    }
+}
+```

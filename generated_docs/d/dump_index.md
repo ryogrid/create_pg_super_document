@@ -35,3 +35,30 @@ This function is a debugging tool used to visualize how the KeyWord index mappin
 - Used for debugging both DATE-TIME (DCH) and NUMBER (NUM) formatting keyword systems
 - Provides valuable insight into the character-to-keyword mapping efficiency and collision detection
 - Index entries with value -1 indicate unused/free positions
+
+## Simplified Source
+
+```c
+static void dump_index(const KeyWord *k, const int *index) {
+    int count = 0, free_i = 0;
+
+    elog(DEBUG_elog_output, "TO-FROM_CHAR: Dump KeyWord Index:");
+
+    // Iterate through index array (covers ASCII chars 32+ since i+32)
+    for (int i = 0; i < KeyWord_INDEX_SIZE; i++) {
+        if (index[i] != -1) {
+            // Used position: show character and keyword name
+            elog(DEBUG_elog_output, "\t%c: %s, ", i + 32, k[index[i]].name);
+            count++;
+        } else {
+            // Free position: show character and index value
+            free_i++;
+            elog(DEBUG_elog_output, "\t(%d) %c %d", i, i + 32, index[i]);
+        }
+    }
+
+    // Summary statistics
+    elog(DEBUG_elog_output, "\n\t\tUsed positions: %d,\n\t\tFree positions: %d",
+         count, free_i);
+}
+```

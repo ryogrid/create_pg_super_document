@@ -35,3 +35,18 @@ This function examines a PostgreSQL range type to determine if its upper bound i
 - The function is located in `src/backend/utils/adt/rangetypes.c:511-520`
 - Works with all range types (int4range, numrange, tsrange, etc.)
 - Complementary to `range_lower_inc` function for complete range bound analysis
+
+## Simplified Source
+
+```c
+Datum
+range_upper_inc(PG_FUNCTION_ARGS)
+{
+	RangeType *range = PG_GETARG_RANGE_P(0);
+
+	// Check RANGE_UB_INC flag for upper bound inclusivity
+	char flags = range_get_flags(range);
+
+	PG_RETURN_BOOL(flags & RANGE_UB_INC);
+}
+```

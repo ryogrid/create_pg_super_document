@@ -35,3 +35,19 @@ When a valid precision is specified (typmod >= 0), the output includes the preci
 - The function handles both TIMESTAMP and TIMESTAMPTZ types through the istz parameter
 - Used in PostgreSQL's type system for displaying type information in error messages, DESCRIBE commands, and system catalogs
 - Always includes a space before the timezone qualifier for consistent formatting
+
+## Simplified Source
+
+```c
+// Format timestamp type modifier into readable string
+static char *anytimestamp_typmodout(bool istz, int32 typmod) {
+    // Choose timezone text based on type
+    const char *tz = istz ? " with time zone" : " without time zone";
+
+    // Include precision if specified
+    if (typmod >= 0)
+        return psprintf("(%d)%s", (int) typmod, tz);
+    else
+        return pstrdup(tz);
+}
+```

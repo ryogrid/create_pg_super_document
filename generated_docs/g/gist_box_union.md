@@ -34,3 +34,32 @@ The function iterates through all entries in the provided vector, starting with 
 - This function is part of the GiST operator class for geometric box types
 - The returned BOX is allocated using palloc and should be managed by PostgreSQL's memory context system
 - The function follows PostgreSQL's function calling conventions using PG_FUNCTION_ARGS and PG_RETURN_POINTER
+
+## Simplified Source
+
+```c
+Datum
+gist_box_union(PG_FUNCTION_ARGS)
+{
+    GistEntryVector *entryvec = (GistEntryVector *) PG_GETARG_POINTER(0);
+    int *sizep = (int *) PG_GETARG_POINTER(1);
+    int numranges, i;
+    BOX *cur, *pageunion;
+
+    numranges = entryvec->n;
+
+    // Allocate result box and initialize with first entry
+    pageunion = (BOX *) palloc(sizeof(BOX));
+    cur = DatumGetBoxP(entryvec->vector[0].key);
+    memcpy(pageunion, cur, sizeof(BOX));
+
+    // Adjust union box to include each subsequent entry
+    for (i = 1; i < numranges; i++) {
+        cur = DatumGetBoxP(entryvec->vector[i].key);
+        adjustBox(pageunion, cur);
+    }
+
+    *sizep = sizeof(BOX);
+    PG_RETURN_POINTER(pageunion);
+}
+```

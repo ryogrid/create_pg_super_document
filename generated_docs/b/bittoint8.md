@@ -34,3 +34,31 @@ The conversion algorithm processes each byte of the bit string from left to righ
 - Throws ERRCODE_NUMERIC_VALUE_OUT_OF_RANGE error if input bit string is too long
 - The function accounts for padding bits at the end of the bit string by right-shifting the final result
 - Located in src/backend/utils/adt/varbit.c:1666-1697
+
+## Simplified Source
+
+```c
+Datum
+bittoint8(PG_FUNCTION_ARGS)
+{
+    VarBit *arg = PG_GETARG_VARBIT_P(0);
+    uint64 result;
+    bits8 *r;
+
+    // Check that bit string is not too long for 64-bit integer
+    if (VARBITLEN(arg) > sizeof(result) * BITS_PER_BYTE)
+        ereport(ERROR, "bigint out of range");
+
+    // Build integer value byte by byte
+    result = 0;
+    for (r = VARBITS(arg); r < VARBITEND(arg); r++) {
+        result <<= BITS_PER_BYTE;
+        result |= *r;
+    }
+
+    // Shift to account for padding bits at the end
+    result >>= VARBITPAD(arg);
+
+    return result;
+}
+```

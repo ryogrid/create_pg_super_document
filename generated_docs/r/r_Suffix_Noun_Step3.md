@@ -43,3 +43,24 @@ The function follows the standard Snowball stemmer pattern where it returns 1 on
 - Uses array a_16 for pattern matching, which contains the specific noun suffixes handled in this step
 - Ensures word integrity by maintaining a minimum length of 3 UTF-8 characters after suffix removal
 - Part of the larger Arabic stemming algorithm implemented in the Snowball stemming framework
+
+## Simplified Source
+
+```c
+static int r_Suffix_Noun_Step3(struct SN_env * z) {
+    // Check for Arabic character (138) and find suffix pattern
+    z->ket = z->c;
+    if (z->c - 1 <= z->lb || z->p[z->c - 1] != 138) return 0;
+
+    if (!find_among_b(z, a_16, 1)) return 0;  // Find specific suffix
+    z->bra = z->c;
+
+    // Remove suffix if minimum length >= 3
+    if (len_utf8(z->p) >= 3) {
+        slice_del(z);
+        return 1;
+    }
+
+    return 0;
+}
+```

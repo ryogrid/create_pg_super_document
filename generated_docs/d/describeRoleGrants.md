@@ -42,3 +42,79 @@ This function provides functionality for the psql \\drg metacommand, which displ
 - Uses LEFT JOINs to handle cases where role or grantor information might be missing
 - Results are ordered by role name, parent role, and grantor for consistent display
 - Located in src/bin/psql/describe.c:3830-3908
+
+## Simplified Source
+
+```c
+bool describeRoleGrants(const char *pattern, bool showSystem) {
+    PQExpBufferData buf;
+    PGresult *res;
+    printQueryOpt myopt = pset.popt;
+
+    // Initialize query buffer
+    initPQExpBuffer(&buf);
+
+    // Build base query for role grants
+    printfPQExpBuffer(&buf,
+        "SELECT m.rolname AS \"%s\", r.rolname AS \"%s\",\n"
+        "  pg_catalog.concat_ws(', ',\n",
+        gettext_noop("Role name"),
+        gettext_noop("Member of"));
+
+    // Add version-specific privilege options
+    if (pset.sversion >= 160000) {
+        // PostgreSQL 16+ has granular options
+        appendPQExpBufferStr(&buf,
+            "    CASE WHEN pam.admin_option THEN 'ADMIN' END,\n"
+            "    CASE WHEN pam.inherit_option THEN 'INHERIT' END,\n"
+            "    CASE WHEN pam.set_option THEN 'SET' END\n");
+    } else {
+        // Pre-16 uses rolinherit attribute
+        appendPQExpBufferStr(&buf,
+            "    CASE WHEN pam.admin_option THEN 'ADMIN' END,\n"
+            "    CASE WHEN m.rolinherit THEN 'INHERIT' END,\n"
+            "    'SET'\n");
+    }
+
+    // Complete query with joins
+    appendPQExpBuffer(&buf,
+        "  ) AS \"%s\",\n"
+        "  g.rolname AS \"%s\"\n",
+        gettext_noop("Options"),
+        gettext_noop("Grantor"));
+
+    appendPQExpBufferStr(&buf,
+        "FROM pg_catalog.pg_roles m\n"
+        "     JOIN pg_catalog.pg_auth_members pam ON (pam.member = m.oid)\n"
+        "     LEFT JOIN pg_catalog.pg_roles r ON (pam.roleid = r.oid)\n"
+        "     LEFT JOIN pg_catalog.pg_roles g ON (pam.grantor = g.oid)\n");
+
+    // Apply filters
+    if (!showSystem && !pattern)
+        appendPQExpBufferStr(&buf, "WHERE m.rolname !~ '^pg_'\n");
+
+    // Validate and add pattern filter
+    if (!validateSQLNamePattern(&buf, pattern, false, false,
+                                NULL, "m.rolname", NULL, NULL,
+                                NULL, 1)) {
+        termPQExpBuffer(&buf);
+        return false;
+    }
+
+    appendPQExpBufferStr(&buf, "ORDER BY 1, 2, 4;\n");
+
+    // Execute query and display results
+    res = PSQLexec(buf.data);
+    termPQExpBuffer(&buf);
+    if (!res)
+        return false;
+
+    myopt.title = _("List of role grants");
+    myopt.translate_header = true;
+
+    printQuery(res, &myopt, pset.queryFout, false, pset.logfile);
+
+    PQclear(res);
+    return true;
+}
+```

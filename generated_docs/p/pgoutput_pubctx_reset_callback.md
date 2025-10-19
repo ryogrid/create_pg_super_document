@@ -30,3 +30,13 @@ This is a memory context reset callback function that ensures the global `pubctx
 - The arg parameter is unused but required by the callback interface
 - Part of the pgoutput plugin's resource management strategy
 - Automatically invoked by PostgreSQL's memory management system during context cleanup
+
+## Simplified Source
+
+```c
+static void pgoutput_pubctx_reset_callback(void *arg)
+{
+    // Clear global publication context pointer to prevent dangling reference
+    pubctx = NULL;
+}
+```

@@ -35,3 +35,26 @@ The  function implements date subtraction by subtracting an integer number of da
 - Preserves infinite date values (both positive and negative infinity) without modification
 - Raises ERRCODE_DATETIME_VALUE_OUT_OF_RANGE error when the result would be outside PostgreSQL's supported date range
 - The function is typically used through SQL's date subtraction operator
+
+## Simplified Source
+
+```c
+Datum date_mii(PG_FUNCTION_ARGS) {
+    DateADT date = PG_GETARG_DATEADT(0);
+    int32 days = PG_GETARG_INT32(1);
+
+    // Infinite dates remain unchanged
+    if (DATE_NOT_FINITE(date))
+        PG_RETURN_DATEADT(date);
+
+    // Subtract days from the date
+    DateADT result = date - days;
+
+    // Check for overflow and valid date range
+    if ((days >= 0 ? (result > date) : (result < date)) || !IS_VALID_DATE(result))
+        ereport(ERROR, (errcode(ERRCODE_DATETIME_VALUE_OUT_OF_RANGE),
+                       errmsg("date out of range")));
+
+    PG_RETURN_DATEADT(result);
+}
+```

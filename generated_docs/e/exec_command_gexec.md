@@ -31,3 +31,20 @@ This function handles the \gexec backslash command in psql. When executed, it se
 - No command-line options are processed for this command
 - The actual execution logic for interpreting results as commands is handled elsewhere
 - Care should be taken when using this command as it executes arbitrary SQL from query results
+
+## Simplified Source
+
+```c
+static backslashResult exec_command_gexec(PsqlScanState scan_state, bool active_branch) {
+    // Default to skip line processing
+    backslashResult status = PSQL_CMD_SKIP_LINE;
+
+    if (active_branch) {
+        // Enable execution mode for next query
+        pset.gexec_flag = true;
+        status = PSQL_CMD_SEND;
+    }
+
+    return status;
+}
+```

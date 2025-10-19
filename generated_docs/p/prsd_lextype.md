@@ -48,3 +48,28 @@ This function is typically called by PostgreSQL's text search system when users 
 - Memory allocated with palloc will be automatically freed by PostgreSQL's memory context system
 - The returned array is null-terminated (lexid = 0 in final entry)
 - Used internally by PostgreSQL's text search framework for parser metadata queries
+
+## Simplified Source
+
+```c
+Datum
+prsd_lextype(PG_FUNCTION_ARGS)
+{
+    // Allocate array for all token types plus terminator
+    LexDescr *descr = (LexDescr *) palloc(sizeof(LexDescr) * (LASTNUM + 1));
+
+    // Populate token type metadata for each supported type
+    for (int i = 1; i <= LASTNUM; i++) {
+        descr[i - 1].lexid = i;                         // Token type ID
+        descr[i - 1].alias = pstrdup(tok_alias[i]);     // Short alias
+        descr[i - 1].descr = pstrdup(lex_descr[i]);     // Description
+    }
+
+    // Add terminating entry
+    descr[LASTNUM].lexid = 0;
+
+    PG_RETURN_POINTER(descr);
+}
+```
+
+This simplified version shows the essential logic: allocate an array, populate it with token type metadata (ID, alias, description) for all supported types (1-23), add a terminator, and return the array for parser introspection.

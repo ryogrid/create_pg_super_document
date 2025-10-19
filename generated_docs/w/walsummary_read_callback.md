@@ -34,3 +34,20 @@ This callback function handles reading data from WAL summary files through a sta
 - Returns actual bytes read count, enabling caller to handle partial reads or EOF
 - Callback mechanism allows BlockRefTableReader to perform file I/O without direct file access
 - The ws_file_info structure contains both file descriptor (fd) and filename for operations and error reporting
+
+## Simplified Source
+
+```c
+int
+walsummary_read_callback(void *callback_arg, void *data, int length)
+{
+    ws_file_info *ws = callback_arg;
+    int rc;
+
+    // Perform read operation
+    if ((rc = read(ws->fd, data, length)) < 0)
+        pg_fatal("could not read file \"%s\": %m", ws->filename);
+
+    return rc;
+}
+```

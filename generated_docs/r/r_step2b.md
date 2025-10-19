@@ -42,3 +42,37 @@ The function implements a mandatory two-stage process with different character v
 - Implements mandatory two-stage processing with different boundary requirements (7 vs 3 characters)
 - Uses predefined arrays (a_26, a_27) and string constant (s_66)
 - Companion function to r_step2a, handling different morphological patterns in step 2
+
+## Simplified Source
+
+```c
+static int r_step2b(struct SN_env * z) {
+    // Stage 1: Initial validation and suffix removal
+    z->ket = z->c;
+
+    // Check bounds (need at least 7 characters) and specific characters
+    if (z->c - 7 <= z->lb) return 0;
+    char last_char = z->p[z->c - 1];
+    if (last_char != 131 && last_char != 189) return 0;  // Check for ƒ or ½
+
+    // Find and delete suffix patterns from array a_26
+    if (!(find_among_b(z, a_26, 2))) return 0;
+    z->bra = z->c;
+    slice_del(z);  // Delete matched suffix
+
+    // Stage 2: Second validation and replacement
+    z->ket = z->c;
+    z->bra = z->c;
+
+    // Check bounds (need at least 3 characters) and different characters
+    if (z->c - 3 <= z->lb) return 0;
+    last_char = z->p[z->c - 1];
+    if (last_char != 128 && last_char != 187) return 0;  // Check for € or »
+
+    // Find pattern and replace with s_66
+    if (!(find_among_b(z, a_27, 8))) return 0;
+    slice_from_s(z, 4, s_66);  // Replace with 4-character string
+
+    return 1;  // Success
+}
+```

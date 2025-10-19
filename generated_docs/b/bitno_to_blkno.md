@@ -36,3 +36,23 @@ The function is essential for translating between the logical bitmap representat
 - The conversion relies on PostgreSQL's hash index splitting mechanism where buckets are split incrementally
 - The spares array in the metadata page tracks the number of overflow pages allocated at each split level
 - The function assumes the ovflbitnum parameter is valid and within the current range of allocated overflow pages
+
+## Simplified Source
+
+```c
+static BlockNumber bitno_to_blkno(HashMetaPage metap, uint32 ovflbitnum) {
+    uint32 splitnum = metap->hashm_ovflpoint;
+
+    // Convert zero-based bit number to 1-based page number
+    ovflbitnum += 1;
+
+    // Find which split level this overflow page belongs to
+    uint32 i;
+    for (i = 1; i < splitnum && ovflbitnum > metap->hashm_spares[i]; i++) {
+        // Continue searching through split levels
+    }
+
+    // Calculate absolute block number: bucket pages + overflow page number
+    return (BlockNumber) (_hash_get_totalbuckets(i) + ovflbitnum);
+}
+```

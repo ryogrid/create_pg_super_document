@@ -43,3 +43,66 @@ For LZ4 compression, the function processes data in LZ4_IN_SIZE chunks to manage
 - Updates the current position (currpos) in the Walfile structure after successful writes
 - LZ4 compression processes data in chunks to optimize memory usage
 - Error handling defaults to ENOSPC when system calls don\t set errno
+
+## Simplified Source
+
+```c
+static ssize_t
+dir_write(Walfile *f, const void *buf, size_t count)
+{
+    ssize_t r;
+    DirectoryMethodFile *df = (DirectoryMethodFile *) f;
+
+    Assert(f != NULL);
+    clear_error(f->wwmethod);
+
+    // Handle different compression algorithms
+    if (f->wwmethod->compression_algorithm == PG_COMPRESSION_GZIP) {
+        // Gzip compression - write directly with gzwrite
+        errno = 0;
+        r = (ssize_t) gzwrite(df->gzfp, buf, count);
+        if (r != count) {
+            f->wwmethod->lasterrno = errno ? errno : ENOSPC;
+        }
+    } else if (f->wwmethod->compression_algorithm == PG_COMPRESSION_LZ4) {
+        // LZ4 compression - process data in chunks
+        size_t remaining = count;
+        const void *inbuf = buf;
+
+        while (remaining > 0) {
+            size_t chunk = (remaining > LZ4_IN_SIZE) ? LZ4_IN_SIZE : remaining;
+            size_t compressed = LZ4F_compressUpdate(df->ctx, df->lz4buf,
+                                                   df->lz4bufsize, inbuf, chunk, NULL);
+
+            if (LZ4F_isError(compressed)) {
+                f->wwmethod->lasterrstring = LZ4F_getErrorName(compressed);
+                return -1;
+            }
+
+            // Write compressed chunk
+            errno = 0;
+            if (write(df->fd, df->lz4buf, compressed) != compressed) {
+                f->wwmethod->lasterrno = errno ? errno : ENOSPC;
+                return -1;
+            }
+
+            remaining -= chunk;
+            inbuf = ((char *) inbuf) + chunk;
+        }
+        r = (ssize_t) count;  // Return uncompressed size
+    } else {
+        // No compression - direct write
+        errno = 0;
+        r = write(df->fd, buf, count);
+        if (r != count) {
+            f->wwmethod->lasterrno = errno ? errno : ENOSPC;
+        }
+    }
+
+    // Update file position on success
+    if (r > 0)
+        df->base.currpos += r;
+
+    return r;
+}
+```

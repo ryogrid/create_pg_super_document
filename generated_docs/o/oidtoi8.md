@@ -34,3 +34,14 @@ The function is implemented as a PostgreSQL internal function using the standard
 - The conversion is always safe since Oid values (32-bit unsigned) fit within the int8 range (64-bit signed)
 - Located in src/backend/utils/adt/int8.c:1366-1376
 - Part of PostgreSQL's comprehensive set of type conversion functions
+
+## Simplified Source
+
+```c
+Datum oidtoi8(PG_FUNCTION_ARGS) {
+    Oid arg = PG_GETARG_OID(0);
+
+    // Safe conversion: OID (32-bit unsigned) always fits in int64
+    return PG_RETURN_INT64((int64) arg);
+}
+```

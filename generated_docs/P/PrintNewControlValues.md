@@ -36,3 +36,72 @@ The function always prints the "First log segment after reset" information, and 
 - Always prints the first log segment filename regardless of other settings
 - Provides user-friendly output showing exactly what will change before the actual reset operation occurs
 - Part of the pg_resetwal utility's user interface for transparency and confirmation
+
+## Simplified Source
+
+```c
+static void PrintNewControlValues(void) {
+    char fname[MAXFNAMELEN];
+
+    // Always print header and first log segment info
+    printf("\n\nValues to be changed:\n\n");
+
+    XLogFileName(fname, ControlFile.checkPointCopy.ThisTimeLineID,
+                 newXlogSegNo, WalSegSz);
+    printf("First log segment after reset:        %s\n", fname);
+
+    // Print MultiXact values if being modified
+    if (set_mxid != 0) {
+        printf("NextMultiXactId:                      %u\n",
+               ControlFile.checkPointCopy.nextMulti);
+        printf("OldestMultiXid:                       %u\n",
+               ControlFile.checkPointCopy.oldestMulti);
+        printf("OldestMulti's DB:                     %u\n",
+               ControlFile.checkPointCopy.oldestMultiDB);
+    }
+
+    // Print MultiXact offset if being modified
+    if (set_mxoff != -1) {
+        printf("NextMultiOffset:                      %u\n",
+               ControlFile.checkPointCopy.nextMultiOffset);
+    }
+
+    // Print OID if being modified
+    if (set_oid != 0) {
+        printf("NextOID:                              %u\n",
+               ControlFile.checkPointCopy.nextOid);
+    }
+
+    // Print transaction ID values if being modified
+    if (set_xid != 0) {
+        printf("NextXID:                              %u\n",
+               XidFromFullTransactionId(ControlFile.checkPointCopy.nextXid));
+        printf("OldestXID:                            %u\n",
+               ControlFile.checkPointCopy.oldestXid);
+        printf("OldestXID's DB:                       %u\n",
+               ControlFile.checkPointCopy.oldestXidDB);
+    }
+
+    // Print XID epoch if being modified
+    if (set_xid_epoch != -1) {
+        printf("NextXID epoch:                        %u\n",
+               EpochFromFullTransactionId(ControlFile.checkPointCopy.nextXid));
+    }
+
+    // Print commit timestamp XIDs if being modified
+    if (set_oldest_commit_ts_xid != 0) {
+        printf("oldestCommitTsXid:                    %u\n",
+               ControlFile.checkPointCopy.oldestCommitTsXid);
+    }
+    if (set_newest_commit_ts_xid != 0) {
+        printf("newestCommitTsXid:                    %u\n",
+               ControlFile.checkPointCopy.newestCommitTsXid);
+    }
+
+    // Print WAL segment size if being modified
+    if (set_wal_segsize != 0) {
+        printf("Bytes per WAL segment:                %u\n",
+               ControlFile.xlog_seg_size);
+    }
+}
+```

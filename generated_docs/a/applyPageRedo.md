@@ -35,3 +35,29 @@ The function iterates through the delta buffer, parsing each modification record
 - Essential component of PostgreSQL's generic WAL replay mechanism
 - Complements computeDelta function which creates the delta records during logging
 - Efficient for sparse page modifications where only small portions change
+
+## Simplified Source
+
+```c
+static void
+applyPageRedo(Page page, const char *delta, Size deltaSize)
+{
+    const char *ptr = delta;
+    const char *end = delta + deltaSize;
+
+    // Process each delta fragment: [offset][length][data]
+    while (ptr < end) {
+        OffsetNumber offset, length;
+
+        // Extract offset and length from delta buffer
+        memcpy(&offset, ptr, sizeof(offset));
+        ptr += sizeof(offset);
+        memcpy(&length, ptr, sizeof(length));
+        ptr += sizeof(length);
+
+        // Apply data to page at specified offset
+        memcpy(page + offset, ptr, length);
+        ptr += length;
+    }
+}
+```

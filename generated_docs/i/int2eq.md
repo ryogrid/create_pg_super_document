@@ -32,3 +32,16 @@ The int2eq function implements the "=" (equality) comparison operator for Postgr
 - Returns true if arg1 == arg2, false otherwise
 - Works with smallint (int2) data type which is 16-bit signed integer
 - Located in src/backend/utils/adt/int.c:450-458
+
+## Simplified Source
+
+```c
+Datum int2eq(PG_FUNCTION_ARGS) {
+    // Extract two 16-bit integer arguments
+    int16 first_value = PG_GETARG_INT16(0);
+    int16 second_value = PG_GETARG_INT16(1);
+
+    // Return true if values are equal, false otherwise
+    PG_RETURN_BOOL(first_value == second_value);
+}
+```

@@ -36,3 +36,23 @@ The function dereferences the void pointers to get QueryOperand pointers, then u
 - Used primarily for sorting QueryOperand arrays to enable efficient deduplication and processing
 - The arg parameter provides access to the string buffer where actual operand text is stored
 - Essential component of query preprocessing in PostgreSQL's text search ranking system
+
+## Simplified Source
+
+```c
+static int
+compareQueryOperand(const void *a, const void *b, void *arg)
+{
+    // Extract operand string buffer and QueryOperand pointers
+    char *operand = (char *) arg;
+    QueryOperand *qa = (*(QueryOperand *const *) a);
+    QueryOperand *qb = (*(QueryOperand *const *) b);
+
+    // Compare strings using PostgreSQL's text search comparison
+    return tsCompareString(operand + qa->distance, qa->length,
+                          operand + qb->distance, qb->length,
+                          false);
+}
+```
+
+This simplified version shows the core function: comparing two QueryOperand structures by their string content. The function extracts string pointers using the distance field and compares them lexicographically using `tsCompareString`. This enables sorting query operands for deduplication and efficient processing.

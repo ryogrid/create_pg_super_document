@@ -46,3 +46,31 @@ This function handles the interface between PostgreSQL's function calling mechan
 - The returned bytea size is set to match the actual bytes read, not the requested length
 - Located in 
 - Part of the Read/Write using bytea section of the large object implementation
+
+## Simplified Source
+
+```c
+Datum
+be_loread(PG_FUNCTION_ARGS)
+{
+    int32 fd = PG_GETARG_INT32(0);
+    int32 len = PG_GETARG_INT32(1);
+    bytea *retval;
+    int totalread;
+
+    // Ensure non-negative length
+    if (len < 0)
+        len = 0;
+
+    // Allocate memory for bytea result (header + data)
+    retval = (bytea *) palloc(VARHDRSZ + len);
+
+    // Read data from large object
+    totalread = lo_read(fd, VARDATA(retval), len);
+
+    // Set actual size based on bytes read
+    SET_VARSIZE(retval, totalread + VARHDRSZ);
+
+    PG_RETURN_BYTEA_P(retval);
+}
+```

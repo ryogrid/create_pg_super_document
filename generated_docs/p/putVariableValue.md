@@ -38,3 +38,26 @@ This function sets a typed value to a pgbench variable within the specified cont
 - Performs a structure copy of the PgBenchValue to store the value
 - Part of pgbench's variable management system for storing typed data values
 - Used by higher-level functions like putVariableInt for specific data type assignments
+
+## Simplified Source
+
+```c
+static bool
+putVariableValue(Variables *variables, const char *context, char *name,
+                 const PgBenchValue *value)
+{
+    Variable *var;
+
+    // Find or create variable
+    var = lookupCreateVariable(variables, context, name);
+    if (!var)
+        return false;
+
+    // Clear string representation and set typed value
+    free(var->svalue);
+    var->svalue = NULL;
+    var->value = *value;
+
+    return true;
+}
+```

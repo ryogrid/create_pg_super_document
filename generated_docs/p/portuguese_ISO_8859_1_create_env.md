@@ -39,3 +39,13 @@ The function delegates to SN_create_env which handles the actual memory allocati
 - The 3 integer variables (I_size = 3) are typically used for storing R1, R2, and RV region boundaries in Portuguese morphological analysis
 - Part of the standard Snowball stemmer API pattern where each language provides create/close functions
 - Memory allocation uses calloc to ensure zero-initialization of all fields
+
+## Simplified Source
+
+```c
+extern struct SN_env * portuguese_ISO_8859_1_create_env(void) {
+    // Create Snowball environment for Portuguese stemming
+    // Parameters: 0 string arrays, 3 integer variables for R1/R2/RV regions
+    return SN_create_env(0, 3);
+}
+```

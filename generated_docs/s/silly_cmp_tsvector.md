@@ -46,3 +46,64 @@ The function name "silly" likely refers to its comprehensive nature - it compare
 - Handles both TSVectors with and without positional information
 - The hierarchical comparison ensures consistent ordering even for complex TSVector structures
 - Used internally by PostgreSQL for TSVector comparison operations
+
+## Simplified Source
+
+```c
+static int
+silly_cmp_tsvector(const TSVector a, const TSVector b)
+{
+    // Primary comparison: overall size
+    if (VARSIZE(a) != VARSIZE(b))
+        return (VARSIZE(a) < VARSIZE(b)) ? -1 : 1;
+
+    // Secondary comparison: number of lexemes
+    if (a->size != b->size)
+        return (a->size < b->size) ? -1 : 1;
+
+    // Detailed word-by-word comparison
+    WordEntry *aptr = ARRPTR(a);
+    WordEntry *bptr = ARRPTR(b);
+
+    for (int i = 0; i < a->size; i++)
+    {
+        // Compare position flag availability
+        if (aptr->haspos != bptr->haspos)
+            return (aptr->haspos > bptr->haspos) ? -1 : 1;
+
+        // Compare lexeme strings
+        int res = tsCompareString(STRPTR(a) + aptr->pos, aptr->len,
+                                 STRPTR(b) + bptr->pos, bptr->len, false);
+        if (res != 0)
+            return res;
+
+        // Compare position data if available
+        if (aptr->haspos)
+        {
+            WordEntryPos *ap = POSDATAPTR(a, aptr);
+            WordEntryPos *bp = POSDATAPTR(b, bptr);
+
+            // Compare position array lengths
+            if (POSDATALEN(a, aptr) != POSDATALEN(b, bptr))
+                return (POSDATALEN(a, aptr) > POSDATALEN(b, bptr)) ? -1 : 1;
+
+            // Compare individual positions and weights
+            for (int j = 0; j < POSDATALEN(a, aptr); j++)
+            {
+                if (WEP_GETPOS(*ap) != WEP_GETPOS(*bp))
+                    return (WEP_GETPOS(*ap) > WEP_GETPOS(*bp)) ? -1 : 1;
+                if (WEP_GETWEIGHT(*ap) != WEP_GETWEIGHT(*bp))
+                    return (WEP_GETWEIGHT(*ap) > WEP_GETWEIGHT(*bp)) ? -1 : 1;
+                ap++, bp++;
+            }
+        }
+
+        aptr++;
+        bptr++;
+    }
+
+    return 0;
+}
+```
+
+This simplified version shows the comprehensive TSVector comparison hierarchy: size, lexeme count, word entries (haspos flag, string content), and detailed position/weight data. Establishes total ordering for TSVector sorting and indexing operations.

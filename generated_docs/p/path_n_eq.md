@@ -35,3 +35,16 @@ The `path_n_eq` function implements the "equal" operator for PATH data types bas
 - Intended for use with PostgreSQL's operator system (likely the = operator for paths)
 - Note that this only compares point count, not the actual path geometry or coordinates
 - Subject to the same limitations as other path relational operators regarding simplistic comparison approach
+
+## Simplified Source
+
+```c
+Datum path_n_eq(PG_FUNCTION_ARGS) {
+    // Get the two input paths
+    PATH *p1 = PG_GETARG_PATH_P(0);
+    PATH *p2 = PG_GETARG_PATH_P(1);
+
+    // Compare number of points: first path == second path
+    PG_RETURN_BOOL(p1->npts == p2->npts);
+}
+```

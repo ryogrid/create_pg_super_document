@@ -43,3 +43,23 @@ This ensures that searches will correctly traverse the index tree, as the parent
 - Essential for proper GiST index tree construction and maintenance
 - The resulting union signature may have more bits set than any individual input, which is expected for proper index operation
 - Part of the TSQuery GiST operator class implementation for efficient text search indexing
+
+## Simplified Source
+
+```c
+Datum gtsquery_union(PG_FUNCTION_ARGS) {
+    GistEntryVector *entryvec = (GistEntryVector *) PG_GETARG_POINTER(0);
+    int *size = (int *) PG_GETARG_POINTER(1);
+
+    TSQuerySign sign = 0;  // Initialize union signature
+
+    // Combine all signatures using bitwise OR
+    for (int i = 0; i < entryvec->n; i++) {
+        sign |= GETENTRY(entryvec, i);
+    }
+
+    *size = sizeof(TSQuerySign);  // Set result size
+
+    PG_RETURN_TSQUERYSIGN(sign);  // Return unified signature
+}
+```

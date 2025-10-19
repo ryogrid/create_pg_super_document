@@ -17,3 +17,21 @@ This function serves as the GiST distance calculation method for box data types,
 The function extracts the GiST entry, query datum, and strategy number from the function arguments, then delegates the actual distance calculation to `gist_bbox_distance`. This approach allows box distance calculations to reuse the common bounding box distance logic implemented in the utility function.
 
 The commented-out parameters (`subtype` and `recheck`) indicate that this function follows the standard GiST distance method signature but doesn\t currently use these additional parameters.
+
+## Simplified Source
+
+```c
+Datum
+gist_box_distance(PG_FUNCTION_ARGS)
+{
+    // Extract arguments
+    GISTENTRY *entry = (GISTENTRY *) PG_GETARG_POINTER(0);
+    Datum query = PG_GETARG_DATUM(1);
+    StrategyNumber strategy = (StrategyNumber) PG_GETARG_UINT16(2);
+
+    // Delegate to common bounding box distance calculation
+    float8 distance = gist_bbox_distance(entry, query, strategy);
+
+    return PG_RETURN_FLOAT8(distance);
+}
+```

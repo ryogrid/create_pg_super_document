@@ -46,3 +46,32 @@ The function differs from previous steps by incorporating vowel group validation
 - The function resets state variable `z->I[0]` to 0, indicating state cleanup or preparation for subsequent steps
 - Returns 1 on successful transformation, 0 if vowel validation fails or no match found, or negative values on error
 - The vowel validation step makes this more contextually aware than previous steps in the stemming sequence
+
+## Simplified Source
+
+```c
+static int r_step3(struct SN_env * z) {
+    // Set up for suffix matching
+    z->ket = z->c;
+
+    // Find and remove suffix from a_32 patterns (3 patterns)
+    if (!find_among_b(z, a_32, 3)) return 0;
+    z->bra = z->c;
+    slice_del(z);  // Remove the matched suffix
+
+    // Reset state variable
+    z->I[0] = 0;
+
+    // Set up for vowel validation and replacement
+    z->ket = z->c;
+    z->bra = z->c;
+
+    // Check if current character is a Greek vowel (α-ω range)
+    if (in_grouping_b_U(z, g_v, 945, 969, 0)) return 0;
+
+    // Replace with Greek iota character
+    slice_from_s(z, 2, s_69);
+
+    return 1;  // Success
+}
+```

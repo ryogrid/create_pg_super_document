@@ -35,3 +35,14 @@ This function implements the equality comparison operator for PostgreSQL's DATE 
 - Used by PostgreSQL's operator system to implement the '=' operator for DATE data types
 - Returns SQL boolean true if dates are equal, false otherwise
 - Function follows PostgreSQL's V1 calling convention
+
+## Simplified Source
+
+```c
+Datum date_eq(PG_FUNCTION_ARGS) {
+    DateADT dateVal1 = PG_GETARG_DATEADT(0);
+    DateADT dateVal2 = PG_GETARG_DATEADT(1);
+
+    PG_RETURN_BOOL(dateVal1 == dateVal2);
+}
+```

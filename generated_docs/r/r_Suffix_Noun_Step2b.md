@@ -49,3 +49,24 @@ This step targets the common Arabic feminine plural suffix "ات" which appears 
 - Maintains minimum word length of 5 characters after suffix removal
 - The boundary check (c - 3 <= lb) ensures sufficient characters exist for the 4-byte suffix
 - This step is applied multiple times in the stemming process at different stages
+
+## Simplified Source
+
+```c
+static int r_Suffix_Noun_Step2b(struct SN_env * z) {
+    // Check for Arabic character (170) and find ات suffix pattern
+    z->ket = z->c;
+    if (z->c - 3 <= z->lb || z->p[z->c - 1] != 170) return 0;
+
+    if (!find_among_b(z, a_13, 1)) return 0;  // Find ات (feminine plural)
+    z->bra = z->c;
+
+    // Remove suffix if minimum length >= 5
+    if (len_utf8(z->p) >= 5) {
+        slice_del(z);
+        return 1;
+    }
+
+    return 0;
+}
+```

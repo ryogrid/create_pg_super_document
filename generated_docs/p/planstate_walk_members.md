@@ -35,3 +35,30 @@ The function operates within the larger context of , which provides a systematic
 - The function follows PostgreSQL's convention of using boolean return values to signal continuation or termination of tree traversal
 - The PSWALK macro provides a consistent interface for walker invocations and handles the context parameter passing
 - Located in src/backend/nodes/nodeFuncs.c:4782-4795
+
+## Simplified Source
+
+```c
+static bool
+planstate_walk_members(PlanState **planstates, int nplans,
+                      planstate_tree_walker_callback walker,
+                      void *context)
+{
+    // Walk through each plan state in the array
+    for (int j = 0; j < nplans; j++) {
+        // Apply walker function to current plan state
+        // Return true if walker indicates early termination
+        if (PSWALK(planstates[j]))
+            return true;
+    }
+
+    // All plan states processed successfully
+    return false;
+}
+```
+
+**Key Simplifications:**
+- Combined variable declaration with loop initialization
+- Added explanatory comments for the core logic
+- Preserved the essential array iteration and walker callback pattern
+- Maintained the early termination logic that's critical to the tree walking mechanism

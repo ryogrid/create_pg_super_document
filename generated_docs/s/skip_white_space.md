@@ -49,3 +49,54 @@ The function is essential for SQL parsing operations where comments and whitespa
 - Encoding-aware: uses pset.encoding for character boundary detection
 - Used extensively by command_no_begin() for determining transaction behavior
 - Preserves original string (read-only operation)
+
+## Simplified Source
+
+```c
+static const char *skip_white_space(const char *query)
+{
+    int cnestlevel = 0; // Track nested /* */ comment depth
+
+    while (*query) {
+        int mblen = PQmblenBounded(query, pset.encoding);
+
+        // Skip whitespace
+        if (isspace((unsigned char) *query)) {
+            query += mblen;
+        }
+        // Start of /* */ comment
+        else if (query[0] == '/' && query[1] == '*') {
+            cnestlevel++;
+            query += 2;
+        }
+        // End of /* */ comment
+        else if (cnestlevel > 0 && query[0] == '*' && query[1] == '/') {
+            cnestlevel--;
+            query += 2;
+        }
+        // Start of -- comment (only when not inside /* */)
+        else if (cnestlevel == 0 && query[0] == '-' && query[1] == '-') {
+            query += 2;
+
+            // Skip to end of line
+            while (*query) {
+                if (*query == '\n') {
+                    query++;
+                    break;
+                }
+                query += PQmblenBounded(query, pset.encoding);
+            }
+        }
+        // Inside comment - keep skipping
+        else if (cnestlevel > 0) {
+            query += mblen;
+        }
+        // Found first non-whitespace, non-comment character
+        else {
+            break;
+        }
+    }
+
+    return query;
+}
+```

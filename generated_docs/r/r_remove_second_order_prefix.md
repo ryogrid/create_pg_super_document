@@ -37,3 +37,45 @@ This function implements the removal of Indonesian second-order prefixes as part
 - Pre-checks for ending character (101='e') for performance optimization since all second-order prefixes end with 'e'
 - Cases 2 and 4 restore 'ajar' root from 'belajar' and 'pelajar' compound prefixes respectively
 - Generated automatically by Snowball compiler from Indonesian stemming rules
+
+## Simplified Source
+
+```c
+static int r_remove_second_order_prefix(struct SN_env * z) {
+    // Set start marker
+    z->bra = z->c;
+
+    // Quick check: all second-order prefixes end with 'e'
+    if (z->c + 1 >= z->l || z->p[z->c + 1] != 101) return 0;
+
+    // Find matching second-order prefix pattern
+    int among_var = find_among(z, a_4, 6);
+    if (!(among_var)) return 0;
+
+    z->ket = z->c;
+
+    switch (among_var) {
+        case 1: // 'be' prefix - simple deletion
+            slice_del(z);
+            z->I[0] = 2;
+            break;
+
+        case 2: // 'belajar' prefix - restore to 'ajar'
+            slice_from_s(z, 4, s_5); // s_5 = "ajar"
+            break;
+
+        case 3: // 'ber' prefix - simple deletion
+            slice_del(z);
+            z->I[0] = 4;
+            break;
+
+        case 4: // 'pelajar' prefix - restore to 'ajar'
+            slice_from_s(z, 4, s_6); // s_6 = "ajar"
+            z->I[0] = 4;
+            break;
+    }
+
+    z->I[1] -= 1; // Track removal count
+    return 1;
+}
+```

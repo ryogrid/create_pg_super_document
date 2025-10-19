@@ -40,3 +40,36 @@ The function validates input parameters and rejects filters that exceed BloomMax
 - Initial zero-filled state makes the filter highly compressible until values are added
 - Contains detailed comments explaining the rationale for size restrictions
 - Located in src/backend/access/brin/brin_bloom.c:310-369
+
+## Simplified Source
+
+```c
+static BloomFilter *
+bloom_init(int ndistinct, double false_positive_rate)
+{
+    int nbits, nbytes, nhashes;
+
+    // Validate inputs
+    Assert(ndistinct > 0);
+    Assert(false_positive_rate > 0 && false_positive_rate < 1);
+
+    // Calculate optimal filter parameters
+    bloom_filter_size(ndistinct, false_positive_rate, &nbytes, &nbits, &nhashes);
+
+    // Check if filter size is acceptable for page storage
+    if (nbytes > BloomMaxFilterSize)
+        elog(ERROR, "bloom filter too large (%d > %zu)", nbytes, BloomMaxFilterSize);
+
+    // Allocate filter structure with data space
+    Size len = offsetof(BloomFilter, data) + nbytes;
+    BloomFilter *filter = (BloomFilter *) palloc0(len);
+
+    // Initialize filter metadata
+    filter->flags = 0;
+    filter->nhashes = nhashes;
+    filter->nbits = nbits;
+    SET_VARSIZE(filter, len);
+
+    return filter;
+}
+```

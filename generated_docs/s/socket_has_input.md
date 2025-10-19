@@ -29,3 +29,14 @@ This function determines whether a specific socket file descriptor has input dat
 - The idx parameter is unused in the current implementation but may be reserved for future use
 - Part of the socket management trio: add_socket_to_set() adds sockets, wait_on_socket_set() waits for activity, socket_has_input() checks results
 - Used in pgbench's main event loop to efficiently handle multiple concurrent database connections
+
+## Simplified Source
+
+```c
+static bool
+socket_has_input(socket_set *sa, int fd, int idx)
+{
+    // Check if the socket is ready for reading
+    return (FD_ISSET(fd, &sa->fds) != 0);
+}
+```

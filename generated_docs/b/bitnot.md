@@ -41,3 +41,31 @@ The `bitnot` function implements bitwise logical NOT operation on a single varia
 - The padding ensures that bits beyond the logical length are properly zeroed
 - Useful for bit manipulation, creating bit masks, and logical inversions
 - Located in `src/backend/utils/adt/varbit.c:1365-1391`
+
+## Simplified Source
+
+```c
+Datum
+bitnot(PG_FUNCTION_ARGS)
+{
+    VarBit *arg = PG_GETARG_VARBIT_P(0);
+    VarBit *result;
+    bits8 *p, *r;
+
+    // Allocate result with same size as input
+    result = (VarBit *) palloc(VARSIZE(arg));
+    SET_VARSIZE(result, VARSIZE(arg));
+    VARBITLEN(result) = VARBITLEN(arg);
+
+    // Perform bitwise NOT operation byte by byte
+    p = VARBITS(arg);
+    r = VARBITS(result);
+    for (; p < VARBITEND(arg); p++)
+        *r++ = ~*p;
+
+    // Zero-pad any unused bits in the final byte
+    VARBIT_PAD_LAST(result, r);
+
+    return result;
+}
+```

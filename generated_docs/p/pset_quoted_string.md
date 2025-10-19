@@ -34,3 +34,37 @@ This function is essential for displaying string values in psql settings output,
 - Static function scope limits its usage to within command.c
 - Used primarily for formatting string settings in psql's \pset command output
 - The returned string is always wrapped in single quotes for consistent formatting
+
+## Simplified Source
+
+```c
+static char *pset_quoted_string(const char *str) {
+    char *ret = pg_malloc(strlen(str) * 2 + 3);  // Worst-case: every char escaped + quotes + null
+    char *r = ret;
+
+    // Add opening quote
+    *r++ = '\'';
+
+    // Process each character, escaping special characters
+    for (; *str; str++) {
+        if (*str == '\n') {
+            // Convert newline to literal "\n"
+            *r++ = '\\';
+            *r++ = 'n';
+        } else if (*str == '\'') {
+            // Escape single quotes
+            *r++ = '\\';
+            *r++ = '\'';
+        } else {
+            // Copy regular characters as-is
+            *r++ = *str;
+        }
+    }
+
+    // Add closing quote and null terminator
+    *r++ = '\'';
+    *r = '\0';
+
+    return ret;
+}
+```

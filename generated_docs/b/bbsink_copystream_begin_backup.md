@@ -33,3 +33,28 @@ This function performs the initial setup when starting a basebackup operation us
 - The buffer allocation accounts for MAXIMUM_ALIGNOF to ensure proper memory alignment for performance
 - Sends three initial protocol messages: backup start location, tablespace information, and begins the COPY OUT response
 - All subsequent archive and manifest data will use the single COPY stream initialized here
+
+## Simplified Source
+
+```c
+static void bbsink_copystream_begin_backup(bbsink *sink)
+{
+    bbsink_copystream *mysink = (bbsink_copystream *) sink;
+    bbsink_state *state = sink->bbs_state;
+    char *buf;
+
+    // Allocate aligned buffer with space for protocol type byte
+    buf = palloc(mysink->base.bbs_buffer_length + MAXIMUM_ALIGNOF);
+    mysink->msgbuffer = buf + (MAXIMUM_ALIGNOF - 1);
+    mysink->base.bbs_buffer = buf + MAXIMUM_ALIGNOF;
+    mysink->msgbuffer[0] = 'd';  // Mark as archive/manifest data
+
+    // Send backup start information to client
+    SendXlogRecPtrResult(state->startptr, state->starttli);
+    SendTablespaceList(state->tablespaces);
+    pq_puttextmessage(PqMsg_CommandComplete, "SELECT");
+
+    // Begin COPY stream for all backup data
+    SendCopyOutResponse();
+}
+```

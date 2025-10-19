@@ -27,3 +27,37 @@ The r_adjetiboak function processes Basque adjective endings during stemming by 
 
 ## Notes and Other Information
 This function is part of the Basque stemming algorithm and specifically handles adjective morphology. It processes 19 different adjective suffixes with simpler logic compared to noun processing (r_izenak). The function returns 1 on successful processing and 0 if no matching suffix is found. The relatively small number of patterns (19 vs 295 for nouns) reflects the simpler morphological structure of Basque adjectives compared to nouns.
+
+## Simplified Source
+
+```c
+static int r_adjetiboak(struct SN_env * z) {
+    int suffix_type;
+
+    // Set suffix end boundary and validate character class
+    z->ket = z->c;
+    if (z->c - 1 <= z->lb || !valid_character_class(z->p[z->c - 1]))
+        return 0;
+
+    // Find matching adjective suffix from pattern array (19 patterns)
+    suffix_type = find_among_b(z, a_2, 19);
+    if (!suffix_type) return 0;
+
+    // Set suffix start boundary
+    z->bra = z->c;
+
+    // Process based on suffix type
+    switch (suffix_type) {
+        case 1:  // Standard adjective suffix - requires RV region
+            if (!r_RV(z)) return 0;
+            slice_del(z);  // Delete suffix
+            break;
+
+        case 2:  // Replace with canonical form
+            slice_from_s(z, 1, s_10);
+            break;
+    }
+
+    return 1;
+}
+```

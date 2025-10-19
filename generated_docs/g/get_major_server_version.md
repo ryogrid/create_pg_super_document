@@ -37,3 +37,36 @@ This function determines the major PostgreSQL version by reading the PG_VERSION 
 - Uses pg_fatal for error handling - any failure results in program termination
 - Essential for pg_upgrade to determine compatibility and required upgrade procedures
 - Version format: Pre-10 uses X.Y format, 10+ uses single major number format
+
+## Simplified Source
+
+```c
+uint32 get_major_server_version(ClusterInfo *cluster) {
+    FILE *version_fd;
+    char ver_filename[MAXPGPATH];
+    int v1 = 0, v2 = 0;
+
+    // Construct path to PG_VERSION file
+    snprintf(ver_filename, sizeof(ver_filename), "%s/PG_VERSION", cluster->pgdata);
+
+    // Open and read version file
+    if ((version_fd = fopen(ver_filename, "r")) == NULL)
+        pg_fatal("could not open version file \"%s\": %m", ver_filename);
+
+    // Parse version string (e.g., "9.6" or "11")
+    if (fscanf(version_fd, "%63s", cluster->major_version_str) == 0 ||
+        sscanf(cluster->major_version_str, "%d.%d", &v1, &v2) < 1)
+        pg_fatal("could not parse version file \"%s\"", ver_filename);
+
+    fclose(version_fd);
+
+    // Convert to standardized integer format
+    if (v1 < 10) {
+        // Old style versioning (e.g., 9.6.1 -> 90600)
+        return v1 * 10000 + v2 * 100;
+    } else {
+        // New style versioning (e.g., 10.1 -> 100000)
+        return v1 * 10000;
+    }
+}
+```

@@ -35,3 +35,13 @@ The `regexeqjoinsel` function estimates the selectivity for regular expression p
 - Currently returns the default selectivity value (0.005) as `patternjoinsel` uses a simple heuristic
 - Part of PostgreSQL's join selectivity estimation system for query optimization
 - Located in `src/backend/utils/adt/like_support.c:885-893`
+
+## Simplified Source
+
+```c
+Datum regexeqjoinsel(PG_FUNCTION_ARGS) {
+    // Estimate join selectivity for case-sensitive regex patterns
+    // Delegates to generic pattern join selectivity function
+    return patternjoinsel(fcinfo, Pattern_Type_Regex, false);
+}
+```

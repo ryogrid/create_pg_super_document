@@ -31,3 +31,15 @@ The function does not handle buffer management (locks/pins) - that responsibilit
 - No WAL records are generated when aborting
 - Memory cleanup is automatic but buffer resource management is caller's responsibility
 - Safe to call even if no changes were made to the GenericXLogState
+
+## Simplified Source
+
+```c
+void
+GenericXLogAbort(GenericXLogState *state)
+{
+    // Simply free the state - no changes applied to buffers
+    // Caller responsible for releasing locks/pins on buffers
+    pfree(state);
+}
+```

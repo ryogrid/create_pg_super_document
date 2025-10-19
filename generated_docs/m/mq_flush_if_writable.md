@@ -34,3 +34,14 @@ The function serves as a stub implementation that always returns 0 (success) bec
 - The function always returns 0 as there is no actual flushing operation needed for shared memory queues
 - Located in src/backend/libpq/pqmq.c at lines 99-105
 - This is a static function, not directly callable from outside pqmq.c
+
+## Simplified Source
+
+```c
+static int
+mq_flush_if_writable(void)
+{
+    // No-op: Shared memory queues don't need writability-based flushing
+    return 0;
+}
+```

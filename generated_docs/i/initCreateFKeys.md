@@ -39,3 +39,26 @@ This creates a hierarchical data model where branches are at the top level, tell
 - Unlike initCreatePKeys, this function does not support tablespace specification since foreign key constraints are metadata only
 - The constraint names follow a consistent pattern: [table_name]_[column_name]_fkey
 - Located in src/bin/pgbench/pgbench.c:5213-5238
+
+## Simplified Source
+
+```c
+static void initCreateFKeys(PGconn *con)
+{
+    // DDL statements to create foreign key constraints
+    static const char *const DDLKEYs[] = {
+        "alter table pgbench_tellers add constraint pgbench_tellers_bid_fkey foreign key (bid) references pgbench_branches",
+        "alter table pgbench_accounts add constraint pgbench_accounts_bid_fkey foreign key (bid) references pgbench_branches",
+        "alter table pgbench_history add constraint pgbench_history_bid_fkey foreign key (bid) references pgbench_branches",
+        "alter table pgbench_history add constraint pgbench_history_tid_fkey foreign key (tid) references pgbench_tellers",
+        "alter table pgbench_history add constraint pgbench_history_aid_fkey foreign key (aid) references pgbench_accounts"
+    };
+
+    fprintf(stderr, "creating foreign keys...\n");
+
+    // Execute each foreign key constraint creation
+    for (int i = 0; i < lengthof(DDLKEYs); i++) {
+        executeStatement(con, DDLKEYs[i]);
+    }
+}
+```

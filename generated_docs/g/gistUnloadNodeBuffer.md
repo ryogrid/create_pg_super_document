@@ -32,3 +32,29 @@ This function is responsible for persisting the buffered page data of a GiST nod
 - After writing to disk, the page buffer memory is freed and the pointer is set to NULL
 - The block number where data was written is stored in nodeBuffer->pageBlocknum for later retrieval
 - This is part of the memory management strategy to prevent excessive memory usage during large index builds
+
+## Simplified Source
+
+```c
+static void
+gistUnloadNodeBuffer(GISTBuildBuffers *gfbb, GISTNodeBuffer *nodeBuffer)
+{
+    // Check if buffer has data to write
+    if (nodeBuffer->pageBuffer) {
+        BlockNumber blkno;
+
+        // Get free block in temporary file
+        blkno = gistBuffersGetFreeBlock(gfbb);
+
+        // Write buffer data to temporary file
+        WriteTempFileBlock(gfbb->pfile, blkno, nodeBuffer->pageBuffer);
+
+        // Free memory and clean up
+        pfree(nodeBuffer->pageBuffer);
+        nodeBuffer->pageBuffer = NULL;
+
+        // Remember where we wrote the data
+        nodeBuffer->pageBlocknum = blkno;
+    }
+}
+```

@@ -51,3 +51,19 @@ This approach is designed for psql's current architecture where nested pipe oper
 - Future complex nested pipe operations might require a more sophisticated save/restore mechanism
 - Critical for proper cleanup in PostgreSQL frontend tools after pipe operations
 - Part of PostgreSQL's frontend utilities for robust I/O handling
+
+## Simplified Source
+
+```c
+void
+restore_sigpipe_trap(void)
+{
+#ifndef WIN32
+    // Restore SIGPIPE handling based on context:
+    // - If always_ignore_sigpipe is true (main output is piped), keep ignoring
+    // - Otherwise, restore default behavior (process termination on SIGPIPE)
+    pqsignal(SIGPIPE, always_ignore_sigpipe ? SIG_IGN : SIG_DFL);
+#endif
+    // No-op on Windows - SIGPIPE doesn't exist there
+}
+```

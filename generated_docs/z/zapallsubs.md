@@ -31,3 +31,16 @@ The function iterates backwards through the array from index n-1 down to 1, ensu
 - The backward iteration (from n-1 to 1) is an optimization technique
 - Setting rm_so and rm_eo to -1 is the standard way to indicate "no match" in POSIX regex
 - The preservation of p[0] is crucial as it contains the overall match boundaries
+
+## Simplified Source
+
+```c
+static void zapallsubs(regmatch_t *p, size_t n) {
+    // Reset all subexpression matches to "no match"
+    // Skip p[0] (overall match) and work backwards
+    for (size_t i = n - 1; i > 0; i--) {
+        p[i].rm_so = -1;  // Start offset = no match
+        p[i].rm_eo = -1;  // End offset = no match
+    }
+}
+```

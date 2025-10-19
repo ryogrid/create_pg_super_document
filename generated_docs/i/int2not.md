@@ -30,3 +30,14 @@ The `int2not` function implements the bitwise NOT operation for PostgreSQL's `sm
 - Unlike the other bitwise operations (AND, OR, XOR), this is a unary operation taking only one operand
 - The function follows PostgreSQL's standard function interface using `PG_FUNCTION_ARGS` and return macros
 - Typically accessed through the SQL bitwise NOT operator `~` rather than direct function calls
+
+## Simplified Source
+```c
+Datum int2not(PG_FUNCTION_ARGS) {
+    // Extract 16-bit integer argument
+    int16 arg1 = PG_GETARG_INT16(0);
+
+    // Perform bitwise NOT operation (flip all bits) and return result
+    PG_RETURN_INT16(~arg1);
+}
+```

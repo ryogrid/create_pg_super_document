@@ -38,3 +38,18 @@ Like its counterpart , this function represents part of PostgreSQL's evolution a
 - The PG_RETURN_NULL() at the end is never reached due to the ERROR, but kept for compiler satisfaction
 - Companion to the similarly deprecated  function
 - Represents PostgreSQL's commitment to maintaining ABI stability while deprecating unsafe direct ACL manipulation
+
+## Simplified Source
+
+```c
+Datum
+aclremove(PG_FUNCTION_ARGS)
+{
+    // This function is deprecated and no longer supported
+    ereport(ERROR,
+            (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+             errmsg("aclremove is no longer supported")));
+
+    PG_RETURN_NULL(); // Never reached, kept for compiler
+}
+```

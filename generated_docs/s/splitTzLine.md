@@ -33,3 +33,63 @@ This function attempts to parse a line from a timezone abbreviation file accordi
 
 ## Notes and Other Information
 The function distinguishes between zone names and numeric offsets by checking if the second token begins with a digit or sign. Zone names are assumed to be valid without validation to avoid loading unnecessary timezone data. Comments beginning with '#' are allowed and ignored after the main timezone specification.
+
+## Simplified Source
+
+```c
+static bool
+splitTzLine(const char *filename, int lineno, char *line, tzEntry *tzentry)
+{
+    char *abbrev, *offset, *is_dst, *remain;
+
+    // Initialize entry metadata
+    tzentry->lineno = lineno;
+    tzentry->filename = filename;
+
+    // Parse abbreviation (first token)
+    abbrev = strtok(line, WHITESPACE);
+    if (!abbrev) {
+        GUC_check_errmsg("missing time zone abbreviation");
+        return false;
+    }
+    tzentry->abbrev = pstrdup(abbrev);
+
+    // Parse offset/zone (second token)
+    offset = strtok(NULL, WHITESPACE);
+    if (!offset) {
+        GUC_check_errmsg("missing time zone offset");
+        return false;
+    }
+
+    // Check if it's a numeric offset or zone name
+    if (isdigit(*offset) || *offset == '+' || *offset == '-') {
+        // Numeric offset format
+        tzentry->zone = NULL;
+        tzentry->offset = strtol(offset, NULL, 10);
+
+        // Check for optional DST flag
+        is_dst = strtok(NULL, WHITESPACE);
+        if (is_dst && pg_strcasecmp(is_dst, "D") == 0) {
+            tzentry->is_dst = true;
+            remain = strtok(NULL, WHITESPACE);
+        } else {
+            tzentry->is_dst = false;
+            remain = is_dst;
+        }
+    } else {
+        // Zone name format
+        tzentry->zone = pstrdup(offset);
+        tzentry->offset = 0;
+        tzentry->is_dst = false;
+        remain = strtok(NULL, WHITESPACE);
+    }
+
+    // Check for comments (must start with #)
+    if (remain && remain[0] != '#') {
+        GUC_check_errmsg("invalid syntax");
+        return false;
+    }
+
+    return true;
+}
+```

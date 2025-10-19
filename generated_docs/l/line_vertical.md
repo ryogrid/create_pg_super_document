@@ -34,3 +34,15 @@ This function checks if a LINE object is vertical by testing if the B coefficien
 - Uses FPzero for proper floating-point zero comparison with appropriate precision handling
 - The function follows PostgreSQL's V1 calling convention using PG_FUNCTION_ARGS macro
 - A vertical line has the mathematical property that all points on the line have the same x-coordinate
+
+## Simplified Source
+
+```c
+Datum line_vertical(PG_FUNCTION_ARGS) {
+    // Get the input line
+    LINE *line = PG_GETARG_LINE_P(0);
+
+    // Line is vertical if B coefficient is zero (Ax + By + C = 0 becomes Ax + C = 0)
+    PG_RETURN_BOOL(FPzero(line->B));
+}
+```

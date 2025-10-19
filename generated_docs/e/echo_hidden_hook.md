@@ -42,3 +42,33 @@ The "noexec" option is particularly useful for developers and advanced users who
 - The hook is registered in EstablishVariableSpace() alongside bool_substitute_hook for the ECHO_HIDDEN variable
 - Supports both boolean parsing and a special "noexec" mode that is unique among psql variables
 - The "noexec" feature is valuable for educational purposes and debugging psql's internal command generation
+
+## Simplified Source
+
+```c
+static bool
+echo_hidden_hook(const char *newval)
+{
+    Assert(newval != NULL);  // Substitute hook ensures non-NULL value
+
+    // Handle special "noexec" mode (show but don't execute hidden commands)
+    if (pg_strcasecmp(newval, "noexec") == 0)
+        pset.echo_hidden = PSQL_ECHO_HIDDEN_NOEXEC;
+    else
+    {
+        bool on_off;
+
+        // Parse as boolean value (on/off)
+        if (ParseVariableBool(newval, NULL, &on_off))
+            pset.echo_hidden = on_off ? PSQL_ECHO_HIDDEN_ON : PSQL_ECHO_HIDDEN_OFF;
+        else
+        {
+            // Invalid value - show error and fail validation
+            PsqlVarEnumError("ECHO_HIDDEN", newval, "on, off, noexec");
+            return false;
+        }
+    }
+
+    return true;
+}
+```

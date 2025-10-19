@@ -48,3 +48,21 @@ The function performs the following operations:
 - The operation is performed in microseconds precision
 - Cross-midnight calculations will produce appropriate positive or negative intervals
 - Located in src/backend/utils/adt/date.c:2033-2051
+
+## Simplified Source
+
+```c
+Interval* time_mi_time(TimeADT time1, TimeADT time2) {
+    // Allocate memory for result interval
+    Interval *result = allocate_memory(sizeof(Interval));
+
+    // Set date components to zero (time-only difference)
+    result->month = 0;
+    result->day = 0;
+
+    // Calculate time difference (can be positive or negative)
+    result->time = time1 - time2;
+
+    return result;
+}
+```

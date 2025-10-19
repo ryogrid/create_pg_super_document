@@ -34,3 +34,14 @@ The function uses the system's BlockSig signal set, which contains signals that 
 - Should be used sparingly and for short durations to avoid blocking important signals for too long
 - Part of PostgreSQL's broader signal management strategy for multi-process architecture
 - Commonly used when background workers need to perform database operations that require atomicity
+
+## Simplified Source
+
+```c
+void
+BackgroundWorkerBlockSignals(void)
+{
+    // Block all signals defined in BlockSig to prevent interruption
+    sigprocmask(SIG_SETMASK, &BlockSig, NULL);
+}
+```

@@ -34,3 +34,35 @@ The function checks the current echo_hidden setting and conditionally displays t
 - Returns false when PSQL_ECHO_HIDDEN_NOEXEC is set to prevent query execution while still showing the query
 - Borrowed from PSQLexec() functionality to provide consistent hidden query handling
 - Essential for debugging psql's internal operations and understanding what queries are executed behind the scenes
+
+## Simplified Source
+
+```c
+static bool
+echo_hidden_command(const char *query)
+{
+    // Display hidden query if echo mode is enabled
+    if (pset.echo_hidden != PSQL_ECHO_HIDDEN_OFF) {
+        // Print query with distinctive borders to stdout
+        printf(_("/******** QUERY *********/\n"
+                 "%s\n"
+                 "/************************/\n\n"), query);
+        fflush(stdout);
+
+        // Also log to file if logging is enabled
+        if (pset.logfile) {
+            fprintf(pset.logfile,
+                   _("/******** QUERY *********/\n"
+                     "%s\n"
+                     "/************************/\n\n"), query);
+            fflush(pset.logfile);
+        }
+
+        // Return false to prevent execution in NOEXEC mode
+        if (pset.echo_hidden == PSQL_ECHO_HIDDEN_NOEXEC)
+            return false;
+    }
+
+    return true;  // Proceed with execution
+}
+```

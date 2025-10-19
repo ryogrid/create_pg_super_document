@@ -36,3 +36,25 @@ The function implements standard aggregate behavior by returning NULL when no ro
 - Part of the JSON object aggregation functionality for building JSON objects from query results
 - The function assumes the state string already contains a properly formatted JSON object beginning (with opening brace)
 - Located in src/backend/utils/adt/json.c:1177-1199
+
+## Simplified Source
+
+```c
+Datum json_object_agg_finalfn(PG_FUNCTION_ARGS) {
+    JsonAggState *state;
+
+    // Verify this is called in aggregate context
+    Assert(AggCheckCallContext(fcinfo, NULL));
+
+    // Get state from argument (NULL if no input)
+    state = PG_ARGISNULL(0) ? NULL : (JsonAggState *) PG_GETARG_POINTER(0);
+
+    // Return NULL for empty aggregation (standard behavior)
+    if (state == NULL) {
+        return PG_RETURN_NULL();
+    }
+
+    // Complete JSON object by adding closing brace
+    return PG_RETURN_TEXT_P(catenate_stringinfo_string(state->str, " }"));
+}
+```

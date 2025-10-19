@@ -36,3 +36,25 @@ This function is part of PostgreSQL's compression abstraction layer, providing s
 - Part of the gzip compression backend for PostgreSQL's pg_dump utility
 - Requires HAVE_LIBZ to be defined for compilation (depends on zlib library)
 - Essential for proper error handling and troubleshooting during compression/decompression operations
+
+## Simplified Source
+
+```c
+static const char *
+Gzip_get_error(CompressFileHandle *CFH)
+{
+    // Extract gzip file handle from compression wrapper
+    gzFile gzfp = (gzFile) CFH->private_data;
+
+    // Get error message and error number from zlib
+    const char *error_message;
+    int error_number;
+    error_message = gzerror(gzfp, &error_number);
+
+    // For system errors, use standard C error message instead
+    if (error_number == Z_ERRNO)
+        error_message = strerror(errno);
+
+    return error_message;
+}
+```

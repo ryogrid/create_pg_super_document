@@ -33,3 +33,16 @@ The `int2shl` function implements the bitwise left shift operation for PostgreSQ
 - The function follows PostgreSQL's standard function interface using `PG_FUNCTION_ARGS` and return macros
 - Typically accessed through the SQL left shift operator `<<` rather than direct function calls
 - No bounds checking on shift count - behavior with negative or very large shift counts follows C language semantics
+
+## Simplified Source
+```c
+Datum int2shl(PG_FUNCTION_ARGS) {
+    // Extract 16-bit integer value to shift
+    int16 arg1 = PG_GETARG_INT16(0);
+    // Extract 32-bit shift count
+    int32 arg2 = PG_GETARG_INT32(1);
+
+    // Perform left shift operation and return result
+    PG_RETURN_INT16(arg1 << arg2);
+}
+```

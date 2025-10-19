@@ -36,3 +36,46 @@ This function takes a string containing space-separated numeric values and conve
 - Fills unused array positions with InvalidOid
 - Terminates fatally on parsing errors (too many numbers, invalid characters, numbers too long)
 - Part of pg_dump's data parsing utilities for handling PostgreSQL system catalog output
+
+## Simplified Source
+
+```c
+void parseOidArray(const char *str, Oid *array, int arraysize)
+{
+    int argNum = 0;
+    int j = 0;
+    char temp[100];
+    char s;
+
+    // Parse characters one by one
+    for (;;) {
+        s = *str++;
+
+        // Space or end of string - process accumulated number
+        if (s == ' ' || s == '\0') {
+            if (j > 0) {
+                // Check array bounds
+                if (argNum >= arraysize)
+                    pg_fatal("too many numbers in array");
+
+                // Convert accumulated digits to Oid
+                temp[j] = '\0';
+                array[argNum++] = atooid(temp);
+                j = 0;
+            }
+            if (s == '\0')
+                break;
+        }
+        // Accumulate digits and minus signs
+        else {
+            if (!(isdigit(s) || s == '-') || j >= sizeof(temp) - 1)
+                pg_fatal("invalid character in numeric array");
+            temp[j++] = s;
+        }
+    }
+
+    // Fill remaining array positions with InvalidOid
+    while (argNum < arraysize)
+        array[argNum++] = InvalidOid;
+}
+```

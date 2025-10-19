@@ -44,3 +44,15 @@ The caller bears responsibility for ensuring the table's memory remains valid fo
 - The function assumes single-threaded access during configuration changes
 - Memory management of the old table (if any) is the caller's responsibility
 - Part of PostgreSQL's timezone configuration management subsystem
+
+## Simplified Source
+
+```c
+void InstallTimeZoneAbbrevs(TimeZoneAbbrevTable *tbl) {
+    // Install new timezone abbreviation table
+    zoneabbrevtbl = tbl;
+
+    // Clear cache to prevent stale pointers to old table
+    memset(abbrevcache, 0, sizeof(abbrevcache));
+}
+```

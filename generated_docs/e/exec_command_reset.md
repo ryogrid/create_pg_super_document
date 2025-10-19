@@ -38,3 +38,22 @@ When executed, the function performs two main operations: it resets the query bu
 - The function respects the  setting, only displaying confirmation messages when not in quiet mode  
 - Returns  to indicate that the current input line should be skipped after processing
 - The  parameter enables conditional execution, allowing commands to be parsed but not executed in certain contexts (such as within false branches of \if constructs)
+
+## Simplified Source
+
+```c
+// Simplified version of exec_command_reset
+static backslashResult exec_command_reset(PsqlScanState scan_state, bool active_branch, PQExpBuffer query_buf) {
+    if (active_branch) {
+        // Clear the query buffer and reset scanner state
+        resetPQExpBuffer(query_buf);
+        psql_scan_reset(scan_state);
+
+        // Provide user feedback unless in quiet mode
+        if (!pset.quiet)
+            puts(_("Query buffer reset (cleared)."));
+    }
+
+    return PSQL_CMD_SKIP_LINE;
+}
+```

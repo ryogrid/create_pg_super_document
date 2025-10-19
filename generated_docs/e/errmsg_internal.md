@@ -45,3 +45,29 @@ The function operates within PostgreSQL's error handling framework, setting up t
 - Part of PostgreSQL's comprehensive error reporting infrastructure
 - Should be used sparingly and only for truly internal error conditions
 - Not intended for user-facing error messages that should be translatable
+
+## Simplified Source
+
+```c
+int errmsg_internal(const char *fmt, ...) {
+    ErrorData *edata = &errordata[errordata_stack_depth];
+    MemoryContext oldcontext;
+
+    // Track recursion and validate stack
+    recursion_depth++;
+    CHECK_STACK_DEPTH();
+
+    // Switch to error's memory context
+    oldcontext = MemoryContextSwitchTo(edata->assoc_context);
+
+    // Set message format and evaluate WITHOUT translation
+    edata->message_id = fmt;
+    EVALUATE_MESSAGE(edata->domain, message, false, false);
+
+    // Restore context and recursion level
+    MemoryContextSwitchTo(oldcontext);
+    recursion_depth--;
+
+    return 0;
+}
+```

@@ -50,3 +50,103 @@ The function uses a switch statement to handle various SP-GiST operation types:
 - The function handles special flags like newPage, storesNulls, replaceDead, innerIsParent, and isRootSplit
 - Located in src/backend/access/rmgrdesc/spgdesc.c, which is dedicated to SP-GiST WAL record descriptions
 - Essential for debugging SP-GiST index operations and understanding WAL record contents during recovery
+
+## Simplified Source
+
+```c
+void
+spg_desc(StringInfo buf, XLogReaderState *record)
+{
+    char *rec = XLogRecGetData(record);
+    uint8 info = XLogRecGetInfo(record) & ~XLR_INFO_MASK;
+
+    switch (info) {
+        case XLOG_SPGIST_ADD_LEAF:
+            {
+                // Adding leaf tuples
+                spgxlogAddLeaf *xlrec = (spgxlogAddLeaf *) rec;
+                appendStringInfo(buf, "off: %u, headoff: %u, parentoff: %u, nodeI: %u",
+                               xlrec->offnumLeaf, xlrec->offnumHeadLeaf,
+                               xlrec->offnumParent, xlrec->nodeI);
+                if (xlrec->newPage) appendStringInfoString(buf, " (newpage)");
+                if (xlrec->storesNulls) appendStringInfoString(buf, " (nulls)");
+            }
+            break;
+
+        case XLOG_SPGIST_MOVE_LEAFS:
+            {
+                // Moving leaf tuples between pages
+                spgxlogMoveLeafs *xlrec = (spgxlogMoveLeafs *) rec;
+                appendStringInfo(buf, "nmoves: %u, parentoff: %u, nodeI: %u",
+                               xlrec->nMoves, xlrec->offnumParent, xlrec->nodeI);
+                if (xlrec->newPage) appendStringInfoString(buf, " (newpage)");
+                if (xlrec->replaceDead) appendStringInfoString(buf, " (replacedead)");
+                if (xlrec->storesNulls) appendStringInfoString(buf, " (nulls)");
+            }
+            break;
+
+        case XLOG_SPGIST_ADD_NODE:
+            {
+                // Adding internal nodes
+                spgxlogAddNode *xlrec = (spgxlogAddNode *) rec;
+                appendStringInfo(buf, "off: %u, newoff: %u, parentBlk: %d, parentoff: %u, nodeI: %u",
+                               xlrec->offnum, xlrec->offnumNew, xlrec->parentBlk,
+                               xlrec->offnumParent, xlrec->nodeI);
+                if (xlrec->newPage) appendStringInfoString(buf, " (newpage)");
+            }
+            break;
+
+        case XLOG_SPGIST_SPLIT_TUPLE:
+            {
+                // Splitting tuples
+                spgxlogSplitTuple *xlrec = (spgxlogSplitTuple *) rec;
+                appendStringInfo(buf, "prefixoff: %u, postfixoff: %u",
+                               xlrec->offnumPrefix, xlrec->offnumPostfix);
+                if (xlrec->newPage) appendStringInfoString(buf, " (newpage)");
+                if (xlrec->postfixBlkSame) appendStringInfoString(buf, " (same)");
+            }
+            break;
+
+        case XLOG_SPGIST_PICKSPLIT:
+            {
+                // Pick-split operations
+                spgxlogPickSplit *xlrec = (spgxlogPickSplit *) rec;
+                appendStringInfo(buf, "ndelete: %u, ninsert: %u, inneroff: %u, parentoff: %u, nodeI: %u",
+                               xlrec->nDelete, xlrec->nInsert, xlrec->offnumInner,
+                               xlrec->offnumParent, xlrec->nodeI);
+                if (xlrec->innerIsParent) appendStringInfoString(buf, " (innerIsParent)");
+                if (xlrec->storesNulls) appendStringInfoString(buf, " (nulls)");
+                if (xlrec->isRootSplit) appendStringInfoString(buf, " (isRootSplit)");
+            }
+            break;
+
+        case XLOG_SPGIST_VACUUM_LEAF:
+            {
+                // Vacuum leaf pages
+                spgxlogVacuumLeaf *xlrec = (spgxlogVacuumLeaf *) rec;
+                appendStringInfo(buf, "ndead: %u, nplaceholder: %u, nmove: %u, nchain: %u",
+                               xlrec->nDead, xlrec->nPlaceholder, xlrec->nMove, xlrec->nChain);
+            }
+            break;
+
+        case XLOG_SPGIST_VACUUM_ROOT:
+            {
+                // Vacuum root pages
+                spgxlogVacuumRoot *xlrec = (spgxlogVacuumRoot *) rec;
+                appendStringInfo(buf, "ndelete: %u", xlrec->nDelete);
+            }
+            break;
+
+        case XLOG_SPGIST_VACUUM_REDIRECT:
+            {
+                // Vacuum redirect operations
+                spgxlogVacuumRedirect *xlrec = (spgxlogVacuumRedirect *) rec;
+                appendStringInfo(buf, "ntoplaceholder: %u, firstplaceholder: %u, snapshotConflictHorizon: %u, isCatalogRel: %c",
+                               xlrec->nToPlaceholder, xlrec->firstPlaceholder,
+                               xlrec->snapshotConflictHorizon,
+                               xlrec->isCatalogRel ? 'T' : 'F');
+            }
+            break;
+    }
+}
+```

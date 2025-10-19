@@ -49,3 +49,60 @@ The function is a critical component of pg_rewind's incremental synchronization 
 - Contains detailed comments explaining the logic for ignoring certain blocks (beyond EOF, non-existent files, etc.)
 - Part of the WAL analysis phase that determines the minimal set of changes needed for rewind
 - Critical for incremental rewind performance: avoids copying entire files when only specific blocks need updating
+
+## Simplified Source
+
+```c
+void process_target_wal_block_change(ForkNumber forknum, RelFileLocator rlocator,
+                                    BlockNumber blkno)
+{
+    char *file_path;
+    file_entry_t *file_entry;
+    BlockNumber block_in_segment;
+    int segment_number;
+
+    // Calculate which segment file contains this block
+    segment_number = blkno / RELSEG_SIZE;
+    block_in_segment = blkno % RELSEG_SIZE;
+
+    // Get the path to the data segment file
+    file_path = datasegpath(rlocator, forknum, segment_number);
+    file_entry = lookup_filehash_entry(file_path);
+    pfree(file_path);
+
+    // Only process if file entry exists in our hash table
+    if (file_entry)
+    {
+        Assert(file_entry->isrelfile);
+
+        // Check if file exists in target system
+        if (file_entry->target_exists)
+        {
+            // Ensure we're dealing with a regular file
+            if (file_entry->target_type != FILE_TYPE_REGULAR)
+                pg_fatal("unexpected page modification for non-regular file \"%s\"",
+                        file_entry->path);
+
+            // If file also exists in source system, consider copying this block
+            if (file_entry->source_exists)
+            {
+                off_t block_end_offset = (block_in_segment + 1) * BLCKSZ;
+
+                // Only mark block for overwrite if it exists in both files
+                if (block_end_offset <= file_entry->source_size &&
+                    block_end_offset <= file_entry->target_size)
+                {
+                    datapagemap_add(&file_entry->target_pages_to_overwrite,
+                                   block_in_segment);
+                }
+            }
+        }
+    }
+
+    /*
+     * If file doesn't exist in our hash table, or doesn't exist in either
+     * source or target, we can safely ignore this WAL record. The file
+     * will be handled appropriately during the copy phase.
+     */
+}
+```

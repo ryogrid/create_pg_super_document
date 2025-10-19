@@ -34,3 +34,16 @@ This function serves as a GUC (Grand Unified Configuration) assign hook for the 
 - The extra parameter contains the pre-validated and pre-formatted configuration data
 - This is a simple assignment function that updates global state to reflect the new configuration
 - Part of the GUC hook mechanism that ensures proper handling of configuration changes
+
+## Simplified Source
+
+```c
+void assign_synchronized_standby_slots(const char *newval, void *extra)
+{
+    // Reset cached oldest LSN since standby slots may have changed
+    ss_oldest_flush_lsn = InvalidXLogRecPtr;
+
+    // Update global configuration with validated data from check hook
+    synchronized_standby_slots_config = (SyncStandbySlotsConfigData *) extra;
+}
+```

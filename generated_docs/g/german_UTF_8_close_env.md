@@ -33,3 +33,13 @@ This function is essential for preventing memory leaks in long-running applicati
 
 ## Notes and Other Information
 This function should always be called to clean up environments created by german_UTF_8_create_env. The parameter 0 passed to SN_close_env indicates the specific cleanup configuration for German language environments. After calling this function, the environment pointer becomes invalid and should not be used for further operations. The function follows the standard resource management pattern used throughout the Snowball stemming library.
+
+## Simplified Source
+
+```c
+extern void german_UTF_8_close_env(struct SN_env * z) {
+    // Clean up German stemming environment and free resources
+    // Parameter 0 indicates German-specific cleanup configuration
+    SN_close_env(z, 0);
+}
+```

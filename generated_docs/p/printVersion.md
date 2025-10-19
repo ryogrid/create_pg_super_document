@@ -31,3 +31,39 @@ The printVersion function prints a version banner for pgbench that includes both
 - Uses internationalization macros (_()) for translatable strings
 - Flushes stdout to ensure immediate display of version information
 - Part of pgbench startup sequence for version verification and user information
+
+## Simplified Source
+
+```c
+static void
+printVersion(PGconn *con)
+{
+    int server_ver = PQserverVersion(con);
+    int client_ver = PG_VERSION_NUM;
+
+    if (server_ver != client_ver)
+    {
+        const char *server_version;
+        char sverbuf[32];
+
+        // Try to get full server version string
+        server_version = PQparameterStatus(con, "server_version");
+        if (!server_version)
+        {
+            // Fall back to formatted numeric version
+            formatPGVersionNumber(server_ver, true, sverbuf, sizeof(sverbuf));
+            server_version = sverbuf;
+        }
+
+        // Print version mismatch info
+        printf(_("%s (%s, server %s)\n"), "pgbench", PG_VERSION, server_version);
+    }
+    else
+    {
+        // Versions match, print simple banner
+        printf("%s (%s)\n", "pgbench", PG_VERSION);
+    }
+
+    fflush(stdout);
+}
+```

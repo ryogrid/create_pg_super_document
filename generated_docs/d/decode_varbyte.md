@@ -34,3 +34,33 @@ The function is optimized for performance by unrolling the loop and handling eac
 - The 7th byte must not have a continuation bit set (assertion check)
 - The function advances the buffer pointer to point to the byte after the decoded integer
 - This is the inverse operation of encode_varbyte and must handle the same encoding format
+
+## Simplified Source
+
+```c
+static uint64
+decode_varbyte(unsigned char **ptr)
+{
+    uint64 val = 0;
+    unsigned char *p = *ptr;
+    int shift = 0;
+
+    // Read bytes until we find one without continuation bit
+    while (shift < 49) {  // Support up to 7 bytes (49 bits)
+        uint64 c = *(p++);
+
+        // Add 7 data bits to result at appropriate position
+        val |= (c & 0x7F) << shift;
+
+        // If no continuation bit, we're done
+        if ((c & 0x80) == 0)
+            break;
+
+        shift += 7;
+    }
+
+    // Update pointer past decoded data
+    *ptr = p;
+    return val;
+}
+```

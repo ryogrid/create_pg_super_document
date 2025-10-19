@@ -38,3 +38,24 @@ The function returns NULL if there's no active database connection.
 - This is commonly used in psql prompts to display the effective username
 - The returned pointer should not be freed as it points to libpq-managed memory
 - Important for security context awareness in psql operations and user interface elements
+
+## Simplified Source
+
+```c
+const char *session_username(void)
+{
+    const char *val;
+
+    // Check if database connection exists
+    if (!pset.db)
+        return NULL;
+
+    // Try to get session authorization user first
+    val = PQparameterStatus(pset.db, "session_authorization");
+    if (val)
+        return val;
+
+    // Fall back to connection user
+    return PQuser(pset.db);
+}
+```

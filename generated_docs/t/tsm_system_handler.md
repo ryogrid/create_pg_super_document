@@ -35,3 +35,29 @@ The tsm_system_handler function is the entry point handler for PostgreSQL's SYST
 - The method is configured as repeatable across both queries and scans
 - EndSampleScan is set to NULL, indicating no special cleanup is needed
 - This handler is typically registered in the system catalogs and called when TABLESAMPLE SYSTEM() is used in SQL queries
+
+## Simplified Source
+```c
+Datum tsm_system_handler(PG_FUNCTION_ARGS)
+{
+    // Create SYSTEM tablesample method descriptor
+    TsmRoutine *tsm = makeNode(TsmRoutine);
+
+    // Configure sampling parameters and behavior
+    tsm->parameterTypes = list_make1_oid(FLOAT4OID);  // Accepts float4 percentage
+    tsm->repeatable_across_queries = true;
+    tsm->repeatable_across_scans = true;
+
+    // Set callback functions for sampling operations
+    tsm->SampleScanGetSampleSize = system_samplescangetsamplesize;
+    tsm->InitSampleScan = system_initsamplescan;
+    tsm->BeginSampleScan = system_beginsamplescan;
+    tsm->NextSampleBlock = system_nextsampleblock;  // Block-level sampling
+    tsm->NextSampleTuple = system_nextsampletuple;
+
+    // No cleanup operation needed
+    tsm->EndSampleScan = NULL;
+
+    PG_RETURN_POINTER(tsm);
+}
+```

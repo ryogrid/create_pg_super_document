@@ -37,3 +37,15 @@ The initTeller function generates one row of data for the pgbench_tellers table 
 - Part of the TPC-B benchmark schema initialization process
 - Establishes the many-to-one relationship between tellers and branches
 - The ntellers variable controls how many tellers are assigned to each branch
+
+## Simplified Source
+
+```c
+static void initTeller(PQExpBufferData *sql, int64 curr) {
+    // Generate tab-separated row: teller_id, branch_id, balance=0, filler=NULL
+    printfPQExpBuffer(sql,
+                     INT64_FORMAT "\t" INT64_FORMAT "\t0\t\\N\n",
+                     curr + 1,           // Teller ID (1-based)
+                     curr / ntellers + 1); // Branch ID (distributed evenly)
+}
+```

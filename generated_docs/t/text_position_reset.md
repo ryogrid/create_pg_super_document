@@ -31,3 +31,18 @@ This function reinitializes the TextPositionState structure to its initial state
 - Preserves the search pattern and skip table setup from the original initialization
 - Useful for functions that need to perform multiple searches on the same string, such as split operations
 - Does not deallocate any memory or destroy the search setup - only resets search position
+
+## Simplified Source
+
+This function resets the text search state to start over from the beginning of the string, clearing any previous match information.
+
+```c
+static void
+text_position_reset(TextPositionState *state)
+{
+    // Clear previous match and reset to start of string
+    state->last_match = NULL;
+    state->refpoint = state->str1;  // Back to beginning of haystack
+    state->refpos = 0;              // Reset character position counter
+}
+```

@@ -47,3 +47,29 @@ The function uses a sophisticated backtracking mechanism to handle optional tran
 - Array a_66 is the largest suffix array in the Greek stemmer with 84 different patterns
 - This step handles final cleanup and regularization of Greek word forms after the main morphological transformations
 - The step counter mechanism ensures proper ordering and prevents inappropriate transformations
+
+## Simplified Source
+
+```c
+static int r_step6(struct SN_env * z) {
+    // Phase 1: Optional transformation with backtracking
+    int saved_pos = z->l - z->c;
+    z->ket = z->c;
+    if (find_among_b(z, a_65, 3)) {
+        z->bra = z->c;
+        slice_from_s(z, 4, s_106);  // Replace with "μα" (s_106)
+    } else {
+        z->c = z->l - saved_pos;    // Restore position if no match
+    }
+
+    // Phase 2: Conditional deletion based on step counter
+    if (!z->I[0]) return 0;  // Only proceed if previous steps executed
+
+    z->ket = z->c;
+    if (!find_among_b(z, a_66, 84)) return 0;  // Large array of 84 patterns
+    z->bra = z->c;
+    slice_del(z);  // Delete matched suffix
+
+    return 1;
+}
+```

@@ -33,3 +33,28 @@ The text_to_table function is a PostgreSQL set-returning function (SRF) that spl
 - Uses PostgreSQL's materialized SRF infrastructure for efficient row output
 - Sets astate to NULL since array output is not needed for table format
 - Part of PostgreSQL's variable-length data type utilities
+
+## Simplified Source
+
+```c
+Datum text_to_table(PG_FUNCTION_ARGS) {
+    // Get set-returning function result info
+    ReturnSetInfo *rsi = (ReturnSetInfo *) fcinfo->resultinfo;
+    SplitTextOutputData tstate;
+
+    // Initialize for table output (not array)
+    tstate.astate = NULL;
+
+    // Setup materialized SRF with expected descriptor
+    InitMaterializedSRF(fcinfo, MAT_SRF_USE_EXPECTED_DESC);
+
+    // Configure output state for row-based results
+    tstate.tupstore = rsi->setResult;
+    tstate.tupdesc = rsi->setDesc;
+
+    // Delegate to split_text for actual processing
+    (void) split_text(fcinfo, &tstate);
+
+    return (Datum) 0;
+}
+```

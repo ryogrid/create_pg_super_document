@@ -36,3 +36,13 @@ The function delegates to the core Snowball framework's SN_create_env function w
 - This function is part of the standard Snowball stemmer interface pattern
 - Memory allocation failures should be handled by the calling code
 - The returned environment must be properly initialized with text before stemming operations can begin
+
+## Simplified Source
+
+```c
+extern struct SN_env * romanian_ISO_8859_2_create_env(void) {
+    // Create Snowball environment with 0 string variables and 4 integer variables
+    // for Romanian stemming state tracking
+    return SN_create_env(0, 4);
+}
+```

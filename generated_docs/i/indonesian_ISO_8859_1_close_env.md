@@ -36,3 +36,13 @@ This function should always be called when Indonesian stemming operations are co
 - Should be called exactly once for each environment created with indonesian_ISO_8859_1_create_env
 - The parameter 0 passed to SN_close_env indicates no string array cleanup is required for Indonesian
 - Follows the standard Snowball library pattern for language-specific environment cleanup
+
+## Simplified Source
+
+```c
+extern void indonesian_ISO_8859_1_close_env(struct SN_env * z) {
+    // Clean up Indonesian stemming environment
+    // 0 indicates no string array cleanup needed
+    SN_close_env(z, 0);
+}
+```

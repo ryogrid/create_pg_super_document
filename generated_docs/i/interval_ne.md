@@ -34,3 +34,16 @@ The `interval_ne` function is a PostgreSQL function that implements the inequali
 - The actual comparison logic is delegated to `interval_cmp_internal()`
 - Registered in the PostgreSQL system catalogs to handle interval inequality operations in SQL queries
 - Complementary to `interval_eq` - returns the opposite boolean result
+
+## Simplified Source
+
+```c
+Datum interval_ne(PG_FUNCTION_ARGS) {
+    // Extract two interval arguments
+    Interval *interval1 = PG_GETARG_INTERVAL_P(0);
+    Interval *interval2 = PG_GETARG_INTERVAL_P(1);
+
+    // Compare intervals and return true if not equal
+    PG_RETURN_BOOL(interval_cmp_internal(interval1, interval2) != 0);
+}
+```

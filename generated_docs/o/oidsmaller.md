@@ -34,3 +34,16 @@ This function compares two OID values and returns the smaller one. It performs a
 - The function name follows PostgreSQL's naming convention for utility functions on data types
 - Useful for finding the minimum OID in queries or system catalog operations
 - Complements the  function for min/max operations on OIDs
+
+## Simplified Source
+
+```c
+Datum oidsmaller(PG_FUNCTION_ARGS) {
+    // Extract the two OID arguments
+    Oid arg1 = PG_GETARG_OID(0);
+    Oid arg2 = PG_GETARG_OID(1);
+
+    // Return the smaller of the two OIDs
+    PG_RETURN_OID((arg1 < arg2) ? arg1 : arg2);
+}
+```

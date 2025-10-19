@@ -44,3 +44,29 @@ Unlike r_owned, this function does not perform preliminary character checking, i
 - The pattern matching uses the a_10 array which contains 31 different singular possessor suffix patterns
 - Region checking ensures morphologically appropriate suffix removal
 - The extensive pattern set reflects the rich morphological variation in Hungarian singular possessive forms
+
+## Simplified Source
+
+```c
+static int r_sing_owner(struct SN_env * z) {
+    // Set end position
+    z->ket = z->c;
+
+    // Find matching singular possessor suffix pattern from 31 patterns
+    int among_var = find_among_b(z, a_10, 31);
+    if (!among_var) return 0;
+
+    // Set start position and verify in R1 region
+    z->bra = z->c;
+    if (r_R1(z) <= 0) return 0;
+
+    // Apply transformation based on pattern type
+    switch (among_var) {
+        case 1: slice_del(z); break;              // Delete suffix
+        case 2: slice_from_s(z, 1, s_10); break; // Replace with s_10
+        case 3: slice_from_s(z, 1, s_11); break; // Replace with s_11
+    }
+
+    return 1;
+}
+```

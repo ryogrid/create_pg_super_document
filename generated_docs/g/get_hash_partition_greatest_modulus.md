@@ -33,3 +33,15 @@ The function simply returns the  field from the PartitionBoundInfo structure, wh
 - The function is deprecated in core PostgreSQL code but maintained for external module compatibility
 - For hash partitions,  directly corresponds to the greatest modulus value
 - The return value represents the total number of hash partitions that should exist for complete coverage
+
+## Simplified Source
+
+```c
+int get_hash_partition_greatest_modulus(PartitionBoundInfo bound) {
+    // Ensure we have valid hash partition bounds
+    Assert(bound && bound->strategy == PARTITION_STRATEGY_HASH);
+
+    // Return the total number of hash partitions (greatest modulus)
+    return bound->nindexes;
+}
+```

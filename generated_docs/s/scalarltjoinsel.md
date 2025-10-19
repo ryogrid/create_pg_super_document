@@ -37,3 +37,14 @@ This function serves as a fallback estimator in PostgreSQL's query optimization 
 - Part of the selectivity estimation framework in src/backend/utils/adt/selfuncs.c
 - Likely used as a placeholder or fallback when more sophisticated estimation isn't implemented
 - Location: src/backend/utils/adt/selfuncs.c:2901-2909
+
+## Simplified Source
+
+```c
+// Simple selectivity estimator for scalar "<" join operations
+Datum scalarltjoinsel(PG_FUNCTION_ARGS) {
+    // Returns default inequality selectivity constant
+    // Ignores all input parameters for simplicity
+    PG_RETURN_FLOAT8(DEFAULT_INEQ_SEL);
+}
+```

@@ -33,3 +33,17 @@ This function initializes a KeyArray structure by allocating memory for storing 
 - Initial nvalues is set to 0, indicating an empty array
 - Memory allocation uses palloc_array which is PostgreSQL's memory allocation function
 - The KeyArray structure is commonly used in GIN index fast insertion paths
+
+## Simplified Source
+
+```c
+static void initKeyArray(KeyArray *keys, int32 maxvalues) {
+    // Allocate parallel arrays for keys and their null categories
+    keys->keys = palloc_array(Datum, maxvalues);
+    keys->categories = palloc_array(GinNullCategory, maxvalues);
+
+    // Initialize state
+    keys->nvalues = 0;          // Start with empty array
+    keys->maxvalues = maxvalues; // Set capacity limit
+}
+```

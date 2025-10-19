@@ -59,3 +59,75 @@ The function handles two symmetric cases based on whether the problematic node's
 - The algorithm is based on the classic Red-Black Tree insertion fixup procedure
 - Critical for maintaining the O(log n) performance guarantees of Red-Black Trees
 - Always terminates by ensuring the root is black, which may increase the tree's black-height by one
+
+## Simplified Source
+
+```c
+static void
+rbt_insert_fixup(RBTree *rbt, RBTNode *x)
+{
+    // Fix red-black violations after insertion
+    // x is the newly inserted red node
+    while (x != rbt->root && x->parent->color == RBTRED)
+    {
+        if (x->parent == x->parent->parent->left)
+        {
+            // Parent is left child - get uncle (right child)
+            RBTNode *uncle = x->parent->parent->right;
+
+            if (uncle->color == RBTRED)
+            {
+                // Case 1: Red uncle - flip colors and move up
+                x->parent->color = RBTBLACK;
+                uncle->color = RBTBLACK;
+                x->parent->parent->color = RBTRED;
+                x = x->parent->parent;  // Continue checking from grandparent
+            }
+            else
+            {
+                // Case 2: Black uncle - rotations needed
+                if (x == x->parent->right)
+                {
+                    // Make x a left child first
+                    x = x->parent;
+                    rbt_rotate_left(rbt, x);
+                }
+
+                // Final recolor and rotation
+                x->parent->color = RBTBLACK;
+                x->parent->parent->color = RBTRED;
+                rbt_rotate_right(rbt, x->parent->parent);
+            }
+        }
+        else
+        {
+            // Mirror case: parent is right child
+            RBTNode *uncle = x->parent->parent->left;
+
+            if (uncle->color == RBTRED)
+            {
+                // Red uncle - flip colors
+                x->parent->color = RBTBLACK;
+                uncle->color = RBTBLACK;
+                x->parent->parent->color = RBTRED;
+                x = x->parent->parent;
+            }
+            else
+            {
+                // Black uncle - rotations
+                if (x == x->parent->left)
+                {
+                    x = x->parent;
+                    rbt_rotate_right(rbt, x);
+                }
+                x->parent->color = RBTBLACK;
+                x->parent->parent->color = RBTRED;
+                rbt_rotate_left(rbt, x->parent->parent);
+            }
+        }
+    }
+
+    // Ensure root is always black
+    rbt->root->color = RBTBLACK;
+}
+```

@@ -32,3 +32,12 @@ The function calls `SN_close_env(z, 0)`, where the second parameter (0) correspo
 - The function is generated as part of the Snowball stemming library compilation process
 - Part of PostgreSQL's full-text search functionality for Dutch language support
 - After calling this function, the pointer `z` should not be used again as it points to deallocated memory
+
+## Simplified Source
+
+```c
+extern void dutch_UTF_8_close_env(struct SN_env * z) {
+    // Cleanup Dutch stemming environment (0 indicates no string arrays to deallocate)
+    SN_close_env(z, 0);
+}
+```

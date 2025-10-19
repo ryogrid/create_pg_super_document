@@ -49,3 +49,32 @@ The function uses backward searching to find suffixes and performs deletion and 
 - Handles UTF-8 encoded Greek text with specific byte patterns
 - The function checks for a minimum word length (7 characters) and specific ending patterns before processing
 - Byte value 181 corresponds to part of a Greek UTF-8 character sequence
+
+## Simplified Source
+
+```c
+static int r_step5l(struct SN_env * z) {
+    // Step 1: Preliminary validation - length and character checks
+    z->ket = z->c;
+
+    // Ensure minimum length (7 chars) and specific character (code 181)
+    if (z->c - 7 <= z->lb || z->p[z->c - 1] != 181) return 0;
+
+    // Step 2: Find and remove Greek suffix from a_61 (3 entries)
+    if (!find_among_b(z, a_61, 3)) return 0;
+    z->bra = z->c;
+    slice_del(z);  // Remove found suffix
+
+    // Reset stemmer state
+    z->I[0] = 0;
+
+    // Step 3: Pattern matching and replacement with Greek suffix "ουν"
+    z->ket = z->c;
+    z->bra = z->c;
+    if (!find_among_b(z, a_62, 6)) return 0;
+    if (z->c > z->lb) return 0;  // Boundary check
+
+    slice_from_s(z, 6, s_104);   // Replace with 6-char Greek suffix s_104
+    return 1;
+}
+```

@@ -34,3 +34,16 @@ This function serves as the standard input conversion function for PostgreSQL's 
 - Handles both IPv4 and IPv6 CIDR blocks through the underlying network_in function
 - CIDR validation ensures that all host bits beyond the network mask are zero, representing proper network blocks
 - More restrictive than inet_in as it requires proper network block format
+
+## Simplified Source
+
+```c
+Datum cidr_in(PG_FUNCTION_ARGS) {
+    // Extract input string from function arguments
+    char *src = PG_GETARG_CSTRING(0);
+
+    // Convert string to inet format using network_in
+    // Pass true for is_cidr to enforce strict CIDR validation
+    PG_RETURN_INET_P(network_in(src, true, fcinfo->context));
+}
+```

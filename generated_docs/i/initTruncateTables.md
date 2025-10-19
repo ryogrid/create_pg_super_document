@@ -31,3 +31,16 @@ The initTruncateTables function removes all existing data from the four standard
 - Preserves table structure and indexes while removing all data
 - Static function scope limits its usage to within pgbench.c
 - Part of the data generation initialization process in pgbench
+
+## Simplified Source
+
+```c
+static void initTruncateTables(PGconn *con) {
+    // Remove all data from pgbench tables in one atomic operation
+    executeStatement(con, "truncate table "
+                          "pgbench_accounts, "
+                          "pgbench_branches, "
+                          "pgbench_history, "
+                          "pgbench_tellers");
+}
+```

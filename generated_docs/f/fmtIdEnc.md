@@ -55,3 +55,57 @@ The function uses a shared buffer from getLocalPQExpBuffer(), so the returned st
 - Uses fast path for ASCII characters and slower path for potential multibyte characters
 - Unreserved keywords are not quoted, but all other keyword categories require quoting
 - The returned string must be used immediately before any other formatting function calls
+
+## Simplified Source
+
+```c
+const char *fmtIdEnc(const char *rawid, int encoding) {
+    PQExpBuffer buffer = getLocalPQExpBuffer();
+    bool need_quotes = false;
+
+    // Check if quoting is needed
+    if (quote_all_identifiers) {
+        need_quotes = true;
+    } else {
+        // Check first character (must be a-z or _)
+        if (!((rawid[0] >= 'a' && rawid[0] <= 'z') || rawid[0] == '_')) {
+            need_quotes = true;
+        } else {
+            // Check remaining characters (a-z, 0-9, _)
+            for (const char *cp = rawid; *cp; cp++) {
+                if (!((*cp >= 'a' && *cp <= 'z') ||
+                      (*cp >= '0' && *cp <= '9') ||
+                      (*cp == '_'))) {
+                    need_quotes = true;
+                    break;
+                }
+            }
+        }
+
+        // Check if it's a reserved keyword
+        if (!need_quotes) {
+            int kwnum = ScanKeywordLookup(rawid, &ScanKeywords);
+            if (kwnum >= 0 && ScanKeywordCategories[kwnum] != UNRESERVED_KEYWORD) {
+                need_quotes = true;
+            }
+        }
+    }
+
+    if (!need_quotes) {
+        // Simple case: no quoting needed
+        appendPQExpBufferStr(buffer, rawid);
+    } else {
+        // Quote and escape the identifier
+        appendPQExpBufferChar(buffer, '"');
+        for (const char *cp = rawid; *cp; cp++) {
+            if (*cp == '"') {
+                appendPQExpBufferChar(buffer, '"'); // Double the quote
+            }
+            appendPQExpBufferChar(buffer, *cp);
+        }
+        appendPQExpBufferChar(buffer, '"');
+    }
+
+    return buffer->data;
+}
+```

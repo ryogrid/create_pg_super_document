@@ -39,3 +39,30 @@ This function creates a copy of the input bytea value and modifies the Nth byte 
 - Returns a new bytea instance with the modified byte value
 - Part of PostgreSQL's bytea data type manipulation functions in varlena.c
 - Located in src/backend/utils/adt/varlena.c:3276-3307
+
+## Simplified Source
+
+```c
+// Create new bytea with a specific byte set to a new value
+Datum byteaSetByte(PG_FUNCTION_ARGS) {
+    // Create a copy of the input bytea (ensures immutability)
+    bytea *result = PG_GETARG_BYTEA_P_COPY(0);
+    int32 index = PG_GETARG_INT32(1);
+    int32 new_byte_value = PG_GETARG_INT32(2);
+
+    // Calculate data length (excluding PostgreSQL header)
+    int length = VARSIZE(result) - VARHDRSZ;
+
+    // Validate index bounds (0-based indexing)
+    if (index < 0 || index >= length) {
+        ereport(ERROR,
+                (errcode(ERRCODE_ARRAY_SUBSCRIPT_ERROR),
+                 errmsg("index %d out of valid range, 0..%d", index, length - 1)));
+    }
+
+    // Set the byte at the specified index
+    ((unsigned char *) VARDATA(result))[index] = new_byte_value;
+
+    return PG_RETURN_BYTEA_P(result);
+}
+```

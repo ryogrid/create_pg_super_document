@@ -43,3 +43,24 @@ The function constructs an ObjectAccessNamespaceSearch structure with the provid
 - The ereport_on_violation parameter controls whether permission denied situations should generate user-visible error messages
 - This hook is essential for implementing row-level security and custom access control policies for schema-level operations
 - Part of PostgreSQL's extensibility framework for fine-grained access control and security policy enforcement
+
+## Simplified Source
+
+```c
+bool RunNamespaceSearchHook(Oid objectId, bool ereport_on_violation)
+{
+    ObjectAccessNamespaceSearch ns_arg;
+
+    // Initialize structure with search parameters
+    memset(&ns_arg, 0, sizeof(ObjectAccessNamespaceSearch));
+    ns_arg.ereport_on_violation = ereport_on_violation;
+    ns_arg.result = true;  // Default to allow access
+
+    // Call registered object access hook for namespace search
+    (*object_access_hook)(OAT_NAMESPACE_SEARCH,
+                         NamespaceRelationId, objectId, 0,
+                         (void *) &ns_arg);
+
+    return ns_arg.result;  // Return access decision
+}
+```

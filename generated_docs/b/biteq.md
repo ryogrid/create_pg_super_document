@@ -45,3 +45,28 @@ This function directly corresponds to the SQL  operator when used with BIT or VA
 - Part of the complete set of comparison operators for bit string types
 - Ensures exact equality - trailing bits matter ("101" ≠ "1010")
 - Located in src/backend/utils/adt/varbit.c:841-864
+
+## Simplified Source
+
+```c
+Datum biteq(PG_FUNCTION_ARGS) {
+    VarBit *arg1 = PG_GETARG_VARBIT_P(0);
+    VarBit *arg2 = PG_GETARG_VARBIT_P(1);
+
+    int bitlen1 = VARBITLEN(arg1);
+    int bitlen2 = VARBITLEN(arg2);
+
+    // Fast path: different lengths means not equal
+    bool result;
+    if (bitlen1 != bitlen2)
+        result = false;
+    else
+        result = (bit_cmp(arg1, arg2) == 0);
+
+    // Clean up memory for toasted values
+    PG_FREE_IF_COPY(arg1, 0);
+    PG_FREE_IF_COPY(arg2, 1);
+
+    PG_RETURN_BOOL(result);
+}
+```

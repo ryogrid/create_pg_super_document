@@ -31,3 +31,21 @@ This function is part of pg_dump's extension tracking system. It searches the ca
 - Part of pg_dump's extension membership tracking system
 - Used to determine whether objects should be dumped as part of extension definitions or as standalone objects
 - The function is lightweight and performs only a hash table lookup operation
+
+## Simplified Source
+
+```c
+ExtensionInfo *findOwningExtension(CatalogId catalogId) {
+    // Return NULL if no objects cataloged yet
+    if (catalogIdHash == NULL)
+        return NULL;
+
+    // Look up entry in catalog hash table
+    CatalogIdMapEntry *entry = catalogid_lookup(catalogIdHash, catalogId);
+
+    // Return extension info if found, NULL otherwise
+    if (entry == NULL)
+        return NULL;
+    return entry->ext;
+}
+```

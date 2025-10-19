@@ -34,3 +34,12 @@ The function internally calls , which performs the actual character comparison b
 - The underlying p_iseq function should only be used for ASCII symbols according to code comments
 - Part of the character classification system for the text search word parser
 - Critical for state transitions in tokenization, especially for detecting specific delimiter characters
+
+## Simplified Source
+
+```c
+static int p_iseqC(TParser *prs) {
+    // Check if current character equals the stored character
+    return p_iseq(prs, prs->c);
+}
+```

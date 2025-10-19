@@ -38,3 +38,23 @@ This function is essential for operations that need to preserve the original acc
 - Memory is allocated using palloc rather than palloc0, since the data will be immediately overwritten by memcpy
 - The have_carry_space field is not explicitly copied, which may indicate it's recalculated when needed
 - This function is commonly used in combine operations for parallel aggregation where multiple partial results need to be merged
+
+## Simplified Source
+
+```c
+static void accum_sum_copy(NumericSumAccum *dst, NumericSumAccum *src) {
+    // Allocate new arrays for positive and negative digits
+    dst->pos_digits = palloc(src->ndigits * sizeof(int32));
+    dst->neg_digits = palloc(src->ndigits * sizeof(int32));
+
+    // Copy digit arrays
+    memcpy(dst->pos_digits, src->pos_digits, src->ndigits * sizeof(int32));
+    memcpy(dst->neg_digits, src->neg_digits, src->ndigits * sizeof(int32));
+
+    // Copy metadata fields
+    dst->num_uncarried = src->num_uncarried;
+    dst->ndigits = src->ndigits;
+    dst->weight = src->weight;
+    dst->dscale = src->dscale;
+}
+```

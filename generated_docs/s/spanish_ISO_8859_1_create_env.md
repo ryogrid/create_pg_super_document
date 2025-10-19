@@ -39,3 +39,14 @@ This function takes no parameters and returns:
 - The returned environment must be properly disposed of using the corresponding spanish_ISO_8859_1_close_env function to prevent memory leaks
 - Part of the Snowball stemming library's language-specific API layer
 - The ISO 8859-1 encoding specification ensures proper handling of Spanish diacritics and special characters
+
+## Simplified Source
+
+```c
+extern struct SN_env * spanish_ISO_8859_1_create_env(void) {
+    // Create Spanish stemming environment with:
+    // - 0 string arrays (S_size = 0)
+    // - 3 integer variables (I_size = 3) for algorithm state
+    return SN_create_env(0, 3);
+}
+```

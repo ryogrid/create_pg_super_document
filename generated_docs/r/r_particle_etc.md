@@ -46,3 +46,42 @@ The function uses backward matching (find_among_b) to locate suffixes from the e
 
 ## Notes and Other Information
 This function is specific to Finnish morphology and handles the complex particle system in Finnish language. Finnish has many clitics and particles that can be attached to words, and this function ensures they are properly identified and removed during text normalization. The function returns 1 on successful removal, 0 if no applicable suffix is found, and negative values for errors. The two-case structure reflects different classes of particles with different removal conditions - some require specific preceding characters while others require positioning in deeper morphological regions.
+
+## Simplified Source
+
+```c
+static int r_particle_etc(struct SN_env * z) {
+    int suffix_type;
+
+    // Set boundaries to R1 region for particle processing
+    if (z->c < z->I[1]) return 0;
+    int saved_boundary = z->lb;
+    z->lb = z->I[1];
+
+    // Find particle suffix from predefined list
+    z->ket = z->c;
+    suffix_type = find_among_b(z, a_0, 10);
+    if (!suffix_type) {
+        z->lb = saved_boundary;
+        return 0;
+    }
+    z->bra = z->c;
+    z->lb = saved_boundary;
+
+    // Apply removal rules based on suffix type
+    switch (suffix_type) {
+        case 1:
+            // Type 1: Check if preceded by valid particle ending characters
+            if (in_grouping_b(z, g_particle_end, 97, 246, 0)) return 0;
+            break;
+        case 2:
+            // Type 2: Must be in R2 region
+            if (r_R2(z) <= 0) return 0;
+            break;
+    }
+
+    // Delete the matched particle suffix
+    slice_del(z);
+    return 1;
+}
+```

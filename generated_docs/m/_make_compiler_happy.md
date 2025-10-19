@@ -52,3 +52,22 @@ The function itself is never meant to be called during normal program execution 
 - All function calls use NULL parameters, which would likely cause crashes if actually executed
 - Represents a pragmatic solution to maintain clean compilation while preserving potentially useful but conditionally unused functions
 - Part of PostgreSQL's text search parser infrastructure where different parsing functions may be used depending on configuration
+
+## Simplified Source
+
+```c
+void _make_compiler_happy(void) {
+    // Call all predicate functions to suppress compiler warnings
+    // Note: Never meant to be executed - all calls use NULL
+    p_isalnum(NULL);    p_isnotalnum(NULL);
+    p_isalpha(NULL);    p_isnotalpha(NULL);
+    p_isdigit(NULL);    p_isnotdigit(NULL);
+    p_islower(NULL);    p_isnotlower(NULL);
+    p_isprint(NULL);    p_isnotprint(NULL);
+    p_ispunct(NULL);    p_isnotpunct(NULL);
+    p_isspace(NULL);    p_isnotspace(NULL);
+    p_isupper(NULL);    p_isnotupper(NULL);
+    p_isxdigit(NULL);   p_isnotxdigit(NULL);
+    p_isEOF(NULL);      p_iseqC(NULL);      p_isneC(NULL);
+}
+```

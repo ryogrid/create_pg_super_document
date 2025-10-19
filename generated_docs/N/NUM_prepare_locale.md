@@ -41,3 +41,50 @@ The function addresses specific locale issues, such as broken glibc pt_BR locale
 - Ensures thousands separator doesn't match decimal point symbol to avoid confusion
 - Part of PostgreSQL's comprehensive number formatting system used by to_char() and related functions
 - The function safely handles cases where locale information might be NULL or empty
+
+## Simplified Source
+
+```c
+static void
+NUM_prepare_locale(NUMProc *Np)
+{
+    if (Np->Num->need_locale)
+    {
+        // Get system locale information
+        struct lconv *lconv = PGLC_localeconv();
+
+        // Set positive/negative signs from locale or defaults
+        Np->L_negative_sign = (lconv->negative_sign && *lconv->negative_sign) ?
+                             lconv->negative_sign : "-";
+        Np->L_positive_sign = (lconv->positive_sign && *lconv->positive_sign) ?
+                             lconv->positive_sign : "+";
+
+        // Set decimal point from locale or default
+        Np->decimal = (lconv->decimal_point && *lconv->decimal_point) ?
+                     lconv->decimal_point : ".";
+        if (!IS_LDECIMAL(Np->Num))
+            Np->decimal = ".";
+
+        // Set thousands separator, ensuring it doesn't conflict with decimal
+        if (lconv->thousands_sep && *lconv->thousands_sep)
+            Np->L_thousands_sep = lconv->thousands_sep;
+        else if (strcmp(Np->decimal, ",") != 0)
+            Np->L_thousands_sep = ",";
+        else
+            Np->L_thousands_sep = ".";
+
+        // Set currency symbol from locale or default
+        Np->L_currency_symbol = (lconv->currency_symbol && *lconv->currency_symbol) ?
+                               lconv->currency_symbol : " ";
+    }
+    else
+    {
+        // Use default formatting values when locale not needed
+        Np->L_negative_sign = "-";
+        Np->L_positive_sign = "+";
+        Np->decimal = ".";
+        Np->L_thousands_sep = ",";
+        Np->L_currency_symbol = " ";
+    }
+}
+```

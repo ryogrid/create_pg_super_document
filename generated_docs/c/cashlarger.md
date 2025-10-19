@@ -34,3 +34,17 @@ This function implements the SQL GREATEST/max operation for the Cash data type. 
 - Uses simple conditional logic (c1 > c2) ? c1 : c2 for maximum determination
 - Likely used internally by SQL aggregate functions or GREATEST operations on cash types
 - The comparison relies on the underlying numeric representation of Cash values
+
+## Simplified Source
+
+```c
+Datum cashlarger(PG_FUNCTION_ARGS) {
+    // Extract two cash values to compare
+    Cash c1 = PG_GETARG_CASH(0);
+    Cash c2 = PG_GETARG_CASH(1);
+
+    // Return the larger value using ternary operator
+    Cash result = (c1 > c2) ? c1 : c2;
+    PG_RETURN_CASH(result);
+}
+```

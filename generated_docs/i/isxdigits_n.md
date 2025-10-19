@@ -30,3 +30,19 @@ The `isxdigits_n` function is a static utility function that validates whether t
 - Used primarily by the unistr function for parsing Unicode escape sequences in hexadecimal format
 - The function provides early termination on the first invalid character for efficiency
 - No bounds checking is performed on the input string; caller must ensure string has at least n characters
+
+## Simplified Source
+
+```c
+static bool isxdigits_n(const char *instr, size_t n) {
+    // Check each character up to n positions
+    for (size_t i = 0; i < n; i++) {
+        // Return false immediately on first non-hex digit
+        if (!isxdigit((unsigned char) instr[i]))
+            return false;
+    }
+
+    // All n characters are valid hexadecimal digits
+    return true;
+}
+```

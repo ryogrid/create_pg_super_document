@@ -40,3 +40,76 @@ This function generates and executes a SQL query to list aggregate functions fro
 - Returns boolean indicating success/failure of the operation
 - Excludes system schemas by default unless showSystem is true
 - The verbose parameter is accepted but not currently utilized in the implementation
+
+## Simplified Source
+
+```c
+bool
+describeAggregates(const char *pattern, bool verbose, bool showSystem)
+{
+    PQExpBufferData buf;
+    PGresult *res;
+    printQueryOpt myopt = pset.popt;
+
+    initPQExpBuffer(&buf);
+
+    // Build base query for aggregate functions
+    printfPQExpBuffer(&buf,
+                      "SELECT n.nspname as \"%s\",\n"
+                      "  p.proname AS \"%s\",\n"
+                      "  pg_catalog.format_type(p.prorettype, NULL) AS \"%s\",\n"
+                      "  CASE WHEN p.pronargs = 0\n"
+                      "    THEN CAST('*' AS pg_catalog.text)\n"
+                      "    ELSE pg_catalog.pg_get_function_arguments(p.oid)\n"
+                      "  END AS \"%s\",\n",
+                      gettext_noop("Schema"),
+                      gettext_noop("Name"),
+                      gettext_noop("Result data type"),
+                      gettext_noop("Argument data types"));
+
+    // Add description and FROM clause (version-dependent)
+    if (pset.sversion >= 110000)
+        appendPQExpBuffer(&buf,
+                          "  pg_catalog.obj_description(p.oid, 'pg_proc') as \"%s\"\n"
+                          "FROM pg_catalog.pg_proc p\n"
+                          "     LEFT JOIN pg_catalog.pg_namespace n ON n.oid = p.pronamespace\n"
+                          "WHERE p.prokind = 'a'\n",  // PostgreSQL 11+ aggregate identification
+                          gettext_noop("Description"));
+    else
+        appendPQExpBuffer(&buf,
+                          "  pg_catalog.obj_description(p.oid, 'pg_proc') as \"%s\"\n"
+                          "FROM pg_catalog.pg_proc p\n"
+                          "     LEFT JOIN pg_catalog.pg_namespace n ON n.oid = p.pronamespace\n"
+                          "WHERE p.proisagg\n",  // Pre-11 aggregate identification
+                          gettext_noop("Description"));
+
+    // Filter out system schemas if not requested
+    if (!showSystem && !pattern)
+        appendPQExpBufferStr(&buf, "      AND n.nspname <> 'pg_catalog'\n"
+                                   "      AND n.nspname <> 'information_schema'\n");
+
+    // Apply pattern filtering
+    if (!validateSQLNamePattern(&buf, pattern, true, false,
+                                "n.nspname", "p.proname", NULL,
+                                "pg_catalog.pg_function_is_visible(p.oid)",
+                                NULL, 3)) {
+        termPQExpBuffer(&buf);
+        return false;
+    }
+
+    appendPQExpBufferStr(&buf, "ORDER BY 1, 2, 4;");
+
+    // Execute query and display results
+    res = PSQLexec(buf.data);
+    termPQExpBuffer(&buf);
+    if (!res)
+        return false;
+
+    myopt.title = _("List of aggregate functions");
+    myopt.translate_header = true;
+
+    printQuery(res, &myopt, pset.queryFout, false, pset.logfile);
+    PQclear(res);
+    return true;
+}
+```

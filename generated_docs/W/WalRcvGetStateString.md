@@ -40,3 +40,22 @@ This function is primarily used by monitoring and administrative functions to pr
 - Primarily used in PostgreSQL's statistics and monitoring infrastructure
 - The returned strings are part of PostgreSQL's public API and should remain stable across versions
 - State strings are lowercase and use simple, descriptive terms suitable for monitoring tools and user interfaces
+
+## Simplified Source
+
+```c
+static const char *WalRcvGetStateString(WalRcvState state)
+{
+    switch (state)
+    {
+        case WALRCV_STOPPED:     return "stopped";
+        case WALRCV_STARTING:    return "starting";
+        case WALRCV_STREAMING:   return "streaming";
+        case WALRCV_WAITING:     return "waiting";
+        case WALRCV_RESTARTING:  return "restarting";
+        case WALRCV_STOPPING:    return "stopping";
+    }
+
+    return "UNKNOWN";  // Fallback for undefined states
+}
+```

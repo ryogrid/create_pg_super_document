@@ -23,3 +23,16 @@ This function serves as a language-specific wrapper around the generic SN_create
 
 ## Notes and Other Information
 The function uses specific parameters (0, 1) for SN_create_env, indicating Turkish stemming requires no integer variables but uses one string variable for processing. This is part of the standard Snowball stemmer interface pattern where each language has its own create_env function with language-specific memory requirements. The returned environment must be properly cleaned up using the corresponding turkish_UTF_8_close_env function.
+
+## Simplified Source
+
+```c
+extern struct SN_env * turkish_UTF_8_create_env(void) {
+    // Create Snowball environment for Turkish:
+    // - 0 integer variables (Turkish doesn't need integer state)
+    // - 1 string variable (for text processing)
+    return SN_create_env(0, 1);
+}
+```
+
+**Key Logic**: Simple factory function that creates a Snowball environment tailored for Turkish stemming. Allocates the specific memory layout Turkish stemming requires: no integer variables but one string variable for processing text. Part of the standard Snowball language interface pattern.

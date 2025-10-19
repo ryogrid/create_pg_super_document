@@ -52,3 +52,39 @@ The function ensures mathematical correctness when dealing with infinite interva
 - For finite results, creates a new Interval struct and copies the accumulated sum
 - Part of PostgreSQL's interval data type aggregate operations
 - Simpler than interval_avg since no division is required - just returns the accumulated sum
+
+## Simplified Source
+
+```c
+Datum
+interval_sum(PG_FUNCTION_ARGS)
+{
+    IntervalAggState *state;
+    Interval *result;
+
+    // Get accumulated state from argument
+    state = PG_ARGISNULL(0) ? NULL : (IntervalAggState *) PG_GETARG_POINTER(0);
+
+    // Return NULL if no non-null inputs
+    if (state == NULL || IA_TOTAL_COUNT(state) == 0)
+        PG_RETURN_NULL();
+
+    // Error on mixed positive and negative infinities (undefined result)
+    if (state->pInfcount > 0 && state->nInfcount > 0)
+        ereport(ERROR, (errcode(ERRCODE_DATETIME_VALUE_OUT_OF_RANGE),
+                       errmsg("interval out of range")));
+
+    // Allocate result interval
+    result = (Interval *) palloc(sizeof(Interval));
+
+    // Handle infinity cases or copy finite sum
+    if (state->pInfcount > 0)
+        INTERVAL_NOEND(result);      // Positive infinity
+    else if (state->nInfcount > 0)
+        INTERVAL_NOBEGIN(result);    // Negative infinity
+    else
+        memcpy(result, &state->sumX, sizeof(Interval));  // Finite sum
+
+    PG_RETURN_INTERVAL_P(result);
+}
+```

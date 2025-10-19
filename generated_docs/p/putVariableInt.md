@@ -36,3 +36,18 @@ This function provides a convenient wrapper for assigning integer values to pgbe
 - Part of pgbench's variable management system, providing type-specific convenience functions
 - Commonly used in the main function to set various configuration and status variables
 - Delegates to putVariableValue for the actual storage operation
+
+## Simplified Source
+
+```c
+static bool
+putVariableInt(Variables *variables, const char *context, char *name,
+               int64 value)
+{
+    PgBenchValue val;
+
+    // Create integer value and delegate to putVariableValue
+    setIntValue(&val, value);
+    return putVariableValue(variables, context, name, &val);
+}
+```

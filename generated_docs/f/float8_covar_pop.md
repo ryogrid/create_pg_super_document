@@ -35,3 +35,23 @@ This function calculates the population covariance by extracting the sum of prod
 - Part of PostgreSQL's statistical aggregate functions suite
 - The transition array structure: [0]=N, [1]=Sx, [2]=Sxx, [3]=Sy, [4]=Syy, [5]=Sxy
 - Location: src/backend/utils/adt/float.c:3606-3624
+
+## Simplified Source
+
+```c
+Datum float8_covar_pop(PG_FUNCTION_ARGS) {
+    ArrayType *transarray = PG_GETARG_ARRAYTYPE_P(0);
+
+    // Extract regression values from 6-element array
+    float8 *transvalues = check_float8_array(transarray, "float8_covar_pop", 6);
+    float8 N = transvalues[0];   // Count of data points
+    float8 Sxy = transvalues[5]; // Sum of products (X*Y)
+
+    // Return NULL if no data points
+    if (N < 1.0)
+        PG_RETURN_NULL();
+
+    // Return population covariance: sum of products / count
+    PG_RETURN_FLOAT8(Sxy / N);
+}
+```

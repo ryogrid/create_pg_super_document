@@ -30,3 +30,25 @@ This function checks if a given character can legally begin a PostgreSQL identif
 - Supports multibyte characters by accepting any high-bit-set character
 - Part of PostgreSQL's identifier validation system
 - Does not allow digits as starting characters (digits are allowed in continuation characters only)
+
+## Simplified Source
+
+```c
+static bool
+is_ident_start(unsigned char c)
+{
+    // Underscore is always valid
+    if (c == '_')
+        return true;
+
+    // ASCII letters (both upper and lower case)
+    if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'))
+        return true;
+
+    // High-bit characters (multibyte character support)
+    if (IS_HIGHBIT_SET(c))
+        return true;
+
+    return false;
+}
+```

@@ -52,3 +52,32 @@ The function implements a fail-fast approach - any query failure is considered f
 - Uses exit_nicely(1) for graceful program termination on errors
 - Part of PostgreSQL's client-side utilities error handling infrastructure
 - The function is also used by other PostgreSQL utilities like pg_amcheck, clusterdb, reindexdb, and vacuumdb
+
+## Simplified Source
+
+```c
+static PGresult *executeQuery(PGconn *conn, const char *query)
+{
+    PGresult *res;
+
+    // Log the query being executed
+    pg_log_info("executing %s", query);
+
+    // Execute the query
+    res = PQexec(conn, query);
+
+    // Check for execution failure or unexpected result type
+    if (!res || PQresultStatus(res) != PGRES_TUPLES_OK)
+    {
+        // Log detailed error information
+        pg_log_error("query failed: %s", PQerrorMessage(conn));
+        pg_log_error_detail("Query was: %s", query);
+
+        // Clean up connection and exit
+        PQfinish(conn);
+        exit_nicely(1);
+    }
+
+    return res;
+}
+```

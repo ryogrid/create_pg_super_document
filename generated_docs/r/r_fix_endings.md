@@ -35,3 +35,33 @@ The function uses cursor position management to ensure that failed attempts don'
 - The loop continues until  returns 0, indicating no more fixes can be applied
 - Uses cursor position management (c1, c2) to maintain state and handle backtracking
 - This pattern of iterative application is common in stemming algorithms where multiple related transformations may be needed
+
+## Simplified Source
+
+```c
+static int r_fix_endings(struct SN_env * z) {
+    // Save original cursor position
+    int original_position = z->c;
+
+    // Keep applying ending fixes until no more can be applied
+    while (1) {
+        int current_position = z->c;
+
+        // Try to apply a single ending fix
+        int result = r_fix_ending(z);
+
+        if (result == 0) {
+            // No more fixes possible, restore position and exit
+            z->c = current_position;
+            break;
+        }
+        // If result > 0, continue loop to try more fixes
+        // If result < 0, propagate error
+        if (result < 0) return result;
+    }
+
+    // Restore original cursor position
+    z->c = original_position;
+    return 1; // Success
+}
+```

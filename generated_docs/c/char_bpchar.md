@@ -35,3 +35,21 @@ The function allocates a new bpchar structure with the appropriate variable-leng
 - Memory is allocated using palloc for proper PostgreSQL memory context management
 - Part of PostgreSQL's type conversion system that supports implicit and explicit casts
 - The resulting bpchar(1) can be further processed by other bpchar functions if needed
+
+## Simplified Source
+
+```c
+Datum char_bpchar(PG_FUNCTION_ARGS) {
+    // Get the input character
+    char c = PG_GETARG_CHAR(0);
+
+    // Allocate space for bpchar(1): header + 1 character
+    BpChar *result = (BpChar *) palloc(VARHDRSZ + 1);
+
+    // Set the size and store the character
+    SET_VARSIZE(result, VARHDRSZ + 1);
+    *(VARDATA(result)) = c;
+
+    PG_RETURN_BPCHAR_P(result);
+}
+```

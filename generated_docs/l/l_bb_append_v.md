@@ -46,3 +46,26 @@ The function automatically extracts the LLVM context from the function's type, e
 - Primarily used in PostgreSQL's LLVM-based JIT compilation for creating entry points and terminal blocks in functions
 - Less frequently used than `l_bb_before_v` but serves a complementary role in function-level block organization
 - Particularly useful in `slot_compile_deform` where multiple specialized basic blocks are created for tuple processing operations
+
+## Simplified Source
+
+```c
+// Create new basic block at end of function with formatted name
+static inline LLVMBasicBlockRef
+l_bb_append_v(LLVMValueRef function, const char *fmt, ...)
+{
+    char block_name[512];
+    va_list args;
+
+    // Format the block name using printf-style arguments
+    va_start(args, fmt);
+    vsnprintf(block_name, sizeof(block_name), fmt, args);
+    va_end(args);
+
+    // Get LLVM context from function type
+    LLVMContextRef context = LLVMGetTypeContext(LLVMTypeOf(function));
+
+    // Create and append new basic block to end of function
+    return LLVMAppendBasicBlockInContext(context, function, block_name);
+}
+```

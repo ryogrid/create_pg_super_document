@@ -42,3 +42,31 @@ The function processes the string character by character:
 - Used primarily in PostgreSQL's frontend utilities for table formatting and display
 - More efficient than `pg_wcssize` when line wrapping calculations are not needed
 - Essential for proper alignment and formatting of multibyte text in terminal output
+
+## Simplified Source
+
+```c
+int pg_wcswidth(const char *pwcs, size_t len, int encoding) {
+    int width = 0;
+
+    while (len > 0) {
+        // Get character byte length
+        int chlen = PQmblen(pwcs, encoding);
+        if (len < (size_t) chlen) {
+            break;  // Invalid string - not enough bytes
+        }
+
+        // Add character display width if positive
+        int chwidth = PQdsplen(pwcs, encoding);
+        if (chwidth > 0) {
+            width += chwidth;
+        }
+
+        // Move to next character
+        pwcs += chlen;
+        len -= chlen;
+    }
+
+    return width;
+}
+```

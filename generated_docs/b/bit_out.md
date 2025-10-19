@@ -45,3 +45,20 @@ The current active implementation simply calls varbit_out(fcinfo), which produce
 - Output format consistency ensures that BIT and VARBIT types display identically to users
 - The function includes validation assertions (VARBIT_CORRECTLY_PADDED) to ensure internal bit string integrity
 - Alternative implementations could be activated by changing the preprocessor conditional from '#if 1' to '#if 0'
+
+## Simplified Source
+
+```c
+// Convert bit string to external string format
+Datum bit_out(PG_FUNCTION_ARGS) {
+    // Currently implemented as wrapper around varbit_out for consistency
+    return varbit_out(fcinfo);
+
+    /* Alternative hex format implementation available in commented code:
+     * - Extracts VarBit input using PG_GETARG_VARBIT_P(0)
+     * - Calculates hex length: (bitlen + 3) / 4
+     * - Converts each 4-bit group to hex digit with 'X' prefix
+     * - Handles partial byte boundaries correctly
+     */
+}
+```

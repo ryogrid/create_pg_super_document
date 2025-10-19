@@ -35,3 +35,17 @@ This design separates memory management concerns from the conversion algorithm, 
 - Uses PostgreSQL's memory context system for proper memory management
 - Automatically handles buffer sizing to prevent overflow
 - Suitable for cases where memory allocation overhead is acceptable compared to convenience
+
+## Simplified Source
+
+```c
+char *double_to_shortest_decimal(double f) {
+    // Allocate buffer for the decimal string
+    char *const result = (char *) palloc(DOUBLE_SHORTEST_DECIMAL_LEN);
+
+    // Convert double to decimal string in the allocated buffer
+    double_to_shortest_decimal_buf(f, result);
+
+    return result;  // Caller must free this memory
+}
+```

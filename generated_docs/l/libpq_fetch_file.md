@@ -44,3 +44,48 @@ The function performs error checking to ensure the SQL query succeeds and return
 - The function adds a null terminator even for binary files, which is safe but may not be necessary for all use cases
 - Error handling uses pg_fatal which terminates the program on failure
 - The function logs successful file fetches at debug level for troubleshooting purposes
+
+## Simplified Source
+
+```c
+static char *
+libpq_fetch_file(rewind_source *source, const char *path, size_t *filesize)
+{
+    PGconn *conn = ((libpq_source *) source)->conn;
+    PGresult *res;
+    char *result;
+    int len;
+    const char *paramValues[1];
+
+    // Execute pg_read_binary_file with file path parameter
+    paramValues[0] = path;
+    res = PQexecParams(conn, "SELECT pg_read_binary_file($1)",
+                       1, NULL, paramValues, NULL, NULL, 1);
+
+    // Check for query errors
+    if (PQresultStatus(res) != PGRES_TUPLES_OK)
+        pg_fatal("could not fetch remote file \"%s\": %s",
+                 path, PQresultErrorMessage(res));
+
+    // Validate result - should have exactly one non-null tuple
+    if (PQntuples(res) != 1 || PQgetisnull(res, 0, 0))
+        pg_fatal("unexpected result set while fetching remote file \"%s\"",
+                 path);
+
+    // Copy file data to malloc'd buffer
+    len = PQgetlength(res, 0, 0);
+    result = pg_malloc(len + 1);
+    memcpy(result, PQgetvalue(res, 0, 0), len);
+    result[len] = '\0';  // Null terminate for safety
+
+    PQclear(res);
+
+    pg_log_debug("fetched file \"%s\", length %d", path, len);
+
+    // Return file size if requested
+    if (filesize)
+        *filesize = len;
+
+    return result;
+}
+```

@@ -43,3 +43,41 @@ Both pages are only modified if they need redo (determined by LSN comparison), e
 - The function handles both the leaf page (buffer 0) and parent page (buffer 1) as recorded in the WAL
 - Proper buffer management ensures resources are cleaned up regardless of whether redo was needed
 - The deletion XID stored in the WAL record is used to mark when the page was deleted, supporting MVCC visibility rules
+
+## Simplified Source
+
+```c
+static void gistRedoPageDelete(XLogReaderState *record)
+{
+    XLogRecPtr lsn = record->EndRecPtr;
+    gistxlogPageDelete *xldata = (gistxlogPageDelete *) XLogRecGetData(record);
+    Buffer parentBuffer;
+    Buffer leafBuffer;
+
+    // Mark leaf page as deleted if redo needed
+    if (XLogReadBufferForRedo(record, 0, &leafBuffer) == BLK_NEEDS_REDO)
+    {
+        Page page = (Page) BufferGetPage(leafBuffer);
+
+        GistPageSetDeleted(page, xldata->deleteXid);
+        PageSetLSN(page, lsn);
+        MarkBufferDirty(leafBuffer);
+    }
+
+    // Remove downlink from parent page if redo needed
+    if (XLogReadBufferForRedo(record, 1, &parentBuffer) == BLK_NEEDS_REDO)
+    {
+        Page page = (Page) BufferGetPage(parentBuffer);
+
+        PageIndexTupleDelete(page, xldata->downlinkOffset);
+        PageSetLSN(page, lsn);
+        MarkBufferDirty(parentBuffer);
+    }
+
+    // Clean up buffers
+    if (BufferIsValid(parentBuffer))
+        UnlockReleaseBuffer(parentBuffer);
+    if (BufferIsValid(leafBuffer))
+        UnlockReleaseBuffer(leafBuffer);
+}
+```

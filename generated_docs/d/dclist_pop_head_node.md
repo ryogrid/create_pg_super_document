@@ -33,3 +33,19 @@ This is a convenience function that combines node removal with count management,
 - The caller receives ownership of the popped node and is responsible for its lifecycle
 - Primarily used in memory management scenarios, particularly in slab allocation
 - The function assumes the list is non-empty; calling it on an empty list will trigger an assertion failure
+
+## Simplified Source
+
+```c
+static inline dlist_node *
+dclist_pop_head_node(dclist_head *head) {
+    // Ensure list is not empty
+    Assert(head->count > 0);
+
+    // Remove and return the first node
+    dlist_node *node = dlist_pop_head_node(&head->dlist);
+    head->count--;
+
+    return node;
+}
+```

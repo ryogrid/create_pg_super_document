@@ -39,3 +39,13 @@ The actual implementation delegates to array_position_common, which handles:
 - The actual search logic is implemented in array_position_common
 - Returns 1-based indexing following SQL array conventions
 - Efficiently handles both NULL and non-NULL value searches
+
+## Simplified Source
+
+```c
+Datum array_position(PG_FUNCTION_ARGS) {
+    // Simple wrapper function that delegates to array_position_common
+    // for finding the position of a value in an array
+    return array_position_common(fcinfo);
+}
+```

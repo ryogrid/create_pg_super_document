@@ -28,3 +28,16 @@ The oideq function is a PostgreSQL system function that implements the equality 
 
 ## Notes and Other Information
 This function is part of PostgreSQL's operator infrastructure and is typically not called directly in C code but rather invoked through SQL expressions using the = operator on Oid values. The function follows PostgreSQL's standard function calling convention and is registered in the system catalogs as the implementation for Oid equality comparison.
+
+## Simplified Source
+
+```c
+Datum oideq(PG_FUNCTION_ARGS) {
+    // Extract the two OID arguments
+    Oid arg1 = PG_GETARG_OID(0);
+    Oid arg2 = PG_GETARG_OID(1);
+
+    // Compare for equality and return boolean result
+    PG_RETURN_BOOL(arg1 == arg2);
+}
+```

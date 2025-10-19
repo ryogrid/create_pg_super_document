@@ -36,3 +36,22 @@ The function includes assertions to verify the page is deleted and not new. For 
 
 ## Notes and Other Information
 This function is essential for B-tree page recycling logic and MVCC compliance. It handles backward compatibility with older PostgreSQL versions where deleted pages didn't store full transaction IDs. The returned transaction ID is used to determine if it's safe to reuse the page by comparing it with the oldest active transaction. The function assumes the page has already been verified as deleted and includes debug assertions to catch programming errors.
+
+## Simplified Source
+
+```c
+static inline FullTransactionId BTPageGetDeleteXid(Page page) {
+    // Verify this is a deleted page
+    Assert(!PageIsNew(page));
+    BTPageOpaque opaque = BTPageGetOpaque(page);
+    Assert(P_ISDELETED(opaque));
+
+    // Handle pg_upgrade'd pages without full xid - safe to recycle
+    if (!P_HAS_FULLXID(opaque))
+        return FirstNormalFullTransactionId;
+
+    // Get safe transaction ID from page contents
+    BTDeletedPageData *contents = (BTDeletedPageData *) PageGetContents(page);
+    return contents->safexid;
+}
+```

@@ -33,3 +33,13 @@ This is a simple but critical function in the GUC lifecycle - it takes the valid
 - Part of the standard GUC three-phase protocol: check, assign, and show hooks
 - The extra parameter is expected to be allocated with guc_malloc and will be managed by the GUC system
 - This assignment makes the new synchronous replication configuration immediately active for all subsequent replication operations
+
+## Simplified Source
+
+```c
+void assign_synchronous_standby_names(const char *newval, void *extra)
+{
+    // Apply the validated synchronous replication configuration
+    SyncRepConfig = (SyncRepConfigData *) extra;
+}
+```

@@ -39,3 +39,27 @@ The `array_lower` function retrieves the lower bound (starting index) of a speci
 - Part of PostgreSQL's array introspection function suite
 - Defined in src/backend/utils/adt/arrayfuncs.c:1706-1732
 - Essential for proper array indexing when arrays have non-standard bounds
+
+## Simplified Source
+
+```c
+Datum array_lower(PG_FUNCTION_ARGS) {
+    // Get array and requested dimension number
+    AnyArrayType *v = PG_GETARG_ANY_ARRAY_P(0);
+    int reqdim = PG_GETARG_INT32(1);
+
+    // Validate array structure
+    if (AARR_NDIM(v) <= 0 || AARR_NDIM(v) > MAXDIM)
+        PG_RETURN_NULL();
+
+    // Validate requested dimension is within bounds
+    if (reqdim <= 0 || reqdim > AARR_NDIM(v))
+        PG_RETURN_NULL();
+
+    // Get lower bounds array and return the requested dimension's lower bound
+    int *lb = AARR_LBOUND(v);
+    int result = lb[reqdim - 1];  // Convert 1-based to 0-based indexing
+
+    PG_RETURN_INT32(result);
+}
+```

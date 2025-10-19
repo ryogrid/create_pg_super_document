@@ -46,3 +46,20 @@ The function determines the exact size of the source tuple using , allocates the
 - This function is widely used across different index access methods (B-tree, GiST, Hash) demonstrating its fundamental role in PostgreSQL's indexing infrastructure
 - The function performs a shallow copy of the tuple data, which is appropriate since IndexTuples contain primitive data types and fixed-size structures
 - Located in src/backend/access/common/indextuple.c at lines 547-575
+
+## Simplified Source
+
+```c
+IndexTuple CopyIndexTuple(IndexTuple source) {
+    IndexTuple result;
+    Size size;
+
+    // Get source tuple size and allocate new memory
+    size = IndexTupleSize(source);
+    result = (IndexTuple) palloc(size);
+
+    // Copy all tuple data
+    memcpy(result, source, size);
+    return result;
+}
+```

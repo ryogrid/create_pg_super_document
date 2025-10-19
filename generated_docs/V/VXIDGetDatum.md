@@ -31,3 +31,17 @@ VXIDGetDatum is a static utility function that formats a Virtual Transaction ID 
 - The VXID format matches the representation used by elog.c for consistency across PostgreSQL's logging system
 - The function allocates a 32-character buffer which is sufficient for the decimal representation of both components
 - Virtual Transaction IDs are used to identify transactions before they are assigned real transaction IDs, providing early tracking capabilities for lock management
+
+## Simplified Source
+
+```c
+// Simplified version of VXIDGetDatum
+static Datum VXIDGetDatum(ProcNumber procNumber, LocalTransactionId lxid) {
+    // Format VXID as "procNumber/lxid" string
+    char vxidstr[32];
+    snprintf(vxidstr, sizeof(vxidstr), "%d/%u", procNumber, lxid);
+
+    // Convert C string to PostgreSQL text datum
+    return CStringGetTextDatum(vxidstr);
+}
+```

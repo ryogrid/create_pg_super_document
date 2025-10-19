@@ -44,3 +44,50 @@ This function is essential for PostgreSQL debugging tools, log analysis, and WAL
 - HOT (Heap-Only Tuple) updates are distinguished from regular updates
 - This function is part of the heap resource manager description system
 - Located in src/backend/access/rmgrdesc/heapdesc.c:385-429
+
+## Simplified Source
+
+```c
+const char *heap_identify(uint8 info) {
+    const char *id = NULL;
+
+    // Map operation code to readable string
+    switch (info & ~XLR_INFO_MASK) {
+        case XLOG_HEAP_INSERT:
+            id = "INSERT";
+            break;
+        case XLOG_HEAP_INSERT | XLOG_HEAP_INIT_PAGE:
+            id = "INSERT+INIT";
+            break;
+        case XLOG_HEAP_DELETE:
+            id = "DELETE";
+            break;
+        case XLOG_HEAP_UPDATE:
+            id = "UPDATE";
+            break;
+        case XLOG_HEAP_UPDATE | XLOG_HEAP_INIT_PAGE:
+            id = "UPDATE+INIT";
+            break;
+        case XLOG_HEAP_HOT_UPDATE:
+            id = "HOT_UPDATE";
+            break;
+        case XLOG_HEAP_HOT_UPDATE | XLOG_HEAP_INIT_PAGE:
+            id = "HOT_UPDATE+INIT";
+            break;
+        case XLOG_HEAP_TRUNCATE:
+            id = "TRUNCATE";
+            break;
+        case XLOG_HEAP_CONFIRM:
+            id = "HEAP_CONFIRM";
+            break;
+        case XLOG_HEAP_LOCK:
+            id = "LOCK";
+            break;
+        case XLOG_HEAP_INPLACE:
+            id = "INPLACE";
+            break;
+    }
+
+    return id;
+}
+```

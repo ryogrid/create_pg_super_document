@@ -35,3 +35,14 @@ The function extracts both a character argument and a 64-bit integer seed from t
 - Used in advanced hashing scenarios such as JSONB operations
 - Returns a Datum containing the computed hash value
 - Part of PostgreSQL's comprehensive extended hash function collection for various data types
+
+## Simplified Source
+
+```c
+Datum
+hashcharextended(PG_FUNCTION_ARGS)
+{
+    // Extract character value and seed, then hash with extended function
+    return hash_uint32_extended((int32) PG_GETARG_CHAR(0), PG_GETARG_INT64(1));
+}
+```

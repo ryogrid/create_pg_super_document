@@ -37,3 +37,38 @@ The function is particularly useful for visibility and scoping analysis, as it h
 - Returns NULL if the RTE is not found in any accessible namespace
 - Essential for implementing proper SQL scoping and visibility rules
 - Part of PostgreSQL's namespace management system that ensures proper table and column reference resolution
+
+## Simplified Source
+
+```c
+/*
+ * Find ParseNamespaceItem for a given RTE in the parse state hierarchy.
+ * Searches current and parent parse states to check if RTE is visible.
+ * Assumes each RTE appears at most once in namespace lists.
+ */
+static ParseNamespaceItem *
+findNSItemForRTE(ParseState *pstate, RangeTblEntry *rte)
+{
+    // Search through parse state hierarchy (current + parents)
+    while (pstate != NULL)
+    {
+        ListCell *l;
+
+        // Check each namespace item in current parse state
+        foreach(l, pstate->p_namespace)
+        {
+            ParseNamespaceItem *nsitem = (ParseNamespaceItem *) lfirst(l);
+
+            // Found matching RTE
+            if (nsitem->p_rte == rte)
+                return nsitem;
+        }
+
+        // Move to parent parse state
+        pstate = pstate->parentParseState;
+    }
+
+    // RTE not found in any accessible namespace
+    return NULL;
+}
+```

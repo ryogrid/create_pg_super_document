@@ -38,3 +38,25 @@ The function is declared as static, indicating it's used internally within the c
 - Part of a family of specialized lookup functions that provide type-safe access to specific kinds of database objects
 - Less frequently used than findTableByOid due to its static scope and the specific nature of index lookups
 - Critical for handling index inheritance and dependency relationships in pg_dump's internal object model
+
+## Simplified Source
+
+```c
+static IndxInfo *
+findIndexByOid(Oid oid)
+{
+    // Construct a CatalogId for the index lookup
+    CatalogId catId;
+    catId.tableoid = RelationRelationId;
+    catId.oid = oid;
+
+    // Look up the object using the generic catalog ID lookup
+    DumpableObject *dobj = findObjectByCatalogId(catId);
+
+    // Verify the object type is correct (if found)
+    Assert(dobj == NULL || dobj->objType == DO_INDEX);
+
+    // Return as IndxInfo pointer
+    return (IndxInfo *) dobj;
+}
+```

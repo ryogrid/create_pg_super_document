@@ -33,3 +33,16 @@ This function is a PostgreSQL SQL-callable function that concatenates two bit st
 - Acts as a thin wrapper around the bit_catenate function
 - Follows PostgreSQL's V1 calling convention for SQL-callable functions
 - The actual concatenation logic is implemented in the bit_catenate helper function
+
+## Simplified Source
+
+```c
+Datum bitcat(PG_FUNCTION_ARGS) {
+    // Extract the two bit string arguments
+    VarBit *arg1 = PG_GETARG_VARBIT_P(0);
+    VarBit *arg2 = PG_GETARG_VARBIT_P(1);
+
+    // Concatenate and return the result
+    PG_RETURN_VARBIT_P(bit_catenate(arg1, arg2));
+}
+```

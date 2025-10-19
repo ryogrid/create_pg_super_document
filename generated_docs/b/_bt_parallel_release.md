@@ -35,9 +35,29 @@ For scans using array keys, the caller must save the scan_page argument for pote
   - [_bt_readnextpage](_bt_readnextpage.md)
 
 ## Notes and Other Information
-- Must be called after successfully seizing the scan with 
+- Must be called after successfully seizing the scan with
 - Updates the shared scan page to the new position and sets status to idle
 - Signals waiting workers through the condition variable to allow them to proceed
 - For array key scans, the scan_page may be skipped if a new primitive scan is required
 - Critical for maintaining proper synchronization in parallel btree scans
 - The scan_page parameter becomes the new shared scan position for other workers
+
+## Simplified Source
+
+```c
+void _bt_parallel_release(IndexScanDesc scan, BlockNumber scan_page) {
+    // Get parallel scan descriptors
+    ParallelIndexScanDesc parallel_scan = scan->parallel_scan;
+    BTParallelScanDesc btscan = (BTParallelScanDesc) OffsetToPointer((void *) parallel_scan,
+                                                                     parallel_scan->ps_offset);
+
+    // Update shared scan state with new page and mark as idle
+    SpinLockAcquire(&btscan->btps_mutex);
+    btscan->btps_scanPage = scan_page;
+    btscan->btps_pageStatus = BTPARALLEL_IDLE;
+    SpinLockRelease(&btscan->btps_mutex);
+
+    // Signal waiting workers that scan state has been updated
+    ConditionVariableSignal(&btscan->btps_cv);
+}
+```

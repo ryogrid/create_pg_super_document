@@ -46,3 +46,38 @@ The resulting RangeType is allocated as a complete, standalone range object that
 - The resulting RangeType includes both the range data and the flags byte
 - Uses palloc0 to ensure the allocated memory is zero-initialized
 - The function properly reconstructs the variable-length range structure from the compressed multirange format
+
+## Simplified Source
+
+```c
+RangeType *
+multirange_get_range(TypeCacheEntry *rangetyp,
+                     const MultirangeType *multirange, int i)
+{
+    // Get the offset and flags for the i-th range
+    uint32 offset = multirange_get_bounds_offset(multirange, i);
+    uint8 flags = MultirangeGetFlagsPtr(multirange)[i];
+    Pointer begin = MultirangeGetBoundariesPtr(multirange, typalign) + offset;
+    Pointer ptr = begin;
+
+    // Calculate size by walking through bound values
+    if (RANGE_HAS_LBOUND(flags))
+        ptr = att_addlength_pointer(ptr, typlen, ptr);
+    if (RANGE_HAS_UBOUND(flags)) {
+        ptr = att_align_pointer(ptr, typalign, typlen, ptr);
+        ptr = att_addlength_pointer(ptr, typlen, ptr);
+    }
+
+    // Allocate and construct the range object
+    uint32 len = (ptr - begin) + sizeof(RangeType) + sizeof(uint8);
+    RangeType *range = palloc0(len);
+    SET_VARSIZE(range, len);
+    range->rangetypid = rangetyp->type_id;
+
+    // Copy bounds data and flags
+    memcpy(range + 1, begin, ptr - begin);
+    *((uint8 *)(range + 1) + (ptr - begin)) = flags;
+
+    return range;
+}
+```

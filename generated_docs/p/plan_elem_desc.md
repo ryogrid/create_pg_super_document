@@ -38,3 +38,27 @@ The function is designed to work with the `array_desc` utility for handling arra
 - Used specifically for describing XLOG_HEAP2_PRUNE_FREEZE records
 - The freeze plan contains information about which tuples to freeze and what transaction visibility information to apply
 - Part of the PostgreSQL tuple freezing mechanism which prevents transaction ID wraparound issues
+
+## Simplified Source
+
+```c
+static void plan_elem_desc(StringInfo buf, void *plan, void *data) {
+    xlhp_freeze_plan *freeze_plan = (xlhp_freeze_plan *) plan;
+    OffsetNumber **offsets = data;
+
+    // Format the freeze plan details
+    appendStringInfo(buf, "{ xmax: %u, infomask: %u, infomask2: %u, ntuples: %u",
+                     freeze_plan->xmax, freeze_plan->t_infomask,
+                     freeze_plan->t_infomask2, freeze_plan->ntuples);
+
+    // Add the tuple offsets array description
+    appendStringInfoString(buf, ", offsets:");
+    array_desc(buf, *offsets, sizeof(OffsetNumber), freeze_plan->ntuples,
+               &offset_elem_desc, NULL);
+
+    // Advance the offset pointer for next plan
+    *offsets += freeze_plan->ntuples;
+
+    appendStringInfoString(buf, " }");
+}
+```

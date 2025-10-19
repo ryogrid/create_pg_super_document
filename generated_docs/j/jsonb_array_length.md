@@ -43,3 +43,22 @@ The `jsonb_array_length` function implements the SQL function `jsonb_array_lengt
 - The count is readily available from the JSONB root container structure, making this O(1) operation
 - Companion function to json_array_length but for the binary JSONB format
 - Part of PostgreSQL's JSONB functionality for high-performance JSON operations
+
+## Simplified Source
+```c
+Datum jsonb_array_length(PG_FUNCTION_ARGS) {
+    Jsonb *jb = PG_GETARG_JSONB_P(0);
+
+    // Validate input: must be an array, not scalar or object
+    if (JB_ROOT_IS_SCALAR(jb))
+        ereport(ERROR, (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                       errmsg("cannot get array length of a scalar")));
+
+    if (!JB_ROOT_IS_ARRAY(jb))
+        ereport(ERROR, (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                       errmsg("cannot get array length of a non-array")));
+
+    // Return count directly from JSONB root container (O(1) operation)
+    PG_RETURN_INT32(JB_ROOT_COUNT(jb));
+}
+```

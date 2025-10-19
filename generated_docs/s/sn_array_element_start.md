@@ -31,3 +31,24 @@ This function is part of the JSON null-stripping functionality in PostgreSQL. It
 
 ## Notes and Other Information
 This function is part of a set of semantic action callbacks used by the JSON parser. Unlike the object field handler, this function does not currently use the `isnull` parameter, suggesting that array element null handling might be managed elsewhere in the parsing chain. The function focuses solely on comma insertion logic, making it a specialized handler for array element syntax management. The use of `appendStringInfoCharMacro` provides efficient single-character appending to the string buffer.
+
+## Simplified Source
+
+```c
+static JsonParseErrorType sn_array_element_start(void *state, bool isnull) {
+    StripnullState *_state = (StripnullState *) state;
+
+    // Add comma separator if this is not the first element
+    if (_state->strval->data[_state->strval->len - 1] != '[') {
+        appendStringInfoCharMacro(_state->strval, ',');
+    }
+
+    return JSON_SUCCESS;
+}
+```
+
+This function:
+1. Casts the generic state pointer to the specific StripnullState type
+2. Checks if the last character is '[' (indicating first array element)
+3. If not first element, appends a comma separator
+4. Returns success (the isnull parameter is unused in this implementation)

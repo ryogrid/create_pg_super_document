@@ -40,3 +40,20 @@ The function makes a single call to `psql_scan_slash_option()` with the OT_WHOLE
 - The function is static to the command.c file, indicating it's an internal utility for command processing
 - Memory management is handled properly by immediately freeing the argument string after reading
 - The *MUST* designation indicates critical importance for correct conditional processing behavior
+
+## Simplified Source
+
+```c
+static void ignore_slash_whole_line(PsqlScanState scan_state)
+{
+    // Read and discard the entire remaining line
+    char *arg = psql_scan_slash_option(scan_state, OT_WHOLE_LINE, NULL, false);
+    free(arg);
+}
+```
+
+**Simplified Logic:**
+1. Read from current position to end of line using OT_WHOLE_LINE type
+2. Immediately free the argument string to prevent memory leaks
+
+This function ensures consistent parsing behavior for commands that consume entire lines (like \copy, \help, shell escapes). The semicolon parameter is hardcoded to false since it doesn't affect the amount of text consumed.

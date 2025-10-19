@@ -30,3 +30,14 @@ The function is an external interface that provides a standardized way to clean 
 - This is a thin wrapper around the generic SN_close_env function, providing language-specific interface consistency
 - The function should be called whenever a Norwegian stemmer environment created with norwegian_ISO_8859_1_create_env is no longer needed to prevent memory leaks
 - Located in src/backend/snowball/libstemmer/stem_ISO_8859_1_norwegian.c at lines 271-272
+
+## Simplified Source
+
+```c
+extern void norwegian_ISO_8859_1_close_env(struct SN_env * z) {
+    // Clean up and deallocate Norwegian stemmer environment
+    SN_close_env(z, 0);
+}
+```
+
+*This simplified version shows the core cleanup functionality: properly deallocating a Norwegian stemmer environment by calling the generic cleanup function with the appropriate parameters.*

@@ -44,3 +44,23 @@ The function examines the operation code (after masking out the info flags) and 
 - The function uses XLR_INFO_MASK to extract only the operation type bits from the info parameter
 - Returns NULL for unrecognized operation types, allowing calling code to handle unknown operations gracefully
 - Covers all GIN-specific WAL record types including tree operations, page management, and list page operations
+
+## Simplified Source
+
+```c
+const char *gin_identify(uint8 info) {
+    // Extract operation type by masking out info flags
+    switch (info & ~XLR_INFO_MASK) {
+        case XLOG_GIN_CREATE_PTREE:         return "CREATE_PTREE";
+        case XLOG_GIN_INSERT:               return "INSERT";
+        case XLOG_GIN_SPLIT:                return "SPLIT";
+        case XLOG_GIN_VACUUM_PAGE:          return "VACUUM_PAGE";
+        case XLOG_GIN_VACUUM_DATA_LEAF_PAGE: return "VACUUM_DATA_LEAF_PAGE";
+        case XLOG_GIN_DELETE_PAGE:          return "DELETE_PAGE";
+        case XLOG_GIN_UPDATE_META_PAGE:     return "UPDATE_META_PAGE";
+        case XLOG_GIN_INSERT_LISTPAGE:      return "INSERT_LISTPAGE";
+        case XLOG_GIN_DELETE_LISTPAGE:      return "DELETE_LISTPAGE";
+        default:                            return NULL;
+    }
+}
+```

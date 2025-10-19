@@ -37,3 +37,17 @@ The btcharcmp function is a B-tree comparison function specifically designed for
 - Used internally by PostgreSQL's B-tree indexing system for char data types
 - The function follows PostgreSQL's V1 function call convention
 - Essential for sorting and indexing operations on single-character columns
+
+## Simplified Source
+
+```c
+Datum btcharcmp(PG_FUNCTION_ARGS) {
+    // Extract character arguments
+    char a = PG_GETARG_CHAR(0);
+    char b = PG_GETARG_CHAR(1);
+
+    // Compare as unsigned chars to handle extended ASCII properly
+    // Returns difference: positive if a > b, zero if equal, negative if a < b
+    return (int32)((uint8)a) - (int32)((uint8)b);
+}
+```

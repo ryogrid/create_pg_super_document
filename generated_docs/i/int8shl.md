@@ -34,3 +34,16 @@ This function implements the PostgreSQL bitwise left shift operator (<<) for the
 - Unlike other bitwise operations in this family, this function takes arguments of different types: int64 and int32
 - Uses standard PostgreSQL V1 function call convention
 - No bounds checking is performed on the shift count, following C language semantics
+
+## Simplified Source
+
+```c
+Datum int8shl(PG_FUNCTION_ARGS) {
+    // Extract 64-bit integer to shift and 32-bit shift count
+    int64 arg1 = PG_GETARG_INT64(0);
+    int32 arg2 = PG_GETARG_INT32(1);
+
+    // Perform bitwise left shift and return result
+    PG_RETURN_INT64(arg1 << arg2);
+}
+```

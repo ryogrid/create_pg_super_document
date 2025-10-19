@@ -37,3 +37,15 @@ The "trust" authentication method allows connections without any password or aut
 - The "trust" method is chosen as default for ease of initial setup, but the warning system ensures users make informed decisions
 - Typically used for both local and host authentication method validation
 - The warning triggered by this function will inform users about security implications and suggest setting explicit authentication methods
+
+## Simplified Source
+
+```c
+static void check_authmethod_unspecified(const char **authmethod) {
+    // If no authentication method specified, default to "trust" and set warning flag
+    if (*authmethod == NULL) {
+        authwarning = true;  // Flag for security warning
+        *authmethod = "trust";  // Default to trust authentication
+    }
+}
+```

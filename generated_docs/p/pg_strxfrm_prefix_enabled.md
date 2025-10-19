@@ -38,3 +38,23 @@ Prefix transformations are more advanced than full transformations, allowing Pos
 - The function enables PostgreSQL to utilize advanced sorting optimizations when ICU collations are available
 - Prefix transformations allow for more efficient string comparisons by generating only the necessary portion of the sort key
 - Critical for determining whether abbreviated key optimizations can be used in sorting operations
+
+## Simplified Source
+
+```c
+bool pg_strxfrm_prefix_enabled(pg_locale_t locale) {
+    // LIBC provider doesn't support prefix transformations
+    if (!locale || locale->provider == COLLPROVIDER_LIBC) {
+        return false;
+    }
+
+    // ICU provider supports prefix transformations
+    if (locale->provider == COLLPROVIDER_ICU) {
+        return true;
+    }
+
+    // Unknown provider - should not happen
+    PGLOCALE_SUPPORT_ERROR(locale->provider);
+    return false;
+}
+```

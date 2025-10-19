@@ -35,3 +35,23 @@ The int8abs function implements the absolute value operation for PostgreSQL's bi
 - Implements conditional negation: returns -arg1 if negative, arg1 if positive or zero
 - Critical for maintaining mathematical correctness in two's complement systems
 - Part of PostgreSQL's comprehensive bigint arithmetic operations
+
+## Simplified Source
+
+```c
+Datum int8abs(PG_FUNCTION_ARGS) {
+    // Extract 64-bit integer argument
+    int64 arg1 = PG_GETARG_INT64(0);
+
+    // Check for overflow condition (can't get absolute of minimum int64)
+    if (unlikely(arg1 == PG_INT64_MIN)) {
+        ereport(ERROR,
+                (errcode(ERRCODE_NUMERIC_VALUE_OUT_OF_RANGE),
+                 errmsg("bigint out of range")));
+    }
+
+    // Return absolute value: negate if negative, otherwise return as-is
+    int64 result = (arg1 < 0) ? -arg1 : arg1;
+    PG_RETURN_INT64(result);
+}
+```

@@ -54,3 +54,50 @@ The function automatically invokes the per-file callback for each file entry fou
 - Automatically cleans up the JSON lexical context before returning
 - Alternative to incremental parsing for simpler use cases or smaller manifests
 - Part of PostgreSQL's backup manifest processing infrastructure
+
+## Simplified Source
+
+```c
+void json_parse_manifest(JsonManifestParseContext *context, const char *buffer, size_t size) {
+    JsonLexContext *lex;
+    JsonParseErrorType json_error;
+    JsonSemAction sem;
+    JsonManifestParseState parse;
+
+    // Initialize parse state
+    parse.context = context;
+    parse.state = JM_EXPECT_TOPLEVEL_START;
+    parse.saw_version_field = false;
+
+    // Create JSON lexer for the buffer
+    lex = makeJsonLexContextCstringLen(NULL, buffer, size, PG_UTF8, true);
+
+    // Set up semantic action callbacks for JSON elements
+    sem.semstate = &parse;
+    sem.object_start = json_manifest_object_start;
+    sem.object_end = json_manifest_object_end;
+    sem.array_start = json_manifest_array_start;
+    sem.array_end = json_manifest_array_end;
+    sem.object_field_start = json_manifest_object_field_start;
+    sem.scalar = json_manifest_scalar;
+    // Set unused callbacks to NULL
+    sem.object_field_end = NULL;
+    sem.array_element_start = NULL;
+    sem.array_element_end = NULL;
+
+    // Parse the JSON manifest
+    json_error = pg_parse_json(lex, &sem);
+    if (json_error != JSON_SUCCESS)
+        json_manifest_parse_failure(context, json_errdetail(json_error, lex));
+
+    // Verify parsing completed correctly
+    if (parse.state != JM_EXPECT_EOF)
+        json_manifest_parse_failure(context, "manifest ended unexpectedly");
+
+    // Verify manifest checksum
+    verify_manifest_checksum(&parse, buffer, size, NULL);
+
+    // Clean up
+    freeJsonLexContext(lex);
+}
+```

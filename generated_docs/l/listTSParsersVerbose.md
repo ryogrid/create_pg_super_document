@@ -36,3 +36,73 @@ This function implements the verbose listing functionality for PostgreSQL text s
 - Uses PostgreSQL's visibility rules via pg_ts_parser_is_visible function
 - Provides user-friendly error messages when no parsers are found
 - Part of psql's \dFp+ command implementation for verbose parser listing
+
+## Simplified Source
+
+```c
+static bool listTSParsersVerbose(const char *pattern) {
+    PQExpBufferData buf;
+    PGresult *res;
+
+    // Initialize query buffer
+    initPQExpBuffer(&buf);
+
+    // Build query to get parser OID, namespace, and name
+    printfPQExpBuffer(&buf,
+        "SELECT p.oid, n.nspname, p.prsname "
+        "FROM pg_catalog.pg_ts_parser p "
+        "LEFT JOIN pg_catalog.pg_namespace n ON n.oid = p.prsnamespace");
+
+    // Validate and add pattern matching
+    if (!validateSQLNamePattern(&buf, pattern, false, false,
+                               "n.nspname", "p.prsname", NULL,
+                               "pg_catalog.pg_ts_parser_is_visible(p.oid)",
+                               NULL, 3)) {
+        termPQExpBuffer(&buf);
+        return false;
+    }
+
+    // Add ordering
+    appendPQExpBufferStr(&buf, " ORDER BY 1, 2;");
+
+    // Execute query
+    res = PSQLexec(buf.data);
+    termPQExpBuffer(&buf);
+    if (!res) return false;
+
+    // Check if any parsers found
+    if (PQntuples(res) == 0) {
+        if (!pset.quiet) {
+            if (pattern) {
+                pg_log_error("Did not find any text search parser named \"%s\".", pattern);
+            } else {
+                pg_log_error("Did not find any text search parsers.");
+            }
+        }
+        PQclear(res);
+        return false;
+    }
+
+    // Describe each parser in detail
+    for (int i = 0; i < PQntuples(res); i++) {
+        const char *oid = PQgetvalue(res, i, 0);
+        const char *nspname = PQgetisnull(res, i, 1) ? NULL : PQgetvalue(res, i, 1);
+        const char *prsname = PQgetvalue(res, i, 2);
+
+        // Show detailed parser information
+        if (!describeOneTSParser(oid, nspname, prsname)) {
+            PQclear(res);
+            return false;
+        }
+
+        // Check for user cancellation
+        if (cancel_pressed) {
+            PQclear(res);
+            return false;
+        }
+    }
+
+    PQclear(res);
+    return true;
+}
+```

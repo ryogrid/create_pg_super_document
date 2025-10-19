@@ -40,3 +40,14 @@ This function provides a simple mechanism to generate unique dump identifiers th
 - Simple atomic operation that ensures uniqueness across the entire dump process
 - Critical for maintaining proper ordering of fixed entries in the dump output
 - The returned DumpId will never conflict with DumpIds assigned to DumpableObjects
+
+## Simplified Source
+
+```c
+DumpId
+createDumpId(void)
+{
+    // Simply increment and return the global DumpId counter
+    return ++lastDumpId;
+}
+```

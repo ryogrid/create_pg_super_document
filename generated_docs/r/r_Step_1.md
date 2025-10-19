@@ -53,3 +53,47 @@ This step is crucial for Serbian text processing as it handles the rich morpholo
 - Critical first step that must succeed before subsequent morphological steps (`r_Step_2`, `r_Step_3`)
 - Returns 1 if a suffix was successfully matched and transformed, 0 if no applicable suffix was found
 - Essential component of Serbian language stemming, handling the complex inflectional morphology of Serbian
+
+## Simplified Source
+
+```c
+static int r_Step_1(struct SN_env * z) {
+    int suffix_pattern;
+
+    // Set cursor position and check if valid suffix exists
+    z->ket = z->c;
+    if (z->c - 2 <= z->lb || z->p[z->c - 1] >> 5 != 3 ||
+        !((3435050 >> (z->p[z->c - 1] & 0x1f)) & 1)) {
+        return 0;  // No valid suffix position
+    }
+
+    // Find matching suffix from 130 Serbian patterns
+    suffix_pattern = find_among_b(z, a_1, 130);
+    if (!suffix_pattern) return 0;
+
+    z->bra = z->c;  // Mark suffix boundaries
+
+    // Apply transformation based on suffix pattern (1-91)
+    switch (suffix_pattern) {
+        // Most cases: Simple suffix replacement
+        case 1: return slice_from_s(z, 4, s_36);
+        case 2: return slice_from_s(z, 3, s_37);
+        case 3: return slice_from_s(z, 5, s_38);
+        // ... (cases 4-6, 8-30, 32-51, 53-54, 56, 58-64, 66-71, 73-90)
+
+        // Accent-sensitive cases: Check stress boundary before transforming
+        case 7:
+        case 31:
+        case 52:
+        case 55:
+        case 57:
+        case 65:
+        case 72:
+        case 91:
+            if (!z->I[1]) return 0;  // Requires accent boundary
+            return slice_from_s(z, length, replacement_string);
+    }
+
+    return 1;  // Suffix successfully processed
+}
+```

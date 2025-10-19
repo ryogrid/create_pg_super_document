@@ -34,3 +34,23 @@ This function takes no parameters.
 - The function performs a fatal error exit if it detects an attempt to upgrade between clusters with the same system catalog version when tablespaces are present
 - This initialization must be called early in the upgrade process before any tablespace-related operations
 - The function modifies global cluster configuration structures (old_cluster and new_cluster)
+
+## Simplified Source
+
+```c
+void init_tablespaces(void) {
+    // Discover and populate tablespace path information
+    get_tablespace_paths();
+
+    // Set directory suffixes for both clusters
+    set_tablespace_directory_suffix(&old_cluster);
+    set_tablespace_directory_suffix(&new_cluster);
+
+    // Safety check: prevent upgrades with same catalog version when using tablespaces
+    if (os_info.num_old_tablespaces > 0 &&
+        strcmp(old_cluster.tablespace_suffix, new_cluster.tablespace_suffix) == 0) {
+        pg_fatal("Cannot upgrade to/from the same system catalog version when\n"
+                 "using tablespaces.");
+    }
+}
+```

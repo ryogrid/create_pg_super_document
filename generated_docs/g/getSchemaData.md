@@ -46,3 +46,62 @@ The function follows a strict ordering to ensure proper dependency resolution:
 6. Indexes and constraints after table structure is complete
 
 The function returns a TableInfo array which serves as the primary data structure for subsequent dump operations, containing not only table information but also serving as an anchor point for related objects.
+
+## Simplified Source
+
+```c
+TableInfo *
+getSchemaData(Archive *fout, int *numTablesPtr)
+{
+    TableInfo *tblinfo;
+    ExtensionInfo *extinfo;
+    InhInfo *inhinfo;
+    int numTables, numExtensions, numInherits;
+    // (other count variables declared)
+
+    // Phase 1: Extensions (affects dumping decisions for other objects)
+    pg_log_info("reading extensions");
+    extinfo = getExtensions(fout, &numExtensions);
+    getExtensionMembership(fout, extinfo, numExtensions);
+
+    // Phase 2: Core schema objects
+    pg_log_info("reading schemas");
+    getNamespaces(fout, &numNamespaces);
+
+    pg_log_info("reading user-defined tables");
+    tblinfo = getTables(fout, &numTables);
+    getOwnedSeqs(fout, tblinfo, numTables);
+
+    // Phase 3: Functions and types (order matters for dependencies)
+    pg_log_info("reading user-defined functions");
+    getFuncs(fout, &numFuncs);
+
+    pg_log_info("reading user-defined types");
+    getTypes(fout, &numTypes);
+
+    // Phase 4: Other database objects
+    // (collect operators, aggregates, access methods, etc.)
+
+    // Phase 5: Relationships and detailed info
+    pg_log_info("reading table inheritance information");
+    inhinfo = getInherits(fout, &numInherits);
+
+    pg_log_info("finding inheritance relationships");
+    flagInhTables(fout, tblinfo, numTables, inhinfo, numInherits);
+
+    pg_log_info("reading column info for interesting tables");
+    getTableAttrs(fout, tblinfo, numTables);
+
+    // Phase 6: Table-related objects (indexes, constraints, triggers)
+    pg_log_info("reading indexes");
+    getIndexes(fout, tblinfo, numTables);
+
+    pg_log_info("reading constraints");
+    getConstraints(fout, tblinfo, numTables);
+
+    // Cleanup and return
+    free(inhinfo);
+    *numTablesPtr = numTables;
+    return tblinfo;
+}
+```

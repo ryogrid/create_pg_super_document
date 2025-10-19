@@ -42,3 +42,65 @@ The function handles dual-parameter behavior of the LZ4F_decompress API, where r
 - The function maintains state across calls through the bbstreamer_lz4_frame structure, particularly the bytes_written field
 - Buffer management is handled automatically, with full buffers forwarded downstream and buffer pointers reset for continued processing
 - The function is designed to handle partial input data and can be called multiple times to process a complete compressed stream
+
+## Simplified Source
+
+```c
+static void
+bbstreamer_lz4_decompressor_content(bbstreamer *streamer,
+                                  bbstreamer_member *member,
+                                  const char *data, int len,
+                                  bbstreamer_archive_context context)
+{
+    bbstreamer_lz4_frame *mystreamer;
+    uint8 *input_ptr, *output_ptr;
+    size_t input_remaining, output_available;
+
+    mystreamer = (bbstreamer_lz4_frame *) streamer;
+
+    // Set up input and output pointers
+    input_ptr = (uint8 *) data;
+    output_ptr = (uint8 *) mystreamer->base.bbs_buffer.data + mystreamer->bytes_written;
+    input_remaining = len;
+    output_available = mystreamer->base.bbs_buffer.maxlen - mystreamer->bytes_written;
+
+    // Process all available input data
+    while (input_remaining > 0)
+    {
+        size_t bytes_read = input_remaining;
+        size_t bytes_written = output_available;
+
+        // Decompress data using LZ4 frame format
+        size_t result = LZ4F_decompress(mystreamer->dctx,
+                                       output_ptr, &bytes_written,
+                                       input_ptr, &bytes_read, NULL);
+
+        if (LZ4F_isError(result))
+            pg_log_error("could not decompress data: %s", LZ4F_getErrorName(result));
+
+        // Update input position
+        input_remaining -= bytes_read;
+        input_ptr += bytes_read;
+        mystreamer->bytes_written += bytes_written;
+
+        // Forward data when buffer is full
+        if (mystreamer->bytes_written >= mystreamer->base.bbs_buffer.maxlen)
+        {
+            bbstreamer_content(mystreamer->base.bbs_next, member,
+                             mystreamer->base.bbs_buffer.data,
+                             mystreamer->base.bbs_buffer.maxlen, context);
+
+            // Reset output buffer
+            output_available = mystreamer->base.bbs_buffer.maxlen;
+            mystreamer->bytes_written = 0;
+            output_ptr = (uint8 *) mystreamer->base.bbs_buffer.data;
+        }
+        else
+        {
+            // Update output buffer position
+            output_available = mystreamer->base.bbs_buffer.maxlen - mystreamer->bytes_written;
+            output_ptr += bytes_written;
+        }
+    }
+}
+```

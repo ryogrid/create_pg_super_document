@@ -50,3 +50,23 @@ This centralized error reporting approach ensures consistent error message forma
 - The function follows PostgreSQL's standard logging conventions and patterns
 - All error messages are properly formatted and logged through the PostgreSQL logging infrastructure
 - This function is heavily used throughout the codebase as evidenced by its 17 call sites across multiple verification functions
+
+## Simplified Source
+
+```c
+static void report_backup_error(verifier_context *context, const char *fmt, ...) {
+    va_list ap;
+
+    // Log the error message with variable arguments
+    va_start(ap, fmt);
+    pg_log_generic_v(PG_LOG_ERROR, PG_LOG_PRIMARY, gettext(fmt), ap);
+    va_end(ap);
+
+    // Track that an error occurred
+    context->saw_any_error = true;
+
+    // Exit immediately if configured to do so
+    if (context->exit_on_error)
+        exit(1);
+}
+```

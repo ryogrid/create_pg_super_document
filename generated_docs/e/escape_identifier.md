@@ -31,3 +31,32 @@ The escape_identifier function provides a wrapper around libpq's PQescapeIdentif
 
 ## Notes and Other Information
 This function is part of PostgreSQL's test infrastructure for validating escape functionality. It returns true on success and false on failure, with error details stored in the escape_err buffer. The function properly manages memory by freeing the escaped string returned by PQescapeIdentifier using PQfreemem. When an error occurs, it strips the trailing newline from the error message for cleaner formatting. Unlike string literals, identifiers are escaped with double quotes and follow different escaping rules suitable for database object names.
+
+## Simplified Source
+
+```c
+static bool
+escape_identifier(PGconn *conn, PQExpBuffer target,
+                  const char *unescaped, size_t unescaped_len,
+                  PQExpBuffer escape_err)
+{
+    char *escaped;
+
+    // Escape the identifier using libpq function
+    escaped = PQescapeIdentifier(conn, unescaped, unescaped_len);
+
+    if (!escaped) {
+        // Handle escaping failure - append error message
+        appendPQExpBuffer(escape_err, "%s", PQerrorMessage(conn));
+        // Remove trailing newline for cleaner formatting
+        escape_err->data[escape_err->len - 1] = 0;
+        escape_err->len--;
+        return false;
+    } else {
+        // Success - append escaped identifier and cleanup
+        appendPQExpBufferStr(target, escaped);
+        PQfreemem(escaped);
+        return true;
+    }
+}
+```

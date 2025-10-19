@@ -44,3 +44,44 @@ This function is essential for PostgreSQL debugging tools, log analysis, and WAL
 - This function complements heap_identify by handling more advanced heap operations
 - Part of the heap2 resource manager description system
 - Located in src/backend/access/rmgrdesc/heapdesc.c:430-466
+
+## Simplified Source
+
+```c
+const char *heap2_identify(uint8 info) {
+    const char *id = NULL;
+
+    // Map heap2 operation code to readable string
+    switch (info & ~XLR_INFO_MASK) {
+        case XLOG_HEAP2_PRUNE_ON_ACCESS:
+            id = "PRUNE_ON_ACCESS";
+            break;
+        case XLOG_HEAP2_PRUNE_VACUUM_SCAN:
+            id = "PRUNE_VACUUM_SCAN";
+            break;
+        case XLOG_HEAP2_PRUNE_VACUUM_CLEANUP:
+            id = "PRUNE_VACUUM_CLEANUP";
+            break;
+        case XLOG_HEAP2_VISIBLE:
+            id = "VISIBLE";
+            break;
+        case XLOG_HEAP2_MULTI_INSERT:
+            id = "MULTI_INSERT";
+            break;
+        case XLOG_HEAP2_MULTI_INSERT | XLOG_HEAP_INIT_PAGE:
+            id = "MULTI_INSERT+INIT";
+            break;
+        case XLOG_HEAP2_LOCK_UPDATED:
+            id = "LOCK_UPDATED";
+            break;
+        case XLOG_HEAP2_NEW_CID:
+            id = "NEW_CID";
+            break;
+        case XLOG_HEAP2_REWRITE:
+            id = "REWRITE";
+            break;
+    }
+
+    return id;
+}
+```

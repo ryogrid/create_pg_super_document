@@ -43,3 +43,21 @@ The 64kB minimum is consistent with the minimum value enforced for maintenance_w
 - Memory values in PostgreSQL GUC are typically specified in kilobytes
 - This function is automatically called by the GUC system; users don't call it directly
 - Located in src/backend/postmaster/autovacuum.c:3364-3384
+
+## Simplified Source
+
+```c
+bool
+check_autovacuum_work_mem(int *newval, void **extra, GucSource source)
+{
+    // Allow -1 (fallback to maintenance_work_mem)
+    if (*newval == -1)
+        return true;
+
+    // Enforce minimum of 64kB for manually set values
+    if (*newval < 64)
+        *newval = 64;
+
+    return true;
+}
+```

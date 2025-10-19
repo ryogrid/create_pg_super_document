@@ -35,3 +35,28 @@ This function provides a mapping from internal IOContext enumeration values to t
 - Uses pg_unreachable() to handle impossible code paths for defensive programming
 - This function is primarily used for displaying I/O statistics in a user-friendly format
 - Located in src/backend/utils/activity/pgstat_io.c:221-239
+
+## Simplified Source
+
+```c
+const char *
+pgstat_get_io_context_name(IOContext io_context)
+{
+    // Convert IO context enum to human-readable string
+    switch (io_context)
+    {
+        case IOCONTEXT_BULKREAD:
+            return "bulkread";
+        case IOCONTEXT_BULKWRITE:
+            return "bulkwrite";
+        case IOCONTEXT_NORMAL:
+            return "normal";
+        case IOCONTEXT_VACUUM:
+            return "vacuum";
+    }
+
+    // Should never reach here with valid input
+    elog(ERROR, "unrecognized IOContext value: %d", io_context);
+    pg_unreachable();
+}
+```

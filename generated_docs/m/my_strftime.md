@@ -36,3 +36,12 @@ This is a common technique used in PostgreSQL and other codebases to handle comp
 - Returns the number of characters written to the buffer (excluding null terminator) or 0 if the buffer is too small
 - Commonly used pattern in PostgreSQL codebase to handle compiler-specific issues
 - The warning being suppressed is related to format specifier %x on certain gcc versions
+
+## Simplified Source
+
+```c
+static inline size_t my_strftime(char *s, size_t max, const char *fmt, const struct tm *tm) {
+    // Simple wrapper to suppress gcc warning about %x format specifier
+    return strftime(s, max, fmt, tm);
+}
+```

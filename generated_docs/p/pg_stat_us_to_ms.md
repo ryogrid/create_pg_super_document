@@ -28,3 +28,14 @@ This function performs a simple unit conversion from microseconds to millisecond
 - The parameter name 'val_ms' is somewhat misleading as it actually expects microsecond values
 - Returns a double precision floating-point result to preserve fractional millisecond precision
 - Used internally by statistics functions that need to present timing data in millisecond units
+
+## Simplified Source
+
+```c
+static inline double
+pg_stat_us_to_ms(PgStat_Counter val_ms)
+{
+    // Convert microseconds to milliseconds by multiplying by 0.001
+    return val_ms * (double) 0.001;
+}
+```

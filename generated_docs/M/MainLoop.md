@@ -53,3 +53,168 @@ The function maintains several buffers to manage multi-line queries, command his
 - **Error Recovery**: Implements sophisticated error recovery mechanisms including EOF handling with IGNOREEOF support
 - **State Preservation**: Saves and restores previous command source state to support nested invocations
 - **Exit Codes**: Returns appropriate exit codes (EXIT_SUCCESS, EXIT_FAILURE, EXIT_USER, EXIT_BADCONN) for different termination scenarios
+
+## Simplified Source
+
+```c
+int MainLoop(FILE *source) {
+    // Initialize state and buffers
+    PsqlScanState scan_state = psql_scan_create(&psqlscan_callbacks);
+    ConditionalStack cond_stack = conditional_stack_create();
+    PQExpBuffer query_buf = createPQExpBuffer();
+    PQExpBuffer previous_buf = createPQExpBuffer();
+    PQExpBuffer history_buf = createPQExpBuffer();
+
+    // Set up input source
+    pset.cur_cmd_source = source;
+    pset.cur_cmd_interactive = ((source == stdin) && !pset.notty);
+    pset.lineno = 0;
+
+    int successResult = EXIT_SUCCESS;
+
+    // Main processing loop
+    while (successResult == EXIT_SUCCESS) {
+        // Handle Control-C interrupts
+        if (cancel_pressed) {
+            if (!pset.cur_cmd_interactive) {
+                successResult = EXIT_USER;
+                break;
+            }
+            cancel_pressed = false;
+        }
+
+        // Set up interrupt handling
+        if (sigsetjmp(sigint_interrupt_jmp, 1) != 0) {
+            // Reset state after interrupt
+            psql_scan_reset(scan_state);
+            resetPQExpBuffer(query_buf);
+            resetPQExpBuffer(history_buf);
+            continue;
+        }
+
+        // Read next line of input
+        char *line;
+        if (pset.cur_cmd_interactive) {
+            line = gets_interactive(get_prompt(prompt_status, cond_stack), query_buf);
+        } else {
+            line = gets_fromFile(source);
+        }
+
+        // Handle end of input
+        if (line == NULL) {
+            if (pset.cur_cmd_interactive) {
+                // Handle IGNOREEOF
+                count_eof++;
+                if (count_eof < pset.ignoreeof) {
+                    printf("Use \"\\q\" to leave %s.\n", pset.progname);
+                    continue;
+                }
+            }
+            break;
+        }
+
+        pset.lineno++;
+
+        // Skip empty lines and handle special cases
+        if (line[0] == '\0' && !psql_scan_in_quote(scan_state)) {
+            free(line);
+            continue;
+        }
+
+        // Detect custom dump format
+        if (pset.lineno == 1 && strncmp(line, "PGDMP", 5) == 0) {
+            puts("Input is a PostgreSQL custom-format dump. Use pg_restore instead.");
+            successResult = EXIT_FAILURE;
+            break;
+        }
+
+        // Handle special interactive commands (help, quit, exit)
+        if (pset.cur_cmd_interactive) {
+            if (strncasecmp(line, "help", 4) == 0 && query_buf->len == 0) {
+                // Show help message
+                puts("You are using psql, the command-line interface to PostgreSQL.");
+                free(line);
+                continue;
+            }
+            if ((strncasecmp(line, "exit", 4) == 0 || strncasecmp(line, "quit", 4) == 0)
+                && query_buf->len == 0) {
+                successResult = EXIT_SUCCESS;
+                break;
+            }
+        }
+
+        // Add line to query buffer
+        if (query_buf->len > 0)
+            appendPQExpBufferChar(query_buf, '\n');
+
+        // Parse and process the line
+        psql_scan_setup(scan_state, line, strlen(line), pset.encoding, standard_strings());
+
+        bool success = true;
+        while (success || !die_on_error) {
+            PsqlScanResult scan_result = psql_scan(scan_state, query_buf, &prompt_status);
+
+            if (scan_result == PSCAN_SEMICOLON ||
+                (scan_result == PSCAN_EOL && pset.singleline)) {
+                // Execute complete SQL query
+                if (conditional_active(cond_stack)) {
+                    success = SendQuery(query_buf->data);
+                    // Swap buffers for undo support
+                    PQExpBuffer swap = previous_buf;
+                    previous_buf = query_buf;
+                    query_buf = swap;
+                    resetPQExpBuffer(query_buf);
+                }
+            } else if (scan_result == PSCAN_BACKSLASH) {
+                // Handle backslash command
+                backslashResult slashResult = HandleSlashCmds(scan_state, cond_stack,
+                                                            query_buf, previous_buf);
+                success = (slashResult != PSQL_CMD_ERROR);
+
+                if (slashResult == PSQL_CMD_SEND) {
+                    success = SendQuery(query_buf->data);
+                } else if (slashResult == PSQL_CMD_TERMINATE) {
+                    successResult = EXIT_SUCCESS;
+                    goto cleanup;
+                }
+            }
+
+            // Break on end of line
+            if (scan_result == PSCAN_INCOMPLETE || scan_result == PSCAN_EOL)
+                break;
+        }
+
+        // Save to history if interactive
+        if (pset.cur_cmd_interactive) {
+            pg_append_history(line, history_buf);
+            if (query_buf->len == 0)
+                pg_send_history(history_buf);
+        }
+
+        free(line);
+
+        // Check for errors in non-interactive mode
+        if (!pset.cur_cmd_interactive && !success && die_on_error) {
+            successResult = EXIT_USER;
+        }
+    }
+
+    // Execute any remaining query at EOF
+    if (query_buf->len > 0 && !pset.cur_cmd_interactive &&
+        successResult == EXIT_SUCCESS) {
+        if (conditional_active(cond_stack)) {
+            SendQuery(query_buf->data);
+        }
+    }
+
+cleanup:
+    // Cleanup resources
+    destroyPQExpBuffer(query_buf);
+    destroyPQExpBuffer(previous_buf);
+    destroyPQExpBuffer(history_buf);
+    psql_scan_destroy(scan_state);
+    conditional_stack_destroy(cond_stack);
+
+    return successResult;
+}
+```

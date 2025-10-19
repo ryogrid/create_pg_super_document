@@ -33,3 +33,13 @@ The function is a thin wrapper around the generic `patternjoinsel` function, spe
 - The `true` parameter passed to `patternjoinsel` indicates this is for non-matching (negated) operations
 - Located in `src/backend/utils/adt/like_support.c:948-956`
 - Returns a selectivity estimate as a float8 value between 0.0 and 1.0
+
+## Simplified Source
+
+```c
+// Simplified version of nlikejoinsel
+Datum nlikejoinsel(PG_FUNCTION_ARGS) {
+    // Join selectivity for LIKE pattern non-match
+    return patternjoinsel(fcinfo, Pattern_Type_Like, true);
+}
+```

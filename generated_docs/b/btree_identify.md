@@ -301,3 +301,44 @@ Text creation and manipulation
 - Uses bitwise masking with XLR_INFO_MASK to extract only the operation type bits from the info parameter
 - Companion function to  - while  provides detailed descriptions, this function provides simple operation names
 - Essential for WAL record analysis tools and debugging output formatting
+
+## Simplified Source
+
+```c
+const char *btree_identify(uint8 info) {
+    // Extract operation type from WAL record info
+    switch (info & ~XLR_INFO_MASK) {
+        case XLOG_BTREE_INSERT_LEAF:
+            return "INSERT_LEAF";
+        case XLOG_BTREE_INSERT_UPPER:
+            return "INSERT_UPPER";
+        case XLOG_BTREE_INSERT_META:
+            return "INSERT_META";
+        case XLOG_BTREE_SPLIT_L:
+            return "SPLIT_L";
+        case XLOG_BTREE_SPLIT_R:
+            return "SPLIT_R";
+        case XLOG_BTREE_INSERT_POST:
+            return "INSERT_POST";
+        case XLOG_BTREE_DEDUP:
+            return "DEDUP";
+        case XLOG_BTREE_VACUUM:
+            return "VACUUM";
+        case XLOG_BTREE_DELETE:
+            return "DELETE";
+        case XLOG_BTREE_MARK_PAGE_HALFDEAD:
+            return "MARK_PAGE_HALFDEAD";
+        case XLOG_BTREE_UNLINK_PAGE:
+            return "UNLINK_PAGE";
+        case XLOG_BTREE_UNLINK_PAGE_META:
+            return "UNLINK_PAGE_META";
+        case XLOG_BTREE_NEWROOT:
+            return "NEWROOT";
+        case XLOG_BTREE_REUSE_PAGE:
+            return "REUSE_PAGE";
+        case XLOG_BTREE_META_CLEANUP:
+            return "META_CLEANUP";
+    }
+    return NULL;  // Unknown operation type
+}
+```

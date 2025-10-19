@@ -31,3 +31,36 @@ The function uses bit shifting and masking operations to extract the payload bit
 
 ## Notes and Other Information
 This function is the mathematical inverse of `unicode_to_utf8word` and ensures that `utf8word_to_unicode(unicode_to_utf8word(x)) == x` for any valid Unicode code point. The function is used in the UTF-8 to GB18030 conversion process within PostgreSQL's character encoding system. It assumes the input word contains valid UTF-8 sequences and does not perform extensive validation. The function is declared as `static inline` for performance optimization in character conversion operations.
+
+## Simplified Source
+
+```c
+static inline uint32 utf8word_to_unicode(uint32 c) {
+    uint32 ucs;
+
+    if (c <= 0x7F) {
+        // 1-byte UTF-8: ASCII characters (0x00-0x7F)
+        ucs = c;
+    }
+    else if (c <= 0xFFFF) {
+        // 2-byte UTF-8: Extract 11 bits from 110xxxxx 10xxxxxx
+        ucs = ((c >> 8) & 0x1F) << 6;
+        ucs |= c & 0x3F;
+    }
+    else if (c <= 0xFFFFFF) {
+        // 3-byte UTF-8: Extract 16 bits from 1110xxxx 10xxxxxx 10xxxxxx
+        ucs = ((c >> 16) & 0x0F) << 12;
+        ucs |= ((c >> 8) & 0x3F) << 6;
+        ucs |= c & 0x3F;
+    }
+    else {
+        // 4-byte UTF-8: Extract 21 bits from 11110xxx 10xxxxxx 10xxxxxx 10xxxxxx
+        ucs = ((c >> 24) & 0x07) << 18;
+        ucs |= ((c >> 16) & 0x3F) << 12;
+        ucs |= ((c >> 8) & 0x3F) << 6;
+        ucs |= c & 0x3F;
+    }
+
+    return ucs;
+}
+```

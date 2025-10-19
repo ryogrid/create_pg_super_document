@@ -32,3 +32,12 @@ This function provides a convenient way to cleanly disconnect all database conne
 - Used in both the main function and thread cleanup contexts
 - Ensures proper cleanup of database resources during pgbench termination
 - The function assumes that the state array contains valid CState structures for the specified length
+
+## Simplified Source
+```c
+static void disconnect_all(CState *state, int length) {
+    // Close all database connections in the array
+    for (int i = 0; i < length; i++)
+        finishCon(&state[i]);
+}
+```

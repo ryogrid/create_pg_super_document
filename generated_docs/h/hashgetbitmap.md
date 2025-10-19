@@ -38,3 +38,33 @@ The function performs a complete forward scan of the hash index, starting with _
 - More efficient than repeated hashgettuple calls for bulk operations
 - Dead tuple elimination is handled automatically by the underlying scan functions
 - Used primarily for bitmap heap scans where multiple index conditions are combined
+
+## Simplified Source
+
+```c
+int64 hashgetbitmap(IndexScanDesc scan, TIDBitmap *tbm)
+{
+    HashScanOpaque so = (HashScanOpaque) scan->opaque;
+    bool res;
+    int64 ntids = 0;
+    HashScanPosItem *currItem;
+
+    // Start forward scan through hash index
+    res = _hash_first(scan, ForwardScanDirection);
+
+    // Collect all matching tuple IDs into bitmap
+    while (res)
+    {
+        currItem = &so->currPos.items[so->currPos.itemIndex];
+
+        // Add tuple ID to bitmap
+        tbm_add_tuples(tbm, &(currItem->heapTid), 1, true);
+        ntids++;
+
+        // Continue to next tuple
+        res = _hash_next(scan, ForwardScanDirection);
+    }
+
+    return ntids;
+}
+```

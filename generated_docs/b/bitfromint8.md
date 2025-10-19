@@ -51,3 +51,63 @@ Key behaviors:
 - Maximum bit string length is bounded by VARBITMAXLEN
 - Used internally by PostgreSQL's type system for casting operations from bigint to bit
 - Provides extended range compared to  for larger integer values
+
+## Simplified Source
+
+```c
+Datum
+bitfromint8(PG_FUNCTION_ARGS)
+{
+    int64 a = PG_GETARG_INT64(0);
+    int32 typmod = PG_GETARG_INT32(1);
+    VarBit *result;
+    bits8 *r;
+    int rlen;
+    int destbitsleft, srcbitsleft;
+
+    // Use default length of 1 if typmod is invalid
+    if (typmod <= 0 || typmod > VARBITMAXLEN)
+        typmod = 1;
+
+    // Allocate result bit string
+    rlen = VARBITTOTALLEN(typmod);
+    result = (VarBit *) palloc(rlen);
+    SET_VARSIZE(result, rlen);
+    VARBITLEN(result) = typmod;
+
+    r = VARBITS(result);
+    destbitsleft = typmod;
+    srcbitsleft = 64;
+
+    // Limit source bits to destination size
+    srcbitsleft = Min(srcbitsleft, destbitsleft);
+
+    // Sign-fill any excess bytes in output
+    while (destbitsleft >= srcbitsleft + 8) {
+        *r++ = (bits8) ((a < 0) ? BITMASK : 0);
+        destbitsleft -= 8;
+    }
+
+    // Store first fractional byte if needed
+    if (destbitsleft > srcbitsleft) {
+        unsigned int val = (unsigned int) (a >> (destbitsleft - 8));
+        // Force sign-fill for negative numbers
+        if (a < 0)
+            val |= ((unsigned int) -1) << (srcbitsleft + 8 - destbitsleft);
+        *r++ = (bits8) (val & BITMASK);
+        destbitsleft -= 8;
+    }
+
+    // Store whole bytes
+    while (destbitsleft >= 8) {
+        *r++ = (bits8) ((a >> (destbitsleft - 8)) & BITMASK);
+        destbitsleft -= 8;
+    }
+
+    // Store last fractional byte
+    if (destbitsleft > 0)
+        *r = (bits8) ((a << (8 - destbitsleft)) & BITMASK);
+
+    return result;
+}
+```

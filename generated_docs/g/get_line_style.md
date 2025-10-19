@@ -44,3 +44,15 @@ This approach maintains backwards compatibility and simplifies initialization co
 - The function always returns a valid printTextFormat pointer, ensuring that table printing operations never fail due to missing line style information
 - The const return type indicates that the returned format structure should not be modified by the caller
 - This function is part of the broader table formatting infrastructure that supports multiple output formats and styles in PostgreSQL client utilities
+
+## Simplified Source
+
+```c
+const printTextFormat *get_line_style(const printTableOpt *opt) {
+    // Return custom line style if specified, otherwise use default ASCII format
+    if (opt->line_style != NULL)
+        return opt->line_style;
+    else
+        return &pg_asciiformat;
+}
+```

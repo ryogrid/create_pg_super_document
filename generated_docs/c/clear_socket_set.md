@@ -41,3 +41,15 @@ The function is called as part of pgbench's socket monitoring loop to prepare fo
 - Must be followed by calls to  to repopulate the socket set with current active connections
 - The function is designed for repeated use within pgbench's main event loop
 - Essential for the "destructive" nature of socket monitoring mentioned in the API documentation, where socket sets must be cleared and rebuilt after each wait operation
+
+## Simplified Source
+
+```c
+static void
+clear_socket_set(socket_set *sa)
+{
+    // Clear the file descriptor set and reset max fd
+    FD_ZERO(&sa->fds);
+    sa->maxfd = -1;
+}
+```

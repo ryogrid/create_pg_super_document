@@ -38,3 +38,22 @@ Multiplication is particularly prone to overflow since the product of two number
 - Part of PostgreSQL's arithmetic operator family for the int2/smallint data type
 - Uses the unlikely() macro hint to optimize for the common case where overflow does not occur
 - Multiplication overflow can happen more easily than addition/subtraction since the result grows quadratically with the operand values
+
+## Simplified Source
+
+```c
+Datum int2mul(PG_FUNCTION_ARGS) {
+    // Extract arguments
+    int16 arg1 = PG_GETARG_INT16(0);  // multiplicand
+    int16 arg2 = PG_GETARG_INT16(1);  // multiplier
+    int16 result;
+
+    // Perform multiplication with overflow checking
+    if (unlikely(pg_mul_s16_overflow(arg1, arg2, &result))) {
+        ereport(ERROR, (errcode(ERRCODE_NUMERIC_VALUE_OUT_OF_RANGE),
+                       errmsg("smallint out of range")));
+    }
+
+    PG_RETURN_INT16(result);
+}
+```

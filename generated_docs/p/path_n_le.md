@@ -34,3 +34,16 @@ The `path_n_le` function implements the "less than or equal" comparison operator
 - Returns true if the first path has fewer or equal points than the second path
 - Used internally by PostgreSQL's SQL operator system when the `<=` operator is applied to path objects
 - Location: src/backend/utils/adt/geo_ops.c:1580-1588
+
+## Simplified Source
+
+```c
+Datum path_n_le(PG_FUNCTION_ARGS) {
+    // Get the two input paths
+    PATH *p1 = PG_GETARG_PATH_P(0);
+    PATH *p2 = PG_GETARG_PATH_P(1);
+
+    // Compare number of points: first path <= second path
+    PG_RETURN_BOOL(p1->npts <= p2->npts);
+}
+```

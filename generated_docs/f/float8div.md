@@ -35,3 +35,35 @@ float8div is a PostgreSQL built-in function wrapper that implements the division
   - Underflow detection (when non-zero dividend with finite divisor produces zero result)
 - Part of PostgreSQL's type system for double-precision floating-point arithmetic
 - Located in src/backend/utils/adt/float.c:790-808
+
+## Simplified Source
+
+```c
+Datum
+float8div(PG_FUNCTION_ARGS)
+{
+    // Extract two float8 arguments from function call
+    float8 arg1 = PG_GETARG_FLOAT8(0);  // dividend
+    float8 arg2 = PG_GETARG_FLOAT8(1);  // divisor
+
+    // Check for division by zero (unless dividend is NaN)
+    if (arg2 == 0.0 && !isnan(arg1)) {
+        float_zero_divide_error();
+    }
+
+    // Perform division
+    float8 result = arg1 / arg2;
+
+    // Check for overflow: result infinite but dividend was finite
+    if (isinf(result) && !isinf(arg1)) {
+        float_overflow_error();
+    }
+
+    // Check for underflow: result zero but dividend non-zero and divisor finite
+    if (result == 0.0 && arg1 != 0.0 && !isinf(arg2)) {
+        float_underflow_error();
+    }
+
+    PG_RETURN_FLOAT8(result);
+}
+```

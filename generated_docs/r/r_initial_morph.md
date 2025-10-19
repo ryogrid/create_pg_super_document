@@ -47,3 +47,28 @@ This preprocessing step is crucial for handling Irish initial mutations, lenitio
 - The a_0 array and s_0-s_8 strings contain language-specific Irish morphological rules
 - This function is part of the preprocessing phase before main suffix removal rules are applied
 - Essential for handling Irish linguistic features like lenition (softening of consonants) and eclipsis
+
+## Simplified Source
+
+```c
+static int r_initial_morph(struct SN_env * z) {
+    // Set text boundaries and find initial morphological pattern
+    z->bra = z->c;
+    int among_var = find_among(z, a_0, 24);
+    if (!among_var) return 0;
+
+    z->ket = z->c;
+
+    // Apply transformation based on pattern found
+    switch (among_var) {
+        case 1:
+            // Delete the matched prefix
+            return slice_del(z);
+        case 2: case 3: case 4: case 5: case 6:
+        case 7: case 8: case 9: case 10:
+            // Replace with corresponding substitution string (s_0 to s_8)
+            return slice_from_s(z, 1, substitution_strings[among_var - 2]);
+    }
+    return 1;
+}
+```

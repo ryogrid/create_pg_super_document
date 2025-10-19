@@ -30,3 +30,16 @@ This function serves as a comparison callback for qsort operations on arrays of 
 - The double pointer dereferencing is necessary because qsort passes pointers to array elements, and the array contains string pointers
 - Used specifically in text search query operations for sorting extracted query values to enable efficient comparison algorithms
 - The function assumes both parameters are valid non-NULL pointers to string pointers
+
+## Simplified Source
+
+```c
+static int cmp_string(const void *a, const void *b) {
+    // Dereference void pointers to get actual string pointers
+    const char *string_a = *((char *const *) a);
+    const char *string_b = *((char *const *) b);
+
+    // Compare strings lexicographically
+    return strcmp(string_a, string_b);
+}
+```

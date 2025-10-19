@@ -32,3 +32,15 @@ BumpGetChunkContext is an intentionally non-functional implementation of the mem
 - Other memory context types maintain chunk-to-context mapping for debugging and introspection purposes
 - The bump allocator trades this capability for improved performance and reduced memory overhead
 - Applications requiring chunk context introspection must use alternative memory context implementations
+
+## Simplified Source
+
+```c
+MemoryContext
+BumpGetChunkContext(void *pointer)
+{
+    // Bump allocator doesn't maintain chunk-to-context mapping
+    elog(ERROR, "GetMemoryChunkContext is not supported by the bump memory allocator");
+    return NULL; // Keep compiler quiet
+}
+```

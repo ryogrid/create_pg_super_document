@@ -39,3 +39,53 @@ On Unix systems, it first checks the HOME environment variable, and if that's no
 - Memory management handled properly with free() for allocated option string
 - Returns PSQL_CMD_SKIP_LINE on success, PSQL_CMD_ERROR on failure
 - Part of the psql interactive command system located in src/bin/psql/command.c:607-670
+
+## Simplified Source
+
+```c
+static backslashResult
+exec_command_cd(PsqlScanState scan_state, bool active_branch, const char *cmd)
+{
+    bool success = true;
+
+    if (active_branch) {
+        // Get directory argument or use default
+        char *opt = psql_scan_slash_option(scan_state, OT_NORMAL, NULL, true);
+        char *dir;
+
+        if (opt) {
+            dir = opt;
+        } else {
+            // Get home directory
+#ifndef WIN32
+            // Unix: try HOME env var, then user database
+            dir = getenv("HOME");
+            if (!dir || dir[0] == '\0') {
+                struct passwd *pw = getpwuid(geteuid());
+                if (pw) {
+                    dir = pw->pw_dir;
+                } else {
+                    pg_log_error("could not get home directory");
+                    success = false;
+                }
+            }
+#else
+            // Windows: default to root
+            dir = "/";
+#endif
+        }
+
+        // Attempt directory change
+        if (success && chdir(dir) < 0) {
+            pg_log_error("\\%s: could not change directory to \"%s\": %m", cmd, dir);
+            success = false;
+        }
+
+        free(opt);
+    } else {
+        ignore_slash_options(scan_state);
+    }
+
+    return success ? PSQL_CMD_SKIP_LINE : PSQL_CMD_ERROR;
+}
+```

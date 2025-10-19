@@ -50,3 +50,31 @@ The function uses backward matching throughout and includes bounds checking to e
 - The bit manipulation operation is used for efficient Unicode character classification
 - Includes bounds checking (z->c - 3 <= z->lb) to prevent buffer underruns
 - Part of the sequential stemming process where steps are applied in order
+
+## Simplified Source
+
+```c
+static int r_steps4(struct SN_env * z) {
+    // Phase 1: Find and delete suffix patterns from array a_9
+    z->ket = z->c;
+    if (!(find_among_b(z, a_9, 7))) return 0;
+    z->bra = z->c;
+    slice_del(z);  // Delete matched suffix
+    z->I[0] = 0;   // Reset counter
+
+    // Phase 2: Apply replacement patterns from array a_8
+    z->ket = z->c;
+    z->bra = z->c;
+
+    // Check character properties with bounds checking
+    if (z->c - 3 <= z->lb || !char_matches_filter(z->p[z->c - 1]))
+        return 0;
+
+    // Find pattern and replace with predefined string
+    if (!(find_among_b(z, a_8, 19))) return 0;
+    if (z->c > z->lb) return 0;
+    slice_from_s(z, 2, s_42);  // Replace with s_42 string
+
+    return 1;  // Success
+}
+```

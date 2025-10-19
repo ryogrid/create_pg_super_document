@@ -38,3 +38,22 @@ The function differs from its OID-based counterpart by using object names (strin
 - [String](../S/String.md)-based hooks are particularly useful when object OIDs are not readily available or when extensions prefer to work with object names
 - The is_internal flag helps extensions distinguish between user-initiated object creations and internal PostgreSQL operations
 - This hook is commonly used by logical replication systems, auditing extensions, and other tools that need to track database schema changes
+
+## Simplified Source
+
+```c
+void RunObjectPostCreateHookStr(Oid classId, const char *objectName, int subId,
+                               bool is_internal)
+{
+    ObjectAccessPostCreate pc_arg;
+
+    // Initialize structure with creation metadata
+    memset(&pc_arg, 0, sizeof(ObjectAccessPostCreate));
+    pc_arg.is_internal = is_internal;
+
+    // Call registered string-based object access hook for post-create event
+    (*object_access_hook_str)(OAT_POST_CREATE,
+                             classId, objectName, subId,
+                             (void *) &pc_arg);
+}
+```

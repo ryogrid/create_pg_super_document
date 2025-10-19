@@ -32,3 +32,22 @@ The `bbstreamer_plain_writer_finalize` function is the finalization callback for
 - Part of the cleanup phase in PostgreSQL's backup streaming system
 - The `should_close_file` flag ensures that files opened by the caller are not inadvertently closed
 - Located in src/bin/pg_basebackup/bbstreamer_file.c:131-148
+
+## Simplified Source
+
+```c
+static void
+bbstreamer_plain_writer_finalize(bbstreamer *streamer)
+{
+    bbstreamer_plain_writer *writer = (bbstreamer_plain_writer *) streamer;
+
+    // Close file only if we opened it ourselves
+    if (writer->should_close_file && fclose(writer->file) != 0) {
+        pg_fatal("could not close file \"%s\": %m", writer->pathname);
+    }
+
+    // Clean up state
+    writer->file = NULL;
+    writer->should_close_file = false;
+}
+```

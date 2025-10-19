@@ -37,3 +37,17 @@ This function implements the compression step for SP-GiST quadtree indexes on po
 - The compression is necessary because SP-GiST quadtree partitioning works on simpler geometric shapes
 - Part of PostgreSQL's SP-GiST framework for spatial indexing
 - Works in conjunction with spg_bbox_quad_config for complete polygon indexing support
+
+## Simplified Source
+
+```c
+Datum spg_poly_quad_compress(PG_FUNCTION_ARGS) {
+    POLYGON *polygon = PG_GETARG_POLYGON_P(0);
+
+    // Extract polygon's bounding box for spatial indexing
+    BOX *box = (BOX *) palloc(sizeof(BOX));
+    *box = polygon->boundbox;  // Use pre-computed bounding box
+
+    PG_RETURN_BOX_P(box);
+}
+```

@@ -36,3 +36,39 @@ The backward processing approach (using `find_among_b()`) is characteristic of s
 - The function uses the Snowball library's efficient pattern matching system for performance
 - Returns 1 on successful completion, maintaining consistency with other Snowball functions
 - Located in src/backend/snowball/libstemmer/stem_UTF_8_greek.c:2330-2473
+
+## Simplified Source
+
+```c
+static int r_tolower(struct SN_env * z) {
+    int pattern_match;
+
+    // Process string from right to left, converting uppercase to lowercase
+    while (1) {
+        int saved_pos = z->l - z->c;
+        z->ket = z->c;
+
+        // Find Greek uppercase pattern in predefined array (46 patterns)
+        pattern_match = find_among_b(z, a_0, 46);
+        if (!pattern_match) {
+            // No more patterns found, restore position and exit
+            z->c = z->l - saved_pos;
+            break;
+        }
+
+        z->bra = z->c;
+
+        // Replace with lowercase equivalent based on pattern
+        if (pattern_match >= 1 && pattern_match <= 24) {
+            // Cases 1-24: Direct character replacements
+            // Each case replaces with predefined lowercase string
+            slice_from_s(z, 2, s_[pattern_match-1]);
+        } else if (pattern_match == 25) {
+            // Special case: skip backward one UTF-8 character
+            skip_b_utf8(z->p, z->c, z->lb, 1);
+        }
+    }
+
+    return 1; // Success
+}
+```

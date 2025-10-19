@@ -35,3 +35,23 @@ This function appends formatted information about dropped statistics to a String
 - Only produces output when ndropped > 0, otherwise does nothing
 - Each dropped stats item is formatted as "kind/dboid/objoid" triplet
 - Used consistently across different transaction description functions to maintain uniform formatting of dropped statistics information
+
+## Simplified Source
+
+```c
+static void xact_desc_stats(StringInfo buf, const char *label,
+                           int ndropped, xl_xact_stats_item *dropped_stats) {
+    if (ndropped > 0) {
+        // Add label prefix for dropped statistics
+        appendStringInfo(buf, "; %sdropped stats:", label);
+
+        // Format each dropped statistics item as kind/dboid/objoid
+        for (int i = 0; i < ndropped; i++) {
+            appendStringInfo(buf, " %d/%u/%u",
+                           dropped_stats[i].kind,
+                           dropped_stats[i].dboid,
+                           dropped_stats[i].objoid);
+        }
+    }
+}
+```

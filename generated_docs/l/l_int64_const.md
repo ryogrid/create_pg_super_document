@@ -28,5 +28,18 @@ This is a utility function that wraps LLVM's  function to create 64-bit signed i
 ## Notes and Other Information
 - This function is part of the LLVM JIT emission utilities defined in llvmjit_emit.h
 - The function uses the LLVM C API to create integer constants
-- The third parameter  in LLVMConstInt indicates the value is not sign-extended
+- The third parameter in LLVMConstInt indicates the value is not sign-extended
 - This is a convenience wrapper that simplifies creating 64-bit integer constants in PostgreSQL's JIT code generation
+
+## Simplified Source
+
+```c
+static inline LLVMValueRef
+l_int64_const(LLVMContextRef lc, int64 i)
+{
+    // Create LLVM constant for 64-bit signed integer
+    return LLVMConstInt(LLVMInt64TypeInContext(lc), i, false);
+}
+```
+
+This helper function creates LLVM constants for 64-bit integer values. It's used less frequently than the 32-bit variant but essential for handling larger numeric values and pointer arithmetic in JIT compilation.

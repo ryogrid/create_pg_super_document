@@ -43,3 +43,27 @@ This is a non-consuming test function that checks for the presence of doubled co
 - Returns 1 if doubled consonants are detected, 0 otherwise
 - Essential for proper handling of Hungarian consonant doubling rules in stemming
 - Part of the Hungarian morphological analyzer in PostgreSQL's full-text search system
+
+## Simplified Source
+
+```c
+static int r_double(struct SN_env * z) {
+    // Save current position for non-consuming test
+    int test_position = z->l - z->c;
+
+    // Check if we have a valid consonant character that can be doubled
+    // Uses bit manipulation to test for specific Hungarian consonant patterns
+    if (z->c - 1 <= z->lb ||
+        z->p[z->c - 1] >> 5 != 3 ||
+        !((106790108 >> (z->p[z->c - 1] & 0x1f)) & 1))
+        return 0;
+
+    // Look for doubled consonant patterns in predefined array
+    if (!find_among_b(z, a_2, 23)) return 0;
+
+    // Restore cursor position (non-consuming test)
+    z->c = z->l - test_position;
+
+    return 1;
+}
+```

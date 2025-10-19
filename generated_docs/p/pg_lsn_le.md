@@ -35,3 +35,16 @@ This comparison is particularly useful for implementing inclusive range queries,
 - Commonly used in range queries and boundary condition checking for replication monitoring
 - The function follows PostgreSQL's standard function calling convention (PG_FUNCTION_ARGS)
 - Located in src/backend/utils/adt/pg_lsn.c:154-162
+
+## Simplified Source
+
+```c
+Datum pg_lsn_le(PG_FUNCTION_ARGS) {
+    // Extract both LSN values from function arguments
+    XLogRecPtr lsn1 = PG_GETARG_LSN(0);
+    XLogRecPtr lsn2 = PG_GETARG_LSN(1);
+
+    // Return true if first LSN is less than or equal to second
+    PG_RETURN_BOOL(lsn1 <= lsn2);
+}
+```

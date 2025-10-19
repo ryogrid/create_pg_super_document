@@ -36,3 +36,14 @@ The conversion is lightweight as it doesn't parse or copy the data - it simply w
 - The function performs no validation or parsing - it assumes the input Jsonb is valid
 - The resulting JsonbValue references the original data, so the Jsonb structure must remain valid while the JsonbValue is in use
 - Located in src/backend/utils/adt/jsonb_util.c:72-91
+
+## Simplified Source
+
+```c
+void JsonbToJsonbValue(Jsonb *jsonb, JsonbValue *val) {
+    // Wrap Jsonb binary data as JsonbValue for internal processing
+    val->type = jbvBinary;
+    val->val.binary.data = &jsonb->root;
+    val->val.binary.len = VARSIZE(jsonb) - VARHDRSZ;
+}
+```

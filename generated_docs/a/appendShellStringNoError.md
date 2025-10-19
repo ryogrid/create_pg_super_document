@@ -44,3 +44,79 @@ When LF or CR characters are encountered, they are silently omitted from the out
 - Windows implementation uses caret escaping with complex backslash doubling rules around double quotes
 - Provides graceful error handling compared to appendShellString()'s fatal error approach
 - Critical for security in PostgreSQL utilities that construct shell commands dynamically
+
+## Simplified Source
+
+```c
+bool appendShellStringNoError(PQExpBuffer buf, const char *str) {
+    bool ok = true;
+    const char *p;
+
+    // Optimization: no quoting needed for safe characters only
+    if (*str != '\0' &&
+        strspn(str, "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-_./:")
+        == strlen(str)) {
+        appendPQExpBufferStr(buf, str);
+        return ok;
+    }
+
+#ifndef WIN32
+    // Unix: single-quote wrapping with special quote handling
+    appendPQExpBufferChar(buf, '\'');
+    for (p = str; *p; p++) {
+        if (*p == '\n' || *p == '\r') {
+            ok = false;  // Skip dangerous characters
+            continue;
+        }
+
+        if (*p == '\'')
+            appendPQExpBufferStr(buf, "'\"'\"'");  // Escape embedded quotes
+        else
+            appendPQExpBufferChar(buf, *p);
+    }
+    appendPQExpBufferChar(buf, '\'');
+
+#else  // WIN32
+    // Windows: complex two-layer escaping for cmd.exe and argv parsing
+    int backslash_run_length = 0;
+
+    appendPQExpBufferStr(buf, "^\"");  // Opening escaped quote
+    for (p = str; *p; p++) {
+        if (*p == '\n' || *p == '\r') {
+            ok = false;  // Skip dangerous characters
+            continue;
+        }
+
+        // Handle backslash-quote sequences specially
+        if (*p == '"') {
+            // Double backslashes before quotes
+            while (backslash_run_length) {
+                appendPQExpBufferStr(buf, "^\\");
+                backslash_run_length--;
+            }
+            appendPQExpBufferStr(buf, "^\\");
+        } else if (*p == '\\') {
+            backslash_run_length++;
+        } else {
+            backslash_run_length = 0;
+        }
+
+        // Caret-escape special characters (except alphanumeric)
+        if (!((*p >= 'a' && *p <= 'z') ||
+              (*p >= 'A' && *p <= 'Z') ||
+              (*p >= '0' && *p <= '9')))
+            appendPQExpBufferChar(buf, '^');
+        appendPQExpBufferChar(buf, *p);
+    }
+
+    // Handle trailing backslashes before closing quote
+    while (backslash_run_length) {
+        appendPQExpBufferStr(buf, "^\\");
+        backslash_run_length--;
+    }
+    appendPQExpBufferStr(buf, "^\"");  // Closing escaped quote
+#endif
+
+    return ok;
+}
+```

@@ -31,3 +31,12 @@ This is a simple utility function that computes the output buffer size needed to
 - Part of PostgreSQL's encoding/decoding subsystem in src/backend/utils/adt/encode.c
 - Function is static (internal linkage) and serves as a utility for encoding operations
 - Does not perform any validation on input parameters
+
+## Simplified Source
+
+```c
+static uint64 hex_enc_len(const char *src, size_t srclen) {
+    // Each byte becomes 2 hex digits, so multiply by 2
+    return (uint64) srclen << 1;  // Efficient bit shift instead of * 2
+}
+```

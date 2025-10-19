@@ -37,3 +37,24 @@ The function first calculates the lengths of both the filename and suffix string
 - Returns an integer (0 or 1) rather than a boolean type for compatibility with C89/90
 - The function handles edge cases where the filename is shorter than the suffix
 - Located in src/bin/pg_dump/compress_io.c at lines 164-178
+
+## Simplified Source
+
+```c
+static int
+hasSuffix(const char *filename, const char *suffix)
+{
+    // Get string lengths
+    int filename_len = strlen(filename);
+    int suffix_len = strlen(suffix);
+
+    // Check if filename is too short to have this suffix
+    if (filename_len < suffix_len)
+        return 0;
+
+    // Compare the end of filename with suffix
+    return memcmp(&filename[filename_len - suffix_len],
+                  suffix,
+                  suffix_len) == 0;
+}
+```

@@ -37,3 +37,18 @@ The function first clears the resource owner reference in the context to prevent
 - Critical for robust resource management in long-running PostgreSQL processes
 - Only used in the OpenSSL implementation of cryptographic hash functions
 - Integrates with PostgreSQL's broader resource tracking and cleanup infrastructure
+
+## Simplified Source
+
+```c
+static void ResOwnerReleaseCryptoHash(Datum res) {
+    // Extract crypto hash context from the resource datum
+    pg_cryptohash_ctx *ctx = (pg_cryptohash_ctx *) DatumGetPointer(res);
+
+    // Clear resource owner reference to avoid circular dependencies
+    ctx->resowner = NULL;
+
+    // Free the cryptographic hash context
+    pg_cryptohash_free(ctx);
+}
+```

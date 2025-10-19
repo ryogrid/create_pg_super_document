@@ -34,3 +34,16 @@ This comparison is particularly useful in replication scenarios, monitoring WAL 
 - This function is automatically invoked when using inequality operators (!=, <>) in SQL with pg_lsn operands
 - The function follows PostgreSQL's standard function calling convention (PG_FUNCTION_ARGS)
 - Located in src/backend/utils/adt/pg_lsn.c:127-135
+
+## Simplified Source
+
+```c
+Datum pg_lsn_ne(PG_FUNCTION_ARGS) {
+    // Extract both LSN values from function arguments
+    XLogRecPtr lsn1 = PG_GETARG_LSN(0);
+    XLogRecPtr lsn2 = PG_GETARG_LSN(1);
+
+    // Return true if LSNs are not equal
+    PG_RETURN_BOOL(lsn1 != lsn2);
+}
+```

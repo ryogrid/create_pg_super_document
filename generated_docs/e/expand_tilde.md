@@ -46,3 +46,58 @@ The function modifies the input string in place by allocating a new string with 
 - Uses POSIX  function to look up user information
 - Critical for psql's file handling commands to support convenient home directory references
 - The function gracefully handles cases where user lookup fails by leaving the path unchanged
+
+## Simplified Source
+
+```c
+void expand_tilde(char **filename)
+{
+    if (!filename || !(*filename))
+        return;
+
+#ifndef WIN32
+    // Only process paths starting with tilde
+    if (**filename == '~') {
+        char *fn;
+        char oldp, *p;
+        struct passwd *pw;
+        char home[MAXPGPATH];
+
+        fn = *filename;
+        *home = '\0';
+
+        // Find end of username (look for '/' or end of string)
+        p = fn + 1;
+        while (*p != '/' && *p != '\0')
+            p++;
+
+        // Temporarily null-terminate the username part
+        oldp = *p;
+        *p = '\0';
+
+        // Determine which home directory to use
+        if (*(fn + 1) == '\0') {
+            // Just "~" or "~/" - use current user's home
+            get_home_path(home);
+        } else {
+            // "~username" - look up specific user's home
+            pw = getpwnam(fn + 1);
+            if (pw != NULL)
+                strlcpy(home, pw->pw_dir, sizeof(home));
+        }
+
+        // Restore the original character
+        *p = oldp;
+
+        // If we found a home directory, create expanded path
+        if (strlen(home) != 0) {
+            char *newfn;
+
+            newfn = psprintf("%s%s", home, p);
+            free(fn);
+            *filename = newfn;
+        }
+    }
+#endif
+}
+```

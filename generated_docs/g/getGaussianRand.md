@@ -44,3 +44,30 @@ The parameter controls the width of the distribution - larger parameter values a
 - Part of pgbench's statistical distribution capabilities for realistic workload modeling
 - Gaussian distribution is particularly useful for simulating phenomena that cluster around a central value with symmetric variations
 - The implementation ensures that extreme outliers are rejected while maintaining the Gaussian distribution properties within the specified bounds
+
+## Simplified Source
+
+```c
+static int64
+getGaussianRand(pg_prng_state *state, int64 min, int64 max, double parameter)
+{
+    double stdev;
+    double rand;
+
+    // Parameter must be >= 2.0
+    Assert(parameter >= MIN_GAUSSIAN_PARAM);
+
+    // Get normal random number within bounds using rejection sampling
+    do
+    {
+        stdev = pg_prng_double_normal(state);
+    }
+    while (stdev < -parameter || stdev >= parameter);
+
+    // Normalize from [-parameter, parameter) to [0, 1)
+    rand = (stdev + parameter) / (parameter * 2.0);
+
+    // Scale to integer range [min, max]
+    return min + (int64) ((max - min + 1) * rand);
+}
+```

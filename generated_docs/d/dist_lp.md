@@ -34,3 +34,16 @@ This PostgreSQL function computes the shortest distance between an infinite line
 - The function is designed for infinite lines, not line segments
 - Uses NULL as the first parameter to line_closept_point(), indicating only the distance is needed, not the actual closest point coordinates
 - This function can be called from SQL queries as part of geometric distance operations
+
+## Simplified Source
+
+```c
+Datum dist_lp(PG_FUNCTION_ARGS) {
+    // Get line and point arguments
+    LINE *line = PG_GETARG_LINE_P(0);
+    Point *pt = PG_GETARG_POINT_P(1);
+
+    // Calculate and return minimum distance from line to point
+    PG_RETURN_FLOAT8(line_closept_point(NULL, line, pt));
+}
+```

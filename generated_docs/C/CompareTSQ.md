@@ -41,3 +41,38 @@ The function is static, indicating it's used internally within the tsquery_op.c 
 - Properly manages temporary QTNode allocations by freeing them after comparison
 - Used as the foundation for tsquery equality and ordering operations
 - Static function, not exposed in the public API
+
+## Simplified Source
+
+```c
+static int CompareTSQ(TSQuery a, TSQuery b) {
+    // Compare by number of query nodes first
+    if (a->size != b->size) {
+        return (a->size < b->size) ? -1 : 1;
+    }
+
+    // Compare by total memory size
+    if (VARSIZE(a) != VARSIZE(b)) {
+        return (VARSIZE(a) < VARSIZE(b)) ? -1 : 1;
+    }
+
+    // For non-empty queries, compare tree structure
+    if (a->size != 0) {
+        // Convert TSQuery to QTNode trees for comparison
+        QTNode *tree_a = QT2QTN(GETQUERY(a), GETOPERAND(a));
+        QTNode *tree_b = QT2QTN(GETQUERY(b), GETOPERAND(b));
+
+        // Compare the tree structures
+        int result = QTNodeCompare(tree_a, tree_b);
+
+        // Clean up temporary trees
+        QTNFree(tree_a);
+        QTNFree(tree_b);
+
+        return result;
+    }
+
+    // Queries are equal (both empty)
+    return 0;
+}
+```

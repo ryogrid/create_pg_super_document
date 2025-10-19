@@ -35,3 +35,30 @@ The lo_write function is the backend implementation for writing data to a Postgr
 - Part of PostgreSQL's fastpath interface for large objects
 - Located in src/backend/libpq/be-fsstubs.c:182-205
 - Requires the large object to have been opened with write lock (IFS_WRLOCK flag)
+
+## Simplified Source
+
+```c
+int
+lo_write(int fd, const char *buf, int len)
+{
+    LargeObjectDesc *lobj;
+
+    // Validate file descriptor
+    if (fd < 0 || fd >= cookies_size || cookies[fd] == NULL)
+        ereport(ERROR,
+                (errcode(ERRCODE_UNDEFINED_OBJECT),
+                 errmsg("invalid large-object descriptor: %d", fd)));
+
+    lobj = cookies[fd];
+
+    // Check write permission
+    if ((lobj->flags & IFS_WRLOCK) == 0)
+        ereport(ERROR,
+                (errcode(ERRCODE_OBJECT_NOT_IN_PREREQUISITE_STATE),
+                 errmsg("large object descriptor %d was not opened for writing", fd)));
+
+    // Perform the write operation
+    return inv_write(lobj, buf, len);
+}
+```

@@ -34,3 +34,32 @@ The function returns standard comparator values: negative for a < b, zero for a 
 - Used internally by sorting functions to organize block reference data
 - Essential for maintaining consistent ordering in serialized block reference tables
 - Follows PostgreSQL's standard comparator function signature for use with qsort
+
+## Simplified Source
+
+```c
+static int
+BlockRefTableComparator(const void *a, const void *b)
+{
+    const BlockRefTableSerializedEntry *sa = a;
+    const BlockRefTableSerializedEntry *sb = b;
+
+    // Compare by tablespace OID first (primary sort key)
+    if (sa->rlocator.spcOid != sb->rlocator.spcOid)
+        return (sa->rlocator.spcOid > sb->rlocator.spcOid) ? 1 : -1;
+
+    // Compare by database OID second
+    if (sa->rlocator.dbOid != sb->rlocator.dbOid)
+        return (sa->rlocator.dbOid > sb->rlocator.dbOid) ? 1 : -1;
+
+    // Compare by relation number third
+    if (sa->rlocator.relNumber != sb->rlocator.relNumber)
+        return (sa->rlocator.relNumber > sb->rlocator.relNumber) ? 1 : -1;
+
+    // Compare by fork number last
+    if (sa->forknum != sb->forknum)
+        return (sa->forknum > sb->forknum) ? 1 : -1;
+
+    return 0; // All fields are equal
+}
+```

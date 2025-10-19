@@ -55,3 +55,17 @@ The function creates a complete abstraction layer that allows the rest of the pg
 - Error handling for unsupported builds uses PostgreSQL's standard pg_fatal() mechanism
 - The function enables both reading from and writing to LZ4-compressed files through a unified interface
 - Part of PostgreSQL's pluggable compression file handle architecture
+
+## Simplified Source
+
+```c
+void
+InitCompressFileHandleLZ4(CompressFileHandle *CFH,
+                          const pg_compress_specification compression_spec)
+{
+    // This is the fallback implementation when LZ4 is not available
+    pg_fatal("this build does not support compression with %s", "LZ4");
+}
+```
+
+**Note**: This shows the fallback implementation when LZ4 support is not compiled in. When LZ4 is available, this function would configure the CFH with LZ4-specific function pointers and allocate the LZ4State structure.

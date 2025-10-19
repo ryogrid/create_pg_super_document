@@ -63,3 +63,78 @@ Function arguments accessed via PostgreSQL's function call interface:
 - Includes detailed error handling with appropriate SQL error codes and messages
 - Demonstrates dynamic background worker creation patterns for PostgreSQL extensions
 - Location: src/test/modules/worker_spi/worker_spi.c:396-493
+
+## Simplified Source
+```c
+Datum
+worker_spi_launch(PG_FUNCTION_ARGS)
+{
+    int32 worker_id = PG_GETARG_INT32(0);
+    Oid dboid = PG_GETARG_OID(1);
+    Oid roleoid = PG_GETARG_OID(2);
+    ArrayType *flags_array = PG_GETARG_ARRAYTYPE_P(3);
+
+    BackgroundWorker worker;
+    BackgroundWorkerHandle *handle;
+    BgwHandleStatus status;
+    pid_t pid;
+    bits32 flags = 0;
+
+    // Configure background worker structure
+    memset(&worker, 0, sizeof(worker));
+    worker.bgw_flags = BGWORKER_SHMEM_ACCESS | BGWORKER_BACKEND_DATABASE_CONNECTION;
+    worker.bgw_start_time = BgWorkerStart_RecoveryFinished;
+    worker.bgw_restart_time = BGW_NEVER_RESTART;
+    sprintf(worker.bgw_library_name, "worker_spi");
+    sprintf(worker.bgw_function_name, "worker_spi_main");
+    snprintf(worker.bgw_name, BGW_MAXLEN, "worker_spi dynamic worker %d", worker_id);
+    worker.bgw_notify_pid = MyProcPid;  // Enable startup confirmation
+
+    // Process flags array for connection bypass options
+    if (ARR_NDIM(flags_array) > 1 || array_contains_nulls(flags_array))
+        ereport(ERROR, (errmsg("invalid flags array")));
+
+    // Parse flag strings and set appropriate bypass flags
+    Datum *flag_values;
+    int nflags;
+    deconstruct_array_builtin(flags_array, TEXTOID, &flag_values, NULL, &nflags);
+
+    for (int i = 0; i < nflags; i++) {
+        char *flag_name = TextDatumGetCString(flag_values[i]);
+        if (strcmp(flag_name, "ALLOWCONN") == 0)
+            flags |= BGWORKER_BYPASS_ALLOWCONN;
+        else if (strcmp(flag_name, "ROLELOGINCHECK") == 0)
+            flags |= BGWORKER_BYPASS_ROLELOGINCHECK;
+        else
+            ereport(ERROR, (errmsg("unknown flag: %s", flag_name)));
+    }
+
+    // Handle database and role defaults
+    if (!OidIsValid(dboid))
+        dboid = get_database_oid(worker_spi_database, false);
+    if (!OidIsValid(roleoid) && worker_spi_role)
+        roleoid = get_role_oid(worker_spi_role, false);
+
+    // Pack configuration into bgw_extra
+    char *p = worker.bgw_extra;
+    memcpy(p, &dboid, sizeof(Oid)); p += sizeof(Oid);
+    memcpy(p, &roleoid, sizeof(Oid)); p += sizeof(Oid);
+    memcpy(p, &flags, sizeof(bits32));
+
+    // Register and start the dynamic worker
+    if (!RegisterDynamicBackgroundWorker(&worker, &handle))
+        PG_RETURN_NULL();
+
+    status = WaitForBackgroundWorkerStartup(handle, &pid);
+
+    // Handle startup errors
+    if (status != BGWH_STARTED) {
+        if (status == BGWH_STOPPED)
+            ereport(ERROR, (errmsg("could not start background process")));
+        else if (status == BGWH_POSTMASTER_DIED)
+            ereport(ERROR, (errmsg("cannot start without postmaster")));
+    }
+
+    PG_RETURN_INT32(pid);
+}
+```

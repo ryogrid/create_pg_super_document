@@ -45,3 +45,19 @@ Key characteristics:
 - Provides less detailed context than `commandFailed` since these are typically recoverable errors
 - Used primarily for SQL command execution errors that don't abort the client
 - Essential for understanding SQL-level failures during benchmark execution without stopping the benchmark
+
+## Simplified Source
+
+```c
+static void commandError(CState *st, const char *message) {
+    // Verify that current command is SQL type (safety check)
+    Assert(sql_script[st->use_file].commands[st->command]->type == SQL_COMMAND);
+
+    // Log SQL command error as informational message (non-fatal)
+    pg_log_info("client %d got an error in command %d (SQL) of script %d; %s",
+                st->id,       // Client identifier
+                st->command,  // Command sequence number
+                st->use_file, // Script file identifier
+                message);     // Error details
+}
+```

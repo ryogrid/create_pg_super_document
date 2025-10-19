@@ -42,3 +42,32 @@ This function is essential for maintaining data consistency in logical replicati
 - The function performs no operations in release builds, ensuring no performance impact in production
 - LSN ordering is critical for logical replication consistency and this function helps catch violations during development
 - The assertions check both absolute ordering (relative to transaction boundaries) and relative ordering (sequential increase within the transaction)
+
+## Simplified Source
+```c
+static void AssertChangeLsnOrder(ReorderBufferTXN *txn)
+{
+#ifdef USE_ASSERT_CHECKING
+    dlist_iter iter;
+    XLogRecPtr prev_lsn = txn->first_lsn;
+
+    // Iterate through all changes in the transaction
+    dlist_foreach(iter, &txn->changes) {
+        ReorderBufferChange *cur_change = dlist_container(ReorderBufferChange, node, iter.cur);
+
+        // Validate LSN values are not invalid
+        Assert(txn->first_lsn != InvalidXLogRecPtr);
+        Assert(cur_change->lsn != InvalidXLogRecPtr);
+
+        // Ensure change LSN is within transaction boundaries
+        Assert(txn->first_lsn <= cur_change->lsn);
+        if (txn->end_lsn != InvalidXLogRecPtr)
+            Assert(cur_change->lsn <= txn->end_lsn);
+
+        // Verify LSNs are monotonically increasing
+        Assert(prev_lsn <= cur_change->lsn);
+        prev_lsn = cur_change->lsn;
+    }
+#endif
+}
+```

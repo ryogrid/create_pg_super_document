@@ -34,3 +34,16 @@ This function implements the equality operator for BOX data types in PostgreSQL.
 - The equality comparison is based solely on area, not on position or exact coordinate matching
 - Uses floating-point arithmetic, so standard floating-point precision considerations apply
 - Located in src/backend/utils/adt/geo_ops.c:762-770
+
+## Simplified Source
+
+```c
+Datum box_eq(PG_FUNCTION_ARGS) {
+    // Extract the two box arguments
+    BOX *box1 = PG_GETARG_BOX_P(0);
+    BOX *box2 = PG_GETARG_BOX_P(1);
+
+    // Compare boxes by their areas using floating-point equality
+    return PG_RETURN_BOOL(FPeq(box_ar(box1), box_ar(box2)));
+}
+```

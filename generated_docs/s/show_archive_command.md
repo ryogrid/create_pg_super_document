@@ -31,3 +31,15 @@ The function checks the current archiving status using XLogArchivingActive() and
 - Returns the literal string "(disabled)" when archiving is inactive
 - Provides user-friendly display of archiving status in configuration views
 - Part of the GUC hook system for parameter display customization
+
+## Simplified Source
+
+```c
+const char *show_archive_command(void) {
+    // Check if WAL archiving is currently active
+    if (XLogArchivingActive())
+        return XLogArchiveCommand;  // Return actual command
+    else
+        return "(disabled)";        // Show disabled status
+}
+```

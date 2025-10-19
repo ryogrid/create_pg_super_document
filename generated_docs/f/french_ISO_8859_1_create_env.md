@@ -43,3 +43,13 @@ The created environment contains all necessary data structures for text processi
 - Thread-safe as each call creates a separate environment instance
 - Memory allocation failures are handled gracefully by returning NULL
 - The environment created is specifically for ISO-8859-1 encoding and should not be used with other character encodings
+
+## Simplified Source
+
+```c
+extern struct SN_env * french_ISO_8859_1_create_env(void) {
+    // Create Snowball environment for French stemming
+    // Parameters: 0 string slots, 3 integer slots
+    return SN_create_env(0, 3);
+}
+```

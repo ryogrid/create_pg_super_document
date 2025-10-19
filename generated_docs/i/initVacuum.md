@@ -32,3 +32,17 @@ This function executes VACUUM ANALYZE commands on all four standard pgbench tabl
 - Part of the standard pgbench initialization workflow, typically run after data generation
 - VACUUM ANALYZE combination ensures both storage optimization and accurate query planning statistics
 - Static function used only within the pgbench initialization process
+
+## Simplified Source
+
+```c
+static void initVacuum(PGconn *con) {
+    fprintf(stderr, "vacuuming...\n");
+
+    // Vacuum and analyze all pgbench tables for optimal performance
+    executeStatement(con, "vacuum analyze pgbench_branches");
+    executeStatement(con, "vacuum analyze pgbench_tellers");
+    executeStatement(con, "vacuum analyze pgbench_accounts");
+    executeStatement(con, "vacuum analyze pgbench_history");
+}
+```

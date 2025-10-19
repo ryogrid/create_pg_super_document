@@ -45,3 +45,44 @@ The query workflow:
 - Implements proper memory management by cleaning up PQExpBuffer objects
 - Returns false only on query execution failure, otherwise always returns true
 - The function is designed to be called iteratively for multiple extensions
+
+## Simplified Source
+
+```c
+static bool listOneExtensionContents(const char *extname, const char *oid) {
+    PQExpBufferData buf;
+    PGresult *res;
+    PQExpBufferData title;
+    printQueryOpt myopt = pset.popt;
+
+    // Build query to find extension objects
+    initPQExpBuffer(&buf);
+    printfPQExpBuffer(&buf,
+        "SELECT pg_catalog.pg_describe_object(classid, objid, 0) AS \"%s\"\n"
+        "FROM pg_catalog.pg_depend\n"
+        "WHERE refclassid = 'pg_catalog.pg_extension'::pg_catalog.regclass AND refobjid = '%s' AND deptype = 'e'\n"
+        "ORDER BY 1;",
+        gettext_noop("Object description"),
+        oid);
+
+    // Execute query
+    res = PSQLexec(buf.data);
+    termPQExpBuffer(&buf);
+    if (!res)
+        return false;
+
+    // Create title for output
+    initPQExpBuffer(&title);
+    printfPQExpBuffer(&title, _("Objects in extension \"%s\""), extname);
+    myopt.title = title.data;
+    myopt.translate_header = true;
+
+    // Display results
+    printQuery(res, &myopt, pset.queryFout, false, pset.logfile);
+
+    // Clean up
+    termPQExpBuffer(&title);
+    PQclear(res);
+    return true;
+}
+```

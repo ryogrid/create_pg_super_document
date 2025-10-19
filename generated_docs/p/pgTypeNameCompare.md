@@ -40,3 +40,30 @@ The function includes special handling for unary operators where one operand OID
 - The function assumes that types without namespaces represent catalog corruption
 - Part of the comprehensive sorting system that ensures deterministic pg_dump output
 - Located in src/bin/pg_dump/pg_dump_sort.c:471-514
+
+## Simplified Source
+
+```c
+static int pgTypeNameCompare(Oid typid1, Oid typid2) {
+    // Quick equality check
+    if (typid1 == typid2)
+        return 0;
+
+    // Look up type information for both OIDs
+    TypeInfo *typobj1 = findTypeByOid(typid1);
+    TypeInfo *typobj2 = findTypeByOid(typid2);
+
+    // Handle catalog corruption - return equal if either type not found
+    if (!typobj1 || !typobj2)
+        return 0;
+
+    // Compare namespace names first
+    int cmpval = strcmp(typobj1->dobj.namespace->dobj.name,
+                       typobj2->dobj.namespace->dobj.name);
+    if (cmpval != 0)
+        return cmpval;
+
+    // If namespaces are equal, compare type names
+    return strcmp(typobj1->dobj.name, typobj2->dobj.name);
+}
+```

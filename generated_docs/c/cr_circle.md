@@ -40,3 +40,25 @@ The  function is a conversion operator that constructs a PostgreSQL CIRCLE geome
 - Can be called from SQL using syntax like 
 - The function performs a simple data structure conversion without validation of the radius value
 - Part of PostgreSQL's geometric operators section for type conversions
+
+## Simplified Source
+
+```c
+Datum cr_circle(PG_FUNCTION_ARGS) {
+    Point *center = PG_GETARG_POINT_P(0);
+    float8 radius = PG_GETARG_FLOAT8(1);
+    CIRCLE *result;
+
+    // Allocate memory for the result circle
+    result = (CIRCLE *) palloc(sizeof(CIRCLE));
+
+    // Copy center coordinates and set radius
+    result->center.x = center->x;
+    result->center.y = center->y;
+    result->radius = radius;
+
+    PG_RETURN_CIRCLE_P(result);
+}
+```
+
+This function constructs a circle from a center point and radius. It allocates a new CIRCLE structure, copies the center coordinates from the input point, assigns the radius value, and returns the constructed circle.

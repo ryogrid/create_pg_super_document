@@ -39,3 +39,18 @@ This function is the backward navigation counterpart to dlist_next_node, providi
 - Part of the safe list traversal API that prevents common list iteration errors
 - Less frequently used than dlist_next_node, as forward traversal is more common than backward traversal
 - The assertion helps catch programming errors where code attempts to traverse beyond list boundaries
+
+## Simplified Source
+
+```c
+// Return previous node in doubly-linked list (must exist)
+static inline dlist_node *
+dlist_prev_node(dlist_head *head, dlist_node *node)
+{
+    // Verify that a previous node exists
+    Assert(dlist_has_prev(head, node));
+
+    // Return the previous node
+    return node->prev;
+}
+```

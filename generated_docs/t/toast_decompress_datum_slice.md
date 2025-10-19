@@ -49,3 +49,30 @@ Like its full decompression counterpart, this function supports multiple compres
 - Error handling includes reporting of invalid compression method IDs
 - This function is specifically designed for scenarios where offset handling is managed by the caller (detoast_attr_slice)
 - Performance benefits are most significant for large compressed values where only a small prefix is needed
+
+## Simplified Source
+
+```c
+static struct varlena *toast_decompress_datum_slice(struct varlena *attr, int32 slicelength) {
+    ToastCompressionId cmid;
+
+    Assert(VARATT_IS_COMPRESSED(attr));
+
+    // If slice length >= total decompressed size, do full decompression
+    // This avoids issues with compression libraries and oversized buffers
+    if ((uint32) slicelength >= TOAST_COMPRESS_EXTSIZE(attr))
+        return toast_decompress_datum(attr);
+
+    // Get compression method and dispatch to appropriate slice decompressor
+    cmid = TOAST_COMPRESS_METHOD(attr);
+    switch (cmid) {
+        case TOAST_PGLZ_COMPRESSION_ID:
+            return pglz_decompress_datum_slice(attr, slicelength);
+        case TOAST_LZ4_COMPRESSION_ID:
+            return lz4_decompress_datum_slice(attr, slicelength);
+        default:
+            elog(ERROR, "invalid compression method id %d", cmid);
+            return NULL;  // keep compiler quiet
+    }
+}
+```

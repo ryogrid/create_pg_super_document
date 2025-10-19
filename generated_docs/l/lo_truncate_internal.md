@@ -39,3 +39,28 @@ This is a static helper function shared by both be_lo_truncate (32-bit length) a
 - The actual truncation logic is handled by the inv_truncate function
 - Supports 64-bit length values for large objects exceeding 2GB
 - Error handling includes specific error codes for different failure modes
+
+## Simplified Source
+
+```c
+static void
+lo_truncate_internal(int32 fd, int64 len)
+{
+    LargeObjectDesc *lobj;
+
+    // Validate file descriptor is valid and active
+    if (fd < 0 || fd >= cookies_size || cookies[fd] == NULL)
+        ereport(ERROR, (errcode(ERRCODE_UNDEFINED_OBJECT),
+                       errmsg("invalid large-object descriptor: %d", fd)));
+
+    lobj = cookies[fd];
+
+    // Check that large object was opened for writing
+    if ((lobj->flags & IFS_WRLOCK) == 0)
+        ereport(ERROR, (errcode(ERRCODE_OBJECT_NOT_IN_PREREQUISITE_STATE),
+                       errmsg("large object descriptor %d was not opened for writing", fd)));
+
+    // Perform the actual truncation
+    inv_truncate(lobj, len);
+}
+```

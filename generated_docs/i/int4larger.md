@@ -34,3 +34,16 @@ The implementation is straightforward: it extracts two int32 arguments from the 
 - Part of PostgreSQL's arithmetic and comparison operators for the int4/integer data type
 - Uses standard PostgreSQL V1 function calling convention
 - The comparison is performed using simple C conditional operator for efficiency
+
+## Simplified Source
+
+```c
+Datum int4larger(PG_FUNCTION_ARGS) {
+    // Extract two 32-bit integers from function arguments
+    int32 arg1 = PG_GETARG_INT32(0);
+    int32 arg2 = PG_GETARG_INT32(1);
+
+    // Return the larger value
+    PG_RETURN_INT32((arg1 > arg2) ? arg1 : arg2);
+}
+```

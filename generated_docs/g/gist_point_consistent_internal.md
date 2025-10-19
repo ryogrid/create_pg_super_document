@@ -49,3 +49,50 @@ The strategy-based approach allows the same function to handle multiple types of
 - At internal level, performs containment checking for equality queries
 - Includes comprehensive error handling for invalid strategy numbers
 - Part of the R-tree spatial indexing implementation adapted for PostgreSQL's GiST framework
+
+## Simplified Source
+
+```c
+static bool gist_point_consistent_internal(StrategyNumber strategy,
+                                           bool isLeaf, BOX *key, Point *query) {
+    bool result = false;
+
+    switch (strategy) {
+        case RTLeftStrategyNumber:
+            // Check if index entry is left of query point
+            result = FPlt(key->low.x, query->x);
+            break;
+        case RTRightStrategyNumber:
+            // Check if index entry is right of query point
+            result = FPgt(key->high.x, query->x);
+            break;
+        case RTAboveStrategyNumber:
+            // Check if index entry is above query point
+            result = FPgt(key->high.y, query->y);
+            break;
+        case RTBelowStrategyNumber:
+            // Check if index entry is below query point
+            result = FPlt(key->low.y, query->y);
+            break;
+        case RTSameStrategyNumber:
+            if (isLeaf) {
+                // Exact point equality for leaf nodes
+                result = (FPeq(key->low.x, query->x) &&
+                          FPeq(key->low.y, query->y));
+            } else {
+                // Containment check for internal nodes
+                result = (FPle(query->x, key->high.x) &&
+                          FPge(query->x, key->low.x) &&
+                          FPle(query->y, key->high.y) &&
+                          FPge(query->y, key->low.y));
+            }
+            break;
+        default:
+            elog(ERROR, "unrecognized strategy number: %d", strategy);
+            result = false;
+            break;
+    }
+
+    return result;
+}
+```

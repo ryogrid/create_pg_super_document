@@ -36,3 +36,26 @@ The function allocates a buffer on the stack with size DOUBLE_SHORTEST_DECIMAL_L
 - Part of PostgreSQL's broader strategy for preserving data fidelity in node serialization
 - The exact preservation property is essential for query plan consistency and correctness
 - Handles special values like NaN, infinity, and negative zero appropriately through the underlying conversion function
+
+## Simplified Source
+
+```c
+static void
+outDouble(StringInfo str, double d)
+{
+    // Buffer to hold the shortest decimal representation
+    char buf[DOUBLE_SHORTEST_DECIMAL_LEN];
+
+    // Convert double to shortest decimal that preserves exact value
+    double_to_shortest_decimal_buf(d, buf);
+
+    // Append the decimal string to output buffer
+    appendStringInfoString(str, buf);
+}
+```
+
+**Key Simplifications:**
+- Added descriptive comments explaining each step
+- Preserved the essential exact-value conversion logic
+- Maintained stack allocation efficiency
+- Simplified the core algorithm: convert to decimal, then append to string buffer

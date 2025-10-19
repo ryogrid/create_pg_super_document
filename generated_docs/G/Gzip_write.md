@@ -33,3 +33,22 @@ This function provides a wrapper around zlib's gzwrite() function for writing da
 - Uses CompressFileHandle structure to access the underlying gzFile
 - Terminates the program with pg_fatal() if write operation fails
 - Handles both system errors and zlib-specific compression errors appropriately
+
+## Simplified Source
+
+```c
+static void Gzip_write(const void *ptr, size_t size, CompressFileHandle *CFH)
+{
+    gzFile gzfp = (gzFile) CFH->private_data;
+    int errnum;
+    const char *errmsg;
+
+    // Write data to gzip file and check for complete write
+    if (gzwrite(gzfp, ptr, size) != size) {
+        // Get error details and report failure
+        errmsg = gzerror(gzfp, &errnum);
+        pg_fatal("could not write to file: %s",
+                 errnum == Z_ERRNO ? strerror(errno) : errmsg);
+    }
+}
+```

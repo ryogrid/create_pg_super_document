@@ -56,3 +56,51 @@ The algorithm uses backtracking with labeled goto statements to handle multiple 
 - The vowel group g_v covers ASCII characters 97-117 (a-u), which includes standard vowels
 - Region markers are used by subsequent suffix removal functions to determine where stemming rules can be applied
 - The complex goto-based control flow is typical of generated Snowball stemmer code
+
+## Simplified Source
+
+```c
+static int r_mark_regions(struct SN_env * z) {
+    // Initialize all region markers to end of word
+    z->I[2] = z->I[1] = z->I[0] = z->l;
+    int saved_cursor = z->c;
+
+    // Find first region boundary (I[2])
+    // Look for vowel-consonant or consonant-vowel pattern
+    if (in_grouping(z, g_v, 97, 117, 0)) {  // Start with vowel
+        // Try vowel->consonant->consonant pattern
+        if (out_grouping(z, g_v, 97, 117, 0)) {
+            out_grouping(z, g_v, 97, 117, 1);  // Skip to end of consonants
+        } else {
+            // Try vowel->vowel->consonant pattern
+            in_grouping(z, g_v, 97, 117, 1);   // Skip vowels
+        }
+    } else if (out_grouping(z, g_v, 97, 117, 0)) {  // Start with consonant
+        // Try consonant->consonant->vowel or consonant->vowel pattern
+        if (out_grouping(z, g_v, 97, 117, 0)) {
+            out_grouping(z, g_v, 97, 117, 1);  // Skip consonants
+        } else if (in_grouping(z, g_v, 97, 117, 0)) {
+            z->c++;  // Move past single vowel
+        }
+    }
+    z->I[2] = z->c;  // Mark first region boundary
+
+    // Reset cursor and find R1 and R2 regions
+    z->c = saved_cursor;
+
+    // Find R1: first vowel-consonant-vowel pattern
+    if (out_grouping(z, g_v, 97, 117, 1) >= 0 &&  // Skip to vowel
+        in_grouping(z, g_v, 97, 117, 1) >= 0) {   // Skip vowels
+        z->I[1] = z->c;  // Mark R1
+
+        // Find R2: next vowel-consonant-vowel pattern
+        if (out_grouping(z, g_v, 97, 117, 1) >= 0 &&
+            in_grouping(z, g_v, 97, 117, 1) >= 0) {
+            z->I[0] = z->c;  // Mark R2
+        }
+    }
+
+    z->c = saved_cursor;  // Restore original cursor position
+    return 1;
+}
+```

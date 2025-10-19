@@ -45,3 +45,46 @@ The function uses careful cursor position management with backup/restore mechani
 - The extern declaration indicates this is a public API function intended for use by external modules
 - Cursor position management is critical - the function carefully saves and restores positions to handle multiple processing attempts
 - The algorithm follows the established Snowball pattern used across multiple language stemmers
+
+## Simplified Source
+
+```c
+extern int catalan_UTF_8_stem(struct SN_env * z) {
+    // Phase 1: Mark morphological regions (R1/R2 boundaries)
+    int ret = r_mark_regions(z);
+    if (ret < 0) return ret;
+
+    // Phase 2: Setup cursors for backward processing
+    z->lb = z->c;
+    z->c = z->l;
+
+    // Phase 3: Remove attached pronouns
+    int pos1 = z->l - z->c;
+    r_attached_pronoun(z);
+    z->c = z->l - pos1;
+
+    // Phase 4: Try standard suffixes, fall back to verb suffixes
+    int pos2 = z->l - z->c;
+    int pos3 = z->l - z->c;
+
+    if (r_standard_suffix(z) == 0) {
+        // No standard suffix found, try verb suffix
+        z->c = z->l - pos3;
+        r_verb_suffix(z);
+    }
+    z->c = z->l - pos2;
+
+    // Phase 5: Handle residual suffixes
+    int pos4 = z->l - z->c;
+    r_residual_suffix(z);
+    z->c = z->l - pos4;
+
+    // Phase 6: Final character cleaning
+    z->c = z->lb;
+    int saved_pos = z->c;
+    r_cleaning(z);
+    z->c = saved_pos;
+
+    return 1;  // Success
+}
+```

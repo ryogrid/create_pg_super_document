@@ -44,3 +44,38 @@ Similar to its encoding counterpart, the function performs decoding length estim
 - Supports the same encoding methods as `binary_encode` (base64, hex, escape)
 - Part of PostgreSQL's binary data handling utilities in encode.c
 - Input validation ensures only recognized encoding methods are accepted
+
+## Simplified Source
+
+```c
+Datum binary_decode(PG_FUNCTION_ARGS) {
+    // Extract input arguments
+    text *data = PG_GETARG_TEXT_PP(0);
+    char *encoding_name = TextDatumGetCString(PG_GETARG_DATUM(1));
+
+    // Find the encoding method
+    const struct pg_encoding *enc = pg_find_encoding(encoding_name);
+    if (enc == NULL)
+        ereport(ERROR, (errmsg("unrecognized encoding: \"%s\"", encoding_name)));
+
+    // Get data pointer and length
+    char *dataptr = VARDATA_ANY(data);
+    size_t datalen = VARSIZE_ANY_EXHDR(data);
+
+    // Calculate output length and check for overflow
+    uint64 resultlen = enc->decode_len(dataptr, datalen);
+    if (resultlen > MaxAllocSize - VARHDRSZ)
+        ereport(ERROR, (errmsg("result of decoding conversion is too large")));
+
+    // Allocate result buffer and decode
+    bytea *result = palloc(VARHDRSZ + resultlen);
+    uint64 actual_len = enc->decode(dataptr, datalen, VARDATA(result));
+
+    // Verify decoding didn't overflow (critical safety check)
+    if (actual_len > resultlen)
+        elog(FATAL, "overflow - decode estimate too small");
+
+    SET_VARSIZE(result, VARHDRSZ + actual_len);
+    PG_RETURN_BYTEA_P(result);
+}
+```

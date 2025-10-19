@@ -36,3 +36,16 @@ This function serves as the public PostgreSQL SQL interface for computing the sh
 - Returns the result as a float8 (double precision) value
 - Can handle both open and closed paths through the internal implementation
 - Part of PostgreSQL's geometric data type system
+
+## Simplified Source
+
+```c
+Datum dist_ppath(PG_FUNCTION_ARGS) {
+    // Get point and path arguments
+    Point *pt = PG_GETARG_POINT_P(0);
+    PATH *path = PG_GETARG_PATH_P(1);
+
+    // Calculate and return minimum distance from point to path
+    PG_RETURN_FLOAT8(dist_ppath_internal(pt, path));
+}
+```

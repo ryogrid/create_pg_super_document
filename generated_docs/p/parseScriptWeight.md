@@ -39,3 +39,45 @@ The `parseScriptWeight` function processes command-line options for pgbench scri
 - Located in src/bin/pgbench/pgbench.c at lines 6192-6228
 - Essential for weighted script execution in benchmark scenarios where different scripts should run with different frequencies
 - Supports both built-in script names (with findBuiltin) and external script filenames (with process_file)
+
+## Simplified Source
+
+```c
+static int
+parseScriptWeight(const char *option, char **script)
+{
+    char *sep;
+    int weight;
+
+    // Look for weight separator (@)
+    if ((sep = strrchr(option, WSEP)))
+    {
+        int namelen = sep - option;
+        long wtmp;
+        char *badp;
+
+        // Extract script name
+        *script = pg_malloc(namelen + 1);
+        strncpy(*script, option, namelen);
+        (*script)[namelen] = '\0';
+
+        // Parse weight value
+        errno = 0;
+        wtmp = strtol(sep + 1, &badp, 10);
+        if (errno != 0 || badp == sep + 1 || *badp != '\0')
+            pg_fatal("invalid weight specification: %s", sep);
+        if (wtmp > INT_MAX || wtmp < 0)
+            pg_fatal("weight specification out of range (0 .. %d): %lld",
+                     INT_MAX, (long long) wtmp);
+        weight = wtmp;
+    }
+    else
+    {
+        // No weight specified, use default
+        *script = pg_strdup(option);
+        weight = 1;
+    }
+
+    return weight;
+}
+```

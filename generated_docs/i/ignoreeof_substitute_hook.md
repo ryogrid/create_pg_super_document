@@ -39,3 +39,23 @@ This differs slightly from bash behavior - while bash allows non-numeric values 
 - This hook mimics bash IGNOREEOF behavior but enforces stricter numeric validation
 - The returned string becomes the actual value used for the IGNOREEOF variable
 - Memory allocated by pg_strdup must eventually be freed by the calling code
+
+## Simplified Source
+
+```c
+static char *
+ignoreeof_substitute_hook(char *newval)
+{
+    int dummy;
+
+    // Handle NULL value: default to "0" (immediate EOF exit)
+    if (newval == NULL)
+        newval = pg_strdup("0");
+
+    // Handle invalid numeric value: default to "10" (require 10 EOFs)
+    else if (!ParseVariableNum(newval, NULL, &dummy))
+        newval = pg_strdup("10");
+
+    return newval;
+}
+```

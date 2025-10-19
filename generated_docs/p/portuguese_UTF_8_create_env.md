@@ -26,3 +26,13 @@ This function serves as a factory method for creating Portuguese stemming enviro
 
 ## Notes and Other Information
 The function is a thin wrapper around the generic environment creation function, providing Portuguese-specific configuration. The parameters (0, 3) indicate that the Portuguese stemmer requires no string variables but needs 3 integer variables for its operation. This is part of the language-specific API that allows the Snowball stemming library to be used with different languages while maintaining a consistent interface. The returned environment must be properly cleaned up using the corresponding close function when no longer needed.
+
+## Simplified Source
+```c
+extern struct SN_env * portuguese_UTF_8_create_env(void) {
+    // Create Snowball environment for Portuguese stemming
+    // 0 = no string variables needed
+    // 3 = three integer variables for cursor positions
+    return SN_create_env(0, 3);
+}
+```

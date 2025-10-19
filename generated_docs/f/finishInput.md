@@ -43,3 +43,21 @@ This function is typically registered as an exit handler using  during the initi
 - Memory cleanup prevents potential memory leaks, though this is primarily for code hygiene since the program is terminating
 - The function only attempts to save history if both useHistory is enabled and psql_history contains a valid path
 - Registration as an exit handler ensures history preservation across different termination scenarios (normal exit, signals, etc.)
+
+## Simplified Source
+
+```c
+static void finishInput(void) {
+#ifdef USE_READLINE
+    // Save history to file if history functionality is enabled
+    if (useHistory && psql_history) {
+        // Save current session history respecting size limit
+        (void) saveHistory(psql_history, pset.histsize);
+
+        // Clean up allocated memory
+        free(psql_history);
+        psql_history = NULL;
+    }
+#endif
+}
+```

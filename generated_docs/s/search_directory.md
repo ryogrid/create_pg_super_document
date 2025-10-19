@@ -46,3 +46,60 @@ This is a critical function for the pg_waldump utility as it establishes the cor
 - Uses PGAlignedXLogBlock for proper memory alignment when reading WAL data
 - Part of the pg_waldump utility's file discovery and validation system
 - Terminates program execution if invalid WAL segment size is detected or file read operations fail
+
+## Simplified Source
+
+```c
+static bool search_directory(const char *directory, const char *fname) {
+    int fd = -1;
+    DIR *xldir;
+
+    // Try to open specific file if filename provided
+    if (fname != NULL) {
+        fd = open_file_in_directory(directory, fname);
+    }
+    // Otherwise search directory for any valid WAL file
+    else if ((xldir = opendir(directory)) != NULL) {
+        struct dirent *xlde;
+
+        while ((xlde = readdir(xldir)) != NULL) {
+            if (IsXLogFileName(xlde->d_name)) {
+                fd = open_file_in_directory(directory, xlde->d_name);
+                fname = pg_strdup(xlde->d_name);
+                break;
+            }
+        }
+        closedir(xldir);
+    }
+
+    // If file opened successfully, read WAL segment size from header
+    if (fd >= 0) {
+        PGAlignedXLogBlock buf;
+        int r = read(fd, buf.data, XLOG_BLCKSZ);
+
+        if (r == XLOG_BLCKSZ) {
+            XLogLongPageHeader longhdr = (XLogLongPageHeader) buf.data;
+            WalSegSz = longhdr->xlp_seg_size;
+
+            // Validate WAL segment size
+            if (!IsValidWalSegSize(WalSegSz)) {
+                pg_log_error("invalid WAL segment size in WAL file \"%s\" (%d bytes)",
+                           fname, WalSegSz);
+                pg_log_error_detail("The WAL segment size must be a power of two between 1 MB and 1 GB.");
+                exit(1);
+            }
+        } else {
+            // Handle read errors
+            if (r < 0)
+                pg_fatal("could not read file \"%s\": %m", fname);
+            else
+                pg_fatal("could not read file \"%s\": read %d of %d", fname, r, XLOG_BLCKSZ);
+        }
+
+        close(fd);
+        return true;
+    }
+
+    return false;
+}
+```

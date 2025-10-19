@@ -45,3 +45,27 @@ The caller does not know yet if the page will be rightmost, so offset P_FIRSTKEY
 - The function will raise an ERROR if PageAddItem fails, ensuring that index building failures are caught immediately
 - The truncation logic for newfirstdataitem creates a minimal tuple with zero attributes, optimizing space usage for internal pages
 - Part of PostgreSQL's B-tree index building infrastructure, specifically the sorting phase
+
+## Simplified Source
+
+```c
+static void _bt_sortaddtup(Page page, Size itemsize, IndexTuple itup,
+                          OffsetNumber itup_off, bool newfirstdataitem)
+{
+    IndexTupleData trunctuple;
+
+    // Handle special case for first data item - create truncated tuple
+    if (newfirstdataitem)
+    {
+        trunctuple = *itup;
+        trunctuple.t_info = sizeof(IndexTupleData);
+        BTreeTupleSetNAtts(&trunctuple, 0, false);
+        itup = &trunctuple;
+        itemsize = sizeof(IndexTupleData);
+    }
+
+    // Add item to page, error if it fails
+    if (PageAddItem(page, (Item) itup, itemsize, itup_off, false, false) == InvalidOffsetNumber)
+        elog(ERROR, "failed to add item to the index page");
+}
+```

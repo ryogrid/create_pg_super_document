@@ -33,3 +33,13 @@ The returned callbacks structure includes:
 - The function is declared in src/include/archive/shell_archive.h
 - The shell archive module is PostgreSQL's default WAL archiving implementation that uses the `archive_command` GUC to execute user-specified shell commands for archiving WAL files
 - The returned callback structure is statically allocated and remains valid for the lifetime of the process
+
+## Simplified Source
+
+```c
+const ArchiveModuleCallbacks *shell_archive_init(void)
+{
+    // Return the static callback structure for shell-based archiving
+    return &shell_archive_callbacks;
+}
+```

@@ -48,3 +48,40 @@ The function processes position data by:
 - Sets the haspos flag on the destination word entry when positions are successfully added
 - Uses LIMITPOS to ensure position values don't exceed valid ranges
 - Critical for maintaining position data integrity during TSVector concatenation operations
+
+## Simplified Source
+
+```c
+static int32 add_pos(TSVector src, WordEntry *srcptr,
+                     TSVector dest, WordEntry *destptr,
+                     int32 maxpos) {
+    uint16 *clen = &_POSVECPTR(dest, destptr)->npos;
+    int i;
+    uint16 slen = POSDATALEN(src, srcptr), startlen;
+    WordEntryPos *spos = POSDATAPTR(src, srcptr);
+    WordEntryPos *dpos = POSDATAPTR(dest, destptr);
+
+    // Initialize destination position count if needed
+    if (!destptr->haspos)
+        *clen = 0;
+
+    startlen = *clen;
+
+    // Copy positions with offset, checking limits
+    for (i = 0;
+         i < slen && *clen < MAXNUMPOS &&
+         (*clen == 0 || WEP_GETPOS(dpos[*clen - 1]) != MAXENTRYPOS - 1);
+         i++) {
+        // Copy weight and add position offset
+        WEP_SETWEIGHT(dpos[*clen], WEP_GETWEIGHT(spos[i]));
+        WEP_SETPOS(dpos[*clen], LIMITPOS(WEP_GETPOS(spos[i]) + maxpos));
+        (*clen)++;
+    }
+
+    // Mark destination as having positions if any were added
+    if (*clen != startlen)
+        destptr->haspos = 1;
+
+    return *clen - startlen;  // Number of positions added
+}
+```

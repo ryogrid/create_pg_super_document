@@ -35,3 +35,29 @@ This function analyzes a varlena data structure to determine its compression met
 - Returns ToastCompressionId type
 - Handles both external and inline compressed data scenarios
 - Essential for determining compression methods used in PostgreSQL's TOAST (The Oversized-Attribute Storage Technique) system
+
+## Simplified Source
+
+```c
+ToastCompressionId
+toast_get_compression_id(struct varlena *attr)
+{
+    ToastCompressionId cmid = TOAST_INVALID_COMPRESSION_ID;
+
+    // Check if data is stored externally on disk
+    if (VARATT_IS_EXTERNAL_ONDISK(attr))
+    {
+        struct varatt_external toast_pointer;
+        VARATT_EXTERNAL_GET_POINTER(toast_pointer, attr);
+
+        // Extract compression method from external toast pointer
+        if (VARATT_EXTERNAL_IS_COMPRESSED(toast_pointer))
+            cmid = VARATT_EXTERNAL_GET_COMPRESS_METHOD(toast_pointer);
+    }
+    // Check if data is compressed inline
+    else if (VARATT_IS_COMPRESSED(attr))
+        cmid = VARDATA_COMPRESSED_GET_COMPRESS_METHOD(attr);
+
+    return cmid;
+}
+```

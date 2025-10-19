@@ -36,3 +36,25 @@ The function performs a two-stage comparison: first it verifies that both nodes 
 - Uses the established pattern of  for consistent field comparison
 - The ExtensibleNode structure has the  attribute, indicating custom comparison logic
 - This design maintains type safety while allowing extensions to extend PostgreSQL's node system with their own data structures and comparison logic
+
+## Simplified Source
+
+```c
+static bool
+_equalExtensibleNode(const ExtensibleNode *a, const ExtensibleNode *b)
+{
+    const ExtensibleNodeMethods *methods;
+
+    // First check if both nodes have the same extension name
+    COMPARE_STRING_FIELD(extnodename);
+
+    // Get the methods for this extensible node type
+    methods = GetExtensibleNodeMethods(a->extnodename, false);
+
+    // Delegate to the extension-specific equality function
+    if (!methods->nodeEqual(a, b))
+        return false;
+
+    return true;
+}
+```

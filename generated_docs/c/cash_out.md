@@ -49,3 +49,107 @@ The formatting follows POSIX locale conventions for monetary display, supporting
 - The formatting logic accommodates various international monetary display conventions
 - Builds digits in a fixed-size buffer (128 bytes) which is sufficient for 64-bit integer values
 - Uses safe string operations and PostgreSQL's memory management for the final result
+
+## Simplified Source
+
+```c
+Datum
+cash_out(PG_FUNCTION_ARGS)
+{
+    Cash value = PG_GETARG_CASH(0);
+    char buf[128];
+    char *bufptr;
+    int digit_pos, points, mon_group;
+    char dsymbol;
+    const char *ssymbol, *csymbol, *signsymbol;
+    char sign_posn, cs_precedes, sep_by_space;
+    struct lconv *lconvert = PGLC_localeconv();
+
+    // Get locale formatting settings with defaults
+    points = (lconvert->frac_digits >= 0 && lconvert->frac_digits <= 10) ?
+             lconvert->frac_digits : 2;
+    mon_group = (*lconvert->mon_grouping > 0 && *lconvert->mon_grouping <= 6) ?
+                *lconvert->mon_grouping : 3;
+
+    // Set decimal and thousands separators
+    dsymbol = (lconvert->mon_decimal_point[0] && !lconvert->mon_decimal_point[1]) ?
+              lconvert->mon_decimal_point[0] : '.';
+    ssymbol = (*lconvert->mon_thousands_sep) ? lconvert->mon_thousands_sep :
+              ((dsymbol != ',') ? "," : ".");
+    csymbol = (*lconvert->currency_symbol) ? lconvert->currency_symbol : "$";
+
+    // Set sign and positioning based on positive/negative value
+    if (value < 0) {
+        value = -value;
+        signsymbol = (*lconvert->negative_sign) ? lconvert->negative_sign : "-";
+        sign_posn = lconvert->n_sign_posn;
+        cs_precedes = lconvert->n_cs_precedes;
+        sep_by_space = lconvert->n_sep_by_space;
+    } else {
+        signsymbol = lconvert->positive_sign;
+        sign_posn = lconvert->p_sign_posn;
+        cs_precedes = lconvert->p_cs_precedes;
+        sep_by_space = lconvert->p_sep_by_space;
+    }
+
+    // Build digit string right-to-left
+    bufptr = buf + sizeof(buf) - 1;
+    *bufptr = '\0';
+    digit_pos = points;
+
+    do {
+        // Insert decimal point or thousands separator as needed
+        if (points && digit_pos == 0) {
+            *(--bufptr) = dsymbol;
+        } else if (digit_pos < 0 && (digit_pos % mon_group) == 0) {
+            bufptr -= strlen(ssymbol);
+            memcpy(bufptr, ssymbol, strlen(ssymbol));
+        }
+
+        *(--bufptr) = ((uint64) value % 10) + '0';
+        value = ((uint64) value) / 10;
+        digit_pos--;
+    } while (value || digit_pos >= 0);
+
+    // Format final result based on POSIX sign positioning rules
+    char *result;
+    switch (sign_posn) {
+        case 0: // Parentheses around value and currency
+            result = cs_precedes ?
+                     psprintf("(%s%s%s)", csymbol, (sep_by_space == 1) ? " " : "", bufptr) :
+                     psprintf("(%s%s%s)", bufptr, (sep_by_space == 1) ? " " : "", csymbol);
+            break;
+        case 1: // Sign precedes value and currency
+        default:
+            result = cs_precedes ?
+                     psprintf("%s%s%s%s%s", signsymbol, (sep_by_space == 2) ? " " : "",
+                             csymbol, (sep_by_space == 1) ? " " : "", bufptr) :
+                     psprintf("%s%s%s%s%s", signsymbol, (sep_by_space == 2) ? " " : "",
+                             bufptr, (sep_by_space == 1) ? " " : "", csymbol);
+            break;
+        case 2: // Sign follows value and currency
+            result = cs_precedes ?
+                     psprintf("%s%s%s%s%s", csymbol, (sep_by_space == 1) ? " " : "",
+                             bufptr, (sep_by_space == 2) ? " " : "", signsymbol) :
+                     psprintf("%s%s%s%s%s", bufptr, (sep_by_space == 1) ? " " : "",
+                             csymbol, (sep_by_space == 2) ? " " : "", signsymbol);
+            break;
+        case 3: // Sign precedes currency symbol
+            result = cs_precedes ?
+                     psprintf("%s%s%s%s%s", signsymbol, (sep_by_space == 2) ? " " : "",
+                             csymbol, (sep_by_space == 1) ? " " : "", bufptr) :
+                     psprintf("%s%s%s%s%s", bufptr, (sep_by_space == 1) ? " " : "",
+                             signsymbol, (sep_by_space == 2) ? " " : "", csymbol);
+            break;
+        case 4: // Sign follows currency symbol
+            result = cs_precedes ?
+                     psprintf("%s%s%s%s%s", csymbol, (sep_by_space == 2) ? " " : "",
+                             signsymbol, (sep_by_space == 1) ? " " : "", bufptr) :
+                     psprintf("%s%s%s%s%s", bufptr, (sep_by_space == 1) ? " " : "",
+                             csymbol, (sep_by_space == 2) ? " " : "", signsymbol);
+            break;
+    }
+
+    PG_RETURN_CSTRING(result);
+}
+```

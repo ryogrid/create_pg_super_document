@@ -41,3 +41,45 @@ The function is designed specifically for KNN (K-Nearest Neighbors) searches whe
 - NaN distance values are treated as greater than any finite number
 - Leaf nodes are prioritized over internal nodes to optimize search traversal patterns
 - The comparison logic ensures deterministic ordering even when distances are equal
+
+## Simplified Source
+
+```c
+static int pairingheap_SpGistSearchItem_cmp(const pairingheap_node *a,
+                                             const pairingheap_node *b, void *arg) {
+    const SpGistSearchItem *sa = (const SpGistSearchItem *) a;
+    const SpGistSearchItem *sb = (const SpGistSearchItem *) b;
+    SpGistScanOpaque so = (SpGistScanOpaque) arg;
+
+    // Handle NULL values (NULLS LAST semantics)
+    if (sa->isNull) {
+        if (!sb->isNull)
+            return -1;  // NULL has lower priority
+    } else if (sb->isNull) {
+        return 1;       // Non-NULL has higher priority
+    } else {
+        // Compare distances for ORDER BY clauses
+        for (int i = 0; i < so->numberOfNonNullOrderBys; i++) {
+            // Handle NaN values (NaN > any number)
+            if (isnan(sa->distances[i]) && isnan(sb->distances[i]))
+                continue;  // Both NaN, equal
+            if (isnan(sa->distances[i]))
+                return -1; // NaN has lower priority
+            if (isnan(sb->distances[i]))
+                return 1;  // Number has higher priority than NaN
+
+            // Regular distance comparison
+            if (sa->distances[i] != sb->distances[i])
+                return (sa->distances[i] < sb->distances[i]) ? 1 : -1;
+        }
+    }
+
+    // Prioritize leaf items for depth-first search
+    if (sa->isLeaf && !sb->isLeaf)
+        return 1;   // Leaf has higher priority
+    if (!sa->isLeaf && sb->isLeaf)
+        return -1;  // Inner node has lower priority
+
+    return 0;  // Equal priority
+}
+```

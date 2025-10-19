@@ -39,3 +39,25 @@ This function follows a simpler structure compared to other steps, with mandator
 - Uses predefined arrays (a_22, a_23) and string constant (s_64)
 - Implements a mandatory two-stage transformation without optional fallback paths
 - Final step in the sequence, performing cleanup operations on remaining morphological patterns
+
+## Simplified Source
+
+```c
+static int r_steps10(struct SN_env * z) {
+    // Stage 1: Find and delete suffix patterns from array a_23
+    z->ket = z->c;
+    if (!(find_among_b(z, a_23, 4))) return 0;
+    z->bra = z->c;
+    slice_del(z);  // Delete matched suffix
+    z->I[0] = 0;   // Reset counter
+
+    // Stage 2: Find replacement patterns and apply transformation
+    z->ket = z->c;
+    z->bra = z->c;
+    if (!(find_among_b(z, a_22, 7))) return 0;
+    if (z->c > z->lb) return 0;  // Bounds check
+    slice_from_s(z, 6, s_64);  // Replace with 6-character string
+
+    return 1;  // Success
+}
+```

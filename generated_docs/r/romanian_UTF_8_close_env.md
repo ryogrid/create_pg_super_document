@@ -38,3 +38,13 @@ The function provides a clean interface for external code to properly dispose of
 - Part of the standard Snowball stemmer API pattern ensuring proper resource lifecycle management
 - External linkage allows this function to be called from other compilation units
 - Should be the final operation performed on a Romanian stemming environment
+
+## Simplified Source
+
+```c
+extern void romanian_UTF_8_close_env(struct SN_env * z) {
+    // Clean up and deallocate Romanian stemming environment
+    // Parameter 0 indicates standard cleanup mode
+    SN_close_env(z, 0);
+}
+```

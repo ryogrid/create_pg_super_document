@@ -39,3 +39,39 @@ The int8gcd_internal function implements the mathematical greatest common diviso
 - Guards against floating-point exceptions on some hardware for INT64_MIN % -1
 - Returns positive result always (except for gcd(0,0) = 0)
 - Core algorithm for both GCD and LCM operations in PostgreSQL bigint arithmetic
+
+## Simplified Source
+
+```c
+static int64
+int8gcd_internal(int64 arg1, int64 arg2)
+{
+    int64 swap;
+
+    // Handle larger absolute value in arg1 (work in negative space for INT64_MIN safety)
+    int64 a1 = (arg1 < 0) ? arg1 : -arg1;
+    int64 a2 = (arg2 < 0) ? arg2 : -arg2;
+    if (a1 > a2) {
+        swap = arg1; arg1 = arg2; arg2 = swap;
+    }
+
+    // Special handling for INT64_MIN overflow cases
+    if (arg1 == PG_INT64_MIN) {
+        if (arg2 == 0 || arg2 == PG_INT64_MIN)
+            ereport(ERROR, (errcode(ERRCODE_NUMERIC_VALUE_OUT_OF_RANGE),
+                           errmsg("bigint out of range")));
+        if (arg2 == -1)
+            return 1;  // gcd(INT64_MIN, -1) = 1
+    }
+
+    // Euclidean algorithm: repeatedly divide and take remainder
+    while (arg2 != 0) {
+        swap = arg2;
+        arg2 = arg1 % arg2;
+        arg1 = swap;
+    }
+
+    // Ensure positive result
+    return (arg1 < 0) ? -arg1 : arg1;
+}
+```

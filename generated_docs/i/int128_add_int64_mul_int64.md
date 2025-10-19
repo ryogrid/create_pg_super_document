@@ -40,3 +40,13 @@ The function includes a compiler performance warning noting that with poor compi
 - The comment suggests potential compiler optimization concerns with the simple native implementation
 - Used for complex arithmetic operations requiring 128-bit precision, such as timestamp calculations
 - The manual implementation includes a static assertion to ensure arithmetic right shift behavior
+
+## Simplified Source
+
+```c
+static inline void int128_add_int64_mul_int64(INT128 *i128, int64 x, int64 y) {
+    // Compute x * y and add to existing 128-bit value
+    // Cast both operands to 128-bit to ensure full precision multiplication
+    *i128 += (int128) x * (int128) y;
+}
+```

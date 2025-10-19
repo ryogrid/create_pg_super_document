@@ -34,3 +34,17 @@ The function iterates through the array and XORs all values together to produce 
 - Used primarily for caching DFA state sets to avoid recomputation
 - The XOR-based approach provides reasonable distribution for bitvector data
 - Part of PostgreSQL's internal regular expression engine optimization
+
+## Simplified Source
+
+```c
+static unsigned hash(unsigned *uv, int n) {
+    unsigned h = 0;
+
+    // XOR all array elements to create hash
+    for (int i = 0; i < n; i++)
+        h ^= uv[i];
+
+    return h;
+}
+```

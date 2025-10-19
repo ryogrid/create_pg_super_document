@@ -28,3 +28,27 @@ This utility function processes a list of IndexClause structures and extracts al
 
 ## Notes and Other Information
 This function is part of PostgreSQL's index cost estimation framework and is used by various index access method cost estimation functions. The function performs a straightforward flattening operation, converting the two-level structure (IndexClauses containing lists of indexquals) into a single-level list of RestrictInfo nodes. This flattened representation is often more convenient for subsequent processing steps that need to examine individual qualification conditions. The function is non-static, making it available for use by different index access methods and cost estimation routines throughout the codebase.
+
+## Simplified Source
+
+```c
+// Extract individual RestrictInfo nodes from IndexClause list
+List *get_quals_from_indexclauses(List *indexclauses) {
+    List *result = NIL;
+    ListCell *lc;
+
+    // Iterate through each IndexClause
+    foreach(lc, indexclauses) {
+        IndexClause *iclause = lfirst_node(IndexClause, lc);
+        ListCell *lc2;
+
+        // Extract all indexquals from this clause
+        foreach(lc2, iclause->indexquals) {
+            RestrictInfo *rinfo = lfirst_node(RestrictInfo, lc2);
+            result = lappend(result, rinfo);
+        }
+    }
+
+    return result;
+}
+```

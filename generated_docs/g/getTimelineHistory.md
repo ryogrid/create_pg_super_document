@@ -44,3 +44,53 @@ The function also provides debug output when debug mode is enabled, displaying t
 - Debug output shows timeline ID and begin/end LSN ranges in hexadecimal format
 - Memory allocated for history entries must be freed by the caller
 - Part of pg_rewind's timeline analysis phase to determine divergence points
+
+## Simplified Source
+
+```c
+static TimeLineHistoryEntry *getTimelineHistory(TimeLineID tli, bool is_source, int *nentries)
+{
+    TimeLineHistoryEntry *history;
+
+    // Timeline 1 has no history file - create a fake entry
+    if (tli == 1) {
+        history = (TimeLineHistoryEntry *) pg_malloc(sizeof(TimeLineHistoryEntry));
+        history->tli = tli;
+        history->begin = history->end = InvalidXLogRecPtr;
+        *nentries = 1;
+    } else {
+        // Read actual timeline history file
+        char path[MAXPGPATH];
+        char *histfile;
+
+        TLHistoryFilePath(path, tli);
+
+        // Fetch from source or read from target directory
+        if (is_source)
+            histfile = source->fetch_file(source, path, NULL);
+        else
+            histfile = slurpFile(datadir_target, path, NULL);
+
+        // Parse the history file content
+        history = rewind_parseTimeLineHistory(histfile, tli, nentries);
+        pg_free(histfile);
+    }
+
+    // Debug output if enabled
+    if (debug) {
+        if (is_source)
+            pg_log_debug("Source timeline history:");
+        else
+            pg_log_debug("Target timeline history:");
+
+        for (int i = 0; i < *nentries; i++) {
+            TimeLineHistoryEntry *entry = &history[i];
+            pg_log_debug("%u: %X/%X - %X/%X", entry->tli,
+                        LSN_FORMAT_ARGS(entry->begin),
+                        LSN_FORMAT_ARGS(entry->end));
+        }
+    }
+
+    return history;
+}
+```

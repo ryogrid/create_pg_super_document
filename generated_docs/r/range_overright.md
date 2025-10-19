@@ -37,3 +37,19 @@ The function follows PostgreSQL's standard function interface pattern and is typ
 - Used internally by PostgreSQL when the &> operator is applied to range types in SQL queries
 - Returns false for empty ranges following the same semantics as the internal function
 - Complementary to range_overleft, providing the opposite directional test
+
+## Simplified Source
+
+```c
+Datum range_overright(PG_FUNCTION_ARGS) {
+    // Extract the two range arguments
+    RangeType *r1 = PG_GETARG_RANGE_P(0);
+    RangeType *r2 = PG_GETARG_RANGE_P(1);
+
+    // Get type cache for range operations
+    TypeCacheEntry *typcache = range_get_typcache(fcinfo, RangeTypeGetOid(r1));
+
+    // Delegate to internal function for actual comparison
+    PG_RETURN_BOOL(range_overright_internal(typcache, r1, r2));
+}
+```

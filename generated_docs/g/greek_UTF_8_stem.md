@@ -62,3 +62,55 @@ Each step uses backtracking to attempt transformations without commitment - if a
 - [Step](../S/Step.md) counter (I[0]) creates dependencies between steps for proper morphological analysis
 - This is the main public interface for Greek stemming in PostgreSQL's text search system
 - Part of the libstemmer library integrated into PostgreSQL for multilingual full-text search support
+
+## Simplified Source
+
+```c
+extern int greek_UTF_8_stem(struct SN_env * z) {
+    // Phase 1: Initialize for backward processing and normalize
+    z->lb = z->c;
+    z->c = z->l;  // Start from end for suffix processing
+
+    // Convert to lowercase and validate minimum length
+    r_tolower(z);
+    if (r_has_min_length(z) <= 0) return 0;
+
+    // Enable conditional steps
+    z->I[0] = 1;
+
+    // Phase 2: Execute systematic stemming steps with backtracking
+    // Each step saves position and restores if needed
+
+    // Basic morphological transformations (Steps 1-10)
+    TRY_STEP(r_step1);
+    TRY_STEP(r_steps1);  TRY_STEP(r_steps2);  TRY_STEP(r_steps3);
+    TRY_STEP(r_steps4);  TRY_STEP(r_steps5);  TRY_STEP(r_steps6);
+    TRY_STEP(r_steps7);  TRY_STEP(r_steps8);  TRY_STEP(r_steps9);
+    TRY_STEP(r_steps10);
+
+    // Secondary transformations (Steps 2a-2d)
+    TRY_STEP(r_step2a);  TRY_STEP(r_step2b);
+    TRY_STEP(r_step2c);  TRY_STEP(r_step2d);
+
+    // Intermediate processing (Steps 3-4)
+    TRY_STEP(r_step3);   TRY_STEP(r_step4);
+
+    // Extensive suffix processing (Steps 5a-5m)
+    TRY_STEP(r_step5a);  TRY_STEP(r_step5b);  TRY_STEP(r_step5c);
+    TRY_STEP(r_step5d);  TRY_STEP(r_step5e);  TRY_STEP(r_step5f);
+    TRY_STEP(r_step5g);  TRY_STEP(r_step5h);  TRY_STEP(r_step5j);
+    TRY_STEP(r_step5i);  TRY_STEP(r_step5k);  TRY_STEP(r_step5l);
+    TRY_STEP(r_step5m);
+
+    // Final transformations (Steps 6-7)
+    TRY_STEP(r_step6);   // Conditional cleanup
+    TRY_STEP(r_step7);   // Comparative/superlative forms
+
+    // Phase 3: Finalize - reset cursor to start
+    z->c = z->lb;
+    return 1;
+}
+
+// Macro definition for the backtracking pattern used in each step:
+// #define TRY_STEP(func) { int saved = z->l - z->c; func(z); z->c = z->l - saved; }
+```

@@ -52,3 +52,46 @@ The function performs multiple validation checks to ensure the resulting timesta
 - Can be called from SQL as: SELECT to_timestamp(1672531200.5); -- converts Unix timestamp to timestamptz
 - Throws ERRCODE_DATETIME_VALUE_OUT_OF_RANGE errors for invalid inputs (NaN, out of range values)
 - The result is returned as a timestamptz (timestamp with timezone) type
+
+## Simplified Source
+
+```c
+// Convert Unix epoch timestamp to PostgreSQL timestamptz
+Datum float8_timestamptz(PG_FUNCTION_ARGS) {
+    float8 seconds = PG_GETARG_FLOAT8(0);
+    TimestampTz result;
+
+    // Handle special float values
+    if (isnan(seconds))
+        ereport(ERROR, (errcode(ERRCODE_DATETIME_VALUE_OUT_OF_RANGE),
+                       errmsg("timestamp cannot be NaN")));
+
+    if (isinf(seconds)) {
+        // Convert infinite values to special timestamps
+        if (seconds < 0)
+            TIMESTAMP_NOBEGIN(result);
+        else
+            TIMESTAMP_NOEND(result);
+    } else {
+        // Validate range
+        if (seconds < (float8) SECS_PER_DAY * (DATETIME_MIN_JULIAN - UNIX_EPOCH_JDATE) ||
+            seconds >= (float8) SECS_PER_DAY * (TIMESTAMP_END_JULIAN - UNIX_EPOCH_JDATE))
+            ereport(ERROR, (errcode(ERRCODE_DATETIME_VALUE_OUT_OF_RANGE),
+                           errmsg("timestamp out of range: \"%g\"", seconds)));
+
+        // Convert from Unix epoch to PostgreSQL epoch
+        seconds -= ((POSTGRES_EPOCH_JDATE - UNIX_EPOCH_JDATE) * SECS_PER_DAY);
+
+        // Convert to microseconds and round
+        seconds = rint(seconds * USECS_PER_SEC);
+        result = (int64) seconds;
+
+        // Final validation check
+        if (!IS_VALID_TIMESTAMP(result))
+            ereport(ERROR, (errcode(ERRCODE_DATETIME_VALUE_OUT_OF_RANGE),
+                           errmsg("timestamp out of range: \"%g\"", PG_GETARG_FLOAT8(0))));
+    }
+
+    PG_RETURN_TIMESTAMP(result);
+}
+```

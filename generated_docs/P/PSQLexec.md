@@ -51,3 +51,48 @@ This function is specifically designed for internal psql operations and is not s
 - [Query](../Q/Query.md) cancellation is properly handled to allow Ctrl+C interruption
 - Part of psql's internal query execution infrastructure, distinct from user command processing
 - Widely used throughout psql's describe and utility functions for metadata queries
+
+## Simplified Source
+
+```c
+PGresult *PSQLexec(const char *query) {
+    PGresult *res;
+
+    // Check database connection
+    if (!pset.db) {
+        pg_log_error("You are currently not connected to a database.");
+        return NULL;
+    }
+
+    // Echo query if hidden command echoing is enabled
+    if (pset.echo_hidden != PSQL_ECHO_HIDDEN_OFF) {
+        printf("/******** QUERY *********/\n%s\n/************************/\n\n", query);
+        fflush(stdout);
+
+        // Log to file if configured
+        if (pset.logfile) {
+            fprintf(pset.logfile, "/******** QUERY *********/\n%s\n/************************/\n\n", query);
+            fflush(pset.logfile);
+        }
+
+        // Return without execution if NOEXEC mode
+        if (pset.echo_hidden == PSQL_ECHO_HIDDEN_NOEXEC)
+            return NULL;
+    }
+
+    // Set up cancellation and execute query
+    SetCancelConn(pset.db);
+    res = PQexec(pset.db, query);
+    ResetCancelConn();
+
+    // Validate result and clean up on failure
+    if (!AcceptResult(res, true)) {
+        ClearOrSaveResult(res);
+        res = NULL;
+    }
+
+    return res;
+}
+```
+
+This simplified version preserves the core workflow: connection validation, optional query echoing with logging support, query execution with cancellation handling, and result validation with cleanup on failure.

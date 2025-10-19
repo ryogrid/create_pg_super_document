@@ -32,3 +32,15 @@ Both conditions must be true for the suffix removal to be considered acceptable.
 - Values 2 and 3 probably correspond to specific word categories where '-kan' suffix removal would be inappropriate
 - The '-kan' suffix in Indonesian is a verbal suffix that can change meaning significantly, making validation crucial
 - This function ensures morphological correctness during the stemming process
+
+## Simplified Source
+
+```c
+static int r_SUFFIX_KAN_OK(struct SN_env * z) {
+    // Check if '-kan' suffix removal is morphologically valid
+    // Reject if word type is 2 or 3 (specific morphological classes)
+    if (z->I[0] == 3 || z->I[0] == 2) return 0;
+
+    return 1; // OK to remove -kan suffix
+}
+```

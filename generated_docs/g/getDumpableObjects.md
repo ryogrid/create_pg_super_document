@@ -33,3 +33,25 @@ The function is essential for pg_dump's operation as it provides access to the c
 - The caller is responsible for managing the memory allocated by this function
 - The function starts iteration from index 1, suggesting that index 0 may be reserved or unused in the dumpIdMap
 - This is a utility function that provides a stable interface to the internal object storage mechanism
+
+## Simplified Source
+
+```c
+void
+getDumpableObjects(DumpableObject ***objs, int *numObjs)
+{
+    // Allocate array to hold all possible objects
+    *objs = pg_malloc_array(DumpableObject *, allocedDumpIds);
+
+    // Copy all non-NULL objects to the output array
+    int j = 0;
+    for (int i = 1; i < allocedDumpIds; i++) {
+        if (dumpIdMap[i]) {
+            (*objs)[j++] = dumpIdMap[i];
+        }
+    }
+
+    // Return the actual count of objects found
+    *numObjs = j;
+}
+```

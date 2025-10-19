@@ -45,3 +45,27 @@ The function handles three cases:
 - The ALLTRUE optimization handles cases where signatures represent very common terms that would match most documents
 - Essential for GiST index performance in text search operations
 - Located in src/backend/utils/adt/tsgistidx.c:512-532
+
+## Simplified Source
+
+```c
+static int hemdist(SignTSVector *a, SignTSVector *b) {
+    int siglena = GETSIGLEN(a);
+    int siglenb = GETSIGLEN(b);
+
+    // Handle ALLTRUE signatures (very common terms)
+    if (ISALLTRUE(a)) {
+        if (ISALLTRUE(b))
+            return 0;  // Both are ALLTRUE - identical
+        else
+            return SIGLENBIT(siglenb) - sizebitvec(GETSIGN(b), siglenb);
+    }
+    else if (ISALLTRUE(b)) {
+        return SIGLENBIT(siglena) - sizebitvec(GETSIGN(a), siglena);
+    }
+
+    // Normal case: both are regular signatures
+    Assert(siglena == siglenb);  // Signatures must be same length
+    return hemdistsign(GETSIGN(a), GETSIGN(b), siglena);
+}
+```

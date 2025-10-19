@@ -38,3 +38,14 @@ The function operates by acquiring a spinlock on the shared worker structure, up
 - The function is critical for maintaining consistency in parallel logical replication by ensuring transaction state changes are atomic
 - Uses spinlocks rather than heavier synchronization mechanisms due to the brief nature of the critical section
 - Part of the broader parallel apply worker infrastructure introduced to improve logical replication performance
+
+## Simplified Source
+
+```c
+void pa_set_xact_state(ParallelApplyWorkerShared *wshared, ParallelTransState xact_state) {
+    // Atomically update transaction state with spinlock protection
+    SpinLockAcquire(&wshared->mutex);
+    wshared->xact_state = xact_state;
+    SpinLockRelease(&wshared->mutex);
+}
+```

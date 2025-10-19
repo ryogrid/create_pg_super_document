@@ -34,3 +34,16 @@ The function works by calling  to collect all tokens that form the boolean expre
 - This is part of psql's conditional command processing infrastructure, allowing proper parsing flow even when conditions are not being evaluated
 - The function is static to the command.c file, indicating it's an internal utility for the command processing system
 - Memory management is handled properly by immediately destroying the buffer after collection
+
+## Simplified Source
+
+```c
+// Simplified version of ignore_boolean_expression
+static void ignore_boolean_expression(PsqlScanState scan_state) {
+    // Collect the boolean expression tokens but don't evaluate them
+    PQExpBuffer buf = gather_boolean_expression(scan_state);
+
+    // Discard the collected expression
+    destroyPQExpBuffer(buf);
+}
+```

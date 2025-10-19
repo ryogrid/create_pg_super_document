@@ -51,3 +51,60 @@ The function ensures prepared statements are created when needed in QUERY_PREPAR
 - The function uses asynchronous libpq functions to enable non-blocking operation
 - Error handling is minimal - failures are indicated by return value only
 - Debug logging helps with troubleshooting query execution issues
+
+## Simplified Source
+
+```c
+static bool sendCommand(CState *st, Command *command)
+{
+    int result;
+
+    if (querymode == QUERY_SIMPLE)
+    {
+        // Simple mode: substitute variables in SQL text
+        char *sql = pg_strdup(command->argv[0]);
+        sql = assignVariables(&st->variables, sql);
+
+        pg_log_debug("client %d sending %s", st->id, sql);
+        result = PQsendQuery(st->con, sql);
+        free(sql);
+    }
+    else if (querymode == QUERY_EXTENDED)
+    {
+        // Extended mode: use parameterized query
+        const char *sql = command->argv[0];
+        const char *params[MAX_ARGS];
+
+        getQueryParams(&st->variables, command, params);
+
+        pg_log_debug("client %d sending %s", st->id, sql);
+        result = PQsendQueryParams(st->con, sql, command->argc - 1,
+                                   NULL, params, NULL, NULL, 0);
+    }
+    else if (querymode == QUERY_PREPARED)
+    {
+        // Prepared mode: use prepared statement
+        const char *params[MAX_ARGS];
+
+        prepareCommand(st, st->command);
+        getQueryParams(&st->variables, command, params);
+
+        pg_log_debug("client %d sending %s", st->id, command->prepname);
+        result = PQsendQueryPrepared(st->con, command->prepname, command->argc - 1,
+                                     params, NULL, NULL, 0);
+    }
+    else
+    {
+        // Unknown query mode
+        result = 0;
+    }
+
+    // Return success/failure based on libpq result
+    if (result == 0)
+    {
+        pg_log_debug("client %d could not send %s", st->id, command->argv[0]);
+        return false;
+    }
+    return true;
+}
+```

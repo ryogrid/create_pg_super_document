@@ -32,3 +32,13 @@ The function also supports operators that are not strict equality but have compa
 - Returns a float8 value representing the estimated selectivity
 - The function passes 'false' as the second parameter to eqsel_internal, indicating standard equality processing
 - Part of PostgreSQL's selectivity function framework used by the query optimizer for cost-based planning
+
+## Simplified Source
+
+```c
+Datum eqsel(PG_FUNCTION_ARGS) {
+    // Delegate to internal function for equality selectivity estimation
+    // false parameter indicates standard equality processing
+    PG_RETURN_FLOAT8((float8) eqsel_internal(fcinfo, false));
+}
+```

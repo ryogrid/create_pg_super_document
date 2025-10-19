@@ -35,3 +35,16 @@ The macaddr_ge function implements the greater-than-or-equal-to comparison opera
 - Returns true when addresses are equal (unlike macaddr_gt)
 - Complements macaddr_le to provide complete ordering operations for MAC addresses
 - Located in src/backend/utils/adt/mac.c:237-245
+
+## Simplified Source
+
+```c
+Datum macaddr_ge(PG_FUNCTION_ARGS) {
+    // Extract MAC address arguments
+    macaddr *a1 = PG_GETARG_MACADDR_P(0);
+    macaddr *a2 = PG_GETARG_MACADDR_P(1);
+
+    // Compare MAC addresses and return true if first >= second
+    PG_RETURN_BOOL(macaddr_cmp_internal(a1, a2) >= 0);
+}
+```

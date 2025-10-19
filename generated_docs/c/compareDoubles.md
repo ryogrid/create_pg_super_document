@@ -35,3 +35,17 @@ The implementation deliberately avoids using PostgreSQL's floating-point macros 
 - Used specifically in the context of SP-GiST (Space-Partitioned Generalized Search Tree) index operations
 - Returns standard qsort comparison values: -1 (less than), 0 (equal), 1 (greater than)
 - The comment emphasizes that this affects index performance, not correctness, indicating it's used in optimization paths
+
+## Simplified Source
+
+```c
+static int compareDoubles(const void *a, const void *b) {
+    // Extract float8 values from void pointers
+    float8 x = *(float8 *) a;
+    float8 y = *(float8 *) b;
+
+    // Simple comparison for qsort (performance optimized)
+    if (x == y) return 0;
+    return (x > y) ? 1 : -1;
+}
+```

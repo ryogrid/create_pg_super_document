@@ -39,3 +39,64 @@ This function provides a detailed view of a specific text search configuration b
 - The query groups results by configuration, token type, and parser to show comprehensive mapping information
 - Output includes both token type aliases and dictionary names for user-friendly display
 - This is a static helper function used internally by psql's text search configuration listing functionality
+
+## Simplified Source
+
+```c
+static bool describeOneTSConfig(const char *oid, const char *nspname, const char *cfgname,
+                               const char *pnspname, const char *prsname) {
+    PQExpBufferData buf, title;
+    PGresult *res;
+    printQueryOpt myopt = pset.popt;
+
+    // Initialize query buffer
+    initPQExpBuffer(&buf);
+
+    // Build query for token-to-dictionary mappings
+    printfPQExpBuffer(&buf,
+        "SELECT "
+        "(SELECT t.alias FROM pg_catalog.ts_token_type(c.cfgparser) AS t "
+        "WHERE t.tokid = m.maptokentype) AS \"Token\", "
+        "pg_catalog.btrim("
+        "ARRAY(SELECT mm.mapdict::pg_catalog.regdictionary "
+        "FROM pg_catalog.pg_ts_config_map AS mm "
+        "WHERE mm.mapcfg = m.mapcfg AND mm.maptokentype = m.maptokentype "
+        "ORDER BY mapcfg, maptokentype, mapseqno"
+        ")::pg_catalog.text, '{}') AS \"Dictionaries\" "
+        "FROM pg_catalog.pg_ts_config AS c, pg_catalog.pg_ts_config_map AS m "
+        "WHERE c.oid = '%s' AND m.mapcfg = c.oid "
+        "GROUP BY m.mapcfg, m.maptokentype, c.cfgparser "
+        "ORDER BY 1;", oid);
+
+    // Execute query
+    res = PSQLexec(buf.data);
+    termPQExpBuffer(&buf);
+    if (!res) return false;
+
+    // Build title with configuration and parser information
+    initPQExpBuffer(&title);
+    if (nspname) {
+        appendPQExpBuffer(&title, "Text search configuration \"%s.%s\"", nspname, cfgname);
+    } else {
+        appendPQExpBuffer(&title, "Text search configuration \"%s\"", cfgname);
+    }
+
+    if (pnspname) {
+        appendPQExpBuffer(&title, "\nParser: \"%s.%s\"", pnspname, prsname);
+    } else {
+        appendPQExpBuffer(&title, "\nParser: \"%s\"", prsname);
+    }
+
+    // Configure and display results
+    myopt.title = title.data;
+    myopt.footers = NULL;
+    myopt.topt.default_footer = false;
+    myopt.translate_header = true;
+    printQuery(res, &myopt, pset.queryFout, false, pset.logfile);
+
+    // Cleanup
+    termPQExpBuffer(&title);
+    PQclear(res);
+    return true;
+}
+```

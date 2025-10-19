@@ -32,3 +32,16 @@ The function includes an important assertion that verifies no two ItemPointers b
 - Contains an assertion to detect duplicate ItemPointers, which would indicate a bug in the bulk insertion logic
 - The assertion helps ensure data integrity during GIN index construction
 - Returns the same comparison semantics as ginCompareItemPointers (negative, zero, or positive integer)
+
+## Simplified Source
+
+```c
+static int qsortCompareItemPointers(const void *a, const void *b) {
+    // Compare ItemPointers using GIN's comparison function
+    int result = ginCompareItemPointers((ItemPointer) a, (ItemPointer) b);
+
+    // Ensure no duplicates exist during sorting
+    Assert(result != 0);
+    return result;
+}
+```

@@ -39,3 +39,45 @@ This function processes the arguments to a \\sleep meta-command in pgbench scrip
 - Conversion factors: seconds × 1,000,000 = microseconds, milliseconds × 1,000 = microseconds
 - Part of pgbench's meta-command processing system for script execution control
 - The function is static with internal linkage within pgbench.c
+
+## Simplified Source
+```c
+static bool evaluateSleep(Variables *variables, int argc, char **argv, int *usecs) {
+    char *var;
+    int usec;
+
+    // Handle variable reference (starts with ':')
+    if (*argv[1] == ':') {
+        var = getVariable(variables, argv[1] + 1);
+        if (var == NULL) {
+            pg_log_error("%s: undefined variable \"%s\"", argv[0], argv[1] + 1);
+            return false;
+        }
+
+        usec = atoi(var);
+
+        // Validate numeric value
+        if (usec == 0 && !isdigit((unsigned char) *var)) {
+            pg_log_error("%s: invalid sleep time \"%s\" for variable \"%s\"",
+                         argv[0], var, argv[1] + 1);
+            return false;
+        }
+    } else {
+        // Direct numeric value
+        usec = atoi(argv[1]);
+    }
+
+    // Apply time unit conversions
+    if (argc > 2) {
+        if (pg_strcasecmp(argv[2], "ms") == 0)
+            usec *= 1000;        // milliseconds to microseconds
+        else if (pg_strcasecmp(argv[2], "s") == 0)
+            usec *= 1000000;     // seconds to microseconds
+    } else {
+        usec *= 1000000;         // default: seconds to microseconds
+    }
+
+    *usecs = usec;
+    return true;
+}
+```

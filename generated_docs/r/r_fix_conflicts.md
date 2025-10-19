@@ -35,3 +35,38 @@ This function addresses morphological conflicts that arise during Lithuanian ste
 - Located in src/backend/snowball/libstemmer/stem_UTF_8_lithuanian.c:676-727
 - Static function scope indicates internal use within the Lithuanian stemmer module
 - Essential for handling Lithuanian-specific orthographic and phonetic variations that occur after suffix removal
+
+## Simplified Source
+
+```c
+static int r_fix_conflicts(struct SN_env * z) {
+    // Set boundaries for pattern matching
+    z->ket = z->c;
+
+    // Quick optimization: check if last character could match conflict patterns
+    if (z->c - 3 <= z->lb || z->p[z->c - 1] >> 5 != 3 ||
+        !((2621472 >> (z->p[z->c - 1] & 0x1f)) & 1)) {
+        return 0;  // No potential conflicts
+    }
+
+    // Find which conflict pattern matches (11 patterns in a_2 array)
+    int pattern_id = find_among_b(z, a_2, 11);
+    if (!pattern_id) return 0;
+
+    z->bra = z->c;
+
+    // Apply appropriate correction based on conflict type
+    switch (pattern_id) {
+        case 1: slice_from_s(z, 5, s_0); break;  // Replace with 5-char string
+        case 2: slice_from_s(z, 5, s_1); break;  // Replace with 5-char string
+        case 3: slice_from_s(z, 7, s_2); break;  // Replace with 7-char string
+        case 4: slice_from_s(z, 4, s_3); break;  // Replace with 4-char string
+        case 5: slice_from_s(z, 4, s_4); break;  // Replace with 4-char string
+        case 6: slice_from_s(z, 6, s_5); break;  // Replace with 6-char string
+        case 7: slice_from_s(z, 6, s_6); break;  // Replace with 6-char string
+        case 8: slice_from_s(z, 6, s_7); break;  // Replace with 6-char string
+    }
+
+    return 1;  // Conflict resolved
+}
+```

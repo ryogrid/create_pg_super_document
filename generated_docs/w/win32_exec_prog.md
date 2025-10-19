@@ -37,3 +37,18 @@ The function inverts the return value from exec_prog (using logical NOT) to matc
 - Return value: Returns DWORD (0 for success, non-zero for failure) following Windows threading conventions
 - Memory management: Does not manage the args structure - assumes it's managed by the calling thread
 - Thread lifecycle: Function return terminates the thread
+
+## Simplified Source
+
+```c
+DWORD
+win32_exec_prog(exec_thread_arg *args)
+{
+    // Execute the command using standard exec_prog function
+    // Invert return value to match Windows threading conventions
+    int ret = !exec_prog(args->log_file, args->opt_log_file, true, true, "%s", args->cmd);
+
+    // Return terminates the thread
+    return ret;
+}
+```

@@ -48,3 +48,27 @@ Key characteristics:
 - Signal handlers are stored in the global pg_signal_array indexed by signal number
 - Provides POSIX-compatible signal action semantics on Windows platforms
 - Does not perform any immediate signal processing; signal dispatch occurs separately via pgwin32_dispatch_queued_signals
+
+## Simplified Source
+
+```c
+int pqsigaction(int signum, const struct sigaction *act, struct sigaction *oldact) {
+    // Validate signal number
+    if (signum >= PG_SIGNAL_COUNT || signum < 0) {
+        errno = EINVAL;
+        return -1;
+    }
+
+    // Return current handler if requested
+    if (oldact) {
+        *oldact = pg_signal_array[signum];
+    }
+
+    // Install new handler if provided
+    if (act) {
+        pg_signal_array[signum] = *act;
+    }
+
+    return 0;  // Success
+}
+```

@@ -54,3 +54,47 @@ The staged approach ensures that basic optimizer statistics become available acr
 - The function is marked static, indicating internal use within vacuumdb.c only
 - Does not process template databases or databases that explicitly disallow connections
 - Each database is processed independently, so failures in one database do not affect processing of others
+
+## Simplified Source
+
+```c
+static void vacuum_all_databases(ConnParams *cparams,
+                                vacuumingOptions *vacopts,
+                                bool analyze_in_stages,
+                                SimpleStringList *objects,
+                                int concurrentCons,
+                                const char *progname, bool echo, bool quiet) {
+    PGconn *conn;
+    PGresult *result;
+    int stage, i;
+
+    // Connect to maintenance database to query pg_database
+    conn = connectMaintenanceDatabase(cparams, progname, echo);
+    result = executeQuery(conn,
+        "SELECT datname FROM pg_database "
+        "WHERE datallowconn AND datconnlimit <> -2 "
+        "ORDER BY 1;", echo);
+    PQfinish(conn);
+
+    if (analyze_in_stages) {
+        // Process all databases in stages: stage 0, then stage 1, then stage 2
+        // This ensures basic stats are available everywhere quickly
+        for (stage = 0; stage < ANALYZE_NUM_STAGES; stage++) {
+            for (i = 0; i < PQntuples(result); i++) {
+                cparams->override_dbname = PQgetvalue(result, i, 0);
+                vacuum_one_database(cparams, vacopts, stage, objects,
+                                   concurrentCons, progname, echo, quiet);
+            }
+        }
+    } else {
+        // Process each database completely before moving to next
+        for (i = 0; i < PQntuples(result); i++) {
+            cparams->override_dbname = PQgetvalue(result, i, 0);
+            vacuum_one_database(cparams, vacopts, ANALYZE_NO_STAGE, objects,
+                               concurrentCons, progname, echo, quiet);
+        }
+    }
+
+    PQclear(result);
+}
+```

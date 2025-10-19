@@ -42,3 +42,44 @@ RT_NODE_16_SEARCH_EQ is part of PostgreSQL's templated radix tree implementation
 - Function is marked inline for performance optimization since it's in the critical search path
 - The SIMD version masks off invalid entries beyond the actual count to prevent false matches
 - Uses bitfield operations to convert SIMD comparison results to array indices efficiently
+
+## Simplified Source
+
+```c
+static inline RT_PTR_ALLOC *
+RT_NODE_16_SEARCH_EQ(RT_NODE_16 *node, uint8 chunk)
+{
+    int count = node->base.count;
+
+#ifdef USE_NO_SIMD
+    // Scalar version: linear search through chunks
+    for (int i = 0; i < count; i++) {
+        if (node->chunks[i] == chunk) {
+            return &node->children[i];
+        }
+    }
+    return NULL;
+#else
+    // SIMD version: parallel search using vectors
+    Vector8 spread_chunk = vector8_broadcast(chunk);
+    Vector8 haystack1, haystack2, cmp1, cmp2;
+    uint32 bitfield;
+
+    // Load chunks and compare in parallel
+    vector8_load(&haystack1, &node->chunks[0]);
+    vector8_load(&haystack2, &node->chunks[sizeof(Vector8)]);
+    cmp1 = vector8_eq(spread_chunk, haystack1);
+    cmp2 = vector8_eq(spread_chunk, haystack2);
+
+    // Convert comparison results to bitfield
+    bitfield = vector8_highbit_mask(cmp1) | (vector8_highbit_mask(cmp2) << sizeof(Vector8));
+
+    // Mask off entries beyond count and find match
+    bitfield &= ((UINT64CONST(1) << count) - 1);
+    if (bitfield)
+        return &node->children[pg_rightmost_one_pos32(bitfield)];
+
+    return NULL;
+#endif
+}
+```

@@ -41,3 +41,26 @@ The function uses a local PQExpBuffer for intermediate processing and returns th
 - [Result](../R/Result.md) should be used immediately as it may be overwritten by subsequent calls
 - Part of the frontend utilities string formatting infrastructure
 - Encoding parameter allows for proper character handling in different database encodings
+
+## Simplified Source
+
+```c
+const char *fmtQualifiedIdEnc(const char *schema, const char *id, int encoding) {
+    PQExpBuffer temp_buffer = createPQExpBuffer();
+    PQExpBuffer result_buffer = getLocalPQExpBuffer();
+
+    // Add schema prefix if provided
+    if (schema && *schema) {
+        appendPQExpBuffer(temp_buffer, "%s.", fmtIdEnc(schema, encoding));
+    }
+
+    // Add the identifier
+    appendPQExpBufferStr(temp_buffer, fmtIdEnc(id, encoding));
+
+    // Copy to result buffer and cleanup
+    appendPQExpBufferStr(result_buffer, temp_buffer->data);
+    destroyPQExpBuffer(temp_buffer);
+
+    return result_buffer->data;
+}
+```

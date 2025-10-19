@@ -42,3 +42,47 @@ When quoting is required, it properly escapes internal quotes and backslashes. T
 - Handles whitespace characters matching scanner_isspace() definition
 - Used primarily by pg_dump utilities for constructing array literals in SQL output
 - Part of the frontend utilities string manipulation library
+
+## Simplified Source
+
+```c
+void appendPGArray(PQExpBuffer buffer, const char *value) {
+    // Add comma separator if not at array start
+    if (buffer->data[buffer->len - 1] != '{') {
+        appendPQExpBufferChar(buffer, ',');
+    }
+
+    // Determine if value needs quoting
+    bool needquote = false;
+    if (value[0] == '\0' || pg_strcasecmp(value, "NULL") == 0) {
+        needquote = true;  // Empty string or literal NULL
+    } else {
+        // Check for special characters requiring quotes
+        for (const char *tmp = value; *tmp; tmp++) {
+            char ch = *tmp;
+            if (ch == '"' || ch == '\\' || ch == '{' || ch == '}' ||
+                ch == ',' || ch == ' ' || ch == '\t' || ch == '\n' ||
+                ch == '\r' || ch == '\v' || ch == '\f') {
+                needquote = true;
+                break;
+            }
+        }
+    }
+
+    if (needquote) {
+        // Add quoted value with escaped quotes and backslashes
+        appendPQExpBufferChar(buffer, '"');
+        for (const char *tmp = value; *tmp; tmp++) {
+            char ch = *tmp;
+            if (ch == '"' || ch == '\\') {
+                appendPQExpBufferChar(buffer, '\\');
+            }
+            appendPQExpBufferChar(buffer, ch);
+        }
+        appendPQExpBufferChar(buffer, '"');
+    } else {
+        // Add unquoted value
+        appendPQExpBufferStr(buffer, value);
+    }
+}
+```

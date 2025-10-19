@@ -43,3 +43,31 @@ If an invalid value is provided, the function calls PsqlVarEnumError to display 
 - The hook is registered in EstablishVariableSpace() alongside echo_substitute_hook for the ECHO variable
 - Part of psql's variable hook system that provides type-safe enum value assignment with user-friendly string interface
 - Works in conjunction with echo_substitute_hook to ensure the variable always has a valid value
+
+## Simplified Source
+
+```c
+static bool
+echo_hook(const char *newval)
+{
+    Assert(newval != NULL);  // Substitute hook ensures non-NULL value
+
+    // Set echo mode based on string value (case-insensitive)
+    if (pg_strcasecmp(newval, "queries") == 0)
+        pset.echo = PSQL_ECHO_QUERIES;
+    else if (pg_strcasecmp(newval, "errors") == 0)
+        pset.echo = PSQL_ECHO_ERRORS;
+    else if (pg_strcasecmp(newval, "all") == 0)
+        pset.echo = PSQL_ECHO_ALL;
+    else if (pg_strcasecmp(newval, "none") == 0)
+        pset.echo = PSQL_ECHO_NONE;
+    else
+    {
+        // Invalid value - show error and fail validation
+        PsqlVarEnumError("ECHO", newval, "none, errors, queries, all");
+        return false;
+    }
+
+    return true;
+}
+```

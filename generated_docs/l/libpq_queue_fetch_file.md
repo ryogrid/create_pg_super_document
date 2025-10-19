@@ -38,3 +38,19 @@ The function acknowledges inherent race conditions in file copying operations bu
 - Race conditions are acknowledged but considered acceptable, following the precedent set by pg_basebackup
 - This is a static function used internally within the libpq_source.c module as part of pg_rewind's remote file transfer capabilities
 - The approach prioritizes simplicity over perfect consistency, which is appropriate for the pg_rewind use case where some inconsistency is acceptable and corrected by WAL replay
+
+## Simplified Source
+
+```c
+static void
+libpq_queue_fetch_file(rewind_source *source, const char *path, size_t len)
+{
+    // Prepare target file by truncating it
+    open_target_file(path, true);
+
+    // Queue fetch request for entire file
+    // For small files, request full chunk size to handle potential growth
+    size_t fetch_size = Max(len, MAX_CHUNK_SIZE);
+    libpq_queue_fetch_range(source, path, 0, fetch_size);
+}
+```

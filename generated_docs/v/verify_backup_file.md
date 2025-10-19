@@ -46,3 +46,57 @@ This function serves as the main entry point for verifying individual filesystem
 - Progress reporting is updated for files that will undergo checksum verification
 - Only regular files and directories are considered valid; other file types trigger errors
 - Part of the recursive verification algorithm that processes the entire backup directory tree
+
+## Simplified Source
+
+```c
+static void
+verify_backup_file(verifier_context *context, char *relpath, char *fullpath)
+{
+    struct stat sb;
+    manifest_file *m;
+
+    // Get file stats
+    if (stat(fullpath, &sb) != 0) {
+        report_backup_error(context, "could not stat file or directory \"%s\": %m", relpath);
+        simple_string_list_append(&context->ignore_list, relpath);
+        return;
+    }
+
+    // Handle directories recursively
+    if (S_ISDIR(sb.st_mode)) {
+        verify_backup_directory(context, relpath, fullpath);
+        return;
+    }
+
+    // Only process regular files
+    if (!S_ISREG(sb.st_mode)) {
+        report_backup_error(context, "\"%s\" is not a file or directory", relpath);
+        return;
+    }
+
+    // Look up file in manifest
+    m = manifest_files_lookup(context->manifest->files, relpath);
+    if (m == NULL) {
+        report_backup_error(context, "\"%s\" is present on disk but not in the manifest", relpath);
+        return;
+    }
+
+    // Mark as found and validate size
+    m->matched = true;
+    if (m->size != sb.st_size) {
+        report_backup_error(context,
+                           "\"%s\" has size %lld on disk but size %zu in the manifest",
+                           relpath, (long long int) sb.st_size, m->size);
+        m->bad = true;
+    }
+
+    // Special handling for pg_control file
+    if (context->manifest->version != 1 && strcmp(relpath, "global/pg_control") == 0)
+        verify_control_file(fullpath, context->manifest->system_identifier);
+
+    // Update progress tracking for checksum verification
+    if (show_progress && !skip_checksums && should_verify_checksum(m))
+        total_size += m->size;
+}
+```

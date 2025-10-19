@@ -34,3 +34,21 @@ The int8gcd function serves as the PostgreSQL-callable wrapper for the GCD opera
 - Part of PostgreSQL's comprehensive mathematical function library for bigint operations
 - Enables SQL access to GCD functionality through standard PostgreSQL function dispatch
 - All complex edge case handling is performed in the internal implementation
+
+## Simplified Source
+
+```c
+Datum
+int8gcd(PG_FUNCTION_ARGS)
+{
+    // Extract two bigint arguments from PostgreSQL function call
+    int64 arg1 = PG_GETARG_INT64(0);
+    int64 arg2 = PG_GETARG_INT64(1);
+
+    // Delegate to internal GCD implementation
+    int64 result = int8gcd_internal(arg1, arg2);
+
+    // Return result as PostgreSQL Datum
+    PG_RETURN_INT64(result);
+}
+```

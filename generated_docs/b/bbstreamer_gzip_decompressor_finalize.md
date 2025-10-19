@@ -34,3 +34,24 @@ This function performs cleanup and finalization operations when the gzip decompr
 - Uses BBSTREAMER_UNKNOWN context to signal end-of-stream condition to downstream streamers
 - Critical for proper resource cleanup and data integrity in the streaming architecture
 - Called through the function pointer in the bbstreamer_ops structure when the stream ends
+
+## Simplified Source
+
+```c
+static void
+bbstreamer_gzip_decompressor_finalize(bbstreamer *streamer)
+{
+    bbstreamer_gzip_decompressor *mystreamer;
+
+    mystreamer = (bbstreamer_gzip_decompressor *) streamer;
+
+    // Forward any remaining buffered data to next streamer
+    bbstreamer_content(mystreamer->base.bbs_next, NULL,
+                     mystreamer->base.bbs_buffer.data,
+                     mystreamer->base.bbs_buffer.maxlen,
+                     BBSTREAMER_UNKNOWN);
+
+    // Finalize the downstream streamer
+    bbstreamer_finalize(mystreamer->base.bbs_next);
+}
+```

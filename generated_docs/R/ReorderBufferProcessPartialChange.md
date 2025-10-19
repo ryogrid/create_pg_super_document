@@ -45,3 +45,46 @@ This function handles the tracking and management of partial changes during logi
 - Automatically streams previously serialized transactions once their partial changes become complete
 - Designed to prevent streaming incomplete changes while minimizing apply lag for delayed transactions
 - All partial change tracking is done on the top-level transaction, not subtransactions
+
+## Simplified Source
+```c
+static void ReorderBufferProcessPartialChange(ReorderBuffer *rb, ReorderBufferTXN *txn,
+                                            ReorderBufferChange *change, bool toast_insert)
+{
+    // Only process partial changes when streaming is enabled
+    if (!ReorderBufferCanStream(rb))
+        return;
+
+    // Get the top-level transaction for flag management
+    ReorderBufferTXN *toptxn = rbtxn_get_toptxn(txn);
+
+    // Handle TOAST insert partial changes
+    if (toast_insert) {
+        // Mark transaction as having partial change
+        toptxn->txn_flags |= RBTXN_HAS_PARTIAL_CHANGE;
+    } else if (rbtxn_has_partial_change(toptxn) &&
+               IsInsertOrUpdate(change->action) &&
+               change->data.tp.clear_toast_afterwards) {
+        // Clear partial flag when TOAST is complete
+        toptxn->txn_flags &= ~RBTXN_HAS_PARTIAL_CHANGE;
+    }
+
+    // Handle speculative insert partial changes
+    if (IsSpecInsert(change->action)) {
+        // Mark transaction as having partial change
+        toptxn->txn_flags |= RBTXN_HAS_PARTIAL_CHANGE;
+    } else if (rbtxn_has_partial_change(toptxn) &&
+               IsSpecConfirmOrAbort(change->action)) {
+        // Clear partial flag when speculation is resolved
+        toptxn->txn_flags &= ~RBTXN_HAS_PARTIAL_CHANGE;
+    }
+
+    // Stream transaction if it's now complete and was previously serialized
+    if (ReorderBufferCanStartStreaming(rb) &&
+        !rbtxn_has_partial_change(toptxn) &&
+        rbtxn_is_serialized(txn) &&
+        rbtxn_has_streamable_change(toptxn)) {
+        ReorderBufferStreamTXN(rb, toptxn);
+    }
+}
+```

@@ -38,3 +38,36 @@ This function handles the execution of the \i (include) and \ir (include relativ
 - The include_relative flag determines whether file paths are resolved relative to the current script's directory
 - Requires exactly one argument (the filename) - reports an error if missing
 - Part of psql's script execution infrastructure for modular SQL development
+
+## Simplified Source
+
+```c
+// Simplified version of exec_command_include
+static backslashResult exec_command_include(PsqlScanState scan_state, bool active_branch, const char *cmd) {
+    bool success = true;
+
+    if (active_branch) {
+        // Extract filename argument from command line
+        char *fname = psql_scan_slash_option(scan_state, OT_NORMAL, NULL, true);
+
+        if (!fname) {
+            // Error if no filename provided
+            pg_log_error("\\%s: missing required argument", cmd);
+            success = false;
+        } else {
+            // Determine if this is relative include (ir/include_relative)
+            bool include_relative = (strcmp(cmd, "ir") == 0 || strcmp(cmd, "include_relative") == 0);
+
+            // Expand ~ in file path and process the file
+            expand_tilde(&fname);
+            success = (process_file(fname, include_relative) == EXIT_SUCCESS);
+            free(fname);
+        }
+    } else {
+        // Skip processing if in inactive conditional branch
+        ignore_slash_options(scan_state);
+    }
+
+    return success ? PSQL_CMD_SKIP_LINE : PSQL_CMD_ERROR;
+}
+```

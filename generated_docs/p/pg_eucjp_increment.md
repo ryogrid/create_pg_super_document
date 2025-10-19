@@ -45,3 +45,70 @@ Like other encoding incrementers, it's designed for range operations where exhau
 - JIS X 0208 sequences represent the main kanji and hiragana/katakana sets
 - Returns false when no valid increment is possible within encoding constraints
 - Essential for proper Japanese text processing in range operations and indexing
+
+## Simplified Source
+
+```c
+static bool
+pg_eucjp_increment(unsigned char *charptr, int length)
+{
+    unsigned char first_byte = *charptr;
+    unsigned char current_byte;
+    int i;
+
+    switch (first_byte) {
+        case 0x8E:  // SS2 - JIS X 0201 (2-byte sequence)
+            if (length != 2) return false;
+
+            current_byte = charptr[1];
+            if (current_byte >= 0xDF)
+                charptr[0] = charptr[1] = 0xA1;  // Reset to start
+            else if (current_byte < 0xA1)
+                charptr[1] = 0xA1;  // Fix invalid byte
+            else
+                charptr[1]++;  // Increment within range
+            break;
+
+        case 0x8F:  // SS3 - JIS X 0212 (3-byte sequence)
+            if (length != 3) return false;
+
+            // Try to increment from rightmost byte
+            for (i = 2; i > 0; i--) {
+                current_byte = charptr[i];
+                if (current_byte < 0xA1) {
+                    charptr[i] = 0xA1;
+                    return true;
+                } else if (current_byte < 0xFE) {
+                    charptr[i]++;
+                    return true;
+                }
+            }
+            return false;  // Out of range
+
+        default:
+            if (first_byte & 0x80) {  // JIS X 0208 (2-byte sequence)
+                if (length != 2) return false;
+
+                // Try to increment from rightmost byte
+                for (i = 1; i >= 0; i--) {
+                    current_byte = charptr[i];
+                    if (current_byte < 0xA1) {
+                        charptr[i] = 0xA1;
+                        return true;
+                    } else if (current_byte < 0xFE) {
+                        charptr[i]++;
+                        return true;
+                    }
+                }
+                return false;  // Out of range
+            } else {
+                // ASCII single byte
+                if (first_byte > 0x7E) return false;
+                (*charptr)++;
+            }
+            break;
+    }
+
+    return true;
+}
+```

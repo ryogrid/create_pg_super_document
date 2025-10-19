@@ -54,3 +54,80 @@ This two-phase approach ensures proper handling of complex t-plural forms that r
 - Returns 1 on successful processing, 0 on failure or exclusion
 - Located in stem_ISO_8859_1_finnish.c indicating ISO 8859-1 character encoding support
 - This function handles complex Finnish plural morphology involving consonant-vowel sequences
+
+## Simplified Source
+
+```c
+static int r_t_plural(struct SN_env * z) {
+    int among_var;
+
+    // Phase 1: Remove 't' ending in R2 region with vowel validation
+    {
+        int mlimit1;
+        if (z->c < z->I[1]) return 0;  // Check R2 boundary
+        mlimit1 = z->lb; z->lb = z->I[1];
+
+        z->ket = z->c;
+        if (z->c <= z->lb || z->p[z->c - 1] != 't') {
+            z->lb = mlimit1;
+            return 0;
+        }
+        z->c--;  // Move past 't'
+        z->bra = z->c;
+
+        // Check if character before 't' is a vowel
+        {
+            int m_test = z->l - z->c;
+            if (in_grouping_b(z, g_V1, 97, 246, 0)) {
+                z->lb = mlimit1;
+                return 0;
+            }
+            z->c = z->l - m_test;
+        }
+
+        // Remove the 't'
+        if (slice_del(z) < 0) return -1;
+        z->lb = mlimit1;
+    }
+
+    // Phase 2: Match and remove vowel patterns in R1 region
+    {
+        int mlimit2;
+        if (z->c < z->I[0]) return 0;  // Check R1 boundary
+        mlimit2 = z->lb; z->lb = z->I[0];
+
+        z->ket = z->c;
+        if (z->c - 2 <= z->lb || z->p[z->c - 1] != 'a') {
+            z->lb = mlimit2;
+            return 0;
+        }
+
+        // Find matching pattern from predefined set
+        among_var = find_among_b(z, a_9, 2);
+        if (!among_var) {
+            z->lb = mlimit2;
+            return 0;
+        }
+        z->bra = z->c;
+        z->lb = mlimit2;
+    }
+
+    // Handle matched pattern
+    switch (among_var) {
+        case 1:
+            // Check exclusion condition
+            {
+                int m_test = z->l - z->c;
+                if (eq_s_b(z, 2, s_4)) {
+                    return 0;  // Don't remove if exclusion matches
+                }
+                z->c = z->l - m_test;
+            }
+            break;
+    }
+
+    // Remove the matched ending
+    if (slice_del(z) < 0) return -1;
+    return 1;
+}
+```

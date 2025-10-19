@@ -49,3 +49,93 @@ The parsing uses WORD_BREAKS characters to identify word boundaries but includes
 - Sophisticated parsing includes quote and parentheses handling for SQL syntax
 - Words are returned right-to-left: previous_words[0] is the most recent word
 - Optimized memory allocation using worst-case estimates to avoid multiple malloc calls
+
+## Simplified Source
+
+```c
+static char **
+get_previous_words(int point, char **buffer, int *nwords)
+{
+    char **previous_words;
+    char *buf;
+    char *outptr;
+    int words_found = 0;
+    int i;
+
+    // Construct full query by combining query buffer with current line
+    if (tab_completion_query_buf && tab_completion_query_buf->len > 0) {
+        i = tab_completion_query_buf->len;
+        buf = pg_malloc(point + i + 2);
+        memcpy(buf, tab_completion_query_buf->data, i);
+        buf[i++] = '\n';
+        memcpy(buf + i, rl_line_buffer, point);
+        i += point;
+        buf[i] = '\0';
+        point = i;
+    } else {
+        buf = rl_line_buffer;
+    }
+
+    // Allocate arrays for words and string storage
+    previous_words = (char **) pg_malloc(point * sizeof(char *));
+    *buffer = outptr = (char *) pg_malloc(point * 2);
+
+    // Skip any non-word character at cursor position
+    for (i = point - 1; i >= 0; i--) {
+        if (strchr(WORD_BREAKS, buf[i]))
+            break;
+    }
+    point = i;
+
+    // Parse words backward from cursor position
+    while (point >= 0) {
+        int start, end;
+        bool inquotes = false;
+        int parentheses = 0;
+
+        // Find end of current word (first non-space going backward)
+        end = -1;
+        for (i = point; i >= 0; i--) {
+            if (!isspace((unsigned char) buf[i])) {
+                end = i;
+                break;
+            }
+        }
+        if (end < 0)
+            break;
+
+        // Find start of word, handling quotes and parentheses
+        for (start = end; start > 0; start--) {
+            if (buf[start] == '"')
+                inquotes = !inquotes;
+            if (!inquotes) {
+                if (buf[start] == ')')
+                    parentheses++;
+                else if (buf[start] == '(') {
+                    if (--parentheses <= 0)
+                        break;
+                } else if (parentheses == 0 && strchr(WORD_BREAKS, buf[start - 1])) {
+                    break;
+                }
+            }
+        }
+
+        // Copy the word to output buffer
+        previous_words[words_found++] = outptr;
+        i = end - start + 1;
+        memcpy(outptr, &buf[start], i);
+        outptr += i;
+        *outptr++ = '\0';
+
+        // Continue with next word
+        point = start - 1;
+    }
+
+    // Clean up temporary buffer if we created one
+    if (buf != rl_line_buffer)
+        free(buf);
+
+    *nwords = words_found;
+    return previous_words;
+}
+```

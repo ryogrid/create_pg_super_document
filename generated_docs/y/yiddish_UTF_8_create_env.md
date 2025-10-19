@@ -32,3 +32,13 @@ The function abstracts away the specific parameter requirements for Yiddish stem
 - Parameters passed to SN_create_env: 0 string variables, 2 integer variables
 - Part of the standard Snowball stemmer interface pattern where each language provides create/close functions
 - Located in src/backend/snowball/libstemmer/stem_UTF_8_yiddish.c:1230
+
+## Simplified Source
+
+```c
+extern struct SN_env * yiddish_UTF_8_create_env(void) {
+    // Create Snowball environment for Yiddish stemming
+    // Parameters: 0 string variables, 2 integer variables
+    return SN_create_env(0, 2);
+}
+```

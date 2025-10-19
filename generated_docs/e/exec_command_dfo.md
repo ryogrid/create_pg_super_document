@@ -36,3 +36,44 @@ This function is a specialized handler extracted from exec_command_d to manage t
 - The cmd[1] check determines function vs operator handling ('f' for functions, 'o' for operators)
 - Returns boolean success status rather than backslashResult like most other command handlers
 - Part of psql's advanced introspection capabilities for finding specific function/operator signatures
+
+## Simplified Source
+
+```c
+static bool
+exec_command_dfo(PsqlScanState scan_state, const char *cmd, const char *pattern,
+                 bool show_verbose, bool show_system)
+{
+    bool success;
+    char *arg_patterns[FUNC_MAX_ARGS];
+    int num_arg_patterns = 0;
+
+    // Collect argument type patterns for precise filtering
+    if (pattern) {
+        char *ap;
+        while ((ap = psql_scan_slash_option(scan_state, OT_NORMAL, NULL, true)) != NULL) {
+            arg_patterns[num_arg_patterns++] = ap;
+            if (num_arg_patterns >= FUNC_MAX_ARGS)
+                break;  // Prevent buffer overflow
+        }
+    }
+
+    // Dispatch to appropriate describe function
+    if (cmd[1] == 'f') {
+        // \df - describe functions
+        success = describeFunctions(&cmd[2], pattern, arg_patterns,
+                                  num_arg_patterns, show_verbose, show_system);
+    } else {
+        // \do - describe operators
+        success = describeOperators(pattern, arg_patterns, num_arg_patterns,
+                                  show_verbose, show_system);
+    }
+
+    // Clean up allocated argument patterns
+    while (--num_arg_patterns >= 0) {
+        free(arg_patterns[num_arg_patterns]);
+    }
+
+    return success;
+}
+```

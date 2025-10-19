@@ -43,3 +43,65 @@ This function is responsible for efficiently populating pgbench tables with larg
 - Uses efficient COPY protocol instead of individual INSERT statements
 - Progress reporting includes elapsed time and estimated remaining time
 - Properly cleans up terminal output formatting when complete
+
+## Simplified Source
+
+```c
+static void initPopulateTable(PGconn *con, const char *table, int64 base,
+                             initRowMethod init_row) {
+    PQExpBufferData sql;
+    char copy_statement[256];
+    const char *copy_statement_fmt = "copy %s from stdin";
+    int64 total = base * scale;
+    pg_time_usec_t start;
+
+    initPQExpBuffer(&sql);
+
+    // Use COPY FREEZE on PostgreSQL 14+ for better performance
+    if (PQserverVersion(con) >= 140000) {
+        if (strcmp(table, "pgbench_accounts") != 0 || partitions == 0)
+            copy_statement_fmt = "copy %s from stdin with (freeze on)";
+    }
+
+    // Build and execute COPY statement
+    pg_snprintf(copy_statement, sizeof(copy_statement), copy_statement_fmt, table);
+    PGresult *res = PQexec(con, copy_statement);
+
+    if (PQresultStatus(res) != PGRES_COPY_IN)
+        pg_fatal("unexpected copy in result: %s", PQerrorMessage(con));
+    PQclear(res);
+
+    start = pg_time_now();
+
+    // Generate and send data rows
+    for (int64 k = 0; k < total; k++) {
+        // Generate row data using provided function
+        init_row(&sql, k);
+
+        if (PQputline(con, sql.data))
+            pg_fatal("PQputline failed");
+
+        if (CancelRequested)
+            break;
+
+        // Progress reporting every 100k rows or time intervals
+        if (!use_quiet && ((k + 1) % 100000 == 0)) {
+            double elapsed = PG_TIME_GET_DOUBLE(pg_time_now() - start);
+            double remaining = ((double) total - (k + 1)) * elapsed / (k + 1);
+
+            fprintf(stderr, INT64_FORMAT " of " INT64_FORMAT " tuples (%d%%) of %s done "
+                           "(elapsed %.2f s, remaining %.2f s)\n",
+                    k + 1, total, (int) (((k + 1) * 100) / total),
+                    table, elapsed, remaining);
+        }
+    }
+
+    // Finalize COPY operation
+    if (PQputline(con, "\\.\n"))
+        pg_fatal("very last PQputline failed");
+    if (PQendcopy(con))
+        pg_fatal("PQendcopy failed");
+
+    termPQExpBuffer(&sql);
+}
+```

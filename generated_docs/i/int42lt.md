@@ -32,3 +32,16 @@ This function implements the less-than comparison operator between int4 (32-bit 
 - The comparison automatically handles type promotion from int2 to int4
 - Used internally by the PostgreSQL query executor when comparing int4 and int2 values for ordering
 - Location: src/backend/utils/adt/int.c:576-584
+
+## Simplified Source
+
+```c
+Datum int42lt(PG_FUNCTION_ARGS) {
+    // Extract int32 and int16 arguments
+    int32 left_value = PG_GETARG_INT32(0);
+    int16 right_value = PG_GETARG_INT16(1);
+
+    // Compare for less-than relationship (C automatically promotes int16 to int32)
+    PG_RETURN_BOOL(left_value < right_value);
+}
+```

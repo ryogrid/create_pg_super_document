@@ -44,3 +44,48 @@ The function defaults to kilobytes when no suffix is specified, and megabyte val
 - Uses comprehensive error handling with descriptive error messages via pg_fatal()
 - Handles floating-point input but converts to integer output
 - Validates that the final result fits within the expected integer range
+
+## Simplified Source
+
+```c
+static int32 parse_max_rate(char *src) {
+    double result;
+    char *after_num;
+
+    // Parse numeric value from string
+    result = strtod(src, &after_num);
+    if (src == after_num || result <= 0) {
+        pg_fatal("invalid transfer rate: %s", src);
+    }
+
+    // Skip whitespace after number
+    while (*after_num && isspace(*after_num)) {
+        after_num++;
+    }
+
+    // Handle unit suffixes: k (default), M (megabytes)
+    if (*after_num == 'M') {
+        result *= 1024.0;  // Convert MB to KB
+        after_num++;
+    } else if (*after_num == 'k') {
+        after_num++;  // Already in KB
+    }
+
+    // Skip trailing whitespace
+    while (*after_num && isspace(*after_num)) {
+        after_num++;
+    }
+
+    // Validate no unexpected characters remain
+    if (*after_num != '\0') {
+        pg_fatal("invalid unit in transfer rate: %s", src);
+    }
+
+    // Check range limits
+    if (result < MAX_RATE_LOWER || result > MAX_RATE_UPPER) {
+        pg_fatal("transfer rate out of range: %s", src);
+    }
+
+    return (int32) result;
+}
+```

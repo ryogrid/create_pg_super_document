@@ -35,3 +35,16 @@ This function follows the PostgreSQL function calling convention using `PG_FUNCT
 - The ERRCODE_FEATURE_NOT_SUPPORTED error code indicates this is a deliberate design limitation
 - The function includes a PG_RETURN_VOID() call to satisfy compiler requirements, though it's never reached due to the error
 - Located in src/backend/access/brin/brin_minmax_multi.c:3117-3133
+
+## Simplified Source
+
+```c
+Datum brin_minmax_multi_summary_recv(PG_FUNCTION_ARGS) {
+    // Reject binary input for internal-only brin_minmax_multi_summary type
+    ereport(ERROR,
+            (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+             errmsg("cannot accept a value of type %s", "brin_minmax_multi_summary")));
+
+    PG_RETURN_VOID();  // Keep compiler quiet
+}
+```

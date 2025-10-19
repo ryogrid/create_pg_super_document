@@ -36,3 +36,18 @@ The function is implemented as a PostgreSQL V1 calling convention function, taki
 - The trimming operation is performed byte-by-byte rather than character-by-character, making it suitable for binary data
 - Returns the original string unchanged if either the input string or trim set is empty
 - Uses PostgreSQL's memory management functions () for result allocation
+
+## Simplified Source
+
+```c
+Datum bytealtrim(PG_FUNCTION_ARGS) {
+    // Extract binary data arguments
+    bytea *string = PG_GETARG_BYTEA_PP(0);
+    bytea *set = PG_GETARG_BYTEA_PP(1);
+
+    // Call core binary trimming function for left-side trimming only
+    bytea *result = dobyteatrim(string, set, true, false);
+
+    PG_RETURN_BYTEA_P(result);
+}
+```

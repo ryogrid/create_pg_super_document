@@ -43,3 +43,24 @@ This caching mechanism optimizes performance by avoiding repeated conversions an
 - Always initializes `allistrue` to false first, then sets it to true only for ALLTRUE keys
 - The cache assumes that the `sign` member has been pre-allocated with sufficient space
 - Located in src/backend/utils/adt/tsgistidx.c:576-586
+
+## Simplified Source
+
+```c
+static void fillcache(CACHESIGN *item, SignTSVector *key, int siglen) {
+    item->allistrue = false;
+
+    if (ISARRKEY(key)) {
+        // Convert array key to signature format
+        makesign(item->sign, key, siglen);
+    }
+    else if (ISALLTRUE(key)) {
+        // Mark as ALLTRUE signature (no signature data needed)
+        item->allistrue = true;
+    }
+    else {
+        // Copy existing signature data
+        memcpy(item->sign, GETSIGN(key), siglen);
+    }
+}
+```

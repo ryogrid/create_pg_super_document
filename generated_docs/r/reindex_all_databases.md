@@ -56,3 +56,78 @@ The function respects the hierarchy of reindexing operations and ensures that mo
 - Full database reindexing only occurs if no specific objects (schemas, tables, indexes) are specified and syscatalog is false
 - The function temporarily overrides the database name in cparams for each database being processed
 - Uses different concurrency settings for different operations (system catalogs and indexes use concurrency=1)
+
+## Simplified Source
+
+```c
+static void
+reindex_all_databases(ConnParams *cparams,
+                      const char *progname, bool echo, bool quiet, bool verbose,
+                      bool concurrently, int concurrentCons,
+                      const char *tablespace, bool syscatalog,
+                      SimpleStringList *schemas, SimpleStringList *tables,
+                      SimpleStringList *indexes)
+{
+    PGconn *conn;
+    PGresult *result;
+    int i;
+
+    // Connect to maintenance database and get list of all connectable databases
+    conn = connectMaintenanceDatabase(cparams, progname, echo);
+    result = executeQuery(conn,
+                         "SELECT datname FROM pg_database "
+                         "WHERE datallowconn AND datconnlimit <> -2 "
+                         "ORDER BY 1;",
+                         echo);
+    PQfinish(conn);
+
+    // Process each database found
+    for (i = 0; i < PQntuples(result); i++) {
+        char *dbname = PQgetvalue(result, i, 0);
+
+        // Show progress message
+        if (!quiet) {
+            printf("%s: reindexing database \"%s\"\n", progname, dbname);
+            fflush(stdout);
+        }
+
+        // Override database name for this iteration
+        cparams->override_dbname = dbname;
+
+        // Perform reindexing operations in priority order:
+
+        // 1. System catalogs (if requested, single connection)
+        if (syscatalog)
+            reindex_one_database(cparams, REINDEX_SYSTEM, NULL,
+                                progname, echo, verbose,
+                                concurrently, 1, tablespace);
+
+        // 2. Specific schemas (if specified)
+        if (schemas->head != NULL)
+            reindex_one_database(cparams, REINDEX_SCHEMA, schemas,
+                                progname, echo, verbose,
+                                concurrently, concurrentCons, tablespace);
+
+        // 3. Specific indexes (if specified, single connection)
+        if (indexes->head != NULL)
+            reindex_one_database(cparams, REINDEX_INDEX, indexes,
+                                progname, echo, verbose,
+                                concurrently, 1, tablespace);
+
+        // 4. Specific tables (if specified)
+        if (tables->head != NULL)
+            reindex_one_database(cparams, REINDEX_TABLE, tables,
+                                progname, echo, verbose,
+                                concurrently, concurrentCons, tablespace);
+
+        // 5. Entire database (only if no specific objects specified)
+        if (!syscatalog && indexes->head == NULL &&
+            tables->head == NULL && schemas->head == NULL)
+            reindex_one_database(cparams, REINDEX_DATABASE, NULL,
+                                progname, echo, verbose,
+                                concurrently, concurrentCons, tablespace);
+    }
+
+    PQclear(result);
+}
+```

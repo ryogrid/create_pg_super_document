@@ -41,3 +41,17 @@ Internally, the function delegates the actual computation to the pg_lsn_mi funct
 - Part of PostgreSQL's WAL management and monitoring infrastructure
 - The function is a thin wrapper around the core pg_lsn_mi functionality
 - Defined in src/backend/access/transam/xlogfuncs.c:651-668
+
+## Simplified Source
+
+```c
+Datum pg_wal_lsn_diff(PG_FUNCTION_ARGS) {
+    // Calculate difference between two LSN positions in bytes
+    // Uses pg_lsn_mi to perform the actual subtraction
+    Datum result = DirectFunctionCall2(pg_lsn_mi,
+                                      PG_GETARG_DATUM(0),  // First LSN
+                                      PG_GETARG_DATUM(1)); // Second LSN
+
+    PG_RETURN_DATUM(result);
+}
+```

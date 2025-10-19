@@ -34,3 +34,27 @@ The `range_upper` function is a range accessor function that extracts and return
 - The returned value maintains the original data type of the range subtype
 - This is part of the standard range accessor function family alongside `range_lower`
 - Commonly used in range queries and boundary analysis operations
+
+## Simplified Source
+
+```c
+Datum
+range_upper(PG_FUNCTION_ARGS)
+{
+	RangeType *range = PG_GETARG_RANGE_P(0);
+	TypeCacheEntry *typcache;
+	RangeBound lower, upper;
+	bool empty;
+
+	// Get type information and deserialize range
+	typcache = range_get_typcache(fcinfo, RangeTypeGetOid(range));
+	range_deserialize(typcache, range, &lower, &upper, &empty);
+
+	// Return NULL if range is empty or upper bound is infinite
+	if (empty || upper.infinite)
+		PG_RETURN_NULL();
+
+	// Return the finite upper bound value
+	PG_RETURN_DATUM(upper.val);
+}
+```

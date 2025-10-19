@@ -44,3 +44,21 @@ The  function divides a Cash value (64-bit signed integer representing monetary 
 - Enables division of monetary values by scaling factors or percentage denominators
 - The intermediate float8 calculation allows for fractional division while maintaining final integer precision
 - Complementary function to  for division operations
+
+## Simplified Source
+
+```c
+static inline Cash
+cash_div_float8(Cash c, float8 f)
+{
+    // Divide and round to nearest integer
+    float8 res = rint(float8_div((float8) c, f));
+
+    // Check for invalid results or overflow
+    if (unlikely(isnan(res) || !FLOAT8_FITS_IN_INT64(res)))
+        ereport(ERROR, (errcode(ERRCODE_NUMERIC_VALUE_OUT_OF_RANGE),
+                       errmsg("money out of range")));
+
+    return (Cash) res;
+}
+```

@@ -46,3 +46,93 @@ The function operates on three buffers: it updates the old bucket page's special
 - Metapage updates are conditional based on flags in the WAL record, allowing for selective updates of hash masks and overflow points
 - The function handles complex metapage field updates including hashm_maxbucket, hashm_lowmask, hashm_highmask, hashm_spares, and hashm_ovflpoint
 - Buffer release follows a specific order to maintain consistency with normal operation patterns
+
+## Simplified Source
+
+```c
+static void
+hash_xlog_split_allocate_page(XLogReaderState *record)
+{
+    XLogRecPtr lsn = record->EndRecPtr;
+    xl_hash_split_allocate_page *xlrec = (xl_hash_split_allocate_page *) XLogRecGetData(record);
+    Buffer oldbuf;
+    Buffer newbuf;
+    Buffer metabuf;
+    char *data;
+    XLogRedoAction action;
+
+    // Update old bucket page with split information
+    action = XLogReadBufferForRedoExtended(record, 0, RBM_NORMAL, true, &oldbuf);
+    if (action == BLK_NEEDS_REDO || action == BLK_RESTORED)
+    {
+        Page oldpage = BufferGetPage(oldbuf);
+        HashPageOpaque oldopaque = HashPageGetOpaque(oldpage);
+
+        // Set flags and link to new bucket
+        oldopaque->hasho_flag = xlrec->old_bucket_flag;
+        oldopaque->hasho_prevblkno = xlrec->new_bucket;
+
+        PageSetLSN(oldpage, lsn);
+        MarkBufferDirty(oldbuf);
+    }
+
+    // Initialize new bucket page
+    XLogReadBufferForRedoExtended(record, 1, RBM_ZERO_AND_CLEANUP_LOCK, true, &newbuf);
+    _hash_initbuf(newbuf, xlrec->new_bucket, xlrec->new_bucket,
+                  xlrec->new_bucket_flag, true);
+    MarkBufferDirty(newbuf);
+    PageSetLSN(BufferGetPage(newbuf), lsn);
+
+    // Release bucket buffers
+    if (BufferIsValid(oldbuf))
+        UnlockReleaseBuffer(oldbuf);
+    if (BufferIsValid(newbuf))
+        UnlockReleaseBuffer(newbuf);
+
+    // Update metapage with new bucket information
+    if (XLogReadBufferForRedo(record, 2, &metabuf) == BLK_NEEDS_REDO)
+    {
+        Page page = BufferGetPage(metabuf);
+        HashMetaPage metap = HashPageGetMeta(page);
+        Size datalen;
+
+        // Update maximum bucket number
+        metap->hashm_maxbucket = xlrec->new_bucket;
+
+        data = XLogRecGetBlockData(record, 2, &datalen);
+
+        // Update hash masks if needed
+        if (xlrec->flags & XLH_SPLIT_META_UPDATE_MASKS)
+        {
+            uint32 lowmask;
+            uint32 *highmask;
+
+            memcpy(&lowmask, data, sizeof(uint32));
+            highmask = (uint32 *) ((char *) data + sizeof(uint32));
+
+            metap->hashm_lowmask = lowmask;
+            metap->hashm_highmask = *highmask;
+            data += sizeof(uint32) * 2;
+        }
+
+        // Update overflow point if needed
+        if (xlrec->flags & XLH_SPLIT_META_UPDATE_SPLITPOINT)
+        {
+            uint32 ovflpoint;
+            uint32 *ovflpages;
+
+            memcpy(&ovflpoint, data, sizeof(uint32));
+            ovflpages = (uint32 *) ((char *) data + sizeof(uint32));
+
+            metap->hashm_spares[ovflpoint] = *ovflpages;
+            metap->hashm_ovflpoint = ovflpoint;
+        }
+
+        MarkBufferDirty(metabuf);
+        PageSetLSN(BufferGetPage(metabuf), lsn);
+    }
+
+    if (BufferIsValid(metabuf))
+        UnlockReleaseBuffer(metabuf);
+}
+```

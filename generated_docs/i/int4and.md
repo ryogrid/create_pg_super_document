@@ -36,3 +36,16 @@ This function is part of PostgreSQL's bit-pushing operators family, which includ
 - The operation is performed using C's native bitwise AND operator for efficiency
 - Related functions include `int4or`, `int4xor`, `int4not`, `int4shl`, and `int4shr` for other bitwise operations
 - Also has equivalent functions for int2 (smallint) data type: `int2and`, `int2or`, etc.
+
+## Simplified Source
+
+```c
+Datum int4and(PG_FUNCTION_ARGS) {
+    // Extract two 32-bit integers from function arguments
+    int32 arg1 = PG_GETARG_INT32(0);
+    int32 arg2 = PG_GETARG_INT32(1);
+
+    // Perform bitwise AND operation and return result
+    PG_RETURN_INT32(arg1 & arg2);
+}
+```

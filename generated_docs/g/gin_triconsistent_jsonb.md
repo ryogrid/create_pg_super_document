@@ -49,3 +49,69 @@ The function never returns GIN_TRUE directly, only GIN_MAYBE or GIN_FALSE, becau
 - JSONPath queries use execute_jsp_gin_node with ternary logic support
 - Never returns GIN_TRUE directly - always forces recheck via GIN_MAYBE for potential matches
 - Located in src/backend/utils/adt/jsonb_gin.c:1013-1089
+
+## Simplified Source
+
+```c
+Datum
+gin_triconsistent_jsonb(PG_FUNCTION_ARGS)
+{
+    GinTernaryValue *check = (GinTernaryValue *) PG_GETARG_POINTER(0);
+    StrategyNumber strategy = PG_GETARG_UINT16(1);
+    int32 nkeys = PG_GETARG_INT32(3);
+    Pointer *extra_data = (Pointer *) PG_GETARG_POINTER(4);
+    GinTernaryValue res = GIN_MAYBE;
+    int32 i;
+
+    // Never return GIN_TRUE - always force recheck due to structural limitations
+
+    if (strategy == JsonbContainsStrategyNumber ||
+        strategy == JsonbExistsAllStrategyNumber)
+    {
+        // For @> and ?& operators: all keys must be present
+        for (i = 0; i < nkeys; i++)
+        {
+            if (check[i] == GIN_FALSE)
+            {
+                res = GIN_FALSE;  // Definite non-match if any key absent
+                break;
+            }
+        }
+        // Otherwise remain GIN_MAYBE
+    }
+    else if (strategy == JsonbExistsStrategyNumber ||
+             strategy == JsonbExistsAnyStrategyNumber)
+    {
+        // For ? and ?| operators: at least one key must be present
+        res = GIN_FALSE;  // Start pessimistic
+        for (i = 0; i < nkeys; i++)
+        {
+            if (check[i] == GIN_TRUE || check[i] == GIN_MAYBE)
+            {
+                res = GIN_MAYBE;  // Found potential match
+                break;
+            }
+        }
+        // If no keys are possible, remains GIN_FALSE
+    }
+    else if (strategy == JsonbJsonpathPredicateStrategyNumber ||
+             strategy == JsonbJsonpathExistsStrategyNumber)
+    {
+        // For JSONPath queries: evaluate expression tree with ternary logic
+        if (nkeys > 0)
+        {
+            Assert(extra_data && extra_data[0]);
+            res = execute_jsp_gin_node((JsonPathGinNode *) extra_data[0],
+                                      check, true);
+
+            // Force recheck even for GIN_TRUE results
+            if (res == GIN_TRUE)
+                res = GIN_MAYBE;
+        }
+    }
+    else
+        elog(ERROR, "unrecognized strategy number: %d", strategy);
+
+    PG_RETURN_GIN_TERNARY_VALUE(res);
+}
+```

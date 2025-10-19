@@ -30,3 +30,18 @@ This function serves as an assignment hook in psql's variable management system,
 - Integrates with the global pset structure that maintains psql's runtime configuration
 - Error handling for invalid boolean values is managed by ParseVariableBool
 - This hook ensures that changes to the AUTOCOMMIT variable immediately affect psql's transaction behavior
+
+## Simplified Source
+
+```c
+static bool autocommit_hook(const char *newval) {
+    // Parse and validate the boolean value, then set autocommit flag
+    return ParseVariableBool(newval, "AUTOCOMMIT", &pset.autocommit);
+}
+```
+
+This is a simple validation hook that:
+1. Takes a string value for the AUTOCOMMIT variable
+2. Uses PostgreSQL's standard boolean parser to validate it
+3. Sets the global autocommit flag if valid
+4. Returns success/failure status

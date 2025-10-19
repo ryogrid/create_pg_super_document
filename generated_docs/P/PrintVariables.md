@@ -35,3 +35,27 @@ The function traverses a linked list of _variable structures starting from space
 - Includes interrupt checking via cancel_pressed to allow user cancellation
 - Only prints variables that have non-NULL values
 - Output format follows the pattern: variablename = 'variablevalue'
+
+## Simplified Source
+
+```c
+void
+PrintVariables(VariableSpace space)
+{
+    struct _variable *ptr;
+
+    // Handle NULL space safely
+    if (!space)
+        return;
+
+    // Traverse linked list and print each variable with a value
+    for (ptr = space->next; ptr; ptr = ptr->next) {
+        if (ptr->value)
+            printf("%s = '%s'\n", ptr->name, ptr->value);
+
+        // Allow user to cancel during printing
+        if (cancel_pressed)
+            break;
+    }
+}
+```

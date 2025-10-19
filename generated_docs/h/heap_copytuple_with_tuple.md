@@ -36,3 +36,24 @@ This function is useful when the caller wants to manage the HeapTuple structure 
 - Results in a different memory layout compared to heap_copytuple() - not a single allocated block
 - Used when more control over memory allocation is needed
 - Located in src/backend/access/common/heaptuple.c:802-827
+
+## Simplified Source
+
+```c
+void heap_copytuple_with_tuple(HeapTuple src, HeapTuple dest) {
+    // Handle invalid source tuple
+    if (!HeapTupleIsValid(src) || src->t_data == NULL) {
+        dest->t_data = NULL;
+        return;
+    }
+
+    // Copy metadata
+    dest->t_len = src->t_len;
+    dest->t_self = src->t_self;
+    dest->t_tableOid = src->t_tableOid;
+
+    // Allocate and copy tuple data
+    dest->t_data = (HeapTupleHeader) palloc(src->t_len);
+    memcpy((char *) dest->t_data, (char *) src->t_data, src->t_len);
+}
+```

@@ -31,3 +31,16 @@ The `dclist_prev_node` function retrieves the previous node in a doubly-linked c
 - The caller must ensure that a previous node exists before calling this function
 - Located in src/include/lib/ilist.h:879-887
 - Returns a pointer to the previous dlist_node in the sequence
+
+## Simplified Source
+
+```c
+static inline dlist_node *
+dclist_prev_node(dclist_head *head, dlist_node *node) {
+    // Ensure list is not empty
+    Assert(head->count > 0);
+
+    // Return the previous node (assumes one exists)
+    return dlist_prev_node(&head->dlist, node);
+}
+```

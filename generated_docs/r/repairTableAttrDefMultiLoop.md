@@ -31,3 +31,19 @@ This function handles more complex circular dependency scenarios involving table
 - Uses the AttrDefInfo struct's separate flag to ensure independent dumping of the attribute default
 - The dependency reversal strategy maintains correctness while breaking circular references
 - Part of pg_dump's comprehensive dependency resolution system for complex database schemas
+
+## Simplified Source
+
+```c
+static void repairTableAttrDefMultiLoop(DumpableObject *tableobj,
+                                       DumpableObject *attrdefobj) {
+    // Break the dependency cycle: remove table's dependency on attribute default
+    removeObjectDependency(tableobj, attrdefobj->dumpId);
+
+    // Mark attribute default as needing its own separate dump operation
+    ((AttrDefInfo *) attrdefobj)->separate = true;
+
+    // Restore attribute default's dependency on table (ensures correct order)
+    addObjectDependency(attrdefobj, tableobj->dumpId);
+}
+```

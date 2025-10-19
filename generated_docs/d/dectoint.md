@@ -38,3 +38,32 @@ The  function is part of PostgreSQL's ECPG (Embedded SQL in C) compatibility lib
 - Part of the Informix compatibility layer in PostgreSQL ECPG
 - Located in src/interfaces/ecpg/compatlib/informix.c:453-479
 - Uses errno to detect overflow conditions in the underlying numeric conversion
+
+## Simplified Source
+
+```c
+int dectoint(decimal *np, int *ip) {
+    // Create new numeric value for intermediate conversion
+    numeric *nres = PGTYPESnumeric_new();
+    if (nres == NULL)
+        return ECPG_INFORMIX_OUT_OF_MEMORY;
+
+    // Convert decimal to numeric format
+    if (PGTYPESnumeric_from_decimal(np, nres) != 0) {
+        PGTYPESnumeric_free(nres);
+        return ECPG_INFORMIX_OUT_OF_MEMORY;
+    }
+
+    // Convert numeric to integer with overflow detection
+    errno = 0;
+    int ret = PGTYPESnumeric_to_int(nres, ip);
+    int errnum = errno;
+    PGTYPESnumeric_free(nres);
+
+    // Handle overflow error
+    if (ret == -1 && errnum == PGTYPES_NUM_OVERFLOW)
+        ret = ECPG_INFORMIX_NUM_OVERFLOW;
+
+    return ret;
+}
+```

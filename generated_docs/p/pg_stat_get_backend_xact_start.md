@@ -34,3 +34,31 @@ This function retrieves the start timestamp of the currently active transaction 
 - Used by pg_stat_activity view to show transaction start times
 - Helps identify long-running transactions that may be holding locks or causing performance issues
 - A transaction can span multiple queries, so this timestamp may be older than the activity start timestamp
+
+## Simplified Source
+
+```c
+Datum
+pg_stat_get_backend_xact_start(PG_FUNCTION_ARGS)
+{
+    int32 procNumber = PG_GETARG_INT32(0);
+    TimestampTz result;
+    PgBackendStatus *beentry;
+
+    // Get backend entry by process number
+    if ((beentry = pgstat_get_beentry_by_proc_number(procNumber)) == NULL)
+        PG_RETURN_NULL();
+
+    // Check user permissions
+    if (!HAS_PGSTAT_PERMISSIONS(beentry->st_userid))
+        PG_RETURN_NULL();
+
+    result = beentry->st_xact_start_timestamp;
+
+    // Return NULL if not in a transaction
+    if (result == 0)
+        PG_RETURN_NULL();
+
+    PG_RETURN_TIMESTAMPTZ(result);
+}
+```

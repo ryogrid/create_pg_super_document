@@ -34,3 +34,15 @@ The implementation is straightforward: it extracts two int16 arguments from the 
 - Part of PostgreSQL's arithmetic and comparison operators for the int2/smallint data type
 - Uses standard PostgreSQL V1 function calling convention
 - The comparison is performed using simple C conditional operator for efficiency
+
+## Simplified Source
+
+```c
+Datum int2smaller(PG_FUNCTION_ARGS) {
+    int16 a = PG_GETARG_INT16(0);  // First value
+    int16 b = PG_GETARG_INT16(1);  // Second value
+
+    // Return the smaller value
+    PG_RETURN_INT16((a < b) ? a : b);
+}
+```

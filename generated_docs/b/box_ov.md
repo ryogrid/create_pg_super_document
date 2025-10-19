@@ -40,3 +40,20 @@ The algorithm checks: box1.low.x <= box2.high.x AND box2.low.x <= box1.high.x AN
 - Critical performance component for spatial indexing and geometric queries
 - Used by various geometric functions requiring overlap detection (boxes, paths, polygons)
 - Returns true if boxes touch at edges (inclusive overlap testing)
+
+## Simplified Source
+
+```c
+static bool box_ov(BOX *box1, BOX *box2) {
+    // Check if boxes overlap in both X and Y dimensions
+    // Two boxes overlap if they intersect in both axes
+
+    bool x_overlap = (box1->low.x <= box2->high.x) &&
+                     (box2->low.x <= box1->high.x);
+
+    bool y_overlap = (box1->low.y <= box2->high.y) &&
+                     (box2->low.y <= box1->high.y);
+
+    return x_overlap && y_overlap;
+}
+```

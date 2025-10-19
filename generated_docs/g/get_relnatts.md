@@ -35,3 +35,25 @@ This function retrieves the number of attributes (columns) for a PostgreSQL rela
 - This function is part of the relation cache subsystem for efficient metadata access
 - Unlike some other cache functions, this one gracefully handles missing relations by returning InvalidAttrNumber rather than raising an error
 - The relnatts field in pg_class represents the number of user attributes in the relation
+
+## Simplified Source
+
+```c
+int get_relnatts(Oid relid) {
+    // Look up relation in system cache
+    HeapTuple tp = SearchSysCache1(RELOID, ObjectIdGetDatum(relid));
+
+    if (HeapTupleIsValid(tp)) {
+        // Extract pg_class struct and get attribute count
+        Form_pg_class reltup = (Form_pg_class) GETSTRUCT(tp);
+        int result = reltup->relnatts;
+
+        // Clean up cache reference
+        ReleaseSysCache(tp);
+        return result;
+    } else {
+        // Return invalid marker if relation not found
+        return InvalidAttrNumber;
+    }
+}
+```

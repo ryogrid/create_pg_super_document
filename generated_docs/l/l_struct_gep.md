@@ -37,3 +37,21 @@ This function serves as a compatibility wrapper for LLVM's struct GEP (Get Eleme
 - Essential for struct member access in JIT-compiled expressions and tuple deformation
 - Used extensively in both expression compilation and tuple slot operations
 - The conditional compilation ensures optimal performance while maintaining compatibility
+
+## Simplified Source
+
+```c
+static inline LLVMValueRef
+l_struct_gep(LLVMBuilderRef b, LLVMTypeRef t, LLVMValueRef v, int32 idx, const char *name)
+{
+    // Version-compatible struct member access
+    // LLVM 16+ requires explicit type parameter
+#if LLVM_VERSION_MAJOR < 16
+    return LLVMBuildStructGEP(b, v, idx, "");
+#else
+    return LLVMBuildStructGEP2(b, t, v, idx, "");
+#endif
+}
+```
+
+This wrapper function handles LLVM version differences for struct member access. It provides a unified interface for generating GEP (Get Element Pointer) instructions to access struct fields, automatically choosing the correct LLVM API based on version.

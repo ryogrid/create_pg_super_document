@@ -47,3 +47,94 @@ The query joins multiple system catalogs (, , , ) to gather comprehensive inform
 - The sort order prioritizes operators that work with the same left and right types (self-types) first
 - Strategy numbers indicate the semantic meaning of operators within their access method (e.g., 1 = less than, 2 = less than or equal, etc.)
 - In verbose mode, the sort operator family column shows the operator family used for sorting when the operator is used for ordering purposes
+
+## Simplified Source
+
+```c
+bool listOpFamilyOperators(const char *access_method_pattern,
+                          const char *family_pattern, bool verbose) {
+    PQExpBufferData buf;
+    PGresult *res;
+    printQueryOpt myopt = pset.popt;
+    bool have_where = false;
+
+    initPQExpBuffer(&buf);
+
+    // Build main query with operator family operator information
+    printfPQExpBuffer(&buf,
+        "SELECT "
+        "am.amname AS \"AM\", "
+        "CASE "
+        "  WHEN pg_catalog.pg_opfamily_is_visible(of.oid) "
+        "  THEN pg_catalog.format('%%I', of.opfname) "
+        "  ELSE pg_catalog.format('%%I.%%I', nsf.nspname, of.opfname) "
+        "END AS \"Operator family\", "
+        "o.amopopr::pg_catalog.regoperator AS \"Operator\", "
+        "o.amopstrategy AS \"Strategy\", "
+        "CASE o.amoppurpose "
+        "  WHEN 'o' THEN 'ordering' "
+        "  WHEN 's' THEN 'search' "
+        "END AS \"Purpose\"");
+
+    // Add verbose columns if requested
+    if (verbose) {
+        appendPQExpBuffer(&buf,
+            ", ofs.opfname AS \"Sort opfamily\"");
+    }
+
+    // Add FROM clause with joins
+    appendPQExpBufferStr(&buf,
+        " FROM pg_catalog.pg_amop o "
+        "LEFT JOIN pg_catalog.pg_opfamily of ON of.oid = o.amopfamily "
+        "LEFT JOIN pg_catalog.pg_am am ON am.oid = of.opfmethod AND am.oid = o.amopmethod "
+        "LEFT JOIN pg_catalog.pg_namespace nsf ON of.opfnamespace = nsf.oid");
+
+    if (verbose) {
+        appendPQExpBufferStr(&buf,
+            " LEFT JOIN pg_catalog.pg_opfamily ofs ON ofs.oid = o.amopsortfamily");
+    }
+
+    // Apply access method pattern filter
+    if (access_method_pattern) {
+        if (!validateSQLNamePattern(&buf, access_method_pattern,
+                                   false, false, NULL, "am.amname",
+                                   NULL, NULL, &have_where, 1))
+            goto error_return;
+    }
+
+    // Apply family pattern filter
+    if (family_pattern) {
+        if (!validateSQLNamePattern(&buf, family_pattern, have_where, false,
+                                   "nsf.nspname", "of.opfname",
+                                   NULL, NULL, NULL, 3))
+            goto error_return;
+    }
+
+    // Add ordering for consistent results
+    appendPQExpBufferStr(&buf,
+        " ORDER BY 1, 2, "
+        "o.amoplefttype = o.amoprighttype DESC, "
+        "pg_catalog.format_type(o.amoplefttype, NULL), "
+        "pg_catalog.format_type(o.amoprighttype, NULL), "
+        "o.amopstrategy;");
+
+    // Execute query
+    res = PSQLexec(buf.data);
+    termPQExpBuffer(&buf);
+    if (!res)
+        return false;
+
+    // Set up output formatting and display results
+    myopt.title = "List of operators of operator families";
+    myopt.translate_header = true;
+
+    printQuery(res, &myopt, pset.queryFout, false, pset.logfile);
+    PQclear(res);
+
+    return true;
+
+error_return:
+    termPQExpBuffer(&buf);
+    return false;
+}
+```

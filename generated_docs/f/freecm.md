@@ -36,3 +36,28 @@ The function is designed to be safe to call even if some allocations failed duri
 - Magic number invalidation helps detect use-after-free bugs in debug builds
 - The function only frees dynamically allocated arrays, not the inline storage (cdspace)
 - Memory cleanup is essential to prevent memory leaks in regular expression compilation
+
+## Simplified Source
+
+```c
+static void
+freecm(struct colormap *cm)
+{
+    // Invalidate magic number to mark structure as freed
+    cm->magic = 0;
+
+    // Free dynamically allocated color descriptor array if expanded
+    if (cm->cd != cm->cdspace)
+        FREE(cm->cd);
+
+    // Free character mapping arrays
+    if (cm->locolormap != NULL)
+        FREE(cm->locolormap);
+
+    if (cm->cmranges != NULL)
+        FREE(cm->cmranges);
+
+    if (cm->hicolormap != NULL)
+        FREE(cm->hicolormap);
+}
+```

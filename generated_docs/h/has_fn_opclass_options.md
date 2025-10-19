@@ -37,3 +37,19 @@ The function performs validation by:
 - The function is safe to call with NULL pointers and will return false in such cases
 - Works in conjunction with get_fn_opclass_options() to provide a complete interface for operator class options handling
 - The BYTEA type is used to store serialized operator class options data
+
+## Simplified Source
+```c
+bool has_fn_opclass_options(FmgrInfo *flinfo) {
+    // Check if function info exists and has a valid expression
+    if (flinfo && flinfo->fn_expr && IsA(flinfo->fn_expr, Const)) {
+        Const *expr = (Const *) flinfo->fn_expr;
+
+        // Return true if expression is BYTEA type and not null
+        if (expr->consttype == BYTEAOID)
+            return !expr->constisnull;
+    }
+
+    return false;
+}
+```

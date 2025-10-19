@@ -37,3 +37,25 @@ The function clears the BTP_HALF_DEAD flag (if set) and sets both BTP_DELETED an
 
 ## Notes and Other Information
 This function is typically called during B-tree page deletion operations when a page is being unlinked from the tree structure. The safexid parameter is crucial for MVCC (Multi-Version Concurrency Control) as it ensures the page isn't recycled while older transactions might still need to access it. The function is defined as a static inline in the header file for performance reasons since it's a frequently used operation in B-tree maintenance.
+
+## Simplified Source
+
+```c
+static inline void BTPageSetDeleted(Page page, FullTransactionId safexid) {
+    // Get page structures
+    BTPageOpaque opaque = BTPageGetOpaque(page);
+    PageHeader header = (PageHeader) page;
+
+    // Mark page as deleted (clear half-dead, set deleted + full xid flags)
+    opaque->btpo_flags &= ~BTP_HALF_DEAD;
+    opaque->btpo_flags |= BTP_DELETED | BTP_HAS_FULLXID;
+
+    // Adjust page layout for deletion metadata
+    header->pd_lower = MAXALIGN(SizeOfPageHeaderData) + sizeof(BTDeletedPageData);
+    header->pd_upper = header->pd_special;
+
+    // Store safe transaction ID for recycling
+    BTDeletedPageData *contents = (BTDeletedPageData *) PageGetContents(page);
+    contents->safexid = safexid;
+}
+```

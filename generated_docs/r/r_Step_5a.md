@@ -43,3 +43,31 @@ The logic prevents over-stemming by ensuring that words ending in short syllable
 - Works specifically with Porter stemmer variant (not the enhanced English stemmer)
 - Essential for balancing aggressive suffix removal with linguistic accuracy
 - Handles cases like 'probate' → 'probat', 'luxuriate' → 'luxuri' while preserving 'alive' → 'alive'
+
+## Simplified Source
+
+```c
+static int r_Step_5a(struct SN_env * z) {
+    // Set up to check for terminal 'e'
+    z->ket = z->c;
+    if (z->c <= z->lb || z->p[z->c - 1] != 'e') return 0;
+    z->c--;
+    z->bra = z->c;
+
+    // Try R2 region first - if in R2, remove 'e'
+    if (r_R2(z) > 0) {
+        slice_del(z);
+        return 1;
+    }
+
+    // Otherwise check R1 region and short vowel condition
+    if (r_R1(z) > 0) {
+        // Don't remove 'e' if word ends in short vowel pattern
+        if (r_shortv(z) > 0) return 0;
+        slice_del(z);
+        return 1;
+    }
+
+    return 0;
+}
+```

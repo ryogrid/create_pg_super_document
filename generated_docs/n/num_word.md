@@ -36,3 +36,47 @@ The function handles several formatting cases:
 - The "big" pointer provides convenient access to the tens words starting from "twenty"
 - Limited to values 0-999; behavior with larger values is undefined
 - Part of PostgreSQL's cash data type implementation for monetary value formatting
+
+## Simplified Source
+
+```c
+static const char *
+num_word(Cash value)
+{
+    static char buf[128];
+    static const char *const small[] = {
+        "zero", "one", "two", "three", "four", "five", "six", "seven",
+        "eight", "nine", "ten", "eleven", "twelve", "thirteen", "fourteen",
+        "fifteen", "sixteen", "seventeen", "eighteen", "nineteen", "twenty",
+        "thirty", "forty", "fifty", "sixty", "seventy", "eighty", "ninety"
+    };
+    const char *const *big = small + 18;  // Points to "twenty", "thirty", etc.
+    int tu = value % 100;  // Last two digits
+
+    // Simple cases: 0-20
+    if (value <= 20)
+        return small[value];
+
+    // Hundreds: format as "X hundred" or "X hundred Y"
+    if (value > 99) {
+        if (tu == 0) {
+            sprintf(buf, "%s hundred", small[value / 100]);
+        } else if (tu < 20) {
+            sprintf(buf, "%s hundred and %s", small[value / 100], small[tu]);
+        } else {
+            sprintf(buf, "%s hundred %s %s",
+                   small[value / 100], big[tu / 10], small[tu % 10]);
+        }
+    }
+    // Tens: 21-99
+    else {
+        if (tu < 20) {
+            sprintf(buf, "%s", small[tu]);
+        } else {
+            sprintf(buf, "%s %s", big[tu / 10], small[tu % 10]);
+        }
+    }
+
+    return buf;
+}
+```

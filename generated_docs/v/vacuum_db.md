@@ -41,3 +41,14 @@ The strategic ordering (ANALYZE before VACUUM FREEZE) ensures that the collected
 - Template1 serves as the default template for new databases, so its state affects all subsequently created databases
 - Running these operations during initdb is more efficient than deferring them to runtime
 - The frozen state helps with long-term database stability and prevents potential transaction ID wraparound issues
+
+## Simplified Source
+
+```c
+static void
+vacuum_db(FILE *cmdfd)
+{
+    // Collect statistics first, then freeze all tuples for clean template state
+    PG_CMD_PUTS("ANALYZE;\n\nVACUUM FREEZE;\n\n");
+}
+```

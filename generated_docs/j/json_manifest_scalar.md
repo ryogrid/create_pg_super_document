@@ -51,3 +51,80 @@ This callback function is invoked when the JSON parser encounters scalar values 
 - The tokentype parameter is accepted for compatibility but not currently used in the implementation
 - Error handling is provided for unexpected scalar values through json_manifest_parse_failure
 - The function always returns JSON_SUCCESS, with errors handled through the parse failure mechanism
+
+## Simplified Source
+
+```c
+static JsonParseErrorType json_manifest_scalar(void *state, char *token, JsonTokenType tokentype) {
+    JsonManifestParseState *parse = state;
+
+    switch (parse->state) {
+        case JM_EXPECT_VERSION_VALUE:
+            // Process manifest version - finalize immediately
+            parse->manifest_version = token;
+            json_manifest_finalize_version(parse);
+            parse->state = JM_EXPECT_TOPLEVEL_FIELD;
+            break;
+
+        case JM_EXPECT_SYSTEM_IDENTIFIER_VALUE:
+            // Process system identifier - finalize immediately
+            parse->manifest_system_identifier = token;
+            json_manifest_finalize_system_identifier(parse);
+            parse->state = JM_EXPECT_TOPLEVEL_FIELD;
+            break;
+
+        case JM_EXPECT_THIS_FILE_VALUE:
+            // Store file field values based on field type
+            switch (parse->file_field) {
+                case JMFF_PATH:
+                    parse->pathname = token;
+                    break;
+                case JMFF_ENCODED_PATH:
+                    parse->encoded_pathname = token;
+                    break;
+                case JMFF_SIZE:
+                    parse->size = token;
+                    break;
+                case JMFF_LAST_MODIFIED:
+                    pfree(token); // unused field
+                    break;
+                case JMFF_CHECKSUM_ALGORITHM:
+                    parse->algorithm = token;
+                    break;
+                case JMFF_CHECKSUM:
+                    parse->checksum = token;
+                    break;
+            }
+            parse->state = JM_EXPECT_THIS_FILE_FIELD;
+            break;
+
+        case JM_EXPECT_THIS_WAL_RANGE_VALUE:
+            // Store WAL range field values based on field type
+            switch (parse->wal_range_field) {
+                case JMWRF_TIMELINE:
+                    parse->timeline = token;
+                    break;
+                case JMWRF_START_LSN:
+                    parse->start_lsn = token;
+                    break;
+                case JMWRF_END_LSN:
+                    parse->end_lsn = token;
+                    break;
+            }
+            parse->state = JM_EXPECT_THIS_WAL_RANGE_FIELD;
+            break;
+
+        case JM_EXPECT_MANIFEST_CHECKSUM_VALUE:
+            // Store manifest checksum and transition to end
+            parse->manifest_checksum = token;
+            parse->state = JM_EXPECT_TOPLEVEL_END;
+            break;
+
+        default:
+            json_manifest_parse_failure(parse->context, "unexpected scalar");
+            break;
+    }
+
+    return JSON_SUCCESS;
+}
+```

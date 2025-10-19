@@ -39,3 +39,25 @@ This information is important for psql's string processing and command parsing, 
 - When on, backslashes are treated literally, conforming to SQL standard behavior
 - This setting is crucial for proper handling of file paths, regular expressions, and other strings containing backslashes
 - The function helps psql adapt its string processing behavior based on the server's configuration
+
+## Simplified Source
+
+```c
+bool standard_strings(void)
+{
+    const char *val;
+
+    // Check if database connection exists
+    if (!pset.db)
+        return false;
+
+    // Query server parameter status
+    val = PQparameterStatus(pset.db, "standard_conforming_strings");
+
+    // Return true if parameter is set to "on"
+    if (val && strcmp(val, "on") == 0)
+        return true;
+
+    return false;
+}
+```

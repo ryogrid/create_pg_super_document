@@ -56,3 +56,47 @@ The function uses the same platform-specific implementations as  (macOS copyfile
 - Helps pg_upgrade make informed decisions about transfer strategies based on actual filesystem capabilities
 - Platform-specific implementations match those used in the actual cloning operations
 - The function assumes that if cloning works for the PG_VERSION file, it will work for all relation files in the same directories
+
+## Simplified Source
+
+```c
+void check_file_clone(void) {
+    char existing_file[MAXPGPATH];
+    char new_link_file[MAXPGPATH];
+
+    // Set up test files: PG_VERSION from old cluster, test clone in new cluster
+    snprintf(existing_file, sizeof(existing_file), "%s/PG_VERSION", old_cluster.pgdata);
+    snprintf(new_link_file, sizeof(new_link_file), "%s/PG_VERSION.clonetest", new_cluster.pgdata);
+    unlink(new_link_file);  // Clean up any previous test file
+
+#if defined(HAVE_COPYFILE) && defined(COPYFILE_CLONE_FORCE)
+    // macOS: Use copyfile with clone flag
+    if (copyfile(existing_file, new_link_file, NULL, COPYFILE_CLONE_FORCE) < 0)
+        pg_fatal("could not clone file between old and new data directories: %m");
+
+#elif defined(__linux__) && defined(FICLONE)
+    // Linux: Use ioctl with FICLONE
+    int src_fd = open(existing_file, O_RDONLY | PG_BINARY, 0);
+    if (src_fd < 0)
+        pg_fatal("could not open file \"%s\": %m", existing_file);
+
+    int dest_fd = open(new_link_file, O_RDWR | O_CREAT | O_EXCL | PG_BINARY, pg_file_create_mode);
+    if (dest_fd < 0)
+        pg_fatal("could not create file \"%s\": %m", new_link_file);
+
+    // Attempt the actual clone operation
+    if (ioctl(dest_fd, FICLONE, src_fd) < 0)
+        pg_fatal("could not clone file between old and new data directories: %m");
+
+    close(src_fd);
+    close(dest_fd);
+
+#else
+    // Platform doesn't support cloning
+    pg_fatal("file cloning not supported on this platform");
+#endif
+
+    // Clean up test file
+    unlink(new_link_file);
+}
+```

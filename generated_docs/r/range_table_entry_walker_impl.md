@@ -48,3 +48,77 @@ Security qualifiers (Row Level Security expressions) are always visited regardle
 - Security qualifiers (securityQuals) are always walked regardless of RTE type, as they represent Row Level Security policies
 - Some RTE types (RTE_CTE, RTE_NAMEDTUPLESTORE, RTE_RESULT) have no expression content to walk
 - Early termination is supported - if any walker callback returns true, the traversal stops and returns true
+
+## Simplified Source
+
+```c
+bool range_table_entry_walker_impl(RangeTblEntry *rte, tree_walker_callback walker, void *context, int flags)
+{
+    // Call walker on RTE before visiting contents if requested
+    if (flags & QTW_EXAMINE_RTES_BEFORE) {
+        if (WALK(rte)) return true;
+    }
+
+    // Handle different RTE types and their expression content
+    switch (rte->rtekind) {
+        case RTE_RELATION:
+            // Regular table - walk tablesample expression if present
+            if (WALK(rte->tablesample)) return true;
+            break;
+
+        case RTE_SUBQUERY:
+            // Subquery - walk the subquery unless ignored
+            if (!(flags & QTW_IGNORE_RT_SUBQUERIES)) {
+                if (WALK(rte->subquery)) return true;
+            }
+            break;
+
+        case RTE_JOIN:
+            // Join - walk join alias variables unless ignored
+            if (!(flags & QTW_IGNORE_JOINALIASES)) {
+                if (WALK(rte->joinaliasvars)) return true;
+            }
+            break;
+
+        case RTE_FUNCTION:
+            // Function call - walk function expressions
+            if (WALK(rte->functions)) return true;
+            break;
+
+        case RTE_TABLEFUNC:
+            // Table function - walk table function expression
+            if (WALK(rte->tablefunc)) return true;
+            break;
+
+        case RTE_VALUES:
+            // VALUES clause - walk values lists
+            if (WALK(rte->values_lists)) return true;
+            break;
+
+        case RTE_CTE:
+        case RTE_NAMEDTUPLESTORE:
+        case RTE_RESULT:
+            // These RTE types have no expression content
+            break;
+    }
+
+    // Always walk security qualifiers (Row Level Security)
+    if (WALK(rte->securityQuals)) return true;
+
+    // Call walker on RTE after visiting contents if requested
+    if (flags & QTW_EXAMINE_RTES_AFTER) {
+        if (WALK(rte)) return true;
+    }
+
+    return false;
+}
+```
+
+This simplified version reduces the original ~60 lines to ~50 lines (~83% of original size) while preserving the essential RTE traversal logic. Key simplifications:
+
+- Added clear comments for each RTE type and its purpose
+- Maintained the complete switch statement covering all RTE types
+- Preserved the before/after RTE examination flag logic
+- Kept all conditional flags for ignoring specific content types
+- Maintained security qualifiers traversal (always performed)
+- Preserved early termination semantics throughout

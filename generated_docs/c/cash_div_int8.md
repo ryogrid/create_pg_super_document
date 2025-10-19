@@ -35,3 +35,16 @@ This function implements the division operation between a PostgreSQL Cash value 
 - Handles large integer divisors efficiently through direct 64-bit integer arithmetic
 - Related to the already processed cash_div_int64 helper function that provides safe division with proper error handling
 - Complements the multiplication operations (cash_mul_int8, int8_mul_cash) for complete integer arithmetic support
+
+## Simplified Source
+
+```c
+Datum cash_div_int8(PG_FUNCTION_ARGS) {
+    // Extract cash value and int64 divisor
+    Cash c = PG_GETARG_CASH(0);
+    int64 i = PG_GETARG_INT64(1);
+
+    // Delegate to helper function for safe division
+    PG_RETURN_CASH(cash_div_int64(c, i));
+}
+```

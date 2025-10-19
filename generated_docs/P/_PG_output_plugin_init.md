@@ -46,3 +46,38 @@ This function serves as the entry point for the pgoutput output plugin, which is
 - Two-phase commit support is included for distributed transactions
 - The same change and message callbacks are reused for both regular and streaming operations
 - This is the only externally visible function in the pgoutput plugin module
+
+## Simplified Source
+
+```c
+void _PG_output_plugin_init(OutputPluginCallbacks *cb)
+{
+    // Regular transaction callbacks
+    cb->startup_cb = pgoutput_startup;
+    cb->begin_cb = pgoutput_begin_txn;
+    cb->change_cb = pgoutput_change;
+    cb->commit_cb = pgoutput_commit_txn;
+
+    // Two-phase commit callbacks
+    cb->begin_prepare_cb = pgoutput_begin_prepare_txn;
+    cb->prepare_cb = pgoutput_prepare_txn;
+    cb->commit_prepared_cb = pgoutput_commit_prepared_txn;
+    cb->rollback_prepared_cb = pgoutput_rollback_prepared_txn;
+
+    // Additional operation callbacks
+    cb->truncate_cb = pgoutput_truncate;
+    cb->message_cb = pgoutput_message;
+    cb->filter_by_origin_cb = pgoutput_origin_filter;
+    cb->shutdown_cb = pgoutput_shutdown;
+
+    // Transaction streaming callbacks
+    cb->stream_start_cb = pgoutput_stream_start;
+    cb->stream_stop_cb = pgoutput_stream_stop;
+    cb->stream_abort_cb = pgoutput_stream_abort;
+    cb->stream_commit_cb = pgoutput_stream_commit;
+    cb->stream_change_cb = pgoutput_change;        // Reuses regular change callback
+    cb->stream_message_cb = pgoutput_message;      // Reuses regular message callback
+    cb->stream_truncate_cb = pgoutput_truncate;    // Reuses regular truncate callback
+    cb->stream_prepare_cb = pgoutput_stream_prepare_txn;
+}
+```

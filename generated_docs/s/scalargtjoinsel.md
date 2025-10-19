@@ -37,3 +37,14 @@ This function provides a consistent fallback mechanism within PostgreSQL's query
 - Part of the selectivity estimation framework in src/backend/utils/adt/selfuncs.c
 - Maintains consistency with other scalar inequality join selectivity functions
 - Location: src/backend/utils/adt/selfuncs.c:2919-2927
+
+## Simplified Source
+
+```c
+// Simple selectivity estimator for scalar ">" join operations
+Datum scalargtjoinsel(PG_FUNCTION_ARGS) {
+    // Returns default inequality selectivity constant
+    // Ignores all input parameters for simplicity
+    PG_RETURN_FLOAT8(DEFAULT_INEQ_SEL);
+}
+```

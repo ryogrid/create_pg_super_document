@@ -39,3 +39,25 @@ The function uses a switch statement to determine which specific serialization f
 - The function will raise an ERROR for unsupported byte widths (anything other than 1, 2, or 4)
 - Defined as a static inline function in the header file for performance
 - Part of the PostgreSQL libpq message formatting infrastructure used for network protocol communication
+
+## Simplified Source
+
+```c
+static inline void pq_sendint(StringInfo buf, uint32 i, int b) {
+    // Dispatch to appropriate type-specific function based on byte width
+    switch (b) {
+        case 1:
+            pq_sendint8(buf, (uint8) i);
+            break;
+        case 2:
+            pq_sendint16(buf, (uint16) i);
+            break;
+        case 4:
+            pq_sendint32(buf, (uint32) i);
+            break;
+        default:
+            elog(ERROR, "unsupported integer size %d", b);
+            break;
+    }
+}
+```

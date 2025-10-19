@@ -49,3 +49,50 @@ Key behaviors:
 - The function supports early termination on cancellation or errors (when ON_ERROR_STOP is enabled)
 - Empty cells (NULL values) are silently skipped rather than executed as empty queries
 - [Query](../Q/Query.md) echoing behavior depends on the current ECHO mode and single-step settings
+
+## Simplified Source
+
+```c
+static bool ExecQueryTuples(const PGresult *result) {
+    bool success = true;
+    int nrows = PQntuples(result);
+    int ncolumns = PQnfields(result);
+
+    // Prevent infinite recursion
+    pset.gexec_flag = false;
+
+    // Execute each cell value as a SQL statement
+    for (int r = 0; r < nrows; r++) {
+        for (int c = 0; c < ncolumns; c++) {
+            if (!PQgetisnull(result, r, c)) {
+                const char *query = PQgetvalue(result, r, c);
+
+                // Check for cancellation
+                if (cancel_pressed)
+                    goto loop_exit;
+
+                // Echo query if ECHO_ALL mode is enabled
+                if (pset.echo == PSQL_ECHO_ALL && !pset.singlestep) {
+                    puts(query);
+                    fflush(stdout);
+                }
+
+                // Execute the query
+                if (!SendQuery(query)) {
+                    success = false;
+                    if (pset.on_error_stop)
+                        goto loop_exit;
+                }
+            }
+        }
+    }
+
+loop_exit:
+    // Restore gexec_flag state
+    pset.gexec_flag = true;
+
+    return success;
+}
+```
+
+This simplified version preserves the essential functionality: iterate through result cells, execute non-NULL values as SQL statements, handle cancellation and errors, prevent recursion, and support query echoing.

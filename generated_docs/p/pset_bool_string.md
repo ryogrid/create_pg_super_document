@@ -31,3 +31,14 @@ This is a static helper function that ensures consistency in boolean string repr
 - Static function scope limits its usage to within command.c
 - Commonly used by pset_value_string for formatting boolean settings in psql output
 - Simple ternary operator implementation for maximum efficiency
+
+## Simplified Source
+
+```c
+static const char *
+pset_bool_string(bool val)
+{
+    // Convert boolean to PostgreSQL standard string format
+    return val ? "on" : "off";
+}
+```

@@ -48,3 +48,47 @@ The function validates that each octet is within the valid range (0-255) and ret
 - Uses  in sscanf patterns to detect trailing garbage characters
 - Returns appropriate PostgreSQL error codes for invalid input syntax or out-of-range values
 - Memory for the result is allocated using PostgreSQL's memory management system
+
+## Simplified Source
+
+```c
+// Simplified version of macaddr_in
+Datum macaddr_in(PG_FUNCTION_ARGS) {
+    char *str = PG_GETARG_CSTRING(0);
+    Node *escontext = fcinfo->context;
+    macaddr *result;
+    int a, b, c, d, e, f;
+    char junk[2];
+    int count;
+
+    // Try multiple MAC address formats using sscanf
+    // Format 1: xx:xx:xx:xx:xx:xx
+    count = sscanf(str, "%x:%x:%x:%x:%x:%x%1s", &a, &b, &c, &d, &e, &f, junk);
+    if (count != 6)
+        // Format 2: xx-xx-xx-xx-xx-xx
+        count = sscanf(str, "%x-%x-%x-%x-%x-%x%1s", &a, &b, &c, &d, &e, &f, junk);
+    if (count != 6)
+        // Format 3: xxxx:xxxx:xxxx
+        count = sscanf(str, "%2x%2x%2x:%2x%2x%2x%1s", &a, &b, &c, &d, &e, &f, junk);
+    // ... (additional format attempts omitted for brevity)
+
+    // Validate parsing success
+    if (count != 6)
+        ereturn(escontext, (Datum) 0, (errcode(ERRCODE_INVALID_TEXT_REPRESENTATION),
+                errmsg("invalid input syntax for type macaddr: \"%s\"", str)));
+
+    // Validate octet ranges (0-255)
+    if ((a < 0) || (a > 255) || (b < 0) || (b > 255) ||
+        (c < 0) || (c > 255) || (d < 0) || (d > 255) ||
+        (e < 0) || (e > 255) || (f < 0) || (f > 255))
+        ereturn(escontext, (Datum) 0, (errcode(ERRCODE_NUMERIC_VALUE_OUT_OF_RANGE),
+                errmsg("invalid octet value in macaddr: \"%s\"", str)));
+
+    // Create result structure
+    result = (macaddr *) palloc(sizeof(macaddr));
+    result->a = a; result->b = b; result->c = c;
+    result->d = d; result->e = e; result->f = f;
+
+    PG_RETURN_MACADDR_P(result);
+}
+```

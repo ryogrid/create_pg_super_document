@@ -37,3 +37,14 @@ This function maintains the uniform approach to selectivity estimation across al
 - Part of the selectivity estimation framework in src/backend/utils/adt/selfuncs.c
 - Completes the set of scalar inequality join selectivity functions (<, <=, >, >=)
 - Location: src/backend/utils/adt/selfuncs.c:2928-2955
+
+## Simplified Source
+
+```c
+// Simple selectivity estimator for scalar ">=" join operations
+Datum scalargejoinsel(PG_FUNCTION_ARGS) {
+    // Returns default inequality selectivity constant
+    // Ignores all input parameters for simplicity
+    PG_RETURN_FLOAT8(DEFAULT_INEQ_SEL);
+}
+```

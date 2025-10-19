@@ -36,3 +36,23 @@ This function safely closes a pager process that was previously opened by PageOu
 - Restores SIGPIPE signal handling that was modified when the pager was opened
 - Part of the paging infrastructure used throughout psql and other PostgreSQL frontend tools
 - The interrupted message may not be visible if the pager itself terminated due to SIGINT
+
+## Simplified Source
+
+```c
+void
+ClosePager(FILE *pagerpipe)
+{
+    // Only close if it's actually a pager pipe (not stdout)
+    if (pagerpipe && pagerpipe != stdout) {
+        // If user interrupted printing, notify pager
+        // (some pagers like 'less' use Ctrl-C as part of their command set)
+        if (cancel_pressed)
+            fprintf(pagerpipe, _("Interrupted\n"));
+
+        // Close the pager process and restore signal handling
+        pclose(pagerpipe);
+        restore_sigpipe_trap();
+    }
+}
+```

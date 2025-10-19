@@ -39,3 +39,14 @@ Custom resource managers allow extensions to participate in PostgreSQL's Write-A
 - Complementary to RmgrIdIsBuiltin() to provide complete coverage of valid resource manager ID ranges
 - Extensions must reserve unique IDs from the PostgreSQL community to avoid conflicts
 - RM_EXPERIMENTAL_ID (128) is reserved for development/testing purposes
+
+## Simplified Source
+
+```c
+static inline bool
+RmgrIdIsCustom(int rmid)
+{
+    // Check if resource manager ID is within custom extension range (128-255)
+    return rmid >= RM_MIN_CUSTOM_ID && rmid <= RM_MAX_CUSTOM_ID;
+}
+```

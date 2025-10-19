@@ -37,3 +37,79 @@ The listLanguages function generates and executes a SQL query to retrieve inform
 - Returns false on query validation or execution failure, true on success
 - When showSystem is false and no pattern is provided, filters out internal languages (lanplcallfoid != 0)
 - Output is ordered by language name for consistent presentation
+
+## Simplified Source
+
+```c
+bool listLanguages(const char *pattern, bool verbose, bool showSystem) {
+    PQExpBufferData buf;
+    PGresult *res;
+    printQueryOpt myopt = pset.popt;
+
+    initPQExpBuffer(&buf);
+
+    // Build base query for language information
+    printfPQExpBuffer(&buf,
+        "SELECT l.lanname AS \"%s\",\n"
+        "       pg_catalog.pg_get_userbyid(l.lanowner) as \"%s\",\n"
+        "       l.lanpltrusted AS \"%s\"",
+        gettext_noop("Name"),
+        gettext_noop("Owner"),
+        gettext_noop("Trusted"));
+
+    // Add verbose columns (handlers, validators, ACLs)
+    if (verbose) {
+        appendPQExpBuffer(&buf,
+            ",\n       NOT l.lanispl AS \"%s\",\n"
+            "       l.lanplcallfoid::pg_catalog.regprocedure AS \"%s\",\n"
+            "       l.lanvalidator::pg_catalog.regprocedure AS \"%s\",\n       "
+            "l.laninline::pg_catalog.regprocedure AS \"%s\",\n       ",
+            gettext_noop("Internal language"),
+            gettext_noop("Call handler"),
+            gettext_noop("Validator"),
+            gettext_noop("Inline handler"));
+
+        // Add ACL column
+        printACLColumn(&buf, "l.lanacl");
+    }
+
+    // Complete query with description and joins
+    appendPQExpBuffer(&buf,
+        ",\n       d.description AS \"%s\""
+        "\nFROM pg_catalog.pg_language l\n"
+        "LEFT JOIN pg_catalog.pg_description d\n"
+        "  ON d.classoid = l.tableoid AND d.objoid = l.oid\n"
+        "  AND d.objsubid = 0\n",
+        gettext_noop("Description"));
+
+    // Add pattern filtering if specified
+    if (pattern) {
+        if (!validateSQLNamePattern(&buf, pattern, false, false,
+                                    NULL, "l.lanname", NULL, NULL,
+                                    NULL, 2)) {
+            termPQExpBuffer(&buf);
+            return false;
+        }
+    }
+
+    // Filter out internal languages unless showSystem is true
+    if (!showSystem && !pattern)
+        appendPQExpBufferStr(&buf, "WHERE l.lanplcallfoid != 0\n");
+
+    appendPQExpBufferStr(&buf, "ORDER BY 1;");
+
+    // Execute query and display results
+    res = PSQLexec(buf.data);
+    termPQExpBuffer(&buf);
+    if (!res)
+        return false;
+
+    myopt.title = _("List of languages");
+    myopt.translate_header = true;
+
+    printQuery(res, &myopt, pset.queryFout, false, pset.logfile);
+
+    PQclear(res);
+    return true;
+}
+```

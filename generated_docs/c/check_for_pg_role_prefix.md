@@ -43,3 +43,54 @@ The function performs the following operations:
 - The check applies specifically to versions older than 9.6 where such roles should not exist
 - Provides clear guidance that roles must be renamed before upgrade can proceed
 - Part of PostgreSQL's upgrade validation to prevent naming conflicts with future system roles
+
+## Simplified Source
+
+```c
+static void check_for_pg_role_prefix(ClusterInfo *cluster)
+{
+    PGresult *res;
+    PGconn *conn = connectToServer(cluster, "template1");
+    FILE *script = NULL;
+    char output_path[MAXPGPATH];
+
+    prep_status("Checking for roles starting with \"pg_\"");
+
+    snprintf(output_path, sizeof(output_path), "%s/%s",
+             log_opts.basedir, "pg_role_prefix.txt");
+
+    // Find user roles that use the reserved "pg_" prefix
+    res = executeQueryOrDie(conn,
+                            "SELECT oid AS roloid, rolname "
+                            "FROM pg_catalog.pg_roles "
+                            "WHERE rolname ~ '^pg_'");
+
+    int ntups = PQntuples(res);
+    int i_roloid = PQfnumber(res, "roloid");
+    int i_rolname = PQfnumber(res, "rolname");
+
+    // Log any problematic roles found
+    for (int rowno = 0; rowno < ntups; rowno++)
+    {
+        if (script == NULL)
+            script = fopen_priv(output_path, "w");
+        fprintf(script, "%s (oid=%s)\n",
+                PQgetvalue(res, rowno, i_rolname),
+                PQgetvalue(res, rowno, i_roloid));
+    }
+
+    PQclear(res);
+    PQfinish(conn);
+
+    // Handle results: fail if pg_ roles found, otherwise mark success
+    if (script) {
+        fclose(script);
+        pg_fatal("Your installation contains roles starting with \"pg_\". "
+                 "\"pg_\" is a reserved prefix for system roles. The cluster "
+                 "cannot be upgraded until these roles are renamed. "
+                 "A list of roles starting with \"pg_\" is in the file: %s", output_path);
+    } else {
+        check_ok();
+    }
+}
+```

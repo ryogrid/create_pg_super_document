@@ -32,3 +32,15 @@ This function is primarily used in authentication-related code, particularly in 
 - This function is primarily used in testing scenarios where reproducible authentication behavior is required
 - The nonce value is stored persistently in the control file and remains constant across server restarts
 - Located in src/backend/access/transam/xlog.c:4533-4542
+
+## Simplified Source
+
+```c
+char *GetMockAuthenticationNonce(void) {
+    // Validate control file is available
+    Assert(ControlFile != NULL);
+
+    // Return the mock authentication nonce from control file
+    return ControlFile->mock_authentication_nonce;
+}
+```

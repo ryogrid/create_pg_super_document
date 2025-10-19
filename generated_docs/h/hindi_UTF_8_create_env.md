@@ -33,3 +33,12 @@ This function serves as a factory method for creating Snowball environment struc
 - Part of the standard Snowball stemmer interface pattern used across all supported languages
 - The returned environment must be used with other  functions for proper operation
 - Memory allocation failure would be handled by the underlying  function
+
+## Simplified Source
+
+```c
+extern struct SN_env * hindi_UTF_8_create_env(void) {
+    // Create and initialize Hindi UTF-8 stemmer environment
+    return SN_create_env(0, 0);
+}
+```

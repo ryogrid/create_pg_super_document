@@ -35,3 +35,26 @@ This function places an index tuple into a buffer page by finding the appropriat
 - The tuple is placed at the end of the current free space area
 - Updates the page's free space counter to reflect the consumed space
 - Essential for the buffering mechanism during GiST index construction
+
+## Simplified Source
+
+```c
+static void
+gistPlaceItupToPage(GISTNodeBufferPage *pageBuffer, IndexTuple itup)
+{
+    Size itupsz = IndexTupleSize(itup);
+    char *ptr;
+
+    // Verify we have enough space (should always be true)
+    Assert(PAGE_FREE_SPACE(pageBuffer) >= MAXALIGN(itupsz));
+
+    // Reserve space for the tuple
+    PAGE_FREE_SPACE(pageBuffer) -= MAXALIGN(itupsz);
+
+    // Get pointer to where tuple should be placed (end of free space)
+    ptr = (char *) pageBuffer + BUFFER_PAGE_DATA_OFFSET + PAGE_FREE_SPACE(pageBuffer);
+
+    // Copy the tuple to the reserved location
+    memcpy(ptr, itup, itupsz);
+}
+```

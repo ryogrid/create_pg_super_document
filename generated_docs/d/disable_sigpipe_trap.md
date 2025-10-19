@@ -42,3 +42,18 @@ The function is conditionally compiled and only has effect on Unix-like systems.
 - Critical for robust pipe handling in psql and other PostgreSQL frontend tools
 - Part of PostgreSQL's frontend utilities for handling I/O operations safely
 - The function is designed to be called before operations that might write to potentially unreliable pipes
+
+## Simplified Source
+
+```c
+void
+disable_sigpipe_trap(void)
+{
+#ifndef WIN32
+    // Ignore SIGPIPE signals to prevent process termination
+    // when writing to broken pipes
+    pqsignal(SIGPIPE, SIG_IGN);
+#endif
+    // No-op on Windows - SIGPIPE doesn't exist there
+}
+```

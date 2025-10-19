@@ -32,3 +32,13 @@ The function passes 0 as the S_size parameter to SN_close_env, which corresponds
 - This function should always be called to clean up environments created by swedish_ISO_8859_1_create_env to prevent memory leaks
 - The function is declared as extern, making it available for external linkage
 - Proper cleanup includes freeing the main string buffer (z->p), integer array (z->I), and the environment structure itself
+
+## Simplified Source
+
+```c
+extern void swedish_ISO_8859_1_close_env(struct SN_env * z) {
+    // Clean up Swedish stemming environment
+    // Parameter 0 matches S_size used in creation (no string arrays to free)
+    SN_close_env(z, 0);
+}
+```

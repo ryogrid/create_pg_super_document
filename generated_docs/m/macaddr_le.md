@@ -34,3 +34,16 @@ The macaddr_le function implements the less-than-or-equal-to comparison operator
 - Supports SQL operations like 'WHERE mac_column <= 'aa:bb:cc:dd:ee:ff''
 - Returns true when addresses are equal (unlike macaddr_lt)
 - Located in src/backend/utils/adt/mac.c:219-227
+
+## Simplified Source
+
+```c
+Datum macaddr_le(PG_FUNCTION_ARGS) {
+    // Extract MAC address arguments
+    macaddr *a1 = PG_GETARG_MACADDR_P(0);
+    macaddr *a2 = PG_GETARG_MACADDR_P(1);
+
+    // Compare MAC addresses and return true if first <= second
+    PG_RETURN_BOOL(macaddr_cmp_internal(a1, a2) <= 0);
+}
+```

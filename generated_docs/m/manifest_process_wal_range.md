@@ -36,3 +36,22 @@ This function serves as a callback during backup manifest parsing, specifically 
 - Each WAL range is allocated using palloc and stored in a linked list
 - The collected WAL ranges help determine the minimum WAL required for backup consistency
 - Timeline IDs are crucial for handling WAL across different database timelines (e.g., after point-in-time recovery)
+
+## Simplified Source
+
+```c
+static void manifest_process_wal_range(JsonManifestParseContext *context,
+                                      TimeLineID tli, XLogRecPtr start_lsn,
+                                      XLogRecPtr end_lsn) {
+    IncrementalBackupInfo *ib = context->private_data;
+
+    // Create new WAL range entry
+    backup_wal_range *range = palloc(sizeof(backup_wal_range));
+    range->tli = tli;
+    range->start_lsn = start_lsn;
+    range->end_lsn = end_lsn;
+
+    // Add to the list of manifest WAL ranges
+    ib->manifest_wal_ranges = lappend(ib->manifest_wal_ranges, range);
+}
+```

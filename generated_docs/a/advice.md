@@ -33,3 +33,14 @@ The advice function is a minimal helper that provides guidance to users when the
 - Part of the pg_config utility's error handling mechanism
 - Simple but essential for user experience when command-line errors occur
 - Follows the common Unix convention of suggesting --help for assistance
+
+## Simplified Source
+
+```c
+static void
+advice(void)
+{
+    // Display help suggestion message to stderr
+    fprintf(stderr, _("Try \"%s --help\" for more information.\n"), progname);
+}
+```

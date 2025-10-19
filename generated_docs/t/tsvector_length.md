@@ -39,3 +39,15 @@ The function is straightforward:
 - The returned value corresponds to the number of distinct terms indexed in the TSVector
 - Commonly used for statistics and query planning in text search operations
 - Does not count position entries - only unique lexemes
+
+## Simplified Source
+
+```c
+Datum tsvector_length(PG_FUNCTION_ARGS) {
+    TSVector in = PG_GETARG_TSVECTOR(0);
+    int32 ret = in->size;  // Number of distinct lexemes
+
+    PG_FREE_IF_COPY(in, 0);
+    PG_RETURN_INT32(ret);
+}
+```

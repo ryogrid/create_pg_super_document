@@ -42,3 +42,27 @@ This approach provides consistent distance computation for geometric objects tha
 - Currently only supports `PointStrategyNumberGroup` queries; other strategy groups result in an error  
 - Provides a consistent interface for point-to-bounding-box distance calculations across different geometric types
 - Essential for KNN searches involving geometric objects that are indexed by their bounding boxes
+
+## Simplified Source
+
+```c
+static float8 gist_bbox_distance(GISTENTRY *entry, Datum query, StrategyNumber strategy) {
+    float8 distance;
+    StrategyNumber strategyGroup = strategy / GeoStrategyNumberOffset;
+
+    switch (strategyGroup) {
+        case PointStrategyNumberGroup:
+            // Calculate distance from query point to bounding box
+            // Use false to always treat as bounding box distance calculation
+            distance = computeDistance(false,
+                                       DatumGetBoxP(entry->key),
+                                       DatumGetPointP(query));
+            break;
+        default:
+            elog(ERROR, "unrecognized strategy number: %d", strategy);
+            distance = 0.0;
+    }
+
+    return distance;
+}
+```

@@ -39,3 +39,30 @@ This function is a dispatcher that creates different types of target file system
 - Fatal error handling for unsupported operations and undefined file types ensures data integrity
 - Critical component of pg_rewind's file management and structure recreation operations
 - Works in conjunction with the filemap system to track and process required file creations
+
+## Simplified Source
+
+```c
+void create_target(file_entry_t *entry) {
+    // Validate entry is marked for creation and target doesn't exist
+    Assert(entry->action == FILE_ACTION_CREATE);
+    Assert(!entry->target_exists);
+
+    // Dispatch to appropriate creation function based on source type
+    switch (entry->source_type) {
+        case FILE_TYPE_DIRECTORY:
+            create_target_dir(entry->path);
+            break;
+        case FILE_TYPE_SYMLINK:
+            create_target_symlink(entry->path, entry->source_link_target);
+            break;
+        case FILE_TYPE_REGULAR:
+            // Regular files are created via open_target_file, not here
+            pg_fatal("invalid action (CREATE) for regular file");
+            break;
+        case FILE_TYPE_UNDEFINED:
+            pg_fatal("undefined file type for \"%s\"", entry->path);
+            break;
+    }
+}
+```

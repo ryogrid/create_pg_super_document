@@ -37,3 +37,29 @@ This function takes no parameters.
 - Employs struct assignment instead of memcpy for better type safety
 - Part of PostgreSQL's statistics collection system for I/O operations
 - Located in src/backend/utils/activity/pgstat_io.c:277-318
+
+## Simplified Source
+
+```c
+void pgstat_io_snapshot_cb(void)
+{
+    // Create snapshot of I/O statistics for all backend types
+    for (int i = 0; i < BACKEND_NUM_TYPES; i++)
+    {
+        LWLock *lock = &pgStatLocal.shmem->io.locks[i];
+        PgStat_BktypeIO *shared_stats = &pgStatLocal.shmem->io.stats.stats[i];
+        PgStat_BktypeIO *snapshot = &pgStatLocal.snapshot.io.stats[i];
+
+        LWLockAcquire(lock, LW_SHARED);
+
+        // Copy reset timestamp using first backend type's lock
+        if (i == 0)
+            pgStatLocal.snapshot.io.stat_reset_timestamp =
+                pgStatLocal.shmem->io.stats.stat_reset_timestamp;
+
+        // Copy statistics data safely
+        *snapshot = *shared_stats;
+        LWLockRelease(lock);
+    }
+}
+```

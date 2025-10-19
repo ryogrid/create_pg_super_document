@@ -57,3 +57,49 @@ The function combines optional preprocessing with mandatory transformation, typi
 - Returns 1 only if the mandatory second phase succeeds, 0 if the required patterns don't match, or negative values on error
 - Part of the final stages of the Greek stemming pipeline, typically the last step in the series
 - The optional first phase suggests handling of variant Greek morphological forms before applying standard transformations
+
+## Simplified Source
+
+```c
+static int r_step5f(struct SN_env * z) {
+    // Phase 1: Optional preprocessing with backtracking
+    int saved_pos = z->l - z->c;
+    z->ket = z->c;
+
+    // Try to find 10-character pattern
+    if (eq_s_b(z, 10, s_90)) {
+        z->bra = z->c;
+        slice_del(z);  // Remove the 10-char pattern
+        z->I[0] = 0;   // Reset state
+
+        // Look for specific character endings and pattern replacement
+        z->ket = z->c;
+        z->bra = z->c;
+        if (z->c - 1 > z->lb && (z->p[z->c - 1] == 128 || z->p[z->c - 1] == 134)) {
+            if (find_among_b(z, a_45, 6) && z->c <= z->lb) {  // a_45 has 6 patterns
+                slice_from_s(z, 8, s_91);  // Replace with 8-char pattern
+            }
+        }
+    }
+    z->c = z->l - saved_pos;  // Restore position regardless
+
+    // Phase 2: Mandatory processing
+    z->ket = z->c;
+    if (!eq_s_b(z, 8, s_92)) return 0;  // Must find 8-char pattern
+
+    z->bra = z->c;
+    slice_del(z);  // Remove the 8-char pattern
+    z->I[0] = 0;   // Reset state
+
+    // Final pattern matching at word boundary
+    z->ket = z->c;
+    z->bra = z->c;
+    if (!find_among_b(z, a_46, 9)) return 0;  // Find from a_46 (9 patterns)
+    if (z->c > z->lb) return 0;  // Must be at word beginning
+
+    // Replace with final 8-char pattern
+    slice_from_s(z, 8, s_93);
+
+    return 1;  // Success
+}
+```

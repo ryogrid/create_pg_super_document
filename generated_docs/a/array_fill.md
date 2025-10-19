@@ -48,3 +48,42 @@ Internal variables:
 - Part of PostgreSQL's array manipulation infrastructure
 - Passes NULL as the lower bounds parameter to `array_fill_internal` to trigger default behavior
 - More commonly used than the explicit lower-bounds variant due to simpler interface
+
+## Simplified Source
+
+```c
+Datum array_fill(PG_FUNCTION_ARGS) {
+    ArrayType *dims, *result;
+    Oid elmtype;
+    Datum value;
+    bool isnull;
+
+    // Validate dimensions array is not NULL
+    if (PG_ARGISNULL(1)) {
+        ereport(ERROR, (errcode(ERRCODE_NULL_VALUE_NOT_ALLOWED),
+                errmsg("dimension array or low bound array cannot be null")));
+    }
+
+    dims = PG_GETARG_ARRAYTYPE_P(1);
+
+    // Handle fill value (may be NULL)
+    if (!PG_ARGISNULL(0)) {
+        value = PG_GETARG_DATUM(0);
+        isnull = false;
+    } else {
+        value = 0;
+        isnull = true;
+    }
+
+    // Determine element type and create array with default lower bounds
+    elmtype = get_fn_expr_argtype(fcinfo->flinfo, 0);
+    if (!OidIsValid(elmtype)) {
+        elog(ERROR, "could not determine data type of input");
+    }
+
+    result = array_fill_internal(dims, NULL, value, isnull, elmtype, fcinfo);
+    PG_RETURN_ARRAYTYPE_P(result);
+}
+```
+
+This simplified version of `array_fill_with_lower_bounds()` creates arrays with default lower bounds (starting at 1). It passes NULL as the lower bounds parameter to `array_fill_internal()`, which triggers the use of standard 1-based indexing for all dimensions.

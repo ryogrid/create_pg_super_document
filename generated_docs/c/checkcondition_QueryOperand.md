@@ -45,3 +45,34 @@ The  function serves as a callback for the TS_execute function during text searc
 - Critical component of PostgreSQL's text search ranking system, specifically for cover distance algorithms
 - Position data is essential for phrase queries and proximity-based ranking calculations
 - Part of the callback-based architecture that allows flexible query evaluation strategies
+
+## Simplified Source
+
+```c
+static TSTernaryValue
+checkcondition_QueryOperand(void *checkval, QueryOperand *val,
+                            ExecPhraseData *data)
+{
+    QueryRepresentation *qr = (QueryRepresentation *) checkval;
+    QueryRepresentationOperand *opData = QR_GET_OPERAND_DATA(qr, val);
+
+    // Check if operand exists in document
+    if (!opData->operandexists)
+        return TS_NO;
+
+    // Fill position data if requested (for phrase matching)
+    if (data)
+    {
+        data->npos = opData->npos;
+        data->pos = opData->pos;
+
+        // Adjust position pointer if using reverse insertion
+        if (opData->reverseinsert)
+            data->pos += MAXQROPOS - opData->npos;
+    }
+
+    return TS_YES;
+}
+```
+
+This simplified version shows the callback function that checks if a query operand exists in the document representation. It returns TS_YES/TS_NO for existence and optionally fills position data for phrase matching, handling both forward and reverse insertion modes.

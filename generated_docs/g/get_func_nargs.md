@@ -35,3 +35,23 @@ This function retrieves the argument count for a specified function by performin
 - Does not distinguish between required and optional parameters in the count
 - Useful for function signature validation and dynamic function calling
 - May be used internally by other PostgreSQL components not captured in current indexing
+
+## Simplified Source
+
+```c
+int get_func_nargs(Oid funcid) {
+    // Look up function in system cache
+    HeapTuple tp = SearchSysCache1(PROCOID, ObjectIdGetDatum(funcid));
+
+    // Ensure function exists
+    if (!HeapTupleIsValid(tp))
+        elog(ERROR, "cache lookup failed for function %u", funcid);
+
+    // Extract argument count from pg_proc entry
+    int result = ((Form_pg_proc) GETSTRUCT(tp))->pronargs;
+
+    // Clean up cache reference
+    ReleaseSysCache(tp);
+    return result;
+}
+```

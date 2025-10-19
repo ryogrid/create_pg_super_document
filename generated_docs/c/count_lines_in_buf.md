@@ -30,3 +30,27 @@ This utility function iterates through the contents of a PQExpBuffer and counts 
 - Used specifically for pager decision-making in psql's output formatting
 - Simple and efficient implementation using strchr() to advance through the buffer
 - The function assumes the buffer contains valid null-terminated string data
+
+## Simplified Source
+
+```c
+static int
+count_lines_in_buf(PQExpBuffer buf)
+{
+    int lineno = 0;
+    const char *lines = buf->data;
+
+    // Count lines by finding newline characters
+    while (*lines != '\0') {
+        lineno++;
+
+        // Find start of next line
+        lines = strchr(lines, '\n');
+        if (!lines)
+            break;
+        lines++;  // Move past the newline
+    }
+
+    return lineno;
+}
+```

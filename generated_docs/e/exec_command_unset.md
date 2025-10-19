@@ -32,3 +32,36 @@ This function handles the execution of the \unset command in psql, which is used
 - Memory management: Properly frees the allocated option string after use
 - Error handling: Reports missing argument errors with the command name for context
 - The function operates within psql's conditional execution framework
+
+## Simplified Source
+
+```c
+static backslashResult
+exec_command_unset(PsqlScanState scan_state, bool active_branch,
+                   const char *cmd)
+{
+    bool success = true;
+
+    if (active_branch) {
+        // Parse variable name to unset
+        char *opt = psql_scan_slash_option(scan_state, OT_NORMAL, NULL, false);
+
+        if (!opt) {
+            // Missing variable name
+            pg_log_error("\\%s: missing required argument", cmd);
+            success = false;
+        }
+        else if (!SetVariable(pset.vars, opt, NULL)) {
+            // Failed to unset variable
+            success = false;
+        }
+
+        free(opt);
+    }
+    else {
+        ignore_slash_options(scan_state);
+    }
+
+    return success ? PSQL_CMD_SKIP_LINE : PSQL_CMD_ERROR;
+}
+```

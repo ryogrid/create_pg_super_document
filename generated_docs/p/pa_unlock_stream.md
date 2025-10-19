@@ -34,3 +34,13 @@ This function is part of PostgreSQL's logical replication parallel apply worker 
 - The lock being released is of type PARALLEL_APPLY_LOCK_STREAM, which coordinates stream access among parallel workers
 - The function uses MyLogicalRepWorker->subid to identify the current worker's subscription
 - Proper lock/unlock pairing is critical for avoiding deadlocks in the parallel apply system
+
+## Simplified Source
+
+```c
+void pa_unlock_stream(TransactionId xid, LOCKMODE lockmode) {
+    // Release stream lock for transaction coordination between leader and parallel workers
+    UnlockApplyTransactionForSession(MyLogicalRepWorker->subid, xid,
+                                    PARALLEL_APPLY_LOCK_STREAM, lockmode);
+}
+```

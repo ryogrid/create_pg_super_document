@@ -37,3 +37,13 @@ This function is part of a family of comparison routines designed to ensure tran
 - This approach helps ensure comparator transitivity, which is crucial for stable sorting algorithms
 - The implementation is optimized for performance while maintaining correctness across all possible 16-bit signed integer values
 - Part of PostgreSQL's comprehensive suite of safe comparison utilities that help prevent subtle bugs in sorting and indexing operations
+
+## Simplified Source
+
+```c
+static inline int pg_cmp_s16(int16 a, int16 b) {
+    // Cast to 32-bit to prevent overflow, then subtract
+    // Returns: positive if a > b, zero if a == b, negative if a < b
+    return (int32) a - (int32) b;
+}
+```

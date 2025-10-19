@@ -47,3 +47,46 @@ The function calls search_directory() for each potential location and returns a 
 - Terminates program execution if no valid WAL files can be located in any of the search locations
 - Part of pg_waldump's initialization process to establish the working directory for WAL file analysis
 - The function provides flexible WAL file location discovery suitable for various PostgreSQL installation configurations
+
+## Simplified Source
+
+```c
+static char *identify_target_directory(char *directory, char *fname) {
+    char fpath[MAXPGPATH];
+
+    if (directory != NULL) {
+        // Search in specified directory first
+        if (search_directory(directory, fname))
+            return pg_strdup(directory);
+
+        // Then try directory/XLOGDIR
+        snprintf(fpath, MAXPGPATH, "%s/%s", directory, XLOGDIR);
+        if (search_directory(fpath, fname))
+            return pg_strdup(fpath);
+    } else {
+        // Search in current directory
+        if (search_directory(".", fname))
+            return pg_strdup(".");
+
+        // Search in XLOGDIR
+        if (search_directory(XLOGDIR, fname))
+            return pg_strdup(XLOGDIR);
+
+        // Search in $PGDATA/XLOGDIR if PGDATA is set
+        const char *datadir = getenv("PGDATA");
+        if (datadir != NULL) {
+            snprintf(fpath, MAXPGPATH, "%s/%s", datadir, XLOGDIR);
+            if (search_directory(fpath, fname))
+                return pg_strdup(fpath);
+        }
+    }
+
+    // Could not locate WAL file anywhere
+    if (fname)
+        pg_fatal("could not locate WAL file \"%s\"", fname);
+    else
+        pg_fatal("could not find any WAL file");
+
+    return NULL; // not reached
+}
+```

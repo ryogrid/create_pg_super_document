@@ -36,3 +36,42 @@ The negative check (eq_s with s_58) is a safeguard mechanism that prevents remov
 
 ## Notes and Other Information
 This function represents the more conservative second phase of prefix removal, with stricter validation compared to r_Prefix_Step1. The negative check mechanism ensures linguistic accuracy by preventing removal of prefixes that would result in invalid Arabic word forms. The function returns 1 on successful prefix removal, 0 if no applicable prefixes are found, or 0 if the safeguard check prevents removal. This two-step prefix approach helps maintain the balance between effective stemming and preservation of word meaning in Arabic text processing.
+
+## Simplified Source
+
+```c
+static int r_Prefix_Step2(struct SN_env * z) {
+    // Set start boundary
+    z->bra = z->c;
+
+    // Pre-check: verify character at c+1 is valid Arabic
+    if (z->c + 1 >= z->l ||
+        (z->p[z->c + 1] != 129 && z->p[z->c + 1] != 136)) {
+        return 0; // Invalid character or out of bounds
+    }
+
+    // Find prefix pattern using lookup table
+    if (!find_among(z, a_5, 2)) {
+        return 0; // No pattern found
+    }
+
+    z->ket = z->c;
+
+    // Check minimum word length
+    if (len_utf8(z->p) <= 3) {
+        return 0; // Word too short for prefix removal
+    }
+
+    // Safeguard check: prevent removal if matches forbidden pattern
+    int saved_pos = z->c;
+    if (eq_s(z, 2, s_58)) {
+        return 0; // Forbidden pattern - don't remove prefix
+    }
+    z->c = saved_pos; // Restore position
+
+    // All checks passed - remove the prefix
+    slice_del(z);
+
+    return 1; // Success
+}
+```

@@ -35,3 +35,18 @@ This function examines a PostgreSQL range type to determine if its lower bound i
 - Part of the range types infrastructure in PostgreSQL's type system
 - The function is located in 
 - Works with all range types (int4range, numrange, tsrange, etc.)
+
+## Simplified Source
+
+```c
+Datum
+range_lower_inc(PG_FUNCTION_ARGS)
+{
+	RangeType *range = PG_GETARG_RANGE_P(0);
+
+	// Check RANGE_LB_INC flag for lower bound inclusivity
+	char flags = range_get_flags(range);
+
+	PG_RETURN_BOOL(flags & RANGE_LB_INC);
+}
+```

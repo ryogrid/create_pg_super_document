@@ -33,3 +33,13 @@ This callback is specifically designed for use with `spgvacuumcleanup` when the 
 - Enables reuse of the bulk delete infrastructure for maintenance-only operations
 - The function parameters are ignored since the function always returns the same result
 - Essential for separating tuple deletion logic from index maintenance logic in SP-GiST vacuum
+
+## Simplified Source
+
+```c
+static bool dummy_callback(ItemPointer itemptr, void *state)
+{
+    // Always return false - never delete any tuples
+    return false;
+}
+```

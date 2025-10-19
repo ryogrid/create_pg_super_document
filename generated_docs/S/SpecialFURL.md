@@ -34,3 +34,16 @@ This mechanism allows the parser to dynamically switch parsing modes when URL pa
 - Part of PostgreSQL's text search parser that needs to recognize different types of content including URLs
 - The wanthost flag likely triggers specialized hostname parsing logic elsewhere in the parser
 - This function enables context-sensitive parsing where the same text might be tokenized differently depending on whether it appears in a URL context
+
+## Simplified Source
+
+```c
+static void SpecialFURL(TParser *prs) {
+    // Enable hostname recognition mode
+    prs->wanthost = true;
+
+    // Rewind parser to re-process current token as URL
+    prs->state->posbyte -= prs->state->lenbytetoken;
+    prs->state->poschar -= prs->state->lenchartoken;
+}
+```

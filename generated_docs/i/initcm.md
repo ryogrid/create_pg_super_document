@@ -37,3 +37,56 @@ The function allocates memory for these mappings and initializes the WHITE color
 - Memory allocation failures are handled gracefully by setting error codes and preventing crashes during cleanup
 - The initial allocation uses an arbitrary size of 4 rows for the high-range color array
 - All characters initially map to the WHITE color until specific color assignments are made during regex compilation
+
+## Simplified Source
+
+```c
+static void
+initcm(struct vars *v, struct colormap *cm)
+{
+    // Initialize basic colormap structure
+    cm->magic = CMMAGIC;
+    cm->v = v;
+    cm->ncds = NINLINECDS;
+    cm->cd = cm->cdspace;
+    cm->max = 0;
+    cm->free = 0;
+
+    // Set up WHITE color descriptor for default mapping
+    struct colordesc *cd = cm->cd;
+    cd->nschrs = MAX_SIMPLE_CHR - CHR_MIN + 1;
+    cd->nuchrs = 1;
+    cd->sub = NOSUB;
+    cd->arcs = NULL;
+    cd->firstchr = CHR_MIN;
+    cd->flags = 0;
+
+    // Allocate and initialize low-range character mapping
+    cm->locolormap = (color *) MALLOC((MAX_SIMPLE_CHR - CHR_MIN + 1) * sizeof(color));
+    if (cm->locolormap == NULL)
+    {
+        CERR(REG_ESPACE);
+        cm->cmranges = NULL;
+        cm->hicolormap = NULL;
+        return;
+    }
+    memset(cm->locolormap, WHITE, (MAX_SIMPLE_CHR - CHR_MIN + 1) * sizeof(color));
+
+    // Initialize class bits and range tracking
+    memset(cm->classbits, 0, sizeof(cm->classbits));
+    cm->numcmranges = 0;
+    cm->cmranges = NULL;
+
+    // Set up high-range character mapping
+    cm->maxarrayrows = 4;  // Initial allocation size
+    cm->hiarrayrows = 1;
+    cm->hiarraycols = 1;
+    cm->hicolormap = (color *) MALLOC(cm->maxarrayrows * sizeof(color));
+    if (cm->hicolormap == NULL)
+    {
+        CERR(REG_ESPACE);
+        return;
+    }
+    cm->hicolormap[0] = WHITE;  // Default for "all other characters"
+}
+```

@@ -42,3 +42,38 @@ The function performs the following operations:
 - Uses MAXPGPATH constant for path buffer sizing
 - Error handling uses the bail() function which terminates the program on failure
 - Part of the test setup phase that occurs before any individual tests are run
+
+## Simplified Source
+
+```c
+static void open_result_files(void) {
+    char file[MAXPGPATH];
+    FILE *difffile;
+
+    // Create main output directory if needed
+    if (!directory_exists(outputdir))
+        make_directory(outputdir);
+
+    // Create and open the main regression log file
+    snprintf(file, sizeof(file), "%s/regression.out", outputdir);
+    logfilename = pg_strdup(file);
+    logfile = fopen(logfilename, "w");
+    if (!logfile)
+        bail("could not open file \"%s\" for writing: %m", logfilename);
+
+    // Create empty diffs file for test comparisons
+    snprintf(file, sizeof(file), "%s/regression.diffs", outputdir);
+    difffilename = pg_strdup(file);
+    difffile = fopen(difffilename, "w");
+    if (!difffile)
+        bail("could not open file \"%s\" for writing: %m", difffilename);
+
+    // Close diffs file - it will be reopened as needed
+    fclose(difffile);
+
+    // Create results subdirectory for individual test outputs
+    snprintf(file, sizeof(file), "%s/results", outputdir);
+    if (!directory_exists(file))
+        make_directory(file);
+}
+```

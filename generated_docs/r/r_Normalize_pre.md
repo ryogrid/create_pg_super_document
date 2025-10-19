@@ -33,3 +33,56 @@ The function uses a continuous loop to process the entire string, setting bounda
 
 ## Notes and Other Information
 This function is automatically generated code from Snowball stemming algorithms and should not be manually modified. It handles Arabic text normalization which is essential for proper stemming of Arabic words. The function processes UTF-8 encoded Arabic text and returns 1 on success or a negative value on error. The numerous case statements correspond to different Arabic character normalization rules specific to the Arabic language stemming algorithm.
+
+## Simplified Source
+
+```c
+static int r_Normalize_pre(struct SN_env * z) {
+    // Save starting position
+    int start_pos = z->c;
+
+    // Process entire string character by character
+    while (1) {
+        int current_pos = z->c;
+        int char_pos = z->c;
+
+        // Try to find normalization pattern at current position
+        z->bra = z->c;
+        int pattern = find_among(z, a_0, 144);
+
+        if (pattern) {
+            // Found pattern - apply normalization
+            z->ket = z->c;
+
+            switch (pattern) {
+                case 1:  // Delete character
+                    slice_del(z);
+                    break;
+
+                case 2-11:  // Single character replacements
+                    slice_from_s(z, 1, replacement_string);
+                    break;
+
+                case 12-47: // Two character replacements
+                    slice_from_s(z, 2, replacement_string);
+                    break;
+
+                case 48-51: // Four character replacements
+                    slice_from_s(z, 4, replacement_string);
+                    break;
+            }
+        } else {
+            // No pattern found - advance one UTF-8 character
+            z->c = char_pos;
+            if (skip_utf8(z->p, z->c, z->l, 1) < 0) {
+                break; // End of string
+            }
+            z->c = skip_utf8(z->p, z->c, z->l, 1);
+        }
+    }
+
+    // Restore starting position
+    z->c = start_pos;
+    return 1;
+}
+```

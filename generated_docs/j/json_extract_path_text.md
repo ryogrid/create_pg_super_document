@@ -36,3 +36,12 @@ For JSON string values, the function removes JSON escaping and quotes. For other
 - The function is registered as a PostgreSQL built-in function and accessible via SQL
 - Complements `json_extract_path` which returns the result as JSON instead of text
 - Particularly useful when you need to extract string values from JSON for use in text operations or when you want a plain text representation of JSON values
+
+## Simplified Source
+```c
+Datum json_extract_path_text(PG_FUNCTION_ARGS) {
+    // Simple wrapper: extract JSON value following specified path
+    // Returns result as unescaped text (not JSON)
+    return get_path_all(fcinfo, true);
+}
+```

@@ -39,3 +39,37 @@ The function handles all known MultiXact status values and provides a fallback "
 - Status abbreviations: keysh (key share), sh (share), fornokeyupd (for no key update), forupd (for update), nokeyupd (no key update), upd (update)
 - Unknown status codes are handled gracefully with "(unk)" output
 - Part of the WAL record description system for multixact operations
+
+## Simplified Source
+
+```c
+static void out_member(StringInfo buf, MultiXactMember *member) {
+    // Output transaction ID
+    appendStringInfo(buf, "%u ", member->xid);
+
+    // Output status abbreviation based on member status
+    switch (member->status) {
+        case MultiXactStatusForKeyShare:
+            appendStringInfoString(buf, "(keysh) ");
+            break;
+        case MultiXactStatusForShare:
+            appendStringInfoString(buf, "(sh) ");
+            break;
+        case MultiXactStatusForNoKeyUpdate:
+            appendStringInfoString(buf, "(fornokeyupd) ");
+            break;
+        case MultiXactStatusForUpdate:
+            appendStringInfoString(buf, "(forupd) ");
+            break;
+        case MultiXactStatusNoKeyUpdate:
+            appendStringInfoString(buf, "(nokeyupd) ");
+            break;
+        case MultiXactStatusUpdate:
+            appendStringInfoString(buf, "(upd) ");
+            break;
+        default:
+            appendStringInfoString(buf, "(unk) ");
+            break;
+    }
+}
+```

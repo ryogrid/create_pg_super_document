@@ -34,3 +34,20 @@ The pushOpStack function is a simple stack management utility used specifically 
 - The function is static and only used within the tsquery.c module
 - Essential for maintaining operator precedence during query parsing
 - Works in conjunction with cleanOpStack for complete stack management
+
+## Simplified Source
+
+```c
+static void pushOpStack(OperatorElement *stack, int *lenstack, int8 op, int16 distance) {
+    // Check for stack overflow
+    if (*lenstack == STACKDEPTH)
+        elog(ERROR, "tsquery stack too small");
+
+    // Push operator and distance onto stack
+    stack[*lenstack].op = op;
+    stack[*lenstack].distance = distance;
+
+    // Increment stack length
+    (*lenstack)++;
+}
+```

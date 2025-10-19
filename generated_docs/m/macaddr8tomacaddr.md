@@ -45,3 +45,28 @@ The conversion follows this mapping:
 - This is the complementary function to `macaddrtomacaddr8` which performs the reverse conversion
 - Memory allocation uses `palloc0` to ensure the result structure is zero-initialized
 - Located in src/backend/utils/adt/mac8.c:545-569
+
+## Simplified Source
+
+```c
+macaddr* macaddr8tomacaddr(macaddr8 *addr) {
+    // Convert 8-byte MAC to 6-byte MAC by removing EUI-64 expansion bytes
+
+    // Validate that EUI-64 expansion bytes are present
+    if ((addr->d != 0xFF) || (addr->e != 0xFE)) {
+        error("Invalid macaddr8 format - missing FF:FE expansion bytes");
+    }
+
+    macaddr *result = allocate_macaddr();
+
+    // Extract original 6-byte MAC address
+    result->a = addr->a;  // First 3 bytes unchanged
+    result->b = addr->b;
+    result->c = addr->c;
+    result->d = addr->f;  // Skip expansion bytes, take last 3 bytes
+    result->e = addr->g;
+    result->f = addr->h;
+
+    return result;
+}
+```

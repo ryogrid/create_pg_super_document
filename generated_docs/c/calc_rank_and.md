@@ -43,3 +43,86 @@ USER     TTY      FROM             LOGIN@   IDLE   JCPU   PCPU WHAT: Array of fl
 - Implements distance-based weighting where closer terms contribute more to the relevance score
 - The algorithm handles both positional and non-positional text search vectors
 - Memory management includes proper cleanup of allocated position arrays
+
+## Simplified Source
+
+```c
+static float
+calc_rank_and(const float *w, TSVector t, TSQuery q)
+{
+    WordEntryPosVector **pos;
+    int i, k, l, p;
+    WordEntry *entry, *firstentry;
+    WordEntryPos *post, *ct;
+    int32 dimt, lenct, dist, nitem;
+    float res = -1.0;
+    QueryOperand **item;
+    int size = q->size;
+
+    // Get sorted unique operands from query
+    item = SortAndUniqItems(q, &size);
+    if (size < 2)
+    {
+        pfree(item);
+        return calc_rank_or(w, t, q);  // Fall back to OR ranking
+    }
+
+    // Allocate position vector array
+    pos = (WordEntryPosVector **) palloc0(sizeof(WordEntryPosVector *) * q->size);
+
+    // For each unique operand
+    for (i = 0; i < size; i++)
+    {
+        // Find word entry in document
+        firstentry = entry = find_wordentry(t, q, item[i], &nitem);
+        if (!entry)
+            continue;
+
+        // Process each occurrence of this word
+        while (entry - firstentry < nitem)
+        {
+            // Get position information
+            pos[i] = entry->haspos ? _POSVECPTR(t, entry) : POSNULL;
+
+            dimt = pos[i]->npos;
+            post = pos[i]->pos;
+
+            // Compare with all previous operands
+            for (k = 0; k < i; k++)
+            {
+                if (!pos[k])
+                    continue;
+
+                lenct = pos[k]->npos;
+                ct = pos[k]->pos;
+
+                // Calculate proximity scores for all position combinations
+                for (l = 0; l < dimt; l++)
+                {
+                    for (p = 0; p < lenct; p++)
+                    {
+                        dist = abs((int) WEP_GETPOS(post[l]) - (int) WEP_GETPOS(ct[p]));
+                        if (dist || (dist == 0 && (pos[i] == POSNULL || pos[k] == POSNULL)))
+                        {
+                            float curw;
+                            if (!dist)
+                                dist = MAXENTRYPOS;
+
+                            // Calculate weighted proximity score
+                            curw = sqrt(wpos(post[l]) * wpos(ct[p]) * word_distance(dist));
+                            res = (res < 0) ? curw : 1.0 - (1.0 - res) * (1.0 - curw);
+                        }
+                    }
+                }
+            }
+            entry++;
+        }
+    }
+
+    pfree(pos);
+    pfree(item);
+    return res;
+}
+```
+
+This simplified version shows the AND ranking algorithm: get unique operands, find their positions in the document, then calculate proximity-based scores by comparing distances between all operand pairs. Closer terms get higher scores using weighted distance calculations.

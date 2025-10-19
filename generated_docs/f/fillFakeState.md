@@ -42,3 +42,19 @@ The function is designed to be lightweight and efficient, avoiding the overhead 
 - The function supports spgFormDeadTuple() operations during replay
 - Memory allocated for deadTupleStorage is zeroed using palloc0 for safety
 - The function is part of PostgreSQL's Write-Ahead Logging (WAL) recovery system for SP-GiST indexes
+
+## Simplified Source
+```c
+static void fillFakeState(SpGistState *state, spgxlogState stateSrc)
+{
+    // Initialize minimal SpGist state for WAL replay
+    memset(state, 0, sizeof(*state));
+
+    // Copy essential fields from WAL record
+    state->redirectXid = stateSrc.redirectXid;
+    state->isBuild = stateSrc.isBuild;
+
+    // Allocate storage for dead tuple handling
+    state->deadTupleStorage = palloc0(SGDTSIZE);
+}
+```

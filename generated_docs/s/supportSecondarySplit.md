@@ -54,3 +54,63 @@ The function uses penalty calculations to determine the optimal arrangement and 
 - The penalty-based optimization helps maintain efficient index structure by choosing the split arrangement with lower access costs
 - The function handles edge cases where only one union key exists (when one side had all NULLs)
 - After processing, it resets the spl_ldatum_exists and spl_rdatum_exists flags to false
+
+## Simplified Source
+
+```c
+static void
+supportSecondarySplit(Relation r, GISTSTATE *giststate, int attno,
+                      GIST_SPLITVEC *sv, Datum oldL, Datum oldR)
+{
+    bool leaveOnLeft = true;
+    GISTENTRY entryL, entryR, entrySL, entrySR;
+
+    // Initialize entries for old and new union keys
+    gistentryinit(entryL, oldL, r, NULL, 0, false);
+    gistentryinit(entryR, oldR, r, NULL, 0, false);
+    gistentryinit(entrySL, sv->spl_ldatum, r, NULL, 0, false);
+    gistentryinit(entrySR, sv->spl_rdatum, r, NULL, 0, false);
+
+    if (sv->spl_ldatum_exists && sv->spl_rdatum_exists) {
+        // Both unions exist - compare total penalties for both arrangements
+        float penalty1 = gistpenalty(giststate, attno, &entryL, false, &entrySL, false) +
+                         gistpenalty(giststate, attno, &entryR, false, &entrySR, false);
+        float penalty2 = gistpenalty(giststate, attno, &entryL, false, &entrySR, false) +
+                         gistpenalty(giststate, attno, &entryR, false, &entrySL, false);
+
+        if (penalty1 > penalty2)
+            leaveOnLeft = false;  // Swap gives better penalties
+    } else {
+        // Only one union exists - choose arrangement with lower penalty
+        GISTENTRY *entry1 = (sv->spl_ldatum_exists) ? &entryL : &entryR;
+        float penalty1 = gistpenalty(giststate, attno, entry1, false, &entrySL, false);
+        float penalty2 = gistpenalty(giststate, attno, entry1, false, &entrySR, false);
+
+        leaveOnLeft = (penalty1 < penalty2) ? sv->spl_ldatum_exists : sv->spl_rdatum_exists;
+    }
+
+    // Swap left and right if needed
+    if (!leaveOnLeft) {
+        SWAPVAR(sv->spl_left, sv->spl_right, sv->spl_left);
+        SWAPVAR(sv->spl_nleft, sv->spl_nright, sv->spl_nleft);
+        SWAPVAR(sv->spl_ldatum, sv->spl_rdatum, sv->spl_ldatum);
+        gistentryinit(entrySL, sv->spl_ldatum, r, NULL, 0, false);
+        gistentryinit(entrySR, sv->spl_rdatum, r, NULL, 0, false);
+    }
+
+    // Update union keys by merging with old keys
+    if (sv->spl_ldatum_exists) {
+        bool tmpBool;
+        gistMakeUnionKey(giststate, attno, &entryL, false, &entrySL, false,
+                         &sv->spl_ldatum, &tmpBool);
+    }
+
+    if (sv->spl_rdatum_exists) {
+        bool tmpBool;
+        gistMakeUnionKey(giststate, attno, &entryR, false, &entrySR, false,
+                         &sv->spl_rdatum, &tmpBool);
+    }
+
+    sv->spl_ldatum_exists = sv->spl_rdatum_exists = false;
+}
+```

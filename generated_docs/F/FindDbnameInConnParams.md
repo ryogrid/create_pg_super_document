@@ -30,3 +30,29 @@ FindDbnameInConnParams is a static helper function that searches through an arra
 - Returns NULL if no dbname parameter is found or if the value is empty
 - This is a static function, only accessible within streamutil.c
 - Designed specifically as a helper for GetDbnameFromConnectionOptions function
+
+## Simplified Source
+
+```c
+/*
+ * FindDbnameInConnParams
+ *
+ * Extract the value of dbname from PQconninfoOption parameters.
+ * Returns a strdup'd result or NULL.
+ */
+static char *
+FindDbnameInConnParams(PQconninfoOption *conn_opts)
+{
+    PQconninfoOption *conn_opt;
+
+    // Search through connection options for dbname parameter
+    for (conn_opt = conn_opts; conn_opt->keyword != NULL; conn_opt++) {
+        if (strcmp(conn_opt->keyword, "dbname") == 0 &&
+            conn_opt->val != NULL && conn_opt->val[0] != '\0') {
+            return pg_strdup(conn_opt->val);
+        }
+    }
+
+    return NULL;  // dbname not found or empty
+}
+```

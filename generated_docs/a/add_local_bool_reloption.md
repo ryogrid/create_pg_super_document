@@ -37,3 +37,20 @@ This public function creates and adds a boolean reloption to a local reloption s
 - The lockmode parameter is set to 0 since local reloptions typically don't require special locking
 - The offset parameter must point to a valid bool-typed field within the target structure
 - Local reloptions are typically used by access methods and extensions for custom configuration
+
+## Simplified Source
+
+```c
+void
+add_local_bool_reloption(local_relopts *relopts, const char *name,
+                         const char *desc, bool default_val, int offset)
+{
+    // Create a new local boolean reloption with default settings
+    relopt_bool *newoption = init_bool_reloption(RELOPT_KIND_LOCAL,
+                                                 name, desc,
+                                                 default_val, 0);
+
+    // Add the reloption to the local relopts structure
+    add_local_reloption(relopts, (relopt_gen *) newoption, offset);
+}
+```

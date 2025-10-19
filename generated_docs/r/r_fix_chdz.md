@@ -35,3 +35,32 @@ This function addresses specific Lithuanian orthographic corrections for two imp
 - Located in src/backend/snowball/libstemmer/stem_UTF_8_lithuanian.c:728-749
 - Static function scope indicates internal use within the Lithuanian stemmer module
 - Essential for Lithuanian phonetic normalization, particularly for digraph-to-monograph conversions
+
+## Simplified Source
+
+```c
+static int r_fix_chdz(struct SN_env * z) {
+    // Set boundary for pattern matching
+    z->ket = z->c;
+
+    // Quick check: ensure we have enough characters and last char is 'č' or 'ž' (UTF-8: 141, 190)
+    if (z->c - 1 <= z->lb ||
+        (z->p[z->c - 1] != 141 && z->p[z->c - 1] != 190)) {
+        return 0;  // No ch/dz patterns to fix
+    }
+
+    // Find which ch/dz pattern matches (2 patterns in a_3 array)
+    int pattern_id = find_among_b(z, a_3, 2);
+    if (!pattern_id) return 0;
+
+    z->bra = z->c;
+
+    // Replace digraph with single character equivalent
+    switch (pattern_id) {
+        case 1: slice_from_s(z, 1, s_8); break;  // 'ch' → single char
+        case 2: slice_from_s(z, 1, s_9); break;  // 'dz' → single char
+    }
+
+    return 1;  // Successfully normalized
+}
+```

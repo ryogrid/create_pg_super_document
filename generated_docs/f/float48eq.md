@@ -35,3 +35,16 @@ This function implements the equality comparison operator for mixed-precision fl
 - Follows IEEE 754 floating-point comparison semantics
 - Returns a Datum containing a boolean result (true if equal, false otherwise)
 - Part of a family of comparison functions including float48ne, float48lt, float48le, float48gt, float48ge
+
+## Simplified Source
+
+```c
+Datum float48eq(PG_FUNCTION_ARGS) {
+    // Extract float4 and float8 arguments
+    float4 arg1 = PG_GETARG_FLOAT4(0);
+    float8 arg2 = PG_GETARG_FLOAT8(1);
+
+    // Convert float4 to float8 and compare for equality
+    PG_RETURN_BOOL(float8_eq((float8) arg1, arg2));
+}
+```

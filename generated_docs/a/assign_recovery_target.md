@@ -42,3 +42,20 @@ This ensures that recovery targets are mutually exclusive and prevents configura
 - Part of a coordinated system where similar assign hooks exist for recovery_target_lsn, recovery_target_name, recovery_target_time, and recovery_target_xid
 - The recoveryTarget global variable is used throughout the recovery process to determine stopping conditions
 - Empty string assignment allows switching to different recovery target types after unsetting the current one
+
+## Simplified Source
+
+```c
+void assign_recovery_target(const char *newval, void *extra) {
+    // Check for conflicts with other recovery targets
+    if (recoveryTarget != RECOVERY_TARGET_UNSET &&
+        recoveryTarget != RECOVERY_TARGET_IMMEDIATE)
+        error_multiple_recovery_targets();
+
+    // Set recovery target based on new value
+    if (newval && strcmp(newval, "") != 0)
+        recoveryTarget = RECOVERY_TARGET_IMMEDIATE;  // Enable immediate recovery
+    else
+        recoveryTarget = RECOVERY_TARGET_UNSET;      // Unset recovery target
+}
+```

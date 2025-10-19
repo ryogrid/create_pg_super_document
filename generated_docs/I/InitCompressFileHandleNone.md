@@ -44,3 +44,26 @@ The `InitCompressFileHandleNone` function serves as the main initialization entr
 - Each function pointer corresponds to a specific file operation, providing a complete file I/O interface
 - This function must be called before using any file operations on the CompressFileHandle
 - The function follows a pattern where each compression method (none, gzip, lz4, etc.) provides its own initialization function
+
+## Simplified Source
+
+```c
+void
+InitCompressFileHandleNone(CompressFileHandle *CFH,
+                           const pg_compress_specification compression_spec)
+{
+    // Initialize all function pointers for uncompressed file operations
+    CFH->open_func = open_none;
+    CFH->open_write_func = open_write_none;
+    CFH->read_func = read_none;
+    CFH->write_func = write_none;
+    CFH->gets_func = gets_none;
+    CFH->getc_func = getc_none;
+    CFH->close_func = close_none;
+    CFH->eof_func = eof_none;
+    CFH->get_error_func = get_error_none;
+
+    // Initialize private data to NULL
+    CFH->private_data = NULL;
+}
+```

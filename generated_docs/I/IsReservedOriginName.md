@@ -32,3 +32,13 @@ This function performs a case-insensitive comparison to determine if the provide
 - The reserved names "none" and "any" have special semantic meaning in logical replication contexts
 - Returns true if the name is reserved, false otherwise
 - Serves as input validation for replication origin creation to prevent conflicts with system-reserved names
+
+## Simplified Source
+
+```c
+static bool IsReservedOriginName(const char *name) {
+    // Check if name matches reserved values "none" or "any" (case-insensitive)
+    return ((pg_strcasecmp(name, LOGICALREP_ORIGIN_NONE) == 0) ||
+            (pg_strcasecmp(name, LOGICALREP_ORIGIN_ANY) == 0));
+}
+```

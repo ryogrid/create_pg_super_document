@@ -47,3 +47,30 @@ The function covers the complete lifecycle of database states:
 - Uses gettext internationalization for translatable state descriptions  
 - Used by pg_controldata utility to display readable database state information
 - Always returns a valid string, even for unrecognized state codes
+
+## Simplified Source
+
+```c
+static const char *
+dbState(DBState state)
+{
+    // Convert database state enum to readable string
+    switch (state) {
+        case DB_STARTUP:
+            return _("starting up");
+        case DB_SHUTDOWNED:
+            return _("shut down");
+        case DB_SHUTDOWNED_IN_RECOVERY:
+            return _("shut down in recovery");
+        case DB_SHUTDOWNING:
+            return _("shutting down");
+        case DB_IN_CRASH_RECOVERY:
+            return _("in crash recovery");
+        case DB_IN_ARCHIVE_RECOVERY:
+            return _("in archive recovery");
+        case DB_IN_PRODUCTION:
+            return _("in production");
+    }
+    return _("unrecognized status code");
+}
+```

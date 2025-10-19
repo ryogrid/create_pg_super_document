@@ -37,3 +37,29 @@ As noted in the code comments, these are preliminary checks and are not exhausti
 - The PG_VERSION file check is the primary indicator used to identify a PostgreSQL data directory
 - Error handling distinguishes between directory not existing (ENOENT) and other access issues
 - Designed specifically for validating directories that should be clones from a publisher database
+
+## Simplified Source
+
+```c
+static void check_data_directory(const char *datadir) {
+    struct stat statbuf;
+    char versionfile[MAXPGPATH];
+
+    pg_log_info("checking if directory \"%s\" is a cluster data directory", datadir);
+
+    // Check if data directory exists and is accessible
+    if (stat(datadir, &statbuf) != 0) {
+        if (errno == ENOENT) {
+            pg_fatal("data directory \"%s\" does not exist", datadir);
+        } else {
+            pg_fatal("could not access directory \"%s\": %m", datadir);
+        }
+    }
+
+    // Check for PG_VERSION file (primary indicator of PostgreSQL data directory)
+    snprintf(versionfile, MAXPGPATH, "%s/PG_VERSION", datadir);
+    if (stat(versionfile, &statbuf) != 0 && errno == ENOENT) {
+        pg_fatal("directory \"%s\" is not a database cluster directory", datadir);
+    }
+}
+```

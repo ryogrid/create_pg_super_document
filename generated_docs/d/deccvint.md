@@ -42,3 +42,29 @@ This function maintains Informix semantics for decimal conversion, ensuring seam
 - Part of the Informix compatibility layer in src/interfaces/ecpg/compatlib/informix.c
 - Widely used in test cases for validating integer to decimal conversions
 - Maintains exact precision when converting from integer to decimal format
+
+## Simplified Source
+
+```c
+int deccvint(int in, decimal *np) {
+    // Initialize output decimal as null
+    rsetnull(CDECIMALTYPE, (char *) np);
+
+    // Handle null input
+    if (risnull(CINTTYPE, (char *) &in))
+        return 0;
+
+    // Create new numeric value
+    numeric *nres = PGTYPESnumeric_new();
+    if (nres == NULL)
+        return ECPG_INFORMIX_OUT_OF_MEMORY;
+
+    // Convert integer to numeric, then numeric to decimal
+    int result = PGTYPESnumeric_from_int(in, nres);
+    if (result == 0)
+        result = PGTYPESnumeric_to_decimal(nres, np);
+
+    PGTYPESnumeric_free(nres);
+    return result;
+}
+```

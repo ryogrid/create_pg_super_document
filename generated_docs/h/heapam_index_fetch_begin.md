@@ -32,3 +32,21 @@ This function serves as the initialization callback for index fetch operations o
 - Sets xs_cbuf to InvalidBuffer to indicate no buffer is currently pinned
 - This is the first step in a sequence of index fetch operations (begin, fetch, reset, end)
 - The allocated structure must be freed by calling the corresponding heapam_index_fetch_end function
+
+## Simplified Source
+
+```c
+static IndexFetchTableData *
+heapam_index_fetch_begin(Relation rel)
+{
+    // Allocate and zero-initialize heap-specific index fetch data
+    IndexFetchHeapData *hscan = palloc0(sizeof(IndexFetchHeapData));
+
+    // Set up the relation and initialize buffer state
+    hscan->xs_base.rel = rel;
+    hscan->xs_cbuf = InvalidBuffer;
+
+    // Return the base structure for polymorphic usage
+    return &hscan->xs_base;
+}
+```

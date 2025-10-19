@@ -35,3 +35,16 @@ The function masks two types of variable data: LSN and checksum fields (which ch
 - Works in conjunction with generic_redo to validate WAL replay correctness
 - Used during development and testing to catch WAL replay bugs
 - Does not modify actual page semantics, only masking for comparison purposes
+
+## Simplified Source
+
+```c
+void generic_mask(char *page, BlockNumber blkno)
+{
+    // Mask LSN and checksum fields that vary between original and replayed pages
+    mask_page_lsn_and_checksum(page);
+
+    // Mask unused space that may contain arbitrary data
+    mask_unused_space(page);
+}
+```

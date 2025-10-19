@@ -39,3 +39,14 @@ This is essential for long-running applications that create and destroy multiple
 - The parameter '1' passed to SN_close_env corresponds to the number of string slots to deallocate
 - This function does not return any value (void return type)
 - Proper pairing with create_env calls is essential for memory management
+
+## Simplified Source
+
+```c
+extern void finnish_ISO_8859_1_close_env(struct SN_env * z) {
+    // Clean up Snowball environment with Finnish-specific configuration:
+    // - Deallocate 1 string slot and all associated memory
+    // - Free the environment structure itself
+    SN_close_env(z, 1);
+}
+```

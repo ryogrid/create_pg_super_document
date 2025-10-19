@@ -37,3 +37,28 @@ Like other enum functions, it determines the enum type from the expression tree 
 - Returns an array of enum values, not individual values
 - Raises an error if the enum type cannot be determined from the calling context
 - The actual range generation logic is implemented in the shared `enum_range_internal` function
+
+## Simplified Source
+
+```c
+Datum
+enum_range_bounds(PG_FUNCTION_ARGS)
+{
+    // Extract lower and upper bounds (handle NULLs)
+    Oid lower = PG_ARGISNULL(0) ? InvalidOid : PG_GETARG_OID(0);
+    Oid upper = PG_ARGISNULL(1) ? InvalidOid : PG_GETARG_OID(1);
+
+    // Determine enum type from function call context
+    Oid enumtypoid = get_fn_expr_argtype(fcinfo->flinfo, 0);
+    if (enumtypoid == InvalidOid) {
+        ereport(ERROR,
+                (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+                 errmsg("could not determine actual enum type")));
+    }
+
+    // Generate range array using internal function
+    PG_RETURN_ARRAYTYPE_P(enum_range_internal(enumtypoid, lower, upper));
+}
+```
+
+**Simplified Logic**: This function takes two enum bounds (lower and upper) and returns an array of all enum values within that range. It handles NULL bounds as open-ended ranges and delegates the actual range generation to `enum_range_internal`.

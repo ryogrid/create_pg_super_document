@@ -36,3 +36,17 @@ The function works by:
 - The function handles both front vowel (i, ü) and back vowel (ı, u) harmony patterns
 - The function returns 1 on successful match, 0 on failure
 - This is part of the Turkish morphological analysis system used for full-text search indexing in PostgreSQL
+
+## Simplified Source
+
+```c
+static int r_mark_sUnUz(struct SN_env * z) {
+    // Verify minimum length and current character is 'z' (ASCII 122)
+    if (z->c - 4 <= z->lb || z->p[z->c - 1] != 122) return 0;
+
+    // Match against "sUnUz" suffix patterns (siniz, sunuz, sınız, sünüz)
+    if (!find_among_b(z, a_15, 4)) return 0;
+
+    return 1; // Success
+}
+```

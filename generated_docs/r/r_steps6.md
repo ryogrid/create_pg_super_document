@@ -60,3 +60,53 @@ The function uses goto statements for control flow and includes comprehensive bo
 - Includes comprehensive bounds checking (z->c - 3 <= z->lb, z->c - 9 <= z->lb)
 - Uses goto statements for efficient control flow between alternative matching strategies
 - Part of the sequential stemming process, handling more complex morphological patterns
+
+## Simplified Source
+
+```c
+static int r_steps6(struct SN_env * z) {
+    // Initial phase: Find and delete suffix patterns from array a_14
+    z->ket = z->c;
+    if (!(find_among_b(z, a_14, 6))) return 0;
+    z->bra = z->c;
+    slice_del(z);  // Delete matched suffix
+    z->I[0] = 0;   // Reset counter
+
+    // Save position for potential backtracking
+    int saved_pos = z->l - z->c;
+
+    // Try first alternative: patterns requiring character µ (181)
+    z->ket = z->c;
+    z->bra = z->c;
+    if (z->c - 3 > z->lb && z->p[z->c - 1] == 181) {  // Check for µ
+        int pattern_type = find_among_b(z, a_12, 7);
+        if (pattern_type && z->c <= z->lb) {
+            switch (pattern_type) {
+                case 1: slice_from_s(z, 6, s_45); break;
+                case 2: slice_from_s(z, 2, s_46); break;
+            }
+            return 1;  // Success with first alternative
+        }
+    }
+
+    // Fallback: patterns requiring characters º (186) or ½ (189)
+    z->c = z->l - saved_pos;  // Restore position
+    z->ket = z->c;
+    if (z->c - 9 <= z->lb) return 0;  // Bounds check
+
+    char last_char = z->p[z->c - 1];
+    if (last_char != 186 && last_char != 189) return 0;  // Check for º or ½
+
+    int pattern_type = find_among_b(z, a_13, 10);
+    if (!pattern_type) return 0;
+    z->bra = z->c;
+
+    // Apply replacement based on pattern (10 different options)
+    const char* replacements[] = {NULL, s_47, s_48, s_49, s_50, s_51,
+                                  s_52, s_53, s_54, s_55, s_56};
+    const int lengths[] = {0, 12, 8, 10, 6, 12, 10, 6, 16, 12, 10};
+
+    slice_from_s(z, lengths[pattern_type], replacements[pattern_type]);
+    return 1;  // Success
+}
+```

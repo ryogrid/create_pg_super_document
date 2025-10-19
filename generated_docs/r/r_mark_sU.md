@@ -34,3 +34,26 @@ This function is part of the Turkish language stemming implementation that handl
 - Vowel harmony is a fundamental feature of Turkish where vowels in suffixes must harmonize with stem vowels
 - The function operates in backwards mode for efficient suffix processing
 - Part of the comprehensive Turkish morphological analysis system in PostgreSQL's full-text search
+
+## Simplified Source
+
+```c
+static int r_mark_sU(struct SN_env * z) {
+    // First check vowel harmony - suffix must harmonize with stem
+    int ret = r_check_vowel_harmony(z);
+    if (ret <= 0)
+        return ret;  // Vowel harmony failed
+
+    // Check if current character is in U vowel group (ı, İ)
+    // Range 105-305 represents these Turkish characters in UTF-8
+    if (in_grouping_b_U(z, g_U, 105, 305, 0))
+        return 0;  // Not a U vowel
+
+    // Mark suffix handling optional 's' consonant insertion
+    ret = r_mark_suffix_with_optional_s_consonant(z);
+    if (ret <= 0)
+        return ret;
+
+    return 1;  // Successfully marked sU suffix
+}
+```

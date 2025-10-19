@@ -30,3 +30,21 @@ This function performs cleanup by freeing all dynamically allocated memory withi
 - Follows defensive programming practices by checking for NULL pointer before proceeding
 - Part of the memory management infrastructure for psql's \copy command parsing and execution
 - The function frees three string members: before_tofrom, after_tofrom, and file, which contain the parsed components of the \copy command
+
+## Simplified Source
+
+```c
+static void free_copy_options(struct copy_options *ptr) {
+    // Safely handle NULL pointer
+    if (!ptr)
+        return;
+
+    // Free all string members
+    free(ptr->before_tofrom);
+    free(ptr->after_tofrom);
+    free(ptr->file);
+
+    // Free the structure itself
+    free(ptr);
+}
+```

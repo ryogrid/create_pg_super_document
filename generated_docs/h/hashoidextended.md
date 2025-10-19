@@ -31,3 +31,14 @@ This function provides extended hash functionality for PostgreSQL's OID data typ
 - Located in src/backend/access/hash/hashfunc.c:122-127
 - Enables OID columns to participate in hash-based operations requiring collision-resistant hashing
 - Typically used internally by PostgreSQL's query execution engine rather than being called directly
+
+## Simplified Source
+
+```c
+Datum
+hashoidextended(PG_FUNCTION_ARGS)
+{
+    // Extract OID and seed, cast OID to uint32 and hash with extended function
+    return hash_uint32_extended((uint32) PG_GETARG_OID(0), PG_GETARG_INT64(1));
+}
+```

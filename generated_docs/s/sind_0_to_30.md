@@ -41,3 +41,15 @@ The implementation uses the standard C library  function after converting the de
 - Used as a building block for more complex trigonometric computations in both sine and cosine calculations
 - The volatile qualifier on  helps ensure consistent floating-point behavior across different compiler optimizations
 - Located in src/backend/utils/adt/float.c:2245-2258
+
+## Simplified Source
+
+```c
+static double sind_0_to_30(double x) {
+    // Calculate sine for angles 0-30 degrees with exact results
+    // Returns exactly 0.0 for x=0, exactly 0.5 for x=30
+
+    double sin_result = sin(x * RADIANS_PER_DEGREE);
+    return (sin_result / sin_30) / 2.0;
+}
+```

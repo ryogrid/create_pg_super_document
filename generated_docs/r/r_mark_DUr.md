@@ -35,3 +35,21 @@ The function follows a two-step validation process:
 - The function checks that there are at least 2 characters before the current position and that the character before the cursor is 'r' (ASCII 114)
 - Uses a larger pattern array (8 patterns) compared to similar functions, indicating the complexity of 'DUr' suffix variations
 - Called multiple times in the stemming process, showing its importance in Turkish morphological analysis
+
+## Simplified Source
+
+```c
+static int r_mark_DUr(struct SN_env * z) {
+    // Check vowel harmony compliance
+    int ret = r_check_vowel_harmony(z);
+    if (ret <= 0) return ret;
+
+    // Verify position and current character is 'r' (ASCII 114)
+    if (z->c - 2 <= z->lb || z->p[z->c - 1] != 114) return 0;
+
+    // Match against "DUr" suffix patterns (8 variations)
+    if (!find_among_b(z, a_18, 8)) return 0;
+
+    return 1; // Success
+}
+```

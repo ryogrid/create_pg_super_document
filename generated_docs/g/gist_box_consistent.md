@@ -53,3 +53,31 @@ The consistent method is fundamental to GiST index operation, as it prunes the s
 - Located in src/backend/access/gist/gistproc.c:113-145
 - This function would typically be registered in PostgreSQL's operator class for box GiST indexes
 - The strategy parameter corresponds to spatial predicates like overlaps (&amp;&amp;), contains (@&gt;), within (&lt;@), etc.
+
+## Simplified Source
+
+```c
+Datum
+gist_box_consistent(PG_FUNCTION_ARGS)
+{
+    GISTENTRY *entry = (GISTENTRY *) PG_GETARG_POINTER(0);
+    BOX *query = PG_GETARG_BOX_P(1);
+    StrategyNumber strategy = (StrategyNumber) PG_GETARG_UINT16(2);
+    bool *recheck = (bool *) PG_GETARG_POINTER(4);
+
+    // All box operations are exact, no recheck needed
+    *recheck = false;
+
+    // Return false for null entries or queries
+    if (DatumGetBoxP(entry->key) == NULL || query == NULL)
+        PG_RETURN_BOOL(false);
+
+    // Delegate to appropriate consistency function based on node type
+    if (GIST_LEAF(entry))
+        PG_RETURN_BOOL(gist_box_leaf_consistent(DatumGetBoxP(entry->key),
+                                               query, strategy));
+    else
+        PG_RETURN_BOOL(rtree_internal_consistent(DatumGetBoxP(entry->key),
+                                                query, strategy));
+}
+```

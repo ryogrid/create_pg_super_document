@@ -35,3 +35,13 @@ The function is part of PostgreSQL's full-text search infrastructure, specifical
 - Part of PostgreSQL's text search functionality supporting multiple languages
 - The returned SN_env structure should be properly cleaned up using the corresponding close function
 - Memory allocation failures in SN_create_env will result in NULL return value
+
+## Simplified Source
+
+```c
+extern struct SN_env * greek_UTF_8_create_env(void) {
+    // Create Snowball environment for Greek stemming
+    // Parameters: 0 string arrays, 1 integer array (for step counter)
+    return SN_create_env(0, 1);
+}
+```

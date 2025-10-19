@@ -32,3 +32,23 @@ This function handles the execution of the \help backslash command in psql. When
 - Uses OT_WHOLE_LINE option type to capture the entire remainder of the line as the help topic
 - Integrates with psql's pager settings (pset.popt.topt.pager) for output formatting
 - Part of psql's backslash command infrastructure for interactive SQL operations
+
+## Simplified Source
+
+```c
+static backslashResult exec_command_help(PsqlScanState scan_state, bool active_branch) {
+    if (active_branch) {
+        // Extract help topic (entire remainder of line)
+        char *opt = psql_scan_slash_option(scan_state, OT_WHOLE_LINE, NULL, true);
+
+        // Display SQL help for the topic
+        helpSQL(opt, pset.popt.topt.pager);
+        free(opt);
+    } else {
+        // Not in active branch - skip entire line
+        ignore_slash_whole_line(scan_state);
+    }
+
+    return PSQL_CMD_SKIP_LINE;
+}
+```

@@ -40,3 +40,26 @@ The function operates by:
 - This function is automatically generated code from snowball stemming algorithms
 - Handles the morphophonological process where 'y' may be inserted as a buffer consonant
 - More complex than other marking functions due to the optional consonant handling
+
+## Simplified Source
+
+```c
+static int r_mark_ylA(struct SN_env * z) {
+    // Check vowel harmony compliance
+    int ret = r_check_vowel_harmony(z);
+    if (ret <= 0) return ret;
+
+    // Verify position and last character is 'a' or 'e'
+    if (z->c - 1 <= z->lb || (z->p[z->c - 1] != 97 && z->p[z->c - 1] != 101))
+        return 0;
+
+    // Match against "ylA" suffix patterns
+    if (!find_among_b(z, a_10, 2)) return 0;
+
+    // Handle optional 'y' consonant insertion
+    ret = r_mark_suffix_with_optional_y_consonant(z);
+    if (ret <= 0) return ret;
+
+    return 1; // Success
+}
+```

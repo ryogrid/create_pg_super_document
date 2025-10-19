@@ -58,3 +58,63 @@ The function includes timing-attack resistance by always computing client proofs
 - The 'doomed' flag mechanism ensures consistent failure timing for mock authentication
 - Allocates output messages using PostgreSQL memory management (palloc'd strings)
 - State transitions are strictly enforced to prevent protocol violations
+
+## Simplified Source
+
+```c
+static int
+scram_exchange(void *opaq, const char *input, int inputlen,
+               char **output, int *outputlen, const char **logdetail)
+{
+    scram_state *state = (scram_state *) opaq;
+    *output = NULL;
+
+    // Handle missing initial client response
+    if (input == NULL) {
+        *output = pstrdup("");
+        *outputlen = 0;
+        return PG_SASL_EXCHANGE_CONTINUE;
+    }
+
+    // Validate input length consistency
+    if (inputlen == 0 || inputlen != strlen(input))
+        ereport(ERROR, (errcode(ERRCODE_PROTOCOL_VIOLATION),
+                       errmsg("malformed SCRAM message")));
+
+    switch (state->state) {
+        case SCRAM_AUTH_INIT:
+            // Process initial client message and send challenge
+            read_client_first_message(state, input);
+            *output = build_server_first_message(state);
+            state->state = SCRAM_AUTH_SALT_SENT;
+            return PG_SASL_EXCHANGE_CONTINUE;
+
+        case SCRAM_AUTH_SALT_SENT:
+            // Verify client response and complete authentication
+            read_client_final_message(state, input);
+
+            if (!verify_final_nonce(state))
+                ereport(ERROR, (errcode(ERRCODE_PROTOCOL_VIOLATION),
+                               errmsg("invalid SCRAM response")));
+
+            // Check client proof (includes timing attack protection)
+            if (!verify_client_proof(state) || state->doomed)
+                return PG_SASL_EXCHANGE_FAILURE;
+
+            *output = build_server_final_message(state);
+            state->state = SCRAM_AUTH_FINISHED;
+            return PG_SASL_EXCHANGE_SUCCESS;
+
+        default:
+            elog(ERROR, "invalid SCRAM exchange state");
+    }
+
+    // Set output length and optional error details
+    if (*output)
+        *outputlen = strlen(*output);
+    if (state->logdetail && logdetail)
+        *logdetail = state->logdetail;
+
+    return PG_SASL_EXCHANGE_FAILURE;
+}
+```

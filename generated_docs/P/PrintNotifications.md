@@ -48,3 +48,31 @@ The function ensures all notifications are processed and displayed immediately, 
 - Calls PQconsumeInput() both before processing and after each notification to ensure all data is retrieved
 - Uses gettext (_) macro for internationalized notification messages
 - Flushes output after each notification to ensure immediate display
+
+## Simplified Source
+
+```c
+static void PrintNotifications(void) {
+    PGnotify *notify;
+
+    // Consume input and process all pending notifications
+    PQconsumeInput(pset.db);
+    while ((notify = PQnotifies(pset.db)) != NULL) {
+        // Display notification with or without payload
+        if (notify->extra[0]) {
+            fprintf(pset.queryFout, "Asynchronous notification \"%s\" with payload \"%s\" received from server process with PID %d.\n",
+                    notify->relname, notify->extra, notify->be_pid);
+        } else {
+            fprintf(pset.queryFout, "Asynchronous notification \"%s\" received from server process with PID %d.\n",
+                    notify->relname, notify->be_pid);
+        }
+
+        // Clean up and continue processing
+        fflush(pset.queryFout);
+        PQfreemem(notify);
+        PQconsumeInput(pset.db);
+    }
+}
+```
+
+This simplified version preserves the core functionality: consuming server input, processing all notifications in a loop, displaying them with optional payload information, and proper memory cleanup.

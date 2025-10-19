@@ -37,3 +37,15 @@ This function provides a consistent way to create boolean values throughout the 
 - Part of the value management system alongside setNullValue, setIntValue, etc.
 - Used extensively in evalStandardFunc for comparison and logical operations
 - Critical for implementing SQL-like boolean semantics in pgbench expressions
+
+## Simplified Source
+
+```c
+static void
+setBoolValue(PgBenchValue *pv, bool bval)
+{
+    // Set type to boolean and assign value
+    pv->type = PGBT_BOOLEAN;
+    pv->u.bval = bval;
+}
+```

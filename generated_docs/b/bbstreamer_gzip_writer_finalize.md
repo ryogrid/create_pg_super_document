@@ -32,3 +32,21 @@ Due to libz's behavior of always closing the underlying file descriptor, the con
 - Works with both self-opened files and caller-provided file handles due to dup() usage in constructor
 - Part of the static callback interface for backup streaming cleanup
 - Essential for proper resource cleanup and data integrity in compressed backups
+
+## Simplified Source
+
+```c
+static void
+bbstreamer_gzip_writer_finalize(bbstreamer *streamer)
+{
+    bbstreamer_gzip_writer *writer = (bbstreamer_gzip_writer *) streamer;
+
+    // Close compressed file
+    errno = 0;  // Clear errno before gzclose
+    if (gzclose(writer->gzfile) != 0)
+        pg_fatal("could not close compressed file \"%s\": %m", writer->pathname);
+
+    // Clean up state
+    writer->gzfile = NULL;
+}
+```

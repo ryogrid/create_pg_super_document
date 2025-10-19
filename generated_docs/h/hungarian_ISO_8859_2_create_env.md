@@ -36,3 +36,13 @@ This configuration is optimized for the Hungarian stemming algorithm's memory re
 - Returns NULL on memory allocation failure (handled by SN_create_env)
 - Should be paired with hungarian_ISO_8859_2_close_env to properly clean up resources
 - Located in src/backend/snowball/libstemmer/stem_ISO_8859_2_hungarian.c:859
+
+## Simplified Source
+
+```c
+extern struct SN_env * hungarian_ISO_8859_2_create_env(void) {
+    // Create Snowball environment for Hungarian with ISO-8859-2 encoding
+    // 0 string arrays, 1 integer array
+    return SN_create_env(0, 1);
+}
+```

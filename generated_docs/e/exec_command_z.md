@@ -34,3 +34,31 @@ This function handles the execution of the \z command in psql, which displays ac
 - Returns PSQL_CMD_SKIP_LINE on success, PSQL_CMD_ERROR on failure  
 - Memory management: Properly frees the allocated pattern string
 - Part of psql's comprehensive database introspection command set
+
+## Simplified Source
+
+```c
+static backslashResult
+exec_command_z(PsqlScanState scan_state, bool active_branch, const char *cmd)
+{
+    bool success = true;
+
+    if (active_branch) {
+        // Parse optional pattern for filtering objects
+        char *pattern = psql_scan_slash_option(scan_state, OT_NORMAL, NULL, true);
+
+        // Check for 'S' modifier to show system objects
+        bool show_system = strchr(cmd, 'S') ? true : false;
+
+        // Display access privileges (equivalent to \dp)
+        success = permissionsList(pattern, show_system);
+
+        free(pattern);
+    }
+    else {
+        ignore_slash_options(scan_state);
+    }
+
+    return success ? PSQL_CMD_SKIP_LINE : PSQL_CMD_ERROR;
+}
+```

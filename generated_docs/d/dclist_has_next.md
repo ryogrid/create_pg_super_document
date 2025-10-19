@@ -37,3 +37,17 @@ This function is useful for list traversal operations where you need to check if
 - Currently appears to be unused in the codebase but provides essential functionality for list iteration
 - Caution: The node must already be a member of the specified list before calling this function
 - Useful for implementing safe list traversal patterns and boundary checking
+
+## Simplified Source
+
+```c
+static inline bool
+dclist_has_next(const dclist_head *head, const dlist_node *node) {
+    // Verify that node is actually in this list
+    dlist_member_check(&head->dlist, node);
+    Assert(head->count > 0);  // List must not be empty
+
+    // Check if there's a following node
+    return dlist_has_next(&head->dlist, node);
+}
+```

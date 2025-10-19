@@ -38,3 +38,48 @@ The `exec_command_pset` function handles the `\pset` backslash command in psql, 
 - Respects the quiet mode setting (`pset.quiet`) when setting parameters
 - Located in `src/bin/psql/command.c:2278-2332`
 - Essential for customizing psql output appearance and behavior
+
+## Simplified Source
+
+```c
+static backslashResult exec_command_pset(PsqlScanState scan_state, bool active_branch) {
+    if (!active_branch) {
+        ignore_slash_options(scan_state);
+        return PSQL_CMD_SKIP_LINE;
+    }
+
+    // Parse optional parameter name and value
+    char *param_name = psql_scan_slash_option(scan_state, OT_NORMAL, NULL, false);
+    char *param_value = psql_scan_slash_option(scan_state, OT_NORMAL, NULL, false);
+    bool success = true;
+
+    if (!param_name) {
+        // No arguments: list all available formatting parameters
+        static const char *const parameter_list[] = {
+            "border", "columns", "csv_fieldsep", "expanded", "fieldsep",
+            "fieldsep_zero", "footer", "format", "linestyle", "null",
+            "numericlocale", "pager", "pager_min_lines",
+            "recordsep", "recordsep_zero",
+            "tableattr", "title", "tuples_only",
+            "unicode_border_linestyle", "unicode_column_linestyle",
+            "unicode_header_linestyle", "xheader_width",
+            NULL
+        };
+
+        // Display each parameter with its current value
+        for (int i = 0; parameter_list[i] != NULL; i++) {
+            char *current_value = pset_value_string(parameter_list[i], &pset.popt);
+            printf("%-24s %s\n", parameter_list[i], current_value);
+            free(current_value);
+        }
+    } else {
+        // Set specific parameter to new value
+        success = do_pset(param_name, param_value, &pset.popt, pset.quiet);
+    }
+
+    free(param_name);
+    free(param_value);
+
+    return success ? PSQL_CMD_SKIP_LINE : PSQL_CMD_ERROR;
+}
+```

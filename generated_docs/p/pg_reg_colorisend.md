@@ -35,3 +35,15 @@ The function examines the compiled NFA's  array, which contains two color values
 - This function is the counterpart to , which checks for beginning-of-line/string colors
 - Returns true (non-zero) if the color is an ending pseudo-color, false (0) otherwise
 - Used to identify positional assertions during regex matching and analysis
+
+## Simplified Source
+
+```c
+int pg_reg_colorisend(const regex_t *regex, int co) {
+    // Validate input and get the compiled NFA
+    struct cnfa *cnfa = &((struct guts *) regex->re_guts)->search;
+
+    // Check if color matches end-of-string or end-of-line
+    return (co == cnfa->eos[0] || co == cnfa->eos[1]);
+}
+```

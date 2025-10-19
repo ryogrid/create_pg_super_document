@@ -36,3 +36,15 @@ The design assumes that:
 - This lazy initialization approach reduces startup overhead when commit timestamp tracking is not needed
 - The function maintains the standard bootstrap interface for consistency with other PostgreSQL subsystems
 - The CommitTS directory structure is assumed to exist (created by initdb) before this function is called
+
+## Simplified Source
+
+```c
+void
+BootStrapCommitTs(void)
+{
+    // No initialization needed at bootstrap time
+    // Actual segment creation is deferred to ActivateCommitTs()
+    // when commit timestamp tracking is first enabled
+}
+```

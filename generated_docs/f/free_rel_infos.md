@@ -30,3 +30,29 @@ This function performs cleanup of a RelInfoArr structure by deallocating all dyn
 - Always frees relname but conditionally frees nspname and tablespace
 - Sets rel_arr->nrels to 0 after cleanup
 - Part of the pg_upgrade utility's memory management system for relation metadata
+
+## Simplified Source
+
+```c
+static void
+free_rel_infos(RelInfoArr *rel_arr)
+{
+    // Free each relation's allocated strings
+    for (int relnum = 0; relnum < rel_arr->nrels; relnum++) {
+        // Conditionally free namespace name if allocated
+        if (rel_arr->rels[relnum].nsp_alloc)
+            pg_free(rel_arr->rels[relnum].nspname);
+
+        // Always free relation name
+        pg_free(rel_arr->rels[relnum].relname);
+
+        // Conditionally free tablespace if allocated
+        if (rel_arr->rels[relnum].tblsp_alloc)
+            pg_free(rel_arr->rels[relnum].tablespace);
+    }
+
+    // Free the relations array and reset count
+    pg_free(rel_arr->rels);
+    rel_arr->nrels = 0;
+}
+```

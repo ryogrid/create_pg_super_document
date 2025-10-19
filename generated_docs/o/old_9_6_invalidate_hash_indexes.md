@@ -42,3 +42,76 @@ When not in check mode, the function creates a "reindex_hash.sql" script contain
 - Provides detailed user warnings about the need to reindex hash indexes after upgrade
 - Part of the pg_upgrade utility's version-specific compatibility handling framework
 - The generated reindex script must be executed by a database superuser after the upgrade completes
+
+## Simplified Source
+
+```c
+void old_9_6_invalidate_hash_indexes(ClusterInfo *cluster, bool check_mode) {
+    int dbnum;
+    FILE *script = NULL;
+    bool found = false;
+    char *output_path = "reindex_hash.sql";
+
+    prep_status("Checking for hash indexes");
+
+    // Loop through all databases in cluster
+    for (dbnum = 0; dbnum < cluster->dbarr.ndbs; dbnum++) {
+        DbInfo *active_db = &cluster->dbarr.dbs[dbnum];
+        PGconn *conn = connectToServer(cluster, active_db->db_name);
+
+        // Find all hash indexes in this database
+        PGresult *res = executeQueryOrDie(conn,
+            "SELECT n.nspname, c.relname "
+            "FROM pg_catalog.pg_class c, pg_catalog.pg_index i, "
+            "     pg_catalog.pg_am a, pg_catalog.pg_namespace n "
+            "WHERE i.indexrelid = c.oid AND c.relam = a.oid AND "
+            "      c.relnamespace = n.oid AND a.amname = 'hash'");
+
+        int ntups = PQntuples(res);
+
+        // Process each hash index found
+        for (int rowno = 0; rowno < ntups; rowno++) {
+            found = true;
+
+            if (!check_mode) {
+                // Open script file if needed
+                if (script == NULL)
+                    script = fopen_priv(output_path, "w");
+
+                // Generate REINDEX command for this index
+                fprintf(script, "REINDEX INDEX %s.%s;\n",
+                    quote_identifier(PQgetvalue(res, rowno, i_nspname)),
+                    quote_identifier(PQgetvalue(res, rowno, i_relname)));
+            }
+        }
+
+        PQclear(res);
+
+        if (!check_mode && ntups > 0) {
+            // Mark all hash indexes as invalid
+            executeQueryOrDie(conn,
+                "UPDATE pg_catalog.pg_index i SET indisvalid = false "
+                "FROM pg_catalog.pg_class c, pg_catalog.pg_am a "
+                "WHERE i.indexrelid = c.oid AND c.relam = a.oid AND "
+                "      a.amname = 'hash'");
+        }
+
+        PQfinish(conn);
+    }
+
+    if (script)
+        fclose(script);
+
+    // Report results to user
+    if (found) {
+        report_status(PG_WARNING, "warning");
+        if (check_mode) {
+            pg_log(PG_WARNING, "Hash indexes found - they must be reindexed after upgrade");
+        } else {
+            pg_log(PG_WARNING, "Hash indexes invalidated. Run %s to recreate them", output_path);
+        }
+    } else {
+        check_ok();
+    }
+}
+```

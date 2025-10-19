@@ -42,3 +42,19 @@ The function ensures that progress indicators are cleanly terminated and that su
 - Works in conjunction with other progress reporting functions to provide user feedback during upgrade operations
 - The MESSAGE_WIDTH constant ensures consistent formatting across different progress messages
 - The function handles both interactive (TTY) and batch/scripted execution modes appropriately
+
+## Simplified Source
+
+```c
+void end_progress_output(void) {
+    // For TTY output: erase progress line and align for next status
+    if (log_opts.isatty) {
+        printf("\r");  // Return to beginning of line
+        pg_log(PG_REPORT_NONL, "%-*s", MESSAGE_WIDTH, "");  // Clear with spaces
+    }
+    // For verbose non-TTY: just indent for alignment
+    else if (log_opts.verbose) {
+        pg_log(PG_REPORT_NONL, "%-*s", MESSAGE_WIDTH, "");
+    }
+}
+```

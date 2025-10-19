@@ -38,3 +38,32 @@ The function is designed as a qsort() compatible comparison function, returning 
 - Used specifically for sorting outgoing arcs, complementing sortins_cmp which sorts incoming arcs
 - Compatible with standard library qsort() function signature
 - The primary difference from sortins_cmp is comparing destination states (to->no) rather than source states (from->no)
+
+## Simplified Source
+
+```c
+static int sortouts_cmp(const void *a, const void *b) {
+    const struct arc *aa = *((const struct arc *const *) a);
+    const struct arc *bb = *((const struct arc *const *) b);
+
+    // Compare destination state numbers first (most likely to differ)
+    if (aa->to->no < bb->to->no)
+        return -1;
+    if (aa->to->no > bb->to->no)
+        return 1;
+
+    // Compare colors/character codes
+    if (aa->co < bb->co)
+        return -1;
+    if (aa->co > bb->co)
+        return 1;
+
+    // Compare arc types
+    if (aa->type < bb->type)
+        return -1;
+    if (aa->type > bb->type)
+        return 1;
+
+    return 0;  // All fields equal
+}
+```

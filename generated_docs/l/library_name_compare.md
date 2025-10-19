@@ -33,3 +33,32 @@ This function implements a specialized comparison algorithm for LibraryInfo stru
 - The sorting strategy addresses a specific limitation in the PostgreSQL backend's handling of transform modules
 - The predictable ordering helps ensure reliable upgrade behavior even when the backend improves its dependency handling
 - Returns standard qsort comparison values: negative if p1 < p2, zero if equal, positive if p1 > p2
+
+## Simplified Source
+
+```c
+static int
+library_name_compare(const void *p1, const void *p2)
+{
+    // Extract library names from LibraryInfo structures
+    const char *lib1_name = ((const LibraryInfo *) p1)->name;
+    const char *lib2_name = ((const LibraryInfo *) p2)->name;
+
+    // Get string lengths for length-based comparison
+    size_t len1 = strlen(lib1_name);
+    size_t len2 = strlen(lib2_name);
+
+    // Priority 1: Sort by name length (shorter names first)
+    if (len1 != len2)
+        return pg_cmp_size(len1, len2);
+
+    // Priority 2: Sort alphabetically for same-length names
+    int name_comparison = strcmp(lib1_name, lib2_name);
+    if (name_comparison != 0)
+        return name_comparison;
+
+    // Priority 3: Sort by database number as tiebreaker
+    return pg_cmp_s32(((const LibraryInfo *) p1)->dbnum,
+                      ((const LibraryInfo *) p2)->dbnum);
+}
+```

@@ -32,3 +32,17 @@ The `_unicode_linestyle2string` function serves as a conversion utility that map
 - Used primarily for user interface purposes where line style names need to be displayed
 - Part of psql's table formatting system that provides feedback to users about current settings
 - This function is used multiple times within printPsetInfo and pset_value_string for different Unicode border components
+
+## Simplified Source
+
+```c
+static const char *_unicode_linestyle2string(int linestyle) {
+    switch (linestyle) {
+        case UNICODE_LINESTYLE_SINGLE:
+            return "single";
+        case UNICODE_LINESTYLE_DOUBLE:
+            return "double";
+    }
+    return "unknown";
+}
+```

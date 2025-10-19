@@ -44,3 +44,22 @@ This approach ensures that the table can be created first, followed by the const
 - The function may restore a previously removed constraint-to-table dependency to maintain proper ordering
 - This approach is more complex than the simple loop repair but necessary when multiple objects create intricate dependency webs
 - The constraint will be dumped separately from the table definition, potentially affecting dump readability but ensuring successful restoration
+
+## Simplified Source
+
+```c
+static void repairTableConstraintMultiLoop(DumpableObject *tableobj,
+                                          DumpableObject *constraintobj) {
+    // Break the dependency cycle: remove table's dependency on constraint
+    removeObjectDependency(tableobj, constraintobj->dumpId);
+
+    // Mark constraint as needing its own separate dump operation
+    ((ConstraintInfo *) constraintobj)->separate = true;
+
+    // Restore constraint's dependency on table (ensures correct order)
+    addObjectDependency(constraintobj, tableobj->dumpId);
+
+    // Move constraint to post-data phase since it's now separate
+    addObjectDependency(constraintobj, postDataBoundId);
+}
+```

@@ -36,3 +36,18 @@ This function examines a PostgreSQL range type to determine if its lower bound i
 - Works with all range types (int4range, numrange, tsrange, etc.)
 - Infinite bounds are useful for representing half-open or fully open ranges
 - When lower bound is infinite, the inclusivity setting becomes irrelevant
+
+## Simplified Source
+
+```c
+Datum
+range_lower_inf(PG_FUNCTION_ARGS)
+{
+	RangeType *range = PG_GETARG_RANGE_P(0);
+
+	// Check RANGE_LB_INF flag for infinite lower bound
+	char flags = range_get_flags(range);
+
+	PG_RETURN_BOOL(flags & RANGE_LB_INF);
+}
+```

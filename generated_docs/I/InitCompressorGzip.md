@@ -41,3 +41,17 @@ The function assigns specific gzip-related handlers for reading, writing, and cl
 - The function supports both compression and decompression operations through the function pointers it sets
 - Part of PostgreSQL's modular compression system in pg_dump, allowing different compression algorithms to be plugged in
 - Located in src/bin/pg_dump/compress_gzip.c:230-246 (HAVE_LIBZ version) and lines 425-429 (no-libz version)
+
+## Simplified Source
+
+```c
+#ifndef HAVE_LIBZ
+void
+InitCompressorGzip(CompressorState *cs,
+                   const pg_compress_specification compression_spec)
+{
+    // Error: gzip support not compiled in
+    pg_fatal("this build does not support compression with %s", "gzip");
+}
+#endif
+```

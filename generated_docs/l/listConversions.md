@@ -40,3 +40,86 @@ The listConversions function generates and executes a SQL query to retrieve info
 - Output is ordered by schema name then conversion name for consistent presentation
 - Uses pg_catalog.pg_conversion_is_visible() for visibility checks when pattern matching
 - The 'Default?' column shows localized yes/no values based on the condefault field
+
+## Simplified Source
+
+```c
+bool listConversions(const char *pattern, bool verbose, bool showSystem) {
+    PQExpBufferData buf;
+    PGresult *res;
+    printQueryOpt myopt = pset.popt;
+    static const bool translate_columns[] = {false, false, false, false, true, false};
+
+    initPQExpBuffer(&buf);
+
+    // Build base query for conversion information
+    printfPQExpBuffer(&buf,
+        "SELECT n.nspname AS \"%s\",\n"
+        "       c.conname AS \"%s\",\n"
+        "       pg_catalog.pg_encoding_to_char(c.conforencoding) AS \"%s\",\n"
+        "       pg_catalog.pg_encoding_to_char(c.contoencoding) AS \"%s\",\n"
+        "       CASE WHEN c.condefault THEN '%s'\n"
+        "       ELSE '%s' END AS \"%s\"",
+        gettext_noop("Schema"),
+        gettext_noop("Name"),
+        gettext_noop("Source"),
+        gettext_noop("Destination"),
+        gettext_noop("yes"), gettext_noop("no"),
+        gettext_noop("Default?"));
+
+    // Add description column for verbose mode
+    if (verbose)
+        appendPQExpBuffer(&buf,
+            ",\n       d.description AS \"%s\"",
+            gettext_noop("Description"));
+
+    // Add FROM clause and joins
+    appendPQExpBufferStr(&buf,
+        "\nFROM pg_catalog.pg_conversion c\n"
+        "     JOIN pg_catalog.pg_namespace n "
+        "ON n.oid = c.connamespace\n");
+
+    // Add description join for verbose mode
+    if (verbose)
+        appendPQExpBufferStr(&buf,
+            "LEFT JOIN pg_catalog.pg_description d "
+            "ON d.classoid = c.tableoid\n"
+            "          AND d.objoid = c.oid "
+            "AND d.objsubid = 0\n");
+
+    appendPQExpBufferStr(&buf, "WHERE true\n");
+
+    // Exclude system schemas unless requested
+    if (!showSystem && !pattern)
+        appendPQExpBufferStr(&buf,
+            "  AND n.nspname <> 'pg_catalog'\n"
+            "  AND n.nspname <> 'information_schema'\n");
+
+    // Add pattern validation
+    if (!validateSQLNamePattern(&buf, pattern, true, false,
+                                "n.nspname", "c.conname", NULL,
+                                "pg_catalog.pg_conversion_is_visible(c.oid)",
+                                NULL, 3)) {
+        termPQExpBuffer(&buf);
+        return false;
+    }
+
+    appendPQExpBufferStr(&buf, "ORDER BY 1, 2;");
+
+    // Execute query and display results
+    res = PSQLexec(buf.data);
+    termPQExpBuffer(&buf);
+    if (!res)
+        return false;
+
+    myopt.title = _("List of conversions");
+    myopt.translate_header = true;
+    myopt.translate_columns = translate_columns;
+    myopt.n_translate_columns = lengthof(translate_columns);
+
+    printQuery(res, &myopt, pset.queryFout, false, pset.logfile);
+
+    PQclear(res);
+    return true;
+}
+```

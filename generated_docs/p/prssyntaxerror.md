@@ -27,3 +27,25 @@ This static function is responsible for generating and reporting syntax errors t
 
 ## Notes and Other Information
 This function is typically invoked through the PRSSYNTAXERROR macro rather than called directly. It supports both hard error handling (throws exceptions) and soft error handling (returns false) depending on the error context configuration. The error messages include the full input string for better debugging context.
+
+## Simplified Source
+
+```c
+static bool
+prssyntaxerror(TSVectorParseState state)
+{
+    // Report syntax error with appropriate message based on parser type
+    if (state->is_tsquery) {
+        errsave(state->escontext,
+               (errcode(ERRCODE_SYNTAX_ERROR),
+                errmsg("syntax error in tsquery: \"%s\"", state->bufstart)));
+    } else {
+        errsave(state->escontext,
+               (errcode(ERRCODE_SYNTAX_ERROR),
+                errmsg("syntax error in tsvector: \"%s\"", state->bufstart)));
+    }
+
+    // Return false for soft error handling
+    return false;
+}
+```

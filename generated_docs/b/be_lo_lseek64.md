@@ -36,3 +36,27 @@ This function implements the backend support for PostgreSQL's lo_lseek64 large o
 - Supports 64-bit offsets, enabling operations on very large objects (>4GB)
 - Returns the new absolute position within the large object
 - Part of PostgreSQL's large object API for handling binary data
+
+## Simplified Source
+
+```c
+Datum
+be_lo_lseek64(PG_FUNCTION_ARGS)
+{
+    int32 fd = PG_GETARG_INT32(0);
+    int64 offset = PG_GETARG_INT64(1);
+    int32 whence = PG_GETARG_INT32(2);
+    int64 status;
+
+    // Validate file descriptor
+    if (fd < 0 || fd >= cookies_size || cookies[fd] == NULL)
+        ereport(ERROR,
+                (errcode(ERRCODE_UNDEFINED_OBJECT),
+                 errmsg("invalid large-object descriptor: %d", fd)));
+
+    // Perform 64-bit seek operation
+    status = inv_seek(cookies[fd], offset, whence);
+
+    PG_RETURN_INT64(status);
+}
+```

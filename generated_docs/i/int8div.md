@@ -37,3 +37,38 @@ The int8div function implements the division operation for PostgreSQL's bigint d
 - INT64_MIN / -1 raises ERRCODE_NUMERIC_VALUE_OUT_OF_RANGE error
 - Uses unlikely() hint for the overflow case to optimize common path
 - Compiler workaround comment indicates potential GCC optimization issues with unreachable code after error reporting
+
+## Simplified Source
+
+```c
+Datum int8div(PG_FUNCTION_ARGS) {
+    // Extract dividend and divisor arguments
+    int64 arg1 = PG_GETARG_INT64(0);
+    int64 arg2 = PG_GETARG_INT64(1);
+
+    // Check for division by zero
+    if (arg2 == 0) {
+        ereport(ERROR,
+                (errcode(ERRCODE_DIVISION_BY_ZERO),
+                 errmsg("division by zero")));
+        PG_RETURN_NULL();
+    }
+
+    // Handle special case: division by -1 (to avoid overflow)
+    if (arg2 == -1) {
+        // Check for overflow condition (INT64_MIN / -1)
+        if (unlikely(arg1 == PG_INT64_MIN)) {
+            ereport(ERROR,
+                    (errcode(ERRCODE_NUMERIC_VALUE_OUT_OF_RANGE),
+                     errmsg("bigint out of range")));
+        }
+        // Division by -1 is same as negation
+        int64 result = -arg1;
+        PG_RETURN_INT64(result);
+    }
+
+    // Perform normal division
+    int64 result = arg1 / arg2;
+    PG_RETURN_INT64(result);
+}
+```

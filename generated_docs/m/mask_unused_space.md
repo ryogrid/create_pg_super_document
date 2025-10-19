@@ -45,3 +45,23 @@ Since this unused space can contain unpredictable remnant data, it must be maske
 - The function will emit an ERROR if the page structure appears corrupted
 - Uses memset to fill the entire unused region with MASK_MARKER bytes
 - BLCKSZ represents the maximum block/page size in PostgreSQL
+
+## Simplified Source
+
+```c
+void mask_unused_space(Page page) {
+    int pd_lower = ((PageHeader) page)->pd_lower;
+    int pd_upper = ((PageHeader) page)->pd_upper;
+    int pd_special = ((PageHeader) page)->pd_special;
+
+    // Validate page structure
+    if (pd_lower > pd_upper || pd_special < pd_upper ||
+        pd_lower < SizeOfPageHeaderData || pd_special > BLCKSZ) {
+        elog(ERROR, "invalid page pd_lower %u pd_upper %u pd_special %u",
+             pd_lower, pd_upper, pd_special);
+    }
+
+    // Mask the unused space between pd_lower and pd_upper
+    memset(page + pd_lower, MASK_MARKER, pd_upper - pd_lower);
+}
+```

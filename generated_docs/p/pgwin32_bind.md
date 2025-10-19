@@ -32,3 +32,22 @@ pgwin32_bind is a thin wrapper around the standard Windows socket bind() functio
 - The function maintains the same interface as the standard bind() function but adds PostgreSQL's error translation
 - Used internally by PostgreSQL on Windows systems to ensure proper error handling and signal integration
 - The actual bind() call is undefned via macro at the top of the file to access the system function directly
+
+## Simplified Source
+
+```c
+int pgwin32_bind(SOCKET s, struct sockaddr *addr, int addrlen)
+{
+    int result;
+
+    // Call standard bind function
+    result = bind(s, addr, addrlen);
+
+    // Translate Windows socket errors to PostgreSQL errno format
+    if (result < 0) {
+        TranslateSocketError();
+    }
+
+    return result;
+}
+```

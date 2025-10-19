@@ -42,3 +42,28 @@ When the function reaches the end of a block (exceeds ), it returns  to signal t
 - The function is stateful - it remembers the last offset returned and advances from there on subsequent calls
 - Return value of  serves as a sentinel to indicate block completion
 - The function assumes that visibility and tuple existence checks are performed by the caller
+
+## Simplified Source
+```c
+static OffsetNumber system_nextsampletuple(SampleScanState *node,
+                                          BlockNumber blockno,
+                                          OffsetNumber maxoffset)
+{
+    SystemSamplerData *sampler = (SystemSamplerData *) node->tsm_state;
+
+    // Get next tuple offset (start from first if beginning block)
+    OffsetNumber tupoffset = sampler->lt;
+    if (tupoffset == InvalidOffsetNumber)
+        tupoffset = FirstOffsetNumber;
+    else
+        tupoffset++;
+
+    // Check if we've reached end of block
+    if (tupoffset > maxoffset)
+        tupoffset = InvalidOffsetNumber;  // Signal end of block
+
+    // Save state and return next offset
+    sampler->lt = tupoffset;
+    return tupoffset;
+}
+```

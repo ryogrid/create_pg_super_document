@@ -37,3 +37,36 @@ This function implements the psql configuration file loading logic by searching 
 - Error handling includes fatal termination if the executable path cannot be determined
 - Memory allocated for environment variable processing is properly managed
 - Uses PostgreSQL-specific path constants MAXPGPATH, SYSPSQLRC, and PSQLRC
+
+## Simplified Source
+
+```c
+static void process_psqlrc(char *argv0) {
+    char home[MAXPGPATH];
+    char rc_file[MAXPGPATH];
+    char my_exec_path[MAXPGPATH];
+    char etc_path[MAXPGPATH];
+
+    // Find program executable path
+    if (find_my_exec(argv0, my_exec_path) < 0)
+        pg_fatal("could not find own program executable");
+
+    // Process system-wide configuration file first
+    get_etc_path(my_exec_path, etc_path);
+    snprintf(rc_file, MAXPGPATH, "%s/%s", etc_path, SYSPSQLRC);
+    process_psqlrc_file(rc_file);
+
+    // Check for PSQLRC environment variable
+    char *envrc = getenv("PSQLRC");
+    if (envrc != NULL && strlen(envrc) > 0) {
+        // Use environment variable path with tilde expansion
+        char *envrc_alloc = pstrdup(envrc);
+        expand_tilde(&envrc_alloc);
+        process_psqlrc_file(envrc_alloc);
+    } else if (get_home_path(home)) {
+        // Use default user .psqlrc file
+        snprintf(rc_file, MAXPGPATH, "%s/%s", home, PSQLRC);
+        process_psqlrc_file(rc_file);
+    }
+}
+```

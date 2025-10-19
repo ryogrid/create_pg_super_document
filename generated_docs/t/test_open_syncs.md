@@ -38,3 +38,22 @@ Each test maintains the same total data written (16kB) but varies the number and
 - The total amount of data (16kB) is chosen to be representative of typical PostgreSQL write operations
 - Uses internationalized strings with _() macro for user-facing output
 - The function provides context to users about what the test is measuring and why it's useful
+
+## Simplified Source
+
+```c
+static void
+test_open_syncs(void)
+{
+    printf("Compare open_sync with different write sizes:\n");
+    printf("(This is designed to compare the cost of writing 16kB in different write\n"
+           "open_sync sizes.)\n");
+
+    // Test various write size configurations, all totaling 16kB
+    test_open_sync(" 1 * 16kB open_sync write", 16);
+    test_open_sync(" 2 *  8kB open_sync writes", 8);
+    test_open_sync(" 4 *  4kB open_sync writes", 4);
+    test_open_sync(" 8 *  2kB open_sync writes", 2);
+    test_open_sync("16 *  1kB open_sync writes", 1);
+}
+```

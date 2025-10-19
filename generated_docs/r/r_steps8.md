@@ -38,3 +38,40 @@ The function follows the standard Snowball stemmer pattern of backward string ma
 - Part of the automatically generated Snowball stemmer code for Greek language
 - Uses predefined string arrays (a_17, a_18) and string constants (s_58, s_59, s_60, s_61)
 - Implements Greek-specific morphological rules for suffix handling in step 8 of the stemming process
+
+## Simplified Source
+
+```c
+static int r_steps8(struct SN_env * z) {
+    // Phase 1: Find and delete suffix patterns from array a_18
+    z->ket = z->c;
+    if (!(find_among_b(z, a_18, 8))) return 0;
+    z->bra = z->c;
+    slice_del(z);  // Delete matched suffix
+    z->I[0] = 0;   // Reset counter
+
+    // Save position for potential backtracking
+    int saved_pos = z->l - z->c;
+
+    // Try main replacement strategy with array a_17
+    z->ket = z->c;
+    z->bra = z->c;
+    int pattern_type = find_among_b(z, a_17, 46);
+    if (pattern_type && z->c <= z->lb) {
+        switch (pattern_type) {
+            case 1: slice_from_s(z, 4, s_58); break;  // 4-char replacement
+            case 2: slice_from_s(z, 6, s_59); break;  // 6-char replacement
+        }
+        return 1;  // Success with main strategy
+    }
+
+    // Fallback: specific string check and replacement
+    z->c = z->l - saved_pos;  // Restore position
+    z->ket = z->c;
+    z->bra = z->c;
+    if (!(eq_s_b(z, 6, s_60))) return 0;  // Check for specific 6-char string
+    slice_from_s(z, 6, s_61);  // Replace with s_61
+
+    return 1;  // Success
+}
+```

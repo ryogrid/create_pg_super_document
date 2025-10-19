@@ -42,3 +42,51 @@ This function processes prepared transaction records as part of PostgreSQL's two
 - Critical for distributed transactions and logical replication of prepared transactions
 - The GID (Global Identifier) is null-terminated and copied with strncpy
 - All array pointers point directly into the WAL buffer after alignment calculations
+
+## Simplified Source
+
+```c
+void ParsePrepareRecord(uint8 info, xl_xact_prepare *xlrec, xl_xact_parsed_prepare *parsed) {
+    char *bufptr = ((char *) xlrec) + MAXALIGN(sizeof(xl_xact_prepare));
+
+    // Initialize output structure
+    memset(parsed, 0, sizeof(*parsed));
+
+    // Copy basic transaction information
+    parsed->xact_time = xlrec->prepared_at;
+    parsed->origin_lsn = xlrec->origin_lsn;
+    parsed->origin_timestamp = xlrec->origin_timestamp;
+    parsed->twophase_xid = xlrec->xid;
+    parsed->dbId = xlrec->database;
+
+    // Copy array counts
+    parsed->nsubxacts = xlrec->nsubxacts;
+    parsed->nrels = xlrec->ncommitrels;
+    parsed->nabortrels = xlrec->nabortrels;
+    parsed->nstats = xlrec->ncommitstats;
+    parsed->nabortstats = xlrec->nabortstats;
+    parsed->nmsgs = xlrec->ninvalmsgs;
+
+    // Extract GID (Global Identifier)
+    strncpy(parsed->twophase_gid, bufptr, xlrec->gidlen);
+    bufptr += MAXALIGN(xlrec->gidlen);
+
+    // Set up pointers to variable-length arrays in WAL buffer
+    parsed->subxacts = (TransactionId *) bufptr;
+    bufptr += MAXALIGN(xlrec->nsubxacts * sizeof(TransactionId));
+
+    parsed->xlocators = (RelFileLocator *) bufptr;
+    bufptr += MAXALIGN(xlrec->ncommitrels * sizeof(RelFileLocator));
+
+    parsed->abortlocators = (RelFileLocator *) bufptr;
+    bufptr += MAXALIGN(xlrec->nabortrels * sizeof(RelFileLocator));
+
+    parsed->stats = (xl_xact_stats_item *) bufptr;
+    bufptr += MAXALIGN(xlrec->ncommitstats * sizeof(xl_xact_stats_item));
+
+    parsed->abortstats = (xl_xact_stats_item *) bufptr;
+    bufptr += MAXALIGN(xlrec->nabortstats * sizeof(xl_xact_stats_item));
+
+    parsed->msgs = (SharedInvalidationMessage *) bufptr;
+}
+```

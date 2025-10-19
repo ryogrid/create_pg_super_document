@@ -34,3 +34,19 @@ The function is responsible for releasing the ZSTD compression context that was 
 - Critical for preventing memory leaks in long-running backup operations
 - Must be called after finalization to ensure all compression operations are complete
 - The function assumes the streamer has been properly initialized and all resources were successfully allocated
+
+## Simplified Source
+
+```c
+static void
+bbstreamer_zstd_compressor_free(bbstreamer *streamer)
+{
+    bbstreamer_zstd_frame *mystreamer = (bbstreamer_zstd_frame *) streamer;
+
+    // Free resources in proper order
+    bbstreamer_free(streamer->bbs_next);  // Free next streamer first
+    ZSTD_freeCCtx(mystreamer->cctx);      // Free compression context
+    pfree(streamer->bbs_buffer.data);     // Free buffer data
+    pfree(streamer);                      // Free streamer structure
+}
+```

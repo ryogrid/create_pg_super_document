@@ -305,3 +305,34 @@ Text creation and manipulation
 - The statistics calculations mirror those in AtEOXact_PgStat to maintain consistency
 - Truncated relations receive special handling where delta counts are reset to zero
 - Part of PostgreSQL's comprehensive statistics collection system that maintains consistency across complex transaction scenarios
+
+## Simplified Source
+
+```c
+void pgstat_twophase_postcommit(TransactionId xid, uint16 info,
+                               void *recdata, uint32 len)
+{
+    TwoPhasePgStatRecord *record = (TwoPhasePgStatRecord *) recdata;
+    PgStat_TableStatus *stats;
+
+    // Find or create statistics entry for the relation
+    stats = pgstat_prep_relation_pending(record->id, record->shared);
+
+    // Apply saved statistics counts (same as normal commit)
+    stats->counts.tuples_inserted += record->tuples_inserted;
+    stats->counts.tuples_updated += record->tuples_updated;
+    stats->counts.tuples_deleted += record->tuples_deleted;
+    stats->counts.truncdropped = record->truncdropped;
+
+    if (record->truncdropped) {
+        // Reset live/dead stats for truncated relations
+        stats->counts.delta_live_tuples = 0;
+        stats->counts.delta_dead_tuples = 0;
+    }
+
+    // Update live/dead tuple deltas
+    stats->counts.delta_live_tuples += record->tuples_inserted - record->tuples_deleted;
+    stats->counts.delta_dead_tuples += record->tuples_updated + record->tuples_deleted;
+    stats->counts.changed_tuples += record->tuples_inserted + record->tuples_updated + record->tuples_deleted;
+}
+```

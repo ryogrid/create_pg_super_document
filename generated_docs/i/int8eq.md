@@ -36,3 +36,18 @@ The function performs a simple direct comparison of the two 64-bit integer value
 - The comparison is a simple C-level integer equality test with no overflow concerns
 - Returns PostgreSQL boolean type (true/false) as a Datum
 - Located in src/backend/utils/adt/int8.c in the relational operators section
+
+## Simplified Source
+```c
+/*
+ * Equality comparison for int8 (bigint) values
+ */
+Datum int8eq(PG_FUNCTION_ARGS) {
+    // Extract two 64-bit integer arguments
+    int64 val1 = PG_GETARG_INT64(0);
+    int64 val2 = PG_GETARG_INT64(1);
+
+    // Compare for equality and return boolean result
+    PG_RETURN_BOOL(val1 == val2);
+}
+```

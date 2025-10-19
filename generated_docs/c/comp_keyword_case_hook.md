@@ -33,3 +33,32 @@ This function serves as a validation hook for the COMP_KEYWORD_CASE psql variabl
 - Returns false on validation failure, preventing the variable assignment
 - Updates the global pset.comp_case field which is used by the tab completion system
 - Located in src/bin/psql/startup.c:1048-1068
+
+## Simplified Source
+
+```c
+static bool
+comp_keyword_case_hook(const char *newval)
+{
+    Assert(newval != NULL);  // Substitute hook ensures non-NULL value
+
+    // Set completion case mode based on string value (case-insensitive)
+    if (pg_strcasecmp(newval, "preserve-upper") == 0)
+        pset.comp_case = PSQL_COMP_CASE_PRESERVE_UPPER;
+    else if (pg_strcasecmp(newval, "preserve-lower") == 0)
+        pset.comp_case = PSQL_COMP_CASE_PRESERVE_LOWER;
+    else if (pg_strcasecmp(newval, "upper") == 0)
+        pset.comp_case = PSQL_COMP_CASE_UPPER;
+    else if (pg_strcasecmp(newval, "lower") == 0)
+        pset.comp_case = PSQL_COMP_CASE_LOWER;
+    else
+    {
+        // Invalid value - show error and fail validation
+        PsqlVarEnumError("COMP_KEYWORD_CASE", newval,
+                         "lower, upper, preserve-lower, preserve-upper");
+        return false;
+    }
+
+    return true;
+}
+```

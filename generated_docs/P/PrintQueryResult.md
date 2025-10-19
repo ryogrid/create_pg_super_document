@@ -60,3 +60,67 @@ The function also handles status printing for INSERT/UPDATE/DELETE/MERGE RETURNI
 - Error handling is delegated to callers through the boolean return value
 - The function supports both single-result and multi-result command processing
 - Status printing logic handles both data-returning and non-data-returning commands appropriately
+
+## Simplified Source
+
+```c
+static bool PrintQueryResult(PGresult *result, bool last,
+                           const printQueryOpt *opt, FILE *printQueryFout,
+                           FILE *printStatusFout) {
+    bool success;
+
+    if (!result)
+        return false;
+
+    switch (PQresultStatus(result)) {
+        case PGRES_TUPLES_OK:
+            // Route to appropriate handler based on psql flags
+            if (last && pset.gset_prefix)
+                success = StoreQueryTuple(result);
+            else if (last && pset.gexec_flag)
+                success = ExecQueryTuples(result);
+            else if (last && pset.crosstab_flag)
+                success = PrintResultInCrosstab(result);
+            else if (last || pset.show_all_results)
+                success = PrintQueryTuples(result, opt, printQueryFout);
+            else
+                success = true;
+
+            // Print status for INSERT/UPDATE/DELETE/MERGE RETURNING
+            if (last || pset.show_all_results)
+                PrintQueryStatus(result, printStatusFout);
+            break;
+
+        case PGRES_COMMAND_OK:
+            if (last || pset.show_all_results)
+                PrintQueryStatus(result, printStatusFout);
+            success = true;
+            break;
+
+        case PGRES_EMPTY_QUERY:
+            success = true;
+            break;
+
+        case PGRES_COPY_OUT:
+        case PGRES_COPY_IN:
+            // Already processed elsewhere
+            success = true;
+            break;
+
+        case PGRES_BAD_RESPONSE:
+        case PGRES_NONFATAL_ERROR:
+        case PGRES_FATAL_ERROR:
+            success = false;
+            break;
+
+        default:
+            success = false;
+            pg_log_error("unexpected PQresultStatus: %d", PQresultStatus(result));
+            break;
+    }
+
+    return success;
+}
+```
+
+This simplified version preserves the core routing logic: dispatch results to appropriate handlers based on status and psql flags, handle status printing, and return success/failure status.

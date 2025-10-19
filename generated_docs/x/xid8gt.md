@@ -36,3 +36,16 @@ Transaction IDs in PostgreSQL have a limited range and can wrap around, so this 
 - Essential for ordering operations and range queries involving transaction IDs
 - Provides the opposite logic of xid8lt for complete ordering support
 - Uses PostgreSQL's standard function interface macros for argument handling and return value management
+
+## Simplified Source
+
+```c
+Datum xid8gt(PG_FUNCTION_ARGS) {
+    // Extract the two 64-bit transaction IDs from function arguments
+    FullTransactionId fxid1 = PG_GETARG_FULLTRANSACTIONID(0);
+    FullTransactionId fxid2 = PG_GETARG_FULLTRANSACTIONID(1);
+
+    // Return true if first transaction ID follows the second
+    PG_RETURN_BOOL(FullTransactionIdFollows(fxid1, fxid2));
+}
+```

@@ -31,3 +31,14 @@ The  function is a simple path construction utility used during PostgreSQL datab
 - Memory allocated by  should be managed by the caller
 - Used extensively in  function to configure paths for template files like pg_hba.conf, pg_ident.conf, postgresql.conf, etc.
 - The share_path typically points to the PostgreSQL installation's share directory containing template and configuration files
+
+## Simplified Source
+
+```c
+static void
+set_input(char **dest, const char *filename)
+{
+    // Construct full path by combining share directory with filename
+    *dest = psprintf("%s/%s", share_path, filename);
+}
+```

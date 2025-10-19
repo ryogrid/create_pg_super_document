@@ -53,3 +53,42 @@ The function also implements logic to suppress status printing when the COPY out
 - The function handles both text and binary COPY formats automatically
 - Memory management ensures the original result is properly freed and replaced
 - Status suppression logic prevents cluttering COPY output with status messages when output goes to the same stream
+
+## Simplified Source
+
+```c
+static bool HandleCopyResult(PGresult **resultp, FILE *copystream) {
+    bool success;
+    PGresult *copy_result;
+    ExecStatusType result_status = PQresultStatus(*resultp);
+
+    // Enable cancellation during COPY operation
+    SetCancelConn(pset.db);
+
+    if (result_status == PGRES_COPY_OUT) {
+        // Handle COPY TO operation
+        success = handleCopyOut(pset.db, copystream, &copy_result)
+                  && (copystream != NULL);
+
+        // Suppress status if output goes to same stream as query results
+        if (copystream == pset.queryFout) {
+            PQclear(copy_result);
+            copy_result = NULL;
+        }
+    } else {
+        // Handle COPY FROM operation - use configured or default input stream
+        copystream = pset.copyStream ? pset.copyStream : pset.cur_cmd_source;
+        success = handleCopyIn(pset.db, copystream,
+                              PQbinaryTuples(*resultp), &copy_result);
+    }
+
+    // Clean up cancellation handling
+    ResetCancelConn();
+
+    // Replace original result with final COPY result
+    PQclear(*resultp);
+    *resultp = copy_result;
+
+    return success;
+}
+```

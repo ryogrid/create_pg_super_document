@@ -38,3 +38,21 @@ This callback function handles error conditions that occur during WAL summary pr
 - Used as callback parameter when creating BlockRefTableReader instances
 - Follows PostgreSQL's standard error callback pattern for library functions
 - The callback_arg parameter is not used in the current implementation
+
+## Simplified Source
+
+```c
+void
+walsummary_error_callback(void *callback_arg, char *fmt, ...)
+{
+    va_list ap;
+
+    // Format and log the error message
+    va_start(ap, fmt);
+    pg_log_generic_v(PG_LOG_ERROR, PG_LOG_PRIMARY, fmt, ap);
+    va_end(ap);
+
+    // Terminate program immediately
+    exit(1);
+}
+```

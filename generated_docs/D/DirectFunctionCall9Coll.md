@@ -45,3 +45,38 @@ This function provides a convenient way to directly invoke PostgreSQL functions 
 - This is part of a family of DirectFunctionCallNColl functions for different argument counts
 - The collation parameter allows for locale-aware string operations
 - Located in src/backend/utils/fmgr/fmgr.c:1017-1064
+
+## Simplified Source
+
+```c
+Datum DirectFunctionCall9Coll(PGFunction func, Oid collation,
+                              Datum arg1, Datum arg2, Datum arg3,
+                              Datum arg4, Datum arg5, Datum arg6,
+                              Datum arg7, Datum arg8, Datum arg9) {
+    LOCAL_FCINFO(fcinfo, 9);
+    Datum result;
+
+    // Initialize function call structure with 9 arguments and collation
+    InitFunctionCallInfoData(*fcinfo, NULL, 9, collation, NULL, NULL);
+
+    // Set all nine arguments as non-null
+    fcinfo->args[0].value = arg1; fcinfo->args[0].isnull = false;
+    fcinfo->args[1].value = arg2; fcinfo->args[1].isnull = false;
+    fcinfo->args[2].value = arg3; fcinfo->args[2].isnull = false;
+    fcinfo->args[3].value = arg4; fcinfo->args[3].isnull = false;
+    fcinfo->args[4].value = arg5; fcinfo->args[4].isnull = false;
+    fcinfo->args[5].value = arg6; fcinfo->args[5].isnull = false;
+    fcinfo->args[6].value = arg7; fcinfo->args[6].isnull = false;
+    fcinfo->args[7].value = arg8; fcinfo->args[7].isnull = false;
+    fcinfo->args[8].value = arg9; fcinfo->args[8].isnull = false;
+
+    // Call the function
+    result = (*func)(fcinfo);
+
+    // Ensure function didn't return NULL unexpectedly
+    if (fcinfo->isnull)
+        elog(ERROR, "function %p returned NULL", (void *) func);
+
+    return result;
+}
+```

@@ -35,3 +35,41 @@ This function performs a security check to ensure that pg_upgrade operations onl
 - Terminates pg_upgrade with fatal error if non-local server values are found
 - Part of pg_upgrade's safety mechanisms to prevent data corruption
 - Located in src/bin/pg_upgrade/server.c:358-388
+
+## Simplified Source
+
+```c
+void check_pghost_envvar(void) {
+    PQconninfoOption *option;
+    PQconninfoOption *start;
+
+    // Get valid libpq environment variables
+    start = PQconndefaults();
+    if (!start)
+        pg_fatal("out of memory");
+
+    // Check each connection option for PGHOST/PGHOSTADDR
+    for (option = start; option->keyword != NULL; option++) {
+        if (option->envvar &&
+            (strcmp(option->envvar, "PGHOST") == 0 ||
+             strcmp(option->envvar, "PGHOSTADDR") == 0)) {
+
+            const char *value = getenv(option->envvar);
+
+            // Verify value is local if set
+            if (value && strlen(value) > 0 &&
+                strcmp(value, "localhost") != 0 &&
+                strcmp(value, "127.0.0.1") != 0 &&
+                strcmp(value, "::1") != 0 &&
+                !is_unixsock_path(value)) {
+
+                pg_fatal("libpq environment variable %s has a non-local server value: %s",
+                         option->envvar, value);
+            }
+        }
+    }
+
+    // Clean up libpq allocated memory
+    PQconninfoFree(start);
+}
+```

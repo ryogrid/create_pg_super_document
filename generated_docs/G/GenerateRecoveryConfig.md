@@ -50,3 +50,66 @@ The function builds a primary_conninfo string by iterating through the connectio
 - Returns a PQExpBuffer that must be freed by the caller
 - Will call pg_fatal() on memory allocation failures
 - The dbname parameter is specifically used for logical replication slot synchronization scenarios
+
+## Simplified Source
+
+```c
+PQExpBuffer GenerateRecoveryConfig(PGconn *pgconn, const char *replication_slot, char *dbname) {
+    // Create buffer for configuration content
+    PQExpBuffer contents = createPQExpBuffer();
+    if (!contents)
+        pg_fatal("out of memory");
+
+    // For older PostgreSQL versions, add standby_mode setting
+    if (PQserverVersion(pgconn) < MINIMUM_VERSION_FOR_RECOVERY_GUC)
+        appendPQExpBufferStr(contents, "standby_mode = 'on'\n");
+
+    // Get connection info and build primary_conninfo string
+    PQconninfoOption *connOptions = PQconninfo(pgconn);
+    if (!connOptions)
+        pg_fatal("out of memory");
+
+    PQExpBufferData conninfo_buf;
+    initPQExpBuffer(&conninfo_buf);
+
+    // Process each connection option
+    for (PQconninfoOption *opt = connOptions; opt && opt->keyword; opt++) {
+        // Skip empty values and parameters that libpqwalreceiver overrides
+        if (strcmp(opt->keyword, "replication") == 0 ||
+            strcmp(opt->keyword, "dbname") == 0 ||
+            strcmp(opt->keyword, "fallback_application_name") == 0 ||
+            !opt->val || opt->val[0] == '\0')
+            continue;
+
+        // Add space separator if needed
+        if (conninfo_buf.len != 0)
+            appendPQExpBufferChar(&conninfo_buf, ' ');
+
+        // Add keyword=value pair with proper escaping
+        appendPQExpBuffer(&conninfo_buf, "%s=", opt->keyword);
+        appendConnStrVal(&conninfo_buf, opt->val);
+    }
+
+    // Add dbname if specified (for logical replication slot sync)
+    if (dbname) {
+        if (conninfo_buf.len != 0)
+            appendPQExpBufferChar(&conninfo_buf, ' ');
+        appendPQExpBuffer(&conninfo_buf, "dbname=");
+        appendConnStrVal(&conninfo_buf, dbname);
+    }
+
+    // Escape and add primary_conninfo to final configuration
+    char *escaped = escape_quotes(conninfo_buf.data);
+    appendPQExpBuffer(contents, "primary_conninfo = '%s'\n", escaped);
+    free(escaped);
+    termPQExpBuffer(&conninfo_buf);
+
+    // Add replication slot if specified
+    if (replication_slot) {
+        appendPQExpBuffer(contents, "primary_slot_name = '%s'\n", replication_slot);
+    }
+
+    PQconninfoFree(connOptions);
+    return contents;
+}
+```

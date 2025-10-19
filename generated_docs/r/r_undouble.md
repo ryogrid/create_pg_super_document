@@ -61,3 +61,56 @@ The function uses temporary boundary management to constrain the search within a
 - The function is particularly important for languages with frequent consonant doubling like Danish, Dutch, and Hungarian
 - Pattern capture and comparison approach allows detection of any doubled consonant sequence, not just specific predefined patterns
 - Boundary management ensures undoubling only occurs in morphologically appropriate word regions
+
+## Simplified Source
+
+```c
+static int r_undouble(struct SN_env * z) {
+    int original_lb;
+
+    // Check if we're in valid processing region
+    if (z->c < z->I[1]) return 0;
+
+    // Set temporary boundary for processing
+    original_lb = z->lb;
+    z->lb = z->I[1];
+    z->ket = z->c;
+
+    // Look for a consonant (backward scan from current position)
+    if (in_grouping_b(z, g_c, 98, 122, 0)) {
+        z->lb = original_lb;
+        return 0;  // No consonant found
+    }
+
+    z->bra = z->c;
+
+    // Capture the consonant pattern into string buffer
+    z->S[0] = slice_to(z, z->S[0]);
+    if (z->S[0] == 0) {
+        z->lb = original_lb;
+        return -1;  // Memory allocation error
+    }
+
+    // Restore boundary
+    z->lb = original_lb;
+
+    // Check if the same pattern appears again (doubled consonant)
+    if (!eq_v_b(z, z->S[0])) {
+        return 0;  // No duplication found
+    }
+
+    // Remove one instance of the doubled consonant
+    slice_del(z);
+
+    return 1;  // Success
+}
+```
+
+This function removes doubled consonants through these steps:
+1. **Boundary check**: Ensures processing is within the valid word region (beyond marker I[1])
+2. **Consonant search**: Scans backward to find a consonant from group g_c ('b' to 'z')
+3. **Pattern capture**: Stores the found consonant sequence in buffer S[0]
+4. **Duplication detection**: Checks if the same pattern appears immediately before
+5. **Undoubling**: If doubled, removes one instance to normalize the word
+
+This is essential for languages like Danish, Dutch, and Hungarian that frequently double consonants in word formation.

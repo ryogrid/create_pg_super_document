@@ -45,3 +45,42 @@ The  function retrieves a variable by name from a Variables collection and retur
 - Uses appropriate formatting for each data type (DBL_DIG precision for doubles, INT64_FORMAT for integers)
 - The cached string value persists for the lifetime of the variable
 - Part of pgbench's variable management system for test script execution
+
+## Simplified Source
+
+```c
+static char *getVariable(Variables *variables, char *name) {
+    Variable *var;
+    char stringform[64];
+
+    // Look up the variable by name
+    var = lookupVariable(variables, name);
+    if (var == NULL)
+        return NULL;  // Variable not found
+
+    // Return cached string value if available
+    if (var->svalue)
+        return var->svalue;
+
+    // Convert typed value to string based on type
+    Assert(var->value.type != PGBT_NO_VALUE);
+
+    if (var->value.type == PGBT_NULL)
+        snprintf(stringform, sizeof(stringform), "NULL");
+    else if (var->value.type == PGBT_BOOLEAN)
+        snprintf(stringform, sizeof(stringform), "%s",
+                 var->value.u.bval ? "true" : "false");
+    else if (var->value.type == PGBT_INT)
+        snprintf(stringform, sizeof(stringform), INT64_FORMAT,
+                 var->value.u.ival);
+    else if (var->value.type == PGBT_DOUBLE)
+        snprintf(stringform, sizeof(stringform), "%.*g",
+                 DBL_DIG, var->value.u.dval);
+    else
+        Assert(0);  // Unexpected type
+
+    // Cache the string representation and return it
+    var->svalue = pg_strdup(stringform);
+    return var->svalue;
+}
+```

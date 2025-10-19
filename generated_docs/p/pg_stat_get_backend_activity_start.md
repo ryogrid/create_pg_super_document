@@ -33,3 +33,31 @@ This function retrieves the start timestamp of the currently executing activity 
 - The timestamp represents when the current query/activity started, not when the backend process started
 - Used by pg_stat_activity view to show query start times
 - Requires appropriate statistics collection settings to be enabled for meaningful results
+
+## Simplified Source
+
+```c
+Datum
+pg_stat_get_backend_activity_start(PG_FUNCTION_ARGS)
+{
+    int32 procNumber = PG_GETARG_INT32(0);
+    TimestampTz result;
+    PgBackendStatus *beentry;
+
+    // Get backend entry by process number
+    if ((beentry = pgstat_get_beentry_by_proc_number(procNumber)) == NULL)
+        PG_RETURN_NULL();
+
+    // Check user permissions
+    if (!HAS_PGSTAT_PERMISSIONS(beentry->st_userid))
+        PG_RETURN_NULL();
+
+    result = beentry->st_activity_start_timestamp;
+
+    // Return NULL if no activity time recorded (stats collection disabled)
+    if (result == 0)
+        PG_RETURN_NULL();
+
+    PG_RETURN_TIMESTAMPTZ(result);
+}
+```

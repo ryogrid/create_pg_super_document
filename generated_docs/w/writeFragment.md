@@ -37,3 +37,28 @@ The function performs bounds checking via Assert to ensure the delta buffer has 
 - Fragment format: [offset][length][data] - all stored as binary data
 - Part of PostgreSQL's generic WAL logging system for custom access methods
 - The delta buffer format enables efficient page reconstruction during crash recovery
+
+## Simplified Source
+
+```c
+static void
+writeFragment(PageData *pageData, OffsetNumber offset, OffsetNumber length,
+              const char *data)
+{
+    char *ptr = pageData->delta + pageData->deltaLen;
+
+    // Ensure enough space in delta buffer
+    Assert(pageData->deltaLen + sizeof(offset) + sizeof(length) + length <= sizeof(pageData->delta));
+
+    // Write fragment: [offset][length][data]
+    memcpy(ptr, &offset, sizeof(offset));
+    ptr += sizeof(offset);
+    memcpy(ptr, &length, sizeof(length));
+    ptr += sizeof(length);
+    memcpy(ptr, data, length);
+    ptr += length;
+
+    // Update delta buffer length
+    pageData->deltaLen = ptr - pageData->delta;
+}
+```

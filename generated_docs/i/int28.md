@@ -32,3 +32,15 @@ The int28 function implements type conversion from PostgreSQL's 2-byte integer t
 - Commonly used in SQL operations where int2 values need to be promoted to int8 for arithmetic or comparison operations
 - The function name follows PostgreSQL's convention where the number indicates the byte size (2 for source, 8 for target)
 - No range checking is needed since all 16-bit values fit within the 64-bit integer range
+
+## Simplified Source
+
+```c
+Datum int28(PG_FUNCTION_ARGS) {
+    // Extract 16-bit integer argument
+    int16 arg = PG_GETARG_INT16(0);
+
+    // Convert to 64-bit integer with sign extension
+    PG_RETURN_INT64((int64) arg);
+}
+```

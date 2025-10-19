@@ -64,3 +64,31 @@ Each phase uses test-and-restore mechanisms to ensure proper cursor positioning,
 - The UTF-8 encoding support allows proper handling of Swedish special characters like å, ä, ö
 - This stemmer implementation follows the official Snowball Swedish stemming algorithm specification
 - Commonly used in PostgreSQL installations serving Swedish-language applications and databases
+
+## Simplified Source
+
+```c
+extern int swedish_UTF_8_stem(struct SN_env * z) {
+    // Phase 1: Mark morphological regions in the word
+    int cursor_backup = z->c;
+    r_mark_regions(z);
+    z->c = cursor_backup;
+
+    // Process word from end to beginning
+    z->lb = z->c;
+    z->c = z->l;
+
+    // Phase 2: Remove main Swedish suffixes
+    r_main_suffix(z);
+
+    // Phase 3: Handle doubled consonants (common after suffix removal)
+    r_consonant_pair(z);
+
+    // Phase 4: Process remaining suffixes and cleanup
+    r_other_suffix(z);
+
+    // Reset cursor to beginning
+    z->c = z->lb;
+    return 1; // Success
+}
+```

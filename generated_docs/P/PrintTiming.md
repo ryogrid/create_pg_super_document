@@ -41,3 +41,41 @@ The function always displays the raw millisecond value followed by a breakdown i
 - The pre-v10 format (just milliseconds) is preserved for sub-second timings
 - Uses gettext (_) macro for internationalized output strings
 - The function prioritizes readability by always showing minutes/seconds format even for short durations over 1 second
+
+## Simplified Source
+
+```c
+static void PrintTiming(double elapsed_msec) {
+    // For times less than 1 second, show simple millisecond format
+    if (elapsed_msec < 1000.0) {
+        printf(_("Time: %.3f ms\n"), elapsed_msec);
+        return;
+    }
+
+    // Convert to larger time units
+    double seconds = elapsed_msec / 1000.0;
+    double minutes = floor(seconds / 60.0);
+    seconds -= 60.0 * minutes;
+
+    // Format based on duration
+    if (minutes < 60.0) {
+        // Show MM:SS format
+        printf(_("Time: %.3f ms (%02d:%06.3f)\n"),
+               elapsed_msec, (int) minutes, seconds);
+    } else if (minutes < 1440.0) { // < 24 hours
+        // Show HH:MM:SS format
+        double hours = floor(minutes / 60.0);
+        minutes -= 60.0 * hours;
+        printf(_("Time: %.3f ms (%02d:%02d:%06.3f)\n"),
+               elapsed_msec, (int) hours, (int) minutes, seconds);
+    } else {
+        // Show days + HH:MM:SS format
+        double hours = floor(minutes / 60.0);
+        minutes -= 60.0 * hours;
+        double days = floor(hours / 24.0);
+        hours -= 24.0 * days;
+        printf(_("Time: %.3f ms (%.0f d %02d:%02d:%06.3f)\n"),
+               elapsed_msec, days, (int) hours, (int) minutes, seconds);
+    }
+}
+```

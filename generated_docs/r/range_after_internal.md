@@ -41,4 +41,28 @@ The function performs several checks similar to : it validates that both ranges 
 - Uses bound comparison logic where r1 is after r2 if lower1 > upper2
 - This is the complement to  - they implement opposite directional checks
 - Critical for range indexing strategies in both GiST and SP-GiST implementations
-- Located in 
+- Located in src/backend/utils/adt/rangetypes.c:702-726
+
+## Simplified Source
+
+```c
+bool range_after_internal(TypeCacheEntry *typcache, const RangeType *r1, const RangeType *r2) {
+    RangeBound lower1, upper1, lower2, upper2;
+    bool empty1, empty2;
+
+    // Verify both ranges have the same type
+    if (RangeTypeGetOid(r1) != RangeTypeGetOid(r2))
+        elog(ERROR, "range types do not match");
+
+    // Extract bounds and empty status from both ranges
+    range_deserialize(typcache, r1, &lower1, &upper1, &empty1);
+    range_deserialize(typcache, r2, &lower2, &upper2, &empty2);
+
+    // Empty ranges are neither before nor after any other range
+    if (empty1 || empty2)
+        return false;
+
+    // r1 is after r2 if r1's lower bound > r2's upper bound
+    return (range_cmp_bounds(typcache, &lower1, &upper2) > 0);
+}
+``` 

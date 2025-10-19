@@ -45,3 +45,80 @@ The query retrieves:
 - The query joins multiple system catalogs to provide comprehensive foreign table information
 - Pattern validation is handled by validateSQLNamePattern to ensure SQL injection safety
 - Results are formatted and displayed using psql's standard query printing mechanism
+
+## Simplified Source
+
+```c
+bool listForeignTables(const char *pattern, bool verbose) {
+    PQExpBufferData buf;
+    PGresult *res;
+    printQueryOpt myopt = pset.popt;
+
+    // Initialize buffer and build base query
+    initPQExpBuffer(&buf);
+    printfPQExpBuffer(&buf,
+        "SELECT n.nspname AS \"%s\",\n"
+        "  c.relname AS \"%s\",\n"
+        "  s.srvname AS \"%s\"",
+        gettext_noop("Schema"),
+        gettext_noop("Table"),
+        gettext_noop("Server"));
+
+    // Add verbose columns if requested
+    if (verbose) {
+        appendPQExpBuffer(&buf,
+            ",\n CASE WHEN ftoptions IS NULL THEN '' ELSE "
+            "  '(' || pg_catalog.array_to_string(ARRAY(SELECT "
+            "  pg_catalog.quote_ident(option_name) ||  ' ' || "
+            "  pg_catalog.quote_literal(option_value)  FROM "
+            "  pg_catalog.pg_options_to_table(ftoptions)),  ', ') || ')' "
+            "  END AS \"%s\",\n"
+            "  d.description AS \"%s\"",
+            gettext_noop("FDW options"),
+            gettext_noop("Description"));
+    }
+
+    // Add FROM clause with JOINs
+    appendPQExpBufferStr(&buf,
+        "\nFROM pg_catalog.pg_foreign_table ft\n"
+        "  INNER JOIN pg_catalog.pg_class c"
+        " ON c.oid = ft.ftrelid\n"
+        "  INNER JOIN pg_catalog.pg_namespace n"
+        " ON n.oid = c.relnamespace\n"
+        "  INNER JOIN pg_catalog.pg_foreign_server s"
+        " ON s.oid = ft.ftserver\n");
+
+    // Add description join for verbose mode
+    if (verbose) {
+        appendPQExpBufferStr(&buf,
+            "   LEFT JOIN pg_catalog.pg_description d\n"
+            "          ON d.classoid = c.tableoid AND "
+            "d.objoid = c.oid AND d.objsubid = 0\n");
+    }
+
+    // Apply pattern filter if provided
+    if (!validateSQLNamePattern(&buf, pattern, false, false,
+                                "n.nspname", "c.relname", NULL,
+                                "pg_catalog.pg_table_is_visible(c.oid)",
+                                NULL, 3)) {
+        termPQExpBuffer(&buf);
+        return false;
+    }
+
+    appendPQExpBufferStr(&buf, "ORDER BY 1, 2;");
+
+    // Execute query and display results
+    res = PSQLexec(buf.data);
+    termPQExpBuffer(&buf);
+    if (!res)
+        return false;
+
+    myopt.title = _("List of foreign tables");
+    myopt.translate_header = true;
+
+    printQuery(res, &myopt, pset.queryFout, false, pset.logfile);
+    PQclear(res);
+
+    return true;
+}
+```

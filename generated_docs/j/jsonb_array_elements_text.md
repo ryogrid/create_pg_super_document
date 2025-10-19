@@ -35,3 +35,13 @@ The function serves as a thin wrapper around the  function with the text convers
 - The function name is registered in PostgreSQL's system catalogs to make it available as a SQL function
 - Useful when you need array elements as strings for text processing operations
 - The third parameter (true) to elements_worker_jsonb enables text conversion mode
+
+## Simplified Source
+
+```c
+Datum jsonb_array_elements_text(PG_FUNCTION_ARGS) {
+    // Simple wrapper that calls the main worker function
+    // with text conversion enabled (true parameter)
+    return elements_worker_jsonb(fcinfo, "jsonb_array_elements_text", true);
+}
+```

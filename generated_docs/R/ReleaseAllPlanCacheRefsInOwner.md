@@ -38,3 +38,13 @@ The function is a simple wrapper around ResourceOwnerReleaseAllOfKind(), which i
 - Works in conjunction with the resource owner system to provide automatic cleanup
 - Critical for maintaining system stability during error conditions and transaction aborts
 - The absence of direct references in the current codebase suggests this may be registered as a callback with the resource owner system
+
+## Simplified Source
+
+```c
+void ReleaseAllPlanCacheRefsInOwner(ResourceOwner owner) {
+    // Release all cached plan references owned by this resource owner
+    // Uses the generic resource owner cleanup mechanism
+    ResourceOwnerReleaseAllOfKind(owner, &planref_resowner_desc);
+}
+```

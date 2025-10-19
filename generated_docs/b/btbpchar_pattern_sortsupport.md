@@ -39,3 +39,23 @@ The function operates within the appropriate memory context by switching to the 
 - Related to other pattern comparison functions like `bpchar_pattern_gt`, `bpchar_pattern_ge`, `btbpchar_pattern_cmp`
 - The "bt" prefix indicates this is specifically for B-tree index support
 - Pattern-based operations are typically used with LIKE operators and similar pattern matching functionality
+
+## Simplified Source
+
+```c
+Datum btbpchar_pattern_sortsupport(PG_FUNCTION_ARGS) {
+    SortSupport ssup = (SortSupport) PG_GETARG_POINTER(0);
+    MemoryContext oldcontext;
+
+    // Switch to sort support memory context
+    oldcontext = MemoryContextSwitchTo(ssup->ssup_cxt);
+
+    // Use generic string sort support with "C" collation for pattern matching
+    varstr_sortsupport(ssup, BPCHAROID, C_COLLATION_OID);
+
+    // Restore previous memory context
+    MemoryContextSwitchTo(oldcontext);
+
+    PG_RETURN_VOID();
+}
+```

@@ -36,3 +36,16 @@ The function follows PostgreSQL's standard function calling convention and is pa
 - The underlying `cash_div_int64` helper handles division by zero errors and maintains proper precision
 - Follows the standard PostgreSQL function interface pattern for built-in mathematical functions
 - Unlike multiplication, division is not commutative, so there is no corresponding `int4_div_cash` function
+
+## Simplified Source
+
+```c
+Datum cash_div_int4(PG_FUNCTION_ARGS) {
+    // Extract cash value and int32 divisor
+    Cash c = PG_GETARG_CASH(0);
+    int32 i = PG_GETARG_INT32(1);
+
+    // Promote int32 to int64 and delegate to helper function
+    PG_RETURN_CASH(cash_div_int64(c, (int64) i));
+}
+```

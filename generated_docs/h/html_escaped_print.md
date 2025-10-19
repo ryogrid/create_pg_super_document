@@ -34,3 +34,50 @@ This function converts special characters in an input string to their correspond
 - Subsequent spaces within a line are output as regular spaces
 - Primarily used by PostgreSQL's HTML output formatting functions
 - Essential for preventing HTML injection when displaying user data in HTML format
+
+## Simplified Source
+
+```c
+void
+html_escaped_print(const char *in, FILE *fout)
+{
+    const char *p;
+    bool leading_space = true;
+
+    // Process each character in the input string
+    for (p = in; *p; p++)
+    {
+        switch (*p)
+        {
+            case '&':
+                fputs("&amp;", fout);
+                break;
+            case '<':
+                fputs("&lt;", fout);
+                break;
+            case '>':
+                fputs("&gt;", fout);
+                break;
+            case '\n':
+                fputs("<br />\n", fout);
+                break;
+            case '"':
+                fputs("&quot;", fout);
+                break;
+            case ' ':
+                // Convert leading spaces to non-breaking spaces
+                if (leading_space)
+                    fputs("&nbsp;", fout);
+                else
+                    fputs(" ", fout);
+                break;
+            default:
+                fputc(*p, fout);
+        }
+
+        // Update leading space flag
+        if (*p != ' ')
+            leading_space = false;
+    }
+}
+```

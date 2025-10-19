@@ -34,3 +34,16 @@ The `path_n_gt` function implements the "greater than" operator for PATH data ty
 - Returns true if p1->npts > p2->npts, false otherwise
 - Intended for use with PostgreSQL's operator system (likely the > operator for paths)
 - Subject to the same limitations mentioned in the source comments about being a basic implementation
+
+## Simplified Source
+
+```c
+Datum path_n_gt(PG_FUNCTION_ARGS) {
+    // Get the two input paths
+    PATH *p1 = PG_GETARG_PATH_P(0);
+    PATH *p2 = PG_GETARG_PATH_P(1);
+
+    // Compare number of points: first path > second path
+    PG_RETURN_BOOL(p1->npts > p2->npts);
+}
+```

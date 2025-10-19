@@ -42,3 +42,34 @@ The function concludes by flushing stdout to ensure all debug output is immediat
 - The datapagemap_print output provides detailed information about which specific database pages need to be updated
 - Part of pg_rewind's diagnostic and troubleshooting capabilities
 - Uses pg_log_debug so output level can be controlled by logging configuration
+
+## Simplified Source
+
+```c
+void print_filemap(filemap_t *filemap)
+{
+    file_entry_t *entry;
+    int i;
+
+    // Iterate through all file entries
+    for (i = 0; i < filemap->nentries; i++)
+    {
+        entry = filemap->entries[i];
+
+        // Only print files that need some action or have pages to overwrite
+        if (entry->action != FILE_ACTION_NONE ||
+            entry->target_pages_to_overwrite.bitmapsize > 0)
+        {
+            // Print file path and action
+            pg_log_debug("%s (%s)", entry->path, action_to_str(entry->action));
+
+            // Print detailed page information if pages need overwriting
+            if (entry->target_pages_to_overwrite.bitmapsize > 0)
+                datapagemap_print(&entry->target_pages_to_overwrite);
+        }
+    }
+
+    // Ensure output is immediately visible
+    fflush(stdout);
+}
+```

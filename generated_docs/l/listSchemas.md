@@ -50,3 +50,110 @@ The query can optionally exclude system schemas (those starting with 'pg_' and '
 - Results are ordered by schema name
 - ACL information shows permissions granted to different roles when verbose mode is enabled
 - The function handles both single schema queries (with publications) and general schema listings
+
+## Simplified Source
+
+```c
+bool listSchemas(const char *pattern, bool verbose, bool showSystem) {
+    PQExpBufferData buf;
+    PGresult *res;
+    printQueryOpt myopt = pset.popt;
+    int pub_schema_tuples = 0;
+    char **footers = NULL;
+
+    // Initialize query buffer
+    initPQExpBuffer(&buf);
+
+    // Build basic SELECT query for schema name and owner
+    printfPQExpBuffer(&buf,
+        "SELECT n.nspname AS \"Name\", "
+        "pg_catalog.pg_get_userbyid(n.nspowner) AS \"Owner\"");
+
+    // Add ACL and description columns in verbose mode
+    if (verbose) {
+        appendPQExpBufferStr(&buf, ", ");
+        printACLColumn(&buf, "n.nspacl");
+        appendPQExpBuffer(&buf,
+            ", pg_catalog.obj_description(n.oid, 'pg_namespace') AS \"Description\"");
+    }
+
+    // Add FROM clause
+    appendPQExpBufferStr(&buf, " FROM pg_catalog.pg_namespace n");
+
+    // Filter system schemas unless explicitly requested
+    if (!showSystem && !pattern) {
+        appendPQExpBufferStr(&buf,
+            " WHERE n.nspname !~ '^pg_' AND n.nspname <> 'information_schema'");
+    }
+
+    // Validate and add pattern matching
+    if (!validateSQLNamePattern(&buf, pattern, !showSystem && !pattern, false,
+                               NULL, "n.nspname", NULL, NULL, NULL, 2)) {
+        goto error_return;
+    }
+
+    // Add ordering
+    appendPQExpBufferStr(&buf, " ORDER BY 1;");
+
+    // Execute main query
+    res = PSQLexec(buf.data);
+    if (!res) goto error_return;
+
+    // Configure output options
+    myopt.title = "List of schemas";
+    myopt.translate_header = true;
+
+    // For PostgreSQL 15+, add publication information if pattern specified
+    if (pattern && pset.sversion >= 150000) {
+        PGresult *result;
+
+        // Query publications that include this schema
+        printfPQExpBuffer(&buf,
+            "SELECT pubname FROM pg_catalog.pg_publication p "
+            "JOIN pg_catalog.pg_publication_namespace pn ON p.oid = pn.pnpubid "
+            "JOIN pg_catalog.pg_namespace n ON n.oid = pn.pnnspid "
+            "WHERE n.nspname = '%s' ORDER BY 1", pattern);
+
+        result = PSQLexec(buf.data);
+        if (!result) goto error_return;
+
+        pub_schema_tuples = PQntuples(result);
+
+        // Create footers for publication information
+        if (pub_schema_tuples > 0) {
+            footers = (char **) pg_malloc((1 + pub_schema_tuples + 1) * sizeof(char *));
+            footers[0] = pg_strdup("Publications:");
+
+            // Add each publication name to footers
+            for (int i = 0; i < pub_schema_tuples; i++) {
+                printfPQExpBuffer(&buf, "    \"%s\"", PQgetvalue(result, i, 0));
+                footers[i + 1] = pg_strdup(buf.data);
+            }
+            footers[pub_schema_tuples + 1] = NULL;
+            myopt.footers = footers;
+        }
+        PQclear(result);
+    }
+
+    // Display results
+    printQuery(res, &myopt, pset.queryFout, false, pset.logfile);
+
+    // Cleanup
+    termPQExpBuffer(&buf);
+    PQclear(res);
+
+    // Free footer memory
+    if (footers) {
+        for (char **footer = footers; *footer; footer++) {
+            pg_free(*footer);
+        }
+        pg_free(footers);
+    }
+
+    return true;
+
+error_return:
+    termPQExpBuffer(&buf);
+    return false;
+}
+```

@@ -34,3 +34,17 @@ The function provides the fundamental equality comparison logic for boolean data
 - Corresponds to the SQL equality operator (=) for boolean values
 - Essential for boolean comparisons in WHERE clauses, JOIN conditions, and other SQL constructs
 - Located in `src/backend/utils/adt/bool.c` at lines 223-231
+
+## Simplified Source
+
+```c
+Datum booleq(PG_FUNCTION_ARGS) {
+    bool arg1 = PG_GETARG_BOOL(0);
+    bool arg2 = PG_GETARG_BOOL(1);
+
+    // Return true if both arguments are equal, false otherwise
+    PG_RETURN_BOOL(arg1 == arg2);
+}
+```
+
+This function implements the equality operator (=) for boolean values. It extracts two boolean arguments and performs a simple equality comparison, returning true if both values are the same (both true or both false) and false if they differ.

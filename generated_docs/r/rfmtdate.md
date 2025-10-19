@@ -37,3 +37,22 @@ The function handles memory allocation errors specifically by checking for  errn
 - Part of the ECPG embedded SQL interface for maintaining Informix application compatibility
 - Complements  by providing the inverse operation (formatting vs. parsing)
 - The output string buffer must be allocated by the caller with sufficient space
+
+## Simplified Source
+
+```c
+int rfmtdate(date d, const char *fmt, char *str) {
+    // Clear error state
+    errno = 0;
+
+    // Format date using PostgreSQL's built-in function
+    if (PGTYPESdate_fmt_asc(d, fmt, str) == 0)
+        return 0;  // Success
+
+    // Handle specific error cases for Informix compatibility
+    if (errno == ENOMEM)
+        return ECPG_INFORMIX_OUT_OF_MEMORY;
+
+    return ECPG_INFORMIX_DATE_CONVERT;  // General conversion error
+}
+```

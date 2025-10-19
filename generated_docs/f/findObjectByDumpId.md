@@ -40,3 +40,18 @@ This function performs a lookup operation to find a DumpableObject associated wi
 - Safe to use with potentially invalid DumpIds due to built-in bounds checking
 - May return NULL for valid DumpIds that correspond to standalone entries created by createDumpId()
 - Critical component of pg_dump's object tracking and retrieval infrastructure
+
+## Simplified Source
+
+```c
+DumpableObject *
+findObjectByDumpId(DumpId dumpId)
+{
+    // Check if DumpId is within valid range
+    if (dumpId <= 0 || dumpId >= allocedDumpIds)
+        return NULL;
+
+    // Return the DumpableObject from the map array
+    return dumpIdMap[dumpId];
+}
+```

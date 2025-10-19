@@ -37,3 +37,24 @@ This static function serves as a constructor for enumeration-type relation optio
 - The members parameter must remain valid for the lifetime of the reloption
 - The default_val must be a valid index into the members array
 - Part of PostgreSQL's type-safe approach to configuration parameters
+
+## Simplified Source
+
+```c
+static relopt_enum *
+init_enum_reloption(bits32 kinds, const char *name, const char *desc,
+                    relopt_enum_elt_def *members, int default_val,
+                    const char *detailmsg, LOCKMODE lockmode)
+{
+    // Allocate a new enumeration reloption structure
+    relopt_enum *newoption = (relopt_enum *) allocate_reloption(kinds, RELOPT_TYPE_ENUM,
+                                                                name, desc, lockmode);
+
+    // Set enum-specific configuration
+    newoption->members = members;        // Valid enum values
+    newoption->default_val = default_val; // Default enum index
+    newoption->detailmsg = detailmsg;    // Error/help message
+
+    return newoption;
+}
+```

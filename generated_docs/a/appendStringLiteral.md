@@ -45,3 +45,57 @@ This function is equivalent to libpq's `PQescapeStringInternal` but works with P
 - Used when database connection is not available (prefer `appendStringLiteralConn` when connection exists)
 - Critical for preventing SQL injection in dynamically constructed queries
 - Maintains compatibility with different PostgreSQL string literal standards
+
+## Simplified Source
+
+```c
+void appendStringLiteral(PQExpBuffer buf, const char *str, int encoding, bool std_strings) {
+    size_t length = strlen(str);
+    const char *source = str;
+    char *target;
+    size_t remaining = length;
+
+    // Ensure buffer has enough space (2x length + quotes)
+    if (!enlargePQExpBuffer(buf, 2 * length + 2))
+        return;
+
+    target = buf->data + buf->len;
+    *target++ = '\'';  // Opening quote
+
+    while (remaining > 0) {
+        char c = *source;
+
+        if (!IS_HIGHBIT_SET(c)) {
+            // Fast path: ASCII characters
+            if (SQL_STR_DOUBLE(c, !std_strings))
+                *target++ = c;  // Escape special characters by doubling
+            *target++ = c;
+            source++;
+            remaining--;
+        } else {
+            // Slow path: Multibyte characters
+            int charlen = PQmblen(source, encoding);
+
+            if (remaining < charlen ||
+                pg_encoding_verifymbchar(encoding, source, charlen) == -1) {
+                // Invalid multibyte character - replace with invalid sequence
+                pg_encoding_set_invalid(encoding, target);
+                target += 2;
+                source++;
+                remaining--;
+            } else {
+                // Copy valid multibyte character
+                for (int i = 0; i < charlen; i++) {
+                    *target++ = *source++;
+                    remaining--;
+                }
+            }
+        }
+    }
+
+    // Close quote and null terminate
+    *target++ = '\'';
+    *target = '\0';
+    buf->len = target - buf->data;
+}
+```

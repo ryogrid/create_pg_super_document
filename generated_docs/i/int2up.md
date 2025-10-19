@@ -33,3 +33,15 @@ The function follows PostgreSQL's standard function calling convention using the
 - This function is typically not called directly but rather invoked through PostgreSQL's operator system when the unary plus operator is used with smallint values
 - The function has no side effects and always succeeds for valid int16 inputs
 - Part of PostgreSQL's arithmetic operator family for the int2/smallint data type
+
+## Simplified Source
+
+```c
+Datum int2up(PG_FUNCTION_ARGS) {
+    // Extract the int16 argument
+    int16 arg = PG_GETARG_INT16(0);
+
+    // Unary plus: return the value unchanged
+    PG_RETURN_INT16(arg);
+}
+```

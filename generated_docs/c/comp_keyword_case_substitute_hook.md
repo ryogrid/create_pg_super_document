@@ -29,3 +29,17 @@ This function serves as a substitute hook for the COMP_KEYWORD_CASE psql variabl
 - This function is part of psql's variable hook system which allows for validation and default value substitution
 - The function is static to startup.c, indicating it's only used within the psql startup module
 - Located in src/bin/psql/startup.c:1040-1047
+
+## Simplified Source
+
+```c
+static char *
+comp_keyword_case_substitute_hook(char *newval)
+{
+    // Default to "preserve-upper" when COMP_KEYWORD_CASE variable is unset
+    if (newval == NULL)
+        newval = pg_strdup("preserve-upper");
+
+    return newval;
+}
+```

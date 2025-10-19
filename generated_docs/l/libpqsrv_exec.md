@@ -31,3 +31,16 @@ This function serves as a wrapper around PostgreSQL's PQexec() functionality but
 - Has different preconditions compared to standard PQexec() - does not silently discard prior query results
 - Returns NULL if PQsendQuery() fails, otherwise returns the result from libpqsrv_get_result_last()
 - Located in src/include/libpq/libpq-be-fe-helpers.h:256-268
+
+## Simplified Source
+
+```c
+static inline PGresult *libpqsrv_exec(PGconn *conn, const char *query, uint32 wait_event_info) {
+    // Send the query asynchronously
+    if (!PQsendQuery(conn, query))
+        return NULL;
+
+    // Wait for and retrieve the final result with interrupt handling
+    return libpqsrv_get_result_last(conn, wait_event_info);
+}
+```

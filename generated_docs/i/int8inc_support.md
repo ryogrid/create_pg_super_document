@@ -30,3 +30,36 @@ int8inc_support is a support function that analyzes the monotonic properties of 
 
 ## Notes and Other Information
 This function specifically handles SupportRequestWFuncMonotonic requests to determine monotonicity characteristics based on window frame options. When no ORDER BY clause is present, all rows are considered peers and the function is both monotonically increasing and decreasing. With frame bounds at window start or end, the function determines appropriate monotonic behavior for optimization. The function is defined in src/backend/utils/adt/int8.c:826-865.
+
+## Simplified Source
+
+```c
+Datum
+int8inc_support(PG_FUNCTION_ARGS)
+{
+    Node *rawreq = (Node *) PG_GETARG_POINTER(0);
+
+    // Handle window function monotonicity analysis requests
+    if (IsA(rawreq, SupportRequestWFuncMonotonic)) {
+        SupportRequestWFuncMonotonic *req = (SupportRequestWFuncMonotonic *) rawreq;
+        MonotonicFunction monotonic = MONOTONICFUNC_NONE;
+        int frameOptions = req->window_clause->frameOptions;
+
+        // No ORDER BY: all rows are peers, function is both increasing and decreasing
+        if (req->window_clause->orderClause == NIL) {
+            monotonic = MONOTONICFUNC_BOTH;
+        } else {
+            // Check frame bounds to determine monotonic behavior
+            if (frameOptions & FRAMEOPTION_START_UNBOUNDED_PRECEDING)
+                monotonic |= MONOTONICFUNC_INCREASING;
+            if (frameOptions & FRAMEOPTION_END_UNBOUNDED_FOLLOWING)
+                monotonic |= MONOTONICFUNC_DECREASING;
+        }
+
+        req->monotonic = monotonic;
+        PG_RETURN_POINTER(req);
+    }
+
+    PG_RETURN_POINTER(NULL);
+}
+```

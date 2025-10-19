@@ -40,3 +40,30 @@ This mechanism allows administrators to configure flexible LDAP search filters i
 - Used when `ldapsearchfilter` is specified in pg_hba.conf for custom LDAP search filters
 - Enables flexible LDAP authentication by allowing administrators to define custom search patterns
 - Example usage: pattern "(|(uid=$username)(mail=$username@domain.com))" with user_name "john" becomes "(|(uid=john)(mail=john@domain.com))"
+
+## Simplified Source
+
+```c
+static char *
+FormatSearchFilter(const char *pattern, const char *user_name)
+{
+    StringInfoData output;
+
+    // Initialize output buffer
+    initStringInfo(&output);
+
+    // Process pattern, replacing $username placeholders
+    while (*pattern != '\0') {
+        if (strncmp(pattern, LPH_USERNAME, LPH_USERNAME_LEN) == 0) {
+            // Replace $username with actual username
+            appendStringInfoString(&output, user_name);
+            pattern += LPH_USERNAME_LEN;
+        } else {
+            // Copy regular character
+            appendStringInfoChar(&output, *pattern++);
+        }
+    }
+
+    return output.data;
+}
+```

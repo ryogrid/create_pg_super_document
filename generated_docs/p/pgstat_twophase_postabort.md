@@ -36,3 +36,32 @@ The key difference from the commit case is in handling truncated relations: if a
 - Special handling for truncated relations: restores pre-truncation counts before applying statistics
 - Unlike the commit case, aborted transactions only contribute to dead tuple counts, not live tuple deltas
 - Part of PostgreSQL's comprehensive statistics collection system ensuring proper cleanup during transaction aborts
+
+## Simplified Source
+
+```c
+void pgstat_twophase_postabort(TransactionId xid, uint16 info,
+                              void *recdata, uint32 len)
+{
+    TwoPhasePgStatRecord *record = (TwoPhasePgStatRecord *) recdata;
+    PgStat_TableStatus *stats;
+
+    // Find or create statistics entry for the relation
+    stats = pgstat_prep_relation_pending(record->id, record->shared);
+
+    // Handle truncated relations: restore pre-truncation counts
+    if (record->truncdropped) {
+        record->tuples_inserted = record->inserted_pre_truncdrop;
+        record->tuples_updated = record->updated_pre_truncdrop;
+        record->tuples_deleted = record->deleted_pre_truncdrop;
+    }
+
+    // Apply aborted transaction statistics
+    stats->counts.tuples_inserted += record->tuples_inserted;
+    stats->counts.tuples_updated += record->tuples_updated;
+    stats->counts.tuples_deleted += record->tuples_deleted;
+
+    // Aborted inserts and updates become dead tuples
+    stats->counts.delta_dead_tuples += record->tuples_inserted + record->tuples_updated;
+}
+```

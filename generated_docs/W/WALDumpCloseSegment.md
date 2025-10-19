@@ -34,3 +34,17 @@ The implementation is intentionally simple and mirrors the behavior of the stand
 - Part of the pg_waldump utility's integration with PostgreSQL's XLogReader infrastructure
 - Ensures proper cleanup of file resources during WAL segment transitions
 - Functionally equivalent to the standard wal_segment_close function used in other PostgreSQL components
+
+## Simplified Source
+
+```c
+static void
+WALDumpCloseSegment(XLogReaderState *state)
+{
+    // Close the current WAL segment file
+    close(state->seg.ws_file);
+
+    // Mark file as closed
+    state->seg.ws_file = -1;
+}
+```

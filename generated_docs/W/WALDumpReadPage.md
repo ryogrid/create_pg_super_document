@@ -38,3 +38,47 @@ This function serves as the page_read callback for the XLogReaderRoutine structu
 - Provides comprehensive error reporting including file names, offsets, and system error messages
 - Uses timeline information from private data for proper WAL segment identification
 - Part of the pg_waldump utility's WAL reading infrastructure
+
+## Simplified Source
+
+```c
+static int
+WALDumpReadPage(XLogReaderState *state, XLogRecPtr targetPagePtr, int reqLen,
+                XLogRecPtr targetPtr, char *readBuff)
+{
+    XLogDumpPrivate *private = state->private_data;
+    int count = XLOG_BLCKSZ;
+    WALReadError errinfo;
+
+    // Check if we've reached the configured endpoint
+    if (private->endptr != InvalidXLogRecPtr) {
+        if (targetPagePtr + XLOG_BLCKSZ <= private->endptr)
+            count = XLOG_BLCKSZ;
+        else if (targetPagePtr + reqLen <= private->endptr)
+            count = private->endptr - targetPagePtr;
+        else {
+            // Mark endpoint reached and return
+            private->endptr_reached = true;
+            return -1;
+        }
+    }
+
+    // Attempt to read WAL data
+    if (!WALRead(state, readBuff, targetPagePtr, count, private->timeline, &errinfo)) {
+        // Generate filename for error reporting
+        char fname[MAXPGPATH];
+        XLogFileName(fname, errinfo.wre_seg.ws_tli, errinfo.wre_seg.ws_segno,
+                     state->segcxt.ws_segsize);
+
+        // Report read failure with detailed error information
+        if (errinfo.wre_errno != 0)
+            pg_fatal("could not read from file \"%s\", offset %d: %m",
+                     fname, errinfo.wre_off);
+        else
+            pg_fatal("could not read from file \"%s\", offset %d: read %d of %d",
+                     fname, errinfo.wre_off, errinfo.wre_read, errinfo.wre_req);
+    }
+
+    return count;
+}
+```

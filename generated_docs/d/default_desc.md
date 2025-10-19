@@ -29,3 +29,14 @@ The  function serves as a fallback description generator for custom resource man
 - Used as a fallback when custom resource managers don't provide their own description functions
 - The output format is simply "rmid: [ID]" where ID is the numeric resource manager identifier
 - Part of the pg_waldump utility for analyzing WAL (Write-Ahead Logging) files
+
+## Simplified Source
+
+```c
+static void
+default_desc(StringInfo buf, XLogReaderState *record)
+{
+    // Show resource manager ID for custom RMs without description functions
+    appendStringInfo(buf, "rmid: %d", XLogRecGetRmid(record));
+}
+```

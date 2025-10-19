@@ -45,3 +45,16 @@ This function is part of PostgreSQL's type system that allows seamless compariso
 - The actual comparison logic is delegated to `float8_eq` after type promotion
 - Returns a Datum-wrapped boolean value as per PostgreSQL's function call convention
 - Part of a family of float84xx comparison functions that handle float8/float4 operations
+
+## Simplified Source
+
+```c
+Datum float84eq(PG_FUNCTION_ARGS) {
+    // Extract float8 and float4 arguments
+    float8 arg1 = PG_GETARG_FLOAT8(0);
+    float4 arg2 = PG_GETARG_FLOAT4(1);
+
+    // Convert float4 to float8 and compare for equality
+    PG_RETURN_BOOL(float8_eq(arg1, (float8) arg2));
+}
+```

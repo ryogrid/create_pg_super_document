@@ -34,3 +34,18 @@ The function initializes a materialized SRF and delegates the actual memory cont
 - Memory context hierarchy is traversed starting from TopMemoryContext
 - Used primarily for debugging memory usage and detecting memory leaks in PostgreSQL backends
 - The output is used by the  system view defined in system_views.sql
+
+## Simplified Source
+
+```c
+ResultSet pg_get_backend_memory_contexts() {
+    // Initialize set-returning function for memory context data
+    ResultSet results = InitMaterializedSRF();
+
+    // Traverse memory context hierarchy starting from TopMemoryContext
+    // and populate result set with context statistics
+    PutMemoryContextsStatsTupleStore(results, TopMemoryContext);
+
+    return results;
+}
+```

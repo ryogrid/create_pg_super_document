@@ -32,3 +32,13 @@ This function serves as a wrapper around SlruSyncFileTag specifically for multix
 - Returns an integer result from the underlying SlruSyncFileTag function
 - Provides a type-safe interface for multixact offset file synchronization
 - Located in src/backend/access/transam/multixact.c:3567-3575
+
+## Simplified Source
+
+```c
+int multixactoffsetssyncfiletag(const FileTag *ftag, char *path)
+{
+    // Delegate to generic SLRU file sync using MultiXact offset control structure
+    return SlruSyncFileTag(MultiXactOffsetCtl, ftag, path);
+}
+```

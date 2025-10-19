@@ -31,3 +31,17 @@ This function implements the type conversion from PostgreSQL's int4 (32-bit inte
 - This is a standard PostgreSQL V1 calling convention function
 - The conversion is straightforward: 0 → false, any non-zero value → true
 - Used for explicit casts like  or implicit casts in boolean contexts
+
+## Simplified Source
+
+```c
+Datum
+int4_bool(PG_FUNCTION_ARGS)
+{
+    // Convert integer to boolean: 0 = false, non-zero = true
+    if (PG_GETARG_INT32(0) == 0)
+        PG_RETURN_BOOL(false);
+    else
+        PG_RETURN_BOOL(true);
+}
+```

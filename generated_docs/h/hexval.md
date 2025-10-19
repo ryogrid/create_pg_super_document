@@ -31,3 +31,25 @@ The `hexval` function is a static utility function that converts a single hexade
 - The error case should never be reached if the function is used correctly
 - Used primarily in string parsing operations, particularly for Unicode escape sequence processing
 - Returns values in the range 0-15 corresponding to hexadecimal digits 0-F
+
+## Simplified Source
+
+```c
+static unsigned int hexval(unsigned char c) {
+    // Convert '0'-'9' to 0-9
+    if (c >= '0' && c <= '9')
+        return c - '0';
+
+    // Convert 'a'-'f' to 10-15
+    if (c >= 'a' && c <= 'f')
+        return c - 'a' + 0xA;
+
+    // Convert 'A'-'F' to 10-15
+    if (c >= 'A' && c <= 'F')
+        return c - 'A' + 0xA;
+
+    // Should never reach here if caller validates input
+    elog(ERROR, "invalid hexadecimal digit");
+    return 0;
+}
+```

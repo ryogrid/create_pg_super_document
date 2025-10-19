@@ -32,3 +32,20 @@ This function serves as the configuration interface for SP-GiST quadtree indexin
 - Enables canReturnData to support index-only scans when possible
 - Disables longValuesOK to ensure quadtree efficiency with range data
 - Located in src/backend/utils/adt/rangetypes_spgist.c:60-94
+
+## Simplified Source
+
+```c
+Datum spg_range_quad_config(PG_FUNCTION_ARGS) {
+    // Get output configuration structure
+    spgConfigOut *cfg = (spgConfigOut *) PG_GETARG_POINTER(1);
+
+    // Configure SP-GiST index parameters for range quadtree
+    cfg->prefixType = ANYRANGEOID;      // Store range centroids as prefixes
+    cfg->labelType = VOIDOID;           // No node labels needed
+    cfg->canReturnData = true;          // Support index-only scans
+    cfg->longValuesOK = false;          // Maintain quadtree efficiency
+
+    PG_RETURN_VOID();
+}
+```

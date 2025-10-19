@@ -46,3 +46,57 @@ The function includes special handling for cases where the tuple set is too larg
 - This mechanism prevents infinite loops that could occur with poorly implemented picksplit functions
 - Also used to forcibly select allTheSame mode for null values
 - Location: src/backend/access/spgist/spgdoinsert.c:599-676
+
+## Simplified Source
+
+```c
+static bool checkAllTheSame(spgPickSplitIn *in, spgPickSplitOut *out,
+                           bool tooBig, bool *includeNew)
+{
+    int theNode;
+    int limit;
+    int i;
+
+    // Assume we can include the new tuple initially
+    *includeNew = true;
+
+    // Need at least 2 tuples to check distribution
+    if (in->nTuples <= 1)
+        return false;
+
+    // If set is too big, exclude new tuple from distribution check
+    limit = tooBig ? in->nTuples - 1 : in->nTuples;
+
+    // Check if all tuples are assigned to the same node
+    theNode = out->mapTuplesToNodes[0];
+    for (i = 1; i < limit; i++)
+    {
+        if (out->mapTuplesToNodes[i] != theNode)
+            return false;  // Distribution is okay, use original split
+    }
+
+    // All tuples in same node - override picksplit function's decision
+
+    // Special case: if new tuple is separate and set is too big, exclude it
+    if (tooBig && out->mapTuplesToNodes[in->nTuples - 1] != theNode)
+        *includeNew = false;
+
+    // Create 8 arbitrary child nodes
+    out->nNodes = 8;
+
+    // Randomly distribute tuples across nodes using modulo
+    for (i = 0; i < in->nTuples; i++)
+        out->mapTuplesToNodes[i] = i % out->nNodes;
+
+    // Duplicate node labels if opclass uses them
+    if (out->nodeLabels)
+    {
+        Datum theLabel = out->nodeLabels[theNode];
+        out->nodeLabels = (Datum *) palloc(sizeof(Datum) * out->nNodes);
+        for (i = 0; i < out->nNodes; i++)
+            out->nodeLabels[i] = theLabel;
+    }
+
+    return true;  // Signal allTheSame mode should be used
+}
+```

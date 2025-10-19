@@ -37,3 +37,29 @@ This function is a core component of PostgreSQL's error reporting infrastructure
 - Sets message_id field in ErrorData structure to the format string
 - Part of PostgreSQL's comprehensive error reporting framework alongside ereport, elog, etc.
 - Located in src/backend/utils/error/elog.c:1070-1091
+
+## Simplified Source
+
+```c
+int errmsg(const char *fmt, ...) {
+    ErrorData *edata = &errordata[errordata_stack_depth];
+    MemoryContext oldcontext;
+
+    // Track recursion and validate stack
+    recursion_depth++;
+    CHECK_STACK_DEPTH();
+
+    // Switch to error's memory context
+    oldcontext = MemoryContextSwitchTo(edata->assoc_context);
+
+    // Set message format and evaluate with arguments
+    edata->message_id = fmt;
+    EVALUATE_MESSAGE(edata->domain, message, false, true);
+
+    // Restore context and recursion level
+    MemoryContextSwitchTo(oldcontext);
+    recursion_depth--;
+
+    return 0;
+}
+```

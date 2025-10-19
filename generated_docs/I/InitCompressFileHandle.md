@@ -37,3 +37,26 @@ This function acts as a factory method for creating compression file handles in 
 
 ## Notes and Other Information
 The function uses a switch-like pattern based on the compression algorithm to delegate initialization to algorithm-specific functions. The returned CompressFileHandle contains function pointers and state specific to the chosen compression method, enabling polymorphic behavior for compression operations throughout the pg_dump utilities.
+
+## Simplified Source
+
+```c
+CompressFileHandle *
+InitCompressFileHandle(const pg_compress_specification compression_spec)
+{
+    // Allocate and initialize compression handle
+    CompressFileHandle *CFH = pg_malloc0(sizeof(CompressFileHandle));
+
+    // Initialize based on compression algorithm
+    if (compression_spec.algorithm == PG_COMPRESSION_NONE)
+        InitCompressFileHandleNone(CFH, compression_spec);
+    else if (compression_spec.algorithm == PG_COMPRESSION_GZIP)
+        InitCompressFileHandleGzip(CFH, compression_spec);
+    else if (compression_spec.algorithm == PG_COMPRESSION_LZ4)
+        InitCompressFileHandleLZ4(CFH, compression_spec);
+    else if (compression_spec.algorithm == PG_COMPRESSION_ZSTD)
+        InitCompressFileHandleZstd(CFH, compression_spec);
+
+    return CFH;
+}
+```

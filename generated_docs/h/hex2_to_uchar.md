@@ -32,3 +32,29 @@ The function performs validation on each character by checking if it's within th
 - The function is specifically designed for parsing 8-byte MAC addresses (EUI-64 format)
 - The `hexlookup` table maps ASCII values to hex digit values: '0'-'9' map to 0-9, 'A'-'F' and 'a'-'f' map to 10-15, all other values map to -1
 - Error handling is done through the `badhex` parameter rather than throwing exceptions, following PostgreSQL's C-based error handling patterns
+
+## Simplified Source
+
+```c
+static inline unsigned char hex2_to_uchar(const unsigned char *ptr, bool *badhex) {
+    unsigned char result;
+    signed char digit1, digit2;
+
+    // Convert first hex digit
+    if (*ptr > 127 || (digit1 = hexlookup[*ptr]) < 0) {
+        *badhex = true;
+        return 0;
+    }
+    result = digit1 << 4;  // Shift to upper nibble
+
+    // Convert second hex digit
+    ptr++;
+    if (*ptr > 127 || (digit2 = hexlookup[*ptr]) < 0) {
+        *badhex = true;
+        return 0;
+    }
+    result += digit2;  // Add to lower nibble
+
+    return result;
+}
+```

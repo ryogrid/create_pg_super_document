@@ -50,3 +50,46 @@ When setting a variable, the function parses the variable name as the first argu
 - The function properly handles conditional execution by ignoring options when not in an active branch
 - Returns  if variable setting fails (typically due to memory issues), otherwise returns 
 - [Variables](../V/Variables.md) set with this command can be referenced later in psql using  syntax
+
+## Simplified Source
+
+```c
+// Simplified version of exec_command_set
+static backslashResult exec_command_set(PsqlScanState scan_state, bool active_branch) {
+    bool success = true;
+
+    if (active_branch) {
+        // Get variable name (first argument)
+        char *opt0 = psql_scan_slash_option(scan_state, OT_NORMAL, NULL, false);
+
+        if (!opt0) {
+            // No arguments: list all variables
+            PrintVariables(pset.vars);
+            success = true;
+        } else {
+            // Set variable: concatenate all remaining arguments as value
+            char *opt = psql_scan_slash_option(scan_state, OT_NORMAL, NULL, false);
+            char *newval = pg_strdup(opt ? opt : "");
+            free(opt);
+
+            // Concatenate additional arguments
+            while ((opt = psql_scan_slash_option(scan_state, OT_NORMAL, NULL, false))) {
+                newval = pg_realloc(newval, strlen(newval) + strlen(opt) + 1);
+                strcat(newval, opt);
+                free(opt);
+            }
+
+            // Set the variable
+            if (!SetVariable(pset.vars, opt0, newval))
+                success = false;
+
+            free(newval);
+        }
+        free(opt0);
+    } else {
+        ignore_slash_options(scan_state);
+    }
+
+    return success ? PSQL_CMD_SKIP_LINE : PSQL_CMD_ERROR;
+}
+```

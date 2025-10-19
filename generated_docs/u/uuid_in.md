@@ -35,3 +35,23 @@ The function allocates memory for a new UUID structure and delegates the actual 
 - Memory allocation uses `palloc`, which is PostgreSQL's memory context-aware allocator
 - Error handling and validation are performed by the `string_to_uuid` function
 - The function follows PostgreSQL's standard input function signature pattern
+
+## Simplified Source
+
+```c
+Datum
+uuid_in(PG_FUNCTION_ARGS)
+{
+    char *uuid_str = PG_GETARG_CSTRING(0);
+    pg_uuid_t *uuid;
+
+    // Allocate memory for UUID structure
+    uuid = (pg_uuid_t *) palloc(sizeof(*uuid));
+
+    // Parse string into UUID format
+    string_to_uuid(uuid_str, uuid, fcinfo->context);
+
+    // Return the converted UUID
+    PG_RETURN_UUID_P(uuid);
+}
+```

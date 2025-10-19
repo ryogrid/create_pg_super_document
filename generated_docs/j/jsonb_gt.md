@@ -38,3 +38,19 @@ The function establishes a consistent ordering mechanism that allows JSONB value
 - Typically invoked through SQL expressions like `jsonb_col1 > jsonb_col2`
 - Works in conjunction with other comparison operators to support complex query predicates
 - The deterministic ordering enables consistent results across different query executions
+
+## Simplified Source
+
+```c
+Datum jsonb_gt(PG_FUNCTION_ARGS) {
+    Jsonb *jba = PG_GETARG_JSONB_P(0);
+    Jsonb *jbb = PG_GETARG_JSONB_P(1);
+
+    // Return true if first value is greater than second
+    bool res = (compareJsonbContainers(&jba->root, &jbb->root) > 0);
+
+    PG_FREE_IF_COPY(jba, 0);
+    PG_FREE_IF_COPY(jbb, 1);
+    PG_RETURN_BOOL(res);
+}
+```

@@ -32,3 +32,16 @@ This function implements the equality comparison operator (=) between PostgreSQL
 - The int16 value is implicitly promoted to int32 for comparison
 - Part of PostgreSQL's type coercion system for numeric comparisons
 - Returns PostgreSQL Datum type for integration with the function call framework
+
+## Simplified Source
+
+```c
+Datum int24eq(PG_FUNCTION_ARGS) {
+    // Extract 16-bit and 32-bit integer arguments
+    int16 smallint_value = PG_GETARG_INT16(0);
+    int32 integer_value = PG_GETARG_INT32(1);
+
+    // Compare with implicit promotion of int16 to int32
+    PG_RETURN_BOOL(smallint_value == integer_value);
+}
+```

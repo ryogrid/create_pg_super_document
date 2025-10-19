@@ -36,3 +36,14 @@ This function implements the inequality comparison operator for PostgreSQL's DAT
 - Returns SQL boolean true if dates are not equal, false if they are equal
 - Function follows PostgreSQL's V1 calling convention
 - Complement function to date_eq
+
+## Simplified Source
+
+```c
+Datum date_ne(PG_FUNCTION_ARGS) {
+    DateADT dateVal1 = PG_GETARG_DATEADT(0);
+    DateADT dateVal2 = PG_GETARG_DATEADT(1);
+
+    PG_RETURN_BOOL(dateVal1 != dateVal2);
+}
+```

@@ -42,3 +42,56 @@ For each pattern provided, the function constructs and executes a SQL query that
 - Database name patterns containing dots (qualified names) are rejected as improper since database names should be simple identifiers
 - Part of the pg_dumpall utility's pattern-based database selection mechanism
 - Uses PostgreSQL's standard pattern matching syntax for database name expansion
+
+## Simplified Source
+
+```c
+static void expand_dbname_patterns(PGconn *conn,
+                                  SimpleStringList *patterns,
+                                  SimpleStringList *names)
+{
+    PQExpBuffer query;
+    PGresult *res;
+
+    // Early return if no patterns provided
+    if (patterns->head == NULL)
+        return;
+
+    query = createPQExpBuffer();
+
+    // Process each pattern in the list
+    for (SimpleStringListCell *cell = patterns->head; cell; cell = cell->next)
+    {
+        int dotcnt;
+
+        // Build query to find matching database names
+        appendPQExpBufferStr(query,
+                           "SELECT datname FROM pg_catalog.pg_database n\n");
+        processSQLNamePattern(conn, query, cell->val, false,
+                            false, NULL, "datname", NULL, NULL, NULL,
+                            &dotcnt);
+
+        // Check for invalid qualified names (database names shouldn't have dots)
+        if (dotcnt > 0)
+        {
+            pg_log_error("improper qualified name (too many dotted names): %s",
+                        cell->val);
+            PQfinish(conn);
+            exit_nicely(1);
+        }
+
+        // Execute query and collect matching database names
+        res = executeQuery(conn, query->data);
+        for (int i = 0; i < PQntuples(res); i++)
+        {
+            simple_string_list_append(names, PQgetvalue(res, i, 0));
+        }
+
+        // Cleanup for next iteration
+        PQclear(res);
+        resetPQExpBuffer(query);
+    }
+
+    destroyPQExpBuffer(query);
+}
+```

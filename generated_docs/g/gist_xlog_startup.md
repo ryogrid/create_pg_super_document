@@ -34,3 +34,13 @@ This initialization function is part of the WAL resource manager interface and i
 - The memory context created here is specifically designed for temporary operations and is reset frequently
 - This function is called once during recovery startup, before any GiST WAL records are processed
 - Pairs with `gist_xlog_cleanup` which is responsible for cleaning up this context
+
+## Simplified Source
+
+```c
+void gist_xlog_startup(void)
+{
+    // Create memory context for GiST WAL operations
+    opCtx = createTempGistContext();
+}
+```

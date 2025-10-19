@@ -46,3 +46,33 @@ The use of PG_FINALLY ensures that the xmlChar string is always freed, preventin
 - The input string is always freed, regardless of whether the copy operation succeeds
 - Returns NULL if the input string is NULL, maintaining consistent behavior
 - Essential for preventing memory leaks when interfacing between libxml and PostgreSQL memory management systems
+
+## Simplified Source
+
+```c
+static char *
+xml_pstrdup_and_free(xmlChar *str)
+{
+    char *result;
+
+    if (str) {
+        // Use exception handling to ensure cleanup
+        PG_TRY();
+        {
+            // Copy string to PostgreSQL memory
+            result = pstrdup((char *) str);
+        }
+        PG_FINALLY();
+        {
+            // Always free the original xmlChar string
+            xmlFree(str);
+        }
+        PG_END_TRY();
+    }
+    else {
+        result = NULL;
+    }
+
+    return result;
+}
+```

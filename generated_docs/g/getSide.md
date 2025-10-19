@@ -35,3 +35,21 @@ This static function compares a given coordinate value against either the X or Y
 - The function handles exact equality comparisons, which is important for consistent tree structure
 - Part of the k-d tree choose function logic that determines how to partition space during index operations
 - Located in src/backend/access/spgist/spgkdtreeproc.c:41-53
+
+## Simplified Source
+
+```c
+static int getSide(double coord, bool isX, Point *tst)
+{
+    // Get the appropriate coordinate from test point
+    double tstcoord = (isX) ? tst->x : tst->y;
+
+    // Compare coordinates and return relationship
+    if (coord == tstcoord)
+        return 0;   // Equal
+    else if (coord > tstcoord)
+        return 1;   // Greater than
+    else
+        return -1;  // Less than
+}
+```

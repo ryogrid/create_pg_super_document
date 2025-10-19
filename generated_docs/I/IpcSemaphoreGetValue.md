@@ -37,3 +37,17 @@ This function is typically used for debugging purposes or to check semaphore sta
 - The function can return negative values on error (following semctl() behavior)
 - Used primarily for validation and debugging during semaphore set initialization
 - The returned value represents the current count of the semaphore, which is fundamental to semaphore-based synchronization
+
+## Simplified Source
+
+```c
+static int IpcSemaphoreGetValue(IpcSemaphoreId semId, int semNum) {
+    union semun dummy;
+
+    // Initialize unused parameter for Solaris compatibility
+    dummy.val = 0;
+
+    // Get current semaphore value
+    return semctl(semId, semNum, GETVAL, dummy);
+}
+```

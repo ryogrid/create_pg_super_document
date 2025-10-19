@@ -32,3 +32,15 @@ The  function is a PostgreSQL built-in function that calculates and returns the 
 - The actual height calculation is performed by the static helper function , which computes 
 - Returns a float8 (double precision) value representing the height
 - Part of the geometric operations suite for the BOX data type in PostgreSQL
+
+## Simplified Source
+
+```c
+Datum box_height(PG_FUNCTION_ARGS) {
+    // Extract the box argument
+    BOX *box = PG_GETARG_BOX_P(0);
+
+    // Calculate and return the vertical magnitude (high.y - low.y)
+    return PG_RETURN_FLOAT8(box_ht(box));
+}
+```

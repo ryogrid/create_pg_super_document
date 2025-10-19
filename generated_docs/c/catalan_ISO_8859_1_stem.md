@@ -48,3 +48,42 @@ The algorithm uses a sophisticated backtracking mechanism with saved cursor posi
 - Handles both suffix removal and character cleaning operations
 - The function is encoding-specific (ISO-8859-1), with a corresponding UTF-8 variant available
 - Part of PostgreSQL's full-text search capabilities for Catalan language support
+
+## Simplified Source
+
+```c
+extern int catalan_ISO_8859_1_stem(struct SN_env * z) {
+    // Step 1: Mark morphological regions (R1, R2)
+    if (r_mark_regions(z) < 0) return -1;
+
+    // Set cursor to end of word for backward processing
+    z->lb = z->c;
+    z->c = z->l;
+
+    // Step 2: Remove attached pronouns
+    int saved_pos = z->l - z->c;
+    r_attached_pronoun(z);
+    z->c = z->l - saved_pos;
+
+    // Step 3: Try suffix removal (standard first, then verb)
+    saved_pos = z->l - z->c;
+    if (r_standard_suffix(z) == 0) {
+        // No standard suffix found, try verb suffix
+        r_verb_suffix(z);
+    }
+    z->c = z->l - saved_pos;
+
+    // Step 4: Clean up residual suffixes
+    saved_pos = z->l - z->c;
+    r_residual_suffix(z);
+    z->c = z->l - saved_pos;
+
+    // Step 5: Final character cleaning
+    z->c = z->lb;
+    int clean_pos = z->c;
+    r_cleaning(z);
+    z->c = clean_pos;
+
+    return 1; // Success
+}
+```

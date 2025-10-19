@@ -41,3 +41,84 @@ The algorithm includes a noted optimization where instead of sorting weights in 
 - Handles both positional and non-positional text search vectors using dummy positions when needed
 - Final score is averaged across all unique query terms
 - More efficient than AND-based ranking as it doesn't require proximity calculations
+
+## Simplified Source
+
+```c
+static float
+calc_rank_or(const float *w, TSVector t, TSQuery q)
+{
+    WordEntry *entry, *firstentry;
+    WordEntryPosVector1 posnull;
+    WordEntryPos *post;
+    int32 dimt, j, i, nitem;
+    float res = 0.0;
+    QueryOperand **item;
+    int size = q->size;
+
+    // Setup dummy position for words without position info
+    posnull.npos = 1;
+    posnull.pos[0] = 0;
+
+    // Get sorted unique operands
+    item = SortAndUniqItems(q, &size);
+
+    // Process each unique operand independently
+    for (i = 0; i < size; i++)
+    {
+        float resj, wjm;
+        int32 jm;
+
+        // Find word entry in document
+        firstentry = entry = find_wordentry(t, q, item[i], &nitem);
+        if (!entry)
+            continue;
+
+        // Process each occurrence of this word
+        while (entry - firstentry < nitem)
+        {
+            // Get position information (real or dummy)
+            if (entry->haspos)
+            {
+                dimt = POSDATALEN(t, entry);
+                post = POSDATAPTR(t, entry);
+            }
+            else
+            {
+                dimt = posnull.npos;
+                post = posnull.pos;
+            }
+
+            // Calculate score for this word occurrence
+            resj = 0.0;
+            wjm = -1.0;
+            jm = 0;
+            for (j = 0; j < dimt; j++)
+            {
+                // Weight positions with decreasing importance (1/i^2)
+                resj = resj + wpos(post[j]) / ((j + 1) * (j + 1));
+                if (wpos(post[j]) > wjm)
+                {
+                    wjm = wpos(post[j]);
+                    jm = j;
+                }
+            }
+
+            // Add to total score using mathematical formula
+            // Uses π²/6 ≈ 1.64493406685 for normalization
+            res = res + (wjm + resj - wjm / ((jm + 1) * (jm + 1))) / 1.64493406685;
+
+            entry++;
+        }
+    }
+
+    // Average across all operands
+    if (size > 0)
+        res = res / size;
+
+    pfree(item);
+    return res;
+}
+```
+
+This simplified version shows the OR ranking algorithm: process each operand independently, calculate weighted scores based on position importance (using 1/i² series), and average across all operands. Uses mathematical constant π²/6 for normalization.

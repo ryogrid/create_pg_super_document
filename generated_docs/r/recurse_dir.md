@@ -43,3 +43,92 @@ This function implements the core recursive directory traversal logic for Postgr
 - Provides detailed error messages for all failure cases including directory open/read/close and file stat operations
 - The callback function receives different parameters based on file type: size for regular files, link target for symlinks
 - Critical component of pg_rewind's file comparison and synchronization operations
+
+## Simplified Source
+
+```c
+static void recurse_dir(const char *datadir, const char *parentpath,
+                       process_file_callback_t callback)
+{
+    DIR *directory;
+    struct dirent *entry;
+    char full_directory_path[MAXPGPATH];
+
+    // Build full path to current directory
+    if (parentpath)
+        snprintf(full_directory_path, MAXPGPATH, "%s/%s", datadir, parentpath);
+    else
+        snprintf(full_directory_path, MAXPGPATH, "%s", datadir);
+
+    // Open directory for reading
+    directory = opendir(full_directory_path);
+    if (directory == NULL)
+        pg_fatal("could not open directory \"%s\": %m", full_directory_path);
+
+    // Process each entry in the directory
+    while ((entry = readdir(directory)) != NULL)
+    {
+        struct stat file_stats;
+        char full_file_path[MAXPGPATH * 2];
+        char relative_path[MAXPGPATH * 2];
+
+        // Skip current and parent directory entries
+        if (strcmp(entry->d_name, ".") == 0 || strcmp(entry->d_name, "..") == 0)
+            continue;
+
+        // Build full path to file/directory
+        snprintf(full_file_path, sizeof(full_file_path), "%s/%s",
+                full_directory_path, entry->d_name);
+
+        // Get file statistics - handle disappearing files gracefully
+        if (lstat(full_file_path, &file_stats) < 0) {
+            if (errno == ENOENT)
+                continue; // File disappeared, skip it
+            else
+                pg_fatal("could not stat file \"%s\": %m", full_file_path);
+        }
+
+        // Build relative path for callback
+        if (parentpath)
+            snprintf(relative_path, sizeof(relative_path), "%s/%s",
+                    parentpath, entry->d_name);
+        else
+            snprintf(relative_path, sizeof(relative_path), "%s", entry->d_name);
+
+        // Handle different file types
+        if (S_ISREG(file_stats.st_mode)) {
+            // Regular file
+            callback(relative_path, FILE_TYPE_REGULAR, file_stats.st_size, NULL);
+        }
+        else if (S_ISDIR(file_stats.st_mode)) {
+            // Directory - call callback then recurse
+            callback(relative_path, FILE_TYPE_DIRECTORY, 0, NULL);
+            recurse_dir(datadir, relative_path, callback);
+        }
+        else if (S_ISLNK(file_stats.st_mode)) {
+            // Symbolic link - read target and optionally recurse
+            char link_target[MAXPGPATH];
+            int target_length = readlink(full_file_path, link_target, sizeof(link_target));
+
+            if (target_length < 0)
+                pg_fatal("could not read symbolic link \"%s\": %m", full_file_path);
+            if (target_length >= sizeof(link_target))
+                pg_fatal("symbolic link \"%s\" target is too long", full_file_path);
+
+            link_target[target_length] = '\0';
+            callback(relative_path, FILE_TYPE_SYMLINK, 0, link_target);
+
+            // Recurse into tablespace and WAL symlinks
+            if ((parentpath && strcmp(parentpath, "pg_tblspc") == 0) ||
+                strcmp(relative_path, "pg_wal") == 0)
+                recurse_dir(datadir, relative_path, callback);
+        }
+    }
+
+    // Check for directory reading errors and close
+    if (errno)
+        pg_fatal("could not read directory \"%s\": %m", full_directory_path);
+    if (closedir(directory))
+        pg_fatal("could not close directory \"%s\": %m", full_directory_path);
+}
+```

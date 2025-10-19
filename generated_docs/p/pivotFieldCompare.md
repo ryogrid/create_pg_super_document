@@ -36,3 +36,23 @@ The function is designed to be used with standard library functions like qsort()
 - Null values are treated as the 'largest' values in the ordering (non-null < null)
 - Compatible with standard library qsort() and other comparison-based algorithms
 - Used internally by AVL tree operations to maintain proper ordering of pivot field values
+
+## Simplified Source
+
+```c
+static int
+pivotFieldCompare(const void *a, const void *b)
+{
+    const pivot_field *pa = (const pivot_field *) a;
+    const pivot_field *pb = (const pivot_field *) b;
+
+    // Handle null values: null == null, non-null < null
+    if (!pb->name)
+        return pa->name ? -1 : 0;  // If b is null, a < b unless a is also null
+    else if (!pa->name)
+        return 1;                  // If a is null but b isn't, a > b
+
+    // Compare non-null values lexicographically
+    return strcmp(pa->name, pb->name);
+}
+```

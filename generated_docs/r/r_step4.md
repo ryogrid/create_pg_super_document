@@ -55,3 +55,44 @@ The function uses sophisticated backtracking and position management to handle c
 - The word-boundary check ensures final transformations only apply at word roots
 - Returns 1 on successful transformation, 0 if conditions not met, or negative values on error
 - The goto-based control flow implements a state machine for handling multiple transformation paths
+
+## Simplified Source
+
+```c
+static int r_step4(struct SN_env * z) {
+    // Phase 1: Find and remove suffix from a_33 patterns (4 patterns)
+    z->ket = z->c;
+    if (!find_among_b(z, a_33, 4)) return 0;
+    z->bra = z->c;
+    slice_del(z);  // Remove the matched suffix
+
+    // Reset state variable
+    z->I[0] = 0;
+
+    // Phase 2: Try vowel-based replacement with backtracking
+    int saved_position = z->l - z->c;  // Save current position
+    z->ket = z->c;
+    z->bra = z->c;
+
+    // If current character is a Greek vowel, replace with "ικ"
+    if (!in_grouping_b_U(z, g_v, 945, 969, 0)) {
+        slice_from_s(z, 4, s_70);  // Replace with "ικ" (ik)
+    } else {
+        // Restore position if no vowel found
+        z->c = z->l - saved_position;
+        z->ket = z->c;
+    }
+
+    // Phase 3: Final suffix processing at word boundary
+    z->bra = z->c;
+    if (!find_among_b(z, a_34, 36)) return 0;  // 36 patterns in a_34
+
+    // Only proceed if at word beginning
+    if (z->c > z->lb) return 0;
+
+    // Final replacement with "ικ"
+    slice_from_s(z, 4, s_71);
+
+    return 1;  // Success
+}
+```

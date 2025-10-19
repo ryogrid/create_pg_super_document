@@ -30,3 +30,17 @@ The function is part of PostgreSQL's compression abstraction layer used by pg_du
 - Part of the gzip compression backend for PostgreSQL's pg_dump utility
 - Requires HAVE_LIBZ to be defined for compilation (depends on zlib library)
 - Essential for determining when to stop reading from compressed input files during restore operations
+
+## Simplified Source
+
+```c
+static bool
+Gzip_eof(CompressFileHandle *CFH)
+{
+    // Extract gzip file handle from compression wrapper
+    gzFile gzfp = (gzFile) CFH->private_data;
+
+    // Check if end-of-file reached using zlib function
+    return gzeof(gzfp) == 1;
+}
+```

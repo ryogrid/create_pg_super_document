@@ -33,3 +33,13 @@ This static helper function extends the 2D containment test to 4D space for rect
 - Primarily used in spatial index consistency checking during query processing for containment queries
 - The function accesses range_box_x and range_box_y members from the RectBox, and left/right members from the query RangeBox
 - Critical for implementing spatial containment operators in PostgreSQL geometric types
+
+## Simplified Source
+
+```c
+static bool contain4D(RectBox *rect_box, RangeBox *query) {
+    // Check containment in both X and Y dimensions
+    return contain2D(&rect_box->range_box_x, &query->left) &&
+           contain2D(&rect_box->range_box_y, &query->right);
+}
+```

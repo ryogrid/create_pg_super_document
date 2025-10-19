@@ -33,3 +33,14 @@ The function is designed to work with Windows Timer Queue timers created via  an
 - The corresponding Unix implementation uses SIGALRM signal handling with  function
 - The  flag is checked throughout the pgbench execution loop to determine when to stop the benchmark
 - This callback is executed in a separate timer thread, making the  qualifier on  necessary for thread safety
+
+## Simplified Source
+
+```c
+static VOID CALLBACK
+win32_timer_callback(PVOID lpParameter, BOOLEAN TimerOrWaitFired)
+{
+    // Signal that the benchmark duration has been exceeded
+    timer_exceeded = true;
+}
+```

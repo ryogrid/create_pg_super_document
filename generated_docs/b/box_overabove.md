@@ -39,3 +39,16 @@ This spatial relationship operator is particularly useful in spatial indexing an
 - Commonly used in spatial indexing operations, particularly in GiST and SP-GiST implementations
 - Allows for overlapping boxes unlike the strict  operator
 - The "over" prefix indicates that equality is included in the comparison (>= rather than >)
+
+## Simplified Source
+
+```c
+Datum box_overabove(PG_FUNCTION_ARGS) {
+    BOX *box1 = PG_GETARG_BOX_P(0);
+    BOX *box2 = PG_GETARG_BOX_P(1);
+
+    // Check if box1's bottom edge is at or above box2's bottom edge
+    // This means box1 doesn't start below box2
+    PG_RETURN_BOOL(box1->low.y >= box2->low.y);
+}
+```

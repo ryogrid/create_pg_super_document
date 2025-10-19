@@ -36,3 +36,21 @@ This function performs a safe conversion from a 32-bit signed integer to Postgre
 - The valid range is typically -128 to 127 for signed 8-bit characters
 - Used internally by PostgreSQL's type conversion system for integer to char casts
 - The function follows PostgreSQL's V1 calling convention using the PG_FUNCTION_ARGS interface
+
+## Simplified Source
+
+```c
+Datum i4tochar(PG_FUNCTION_ARGS) {
+    int32 arg1 = PG_GETARG_INT32(0);
+
+    // Validate input is within signed char range (-128 to 127)
+    if (arg1 < SCHAR_MIN || arg1 > SCHAR_MAX) {
+        ereport(ERROR,
+                (errcode(ERRCODE_NUMERIC_VALUE_OUT_OF_RANGE),
+                 errmsg("\"char\" out of range")));
+    }
+
+    // Safe conversion to char
+    PG_RETURN_CHAR((int8) arg1);
+}
+```

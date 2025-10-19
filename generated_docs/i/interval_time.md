@@ -48,3 +48,24 @@ The function performs the following operations:
 - Examples: "-2 hours" becomes "22:00:00", "26 hours" becomes "02:00:00"
 - The function effectively wraps time values to fit within a 24-hour period
 - Located in src/backend/utils/adt/date.c:2012-2032
+
+## Simplified Source
+
+```c
+TimeADT interval_time(Interval *interval_value) {
+    // Check for invalid infinite intervals
+    if (is_infinite(interval_value)) {
+        report_error("cannot convert infinite interval to time");
+    }
+
+    // Extract fractional-day portion (ignore months, focus on time within day)
+    TimeADT result = interval_value->time % MICROSECONDS_PER_DAY;
+
+    // Handle negative intervals: "-2 hours" becomes "22:00:00"
+    if (result < 0) {
+        result += MICROSECONDS_PER_DAY;
+    }
+
+    return result;
+}
+```

@@ -30,3 +30,18 @@ ClearOrSaveAllResults is a static utility function that exhaustively processes a
 
 ## Notes and Other Information
 This function implements a critical cleanup pattern in PostgreSQL client applications. PQgetResult() may return multiple results for certain operations (such as when multiple statements are sent in a single query string), and it's essential to consume all results to maintain proper protocol synchronization with the server. The function's simple loop-based approach ensures that no results are left pending in the connection queue, which could otherwise interfere with subsequent operations. By delegating the actual result processing to ClearOrSaveResult(), it maintains consistency with psql's error preservation policy while ensuring complete result consumption. This function is typically called in error recovery scenarios or when finalizing query processing to guarantee a clean connection state.
+
+## Simplified Source
+
+```c
+static void ClearOrSaveAllResults(void) {
+    PGresult *result;
+
+    // Consume all pending results from the connection
+    while ((result = PQgetResult(pset.db)) != NULL) {
+        ClearOrSaveResult(result);
+    }
+}
+```
+
+This simplified version preserves the essential logic: continuously fetch results from the database connection until none remain, processing each one appropriately. The function ensures proper connection cleanup by consuming all pending results.

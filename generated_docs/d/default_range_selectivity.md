@@ -40,3 +40,40 @@ The selectivity values are carefully chosen based on the expected frequency and 
   - Element containment uses DEFAULT_RANGE_INEQ_SEL
   - Comparison operators use DEFAULT_INEQ_SEL
   - Unknown operators default to 0.01 as a safety measure
+
+## Simplified Source
+
+```c
+static double default_range_selectivity(Oid operator) {
+    switch (operator) {
+        // Overlap operations - moderately selective
+        case OID_RANGE_OVERLAP_OP:
+            return 0.01;
+
+        // Contains/contained operations - highly selective
+        case OID_RANGE_CONTAINS_OP:
+        case OID_RANGE_CONTAINED_OP:
+            return 0.005;
+
+        // Element containment - similar to scalar range inequality
+        case OID_RANGE_CONTAINS_ELEM_OP:
+        case OID_RANGE_ELEM_CONTAINED_OP:
+            return DEFAULT_RANGE_INEQ_SEL;
+
+        // Comparison and positioning operators - standard inequality selectivity
+        case OID_RANGE_LESS_OP:
+        case OID_RANGE_LESS_EQUAL_OP:
+        case OID_RANGE_GREATER_OP:
+        case OID_RANGE_GREATER_EQUAL_OP:
+        case OID_RANGE_LEFT_OP:
+        case OID_RANGE_RIGHT_OP:
+        case OID_RANGE_OVERLAPS_LEFT_OP:
+        case OID_RANGE_OVERLAPS_RIGHT_OP:
+            return DEFAULT_INEQ_SEL;
+
+        // Safety fallback for unknown operators
+        default:
+            return 0.01;
+    }
+}
+```

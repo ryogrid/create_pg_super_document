@@ -31,3 +31,13 @@ This function serves as the main entry point for the json_array_elements SQL fun
 - Designed to work with JSON data type (as opposed to JSONB)
 - Uses PostgreSQL's set-returning function (SRF) framework to return multiple rows
 - The third parameter (false) to elements_worker indicates that text conversion should not be performed
+
+## Simplified Source
+
+```c
+Datum json_array_elements(PG_FUNCTION_ARGS) {
+    // Simple wrapper that calls the main worker function
+    // with text conversion disabled (false parameter)
+    return elements_worker(fcinfo, "json_array_elements", false);
+}
+```

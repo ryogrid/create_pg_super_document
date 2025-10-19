@@ -40,3 +40,16 @@ The function uses PostgreSQL's floating-point comparison function FPle() to hand
 - The function is used in spatial indexing operations, particularly in GiST and SP-GiST index implementations
 - Returns true when box1's right edge does not extend beyond box2's right edge
 - Located in src/backend/utils/adt/geo_ops.c:598-608
+
+## Simplified Source
+
+```c
+Datum box_overleft(PG_FUNCTION_ARGS) {
+    BOX *box1 = PG_GETARG_BOX_P(0);
+    BOX *box2 = PG_GETARG_BOX_P(1);
+
+    // Check if box1's right edge is at or left of box2's right edge
+    // This means box1 doesn't extend further right than box2
+    PG_RETURN_BOOL(box1->high.x <= box2->high.x);
+}
+```

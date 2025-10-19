@@ -45,3 +45,57 @@ Only regular files (FILE_TYPE_REGULAR) are included in the calculations, as dire
 - The fetch_size calculation accounts for partial file copies and individual page overwrites to provide accurate progress estimates
 - Part of the pg_rewind utility's file synchronization system
 - BLCKSZ constant is used to calculate the size contribution of individual database pages
+
+## Simplified Source
+
+```c
+void calculate_totals(filemap_t *filemap)
+{
+    file_entry_t *entry;
+    int i;
+
+    // Initialize totals
+    filemap->total_size = 0;
+    filemap->fetch_size = 0;
+
+    // Process each file entry in the filemap
+    for (i = 0; i < filemap->nentries; i++)
+    {
+        entry = filemap->entries[i];
+
+        // Only process regular files (skip directories, symlinks, etc.)
+        if (entry->source_type != FILE_TYPE_REGULAR)
+            continue;
+
+        // Add to total size of all source files
+        filemap->total_size += entry->source_size;
+
+        // Calculate fetch size based on action type
+        if (entry->action == FILE_ACTION_COPY)
+        {
+            // Copy entire file
+            filemap->fetch_size += entry->source_size;
+            continue;
+        }
+
+        if (entry->action == FILE_ACTION_COPY_TAIL)
+        {
+            // Copy only the portion beyond target file size
+            filemap->fetch_size += (entry->source_size - entry->target_size);
+        }
+
+        // Add size for individual pages that need to be overwritten
+        if (entry->target_pages_to_overwrite.bitmapsize > 0)
+        {
+            datapagemap_iterator_t *page_iterator;
+            BlockNumber block_number;
+
+            page_iterator = datapagemap_iterate(&entry->target_pages_to_overwrite);
+            while (datapagemap_next(page_iterator, &block_number))
+                filemap->fetch_size += BLCKSZ;
+
+            pg_free(page_iterator);
+        }
+    }
+}
+```

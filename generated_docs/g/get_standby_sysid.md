@@ -41,3 +41,32 @@ This local approach is more efficient than establishing a database connection an
 - Particularly useful when the database server is offline or during initial setup phases
 - The returned system identifier is logged for diagnostic purposes
 - This function complements  to enable system identifier comparison between publisher and subscriber databases
+
+## Simplified Source
+
+```c
+static uint64 get_standby_sysid(const char *datadir) {
+    ControlFileData *cf;
+    bool crc_ok;
+    uint64 sysid;
+
+    pg_log_info("getting system identifier from subscriber");
+
+    // Read and validate control file
+    cf = get_controlfile(datadir, &crc_ok);
+    if (!crc_ok) {
+        pg_fatal("control file appears to be corrupt");
+    }
+
+    // Extract system identifier
+    sysid = cf->system_identifier;
+
+    pg_log_info("system identifier is %llu on subscriber",
+                (unsigned long long) sysid);
+
+    // Clean up allocated memory
+    pg_free(cf);
+
+    return sysid;
+}
+```

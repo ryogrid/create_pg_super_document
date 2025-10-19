@@ -30,3 +30,13 @@ This function is part of PostgreSQL's pg_dump dependency resolution system, spec
 - Follows the same pattern as table constraint loop repair functions
 - Part of pg_dump's comprehensive system for resolving circular dependencies in complex database schemas
 - The repair strategy involves simply breaking one direction of the dependency relationship
+
+## Simplified Source
+
+```c
+static void repairDomainConstraintLoop(DumpableObject *domainobj,
+                                       DumpableObject *constraintobj) {
+    // Break circular dependency by removing constraint's dependency on domain
+    removeObjectDependency(constraintobj, domainobj->dumpId);
+}
+```

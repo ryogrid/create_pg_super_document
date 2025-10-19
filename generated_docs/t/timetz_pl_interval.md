@@ -50,3 +50,33 @@ The function performs bounds checking to prevent infinite interval addition and 
 - Located in `src/backend/utils/adt/date.c:2596`
 - Part of PostgreSQL's comprehensive date/time arithmetic operations
 - The date component of intervals is ignored since timetz represents only time-of-day information
+
+## Simplified Source
+
+```c
+Datum timetz_pl_interval(PG_FUNCTION_ARGS) {
+    TimeTzADT *time = PG_GETARG_TIMETZADT_P(0);
+    Interval *span = PG_GETARG_INTERVAL_P(1);
+    TimeTzADT *result;
+
+    // Check for infinite interval
+    if (INTERVAL_NOT_FINITE(span))
+        ereport(ERROR, "cannot add infinite interval to time");
+
+    // Allocate result structure
+    result = (TimeTzADT *) palloc(sizeof(TimeTzADT));
+
+    // Add interval to time component
+    result->time = time->time + span->time;
+
+    // Keep result within 24-hour day range
+    result->time -= result->time / USECS_PER_DAY * USECS_PER_DAY;
+    if (result->time < 0)
+        result->time += USECS_PER_DAY;
+
+    // Preserve original timezone
+    result->zone = time->zone;
+
+    PG_RETURN_TIMETZADT_P(result);
+}
+```

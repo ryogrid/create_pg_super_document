@@ -31,3 +31,15 @@ This function finalizes the backup process by sending the necessary wire protoco
 - Sends both the end-of-copy signal and the final WAL position information
 - The endptr and endtli parameters provide critical information for backup consistency
 - Located in src/backend/backup/basebackup_copy.c:297-307
+
+## Simplified Source
+
+```c
+static void bbsink_copystream_end_backup(bbsink *sink, XLogRecPtr endptr, TimeLineID endtli) {
+    // Send copy operation completion signal
+    SendCopyDone();
+
+    // Send final WAL position and timeline info to client
+    SendXlogRecPtrResult(endptr, endtli);
+}
+```

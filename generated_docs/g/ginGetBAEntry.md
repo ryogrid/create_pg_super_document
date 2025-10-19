@@ -47,3 +47,33 @@ The function returns NULL when all entries have been consumed, indicating the en
 - The returned list is guaranteed to be sorted if it contains multiple entries
 - Part of the scanning interface for BuildAccumulator along with ginBeginBAScan
 - Essential for bulk index construction where entries must be processed in sorted order
+
+## Simplified Source
+
+```c
+ItemPointerData *ginGetBAEntry(BuildAccumulator *accum,
+                              OffsetNumber *attnum, Datum *key, GinNullCategory *category,
+                              uint32 *n) {
+    // Get next entry from the tree iterator
+    GinEntryAccumulator *entry = (GinEntryAccumulator *) rbt_iterate(&accum->tree_walk);
+
+    // Return NULL if no more entries
+    if (entry == NULL)
+        return NULL;
+
+    // Extract entry data
+    *attnum = entry->attnum;
+    *key = entry->key;
+    *category = entry->category;
+    *n = entry->count;
+    ItemPointerData *list = entry->list;
+
+    // Sort heap pointers if needed and there are multiple entries
+    if (entry->shouldSort && entry->count > 1) {
+        qsort(list, entry->count, sizeof(ItemPointerData),
+              qsortCompareItemPointers);
+    }
+
+    return list;
+}
+```

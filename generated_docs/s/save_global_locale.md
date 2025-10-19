@@ -35,3 +35,31 @@ This function creates a backup of the current global locale setting for the spec
 - The returned value must be passed to  to complete the save-restore cycle
 - Memory allocation is performed for the returned locale name, requiring proper cleanup
 - Failure cases result in fatal errors rather than recoverable conditions
+
+## Simplified Source
+
+```c
+static save_locale_t
+save_global_locale(int category)
+{
+    save_locale_t save;
+
+#ifdef WIN32
+    // Windows: Use wide-character setlocale to handle non-ASCII locale names
+    save = _wsetlocale(category, NULL);
+    if (!save)
+        pg_fatal("_wsetlocale() failed");
+    save = wcsdup(save);
+    if (!save)
+        pg_fatal("out of memory");
+#else
+    // Unix: Use standard setlocale
+    save = setlocale(category, NULL);
+    if (!save)
+        pg_fatal("setlocale() failed");
+    save = pg_strdup(save);
+#endif
+
+    return save;
+}
+```

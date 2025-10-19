@@ -41,3 +41,53 @@ This function handles the compression of data using zlib deflate algorithm and w
 - Handles partial writes by managing zlib output buffer state
 - Assumes ENOSPC (no space left on device) when write() fails without setting errno
 - The function is critical for compressed WAL archiving and base backup functionality
+
+## Simplified Source
+
+```c
+static bool
+tar_write_compressed_data(TarMethodData *tar_data, const void *buf, size_t count, bool flush)
+{
+    // Set up compression input
+    tar_data->zp->next_in = buf;
+    tar_data->zp->avail_in = count;
+
+    // Compress data
+    while (tar_data->zp->avail_in || flush) {
+        int r = deflate(tar_data->zp, flush ? Z_FINISH : Z_NO_FLUSH);
+
+        // Check for compression error
+        if (r == Z_STREAM_ERROR) {
+            tar_data->base.lasterrstring = _("could not compress data");
+            return false;
+        }
+
+        // Write compressed output if buffer has data
+        if (tar_data->zp->avail_out < ZLIB_OUT_SIZE) {
+            size_t len = ZLIB_OUT_SIZE - tar_data->zp->avail_out;
+
+            if (write(tar_data->fd, tar_data->zlibOut, len) != len) {
+                tar_data->base.lasterrno = errno ? errno : ENOSPC;
+                return false;
+            }
+
+            // Reset output buffer
+            tar_data->zp->next_out = tar_data->zlibOut;
+            tar_data->zp->avail_out = ZLIB_OUT_SIZE;
+        }
+
+        if (r == Z_STREAM_END)
+            break;
+    }
+
+    // Reset compression stream if flushing
+    if (flush) {
+        if (deflateReset(tar_data->zp) != Z_OK) {
+            tar_data->base.lasterrstring = _("could not reset compression stream");
+            return false;
+        }
+    }
+
+    return true;
+}
+```

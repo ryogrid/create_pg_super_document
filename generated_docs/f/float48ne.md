@@ -36,3 +36,16 @@ This function implements the inequality comparison operator for mixed-precision 
 - Returns a Datum containing a boolean result (true if not equal, false if equal)
 - Complement of the float48eq function
 - Part of a family of comparison functions including float48eq, float48lt, float48le, float48gt, float48ge
+
+## Simplified Source
+
+```c
+Datum float48ne(PG_FUNCTION_ARGS) {
+    // Extract float4 and float8 arguments
+    float4 arg1 = PG_GETARG_FLOAT4(0);
+    float8 arg2 = PG_GETARG_FLOAT8(1);
+
+    // Convert float4 to float8 and compare for inequality
+    PG_RETURN_BOOL(float8_ne((float8) arg1, arg2));
+}
+```

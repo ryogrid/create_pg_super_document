@@ -34,3 +34,15 @@ This is a static inline utility function that performs a memory copy of the user
 - The copy size is calculated as (node_size - sizeof(RBTNode)) to copy only the additional data
 - Essential for maintaining data integrity when nodes are moved or copied during tree rebalancing operations
 - Does not validate input parameters, assuming they are valid RBTNode pointers from the same tree type
+
+## Simplified Source
+
+```c
+static inline void
+rbt_copy_data(RBTree *rbt, RBTNode *dest, const RBTNode *src)
+{
+    // Copy user data from source to destination node
+    // Skip the base RBTNode structure, copy only additional data fields
+    memcpy(dest + 1, src + 1, rbt->node_size - sizeof(RBTNode));
+}
+```

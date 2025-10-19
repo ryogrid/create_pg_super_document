@@ -39,3 +39,22 @@ The function iterates through all position entries for the given word, extracts 
 - Weights in PostgreSQL text search correspond to importance levels (A=highest, D=lowest)
 - Located in 
 - The function is performance-critical as it's called for each word when building text search statistics
+
+## Simplified Source
+
+```c
+static int check_weight(TSVector txt, WordEntry *wptr, int8 weight) {
+    int len = POSDATALEN(txt, wptr);
+    int num = 0;
+    WordEntryPos *ptr = POSDATAPTR(txt, wptr);
+
+    // Count positions that match the weight bitmask
+    while (len--) {
+        if (weight & (1 << WEP_GETWEIGHT(*ptr)))
+            num++;
+        ptr++;
+    }
+
+    return num;
+}
+```

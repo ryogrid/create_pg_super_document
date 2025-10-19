@@ -45,3 +45,34 @@ For non-leaf entries that already contain compressed data (bounding boxes), the 
 - Uses PostgreSQL's float8_pl and float8_mi functions for safe floating-point arithmetic
 - Memory for the new bounding box and GISTENTRY is allocated in the current memory context
 - Part of PostgreSQL's spatial indexing infrastructure enabling efficient circle-based spatial queries
+
+## Simplified Source
+
+```c
+Datum gist_circle_compress(PG_FUNCTION_ARGS) {
+    GISTENTRY *entry = (GISTENTRY *) PG_GETARG_POINTER(0);
+    GISTENTRY *retval;
+
+    if (entry->leafkey) {
+        // Extract circle and compute its bounding box
+        CIRCLE *circle = DatumGetCircleP(entry->key);
+        BOX *boundbox = (BOX *) palloc(sizeof(BOX));
+
+        // Calculate bounding box from center and radius
+        boundbox->high.x = float8_pl(circle->center.x, circle->radius);
+        boundbox->low.x = float8_mi(circle->center.x, circle->radius);
+        boundbox->high.y = float8_pl(circle->center.y, circle->radius);
+        boundbox->low.y = float8_mi(circle->center.y, circle->radius);
+
+        // Create new entry with bounding box instead of full circle
+        retval = (GISTENTRY *) palloc(sizeof(GISTENTRY));
+        gistentryinit(*retval, PointerGetDatum(boundbox),
+                      entry->rel, entry->page, entry->offset, false);
+    } else {
+        // Internal nodes already contain compressed data
+        retval = entry;
+    }
+
+    PG_RETURN_POINTER(retval);
+}
+```

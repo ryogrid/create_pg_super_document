@@ -32,3 +32,20 @@ This function provides access to the first node in a singly-linked list by retur
 - Part of PostgreSQL's intrusive linked list implementation in src/include/lib/ilist.h
 - Should only be called on non-empty lists; caller is responsible for checking list emptiness
 - Returns the actual slist_node pointer, not the containing structure like other slist functions
+
+## Simplified Source
+
+```c
+static inline slist_node *
+slist_head_node(slist_head *head)
+{
+    // Return first node using offset 0 (the node itself)
+    return (slist_node *) slist_head_element_off(head, 0);
+}
+```
+
+**Key Points:**
+- Simple wrapper around `slist_head_element_off` with offset 0
+- Returns the actual slist_node pointer (not a containing structure)
+- Offset 0 means we want the node itself, not an offset into a containing struct
+- Assumes caller has verified the list is not empty

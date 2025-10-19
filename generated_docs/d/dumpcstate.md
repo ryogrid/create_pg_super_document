@@ -48,3 +48,37 @@ The output format includes:
 - RAINBOW represents a wildcard transition that matches any character
 - The function handles empty states (states with no outgoing arcs) gracefully
 - Part of PostgreSQL's internal regular expression engine debugging infrastructure
+
+## Simplified Source
+
+```c
+static void dumpcstate(int st, struct cnfa *cnfa, FILE *f) {
+    // Print state number with progress flag indicator
+    fprintf(f, "%d%s", st, (cnfa->stflags[st] & CNFA_NOPROGRESS) ? ":" : ".");
+
+    int pos = 1;
+    // Print all arcs (transitions) from this state
+    for (struct carc *ca = cnfa->states[st]; ca->co != COLORLESS; ca++) {
+        // Format different arc types
+        if (ca->co == RAINBOW)
+            fprintf(f, "\t[*]->%d", ca->to);  // Wildcard
+        else if (ca->co < cnfa->ncolors)
+            fprintf(f, "\t[%ld]->%d", (long) ca->co, ca->to);  // Color
+        else
+            fprintf(f, "\t:%ld:->%d", (long) (ca->co - cnfa->ncolors), ca->to);  // Constraint
+
+        // Line wrap after 5 transitions
+        if (pos == 5) {
+            fprintf(f, "\n");
+            pos = 1;
+        } else {
+            pos++;
+        }
+    }
+
+    // Final newline if needed
+    if (cnfa->states[st]->co == COLORLESS || pos != 1)
+        fprintf(f, "\n");
+    fflush(f);
+}
+```

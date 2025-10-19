@@ -48,3 +48,43 @@ The parsed components are then typically passed to parse_compress_specification(
 - Maintains backward compatibility with integer-only compression specifications
 - Does not perform validation of algorithm names or detail formats - this is handled by subsequent parsing functions
 - Used as a preprocessing step before calling parse_compress_specification() for full validation
+
+## Simplified Source
+
+```c
+void
+parse_compress_options(const char *option, char **algorithm, char **detail)
+{
+    char *colon_pos;
+    long numeric_value;
+    char *end_ptr;
+
+    // Check if option is a bare integer (for backward compatibility)
+    numeric_value = strtol(option, &end_ptr, 10);
+    if (*end_ptr == '\0') {
+        // Pure numeric input: 0 = "none", other = "gzip" with level
+        if (numeric_value == 0) {
+            *algorithm = pstrdup("none");
+            *detail = NULL;
+        } else {
+            *algorithm = pstrdup("gzip");
+            *detail = pstrdup(option);
+        }
+        return;
+    }
+
+    // Look for METHOD:DETAIL format
+    colon_pos = strchr(option, ':');
+    if (colon_pos == NULL) {
+        // No colon - whole string is the algorithm name
+        *algorithm = pstrdup(option);
+        *detail = NULL;
+    } else {
+        // Split on colon: algorithm before, detail after
+        *algorithm = palloc((colon_pos - option) + 1);
+        memcpy(*algorithm, option, colon_pos - option);
+        (*algorithm)[colon_pos - option] = '\0';
+        *detail = pstrdup(colon_pos + 1);
+    }
+}
+```

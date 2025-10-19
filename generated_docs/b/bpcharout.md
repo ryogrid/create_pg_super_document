@@ -34,3 +34,15 @@ This function serves as the standard PostgreSQL output function for the BPCHAR (
 - The comment notes this approach is only appropriate because BpChar and text are equivalent types internally
 - Returns a C string that can be directly used by external interfaces
 - Memory for the returned string is managed by PostgreSQL's memory context system
+
+## Simplified Source
+
+```c
+Datum bpcharout(PG_FUNCTION_ARGS) {
+    // Get the BPCHAR datum from argument 0
+    Datum txt = PG_GETARG_DATUM(0);
+
+    // Convert to C string using text conversion (since BPCHAR uses text structure)
+    PG_RETURN_CSTRING(TextDatumGetCString(txt));
+}
+```

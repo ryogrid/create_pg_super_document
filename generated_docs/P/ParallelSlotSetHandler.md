@@ -36,3 +36,15 @@ ParallelSlotSetHandler is an inline function that assigns a result handler callb
 - The handler function should return bool to indicate success/failure of result processing
 - Used extensively in PostgreSQL client tools like pg_amcheck, reindexdb, and vacuumdb for parallel operations
 - The context parameter allows passing operation-specific data to the handler without global variables
+
+## Simplified Source
+
+```c
+static inline void ParallelSlotSetHandler(ParallelSlot *slot, ParallelSlotResultHandler handler, void *context) {
+    // Set the result handler callback function for this parallel slot
+    slot->handler = handler;
+
+    // Set the context data to be passed to the handler when called
+    slot->handler_context = context;
+}
+```

@@ -31,3 +31,14 @@ This function checks if the character at the current position in the stemmer env
 - The g_vowel grouping is defined as  representing vowel characters in Indonesian
 - Generated automatically by Snowball compiler from Indonesian stemming rules
 - Used primarily in conditional checks during prefix removal operations
+
+## Simplified Source
+
+```c
+static int r_VOWEL(struct SN_env * z) {
+    // Check if current character is a vowel (a, e, i, o, u)
+    // Returns 1 if vowel, 0 if consonant
+    if (in_grouping(z, g_vowel, 97, 117, 0)) return 0; // not a vowel
+    return 1; // is a vowel
+}
+```

@@ -34,3 +34,25 @@ The function follows the typical Snowball stemming pattern: it sets the  marker 
 - Part of the Snowball stemming algorithm generated code for Armenian language support
 - Only removes suffixes that occur in the R2 region, ensuring morphologically appropriate stemming
 - This function is called as part of the multi-step Armenian stemming process which includes noun, verb, and adjective handling
+
+## Simplified Source
+
+```c
+static int r_ending(struct SN_env * z) {
+    // Mark end position for potential deletion
+    z->ket = z->c;
+
+    // Search backwards for Armenian ending patterns (57 patterns in a_3 array)
+    if (!(find_among_b(z, a_3, 57))) return 0;
+
+    // Mark start position for deletion
+    z->bra = z->c;
+
+    // Verify suffix is in R2 morphological region
+    if (r_R2(z) <= 0) return 0;
+
+    // Remove the matched suffix
+    slice_del(z);
+    return 1;
+}
+```

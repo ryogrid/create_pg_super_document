@@ -40,3 +40,68 @@ This function implements the core waiting and result processing logic for parall
 - Handles connection socket errors gracefully by skipping invalid sockets
 - Uses the first valid connection found for cancellation handling
 - The function is static, limiting its scope to the parallel_slot.c compilation unit
+
+## Simplified Source
+
+```c
+static bool wait_on_slots(ParallelSlotArray *sa) {
+    int i;
+    fd_set slotset;
+    int maxFd = 0;
+    PGconn *cancelconn = NULL;
+
+    // Build file descriptor set for select()
+    FD_ZERO(&slotset);
+    for (i = 0; i < sa->numslots; i++) {
+        int sock = PQsocket(sa->slots[i].connection);
+
+        if (sock < 0) continue;  // Skip invalid sockets
+
+        if (cancelconn == NULL) {
+            cancelconn = sa->slots[i].connection;  // First valid connection
+        }
+
+        FD_SET(sock, &slotset);
+        if (sock > maxFd) maxFd = sock;
+    }
+
+    // No valid connections
+    if (cancelconn == NULL) return false;
+
+    // Wait for activity on any socket
+    SetCancelConn(cancelconn);
+    i = select_loop(maxFd, &slotset);
+    ResetCancelConn();
+
+    if (i < 0) return false;  // select() failed
+
+    // Process results from connections with data
+    for (i = 0; i < sa->numslots; i++) {
+        int sock = PQsocket(sa->slots[i].connection);
+
+        // Consume input if socket has data
+        if (sock >= 0 && FD_ISSET(sock, &slotset)) {
+            PQconsumeInput(sa->slots[i].connection);
+        }
+
+        // Process all available results
+        while (!PQisBusy(sa->slots[i].connection)) {
+            PGresult *result = PQgetResult(sa->slots[i].connection);
+
+            if (result != NULL) {
+                // Process the result
+                if (!processQueryResult(&sa->slots[i], result)) {
+                    return false;
+                }
+            } else {
+                // Query completed - mark slot as idle
+                sa->slots[i].inUse = false;
+                ParallelSlotClearHandler(&sa->slots[i]);
+                break;
+            }
+        }
+    }
+
+    return true;
+}
+```

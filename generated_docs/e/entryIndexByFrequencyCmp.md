@@ -35,3 +35,25 @@ This is a classic query optimization technique where more selective (less freque
 - Compares `predictNumberResult` values which are populated during scan entry initialization
 - The sorting enables efficient execution order for multiple scan conditions in complex queries
 - Essential for minimizing computational cost in multi-key GIN index scans
+
+## Simplified Source
+
+```c
+static int entryIndexByFrequencyCmp(const void *a1, const void *a2, void *arg) {
+    const GinScanKey key = (const GinScanKey) arg;
+    int i1 = *(const int *) a1;
+    int i2 = *(const int *) a2;
+
+    // Get predicted result counts for both scan entries
+    uint32 n1 = key->scanEntry[i1]->predictNumberResult;
+    uint32 n2 = key->scanEntry[i2]->predictNumberResult;
+
+    // Return comparison result (ascending order - least frequent first)
+    if (n1 < n2)
+        return -1;
+    else if (n1 == n2)
+        return 0;
+    else
+        return 1;
+}
+```

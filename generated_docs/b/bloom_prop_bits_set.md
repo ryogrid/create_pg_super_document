@@ -37,3 +37,20 @@ The function uses PostgreSQL's efficient `pg_popcount` function to count set bit
 - This is the preferred metric for runtime debugging due to its low computational overhead
 - More direct false positive rate testing is recommended for thorough filter validation
 - Uses integer division with double casting for accurate floating-point results
+
+## Simplified Source
+
+```c
+double
+bloom_prop_bits_set(bloom_filter *filter)
+{
+    // Calculate size in bytes
+    int bitset_bytes = filter->m / BITS_PER_BYTE;
+
+    // Count set bits efficiently
+    uint64 bits_set = pg_popcount((char *) filter->bitset, bitset_bytes);
+
+    // Return proportion as a value between 0.0 and 1.0
+    return bits_set / (double) filter->m;
+}
+```

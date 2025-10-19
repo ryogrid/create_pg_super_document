@@ -32,3 +32,14 @@ This is a standard implementation for bbstreamer finalization that doesn't requi
 - No special cleanup required for recovery injector state
 - Part of the standard bbstreamer lifecycle management
 - Located in src/bin/pg_basebackup/bbstreamer_inject.c:200-208
+
+## Simplified Source
+
+```c
+static void
+bbstreamer_recovery_injector_finalize(bbstreamer *streamer)
+{
+    // Pass finalization to next streamer in chain
+    bbstreamer_finalize(streamer->bbs_next);
+}
+```

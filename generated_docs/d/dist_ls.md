@@ -35,3 +35,17 @@ The `dist_ls` function is a PostgreSQL built-in function that computes the minim
 - Provides SQL syntax flexibility when line-to-segment distance calculation is more natural
 - Essential for geometric queries involving infinite lines and bounded line segments
 - Part of PostgreSQL's comprehensive geometric data type operator family
+
+## Simplified Source
+
+```c
+Datum dist_ls(PG_FUNCTION_ARGS) {
+    // Extract line and line segment from function arguments
+    LINE *line = PG_GETARG_LINE_P(0);
+    LSEG *lseg = PG_GETARG_LSEG_P(1);
+
+    // Calculate distance between line and line segment
+    // Uses existing utility function for the core computation
+    PG_RETURN_FLOAT8(lseg_closept_line(NULL, lseg, line));
+}
+```

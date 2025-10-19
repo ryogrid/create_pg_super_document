@@ -60,3 +60,74 @@ Key processing phases include:
 - Critical component of Turkish text normalization and search functionality
 - Processes suffixes in reverse order (right-to-left) due to agglutinative word structure
 - Implements morphological decomposition essential for Turkish language processing
+
+## Simplified Source
+
+```c
+static int r_stem_nominal_verb_suffixes(struct SN_env * z) {
+    z->ket = z->c;
+    z->I[0] = 1;
+
+    // Phase 1: Try to match primary nominal verb suffixes
+    // Try past participle (-ymUs̈), past tense (-yDU), conditional (-ysA), or temporal (-yken)
+    if (r_mark_ymUs_(z) || r_mark_yDU(z) || r_mark_ysA(z) || r_mark_yken(z)) {
+        // Found primary suffix, process it
+        goto remove_suffix;
+    }
+
+    // Phase 2: Try conditional suffix with person markers
+    if (r_mark_cAsInA(z)) {
+        // Try person/number markers: sUnUz, lAr, yUm, sUn, yUz
+        r_mark_sUnUz(z) || r_mark_lAr(z) || r_mark_yUm(z) ||
+        r_mark_sUn(z) || r_mark_yUz(z);
+
+        // Must be followed by past participle
+        if (r_mark_ymUs_(z)) {
+            goto remove_suffix;
+        }
+    }
+
+    // Phase 3: Try plural marker with tense suffixes
+    if (r_mark_lAr(z)) {
+        slice_del(z);  // Remove the lAr suffix
+
+        z->ket = z->c;
+        // Try tense markers after removing lAr
+        r_mark_DUr(z) || r_mark_yDU(z) || r_mark_ysA(z) || r_mark_ymUs_(z);
+        z->I[0] = 0;
+        goto remove_suffix;
+    }
+
+    // Phase 4: Try 1st person plural with tense markers
+    if (r_mark_nUz(z)) {
+        r_mark_yDU(z) || r_mark_ysA(z);
+        goto remove_suffix;
+    }
+
+    // Phase 5: Try other person markers
+    if (r_mark_sUnUz(z) || r_mark_yUz(z) || r_mark_sUn(z) || r_mark_yUm(z)) {
+        slice_del(z);  // Remove person marker
+
+        z->ket = z->c;
+        r_mark_ymUs_(z);  // Try past participle
+        goto remove_suffix;
+    }
+
+    // Phase 6: Try present tense marker
+    if (r_mark_DUr(z)) {
+        slice_del(z);
+
+        z->ket = z->c;
+        // Try person markers after present tense
+        r_mark_sUnUz(z) || r_mark_lAr(z) || r_mark_yUm(z) ||
+        r_mark_sUn(z) || r_mark_yUz(z);
+
+        r_mark_ymUs_(z);  // Try past participle
+    }
+
+remove_suffix:
+    z->bra = z->c;
+    slice_del(z);  // Remove the identified suffix
+    return 1;
+}
+```

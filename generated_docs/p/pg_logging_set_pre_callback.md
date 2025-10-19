@@ -28,3 +28,13 @@ This function allows registration of a callback that will be invoked before each
 - The callback is executed by  after level checking but before any actual output formatting
 - Only one pre-callback can be registered at a time; setting a new callback overwrites the previous one
 - The callback should be lightweight and avoid complex operations that might interfere with logging performance
+
+## Simplified Source
+
+```c
+void pg_logging_set_pre_callback(void (*cb) (void))
+{
+    // Set the global pre-logging callback function
+    log_pre_callback = cb;
+}
+```

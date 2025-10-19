@@ -47,3 +47,105 @@ For relation data files, the function implements sophisticated logic to handle s
 - The function includes safety checks and will call pg_fatal for unexpected conditions
 - For relation files, the logic assumes that WAL replay will handle block-level changes, so only size differences need to be addressed
 - The keepwal hash table is consulted to preserve files needed for recovery
+
+## Simplified Source
+
+```c
+static file_action_t decide_file_action(file_entry_t *entry)
+{
+    const char *path = entry->path;
+
+    // Special files that should never be modified
+    if (strcmp(path, "global/pg_control") == 0)
+        return FILE_ACTION_NONE;
+
+    // Skip system files like .DS_Store
+    if (strstr(path, ".DS_Store") != NULL)
+        return FILE_ACTION_NONE;
+
+    // Handle excluded files - remove them from target if they exist
+    if (check_file_excluded(path, true))
+    {
+        if (entry->target_exists)
+            return FILE_ACTION_REMOVE;
+        else
+            return FILE_ACTION_NONE;
+    }
+
+    // Handle files missing from one system
+    if (!entry->target_exists && entry->source_exists)
+    {
+        // File exists in source but not target - copy it
+        switch (entry->source_type)
+        {
+            case FILE_TYPE_DIRECTORY:
+            case FILE_TYPE_SYMLINK:
+                return FILE_ACTION_CREATE;
+            case FILE_TYPE_REGULAR:
+                return FILE_ACTION_COPY;
+            case FILE_TYPE_UNDEFINED:
+                pg_fatal("unknown file type for \"%s\"", entry->path);
+                break;
+        }
+    }
+    else if (entry->target_exists && !entry->source_exists)
+    {
+        // File exists in target but not source
+        if (keepwal_entry_exists(path))
+        {
+            pg_log_debug("Not removing file \"%s\" because it is required for recovery", path);
+            return FILE_ACTION_NONE;
+        }
+        return FILE_ACTION_REMOVE;
+    }
+    else if (!entry->target_exists && !entry->source_exists)
+    {
+        // File doesn't exist in either system (shouldn't happen)
+        Assert(false);
+        return FILE_ACTION_NONE;
+    }
+
+    // File exists on both systems
+    Assert(entry->target_exists && entry->source_exists);
+
+    // Ensure files are of same type
+    if (entry->source_type != entry->target_type)
+        pg_fatal("file \"%s\" is of different type in source and target", entry->path);
+
+    // Never overwrite PG_VERSION files
+    if (pg_str_endswith(entry->path, "PG_VERSION"))
+        return FILE_ACTION_NONE;
+
+    // Handle different file types
+    switch (entry->source_type)
+    {
+        case FILE_TYPE_DIRECTORY:
+        case FILE_TYPE_SYMLINK:
+            return FILE_ACTION_NONE;
+
+        case FILE_TYPE_REGULAR:
+            if (!entry->isrelfile)
+            {
+                // Non-relation file - copy completely
+                return FILE_ACTION_COPY;
+            }
+            else
+            {
+                // Relation file - handle size differences
+                if (entry->target_size < entry->source_size)
+                    return FILE_ACTION_COPY_TAIL;
+                else if (entry->target_size > entry->source_size)
+                    return FILE_ACTION_TRUNCATE;
+                else
+                    return FILE_ACTION_NONE;
+            }
+            break;
+
+        case FILE_TYPE_UNDEFINED:
+            pg_fatal("unknown file type for \"%s\"", path);
+            break;
+    }
+
+    pg_fatal("could not decide what to do with file \"%s\"", path);
+}
+```

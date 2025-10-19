@@ -27,3 +27,13 @@ This function implements the extended hash operation for PostgreSQL's time data 
 - The function is a simple wrapper around hashint8extended, maintaining consistency with PostgreSQL's extended hashing infrastructure
 - Located in src/backend/utils/adt/date.c at lines 1753-1758
 - Provides better hash distribution than the basic time_hash function when used with different seed values
+
+## Simplified Source
+
+```c
+uint64 time_hash_extended(TimeADT time_value, uint64 seed) {
+    // Delegate to 64-bit integer extended hash function
+    // Time is represented internally as int64 microseconds since midnight
+    return hashint8extended(time_value, seed);
+}
+```

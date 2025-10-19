@@ -34,3 +34,16 @@ This function computes the shortest distance from a given line segment to a poin
 - Functionally identical to  but with reversed parameter order
 - Returns the result as a float8 (double precision) value
 - Demonstrates the commutative property of point-to-line-segment distance
+
+## Simplified Source
+
+```c
+Datum dist_sp(PG_FUNCTION_ARGS) {
+    // Get line segment and point arguments
+    LSEG *lseg = PG_GETARG_LSEG_P(0);
+    Point *pt = PG_GETARG_POINT_P(1);
+
+    // Calculate and return minimum distance from line segment to point
+    PG_RETURN_FLOAT8(lseg_closept_point(NULL, lseg, pt));
+}
+```

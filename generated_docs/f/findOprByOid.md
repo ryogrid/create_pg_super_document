@@ -35,3 +35,18 @@ This function is part of the pg_dump utility's object management system. It sear
 - Works specifically with operator objects stored in the operator relation
 - Located in src/bin/pg_dump/common.c:925-942
 - Has fewer call sites compared to findTypeByOid and findFuncByOid, primarily used for operator name formatting
+
+## Simplified Source
+
+```c
+OprInfo *findOprByOid(Oid oid) {
+    // Create catalog ID for operator lookup
+    CatalogId catId;
+    catId.tableoid = OperatorRelationId;
+    catId.oid = oid;
+
+    // Find object and return as OprInfo
+    DumpableObject *dobj = findObjectByCatalogId(catId);
+    return (OprInfo *) dobj;  // Returns NULL if not found
+}
+```

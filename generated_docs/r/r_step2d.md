@@ -47,3 +47,37 @@ The function requires at least 5 characters before the left boundary and validat
 - The boundary check (`z->c > z->lb`) ensures that matches only occur at word beginnings
 - Returns 1 on successful transformation, 0 if no match found, or negative values on error
 - The shorter minimum length requirement (5 vs 9 characters) suggests it handles shorter suffix patterns than r_step2c
+
+## Simplified Source
+
+```c
+static int r_step2d(struct SN_env * z) {
+    // Set up for suffix matching
+    z->ket = z->c;
+
+    // Check minimum length and character constraints
+    if (z->c - 5 <= z->lb || (z->p[z->c - 1] != 131 && z->p[z->c - 1] != 189))
+        return 0;
+
+    // Phase 1: Find and remove suffix from a_30 patterns
+    if (!find_among_b(z, a_30, 2)) return 0;
+    z->bra = z->c;
+    slice_del(z);  // Remove the matched suffix
+
+    // Reset state variable
+    z->I[0] = 0;
+
+    // Phase 2: Find pattern from a_31 and replace with epsilon
+    z->ket = z->c;
+    z->bra = z->c;
+    if (!find_among_b(z, a_31, 8)) return 0;
+
+    // Only proceed if at word beginning
+    if (z->c > z->lb) return 0;
+
+    // Replace with Greek epsilon character
+    slice_from_s(z, 2, s_68);
+
+    return 1;  // Success
+}
+```

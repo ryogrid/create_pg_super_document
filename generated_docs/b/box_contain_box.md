@@ -35,3 +35,20 @@ The function uses the BOX data structure which represents a rectangular box with
 - Uses floating-point comparison functions (FPge, FPle) to handle potential precision issues
 - Returns true if the contained_box is completely within or on the border of contains_box
 - The containment logic checks both X and Y dimensions independently
+
+## Simplified Source
+
+```c
+static bool box_contain_box(BOX *contains_box, BOX *contained_box) {
+    // Check if contained_box fits entirely within contains_box
+    // All boundaries of contained_box must be within or on contains_box boundaries
+
+    bool x_contained = (contains_box->high.x >= contained_box->high.x) &&
+                       (contains_box->low.x <= contained_box->low.x);
+
+    bool y_contained = (contains_box->high.y >= contained_box->high.y) &&
+                       (contains_box->low.y <= contained_box->low.y);
+
+    return x_contained && y_contained;
+}
+```

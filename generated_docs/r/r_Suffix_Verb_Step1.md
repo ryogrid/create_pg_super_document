@@ -46,3 +46,50 @@ This stepped approach ensures that shorter verb forms are not over-stemmed, pres
 - The varying length requirements reflect the morphological complexity of different Arabic verb suffixes
 - Part of the comprehensive Arabic verb stemming process that includes multiple sequential steps
 - Returns 1 on successful suffix removal and 0 when no applicable suffix is found
+
+## Simplified Source
+
+```c
+static int r_Suffix_Verb_Step1(struct SN_env * z) {
+    int suffix_category;
+
+    // Mark current position as end boundary for suffix matching
+    z->ket = z->c;
+
+    // Find matching verb suffix from predefined array (12 suffixes)
+    suffix_category = find_among_b(z, a_17, 12);
+    if (!suffix_category) return 0;  // No suffix found
+
+    // Mark start boundary for deletion
+    z->bra = z->c;
+
+    // Apply different minimum length requirements based on suffix type
+    switch (suffix_category) {
+        case 1:  // Category 1: minimum 4 UTF-8 characters
+            if (len_utf8(z->p) >= 4) {
+                slice_del(z);  // Delete the suffix
+            } else {
+                return 0;  // Word too short, don't remove suffix
+            }
+            break;
+
+        case 2:  // Category 2: minimum 5 UTF-8 characters
+            if (len_utf8(z->p) >= 5) {
+                slice_del(z);
+            } else {
+                return 0;
+            }
+            break;
+
+        case 3:  // Category 3: minimum 6 UTF-8 characters
+            if (len_utf8(z->p) >= 6) {
+                slice_del(z);
+            } else {
+                return 0;
+            }
+            break;
+    }
+
+    return 1;  // Successfully processed suffix
+}
+```

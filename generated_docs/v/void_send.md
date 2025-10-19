@@ -29,3 +29,15 @@ The void_send function is responsible for serializing void values to binary form
 - Always produces empty binary data to maintain consistency with void type semantics
 - Uses PostgreSQL's standard binary serialization infrastructure (pq_begintypsend/pq_endtypsend)
 - The empty string representation ensures minimal bandwidth usage for void values in binary protocol
+
+## Simplified Source
+
+```c
+Datum void_send(PG_FUNCTION_ARGS) {
+    StringInfoData buf;
+
+    // Send empty binary data for void values
+    pq_begintypsend(&buf);
+    PG_RETURN_BYTEA_P(pq_endtypsend(&buf));
+}
+```

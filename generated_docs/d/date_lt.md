@@ -37,3 +37,14 @@ This function implements the less-than comparison operator for PostgreSQL's DATE
 - Function follows PostgreSQL's V1 calling convention
 - Enables chronological ordering and sorting of date values
 - Foundation for other temporal comparison operations and date range queries
+
+## Simplified Source
+
+```c
+Datum date_lt(PG_FUNCTION_ARGS) {
+    DateADT dateVal1 = PG_GETARG_DATEADT(0);
+    DateADT dateVal2 = PG_GETARG_DATEADT(1);
+
+    PG_RETURN_BOOL(dateVal1 < dateVal2);
+}
+```

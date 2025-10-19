@@ -37,3 +37,21 @@ The function is essential for socket operations that need to behave differently 
 - Used to differentiate behavior between connection-oriented (TCP) and connectionless (UDP) protocols
 - The function assumes that if socket type cannot be determined, treating it as datagram is safer
 - Essential for PostgreSQLs cross-platform socket abstraction layer on Windows
+
+## Simplified Source
+
+```c
+static int isDataGram(SOCKET s)
+{
+    int socket_type;
+    int type_size = sizeof(socket_type);
+
+    // Get socket type - if fails, assume datagram (safer default)
+    if (getsockopt(s, SOL_SOCKET, SO_TYPE, (char *) &socket_type, &type_size)) {
+        return 1;  // Default to datagram on error
+    }
+
+    // Return 1 if UDP datagram, 0 if TCP stream
+    return (socket_type == SOCK_DGRAM) ? 1 : 0;
+}
+```

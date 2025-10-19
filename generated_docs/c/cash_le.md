@@ -37,3 +37,16 @@ The function performs a simple numerical less-than-or-equal comparison since cas
 - Located in src/backend/utils/adt/cash.c:642-649
 - Simple and efficient implementation due to internal integer representation
 - Essential for ordering operations, range queries, and boundary conditions on money values
+
+## Simplified Source
+
+```c
+Datum
+cash_le(PG_FUNCTION_ARGS)
+{
+    Cash c1 = PG_GETARG_CASH(0);
+    Cash c2 = PG_GETARG_CASH(1);
+
+    PG_RETURN_BOOL(c1 <= c2);
+}
+```

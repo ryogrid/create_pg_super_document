@@ -44,3 +44,43 @@ The function handles both compressed and uncompressed external data, properly se
 - The function properly handles both compressed and uncompressed external data by setting appropriate VARSIZE headers
 - TOAST table access is performed with AccessShareLock to ensure data consistency during retrieval
 - The function handles edge cases such as zero-length attributes gracefully
+
+## Simplified Source
+
+```c
+static struct varlena *toast_fetch_datum(struct varlena *attr) {
+    Relation toastrel;
+    struct varlena *result;
+    struct varatt_external toast_pointer;
+    int32 attrsize;
+
+    // Validate input is an external on-disk datum
+    if (!VARATT_IS_EXTERNAL_ONDISK(attr))
+        elog(ERROR, "toast_fetch_datum shouldn't be called for non-ondisk datums");
+
+    // Extract toast pointer and get size information
+    VARATT_EXTERNAL_GET_POINTER(toast_pointer, attr);
+    attrsize = VARATT_EXTERNAL_GET_EXTSIZE(toast_pointer);
+
+    // Allocate memory for reconstructed datum
+    result = (struct varlena *) palloc(attrsize + VARHDRSZ);
+
+    // Set appropriate header based on compression status
+    if (VARATT_EXTERNAL_IS_COMPRESSED(toast_pointer))
+        SET_VARSIZE_COMPRESSED(result, attrsize + VARHDRSZ);
+    else
+        SET_VARSIZE(result, attrsize + VARHDRSZ);
+
+    // Handle edge case of zero-length data
+    if (attrsize == 0)
+        return result;
+
+    // Open toast relation and fetch all chunks
+    toastrel = table_open(toast_pointer.va_toastrelid, AccessShareLock);
+    table_relation_fetch_toast_slice(toastrel, toast_pointer.va_valueid,
+                                     attrsize, 0, attrsize, result);
+    table_close(toastrel, AccessShareLock);
+
+    return result;
+}
+```

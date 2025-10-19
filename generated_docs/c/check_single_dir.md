@@ -35,3 +35,26 @@ The  function performs essential validation of PostgreSQL data directory structu
 - Fatal errors from this function will terminate the entire pg_upgrade process
 - Part of the comprehensive directory validation system in PostgreSQL's pg_upgrade utility
 - Essential for ensuring data directory integrity before attempting major version upgrades
+
+## Simplified Source
+
+```c
+static void check_single_dir(const char *pg_data, const char *subdir) {
+    struct stat statBuf;
+    char subDirName[MAXPGPATH];
+
+    // Construct full path, handling empty subdir and Windows path issues
+    snprintf(subDirName, sizeof(subDirName), "%s%s%s", pg_data,
+             *subdir ? "/" : "",  // Add separator only if subdir is not empty
+             subdir);
+
+    // Check if path exists and is accessible
+    if (stat(subDirName, &statBuf) != 0) {
+        report_status(PG_FATAL, "check for \"%s\" failed: %m", subDirName);
+    }
+    // Verify it's actually a directory
+    else if (!S_ISDIR(statBuf.st_mode)) {
+        report_status(PG_FATAL, "\"%s\" is not a directory", subDirName);
+    }
+}
+```

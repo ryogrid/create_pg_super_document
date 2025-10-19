@@ -33,3 +33,43 @@ This function performs final setup operations on a Command structure after the S
 - Truncates the first line at newline/carriage return characters for clean error display
 - Exits the program if parsing fails or an invalid query mode is encountered
 - Part of the pgbench benchmarking tool's SQL command processing pipeline
+
+## Simplified Source
+
+```c
+static void postprocess_sql_command(Command *my_command)
+{
+    char buffer[128];
+    static int prepnum = 0;
+
+    Assert(my_command->type == SQL_COMMAND);
+
+    // Save first line for error display
+    strlcpy(buffer, my_command->lines.data, sizeof(buffer));
+    buffer[strcspn(buffer, "\n\r")] = '\0';
+    my_command->first_line = pg_strdup(buffer);
+
+    // Handle different query execution modes
+    switch (querymode) {
+        case QUERY_SIMPLE:
+            // Simple mode: use SQL text as-is
+            my_command->argv[0] = my_command->lines.data;
+            my_command->argc++;
+            break;
+
+        case QUERY_PREPARED:
+            // Prepared mode: generate unique statement name
+            my_command->prepname = psprintf("P_%d", prepnum++);
+            /* fall through */
+
+        case QUERY_EXTENDED:
+            // Extended/prepared mode: parse parameters
+            if (!parseQuery(my_command))
+                exit(1);
+            break;
+
+        default:
+            exit(1);
+    }
+}
+```

@@ -34,3 +34,18 @@ The function is part of PostgreSQL's configuration validation framework, ensurin
 - Part of PostgreSQL's GUC validation framework for configuration parameter checking
 - Works in conjunction with GetHugePageSize() which actually implements the huge page functionality
 - The validation is compile-time based on preprocessor definitions rather than runtime platform detection
+
+## Simplified Source
+
+```c
+bool check_huge_page_size(int *newval, void **extra, GucSource source) {
+#if !(defined(MAP_HUGE_MASK) && defined(MAP_HUGE_SHIFT))
+    // Platform doesn't support huge pages - reject non-zero values
+    if (*newval != 0) {
+        GUC_check_errdetail("\"huge_page_size\" must be 0 on this platform.");
+        return false;
+    }
+#endif
+    return true;  // Value is valid
+}
+```

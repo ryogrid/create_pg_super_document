@@ -38,3 +38,28 @@ This function is a static implementation of the file existence check operation f
 - Opens file with O_RDONLY | PG_BINARY flags for cross-platform compatibility
 - Part of the directory-based WAL writing method implementation for pg_basebackup
 - Static function, only accessible within the walmethods.c compilation unit
+
+## Simplified Source
+
+```c
+static bool
+dir_existsfile(WalWriteMethod *wwmethod, const char *pathname)
+{
+    DirectoryMethodData *dir_data = (DirectoryMethodData *) wwmethod;
+    char tmppath[MAXPGPATH];
+    int fd;
+
+    clear_error(wwmethod);
+
+    // Build full path: basedir + pathname
+    snprintf(tmppath, sizeof(tmppath), "%s/%s", dir_data->basedir, pathname);
+
+    // Try to open file - if it opens, it exists
+    fd = open(tmppath, O_RDONLY | PG_BINARY, 0);
+    if (fd < 0)
+        return false;
+
+    close(fd);
+    return true;
+}
+```

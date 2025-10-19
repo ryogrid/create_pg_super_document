@@ -35,3 +35,15 @@ This function provides a consistent way to create NULL values throughout the pgb
 - Used in conditional expressions and error cases where NULL is the appropriate result
 - Part of the value management system in pgbench alongside setBoolValue, setIntValue, etc.
 - Critical for proper NULL handling in pgbench expressions and SQL-like semantics
+
+## Simplified Source
+
+```c
+static void
+setNullValue(PgBenchValue *pv)
+{
+    // Set type to NULL and clear value
+    pv->type = PGBT_NULL;
+    pv->u.ival = 0;
+}
+```

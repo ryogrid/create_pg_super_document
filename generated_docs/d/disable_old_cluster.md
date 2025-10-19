@@ -45,3 +45,30 @@ The function ensures that administrators cannot accidentally start the old clust
 - Particularly important for link-mode upgrades where data files are shared between clusters
 - The function provides clear user guidance about the implications and recovery procedures
 - Part of the final cleanup phase in the pg_upgrade process
+
+## Simplified Source
+
+```c
+void disable_old_cluster(void) {
+    char old_path[MAXPGPATH], new_path[MAXPGPATH];
+
+    // Report status to user
+    prep_status("Adding \".old\" suffix to old global/pg_control");
+
+    // Build paths for old and new control file locations
+    snprintf(old_path, sizeof(old_path), "%s/global/pg_control", old_cluster.pgdata);
+    snprintf(new_path, sizeof(new_path), "%s/global/pg_control.old", old_cluster.pgdata);
+
+    // Rename control file to disable old cluster
+    if (pg_mv_file(old_path, new_path) != 0)
+        pg_fatal("could not rename file \"%s\" to \"%s\": %m", old_path, new_path);
+
+    check_ok();
+
+    // Inform user about the change and recovery procedure
+    pg_log(PG_REPORT, "If you want to start the old cluster, you will need to remove "
+           "the \".old\" suffix from %s/global/pg_control.old. "
+           "Because \"link\" mode was used, the old cluster cannot be safely "
+           "started once the new cluster has been started.", old_cluster.pgdata);
+}
+```

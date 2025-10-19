@@ -39,3 +39,61 @@ The function handles both open and closed paths correctly - for closed paths, it
 - Time complexity is O(n) for bounding box check, O(n²) for full intersection test
 - Returns boolean result indicating whether any intersection exists
 - Part of PostgreSQL's geometric intersection operations suite
+
+## Simplified Source
+
+```c
+Datum path_inter(PG_FUNCTION_ARGS) {
+    // Extract two PATH objects from function arguments
+    PATH *p1 = PG_GETARG_PATH_P(0);
+    PATH *p2 = PG_GETARG_PATH_P(1);
+    BOX b1, b2;
+
+    // Phase 1: Build bounding boxes for quick overlap test
+    // Initialize bounding box for path 1
+    b1.high.x = b1.low.x = p1->p[0].x;
+    b1.high.y = b1.low.y = p1->p[0].y;
+    for (int i = 1; i < p1->npts; i++) {
+        b1.high.x = float8_max(p1->p[i].x, b1.high.x);
+        b1.high.y = float8_max(p1->p[i].y, b1.high.y);
+        b1.low.x = float8_min(p1->p[i].x, b1.low.x);
+        b1.low.y = float8_min(p1->p[i].y, b1.low.y);
+    }
+
+    // Initialize bounding box for path 2
+    b2.high.x = b2.low.x = p2->p[0].x;
+    b2.high.y = b2.low.y = p2->p[0].y;
+    for (int i = 1; i < p2->npts; i++) {
+        b2.high.x = float8_max(p2->p[i].x, b2.high.x);
+        b2.high.y = float8_max(p2->p[i].y, b2.high.y);
+        b2.low.x = float8_min(p2->p[i].x, b2.low.x);
+        b2.low.y = float8_min(p2->p[i].y, b2.low.y);
+    }
+
+    // Quick rejection: if bounding boxes don't overlap, paths can't intersect
+    if (!box_ov(&b1, &b2))
+        PG_RETURN_BOOL(false);
+
+    // Phase 2: Check all segment pairs for intersection
+    for (int i = 0; i < p1->npts; i++) {
+        int iprev = (i > 0) ? i - 1 : (p1->closed ? p1->npts - 1 : -1);
+        if (iprev == -1) continue; // Skip if open path and at first point
+
+        for (int j = 0; j < p2->npts; j++) {
+            int jprev = (j > 0) ? j - 1 : (p2->closed ? p2->npts - 1 : -1);
+            if (jprev == -1) continue; // Skip if open path and at first point
+
+            // Create line segments and test for intersection
+            LSEG seg1, seg2;
+            statlseg_construct(&seg1, &p1->p[iprev], &p1->p[i]);
+            statlseg_construct(&seg2, &p2->p[jprev], &p2->p[j]);
+
+            if (lseg_interpt_lseg(NULL, &seg1, &seg2))
+                PG_RETURN_BOOL(true);
+        }
+    }
+
+    // No segments intersect
+    PG_RETURN_BOOL(false);
+}
+```

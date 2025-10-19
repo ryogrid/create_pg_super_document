@@ -28,3 +28,16 @@ The timestamp_finite function is a public PostgreSQL function that determines if
 
 ## Notes and Other Information
 This is a public PostgreSQL function that can be called from SQL queries using the isfinite() function. PostgreSQL timestamps support special values including positive infinity ('infinity') and negative infinity ('-infinity') to represent unbounded time ranges. This function provides a way to distinguish between finite timestamp values and these special infinite values. The function follows PostgreSQL's standard function calling conventions using the PG_FUNCTION_ARGS framework.
+
+## Simplified Source
+
+```c
+Datum
+timestamp_finite(PG_FUNCTION_ARGS)
+{
+    Timestamp timestamp = PG_GETARG_TIMESTAMP(0);
+
+    // Return true if timestamp is finite (not infinity or -infinity)
+    PG_RETURN_BOOL(!TIMESTAMP_NOT_FINITE(timestamp));
+}
+```

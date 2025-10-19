@@ -38,3 +38,20 @@ This function assumes that the buffer's data is already properly aligned for use
 - Critical for implementing binary output functions for PostgreSQL data types
 - The returned bytea follows PostgreSQL's standard variable-length data format with a proper header
 - Memory management is handled by the PostgreSQL memory context system since the buffer was palloc'd
+
+## Simplified Source
+
+```c
+bytea *
+pq_endtypsend(StringInfo buf)
+{
+    // Cast buffer data to bytea for return
+    bytea *result = (bytea *) buf->data;
+
+    // Set the correct length in the bytea header
+    Assert(buf->len >= VARHDRSZ);
+    SET_VARSIZE(result, buf->len);
+
+    return result;
+}
+```

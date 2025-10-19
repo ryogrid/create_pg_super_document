@@ -38,3 +38,22 @@ The `open_none` function handles opening files without compression ("none" compr
 - When using file descriptor, it duplicates the descriptor to avoid conflicts with the original
 - Returns boolean success status - callers should check the return value
 - The opened FILE pointer is stored in CFH->private_data for later use by other compression functions
+
+## Simplified Source
+
+```c
+static bool
+open_none(const char *path, int fd, const char *mode, CompressFileHandle *CFH)
+{
+    Assert(CFH->private_data == NULL);
+
+    // Open file using descriptor or path
+    if (fd >= 0)
+        CFH->private_data = fdopen(dup(fd), mode);
+    else
+        CFH->private_data = fopen(path, mode);
+
+    // Return success status
+    return CFH->private_data != NULL;
+}
+```

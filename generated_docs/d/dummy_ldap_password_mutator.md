@@ -30,3 +30,14 @@ The function is assigned to the  function pointer, which allows PostgreSQL to su
 - It serves as the default assignment for the  variable
 - The hook mechanism allows for password transformation before LDAP authentication, but this default implementation performs no transformation
 - Custom implementations could potentially hash, encrypt, or otherwise modify passwords before LDAP binding operations
+
+## Simplified Source
+
+```c
+static char *
+dummy_ldap_password_mutator(char *input)
+{
+    // Default LDAP password mutator: no transformation
+    return input;
+}
+```

@@ -35,3 +35,43 @@ This function implements the data reading and decompression logic for Zstd-compr
 - Adds null termination to decompressed output for optimization in SQL command execution
 - Uses pg_fatal() for error reporting when decompression fails
 - Handles end-of-frame detection (res == 0) to properly terminate decompression loops
+
+## Simplified Source
+```c
+static void ReadDataFromArchiveZstd(ArchiveHandle *AH, CompressorState *cs) {
+    ZstdCompressorState *zstdcs = (ZstdCompressorState *) cs->private_data;
+    ZSTD_outBuffer *output = &zstdcs->output;
+    ZSTD_inBuffer *input = &zstdcs->input;
+    size_t input_allocated_size = ZSTD_DStreamInSize();
+
+    // Main decompression loop
+    for (;;) {
+        // Read compressed data chunk
+        input->size = input_allocated_size;
+        size_t cnt = cs->readF(AH, (char **) &input->src, &input->size);
+
+        input_allocated_size = input->size;
+        input->size = cnt;
+        input->pos = 0;
+
+        if (cnt == 0)
+            break;  // No more data
+
+        // Decompress the chunk
+        while (input->pos < input->size) {
+            output->pos = 0;
+            size_t res = ZSTD_decompressStream(zstdcs->dstream, output, input);
+
+            if (ZSTD_isError(res))
+                pg_fatal("could not decompress data: %s", ZSTD_getErrorName(res));
+
+            // Write decompressed data to archive
+            ((char *) output->dst)[output->pos] = '\0';  // Null terminate
+            ahwrite(output->dst, 1, output->pos, AH);
+
+            if (res == 0)
+                break;  // End of frame
+        }
+    }
+}
+```

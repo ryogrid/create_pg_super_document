@@ -33,3 +33,21 @@ If these conditions are met, it decrements the cursor and checks if the previous
 - The V2 vowel group (97-246) covers the ASCII range from a through extended Latin characters with diacritics
 - The function modifies the cursor position (z->c) as a side effect when the pattern matches
 - Located in stem_ISO_8859_1_finnish.c, indicating it is part of the ISO 8859-1 (Latin-1) character encoding variant of the Finnish stemmer
+
+## Simplified Source
+
+```c
+static int r_VI(struct SN_env * z) {
+    // Check if current character is 'i'
+    if (z->c <= z->lb || z->p[z->c - 1] != 'i') {
+        return 0;
+    }
+
+    // Move cursor back one position
+    z->c--;
+
+    // Check if character before 'i' is NOT in V2 vowel group
+    // Returns 1 if valid vowel-i pattern, 0 otherwise
+    return !in_grouping_b(z, g_V2, 97, 246, 0);
+}
+```

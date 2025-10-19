@@ -41,3 +41,14 @@ The function is part of PostgreSQL's multi-byte character handling infrastructur
 - Part of PostgreSQL's comprehensive multi-byte character encoding support system
 - Uses the global `pg_wchar_table` dispatch mechanism for encoding-specific operations
 - Located in src/backend/utils/mb/mbutils.c:979-985
+
+## Simplified Source
+
+```c
+int pg_mb2wchar(const char *from, pg_wchar *to) {
+    // Convert multibyte string to wide chars using database encoding
+    // Calculate string length and delegate to encoding-specific function
+    return pg_wchar_table[DatabaseEncoding->encoding].mb2wchar_with_len(
+        (const unsigned char *) from, to, strlen(from));
+}
+```

@@ -32,3 +32,23 @@ This function serves as the assignment hook for the  PostgreSQL configuration pa
 - Enforces mutual exclusivity with other recovery target types (time, name, XID, etc.)
 - The function assumes the LSN has already been validated by the check hook
 - Empty string values result in unsetting the recovery target rather than an error
+
+## Simplified Source
+
+```c
+void assign_recovery_target_lsn(const char *newval, void *extra) {
+    // Check for conflicts with other recovery target types
+    if (recoveryTarget != RECOVERY_TARGET_UNSET &&
+        recoveryTarget != RECOVERY_TARGET_LSN)
+        error_multiple_recovery_targets();
+
+    if (newval && strcmp(newval, "") != 0) {
+        // Set LSN recovery target
+        recoveryTarget = RECOVERY_TARGET_LSN;
+        recoveryTargetLSN = *((XLogRecPtr *) extra);  // Use parsed LSN from check hook
+    } else {
+        // Unset recovery target
+        recoveryTarget = RECOVERY_TARGET_UNSET;
+    }
+}
+```

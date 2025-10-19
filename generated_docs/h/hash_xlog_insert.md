@@ -41,3 +41,51 @@ The function operates on two buffers: first, it inserts the tuple data into the 
 - The function panics if PageAddItem fails, indicating a serious consistency problem
 - The metapage's hashm_ntuples field is incremented to maintain accurate tuple count statistics
 - Two separate buffer operations ensure atomicity - the insertion and the metapage update are handled independently
+
+## Simplified Source
+
+```c
+static void
+hash_xlog_insert(XLogReaderState *record)
+{
+    HashMetaPage metap;
+    XLogRecPtr lsn = record->EndRecPtr;
+    xl_hash_insert *xlrec = (xl_hash_insert *) XLogRecGetData(record);
+    Buffer buffer;
+    Page page;
+
+    // Replay insertion into data page
+    if (XLogReadBufferForRedo(record, 0, &buffer) == BLK_NEEDS_REDO)
+    {
+        Size datalen;
+        char *datapos = XLogRecGetBlockData(record, 0, &datalen);
+
+        page = BufferGetPage(buffer);
+
+        // Insert tuple at specified offset
+        if (PageAddItem(page, (Item) datapos, datalen, xlrec->offnum,
+                        false, false) == InvalidOffsetNumber)
+            elog(PANIC, "hash_xlog_insert: failed to add item");
+
+        PageSetLSN(page, lsn);
+        MarkBufferDirty(buffer);
+    }
+    if (BufferIsValid(buffer))
+        UnlockReleaseBuffer(buffer);
+
+    // Update metapage tuple count
+    if (XLogReadBufferForRedo(record, 1, &buffer) == BLK_NEEDS_REDO)
+    {
+        page = BufferGetPage(buffer);
+        metap = HashPageGetMeta(page);
+
+        // Increment total tuple count
+        metap->hashm_ntuples += 1;
+
+        PageSetLSN(page, lsn);
+        MarkBufferDirty(buffer);
+    }
+    if (BufferIsValid(buffer))
+        UnlockReleaseBuffer(buffer);
+}
+```

@@ -32,3 +32,12 @@ This function serves as a simple wrapper around libpq's PQbackendPID function to
 - The PID can be used with system monitoring tools or PostgreSQL's pg_stat_activity view
 - Returns pid_t type, which is typically an integer type representing process IDs
 - Location: src/backend/replication/libpqwalreceiver/libpqwalreceiver.c:1150-1158
+
+## Simplified Source
+
+```c
+static pid_t libpqrcv_get_backend_pid(WalReceiverConn *conn) {
+    // Simple wrapper around libpq function to get remote backend PID
+    return PQbackendPID(conn->streamConn);
+}
+```

@@ -35,3 +35,18 @@ This function is part of the pg_dump utility's object management system. It sear
 - Works specifically with access method objects (like btree, hash, gin, gist, etc.)
 - Located in src/bin/pg_dump/common.c:943-960
 - Primarily used in sorting operations and name comparison functions for access methods
+
+## Simplified Source
+
+```c
+AccessMethodInfo *findAccessMethodByOid(Oid oid) {
+    // Create catalog ID for access method lookup
+    CatalogId catId;
+    catId.tableoid = AccessMethodRelationId;
+    catId.oid = oid;
+
+    // Find object and return as AccessMethodInfo
+    DumpableObject *dobj = findObjectByCatalogId(catId);
+    return (AccessMethodInfo *) dobj;  // Returns NULL if not found
+}
+```

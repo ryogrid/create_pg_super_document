@@ -36,3 +36,63 @@ The algorithm processes histogram boundaries and calculates probability contribu
 - [Edge](../E/Edge.md) values (histogram boundaries) receive additional probability weight of 0.5/interval_length
 - Each interval between histogram values contributes frac = 1.0/(nhist-1) total probability
 - Handles cases where k does not appear as an exact histogram boundary by using interval-based calculation
+
+## Simplified Source
+
+```c
+static float *
+calc_hist(const float4 *hist, int nhist, int n)
+{
+    // Allocate result array for probabilities [0..n]
+    float *hist_part = (float *) palloc((n + 1) * sizeof(float));
+
+    // Each histogram interval contributes equal probability
+    float frac = 1.0f / (float)(nhist - 1);
+
+    int i = 0;  // Current histogram index
+    float prev_interval = 0, next_interval;
+
+    // Calculate probability for each distinct element count k
+    for (int k = 0; k <= n; k++)
+    {
+        int count = 0;
+
+        // Count histogram boundaries that equal k
+        while (i < nhist && hist[i] <= k)
+        {
+            count++;
+            i++;
+        }
+
+        if (count > 0)
+        {
+            // k appears as exact histogram boundary
+            // Calculate interval to next boundary
+            if (i < nhist)
+                next_interval = hist[i] - hist[i - 1];
+            else
+                next_interval = 0;
+
+            // Probability from exclusive boxes plus edge contributions
+            float val = (float)(count - 1);
+            if (next_interval > 0)
+                val += 0.5f / next_interval;  // Right edge contribution
+            if (prev_interval > 0)
+                val += 0.5f / prev_interval;  // Left edge contribution
+
+            hist_part[k] = frac * val;
+            prev_interval = next_interval;
+        }
+        else
+        {
+            // k is not an exact boundary, interpolate from interval
+            if (prev_interval > 0)
+                hist_part[k] = frac / prev_interval;
+            else
+                hist_part[k] = 0.0f;
+        }
+    }
+
+    return hist_part;
+}
+```

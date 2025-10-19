@@ -37,3 +37,13 @@ The function provides a clean interface for external code to obtain a Romanian s
 - The '4' parameter indicates Romanian stemming requires 4 integer state variables (I[0] through I[3])
 - Part of the standard Snowball stemmer API pattern used across all language implementations
 - External linkage allows this function to be called from other compilation units
+
+## Simplified Source
+
+```c
+extern struct SN_env * romanian_UTF_8_create_env(void) {
+    // Create Snowball environment for Romanian stemming
+    // Parameters: 0 = UTF-8 encoding, 4 = number of integer state variables
+    return SN_create_env(0, 4);
+}
+```

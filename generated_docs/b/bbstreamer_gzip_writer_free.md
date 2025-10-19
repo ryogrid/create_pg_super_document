@@ -32,3 +32,21 @@ This function should only be called after bbstreamer_gzip_writer_finalize() has 
 - Frees the duplicated pathname string that was allocated in the constructor
 - Part of the static callback interface for complete resource cleanup
 - Critical for preventing memory leaks in long-running backup operations
+
+## Simplified Source
+
+```c
+static void
+bbstreamer_gzip_writer_free(bbstreamer *streamer)
+{
+    bbstreamer_gzip_writer *writer = (bbstreamer_gzip_writer *) streamer;
+
+    // Verify cleanup state before freeing
+    Assert(writer->base.bbs_next == NULL);  // No downstream streamers
+    Assert(writer->gzfile == NULL);         // File should be closed
+
+    // Free allocated memory
+    pfree(writer->pathname);
+    pfree(writer);
+}
+```

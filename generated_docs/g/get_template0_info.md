@@ -53,3 +53,70 @@ The retrieved information is stored in the cluster's template0 field for later u
 - Critical for maintaining database locale consistency during pg_upgrade operations
 - Memory allocated for DbLocaleInfo must be managed by the calling code
 - Part of pg_upgrade's cluster information gathering infrastructure
+
+## Simplified Source
+
+```c
+static void
+get_template0_info(ClusterInfo *cluster)
+{
+    PGconn *connection = connectToServer(cluster, "template1");
+    DbLocaleInfo *locale_info;
+    PGresult *query_result;
+
+    // Build version-specific query for template0 locale information
+    if (GET_MAJOR_VERSION(cluster->major_version) >= 1700)
+    {
+        // PostgreSQL 17.0+ uses standard datlocale field
+        query_result = executeQueryOrDie(connection,
+            "SELECT encoding, datlocprovider, datcollate, datctype, datlocale "
+            "FROM pg_catalog.pg_database WHERE datname='template0'");
+    }
+    else if (GET_MAJOR_VERSION(cluster->major_version) >= 1500)
+    {
+        // PostgreSQL 15.0-16.x uses daticulocale aliased as datlocale
+        query_result = executeQueryOrDie(connection,
+            "SELECT encoding, datlocprovider, datcollate, datctype, daticulocale AS datlocale "
+            "FROM pg_catalog.pg_database WHERE datname='template0'");
+    }
+    else
+    {
+        // Pre-15.0 versions: provide compatibility defaults
+        query_result = executeQueryOrDie(connection,
+            "SELECT encoding, 'c' AS datlocprovider, datcollate, datctype, NULL AS datlocale "
+            "FROM pg_catalog.pg_database WHERE datname='template0'");
+    }
+
+    // Verify template0 exists
+    if (PQntuples(query_result) != 1)
+        pg_fatal("template0 not found");
+
+    // Allocate and populate locale information structure
+    locale_info = pg_malloc(sizeof(DbLocaleInfo));
+
+    // Extract field indices for result parsing
+    int encoding_idx = PQfnumber(query_result, "encoding");
+    int provider_idx = PQfnumber(query_result, "datlocprovider");
+    int collate_idx = PQfnumber(query_result, "datcollate");
+    int ctype_idx = PQfnumber(query_result, "datctype");
+    int locale_idx = PQfnumber(query_result, "datlocale");
+
+    // Parse and store locale information
+    locale_info->db_encoding = atoi(PQgetvalue(query_result, 0, encoding_idx));
+    locale_info->db_collprovider = PQgetvalue(query_result, 0, provider_idx)[0];
+    locale_info->db_collate = pg_strdup(PQgetvalue(query_result, 0, collate_idx));
+    locale_info->db_ctype = pg_strdup(PQgetvalue(query_result, 0, ctype_idx));
+
+    // Handle potentially NULL locale field
+    if (PQgetisnull(query_result, 0, locale_idx))
+        locale_info->db_locale = NULL;
+    else
+        locale_info->db_locale = pg_strdup(PQgetvalue(query_result, 0, locale_idx));
+
+    // Store in cluster information
+    cluster->template0 = locale_info;
+
+    PQclear(query_result);
+    PQfinish(connection);
+}
+```

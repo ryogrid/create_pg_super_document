@@ -41,3 +41,24 @@ This function is the counterpart to  - while  is for queries that return data,  
 - Unlike , this function expects no result data and will not validate result set format
 - The function automatically cleans up the PGresult structure by calling 
 - Typical use cases include configuration commands that must succeed for proper pg_rewind operation
+
+## Simplified Source
+
+```c
+static void
+run_simple_command(PGconn *conn, const char *sql)
+{
+    PGresult *res;
+
+    // Execute the SQL command
+    res = PQexec(conn, sql);
+
+    // Check if command completed successfully
+    if (PQresultStatus(res) != PGRES_COMMAND_OK)
+        pg_fatal("error running query (%s) in source server: %s",
+                 sql, PQresultErrorMessage(res));
+
+    // Clean up result
+    PQclear(res);
+}
+```

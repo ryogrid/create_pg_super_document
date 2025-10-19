@@ -38,3 +38,20 @@ This function safely closes the currently open target file managed by the file o
 - Always called before opening a new target file to ensure clean state
 - Critical for maintaining file system consistency during pg_rewind operations
 - Uses pg_fatal for error handling, ensuring immediate termination on close failures
+
+## Simplified Source
+
+```c
+void close_target_file(void) {
+    // Check if file is actually open
+    if (dstfd == -1)
+        return;
+
+    // Close the file and check for errors
+    if (close(dstfd) != 0)
+        pg_fatal("could not close target file \"%s\": %m", dstpath);
+
+    // Reset file descriptor to indicate no file is open
+    dstfd = -1;
+}
+```

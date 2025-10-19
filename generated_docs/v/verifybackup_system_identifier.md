@@ -36,3 +36,18 @@ The system identifier is a unique identifier for a PostgreSQL database cluster t
 - Works in conjunction with other callback functions like verifybackup_version_cb, verifybackup_per_file_cb, and verifybackup_per_wal_range_cb
 - The stored system identifier is crucial for ensuring backup compatibility and preventing mismatched restorations
 - System identifiers are generated when a PostgreSQL cluster is initialized and remain constant throughout the cluster's lifetime
+
+## Simplified Source
+
+```c
+static void
+verifybackup_system_identifier(JsonManifestParseContext *context,
+                               uint64 manifest_system_identifier)
+{
+    // Extract manifest data from parsing context
+    manifest_data *manifest = context->private_data;
+
+    // Store system identifier for later validation
+    manifest->system_identifier = manifest_system_identifier;
+}
+```

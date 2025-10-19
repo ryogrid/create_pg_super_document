@@ -46,3 +46,32 @@ The function handles two main types of SMGR operations:
 - The function handles memory management by calling pfree() on allocated path strings
 - For truncate operations, it displays additional information including the target block number and operation flags
 - The function uses relpathperm() to generate human-readable file paths from relation locators and fork numbers
+
+## Simplified Source
+
+```c
+void
+smgr_desc(StringInfo buf, XLogReaderState *record)
+{
+    char *rec = XLogRecGetData(record);
+    uint8 info = XLogRecGetInfo(record) & ~XLR_INFO_MASK;
+
+    if (info == XLOG_SMGR_CREATE) {
+        // File creation: show file path
+        xl_smgr_create *xlrec = (xl_smgr_create *) rec;
+        char *path = relpathperm(xlrec->rlocator, xlrec->forkNum);
+
+        appendStringInfoString(buf, path);
+        pfree(path);
+    }
+    else if (info == XLOG_SMGR_TRUNCATE) {
+        // File truncation: show path, target blocks, and flags
+        xl_smgr_truncate *xlrec = (xl_smgr_truncate *) rec;
+        char *path = relpathperm(xlrec->rlocator, MAIN_FORKNUM);
+
+        appendStringInfo(buf, "%s to %u blocks flags %d",
+                        path, xlrec->blkno, xlrec->flags);
+        pfree(path);
+    }
+}
+```

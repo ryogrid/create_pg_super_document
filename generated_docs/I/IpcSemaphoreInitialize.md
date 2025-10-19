@@ -43,3 +43,28 @@ The function is designed to be used during semaphore set initialization, where e
 - Uses errmsg_internal() instead of errmsg(), indicating this is primarily for internal debugging
 - The union semun structure is used to safely pass the integer value to semctl(), following POSIX semaphore conventions
 - Any failure in semctl() results in a FATAL error, making this function critical for proper semaphore initialization
+
+## Simplified Source
+
+```c
+static void IpcSemaphoreInitialize(IpcSemaphoreId semId, int semNum, int value) {
+    union semun semun;
+
+    // Set up semctl argument with the desired value
+    semun.val = value;
+
+    // Initialize the semaphore to the specified value
+    if (semctl(semId, semNum, SETVAL, semun) < 0) {
+        int saved_errno = errno;
+
+        // Report fatal error with diagnostic info
+        ereport(FATAL,
+            (errmsg_internal("semctl(%d, %d, SETVAL, %d) failed: %m",
+                             semId, semNum, value),
+             // Special hint for ERANGE about SEMVMX limit
+             (saved_errno == ERANGE) ?
+             errhint("Kernel SEMVMX value may need to be at least %d. "
+                     "Check PostgreSQL documentation.", value) : 0));
+    }
+}
+```

@@ -33,3 +33,14 @@ The function uses `PG_FUNCTION_ARGS` macro, which provides access to:
 - All actual functionality is delegated to the current `gin_tsquery_consistent` implementation
 - Part of the GIN (Generalized Inverted Index) indexing system for full-text search in PostgreSQL
 - Works in conjunction with `gin_extract_tsquery_oldsig` to provide complete backward compatibility for the old GIN text search API
+
+## Simplified Source
+
+```c
+Datum
+gin_tsquery_consistent_oldsig(PG_FUNCTION_ARGS)
+{
+    // Simple delegation to current implementation
+    return gin_tsquery_consistent(fcinfo);
+}
+```

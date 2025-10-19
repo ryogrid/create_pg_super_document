@@ -29,3 +29,16 @@ This function implements the less-than comparison operator for mixed-type compar
 - The comparison is performed using C's native integer comparison, which handles the type promotion from int16 to int64 automatically
 - Located in src/backend/utils/adt/int8.c:359-367
 - Returns a Datum containing a boolean value indicating the comparison result
+
+## Simplified Source
+
+```c
+Datum int28lt(PG_FUNCTION_ARGS) {
+    // Extract 2-byte and 8-byte integer arguments
+    int16 val1 = PG_GETARG_INT16(0);
+    int64 val2 = PG_GETARG_INT64(1);
+
+    // Return boolean result of less-than comparison
+    PG_RETURN_BOOL(val1 < val2);
+}
+```

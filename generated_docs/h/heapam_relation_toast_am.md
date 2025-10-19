@@ -27,3 +27,14 @@ The function simply returns the relations access method OID (rd_rel->relam) from
 
 ## Notes and Other Information
 This function embodies a key design principle of PostgreSQLs TOAST system: TOAST tables for heap relations are themselves heap relations. This design choice simplifies the implementation and ensures that TOAST tables inherit all the reliability, concurrency, and performance characteristics of regular heap storage. Other access methods might implement different strategies for their TOAST storage, but for heap AM, the choice is straightforward and consistent.
+
+## Simplified Source
+
+```c
+static Oid
+heapam_relation_toast_am(Relation rel)
+{
+    // For heap relations, TOAST tables use the same access method as the parent
+    return rel->rd_rel->relam;
+}
+```

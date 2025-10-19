@@ -41,3 +41,25 @@ The validation rules enforced are:
 - Terminates the program with pg_fatal() when incompatible options are detected
 - Part of the vacuumdb command-line utility validation system
 - Helps ensure that vacuum operations have clear, unambiguous scope
+
+## Simplified Source
+
+```c
+void check_objfilter(void) {
+    // Check for conflicting database scope options
+    if ((objfilter & OBJFILTER_ALL_DBS) && (objfilter & OBJFILTER_DATABASE))
+        pg_fatal("cannot vacuum all databases and a specific one at the same time");
+
+    // Check for conflicting table/schema options
+    if ((objfilter & OBJFILTER_TABLE) && (objfilter & OBJFILTER_SCHEMA))
+        pg_fatal("cannot vacuum all tables in schema(s) and specific table(s) at the same time");
+
+    // Check for table vs schema exclusion conflicts
+    if ((objfilter & OBJFILTER_TABLE) && (objfilter & OBJFILTER_SCHEMA_EXCLUDE))
+        pg_fatal("cannot vacuum specific table(s) and exclude schema(s) at the same time");
+
+    // Check for schema inclusion vs exclusion conflicts
+    if ((objfilter & OBJFILTER_SCHEMA) && (objfilter & OBJFILTER_SCHEMA_EXCLUDE))
+        pg_fatal("cannot vacuum all tables in schema(s) and exclude schema(s) at the same time");
+}
+```

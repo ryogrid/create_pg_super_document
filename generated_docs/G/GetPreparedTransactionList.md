@@ -40,3 +40,32 @@ GetPreparedTransactionList is a static function that provides a snapshot of all 
 - Creates complete copies of transaction data to avoid holding locks during caller processing
 - The returned array is palloc'd and should be freed by the caller when no longer needed
 - WARNING: May include transactions that are not fully prepared yet - caller filtering may be required
+
+## Simplified Source
+
+```c
+static int GetPreparedTransactionList(GlobalTransaction *gxacts) {
+    // Acquire shared lock on two-phase state
+    LWLockAcquire(TwoPhaseStateLock, LW_SHARED);
+
+    // Return early if no prepared transactions
+    if (TwoPhaseState->numPrepXacts == 0) {
+        LWLockRelease(TwoPhaseStateLock);
+        *gxacts = NULL;
+        return 0;
+    }
+
+    // Allocate array and copy all prepared transactions
+    int num = TwoPhaseState->numPrepXacts;
+    GlobalTransaction array = palloc(sizeof(GlobalTransactionData) * num);
+    *gxacts = array;
+
+    for (int i = 0; i < num; i++) {
+        memcpy(array + i, TwoPhaseState->prepXacts[i],
+               sizeof(GlobalTransactionData));
+    }
+
+    LWLockRelease(TwoPhaseStateLock);
+    return num;
+}
+```

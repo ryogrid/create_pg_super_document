@@ -34,3 +34,16 @@ This function checks if two LINE objects intersect by using the internal  helper
 - Returns true if lines intersect, false if they are parallel and don't intersect
 - The function follows PostgreSQL's V1 calling convention using PG_FUNCTION_ARGS macro
 - Uses NULL as first parameter to line_interpt_line to indicate intersection test only
+
+## Simplified Source
+
+```c
+Datum line_intersect(PG_FUNCTION_ARGS) {
+    // Get the two input lines
+    LINE *l1 = PG_GETARG_LINE_P(0);
+    LINE *l2 = PG_GETARG_LINE_P(1);
+
+    // Check if lines intersect (NULL means we only want true/false, not the intersection point)
+    PG_RETURN_BOOL(line_interpt_line(NULL, l1, l2));
+}
+```

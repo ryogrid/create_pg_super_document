@@ -51,3 +51,17 @@ The function handles both read and write scenarios differently - for read operat
 - The function is designed to integrate with PostgreSQL's pluggable compression architecture
 - Error handling uses PostgreSQL's standard pg_fatal() mechanism for unrecoverable errors
 - The LZ4 compression level can be customized through the compression_spec parameter
+
+## Simplified Source
+
+```c
+void
+InitCompressorLZ4(CompressorState *cs,
+                  const pg_compress_specification compression_spec)
+{
+    // This is the fallback implementation when LZ4 is not available
+    pg_fatal("this build does not support compression with %s", "LZ4");
+}
+```
+
+**Note**: This shows the fallback implementation when LZ4 support is not compiled in. When LZ4 is available, this function would set up the CompressorState with LZ4-specific function pointers and initialize compression contexts.

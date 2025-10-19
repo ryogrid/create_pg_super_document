@@ -38,3 +38,14 @@ The function operates on:
 - Part of the early failure detection mechanism in pg_basebackup
 - Helps prevent wasted time waiting for backups that have already failed due to child process issues
 - The bgchild typically handles tasks like WAL streaming or compression during backup operations
+
+## Simplified Source
+
+```c
+static void
+sigchld_handler(SIGNAL_ARGS)
+{
+    // Mark that background child process has exited
+    bgchild_exited = true;
+}
+```

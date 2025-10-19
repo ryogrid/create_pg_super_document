@@ -33,4 +33,17 @@ This function computes the shortest distance from a given point to a line segmen
 - Located in 
 - This is a PostgreSQL SQL callable function for geometric operations
 - Returns the result as a float8 (double precision) value
-- The actual distance calculation logic is implemented in 
+- The actual distance calculation logic is implemented in lseg_closept_point
+
+## Simplified Source
+
+```c
+Datum dist_ps(PG_FUNCTION_ARGS) {
+    // Get point and line segment arguments
+    Point *pt = PG_GETARG_POINT_P(0);
+    LSEG *lseg = PG_GETARG_LSEG_P(1);
+
+    // Calculate and return minimum distance from point to line segment
+    PG_RETURN_FLOAT8(lseg_closept_point(NULL, lseg, pt));
+}
+``` 

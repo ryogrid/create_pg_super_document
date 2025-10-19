@@ -42,3 +42,41 @@ In all other cases, it returns true, meaning the local slot should be retained.
 - The function name matching is case-sensitive using strcmp
 - Returns true if the slot should be kept, false if it should be dropped
 - This is a key component in the slot cleanup logic that removes obsolete synchronized slots
+
+## Simplified Source
+
+```c
+/*
+ * Helper function to check if local_slot is required to be retained.
+ *
+ * Return false if local_slot does not exist in remote_slots or is
+ * invalidated while the corresponding remote slot is still valid.
+ */
+static bool
+local_sync_slot_required(ReplicationSlot *local_slot, List *remote_slots)
+{
+    bool remote_exists = false;
+    bool locally_invalidated = false;
+
+    // Search for matching remote slot by name
+    foreach_ptr(RemoteSlot, remote_slot, remote_slots)
+    {
+        if (strcmp(remote_slot->name, NameStr(local_slot->data.name)) == 0)
+        {
+            remote_exists = true;
+
+            // Check if local slot is invalidated while remote is valid
+            SpinLockAcquire(&local_slot->mutex);
+            locally_invalidated =
+                (remote_slot->invalidated == RS_INVAL_NONE) &&
+                (local_slot->data.invalidated != RS_INVAL_NONE);
+            SpinLockRelease(&local_slot->mutex);
+
+            break;
+        }
+    }
+
+    // Keep slot only if remote exists and local is not invalidated
+    return (remote_exists && !locally_invalidated);
+}
+```

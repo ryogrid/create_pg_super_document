@@ -36,3 +36,19 @@ The  function serves as the PostgreSQL built-in function that implements the ine
 - The function uses PostgreSQL's type cache system to handle different range types efficiently
 - Returns a boolean Datum indicating whether the two ranges are not equal
 - Located in src/backend/utils/adt/rangetypes.c:625-637
+
+## Simplified Source
+
+```c
+Datum range_ne(PG_FUNCTION_ARGS) {
+    // Extract range arguments from function call
+    RangeType *r1 = PG_GETARG_RANGE_P(0);
+    RangeType *r2 = PG_GETARG_RANGE_P(1);
+
+    // Get type cache for this range type
+    TypeCacheEntry *typcache = range_get_typcache(fcinfo, RangeTypeGetOid(r1));
+
+    // Delegate to internal inequality function and return result
+    return PG_RETURN_BOOL(range_ne_internal(typcache, r1, r2));
+}
+```

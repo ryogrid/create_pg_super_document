@@ -34,3 +34,12 @@ The caching mechanism allows the system to maintain a reference to the current s
 - The cached information is typically used during stream start, stop, and processing operations
 - Provides a centralized way to access current worker information without parameter passing
 - The global variable approach suggests this function is used in contexts where worker information needs to be accessible across multiple function calls within the same execution context
+
+## Simplified Source
+
+```c
+void pa_set_stream_apply_worker(ParallelApplyWorkerInfo *winfo) {
+    // Cache the parallel apply worker information globally
+    stream_apply_worker = winfo;
+}
+```

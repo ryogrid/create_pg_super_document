@@ -36,3 +36,39 @@ This function prints the contents of an edge table, which is a key data structur
 - Primarily used for debugging edge recombination crossover operations
 - Part of the GEQO (Genetic Query Optimizer) debugging infrastructure
 - Automatically flushes output to ensure immediate visibility
+
+## Simplified Source
+
+```c
+void
+print_edge_table(FILE *fp, Edge *edge_table, int num_gene)
+{
+    // Print header for the edge table
+    fprintf(fp, "\nEDGE TABLE\n");
+
+    // Print each gene and its adjacent edges (1-indexed)
+    for (int i = 1; i <= num_gene; i++) {
+        // Print gene number
+        fprintf(fp, "%d :", i);
+
+        // Print all adjacent genes for this gene
+        for (int j = 0; j < edge_table[i].unused_edges; j++)
+            fprintf(fp, " %d", edge_table[i].edge_list[j]);
+
+        // End line for this gene
+        fprintf(fp, "\n");
+    }
+
+    // Add spacing and ensure output is written
+    fprintf(fp, "\n");
+    fflush(fp);
+}
+```
+
+**Key Simplifications:**
+- Combined variable declarations with loop initialization
+- Added descriptive comments for each section
+- Clarified the 1-indexed nature of the gene numbering
+- Preserved the essential edge table printing logic
+- Maintained the debugging output format with proper spacing
+- Kept the fflush to ensure immediate output visibility

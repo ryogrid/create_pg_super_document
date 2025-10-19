@@ -44,3 +44,47 @@ The algorithm follows a deterministic sequence, with fallback mechanisms when ce
 - Implements backtracking with saved positions (m2, m3, m4, m5) to handle alternative suffix processing paths
 - Part of the Snowball stemming library integrated into PostgreSQL for text search functionality
 - The function signature suggests it's designed to be called externally, possibly as part of a stemming interface
+
+## Simplified Source
+
+```c
+extern int italian_UTF_8_stem(struct SN_env * z) {
+    // Stage 1: Preprocess the word
+    int cursor_pos = z->c;
+    r_prelude(z);
+    z->c = cursor_pos;
+
+    // Stage 2: Mark morphological regions in the word
+    r_mark_regions(z);
+
+    // Stage 3: Process from end of word backwards
+    z->lb = z->c;
+    z->c = z->l;
+
+    // Stage 4: Remove attached pronouns (clitics)
+    int saved_pos = z->l - z->c;
+    r_attached_pronoun(z);
+    z->c = z->l - saved_pos;
+
+    // Stage 5: Remove suffixes (try standard first, then verb if that fails)
+    saved_pos = z->l - z->c;
+    if (r_standard_suffix(z) == 0) {
+        // Standard suffix removal failed, try verb suffix
+        r_verb_suffix(z);
+    }
+    z->c = z->l - saved_pos;
+
+    // Stage 6: Remove vowel suffixes
+    saved_pos = z->l - z->c;
+    r_vowel_suffix(z);
+    z->c = z->l - saved_pos;
+
+    // Stage 7: Final postprocessing
+    z->c = z->lb;
+    cursor_pos = z->c;
+    r_postlude(z);
+    z->c = cursor_pos;
+
+    return 1; // Success
+}
+```

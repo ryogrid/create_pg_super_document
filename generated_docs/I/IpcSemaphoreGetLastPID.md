@@ -39,3 +39,17 @@ Like IpcSemaphoreGetValue, this function includes a dummy union semun parameter 
 - Used primarily for debugging and validation during semaphore set operations
 - The returned PID may be 0 if no process has yet performed a semaphore operation on the specified semaphore
 - This information is maintained by the kernel and reflects the most recent semaphore operation, which is useful for tracking semaphore usage patterns
+
+## Simplified Source
+
+```c
+static pid_t IpcSemaphoreGetLastPID(IpcSemaphoreId semId, int semNum) {
+    union semun dummy;
+
+    // Initialize unused parameter for Solaris compatibility
+    dummy.val = 0;
+
+    // Get PID of last process that operated on this semaphore
+    return semctl(semId, semNum, GETPID, dummy);
+}
+```

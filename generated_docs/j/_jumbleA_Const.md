@@ -44,3 +44,58 @@ This function is crucial for query normalization as it ensures that queries with
 - [String](../S/String.md) and BitString values are jumbled using `JUMBLE_STRING` which includes the null terminator for proper boundary detection
 - The function throws an ERROR for unrecognized constant types, ensuring robust type safety
 - This function is part of PostgreSQL's query fingerprinting mechanism that enables the query planner to recognize semantically equivalent queries with different literal values
+
+## Simplified Source
+
+```c
+static void
+_jumbleA_Const(JumbleState *jstate, Node *node)
+{
+    A_Const *expr = (A_Const *) node;
+
+    // Always jumble null flag to distinguish NULL from non-NULL constants
+    JUMBLE_FIELD(isnull);
+
+    // Process non-NULL constants based on their type
+    if (!expr->isnull) {
+        // Jumble the value type first
+        JUMBLE_FIELD(val.node.type);
+
+        // Jumble the actual value based on its type
+        switch (nodeTag(&expr->val)) {
+            case T_Integer:
+                JUMBLE_FIELD(val.ival.ival);
+                break;
+
+            case T_Float:
+                // Use string representation for consistent precision handling
+                JUMBLE_STRING(val.fval.fval);
+                break;
+
+            case T_Boolean:
+                JUMBLE_FIELD(val.boolval.boolval);
+                break;
+
+            case T_String:
+                JUMBLE_STRING(val.sval.sval);
+                break;
+
+            case T_BitString:
+                JUMBLE_STRING(val.bsval.bsval);
+                break;
+
+            default:
+                elog(ERROR, "unrecognized node type: %d",
+                     (int) nodeTag(&expr->val));
+        }
+    }
+}
+```
+
+**Key Simplifications:**
+- Added descriptive comments for each major section
+- Explained the rationale for float string handling
+- Grouped similar constant types logically
+- Preserved essential type checking and error handling
+- Maintained the dual null/non-null processing structure
+- Kept all constant type handling for complete query normalization

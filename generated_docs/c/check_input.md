@@ -34,3 +34,31 @@ The  function performs file system validation on input files that are essential 
 - Provides helpful error hints suggesting the user may have a corrupted installation or incorrect -L directory option
 - The function uses errno to distinguish between different types of file access failures
 - Works in conjunction with  function - typically  constructs the path and  validates it
+
+## Simplified Source
+
+```c
+static void
+check_input(char *path)
+{
+    struct stat statbuf;
+
+    // Check if file exists and is accessible
+    if (stat(path, &statbuf) != 0) {
+        if (errno == ENOENT) {
+            pg_log_error("file \"%s\" does not exist", path);
+        } else {
+            pg_log_error("could not access file \"%s\": %m", path);
+        }
+        pg_log_error_hint("This might mean you have a corrupted installation or identified the wrong directory with the invocation option -L.");
+        exit(1);
+    }
+
+    // Verify it's a regular file
+    if (!S_ISREG(statbuf.st_mode)) {
+        pg_log_error("file \"%s\" is not a regular file", path);
+        pg_log_error_hint("This might mean you have a corrupted installation or identified the wrong directory with the invocation option -L.");
+        exit(1);
+    }
+}
+```

@@ -40,3 +40,17 @@ The function encapsulates the decision logic for change application, making the 
 - Part of PostgreSQL's logical replication system for processing transaction changes
 - The streaming parameter determines the execution path, enabling support for both traditional and streaming logical replication modes
 - Helper function design pattern reduces code duplication in ReorderBufferProcessTXN
+
+## Simplified Source
+```c
+static inline void ReorderBufferApplyChange(ReorderBuffer *rb, ReorderBufferTXN *txn,
+                                          Relation relation, ReorderBufferChange *change,
+                                          bool streaming)
+{
+    // Choose between streaming and regular change application
+    if (streaming)
+        rb->stream_change(rb, txn, relation, change);
+    else
+        rb->apply_change(rb, txn, relation, change);
+}
+```

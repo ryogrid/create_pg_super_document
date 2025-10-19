@@ -37,3 +37,23 @@ The function operates by:
 - The "DAn" suffix in Turkish indicates the ablative case ("from" in English)
 - The array a_8 contains 4 different suffix variants to accommodate vowel harmony
 - This function is automatically generated code from snowball stemming algorithms
+
+## Simplified Source
+
+```c
+static int r_mark_DAn(struct SN_env * z) {
+    // Check vowel harmony first
+    int harmony_check = r_check_vowel_harmony(z);
+    if (harmony_check <= 0) return harmony_check;
+
+    // Ensure we have space for 3-char pattern and last character is 'n'
+    if (z->c - 2 <= z->lb || z->p[z->c - 1] != 110)
+        return 0;
+
+    // Match against 4 'DAn' suffix patterns (dan, tan, den, ten)
+    if (!(find_among_b(z, a_8, 4)))
+        return 0;
+
+    return 1;  // Successfully found DAn suffix pattern
+}
+```

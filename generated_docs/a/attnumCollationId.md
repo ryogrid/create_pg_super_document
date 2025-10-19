@@ -34,3 +34,28 @@ The  function returns the collation OID (Object Identifier) of an attribute spec
 - Should only be used with already opened relations
 - Essential for proper text comparison operations and ORDER BY clauses involving text columns
 - Only meaningful for collatable data types (text, varchar, char, etc.)
+
+## Simplified Source
+
+```c
+/*
+ * Get collation OID for a given attribute number.
+ * Used for text comparison and sorting operations.
+ * Requires the relation to be already opened.
+ */
+Oid
+attnumCollationId(Relation rd, int attid)
+{
+    // System attributes (negative/zero) are non-collatable
+    if (attid <= 0)
+        return InvalidOid;
+
+    // Validate attribute number is within range
+    if (attid > rd->rd_att->natts)
+        elog(ERROR, "invalid attribute number %d", attid);
+
+    // Return the collation OID from tuple descriptor
+    // (Convert from 1-based attid to 0-based array index)
+    return TupleDescAttr(rd->rd_att, attid - 1)->attcollation;
+}
+```

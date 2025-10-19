@@ -38,3 +38,16 @@ The function extracts two text arguments from the function call parameters and d
 - Uses the PP (Pointer to Possibly packed) variant for argument extraction, which handles packed/compressed text efficiently
 - Memory allocation is handled internally by the `text_catenate` helper function
 - The function maintains PostgreSQL's standard error handling and memory management patterns
+
+## Simplified Source
+
+```c
+Datum textcat(PG_FUNCTION_ARGS) {
+    // Get the two text arguments to concatenate
+    text *t1 = PG_GETARG_TEXT_PP(0);
+    text *t2 = PG_GETARG_TEXT_PP(1);
+
+    // Delegate to internal concatenation function and return result
+    PG_RETURN_TEXT_P(text_catenate(t1, t2));
+}
+```

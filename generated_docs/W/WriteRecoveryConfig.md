@@ -41,3 +41,38 @@ The function determines the appropriate configuration method based on the server
 - Creates an empty standby.signal file for PostgreSQL 12+ to trigger standby mode
 - Calls pg_fatal() on file operation failures
 - The function assumes the target directory already exists and is writable
+
+## Simplified Source
+
+```c
+void WriteRecoveryConfig(PGconn *pgconn, const char *target_dir, PQExpBuffer contents) {
+    char filename[MAXPGPATH];
+
+    // Determine configuration method based on PostgreSQL version
+    bool use_recovery_conf = PQserverVersion(pgconn) < MINIMUM_VERSION_FOR_RECOVERY_GUC;
+
+    // Build filename for configuration file
+    snprintf(filename, MAXPGPATH, "%s/%s", target_dir,
+             use_recovery_conf ? "recovery.conf" : "postgresql.auto.conf");
+
+    // Open configuration file (write mode for recovery.conf, append for postgresql.auto.conf)
+    FILE *cf = fopen(filename, use_recovery_conf ? "w" : "a");
+    if (!cf)
+        pg_fatal("could not open file \"%s\": %m", filename);
+
+    // Write configuration content
+    if (fwrite(contents->data, contents->len, 1, cf) != 1)
+        pg_fatal("could not write to file \"%s\": %m", filename);
+
+    fclose(cf);
+
+    // For PostgreSQL 12+, create standby.signal file to trigger standby mode
+    if (!use_recovery_conf) {
+        snprintf(filename, MAXPGPATH, "%s/standby.signal", target_dir);
+        cf = fopen(filename, "w");
+        if (!cf)
+            pg_fatal("could not create file \"%s\": %m", filename);
+        fclose(cf);
+    }
+}
+```

@@ -41,3 +41,51 @@ CheckConnection is a comprehensive connection management function that ensures p
 - Critical for ensuring reliable database operations throughout psql sessions
 - Works closely with connection state management functions to maintain consistency
 - Part of psql's robust error handling and recovery infrastructure
+
+## Simplified Source
+
+```c
+static bool
+CheckConnection(void)
+{
+    bool is_connected;
+
+    // Check current connection status
+    is_connected = ConnectionUp();
+    if (!is_connected) {
+        // Handle connection loss based on session type
+        if (!pset.cur_cmd_interactive) {
+            // Non-interactive: log error and exit
+            pg_log_error("connection to server was lost");
+            exit(EXIT_BADCONN);
+        }
+
+        // Interactive: attempt reconnection
+        fprintf(stderr, _("The connection to the server was lost. Attempting reset: "));
+        PQreset(pset.db);
+        is_connected = ConnectionUp();
+
+        if (!is_connected) {
+            // Reset failed: transition to disconnected state
+            fprintf(stderr, _("Failed.\n"));
+
+            // Store failed connection for later reference
+            if (pset.dead_conn)
+                PQfinish(pset.dead_conn);
+            pset.dead_conn = pset.db;
+            pset.db = NULL;
+
+            // Clean up connection-related state
+            ResetCancelConn();
+            UnsyncVariables();
+        } else {
+            // Reset succeeded: re-sync state
+            fprintf(stderr, _("Succeeded.\n"));
+            SyncVariables();
+            connection_warnings(false);
+        }
+    }
+
+    return is_connected;
+}
+```

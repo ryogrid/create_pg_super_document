@@ -33,3 +33,25 @@ The function returns:
 - The function is implemented in src/backend/utils/mb/wstrncmp.c as part of PostgreSQL's multibyte/wide character handling infrastructure
 - Follows standard C library strncmp semantics but adapted for pg_wchar type
 - The implementation is optimized for efficiency with a do-while loop that avoids unnecessary iterations
+
+## Simplified Source
+
+```c
+int
+pg_wchar_strncmp(const pg_wchar *s1, const pg_wchar *s2, size_t n)
+{
+    // Return 0 if no characters to compare
+    if (n == 0)
+        return 0;
+
+    // Compare characters until difference found, null terminator, or n reached
+    do {
+        if (*s1 != *s2++)
+            return (*s1 - *(s2 - 1));  // Return difference
+        if (*s1++ == 0)
+            break;  // End of string reached
+    } while (--n != 0);
+
+    return 0;  // Strings are equal within n characters
+}
+```

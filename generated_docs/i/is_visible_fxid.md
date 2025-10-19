@@ -42,3 +42,36 @@ For performance optimization, the function uses binary search (bsearch) when the
 - Uses performance optimization with binary search for large in-progress transaction arrays
 - Returns false if the transaction is found in the xip array (still in progress, thus not visible)
 - Critical for determining transaction visibility in snapshot-based queries
+
+## Simplified Source
+
+```c
+static bool is_visible_fxid(FullTransactionId value, const pg_snapshot *snap) {
+    // If transaction ID is before snapshot xmin, it's visible (committed)
+    if (FullTransactionIdPrecedes(value, snap->xmin))
+        return true;
+
+    // If transaction ID is at or after xmax, it's not visible (too new)
+    else if (!FullTransactionIdPrecedes(value, snap->xmax))
+        return false;
+
+    // Transaction ID is between xmin and xmax - check if in progress
+    else {
+        // For large xip arrays, use binary search for better performance
+        #ifdef USE_BSEARCH_IF_NXIP_GREATER
+        if (snap->nxip > USE_BSEARCH_IF_NXIP_GREATER) {
+            void *res = bsearch(&value, snap->xip, snap->nxip,
+                               sizeof(FullTransactionId), cmp_fxid);
+            return (res) ? false : true; // If found in xip, not visible
+        }
+        #endif
+
+        // Linear search through in-progress transactions
+        for (uint32 i = 0; i < snap->nxip; i++) {
+            if (FullTransactionIdEquals(value, snap->xip[i]))
+                return false; // Found in xip array - not visible
+        }
+        return true; // Not in xip array - visible
+    }
+}
+```

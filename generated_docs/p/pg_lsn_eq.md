@@ -34,3 +34,16 @@ LSN values are crucial for replication, point-in-time recovery, and ensuring dat
 - This function is automatically invoked when using the equality operator (=) in SQL with pg_lsn operands
 - The function follows PostgreSQL's standard function calling convention (PG_FUNCTION_ARGS)
 - Located in src/backend/utils/adt/pg_lsn.c:118-126
+
+## Simplified Source
+
+```c
+Datum pg_lsn_eq(PG_FUNCTION_ARGS) {
+    // Extract both LSN values from function arguments
+    XLogRecPtr lsn1 = PG_GETARG_LSN(0);
+    XLogRecPtr lsn2 = PG_GETARG_LSN(1);
+
+    // Return true if LSNs are equal
+    PG_RETURN_BOOL(lsn1 == lsn2);
+}
+```

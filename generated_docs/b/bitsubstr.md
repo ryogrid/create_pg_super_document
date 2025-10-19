@@ -37,3 +37,17 @@ This function implements the SQL standard bit string substring operation as spec
 - The actual substring logic is implemented in the bitsubstring helper function
 - Uses 1-based position numbering as per SQL standard (not 0-based like C arrays)
 - Follows PostgreSQL's V1 calling convention for SQL-callable functions
+
+## Simplified Source
+
+```c
+Datum bitsubstr(PG_FUNCTION_ARGS) {
+    // Extract arguments: bit string, start position (1-based), length
+    VarBit *source = PG_GETARG_VARBIT_P(0);
+    int32 start_pos = PG_GETARG_INT32(1);
+    int32 length = PG_GETARG_INT32(2);
+
+    // Delegate to internal substring function
+    PG_RETURN_VARBIT_P(bitsubstring(source, start_pos, length, false));
+}
+```

@@ -35,3 +35,21 @@ The `int2um` function implements the unary minus operation for PostgreSQL 16-bit
 - This function demonstrates the careful attention PostgreSQL pays to mathematical edge cases even in simple operations
 - The "um" suffix likely stands for "unary minus" to distinguish it from binary subtraction operations
 - Uses the `unlikely()` macro to optimize for the common case where the input is not the minimum value
+
+## Simplified Source
+
+```c
+Datum int2um(PG_FUNCTION_ARGS) {
+    // Extract the int16 argument
+    int16 arg = PG_GETARG_INT16(0);
+
+    // Check for overflow condition (most negative int16 cannot be negated)
+    if (unlikely(arg == PG_INT16_MIN)) {
+        ereport(ERROR, (errcode(ERRCODE_NUMERIC_VALUE_OUT_OF_RANGE),
+                       errmsg("smallint out of range")));
+    }
+
+    // Return the negated value
+    PG_RETURN_INT16(-arg);
+}
+```

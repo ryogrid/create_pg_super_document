@@ -42,3 +42,103 @@ The function covers a wide range of socket error conditions including connection
 - Handles over 20 different Windows socket error codes
 - For unknown error codes, logs a NOTICE-level message before defaulting to EINVAL
 - Critical for maintaining POSIX-compliant error handling across PostgreSQLs cross-platform socket operations
+
+## Simplified Source
+
+```c
+static void TranslateSocketError(void)
+{
+    // Get Windows socket error and translate to POSIX errno
+    int wsa_error = WSAGetLastError();
+
+    switch (wsa_error) {
+        // Invalid parameter/initialization errors
+        case WSAEINVAL:
+        case WSANOTINITIALISED:
+        case WSAEINVALIDPROVIDER:
+        case WSAEINVALIDPROCTABLE:
+        case WSAEDESTADDRREQ:
+            errno = EINVAL;
+            break;
+
+        // Connection state errors
+        case WSAEINPROGRESS:
+            errno = EINPROGRESS;
+            break;
+        case WSAEISCONN:
+            errno = EISCONN;
+            break;
+        case WSAENOTCONN:
+        case WSAESHUTDOWN:
+        case WSAEDISCON:
+            errno = ENOTCONN;
+            break;
+
+        // Connection failures
+        case WSAECONNABORTED:
+            errno = ECONNABORTED;
+            break;
+        case WSAECONNREFUSED:
+            errno = ECONNREFUSED;
+            break;
+        case WSAECONNRESET:
+            errno = ECONNRESET;
+            break;
+        case WSAETIMEDOUT:
+            errno = ETIMEDOUT;
+            break;
+
+        // Resource/network errors
+        case WSAENOBUFS:
+            errno = ENOBUFS;
+            break;
+        case WSAEMFILE:
+            errno = EMFILE;
+            break;
+        case WSAEWOULDBLOCK:
+            errno = EWOULDBLOCK;
+            break;
+
+        // Address/network reachability
+        case WSAEADDRINUSE:
+            errno = EADDRINUSE;
+            break;
+        case WSAEADDRNOTAVAIL:
+            errno = EADDRNOTAVAIL;
+            break;
+        case WSAENETDOWN:
+            errno = ENETDOWN;
+            break;
+        case WSAENETUNREACH:
+            errno = ENETUNREACH;
+            break;
+        case WSAEHOSTDOWN:
+            errno = EHOSTDOWN;
+            break;
+        case WSAEHOSTUNREACH:
+        case WSAHOST_NOT_FOUND:
+            errno = EHOSTUNREACH;
+            break;
+
+        // Other common errors
+        case WSAEFAULT:
+            errno = EFAULT;
+            break;
+        case WSAEACCES:
+            errno = EACCES;
+            break;
+        case WSAEINTR:
+            errno = EINTR;
+            break;
+        case WSAENOTSOCK:
+            errno = ENOTSOCK;
+            break;
+
+        default:
+            // Log unrecognized error and use generic error code
+            ereport(NOTICE, (errmsg_internal("unrecognized win32 socket error code: %d", wsa_error)));
+            errno = EINVAL;
+            break;
+    }
+}
+```

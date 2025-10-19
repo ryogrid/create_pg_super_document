@@ -57,3 +57,124 @@ The conversion process maintains the original page headers and handles edge case
 - Uses aligned I/O buffers (PGIOAlignedBlock) for optimal performance
 - Each old byte (8 heap pages) becomes 16 bits (8 × 2 bits per page) in the new format
 - Critical for maintaining performance during major version upgrades by preserving visibility optimization data
+
+## Simplified Source
+
+```c
+void rewriteVisibilityMap(const char *fromfile, const char *tofile,
+                         const char *schemaName, const char *relName) {
+    int src_fd, dst_fd;
+    PGIOAlignedBlock buffer, new_vmbuf;
+    ssize_t totalBytesRead = 0, src_filesize;
+    int rewriteVmBytesPerPage;
+    BlockNumber new_blkno = 0;
+    struct stat statbuf;
+
+    // Calculate how many old-format bytes fit per new page
+    rewriteVmBytesPerPage = (BLCKSZ - SizeOfPageHeaderData) / 2;
+
+    // Open source file and get its size
+    if ((src_fd = open(fromfile, O_RDONLY | PG_BINARY, 0)) < 0)
+        pg_fatal("error while copying relation \"%s.%s\": could not open file \"%s\": %m",
+                 schemaName, relName, fromfile);
+
+    if (fstat(src_fd, &statbuf) != 0)
+        pg_fatal("error while copying relation \"%s.%s\": could not stat file \"%s\": %m",
+                 schemaName, relName, fromfile);
+
+    // Create destination file
+    if ((dst_fd = open(tofile, O_RDWR | O_CREAT | O_EXCL | PG_BINARY,
+                       pg_file_create_mode)) < 0)
+        pg_fatal("error while copying relation \"%s.%s\": could not create file \"%s\": %m",
+                 schemaName, relName, tofile);
+
+    src_filesize = statbuf.st_size;
+
+    // Process each old page and convert to new format
+    while (totalBytesRead < src_filesize) {
+        ssize_t bytesRead;
+        char *old_cur, *old_break, *old_blkend;
+        PageHeaderData pageheader;
+        bool old_lastblk;
+
+        // Read one old page
+        if ((bytesRead = read(src_fd, buffer.data, BLCKSZ)) != BLCKSZ) {
+            if (bytesRead < 0)
+                pg_fatal("error while copying relation \"%s.%s\": could not read file \"%s\": %m",
+                         schemaName, relName, fromfile);
+            else
+                pg_fatal("error while copying relation \"%s.%s\": partial page found in file \"%s\"",
+                         schemaName, relName, fromfile);
+        }
+
+        totalBytesRead += BLCKSZ;
+        old_lastblk = (totalBytesRead == src_filesize);
+
+        // Save page header and set up pointers
+        memcpy(&pageheader, buffer.data, SizeOfPageHeaderData);
+        old_cur = buffer.data + SizeOfPageHeaderData;
+        old_blkend = buffer.data + bytesRead;
+        old_break = old_cur + rewriteVmBytesPerPage;
+
+        // Convert old page data to new format page(s)
+        while (old_break <= old_blkend) {
+            char *new_cur;
+            bool empty = true;
+            bool old_lastpart;
+
+            // Copy page header to new page
+            memcpy(new_vmbuf.data, &pageheader, SizeOfPageHeaderData);
+            old_lastpart = old_lastblk && (old_break == old_blkend);
+            new_cur = new_vmbuf.data + SizeOfPageHeaderData;
+
+            // Convert each old byte to new 2-bit format
+            while (old_cur < old_break) {
+                uint8 byte = *(uint8 *) old_cur;
+                uint16 new_vmbits = 0;
+                int i;
+
+                // Convert 8 single bits to 8 double bits
+                for (i = 0; i < BITS_PER_BYTE; i++) {
+                    if (byte & (1 << i)) {
+                        empty = false;
+                        new_vmbits |= VISIBILITYMAP_ALL_VISIBLE << (BITS_PER_HEAPBLOCK * i);
+                    }
+                }
+
+                // Store new format bits
+                new_cur[0] = (char) (new_vmbits & 0xFF);
+                new_cur[1] = (char) (new_vmbits >> 8);
+
+                old_cur++;
+                new_cur += BITS_PER_HEAPBLOCK;
+            }
+
+            // Skip empty trailing sections
+            if (old_lastpart && empty)
+                break;
+
+            // Add checksum if enabled
+            if (new_cluster.controldata.data_checksum_version != 0)
+                ((PageHeader) new_vmbuf.data)->pd_checksum =
+                    pg_checksum_page(new_vmbuf.data, new_blkno);
+
+            // Write new page
+            errno = 0;
+            if (write(dst_fd, new_vmbuf.data, BLCKSZ) != BLCKSZ) {
+                if (errno == 0)
+                    errno = ENOSPC;
+                pg_fatal("error while copying relation \"%s.%s\": could not write file \"%s\": %m",
+                         schemaName, relName, tofile);
+            }
+
+            // Advance to next section
+            old_break += rewriteVmBytesPerPage;
+            new_blkno++;
+        }
+    }
+
+    // Clean up
+    close(dst_fd);
+    close(src_fd);
+}
+```

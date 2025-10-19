@@ -42,3 +42,88 @@ This function handles the \e (\edit) command which allows users to edit SQL quer
 - Returns PSQL_CMD_NEWEDIT on successful edit to trigger query buffer refresh
 - Resets query buffer on error to prevent corrupted state
 - Essential for interactive SQL development workflow in psql
+
+## Simplified Source
+
+```c
+static backslashResult
+exec_command_edit(PsqlScanState scan_state, bool active_branch,
+                  PQExpBuffer query_buf, PQExpBuffer previous_buf)
+{
+    backslashResult status = PSQL_CMD_SKIP_LINE;
+
+    if (active_branch)
+    {
+        if (!query_buf)
+        {
+            pg_log_error("no query buffer");
+            return PSQL_CMD_ERROR;
+        }
+
+        // Parse optional filename and line number arguments
+        char *fname = psql_scan_slash_option(scan_state, OT_NORMAL, NULL, true);
+        char *ln = NULL;
+        int lineno = -1;
+
+        if (fname)
+        {
+            // Try to get separate line number argument
+            ln = psql_scan_slash_option(scan_state, OT_NORMAL, NULL, true);
+            if (ln == NULL && fname[0] && strspn(fname, "0123456789") == strlen(fname))
+            {
+                // Single numeric argument - treat as line number
+                ln = fname;
+                fname = NULL;
+            }
+        }
+
+        // Process line number if provided
+        if (ln)
+        {
+            lineno = atoi(ln);
+            if (lineno < 1)
+            {
+                pg_log_error("invalid line number: %s", ln);
+                status = PSQL_CMD_ERROR;
+            }
+        }
+
+        if (status != PSQL_CMD_ERROR)
+        {
+            bool discard_on_quit;
+
+            // Handle file path expansion and setup
+            expand_tilde(&fname);
+            if (fname)
+            {
+                canonicalize_path_enc(fname, pset.encoding);
+                discard_on_quit = true;
+            }
+            else
+            {
+                // Use previous query if current buffer is empty
+                discard_on_quit = copy_previous_query(query_buf, previous_buf);
+            }
+
+            // Launch editor and handle result
+            if (do_edit(fname, query_buf, lineno, discard_on_quit, NULL))
+                status = PSQL_CMD_NEWEDIT;
+            else
+                status = PSQL_CMD_ERROR;
+        }
+
+        // Clean up on error
+        if (status == PSQL_CMD_ERROR)
+            resetPQExpBuffer(query_buf);
+
+        free(fname);
+        free(ln);
+    }
+    else
+    {
+        ignore_slash_options(scan_state);
+    }
+
+    return status;
+}
+```

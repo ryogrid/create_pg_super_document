@@ -52,3 +52,107 @@ The function handles platform-specific temporary directory management, ensures p
 - Static function, only accessible within the command.c source file
 - Returns true on success, false on any error during the editing process
 - Comprehensive error handling with cleanup of temporary files on failure
+
+## Simplified Source
+
+```c
+static bool do_edit(const char *filename_arg, PQExpBuffer query_buf,
+                   int lineno, bool discard_on_quit, bool *edited) {
+    char fnametmp[MAXPGPATH];
+    FILE *stream = NULL;
+    const char *fname;
+    bool error = false;
+    struct stat before, after;
+
+    if (filename_arg) {
+        fname = filename_arg;
+    } else {
+        // Create temporary file in system temp directory
+        const char *tmpdir = getenv("TMPDIR");
+        if (!tmpdir) tmpdir = "/tmp";
+
+        snprintf(fnametmp, sizeof(fnametmp), "%s/psql.edit.%d.sql",
+                tmpdir, (int) getpid());
+        fname = fnametmp;
+
+        // Create temp file and write query buffer content
+        int fd = open(fname, O_WRONLY | O_CREAT | O_EXCL, 0600);
+        if (fd != -1)
+            stream = fdopen(fd, "w");
+
+        if (fd == -1 || !stream) {
+            pg_log_error("could not open temporary file \"%s\": %m", fname);
+            error = true;
+        } else {
+            // Force newline termination for editor
+            unsigned int ql = query_buf->len;
+            if (ql > 0 && query_buf->data[ql - 1] != '\n') {
+                appendPQExpBufferChar(query_buf, '\n');
+                ql++;
+            }
+
+            // Write content and close file
+            if (fwrite(query_buf->data, 1, ql, stream) != ql ||
+                fclose(stream) != 0) {
+                pg_log_error("%s: %m", fname);
+                error = true;
+            }
+        }
+    }
+
+    // Get file stats before editing
+    if (!error && stat(fname, &before) != 0) {
+        pg_log_error("%s: %m", fname);
+        error = true;
+    }
+
+    // Launch external editor
+    if (!error)
+        error = !editFile(fname, lineno);
+
+    // Get file stats after editing
+    if (!error && stat(fname, &after) != 0) {
+        pg_log_error("%s: %m", fname);
+        error = true;
+    }
+
+    // Check if file was modified (size or time changed)
+    if (!error &&
+        (before.st_size != after.st_size || before.st_mtime != after.st_mtime)) {
+
+        // Read edited content back into query buffer
+        stream = fopen(fname, PG_BINARY_R);
+        if (!stream) {
+            pg_log_error("%s: %m", fname);
+            error = true;
+        } else {
+            char line[1024];
+            resetPQExpBuffer(query_buf);
+
+            while (fgets(line, sizeof(line), stream) != NULL)
+                appendPQExpBufferStr(query_buf, line);
+
+            if (ferror(stream)) {
+                pg_log_error("%s: %m", fname);
+                error = true;
+                resetPQExpBuffer(query_buf);
+            } else if (edited) {
+                *edited = true;
+            }
+            fclose(stream);
+        }
+    } else {
+        // File not modified - discard query buffer if requested
+        if (discard_on_quit)
+            resetPQExpBuffer(query_buf);
+    }
+
+    // Clean up temporary file
+    if (!filename_arg && remove(fname) == -1) {
+        pg_log_error("%s: %m", fname);
+        error = true;
+    }
+
+    return !error;
+}
+```

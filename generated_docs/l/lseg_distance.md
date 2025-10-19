@@ -36,7 +36,21 @@ The function delegates the actual distance calculation to the  function, which i
 ## Notes and Other Information
 - This function is part of PostgreSQL's geometric data type operators
 - Returns the result as a double-precision floating-point number (FLOAT8)
-- The underlying algorithm in  handles all geometric edge cases
+- The underlying algorithm handles all geometric edge cases
 - Used for spatial queries and geometric calculations in PostgreSQL databases
 - The distance calculation considers the full geometric relationship between the segments, not just endpoint-to-endpoint distances
 - Typically used in SQL queries with distance-based predicates for line segment data
+
+## Simplified Source
+
+```c
+Datum lseg_distance(PG_FUNCTION_ARGS) {
+    // Get two line segments from function arguments
+    LSEG *l1 = PG_GETARG_LSEG_P(0);
+    LSEG *l2 = PG_GETARG_LSEG_P(1);
+
+    // Calculate minimum distance between the line segments
+    // (NULL = don't need closest point, just distance)
+    PG_RETURN_FLOAT8(lseg_closept_lseg(NULL, l1, l2));
+}
+```

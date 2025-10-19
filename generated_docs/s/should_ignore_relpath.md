@@ -34,3 +34,29 @@ This function implements path matching logic to determine if a file or directory
 - Returns true if the path should be ignored, false if it should be processed during verification
 - The ignore list is implemented as a simple linked list of strings for easy traversal
 - Critical for performance in large backup directories where many files might need to be excluded from verification
+
+## Simplified Source
+
+```c
+static bool should_ignore_relpath(verifier_context *context, const char *relpath) {
+    SimpleStringListCell *cell;
+
+    // Check each path in the ignore list
+    for (cell = context->ignore_list.head; cell != NULL; cell = cell->next) {
+        const char *path_pos = relpath;
+        char *ignore_pos = cell->val;
+
+        // Compare characters until mismatch or end of ignore pattern
+        while (*ignore_pos != '\0' && *path_pos == *ignore_pos) {
+            ++path_pos, ++ignore_pos;
+        }
+
+        // Match if ignore pattern consumed and path ends or continues with '/'
+        if (*ignore_pos == '\0' && (*path_pos == '\0' || *path_pos == '/')) {
+            return true;
+        }
+    }
+
+    return false;
+}
+```

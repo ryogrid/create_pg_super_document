@@ -31,3 +31,14 @@ This hook is part of psql's variable system that provides validation and process
 - Invalid values will not modify  and an error message will be displayed to the user
 - The hook is registered in EstablishVariableSpace() alongside a substitute hook for the IGNOREEOF variable
 - Part of psql's comprehensive variable hook system that ensures type safety and validation for configuration settings
+
+## Simplified Source
+
+```c
+static bool
+ignoreeof_hook(const char *newval)
+{
+    // Parse and validate the new IGNOREEOF value as an integer
+    return ParseVariableNum(newval, "IGNOREEOF", &pset.ignoreeof);
+}
+```

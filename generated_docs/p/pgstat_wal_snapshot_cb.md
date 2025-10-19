@@ -41,3 +41,20 @@ The function is part of PostgreSQL's statistics collection framework and provide
 - The local snapshot allows multiple statistical queries to work with the same consistent data set
 - Part of PostgreSQL's modular statistics collection framework design
 - Located in src/backend/utils/activity/pgstat_wal.c:178-186
+
+## Simplified Source
+
+```c
+void pgstat_wal_snapshot_cb(void) {
+    PgStatShared_Wal *stats_shmem = &pgStatLocal.shmem->wal;
+
+    // Acquire shared lock for safe concurrent reading
+    LWLockAcquire(&stats_shmem->lock, LW_SHARED);
+
+    // Copy current WAL statistics to local snapshot
+    memcpy(&pgStatLocal.snapshot.wal, &stats_shmem->stats,
+           sizeof(pgStatLocal.snapshot.wal));
+
+    LWLockRelease(&stats_shmem->lock);
+}
+```

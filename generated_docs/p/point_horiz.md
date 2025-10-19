@@ -33,3 +33,16 @@ The  function is a PostgreSQL geometric operator that checks if two points are h
 - Uses floating-point comparison with tolerance rather than exact equality
 - Primarily used in spatial indexing algorithms like SP-GiST quadtree operations
 - Returns true if points have equal y-coordinates, false otherwise
+
+## Simplified Source
+
+```c
+Datum point_horiz(PG_FUNCTION_ARGS) {
+    // Get two points from function arguments
+    Point *pt1 = PG_GETARG_POINT_P(0);
+    Point *pt2 = PG_GETARG_POINT_P(1);
+
+    // Check if points have same y-coordinate (horizontal alignment)
+    PG_RETURN_BOOL(FPeq(pt1->y, pt2->y));
+}
+```

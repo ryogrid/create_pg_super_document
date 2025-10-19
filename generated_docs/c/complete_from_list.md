@@ -40,3 +40,50 @@ This function is a core component of PostgreSQL's psql tab completion system tha
 - The function expects completion_charpp to be set to a valid NULL-terminated string array
 - Supports keyword case adjustment based on psql's case preferences
 - Returns NULL when no more matches are available
+
+## Simplified Source
+
+```c
+static char *
+complete_from_list(const char *text, int state)
+{
+    static int string_length, list_index, matches;
+    static bool casesensitive;
+    const char *item;
+
+    // Initialize on first call
+    if (state == 0) {
+        list_index = 0;
+        string_length = strlen(text);
+        casesensitive = completion_case_sensitive;
+        matches = 0;
+    }
+
+    // Search through completion list
+    while ((item = completion_charpp[list_index++])) {
+        // Try case-sensitive match first
+        if (casesensitive && strncmp(text, item, string_length) == 0) {
+            matches++;
+            return pg_strdup(item);
+        }
+
+        // Try case-insensitive match
+        if (!casesensitive && pg_strncasecmp(text, item, string_length) == 0) {
+            if (completion_case_sensitive)
+                return pg_strdup(item);
+            else
+                return pg_strdup_keyword_case(item, text);
+        }
+    }
+
+    // No matches found - try case-insensitive if we haven't already
+    if (casesensitive && matches == 0) {
+        casesensitive = false;
+        list_index = 0;
+        state++;
+        return complete_from_list(text, state);
+    }
+
+    return NULL;
+}
+```

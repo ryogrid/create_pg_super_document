@@ -34,3 +34,12 @@ The function includes a humorous comment acknowledging that callers shouldn't ex
 - The input parameter is completely ignored - any string input will result in the same void output
 - Essential for supporting procedural languages that return void values
 - Contains developer humor: "you were expecting something different?" comment
+
+## Simplified Source
+
+```c
+Datum void_in(PG_FUNCTION_ARGS) {
+    // Ignores all input and returns void - used for PL functions returning VOID
+    PG_RETURN_VOID();  // you were expecting something different?
+}
+```

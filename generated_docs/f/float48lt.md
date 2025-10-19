@@ -36,3 +36,16 @@ This function implements the less-than comparison operator for mixed-precision f
 - Returns a Datum containing a boolean result (true if arg1 < arg2, false otherwise)
 - Part of a family of comparison functions including float48eq, float48ne, float48le, float48gt, float48ge
 - Handles special floating-point values like infinity and NaN according to IEEE standards
+
+## Simplified Source
+
+```c
+Datum float48lt(PG_FUNCTION_ARGS) {
+    // Extract float4 and float8 arguments
+    float4 arg1 = PG_GETARG_FLOAT4(0);
+    float8 arg2 = PG_GETARG_FLOAT8(1);
+
+    // Convert float4 to float8 and compare for less-than
+    PG_RETURN_BOOL(float8_lt((float8) arg1, arg2));
+}
+```

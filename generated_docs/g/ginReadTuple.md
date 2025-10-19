@@ -36,3 +36,35 @@ The ginReadTuple function extracts item pointers from a GIN leaf entry tuple, su
 
 ## Notes and Other Information
 - Returns a pallocd array that must be freed by the caller
+
+## Simplified Source
+
+```c
+ItemPointer ginReadTuple(GinState *ginstate, OffsetNumber attnum, IndexTuple itup,
+                        int *nitems) {
+    Pointer ptr = GinGetPosting(itup);
+    int nipd = GinGetNPosting(itup);
+    ItemPointer ipd;
+    int ndecoded;
+
+    if (GinItupIsCompressed(itup)) {
+        // Handle compressed posting list
+        if (nipd > 0) {
+            ipd = ginPostingListDecode((GinPostingList *) ptr, &ndecoded);
+            if (nipd != ndecoded) {
+                elog(ERROR, "number of items mismatch in GIN entry tuple, %d in tuple header, %d decoded",
+                     nipd, ndecoded);
+            }
+        } else {
+            ipd = palloc(0);
+        }
+    } else {
+        // Handle uncompressed posting list - direct copy
+        ipd = (ItemPointer) palloc(sizeof(ItemPointerData) * nipd);
+        memcpy(ipd, ptr, sizeof(ItemPointerData) * nipd);
+    }
+
+    *nitems = nipd;
+    return ipd;
+}
+```

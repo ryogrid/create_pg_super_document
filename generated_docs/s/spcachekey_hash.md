@@ -37,3 +37,23 @@ This function implements a hash computation for SearchPathCacheKey structures us
 - The function combines both role ID and search path string to ensure cache entries are role-specific
 - Cache is particularly beneficial for functions with search_path set in proconfig
 - Also used to remember validated strings in check_search_path() to avoid repeated SplitIdentifierString() calls
+
+## Simplified Source
+
+```c
+static inline uint32 spcachekey_hash(SearchPathCacheKey key)
+{
+    fasthash_state hs;
+
+    // Initialize hash state with role ID
+    fasthash_init(&hs, 0);
+    hs.accum = key.roleid;
+    fasthash_combine(&hs);
+
+    // Combine search path string into hash
+    int sp_len = fasthash_accum_cstring(&hs, key.searchPath);
+
+    // Return final 32-bit hash
+    return fasthash_final32(&hs, sp_len);
+}
+```

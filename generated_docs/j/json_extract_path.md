@@ -35,3 +35,12 @@ The function accepts a JSON document and a variable number of path components (t
 - Part of PostgreSQL's JSON path extraction functionality
 - The function is registered as a PostgreSQL built-in function and accessible via SQL
 - Complements `json_extract_path_text` which returns the result as text instead of JSON
+
+## Simplified Source
+```c
+Datum json_extract_path(PG_FUNCTION_ARGS) {
+    // Simple wrapper: extract JSON value following specified path
+    // Returns result as JSON (not text)
+    return get_path_all(fcinfo, false);
+}
+```

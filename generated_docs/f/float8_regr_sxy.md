@@ -35,3 +35,25 @@ This function is part of PostgreSQL's statistical aggregate functions infrastruc
 - Part of PostgreSQL's regression and correlation aggregate functions
 - The transition array structure: [0]=N, [1]=Sx, [2]=Sxx, [3]=Sy, [4]=Syy, [5]=Sxy
 - Location: src/backend/utils/adt/float.c:3547-3567
+
+## Simplified Source
+
+```c
+Datum
+float8_regr_sxy(PG_FUNCTION_ARGS)
+{
+    ArrayType *transarray = PG_GETARG_ARRAYTYPE_P(0);
+
+    // Extract N (count) and Sxy (sum of products of deviations) from 6-element regression state
+    float8 *transvalues = check_float8_array(transarray, "float8_regr_sxy", 6);
+    float8 N = transvalues[0];    // Count of data points
+    float8 Sxy = transvalues[5];  // Sum of products: Σ((X - X̄)(Y - Ȳ))
+
+    // Return NULL for empty datasets
+    if (N < 1.0)
+        PG_RETURN_NULL();
+
+    // Return sum of products (can be negative, unlike variance components)
+    PG_RETURN_FLOAT8(Sxy);
+}
+```

@@ -43,3 +43,52 @@ This utility function reads a complete file from the filesystem into memory in a
 - Handles partial read scenarios with detailed error reporting showing expected vs actual bytes read
 - Uses PG_BINARY flag to ensure consistent behavior across different platforms
 - Common utility function used throughout pg_rewind for configuration file reading and timeline processing
+
+## Simplified Source
+
+```c
+char *slurpFile(const char *datadir, const char *path, size_t *filesize)
+{
+    int fd;
+    char *buffer;
+    struct stat statbuf;
+    char fullpath[MAXPGPATH];
+    int len;
+    int r;
+
+    // Build full file path
+    snprintf(fullpath, sizeof(fullpath), "%s/%s", datadir, path);
+
+    // Open file for reading
+    if ((fd = open(fullpath, O_RDONLY | PG_BINARY, 0)) == -1)
+        pg_fatal("could not open file \"%s\" for reading: %m", fullpath);
+
+    // Get file size
+    if (fstat(fd, &statbuf) < 0)
+        pg_fatal("could not open file \"%s\" for reading: %m", fullpath);
+
+    len = statbuf.st_size;
+
+    // Allocate buffer (extra byte for zero-terminator)
+    buffer = pg_malloc(len + 1);
+
+    // Read entire file
+    r = read(fd, buffer, len);
+    if (r != len)
+    {
+        if (r < 0)
+            pg_fatal("could not read file \"%s\": %m", fullpath);
+        else
+            pg_fatal("could not read file \"%s\": read %d of %zu",
+                     fullpath, r, (Size) len);
+    }
+    close(fd);
+
+    // Zero-terminate for text processing convenience
+    buffer[len] = '\0';
+
+    if (filesize)
+        *filesize = len;
+    return buffer;
+}
+```

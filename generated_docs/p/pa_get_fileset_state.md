@@ -41,3 +41,21 @@ The function includes an assertion to verify it's being called from within a par
 - Enables parallel workers to determine when serialized data becomes available
 - Returns PartialFileSetState enum value indicating current fileset status
 - Essential for coordinating the processing of spooled messages in parallel workers
+
+## Simplified Source
+
+```c
+static PartialFileSetState pa_get_fileset_state(void) {
+    PartialFileSetState fileset_state;
+
+    // Verify we're in a parallel apply worker
+    Assert(am_parallel_apply_worker());
+
+    // Thread-safe access to shared fileset state
+    SpinLockAcquire(&MyParallelShared->mutex);
+    fileset_state = MyParallelShared->fileset_state;
+    SpinLockRelease(&MyParallelShared->mutex);
+
+    return fileset_state;
+}
+```

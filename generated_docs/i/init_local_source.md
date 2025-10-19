@@ -35,3 +35,28 @@ The local source provides an abstraction layer that allows pg_rewind to treat lo
 - Memory is allocated using pg_malloc0, ensuring zero-initialization
 - The get_current_wal_insert_lsn function pointer is set to NULL for local sources since WAL insert LSN is not applicable for local file operations
 - The function is located in src/bin/pg_rewind/local_source.c:40-59
+
+## Simplified Source
+
+```c
+rewind_source *
+init_local_source(const char *datadir)
+{
+    // Allocate and initialize local source structure
+    local_source *src = pg_malloc0(sizeof(local_source));
+
+    // Set up function pointers for local file operations
+    src->common.traverse_files = local_traverse_files;
+    src->common.fetch_file = local_fetch_file;
+    src->common.queue_fetch_file = local_queue_fetch_file;
+    src->common.queue_fetch_range = local_queue_fetch_range;
+    src->common.finish_fetch = local_finish_fetch;
+    src->common.get_current_wal_insert_lsn = NULL;  // Not applicable for local
+    src->common.destroy = local_destroy;
+
+    // Store data directory path
+    src->datadir = datadir;
+
+    return &src->common;
+}
+```

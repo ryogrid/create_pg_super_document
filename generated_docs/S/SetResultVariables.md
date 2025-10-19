@@ -34,3 +34,35 @@ SetResultVariables is a static function that maintains psql's special variables 
 
 ## Notes and Other Information
 This function implements psql's policy of tracking query status only for user-entered queries, not for internal slash commands. The special variables it manages (ERROR, SQLSTATE, ROW_COUNT, LAST_ERROR_SQLSTATE, LAST_ERROR_MESSAGE) are essential for script automation and conditional logic in psql. The function gracefully handles edge cases where error information may be incomplete, particularly for connection-level errors detected by libpq rather than the PostgreSQL server. The ROW_COUNT variable uses the result of PQcmdTuples, which returns affected rows for modification commands and returned rows for SELECT queries.
+
+## Simplified Source
+
+```c
+static void
+SetResultVariables(PGresult *result, bool success)
+{
+    if (success) {
+        // Query succeeded: set success indicators
+        const char *row_count = PQcmdTuples(result);
+
+        SetVariable(pset.vars, "ERROR", "false");
+        SetVariable(pset.vars, "SQLSTATE", "00000");
+        SetVariable(pset.vars, "ROW_COUNT", *row_count ? row_count : "0");
+    } else {
+        // Query failed: extract error information
+        const char *sqlstate = PQresultErrorField(result, PG_DIAG_SQLSTATE);
+        const char *error_msg = PQresultErrorField(result, PG_DIAG_MESSAGE_PRIMARY);
+
+        SetVariable(pset.vars, "ERROR", "true");
+
+        // Handle missing SQLSTATE (can happen for libpq-detected errors)
+        if (sqlstate == NULL)
+            sqlstate = "";
+
+        SetVariable(pset.vars, "SQLSTATE", sqlstate);
+        SetVariable(pset.vars, "ROW_COUNT", "0");
+        SetVariable(pset.vars, "LAST_ERROR_SQLSTATE", sqlstate);
+        SetVariable(pset.vars, "LAST_ERROR_MESSAGE", error_msg ? error_msg : "");
+    }
+}
+```

@@ -48,3 +48,86 @@ The query joins multiple system catalogs (, , , , ) to gather comprehensive info
 - The sort order prioritizes functions that work with the same left and right types (self-types) first
 - In verbose mode, the regprocedure format includes the function name along with its complete argument type signature
 - Support functions are critical for the proper functioning of indexes using the associated operator families
+
+## Simplified Source
+
+```c
+bool listOpFamilyFunctions(const char *access_method_pattern,
+                          const char *family_pattern, bool verbose) {
+    PQExpBufferData buf;
+    PGresult *res;
+    printQueryOpt myopt = pset.popt;
+    bool have_where = false;
+
+    initPQExpBuffer(&buf);
+
+    // Build main query with support function information
+    printfPQExpBuffer(&buf,
+        "SELECT "
+        "am.amname AS \"AM\", "
+        "CASE "
+        "  WHEN pg_catalog.pg_opfamily_is_visible(of.oid) "
+        "  THEN pg_catalog.format('%%I', of.opfname) "
+        "  ELSE pg_catalog.format('%%I.%%I', ns.nspname, of.opfname) "
+        "END AS \"Operator family\", "
+        "pg_catalog.format_type(ap.amproclefttype, NULL) AS \"Registered left type\", "
+        "pg_catalog.format_type(ap.amprocrighttype, NULL) AS \"Registered right type\", "
+        "ap.amprocnum AS \"Number\"");
+
+    // Choose function display format based on verbose mode
+    if (!verbose) {
+        appendPQExpBuffer(&buf, ", p.proname AS \"Function\"");
+    } else {
+        appendPQExpBuffer(&buf, ", ap.amproc::pg_catalog.regprocedure AS \"Function\"");
+    }
+
+    // Add FROM clause with joins
+    appendPQExpBufferStr(&buf,
+        " FROM pg_catalog.pg_amproc ap "
+        "LEFT JOIN pg_catalog.pg_opfamily of ON of.oid = ap.amprocfamily "
+        "LEFT JOIN pg_catalog.pg_am am ON am.oid = of.opfmethod "
+        "LEFT JOIN pg_catalog.pg_namespace ns ON of.opfnamespace = ns.oid "
+        "LEFT JOIN pg_catalog.pg_proc p ON ap.amproc = p.oid");
+
+    // Apply access method pattern filter
+    if (access_method_pattern) {
+        if (!validateSQLNamePattern(&buf, access_method_pattern,
+                                   false, false, NULL, "am.amname",
+                                   NULL, NULL, &have_where, 1))
+            goto error_return;
+    }
+
+    // Apply family pattern filter
+    if (family_pattern) {
+        if (!validateSQLNamePattern(&buf, family_pattern, have_where, false,
+                                   "ns.nspname", "of.opfname",
+                                   NULL, NULL, NULL, 3))
+            goto error_return;
+    }
+
+    // Add ordering for consistent results
+    appendPQExpBufferStr(&buf,
+        " ORDER BY 1, 2, "
+        "ap.amproclefttype = ap.amprocrighttype DESC, "
+        "3, 4, 5;");
+
+    // Execute query
+    res = PSQLexec(buf.data);
+    termPQExpBuffer(&buf);
+    if (!res)
+        return false;
+
+    // Set up output formatting and display results
+    myopt.title = "List of support functions of operator families";
+    myopt.translate_header = true;
+
+    printQuery(res, &myopt, pset.queryFout, false, pset.logfile);
+    PQclear(res);
+
+    return true;
+
+error_return:
+    termPQExpBuffer(&buf);
+    return false;
+}
+```

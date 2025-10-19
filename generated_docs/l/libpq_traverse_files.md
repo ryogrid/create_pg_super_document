@@ -44,3 +44,83 @@ For each file or directory found, the function determines its type (regular file
 - The query excludes hidden files and directories via the  parameters
 - Custom symbolic links in the data directory are not handled correctly due to lack of a general backend function for retrieving symbolic link targets
 - This is a static function used internally within the libpq_source.c module as part of the pg_rewind tool's remote file system access capabilities
+
+## Simplified Source
+
+```c
+static void
+libpq_traverse_files(rewind_source *source, process_file_callback_t callback)
+{
+    PGconn *conn = ((libpq_source *) source)->conn;
+    PGresult *res;
+    const char *sql;
+    int i;
+
+    // Build recursive SQL query to list all files in data directory
+    sql = "WITH RECURSIVE files (path, filename, size, isdir) AS (\n"
+          "  SELECT '' AS path, filename, size, isdir FROM\n"
+          "  (SELECT pg_ls_dir('.', true, false) AS filename) AS fn,\n"
+          "        pg_stat_file(fn.filename, true) AS this\n"
+          "  UNION ALL\n"
+          "  SELECT parent.path || parent.filename || '/' AS path,\n"
+          "         fn, this.size, this.isdir\n"
+          "  FROM files AS parent,\n"
+          "       pg_ls_dir(parent.path || parent.filename, true, false) AS fn,\n"
+          "       pg_stat_file(parent.path || parent.filename || '/' || fn, true) AS this\n"
+          "       WHERE parent.isdir = 't'\n"
+          ")\n"
+          "SELECT path || filename, size, isdir,\n"
+          "       pg_tablespace_location(pg_tablespace.oid) AS link_target\n"
+          "FROM files\n"
+          "LEFT OUTER JOIN pg_tablespace ON files.path = 'pg_tblspc/'\n"
+          "                             AND oid::text = files.filename\n";
+
+    // Execute the query
+    res = PQexec(conn, sql);
+    if (PQresultStatus(res) != PGRES_TUPLES_OK)
+        pg_fatal("could not fetch file list: %s", PQresultErrorMessage(res));
+
+    // Validate result structure
+    if (PQnfields(res) != 4)
+        pg_fatal("unexpected result set while fetching file list");
+
+    // Process each file/directory
+    for (i = 0; i < PQntuples(res); i++)
+    {
+        char *path;
+        int64 filesize;
+        bool isdir;
+        char *link_target;
+        file_type_t type;
+
+        // Skip files removed during query execution
+        if (PQgetisnull(res, i, 1))
+            continue;
+
+        // Extract file information
+        path = PQgetvalue(res, i, 0);
+        filesize = atol(PQgetvalue(res, i, 1));
+        isdir = (strcmp(PQgetvalue(res, i, 2), "t") == 0);
+        link_target = PQgetvalue(res, i, 3);
+
+        // Determine file type
+        if (link_target[0])
+        {
+            // Handle tablespace links
+            if (is_absolute_path(link_target))
+                type = FILE_TYPE_SYMLINK;
+            else
+                type = FILE_TYPE_DIRECTORY;  // In-place tablespace
+        }
+        else if (isdir)
+            type = FILE_TYPE_DIRECTORY;
+        else
+            type = FILE_TYPE_REGULAR;
+
+        // Call callback for this file
+        callback(path, type, filesize, link_target);
+    }
+
+    PQclear(res);
+}
+```

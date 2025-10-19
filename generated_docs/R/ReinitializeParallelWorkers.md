@@ -35,3 +35,14 @@ The function ensures that the requested number of workers does not exceed the ma
 - Provides flexibility for multi-phase parallel operations with varying parallelization needs
 - Much more efficient than recreating the entire parallel context for different worker counts
 - The actual worker launch still requires calling LaunchParallelWorkers after this adjustment
+
+## Simplified Source
+
+```c
+void ReinitializeParallelWorkers(ParallelContext *pcxt, int nworkers_to_launch)
+{
+    // Cap the requested workers to the maximum available in the context
+    // This gracefully handles cases where InitializeParallelDSM reduced nworkers
+    pcxt->nworkers_to_launch = Min(pcxt->nworkers, nworkers_to_launch);
+}
+```

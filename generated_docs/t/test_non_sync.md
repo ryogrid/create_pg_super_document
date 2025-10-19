@@ -47,3 +47,32 @@ This baseline measurement is essential for calculating the relative overhead of 
 - Part of a comprehensive suite of tests that help PostgreSQL administrators make informed decisions about wal_sync_method settings
 - Results can vary significantly based on available system memory, filesystem type, and storage hardware
 - Critical for understanding the performance trade-offs between data safety and write speed in PostgreSQL
+
+## Simplified Source
+
+```c
+static void test_non_sync(void)
+{
+    int tmpfile, ops;
+
+    // Test simple writes without any synchronization
+    printf(_("\nNon-sync'ed %dkB writes:\n"), XLOG_BLCKSZ_K);
+    printf(LABEL_FORMAT, "write");
+    fflush(stdout);
+
+    // Open file for writing
+    tmpfile = open(filename, O_RDWR | PG_BINARY, 0);
+    if (tmpfile == -1)
+        die("could not open output file");
+
+    // Time repeated write operations without sync
+    START_TIMER;
+    for (ops = 0; alarm_triggered == false; ops++) {
+        if (pg_pwrite(tmpfile, buf, XLOG_BLCKSZ, 0) != XLOG_BLCKSZ)
+            die("write failed");
+    }
+    STOP_TIMER;
+
+    close(tmpfile);
+}
+```

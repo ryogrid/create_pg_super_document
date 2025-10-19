@@ -42,3 +42,31 @@ The function also ensures that the thousands separator and decimal point are dif
 - Similar locale handling code exists in PostgreSQL's backend formatting.c, indicating this is part of a consistent approach across the system
 - The function modifies global state and should typically be called only once during initialization
 - Memory for decimal_point and thousands_sep strings is allocated via pg_strdup() and should be considered permanent for the program's lifetime
+
+## Simplified Source
+
+```c
+void setDecimalLocale(void) {
+    struct lconv *extlconv = localeconv();
+
+    // Set decimal point (default to SQL standard if empty)
+    if (*extlconv->decimal_point)
+        decimal_point = pg_strdup(extlconv->decimal_point);
+    else
+        decimal_point = ".";  // SQL output standard
+
+    // Set digit grouping size (validate range 1-6, default to 3)
+    groupdigits = *extlconv->grouping;
+    if (groupdigits <= 0 || groupdigits > 6)
+        groupdigits = 3;  // most common
+
+    // Set thousands separator (ensure it differs from decimal point)
+    if (*extlconv->thousands_sep) {
+        thousands_sep = pg_strdup(extlconv->thousands_sep);
+    } else if (strcmp(decimal_point, ",") != 0) {
+        thousands_sep = ",";
+    } else {
+        thousands_sep = ".";
+    }
+}
+```

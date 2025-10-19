@@ -54,3 +54,45 @@ The function includes special handling for /dev/null as a history file destinati
 - The fallback mode using write_history() overwrites the entire file, potentially losing history from concurrent sessions
 - When max_lines is specified, the function calculates how many lines to preserve from existing history versus newly added lines
 - Error messages are logged using PostgreSQL's standard logging mechanism
+
+## Simplified Source
+
+```c
+static bool saveHistory(char *fname, int max_lines) {
+    int errnum;
+
+    // Skip /dev/null to avoid chmod failures on macOS
+    if (strcmp(fname, DEVNULL) != 0) {
+        // Encode newlines for safe storage
+        encode_history();
+
+#if defined(HAVE_HISTORY_TRUNCATE_FILE) && defined(HAVE_APPEND_HISTORY)
+        // Modern approach: truncate and append
+        int nlines, fd;
+
+        // Truncate existing history if needed
+        if (max_lines >= 0) {
+            nlines = Max(max_lines - history_lines_added, 0);
+            history_truncate_file(fname, nlines);
+        }
+
+        // Ensure file exists for append_history
+        fd = open(fname, O_CREAT | O_WRONLY | PG_BINARY, 0600);
+        if (fd >= 0) close(fd);
+
+        // Append new history entries
+        nlines = (max_lines >= 0) ? Min(max_lines, history_lines_added) : history_lines_added;
+        errnum = append_history(nlines, fname);
+        if (errnum == 0) return true;
+#else
+        // Fallback: overwrite entire file
+        if (max_lines >= 0) stifle_history(max_lines);
+        errnum = write_history(fname);
+        if (errnum == 0) return true;
+#endif
+
+        pg_log_error("could not save history to file \"%s\": %m", fname);
+    }
+    return false;
+}
+```

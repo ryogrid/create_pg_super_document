@@ -32,3 +32,13 @@ The function is called when the TAR terminator bbstreamer is no longer needed, t
 - Located in src/bin/pg_basebackup/bbstreamer_tar.c:510-514
 - Essential for preventing memory leaks in the pg_basebackup streaming pipeline
 - Part of the resource management infrastructure for TAR archive processing
+
+## Simplified Source
+
+```c
+static void bbstreamer_tar_terminator_free(bbstreamer *streamer) {
+    // Standard cleanup pattern: free chain then self
+    bbstreamer_free(streamer->bbs_next);
+    pfree(streamer);
+}
+```

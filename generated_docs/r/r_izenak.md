@@ -29,3 +29,71 @@ The r_izenak function processes Basque noun endings during stemming by matching 
 
 ## Notes and Other Information
 This function is part of the Basque stemming algorithm and specifically handles noun morphology. It processes 295 different noun suffixes and applies context-sensitive transformations based on region boundaries (R1, R2, RV). The function returns 1 on successful processing and 0 if no matching suffix is found. Some cases perform simple deletion while others replace suffixes with specific strings (s_3 through s_9).
+
+## Simplified Source
+
+```c
+static int r_izenak(struct SN_env * z) {
+    int suffix_type;
+
+    // Set suffix end boundary and validate character class
+    z->ket = z->c;
+    if (z->c <= z->lb || !valid_character_class(z->p[z->c - 1]))
+        return 0;
+
+    // Find matching noun suffix from pattern array (295 patterns)
+    suffix_type = find_among_b(z, a_1, 295);
+    if (!suffix_type) return 0;
+
+    // Set suffix start boundary
+    z->bra = z->c;
+
+    // Process based on suffix type
+    switch (suffix_type) {
+        case 1:  // Simple noun suffix - requires RV region
+            if (!r_RV(z)) return 0;
+            slice_del(z);
+            break;
+
+        case 2:  // Complex noun suffix - requires R2 region
+            if (!r_R2(z)) return 0;
+            slice_del(z);
+            break;
+
+        case 3:  // Replace with form 1
+            slice_from_s(z, 3, s_3);
+            break;
+
+        case 4:  // Moderate noun suffix - requires R1 region
+            if (!r_R1(z)) return 0;
+            slice_del(z);
+            break;
+
+        case 5:  // Replace with form 2
+            slice_from_s(z, 3, s_4);
+            break;
+
+        case 6:  // Replace with form 3
+            slice_from_s(z, 6, s_5);
+            break;
+
+        case 7:  // Replace with form 4
+            slice_from_s(z, 5, s_6);
+            break;
+
+        case 8:  // Replace with form 5
+            slice_from_s(z, 5, s_7);
+            break;
+
+        case 9:  // Replace with form 6
+            slice_from_s(z, 5, s_8);
+            break;
+
+        case 10:  // Replace with form 7
+            slice_from_s(z, 5, s_9);
+            break;
+    }
+
+    return 1;
+}
+```

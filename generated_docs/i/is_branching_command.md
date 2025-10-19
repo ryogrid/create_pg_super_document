@@ -35,3 +35,15 @@ The function uses simple string comparisons with `strcmp()` to check each of the
 - Used specifically in the context of warning suppression - branching commands are always processed regardless of conditional state
 - Part of psql's conditional processing infrastructure that supports nested if-elif-else-endif blocks
 - The four recognized branching commands correspond directly to psql's conditional control flow syntax
+
+## Simplified Source
+
+```c
+static bool is_branching_command(const char *cmd) {
+    // Check if command is one of the four conditional branching commands
+    return (strcmp(cmd, "if") == 0 ||
+            strcmp(cmd, "elif") == 0 ||
+            strcmp(cmd, "else") == 0 ||
+            strcmp(cmd, "endif") == 0);
+}
+```

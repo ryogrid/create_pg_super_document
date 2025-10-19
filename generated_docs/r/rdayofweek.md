@@ -33,3 +33,12 @@ The function directly delegates the calculation to PostgreSQL's internal date ha
 - Part of the ECPG embedded SQL interface for maintaining Informix application compatibility
 - Provides a direct interface to PostgreSQL's internal day-of-week calculation functionality
 - No error handling is performed since the underlying PostgreSQL function handles date validation
+
+## Simplified Source
+
+```c
+int rdayofweek(date d) {
+    // Return day of week using PostgreSQL's built-in function
+    return PGTYPESdate_dayofweek(d);
+}
+```

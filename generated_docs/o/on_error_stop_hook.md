@@ -29,3 +29,18 @@ The  function serves as a validation and assignment hook for the ON_ERROR_STOP p
 - When ON_ERROR_STOP is enabled, psql will terminate script execution upon encountering an error
 - The function returns true if the value was successfully parsed and set, false otherwise
 - Located in src/bin/psql/startup.c at lines 881-886
+
+## Simplified Source
+
+```c
+static bool on_error_stop_hook(const char *newval) {
+    // Parse and validate boolean value, then set error stop flag
+    return ParseVariableBool(newval, "ON_ERROR_STOP", &pset.on_error_stop);
+}
+```
+
+This hook function:
+1. Validates the new string value as a boolean
+2. Sets the global ON_ERROR_STOP flag if valid
+3. Controls whether psql stops on SQL errors during script execution
+4. Returns true on success, false on invalid input

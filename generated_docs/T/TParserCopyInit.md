@@ -38,3 +38,34 @@ The copy parser shares the string pointers with the original parser but adjusts 
 - Useful for recursive parsing operations to avoid repeated string copying overhead
 - Each copy gets its own independent parser state starting from TPS_Base
 - Includes conditional compilation for WPARSER_TRACE debugging support
+
+## Simplified Source
+
+```c
+static TParser *TParserCopyInit(const TParser *orig) {
+    // Allocate new parser structure
+    TParser *prs = (TParser *) palloc0(sizeof(TParser));
+
+    // Copy parser configuration from original
+    prs->charmaxlen = orig->charmaxlen;
+    prs->usewide = orig->usewide;
+
+    // Set string pointers to start from original's current position
+    prs->str = orig->str + orig->state->posbyte;
+    prs->lenstr = orig->lenstr - orig->state->posbyte;
+
+    // Adjust wide character pointers if they exist
+    if (orig->pgwstr) {
+        prs->pgwstr = orig->pgwstr + orig->state->poschar;
+    }
+    if (orig->wstr) {
+        prs->wstr = orig->wstr + orig->state->poschar;
+    }
+
+    // Initialize new parser state
+    prs->state = newTParserPosition(NULL);
+    prs->state->state = TPS_Base;
+
+    return prs;
+}
+```

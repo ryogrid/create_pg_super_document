@@ -33,3 +33,14 @@ The `getQueryParams` function is used to prepare parameter arrays for SQL prepar
 - If a variable is not found in the store, getVariable may return NULL which gets passed as a parameter
 - This function is essential for pgbench's prepared statement functionality, enabling parameterized queries
 - The params array must be pre-allocated with sufficient space for all command arguments
+
+## Simplified Source
+
+```c
+static void getQueryParams(Variables *variables, const Command *command, const char **params) {
+    // Extract parameter values from command arguments (skip command name at argv[0])
+    for (int i = 0; i < command->argc - 1; i++) {
+        params[i] = getVariable(variables, command->argv[i + 1]);
+    }
+}
+```

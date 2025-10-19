@@ -37,3 +37,13 @@ This function must be called for every environment created with finnish_UTF_8_cr
 - After calling this function, the environment pointer becomes invalid and should not be used
 - Failure to call this function will result in memory leaks
 - This function should be called after all stemming operations are complete for a given session
+
+## Simplified Source
+
+```c
+extern void finnish_UTF_8_close_env(struct SN_env * z) {
+    // Clean up Snowball environment and free memory
+    // Parameter 1 matches string array size from create_env
+    SN_close_env(z, 1);
+}
+```

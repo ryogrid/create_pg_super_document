@@ -37,3 +37,12 @@ The function assumes that `setFmtEncoding()` has been previously called to confi
 - Widely used in pg_dump utilities for database object name formatting
 - Inherits all behavior and limitations from `fmtQualifiedIdEnc`
 - [Result](../R/Result.md) should be used immediately before making other formatting function calls
+
+## Simplified Source
+
+```c
+const char *fmtQualifiedId(const char *schema, const char *id) {
+    // Use the globally configured encoding
+    return fmtQualifiedIdEnc(schema, id, getFmtEncoding());
+}
+```

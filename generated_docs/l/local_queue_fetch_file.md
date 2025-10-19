@@ -41,3 +41,48 @@ The function includes important safety checks to ensure that the source file siz
 - Fatal errors are reported using pg_fatal for consistent error handling
 - Uses MAXPGPATH for path buffer sizing to handle maximum PostgreSQL path lengths
 - Located in src/bin/pg_rewind/local_source.c:77-127
+
+## Simplified Source
+
+```c
+static void
+local_queue_fetch_file(rewind_source *source, const char *path, size_t len)
+{
+    const char *datadir = ((local_source *) source)->datadir;
+    PGIOAlignedBlock buf;
+    char srcpath[MAXPGPATH];
+    int srcfd;
+    size_t written_len = 0;
+
+    // Build source file path
+    snprintf(srcpath, sizeof(srcpath), "%s/%s", datadir, path);
+
+    // Open source file
+    srcfd = open(srcpath, O_RDONLY | PG_BINARY, 0);
+    if (srcfd < 0)
+        pg_fatal("could not open source file \"%s\": %m", srcpath);
+
+    // Prepare target file
+    open_target_file(path, true);
+
+    // Copy file in chunks
+    for (;;) {
+        ssize_t read_len = read(srcfd, buf.data, sizeof(buf));
+
+        if (read_len < 0)
+            pg_fatal("could not read file \"%s\": %m", srcpath);
+        else if (read_len == 0)
+            break;  // EOF reached
+
+        write_target_range(buf.data, written_len, read_len);
+        written_len += read_len;
+    }
+
+    // Verify file size matches expectation
+    if (written_len != len)
+        pg_fatal("size of source file \"%s\" changed concurrently: %d bytes expected, %d copied",
+                 srcpath, (int) len, (int) written_len);
+
+    close(srcfd);
+}
+```

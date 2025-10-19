@@ -37,3 +37,15 @@ The function follows PostgreSQL's standard function interface, extracting the in
 - The function signature follows PostgreSQL's version-1 calling convention for built-in functions
 - No range checking or error handling is needed since the conversion is always valid
 - Commonly used in mathematical operations where integer operands need to be promoted to floating-point for calculation
+
+## Simplified Source
+
+```c
+Datum i4tod(PG_FUNCTION_ARGS) {
+    // Extract 32-bit integer input
+    int32 num = PG_GETARG_INT32(0);
+
+    // Convert to double precision and return
+    PG_RETURN_FLOAT8((float8) num);
+}
+```

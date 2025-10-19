@@ -30,3 +30,22 @@ This function performs cleanup of a DbInfoArr structure by deallocating all dyna
 - Sets db_arr->dbs to NULL and db_arr->ndbs to 0 after cleanup to prevent dangling pointers
 - Part of the pg_upgrade utility's memory management system
 - Should always be called to clean up DbInfoArr structures to prevent memory leaks
+
+## Simplified Source
+
+```c
+static void
+free_db_and_rel_infos(DbInfoArr *db_arr)
+{
+    // Free each database's relation info and database name
+    for (int dbnum = 0; dbnum < db_arr->ndbs; dbnum++) {
+        free_rel_infos(&db_arr->dbs[dbnum].rel_arr);
+        pg_free(db_arr->dbs[dbnum].db_name);
+    }
+
+    // Free the database array and reset structure
+    pg_free(db_arr->dbs);
+    db_arr->dbs = NULL;
+    db_arr->ndbs = 0;
+}
+```

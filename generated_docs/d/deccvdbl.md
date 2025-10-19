@@ -40,3 +40,29 @@ This function maintains Informix semantics for decimal conversion, ensuring comp
 - Includes proper memory management with PGTYPESnumeric_free cleanup
 - Part of the Informix compatibility layer in src/interfaces/ecpg/compatlib/informix.c
 - Maintains precision during conversion from double to decimal format
+
+## Simplified Source
+
+```c
+int deccvdbl(double dbl, decimal *np) {
+    // Initialize output decimal as null
+    rsetnull(CDECIMALTYPE, (char *) np);
+
+    // Handle null input
+    if (risnull(CDOUBLETYPE, (char *) &dbl))
+        return 0;
+
+    // Create new numeric value
+    numeric *nres = PGTYPESnumeric_new();
+    if (nres == NULL)
+        return ECPG_INFORMIX_OUT_OF_MEMORY;
+
+    // Convert double to numeric, then numeric to decimal
+    int result = PGTYPESnumeric_from_double(dbl, nres);
+    if (result == 0)
+        result = PGTYPESnumeric_to_decimal(nres, np);
+
+    PGTYPESnumeric_free(nres);
+    return result;
+}
+```

@@ -35,3 +35,23 @@ This ensures that no decompressed data is lost during the finalization process a
 - Uses BBSTREAMER_UNKNOWN context when forwarding data, indicating the archive context is not applicable at finalization
 - Part of the cleanup phase in the PostgreSQL base backup streaming infrastructure
 - Ensures proper resource cleanup by calling bbstreamer_finalize on the next streamer in the pipeline
+
+## Simplified Source
+
+```c
+static void
+bbstreamer_zstd_decompressor_finalize(bbstreamer *streamer)
+{
+    bbstreamer_zstd_frame *mystreamer = (bbstreamer_zstd_frame *) streamer;
+
+    // Forward any remaining buffered data
+    if (mystreamer->zstd_outBuf.pos > 0)
+        bbstreamer_content(mystreamer->base.bbs_next, NULL,
+                         mystreamer->base.bbs_buffer.data,
+                         mystreamer->base.bbs_buffer.maxlen,
+                         BBSTREAMER_UNKNOWN);
+
+    // Finalize downstream pipeline
+    bbstreamer_finalize(mystreamer->base.bbs_next);
+}
+```

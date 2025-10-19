@@ -39,3 +39,23 @@ The function ensures that all resources are properly released and that signal ha
 - Signal handling restoration is automatic for pipe operations
 - Works as a companion to SetupGOutput() for complete resource management
 - No return value as cleanup operations are expected to succeed
+
+## Simplified Source
+
+```c
+static void
+CloseGOutput(FILE *gfile_fout, bool is_pipe)
+{
+    if (gfile_fout) {
+        if (is_pipe) {
+            // Close pipe and capture exit status
+            SetShellResultVariables(pclose(gfile_fout));
+            restore_sigpipe_trap();  // Restore signal handling
+        }
+        else {
+            // Close regular file
+            fclose(gfile_fout);
+        }
+    }
+}
+```

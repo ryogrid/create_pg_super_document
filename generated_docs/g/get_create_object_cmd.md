@@ -49,3 +49,112 @@ For functions, it uses pg_get_functiondef() which returns a complete CREATE OR R
 - Does not currently support materialized views for CREATE OR REPLACE (marked with #ifdef NOT_USED)
 - Fully qualifies view names to prevent ambiguity during recreation
 - Essential for psql's object editing infrastructure, enabling users to modify and recreate database objects
+
+## Simplified Source
+
+```c
+static bool
+get_create_object_cmd(EditableObjectType obj_type, Oid oid, PQExpBuffer buf)
+{
+    bool result = true;
+    PQExpBuffer query = createPQExpBuffer();
+    PGresult *res;
+
+    // Build appropriate query based on object type
+    switch (obj_type) {
+        case EditableFunction:
+            // For functions, use built-in pg_get_functiondef
+            printfPQExpBuffer(query, "SELECT pg_catalog.pg_get_functiondef(%u)", oid);
+            break;
+
+        case EditableView:
+            // For views, need to construct CREATE statement manually
+            // Handle version differences for CHECK OPTION support
+            if (pset.sversion >= 90400) {
+                printfPQExpBuffer(query,
+                    "SELECT nspname, relname, relkind, "
+                    "pg_catalog.pg_get_viewdef(c.oid, true), "
+                    "reloptions, checkoption "
+                    "FROM pg_catalog.pg_class c "
+                    "LEFT JOIN pg_catalog.pg_namespace n ON c.relnamespace = n.oid "
+                    "WHERE c.oid = %u", oid);
+            } else {
+                // Older version without CHECK OPTION
+                printfPQExpBuffer(query, "SELECT nspname, relname, relkind, "
+                    "pg_catalog.pg_get_viewdef(c.oid, true), reloptions, NULL "
+                    "FROM pg_catalog.pg_class c "
+                    "LEFT JOIN pg_catalog.pg_namespace n ON c.relnamespace = n.oid "
+                    "WHERE c.oid = %u", oid);
+            }
+            break;
+    }
+
+    // Execute query and check for valid result
+    if (!echo_hidden_command(query->data)) {
+        destroyPQExpBuffer(query);
+        return false;
+    }
+
+    res = PQexec(pset.db, query->data);
+    if (PQresultStatus(res) == PGRES_TUPLES_OK && PQntuples(res) == 1) {
+        resetPQExpBuffer(buf);
+
+        switch (obj_type) {
+            case EditableFunction:
+                // Function definition is complete, just copy it
+                appendPQExpBufferStr(buf, PQgetvalue(res, 0, 0));
+                break;
+
+            case EditableView:
+                // Construct CREATE OR REPLACE VIEW statement
+                char *schema = PQgetvalue(res, 0, 0);
+                char *name = PQgetvalue(res, 0, 1);
+                char *kind = PQgetvalue(res, 0, 2);
+                char *definition = PQgetvalue(res, 0, 3);
+                char *options = PQgetvalue(res, 0, 4);
+                char *check_opt = PQgetvalue(res, 0, 5);
+
+                // Verify it's actually a view
+                if (kind[0] != RELKIND_VIEW) {
+                    pg_log_error("\"%s.%s\" is not a view", schema, name);
+                    result = false;
+                    break;
+                }
+
+                // Build CREATE OR REPLACE VIEW statement
+                appendPQExpBuffer(buf, "CREATE OR REPLACE VIEW %s.%s",
+                    fmtId(schema), fmtId(name));
+
+                // Add reloptions if present
+                if (options && strlen(options) > 2) {
+                    appendPQExpBufferStr(buf, "\n WITH (");
+                    appendReloptionsArray(buf, options, "", pset.encoding, standard_strings());
+                    appendPQExpBufferChar(buf, ')');
+                }
+
+                // Add view definition
+                appendPQExpBuffer(buf, " AS\n%s", definition);
+
+                // Remove trailing semicolon from pg_get_viewdef
+                if (buf->len > 0 && buf->data[buf->len - 1] == ';')
+                    buf->data[--(buf->len)] = '\0';
+
+                // Add CHECK OPTION if specified
+                if (check_opt && check_opt[0] != '\0')
+                    appendPQExpBuffer(buf, "\n WITH %s CHECK OPTION", check_opt);
+                break;
+        }
+
+        // Ensure result ends with newline
+        if (buf->len > 0 && buf->data[buf->len - 1] != '\n')
+            appendPQExpBufferChar(buf, '\n');
+    } else {
+        minimal_error_message(res);
+        result = false;
+    }
+
+    PQclear(res);
+    destroyPQExpBuffer(query);
+    return result;
+}
+```

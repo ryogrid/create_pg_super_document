@@ -28,3 +28,16 @@ The interval_finite function is a public PostgreSQL function that determines if 
 
 ## Notes and Other Information
 This is a public PostgreSQL function that can be called from SQL queries using the isfinite() function on interval values. Similar to timestamps, PostgreSQL intervals support special values including positive infinity ('infinity') and negative infinity ('-infinity') to represent unbounded time durations. This function provides a way to distinguish between finite interval values and these special infinite values. The function follows PostgreSQL's standard function calling conventions using the PG_FUNCTION_ARGS framework and uses pointer-based argument extraction for the interval type.
+
+## Simplified Source
+
+```c
+Datum
+interval_finite(PG_FUNCTION_ARGS)
+{
+    Interval *interval = PG_GETARG_INTERVAL_P(0);
+
+    // Return true if interval is finite (not infinity or -infinity)
+    PG_RETURN_BOOL(!INTERVAL_NOT_FINITE(interval));
+}
+```

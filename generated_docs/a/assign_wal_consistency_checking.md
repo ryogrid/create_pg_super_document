@@ -32,3 +32,17 @@ The function includes important comments about the timing of assignments: built-
 - Built-in resource managers are assigned immediately upon configuration change
 - Custom resource managers may have deferred assignment until modules are loaded
 - The function handles the case where some checks were deferred during startup
+
+## Simplified Source
+
+```c
+void assign_wal_consistency_checking(const char *newval, void *extra) {
+    /*
+     * Built-in resource managers are assigned immediately, affecting
+     * WAL created before shared_preload_libraries are processed.
+     * Custom resource managers are assigned later after modules load,
+     * which is safe since custom WAL can't be written before loading.
+     */
+    wal_consistency_checking = extra;
+}
+```

@@ -47,3 +47,56 @@ The conversion process involves:
 - Sets specific PGTYPES error codes to distinguish different failure modes
 - Properly manages memory allocation and cleanup throughout the conversion process
 - Part of the ECPG pgtypes library's internal numeric conversion infrastructure
+
+## Simplified Source
+
+```c
+static int
+numericvar_to_double(numeric *var, double *dp)
+{
+    // Create working copy to preserve original
+    numeric *varcopy = PGTYPESnumeric_new();
+    if (varcopy == NULL)
+        return -1;
+
+    if (PGTYPESnumeric_copy(var, varcopy) < 0) {
+        PGTYPESnumeric_free(varcopy);
+        return -1;
+    }
+
+    // Convert numeric to string representation
+    char *str = get_str_from_var(varcopy, varcopy->dscale);
+    PGTYPESnumeric_free(varcopy);
+    if (str == NULL)
+        return -1;
+
+    // Parse string to double using strtod
+    errno = 0;
+    char *endptr;
+    double val = strtod(str, &endptr);
+
+    // Check for conversion errors
+    if (errno == ERANGE) {
+        free(str);
+        errno = (val == 0) ? PGTYPES_NUM_UNDERFLOW : PGTYPES_NUM_OVERFLOW;
+        return -1;
+    }
+
+    if (*endptr != '\0') {
+        free(str);
+        errno = PGTYPES_NUM_BAD_NUMERIC;
+        return -1;
+    }
+
+    // Success: store result and cleanup
+    free(str);
+    *dp = val;
+    return 0;
+}
+```
+
+**Key Points:**
+- Creates a copy to avoid modifying the original numeric value
+- Converts numeric → string → double using standard C library
+- Comprehensive error handling for overflow, underflow, and parsing errors
+- Returns 0 on success, -1 on failure with specific errno codes

@@ -41,3 +41,17 @@ The function performs these key operations:
 - Used extensively by the pgoutput plugin for preparing various types of logical replication messages
 - The last_write parameter allows output plugins to optimize buffer management for the final write in a sequence
 - Essential for maintaining proper protocol flow in logical replication output
+
+## Simplified Source
+
+```c
+void OutputPluginPrepareWrite(struct LogicalDecodingContext *ctx, bool last_write) {
+    // Ensure writes are only allowed in valid callback contexts
+    if (!ctx->accept_writes)
+        elog(ERROR, "writes are only accepted in commit, begin and change callbacks");
+
+    // Call the plugin's prepare_write callback with current context info
+    ctx->prepare_write(ctx, ctx->write_location, ctx->write_xid, last_write);
+    ctx->prepared_write = true;
+}
+```

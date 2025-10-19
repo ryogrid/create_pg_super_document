@@ -71,3 +71,133 @@ The function uses safe search_path queries and proper identifier encoding to han
 - REINDEX_SYSTEM and REINDEX_TABLE cases are not implemented (Assert(false)) as they don't require object list expansion
 - [Query](../Q/Query.md) results are ordered by object size (relpages) in descending order to enable better load balancing in parallel execution
 - For index reindexing, ensures that indexes belonging to the same table are grouped together to avoid concurrent modification conflicts
+
+## Simplified Source
+
+```c
+static SimpleStringList *
+get_parallel_object_list(PGconn *conn, ReindexType type,
+                         SimpleStringList *user_list, bool echo)
+{
+    PQExpBufferData catalog_query;
+    PQExpBufferData buf;
+    PGresult *res;
+    SimpleStringList *tables;
+    int ntups, i;
+
+    initPQExpBuffer(&catalog_query);
+
+    // Build catalog query based on reindex type
+    switch (type) {
+        case REINDEX_DATABASE:
+            // Get all user tables and materialized views, ordered by size
+            appendPQExpBufferStr(&catalog_query,
+                "SELECT c.relname, ns.nspname "
+                "FROM pg_catalog.pg_class c "
+                "JOIN pg_catalog.pg_namespace ns ON c.relnamespace = ns.oid "
+                "WHERE ns.nspname != 'pg_catalog' "
+                "  AND c.relkind IN ('r', 'm') "  // tables and materialized views
+                "  AND c.relpersistence != 't' "  // exclude temp tables
+                "ORDER BY c.relpages DESC;");
+            break;
+
+        case REINDEX_SCHEMA:
+            // Get tables from specified schemas
+            appendPQExpBufferStr(&catalog_query,
+                "SELECT c.relname, ns.nspname "
+                "FROM pg_catalog.pg_class c "
+                "JOIN pg_catalog.pg_namespace ns ON c.relnamespace = ns.oid "
+                "WHERE c.relkind IN ('r', 'm') "
+                "  AND c.relpersistence != 't' "
+                "  AND ns.nspname IN (");
+
+            // Add schema names to query
+            bool first_schema = true;
+            for (SimpleStringListCell *cell = user_list->head; cell; cell = cell->next) {
+                if (!first_schema)
+                    appendPQExpBufferStr(&catalog_query, ", ");
+                first_schema = false;
+                appendStringLiteralConn(&catalog_query, cell->val, conn);
+            }
+            appendPQExpBufferStr(&catalog_query, ") ORDER BY c.relpages DESC;");
+            break;
+
+        case REINDEX_INDEX:
+            // Complex query to group indexes by parent table
+            appendPQExpBufferStr(&catalog_query,
+                "SELECT t.relname, n.nspname, i.relname "
+                "FROM pg_catalog.pg_index x "
+                "JOIN pg_catalog.pg_class t ON t.oid = x.indrelid "
+                "JOIN pg_catalog.pg_class i ON i.oid = x.indexrelid "
+                "LEFT JOIN pg_catalog.pg_namespace n ON n.oid = t.relnamespace "
+                "WHERE x.indexrelid = ANY(ARRAY['");
+
+            // Add index names to query
+            for (SimpleStringListCell *cell = user_list->head; cell; cell = cell->next) {
+                if (cell != user_list->head)
+                    appendPQExpBufferStr(&catalog_query, "', '");
+                appendQualifiedRelation(&catalog_query, cell->val, conn, echo);
+            }
+
+            // Order by table size, then by index size within table
+            appendPQExpBufferStr(&catalog_query,
+                "']::pg_catalog.regclass[]) "
+                "ORDER BY max(i.relpages) OVER (PARTITION BY n.nspname, t.relname), "
+                "         n.nspname, t.relname, i.relpages;");
+
+            // Clear user_list to rebuild it in table order
+            simple_string_list_destroy(user_list);
+            user_list->head = user_list->tail = NULL;
+            break;
+
+        case REINDEX_SYSTEM:
+        case REINDEX_TABLE:
+            // These types don't need object list expansion
+            Assert(false);
+            break;
+    }
+
+    // Execute the catalog query
+    res = executeQuery(conn, catalog_query.data, echo);
+    termPQExpBuffer(&catalog_query);
+
+    // Check if any objects were found
+    ntups = PQntuples(res);
+    if (ntups == 0) {
+        PQclear(res);
+        PQfinish(conn);
+        return NULL;
+    }
+
+    // Build list of qualified table names
+    tables = pg_malloc0(sizeof(SimpleStringList));
+    initPQExpBuffer(&buf);
+
+    for (i = 0; i < ntups; i++) {
+        // Create qualified table name (schema.table)
+        appendPQExpBufferStr(&buf,
+            fmtQualifiedIdEnc(PQgetvalue(res, i, 1),    // schema name
+                             PQgetvalue(res, i, 0),     // table name
+                             PQclientEncoding(conn)));
+
+        simple_string_list_append(tables, buf.data);
+        resetPQExpBuffer(&buf);
+
+        // For index reindexing, also rebuild the index list in table order
+        if (type == REINDEX_INDEX) {
+            appendPQExpBufferStr(&buf,
+                fmtQualifiedIdEnc(PQgetvalue(res, i, 1),    // schema name
+                                 PQgetvalue(res, i, 2),     // index name
+                                 PQclientEncoding(conn)));
+
+            simple_string_list_append(user_list, buf.data);
+            resetPQExpBuffer(&buf);
+        }
+    }
+
+    termPQExpBuffer(&buf);
+    PQclear(res);
+
+    return tables;
+}
+```

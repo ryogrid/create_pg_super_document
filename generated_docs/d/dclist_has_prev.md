@@ -32,3 +32,17 @@ The `dclist_has_prev` function determines whether a specific node in a doubly-li
 - This is an inline function for performance optimization
 - Caution: The node parameter must be a valid member of the specified list head
 - Located in src/include/lib/ilist.h:854-866
+
+## Simplified Source
+
+```c
+static inline bool
+dclist_has_prev(const dclist_head *head, const dlist_node *node) {
+    // Verify that node is actually in this list
+    dlist_member_check(&head->dlist, node);
+    Assert(head->count > 0);  // List must not be empty
+
+    // Check if there's a preceding node
+    return dlist_has_prev(&head->dlist, node);
+}
+```

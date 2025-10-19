@@ -34,3 +34,23 @@ This function extracts the average Y value from a 6-element regression transitio
 - Part of PostgreSQL's regression aggregate functions suite
 - The transition array structure: [0]=N, [1]=Sx, [2]=Sxx, [3]=Sy, [4]=Syy, [5]=Sxy
 - Location: src/backend/utils/adt/float.c:3587-3605
+
+## Simplified Source
+
+```c
+Datum float8_regr_avgy(PG_FUNCTION_ARGS) {
+    ArrayType *transarray = PG_GETARG_ARRAYTYPE_P(0);
+
+    // Extract regression values from 6-element array
+    float8 *transvalues = check_float8_array(transarray, "float8_regr_avgy", 6);
+    float8 N = transvalues[0];   // Count of data points
+    float8 Sy = transvalues[3];  // Sum of Y values
+
+    // Return NULL if no data points
+    if (N < 1.0)
+        PG_RETURN_NULL();
+
+    // Return average: sum of Y values / count
+    PG_RETURN_FLOAT8(Sy / N);
+}
+```

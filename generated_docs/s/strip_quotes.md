@@ -36,3 +36,43 @@ The function operates destructively on the input string, overwriting it with the
 - Implements the standard SQL convention where doubled quotes represent literal quote characters
 - Skip trailing quotes only if they appear at the very end of the string
 - Commonly used in conjunction with strtokx when del_quotes=true is specified
+
+## Simplified Source
+
+```c
+void strip_quotes(char *source, char quote, char escape, int encoding) {
+    char *src, *dst;
+
+    // Initialize source and destination pointers
+    src = dst = source;
+
+    // Skip leading quote if present
+    if (*src && *src == quote)
+        src++;
+
+    // Process each character
+    while (*src) {
+        char c = *src;
+
+        // Skip trailing quote at end of string
+        if (c == quote && src[1] == '\0')
+            break;
+
+        // Handle doubled quotes (convert to single)
+        else if (c == quote && src[1] == quote)
+            src++;
+
+        // Handle escape sequences
+        else if (c == escape && src[1] != '\0')
+            src++;
+
+        // Copy character(s) handling multi-byte encoding
+        int char_len = PQmblenBounded(src, encoding);
+        while (char_len--)
+            *dst++ = *src++;
+    }
+
+    // Null-terminate the result
+    *dst = '\0';
+}
+```

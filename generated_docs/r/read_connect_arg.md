@@ -34,3 +34,33 @@ The function treats empty arguments and single dash ("-") arguments as NULL, whi
 - The function includes extensive comments about the historical reasons for the current parsing behavior
 - Part of the connection management system in psql, specifically handling argument parsing for database connections
 - Memory management: caller is responsible for freeing the returned string when non-NULL
+
+## Simplified Source
+
+```c
+static char *
+read_connect_arg(PsqlScanState scan_state)
+{
+    char *result;
+    char quote;
+
+    // Parse connection argument with SQL identifier handling
+    // (OT_SQLIDHACK for backwards compatibility with old pg_dump files)
+    result = psql_scan_slash_option(scan_state, OT_SQLIDHACK, &quote, true);
+
+    if (!result)
+        return NULL;
+
+    // If quoted, return as-is
+    if (quote)
+        return result;
+
+    // Handle special cases: empty string or "-" means use default
+    if (*result == '\0' || strcmp(result, "-") == 0) {
+        free(result);
+        return NULL;
+    }
+
+    return result;
+}
+```

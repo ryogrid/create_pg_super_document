@@ -39,3 +39,30 @@ The replacement operations are particularly important in Irish morphology as the
 - The replacement strings (s_9 through s_13) contain specific Irish character sequences that restore morphological forms
 - Only Case 1 requires R2 region checking; replacement cases (2-6) apply unconditionally when the suffix is found
 - This function is called after noun suffix processing in the overall Irish stemming algorithm
+
+## Simplified Source
+
+```c
+static int r_deriv(struct SN_env * z) {
+    // Set boundary and find derivational suffix pattern
+    z->ket = z->c;
+    int among_var = find_among_b(z, a_2, 25);
+    if (!among_var) return 0;
+
+    z->bra = z->c;
+
+    // Apply transformation based on suffix type
+    switch (among_var) {
+        case 1:
+            // Delete if in R2 region
+            if (r_R2(z) > 0) slice_del(z);
+            break;
+        case 2: case 3: case 4: case 5: case 6:
+            // Replace with restoration strings (s_9 to s_13)
+            slice_from_s(z, replacement_lengths[among_var],
+                        replacement_strings[among_var - 2]);
+            break;
+    }
+    return 1;
+}
+```

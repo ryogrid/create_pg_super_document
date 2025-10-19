@@ -42,3 +42,50 @@ This function implements PostgreSQL's generate_subscripts() SQL function, which 
 - Memory context management ensures proper cleanup across multiple function calls
 - Returns subscripts as 1-based integers matching PostgreSQL's array indexing convention
 - Essential for SQL queries that need to iterate over array dimensions programmatically
+
+## Simplified Source
+
+```c
+Datum generate_subscripts(PG_FUNCTION_ARGS) {
+    FuncCallContext *funcctx;
+    generate_subscripts_fctx *fctx;
+
+    // First call: Initialize the function context
+    if (SRF_IS_FIRSTCALL()) {
+        AnyArrayType *v = PG_GETARG_ANY_ARRAY_P(0);
+        int reqdim = PG_GETARG_INT32(1);
+
+        funcctx = SRF_FIRSTCALL_INIT();
+
+        // Validate array and dimension
+        if (AARR_NDIM(v) <= 0 || AARR_NDIM(v) > MAXDIM ||
+            reqdim <= 0 || reqdim > AARR_NDIM(v)) {
+            SRF_RETURN_DONE(funcctx);
+        }
+
+        // Set up iteration context
+        fctx = palloc(sizeof(generate_subscripts_fctx));
+        fctx->lower = AARR_LBOUND(v)[reqdim - 1];
+        fctx->upper = AARR_DIMS(v)[reqdim - 1] + fctx->lower - 1;
+        fctx->reverse = (PG_NARGS() < 3) ? false : PG_GETARG_BOOL(2);
+
+        funcctx->user_fctx = fctx;
+    }
+
+    // Subsequent calls: Return next subscript
+    funcctx = SRF_PERCALL_SETUP();
+    fctx = funcctx->user_fctx;
+
+    if (fctx->lower <= fctx->upper) {
+        if (!fctx->reverse) {
+            SRF_RETURN_NEXT(funcctx, Int32GetDatum(fctx->lower++));
+        } else {
+            SRF_RETURN_NEXT(funcctx, Int32GetDatum(fctx->upper--));
+        }
+    } else {
+        SRF_RETURN_DONE(funcctx);
+    }
+}
+```
+
+This set-returning function generates all valid subscripts for a specified array dimension. It validates the array and dimension, then iterates through subscripts from lower to upper bound (or in reverse). The SRF framework maintains state between calls for efficient iteration.

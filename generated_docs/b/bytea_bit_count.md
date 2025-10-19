@@ -36,3 +36,19 @@ The `bytea_bit_count` function implements the SQL standard BIT_COUNT() function 
 - Part of the SQL standard bit manipulation functions
 - Efficient implementation suitable for large bytea values
 - Located in src/backend/utils/adt/varlena.c:3151-3164
+
+## Simplified Source
+
+```c
+// PostgreSQL function to count set bits (1s) in bytea data
+Datum bytea_bit_count(PG_FUNCTION_ARGS) {
+    // Extract the input bytea argument
+    bytea *input_bytea = PG_GETARG_BYTEA_PP(0);
+
+    // Count set bits using optimized popcount function
+    // VARDATA_ANY gets data pointer, VARSIZE_ANY_EXHDR gets data length
+    int64 bit_count = pg_popcount(VARDATA_ANY(input_bytea), VARSIZE_ANY_EXHDR(input_bytea));
+
+    return PG_RETURN_INT64(bit_count);
+}
+```

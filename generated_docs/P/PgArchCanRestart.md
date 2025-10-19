@@ -31,3 +31,22 @@ This function implements a safety valve mechanism to prevent continuous respawn 
 - Part of PostgreSQL's process management and fault tolerance mechanisms
 - The postmaster will get another chance to restart the archiver later if restart is denied
 - Helps prevent system resource exhaustion from rapid process spawning
+
+## Simplified Source
+
+```c
+bool
+PgArchCanRestart(void)
+{
+    static time_t last_pgarch_start_time = 0;
+    time_t curtime = time(NULL);
+
+    // Check if enough time has passed since last restart
+    if ((unsigned int)(curtime - last_pgarch_start_time) < PGARCH_RESTART_INTERVAL)
+        return false;
+
+    // Update timestamp and allow restart
+    last_pgarch_start_time = curtime;
+    return true;
+}
+```

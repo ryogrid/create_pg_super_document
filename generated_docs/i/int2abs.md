@@ -32,3 +32,20 @@ The `int2abs` function implements PostgreSQL's absolute value operation for 16-b
 - Part of PostgreSQL's integer arithmetic functions located in `src/backend/utils/adt/int.c`
 - The `unlikely()` macro is used for branch prediction optimization on the overflow check
 - Error message specifically mentions "smallint out of range" to indicate the 16-bit integer type
+
+## Simplified Source
+
+```c
+Datum int2abs(PG_FUNCTION_ARGS) {
+    int16 value = PG_GETARG_INT16(0);
+
+    // Check for overflow case: abs(INT16_MIN) cannot be represented
+    if (value == PG_INT16_MIN) {
+        ereport(ERROR, (errcode(ERRCODE_NUMERIC_VALUE_OUT_OF_RANGE),
+                       errmsg("smallint out of range")));
+    }
+
+    // Return absolute value
+    PG_RETURN_INT16((value < 0) ? -value : value);
+}
+```

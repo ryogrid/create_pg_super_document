@@ -37,3 +37,18 @@ This function is used internally by SP-GiST (Space-partitioned Generalized Searc
 - Used in conjunction with qsort() or similar sorting algorithms to order points by Y coordinate
 - Part of the SP-GiST spatial indexing infrastructure in PostgreSQL
 - Complements the  function which performs similar comparisons along the X-axis
+
+## Simplified Source
+
+```c
+static int y_cmp(const void *a, const void *b)
+{
+    SortedPoint *pa = (SortedPoint *) a;
+    SortedPoint *pb = (SortedPoint *) b;
+
+    // Compare y-coordinates of two points
+    if (pa->p->y == pb->p->y)
+        return 0;       // Equal
+    return (pa->p->y > pb->p->y) ? 1 : -1;  // Greater or less than
+}
+```

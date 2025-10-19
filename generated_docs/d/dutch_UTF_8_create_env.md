@@ -30,3 +30,12 @@ The function calls `SN_create_env(0, 3)`, indicating that it creates an environm
 - Returns NULL on memory allocation failure (inherited behavior from `SN_create_env`)
 - The created environment must be properly closed using `dutch_UTF_8_close_env` to prevent memory leaks
 - Part of PostgreSQL's full-text search functionality for Dutch language support
+
+## Simplified Source
+
+```c
+extern struct SN_env * dutch_UTF_8_create_env(void) {
+    // Create Dutch stemming environment with 0 string arrays and 3 integer variables
+    return SN_create_env(0, 3);
+}
+```

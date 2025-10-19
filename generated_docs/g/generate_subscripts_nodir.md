@@ -37,3 +37,14 @@ The function uses the standard PostgreSQL function call interface:
 - Part of PostgreSQL's Set Returning Function (SRF) infrastructure
 - Located in src/backend/utils/adt/arrayfuncs.c at lines 5969-5979
 - Provides backward compatibility for the simpler 2-argument interface
+
+## Simplified Source
+
+```c
+Datum generate_subscripts_nodir(PG_FUNCTION_ARGS) {
+    // Simple wrapper for 2-argument version - delegates to main function
+    return generate_subscripts(fcinfo);
+}
+```
+
+This is a minimal wrapper function that provides the 2-argument interface for `generate_subscripts()`. It simply passes all arguments through to the main `generate_subscripts()` function, which handles both 2-argument and 3-argument variants.

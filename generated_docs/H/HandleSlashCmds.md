@@ -47,3 +47,63 @@ The function includes sophisticated argument handling - after successful command
 - Automatically flushes output to ensure commands that write to queryFout are properly displayed
 - Both query_buf and previous_buf can be NULL when executing "-c" command-line options
 - Implements proper cleanup by consuming remaining arguments and handling parse state consistently
+
+## Simplified Source
+
+```c
+backslashResult HandleSlashCmds(PsqlScanState scan_state,
+                               ConditionalStack cstack,
+                               PQExpBuffer query_buf,
+                               PQExpBuffer previous_buf) {
+    backslashResult status;
+    char *cmd;
+    char *arg;
+
+    // Parse the backslash command name
+    cmd = psql_scan_slash_command(scan_state);
+
+    // Check restricted mode - only \unrestrict allowed
+    if (restricted && strcmp(cmd, "unrestrict") != 0) {
+        pg_log_error("backslash commands are restricted; only \\unrestrict is allowed");
+        status = PSQL_CMD_ERROR;
+    } else {
+        // Execute the command
+        status = exec_command(cmd, scan_state, cstack, query_buf, previous_buf);
+    }
+
+    // Handle unknown commands
+    if (status == PSQL_CMD_UNKNOWN) {
+        pg_log_error("invalid command \\%s", cmd);
+        if (pset.cur_cmd_interactive) {
+            pg_log_error_hint("Try \\? for help.");
+        }
+        status = PSQL_CMD_ERROR;
+    }
+
+    // Clean up remaining arguments
+    if (status != PSQL_CMD_ERROR) {
+        // Warn about extra arguments after valid commands
+        bool active_branch = conditional_active(cstack);
+        conditional_stack_push(cstack, IFSTATE_IGNORED);
+        while ((arg = psql_scan_slash_option(scan_state, OT_NORMAL, NULL, false))) {
+            if (active_branch) {
+                pg_log_warning("\\%s: extra argument \"%s\" ignored", cmd, arg);
+            }
+            free(arg);
+        }
+        conditional_stack_pop(cstack);
+    } else {
+        // Silently discard rest of line after errors
+        while ((arg = psql_scan_slash_option(scan_state, OT_WHOLE_LINE, NULL, false))) {
+            free(arg);
+        }
+    }
+
+    // Handle trailing backslash and cleanup
+    psql_scan_slash_command_end(scan_state);
+    free(cmd);
+    fflush(pset.queryFout);
+
+    return status;
+}
+```

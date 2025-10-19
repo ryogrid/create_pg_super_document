@@ -37,3 +37,30 @@ This function implements pgbench's retry policy for failed transactions. It perf
 - Part of pgbench's comprehensive error handling and retry mechanism
 - The function is static with internal linkage within pgbench.c
 - Prevents infinite retry loops through multiple constraint checks
+
+## Simplified Source
+```c
+static bool doRetry(CState *st, pg_time_usec_t *now) {
+    // Must have a retryable error type
+    if (!canRetryError(st->estatus))
+        return false;
+
+    // Check maximum tries limit
+    if (max_tries && st->tries >= max_tries)
+        return false;
+
+    // Check per-transaction latency limit
+    if (latency_limit) {
+        pg_time_now_lazy(now);
+        if (*now - st->txn_scheduled > latency_limit)
+            return false;
+    }
+
+    // Check if benchmark duration exceeded
+    if (timer_exceeded)
+        return false;
+
+    // All checks passed - retry is allowed
+    return true;
+}
+```

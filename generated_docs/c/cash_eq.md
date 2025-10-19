@@ -36,3 +36,16 @@ The function performs a simple numerical comparison since cash values are intern
 - Used by SQL equality operators (=) for money/cash data types
 - Located in src/backend/utils/adt/cash.c:611-622
 - Simple and efficient implementation due to internal integer representation
+
+## Simplified Source
+
+```c
+Datum
+cash_eq(PG_FUNCTION_ARGS)
+{
+    Cash c1 = PG_GETARG_CASH(0);
+    Cash c2 = PG_GETARG_CASH(1);
+
+    PG_RETURN_BOOL(c1 == c2);
+}
+```

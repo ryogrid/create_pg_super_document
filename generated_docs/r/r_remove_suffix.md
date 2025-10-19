@@ -33,3 +33,28 @@ This function implements suffix removal logic for Indonesian word stemming. It s
 - Returns 1 on successful suffix removal, 0 if no applicable suffix found, or negative value on error
 - Checks for specific ending characters (105='i', 110='n') before attempting pattern matching for performance
 - Generated automatically by Snowball compiler from Indonesian stemming rules
+
+## Simplified Source
+
+```c
+static int r_remove_suffix(struct SN_env * z) {
+    // Set marker at current position
+    z->ket = z->c;
+
+    // Quick check: word must end with 'i' or 'n' for suffix patterns
+    if (z->c <= z->lb || (z->p[z->c - 1] != 105 && z->p[z->c - 1] != 110))
+        return 0;
+
+    // Find suffix pattern ('i', 'an', 'kan') with validation
+    if (!(find_among_b(z, a_2, 3))) return 0;
+
+    // Mark start position and remove the suffix
+    z->bra = z->c;
+    int ret = slice_del(z);
+    if (ret < 0) return ret;
+
+    // Track removal count
+    z->I[1] -= 1;
+    return 1;
+}
+```

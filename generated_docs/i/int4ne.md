@@ -35,3 +35,18 @@ This function implements the inequality comparison operator (!=, <>) for Postgre
 - Simple implementation using C's native != operator on extracted int32 values
 - Returns boolean true if arguments are not equal, false if they are equal
 - Complement function to int4eq
+
+## Simplified Source
+
+```c
+Datum
+int4ne(PG_FUNCTION_ARGS)
+{
+    // Extract the two integer arguments
+    int32 arg1 = PG_GETARG_INT32(0);
+    int32 arg2 = PG_GETARG_INT32(1);
+
+    // Return true if not equal, false if equal
+    PG_RETURN_BOOL(arg1 != arg2);
+}
+```

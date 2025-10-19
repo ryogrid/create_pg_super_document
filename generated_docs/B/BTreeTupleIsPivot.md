@@ -35,3 +35,19 @@ The function can produce false negatives (but never false positives) when used w
 
 ## Notes and Other Information
 This function is fundamental to B-tree tuple type identification and is used extensively throughout the B-tree implementation for different handling of pivot vs. leaf tuples. The distinction is crucial because pivot tuples have different structure and semantics compared to leaf tuples - they contain fewer attributes and serve purely for navigation rather than storing actual data. The potential for false negatives with non-heapkeyspace indexes reflects PostgreSQL's evolution in B-tree tuple formats and backward compatibility considerations.
+
+## Simplified Source
+
+```c
+static inline bool BTreeTupleIsPivot(IndexTuple itup) {
+    // Check if tuple has alternative TID info (required for pivot)
+    if ((itup->t_info & INDEX_ALT_TID_MASK) == 0)
+        return false;
+
+    // Pivot tuples don't have BT_IS_POSTING flag in offset number
+    if ((ItemPointerGetOffsetNumberNoCheck(&itup->t_tid) & BT_IS_POSTING) != 0)
+        return false;
+
+    return true;  // Has alt TID but no posting flag = pivot tuple
+}
+```

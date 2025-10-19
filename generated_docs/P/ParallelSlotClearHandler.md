@@ -32,3 +32,15 @@ ParallelSlotClearHandler is an inline function that removes any previously assig
 - Ensures no dangling function pointers or context data remain in the slot
 - Part of the parallel execution cleanup process in PostgreSQL client tools
 - Should be called when a slot no longer needs custom result processing to avoid potential issues with stale handlers
+
+## Simplified Source
+
+```c
+static inline void ParallelSlotClearHandler(ParallelSlot *slot) {
+    // Remove the result handler callback function
+    slot->handler = NULL;
+
+    // Clear the handler context data
+    slot->handler_context = NULL;
+}
+```

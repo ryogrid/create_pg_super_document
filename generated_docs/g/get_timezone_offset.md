@@ -38,3 +38,22 @@ The function returns the offset in seconds, where positive values indicate time 
 - The TIMEZONE_GLOBAL approach uses an older mechanism and requires sign negation
 - The compilation error ensures that unsupported platforms are caught at build time
 - This function appears to be utility code that may be used for timezone validation or conversion operations during database initialization
+
+## Simplified Source
+```c
+static int
+get_timezone_offset(struct tm *tm)
+{
+    // Use platform-specific method to get GMT offset in seconds
+#if defined(HAVE_STRUCT_TM_TM_ZONE)
+    // Modern systems: tm_gmtoff field directly provides the offset
+    return tm->tm_gmtoff;
+#elif defined(HAVE_INT_TIMEZONE)
+    // Older systems: use global timezone variable (negated)
+    return -TIMEZONE_GLOBAL;
+#else
+    // Should never happen - all supported platforms have one of the above
+#error No way to determine TZ? Can this happen?
+#endif
+}
+```

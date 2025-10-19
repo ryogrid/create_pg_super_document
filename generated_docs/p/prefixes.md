@@ -53,3 +53,82 @@ The function modifies the compilation flags (cflags) in the vars structure based
 
 ## Notes and Other Information
 The function returns early if REG_QUOTE is already set, as literal strings do not support prefix processing. Embedded options are only available in Advanced Regular Expression mode, providing fine-grained control over regex behavior. The function includes error handling for malformed prefix patterns and unsupported option combinations. Non-POSIX features trigger REG_UNONPOSIX notifications for compliance tracking.
+
+## Simplified Source
+
+```c
+static void prefixes(struct vars *v) {
+    // Skip prefix processing for literal strings
+    if (v->cflags & REG_QUOTE)
+        return;
+
+    // Handle "***" special prefixes
+    if (HAVE(4) && NEXT3('*', '*', '*')) {
+        switch (*(v->now + 3)) {
+            case CHR('?'):  // Error pattern
+                ERR(REG_BADPAT);
+                return;
+            case CHR('='):  // Switch to literal string mode
+                NOTE(REG_UNONPOSIX);
+                v->cflags |= REG_QUOTE;
+                v->cflags &= ~(REG_ADVANCED | REG_EXPANDED | REG_NEWLINE);
+                v->now += 4;
+                return;
+            case CHR(':'):  // Switch to ARE mode
+                NOTE(REG_UNONPOSIX);
+                v->cflags |= REG_ADVANCED;
+                v->now += 4;
+                break;
+            default:
+                ERR(REG_BADRPT);
+                return;
+        }
+    }
+
+    // Skip embedded options for non-advanced modes
+    if ((v->cflags & REG_ADVANCED) != REG_ADVANCED)
+        return;
+
+    // Process embedded options "(?...)" for AREs
+    if (HAVE(3) && NEXT2('(', '?') && iscalpha(*(v->now + 2))) {
+        NOTE(REG_UNONPOSIX);
+        v->now += 2;
+
+        // Process option characters
+        for (; !ATEOS() && iscalpha(*v->now); v->now++) {
+            switch (*v->now) {
+                case CHR('i'):  // Case insensitive
+                    v->cflags |= REG_ICASE;
+                    break;
+                case CHR('c'):  // Case sensitive
+                    v->cflags &= ~REG_ICASE;
+                    break;
+                case CHR('n'):  // Newline sensitive
+                    v->cflags |= REG_NEWLINE;
+                    break;
+                case CHR('s'):  // Single line mode
+                    v->cflags &= ~REG_NEWLINE;
+                    break;
+                case CHR('x'):  // Expanded syntax
+                    v->cflags |= REG_EXPANDED;
+                    break;
+                case CHR('q'):  // Literal string
+                    v->cflags |= REG_QUOTE;
+                    v->cflags &= ~REG_ADVANCED;
+                    break;
+                // Additional cases simplified for brevity
+                default:
+                    ERR(REG_BADOPT);
+                    return;
+            }
+        }
+
+        // Require closing parenthesis
+        if (!NEXT1(')')) {
+            ERR(REG_BADOPT);
+            return;
+        }
+        v->now++;
+    }
+}
+```

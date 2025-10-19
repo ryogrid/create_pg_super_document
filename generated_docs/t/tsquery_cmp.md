@@ -41,3 +41,23 @@ The function properly manages memory by freeing copied tsquery objects after the
 - Properly handles memory management of copied tsquery arguments
 - Part of the tsquery comparison operator family
 - Enables tsquery objects to be sorted and indexed efficiently
+
+## Simplified Source
+
+```c
+Datum tsquery_cmp(PG_FUNCTION_ARGS) {
+    // Extract both tsquery arguments
+    TSQuery query_a = PG_GETARG_TSQUERY_COPY(0);
+    TSQuery query_b = PG_GETARG_TSQUERY_COPY(1);
+
+    // Compare the queries using internal comparison function
+    int comparison_result = CompareTSQ(query_a, query_b);
+
+    // Clean up memory
+    PG_FREE_IF_COPY(query_a, 0);
+    PG_FREE_IF_COPY(query_b, 1);
+
+    // Return comparison result (-1, 0, or 1)
+    PG_RETURN_INT32(comparison_result);
+}
+```

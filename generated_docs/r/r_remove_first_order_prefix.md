@@ -38,3 +38,67 @@ This function implements the removal of Indonesian first-order prefixes as part 
 - Includes complex vowel-based conditional logic for 'mem' and 'pem' prefixes (cases 5 and 6)
 - Pre-checks for ending characters (105='i', 101='e') for performance optimization
 - Generated automatically by Snowball compiler from Indonesian stemming rules
+
+## Simplified Source
+
+```c
+static int r_remove_first_order_prefix(struct SN_env * z) {
+    // Set start marker
+    z->bra = z->c;
+
+    // Quick check: prefix must end with 'i' or 'e'
+    if (z->c + 1 >= z->l || (z->p[z->c + 1] != 105 && z->p[z->c + 1] != 101))
+        return 0;
+
+    // Find matching first-order prefix pattern
+    int among_var = find_among(z, a_3, 12);
+    if (!(among_var)) return 0;
+
+    z->ket = z->c;
+
+    switch (among_var) {
+        case 1: // Simple prefixes (di, ke, ter)
+            slice_del(z);
+            z->I[0] = 1;
+            break;
+
+        case 2: // Complex prefixes (men, pen)
+            slice_del(z);
+            z->I[0] = 3;
+            break;
+
+        case 3: // Restore 's' (meny -> s)
+            z->I[0] = 1;
+            slice_from_s(z, 1, s_1); // s_1 = "s"
+            break;
+
+        case 4: // Restore 'p' (peny -> p)
+            z->I[0] = 3;
+            slice_from_s(z, 1, s_2); // s_2 = "p"
+            break;
+
+        case 5: // mem prefix - conditional restoration
+            z->I[0] = 1;
+            // If next char is vowel, add 'p'; otherwise delete
+            if (in_grouping(z, g_vowel, 97, 117, 0)) {
+                slice_del(z);
+            } else {
+                slice_from_s(z, 1, s_3); // s_3 = "p"
+            }
+            break;
+
+        case 6: // pem prefix - conditional restoration
+            z->I[0] = 3;
+            // If next char is vowel, add 'p'; otherwise delete
+            if (in_grouping(z, g_vowel, 97, 117, 0)) {
+                slice_del(z);
+            } else {
+                slice_from_s(z, 1, s_4); // s_4 = "p"
+            }
+            break;
+    }
+
+    z->I[1] -= 1; // Track removal count
+    return 1;
+}
+```

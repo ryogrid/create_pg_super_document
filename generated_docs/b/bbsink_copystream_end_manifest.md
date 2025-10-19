@@ -27,3 +27,13 @@ This function serves as a placeholder callback for ending manifest transmission 
 - Intentionally does nothing as no explicit manifest terminator is required
 - Exists to fulfill the bbsink interface contract for end_manifest operations
 - Located in src/backend/backup/basebackup_copy.c:288-296
+
+## Simplified Source
+
+```c
+static void bbsink_copystream_end_manifest(bbsink *sink)
+{
+    // No explicit terminator needed for backup manifest in copystream protocol
+    /* Do nothing. */
+}
+```

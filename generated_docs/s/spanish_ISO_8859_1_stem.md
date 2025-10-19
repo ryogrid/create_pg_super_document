@@ -48,3 +48,49 @@ The algorithm follows a backward processing approach, working from the end of th
 - The algorithm preserves the original word boundaries and restores cursor positions after processing
 - Part of the larger Snowball stemming framework, which provides stemming algorithms for multiple languages
 - The ISO 8859-1 encoding specificity suggests this version handles Western European character sets appropriately
+
+## Simplified Source
+
+```c
+extern int spanish_ISO_8859_1_stem(struct SN_env * z) {
+    // Mark vowel-consonant regions (RV, R1, R2) for suffix processing
+    int ret = r_mark_regions(z);
+    if (ret < 0) return ret;
+
+    // Set up word boundaries for backward processing
+    z->lb = z->c;
+    z->c = z->l;
+
+    // Step 1: Remove attached pronouns from word end
+    int position1 = z->l - z->c;
+    r_attached_pronoun(z);
+    z->c = z->l - position1;
+
+    // Step 2: Try suffix removal in priority order
+    int position2 = z->l - z->c;
+
+    // Try standard suffixes first (highest priority)
+    if (r_standard_suffix(z) == 0) {
+        // If no standard suffix, try Y-verb suffixes
+        if (r_y_verb_suffix(z) == 0) {
+            // If no Y-verb suffix, try general verb suffixes
+            r_verb_suffix(z);
+        }
+    }
+
+    z->c = z->l - position2;
+
+    // Step 3: Clean up any remaining morphological elements
+    int position3 = z->l - z->c;
+    r_residual_suffix(z);
+    z->c = z->l - position3;
+
+    // Step 4: Final character normalization and cleanup
+    z->c = z->lb;
+    int saved_position = z->c;
+    r_postlude(z);
+    z->c = saved_position;
+
+    return 1; // Success
+}
+```

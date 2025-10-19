@@ -46,3 +46,29 @@ Unlike normal query execution, this function deliberately suppresses error messa
 - Uses global pset.db connection for database access
 - Includes debugging code (conditionally compiled with NOT_USED) for development
 - Caller is responsible for calling PQclear on successful results
+
+## Simplified Source
+
+```c
+static PGresult *
+exec_query(const char *query)
+{
+    PGresult *result;
+
+    // Safety checks: valid query and database connection
+    if (query == NULL || !pset.db || PQstatus(pset.db) != CONNECTION_OK)
+        return NULL;
+
+    // Execute the query
+    result = PQexec(pset.db, query);
+
+    // Check if query succeeded (returned tuples)
+    if (PQresultStatus(result) != PGRES_TUPLES_OK) {
+        // Silently handle errors to avoid interrupting user typing
+        PQclear(result);
+        return NULL;
+    }
+
+    return result;
+}
+```

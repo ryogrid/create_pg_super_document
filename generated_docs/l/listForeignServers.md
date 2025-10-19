@@ -41,3 +41,81 @@ This function queries the pg_foreign_server and related system catalogs to displ
 - Uses internationalization support for all column headers and titles
 - The server type and version fields are optional and may be NULL
 - This function corresponds to the \des command in psql for listing foreign servers
+
+## Simplified Source
+
+```c
+bool listForeignServers(const char *pattern, bool verbose) {
+    PQExpBufferData buf;
+    PGresult *res;
+    printQueryOpt myopt = pset.popt;
+
+    // Initialize buffer and build base query
+    initPQExpBuffer(&buf);
+    printfPQExpBuffer(&buf,
+        "SELECT s.srvname AS \"%s\",\n"
+        "  pg_catalog.pg_get_userbyid(s.srvowner) AS \"%s\",\n"
+        "  f.fdwname AS \"%s\"",
+        gettext_noop("Name"),
+        gettext_noop("Owner"),
+        gettext_noop("Foreign-data wrapper"));
+
+    // Add verbose columns if requested
+    if (verbose) {
+        appendPQExpBufferStr(&buf, ",\n  ");
+        printACLColumn(&buf, "s.srvacl");
+        appendPQExpBuffer(&buf,
+            ",\n"
+            "  s.srvtype AS \"%s\",\n"
+            "  s.srvversion AS \"%s\",\n"
+            "  CASE WHEN srvoptions IS NULL THEN '' ELSE "
+            "  '(' || pg_catalog.array_to_string(ARRAY(SELECT "
+            "  pg_catalog.quote_ident(option_name) ||  ' ' || "
+            "  pg_catalog.quote_literal(option_value)  FROM "
+            "  pg_catalog.pg_options_to_table(srvoptions)),  ', ') || ')' "
+            "  END AS \"%s\",\n"
+            "  d.description AS \"%s\"",
+            gettext_noop("Type"),
+            gettext_noop("Version"),
+            gettext_noop("FDW options"),
+            gettext_noop("Description"));
+    }
+
+    // Add FROM clause with JOIN to foreign data wrapper
+    appendPQExpBufferStr(&buf,
+        "\nFROM pg_catalog.pg_foreign_server s\n"
+        "     JOIN pg_catalog.pg_foreign_data_wrapper f ON f.oid=s.srvfdw\n");
+
+    // Add description join for verbose mode
+    if (verbose) {
+        appendPQExpBufferStr(&buf,
+            "LEFT JOIN pg_catalog.pg_description d\n       "
+            "ON d.classoid = s.tableoid AND d.objoid = s.oid "
+            "AND d.objsubid = 0\n");
+    }
+
+    // Apply pattern filter if provided
+    if (!validateSQLNamePattern(&buf, pattern, false, false,
+                                NULL, "s.srvname", NULL, NULL,
+                                NULL, 1)) {
+        termPQExpBuffer(&buf);
+        return false;
+    }
+
+    appendPQExpBufferStr(&buf, "ORDER BY 1;");
+
+    // Execute query and display results
+    res = PSQLexec(buf.data);
+    termPQExpBuffer(&buf);
+    if (!res)
+        return false;
+
+    myopt.title = _("List of foreign servers");
+    myopt.translate_header = true;
+
+    printQuery(res, &myopt, pset.queryFout, false, pset.logfile);
+    PQclear(res);
+
+    return true;
+}
+```

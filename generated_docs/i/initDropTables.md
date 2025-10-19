@@ -30,3 +30,19 @@ The initDropTables function is a cleanup utility in pgbench that removes all sta
 - Part of the pgbench initialization sequence, ensuring clean database state
 - Outputs progress message to stderr to inform users of the cleanup operation
 - Static function scope limits its usage to within pgbench.c
+
+## Simplified Source
+
+```c
+static void initDropTables(PGconn *con) {
+    // Inform user of cleanup operation
+    fprintf(stderr, "dropping old tables...\n");
+
+    // Drop all pgbench tables in one command to handle dependencies
+    executeStatement(con, "drop table if exists "
+                          "pgbench_accounts, "
+                          "pgbench_branches, "
+                          "pgbench_history, "
+                          "pgbench_tellers");
+}
+```

@@ -35,3 +35,12 @@ The function takes a void pointer to an Oid value, casts it appropriately, deref
 - The function follows the standard element description callback signature
 - The data parameter is not used but must be present to match the expected callback interface
 - Used in heap WAL record descriptions when arrays of relation OIDs need to be displayed
+
+## Simplified Source
+
+```c
+void oid_elem_desc(StringInfo buf, void *relid, void *data) {
+    // Format Oid value as unsigned integer
+    appendStringInfo(buf, "%u", *(Oid *) relid);
+}
+```

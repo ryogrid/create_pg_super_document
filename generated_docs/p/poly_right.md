@@ -36,3 +36,23 @@ The function follows PostgreSQL's standard function calling conventions and incl
 - Typically invoked through PostgreSQL's operator system (likely the >> operator for polygons)  
 - Essential for R-tree spatial indexing operations on polygon data
 - Memory management carefully handles toasted polygon data to prevent leaks
+
+## Simplified Source
+
+```c
+Datum poly_right(PG_FUNCTION_ARGS) {
+    // Extract both polygons from function arguments
+    POLYGON *polya = PG_GETARG_POLYGON_P(0);
+    POLYGON *polyb = PG_GETARG_POLYGON_P(1);
+
+    // Check if polygon A is strictly right of polygon B
+    // Compare leftmost point of A with rightmost point of B
+    bool result = polya->boundbox.low.x > polyb->boundbox.high.x;
+
+    // Free memory for toasted inputs (important for R-tree indexes)
+    PG_FREE_IF_COPY(polya, 0);
+    PG_FREE_IF_COPY(polyb, 1);
+
+    PG_RETURN_BOOL(result);
+}
+```

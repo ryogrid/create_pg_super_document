@@ -38,3 +38,24 @@ This function is part of PostgreSQL's generation memory context system, which is
 - Part of the generation memory context implementation which is optimized for allocation patterns where chunks are typically freed in bulk
 - The function examines the  field of each block to determine if chunks are allocated
 - Uses PostgreSQL's doubly-linked list () implementation for efficient block traversal
+
+## Simplified Source
+
+```c
+bool GenerationIsEmpty(MemoryContext context) {
+    GenerationContext *set = (GenerationContext *) context;
+    dlist_iter iter;
+
+    // Iterate through all blocks in the context
+    dlist_foreach(iter, &set->blocks) {
+        GenerationBlock *block = dlist_container(GenerationBlock, node, iter.cur);
+
+        // If any block has allocated chunks, context is not empty
+        if (block->nchunks > 0)
+            return false;
+    }
+
+    // All blocks are empty
+    return true;
+}
+```

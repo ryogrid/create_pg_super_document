@@ -36,3 +36,21 @@ The btoidcmp function is a B-tree comparison function specifically designed for 
 - Used internally by PostgreSQL's B-tree indexing system for OID data types
 - The function is declared using PostgreSQL's V1 function call convention
 - OIDs are unsigned 32-bit integers, so the comparison is straightforward numeric comparison
+
+## Simplified Source
+
+```c
+Datum btoidcmp(PG_FUNCTION_ARGS) {
+    // Extract OID arguments
+    Oid a = PG_GETARG_OID(0);
+    Oid b = PG_GETARG_OID(1);
+
+    // Three-way comparison: return positive, zero, or negative
+    if (a > b)
+        return A_GREATER_THAN_B;
+    else if (a == b)
+        return 0;
+    else
+        return A_LESS_THAN_B;
+}
+```

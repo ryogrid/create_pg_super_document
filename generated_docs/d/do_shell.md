@@ -34,3 +34,45 @@ The function handles cross-platform differences between Unix-like systems and Wi
 - Returns false for system() return codes 127 (command not found) or -1 (execution failed)
 - Flushes all output streams before executing commands to ensure proper synchronization
 - Part of psql's backslash command infrastructure for shell integration
+
+## Simplified Source
+
+```c
+static bool
+do_shell(const char *command)
+{
+    int result;
+
+    fflush(NULL);  // Ensure output is synchronized
+
+    if (!command) {
+        // Launch interactive shell
+        const char *shellName = getenv("SHELL");
+#ifdef WIN32
+        if (shellName == NULL)
+            shellName = getenv("COMSPEC");
+#endif
+        if (shellName == NULL)
+            shellName = DEFAULT_SHELL;
+
+        // Execute shell with platform-specific formatting
+        char *sys = psprintf("exec %s", shellName);
+        result = system(sys);
+        free(sys);
+    } else {
+        // Execute specific command
+        result = system(command);
+    }
+
+    // Update psql variables with execution result
+    SetShellResultVariables(result);
+
+    // Check for execution failures
+    if (result == 127 || result == -1) {
+        pg_log_error("\\!: failed");
+        return false;
+    }
+
+    return true;
+}
+```

@@ -35,3 +35,58 @@ The function implements a last-match-wins strategy by prepending new entries to 
 - Builds a linked list of platform-specific result mappings stored in the global  variable
 - Part of the PostgreSQL regression testing framework (pg_regress)
 - The file format parsing is strict and will bail out on malformed entries
+
+## Simplified Source
+
+```c
+static void load_resultmap(void) {
+    char buf[MAXPGPATH];
+    FILE *f;
+
+    // Try to open the resultmap file from input directory
+    snprintf(buf, sizeof(buf), "%s/resultmap", inputdir);
+    f = fopen(buf, "r");
+    if (!f) {
+        if (errno == ENOENT)
+            return;  // File doesn't exist - that's OK
+        bail("could not open file \"%s\" for reading: %m", buf);
+    }
+
+    // Process each line in the resultmap file
+    while (fgets(buf, sizeof(buf), f)) {
+        char *platform, *file_type, *expected;
+
+        // Strip trailing whitespace
+        int i = strlen(buf);
+        while (i > 0 && isspace((unsigned char) buf[i - 1]))
+            buf[--i] = '\0';
+
+        // Parse line format: testname:file_type:platform=expected_file
+        file_type = strchr(buf, ':');
+        if (!file_type)
+            bail("incorrectly formatted resultmap entry: %s", buf);
+        *file_type++ = '\0';
+
+        platform = strchr(file_type, ':');
+        if (!platform)
+            bail("incorrectly formatted resultmap entry: %s", buf);
+        *platform++ = '\0';
+
+        expected = strchr(platform, '=');
+        if (!expected)
+            bail("incorrectly formatted resultmap entry: %s", buf);
+        *expected++ = '\0';
+
+        // If platform pattern matches current host, add to resultmap list
+        if (string_matches_pattern(host_platform, platform)) {
+            _resultmap *entry = pg_malloc(sizeof(_resultmap));
+            entry->test = pg_strdup(buf);
+            entry->type = pg_strdup(file_type);
+            entry->resultfile = pg_strdup(expected);
+            entry->next = resultmap;
+            resultmap = entry;  // Add to front (last match wins)
+        }
+    }
+    fclose(f);
+}
+```

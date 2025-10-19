@@ -58,3 +58,62 @@ This function takes no specific parameters (uses PG_FUNCTION_ARGS macro for Post
 - All parallel operations are disabled for GiST (amcanparallel = false, amcanbuildparallel = false)
 - The access method supports include columns (amcaninclude = true) which allows non-key columns in the index
 - Located in src/backend/access/gist/gist.c:59-121
+
+## Simplified Source
+
+```c
+Datum
+gisthandler(PG_FUNCTION_ARGS)
+{
+    IndexAmRoutine *amroutine = makeNode(IndexAmRoutine);
+
+    // Configure access method capabilities
+    amroutine->amstrategies = 0;           // No strategy numbers used
+    amroutine->amsupport = GISTNProcs;     // Number of support procedures
+    amroutine->amoptsprocnum = GIST_OPTIONS_PROC;
+
+    // Set capability flags
+    amroutine->amcanorder = false;         // No ordering support
+    amroutine->amcanorderbyop = true;      // Supports ORDER BY operators
+    amroutine->amcanbackward = false;      // No backward scans
+    amroutine->amcanunique = false;        // No unique constraints
+    amroutine->amcanmulticol = true;       // Multi-column indexes supported
+    amroutine->amoptionalkey = true;       // Optional scan keys allowed
+    amroutine->amsearcharray = false;      // No array search
+    amroutine->amsearchnulls = true;       // Can search NULL values
+    amroutine->amstorage = true;           // Supports storage compression
+    amroutine->amclusterable = true;       // Supports clustering
+    amroutine->ampredlocks = true;         // Uses predicate locks
+    amroutine->amcanparallel = false;      // No parallel scans
+    amroutine->amcanbuildparallel = false; // No parallel builds
+    amroutine->amcaninclude = true;        // Supports include columns
+
+    // Set callback functions for GiST operations
+    amroutine->ambuild = gistbuild;
+    amroutine->ambuildempty = gistbuildempty;
+    amroutine->aminsert = gistinsert;
+    amroutine->ambulkdelete = gistbulkdelete;
+    amroutine->amvacuumcleanup = gistvacuumcleanup;
+    amroutine->amcanreturn = gistcanreturn;
+    amroutine->amcostestimate = gistcostestimate;
+    amroutine->amoptions = gistoptions;
+    amroutine->amproperty = gistproperty;
+    amroutine->amvalidate = gistvalidate;
+    amroutine->amadjustmembers = gistadjustmembers;
+    amroutine->ambeginscan = gistbeginscan;
+    amroutine->amrescan = gistrescan;
+    amroutine->amgettuple = gistgettuple;
+    amroutine->amgetbitmap = gistgetbitmap;
+    amroutine->amendscan = gistendscan;
+
+    // NULL callbacks for unsupported operations
+    amroutine->aminsertcleanup = NULL;
+    amroutine->ammarkpos = NULL;
+    amroutine->amrestrpos = NULL;
+    amroutine->amestimateparallelscan = NULL;
+    amroutine->aminitparallelscan = NULL;
+    amroutine->amparallelrescan = NULL;
+
+    PG_RETURN_POINTER(amroutine);
+}
+```

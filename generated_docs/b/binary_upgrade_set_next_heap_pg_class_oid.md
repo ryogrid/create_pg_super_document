@@ -32,7 +32,24 @@ The function can only be called when the server is running in binary upgrade mod
 
 ## Notes and Other Information
 - This function is only available when PostgreSQL is compiled with binary upgrade support
-- The global variable  is declared in src/include/catalog/binary_upgrade.h:26
+- The global variable is declared in src/include/catalog/binary_upgrade.h:26
 - The variable is consumed by heap table creation code in src/backend/catalog/heap.c around lines 1227-1233
 - Error is raised if called outside binary upgrade mode with message: "function can only be called when server is in binary upgrade mode"
 - After the OID is used for table creation, the global variable is reset to InvalidOid
+
+## Simplified Source
+
+```c
+Datum binary_upgrade_set_next_heap_pg_class_oid(PG_FUNCTION_ARGS) {
+    // Extract the relation OID argument
+    Oid reloid = PG_GETARG_OID(0);
+
+    // Verify we're in binary upgrade mode (throws error if not)
+    CHECK_IS_BINARY_UPGRADE;
+
+    // Store the OID for the next heap relation creation
+    binary_upgrade_next_heap_pg_class_oid = reloid;
+
+    PG_RETURN_VOID();
+}
+```

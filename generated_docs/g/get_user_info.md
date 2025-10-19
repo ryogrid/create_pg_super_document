@@ -36,3 +36,30 @@ get_user_info serves as a wrapper function that obtains information about the cu
 - Used to verify that pg_upgrade is being run by the database owner
 - Located in src/bin/pg_upgrade/util.c:323-351
 - Returns integer user ID while also setting the username through the output parameter
+
+## Simplified Source
+
+```c
+int get_user_info(char **user_name_p) {
+    int user_id;
+    const char *user_name;
+    char *errstr;
+
+    // Get effective user ID (platform-specific)
+#ifndef WIN32
+    user_id = geteuid();
+#else
+    user_id = 1;  // Windows fallback
+#endif
+
+    // Get username string
+    user_name = get_user_name(&errstr);
+    if (!user_name)
+        pg_fatal("%s", errstr);
+
+    // Return copy of username to caller
+    *user_name_p = pg_strdup(user_name);
+
+    return user_id;
+}
+```

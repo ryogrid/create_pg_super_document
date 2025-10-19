@@ -44,3 +44,39 @@ If new scan keys are provided, the function updates the scan's key data by copyi
 - Supports changing scan keys without recreating the entire scan structure
 - Resets bucket analysis flags to handle potential index changes since the last scan
 - The orderbys parameter is ignored since hash indexes do not support ordered retrieval
+
+## Simplified Source
+
+```c
+void
+hashrescan(IndexScanDesc scan, ScanKey scankey, int nscankeys,
+           ScanKey orderbys, int norderbys)
+{
+    HashScanOpaque so = (HashScanOpaque) scan->opaque;
+    Relation rel = scan->indexRelation;
+
+    // Process any killed items from previous scan
+    if (HashScanPosIsValid(so->currPos))
+    {
+        if (so->numKilled > 0)
+            _hash_kill_items(scan);
+    }
+
+    // Release any held buffers
+    _hash_dropscanbuf(rel, so);
+
+    // Reset scan position to start over
+    HashScanPosInvalidate(so->currPos);
+
+    // Update scan keys if new ones provided
+    if (scankey && scan->numberOfKeys > 0)
+    {
+        memmove(scan->keyData, scankey,
+                scan->numberOfKeys * sizeof(ScanKeyData));
+    }
+
+    // Reset bucket analysis flags
+    so->hashso_buc_populated = false;
+    so->hashso_buc_split = false;
+}
+```

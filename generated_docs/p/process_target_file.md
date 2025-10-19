@@ -47,3 +47,28 @@ The function is part of the dual-phase file discovery process where both source 
 - Unlike process_source_file, this function does not perform relation data file validation
 - This function is typically called during the target file enumeration phase of pg_rewind, before any file actions are decided or executed
 - Works in conjunction with process_source_file to build a complete picture of files in both source and target systems
+
+## Simplified Source
+
+```c
+void
+process_target_file(const char *path, file_type_t type, size_t size,
+                   const char *link_target)
+{
+    file_entry_t *entry;
+
+    // Treat pg_wal symlinks as directories
+    if (strcmp(path, "pg_wal") == 0 && type == FILE_TYPE_SYMLINK)
+        type = FILE_TYPE_DIRECTORY;
+
+    // Store target file metadata
+    entry = insert_filehash_entry(path);
+    if (entry->target_exists)
+        pg_fatal("duplicate source file \"%s\"", path);
+
+    entry->target_exists = true;
+    entry->target_type = type;
+    entry->target_size = size;
+    entry->target_link_target = link_target ? pg_strdup(link_target) : NULL;
+}
+```

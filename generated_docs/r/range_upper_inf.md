@@ -37,3 +37,18 @@ This function examines a PostgreSQL range type to determine if its upper bound i
 - Infinite bounds are useful for representing half-open or fully open ranges
 - When upper bound is infinite, the inclusivity setting becomes irrelevant
 - Complementary to `range_lower_inf` function for complete range bound analysis
+
+## Simplified Source
+
+```c
+Datum
+range_upper_inf(PG_FUNCTION_ARGS)
+{
+	RangeType *range = PG_GETARG_RANGE_P(0);
+
+	// Check RANGE_UB_INF flag for infinite upper bound
+	char flags = range_get_flags(range);
+
+	PG_RETURN_BOOL(flags & RANGE_UB_INF);
+}
+```

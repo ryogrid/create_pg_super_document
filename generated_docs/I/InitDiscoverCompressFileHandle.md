@@ -36,3 +36,48 @@ This function provides intelligent file opening capabilities with automatic comp
 
 ## Notes and Other Information
 The function implements a fallback strategy for compression detection: explicit extension recognition first, then probing for compressed variants if the base file doesn't exist. It only supports reading mode and includes an assertion to enforce this. The function properly manages memory allocation and cleanup, using free_keep_errno to preserve error codes. If opening fails, the function returns NULL and sets errno appropriately.
+
+## Simplified Source
+
+```c
+CompressFileHandle *
+InitDiscoverCompressFileHandle(const char *path, const char *mode)
+{
+    CompressFileHandle *CFH = NULL;
+    char *fname = pg_strdup(path);
+    pg_compress_specification compression_spec = {0};
+
+    // Detect compression from file extension
+    if (hasSuffix(fname, ".gz"))
+        compression_spec.algorithm = PG_COMPRESSION_GZIP;
+    else if (hasSuffix(fname, ".lz4"))
+        compression_spec.algorithm = PG_COMPRESSION_LZ4;
+    else if (hasSuffix(fname, ".zst"))
+        compression_spec.algorithm = PG_COMPRESSION_ZSTD;
+    else
+    {
+        // Try uncompressed first, then probe for compressed variants
+        struct stat st;
+        if (stat(path, &st) == 0)
+            compression_spec.algorithm = PG_COMPRESSION_NONE;
+        else if (check_compressed_file(path, &fname, "gz"))
+            compression_spec.algorithm = PG_COMPRESSION_GZIP;
+        else if (check_compressed_file(path, &fname, "lz4"))
+            compression_spec.algorithm = PG_COMPRESSION_LZ4;
+        else if (check_compressed_file(path, &fname, "zst"))
+            compression_spec.algorithm = PG_COMPRESSION_ZSTD;
+    }
+
+    // Create compression handle and attempt to open file
+    CFH = InitCompressFileHandle(compression_spec);
+    errno = 0;
+    if (!CFH->open_func(fname, -1, mode, CFH))
+    {
+        free_keep_errno(CFH);
+        CFH = NULL;
+    }
+    free_keep_errno(fname);
+
+    return CFH;
+}
+```

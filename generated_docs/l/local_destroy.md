@@ -32,3 +32,14 @@ The function is part of the resource management lifecycle for local source objec
 - Part of the strategy pattern implementation where different source types implement their own cleanup logic
 - The function assumes the source pointer is valid and points to memory that was allocated with PostgreSQL's memory allocation functions
 - No validation is performed on the input pointer - the caller is responsible for ensuring it's valid
+
+## Simplified Source
+
+```c
+static void
+local_destroy(rewind_source *source)
+{
+    // Free the allocated source structure
+    pfree(source);
+}
+```

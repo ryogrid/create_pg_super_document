@@ -57,3 +57,32 @@ The function maintains the same locking and ordering requirements as  but proces
 - Returns void but populates the  array with the insertion positions
 - Used primarily for internal bulk operations rather than user-initiated insertions
 - More efficient than multiple calls to  when inserting multiple tuples to the same page
+
+## Simplified Source
+
+```c
+void _hash_pgaddmultitup(Relation rel, Buffer buf, IndexTuple *itups,
+                        OffsetNumber *itup_offsets, uint16 nitups) {
+    // Verify this is a valid bucket or overflow page
+    _hash_checkpage(rel, buf, LH_BUCKET_PAGE | LH_OVERFLOW_PAGE);
+    Page page = BufferGetPage(buf);
+
+    // Process each tuple in the array
+    for (int i = 0; i < nitups; i++) {
+        // Calculate aligned tuple size
+        Size itemsize = MAXALIGN(IndexTupleSize(itups[i]));
+
+        // Find insertion position to maintain hashkey ordering
+        uint32 hashkey = _hash_get_indextuple_hashkey(itups[i]);
+        OffsetNumber itup_off = _hash_binsearch(page, hashkey);
+        itup_offsets[i] = itup_off;
+
+        // Add tuple to page at calculated position
+        if (PageAddItem(page, (Item) itups[i], itemsize, itup_off, false, false)
+            == InvalidOffsetNumber) {
+            elog(ERROR, "failed to add index item to \"%s\"",
+                 RelationGetRelationName(rel));
+        }
+    }
+}
+```

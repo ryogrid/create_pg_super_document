@@ -41,3 +41,19 @@ pg_time_now is a utility function in pgbench that provides a convenient way to o
 - Used extensively throughout pgbench for timing measurements during benchmark execution
 - Provides microsecond precision timing which is crucial for accurate performance benchmarking
 - The function is a key component of pgbench's timing infrastructure, enabling precise measurement of database operation latencies
+
+## Simplified Source
+
+```c
+static inline pg_time_usec_t
+pg_time_now(void)
+{
+    instr_time now;
+
+    // Get current time
+    INSTR_TIME_SET_CURRENT(now);
+
+    // Convert to microseconds
+    return (pg_time_usec_t) INSTR_TIME_GET_MICROSEC(now);
+}
+```

@@ -30,3 +30,12 @@ This function is a thin wrapper around the each_worker function, specifically de
 - The actual implementation logic is contained in the each_worker function
 - Returns a set of (key, value) tuples where both elements are text type
 - Part of PostgreSQL's JSON manipulation function suite
+
+## Simplified Source
+```c
+Datum json_each_text(PG_FUNCTION_ARGS) {
+    // Decompose JSON object into key-value pairs
+    // Returns values as text (not JSON)
+    return each_worker(fcinfo, true);
+}
+```

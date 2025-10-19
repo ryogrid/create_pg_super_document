@@ -53,3 +53,110 @@ The function dynamically constructs the list of problematic functions based on t
 - When issues are detected, problematic objects are logged to 'incompatible_polymorphics.txt' in the log directory
 - Users must manually drop and recreate affected objects with updated function references before upgrading
 - This check ensures that polymorphic type system changes don't cause runtime failures after upgrade
+
+## Simplified Source
+
+```c
+static void check_for_incompatible_polymorphics(ClusterInfo *cluster)
+{
+    PGresult *res;
+    FILE *script = NULL;
+    char output_path[MAXPGPATH];
+    PQExpBufferData old_polymorphics;
+
+    prep_status("Checking for incompatible polymorphic functions");
+
+    snprintf(output_path, sizeof(output_path), "%s/%s",
+             log_opts.basedir, "incompatible_polymorphics.txt");
+
+    // Build list of problematic functions based on PostgreSQL version
+    initPQExpBuffer(&old_polymorphics);
+
+    // Core functions available in all versions
+    appendPQExpBufferStr(&old_polymorphics,
+                         "'array_append(anyarray,anyelement)'"
+                         ", 'array_cat(anyarray,anyarray)'"
+                         ", 'array_prepend(anyelement,anyarray)'");
+
+    // Add version-specific functions
+    if (GET_MAJOR_VERSION(cluster->major_version) >= 903)
+        appendPQExpBufferStr(&old_polymorphics,
+                             ", 'array_remove(anyarray,anyelement)'"
+                             ", 'array_replace(anyarray,anyelement,anyelement)'");
+
+    if (GET_MAJOR_VERSION(cluster->major_version) >= 905)
+        appendPQExpBufferStr(&old_polymorphics,
+                             ", 'array_position(anyarray,anyelement)'"
+                             ", 'array_position(anyarray,anyelement,integer)'"
+                             ", 'array_positions(anyarray,anyelement)'"
+                             ", 'width_bucket(anyelement,anyarray)'");
+
+    // Check each database for problematic user-defined objects
+    for (int dbnum = 0; dbnum < cluster->dbarr.ndbs; dbnum++)
+    {
+        bool db_used = false;
+        DbInfo *active_db = &cluster->dbarr.dbs[dbnum];
+        PGconn *conn = connectToServer(cluster, active_db->db_name);
+
+        // Query finds user objects (oid >= 16384) that reference old polymorphic functions
+        res = executeQueryOrDie(conn,
+            // Check aggregate transition functions
+            "SELECT 'aggregate' AS objkind, p.oid::regprocedure::text AS objname "
+            "FROM pg_proc AS p "
+            "JOIN pg_aggregate AS a ON a.aggfnoid=p.oid "
+            "WHERE p.oid >= 16384 "
+            "AND a.aggtransfn = ANY(ARRAY[%s]::regprocedure[]) "
+            "AND a.aggtranstype = ANY(ARRAY['anyarray', 'anyelement']::regtype[]) "
+
+            // Check aggregate final functions
+            "UNION ALL "
+            "SELECT 'aggregate' AS objkind, p.oid::regprocedure::text AS objname "
+            "FROM pg_proc AS p "
+            "JOIN pg_aggregate AS a ON a.aggfnoid=p.oid "
+            "WHERE p.oid >= 16384 "
+            "AND a.aggfinalfn = ANY(ARRAY[%s]::regprocedure[]) "
+            "AND a.aggtranstype = ANY(ARRAY['anyarray', 'anyelement']::regtype[]) "
+
+            // Check operators
+            "UNION ALL "
+            "SELECT 'operator' AS objkind, op.oid::regoperator::text AS objname "
+            "FROM pg_operator AS op "
+            "WHERE op.oid >= 16384 "
+            "AND oprcode = ANY(ARRAY[%s]::regprocedure[]);",
+            old_polymorphics.data, old_polymorphics.data, old_polymorphics.data);
+
+        int ntups = PQntuples(res);
+        int i_objkind = PQfnumber(res, "objkind");
+        int i_objname = PQfnumber(res, "objname");
+
+        // Log any problematic objects found
+        for (int rowno = 0; rowno < ntups; rowno++)
+        {
+            if (script == NULL)
+                script = fopen_priv(output_path, "w");
+            if (!db_used) {
+                fprintf(script, "In database: %s\n", active_db->db_name);
+                db_used = true;
+            }
+            fprintf(script, "  %s: %s\n",
+                    PQgetvalue(res, rowno, i_objkind),
+                    PQgetvalue(res, rowno, i_objname));
+        }
+
+        PQclear(res);
+        PQfinish(conn);
+    }
+
+    // Handle results: fail if problems found, otherwise mark success
+    if (script) {
+        fclose(script);
+        pg_fatal("User-defined objects refer to internal polymorphic functions "
+                 "with anyarray/anyelement arguments. These must be dropped "
+                 "before upgrading. See: %s", output_path);
+    } else {
+        check_ok();
+    }
+
+    termPQExpBuffer(&old_polymorphics);
+}
+```

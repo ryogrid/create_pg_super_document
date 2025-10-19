@@ -34,3 +34,15 @@ The function executes the SQL command  which internally advances the OID counter
 - Objects created before this function is called will be pinned and cannot be dropped, while objects created after will follow normal dependency rules
 - The function is part of the broader initdb process that sets up a new PostgreSQL database cluster
 - The double newline (\n\n) in the SQL output provides formatting separation in the generated SQL script
+
+## Simplified Source
+
+```c
+static void
+setup_depend(FILE *cmdfd)
+{
+    // Stop creating pinned objects - advance OID counter
+    // Objects created after this point can be dropped normally
+    PG_CMD_PUTS("SELECT pg_stop_making_pinned_objects();\n\n");
+}
+```

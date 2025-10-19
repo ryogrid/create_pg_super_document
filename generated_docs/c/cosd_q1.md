@@ -38,3 +38,19 @@ This design guarantees exact results at the boundary points (0°, 60°, and 90°
 - The piecewise design ensures continuity at x = 60° where the implementation switches from direct cosine to complementary sine calculation
 - Used internally by PostgreSQL's degree-based trigonometric functions to provide high-precision results
 - Complements the `sind_q1` function, together providing complete first quadrant trigonometric coverage
+
+## Simplified Source
+
+```c
+static double cosd_q1(double x) {
+    // Calculate cosine for first quadrant angles (0-90 degrees)
+    // Uses optimal range for each helper function
+
+    if (x <= 60.0) {
+        return cosd_0_to_60(x);
+    } else {
+        // Use complementary angle: cos(x) = sin(90° - x)
+        return sind_0_to_30(90.0 - x);
+    }
+}
+```

@@ -37,3 +37,19 @@ This design guarantees exact results at the boundary points (0°, 30°, and 90°
 - The function leverages trigonometric identities to maximize accuracy by using the most precise range of each helper function
 - The piecewise design ensures continuity at x = 30° where the implementation switches from direct sine to complementary cosine calculation
 - Used internally by PostgreSQL's degree-based trigonometric functions to provide high-precision results
+
+## Simplified Source
+
+```c
+static double sind_q1(double x) {
+    // Calculate sine for first quadrant angles (0-90 degrees)
+    // Uses optimal range for each helper function
+
+    if (x <= 30.0) {
+        return sind_0_to_30(x);
+    } else {
+        // Use complementary angle: sin(x) = cos(90° - x)
+        return cosd_0_to_60(90.0 - x);
+    }
+}
+```

@@ -40,3 +40,43 @@ The function handles three main object types in manifest JSON: the top-level doc
 - Part of the semantic action handler suite for JSON manifest parsing
 - Static function used internally by the manifest parsing system
 - Critical for maintaining correct parser state machine behavior during manifest processing
+
+## Simplified Source
+
+```c
+static JsonParseErrorType json_manifest_object_start(void *state) {
+    JsonManifestParseState *parse = state;
+
+    switch (parse->state) {
+        case JM_EXPECT_TOPLEVEL_START:
+            // Starting the main manifest object
+            parse->state = JM_EXPECT_TOPLEVEL_FIELD;
+            break;
+
+        case JM_EXPECT_FILES_NEXT:
+            // Starting a file object - reset file fields
+            parse->state = JM_EXPECT_THIS_FILE_FIELD;
+            parse->pathname = NULL;
+            parse->encoded_pathname = NULL;
+            parse->size = NULL;
+            parse->algorithm = NULL;
+            parse->checksum = NULL;
+            break;
+
+        case JM_EXPECT_WAL_RANGES_NEXT:
+            // Starting a WAL range object - reset WAL fields
+            parse->state = JM_EXPECT_THIS_WAL_RANGE_FIELD;
+            parse->timeline = NULL;
+            parse->start_lsn = NULL;
+            parse->end_lsn = NULL;
+            break;
+
+        default:
+            // Unexpected object start
+            json_manifest_parse_failure(parse->context, "unexpected object start");
+            break;
+    }
+
+    return JSON_SUCCESS;
+}
+```

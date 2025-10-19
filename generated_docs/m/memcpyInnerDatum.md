@@ -37,3 +37,19 @@ For pass-by-value types, it copies the Datum value itself (which contains the ac
 - The copying strategy is designed to work in conjunction with SpGistGetInnerTypeSize for consistent storage layout
 - For pass-by-value types, the entire Datum (typically 8 bytes on 64-bit systems) is copied regardless of the actual data size
 - This function is part of the SP-GiST access method's tuple formation infrastructure
+
+## Simplified Source
+
+```c
+static void memcpyInnerDatum(void *target, SpGistTypeDesc *att, Datum datum)
+{
+    if (att->attbyval) {
+        // Pass-by-value: copy the Datum value directly
+        memcpy(target, &datum, sizeof(Datum));
+    } else {
+        // Pass-by-reference: copy the actual data content
+        unsigned int size = (att->attlen > 0) ? att->attlen : VARSIZE_ANY(datum);
+        memcpy(target, DatumGetPointer(datum), size);
+    }
+}
+```

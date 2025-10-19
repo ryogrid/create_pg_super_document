@@ -38,3 +38,24 @@ The function uses PostgreSQL's PG_FUNCTION_ARGS macro and extracts:
 - Returns the number of bytes converted as an integer
 - The actual conversion logic is implemented in the euc_cn2mic helper function
 - Part of the EUC-CN encoding conversion module in PostgreSQL's multibyte support
+
+## Simplified Source
+
+```c
+Datum euc_cn_to_mic(PG_FUNCTION_ARGS) {
+    // Extract function parameters
+    unsigned char *src = (unsigned char *) PG_GETARG_CSTRING(2);
+    unsigned char *dest = (unsigned char *) PG_GETARG_CSTRING(3);
+    int len = PG_GETARG_INT32(4);
+    bool noError = PG_GETARG_BOOL(5);
+
+    // Validate encoding conversion arguments
+    CHECK_ENCODING_CONVERSION_ARGS(PG_EUC_CN, PG_MULE_INTERNAL);
+
+    // Perform the actual encoding conversion
+    int converted = euc_cn2mic(src, dest, len, noError);
+
+    // Return number of bytes converted
+    PG_RETURN_INT32(converted);
+}
+```

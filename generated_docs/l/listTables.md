@@ -49,3 +49,153 @@ This function is the primary handler for multiple psql metacommands that list da
 - Uses column translation for internationalization support
 - Results are ordered by schema name and relation name for consistent display
 - Located in src/bin/psql/describe.c:3909-4106
+
+## Simplified Source
+
+```c
+bool listTables(const char *tabtypes, const char *pattern, bool verbose, bool showSystem) {
+    // Parse which relation types to show
+    bool showTables = strchr(tabtypes, 't') != NULL;
+    bool showIndexes = strchr(tabtypes, 'i') != NULL;
+    bool showViews = strchr(tabtypes, 'v') != NULL;
+    bool showMatViews = strchr(tabtypes, 'm') != NULL;
+    bool showSeq = strchr(tabtypes, 's') != NULL;
+    bool showForeign = strchr(tabtypes, 'E') != NULL;
+
+    PQExpBufferData buf;
+    PGresult *res;
+    printQueryOpt myopt = pset.popt;
+    int cols_so_far;
+    bool translate_columns[] = {false, false, true, false, false, false, false, false, false};
+
+    // Default to showing all main relation types if none specified
+    if (!(showTables || showIndexes || showViews || showMatViews || showSeq || showForeign))
+        showTables = showViews = showMatViews = showSeq = showForeign = true;
+
+    initPQExpBuffer(&buf);
+
+    // Build base query selecting schema, name, type, owner
+    printfPQExpBuffer(&buf,
+        "SELECT n.nspname as \"%s\",\n"
+        "  c.relname as \"%s\",\n"
+        "  CASE c.relkind"
+        " WHEN 'r' THEN '%s'"  // table
+        " WHEN 'v' THEN '%s'"  // view
+        " WHEN 'm' THEN '%s'"  // materialized view
+        " WHEN 'i' THEN '%s'"  // index
+        " WHEN 'S' THEN '%s'"  // sequence
+        " WHEN 't' THEN '%s'"  // TOAST table
+        " WHEN 'f' THEN '%s'"  // foreign table
+        " WHEN 'p' THEN '%s'"  // partitioned table
+        " WHEN 'I' THEN '%s'"  // partitioned index
+        " END as \"%s\",\n"
+        "  pg_catalog.pg_get_userbyid(c.relowner) as \"%s\"",
+        gettext_noop("Schema"), gettext_noop("Name"),
+        gettext_noop("table"), gettext_noop("view"), gettext_noop("materialized view"),
+        gettext_noop("index"), gettext_noop("sequence"), gettext_noop("TOAST table"),
+        gettext_noop("foreign table"), gettext_noop("partitioned table"),
+        gettext_noop("partitioned index"), gettext_noop("Type"), gettext_noop("Owner"));
+    cols_so_far = 4;
+
+    // Add table name for indexes
+    if (showIndexes) {
+        appendPQExpBuffer(&buf, ",\n  c2.relname as \"%s\"", gettext_noop("Table"));
+        cols_so_far++;
+    }
+
+    // Add verbose columns if requested
+    if (verbose) {
+        // Show persistence (permanent/temporary/unlogged)
+        appendPQExpBuffer(&buf,
+            ",\n  CASE c.relpersistence WHEN 'p' THEN '%s' WHEN 't' THEN '%s' WHEN 'u' THEN '%s' END as \"%s\"",
+            gettext_noop("permanent"), gettext_noop("temporary"), gettext_noop("unlogged"),
+            gettext_noop("Persistence"));
+        translate_columns[cols_so_far] = true;
+
+        // Add access method for PostgreSQL 12+
+        if (pset.sversion >= 120000 && !pset.hide_tableam &&
+            (showTables || showMatViews || showIndexes))
+            appendPQExpBuffer(&buf, ",\n  am.amname as \"%s\"", gettext_noop("Access method"));
+
+        // Add size and description
+        appendPQExpBuffer(&buf,
+            ",\n  pg_catalog.pg_size_pretty(pg_catalog.pg_table_size(c.oid)) as \"%s\""
+            ",\n  pg_catalog.obj_description(c.oid, 'pg_class') as \"%s\"",
+            gettext_noop("Size"), gettext_noop("Description"));
+    }
+
+    // Add FROM clause with joins
+    appendPQExpBufferStr(&buf,
+        "\nFROM pg_catalog.pg_class c"
+        "\n     LEFT JOIN pg_catalog.pg_namespace n ON n.oid = c.relnamespace");
+
+    // Join access method table if needed
+    if (pset.sversion >= 120000 && !pset.hide_tableam &&
+        (showTables || showMatViews || showIndexes))
+        appendPQExpBufferStr(&buf, "\n     LEFT JOIN pg_catalog.pg_am am ON am.oid = c.relam");
+
+    // Join index tables if showing indexes
+    if (showIndexes)
+        appendPQExpBufferStr(&buf,
+            "\n     LEFT JOIN pg_catalog.pg_index i ON i.indexrelid = c.oid"
+            "\n     LEFT JOIN pg_catalog.pg_class c2 ON i.indrelid = c2.oid");
+
+    // Build WHERE clause for relation kinds
+    appendPQExpBufferStr(&buf, "\nWHERE c.relkind IN (");
+    if (showTables) {
+        appendPQExpBufferStr(&buf, "'r','p',");  // relations, partitioned tables
+        if (showSystem || pattern)
+            appendPQExpBufferStr(&buf, "'t',");  // TOAST tables
+    }
+    if (showViews) appendPQExpBufferStr(&buf, "'v',");
+    if (showMatViews) appendPQExpBufferStr(&buf, "'m',");
+    if (showIndexes) appendPQExpBufferStr(&buf, "'i','I',");
+    if (showSeq) appendPQExpBufferStr(&buf, "'S',");
+    if (showSystem || pattern) appendPQExpBufferStr(&buf, "'s',");  // special
+    if (showForeign) appendPQExpBufferStr(&buf, "'f',");
+    appendPQExpBufferStr(&buf, "'')");  // dummy
+
+    // Filter out system schemas unless requested
+    if (!showSystem && !pattern)
+        appendPQExpBufferStr(&buf,
+            "      AND n.nspname <> 'pg_catalog'\n"
+            "      AND n.nspname !~ '^pg_toast'\n"
+            "      AND n.nspname <> 'information_schema'\n");
+
+    // Add pattern matching
+    if (!validateSQLNamePattern(&buf, pattern, true, false,
+                                "n.nspname", "c.relname", NULL,
+                                "pg_catalog.pg_table_is_visible(c.oid)",
+                                NULL, 3)) {
+        termPQExpBuffer(&buf);
+        return false;
+    }
+
+    appendPQExpBufferStr(&buf, "ORDER BY 1,2;");
+
+    // Execute query
+    res = PSQLexec(buf.data);
+    termPQExpBuffer(&buf);
+    if (!res)
+        return false;
+
+    // Handle empty results
+    if (PQntuples(res) == 0 && !pset.quiet) {
+        if (pattern)
+            pg_log_error("Did not find any relation named \"%s\".", pattern);
+        else
+            pg_log_error("Did not find any relations.");
+    } else {
+        // Display results
+        myopt.title = _("List of relations");
+        myopt.translate_header = true;
+        myopt.translate_columns = translate_columns;
+        myopt.n_translate_columns = lengthof(translate_columns);
+
+        printQuery(res, &myopt, pset.queryFout, false, pset.logfile);
+    }
+
+    PQclear(res);
+    return true;
+}
+```

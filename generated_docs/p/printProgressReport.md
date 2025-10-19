@@ -34,3 +34,75 @@ The printProgressReport function collects statistics from all active worker thre
 - Updates the last statistics and timestamp parameters for the next report cycle
 - Progress can be displayed as either elapsed time or absolute timestamps based on progress_timestamp setting
 - Part of pgbench monitoring and reporting system for long-running benchmark tests
+
+## Simplified Source
+
+```c
+static void
+printProgressReport(TState *threads, int64 test_start, pg_time_usec_t now,
+                    StatsData *last, int64 *last_report)
+{
+    pg_time_usec_t run = now - *last_report;
+    StatsData cur;
+    char tbuf[315];
+
+    // Aggregate statistics from all threads
+    initStats(&cur, 0);
+    for (int i = 0; i < nthreads; i++)
+    {
+        mergeSimpleStats(&cur.latency, &threads[i].stats.latency);
+        mergeSimpleStats(&cur.lag, &threads[i].stats.lag);
+        cur.cnt += threads[i].stats.cnt;
+        cur.skipped += threads[i].stats.skipped;
+        cur.retries += threads[i].stats.retries;
+        cur.retried += threads[i].stats.retried;
+        cur.serialization_failures += threads[i].stats.serialization_failures;
+        cur.deadlock_failures += threads[i].stats.deadlock_failures;
+    }
+
+    // Calculate metrics for this reporting period
+    int64 cnt = cur.cnt - last->cnt;
+    double total_run = (now - test_start) / 1000000.0;
+    double tps = 1000000.0 * cnt / run;
+
+    double latency = 0, stdev = 0, lag = 0;
+    if (cnt > 0)
+    {
+        latency = 0.001 * (cur.latency.sum - last->latency.sum) / cnt;
+        double sqlat = 1.0 * (cur.latency.sum2 - last->latency.sum2) / cnt;
+        stdev = 0.001 * sqrt(sqlat - 1000000.0 * latency * latency);
+        lag = 0.001 * (cur.lag.sum - last->lag.sum) / cnt;
+    }
+
+    int64 failures = getFailures(&cur) - getFailures(last);
+    int64 retried = cur.retried - last->retried;
+
+    // Format timestamp
+    if (progress_timestamp)
+        snprintf(tbuf, sizeof(tbuf), "%.3f s", PG_TIME_GET_DOUBLE(now + epoch_shift));
+    else
+        snprintf(tbuf, sizeof(tbuf), "%.1f s", total_run);
+
+    // Print progress report
+    fprintf(stderr, "progress: %s, %.1f tps, lat %.3f ms stddev %.3f, " INT64_FORMAT " failed",
+            tbuf, tps, latency, stdev, failures);
+
+    // Add optional metrics
+    if (throttle_delay)
+    {
+        fprintf(stderr, ", lag %.3f ms", lag);
+        if (latency_limit)
+            fprintf(stderr, ", " INT64_FORMAT " skipped", cur.skipped - last->skipped);
+    }
+
+    if (max_tries != 1)
+        fprintf(stderr, ", " INT64_FORMAT " retried, " INT64_FORMAT " retries",
+                retried, cur.retries - last->retries);
+
+    fprintf(stderr, "\n");
+
+    // Update state for next report
+    *last = cur;
+    *last_report = now;
+}
+```

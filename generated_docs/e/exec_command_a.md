@@ -36,3 +36,22 @@ The implementation uses the do_pset() function to change the "format" setting, w
 - Accesses global pset.popt.topt.format to determine current formatting state
 - Uses the same underlying mechanism (do_pset) as the \pset format command
 - Considered somewhat legacy functionality but maintained for compatibility
+
+## Simplified Source
+
+```c
+static backslashResult exec_command_a(PsqlScanState scan_state, bool active_branch) {
+    bool success = true;
+
+    if (active_branch) {
+        // Toggle between aligned and unaligned format
+        if (pset.popt.topt.format != PRINT_ALIGNED) {
+            success = do_pset("format", "aligned", &pset.popt, pset.quiet);
+        } else {
+            success = do_pset("format", "unaligned", &pset.popt, pset.quiet);
+        }
+    }
+
+    return success ? PSQL_CMD_SKIP_LINE : PSQL_CMD_ERROR;
+}
+```

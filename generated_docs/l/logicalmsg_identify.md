@@ -35,3 +35,15 @@ The function performs a simple check to determine if the provided info byte (wit
 - Part of the resource manager interface for logical message handling
 - The function masks out non-essential info bits before comparison
 - Used primarily for diagnostic and debugging purposes in WAL processing
+
+## Simplified Source
+
+```c
+const char *logicalmsg_identify(uint8 info) {
+    // Check if this is a logical message record
+    if ((info & ~XLR_INFO_MASK) == XLOG_LOGICAL_MESSAGE)
+        return "MESSAGE";
+
+    return NULL;
+}
+```

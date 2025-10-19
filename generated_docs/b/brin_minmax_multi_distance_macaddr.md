@@ -35,3 +35,35 @@ This function calculates the numerical distance between two MAC address values b
 - This function is typically registered in BRIN operator class definitions for macaddr columns
 - The distance represents the numerical gap between MAC addresses in the address space
 - Similar algorithm is used for UUID distance calculations as noted in the source comments
+
+## Simplified Source
+
+```c
+Datum brin_minmax_multi_distance_macaddr(PG_FUNCTION_ARGS) {
+    // Extract the two MAC address values
+    macaddr *a = PG_GETARG_MACADDR_P(0);
+    macaddr *b = PG_GETARG_MACADDR_P(1);
+
+    // Calculate distance by treating MAC as base-256 number
+    // Process bytes from most significant (f) to least significant (a)
+    float8 delta = ((float8) b->f - (float8) a->f);
+    delta /= 256;
+
+    delta += ((float8) b->e - (float8) a->e);
+    delta /= 256;
+
+    delta += ((float8) b->d - (float8) a->d);
+    delta /= 256;
+
+    delta += ((float8) b->c - (float8) a->c);
+    delta /= 256;
+
+    delta += ((float8) b->b - (float8) a->b);
+    delta /= 256;
+
+    delta += ((float8) b->a - (float8) a->a);
+    delta /= 256;
+
+    return PG_RETURN_FLOAT8(delta);
+}
+```

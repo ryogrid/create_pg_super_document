@@ -35,3 +35,20 @@ pg_fatal is a macro defined in PostgreSQL's common logging framework that combin
 - In some contexts (like pg_dump), there may be alternative definitions that call exit_nicely() instead of exit() directly for cleanup purposes
 - Widely used across PostgreSQL frontend utilities for consistent fatal error handling
 - Should be used for truly unrecoverable errors rather than warnings or recoverable conditions
+
+## Simplified Source
+
+```c
+void pg_fatal(const char *fmt, ...) {
+    va_list args;
+
+    // Format and log the fatal error message using pg_log_v
+    va_start(args, fmt);
+    pg_log_v(PG_FATAL, fmt, args);
+    va_end(args);
+
+    // Additional safety exit (though pg_log_v with PG_FATAL already exits)
+    printf(_("Failure, exiting\n"));
+    exit(1);
+}
+```

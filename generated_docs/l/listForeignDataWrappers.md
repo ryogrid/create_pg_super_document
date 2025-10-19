@@ -39,3 +39,74 @@ This function queries the pg_foreign_data_wrapper system catalog to display info
 - Orders results alphabetically by FDW name for consistent output
 - Uses internationalization support for all column headers and titles
 - This function corresponds to the \dew command in psql for listing foreign data wrappers
+
+## Simplified Source
+
+```c
+bool listForeignDataWrappers(const char *pattern, bool verbose) {
+    PQExpBufferData buf;
+    PGresult *res;
+    printQueryOpt myopt = pset.popt;
+
+    // Initialize buffer and build base query
+    initPQExpBuffer(&buf);
+    printfPQExpBuffer(&buf,
+        "SELECT fdw.fdwname AS \"%s\",\n"
+        "  pg_catalog.pg_get_userbyid(fdw.fdwowner) AS \"%s\",\n"
+        "  fdw.fdwhandler::pg_catalog.regproc AS \"%s\",\n"
+        "  fdw.fdwvalidator::pg_catalog.regproc AS \"%s\"",
+        gettext_noop("Name"),
+        gettext_noop("Owner"),
+        gettext_noop("Handler"),
+        gettext_noop("Validator"));
+
+    // Add verbose columns if requested
+    if (verbose) {
+        appendPQExpBufferStr(&buf, ",\n  ");
+        printACLColumn(&buf, "fdwacl");
+        appendPQExpBuffer(&buf,
+            ",\n CASE WHEN fdwoptions IS NULL THEN '' ELSE "
+            "  '(' || pg_catalog.array_to_string(ARRAY(SELECT "
+            "  pg_catalog.quote_ident(option_name) ||  ' ' || "
+            "  pg_catalog.quote_literal(option_value)  FROM "
+            "  pg_catalog.pg_options_to_table(fdwoptions)),  ', ') || ')' "
+            "  END AS \"%s\""
+            ",\n  d.description AS \"%s\" ",
+            gettext_noop("FDW options"),
+            gettext_noop("Description"));
+    }
+
+    // Add FROM clause and optional description join
+    appendPQExpBufferStr(&buf, "\nFROM pg_catalog.pg_foreign_data_wrapper fdw\n");
+    if (verbose) {
+        appendPQExpBufferStr(&buf,
+            "LEFT JOIN pg_catalog.pg_description d\n"
+            "       ON d.classoid = fdw.tableoid "
+            "AND d.objoid = fdw.oid AND d.objsubid = 0\n");
+    }
+
+    // Apply pattern filter if provided
+    if (!validateSQLNamePattern(&buf, pattern, false, false,
+                                NULL, "fdwname", NULL, NULL,
+                                NULL, 1)) {
+        termPQExpBuffer(&buf);
+        return false;
+    }
+
+    appendPQExpBufferStr(&buf, "ORDER BY 1;");
+
+    // Execute query and display results
+    res = PSQLexec(buf.data);
+    termPQExpBuffer(&buf);
+    if (!res)
+        return false;
+
+    myopt.title = _("List of foreign-data wrappers");
+    myopt.translate_header = true;
+
+    printQuery(res, &myopt, pset.queryFout, false, pset.logfile);
+    PQclear(res);
+
+    return true;
+}
+```

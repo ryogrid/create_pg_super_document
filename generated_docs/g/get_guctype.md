@@ -53,3 +53,38 @@ The query uses case-insensitive comparison to match GUC variable names, making i
 - Queries the pg_catalog.pg_settings system view for configuration metadata
 - Properly handles SQL injection protection through parameter escaping
 - Returns NULL for unknown GUC variables, allowing caller to handle gracefully
+
+## Simplified Source
+
+```c
+static char *
+get_guctype(const char *varname)
+{
+    PQExpBufferData query_buffer;
+    char *e_varname;
+    PGresult *result;
+    char *guctype = NULL;
+
+    // Escape variable name for safe SQL construction
+    e_varname = escape_string(varname);
+
+    // Build query to get GUC variable type from pg_settings
+    initPQExpBuffer(&query_buffer);
+    appendPQExpBuffer(&query_buffer,
+                      "SELECT vartype FROM pg_catalog.pg_settings "
+                      "WHERE pg_catalog.lower(name) = pg_catalog.lower('%s')",
+                      e_varname);
+
+    // Execute query and clean up query buffer
+    result = exec_query(query_buffer.data);
+    termPQExpBuffer(&query_buffer);
+    free(e_varname);
+
+    // Extract type if query succeeded and returned results
+    if (PQresultStatus(result) == PGRES_TUPLES_OK && PQntuples(result) > 0)
+        guctype = pg_strdup(PQgetvalue(result, 0, 0));
+
+    PQclear(result);
+    return guctype;
+}
+```

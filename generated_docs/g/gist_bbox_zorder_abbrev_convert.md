@@ -34,3 +34,24 @@ The function handles different datum sizes: on 64-bit systems, it returns the fu
 - Part of PostgreSQL's GiST spatial indexing optimization framework
 - Z-order encoding helps maintain spatial locality in sorted sequences
 - Static function, only used internally within gistproc.c
+
+## Simplified Source
+
+```c
+static Datum
+gist_bbox_zorder_abbrev_convert(Datum original, SortSupport ssup)
+{
+    // Extract lower-left point from bounding box
+    Point *p = &(DatumGetBoxP(original)->low);
+
+    // Compute Z-order value for the point
+    uint64 z = point_zorder_internal(p->x, p->y);
+
+    // Return appropriate portion based on datum size
+#if SIZEOF_DATUM == 8
+    return (Datum) z;                // Full 64-bit value on 64-bit systems
+#else
+    return (Datum) (z >> 32);        // Most significant 32 bits on 32-bit systems
+#endif
+}
+```

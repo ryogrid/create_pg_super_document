@@ -41,3 +41,50 @@ This type of consonant insertion is part of Turkish morphophonological processes
 - Represents specialized morphophonological rules specific to Turkish 's' insertion
 - Used primarily for possessive and similar constructions where 's' may be optionally inserted
 - Part of the comprehensive Turkish morphological analysis within PostgreSQL's Snowball stemmer
+
+## Simplified Source
+
+```c
+static int r_mark_suffix_with_optional_s_consonant(struct SN_env * z) {
+    int original_pos = z->l - z->c;
+
+    // Case 1: Check if there's an 's' at current position
+    if (z->c > z->lb && z->p[z->c - 1] == 's') {
+        z->c--;
+        // Test if 's' is preceded by a vowel
+        int test_pos = z->l - z->c;
+        if (in_grouping_b_U(z, g_vowel, 97, 305, 0) == 0) {
+            // Valid: 's' preceded by vowel
+            z->c = z->l - test_pos;
+            return 1;
+        }
+        // Restore position if vowel test failed
+        z->c = z->l - original_pos;
+    }
+
+    // Case 2: No 's' at current position - check constraints
+
+    // First, ensure there's no 's' that would create double consonant
+    int check_pos = z->l - z->c;
+    int test_pos = z->l - z->c;
+    if (z->c > z->lb && z->p[z->c - 1] == 's') {
+        z->c--;
+        z->c = z->l - test_pos;
+        return 0;  // Invalid: would create double 's'
+    }
+    z->c = z->l - check_pos;
+
+    // Check that preceding character is a vowel
+    test_pos = z->l - z->c;
+    // Skip one UTF-8 character backward
+    int ret = skip_b_utf8(z->p, z->c, z->lb, 1);
+    if (ret < 0) return 0;
+    z->c = ret;
+
+    if (in_grouping_b_U(z, g_vowel, 97, 305, 0) != 0)
+        return 0;  // Invalid: not preceded by vowel
+
+    z->c = z->l - test_pos;
+    return 1;  // Valid pattern without optional 's'
+}
+```

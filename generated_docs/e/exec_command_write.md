@@ -41,3 +41,81 @@ This function handles the execution of the \w command in psql, which writes the 
 - Returns PSQL_CMD_SKIP_LINE on success, PSQL_CMD_ERROR on failure
 - Memory management: Properly frees allocated filename string
 - Error reporting includes system error messages (%m) for file operations
+
+## Simplified Source
+
+```c
+// Simplified version of exec_command_write
+static backslashResult exec_command_write(PsqlScanState scan_state, bool active_branch, const char *cmd,
+                                         PQExpBuffer query_buf, PQExpBuffer previous_buf) {
+    backslashResult status = PSQL_CMD_SKIP_LINE;
+
+    if (active_branch) {
+        // Get filename or pipe command
+        char *fname = psql_scan_slash_option(scan_state, OT_FILEPIPE, NULL, true);
+        FILE *fd = NULL;
+        bool is_pipe = false;
+
+        // Validate inputs
+        if (!query_buf) {
+            pg_log_error("no query buffer");
+            status = PSQL_CMD_ERROR;
+        } else if (!fname) {
+            pg_log_error("\\%s: missing required argument", cmd);
+            status = PSQL_CMD_ERROR;
+        } else {
+            // Open file or pipe
+            expand_tilde(&fname);
+            if (fname[0] == '|') {
+                // Pipe to shell command
+                is_pipe = true;
+                fflush(NULL);
+                disable_sigpipe_trap();
+                fd = popen(&fname[1], "w");
+            } else {
+                // Regular file
+                canonicalize_path_enc(fname, pset.encoding);
+                fd = fopen(fname, "w");
+            }
+
+            if (!fd) {
+                pg_log_error("%s: %m", fname);
+                status = PSQL_CMD_ERROR;
+            }
+        }
+
+        // Write query buffer contents
+        if (fd) {
+            // Write current buffer or fall back to previous buffer
+            if (query_buf && query_buf->len > 0)
+                fprintf(fd, "%s\n", query_buf->data);
+            else if (previous_buf && previous_buf->len > 0)
+                fprintf(fd, "%s\n", previous_buf->data);
+
+            // Close file/pipe and handle errors
+            int result;
+            if (is_pipe) {
+                result = pclose(fd);
+                if (result != 0) {
+                    pg_log_error("%s: %s", fname, wait_result_to_str(result));
+                    status = PSQL_CMD_ERROR;
+                }
+                SetShellResultVariables(result);
+                restore_sigpipe_trap();
+            } else {
+                result = fclose(fd);
+                if (result == EOF) {
+                    pg_log_error("%s: %m", fname);
+                    status = PSQL_CMD_ERROR;
+                }
+            }
+        }
+
+        free(fname);
+    } else {
+        ignore_slash_filepipe(scan_state);
+    }
+
+    return status;
+}
+```

@@ -36,3 +36,11 @@ This function is part of PostgreSQL's operator system and enables ordering opera
 - Enables ORDER BY operations on boolean columns (false values appear before true values)
 - Used in range queries and sorting operations involving boolean data
 - Located in `src/backend/utils/adt/bool.c` at lines 241-249
+
+## Simplified Source
+```c
+bool boollt(bool arg1, bool arg2) {
+    // Return true if arg1 < arg2 (false is less than true)
+    return arg1 < arg2;
+}
+```

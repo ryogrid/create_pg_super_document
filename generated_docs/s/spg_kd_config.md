@@ -34,3 +34,20 @@ This function serves as the configuration entry point for SP-GiST k-d tree opera
 - Enables  allowing index-only scans when possible
 - Disables  as k-d trees are optimized for fixed-size numeric data
 - Located in src/backend/access/spgist/spgkdtreeproc.c:28-40
+
+## Simplified Source
+
+```c
+Datum spg_kd_config(PG_FUNCTION_ARGS)
+{
+    spgConfigOut *cfg = (spgConfigOut *) PG_GETARG_POINTER(1);
+
+    // Configure k-d tree SP-GiST parameters
+    cfg->prefixType = FLOAT8OID;      // Use double precision floats
+    cfg->labelType = VOIDOID;         // No node labels needed
+    cfg->canReturnData = true;        // Support index-only scans
+    cfg->longValuesOK = false;        // Only fixed-size numeric data
+
+    PG_RETURN_VOID();
+}
+```

@@ -45,3 +45,69 @@ The pattern matching supports filtering by either schema name or role name, maki
 - The ACL format follows the same conventions as other privilege displays in PostgreSQL
 - Returns boolean status indicating success/failure of the operation
 - Helpful for understanding privilege inheritance and automated privilege assignment in PostgreSQL databases
+
+## Simplified Source
+
+```c
+bool listDefaultACLs(const char *pattern) {
+    PQExpBufferData buf;
+    PGresult *res;
+    printQueryOpt myopt = pset.popt;
+    static const bool translate_columns[] = {false, false, true, false};
+
+    initPQExpBuffer(&buf);
+
+    // Build query to show default ACL information
+    printfPQExpBuffer(&buf,
+        "SELECT pg_catalog.pg_get_userbyid(d.defaclrole) AS \"Owner\",\n"
+        "  n.nspname AS \"Schema\",\n"
+        "  CASE d.defaclobjtype"
+        " WHEN 'r' THEN 'table'"
+        " WHEN 'S' THEN 'sequence'"
+        " WHEN 'f' THEN 'function'"
+        " WHEN 'T' THEN 'type'"
+        " WHEN 'n' THEN 'schema'"
+        " END AS \"Type\",\n"
+        "  ");
+
+    // Add the default ACL privileges column
+    printACLColumn(&buf, "d.defaclacl");
+
+    // Add FROM clause with schema join
+    appendPQExpBufferStr(&buf,
+        "\nFROM pg_catalog.pg_default_acl d\n"
+        "     LEFT JOIN pg_catalog.pg_namespace n ON n.oid = d.defaclnamespace\n");
+
+    // Apply pattern filter (matches schema name or role name)
+    if (!validateSQLNamePattern(&buf, pattern, false, false,
+                                NULL,
+                                "n.nspname",
+                                "pg_catalog.pg_get_userbyid(d.defaclrole)",
+                                NULL,
+                                NULL, 3))
+        goto error_return;
+
+    // Execute query and display results
+    appendPQExpBufferStr(&buf, "ORDER BY 1, 2, 3;");
+    res = PSQLexec(buf.data);
+    if (!res)
+        goto error_return;
+
+    // Set display options
+    printfPQExpBuffer(&buf, "Default access privileges");
+    myopt.title = buf.data;
+    myopt.translate_header = true;
+    myopt.translate_columns = translate_columns;
+    myopt.n_translate_columns = lengthof(translate_columns);
+
+    printQuery(res, &myopt, pset.queryFout, false, pset.logfile);
+
+    termPQExpBuffer(&buf);
+    PQclear(res);
+    return true;
+
+error_return:
+    termPQExpBuffer(&buf);
+    return false;
+}
+```

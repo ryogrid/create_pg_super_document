@@ -29,3 +29,15 @@ This function serves as a validation callback within PostgreSQL's incremental ba
 - Error reporting is handled through the context's callback mechanism rather than direct error throwing
 - Part of PostgreSQL's robust version compatibility checking system for backup operations
 - Ensures data integrity by preventing incompatible manifest versions from being processed in incremental backup scenarios
+
+## Simplified Source
+
+```c
+static void manifest_process_version(JsonManifestParseContext *context, int manifest_version) {
+    // Check if manifest version supports incremental backups
+    if (manifest_version == 1) {
+        // Manifest version 1 lacks incremental backup features
+        context->error_cb(context, "backup manifest version 1 does not support incremental backup");
+    }
+}
+```

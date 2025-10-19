@@ -35,3 +35,29 @@ The function follows PostgreSQL's memory management conventions, using pfree() f
 - Safely handles NULL pointers for leafTuple and traversalValue fields
 - Part of the memory management infrastructure for SP-GiST search operations
 - Essential for preventing memory leaks during complex search tree traversals
+
+## Simplified Source
+
+```c
+static void spgFreeSearchItem(SpGistScanOpaque so, SpGistSearchItem *item) {
+    // Free the value field if it's not pass-by-value and not NULL
+    // Note: Type selection is reversed (leaf uses attType, inner uses attLeafType)
+    bool valueIsPassByValue = item->isLeaf ?
+        so->state.attType.attbyval :
+        so->state.attLeafType.attbyval;
+
+    if (!valueIsPassByValue && DatumGetPointer(item->value) != NULL) {
+        pfree(DatumGetPointer(item->value));
+    }
+
+    // Free optional fields if they exist
+    if (item->leafTuple)
+        pfree(item->leafTuple);
+
+    if (item->traversalValue)
+        pfree(item->traversalValue);
+
+    // Free the item structure itself
+    pfree(item);
+}
+```

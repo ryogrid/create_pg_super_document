@@ -48,3 +48,87 @@ If all conditions are met, the function sets nfa->minmatchall, nfa->maxmatchall,
 - Critical for performance optimization in PostgreSQL's regex engine when dealing with length-only patterns
 - The optimization can significantly speed up matching for patterns like  or  with length constraints
 - Pseudocolor arcs (BOS/BOL/EOS/EOL) are carefully validated to ensure they don't introduce character-specific constraints
+
+## Simplified Source
+
+```c
+static void
+checkmatchall(struct nfa *nfa)
+{
+    bool **haspaths;
+    struct state *s;
+    int i;
+
+    // Skip analysis if too many states
+    if (nfa->nstates > DUPINF * 2)
+        return;
+
+    // Verify all arcs are RAINBOW or valid pseudocolors
+    for (s = nfa->states; s != NULL; s = s->next) {
+        struct arc *a;
+        for (a = s->outs; a != NULL; a = a->outchain) {
+            if (a->type != PLAIN)
+                return;  // LACONs make it non-matchall
+
+            if (a->co != RAINBOW) {
+                // Check if it's a valid pseudocolor arc
+                if (!(nfa->cm->cd[a->co].flags & PSEUDO) ||
+                    !((s == nfa->pre && (a->co == nfa->bos[0] || a->co == nfa->bos[1])) ||
+                      (a->to == nfa->post && (a->co == nfa->eos[0] || a->co == nfa->eos[1]))))
+                    return;
+            }
+        }
+    }
+
+    // Verify pseudocolor arcs match RAINBOW arcs
+    if (!check_out_colors_match(nfa->pre, RAINBOW, nfa->bos[0]) ||
+        !check_out_colors_match(nfa->pre, RAINBOW, nfa->bos[1]) ||
+        !check_in_colors_match(nfa->post, RAINBOW, nfa->eos[0]) ||
+        !check_in_colors_match(nfa->post, RAINBOW, nfa->eos[1]))
+        return;
+
+    // Allocate path analysis arrays
+    haspaths = (bool **) MALLOC(nfa->nstates * sizeof(bool *));
+    if (haspaths == NULL)
+        return;
+    memset(haspaths, 0, nfa->nstates * sizeof(bool *));
+
+    // Analyze all paths for consecutive length ranges
+    if (checkmatchall_recurse(nfa, nfa->pre, haspaths)) {
+        bool *haspath = haspaths[nfa->pre->no];
+        int minmatch, maxmatch, morematch;
+
+        // Find min and max of consecutive path lengths
+        for (minmatch = 0; minmatch <= DUPINF + 1; minmatch++) {
+            if (haspath[minmatch])
+                break;
+        }
+        for (maxmatch = minmatch; maxmatch < DUPINF + 1; maxmatch++) {
+            if (!haspath[maxmatch + 1])
+                break;
+        }
+
+        // Verify no gaps in path lengths
+        for (morematch = maxmatch + 1; morematch <= DUPINF + 1; morematch++) {
+            if (haspath[morematch]) {
+                haspath = NULL;  // fail - nonconsecutive lengths
+                break;
+            }
+        }
+
+        // Set optimization flags if valid
+        if (haspath != NULL) {
+            nfa->minmatchall = minmatch - 1;
+            nfa->maxmatchall = maxmatch - 1;
+            nfa->flags |= MATCHALL;
+        }
+    }
+
+    // Clean up allocated memory
+    for (i = 0; i < nfa->nstates; i++) {
+        if (haspaths[i] != NULL)
+            FREE(haspaths[i]);
+    }
+    FREE(haspaths);
+}
+```

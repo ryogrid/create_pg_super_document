@@ -36,3 +36,20 @@ The function always returns 0, indicating successful conversion. The actual conv
 - Located in the compatibility library at src/interfaces/ecpg/compatlib/informix.c:541-552
 - The function converts integer results from the internal PostgreSQL date function to short integers to match Informix's expected data types
 - Always returns 0 (success) - [error](../e/error.md) handling is presumably done by the underlying  function
+
+## Simplified Source
+
+```c
+int rjulmdy(date d, short *mdy) {
+    // Convert Julian date to month/day/year using PostgreSQL's built-in function
+    int mdy_int[3];
+    PGTYPESdate_julmdy(d, mdy_int);
+
+    // Convert int results to short for Informix compatibility
+    mdy[0] = (short) mdy_int[0];  // Month
+    mdy[1] = (short) mdy_int[1];  // Day
+    mdy[2] = (short) mdy_int[2];  // Year
+
+    return 0;  // Always success
+}
+```

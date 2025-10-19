@@ -40,3 +40,24 @@ Unlike text-based LIKE operations, this function uses `SB_MatchText` (Single-Byt
 - Does not use collation (passes 0 as collation parameter to SB_MatchText) since binary data has no linguistic meaning
 - The `true` parameter passed to SB_MatchText indicates case-sensitive matching (though this is less relevant for binary data)
 - Handles variable-length binary data properly by extracting both data pointers and sizes
+
+## Simplified Source
+
+```c
+Datum bytealike(PG_FUNCTION_ARGS) {
+    // Extract binary data arguments
+    bytea *str = PG_GETARG_BYTEA_PP(0);
+    bytea *pat = PG_GETARG_BYTEA_PP(1);
+
+    // Get data pointers and lengths
+    char *s = VARDATA_ANY(str);
+    int slen = VARSIZE_ANY_EXHDR(str);
+    char *p = VARDATA_ANY(pat);
+    int plen = VARSIZE_ANY_EXHDR(pat);
+
+    // Perform binary pattern matching
+    bool result = (SB_MatchText(s, slen, p, plen, 0, true) == LIKE_TRUE);
+
+    PG_RETURN_BOOL(result);
+}
+```

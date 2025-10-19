@@ -39,3 +39,35 @@ This function initializes a B-tree metapage structure by setting up the metadata
 - Cleanup statistics are initialized to default values (0 for deleted pages, -1.0 for heap tuples)
 - The pd_lower setting is crucial to prevent metadata loss during WAL record compression
 - This function is typically called during index creation or major structural changes to the B-tree
+
+## Simplified Source
+
+```c
+void _bt_initmetapage(Page page, BlockNumber rootbknum, uint32 level, bool allequalimage) {
+    // Initialize the page as a B-tree page
+    _bt_pageinit(page, BLCKSZ);
+
+    // Get metadata structure and populate it
+    BTMetaPageData *metad = BTPageGetMeta(page);
+    metad->btm_magic = BTREE_MAGIC;
+    metad->btm_version = BTREE_VERSION;
+
+    // Set root page information (normal and fast access)
+    metad->btm_root = rootbknum;
+    metad->btm_level = level;
+    metad->btm_fastroot = rootbknum;
+    metad->btm_fastlevel = level;
+
+    // Initialize cleanup statistics
+    metad->btm_last_cleanup_num_delpages = 0;
+    metad->btm_last_cleanup_num_heap_tuples = -1.0;
+    metad->btm_allequalimage = allequalimage;
+
+    // Mark page as metapage
+    BTPageOpaque metaopaque = BTPageGetOpaque(page);
+    metaopaque->btpo_flags = BTP_META;
+
+    // Set page boundaries to protect metadata from WAL compression
+    ((PageHeader) page)->pd_lower = ((char *) metad + sizeof(BTMetaPageData)) - (char *) page;
+}
+```

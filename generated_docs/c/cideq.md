@@ -34,3 +34,16 @@ The `cideq` function is part of PostgreSQL's operator infrastructure for the Com
 - Uses simple integer comparison since CommandId is essentially an integer type
 - Essential for CommandId values to participate in SQL equality operations
 - Follows PostgreSQL's standard pattern for comparison functions using the PG_FUNCTION_ARGS interface
+
+## Simplified Source
+
+```c
+Datum cideq(PG_FUNCTION_ARGS) {
+    // Get the two CommandIds to compare
+    CommandId arg1 = PG_GETARG_COMMANDID(0);
+    CommandId arg2 = PG_GETARG_COMMANDID(1);
+
+    // Return true if equal, false otherwise
+    PG_RETURN_BOOL(arg1 == arg2);
+}
+```

@@ -47,3 +47,74 @@ The function is version-aware and adapts the SQL update statement based on the t
 - Uses proper SQL escaping to prevent injection issues with locale strings
 - Essential for ensuring that new databases created after upgrade have correct locale settings
 - Part of the schema transfer phase of pg_upgrade process
+
+## Simplified Source
+
+```c
+static void set_locale_and_encoding(void) {
+    PGconn *conn_new_template1;
+    char *datcollate_literal;
+    char *datctype_literal;
+    char *datlocale_literal = NULL;
+    DbLocaleInfo *locale = old_cluster.template0;
+
+    prep_status("Setting locale and encoding for new cluster");
+
+    // Connect to new cluster template1 for updates
+    conn_new_template1 = connectToServer(&new_cluster, "template1");
+
+    // Escape locale strings for safe SQL embedding
+    datcollate_literal = PQescapeLiteral(conn_new_template1,
+                                        locale->db_collate,
+                                        strlen(locale->db_collate));
+    datctype_literal = PQescapeLiteral(conn_new_template1,
+                                      locale->db_ctype,
+                                      strlen(locale->db_ctype));
+
+    if (locale->db_locale)
+        datlocale_literal = PQescapeLiteral(conn_new_template1,
+                                           locale->db_locale,
+                                           strlen(locale->db_locale));
+    else
+        datlocale_literal = "NULL";
+
+    // Update template0 with locale settings based on PostgreSQL version
+    if (GET_MAJOR_VERSION(new_cluster.major_version) >= 1700) {
+        // PostgreSQL 17+: uses datlocale field
+        PQclear(executeQueryOrDie(conn_new_template1,
+                "UPDATE pg_catalog.pg_database "
+                "SET encoding = %d, datlocprovider = '%c', "
+                "    datcollate = %s, datctype = %s, datlocale = %s "
+                "WHERE datname = 'template0'",
+                locale->db_encoding, locale->db_collprovider,
+                datcollate_literal, datctype_literal, datlocale_literal));
+    }
+    else if (GET_MAJOR_VERSION(new_cluster.major_version) >= 1500) {
+        // PostgreSQL 15-16: uses daticulocale field
+        PQclear(executeQueryOrDie(conn_new_template1,
+                "UPDATE pg_catalog.pg_database "
+                "SET encoding = %d, datlocprovider = '%c', "
+                "    datcollate = %s, datctype = %s, daticulocale = %s "
+                "WHERE datname = 'template0'",
+                locale->db_encoding, locale->db_collprovider,
+                datcollate_literal, datctype_literal, datlocale_literal));
+    }
+    else {
+        // PostgreSQL < 15: basic locale fields only
+        PQclear(executeQueryOrDie(conn_new_template1,
+                "UPDATE pg_catalog.pg_database "
+                "SET encoding = %d, datcollate = %s, datctype = %s "
+                "WHERE datname = 'template0'",
+                locale->db_encoding, datcollate_literal, datctype_literal));
+    }
+
+    // Clean up memory and connections
+    PQfreemem(datcollate_literal);
+    PQfreemem(datctype_literal);
+    if (locale->db_locale)
+        PQfreemem(datlocale_literal);
+    PQfinish(conn_new_template1);
+
+    check_ok();
+}
+```

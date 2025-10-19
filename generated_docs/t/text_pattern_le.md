@@ -40,3 +40,27 @@ The function extracts two text arguments using PostgreSQL's function call interf
 - Properly handles PostgreSQL's TOAST (The Oversized-Attribute Storage Technique) by using  and 
 - Part of a family of pattern comparison functions including , , and 
 - Differs from  by including equality in the comparison (<= vs <)
+
+## Simplified Source
+
+This function performs a "less than or equal" comparison between two text values using character-by-character comparison, suitable for pattern matching operations and LIKE clause indexing.
+
+```c
+Datum
+text_pattern_le(PG_FUNCTION_ARGS)
+{
+    // Extract the two text arguments
+    text *arg1 = PG_GETARG_TEXT_PP(0);
+    text *arg2 = PG_GETARG_TEXT_PP(1);
+
+    // Compare using character-by-character comparison
+    int result = internal_text_pattern_compare(arg1, arg2);
+
+    // Clean up memory for copied arguments
+    PG_FREE_IF_COPY(arg1, 0);
+    PG_FREE_IF_COPY(arg2, 1);
+
+    // Return true if arg1 <= arg2
+    PG_RETURN_BOOL(result <= 0);
+}
+```

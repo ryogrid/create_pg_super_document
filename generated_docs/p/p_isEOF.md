@@ -33,3 +33,12 @@ This function is part of the word parser definition module () which handles the 
 - Returns 1 if at EOF, 0 otherwise
 - Critical for controlling parsing loops in the text search tokenization process
 - Used extensively by the p_isspecial function which handles special character detection during parsing
+
+## Simplified Source
+
+```c
+static int p_isEOF(TParser *prs) {
+    // Check if at end of string or character length is zero
+    return (prs->state->posbyte == prs->lenstr || prs->state->charlen == 0) ? 1 : 0;
+}
+```

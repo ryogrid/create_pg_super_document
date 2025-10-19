@@ -40,3 +40,37 @@ This function iterates through all block references in a WAL record to determine
 - Iterates through all block IDs present in the WAL record (0 to XLogRecMaxBlockId)
 - Used primarily for implementing the --relation and --block options in pg_waldump
 - Enables focused analysis of WAL activity affecting specific database objects
+
+## Simplified Source
+
+```c
+static bool
+XLogRecordMatchesRelationBlock(XLogReaderState *record,
+                               RelFileLocator matchRlocator,
+                               BlockNumber matchBlock,
+                               ForkNumber matchFork)
+{
+    // Iterate through all block references in the WAL record
+    for (int block_id = 0; block_id <= XLogRecMaxBlockId(record); block_id++) {
+        RelFileLocator rlocator;
+        ForkNumber forknum;
+        BlockNumber blk;
+
+        // Get block tag information for this block reference
+        if (!XLogRecGetBlockTagExtended(record, block_id, &rlocator, &forknum, &blk, NULL))
+            continue;
+
+        // Check if this block matches our filter criteria
+        // Note: Invalid values act as wildcards (match any)
+        bool fork_matches = (matchFork == InvalidForkNumber || matchFork == forknum);
+        bool relation_matches = (RelFileLocatorEquals(matchRlocator, emptyRelFileLocator) ||
+                                RelFileLocatorEquals(matchRlocator, rlocator));
+        bool block_matches = (matchBlock == InvalidBlockNumber || matchBlock == blk);
+
+        if (fork_matches && relation_matches && block_matches)
+            return true;
+    }
+
+    return false;
+}
+```

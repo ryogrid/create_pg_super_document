@@ -38,3 +38,30 @@ The function performs essential validation by checking that it's being called wi
 - Used specifically for aggregate functions that need to compute both sum and count (e.g., AVG)
 - Performs validation to prevent misuse outside aggregate contexts
 - Returns a zero-initialized IntervalAggState structure ready for use
+
+## Simplified Source
+
+```c
+static IntervalAggState *
+makeIntervalAggState(FunctionCallInfo fcinfo)
+{
+    IntervalAggState *state;
+    MemoryContext agg_context;
+    MemoryContext old_context;
+
+    // Validate aggregate context and get memory context
+    if (!AggCheckCallContext(fcinfo, &agg_context))
+        elog(ERROR, "aggregate function called in non-aggregate context");
+
+    // Switch to aggregate context for allocation
+    old_context = MemoryContextSwitchTo(agg_context);
+
+    // Allocate and zero-initialize state structure
+    state = (IntervalAggState *) palloc0(sizeof(IntervalAggState));
+
+    // Restore original memory context
+    MemoryContextSwitchTo(old_context);
+
+    return state;
+}
+```

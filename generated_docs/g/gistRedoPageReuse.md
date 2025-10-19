@@ -36,3 +36,19 @@ The conflict resolution mirrors the visibility logic used during normal page rec
 - The conflict resolution mechanism mirrors the `GlobalVisCheckRemovableFullXid(deleteXid)` test in `gistPageRecyclable()`
 - This ensures consistency with the `PGPROC->xmin > limitXmin` test used in `GetConflictingVirtualXIDs()`
 - The function supports catalog relation awareness through the `isCatalogRel` field for appropriate conflict handling
+
+## Simplified Source
+
+```c
+static void gistRedoPageReuse(XLogReaderState *record)
+{
+    gistxlogPageReuse *xlrec = (gistxlogPageReuse *) XLogRecGetData(record);
+
+    // Handle page reuse conflicts in hot standby mode
+    // This provides a conflict point when pages are reused via FSM
+    if (InHotStandby)
+        ResolveRecoveryConflictWithSnapshotFullXid(xlrec->snapshotConflictHorizon,
+                                                   xlrec->isCatalogRel,
+                                                   xlrec->locator);
+}
+```

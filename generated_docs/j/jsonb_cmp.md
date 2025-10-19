@@ -34,3 +34,19 @@ Like jsonb_eq, this function delegates the actual comparison logic to compareJso
 - Essential for JSONB indexing operations and ORDER BY clauses involving JSONB columns
 - Memory management is handled with proper cleanup using PG_FREE_IF_COPY
 - The comparison order is determined by the compareJsonbContainers function's implementation logic
+
+## Simplified Source
+
+```c
+Datum jsonb_cmp(PG_FUNCTION_ARGS) {
+    Jsonb *jba = PG_GETARG_JSONB_P(0);
+    Jsonb *jbb = PG_GETARG_JSONB_P(1);
+
+    // Get comparison result directly (negative, zero, or positive)
+    int res = compareJsonbContainers(&jba->root, &jbb->root);
+
+    PG_FREE_IF_COPY(jba, 0);
+    PG_FREE_IF_COPY(jbb, 1);
+    PG_RETURN_INT32(res);
+}
+```

@@ -33,3 +33,14 @@ This function implements the PostgreSQL built-in ROUND function for float8 (doub
 - The result is returned as float8, not as an integer type
 - This is different from functions that truncate toward zero - it rounds to the nearest integer value
 - The rounding behavior follows IEEE 754 standards (typically "round half to even" or banker's rounding)
+
+## Simplified Source
+
+```c
+Datum dround(PG_FUNCTION_ARGS) {
+    float8 arg1 = PG_GETARG_FLOAT8(0);
+
+    // Round to nearest integer using rint()
+    PG_RETURN_FLOAT8(rint(arg1));
+}
+```

@@ -31,3 +31,18 @@ This function performs a type conversion from PostgreSQL's internal 64-bit integ
 - The conversion may lose precision for large integer values due to the limited precision of single-precision floating-point representation (24-bit mantissa)
 - Unlike the double-precision conversion (i8tod), this function has more significant precision loss potential
 - Part of PostgreSQL's type system for automatic and explicit type conversions between numeric types
+
+## Simplified Source
+
+```c
+Datum i8tof(PG_FUNCTION_ARGS) {
+    // Extract 64-bit integer argument
+    int64 arg = PG_GETARG_INT64(0);
+
+    // Convert to single-precision floating-point
+    float4 result = arg;
+
+    // Return converted value
+    PG_RETURN_FLOAT4(result);
+}
+```

@@ -34,3 +34,19 @@ The function acts as a wrapper around the platform-specific implementation pg_at
 - The and_ parameter is unsigned, as bitwise operations typically work with unsigned values
 - This is part of PostgreSQLs portable atomic operations interface, providing consistent behavior across different hardware architectures
 - Primarily used in testing scenarios within the current PostgreSQL codebase, indicating its specialized nature for low-level bit manipulation
+
+## Simplified Source
+```c
+static inline uint64
+pg_atomic_fetch_and_u64(volatile pg_atomic_uint64 *ptr, uint64 and_)
+{
+    // Ensure proper alignment for atomic operations (non-simulation mode)
+    #ifndef PG_HAVE_ATOMIC_U64_SIMULATION
+        AssertPointerAlignment(ptr, 8);
+    #endif
+
+    // Atomically AND the value and return original value before operation
+    // Thread-safe bitwise AND for clearing specific bits
+    return pg_atomic_fetch_and_u64_impl(ptr, and_);
+}
+```

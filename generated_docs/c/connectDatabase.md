@@ -57,3 +57,150 @@ After establishing the connection, it constructs and stores a canonical connecti
 - Memory management handled carefully with proper cleanup on all exit paths
 - Used widely across PostgreSQL client utilities for consistent connection handling
 - Password prompting preserves entered passwords for subsequent connection attempts
+
+## Simplified Source
+
+```c
+static PGconn *connectDatabase(const char *dbname, const char *connection_string,
+                              const char *pghost, const char *pgport, const char *pguser,
+                              trivalue prompt_password, bool fail_on_error)
+{
+    PGconn *conn;
+    bool new_pass;
+    const char *remoteversion_str;
+    int my_version;
+    const char **keywords = NULL;
+    const char **values = NULL;
+    PQconninfoOption *conn_opts = NULL;
+    static char *password = NULL;
+
+    // Prompt for password if explicitly requested
+    if (prompt_password == TRI_YES && !password)
+        password = simple_prompt("Password: ", false);
+
+    // Connection retry loop for password authentication
+    do
+    {
+        int argcount = 6;
+        PQconninfoOption *conn_opt;
+        char *err_msg = NULL;
+        int i = 0;
+
+        // Cleanup from previous attempts
+        free(keywords);
+        free(values);
+        PQconninfoFree(conn_opts);
+
+        // Parse connection string and merge with individual parameters
+        if (connection_string)
+        {
+            conn_opts = PQconninfoParse(connection_string, &err_msg);
+            if (conn_opts == NULL)
+                pg_fatal("%s", err_msg);
+
+            // Count valid parameters (excluding dbname)
+            for (conn_opt = conn_opts; conn_opt->keyword != NULL; conn_opt++)
+            {
+                if (conn_opt->val != NULL && conn_opt->val[0] != '\0' &&
+                    strcmp(conn_opt->keyword, "dbname") != 0)
+                    argcount++;
+            }
+        }
+
+        // Allocate arrays for connection parameters
+        keywords = pg_malloc0((argcount + 1) * sizeof(*keywords));
+        values = pg_malloc0((argcount + 1) * sizeof(*values));
+
+        // Copy connection string parameters (excluding dbname)
+        if (connection_string)
+        {
+            for (conn_opt = conn_opts; conn_opt->keyword != NULL; conn_opt++)
+            {
+                if (conn_opt->val != NULL && conn_opt->val[0] != '\0' &&
+                    strcmp(conn_opt->keyword, "dbname") != 0)
+                {
+                    keywords[i] = conn_opt->keyword;
+                    values[i] = conn_opt->val;
+                    i++;
+                }
+            }
+        }
+
+        // Add individual connection parameters
+        if (pghost) { keywords[i] = "host"; values[i] = pghost; i++; }
+        if (pgport) { keywords[i] = "port"; values[i] = pgport; i++; }
+        if (pguser) { keywords[i] = "user"; values[i] = pguser; i++; }
+        if (password) { keywords[i] = "password"; values[i] = password; i++; }
+        if (dbname) { keywords[i] = "dbname"; values[i] = dbname; i++; }
+        keywords[i] = "fallback_application_name"; values[i] = progname; i++;
+
+        // Attempt connection
+        new_pass = false;
+        conn = PQconnectdbParams(keywords, values, true);
+
+        if (!conn)
+            pg_fatal("could not connect to database \"%s\"", dbname);
+
+        // Check if password is needed
+        if (PQstatus(conn) == CONNECTION_BAD &&
+            PQconnectionNeedsPassword(conn) &&
+            !password &&
+            prompt_password != TRI_NO)
+        {
+            PQfinish(conn);
+            password = simple_prompt("Password: ", false);
+            new_pass = true;
+        }
+    } while (new_pass);
+
+    // Handle connection failure
+    if (PQstatus(conn) == CONNECTION_BAD)
+    {
+        if (fail_on_error)
+            pg_fatal("%s", PQerrorMessage(conn));
+        else
+        {
+            PQfinish(conn);
+            // Cleanup and return NULL
+            free(keywords);
+            free(values);
+            PQconninfoFree(conn_opts);
+            return NULL;
+        }
+    }
+
+    // Store connection string for later use
+    connstr = constructConnStr(keywords, values);
+
+    // Cleanup parameter arrays
+    free(keywords);
+    free(values);
+    PQconninfoFree(conn_opts);
+
+    // Version compatibility check
+    remoteversion_str = PQparameterStatus(conn, "server_version");
+    if (!remoteversion_str)
+        pg_fatal("could not get server version");
+    server_version = PQserverVersion(conn);
+    if (server_version == 0)
+        pg_fatal("could not parse server version \"%s\"", remoteversion_str);
+
+    my_version = PG_VERSION_NUM;
+
+    // Validate version compatibility (9.2+ to current major version)
+    if (my_version != server_version &&
+        (server_version < 90200 ||
+         (server_version / 100) > (my_version / 100)))
+    {
+        pg_log_error("aborting because of server version mismatch");
+        pg_log_error_detail("server version: %s; %s version: %s",
+                           remoteversion_str, progname, PG_VERSION);
+        exit_nicely(1);
+    }
+
+    // Execute security initialization
+    PQclear(executeQuery(conn, ALWAYS_SECURE_SEARCH_PATH_SQL));
+
+    return conn;
+}
+```

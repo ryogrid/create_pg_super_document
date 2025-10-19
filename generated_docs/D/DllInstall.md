@@ -35,3 +35,21 @@ The function converts wide character command-line arguments to multibyte strings
 - Returns S_OK (success) in all cases as this is a simple registration helper
 - Part of the Windows Event Log integration system for PostgreSQL logging
 - Only relevant on Windows platforms where COM DLL registration is used
+
+## Simplified Source
+
+```c
+HRESULT DllInstall(BOOL bInstall, LPCWSTR pszCmdLine) {
+    // Convert command line argument to event source name
+    if (pszCmdLine && *pszCmdLine != '\0') {
+        wcstombs(event_source, pszCmdLine, sizeof(event_source));
+    }
+
+    // Handle regsvr32 quirk: register during install to ensure proper order
+    if (bInstall) {
+        DllRegisterServer();
+    }
+
+    return S_OK;
+}
+```

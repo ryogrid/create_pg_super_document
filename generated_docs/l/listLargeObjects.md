@@ -44,3 +44,47 @@ The query uses system functions like  to resolve owner IDs to usernames and  to 
 - Large objects are often used for storing files, images, documents, or other binary data that exceeds PostgreSQL's standard data type limits
 - The  function retrieves comments that can be associated with large objects using the COMMENT SQL command
 - This function is simpler than other describe functions as it doesn't support pattern matching (there are typically fewer large objects to filter)
+
+## Simplified Source
+
+```c
+bool listLargeObjects(bool verbose) {
+    PQExpBufferData buf;
+    PGresult *res;
+    printQueryOpt myopt = pset.popt;
+
+    initPQExpBuffer(&buf);
+
+    // Build query to list large objects with basic information
+    printfPQExpBuffer(&buf,
+        "SELECT oid as \"ID\", "
+        "pg_catalog.pg_get_userbyid(lomowner) as \"Owner\"");
+
+    // Add ACL column in verbose mode
+    if (verbose) {
+        printACLColumn(&buf, "lomacl");
+        appendPQExpBufferStr(&buf, ", ");
+    }
+
+    // Add description column and complete the query
+    appendPQExpBuffer(&buf,
+        "pg_catalog.obj_description(oid, 'pg_largeobject') as \"Description\" "
+        "FROM pg_catalog.pg_largeobject_metadata "
+        "ORDER BY oid");
+
+    // Execute query
+    res = PSQLexec(buf.data);
+    termPQExpBuffer(&buf);
+    if (!res)
+        return false;
+
+    // Set up output formatting and display results
+    myopt.title = "Large objects";
+    myopt.translate_header = true;
+
+    printQuery(res, &myopt, pset.queryFout, false, pset.logfile);
+    PQclear(res);
+
+    return true;
+}
+```

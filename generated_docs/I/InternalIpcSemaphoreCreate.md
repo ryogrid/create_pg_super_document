@@ -57,3 +57,40 @@ The function includes sophisticated error classification logic that recognizes v
 - The retry_ok parameter allows callers to implement retry loops while distinguishing between retryable and fatal errors
 - Platform-specific handling for EIDRM error code (conditionally compiled)
 - Returns -1 on retryable errors, positive semaphore ID on success, never returns on fatal errors (calls ereport with FATAL level)
+
+## Simplified Source
+
+```c
+static IpcSemaphoreId InternalIpcSemaphoreCreate(IpcSemaphoreKey semKey, int numSems, bool retry_ok) {
+    int semId;
+
+    // Try to create new semaphore set with exclusive access
+    semId = semget(semKey, numSems, IPC_CREAT | IPC_EXCL | IPCProtection);
+
+    if (semId < 0) {
+        int saved_errno = errno;
+
+        // Handle retryable errors if caller allows retries
+        if (retry_ok &&
+            (saved_errno == EEXIST ||   // Already exists
+             saved_errno == EACCES ||   // Permission denied
+             saved_errno == EINVAL ||   // Invalid parameter/too few sems
+             saved_errno == EIDRM)) {   // Being destroyed
+            return -1;  // Let caller retry with different key
+        }
+
+        // Fatal error - report with detailed diagnostics
+        ereport(FATAL,
+            (errmsg("could not create semaphores: %m"),
+             errdetail("Failed system call was semget(%lu, %d, 0%o).",
+                       (unsigned long) semKey, numSems,
+                       IPC_CREAT | IPC_EXCL | IPCProtection),
+             // Special hint for ENOSPC about system limits
+             (saved_errno == ENOSPC) ?
+             errhint("System semaphore limits exceeded. Increase SEMMNI/SEMMNS "
+                     "or reduce max_connections.") : 0));
+    }
+
+    return semId;  // Success
+}
+```

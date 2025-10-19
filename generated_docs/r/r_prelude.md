@@ -49,3 +49,93 @@ The function uses the Snowball environment structure to track cursor positions a
 - Character group g_v represents vowels (characters 97-232, covering accented vowels)
 - The function handles both ISO-8859-1 and UTF-8 encoded text depending on the specific stemmer implementation
 - Error handling is implemented through return value checking of slice operations
+
+## Simplified Source
+
+```c
+static int r_prelude(struct SN_env * z) {
+    int among_var;
+
+    // Phase 1: Character normalization loop
+    int start_pos = z->c;
+    while(1) {
+        int saved_pos = z->c;
+        z->bra = z->c;
+
+        // Find matching character patterns using pattern table a_0
+        among_var = find_among(z, a_0, 11);
+        if (!among_var) {
+            z->c = saved_pos;
+            break;
+        }
+
+        z->ket = z->c;
+
+        // Replace characters based on pattern match
+        switch (among_var) {
+            case 1: slice_from_s(z, 1, s_0); break;  // Character replacement 1
+            case 2: slice_from_s(z, 1, s_1); break;  // Character replacement 2
+            case 3: slice_from_s(z, 1, s_2); break;  // Character replacement 3
+            case 4: slice_from_s(z, 1, s_3); break;  // Character replacement 4
+            case 5: slice_from_s(z, 1, s_4); break;  // Character replacement 5
+            case 6: z->c++; break;                    // Skip character
+        }
+    }
+    z->c = start_pos;
+
+    // Phase 2: Convert initial 'y' to 'Y'
+    z->bra = z->c;
+    if (z->c < z->l && z->p[z->c] == 'y') {
+        z->c++;
+        z->ket = z->c;
+        slice_from_s(z, 1, s_5);  // Replace 'y' with 'Y'
+    }
+
+    // Phase 3: Process vowel contexts
+    while(1) {
+        int loop_pos = z->c;
+
+        // Find next vowel
+        while(1) {
+            int vowel_pos = z->c;
+            if (!in_grouping(z, g_v, 97, 232, 0)) {  // If not vowel
+                z->c++;
+                if (z->c >= z->l) goto end_loop;
+                continue;
+            }
+
+            z->bra = z->c;
+            // Convert 'i' between vowels to 'I'
+            if (z->c < z->l && z->p[z->c] == 'i') {
+                z->c++;
+                z->ket = z->c;
+                if (!in_grouping(z, g_v, 97, 232, 0)) {  // Next char is vowel
+                    slice_from_s(z, 1, s_6);  // Replace 'i' with 'I'
+                }
+            }
+            // Convert 'y' in vowel context to 'Y'
+            else if (z->c < z->l && z->p[z->c] == 'y') {
+                z->c++;
+                z->ket = z->c;
+                slice_from_s(z, 1, s_7);  // Replace 'y' with 'Y'
+            }
+            z->c = vowel_pos;
+            break;
+        }
+        continue;
+
+        end_loop:
+        z->c = loop_pos;
+        break;
+    }
+
+    return 1;  // Success
+}
+```
+
+This simplified version shows the three main phases:
+1. **Character normalization**: Uses pattern matching to replace special character sequences
+2. **Initial Y conversion**: Converts word-initial 'y' to 'Y'
+3. **Vowel context processing**: Converts 'i' and 'y' to uppercase when in vowel contexts
+
+The function prepares text for stemming by normalizing characters that need special handling.

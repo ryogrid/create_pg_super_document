@@ -41,3 +41,15 @@ The function is designed with special consideration for Windows platform limitat
 - Re-registers itself to handle systems that reset signal handlers after invocation
 - The caught_signal flag should be checked periodically by the main program to detect interruptions
 - Special consideration given to Windows' multithreading behavior with CTRL+C interrupts
+
+## Simplified Source
+
+```c
+static void trapsig(SIGNAL_ARGS) {
+    // Re-register handler for systems that reset it (like Windows)
+    pqsignal(postgres_signal_arg, trapsig);
+
+    // Set flag instead of calling exit() directly for safe signal handling
+    caught_signal = true;
+}
+```

@@ -43,3 +43,40 @@ The  function is part of PostgreSQL's WAL record description system, specificall
 - For CREATE_WAL_LOG operations, it shows the created tablespace and database IDs
 - For DROP operations, it lists all tablespaces containing the dropped database
 - The function is part of the resource manager description system for database operations
+
+## Simplified Source
+
+```c
+void
+dbase_desc(StringInfo buf, XLogReaderState *record)
+{
+    char       *rec = XLogRecGetData(record);
+    uint8       info = XLogRecGetInfo(record) & ~XLR_INFO_MASK;
+
+    if (info == XLOG_DBASE_CREATE_FILE_COPY)
+    {
+        // Describe database creation by copying files
+        xl_dbase_create_file_copy_rec *xlrec = (xl_dbase_create_file_copy_rec *) rec;
+        appendStringInfo(buf, "copy dir %u/%u to %u/%u",
+                         xlrec->src_tablespace_id, xlrec->src_db_id,
+                         xlrec->tablespace_id, xlrec->db_id);
+    }
+    else if (info == XLOG_DBASE_CREATE_WAL_LOG)
+    {
+        // Describe database creation using WAL logging
+        xl_dbase_create_wal_log_rec *xlrec = (xl_dbase_create_wal_log_rec *) rec;
+        appendStringInfo(buf, "create dir %u/%u",
+                         xlrec->tablespace_id, xlrec->db_id);
+    }
+    else if (info == XLOG_DBASE_DROP)
+    {
+        // Describe database drop operation
+        xl_dbase_drop_rec *xlrec = (xl_dbase_drop_rec *) rec;
+
+        appendStringInfoString(buf, "dir");
+        for (int i = 0; i < xlrec->ntablespaces; i++)
+            appendStringInfo(buf, " %u/%u",
+                             xlrec->tablespace_ids[i], xlrec->db_id);
+    }
+}
+```

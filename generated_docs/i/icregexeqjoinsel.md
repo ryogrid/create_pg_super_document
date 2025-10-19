@@ -32,3 +32,13 @@ The function returns a selectivity estimate as a floating-point value between 0 
 - Returns the default selectivity estimate of 0.005 (0.5%) for case-insensitive regex joins
 - The current implementation is a placeholder that doesn't perform actual pattern analysis
 - Works in conjunction with PostgreSQL's operator class system for the  (case-insensitive regex match) operator
+
+## Simplified Source
+
+```c
+Datum icregexeqjoinsel(PG_FUNCTION_ARGS) {
+    // Estimate join selectivity for case-insensitive regex patterns
+    // Delegates to generic pattern join selectivity function
+    return patternjoinsel(fcinfo, Pattern_Type_Regex_IC, false);
+}
+```

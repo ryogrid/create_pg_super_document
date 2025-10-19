@@ -36,3 +36,22 @@ The function uses `snprintf` with the "%02x" format specifier to ensure each byt
 - The function is registered with PostgreSQL's type system and called automatically during output conversion
 - Returns a Datum containing a null-terminated C string
 - No error checking is performed as the input is assumed to be a valid macaddr8 structure
+
+## Simplified Source
+
+```c
+Datum macaddr8_out(PG_FUNCTION_ARGS) {
+    macaddr8 *addr = PG_GETARG_MACADDR8_P(0);
+    char *result;
+
+    // Allocate space for "xx:xx:xx:xx:xx:xx:xx:xx\0" (32 bytes)
+    result = (char *) palloc(32);
+
+    // Format as colon-separated lowercase hex pairs
+    snprintf(result, 32, "%02x:%02x:%02x:%02x:%02x:%02x:%02x:%02x",
+             addr->a, addr->b, addr->c, addr->d,
+             addr->e, addr->f, addr->g, addr->h);
+
+    PG_RETURN_CSTRING(result);
+}
+```

@@ -32,3 +32,13 @@ The function is part of PostgreSQL's locale management system, which maintains c
 - Works in conjunction with `check_locale_numeric` which validates the new locale value before assignment
 - Part of a broader locale management system that includes similar functions for monetary and time locales
 - The LC_NUMERIC locale setting affects decimal points, thousands separators, and digit grouping in number formatting
+
+## Simplified Source
+
+```c
+void assign_locale_numeric(const char *newval, void *extra) {
+    // Mark cached locale conversion info as invalid
+    // Forces refresh of numeric formatting when next needed
+    CurrentLocaleConvValid = false;
+}
+```

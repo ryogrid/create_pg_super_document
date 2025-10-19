@@ -44,3 +44,37 @@ The cleaning loop continues until no more patterns are found, ensuring all appli
 - Returns 1 on successful completion, following the Snowball framework convention
 - Part of the preprocessing pipeline that runs before the main stemming algorithms
 - The specific character mappings (s_0 through s_5) contain the actual replacement strings defined elsewhere in the Catalan stemmer
+
+## Simplified Source
+
+```c
+static int r_cleaning(struct SN_env * z) {
+    // Continuous loop to normalize characters
+    while(1) {
+        int saved_cursor = z->c;
+
+        // Find character pattern needing normalization
+        z->bra = z->c;
+        int pattern = find_among(z, a_0, 13);
+        if (!pattern) {
+            z->c = saved_cursor;
+            break;  // No more patterns found
+        }
+
+        z->ket = z->c;
+
+        // Apply appropriate character replacement
+        switch (pattern) {
+            case 1: case 2: case 3: case 4: case 5: case 6:
+                // Replace with normalized character (s_0 through s_5)
+                slice_from_s(z, 1, normalized_chars[pattern-1]);
+                break;
+            case 7:
+                // Skip this character
+                z->c++;
+                break;
+        }
+    }
+    return 1;
+}
+```

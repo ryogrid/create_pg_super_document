@@ -30,3 +30,17 @@ This function selects a random int32 uniformly from the full signed 32-bit integ
 - Less commonly used compared to pg_prng_uint32 and pg_prng_int32p
 - Part of PostgreSQL's unified PRNG interface for consistent random number generation
 - Provides full signed 32-bit range including negative values
+
+## Simplified Source
+
+```c
+int32
+pg_prng_int32(pg_prng_state *state)
+{
+    // Generate 64-bit value and use upper 32 bits
+    uint64 v = xoroshiro128ss(state);
+
+    // Return upper 32 bits as signed int32
+    return (int32) (v >> 32);
+}
+```

@@ -41,4 +41,35 @@ The function reads the buffer for redo, updates the NSN, clears the follow-right
 - Critical for maintaining GiST index consistency during WAL recovery
 - Handles the special case where full-page images don't include flag updates
 - Part of the GiST index WAL recovery infrastructure
+
+## Simplified Source
+
+```c
+static void
+gistRedoClearFollowRight(XLogReaderState *record, uint8 block_id)
+{
+    XLogRecPtr lsn = record->EndRecPtr;
+    Buffer buffer;
+    Page page;
+    XLogRedoAction action;
+
+    // Read buffer for redo operation
+    action = XLogReadBufferForRedo(record, block_id, &buffer);
+
+    if (action == BLK_NEEDS_REDO || action == BLK_RESTORED) {
+        page = BufferGetPage(buffer);
+
+        // Update page state
+        GistPageSetNSN(page, lsn);        // Set Next Sequence Number
+        GistClearFollowRight(page);       // Clear the follow-right flag
+
+        // Complete buffer management
+        PageSetLSN(page, lsn);
+        MarkBufferDirty(buffer);
+    }
+
+    if (BufferIsValid(buffer))
+        UnlockReleaseBuffer(buffer);
+}
+```
 - The function ensures atomic updates to prevent race conditions in Hot Standby scenarios

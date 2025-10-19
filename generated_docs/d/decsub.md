@@ -38,3 +38,25 @@ The `decsub` function subtracts the second decimal number from the first (`n1` -
 - Sets errno internally to communicate error conditions to the caller
 - Located in src/interfaces/ecpg/compatlib/informix.c:359-380
 - Similar error handling pattern to multiplication, without divide-by-zero concerns
+
+## Simplified Source
+
+```c
+int decsub(decimal *n1, decimal *n2, decimal *result) {
+    // Clear errno and perform subtraction using helper function
+    errno = 0;
+    int i = deccall3(n1, n2, result, PGTYPESnumeric_sub);
+
+    // Handle errors if subtraction failed
+    if (i != 0) {
+        switch (errno) {
+            case PGTYPES_NUM_OVERFLOW:
+                return ECPG_INFORMIX_NUM_OVERFLOW;
+            default:
+                return ECPG_INFORMIX_NUM_UNDERFLOW;
+        }
+    }
+
+    return 0;  // Success
+}
+```

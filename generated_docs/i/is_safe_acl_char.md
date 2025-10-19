@@ -30,3 +30,16 @@ For characters with the high bit set (non-ASCII), the function returns the value
 
 ## Notes and Other Information
 This function addresses a portability issue where older versions used isalnum() on non-ASCII characters, resulting in platform-dependent behavior. The current implementation ensures that dumps created by newer versions remain compatible with older PostgreSQL installations by being more restrictive during output (putid) while remaining permissive during input parsing (getid).
+
+## Simplified Source
+
+```c
+static inline bool is_safe_acl_char(unsigned char c, bool is_getid) {
+    // High-bit-set characters: safe during parsing, require quoting during output
+    if (IS_HIGHBIT_SET(c))
+        return is_getid;
+
+    // ASCII characters: allow alphanumeric and underscore
+    return isalnum(c) || c == '_';
+}
+```

@@ -33,3 +33,17 @@ The `circle_eq` function compares two circles for area equality. Rather than com
 - Employs floating-point accuracy constraints via `FPeq` for reliable equality testing
 - Located in `src/backend/utils/adt/geo_ops.c:4903-4911`
 - Part of PostgreSQL's geometric data type comparison operators
+
+## Simplified Source
+
+```c
+Datum
+circle_eq(PG_FUNCTION_ARGS)
+{
+    CIRCLE *circle1 = PG_GETARG_CIRCLE_P(0);
+    CIRCLE *circle2 = PG_GETARG_CIRCLE_P(1);
+
+    // Compare circles by area equality within floating-point accuracy
+    PG_RETURN_BOOL(FPeq(circle_ar(circle1), circle_ar(circle2)));
+}
+```

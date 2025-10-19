@@ -45,3 +45,48 @@ This function ensures that 'en' suffixes are only removed when they follow conso
 - Only called from r_standard_suffix, indicating its role as a specialized sub-operation in Dutch stemming
 - Available in both ISO-8859-1 and UTF-8 variants for different character encodings
 - The m1 and m2 variables are used for position tracking with explicit void casting to suppress unused variable warnings
+
+## Simplified Source
+
+```c
+static int r_en_ending(struct SN_env * z) {
+    // Verify we're in the R1 region (valid stemming area)
+    if (r_R1(z) <= 0) {
+        return 0;  // Not in R1 region
+    }
+
+    // Check that character before 'en' is NOT a vowel
+    int saved_pos1 = z->l - z->c;
+    if (out_grouping_b(z, g_v, 97, 232, 0)) {
+        return 0;  // Previous character is a vowel, don't remove 'en'
+    }
+    z->c = z->l - saved_pos1;  // Restore position
+
+    // Check for exclusion pattern (s_10) that prevents 'en' removal
+    int saved_pos2 = z->l - z->c;
+    if (eq_s_b(z, 3, s_10)) {
+        return 0;  // Exclusion pattern found, don't remove 'en'
+    }
+    z->c = z->l - saved_pos2;  // Restore position
+
+    // Remove the 'en' suffix
+    slice_del(z);
+
+    // Clean up any doubled consonants that may result
+    r_undouble(z);
+
+    return 1;  // Success
+}
+```
+
+This function handles Dutch 'en' ending removal with these conditions:
+1. **R1 region check**: Ensures removal occurs in morphologically appropriate area
+2. **Consonant requirement**: Only removes 'en' if preceded by a consonant (not vowel)
+3. **Exclusion pattern**: Checks for specific 3-character pattern (s_10) that prevents removal
+4. **Safe removal**: Deletes the 'en' suffix if all conditions are met
+5. **Consonant cleanup**: Calls r_undouble to fix doubled consonants
+
+This prevents over-stemming by:
+- Preserving 'en' endings after vowels
+- Avoiding removal when specific exclusion patterns are present
+- Maintaining Dutch morphological integrity

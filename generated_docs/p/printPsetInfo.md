@@ -37,3 +37,53 @@ The `printPsetInfo` function serves as the primary interface for displaying psql
 - Provides detailed, user-friendly descriptions of complex formatting states
 - Part of psql's comprehensive formatting system that allows users to inspect their current output settings
 - Error handling includes logging unknown parameter names with pg_log_error
+
+## Simplified Source
+
+```c
+static bool printPsetInfo(const char *param, printQueryOpt *popt) {
+    // Display current formatting parameter values based on param name
+
+    if (strcmp(param, "border") == 0) {
+        printf(_("Border style is %d.\n"), popt->topt.border);
+    }
+    else if (strcmp(param, "columns") == 0) {
+        if (!popt->topt.columns)
+            printf(_("Target width is unset.\n"));
+        else
+            printf(_("Target width is %d.\n"), popt->topt.columns);
+    }
+    else if (strcmp(param, "expanded") == 0) {
+        // Handle expanded display modes (off/on/auto)
+        if (popt->topt.expanded == 1)
+            printf(_("Expanded display is on.\n"));
+        else if (popt->topt.expanded == 2)
+            printf(_("Expanded display is used automatically.\n"));
+        else
+            printf(_("Expanded display is off.\n"));
+    }
+    else if (strcmp(param, "format") == 0) {
+        printf(_("Output format is %s.\n"), _align2string(popt->topt.format));
+    }
+    else if (strcmp(param, "null") == 0) {
+        printf(_("Null display is \"%s\".\n"),
+               popt->nullPrint ? popt->nullPrint : "");
+    }
+    else if (strcmp(param, "pager") == 0) {
+        // Handle pager usage modes
+        if (popt->topt.pager == 1)
+            printf(_("Pager is used for long output.\n"));
+        else if (popt->topt.pager == 2)
+            printf(_("Pager is always used.\n"));
+        else
+            printf(_("Pager usage is off.\n"));
+    }
+    // ... additional parameter checks for other formatting options ...
+    else {
+        pg_log_error("\\pset: unknown option: %s", param);
+        return false;
+    }
+
+    return true;
+}
+```

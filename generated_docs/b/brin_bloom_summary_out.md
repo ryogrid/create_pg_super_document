@@ -40,3 +40,25 @@ This function serves as the output routine for the brin_bloom_summary data type,
 - Mode is always displayed as "hashed" indicating the bloom filter implementation type
 - This output is primarily useful for debugging and monitoring bloom filter effectiveness
 - The ratio of nbits_set to nbits can indicate the filter's false positive rate characteristics
+
+## Simplified Source
+
+```c
+Datum
+brin_bloom_summary_out(PG_FUNCTION_ARGS)
+{
+    // Extract bloom filter from input, handling compression
+    BloomFilter *filter = (BloomFilter *) PG_DETOAST_DATUM(PG_GETARG_DATUM(0));
+
+    // Build human-readable output string
+    StringInfoData str;
+    initStringInfo(&str);
+
+    appendStringInfoChar(&str, '{');
+    appendStringInfo(&str, "mode: hashed  nhashes: %u  nbits: %u  nbits_set: %u",
+                     filter->nhashes, filter->nbits, filter->nbits_set);
+    appendStringInfoChar(&str, '}');
+
+    PG_RETURN_CSTRING(str.data);
+}
+```

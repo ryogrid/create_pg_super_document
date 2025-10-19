@@ -35,3 +35,24 @@ The function operates under strict preconditions: the relation must have statist
 - This proactive association prevents race conditions during relation drops in concurrent sessions
 - The function requires that statistics are already enabled for the relation (enforced via assertion)
 - Performance optimization: statistics structures are only allocated when actually needed for statistics collection
+
+## Simplified Source
+
+```c
+void pgstat_assoc_relation(Relation rel)
+{
+    // Verify prerequisites
+    Assert(rel->pgstat_enabled);
+    Assert(rel->pgstat_info == NULL);
+
+    // Find or create statistics entry for this relation
+    rel->pgstat_info = pgstat_prep_relation_pending(RelationGetRelid(rel),
+                                                   rel->rd_rel->relisshared);
+
+    // Ensure one-to-one relationship
+    Assert(rel->pgstat_info->relation == NULL);
+
+    // Establish bidirectional link
+    rel->pgstat_info->relation = rel;
+}
+```

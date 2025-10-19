@@ -39,3 +39,26 @@ The function is designed to be called by various XML table processing functions 
 - Located in src/backend/utils/adt/xml.c:4658-4683
 - Essential safety mechanism for XML table function implementation
 - Uses PostgreSQL's elog mechanism for error reporting with function name context
+
+## Simplified Source
+
+```c
+static inline XmlTableBuilderData *
+GetXmlTableBuilderPrivateData(TableFuncScanState *state, const char *fname)
+{
+    XmlTableBuilderData *result;
+
+    // Validate that state is the correct type
+    if (!IsA(state, TableFuncScanState))
+        elog(ERROR, "%s called with invalid TableFuncScanState", fname);
+
+    // Extract private data from the state
+    result = (XmlTableBuilderData *) state->opaque;
+
+    // Validate magic number to ensure data integrity
+    if (result->magic != XMLTABLE_CONTEXT_MAGIC)
+        elog(ERROR, "%s called with invalid TableFuncScanState", fname);
+
+    return result;
+}
+```

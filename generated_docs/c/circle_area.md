@@ -31,3 +31,16 @@ The `circle_area` function computes the area of a circle by calling the internal
 - Part of PostgreSQLs geometric data type functions for circle operations
 - Returns the result as a PostgreSQL float8 (double precision) value
 - The function follows PostgreSQLs V1 calling convention for SQL functions
+
+## Simplified Source
+
+```c
+Datum circle_area(PG_FUNCTION_ARGS) {
+    CIRCLE *circle = PG_GETARG_CIRCLE_P(0);
+
+    // Return the area using helper function circle_ar
+    PG_RETURN_FLOAT8(circle_ar(circle));
+}
+```
+
+This function is a simple wrapper that calculates a circle's area. It extracts the circle argument and delegates the actual area calculation (π × r²) to the `circle_ar` helper function, returning the result as a float8.

@@ -29,3 +29,18 @@ The `json_populate_recordset` function is a wrapper that provides the SQL interf
 - The `true, true` parameters indicate: is JSON (not JSONB), and has a record argument provided
 - The record argument defines the structure and types of the output recordset
 - Part of PostgreSQL`s JSON functionality for converting JSON arrays to relational data with explicit type definitions
+
+## Simplified Source
+
+```c
+Datum json_populate_recordset(PG_FUNCTION_ARGS) {
+    // Delegate to the main recordset population worker
+    // Parameters: function context, function name, is_json=true, has_record_arg=true
+    return populate_recordset_worker(fcinfo, "json_populate_recordset", true, true);
+}
+```
+
+This function is a simple wrapper that:
+1. Takes the standard PostgreSQL function arguments
+2. Calls the main recordset worker with JSON format and record argument flags
+3. Returns the populated recordset result

@@ -33,3 +33,16 @@ This function implements the PostgreSQL SQL operator for dividing a money amount
 - [Result](../R/Result.md) is rounded to nearest integer to maintain Cash type precision
 - Division by zero is handled by the underlying float8_div function
 - Part of PostgreSQL's money data type implementation in src/backend/utils/adt/cash.c
+
+## Simplified Source
+
+```c
+Datum cash_div_flt8(PG_FUNCTION_ARGS) {
+    // Extract cash value and float8 divisor
+    Cash c = PG_GETARG_CASH(0);
+    float8 f = PG_GETARG_FLOAT8(1);
+
+    // Delegate to helper function and return result
+    PG_RETURN_CASH(cash_div_float8(c, f));
+}
+```

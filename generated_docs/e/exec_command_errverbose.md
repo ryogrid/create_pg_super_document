@@ -41,3 +41,37 @@ This function retrieves and displays verbose error information from the last fai
 - Provides internationalized messages for "out of memory" and "no previous error" cases
 - The error message is displayed using pg_log_error() to ensure proper formatting and output routing
 - Memory allocated by PQresultVerboseErrorMessage() is correctly freed using PQfreemem()
+
+## Simplified Source
+
+```c
+static backslashResult
+exec_command_errverbose(PsqlScanState scan_state, bool active_branch)
+{
+    if (active_branch)
+    {
+        if (pset.last_error_result)
+        {
+            // Get verbose error message from last failed query
+            char *msg = PQresultVerboseErrorMessage(pset.last_error_result,
+                                                   PQERRORS_VERBOSE,
+                                                   PQSHOW_CONTEXT_ALWAYS);
+            if (msg)
+            {
+                pg_log_error("%s", msg);
+                PQfreemem(msg);
+            }
+            else
+            {
+                puts(_("out of memory"));
+            }
+        }
+        else
+        {
+            puts(_("There is no previous error."));
+        }
+    }
+
+    return PSQL_CMD_SKIP_LINE;
+}
+```

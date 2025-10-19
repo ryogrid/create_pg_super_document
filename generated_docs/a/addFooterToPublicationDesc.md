@@ -51,3 +51,50 @@ The function performs the following operations:
   - Column 2: WHERE clause (optional, table mode only)
   - Column 3: Column list (optional, table mode only)
 - Returns boolean indicating success/failure of the operation
+
+## Simplified Source
+
+```c
+static bool addFooterToPublicationDesc(PQExpBuffer buf, const char *footermsg,
+                                       bool as_schema, printTableContent *const cont) {
+    PGresult *res;
+    int count = 0;
+    int i = 0;
+
+    // Execute the query and get result count
+    res = PSQLexec(buf->data);
+    if (!res)
+        return false;
+    else
+        count = PQntuples(res);
+
+    // Add footer header if results exist
+    if (count > 0)
+        printTableAddFooter(cont, footermsg);
+
+    // Process each result row
+    for (i = 0; i < count; i++) {
+        if (as_schema) {
+            // Schema-only format
+            printfPQExpBuffer(buf, "    \"%s\"", PQgetvalue(res, i, 0));
+        } else {
+            // Full table format with schema.table
+            printfPQExpBuffer(buf, "    \"%s.%s\"", PQgetvalue(res, i, 0),
+                              PQgetvalue(res, i, 1));
+
+            // Add column list if present
+            if (!PQgetisnull(res, i, 3))
+                appendPQExpBuffer(buf, " (%s)", PQgetvalue(res, i, 3));
+
+            // Add WHERE clause if present
+            if (!PQgetisnull(res, i, 2))
+                appendPQExpBuffer(buf, " WHERE %s", PQgetvalue(res, i, 2));
+        }
+
+        printTableAddFooter(cont, buf->data);
+    }
+
+    PQclear(res);
+    return true;
+}
+```

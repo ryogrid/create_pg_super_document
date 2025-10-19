@@ -36,3 +36,33 @@ The function handles both defined variables with NULL values and completely unde
 - The search is optimized by the alphabetical ordering of variables in the list
 - [Result](../R/Result.md) validity is limited to the period before the next assignment to the variable
 - Part of psql's core variable management system used throughout the application
+
+## Simplified Source
+
+```c
+const char *
+GetVariable(VariableSpace space, const char *name)
+{
+    struct _variable *current;
+
+    // Return NULL if no variable space provided
+    if (!space)
+        return NULL;
+
+    // Search through the sorted linked list of variables
+    for (current = space->next; current; current = current->next) {
+        int cmp = strcmp(current->name, name);
+
+        if (cmp == 0) {
+            // Found the variable - return its value (may be NULL)
+            return current->value;
+        }
+        if (cmp > 0) {
+            // Passed where it should be in alphabetical order - not found
+            break;
+        }
+    }
+
+    return NULL;
+}
+```

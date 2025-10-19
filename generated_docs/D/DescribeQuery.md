@@ -46,3 +46,95 @@ The function constructs a formatted output showing column names and their Postgr
 - Properly escapes column names using PQescapeLiteral to prevent SQL injection
 - Uses gettext_noop for internationalization of column headers ("Column" and "Type")
 - Function is static, only accessible within common.c
+
+## Simplified Source
+
+```c
+static bool DescribeQuery(const char *query, double *elapsed_msec) {
+    bool timing = pset.timing;
+    PGresult *result;
+    bool OK;
+    instr_time before, after;
+
+    *elapsed_msec = 0;
+
+    if (timing)
+        INSTR_TIME_SET_CURRENT(before);
+
+    // Prepare query without executing it using unnamed prepared statement
+    result = PQprepare(pset.db, "", query, 0, NULL);
+    if (PQresultStatus(result) != PGRES_COMMAND_OK) {
+        pg_log_info("%s", PQerrorMessage(pset.db));
+        SetResultVariables(result, false);
+        ClearOrSaveResult(result);
+        return false;
+    }
+    PQclear(result);
+
+    // Describe the prepared statement to get column metadata
+    result = PQdescribePrepared(pset.db, "");
+    OK = AcceptResult(result, true) && (PQresultStatus(result) == PGRES_COMMAND_OK);
+
+    if (OK && result) {
+        if (PQnfields(result) > 0) {
+            PQExpBufferData buf;
+            initPQExpBuffer(&buf);
+
+            // Build query to format column information
+            printfPQExpBuffer(&buf,
+                "SELECT name AS \"%s\", pg_catalog.format_type(tp, tpm) AS \"%s\"\n"
+                "FROM (VALUES ",
+                gettext_noop("Column"),
+                gettext_noop("Type"));
+
+            // Add each column's metadata to the VALUES clause
+            for (int i = 0; i < PQnfields(result); i++) {
+                const char *name = PQfname(result, i);
+                char *escname = PQescapeLiteral(pset.db, name, strlen(name));
+
+                if (escname == NULL) {
+                    pg_log_info("%s", PQerrorMessage(pset.db));
+                    PQclear(result);
+                    termPQExpBuffer(&buf);
+                    return false;
+                }
+
+                if (i > 0)
+                    appendPQExpBufferStr(&buf, ",");
+
+                appendPQExpBuffer(&buf, "(%s, '%u'::pg_catalog.oid, %d)",
+                    escname, PQftype(result, i), PQfmod(result, i));
+
+                PQfreemem(escname);
+            }
+
+            appendPQExpBufferStr(&buf, ") s(name, tp, tpm)");
+            PQclear(result);
+
+            // Execute the formatting query and display results
+            result = PQexec(pset.db, buf.data);
+            OK = AcceptResult(result, true);
+
+            if (timing) {
+                INSTR_TIME_SET_CURRENT(after);
+                INSTR_TIME_SUBTRACT(after, before);
+                *elapsed_msec += INSTR_TIME_GET_MILLISEC(after);
+            }
+
+            if (OK && result)
+                OK = PrintQueryResult(result, true, NULL, NULL, NULL);
+
+            termPQExpBuffer(&buf);
+        } else {
+            fprintf(pset.queryFout, "The command has no result, or the result has no columns.\n");
+        }
+    }
+
+    SetResultVariables(result, OK);
+    ClearOrSaveResult(result);
+
+    return OK;
+}
+```
+
+This simplified version preserves the essential functionality: prepare query for parsing, describe the prepared statement to get column metadata, construct a formatted query to display column information, handle timing, and properly clean up resources.

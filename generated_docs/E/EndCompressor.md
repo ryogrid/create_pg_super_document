@@ -37,3 +37,17 @@ This function serves as the counterpart to `AllocateCompressor` and should be ca
 - Failure to call this function will result in memory leaks and potentially incomplete compression output
 - The function handles the final steps of the compression process including flushing any remaining buffered data
 - Located in src/bin/pg_dump/compress_io.c at lines 149-163
+
+## Simplified Source
+
+```c
+void
+EndCompressor(ArchiveHandle *AH, CompressorState *cs)
+{
+    // Call algorithm-specific cleanup function
+    cs->end(AH, cs);
+
+    // Free the compressor state structure
+    pg_free(cs);
+}
+```

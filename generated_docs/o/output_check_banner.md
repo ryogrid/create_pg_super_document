@@ -33,3 +33,24 @@ The banner serves as a visual separator and progress indicator in the upgrade pr
 - Banner includes decorative dashes for visual formatting
 - Part of the pg_upgrade user interface feedback system
 - Function has external linkage (not static) and can be called from other compilation units
+
+## Simplified Source
+
+```c
+void
+output_check_banner(bool live_check)
+{
+    if (user_opts.check && live_check) {
+        // Banner for live server checks
+        pg_log(PG_REPORT,
+               "Performing Consistency Checks on Old Live Server\n"
+               "------------------------------------------------");
+    }
+    else {
+        // Banner for standard checks
+        pg_log(PG_REPORT,
+               "Performing Consistency Checks\n"
+               "-----------------------------");
+    }
+}
+```

@@ -37,3 +37,16 @@ Swap:        8388608           0     8388608 function that handles the actual me
 - The actual memory deallocation is performed by the implementation-specific free function pointed to by the  structure
 - Part of PostgreSQL's regex subsystem located in 
 - The function uses a function pointer indirection pattern common in PostgreSQL for supporting pluggable implementations
+
+## Simplified Source
+
+```c
+void pg_regfree(regex_t *re) {
+    // Safe to call with NULL pointer
+    if (re == NULL)
+        return;
+
+    // Delegate to implementation-specific free function
+    (*((struct fns *) re->re_fns)->free)(re);
+}
+```

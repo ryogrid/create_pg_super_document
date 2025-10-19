@@ -33,3 +33,20 @@ This is a fundamental building block in the JSONB GIN indexing system, used to c
 
 ## Notes and Other Information
 The function uses offsetof(JsonPathGinNode, args) to allocate only the necessary memory for the base structure without the variable-length args array, which is not needed for simple entry nodes. This is a memory optimization for nodes that don't require additional arguments.
+
+## Simplified Source
+
+```c
+static JsonPathGinNode *
+make_jsp_entry_node(Datum entry)
+{
+    // Allocate memory for base node structure (without args array)
+    JsonPathGinNode *node = palloc(offsetof(JsonPathGinNode, args));
+
+    // Initialize as entry node with the provided datum
+    node->type = JSP_GIN_ENTRY;
+    node->val.entryDatum = entry;
+
+    return node;
+}
+```

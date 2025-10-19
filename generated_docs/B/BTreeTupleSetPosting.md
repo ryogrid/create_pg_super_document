@@ -37,3 +37,25 @@ This function transforms a regular B-tree index tuple into a posting list tuple,
 - The nhtids parameter is combined with BT_IS_POSTING flag when stored
 - The postingoffset must be properly aligned and within size limits
 - This is part of PostgreSQL's B-tree deduplication feature to reduce index bloat
+
+## Simplified Source
+
+```c
+static inline void BTreeTupleSetPosting(IndexTuple itup, uint16 nhtids, int postingoffset) {
+    // Validate parameters
+    Assert(nhtids > 1);
+    Assert((nhtids & BT_STATUS_OFFSET_MASK) == 0);
+    Assert((size_t) postingoffset == MAXALIGN(postingoffset));
+    Assert(postingoffset < INDEX_SIZE_MASK);
+    Assert(!BTreeTupleIsPivot(itup));
+
+    // Mark tuple as having alternative TID format
+    itup->t_info |= INDEX_ALT_TID_MASK;
+
+    // Store number of heap TIDs + posting flag in offset number
+    ItemPointerSetOffsetNumber(&itup->t_tid, (nhtids | BT_IS_POSTING));
+
+    // Store posting list offset in block number field
+    ItemPointerSetBlockNumber(&itup->t_tid, postingoffset);
+}
+```

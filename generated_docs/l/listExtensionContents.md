@@ -43,3 +43,68 @@ The function workflow:
 - Pattern validation is handled by validateSQLNamePattern to ensure SQL injection safety
 - Returns false on any error condition, including cancellation or failure in nested function calls
 - Uses pg_log_error for user-friendly error messages when extensions are not found
+
+## Simplified Source
+
+```c
+bool listExtensionContents(const char *pattern) {
+    PQExpBufferData buf;
+    PGresult *res;
+    int i;
+
+    // Query for matching extensions
+    initPQExpBuffer(&buf);
+    printfPQExpBuffer(&buf,
+        "SELECT e.extname, e.oid\n"
+        "FROM pg_catalog.pg_extension e\n");
+
+    // Apply pattern filter if provided
+    if (!validateSQLNamePattern(&buf, pattern,
+                                false, false,
+                                NULL, "e.extname", NULL,
+                                NULL,
+                                NULL, 1)) {
+        termPQExpBuffer(&buf);
+        return false;
+    }
+
+    appendPQExpBufferStr(&buf, "ORDER BY 1;");
+
+    // Execute query and handle errors
+    res = PSQLexec(buf.data);
+    termPQExpBuffer(&buf);
+    if (!res)
+        return false;
+
+    // Check if any extensions were found
+    if (PQntuples(res) == 0) {
+        if (!pset.quiet) {
+            if (pattern)
+                pg_log_error("Did not find any extension named \"%s\".",
+                             pattern);
+            else
+                pg_log_error("Did not find any extensions.");
+        }
+        PQclear(res);
+        return false;
+    }
+
+    // Process each extension found
+    for (i = 0; i < PQntuples(res); i++) {
+        const char *extname = PQgetvalue(res, i, 0);
+        const char *oid = PQgetvalue(res, i, 1);
+
+        if (!listOneExtensionContents(extname, oid)) {
+            PQclear(res);
+            return false;
+        }
+        if (cancel_pressed) {
+            PQclear(res);
+            return false;
+        }
+    }
+
+    PQclear(res);
+    return true;
+}
+```

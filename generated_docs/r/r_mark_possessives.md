@@ -32,3 +32,29 @@ This function is part of the Turkish language stemming implementation in Postgre
 - Uses bit manipulation (67133440 >> (z->p[z->c - 1] & 0x1f)) for efficient character class checking
 - Part of the larger Turkish stemming algorithm that handles the complex morphology of the Turkish language
 - The function operates in backwards mode, processing the word from right to left which is typical for suffix identification
+
+## Simplified Source
+
+```c
+static int r_mark_possessives(struct SN_env * z) {
+    // Check if current position has valid character for possessive suffixes
+    // Uses bit manipulation for efficient character class checking
+    if (z->c <= z->lb ||
+        z->p[z->c - 1] >> 5 != 3 ||
+        !((67133440 >> (z->p[z->c - 1] & 0x1f)) & 1)) {
+        return 0;  // Invalid character for possessive suffix
+    }
+
+    // Look for possessive suffix patterns (10 patterns in a_0 array)
+    if (!find_among_b(z, a_0, 10)) {
+        return 0;  // No possessive suffix found
+    }
+
+    // Apply vowel harmony rules for optional vowel insertion
+    int ret = r_mark_suffix_with_optional_U_vowel(z);
+    if (ret <= 0)
+        return ret;
+
+    return 1;  // Successfully marked possessive suffix
+}
+```

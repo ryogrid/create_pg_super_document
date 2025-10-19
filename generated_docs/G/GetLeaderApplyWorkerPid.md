@@ -34,3 +34,27 @@ This function searches through the logical replication worker array to find a pa
 - Used primarily for monitoring and administrative functions like pg_stat_activity
 - The leader_pid field in the LogicalRepWorker structure maintains the relationship between parallel and leader workers
 - This function supports PostgreSQL's parallel logical replication feature introduced in later versions
+
+## Simplified Source
+
+```c
+pid_t GetLeaderApplyWorkerPid(pid_t pid) {
+    int leader_pid = InvalidPid;
+
+    // Safely search through all logical replication workers
+    LWLockAcquire(LogicalRepWorkerLock, LW_SHARED);
+
+    for (int i = 0; i < max_logical_replication_workers; i++) {
+        LogicalRepWorker *worker = &LogicalRepCtx->workers[i];
+
+        // Check if this is a parallel worker with matching PID
+        if (isParallelApplyWorker(worker) && worker->proc && pid == worker->proc->pid) {
+            leader_pid = worker->leader_pid;
+            break;
+        }
+    }
+
+    LWLockRelease(LogicalRepWorkerLock);
+    return leader_pid;
+}
+```

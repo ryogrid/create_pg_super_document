@@ -36,3 +36,15 @@ The function is part of PostgreSQL's text search boolean operations infrastructu
 - Acts as a simple argument-swapping wrapper around ts_match_vq
 - Part of PostgreSQL's operator overloading system for text search
 - Returns a Datum (PostgreSQL's generic data type) containing the boolean match result
+
+## Simplified Source
+
+```c
+Datum ts_match_qv(PG_FUNCTION_ARGS) {
+    // Swap arguments and delegate to ts_match_vq
+    // tsquery @@ tsvector -> tsvector @@ tsquery
+    PG_RETURN_DATUM(DirectFunctionCall2(ts_match_vq,
+                                        PG_GETARG_DATUM(1),  // tsvector
+                                        PG_GETARG_DATUM(0))); // tsquery
+}
+```

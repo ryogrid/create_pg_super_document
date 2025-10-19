@@ -38,3 +38,15 @@ This function is part of PostgreSQL's operator infrastructure and is automatical
 - Returns a PostgreSQL boolean datum (true/false)
 - Part of a complete set of comparison operators for the "char" data type
 - Used internally by PostgreSQL's query planner and executor for optimization and evaluation
+
+## Simplified Source
+
+```c
+Datum chareq(PG_FUNCTION_ARGS) {
+    char arg1 = PG_GETARG_CHAR(0);
+    char arg2 = PG_GETARG_CHAR(1);
+
+    // Compare characters for equality (treated as unsigned)
+    PG_RETURN_BOOL(arg1 == arg2);
+}
+```

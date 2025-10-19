@@ -32,3 +32,13 @@ The function deallocates all memory associated with a Catalan stemmer environmen
 - The ISO-8859-1 encoding specification in the function name indicates this version is optimized for Latin-1 character processing
 - Memory safety: The underlying SN_close_env function includes null pointer checks, making this function safe to call with NULL parameters
 - This function should be paired with catalan_ISO_8859_1_create_env() for proper resource management
+
+## Simplified Source
+
+```c
+extern void catalan_ISO_8859_1_close_env(struct SN_env * z) {
+    // Clean up Catalan stemmer environment
+    // Parameter 0 indicates no string arrays to free
+    SN_close_env(z, 0);
+}
+```

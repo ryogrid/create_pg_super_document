@@ -39,3 +39,18 @@ Division by zero is a fundamental mathematical error that occurs when a number i
 - Part of the comprehensive floating-point error handling system in PostgreSQL
 - The error message is simple and direct: "division by zero"
 - Critical for maintaining mathematical correctness and preventing undefined behavior in floating-point calculations
+
+## Simplified Source
+
+```c
+pg_noinline void
+float_zero_divide_error(void)
+{
+    // Report division by zero error with specific error code
+    ereport(ERROR,
+            (errcode(ERRCODE_DIVISION_BY_ZERO),
+             errmsg("division by zero")));
+}
+```
+
+**Simplified Logic**: This is a simple error reporting function that raises a PostgreSQL error with the specific "division by zero" error code and message. The `pg_noinline` attribute prevents compiler inlining to reduce code bloat.

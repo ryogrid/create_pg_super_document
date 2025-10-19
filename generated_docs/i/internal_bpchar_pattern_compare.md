@@ -46,3 +46,33 @@ The function is designed to be compatible with regular BPCHAR equality/inequalit
 - Static function, only accessible within the varchar.c compilation unit
 - Essential for building efficient btree indexes on BPCHAR columns that need to support pattern matching queries
 - The binary comparison approach ensures predictable and fast pattern matching index operations
+
+## Simplified Source
+
+```c
+static int internal_bpchar_pattern_compare(BpChar *arg1, BpChar *arg2) {
+    // Get true lengths (excluding trailing spaces)
+    int len1 = bcTruelen(arg1);
+    int len2 = bcTruelen(arg2);
+
+    // Compare data byte-by-byte for the common length
+    int result = memcmp(VARDATA_ANY(arg1), VARDATA_ANY(arg2), Min(len1, len2));
+
+    if (result != 0) {
+        return result;  // Different within common length
+    }
+
+    // Same content in common length, compare by length
+    if (len1 < len2) return -1;      // arg1 is shorter
+    if (len1 > len2) return 1;       // arg1 is longer
+    return 0;                        // Exactly equal
+}
+```
+
+**Key Points:**
+- Binary comparison for LIKE clause index support (no collation)
+- Uses `bcTruelen()` to exclude trailing spaces from comparison
+- Compares data with `memcmp()` for the common length portion
+- Shorter string is considered "less than" if content is otherwise equal
+- Returns standard comparison result: <0, 0, or >0
+- Compatible with "C" collation BPCHAR operators

@@ -59,3 +59,40 @@ The function uses bit manipulation (528928 mask) for efficient character classif
 - More conservative than Steps 1-2, applying transformations only to substantial word stems
 - Final major suffix processing step before Steps 4-5 handle shorter, more common suffixes
 - Essential for proper handling of Latinate vocabulary in English stemming within PostgreSQL's full-text search
+
+## Simplified Source
+
+```c
+static int r_Step_3(struct SN_env * z) {
+    // Mark end position for suffix
+    z->ket = z->c;
+
+    // Quick character check for efficiency
+    if (z->c - 2 <= z->lb || z->p[z->c - 1] >> 5 != 3 ||
+        !((528928 >> (z->p[z->c - 1] & 0x1f)) & 1)) {
+        return 0;
+    }
+
+    // Find matching suffix from predefined list
+    int among_var = find_among_b(z, a_6, 9);
+    if (!among_var) return 0;
+
+    z->bra = z->c;
+
+    // Ensure we're in R1 region
+    if (r_R1(z) <= 0) return 0;
+
+    // Apply appropriate transformation based on suffix
+    switch (among_var) {
+        case 1: return slice_from_s(z, 4, s_23); // icate -> "tion"
+        case 2: return slice_from_s(z, 3, s_24); // ative -> "ate"
+        case 3: return slice_from_s(z, 2, s_25); // alize -> "al"
+        case 4: return slice_from_s(z, 2, s_26); // iciti -> "ic"
+        case 5: return slice_del(z);             // ical/ful/ness -> delete
+        case 6: // ative -> delete (requires R2 region)
+            if (r_R2(z) <= 0) return 0;
+            return slice_del(z);
+    }
+    return 1;
+}
+```

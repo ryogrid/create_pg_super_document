@@ -38,3 +38,32 @@ This function performs a specialized search to find the node with the largest va
 - Useful for range queries and finding predecessor nodes in ordered traversals
 - The data parameter's RBTNode fields don't need to be valid since only the embedded user data is used
 - Complementary function to rbt_find_great, providing the opposite search direction
+
+## Simplified Source
+
+```c
+RBTNode *
+rbt_find_less(RBTree *rbt, const RBTNode *data, bool equal_match)
+{
+    RBTNode *node = rbt->root;
+    RBTNode *lesser = NULL;  // Best candidate found so far
+
+    while (node != RBTNIL)
+    {
+        int cmp = rbt->comparator(data, node, rbt->arg);
+
+        if (equal_match && cmp == 0)
+            return node;  // Exact match allowed and found
+        else if (cmp > 0)
+        {
+            // Current node is lesser - save as candidate
+            lesser = node;
+            node = node->right;  // Look for larger candidates
+        }
+        else
+            node = node->left;  // Need smaller values
+    }
+
+    return lesser;  // Return best candidate (or NULL)
+}
+```

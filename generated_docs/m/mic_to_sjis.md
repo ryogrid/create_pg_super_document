@@ -39,3 +39,24 @@ The function uses PostgreSQL's PG_FUNCTION_ARGS macro to access parameters:
 - The function validates that the source encoding is PG_MULE_INTERNAL and target encoding is PG_SJIS
 - Returns the number of bytes successfully converted
 - Located in src/backend/utils/mb/conversion_procs/euc_jp_and_sjis/euc_jp_and_sjis.c:141-159
+
+## Simplified Source
+
+```c
+Datum mic_to_sjis(PG_FUNCTION_ARGS) {
+    // Extract function parameters
+    unsigned char *src = (unsigned char *) PG_GETARG_CSTRING(2);
+    unsigned char *dest = (unsigned char *) PG_GETARG_CSTRING(3);
+    int len = PG_GETARG_INT32(4);
+    bool noError = PG_GETARG_BOOL(5);
+
+    // Validate encoding conversion arguments
+    CHECK_ENCODING_CONVERSION_ARGS(PG_MULE_INTERNAL, PG_SJIS);
+
+    // Perform the actual encoding conversion
+    int converted = mic2sjis(src, dest, len, noError);
+
+    // Return number of bytes converted
+    PG_RETURN_INT32(converted);
+}
+```

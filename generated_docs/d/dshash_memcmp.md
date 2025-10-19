@@ -28,3 +28,14 @@ dshash_memcmp serves as a wrapper function around the standard library's memcmp 
 
 ## Notes and Other Information
 This function is part of the dshash utility functions that provide standardized interfaces for common operations like comparison and hashing. The unused `arg` parameter maintains compatibility with the expected function signature for dshash comparison functions, allowing for potential future extensions or use cases where additional context might be needed. The function directly returns the result from memcmp, which follows the standard convention of returning negative, zero, or positive values for less than, equal to, or greater than comparisons respectively.
+
+## Simplified Source
+
+```c
+int
+dshash_memcmp(const void *a, const void *b, size_t size, void *arg)
+{
+    // Simple wrapper around standard memcmp
+    return memcmp(a, b, size);
+}
+```

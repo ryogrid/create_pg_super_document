@@ -39,3 +39,18 @@ This function is part of the pg_dump utility's object management system. It sear
 - Works specifically with collation objects that define sorting and character classification rules
 - Located in src/bin/pg_dump/common.c:961-978
 - Widely used in type dumping operations where collation information is needed
+
+## Simplified Source
+
+```c
+CollInfo *findCollationByOid(Oid oid) {
+    // Create catalog ID for collation lookup
+    CatalogId catId;
+    catId.tableoid = CollationRelationId;
+    catId.oid = oid;
+
+    // Find object and return as CollInfo
+    DumpableObject *dobj = findObjectByCatalogId(catId);
+    return (CollInfo *) dobj;  // Returns NULL if not found
+}
+```

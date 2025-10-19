@@ -35,3 +35,13 @@ Unlike its safe counterpart, this function will throw an `ereport()` on invalid 
 - The function handles two's complement representation properly for edge cases
 - For error-safe parsing where exceptions should be avoided, use `pg_strtoint16_safe()` instead
 - Part of PostgreSQL's numeric utility functions for robust string-to-integer conversion
+
+## Simplified Source
+
+```c
+int16 pg_strtoint16(const char *s) {
+    // Delegate to safe version with no error context
+    // (will throw ereport on errors instead of returning them)
+    return pg_strtoint16_safe(s, NULL);
+}
+```

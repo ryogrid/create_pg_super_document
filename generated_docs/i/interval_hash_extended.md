@@ -38,3 +38,23 @@ This function generates an extended hash value for an Interval by converting the
 - Only uses the least significant 64 bits for backward compatibility
 - Used in advanced hashing scenarios like hash partitioning where improved distribution is beneficial
 - Maintains the critical property that equal intervals with the same seed produce equal hash values
+
+## Simplified Source
+
+```c
+Datum interval_hash_extended(PG_FUNCTION_ARGS) {
+    // Extract interval and seed arguments
+    Interval *interval = PG_GETARG_INTERVAL_P(0);
+
+    // Convert interval to standardized 128-bit span value
+    INT128 span = interval_cmp_value(interval);
+
+    // Convert to 64-bit for compatibility with hash function
+    int64 span64 = int128_to_int64(span);
+
+    // Compute extended hash with seed value
+    return DirectFunctionCall2(hashint8extended,
+                              Int64GetDatumFast(span64),
+                              PG_GETARG_DATUM(1));
+}
+```

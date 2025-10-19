@@ -39,3 +39,42 @@ The encoding ensures that binary data can be safely represented as text and late
 - Octal escape sequences use exactly 4 characters: backslash followed by 3 octal digits
 - The encoding is deterministic and reversible through corresponding decode functions
 - Used as part of PostgreSQL's bytea data type handling and other binary data operations
+
+## Simplified Source
+
+```c
+static uint64 esc_encode(const char *src, size_t srclen, char *dst) {
+    const char *src_end = src + srclen;
+    char *output_ptr = dst;
+    uint64 output_len = 0;
+
+    while (src < src_end) {
+        unsigned char ch = (unsigned char) *src;
+
+        if (ch == '\0' || IS_HIGHBIT_SET(ch)) {
+            // Null bytes and high-bit chars -> \nnn octal escape
+            output_ptr[0] = '\\';
+            output_ptr[1] = DIG(ch >> 6);       // High 3 bits
+            output_ptr[2] = DIG((ch >> 3) & 7); // Middle 3 bits
+            output_ptr[3] = DIG(ch & 7);        // Low 3 bits
+            output_ptr += 4;
+            output_len += 4;
+        }
+        else if (ch == '\\') {
+            // Backslash -> double backslash
+            output_ptr[0] = '\\';
+            output_ptr[1] = '\\';
+            output_ptr += 2;
+            output_len += 2;
+        }
+        else {
+            // Regular character -> copy as-is
+            *output_ptr++ = ch;
+            output_len++;
+        }
+        src++;
+    }
+
+    return output_len;
+}
+```

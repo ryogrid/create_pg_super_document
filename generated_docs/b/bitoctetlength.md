@@ -31,4 +31,16 @@ The  function is a PostgreSQL built-in function that computes the number of byte
 - The function returns the number of bytes, not bits, so it represents the actual storage overhead
 - This is different from  which returns the number of significant bits
 - The return value includes any padding bytes needed for byte alignment
-- Located in 
+- Located in src/backend/utils/adt/varbit.c:1231-1242
+
+## Simplified Source
+
+```c
+Datum bitoctetlength(PG_FUNCTION_ARGS) {
+    // Extract the bit string argument
+    VarBit *arg = PG_GETARG_VARBIT_P(0);
+
+    // Return the length in bytes (storage space required)
+    PG_RETURN_INT32(VARBITBYTES(arg));
+}
+``` 

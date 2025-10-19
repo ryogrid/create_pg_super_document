@@ -37,3 +37,19 @@ This function serves as a convenient wrapper around `bpchartruelen` for calculat
 - The function is essential for proper CHAR type semantics where trailing spaces are ignored
 - Works with PostgreSQL's variable-length data structures (VARDATA/VARSIZE macros)
 - Used extensively throughout CHAR type operations including comparisons, hashing, and length calculations
+
+## Simplified Source
+
+```c
+static inline int bcTruelen(BpChar *arg) {
+    // Extract data pointer and size from BpChar structure
+    // Delegate to bpchartruelen for actual calculation
+    return bpchartruelen(VARDATA_ANY(arg), VARSIZE_ANY_EXHDR(arg));
+}
+```
+
+**Key Points:**
+- Inline wrapper around `bpchartruelen()` for convenience
+- Extracts data and size from BpChar structure using PostgreSQL macros
+- Returns "true" length excluding trailing blank spaces
+- Essential for CHAR type semantics where trailing spaces are padding

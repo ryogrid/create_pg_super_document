@@ -39,3 +39,20 @@ This function is typically used in development and debugging scenarios where dev
 - The separator line ('----') helps visually distinguish schema information from actual tuple data in debug output
 - Attribute numbering starts from 1 (i+1) to match PostgreSQL's convention where attribute numbers are 1-based
 - This is primarily a development tool and not intended for production use
+
+## Simplified Source
+
+```c
+void debugStartup(DestReceiver *self, int operation, TupleDesc typeinfo) {
+    int natts = typeinfo->natts;
+    int i;
+
+    // Display return type information for all attributes
+    for (i = 0; i < natts; ++i) {
+        printatt((unsigned) i + 1, TupleDescAttr(typeinfo, i), NULL);
+    }
+
+    // Print separator line
+    printf("\t----\n");
+}
+```

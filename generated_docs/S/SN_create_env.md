@@ -45,3 +45,42 @@ The function uses defensive programming practices with proper error handling - i
 - Used by all Snowball stemmer implementations in PostgreSQL's full-text search
 - The S_size and I_size parameters are language-specific and determined by the stemming algorithm requirements
 - Memory allocated must be freed later using SN_close_env
+
+## Simplified Source
+
+```c
+extern struct SN_env * SN_create_env(int S_size, int I_size)
+{
+    // Allocate main environment structure
+    struct SN_env * z = (struct SN_env *) calloc(1, sizeof(struct SN_env));
+    if (z == NULL) return NULL;
+
+    // Create primary symbol buffer
+    z->p = create_s();
+    if (z->p == NULL) goto error;
+
+    // Allocate symbol array if requested
+    if (S_size) {
+        z->S = (symbol * *) calloc(S_size, sizeof(symbol *));
+        if (z->S == NULL) goto error;
+
+        // Initialize each symbol slot
+        for (int i = 0; i < S_size; i++) {
+            z->S[i] = create_s();
+            if (z->S[i] == NULL) goto error;
+        }
+    }
+
+    // Allocate integer array if requested
+    if (I_size) {
+        z->I = (int *) calloc(I_size, sizeof(int));
+        if (z->I == NULL) goto error;
+    }
+
+    return z;
+
+error:
+    SN_close_env(z, S_size);
+    return NULL;
+}
+```

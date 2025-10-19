@@ -36,3 +36,27 @@ The `initialize_custom_rmgrs` function sets up resource manager descriptors for 
 - The function populates the CustomRmgrDesc array and CustomNumericNames array
 - Part of the pg_waldump utility's resource manager handling system
 - Only called once during the lifetime of the program (lazy initialization)
+
+## Simplified Source
+
+```c
+static void
+initialize_custom_rmgrs(void)
+{
+    // Generate descriptors for all custom resource manager slots
+    for (int i = 0; i < RM_N_CUSTOM_IDS; i++)
+    {
+        // Create numeric name like "custom128", "custom129", etc.
+        snprintf(CustomNumericNames[i], CUSTOM_NUMERIC_NAME_LEN,
+                "custom%03d", i + RM_MIN_CUSTOM_ID);
+
+        // Set up descriptor with default functions
+        CustomRmgrDesc[i].rm_name = CustomNumericNames[i];
+        CustomRmgrDesc[i].rm_desc = default_desc;
+        CustomRmgrDesc[i].rm_identify = default_identify;
+    }
+
+    // Mark initialization as complete
+    CustomRmgrDescInitialized = true;
+}
+```

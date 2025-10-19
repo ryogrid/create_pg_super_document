@@ -38,3 +38,22 @@ The `rdatestr` function is part of PostgreSQL's ECPG date handling compatibility
 - Located in src/interfaces/ecpg/compatlib/informix.c:508-528
 - Simple wrapper around PostgreSQL's native date-to-ASCII conversion
 - Assumes the user-provided buffer has adequate space for the date string
+
+## Simplified Source
+
+```c
+int rdatestr(date d, char *str) {
+    // Convert date to ASCII string using PostgreSQL's built-in function
+    char *tmp = PGTYPESdate_to_asc(d);
+
+    // Check if conversion succeeded
+    if (!tmp)
+        return ECPG_INFORMIX_DATE_CONVERT;
+
+    // Copy result to user buffer and cleanup
+    strcpy(str, tmp);
+    free(tmp);
+
+    return 0;  // Success
+}
+```

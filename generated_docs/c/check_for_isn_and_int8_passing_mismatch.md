@@ -43,3 +43,83 @@ If contrib/isn functions are found when there's a passing mechanism mismatch, th
 - When issues are detected, problematic functions are logged to a file named 'contrib_isn_and_int8_pass_by_value.txt' in the log directory
 - The check specifically looks for functions with probin = '/isn' to identify contrib/isn extension usage
 - This validation only runs on the old cluster, as indicated by its single call site in check_and_dump_old_cluster
+
+## Simplified Source
+
+```c
+static void check_for_isn_and_int8_passing_mismatch(ClusterInfo *cluster)
+{
+    int dbnum;
+    FILE *script = NULL;
+    char output_path[MAXPGPATH];
+
+    prep_status("Checking for contrib/isn with bigint-passing mismatch");
+
+    // If float8 passing mechanisms match, no problem exists
+    if (old_cluster.controldata.float8_pass_by_value ==
+        new_cluster.controldata.float8_pass_by_value) {
+        check_ok();
+        return;
+    }
+
+    // Setup output file for problematic functions
+    snprintf(output_path, sizeof(output_path), "%s/%s",
+             log_opts.basedir, "contrib_isn_and_int8_pass_by_value.txt");
+
+    // Check each database for contrib/isn functions
+    for (dbnum = 0; dbnum < cluster->dbarr.ndbs; dbnum++) {
+        PGresult *res;
+        bool db_used = false;
+        int ntups, rowno;
+        int i_nspname, i_proname;
+        DbInfo *active_db = &cluster->dbarr.dbs[dbnum];
+        PGconn *conn = connectToServer(cluster, active_db->db_name);
+
+        // Find functions from contrib/isn extension
+        res = executeQueryOrDie(conn,
+                               "SELECT n.nspname, p.proname "
+                               "FROM pg_catalog.pg_proc p, "
+                               "     pg_catalog.pg_namespace n "
+                               "WHERE p.pronamespace = n.oid AND "
+                               "      p.probin = '$libdir/isn'");
+
+        ntups = PQntuples(res);
+        i_nspname = PQfnumber(res, "nspname");
+        i_proname = PQfnumber(res, "proname");
+
+        // Log any problematic functions found
+        for (rowno = 0; rowno < ntups; rowno++) {
+            if (script == NULL) {
+                script = fopen_priv(output_path, "w");
+                if (!script) {
+                    pg_fatal("could not open file \"%s\": %m", output_path);
+                }
+            }
+            if (!db_used) {
+                fprintf(script, "In database: %s\n", active_db->db_name);
+                db_used = true;
+            }
+            fprintf(script, "  %s.%s\n",
+                    PQgetvalue(res, rowno, i_nspname),
+                    PQgetvalue(res, rowno, i_proname));
+        }
+
+        PQclear(res);
+        PQfinish(conn);
+    }
+
+    if (script) {
+        fclose(script);
+        pg_log(PG_REPORT, "fatal");
+        pg_fatal("Your installation contains \"contrib/isn\" functions which rely on the\n"
+                 "bigint data type. Your old and new clusters pass bigint values\n"
+                 "differently so this cluster cannot currently be upgraded. You can\n"
+                 "manually dump databases in the old cluster that use \"contrib/isn\"\n"
+                 "facilities, drop them, perform the upgrade, and then restore them. A\n"
+                 "list of the problem functions is in the file:\n"
+                 "    %s", output_path);
+    } else {
+        check_ok();
+    }
+}
+```

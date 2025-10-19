@@ -30,3 +30,17 @@ The function handles both negative values and NaN (Not a Number) values by repla
 - The function is located in the GiST procedural code (gistproc.c), indicating its use in spatial indexing operations
 - The IEEE 754 floating-point standard ensures that NaN comparisons with any value (including itself) return false, making this function effective for handling both negative values and NaN cases
 - This utility is essential for maintaining data integrity in geometric calculations where non-negative values are required
+
+## Simplified Source
+
+```c
+static inline float non_negative(float val)
+{
+    // Return the value if non-negative, otherwise return 0
+    // Also handles NaN values (comparison with NaN returns false)
+    if (val >= 0.0f)
+        return val;
+    else
+        return 0.0f;
+}
+```

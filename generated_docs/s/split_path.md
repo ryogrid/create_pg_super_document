@@ -35,3 +35,24 @@ The split_path function parses a file path and separates it into its directory a
 - If the path ends with '/', the filename will be an empty string
 - The directory component does not include the trailing '/' separator
 - Returns NULL for directory when the path contains no directory separators (local file)
+
+## Simplified Source
+
+```c
+static void split_path(const char *path, char **dir, char **fname) {
+    char *sep;
+
+    // Find the last directory separator
+    sep = strrchr(path, '/');
+
+    if (sep != NULL) {
+        // Path has directory component - split it
+        *dir = pnstrdup(path, sep - path);
+        *fname = pg_strdup(sep + 1);
+    } else {
+        // No directory separator - file is in current directory
+        *dir = NULL;
+        *fname = pg_strdup(path);
+    }
+}
+```

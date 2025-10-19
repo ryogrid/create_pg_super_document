@@ -38,3 +38,27 @@ The design assumes that footers are typically composed of individually translate
 - Translation must be performed by the caller before passing the footer to this function
 - The function maintains both a footers pointer (to the first footer) and footer pointer (to the last footer) for efficient list management
 - Memory for footers is automatically managed and will be cleaned up by printTableCleanup()
+
+## Simplified Source
+
+```c
+void
+printTableAddFooter(printTableContent *const content, const char *footer)
+{
+    // Allocate new footer node
+    printTableFooter *f = pg_malloc0(sizeof(*f));
+    f->data = pg_strdup(footer);  // Duplicate the footer string
+
+    // Add to singly-linked list
+    if (content->footers == NULL) {
+        // First footer - initialize the list
+        content->footers = f;
+    } else {
+        // Append to existing list
+        content->footer->next = f;
+    }
+
+    // Update footer pointer to point to the last footer
+    content->footer = f;
+}
+```

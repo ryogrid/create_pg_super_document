@@ -32,3 +32,12 @@ ResourceOwnerRememberHMAC is a static inline wrapper function that integrates HM
 - Part of PostgreSQL's resource management system for HMAC contexts
 - Paired with ResourceOwnerForgetHMAC for complete resource lifecycle management
 - Uses the hmac_resowner_desc descriptor to specify cleanup behavior
+
+## Simplified Source
+
+```c
+static inline void ResourceOwnerRememberHMAC(ResourceOwner owner, pg_hmac_ctx *ctx) {
+    // Register HMAC context with resource owner for automatic cleanup
+    ResourceOwnerRemember(owner, PointerGetDatum(ctx), &hmac_resowner_desc);
+}
+```

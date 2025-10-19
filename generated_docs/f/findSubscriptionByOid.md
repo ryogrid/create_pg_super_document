@@ -36,3 +36,18 @@ This function is part of the pg_dump utility's object lookup system for PostgreS
 - The function follows the same pattern as other findXXXByOid functions in the codebase
 - Used when dumping subscription-related metadata and table relationships
 - Complements findPublicationByOid for complete logical replication support
+
+## Simplified Source
+
+```c
+SubscriptionInfo *findSubscriptionByOid(Oid oid) {
+    // Create catalog ID for subscription lookup
+    CatalogId catId;
+    catId.tableoid = SubscriptionRelationId;
+    catId.oid = oid;
+
+    // Find object and return as SubscriptionInfo
+    DumpableObject *dobj = findObjectByCatalogId(catId);
+    return (SubscriptionInfo *) dobj;  // Returns NULL if not found
+}
+```

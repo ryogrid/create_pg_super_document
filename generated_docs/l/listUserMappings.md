@@ -40,3 +40,60 @@ This function queries the pg_user_mappings system view to display information ab
 - Uses internationalization support for all column headers and titles
 - The pg_user_mappings view only shows mappings that the current user has privileges to see
 - This function corresponds to the \deu command in psql for listing user mappings
+
+## Simplified Source
+
+```c
+bool listUserMappings(const char *pattern, bool verbose) {
+    PQExpBufferData buf;
+    PGresult *res;
+    printQueryOpt myopt = pset.popt;
+
+    // Initialize buffer and build base query
+    initPQExpBuffer(&buf);
+    printfPQExpBuffer(&buf,
+        "SELECT um.srvname AS \"%s\",\n"
+        "  um.usename AS \"%s\"",
+        gettext_noop("Server"),
+        gettext_noop("User name"));
+
+    // Add options column if verbose mode
+    if (verbose) {
+        appendPQExpBuffer(&buf,
+            ",\n CASE WHEN umoptions IS NULL THEN '' ELSE "
+            "  '(' || pg_catalog.array_to_string(ARRAY(SELECT "
+            "  pg_catalog.quote_ident(option_name) ||  ' ' || "
+            "  pg_catalog.quote_literal(option_value)  FROM "
+            "  pg_catalog.pg_options_to_table(umoptions)),  ', ') || ')' "
+            "  END AS \"%s\"",
+            gettext_noop("FDW options"));
+    }
+
+    // Add FROM clause
+    appendPQExpBufferStr(&buf, "\nFROM pg_catalog.pg_user_mappings um\n");
+
+    // Apply pattern filter if provided
+    if (!validateSQLNamePattern(&buf, pattern, false, false,
+                                NULL, "um.srvname", "um.usename", NULL,
+                                NULL, 1)) {
+        termPQExpBuffer(&buf);
+        return false;
+    }
+
+    appendPQExpBufferStr(&buf, "ORDER BY 1, 2;");
+
+    // Execute query and display results
+    res = PSQLexec(buf.data);
+    termPQExpBuffer(&buf);
+    if (!res)
+        return false;
+
+    myopt.title = _("List of user mappings");
+    myopt.translate_header = true;
+
+    printQuery(res, &myopt, pset.queryFout, false, pset.logfile);
+    PQclear(res);
+
+    return true;
+}
+```

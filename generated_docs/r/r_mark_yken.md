@@ -39,3 +39,18 @@ The function performs exact backward string matching to identify the "ken" suffi
 - Part of Turkish temporal/adverbial suffix recognition
 - The 'y' consonant may be inserted between the stem and suffix based on phonological rules
 - Used to identify gerund forms and temporal clauses in Turkish text
+
+## Simplified Source
+
+```c
+static int r_mark_yken(struct SN_env * z) {
+    // Match exactly "ken" (3 chars) working backwards
+    if (!eq_s_b(z, 3, s_4)) return 0;
+
+    // Handle optional 'y' consonant processing
+    int ret = r_mark_suffix_with_optional_y_consonant(z);
+    if (ret <= 0) return ret;
+
+    return 1;  // Successfully found and processed suffix
+}
+```

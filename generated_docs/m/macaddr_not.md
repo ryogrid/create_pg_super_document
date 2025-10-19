@@ -35,6 +35,28 @@ This is one of PostgreSQL's arithmetic functions for MAC addresses, allowing bit
 - Each byte of the MAC address (a, b, c, d, e, f) is independently inverted using the bitwise NOT operator (~)
 - The function allocates new memory for the result rather than modifying the input
 - Used to support the ~ operator for MAC addresses in SQL expressions
-- Located in 
+- Located in
 - Part of a family of bitwise arithmetic functions including AND and OR operations for MAC addresses
 - The MAC address structure consists of 6 unsigned char fields representing the standard 6-byte MAC address format
+
+## Simplified Source
+
+```c
+Datum macaddr_not(PG_FUNCTION_ARGS) {
+    // Extract input MAC address
+    macaddr *addr = PG_GETARG_MACADDR_P(0);
+
+    // Allocate memory for result
+    macaddr *result = (macaddr *) palloc(sizeof(macaddr));
+
+    // Perform bitwise NOT on each byte
+    result->a = ~addr->a;
+    result->b = ~addr->b;
+    result->c = ~addr->c;
+    result->d = ~addr->d;
+    result->e = ~addr->e;
+    result->f = ~addr->f;
+
+    PG_RETURN_MACADDR_P(result);
+}
+```

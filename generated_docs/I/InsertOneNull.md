@@ -49,3 +49,23 @@ This function works alongside InsertOneValue and InsertOneTuple to construct com
 - The NULL marker set here is later used by InsertOneTuple when constructing the final heap tuple
 - Operates on the assumption that a relation is currently open (boot_reldesc is valid)
 - Debug logging reports which column is being set to NULL for troubleshooting purposes
+
+## Simplified Source
+
+```c
+void InsertOneNull(int i)
+{
+    // Validate column index bounds
+    Assert(i >= 0 && i < MAXATTR);
+
+    // Check NOT NULL constraint
+    if (TupleDescAttr(boot_reldesc->rd_att, i)->attnotnull)
+        elog(ERROR, "NULL value specified for not-null column \"%s\" of relation \"%s\"",
+             NameStr(TupleDescAttr(boot_reldesc->rd_att, i)->attname),
+             RelationGetRelationName(boot_reldesc));
+
+    // Set NULL value and marker
+    values[i] = PointerGetDatum(NULL);
+    Nulls[i] = true;
+}
+```

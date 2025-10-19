@@ -49,3 +49,46 @@ The function specifically handles parameter access control by checking various A
 - Only processes OAT_POST_ALTER access types for permission checking; other access types pass through without restriction
 - Uses PostgreSQL's error reporting mechanism to deny unauthorized parameter configuration attempts
 - Part of the object access hook testing framework for validating security and auditing functionality
+
+## Simplified Source
+
+```c
+static void REGRESS_object_access_hook_str(ObjectAccessType access, Oid classId,
+                                          const char *objName, int subId, void *arg) {
+    // Log the access attempt
+    audit_attempt("object_access_hook_str", accesstype_to_string(access, subId), pstrdup(objName));
+
+    // Chain to next hook if it exists
+    if (next_object_access_hook_str) {
+        (*next_object_access_hook_str)(access, classId, objName, subId, arg);
+    }
+
+    // Check permissions for parameter alterations
+    if (access == OAT_POST_ALTER) {
+        bool is_superuser = superuser_arg(GetUserId());
+
+        if ((subId & ACL_SET) && (subId & ACL_ALTER_SYSTEM)) {
+            // Both SET and ALTER SYSTEM permissions
+            if (REGRESS_deny_set_variable && !is_superuser) {
+                ereport(ERROR, (errcode(ERRCODE_INSUFFICIENT_PRIVILEGE),
+                               errmsg("permission denied: all privileges %s", objName)));
+            }
+        } else if (subId & ACL_SET) {
+            // SET permission only
+            if (REGRESS_deny_set_variable && !is_superuser) {
+                ereport(ERROR, (errcode(ERRCODE_INSUFFICIENT_PRIVILEGE),
+                               errmsg("permission denied: set %s", objName)));
+            }
+        } else if (subId & ACL_ALTER_SYSTEM) {
+            // ALTER SYSTEM permission only
+            if (REGRESS_deny_alter_system && !is_superuser) {
+                ereport(ERROR, (errcode(ERRCODE_INSUFFICIENT_PRIVILEGE),
+                               errmsg("permission denied: alter system set %s", objName)));
+            }
+        }
+    }
+
+    // Log successful completion
+    audit_success("object_access_hook_str", accesstype_to_string(access, subId), pstrdup(objName));
+}
+```

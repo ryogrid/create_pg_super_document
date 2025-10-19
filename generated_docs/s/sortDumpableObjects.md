@@ -45,3 +45,33 @@ The function handles the complex challenge of dependency loops, which can occur 
 - Critical for ensuring that pg_dump output can be successfully restored without dependency violations
 - Part of the sophisticated multi-phase sorting system that begins with type/name ordering and culminates in dependency-aware ordering
 - Located in src/bin/pg_dump/pg_dump_sort.c:545-596
+
+## Simplified Source
+
+```c
+void sortDumpableObjects(DumpableObject **objs, int numObjs,
+                        DumpId preBoundaryId, DumpId postBoundaryId) {
+    // Early exit for empty arrays
+    if (numObjs <= 0)
+        return;
+
+    // Store boundary IDs in static variables for subsidiary functions
+    preDataBoundId = preBoundaryId;
+    postDataBoundId = postBoundaryId;
+
+    // Allocate temporary array for sorting results
+    DumpableObject **ordering = pg_malloc(numObjs * sizeof(DumpableObject *));
+    int nOrdering;
+
+    // Keep trying topological sort until all dependency loops are resolved
+    while (!TopoSort(objs, numObjs, ordering, &nOrdering)) {
+        findDependencyLoops(ordering, nOrdering, numObjs);
+    }
+
+    // Copy sorted order back to original array
+    memcpy(objs, ordering, numObjs * sizeof(DumpableObject *));
+
+    // Clean up temporary array
+    free(ordering);
+}
+```

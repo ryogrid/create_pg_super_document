@@ -46,3 +46,31 @@ The function validates that it's being called in an aggregate context using AggC
 - Memory allocation uses PostgreSQL's palloc for proper memory context management
 - Part of the complete string_agg() implementation for binary data types
 - The cursor mechanism enables correct parallel aggregation behavior
+
+## Simplified Source
+
+```c
+Datum bytea_string_agg_finalfn(PG_FUNCTION_ARGS) {
+    StringInfo state;
+
+    // Verify this is called in aggregate context
+    Assert(AggCheckCallContext(fcinfo, NULL));
+
+    // Get the accumulated state (may be NULL)
+    state = PG_ARGISNULL(0) ? NULL : (StringInfo) PG_GETARG_POINTER(0);
+
+    if (state != NULL) {
+        // Strip leading delimiter using cursor position
+        int strippedlen = state->len - state->cursor;
+
+        // Create final bytea result
+        bytea *result = (bytea *) palloc(strippedlen + VARHDRSZ);
+        SET_VARSIZE(result, strippedlen + VARHDRSZ);
+        memcpy(VARDATA(result), &state->data[state->cursor], strippedlen);
+
+        PG_RETURN_BYTEA_P(result);
+    } else {
+        PG_RETURN_NULL();
+    }
+}
+```

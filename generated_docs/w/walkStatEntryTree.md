@@ -36,3 +36,44 @@ The function works in conjunction with ts_setup_firstcall to provide iteration c
 - Returns NULL when traversal is complete (stack position reaches 0 and no more nodes)
 - The stack prevents stack overflow that could occur with purely recursive traversal of deep trees
 - Part of PostgreSQL's text search statistics functionality for TSVector operations
+
+## Simplified Source
+
+```c
+static StatEntry *
+walkStatEntryTree(TSVectorStat *stat)
+{
+    StatEntry *node = stat->stack[stat->stackpos];
+
+    if (node == NULL)
+        return NULL;
+
+    // Return current node if it has data
+    if (node->ndoc != 0) {
+        return node;
+    }
+    // Navigate to right subtree if available
+    else if (node->right && node->right != stat->stack[stat->stackpos + 1]) {
+        stat->stackpos++;
+        node = node->right;
+
+        // Find leftmost node in right subtree
+        while (node->left) {
+            stat->stack[stat->stackpos] = node;
+            stat->stackpos++;
+            node = node->left;
+        }
+        stat->stack[stat->stackpos] = node;
+    }
+    // Backtrack to parent when subtree is complete
+    else {
+        if (stat->stackpos == 0)
+            return NULL;
+
+        stat->stackpos--;
+        return walkStatEntryTree(stat);  // Recursive backtrack
+    }
+
+    return node;
+}
+```

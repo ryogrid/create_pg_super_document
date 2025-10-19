@@ -36,3 +36,21 @@ This function serves as a callback for taking a consistent snapshot of SLRU stat
 - Uses shared locking to allow concurrent snapshot operations while maintaining consistency
 - The snapshot provides a point-in-time view that remains stable for the duration of queries or operations that need consistent statistics
 - Critical for ensuring accurate reporting of SLRU statistics to monitoring tools and system views
+
+## Simplified Source
+
+```c
+void pgstat_slru_snapshot_cb(void)
+{
+    PgStatShared_SLRU *shared_stats = &pgStatLocal.shmem->slru;
+
+    // Take shared lock for consistent read
+    LWLockAcquire(&shared_stats->lock, LW_SHARED);
+
+    // Copy all SLRU statistics to local snapshot
+    memcpy(pgStatLocal.snapshot.slru, &shared_stats->stats,
+           sizeof(shared_stats->stats));
+
+    LWLockRelease(&shared_stats->lock);
+}
+```

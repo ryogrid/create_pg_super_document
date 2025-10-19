@@ -42,3 +42,23 @@ This function recognizes the 'nd' consonant cluster that precedes the vowel, rep
 - Used in both suffix chain processing and noun suffix processing
 - Handles the Turkish ablative case which indicates motion away from something
 - Simpler structure compared to some other mark functions as it doesn't require additional consonant processing
+
+## Simplified Source
+
+```c
+static int r_mark_ndA(struct SN_env * z) {
+    // Check vowel harmony first
+    int harmony_check = r_check_vowel_harmony(z);
+    if (harmony_check <= 0) return harmony_check;
+
+    // Ensure character at c-1 is 'a' or 'e' and we have space for 3-char pattern
+    if (z->c - 2 <= z->lb || (z->p[z->c - 1] != 97 && z->p[z->c - 1] != 101))
+        return 0;
+
+    // Match against 2 'ndA' suffix patterns (nda, nde)
+    if (!(find_among_b(z, a_7, 2)))
+        return 0;
+
+    return 1;  // Successfully found ndA suffix pattern
+}
+```

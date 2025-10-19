@@ -43,3 +43,40 @@ When readline is not available, it falls back to a simple prompt display followe
 - Thread safety depends on the underlying readline implementation
 - The function handles SIGWINCH signals by resetting screen size when using readline
 - Tab completion functionality is available through the query_buf parameter when readline is enabled
+
+## Simplified Source
+
+```c
+char *gets_interactive(const char *prompt, PQExpBuffer query_buf) {
+#ifdef USE_READLINE
+    if (useReadline) {
+        char *result;
+
+        // Reset screen size for SIGWINCH handling
+        #ifdef HAVE_RL_RESET_SCREEN_SIZE
+        rl_reset_screen_size();
+        #endif
+
+        // Setup tab completion context
+        tab_completion_query_buf = query_buf;
+
+        // Enable SIGINT handling
+        sigint_interrupt_enabled = true;
+
+        // Get input with readline
+        result = readline(prompt);
+
+        // Cleanup
+        sigint_interrupt_enabled = false;
+        tab_completion_query_buf = NULL;
+
+        return result;
+    }
+#endif
+
+    // Fallback to basic input
+    fputs(prompt, stdout);
+    fflush(stdout);
+    return gets_fromFile(stdin);
+}
+```

@@ -46,3 +46,16 @@ The function checks the arc's type against known constraint types and returns 1 
 - Essential for distinguishing between arcs that consume input characters and those that only assert conditions
 - Part of PostgreSQL's regex constraint optimization system
 - Located in src/backend/regex/regc_nfa.c:2331-2348
+
+## Simplified Source
+
+```c
+static inline int
+isconstraintarc(struct arc *a)
+{
+    // Check if arc type is a zero-width assertion
+    return (a->type == '^' || a->type == '$' ||
+            a->type == BEHIND || a->type == AHEAD ||
+            a->type == LACON);
+}
+```

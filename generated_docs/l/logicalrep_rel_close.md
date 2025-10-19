@@ -40,3 +40,15 @@ This function is essential for preventing relation cache reference leaks in logi
 - This function is typically called in both success and error paths to ensure proper cleanup
 - Does not invalidate the LogicalRepRelMapEntry itself - only closes the local relation reference
 - The relation map entry remains valid and can be reopened later if needed
+
+## Simplified Source
+
+```c
+void logicalrep_rel_close(LogicalRepRelMapEntry *rel, LOCKMODE lockmode) {
+    // Close the local relation and release its lock
+    table_close(rel->localrel, lockmode);
+
+    // Clear the relation pointer to prevent accidental access
+    rel->localrel = NULL;
+}
+```

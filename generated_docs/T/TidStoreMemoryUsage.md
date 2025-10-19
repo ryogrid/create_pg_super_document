@@ -37,3 +37,17 @@ The function returns the total memory footprint including the tree structure, bi
 - Provides consistent memory reporting across both shared and local TidStore implementations
 - Essential for determining when memory limits are approached during vacuum operations
 - The function handles the implementation details transparently to the caller
+
+## Simplified Source
+
+```c
+size_t
+TidStoreMemoryUsage(TidStore *ts)
+{
+    // Return memory usage from appropriate implementation
+    if (TidStoreIsShared(ts))
+        return shared_ts_memory_usage(ts->tree.shared);
+    else
+        return local_ts_memory_usage(ts->tree.local);
+}
+```

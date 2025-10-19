@@ -29,3 +29,15 @@ The dasinh function is a PostgreSQL wrapper around the standard C library asinh(
 - The function is part of PostgreSQL mathematical function library in src/backend/utils/adt/float.c
 - Located at src/backend/utils/adt/float.c:2665-2681
 - This is one of the simplest mathematical wrapper functions due to asinh stability
+
+## Simplified Source
+
+```c
+Datum dasinh(PG_FUNCTION_ARGS) {
+    // Calculate inverse hyperbolic sine (asinh never overflows)
+    double input = PG_GETARG_FLOAT8(0);
+    double result = asinh(input);
+
+    PG_RETURN_FLOAT8(result);
+}
+```

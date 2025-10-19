@@ -32,3 +32,20 @@ The  function serves as a substitute hook for the FETCH_COUNT psql variable. Unl
 - The function returns a newly allocated string when substituting, which must be freed by the caller
 - Located in src/bin/psql/startup.c at lines 905-912
 - This hook ensures the variable never becomes completely unset, maintaining system stability
+
+## Simplified Source
+
+```c
+static char *fetch_count_substitute_hook(char *newval) {
+    // If value is NULL, provide default value of "0"
+    if (newval == NULL)
+        newval = pg_strdup("0");
+    return newval;
+}
+```
+
+This substitute hook:
+1. Checks if the new value is NULL (variable being unset)
+2. If NULL, allocates and returns a copy of "0" as the default
+3. Otherwise, returns the original value unchanged
+4. Ensures FETCH_COUNT always has a valid numeric value

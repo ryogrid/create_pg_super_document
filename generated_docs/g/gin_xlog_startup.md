@@ -40,3 +40,16 @@ The function is typically called during PostgreSQL's WAL recovery startup proces
 - Uses default AllocSet sizes which are optimized for typical PostgreSQL memory usage patterns
 - This function is part of the PostgreSQL WAL recovery infrastructure registration system
 - Located in src/backend/access/gin/ginxlog.c:775-782
+
+## Simplified Source
+
+```c
+void
+gin_xlog_startup(void)
+{
+    // Create memory context for GIN recovery operations
+    opCtx = AllocSetContextCreate(CurrentMemoryContext,
+                                  "GIN recovery temporary context",
+                                  ALLOCSET_DEFAULT_SIZES);
+}
+```

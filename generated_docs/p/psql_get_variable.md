@@ -47,3 +47,76 @@ The function allocates memory for the returned string, which the caller must fre
 - [Variable](../V/Variable.md) expansion is suppressed entirely in inactive \if conditional branches
 - The function is encoding-aware for SQL contexts but encoding-agnostic for shell contexts
 - Memory management involves extra strdup() calls to maintain consistent free() semantics across different libpq functions
+
+## Simplified Source
+
+```c
+char *
+psql_get_variable(const char *varname, PsqlScanQuoteType quote, void *passthrough)
+{
+    char *result = NULL;
+    const char *value;
+
+    // Suppress variable expansion in inactive \if branches
+    if (passthrough && !conditional_active((ConditionalStack) passthrough))
+        return NULL;
+
+    // Get the variable value
+    value = GetVariable(pset.vars, varname);
+    if (!value)
+        return NULL;
+
+    // Apply appropriate quoting based on context
+    switch (quote) {
+        case PQUOTE_PLAIN:
+            // Simple string duplication for plain text
+            result = pg_strdup(value);
+            break;
+
+        case PQUOTE_SQL_LITERAL:
+        case PQUOTE_SQL_IDENT:
+            {
+                // SQL contexts require active connection for proper encoding
+                char *escaped_value;
+
+                if (!pset.db) {
+                    pg_log_error("cannot escape without active connection");
+                    return NULL;
+                }
+
+                // Use appropriate libpq escaping function
+                if (quote == PQUOTE_SQL_LITERAL)
+                    escaped_value = PQescapeLiteral(pset.db, value, strlen(value));
+                else
+                    escaped_value = PQescapeIdentifier(pset.db, value, strlen(value));
+
+                if (escaped_value == NULL) {
+                    pg_log_info("%s", PQerrorMessage(pset.db));
+                    return NULL;
+                }
+
+                // Copy result and free libpq's memory
+                result = pg_strdup(escaped_value);
+                PQfreemem(escaped_value);
+                break;
+            }
+
+        case PQUOTE_SHELL_ARG:
+            {
+                // Shell escaping is encoding-agnostic
+                PQExpBufferData buf;
+
+                initPQExpBuffer(&buf);
+                if (!appendShellStringNoError(&buf, value)) {
+                    pg_log_error("shell command argument contains a newline or carriage return: \"%s\"", value);
+                    free(buf.data);
+                    return NULL;
+                }
+                result = buf.data;
+                break;
+            }
+    }
+
+    return result;
+}
+```

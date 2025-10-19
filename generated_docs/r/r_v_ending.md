@@ -46,3 +46,30 @@ This is specifically designed for Hungarian morphology where certain vowel endin
 - Requires R1 region validation to prevent over-stemming
 - Returns 1 on successful transformation, 0 if no match found
 - Part of the Hungarian morphological analysis system in PostgreSQL's full-text search
+
+## Simplified Source
+
+```c
+static int r_v_ending(struct SN_env * z) {
+    // Set end marker and check for Hungarian accented vowels (á=225, é=233)
+    z->ket = z->c;
+    if (z->c <= z->lb || (z->p[z->c - 1] != 225 && z->p[z->c - 1] != 233))
+        return 0;
+
+    // Find matching vowel ending pattern from predefined array
+    int among_var = find_among_b(z, a_1, 2);
+    if (!among_var) return 0;
+
+    // Set start marker and verify we're in R1 region
+    z->bra = z->c;
+    if (r_R1(z) <= 0) return 0;
+
+    // Replace with appropriate substitute based on pattern match
+    switch (among_var) {
+        case 1: slice_from_s(z, 1, s_0); break;
+        case 2: slice_from_s(z, 1, s_1); break;
+    }
+
+    return 1;
+}
+```

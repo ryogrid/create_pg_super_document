@@ -35,3 +35,16 @@ This function is the counterpart to box_below_eq and suffers from the same issue
 - Part of the box positional operators family
 - Returns true if box1.low.y >= box2.high.y
 - Complement function to box_below_eq
+
+## Simplified Source
+
+```c
+Datum box_above_eq(PG_FUNCTION_ARGS) {
+    BOX *box1 = PG_GETARG_BOX_P(0);
+    BOX *box2 = PG_GETARG_BOX_P(1);
+
+    // Check if box1 is entirely above or touching box2
+    // This is deprecated and accepts equal boundaries (possibly erroneously)
+    PG_RETURN_BOOL(box1->low.y >= box2->high.y);
+}
+```

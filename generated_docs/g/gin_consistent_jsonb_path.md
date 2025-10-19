@@ -50,3 +50,45 @@ The jsonb_path_ops approach is necessarily lossy due to hash collisions and the 
 - More efficient for supported query types due to better index selectivity
 - Special containment rules for raw scalars in arrays are not handled at index level
 - Located in src/backend/utils/adt/jsonb_gin.c:1220-1271
+
+## Simplified Source
+
+```c
+Datum gin_consistent_jsonb_path(PG_FUNCTION_ARGS) {
+    bool *check = (bool *) PG_GETARG_POINTER(0);
+    StrategyNumber strategy = PG_GETARG_UINT16(1);
+    int32 nkeys = PG_GETARG_INT32(3);
+    Pointer *extra_data = (Pointer *) PG_GETARG_POINTER(4);
+    bool *recheck = (bool *) PG_GETARG_POINTER(5);
+    bool res = true;
+    int32 i;
+
+    if (strategy == JsonbContainsStrategyNumber) {
+        // Always recheck due to lossy nature of path_ops
+        *recheck = true;
+
+        // All keys must be present for potential match
+        for (i = 0; i < nkeys; i++) {
+            if (!check[i]) {
+                res = false;
+                break;
+            }
+        }
+    }
+    else if (strategy == JsonbJsonpathPredicateStrategyNumber ||
+             strategy == JsonbJsonpathExistsStrategyNumber) {
+        *recheck = true;
+
+        // Execute JSONPath gin node if keys present
+        if (nkeys > 0) {
+            res = execute_jsp_gin_node((JsonPathGinNode *) extra_data[0],
+                                       check, false) != GIN_FALSE;
+        }
+    }
+    else {
+        elog(ERROR, "unrecognized strategy number: %d", strategy);
+    }
+
+    PG_RETURN_BOOL(res);
+}
+```

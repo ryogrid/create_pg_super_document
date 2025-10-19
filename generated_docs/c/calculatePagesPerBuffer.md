@@ -48,3 +48,32 @@ The factor of 2 in the formula ensures that when approximately half the buffer i
 - The function returns an integer value rounded to the nearest whole number of pages
 - Buffer size directly impacts memory usage and I/O efficiency during index construction
 - Larger buffers reduce the frequency of buffer flushes but consume more memory
+
+## Simplified Source
+
+```c
+static int
+calculatePagesPerBuffer(GISTBuildState *buildstate, int levelStep)
+{
+    double pagesPerBuffer;
+    double avgIndexTuplesPerPage;
+    double itupAvgSize;
+    Size pageFreeSpace;
+
+    // Calculate available space on index page for tuples
+    pageFreeSpace = BLCKSZ - SizeOfPageHeaderData - sizeof(GISTPageOpaqueData)
+                    - sizeof(ItemIdData) - buildstate->freespace;
+
+    // Calculate average tuple size from gathered statistics
+    itupAvgSize = (double) buildstate->indtuplesSize / (double) buildstate->indtuples;
+
+    // Calculate how many tuples fit per page on average
+    avgIndexTuplesPerPage = pageFreeSpace / itupAvgSize;
+
+    // Calculate buffer size: 2 * (tuples per page)^levelStep
+    // Factor of 2 ensures half-buffer empties fill one page per next-level buffer
+    pagesPerBuffer = 2 * pow(avgIndexTuplesPerPage, levelStep);
+
+    return (int) rint(pagesPerBuffer);
+}
+```

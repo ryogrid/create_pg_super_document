@@ -33,3 +33,15 @@ This function is used in spatial indexing operations to optimize geometric queri
 - The function name suggests it operates in 4D space, but the implementation delegates to a 2D comparison function
 - It's part of the SP-GiST indexing infrastructure for efficient spatial queries in PostgreSQL
 - The function returns a boolean value indicating whether the spatial relationship condition is met
+
+## Simplified Source
+
+```c
+/* Check if any rectangle from rect_box doesn't extend above query */
+static bool
+overBelow4D(RectBox *rect_box, RangeBox *query)
+{
+    // Use 2D function to check Y-axis positioning
+    return overLower2D(&rect_box->range_box_y, &query->right);
+}
+```

@@ -45,3 +45,37 @@ Key behaviors:
 - The function uses the command's prepname field as the prepared statement identifier
 - Error handling logs errors but doesn't abort execution, allowing pgbench to continue
 - The tracking array prevents double-preparation which would cause PostgreSQL errors
+
+## Simplified Source
+
+```c
+static void prepareCommand(CState *st, int command_num) {
+    Command *command = sql_script[st->use_file].commands[command_num];
+
+    // Skip non-SQL commands (meta-commands don't need preparation)
+    if (command->type != SQL_COMMAND)
+        return;
+
+    // Allocate prepared tracking array if not already done
+    if (!st->prepared)
+        allocCStatePrepared(st);
+
+    // Only prepare if not already prepared
+    if (!st->prepared[st->use_file][command_num]) {
+        pg_log_debug("client %d preparing %s", st->id, command->prepname);
+
+        // Prepare the SQL statement using libpq
+        PGresult *res = PQprepare(st->con, command->prepname,
+                                  command->argv[0], command->argc - 1, NULL);
+
+        // Check for preparation errors
+        if (PQresultStatus(res) != PGRES_COMMAND_OK)
+            pg_log_error("%s", PQerrorMessage(st->con));
+
+        PQclear(res);
+
+        // Mark command as prepared to avoid redundant preparations
+        st->prepared[st->use_file][command_num] = true;
+    }
+}
+```

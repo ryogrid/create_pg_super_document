@@ -40,3 +40,26 @@ RT_FREE_LEAF is part of PostgreSQL's templated radix tree implementation that ha
 - Essential for preventing memory leaks during value updates and tree deletions
 - The function assumes the caller has already verified that the leaf is safe to free
 - Does not perform any cleanup of the leaf's content - caller must handle value-specific cleanup if needed
+
+## Simplified Source
+
+```c
+static inline void
+RT_FREE_LEAF(RT_RADIX_TREE *tree, RT_PTR_ALLOC leaf)
+{
+    // Safety check: don't free the root node
+    Assert(leaf != tree->ctl->root);
+
+    // Update debug statistics
+#ifdef RT_DEBUG
+    tree->ctl->num_leaves--;
+#endif
+
+    // Free the allocated memory
+#ifdef RT_SHMEM
+    dsa_free(tree->dsa, leaf);
+#else
+    pfree(leaf);
+#endif
+}
+```

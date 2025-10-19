@@ -32,8 +32,21 @@ The comparison is performed by using , which returns 0 if the addresses are equa
 
 ## Notes and Other Information
 - This function is part of PostgreSQL's MAC address data type implementation
-- It follows the standard PostgreSQL function calling conventions using 
+- It follows the standard PostgreSQL function calling conventions using
 - The actual comparison logic is delegated to  which returns 0 for equal addresses
 - Used internally by PostgreSQL's operator system to support the '!=' and '<>' operators for MAC addresses
-- Located in 
+- Located in
 - Complements the  function by providing the logical negation of equality testing
+
+## Simplified Source
+
+```c
+Datum macaddr_ne(PG_FUNCTION_ARGS) {
+    // Extract MAC address arguments
+    macaddr *a1 = PG_GETARG_MACADDR_P(0);
+    macaddr *a2 = PG_GETARG_MACADDR_P(1);
+
+    // Compare MAC addresses and return true if not equal
+    PG_RETURN_BOOL(macaddr_cmp_internal(a1, a2) != 0);
+}
+```

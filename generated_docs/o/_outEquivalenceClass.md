@@ -35,3 +35,43 @@ The output includes security-related fields (ec_min_security, ec_max_security) a
 
 ## Notes and Other Information
 This function is crucial for debugging PostgreSQL's equivalence class optimization system, which enables advanced optimizations like transitive equality inference and redundant join elimination. The merge chain traversal logic (following ec_merged pointers) ensures that the output represents the canonical form of potentially merged equivalence classes, which is essential for consistent debugging output. EquivalenceClass nodes are central to PostgreSQL's constraint propagation and join ordering algorithms, making this serialization function vital for understanding complex query optimization decisions. The comprehensive field output provides visibility into all aspects of equivalence class state that influence optimization behavior.
+
+## Simplified Source
+
+```c
+static void
+_outEquivalenceClass(StringInfo str, const EquivalenceClass *node)
+{
+    // Follow merge chain to find the topmost (canonical) equivalence class
+    while (node->ec_merged)
+        node = node->ec_merged;
+
+    // Write node type identifier
+    WRITE_NODE_TYPE("EQUIVALENCECLASS");
+
+    // Write core equivalence class information
+    WRITE_NODE_FIELD(ec_opfamilies);    // Operator families
+    WRITE_OID_FIELD(ec_collation);      // Collation settings
+    WRITE_NODE_FIELD(ec_members);       // Member expressions
+    WRITE_NODE_FIELD(ec_sources);       // Source clauses
+    WRITE_NODE_FIELD(ec_derives);       // Derived expressions
+    WRITE_BITMAPSET_FIELD(ec_relids);   // Related relation IDs
+
+    // Write optimization flags
+    WRITE_BOOL_FIELD(ec_has_const);     // Contains constants
+    WRITE_BOOL_FIELD(ec_has_volatile);  // Contains volatile functions
+    WRITE_BOOL_FIELD(ec_broken);        // Broken equivalence class
+
+    // Write metadata fields
+    WRITE_UINT_FIELD(ec_sortref);       // Sort reference
+    WRITE_UINT_FIELD(ec_min_security);  // Minimum security level
+    WRITE_UINT_FIELD(ec_max_security);  // Maximum security level
+}
+```
+
+**Key Simplifications:**
+- Added descriptive comments for each field group
+- Explained the merge chain traversal logic upfront
+- Organized field outputs by logical groupings (core info, flags, metadata)
+- Preserved the essential canonicalization and serialization logic
+- Maintained all critical optimization-related field outputs

@@ -36,3 +36,22 @@ This function serves as a wrapper around computeIterativeZipfian to generate Zip
 - Used in pgbench for generating realistic non-uniform data access patterns
 - Part of pgbench's standard function evaluation system
 - Located in src/bin/pgbench/pgbench.c:1231-1244
+
+## Simplified Source
+
+```c
+static int64 getZipfianRand(pg_prng_state *state, int64 min, int64 max, double s) {
+    // Generate Zipfian distribution in range [min, max]
+
+    int64 n = max - min + 1;  // Calculate range size
+
+    // Generate Zipfian value in [1, n] and adjust to [min, max]
+    return min - 1 + computeIterativeZipfian(state, n, s);
+}
+```
+
+**Key Points:**
+- Simple wrapper around computeIterativeZipfian for range adjustment
+- Transforms [1, n] output to user-specified [min, max] range
+- Validates shape parameter s within acceptable bounds (via Assert)
+- Essential for realistic non-uniform data access patterns in benchmarks

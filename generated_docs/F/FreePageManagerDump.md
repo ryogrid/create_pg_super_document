@@ -40,3 +40,58 @@ The function constructs the output using PostgreSQL's StringInfo buffer mechanis
 
 ## Notes and Other Information
 This is a debugging utility function that provides human-readable output for analyzing the internal state of the free page manager. The returned string is dynamically allocated and must be freed by the caller. The function is primarily useful during development, testing, and troubleshooting memory management issues. The output format is designed to be readable and includes hierarchical indentation for complex structures like B-trees.
+
+## Simplified Source
+
+```c
+char *FreePageManagerDump(FreePageManager *fpm) {
+    char *base = fpm_segment_base(fpm);
+    StringInfoData buf;
+    FreePageSpanLeader *recycle;
+    bool dumped_any_freelist = false;
+    Size f;
+
+    // Initialize output buffer
+    initStringInfo(&buf);
+
+    // Dump metadata information
+    appendStringInfo(&buf, "metadata: self %zu max contiguous pages = %zu\n",
+                     relptr_offset(fpm->self), fpm->contiguous_pages);
+
+    // Dump btree structure if it exists
+    if (fpm->btree_depth > 0) {
+        FreePageBtree *root;
+        appendStringInfo(&buf, "btree depth %u:\n", fpm->btree_depth);
+        root = relptr_access(base, fpm->btree_root);
+        FreePageManagerDumpBtree(fpm, root, NULL, 0, &buf);
+    }
+    else if (fpm->singleton_npages > 0) {
+        appendStringInfo(&buf, "singleton: %zu(%zu)\n",
+                         fpm->singleton_first_page, fpm->singleton_npages);
+    }
+
+    // Dump btree recycle list
+    recycle = relptr_access(base, fpm->btree_recycle);
+    if (recycle != NULL) {
+        appendStringInfoString(&buf, "btree recycle:");
+        FreePageManagerDumpSpans(fpm, recycle, 1, &buf);
+    }
+
+    // Dump all non-empty freelists
+    for (f = 0; f < FPM_NUM_FREELISTS; ++f) {
+        FreePageSpanLeader *span;
+
+        if (relptr_is_null(fpm->freelist[f]))
+            continue;
+        if (!dumped_any_freelist) {
+            appendStringInfoString(&buf, "freelists:\n");
+            dumped_any_freelist = true;
+        }
+        appendStringInfo(&buf, "  %zu:", f + 1);
+        span = relptr_access(base, fpm->freelist[f]);
+        FreePageManagerDumpSpans(fpm, span, f + 1, &buf);
+    }
+
+    return buf.data;
+}
+```

@@ -40,3 +40,26 @@ The function is reentrant as it requires the caller to provide the output buffer
 - Returns the buffer address as a convenience for chaining operations
 - Critical for client tools that need to display or log version information
 - Handles version comparison logic by understanding the encoding differences between old and new schemes
+
+## Simplified Source
+
+```c
+char *formatPGVersionNumber(int version_number, bool include_minor, char *buf, size_t buflen) {
+    if (version_number >= 100000) {
+        // New two-part style (PostgreSQL 10+): major.minor
+        if (include_minor)
+            snprintf(buf, buflen, "%d.%d", version_number / 10000, version_number % 10000);
+        else
+            snprintf(buf, buflen, "%d", version_number / 10000);
+    } else {
+        // Old three-part style (pre-10): major.minor.patch
+        if (include_minor)
+            snprintf(buf, buflen, "%d.%d.%d", version_number / 10000,
+                    (version_number / 100) % 100, version_number % 100);
+        else
+            snprintf(buf, buflen, "%d.%d", version_number / 10000,
+                    (version_number / 100) % 100);
+    }
+    return buf;
+}
+```

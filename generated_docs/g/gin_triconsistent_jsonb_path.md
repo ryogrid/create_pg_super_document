@@ -44,3 +44,44 @@ For containment queries, the function implements conservative logic that never r
 
 ## Notes and Other Information
 The function never returns GIN_TRUE for any strategy, always requiring recheck in the main consistent function to ensure correctness. This conservative approach prevents false positives while still allowing the index to eliminate impossible matches. For JSONPath operations, the function relies on pre-compiled JSONPath expressions stored in extra_data to efficiently evaluate complex path predicates against the available index keys. The triconsistent interface is an optimization that can significantly reduce the number of heap tuple accesses during index scans by eliminating obviously non-matching key combinations early in the process.
+
+## Simplified Source
+
+```c
+Datum gin_triconsistent_jsonb_path(PG_FUNCTION_ARGS) {
+    GinTernaryValue *check = (GinTernaryValue *) PG_GETARG_POINTER(0);
+    StrategyNumber strategy = PG_GETARG_UINT16(1);
+    int32 nkeys = PG_GETARG_INT32(3);
+    Pointer *extra_data = (Pointer *) PG_GETARG_POINTER(4);
+    GinTernaryValue res = GIN_MAYBE;
+    int32 i;
+
+    if (strategy == JsonbContainsStrategyNumber) {
+        // Never return GIN_TRUE, only GIN_MAYBE or GIN_FALSE
+        // This forces recheck for reasons in consistent function
+        for (i = 0; i < nkeys; i++) {
+            if (check[i] == GIN_FALSE) {
+                res = GIN_FALSE;
+                break;
+            }
+        }
+    }
+    else if (strategy == JsonbJsonpathPredicateStrategyNumber ||
+             strategy == JsonbJsonpathExistsStrategyNumber) {
+        if (nkeys > 0) {
+            // Execute JSONPath expression with ternary logic
+            res = execute_jsp_gin_node((JsonPathGinNode *) extra_data[0],
+                                       check, true);
+
+            // Always recheck by converting GIN_TRUE to GIN_MAYBE
+            if (res == GIN_TRUE)
+                res = GIN_MAYBE;
+        }
+    }
+    else {
+        elog(ERROR, "unrecognized strategy number: %d", strategy);
+    }
+
+    PG_RETURN_GIN_TERNARY_VALUE(res);
+}
+```

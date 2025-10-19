@@ -44,3 +44,30 @@ The  function is the backward counterpart to , providing UTF-8-aware backward ch
 - Used extensively across UTF-8 language stemming modules for suffix removal and pattern detection
 - Ensures character-level backward traversal rather than byte-level for proper linguistic processing
 - Particularly important for languages with complex morphological endings
+
+## Simplified Source
+
+```c
+extern int skip_b_utf8(const symbol * p, int c, int limit, int n) {
+    // Input validation
+    if (n < 0) return -1;
+
+    // Skip n UTF-8 characters backward
+    for (; n > 0; n--) {
+        if (c <= limit) return -1;  // Boundary check
+
+        int b = p[--c];  // Move back and get byte
+
+        // If this byte is part of a multi-byte UTF-8 character
+        if (b >= 0x80) {
+            // Find the start of the UTF-8 character
+            while (c > limit) {
+                b = p[c];
+                if (b >= 0xC0) break;  // Found start byte (11......)
+                c--;
+            }
+        }
+    }
+    return c;
+}
+```

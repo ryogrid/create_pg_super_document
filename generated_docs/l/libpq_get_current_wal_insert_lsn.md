@@ -48,3 +48,29 @@ The LSN format is parsed using sscanf with the pattern '%X/%X' to extract the he
 - The function will terminate the program if the LSN format is not recognized
 - This LSN value is critical for pg_rewind to determine the timeline divergence point between source and target servers
 - The returned XLogRecPtr is a 64-bit value representing the byte position in the WAL stream
+
+## Simplified Source
+
+```c
+static XLogRecPtr
+libpq_get_current_wal_insert_lsn(rewind_source *source)
+{
+    PGconn *conn = ((libpq_source *) source)->conn;
+    XLogRecPtr result;
+    uint32 hi, lo;
+    char *val;
+
+    // Query current WAL insert position
+    val = run_simple_query(conn, "SELECT pg_current_wal_insert_lsn()");
+
+    // Parse LSN format "XXXXXXXX/XXXXXXXX"
+    if (sscanf(val, "%X/%X", &hi, &lo) != 2)
+        pg_fatal("unrecognized result \"%s\" for current WAL insert location", val);
+
+    // Combine high and low parts into 64-bit LSN
+    result = ((uint64) hi) << 32 | lo;
+
+    pg_free(val);
+    return result;
+}
+```

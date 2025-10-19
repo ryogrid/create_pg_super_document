@@ -40,3 +40,43 @@ The function maintains an internal counter of added cells and can optionally mar
 - The function will exit with EXIT_FAILURE if the total cell count is exceeded
 - Memory for tracking which cells need to be freed is allocated lazily when the first mustfree=true cell is added
 - The function uses mbvalidate to ensure proper multibyte character encoding
+
+## Simplified Source
+
+```c
+void
+printTableAddCell(printTableContent *const content, char *cell,
+                  const bool translate, const bool mustfree)
+{
+    // Calculate total cells and check bounds
+    uint64 total_cells = (uint64) content->ncolumns * content->nrows;
+    if (content->cellsadded >= total_cells) {
+        fprintf(stderr, _("Cannot add cell to table content: total cell count of %lld exceeded.\n"),
+                (long long int) total_cells);
+        exit(EXIT_FAILURE);
+    }
+
+    // Validate multibyte encoding of cell content
+    *content->cell = (char *) mbvalidate((unsigned char *) cell,
+                                        content->opt->encoding);
+
+#ifdef ENABLE_NLS
+    // Translate cell if requested and NLS is enabled
+    if (translate)
+        *content->cell = _(*content->cell);
+#endif
+
+    // Handle memory management tracking if needed
+    if (mustfree) {
+        // Allocate mustfree tracking array lazily on first use
+        if (content->cellmustfree == NULL)
+            content->cellmustfree = pg_malloc0((total_cells + 1) * sizeof(bool));
+
+        content->cellmustfree[content->cellsadded] = true;
+    }
+
+    // Advance to next cell position
+    content->cell++;
+    content->cellsadded++;
+}
+```

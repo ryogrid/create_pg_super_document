@@ -29,3 +29,12 @@ The  function serves as a wrapper that extracts values from JSONB data structure
 - The actual path extraction logic is implemented in 
 - Returns text data type, converting the extracted JSONB value to its string representation
 - Companion function to , differing only in the output format
+
+## Simplified Source
+```c
+Datum jsonb_extract_path_text(PG_FUNCTION_ARGS) {
+    // Simple wrapper: extract JSONB value following specified path
+    // Returns result as text (not JSONB)
+    return get_jsonb_path_all(fcinfo, true);
+}
+```

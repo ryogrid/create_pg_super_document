@@ -44,3 +44,40 @@ The switch statement currently handles only one case:
 - Returns 1 on successful processing, 0 on failure or exclusion
 - Located in stem_ISO_8859_1_finnish.c indicating ISO 8859-1 character encoding support
 - This function likely handles endings that do not fit into the standard case ending categories
+
+## Simplified Source
+
+```c
+static int r_other_endings(struct SN_env * z) {
+    int ending_type;
+
+    // Set boundaries to R1 region for other endings processing
+    if (z->c < z->I[0]) return 0;
+    int saved_boundary = z->lb;
+    z->lb = z->I[0];
+
+    // Find other ending from predefined list (14 patterns)
+    z->ket = z->c;
+    ending_type = find_among_b(z, a_7, 14);
+    if (!ending_type) {
+        z->lb = saved_boundary;
+        return 0;
+    }
+    z->bra = z->c;
+    z->lb = saved_boundary;
+
+    // Apply removal rules based on ending type
+    switch (ending_type) {
+        case 1:
+            // Check for exclusion pattern - don't remove if matches s_3
+            if (eq_s_b(z, 2, s_3)) {
+                return 0;  // Skip removal for this specific pattern
+            }
+            break;
+    }
+
+    // Remove the matched ending
+    slice_del(z);
+    return 1;
+}
+```

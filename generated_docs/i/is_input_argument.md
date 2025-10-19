@@ -30,3 +30,16 @@ This function checks if the nth argument of a function is considered an input ar
 - When argmodes is NULL, the function defaults to returning true, assuming all arguments are input arguments
 - This function is part of PostgreSQL's rule utilities system used for formatting and reconstructing SQL definitions
 - The function only considers IN, INOUT, and VARIADIC modes as input arguments; OUT and TABLE modes are excluded
+
+## Simplified Source
+
+```c
+static bool is_input_argument(int nth, const char *argmodes) {
+    // If no modes specified, all arguments are input arguments
+    // Otherwise check if mode is IN, INOUT, or VARIADIC
+    return (!argmodes ||
+            argmodes[nth] == PROARGMODE_IN ||
+            argmodes[nth] == PROARGMODE_INOUT ||
+            argmodes[nth] == PROARGMODE_VARIADIC);
+}
+```

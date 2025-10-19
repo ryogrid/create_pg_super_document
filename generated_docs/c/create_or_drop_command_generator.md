@@ -33,3 +33,30 @@ The function follows the readline completion interface pattern, maintaining stat
 
 ## Notes and Other Information
 This function is part of psql's sophisticated tab completion system that helps users write SQL commands more efficiently. It accesses the global  array which contains the master list of SQL commands that can follow CREATE/DROP keywords. The exclusion mechanism allows different generator functions to filter out inappropriate completions (e.g., DROP might exclude certain commands that are valid only for CREATE).
+
+## Simplified Source
+
+```c
+static char *create_or_drop_command_generator(const char *text, int state, bits32 excluded) {
+    static int list_index, string_length;
+    const char *name;
+
+    // Initialize on first call
+    if (state == 0) {
+        list_index = 0;
+        string_length = strlen(text);
+    }
+
+    // Search through words_after_create array for matches
+    while ((name = words_after_create[list_index++].name)) {
+        // Check if name matches text prefix and isn't excluded
+        if ((pg_strncasecmp(name, text, string_length) == 0) &&
+            !(words_after_create[list_index - 1].flags & excluded)) {
+            return pg_strdup_keyword_case(name, text);
+        }
+    }
+
+    // No more matches found
+    return NULL;
+}
+```

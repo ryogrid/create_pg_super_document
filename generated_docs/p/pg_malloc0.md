@@ -40,3 +40,12 @@ This function is the PostgreSQL equivalent of the standard C library calloc(1, s
 - Handles malloc(0) portability issues by ensuring at least 1 byte is allocated
 - For applications that need to handle allocation failures gracefully, use pg_malloc_extended() with both MCXT_ALLOC_ZERO and MCXT_ALLOC_NO_OOM flags
 - Located in src/common/fe_memutils.c:53-58
+
+## Simplified Source
+
+```c
+void *pg_malloc0(size_t size) {
+    // Allocate memory with zero-initialization flag
+    return pg_malloc_internal(size, MCXT_ALLOC_ZERO);
+}
+```

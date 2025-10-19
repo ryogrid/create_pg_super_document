@@ -36,3 +36,19 @@ The function properly handles memory management by using `PG_FREE_IF_COPY` to fr
 - The actual comparison logic is delegated to `compareJsonbContainers`, making this function a thin wrapper
 - Memory management is handled correctly with `PG_FREE_IF_COPY` to prevent memory leaks
 - Returns the logical negation of equality comparison (true when values differ)
+
+## Simplified Source
+
+```c
+Datum jsonb_ne(PG_FUNCTION_ARGS) {
+    Jsonb *jba = PG_GETARG_JSONB_P(0);
+    Jsonb *jbb = PG_GETARG_JSONB_P(1);
+
+    // Compare containers and return true if different
+    bool res = (compareJsonbContainers(&jba->root, &jbb->root) != 0);
+
+    PG_FREE_IF_COPY(jba, 0);
+    PG_FREE_IF_COPY(jbb, 1);
+    PG_RETURN_BOOL(res);
+}
+```

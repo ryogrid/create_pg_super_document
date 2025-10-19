@@ -34,3 +34,18 @@ This static function serves as shared implementation for both  and  functions. I
 - The returned string is allocated in the current memory context and should be managed by the caller
 - Part of PostgreSQL's type system infrastructure for displaying type information in system catalogs and error messages
 - The output format matches standard SQL syntax for TIME type declarations
+
+## Simplified Source
+
+```c
+static char *anytime_typmodout(bool istz, int32 typmod) {
+    // Determine time zone string based on type
+    const char *tz = istz ? " with time zone" : " without time zone";
+
+    // Include precision if specified, otherwise just time zone
+    if (typmod >= 0)
+        return psprintf("(%d)%s", (int) typmod, tz);
+    else
+        return pstrdup(tz);
+}
+```

@@ -31,3 +31,20 @@ This function serves as a GUC (Grand Unified Configuration) assign hook for the 
 - It ensures that only one type of recovery target can be active at any given time
 - The function is registered as a GUC assign hook and called automatically when the recovery_target_time configuration parameter is set
 - Located in src/backend/access/transam/xlogrecovery.c:4950-4965
+
+## Simplified Source
+
+```c
+void assign_recovery_target_time(const char *newval, void *extra) {
+    // Check for conflicts with other recovery target types
+    if (recoveryTarget != RECOVERY_TARGET_UNSET &&
+        recoveryTarget != RECOVERY_TARGET_TIME)
+        error_multiple_recovery_targets();
+
+    // Set or unset time-based recovery target
+    if (newval && strcmp(newval, "") != 0)
+        recoveryTarget = RECOVERY_TARGET_TIME;  // Enable time-based recovery
+    else
+        recoveryTarget = RECOVERY_TARGET_UNSET; // Unset recovery target
+}
+```

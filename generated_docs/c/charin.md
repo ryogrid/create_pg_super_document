@@ -42,3 +42,24 @@ The function specifically accepts the same formats that the charout function pro
 - The ISOCTAL macro checks if a character is an octal digit (0-7)
 - The FROMOCTAL macro converts an octal character to its numeric equivalent
 - This function is part of PostgreSQL's type system infrastructure for the "char" data type
+
+## Simplified Source
+
+```c
+Datum charin(PG_FUNCTION_ARGS) {
+    // Extract input string
+    char *ch = PG_GETARG_CSTRING(0);
+
+    // Check for octal escape sequence format: \ooo
+    if (strlen(ch) == 4 && ch[0] == '\\' &&
+        ISOCTAL(ch[1]) && ISOCTAL(ch[2]) && ISOCTAL(ch[3])) {
+        // Convert octal digits to character value
+        PG_RETURN_CHAR((FROMOCTAL(ch[1]) << 6) +
+                       (FROMOCTAL(ch[2]) << 3) +
+                       FROMOCTAL(ch[3]));
+    }
+
+    // For regular input, return first character (handles empty strings too)
+    PG_RETURN_CHAR(ch[0]);
+}
+```

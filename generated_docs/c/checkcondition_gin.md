@@ -49,3 +49,30 @@ This callback is crucial for the two-phase checking process in GIN text search: 
 - Critical for supporting advanced text search features like weight-based matching and phrase queries
 - Static function scope limits visibility to tsginidx.c compilation unit
 - Part of PostgreSQL's extensible text search architecture
+
+## Simplified Source
+
+```c
+static TSTernaryValue
+checkcondition_gin(void *checkval, QueryOperand *val, ExecPhraseData *data)
+{
+    GinChkVal *gcv = (GinChkVal *) checkval;
+    int j;
+    GinTernaryValue result;
+
+    // Map query item to operand number using pre-built mapping
+    j = gcv->map_item_operand[((QueryItem *) val) - gcv->first_item];
+
+    // Get match result for this operand from check array
+    result = gcv->check[j];
+
+    // Downgrade TRUE to MAYBE if weight or position info needed
+    if (result == GIN_TRUE) {
+        if (val->weight != 0 || data != NULL)
+            result = GIN_MAYBE;  // Force recheck for complex conditions
+    }
+
+    // Convert GIN ternary value to TS ternary value (equivalent enums)
+    return (TSTernaryValue) result;
+}
+```

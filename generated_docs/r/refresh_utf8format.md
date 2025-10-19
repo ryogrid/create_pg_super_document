@@ -37,3 +37,56 @@ The function operates on the global  variable and configures it according to the
 - All Unicode styles currently share the same newline and wrap formatting characters
 - This function is part of PostgreSQL's frontend utilities print system, primarily used by psql for table output formatting
 - The function maps three different line style dimensions (border, header, column) into a unified table format structure
+
+## Simplified Source
+
+```c
+void refresh_utf8format(const printTableOpt *opt) {
+    printTextFormat *popt = &pg_utf8format;
+
+    // Get style components based on options
+    const unicodeStyleBorderFormat *border = &unicode_style.border_style[opt->unicode_border_linestyle];
+    const unicodeStyleRowFormat *header = &unicode_style.row_style[opt->unicode_header_linestyle];
+    const unicodeStyleColumnFormat *column = &unicode_style.column_style[opt->unicode_column_linestyle];
+
+    popt->name = "unicode";
+
+    // Configure top border line (table start)
+    popt->lrule[PRINT_RULE_TOP].hrule = border->horizontal;
+    popt->lrule[PRINT_RULE_TOP].leftvrule = border->down_and_right;
+    popt->lrule[PRINT_RULE_TOP].midvrule = column->down_and_horizontal[opt->unicode_border_linestyle];
+    popt->lrule[PRINT_RULE_TOP].rightvrule = border->down_and_left;
+
+    // Configure middle separator line (header/data separator)
+    popt->lrule[PRINT_RULE_MIDDLE].hrule = header->horizontal;
+    popt->lrule[PRINT_RULE_MIDDLE].leftvrule = header->vertical_and_right[opt->unicode_border_linestyle];
+    popt->lrule[PRINT_RULE_MIDDLE].midvrule = column->vertical_and_horizontal[opt->unicode_header_linestyle];
+    popt->lrule[PRINT_RULE_MIDDLE].rightvrule = header->vertical_and_left[opt->unicode_border_linestyle];
+
+    // Configure bottom border line (table end)
+    popt->lrule[PRINT_RULE_BOTTOM].hrule = border->horizontal;
+    popt->lrule[PRINT_RULE_BOTTOM].leftvrule = border->up_and_right;
+    popt->lrule[PRINT_RULE_BOTTOM].midvrule = column->up_and_horizontal[opt->unicode_border_linestyle];
+    popt->lrule[PRINT_RULE_BOTTOM].rightvrule = border->left_and_right;
+
+    // Configure data row formatting (vertical separators only)
+    popt->lrule[PRINT_RULE_DATA].hrule = "";
+    popt->lrule[PRINT_RULE_DATA].leftvrule = border->vertical;
+    popt->lrule[PRINT_RULE_DATA].midvrule = column->vertical;
+    popt->lrule[PRINT_RULE_DATA].rightvrule = border->vertical;
+
+    // Configure line wrap and newline formatting
+    popt->midvrule_nl = column->vertical;
+    popt->midvrule_wrap = column->vertical;
+    popt->midvrule_blank = column->vertical;
+
+    // Set common Unicode formatting elements
+    popt->header_nl_left = unicode_style.header_nl_left;
+    popt->header_nl_right = unicode_style.header_nl_right;
+    popt->nl_left = unicode_style.nl_left;
+    popt->nl_right = unicode_style.nl_right;
+    popt->wrap_left = unicode_style.wrap_left;
+    popt->wrap_right = unicode_style.wrap_right;
+    popt->wrap_right_border = unicode_style.wrap_right_border;
+}
+```

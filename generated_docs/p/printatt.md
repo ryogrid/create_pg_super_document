@@ -46,3 +46,23 @@ This function is primarily used for debugging purposes to inspect the structure 
 - The function safely handles NULL values by checking before attempting to print the value
 - The output format is human-readable and includes technical details about PostgreSQL's internal attribute representation
 - Type modifier (typmod) provides additional type-specific information (e.g., precision for numeric types)
+
+## Simplified Source
+
+```c
+static void printatt(unsigned attributeId,
+                    Form_pg_attribute attributeP,
+                    char *value) {
+    // Print formatted attribute information for debugging
+    printf("\t%2d: %s%s%s%s\t(typeid = %u, len = %d, typmod = %d, byval = %c)\n",
+           attributeId,
+           NameStr(attributeP->attname),
+           value != NULL ? " = \"" : "",
+           value != NULL ? value : "",
+           value != NULL ? "\"" : "",
+           (unsigned int) (attributeP->atttypid),
+           attributeP->attlen,
+           attributeP->atttypmod,
+           attributeP->attbyval ? 't' : 'f');
+}
+```

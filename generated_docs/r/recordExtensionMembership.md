@@ -35,3 +35,26 @@ This function is a crucial part of the pg_dump utility's extension membership tr
 - Critical for maintaining extension dependency information during pg_dump operations
 - Helps ensure that extension-owned objects are properly handled during database restoration
 - The function is void and modifies the global catalogIdHash state
+
+## Simplified Source
+
+```c
+void recordExtensionMembership(CatalogId catId, ExtensionInfo *ext) {
+    // Verify hash table exists
+    Assert(catalogIdHash != NULL);
+
+    // Find or create entry in catalog hash table
+    bool found;
+    CatalogIdMapEntry *entry = catalogid_insert(catalogIdHash, catId, &found);
+
+    // Initialize new entry if needed
+    if (!found) {
+        entry->dobj = NULL;
+        entry->ext = NULL;
+    }
+
+    // Record extension ownership
+    Assert(entry->ext == NULL);  // Should not already have extension
+    entry->ext = ext;
+}
+```

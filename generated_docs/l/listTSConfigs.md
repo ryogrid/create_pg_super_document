@@ -39,3 +39,54 @@ This function implements the \dF psql command for listing text search configurat
 - Results are ordered by schema name, then configuration name
 - Implements internationalization through gettext_noop for column headers
 - Provides a clean separation between simple and verbose configuration listing
+
+## Simplified Source
+
+```c
+bool listTSConfigs(const char *pattern, bool verbose) {
+    PQExpBufferData buf;
+    PGresult *res;
+    printQueryOpt myopt = pset.popt;
+
+    // Delegate to verbose function if verbose mode requested
+    if (verbose) {
+        return listTSConfigsVerbose(pattern);
+    }
+
+    // Initialize query buffer
+    initPQExpBuffer(&buf);
+
+    // Build SELECT query for basic configuration information
+    printfPQExpBuffer(&buf,
+        "SELECT n.nspname AS \"Schema\", "
+        "c.cfgname AS \"Name\", "
+        "pg_catalog.obj_description(c.oid, 'pg_ts_config') AS \"Description\" "
+        "FROM pg_catalog.pg_ts_config c "
+        "LEFT JOIN pg_catalog.pg_namespace n ON n.oid = c.cfgnamespace");
+
+    // Validate and add pattern matching
+    if (!validateSQLNamePattern(&buf, pattern, false, false,
+                               "n.nspname", "c.cfgname", NULL,
+                               "pg_catalog.pg_ts_config_is_visible(c.oid)",
+                               NULL, 3)) {
+        termPQExpBuffer(&buf);
+        return false;
+    }
+
+    // Add ordering
+    appendPQExpBufferStr(&buf, " ORDER BY 1, 2;");
+
+    // Execute query
+    res = PSQLexec(buf.data);
+    termPQExpBuffer(&buf);
+    if (!res) return false;
+
+    // Configure and display results
+    myopt.title = "List of text search configurations";
+    myopt.translate_header = true;
+    printQuery(res, &myopt, pset.queryFout, false, pset.logfile);
+
+    PQclear(res);
+    return true;
+}
+```

@@ -44,3 +44,51 @@ The function is critical for ensuring data durability in synchronous WAL writing
 - The function only performs operations when sync mode is enabled
 - Critical for data durability in synchronous backup operations
 - Error details are stored in wwmethod->lasterrno or lasterrstring as appropriate
+
+## Simplified Source
+
+```c
+static int
+dir_sync(Walfile *f)
+{
+    int r;
+
+    Assert(f != NULL);
+    clear_error(f->wwmethod);
+
+    // Skip sync if disabled
+    if (!f->wwmethod->sync)
+        return 0;
+
+    // Handle compression-specific flushing
+    if (f->wwmethod->compression_algorithm == PG_COMPRESSION_GZIP) {
+        // Flush gzip internal buffers
+        if (gzflush(((DirectoryMethodFile *) f)->gzfp, Z_SYNC_FLUSH) != Z_OK) {
+            f->wwmethod->lasterrno = errno;
+            return -1;
+        }
+    } else if (f->wwmethod->compression_algorithm == PG_COMPRESSION_LZ4) {
+        // Flush LZ4 internal buffers and write remaining data
+        DirectoryMethodFile *df = (DirectoryMethodFile *) f;
+        size_t compressed = LZ4F_flush(df->ctx, df->lz4buf, df->lz4bufsize, NULL);
+
+        if (LZ4F_isError(compressed)) {
+            f->wwmethod->lasterrstring = LZ4F_getErrorName(compressed);
+            return -1;
+        }
+
+        errno = 0;
+        if (write(df->fd, df->lz4buf, compressed) != compressed) {
+            f->wwmethod->lasterrno = errno ? errno : ENOSPC;
+            return -1;
+        }
+    }
+
+    // Sync file to disk
+    r = fsync(((DirectoryMethodFile *) f)->fd);
+    if (r < 0)
+        f->wwmethod->lasterrno = errno;
+
+    return r;
+}
+```

@@ -38,3 +38,13 @@ The function always returns 0, indicating successful execution. The actual NULL-
 - The function is used extensively in decimal/numeric conversion functions and test cases
 - Always returns 0 (success) - [error](../e/error.md) handling is managed by the underlying ECPG library functions
 - Works in conjunction with  which checks if a value is NULL
+
+## Simplified Source
+
+```c
+int rsetnull(int t, char *ptr) {
+    // Set value to NULL using ECPG library
+    ECPGset_noind_null(t, ptr);
+    return 0;  // Always succeeds
+}
+```

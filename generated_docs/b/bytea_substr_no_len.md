@@ -35,3 +35,17 @@ This function provides a variant of bytea substring extraction that only require
 - Automatically extracts from the starting position to the end of the bytea
 - Part of PostgreSQL's function overloading mechanism for substring operations
 - Located in src/backend/utils/adt/varlena.c:3019-3027
+
+## Simplified Source
+
+```c
+// PostgreSQL function to extract substring from bytea from position to end
+Datum bytea_substr_no_len(PG_FUNCTION_ARGS) {
+    // Extract arguments: source bytea, start position (1-based)
+    Datum source_bytea = PG_GETARG_DATUM(0);
+    int32 start_pos = PG_GETARG_INT32(1);
+
+    // Extract from start position to end (length=-1, no_len=true)
+    return PG_RETURN_BYTEA_P(bytea_substring(source_bytea, start_pos, -1, true));
+}
+```

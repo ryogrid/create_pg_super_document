@@ -33,3 +33,17 @@ This hook is part of psql's variable system that provides preprocessing and defa
 - The hook is registered in EstablishVariableSpace() alongside the echo_hook validation hook for the ECHO variable
 - Part of psql's variable hook system that ensures variables always have valid, meaningful values
 - The substitute hook runs before the validation hook in the variable processing pipeline
+
+## Simplified Source
+
+```c
+static char *
+echo_substitute_hook(char *newval)
+{
+    // Default to "none" when ECHO variable is unset
+    if (newval == NULL)
+        newval = pg_strdup("none");
+
+    return newval;
+}
+```

@@ -41,3 +41,20 @@ This is particularly useful for data validation scenarios where you need to chec
 - The actual validation logic is implemented in the shared  function
 - Particularly useful for ETL processes and applications that need to pre-validate data
 - Returns false for invalid input rather than throwing errors, making it safe for batch validation operations
+
+## Simplified Source
+
+```c
+Datum
+pg_input_is_valid(PG_FUNCTION_ARGS)
+{
+    text *txt = PG_GETARG_TEXT_PP(0);      // Input string to validate
+    text *typname = PG_GETARG_TEXT_PP(1);  // Type name to validate against
+
+    // Set up error context to catch parsing errors softly
+    ErrorSaveContext escontext = {T_ErrorSaveContext};
+
+    // Delegate to shared validation function
+    PG_RETURN_BOOL(pg_input_is_valid_common(fcinfo, txt, typname, &escontext));
+}
+```

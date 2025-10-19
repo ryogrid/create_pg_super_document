@@ -54,3 +54,43 @@ The function handles special cases such as empty queries (returns false) and ALL
 - Uses `TS_EXEC_PHRASE_NO_POS` flag indicating phrase position is not tracked
 - Part of the standard GiST operator class interface for TSVector full-text search indexing
 - Critical function in PostgreSQL full-text search performance, enabling efficient query filtering across index tree levels
+
+## Simplified Source
+
+```c
+Datum
+gtsvector_consistent(PG_FUNCTION_ARGS)
+{
+    GISTENTRY *entry = (GISTENTRY *) PG_GETARG_POINTER(0);
+    TSQuery query = PG_GETARG_TSQUERY(1);
+    bool *recheck = (bool *) PG_GETARG_POINTER(4);
+    SignTSVector *key = (SignTSVector *) DatumGetPointer(entry->key);
+
+    // All matches require recheck due to potential false positives
+    *recheck = true;
+
+    // Empty query returns false
+    if (!query->size)
+        PG_RETURN_BOOL(false);
+
+    if (ISSIGNKEY(key)) {
+        // Signature-based matching for non-leaf pages
+        if (ISALLTRUE(key))
+            PG_RETURN_BOOL(true);  // Matches everything
+
+        PG_RETURN_BOOL(TS_execute(GETQUERY(query), key,
+                                  TS_EXEC_PHRASE_NO_POS,
+                                  checkcondition_bit));
+    }
+    else {
+        // Array-based matching for leaf pages
+        CHKVAL chkval;
+        chkval.arrb = GETARR(key);
+        chkval.arre = chkval.arrb + ARRNELEM(key);
+
+        PG_RETURN_BOOL(TS_execute(GETQUERY(query), &chkval,
+                                  TS_EXEC_PHRASE_NO_POS,
+                                  checkcondition_arr));
+    }
+}
+```

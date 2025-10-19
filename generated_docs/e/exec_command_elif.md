@@ -41,3 +41,48 @@ This function handles the execution of the \elif (else if) backslash command in 
 - Part of psql's conditional scripting system enabling complex branching logic in SQL scripts
 - [Query](../Q/Query.md) buffer management ensures that only text from the single active branch is preserved
 - Expression evaluation only occurs when transitioning from a false state to potentially true state
+
+## Simplified Source
+
+```c
+static backslashResult exec_command_elif(PsqlScanState scan_state, ConditionalStack cstack, PQExpBuffer query_buf) {
+    bool success = true;
+
+    switch (conditional_stack_peek(cstack)) {
+        case IFSTATE_TRUE:
+            // Previous branch was active - save state and ignore rest
+            save_query_text_state(scan_state, cstack, query_buf);
+            conditional_stack_poke(cstack, IFSTATE_IGNORED);
+            ignore_boolean_expression(scan_state);
+            break;
+
+        case IFSTATE_FALSE:
+            // Previous branch was inactive - evaluate elif expression
+            discard_query_text(scan_state, cstack, query_buf);
+            conditional_stack_poke(cstack, IFSTATE_TRUE);
+            if (!is_true_boolean_expression(scan_state, "\\elif expression")) {
+                conditional_stack_poke(cstack, IFSTATE_FALSE);
+            }
+            break;
+
+        case IFSTATE_IGNORED:
+            // Entire block ignored - continue ignoring
+            discard_query_text(scan_state, cstack, query_buf);
+            ignore_boolean_expression(scan_state);
+            break;
+
+        case IFSTATE_ELSE_TRUE:
+        case IFSTATE_ELSE_FALSE:
+            pg_log_error("\\elif: cannot occur after \\else");
+            success = false;
+            break;
+
+        case IFSTATE_NONE:
+            pg_log_error("\\elif: no matching \\if");
+            success = false;
+            break;
+    }
+
+    return success ? PSQL_CMD_SKIP_LINE : PSQL_CMD_ERROR;
+}
+```

@@ -33,3 +33,14 @@ The consistent selectivity value between join and non-join scenarios reflects th
 - Part of the geometric selectivity function family in geo_selfuncs.c
 - Specifically handles strict positional relationships in join conditions
 - The selectivity value is higher than area-based join operations, reflecting the more common nature of positional relationships
+
+## Simplified Source
+
+```c
+Datum positionjoinsel(PG_FUNCTION_ARGS) {
+    // Return join selectivity estimate for positional operators
+    PG_RETURN_FLOAT8(0.1);
+}
+```
+
+This join selectivity function estimates how likely geometric objects from one table are to be positioned relative to objects in another table (left of, right of, above, below) during join operations. It returns 10%, matching its non-join counterpart `positionsel`.

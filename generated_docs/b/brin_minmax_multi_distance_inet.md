@@ -45,3 +45,55 @@ The function handles both IPv4 (32-bit) and IPv6 (128-bit) addresses and conside
 - The function includes an assertion that the result is always between 0 and 1
 - Memory is allocated for address copying and properly freed after calculation
 - Part of the BRIN minmax multi-column index infrastructure for optimizing range queries on correlated data
+
+## Simplified Source
+
+```c
+Datum brin_minmax_multi_distance_inet(PG_FUNCTION_ARGS) {
+    inet *ipa = PG_GETARG_INET_PP(0);
+    inet *ipb = PG_GETARG_INET_PP(1);
+
+    // Different IP families are at maximum distance
+    if (ip_family(ipa) != ip_family(ipb)) {
+        return PG_RETURN_FLOAT8(1.0);
+    }
+
+    // Copy address bytes to apply masks
+    int len = ip_addrsize(ipa);
+    unsigned char *addra = (unsigned char *) palloc(len);
+    unsigned char *addrb = (unsigned char *) palloc(len);
+    memcpy(addra, ip_addr(ipa), len);
+    memcpy(addrb, ip_addr(ipb), len);
+
+    // Apply network masks to both addresses
+    int lena = ip_bits(ipa);
+    int lenb = ip_bits(ipb);
+    for (int i = 0; i < len; i++) {
+        // Mask bits for first address
+        int nbits = Max(0, lena - (i * 8));
+        if (nbits < 8) {
+            unsigned char mask = (0xFF << (8 - nbits));
+            addra[i] = (addra[i] & mask);
+        }
+
+        // Mask bits for second address
+        nbits = Max(0, lenb - (i * 8));
+        if (nbits < 8) {
+            unsigned char mask = (0xFF << (8 - nbits));
+            addrb[i] = (addrb[i] & mask);
+        }
+    }
+
+    // Calculate normalized distance (base-256 from least significant byte)
+    float8 delta = 0;
+    for (int i = len - 1; i >= 0; i--) {
+        delta += (float8) addrb[i] - (float8) addra[i];
+        delta /= 256;
+    }
+
+    pfree(addra);
+    pfree(addrb);
+
+    return PG_RETURN_FLOAT8(delta);
+}
+```

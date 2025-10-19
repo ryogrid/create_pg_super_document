@@ -31,3 +31,23 @@ The function supports all standard WAL levels including "minimal", "replica", "l
 - Used primarily for debugging and logging purposes in WAL record descriptions  
 - The wal_level_options array includes deprecated aliases for backwards compatibility
 - Returns "?" for unknown/invalid WAL level values rather than causing an error
+
+## Simplified Source
+
+```c
+static const char *get_wal_level_string(int wal_level) {
+    const char *wal_level_str = "?";
+
+    // Search through wal_level_options array for matching value
+    for (const struct config_enum_entry *entry = wal_level_options;
+         entry->name;
+         entry++) {
+        if (entry->val == wal_level) {
+            wal_level_str = entry->name;
+            break;
+        }
+    }
+
+    return wal_level_str;
+}
+```

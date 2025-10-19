@@ -44,3 +44,12 @@ The returned OID can be used with other system functions or joined with pg_type 
 - The function is very lightweight as it only accesses metadata, not actual data values
 - Type resolution happens at query planning time, so the result is determined before execution
 - Can be used with complex expressions: SELECT pg_typeof(column1 + column2) to determine result types
+
+## Simplified Source
+
+```c
+Oid pg_typeof(expression) {
+    // Return the type OID of the argument expression
+    return get_fn_expr_argtype(fcinfo->flinfo, 0);
+}
+```

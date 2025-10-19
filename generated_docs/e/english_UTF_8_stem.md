@@ -58,3 +58,52 @@ The algorithm uses cursor positioning (z->c) and limit boundaries (z->lb, z->l) 
 - The function is UTF-8 aware and handles multi-byte character boundaries properly
 - Exception handling occurs at two points: before any processing and after Step 1a to handle irregular words
 - [String](../S/String.md) processing occurs from right-to-left (suffix removal) using z->c cursor positioning from z->l (length) towards z->lb (left boundary)
+
+## Simplified Source
+
+```c
+extern int english_UTF_8_stem(struct SN_env * z) {
+    // Save current position for potential backtracking
+    int original_pos = z->c;
+
+    // Try exception handling first - some words have special rules
+    if (r_exception1(z) == 0) {
+        z->c = original_pos;
+
+        // Check if word is at least 3 UTF-8 characters long
+        if (skip_utf8(z->p, z->c, z->l, 3) < 0) {
+            z->c = original_pos;
+        } else {
+            z->c = original_pos;
+
+            // Apply preprocessing and mark morphological regions
+            r_prelude(z);
+            r_mark_regions(z);
+
+            // Set up for suffix processing from right to left
+            z->lb = z->c;
+            z->c = z->l;
+
+            // Step 1a: Handle plurals (sses→ss, ies→i, s→∅)
+            r_Step_1a(z);
+
+            // Check for second exception list
+            if (r_exception2(z) == 0) {
+                // Apply remaining stemming steps sequentially
+                r_Step_1b(z);  // Past participle/gerund forms
+                r_Step_1c(z);  // y→i transformation
+                r_Step_2(z);   // Double suffix removal
+                r_Step_3(z);   // -ic, -full, -ness suffixes
+                r_Step_4(z);   // -tion, -ence, -ment suffixes
+                r_Step_5(z);   // Final -e and -l handling
+            }
+
+            // Reset cursor and apply final cleanup
+            z->c = z->lb;
+            r_postlude(z);
+        }
+    }
+
+    return 1;  // Success
+}
+```

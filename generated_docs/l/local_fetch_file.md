@@ -32,3 +32,14 @@ This function provides a uniform interface for reading complete files during the
 - Returns a dynamically allocated buffer containing the file contents that must be freed by the caller
 - Part of the strategy pattern implementation for uniform handling of local and remote file operations
 - Located in src/bin/pg_rewind/local_source.c:66-76
+
+## Simplified Source
+
+```c
+static char *
+local_fetch_file(rewind_source *source, const char *path, size_t *filesize)
+{
+    // Cast to local_source and delegate to slurpFile
+    return slurpFile(((local_source *) source)->datadir, path, filesize);
+}
+```

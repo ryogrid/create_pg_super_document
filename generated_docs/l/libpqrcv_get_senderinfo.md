@@ -46,3 +46,23 @@ The function safely handles cases where host or port information is unavailable,
 - Useful for identifying the source server in master-standby replication topologies
 - Information can be used for monitoring replication lag and connection health
 - Does not perform any network operations; only queries existing connection metadata
+
+## Simplified Source
+
+```c
+static void libpqrcv_get_senderinfo(WalReceiverConn *conn, char **sender_host, int *sender_port) {
+    // Initialize output parameters
+    *sender_host = NULL;
+    *sender_port = 0;
+
+    // Get hostname from libpq connection
+    char *host = PQhost(conn->streamConn);
+    if (host && strlen(host) != 0)
+        *sender_host = pstrdup(host);
+
+    // Get port from libpq connection
+    char *port = PQport(conn->streamConn);
+    if (port && strlen(port) != 0)
+        *sender_port = atoi(port);
+}
+```

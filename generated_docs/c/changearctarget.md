@@ -33,3 +33,36 @@ The function assumes the caller has verified that no duplicate arc will be creat
 - Multiple assertions ensure the integrity of the doubly-linked chain structure
 - The caller must ensure no duplicate arcs are created by this operation
 - Part of PostgreSQL's internal regular expression engine implementation
+
+## Simplified Source
+
+```c
+static void changearctarget(struct arc *a, struct state *newto) {
+    struct state *oldto = a->to;
+    struct arc *predecessor;
+
+    // Remove arc from old target's incoming chain
+    predecessor = a->inchainRev;
+    if (predecessor == NULL) {
+        oldto->ins = a->inchain;
+    } else {
+        predecessor->inchain = a->inchain;
+    }
+    if (a->inchain != NULL) {
+        a->inchain->inchainRev = predecessor;
+    }
+    oldto->nins--;
+
+    // Update arc's target pointer
+    a->to = newto;
+
+    // Add arc to new target's incoming chain
+    a->inchain = newto->ins;
+    a->inchainRev = NULL;
+    if (newto->ins) {
+        newto->ins->inchainRev = a;
+    }
+    newto->ins = a;
+    newto->nins++;
+}
+```

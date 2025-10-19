@@ -40,3 +40,32 @@ This function serves as the core formatting routine for both INET and CIDR data 
 - Returns a PostgreSQL-allocated string using pstrdup for proper memory management
 - Provides comprehensive error reporting if the address-to-string conversion fails
 - The temporary buffer size accommodates maximum IPv6 format plus mask notation
+
+## Simplified Source
+
+```c
+static char *network_out(inet *src, bool is_cidr) {
+    // Buffer for formatted address string (sized for max IPv6 + mask)
+    char tmp[sizeof("xxxx:xxxx:xxxx:xxxx:xxxx:xxxx:255.255.255.255/128")];
+    char *dst;
+    int len;
+
+    // Convert inet to string using PostgreSQL's network formatting function
+    dst = pg_inet_net_ntop(ip_family(src), ip_addr(src), ip_bits(src), tmp, sizeof(tmp));
+
+    // Check for conversion errors
+    if (dst == NULL) {
+        ereport(ERROR, (errcode(ERRCODE_INVALID_BINARY_REPRESENTATION),
+                       errmsg("could not format inet value: %m")));
+    }
+
+    // For CIDR format, ensure mask notation is present
+    if (is_cidr && strchr(tmp, '/') == NULL) {
+        len = strlen(tmp);
+        snprintf(tmp + len, sizeof(tmp) - len, "/%u", ip_bits(src));
+    }
+
+    // Return PostgreSQL-allocated copy of the formatted string
+    return pstrdup(tmp);
+}
+```

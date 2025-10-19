@@ -34,3 +34,32 @@ This function implements an optimized lookup mechanism for PostgreSQL's search p
 - Uses both role ID and search path string for precise cache key matching
 - Returns NULL for cache misses, allowing callers to handle insertion separately
 - Updates the last-entry cache pointer on successful hash table lookups to improve future performance
+
+## Simplified Source
+
+```c
+static SearchPathCacheEntry *spcache_lookup(const char *searchPath, Oid roleid)
+{
+    // Check last accessed entry for quick lookup
+    if (LastSearchPathCacheEntry &&
+        LastSearchPathCacheEntry->key.roleid == roleid &&
+        strcmp(LastSearchPathCacheEntry->key.searchPath, searchPath) == 0)
+    {
+        return LastSearchPathCacheEntry;
+    }
+
+    // Perform hash table lookup
+    SearchPathCacheKey cachekey = {
+        .searchPath = searchPath,
+        .roleid = roleid
+    };
+
+    SearchPathCacheEntry *entry = nsphash_lookup(SearchPathCache, cachekey);
+
+    // Update last entry cache on successful lookup
+    if (entry)
+        LastSearchPathCacheEntry = entry;
+
+    return entry;
+}
+```

@@ -38,3 +38,32 @@ The function is designed as a qsort() compatible comparison function, returning 
 - The comparison strategy prioritizes fields in order of likelihood to differ for performance
 - Used extensively in NFA arc manipulation operations for maintaining consistent arc ordering
 - Compatible with standard library qsort() function signature
+
+## Simplified Source
+
+```c
+static int sortins_cmp(const void *a, const void *b) {
+    const struct arc *aa = *((const struct arc *const *) a);
+    const struct arc *bb = *((const struct arc *const *) b);
+
+    // Compare source state numbers first (most likely to differ)
+    if (aa->from->no < bb->from->no)
+        return -1;
+    if (aa->from->no > bb->from->no)
+        return 1;
+
+    // Compare colors/character codes
+    if (aa->co < bb->co)
+        return -1;
+    if (aa->co > bb->co)
+        return 1;
+
+    // Compare arc types
+    if (aa->type < bb->type)
+        return -1;
+    if (aa->type > bb->type)
+        return 1;
+
+    return 0;  // All fields equal
+}
+```

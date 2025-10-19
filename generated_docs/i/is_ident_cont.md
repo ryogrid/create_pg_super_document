@@ -30,3 +30,18 @@ This function checks if a given character can legally appear within a PostgreSQL
 - Part of PostgreSQL's identifier validation system
 - Digits and dollar signs are only allowed as continuation characters, not as starting characters
 - Supports all characters that can start an identifier plus additional continuation-specific characters
+
+## Simplified Source
+
+```c
+static bool
+is_ident_cont(unsigned char c)
+{
+    // Digits and dollar sign are valid continuation characters
+    if ((c >= '0' && c <= '9') || c == '$')
+        return true;
+
+    // Any character valid for identifier start is also valid for continuation
+    return is_ident_start(c);
+}
+```

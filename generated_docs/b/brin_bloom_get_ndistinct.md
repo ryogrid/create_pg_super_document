@@ -41,3 +41,30 @@ The function includes several safeguards to ensure the bloom filter is appropria
   - More accurate estimation of rows per BRIN range instead of using MaxHeapTuplesPerPage
 - The calculation assumes each page gets MaxHeapTuplesPerPage tuples, which is noted as likely a significant over-estimate
 - Negative ndistinct values are interpreted as percentages relative to the maximum possible tuples in the range
+
+## Simplified Source
+
+```c
+static int
+brin_bloom_get_ndistinct(BrinDesc *bdesc, BloomOptions *opts)
+{
+    // Get configuration values
+    BlockNumber pagesPerRange = BrinGetPagesPerRange(bdesc->bd_index);
+    double ndistinct = BloomGetNDistinctPerRange(opts);
+
+    Assert(BlockNumberIsValid(pagesPerRange));
+
+    // Calculate maximum tuples possible in the range
+    double maxtuples = MaxHeapTuplesPerPage * pagesPerRange;
+
+    // Handle negative values as relative to maximum tuples
+    if (ndistinct < 0)
+        ndistinct = (-ndistinct) * maxtuples;
+
+    // Apply safety bounds: not too small, not larger than maximum possible
+    ndistinct = Max(ndistinct, BLOOM_MIN_NDISTINCT_PER_RANGE);
+    ndistinct = Min(ndistinct, maxtuples);
+
+    return (int) ndistinct;
+}
+```

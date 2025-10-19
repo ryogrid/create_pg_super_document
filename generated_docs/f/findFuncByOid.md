@@ -36,3 +36,18 @@ This function is part of the pg_dump utility's object management system. It sear
 - Part of the pg_dump object lookup infrastructure for database schema dumping
 - Works specifically with function objects stored in the procedure relation
 - Located in src/bin/pg_dump/common.c:907-924
+
+## Simplified Source
+
+```c
+FuncInfo *findFuncByOid(Oid oid) {
+    // Create catalog ID for function lookup
+    CatalogId catId;
+    catId.tableoid = ProcedureRelationId;
+    catId.oid = oid;
+
+    // Find object and return as FuncInfo
+    DumpableObject *dobj = findObjectByCatalogId(catId);
+    return (FuncInfo *) dobj;  // Returns NULL if not found
+}
+```

@@ -50,3 +50,48 @@ The function uses sophisticated backtracking logic to handle cases where the sec
 - Essential for handling Russian participial adjectives, which combine verbal and adjectival characteristics
 - Always returns 1 on completion, ensuring the stemming pipeline continues even if no additional suffixes are found
 - Part of the comprehensive Russian morphological analysis that includes noun, verb, and adjectival processing
+
+## Simplified Source
+
+```c
+static int r_adjectival(struct SN_env * z) {
+    int pattern_match;
+
+    // First stage: Remove basic adjectival endings
+    if (r_adjective(z) <= 0) return r_adjective(z);
+
+    // Second stage: Try to remove additional participial/compound suffixes
+    int saved_position = z->l - z->c;  // Save position for backtracking
+
+    z->ket = z->c;
+    if (z->c <= z->lb || !valid_participial_char(z->p[z->c - 1])) {
+        // Restore position and continue
+        z->c = z->l - saved_position;
+        return 1;
+    }
+
+    // Look for additional patterns (8 patterns in a_2)
+    pattern_match = find_among_b(z, a_2, 8);
+    if (!pattern_match) {
+        z->c = z->l - saved_position;  // Backtrack on failure
+        return 1;
+    }
+
+    z->bra = z->c;
+    switch (pattern_match) {
+        case 1:
+            // Requires prefix check (а or я)
+            if (!check_prefix_chars(z, 0xC1, 0xD1)) {
+                z->c = z->l - saved_position;
+                return 1;
+            }
+            slice_del(z);
+            break;
+        case 2:
+            // Simple deletion
+            slice_del(z);
+            break;
+    }
+    return 1;
+}
+```

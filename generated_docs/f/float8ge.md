@@ -37,3 +37,16 @@ The underlying comparison logic in `float8_ge` implements the rule that:
 - This function is typically invoked through PostgreSQLs operator system rather than direct calls
 - The NaN handling follows the convention that NaN is treated as greater than any finite value
 - Part of PostgreSQLs comprehensive floating-point arithmetic system for ordered comparisons
+
+## Simplified Source
+
+```c
+Datum float8ge(PG_FUNCTION_ARGS) {
+    // Extract the two float8 arguments from SQL call
+    float8 arg1 = PG_GETARG_FLOAT8(0);
+    float8 arg2 = PG_GETARG_FLOAT8(1);
+
+    // Delegate to helper function and return boolean result
+    return PG_RETURN_BOOL(float8_ge(arg1, arg2));
+}
+```

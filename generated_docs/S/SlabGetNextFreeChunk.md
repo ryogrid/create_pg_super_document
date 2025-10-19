@@ -39,3 +39,42 @@ This function implements the core chunk allocation logic within a slab block. It
 - Integrates with Valgrind for memory error detection in debug builds
 - Updates both nfree (total free chunks) and nunused (unused chunks) counters appropriately
 - The function assumes block->nfree > 0 and will assert if this precondition is violated
+
+## Simplified Source
+
+```c
+static inline MemoryChunk *
+SlabGetNextFreeChunk(SlabContext *slab, SlabBlock *block)
+{
+    MemoryChunk *chunk;
+
+    Assert(block->nfree > 0);
+
+    // First try to reuse a previously freed chunk
+    if (block->freehead != NULL)
+    {
+        chunk = block->freehead;
+
+        // Pop chunk from linked list of free chunks
+        VALGRIND_MAKE_MEM_DEFINED(SlabChunkGetPointer(chunk), sizeof(MemoryChunk *));
+        block->freehead = *(MemoryChunk **) SlabChunkGetPointer(chunk);
+
+        // Verify freehead pointer integrity
+        Assert(block->freehead == NULL ||
+               (block->freehead >= SlabBlockGetChunk(slab, block, 0) &&
+                block->freehead <= SlabBlockGetChunk(slab, block, slab->chunksPerBlock - 1) &&
+                SlabChunkMod(slab, block, block->freehead) == 0));
+    }
+    else
+    {
+        // Allocate from unused chunk pool
+        Assert(block->nunused > 0);
+        chunk = block->unused;
+        block->unused = (MemoryChunk *) (((char *) block->unused) + slab->fullChunkSize);
+        block->nunused--;
+    }
+
+    block->nfree--;
+    return chunk;
+}
+```

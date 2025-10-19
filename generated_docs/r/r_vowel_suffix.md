@@ -40,3 +40,43 @@ The function uses backtracking mechanisms (m1, m2 markers) to restore the cursor
 - The function processes suffixes in reverse order (backwards through the string)
 - Returns 1 on successful completion, negative values on errors
 - The RV region check ensures suffixes are only removed from morphologically significant parts of the word
+
+## Simplified Source
+```c
+static int r_vowel_suffix(struct SN_env * z) {
+    // First attempt: Remove vowel suffixes (AEIO group)
+    int m1 = z->l - z->c;
+    z->ket = z->c;
+    if (in_grouping_b(z, g_AEIO, 97, 242, 0)) {
+        z->bra = z->c;
+        if (r_RV(z) > 0) {
+            slice_del(z);  // Remove vowel suffix
+
+            // Check for trailing 'i' and remove if in RV region
+            z->ket = z->c;
+            if (z->c > z->lb && z->p[z->c - 1] == 'i') {
+                z->c--;
+                z->bra = z->c;
+                if (r_RV(z) > 0) {
+                    slice_del(z);  // Remove 'i'
+                }
+            }
+        }
+    }
+    z->c = z->l - m1;  // Restore position if needed
+
+    // Second attempt: Remove 'h' preceded by consonants (c, g)
+    int m2 = z->l - z->c;
+    z->ket = z->c;
+    if (z->c > z->lb && z->p[z->c - 1] == 'h') {
+        z->c--;
+        z->bra = z->c;
+        if (in_grouping_b(z, g_CG, 99, 103, 0) && r_RV(z) > 0) {
+            slice_del(z);  // Remove consonant + 'h'
+        }
+    }
+    z->c = z->l - m2;  // Restore position if needed
+
+    return 1;
+}
+```

@@ -35,3 +35,21 @@ The  function is part of PostgreSQL's type system infrastructure, specifically h
 - Part of the CommandId type's input/output function suite
 - Uses a fixed 16-character buffer for the string representation
 - The function follows PostgreSQL's standard pattern for type output functions using the PG_FUNCTION_ARGS interface
+
+## Simplified Source
+
+```c
+Datum cidout(PG_FUNCTION_ARGS) {
+    // Get the CommandId from function arguments
+    CommandId c = PG_GETARG_COMMANDID(0);
+
+    // Allocate buffer for string representation
+    char *result = (char *) palloc(16);
+
+    // Convert CommandId to string format
+    snprintf(result, 16, "%lu", (unsigned long) c);
+
+    // Return the string
+    PG_RETURN_CSTRING(result);
+}
+```

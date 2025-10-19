@@ -28,3 +28,16 @@ The oidle function is a PostgreSQL system function that implements the less-than
 
 ## Notes and Other Information
 This function is part of PostgreSQL's operator infrastructure and is typically not called directly in C code but rather invoked through SQL expressions using the <= operator on Oid values. The function follows PostgreSQL's standard function calling convention and is registered in the system catalogs as the implementation for Oid less-than-or-equal-to comparison. It enables sorting and ordering operations on Oid values in SQL queries, complementing the other comparison operators.
+
+## Simplified Source
+
+```c
+Datum oidle(PG_FUNCTION_ARGS) {
+    // Extract the two OID arguments
+    Oid arg1 = PG_GETARG_OID(0);
+    Oid arg2 = PG_GETARG_OID(1);
+
+    // Compare and return boolean result
+    PG_RETURN_BOOL(arg1 <= arg2);
+}
+```

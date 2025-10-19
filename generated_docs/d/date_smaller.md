@@ -35,3 +35,15 @@ Like `date_larger`, the comparison is done directly on the DateADT values since 
 - The comparison works correctly with infinite date values due to their internal representation
 - Can be used in SQL as a built-in function for finding minimum dates
 - Complements the `date_larger` function for complete min/max date operations
+
+## Simplified Source
+
+```c
+Datum date_smaller(PG_FUNCTION_ARGS) {
+    DateADT date1 = PG_GETARG_DATEADT(0);
+    DateADT date2 = PG_GETARG_DATEADT(1);
+
+    // Return the smaller (earlier) date
+    PG_RETURN_DATEADT((date1 < date2) ? date1 : date2);
+}
+```

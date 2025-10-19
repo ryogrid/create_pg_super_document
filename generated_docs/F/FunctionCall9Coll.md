@@ -47,3 +47,39 @@ The function uses the LOCAL_FCINFO macro to create a local FunctionCallInfo stru
 - This 9-argument variant represents the highest-arity function call interface and is rarely used, reserved for the most complex operations requiring many parameters
 - Limited usage compared to lower-arity variants, primarily available for specialized or extensibility purposes
 - Located in src/backend/utils/fmgr/fmgr.c:1354-1400
+
+## Simplified Source
+```c
+Datum FunctionCall9Coll(FmgrInfo *flinfo, Oid collation,
+                        Datum arg1, Datum arg2, Datum arg3,
+                        Datum arg4, Datum arg5, Datum arg6,
+                        Datum arg7, Datum arg8, Datum arg9) {
+    LOCAL_FCINFO(fcinfo, 9);
+
+    // Initialize function call context with 9 arguments and collation
+    InitFunctionCallInfoData(*fcinfo, flinfo, 9, collation, NULL, NULL);
+
+    // Set all 9 arguments as non-null values
+    for (int i = 0; i < 9; i++) {
+        fcinfo->args[i].isnull = false;
+    }
+    fcinfo->args[0].value = arg1;
+    fcinfo->args[1].value = arg2;
+    fcinfo->args[2].value = arg3;
+    fcinfo->args[3].value = arg4;
+    fcinfo->args[4].value = arg5;
+    fcinfo->args[5].value = arg6;
+    fcinfo->args[6].value = arg7;
+    fcinfo->args[7].value = arg8;
+    fcinfo->args[8].value = arg9;
+
+    // Invoke the target function
+    Datum result = FunctionCallInvoke(fcinfo);
+
+    // Ensure non-null result (error if NULL returned)
+    if (fcinfo->isnull)
+        elog(ERROR, "function %u returned NULL", flinfo->fn_oid);
+
+    return result;
+}
+```

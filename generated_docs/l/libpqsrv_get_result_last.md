@@ -40,3 +40,42 @@ This function emulates PQexec()'s behavior by continuously calling libpqsrv_get_
 - Memory management is critical - automatically clears intermediate results to prevent leaks
 - Uses PostgreSQL's exception handling mechanism for robust error recovery
 - Located in src/include/libpq/libpq-be-fe-helpers.h:290-333
+
+## Simplified Source
+
+```c
+static inline PGresult *libpqsrv_get_result_last(PGconn *conn, uint32 wait_event_info) {
+    PGresult *volatile lastResult = NULL;
+
+    // Prevent PGresult leaks on exceptions
+    PG_TRY();
+    {
+        for (;;) {
+            // Get the next result with interrupt handling
+            PGresult *result = libpqsrv_get_result(conn, wait_event_info);
+            if (result == NULL)
+                break;  // Query complete or failed
+
+            // Keep only the last result, emulating PQexec() behavior
+            PQclear(lastResult);
+            lastResult = result;
+
+            // Stop on COPY operations or connection failures
+            if (PQresultStatus(lastResult) == PGRES_COPY_IN ||
+                PQresultStatus(lastResult) == PGRES_COPY_OUT ||
+                PQresultStatus(lastResult) == PGRES_COPY_BOTH ||
+                PQstatus(conn) == CONNECTION_BAD)
+                break;
+        }
+    }
+    PG_CATCH();
+    {
+        // Clean up on exception
+        PQclear(lastResult);
+        PG_RE_THROW();
+    }
+    PG_END_TRY();
+
+    return lastResult;
+}
+```

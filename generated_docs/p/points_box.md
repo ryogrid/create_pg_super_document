@@ -33,3 +33,16 @@ This function constructs a PostgreSQL BOX geometric object from two Point argume
 - Returns a PostgreSQL Datum containing the result BOX
 - Part of PostgreSQL's geometric data type conversion operations
 - Located in src/backend/utils/adt/geo_ops.c at lines 4217-4230
+
+## Simplified Source
+
+```c
+BOX* points_box(Point *p1, Point *p2) {
+    BOX *result = (BOX *) palloc(sizeof(BOX));
+
+    // Construct bounding box from the two points
+    box_construct(result, p1, p2);
+
+    return result;
+}
+```

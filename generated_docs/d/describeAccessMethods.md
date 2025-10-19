@@ -41,3 +41,74 @@ This function generates and executes a SQL query to list access methods from the
 - Uses static column translation array for proper internationalization
 - Distinguishes between index ('i') and table ('t') access method types
 - In verbose mode, shows handler function and description from pg_am catalog
+
+## Simplified Source
+
+```c
+bool
+describeAccessMethods(const char *pattern, bool verbose)
+{
+    PQExpBufferData buf;
+    PGresult *res;
+    printQueryOpt myopt = pset.popt;
+    static const bool translate_columns[] = {false, true, false, false};
+
+    // Check version compatibility - access methods introduced in 9.6
+    if (pset.sversion < 90600) {
+        char sverbuf[32];
+        pg_log_error("The server (version %s) does not support access methods.",
+                    formatPGVersionNumber(pset.sversion, false,
+                                        sverbuf, sizeof(sverbuf)));
+        return true;
+    }
+
+    initPQExpBuffer(&buf);
+
+    // Build base query for access methods
+    printfPQExpBuffer(&buf,
+                      "SELECT amname AS \"%s\",\n"
+                      "  CASE amtype"
+                      " WHEN 'i' THEN '%s'"
+                      " WHEN 't' THEN '%s'"
+                      " END AS \"%s\"",
+                      gettext_noop("Name"),
+                      gettext_noop("Index"),
+                      gettext_noop("Table"),
+                      gettext_noop("Type"));
+
+    // Add verbose columns if requested
+    if (verbose) {
+        appendPQExpBuffer(&buf,
+                          ",\n  amhandler AS \"%s\",\n"
+                          "  pg_catalog.obj_description(oid, 'pg_am') AS \"%s\"",
+                          gettext_noop("Handler"),
+                          gettext_noop("Description"));
+    }
+
+    appendPQExpBufferStr(&buf, "\nFROM pg_catalog.pg_am\n");
+
+    // Apply pattern filtering
+    if (!validateSQLNamePattern(&buf, pattern, false, false,
+                                NULL, "amname", NULL, NULL, NULL, 1)) {
+        termPQExpBuffer(&buf);
+        return false;
+    }
+
+    appendPQExpBufferStr(&buf, "ORDER BY 1;");
+
+    // Execute query and display results
+    res = PSQLexec(buf.data);
+    termPQExpBuffer(&buf);
+    if (!res)
+        return false;
+
+    myopt.title = _("List of access methods");
+    myopt.translate_header = true;
+    myopt.translate_columns = translate_columns;
+    myopt.n_translate_columns = lengthof(translate_columns);
+
+    printQuery(res, &myopt, pset.queryFout, false, pset.logfile);
+    PQclear(res);
+    return true;
+}
+```

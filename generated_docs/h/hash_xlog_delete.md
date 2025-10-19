@@ -46,3 +46,55 @@ This function handles the replay of tuple deletion operations in hash indexes du
 - The function ensures proper buffer management with validity checks and proper unlock/release order
 - Related to hashbucketcleanup() operations for maintaining hash index integrity
 - Supports bulk deletion of multiple tuples in a single operation through PageIndexMultiDelete
+
+## Simplified Source
+
+```c
+static void
+hash_xlog_delete(XLogReaderState *record)
+{
+    XLogRecPtr lsn = record->EndRecPtr;
+    xl_hash_delete *xldata = (xl_hash_delete *) XLogRecGetData(record);
+    Buffer bucketbuf = InvalidBuffer;
+    Buffer deletebuf;
+    XLogRedoAction action;
+
+    // Acquire cleanup lock on primary bucket page to prevent concurrent scans
+    if (xldata->is_primary_bucket_page)
+        action = XLogReadBufferForRedoExtended(record, 1, RBM_NORMAL, true, &deletebuf);
+    else {
+        // Get cleanup lock on bucket page first
+        (void) XLogReadBufferForRedoExtended(record, 0, RBM_NORMAL, true, &bucketbuf);
+        action = XLogReadBufferForRedo(record, 1, &deletebuf);
+    }
+
+    // Delete tuples from page
+    if (action == BLK_NEEDS_REDO) {
+        Page page = (Page) BufferGetPage(deletebuf);
+        char *ptr = XLogRecGetBlockData(record, 1, &len);
+
+        // Remove specified tuples
+        if (len > 0) {
+            OffsetNumber *unused = (OffsetNumber *) ptr;
+            OffsetNumber *unend = (OffsetNumber *) ((char *) ptr + len);
+            if ((unend - unused) > 0)
+                PageIndexMultiDelete(page, unused, unend - unused);
+        }
+
+        // Clear dead marking flag if requested
+        if (xldata->clear_dead_marking) {
+            HashPageOpaque pageopaque = HashPageGetOpaque(page);
+            pageopaque->hasho_flag &= ~LH_PAGE_HAS_DEAD_TUPLES;
+        }
+
+        PageSetLSN(page, lsn);
+        MarkBufferDirty(deletebuf);
+    }
+
+    // Release buffers
+    if (BufferIsValid(deletebuf))
+        UnlockReleaseBuffer(deletebuf);
+    if (BufferIsValid(bucketbuf))
+        UnlockReleaseBuffer(bucketbuf);
+}
+```

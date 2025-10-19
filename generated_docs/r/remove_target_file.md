@@ -33,3 +33,27 @@ This function is part of the pg_rewind utility's file operations module. It safe
 - Uses MAXPGPATH constant to ensure path buffer safety
 - Error handling distinguishes between ENOENT (file not found) and other system errors
 - Part of the pg_rewind utility which synchronizes a PostgreSQL data directory with another one
+
+## Simplified Source
+
+```c
+void remove_target_file(const char *path, bool missing_ok) {
+    char dstpath[MAXPGPATH];
+
+    // Skip actual operation in dry run mode
+    if (dry_run)
+        return;
+
+    // Build full target path
+    snprintf(dstpath, sizeof(dstpath), "%s/%s", datadir_target, path);
+
+    // Attempt to remove the file
+    if (unlink(dstpath) != 0) {
+        // Handle missing file based on missing_ok flag
+        if (errno == ENOENT && missing_ok)
+            return;
+
+        pg_fatal("could not remove file \"%s\": %m", dstpath);
+    }
+}
+```

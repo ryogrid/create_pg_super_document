@@ -32,7 +32,20 @@ This function is part of PostgreSQL's geometric data type system and allows SQL 
 
 ## Notes and Other Information
 - This is a PostgreSQL function interface (Datum return type with PG_FUNCTION_ARGS)
-- Acts as a thin wrapper around the internal  function
+- Acts as a thin wrapper around the internal function
 - Available for use in SQL queries to calculate slopes between two points
 - Returns the slope as a float8 value which can be used in further geometric calculations
 - Part of PostgreSQL's extensive geometric function library accessible via SQL
+
+## Simplified Source
+
+```c
+Datum point_slope(PG_FUNCTION_ARGS) {
+    // Get two points from function arguments
+    Point *pt1 = PG_GETARG_POINT_P(0);
+    Point *pt2 = PG_GETARG_POINT_P(1);
+
+    // Calculate and return slope of line between the two points
+    PG_RETURN_FLOAT8(point_sl(pt1, pt2));
+}
+```

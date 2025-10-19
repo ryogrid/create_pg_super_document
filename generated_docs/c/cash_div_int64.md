@@ -35,3 +35,18 @@ This function divides a Cash value by a 64-bit signed integer while checking for
 - The function throws a DIVISION_BY_ZERO error when zero divisor is detected
 - Used as a building block for various cash division operations with different integer types
 - Performs integer division which truncates towards zero (standard C behavior)
+
+## Simplified Source
+
+```c
+static inline Cash
+cash_div_int64(Cash c, int64 i)
+{
+    // Check for division by zero
+    if (unlikely(i == 0))
+        ereport(ERROR, (errcode(ERRCODE_DIVISION_BY_ZERO),
+                       errmsg("division by zero")));
+
+    return c / i;
+}
+```

@@ -34,3 +34,16 @@ The `dist_sl` function is a PostgreSQL built-in function that computes the minim
 - Handles both cases where the line segment intersects the line (distance = 0) and where they don't
 - Complementary to `dist_ls` which calculates distance from line to line segment
 - Part of PostgreSQL's geometric operator suite for complex spatial queries and geometric indexing
+
+## Simplified Source
+
+```c
+Datum dist_sl(PG_FUNCTION_ARGS) {
+    // Get line segment and line arguments
+    LSEG *lseg = PG_GETARG_LSEG_P(0);
+    LINE *line = PG_GETARG_LINE_P(1);
+
+    // Calculate and return minimum distance from line segment to line
+    PG_RETURN_FLOAT8(lseg_closept_line(NULL, lseg, line));
+}
+```

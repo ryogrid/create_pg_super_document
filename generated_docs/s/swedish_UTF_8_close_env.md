@@ -32,3 +32,13 @@ The function calls SN_close_env with parameters (z, 0), where:
 - Passing a NULL pointer or invalid environment pointer may cause undefined behavior
 - This is an external interface function that can be called from outside the module
 - Essential for proper memory management in Swedish text stemming operations
+
+## Simplified Source
+
+```c
+extern void swedish_UTF_8_close_env(struct SN_env * z) {
+    // Clean up and deallocate Swedish stemming environment
+    // Parameter 0 matches the string variable count from creation
+    SN_close_env(z, 0);
+}
+```

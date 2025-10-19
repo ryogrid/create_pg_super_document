@@ -33,3 +33,24 @@ This function manages the syslog facility setting used by PostgreSQL when loggin
 - Works in conjunction with assign_syslog_ident to manage syslog configuration
 - The facility value corresponds to standard syslog facilities defined in syslog.h
 - Located in src/backend/utils/error/elog.c:2335-2359
+
+## Simplified Source
+
+```c
+void assign_syslog_facility(int newval, void *extra) {
+#ifdef HAVE_SYSLOG
+    // Only update if the facility actually changed
+    if (syslog_facility != newval) {
+        // Close existing syslog connection if open
+        if (openlog_done) {
+            closelog();
+            openlog_done = false;
+        }
+
+        // Update to new facility value
+        syslog_facility = newval;
+    }
+#endif
+    // Without syslog support, do nothing
+}
+```

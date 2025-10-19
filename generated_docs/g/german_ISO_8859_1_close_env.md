@@ -36,3 +36,13 @@ This function is essential for proper memory management when using the German st
 - The parameter 0 passed to SN_close_env matches the first parameter used in german_ISO_8859_1_create_env
 - Part of the standard resource management pattern in the Snowball stemming library
 - After calling this function, the pointer becomes invalid and should not be dereferenced
+
+## Simplified Source
+
+```c
+extern void german_ISO_8859_1_close_env(struct SN_env * z) {
+    // Clean up and deallocate German stemming environment
+    // Parameter 0 indicates standard cleanup without special considerations
+    SN_close_env(z, 0);
+}
+```

@@ -50,3 +50,63 @@ The function employs a branching logic structure with multiple conditional paths
 - Returns 1 on successful completion, 0 if required patterns don't match, or negative values on error
 - Part of a sequential stemming pipeline where step 5c follows previous stemming steps
 - The function handles complex branching logic for different Greek morphological contexts
+
+## Simplified Source
+
+```c
+static int r_step5c(struct SN_env * z) {
+    // Phase 1: Optional pattern removal with backtracking
+    int saved_pos1 = z->l - z->c;
+    z->ket = z->c;
+
+    // Check for specific character (181) and minimum length
+    if (z->c - 9 > z->lb && z->p[z->c - 1] == 181) {
+        if (find_among_b(z, a_40, 1)) {  // Find from a_40 (1 pattern)
+            z->bra = z->c;
+            slice_del(z);  // Remove matched pattern
+            z->I[0] = 0;   // Reset state
+        }
+    }
+    z->c = z->l - saved_pos1;  // Restore position
+
+    // Phase 2: Mandatory suffix processing
+    z->ket = z->c;
+    if (!eq_s_b(z, 6, s_80)) return 0;  // Must find specific 6-char suffix
+    z->bra = z->c;
+    slice_del(z);  // Remove the suffix
+    z->I[0] = 0;   // Reset state
+
+    // Phase 3: Conditional vowel-based processing with backtracking
+    int saved_pos2 = z->l - z->c;
+    z->ket = z->c;
+    z->bra = z->c;
+
+    if (!in_grouping_b_U(z, g_v2, 945, 969, 0)) {
+        // Path A: Vowel found, replace with s_81
+        slice_from_s(z, 4, s_81);
+    } else {
+        // Path B: No vowel, try alternative pattern matching
+        z->c = z->l - saved_pos2;
+        z->ket = z->c;
+        z->bra = z->c;
+
+        if (find_among_b(z, a_41, 31)) {  // Find from a_41 (31 patterns)
+            slice_from_s(z, 4, s_82);
+        } else {
+            // Restore position if no pattern found
+            z->c = z->l - saved_pos2;
+            z->ket = z->c;
+        }
+    }
+
+    // Phase 4: Final pattern matching at word boundary
+    z->bra = z->c;
+    if (!find_among_b(z, a_42, 25)) return 0;  // Find from a_42 (25 patterns)
+    if (z->c > z->lb) return 0;  // Must be at word beginning
+
+    // Final replacement
+    slice_from_s(z, 4, s_83);
+
+    return 1;  // Success
+}
+```

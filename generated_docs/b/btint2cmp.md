@@ -32,3 +32,18 @@ btint2cmp is a PostgreSQL built-in function that implements comparison logic for
 - This is a core function for B-tree indexing operations on smallint columns
 - Located in src/backend/access/nbtree/nbtcompare.c alongside other B-tree comparison functions
 - The int32 promotion ensures that subtraction of the largest possible int16 values will not overflow
+
+## Simplified Source
+
+```c
+Datum
+btint2cmp(PG_FUNCTION_ARGS)
+{
+    // Extract the two 16-bit integer arguments
+    int16 a = PG_GETARG_INT16(0);
+    int16 b = PG_GETARG_INT16(1);
+
+    // Compare by subtracting with promotion to int32 to avoid overflow
+    PG_RETURN_INT32((int32) a - (int32) b);
+}
+```

@@ -43,3 +43,18 @@ The function serves as a wrapper that handles PostgreSQL's function calling conv
 - Part of PostgreSQL's variable-length character data handling utilities
 - Located in src/backend/utils/adt/varlena.c with other text manipulation functions
 - The function signature matches PostgreSQL's C function interface for SQL-callable functions
+
+## Simplified Source
+
+```c
+Datum textoverlay(PG_FUNCTION_ARGS) {
+    // Get arguments for overlay operation
+    text *t1 = PG_GETARG_TEXT_PP(0);  // original text
+    text *t2 = PG_GETARG_TEXT_PP(1);  // replacement text
+    int sp = PG_GETARG_INT32(2);      // substring start position
+    int sl = PG_GETARG_INT32(3);      // substring length to replace
+
+    // Delegate to internal overlay function and return result
+    PG_RETURN_TEXT_P(text_overlay(t1, t2, sp, sl));
+}
+```

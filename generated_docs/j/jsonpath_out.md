@@ -37,3 +37,19 @@ The function follows PostgreSQL's standard pattern for type output functions, ta
 - Memory allocation for the resulting string is handled through PostgreSQL's memory context system
 - Part of PostgreSQL's JSON path expression support, providing the inverse operation to 
 - Essential for displaying jsonpath values in query results and performing text conversions
+
+## Simplified Source
+
+```c
+Datum jsonpath_out(PG_FUNCTION_ARGS) {
+    JsonPath *in = PG_GETARG_JSONPATH_P(0);
+
+    // Convert internal jsonpath to string representation
+    PG_RETURN_CSTRING(jsonPathToCstring(NULL, in, VARSIZE(in)));
+}
+```
+
+This function:
+1. Extracts the jsonpath argument using PostgreSQL's argument handling macro
+2. Calls the core conversion function with the jsonpath data and its size
+3. Returns the resulting C-string representation using PostgreSQL's return macro

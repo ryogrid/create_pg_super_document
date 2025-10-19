@@ -31,3 +31,23 @@ This function iterates through all block references in a WAL record to check if 
 - Used to implement the --fpw option in pg_waldump for analyzing full page write behavior
 - Checks all valid block references in the record (from 0 to XLogRecMaxBlockId)
 - Essential for understanding WAL overhead and optimizing checkpoint frequency
+
+## Simplified Source
+
+```c
+static bool
+XLogRecordHasFPW(XLogReaderState *record)
+{
+    // Check each block reference in the record
+    for (int block_id = 0; block_id <= XLogRecMaxBlockId(record); block_id++) {
+        if (!XLogRecHasBlockRef(record, block_id))
+            continue;
+
+        // Return true if any block has a full page image
+        if (XLogRecHasBlockImage(record, block_id))
+            return true;
+    }
+
+    return false;
+}
+```

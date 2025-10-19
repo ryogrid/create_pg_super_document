@@ -47,3 +47,52 @@ The function employs cursor management to process the word from right-to-left wh
 - Returns 1 on successful completion, negative values on error conditions
 - The algorithm follows the standard Snowball methodology with Romanian-specific linguistic rules
 - Processing occurs backwards from word end while maintaining forward processing capability for postlude operations
+
+## Simplified Source
+
+```c
+extern int romanian_ISO_8859_2_stem(struct SN_env * z) {
+    // Step 1: Preprocess text (character normalization)
+    int c1 = z->c;
+    r_prelude(z);
+    z->c = c1;
+
+    // Step 2: Mark morphological regions
+    r_mark_regions(z);
+
+    // Set up for backward processing
+    z->lb = z->c;
+    z->c = z->l;
+
+    // Step 3: Initial suffix removal
+    int m2 = z->l - z->c;
+    r_step_0(z);
+    z->c = z->l - m2;
+
+    // Step 4: Standard suffix processing
+    int m3 = z->l - z->c;
+    r_standard_suffix(z);
+    z->c = z->l - m3;
+
+    // Step 5: Conditional verb processing
+    int m4 = z->l - z->c;
+    if (!z->I[3]) {
+        // Apply verb suffix removal only if standard processing didn't occur
+        r_verb_suffix(z);
+    }
+    z->c = z->l - m4;
+
+    // Step 6: Final vowel suffix cleanup
+    int m6 = z->l - z->c;
+    r_vowel_suffix(z);
+    z->c = z->l - m6;
+
+    // Step 7: Post-processing cleanup
+    z->c = z->lb;
+    int c7 = z->c;
+    r_postlude(z);
+    z->c = c7;
+
+    return 1;
+}
+```

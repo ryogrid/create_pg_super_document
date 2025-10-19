@@ -45,3 +45,26 @@ The function automatically extracts the LLVM context from the parent function of
 - This is an inline function defined in a header file for performance in the JIT compilation path
 - Primarily used in PostgreSQL's LLVM-based JIT expression compilation to create control flow structures like conditional branches, loops, and error handling blocks
 - The function is heavily utilized in  with over 40 call sites, indicating its importance in the JIT infrastructure
+
+## Simplified Source
+
+```c
+// Create new basic block before reference block with formatted name
+static inline LLVMBasicBlockRef
+l_bb_before_v(LLVMBasicBlockRef ref_block, const char *fmt, ...)
+{
+    char block_name[512];
+    va_list args;
+
+    // Format the block name using printf-style arguments
+    va_start(args, fmt);
+    vsnprintf(block_name, sizeof(block_name), fmt, args);
+    va_end(args);
+
+    // Get LLVM context from parent function
+    LLVMContextRef context = LLVMGetTypeContext(LLVMTypeOf(LLVMGetBasicBlockParent(ref_block)));
+
+    // Create and insert new basic block before reference block
+    return LLVMInsertBasicBlockInContext(context, ref_block, block_name);
+}
+```

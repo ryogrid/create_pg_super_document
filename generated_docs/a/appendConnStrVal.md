@@ -40,3 +40,40 @@ The function is essential for building dynamic connection strings safely, ensuri
 - Used extensively in PostgreSQL utilities that need to construct connection strings dynamically
 - The conservative approach to quoting ensures compatibility across different PostgreSQL versions and environments
 - Does not validate the input string format - assumes valid C string input
+
+## Simplified Source
+
+```c
+void appendConnStrVal(PQExpBuffer buf, const char *str) {
+    const char *s;
+    bool needquotes;
+
+    // Check if string contains only safe characters (letters, digits, _, .)
+    needquotes = true;
+    for (s = str; *s; s++) {
+        if (!((*s >= 'a' && *s <= 'z') || (*s >= 'A' && *s <= 'Z') ||
+              (*s >= '0' && *s <= '9') || *s == '_' || *s == '.')) {
+            needquotes = true;
+            break;
+        }
+        needquotes = false;  // All characters so far are safe
+    }
+
+    if (needquotes) {
+        // Quote and escape the string
+        appendPQExpBufferChar(buf, '\'');
+        while (*str) {
+            // Escape single quotes and backslashes by doubling them
+            if (*str == '\'' || *str == '\\')
+                appendPQExpBufferChar(buf, '\\');
+
+            appendPQExpBufferChar(buf, *str);
+            str++;
+        }
+        appendPQExpBufferChar(buf, '\'');
+    } else {
+        // Safe string - no quoting needed
+        appendPQExpBufferStr(buf, str);
+    }
+}
+```

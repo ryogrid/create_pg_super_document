@@ -40,3 +40,17 @@ The function follows PostgreSQL's standard pattern of extracting arguments, call
 - Essential for geometric queries involving spatial relationships
 - Part of PostgreSQL's geometric operator system in geo_ops.c
 - Enables SQL queries like: SELECT * FROM table WHERE box1 && box2
+
+## Simplified Source
+
+```c
+Datum
+box_overlap(PG_FUNCTION_ARGS)
+{
+    BOX *box1 = PG_GETARG_BOX_P(0);
+    BOX *box2 = PG_GETARG_BOX_P(1);
+
+    // Delegate to internal overlap function
+    PG_RETURN_BOOL(box_ov(box1, box2));
+}
+```

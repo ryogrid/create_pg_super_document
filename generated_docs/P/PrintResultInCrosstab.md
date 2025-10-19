@@ -44,3 +44,111 @@ The function supports up to 4 optional arguments via pset.ctv_args:
 - Vertical and horizontal header columns must be different
 - Memory management includes proper cleanup of allocated arrays and AVL tree structures
 - Returns false on any error condition, true on successful processing
+
+## Simplified Source
+
+```c
+bool PrintResultInCrosstab(const PGresult *res) {
+    bool success = false;
+    avl_tree column_headers, row_headers;
+    pivot_field *column_array = NULL;
+    pivot_field *row_array = NULL;
+    int num_columns = 0, num_rows = 0;
+    int row_field, column_field, data_field, sort_field;
+
+    // Initialize AVL trees for collecting distinct values
+    avlInit(&row_headers);
+    avlInit(&column_headers);
+
+    // Validate result set
+    if (PQresultStatus(res) != PGRES_TUPLES_OK) {
+        pg_log_error("\\crosstabview: statement did not return a result set");
+        goto cleanup;
+    }
+
+    if (PQnfields(res) < 3) {
+        pg_log_error("\\crosstabview: query must return at least three columns");
+        goto cleanup;
+    }
+
+    // Determine column assignments from arguments or defaults
+    row_field = (pset.ctv_args[0] == NULL) ? 0 : indexOfColumn(pset.ctv_args[0], res);
+    column_field = (pset.ctv_args[1] == NULL) ? 1 : indexOfColumn(pset.ctv_args[1], res);
+
+    if (row_field < 0 || column_field < 0 || row_field == column_field) {
+        pg_log_error("\\crosstabview: invalid column specifications");
+        goto cleanup;
+    }
+
+    // Determine data column
+    if (pset.ctv_args[2] == NULL) {
+        if (PQnfields(res) != 3) {
+            pg_log_error("\\crosstabview: data column must be specified when query returns more than three columns");
+            goto cleanup;
+        }
+        // Find the remaining column
+        for (int i = 0; i < PQnfields(res); i++) {
+            if (i != row_field && i != column_field) {
+                data_field = i;
+                break;
+            }
+        }
+    } else {
+        data_field = indexOfColumn(pset.ctv_args[2], res);
+        if (data_field < 0) goto cleanup;
+    }
+
+    // Optional sort column for horizontal headers
+    sort_field = (pset.ctv_args[3] == NULL) ? -1 : indexOfColumn(pset.ctv_args[3], res);
+
+    // Collect distinct values for headers using AVL trees
+    for (int row = 0; row < PQntuples(res); row++) {
+        // Collect column header values
+        char *col_val = PQgetisnull(res, row, column_field) ? NULL :
+                        PQgetvalue(res, row, column_field);
+        char *sort_val = (sort_field >= 0 && !PQgetisnull(res, row, sort_field)) ?
+                         PQgetvalue(res, row, sort_field) : NULL;
+
+        avlMergeValue(&column_headers, col_val, sort_val);
+
+        if (column_headers.count > CROSSTABVIEW_MAX_COLUMNS) {
+            pg_log_error("\\crosstabview: maximum number of columns (%d) exceeded",
+                         CROSSTABVIEW_MAX_COLUMNS);
+            goto cleanup;
+        }
+
+        // Collect row header values
+        char *row_val = PQgetisnull(res, row, row_field) ? NULL :
+                        PQgetvalue(res, row, row_field);
+        avlMergeValue(&row_headers, row_val, NULL);
+    }
+
+    // Convert AVL trees to sorted arrays
+    num_columns = column_headers.count;
+    num_rows = row_headers.count;
+
+    column_array = pg_malloc(sizeof(pivot_field) * num_columns);
+    row_array = pg_malloc(sizeof(pivot_field) * num_rows);
+
+    avlCollectFields(&column_headers, column_headers.root, column_array, 0);
+    avlCollectFields(&row_headers, row_headers.root, row_array, 0);
+
+    // Apply sorting if sort column specified
+    if (sort_field >= 0)
+        rankSort(num_columns, column_array);
+
+    // Generate the crosstab output
+    success = printCrosstab(res,
+                           num_columns, column_array, column_field,
+                           num_rows, row_array, row_field,
+                           data_field);
+
+cleanup:
+    avlFree(&column_headers, column_headers.root);
+    avlFree(&row_headers, row_headers.root);
+    pg_free(column_array);
+    pg_free(row_array);
+
+    return success;
+}
+```

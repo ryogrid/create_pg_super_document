@@ -38,3 +38,46 @@ This function creates a new database connection for a parallel slot using stored
 - Executes initialization commands after connection establishment if configured
 - The function is static, limiting scope to the parallel_slot.c compilation unit
 - Critical for proper parallel operation setup and connection management
+
+## Simplified Source
+
+```c
+static void connect_slot(ParallelSlotArray *sa, int slotno, const char *dbname) {
+    const char *old_override;
+    ParallelSlot *slot = &sa->slots[slotno];
+
+    // Temporarily override database name if specified
+    old_override = sa->cparams->override_dbname;
+    if (dbname) {
+        sa->cparams->override_dbname = dbname;
+    }
+
+    // Establish the database connection
+    slot->connection = connectDatabase(sa->cparams, sa->progname, sa->echo, false, true);
+
+    // Restore original database name
+    sa->cparams->override_dbname = old_override;
+
+    // Platform-specific FD_SETSIZE validation
+#ifdef WIN32
+    // Windows: check slot count limit
+    if (slotno >= FD_SETSIZE) {
+        pg_log_error("too many jobs for this platform: %d", slotno);
+        exit(1);
+    }
+#else
+    // POSIX: check actual file descriptor value
+    int fd = PQsocket(slot->connection);
+    if (fd >= FD_SETSIZE) {
+        pg_log_error("socket file descriptor out of range for select(): %d", fd);
+        pg_log_error_hint("Try fewer jobs.");
+        exit(1);
+    }
+#endif
+
+    // Execute initialization command if configured
+    if (sa->initcmd) {
+        executeCommand(slot->connection, sa->initcmd, sa->echo);
+    }
+}
+```

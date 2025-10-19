@@ -34,3 +34,16 @@ The xid8ge function provides the '>=' comparison operator for PostgreSQL's full 
 - Properly handles transaction ID wraparound through FullTransactionIdFollowsOrEquals
 - Returns a boolean Datum indicating the comparison result
 - Located in src/backend/utils/adt/xid.c:268-276
+
+## Simplified Source
+
+```c
+Datum xid8ge(PG_FUNCTION_ARGS) {
+    // Extract the two 64-bit transaction IDs from function arguments
+    FullTransactionId fxid1 = PG_GETARG_FULLTRANSACTIONID(0);
+    FullTransactionId fxid2 = PG_GETARG_FULLTRANSACTIONID(1);
+
+    // Return true if first transaction ID follows or equals the second
+    PG_RETURN_BOOL(FullTransactionIdFollowsOrEquals(fxid1, fxid2));
+}
+```

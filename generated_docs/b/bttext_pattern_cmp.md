@@ -37,3 +37,27 @@ The function uses `internal_text_pattern_compare` to perform byte-wise compariso
 - Located in `src/backend/utils/adt/varlena.c` at lines 2883-2898
 - Compatible with "C" collation and designed for use in B-tree operator classes
 - Essential for building efficient indexes that can support pattern matching operations
+
+## Simplified Source
+
+This function provides B-tree comparison support for text pattern operations by returning the raw integer comparison result for two text values using character-by-character comparison.
+
+```c
+Datum
+bttext_pattern_cmp(PG_FUNCTION_ARGS)
+{
+    // Extract the two text arguments
+    text *arg1 = PG_GETARG_TEXT_PP(0);
+    text *arg2 = PG_GETARG_TEXT_PP(1);
+
+    // Compare using character-by-character comparison
+    int result = internal_text_pattern_compare(arg1, arg2);
+
+    // Clean up memory for copied arguments
+    PG_FREE_IF_COPY(arg1, 0);
+    PG_FREE_IF_COPY(arg2, 1);
+
+    // Return integer comparison result (-1, 0, or +1)
+    PG_RETURN_INT32(result);
+}
+```

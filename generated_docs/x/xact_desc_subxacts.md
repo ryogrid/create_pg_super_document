@@ -37,3 +37,19 @@ This utility function is used internally by the xact description functions to ap
 - Uses %u format specifier for TransactionId values
 - Critical for debugging nested transactions and understanding transaction hierarchies in WAL analysis
 - Complementary to xact_desc_relations for providing complete transaction context
+
+## Simplified Source
+
+```c
+static void xact_desc_subxacts(StringInfo buf, int nsubxacts, TransactionId *subxacts) {
+    if (nsubxacts > 0) {
+        // Add label for subtransactions
+        appendStringInfoString(buf, "; subxacts:");
+
+        // Append each subtransaction ID
+        for (int i = 0; i < nsubxacts; i++) {
+            appendStringInfo(buf, " %u", subxacts[i]);
+        }
+    }
+}
+```

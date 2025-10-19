@@ -33,3 +33,20 @@ The function can only be executed when the server is running in binary upgrade m
 - The set OID value will be consumed when the next enum value is created via CREATE TYPE or ALTER TYPE commands
 - Part of PostgreSQL's comprehensive OID preservation system during binary upgrades
 - Essential for databases using enum types to maintain data consistency across version upgrades
+
+## Simplified Source
+
+```c
+Datum binary_upgrade_set_next_pg_enum_oid(PG_FUNCTION_ARGS)
+{
+    Oid enumoid = PG_GETARG_OID(0);
+
+    // Verify we're in binary upgrade mode
+    CHECK_IS_BINARY_UPGRADE;
+
+    // Store the OID for the next enum value to be created
+    binary_upgrade_next_pg_enum_oid = enumoid;
+
+    PG_RETURN_VOID();
+}
+```

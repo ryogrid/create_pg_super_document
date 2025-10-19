@@ -44,3 +44,31 @@ The formatted message is allocated in the ErrorContext and returned as a string.
 - The returned string should not be freed by the caller (managed by ErrorContext)
 - Used extensively in GUC system and archive modules for error reporting
 - Memory allocation is done in ErrorContext to ensure proper cleanup
+
+## Simplified Source
+
+```c
+char *format_elog_string(const char *fmt, ...) {
+    ErrorData error_data;
+    MemoryContext old_context;
+
+    // Initialize error data structure
+    memset(&error_data, 0, sizeof(ErrorData));
+
+    // Use saved domain and errno from pre_format_elog_string
+    error_data.domain = save_format_domain ? save_format_domain : PG_TEXTDOMAIN("postgres");
+    error_data.saved_errno = save_format_errnumber;
+
+    // Switch to ErrorContext for message allocation
+    old_context = MemoryContextSwitchTo(ErrorContext);
+
+    // Format the message using PostgreSQL's formatting system
+    error_data.message_id = fmt;
+    EVALUATE_MESSAGE(error_data.domain, message, false, true);
+
+    // Restore previous memory context
+    MemoryContextSwitchTo(old_context);
+
+    return error_data.message;
+}
+```

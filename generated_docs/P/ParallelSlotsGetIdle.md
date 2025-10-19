@@ -41,3 +41,51 @@ This function implements a four-tier strategy for obtaining an idle parallel slo
 - Executes initialization commands on newly created connections if configured
 - Critical for efficient parallel processing in PostgreSQL client tools
 - Function is part of the public API (not static) for use across different PostgreSQL utilities
+
+## Simplified Source
+
+```c
+ParallelSlot *
+ParallelSlotsGetIdle(ParallelSlotArray *sa, const char *dbname)
+{
+    int offset;
+
+    Assert(sa);
+    Assert(sa->numslots > 0);
+
+    while (1)
+    {
+        // First choice: slot already connected to desired database
+        offset = find_matching_idle_slot(sa, dbname);
+        if (offset >= 0)
+        {
+            sa->slots[offset].inUse = true;
+            return &sa->slots[offset];
+        }
+
+        // Second choice: unconnected slot
+        offset = find_unconnected_slot(sa);
+        if (offset >= 0)
+        {
+            connect_slot(sa, offset, dbname);
+            sa->slots[offset].inUse = true;
+            return &sa->slots[offset];
+        }
+
+        // Third choice: slot connected to wrong database
+        offset = find_any_idle_slot(sa);
+        if (offset >= 0)
+        {
+            disconnectDatabase(sa->slots[offset].connection);
+            sa->slots[offset].connection = NULL;
+            connect_slot(sa, offset, dbname);
+            sa->slots[offset].inUse = true;
+            return &sa->slots[offset];
+        }
+
+        // Fourth choice: block until slots become available
+        if (!wait_on_slots(sa))
+            return NULL;
+    }
+}
+```

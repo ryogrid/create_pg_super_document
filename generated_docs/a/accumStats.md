@@ -42,3 +42,46 @@ The  function is a core statistics collection function in pgbench that processes
 - Different failure types (serialization errors, deadlocks) are counted separately for detailed analysis
 - Contains defensive programming with pg_fatal for unexpected error statuses
 - Part of pgbench's comprehensive performance measurement system in src/bin/pgbench/pgbench.c:1451-1499
+
+## Simplified Source
+
+```c
+static void accumStats(StatsData *stats, bool skipped, double lat, double lag,
+                       EStatus estatus, int64 tries) {
+    // Handle skipped transactions
+    if (skipped) {
+        stats->skipped++;
+        return;
+    }
+
+    // Track retry attempts (tries > 1 means retries occurred)
+    if (tries > 1) {
+        stats->retries += (tries - 1);
+        stats->retried++;
+    }
+
+    // Process based on transaction status
+    switch (estatus) {
+        case ESTATUS_NO_ERROR:
+            // Successful transaction: count and record timing
+            stats->cnt++;
+            addToSimpleStats(&stats->latency, lat);
+
+            // Record lag if throttling is enabled
+            if (throttle_delay)
+                addToSimpleStats(&stats->lag, lag);
+            break;
+
+        case ESTATUS_SERIALIZATION_ERROR:
+            stats->serialization_failures++;
+            break;
+
+        case ESTATUS_DEADLOCK_ERROR:
+            stats->deadlock_failures++;
+            break;
+
+        default:
+            pg_fatal("unexpected error status: %d", estatus);
+    }
+}
+```

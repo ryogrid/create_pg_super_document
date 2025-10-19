@@ -38,3 +38,14 @@ The function returns a pointer to a newly allocated SN_env structure that contai
 - This function is encoding-specific (ISO-8859-1), with a corresponding UTF-8 variant available for Unicode text processing
 - Essential for integrating Catalan language support into PostgreSQL's full-text search functionality
 - Part of the Snowball stemming library's language-specific API design pattern
+
+## Simplified Source
+
+```c
+extern struct SN_env * catalan_ISO_8859_1_create_env(void) {
+    // Create stemming environment for Catalan with:
+    // - 0: initial string capacity
+    // - 2: number of integer variables (for R1, R2 regions)
+    return SN_create_env(0, 2);
+}
+```

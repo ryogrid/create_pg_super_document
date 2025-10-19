@@ -49,3 +49,61 @@ For each archive member, the function processes four main contexts:
 - File path construction removes trailing slashes from directory names
 - The function reports output file changes through an optional callback mechanism
 - Located in src/bin/pg_basebackup/bbstreamer_file.c:203-291
+
+## Simplified Source
+
+```c
+static void
+bbstreamer_extractor_content(bbstreamer *streamer, bbstreamer_member *member,
+                             const char *data, int len,
+                             bbstreamer_archive_context context)
+{
+    bbstreamer_extractor *extractor = (bbstreamer_extractor *) streamer;
+
+    switch (context)
+    {
+        case BBSTREAMER_MEMBER_HEADER:
+            // Build full path: basepath + member path
+            snprintf(extractor->filename, sizeof(extractor->filename),
+                     "%s/%s", extractor->basepath, member->pathname);
+
+            // Remove trailing slash if present
+            int fnamelen = strlen(extractor->filename);
+            if (extractor->filename[fnamelen - 1] == '/')
+                extractor->filename[fnamelen - 1] = '\0';
+
+            // Handle different file types
+            if (member->is_directory)
+                extract_directory(extractor->filename, member->mode);
+            else if (member->is_link)
+                extract_link(extractor->filename, member->linktarget);
+            else
+                extractor->file = create_file_for_extract(extractor->filename, member->mode);
+
+            // Report file creation
+            if (extractor->report_output_file)
+                extractor->report_output_file(extractor->filename);
+            break;
+
+        case BBSTREAMER_MEMBER_CONTENTS:
+            // Write data to file if open
+            if (extractor->file && len > 0) {
+                if (fwrite(data, len, 1, extractor->file) != 1)
+                    pg_fatal("could not write to file \"%s\": %m", extractor->filename);
+            }
+            break;
+
+        case BBSTREAMER_MEMBER_TRAILER:
+            // Close current file
+            if (extractor->file) {
+                fclose(extractor->file);
+                extractor->file = NULL;
+            }
+            break;
+
+        case BBSTREAMER_ARCHIVE_TRAILER:
+            // End of archive - no action needed
+            break;
+    }
+}
+```

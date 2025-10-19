@@ -37,3 +37,20 @@ The function saves the current errno value, calls the standard free() function t
 - Used in error recovery scenarios where memory must be freed but errno must be preserved
 - Common pattern in systems programming where cleanup operations should not interfere with error reporting
 - Located in src/bin/pg_dump/compress_io.c at lines 179-194
+
+## Simplified Source
+
+```c
+static void
+free_keep_errno(void *p)
+{
+    // Save current error state
+    int saved_errno = errno;
+
+    // Free the memory
+    free(p);
+
+    // Restore original error state
+    errno = saved_errno;
+}
+```

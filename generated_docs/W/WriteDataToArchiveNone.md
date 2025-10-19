@@ -29,3 +29,15 @@ This function implements the data writing functionality for the "none" compressi
 - Simply delegates to the write function stored in the compressor state
 - No data transformation or compression is performed
 - Located in src/bin/pg_dump/compress_none.c:49-55
+
+## Simplified Source
+
+```c
+static void
+WriteDataToArchiveNone(ArchiveHandle *AH, CompressorState *cs,
+                       const void *data, size_t dLen)
+{
+    // Simply pass through data without compression
+    cs->writeF(AH, data, dLen);
+}
+```

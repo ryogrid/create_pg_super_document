@@ -39,3 +39,32 @@ The function iterates through all OID values in the oidvector, formatting each a
 - The resulting string is null-terminated
 - Memory allocation follows PostgreSQL's palloc pattern for automatic cleanup
 - Efficient single-pass algorithm that builds the output string incrementally
+
+## Simplified Source
+
+```c
+Datum oidvectorout(PG_FUNCTION_ARGS) {
+    oidvector *oidArray = (oidvector *) PG_GETARG_POINTER(0);
+    int nnums = oidArray->dim1;
+    char *rp;
+    char *result;
+
+    // Allocate buffer: assume max 12 chars per OID (sign + 10 digits + space)
+    rp = result = (char *) palloc(nnums * 12 + 1);
+
+    // Format each OID with space separators
+    for (int num = 0; num < nnums; num++) {
+        if (num != 0)
+            *rp++ = ' ';
+
+        sprintf(rp, "%u", oidArray->values[num]);
+
+        // Advance pointer to end of formatted number
+        while (*++rp != '\0')
+            ;
+    }
+
+    *rp = '\0';
+    PG_RETURN_CSTRING(result);
+}
+```

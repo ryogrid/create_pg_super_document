@@ -56,3 +56,121 @@ Key features include:
 - The combination of e_strings=true and del_quotes=true is not currently supported
 - Changing whitespace characters between calls on the same string is discouraged as it may cause data loss
 - Memory is automatically freed when tokenization is complete or a new string is provided
+
+## Simplified Source
+
+```c
+char *strtokx(const char *s, const char *whitespace, const char *delim,
+              const char *quote, char escape, bool e_strings,
+              bool del_quotes, int encoding) {
+    static char *storage = NULL;  // Local copy of user's string
+    static char *string = NULL;   // Current position in string
+
+    // Initialize with new string if provided
+    if (s) {
+        free(storage);
+        storage = pg_malloc(2 * strlen(s) + 1);  // Extra space for delimiter nulls
+        strcpy(storage, s);
+        string = storage;
+    }
+
+    if (!storage)
+        return NULL;
+
+    // Skip leading whitespace
+    string += strspn(string, whitespace);
+    char *start = string;
+
+    // Check for end of string
+    if (*start == '\0') {
+        free(storage);
+        storage = NULL;
+        string = NULL;
+        return NULL;
+    }
+
+    // Handle delimiter characters
+    if (delim && strchr(delim, *start)) {
+        char *p = start + 1;
+        if (*p != '\0') {
+            if (!strchr(whitespace, *p))
+                memmove(p + 1, p, strlen(p) + 1);  // Make room for null
+            *p = '\0';
+            string = p + 1;
+        } else {
+            string = p;
+        }
+        return start;
+    }
+
+    // Handle E-string syntax (E'...')
+    char *p = start;
+    if (e_strings && (*p == 'E' || *p == 'e') && p[1] == '\'') {
+        quote = "'";
+        escape = '\\';
+        p++;
+    }
+
+    // Handle quoted tokens
+    if (quote && strchr(quote, *p)) {
+        char thisquote = *p++;
+
+        // Scan for closing quote, handling escapes
+        for (; *p; p += PQmblenBounded(p, encoding)) {
+            if (*p == escape && p[1] != '\0')
+                p++;  // Skip escaped character
+            else if (*p == thisquote && p[1] == thisquote)
+                p++;  // Skip doubled quote
+            else if (*p == thisquote) {
+                p++;  // Found closing quote
+                break;
+            }
+        }
+
+        // Terminate token and update position
+        if (*p != '\0') {
+            if (!strchr(whitespace, *p))
+                memmove(p + 1, p, strlen(p) + 1);
+            *p = '\0';
+            string = p + 1;
+        } else {
+            string = p;
+        }
+
+        // Strip quotes if requested
+        if (del_quotes)
+            strip_quotes(start, thisquote, escape, encoding);
+
+        return start;
+    }
+
+    // Handle unquoted tokens - scan until whitespace, delimiter, or quote
+    unsigned int offset = strcspn(start, whitespace);
+
+    if (delim) {
+        unsigned int offset2 = strcspn(start, delim);
+        if (offset > offset2)
+            offset = offset2;
+    }
+
+    if (quote) {
+        unsigned int offset2 = strcspn(start, quote);
+        if (offset > offset2)
+            offset = offset2;
+    }
+
+    p = start + offset;
+
+    // Terminate token and update position
+    if (*p != '\0') {
+        if (!strchr(whitespace, *p))
+            memmove(p + 1, p, strlen(p) + 1);
+        *p = '\0';
+        string = p + 1;
+    } else {
+        string = p;
+    }
+
+    return start;
+}
+```

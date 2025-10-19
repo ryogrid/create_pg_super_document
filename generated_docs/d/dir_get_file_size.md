@@ -35,3 +35,26 @@ This function is a static implementation of the file size retrieval operation fo
 - The function constructs the full path using MAXPGPATH buffer size limit
 - Part of the directory-based WAL writing method implementation for pg_basebackup
 - Static function, only accessible within the walmethods.c compilation unit
+
+## Simplified Source
+
+```c
+static ssize_t
+dir_get_file_size(WalWriteMethod *wwmethod, const char *pathname)
+{
+    DirectoryMethodData *dir_data = (DirectoryMethodData *) wwmethod;
+    struct stat statbuf;
+    char tmppath[MAXPGPATH];
+
+    // Build full path: basedir + pathname
+    snprintf(tmppath, sizeof(tmppath), "%s/%s", dir_data->basedir, pathname);
+
+    // Get file size using stat
+    if (stat(tmppath, &statbuf) != 0) {
+        wwmethod->lasterrno = errno;
+        return -1;
+    }
+
+    return statbuf.st_size;
+}
+```

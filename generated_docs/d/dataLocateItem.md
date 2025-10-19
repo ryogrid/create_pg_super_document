@@ -44,3 +44,53 @@ The binary search algorithm handles the special case where the rightmost Posting
 - Updates the stack offset to indicate which PostingItem was selected for descent
 - In full scan mode, multiplies prediction numbers by the page's maxoff for cardinality estimation
 - The function assumes the current page is correct and that the searched value should be found on this page
+
+## Simplified Source
+
+```c
+static BlockNumber dataLocateItem(GinBtree btree, GinBtreeStack *stack) {
+    Page page = BufferGetPage(stack->buffer);
+    OffsetNumber low, high, maxoff;
+    PostingItem *pitem;
+
+    // Handle full scan mode - go to leftmost child
+    if (btree->fullScan) {
+        stack->off = FirstOffsetNumber;
+        stack->predictNumber *= GinPageGetOpaque(page)->maxoff;
+        return btree->getLeftMostChild(btree, page);
+    }
+
+    // Binary search for the correct PostingItem
+    low = FirstOffsetNumber;
+    maxoff = high = GinPageGetOpaque(page)->maxoff;
+    high++;
+
+    while (high > low) {
+        OffsetNumber mid = low + ((high - low) / 2);
+        int result;
+
+        if (mid == maxoff) {
+            // Rightmost item represents right infinity
+            result = -1;
+        } else {
+            pitem = GinDataPageGetPostingItem(page, mid);
+            result = ginCompareItemPointers(&btree->itemptr, &(pitem->key));
+        }
+
+        if (result == 0) {
+            // Exact match found
+            stack->off = mid;
+            return PostingItemGetBlockNumber(pitem);
+        } else if (result > 0) {
+            low = mid + 1;
+        } else {
+            high = mid;
+        }
+    }
+
+    // Return the appropriate child page
+    stack->off = high;
+    pitem = GinDataPageGetPostingItem(page, high);
+    return PostingItemGetBlockNumber(pitem);
+}
+```

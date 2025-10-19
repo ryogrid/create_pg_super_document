@@ -44,3 +44,27 @@ The command supports:
 - Integrates with psql's conditional execution system via active_branch parameter
 - Uses ignore_slash_options() to consume unused arguments when not executing
 - The pattern parameter supports PostgreSQL's standard wildcards for filtering database names
+
+## Simplified Source
+
+```c
+static backslashResult exec_command_list(PsqlScanState scan_state, bool active_branch, const char *cmd) {
+    if (active_branch) {
+        // Parse optional pattern for filtering databases
+        char *pattern = psql_scan_slash_option(scan_state, OT_NORMAL, NULL, true);
+
+        // Check if verbose mode requested (+ modifier)
+        bool show_verbose = strchr(cmd, '+') ? true : false;
+
+        // List all databases with optional pattern and verbose mode
+        bool success = listAllDbs(pattern, show_verbose);
+
+        free(pattern);
+        return success ? PSQL_CMD_SKIP_LINE : PSQL_CMD_ERROR;
+    } else {
+        // Skip execution in inactive conditional branch
+        ignore_slash_options(scan_state);
+        return PSQL_CMD_SKIP_LINE;
+    }
+}
+```

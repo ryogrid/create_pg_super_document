@@ -44,3 +44,27 @@ The octal escape format for high-bit characters matches the traditional "escape"
 - IS_HIGHBIT_SET checks if the most significant bit of the character is set (>= 0x80)
 - Output format is designed to be compatible with charin function for round-trip conversion
 - The function handles the null character (0x00) by producing a single-byte string containing only the null terminator
+
+## Simplified Source
+
+```c
+Datum charout(PG_FUNCTION_ARGS) {
+    char ch = PG_GETARG_CHAR(0);
+    char *result = (char *) palloc(5);
+
+    // High-bit characters (0x80-0xFF) are formatted as octal escape sequences
+    if (IS_HIGHBIT_SET(ch)) {
+        result[0] = '\\';
+        result[1] = TOOCTAL(((unsigned char) ch) >> 6);
+        result[2] = TOOCTAL((((unsigned char) ch) >> 3) & 07);
+        result[3] = TOOCTAL(((unsigned char) ch) & 07);
+        result[4] = '\0';
+    } else {
+        // ASCII characters (0x00-0x7F) output as single character
+        result[0] = ch;
+        result[1] = '\0';
+    }
+
+    PG_RETURN_CSTRING(result);
+}
+```

@@ -44,3 +44,97 @@ The `hlCover` function is a core component of PostgreSQL's text search highlight
 - Includes fallback logic for edge cases involving phrase matches OR-ed with plain terms
 - Part of PostgreSQL's advanced text search highlighting system
 - Located in src/backend/tsearch/wparser_def.c:2032-2183
+
+## Simplified Source
+
+```c
+static bool
+hlCover(HeadlineParsedText *prs, TSQuery query, List *locations,
+        int *nextpos, int *p, int *q)
+{
+    int pos = *nextpos;
+
+    // Main search loop
+    for (;;) {
+        int posb, pose;
+
+        // Find latest position where all query terms first appear at/after pos
+        pose = -1;
+        foreach(lc, locations) {
+            ExecPhraseData *pdata = (ExecPhraseData *) lfirst(lc);
+            int first = -1;
+
+            // Find first occurrence of this term at/after pos
+            for (int i = 0; i < pdata->npos; i++) {
+                int endp = pdata->pos[i];
+                if (endp >= pos) {
+                    first = endp;
+                    break;
+                }
+            }
+            if (first < 0)
+                return false;  // No more matches for this term
+            if (first > pose)
+                pose = first;
+        }
+
+        if (pose < 0)
+            return false;
+
+        // Find earliest position where all terms can start at/before pose
+        posb = INT_MAX - 1;
+        foreach(lc, locations) {
+            ExecPhraseData *pdata = (ExecPhraseData *) lfirst(lc);
+            int last = -1;
+
+            // Find last occurrence that can start at/before pose
+            for (int i = pdata->npos - 1; i >= 0; i--) {
+                int startp = pdata->pos[i] - pdata->width;
+                if (startp <= pose) {
+                    last = startp;
+                    break;
+                }
+            }
+            if (last < posb)
+                posb = last;
+        }
+
+        posb = Max(posb, pos);
+
+        if (posb <= pose) {
+            // Convert lexeme positions to word array indexes
+            int idxb = -1, idxe = -1;
+            for (int i = 0; i < prs->curwords; i++) {
+                if (prs->words[i].item == NULL)
+                    continue;
+                if (idxb < 0 && prs->words[i].pos >= posb)
+                    idxb = i;
+                if (prs->words[i].pos <= pose)
+                    idxe = i;
+                else
+                    break;
+            }
+
+            if (idxb >= 0 && idxe >= idxb) {
+                // Verify the range satisfies the query
+                hlCheck ch;
+                ch.words = &(prs->words[idxb]);
+                ch.len = idxe - idxb + 1;
+                if (TS_execute(GETQUERY(query), &ch, TS_EXEC_EMPTY, checkcondition_HL)) {
+                    // Found valid cover - update output parameters
+                    *nextpos = posb + 1;
+                    *p = idxb;
+                    *q = idxe;
+                    return true;
+                }
+            }
+        }
+
+        // Try next position
+        pos = posb + 1;
+    }
+    return false;
+}
+```
+
+This simplified version shows the essential algorithm: find the minimal range of words that contains all query terms by calculating the latest first-occurrence positions and earliest last-occurrence positions, convert to word indexes, and verify the range satisfies the query.

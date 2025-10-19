@@ -32,3 +32,15 @@ This function is part of PostgreSQL's memory management error detection system. 
 - Used as a method pointer in the BOGUS_MCTX memory context method structure
 - Helps catch double-free errors, corruption of memory chunk headers, and other memory management bugs
 - The fact that we can access the header word suggests the pointer points to accessible memory, just with invalid content
+
+## Simplified Source
+
+```c
+static void
+BogusFree(void *pointer)
+{
+    // Report error with pointer address and header for debugging
+    elog(ERROR, "pfree called with invalid pointer %p (header 0x%016llx)",
+         pointer, (unsigned long long) GetMemoryChunkHeader(pointer));
+}
+```

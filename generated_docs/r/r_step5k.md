@@ -55,3 +55,32 @@ This function has the strictest constraints of all step5 functions, requiring sp
 - Array a_59 contains only 1 entry, making this a very specific pattern match
 - The replacement string s_103 is 6 characters long, longer than most other step5 replacement strings
 - This step appears to handle very specific Greek linguistic patterns that require both character and length validation
+
+## Simplified Source
+
+```c
+static int r_step5k(struct SN_env * z) {
+    // Step 1: Preliminary validation - length and character checks
+    z->ket = z->c;
+
+    // Ensure minimum length (7 chars) and specific character (code 181)
+    if (z->c - 7 <= z->lb || z->p[z->c - 1] != 181) return 0;
+
+    // Step 2: Find and remove specific suffix from a_59 (1 entry)
+    if (!find_among_b(z, a_59, 1)) return 0;
+    z->bra = z->c;
+    slice_del(z);  // Remove found suffix
+
+    // Reset stemmer state
+    z->I[0] = 0;
+
+    // Step 3: Pattern matching and replacement
+    z->ket = z->c;
+    z->bra = z->c;
+    if (!find_among_b(z, a_60, 10)) return 0;
+    if (z->c > z->lb) return 0;  // Boundary check
+
+    slice_from_s(z, 6, s_103);   // Replace with 6-char string s_103
+    return 1;
+}
+```

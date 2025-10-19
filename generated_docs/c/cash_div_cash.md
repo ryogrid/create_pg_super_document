@@ -33,3 +33,22 @@ This function divides one Cash value by another and returns the quotient as a fl
 - Raises ERRCODE_DIVISION_BY_ZERO error when divisor is zero
 - [Result](../R/Result.md) is always returned as float8, not Cash, which allows for fractional results
 - Part of PostgreSQL's money data type implementation in src/backend/utils/adt/cash.c
+
+## Simplified Source
+
+```c
+Datum cash_div_cash(PG_FUNCTION_ARGS) {
+    // Extract dividend and divisor cash values
+    Cash dividend = PG_GETARG_CASH(0);
+    Cash divisor = PG_GETARG_CASH(1);
+
+    // Check for division by zero
+    if (divisor == 0)
+        ereport(ERROR, (errcode(ERRCODE_DIVISION_BY_ZERO),
+                       errmsg("division by zero")));
+
+    // Perform division and return as float8
+    float8 quotient = (float8) dividend / (float8) divisor;
+    PG_RETURN_FLOAT8(quotient);
+}
+```

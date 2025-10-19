@@ -39,3 +39,28 @@ The function handles signal interruptions (EINTR) by retrying the operation, ens
 - Any other errno values result in a FATAL error that terminates the process
 - Commonly used in spinlock implementations and other performance-critical synchronization code
 - Part of PostgreSQL's platform-independent semaphore API for non-blocking synchronization
+
+## Simplified Source
+
+```c
+bool PGSemaphoreTryLock(PGSemaphore sema) {
+    int errStatus;
+
+    // Try to acquire semaphore, retry if interrupted by signal
+    do {
+        errStatus = sem_trywait(PG_SEM_REF(sema));
+    } while (errStatus < 0 && errno == EINTR);
+
+    // Check result
+    if (errStatus < 0) {
+        // Expected failure cases - semaphore already locked
+        if (errno == EAGAIN || errno == EDEADLK) {
+            return false;
+        }
+        // Unexpected error - fatal
+        elog(FATAL, "sem_trywait failed: %m");
+    }
+
+    return true;  // Successfully acquired semaphore
+}
+```

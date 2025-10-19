@@ -40,3 +40,38 @@ This function is typically used as part of WAL summary maintenance operations to
 - Uses standard PostgreSQL error reporting for filesystem errors
 - Part of WAL summary maintenance and cleanup infrastructure
 - Located in src/backend/backup/walsummary.c:230-262
+
+## Simplified Source
+
+```c
+void RemoveWalSummaryIfOlderThan(WalSummaryFile *ws, time_t cutoff_time) {
+    char path[MAXPGPATH];
+    struct stat statbuf;
+
+    // Construct WAL summary file path
+    snprintf(path, MAXPGPATH,
+             XLOGDIR "/summaries/%08X%08X%08X%08X%08X.summary",
+             ws->tli,
+             LSN_FORMAT_ARGS(ws->start_lsn),
+             LSN_FORMAT_ARGS(ws->end_lsn));
+
+    // Check if file exists and get its modification time
+    if (lstat(path, &statbuf) != 0) {
+        if (errno == ENOENT)
+            return;  // File doesn't exist, nothing to do
+        ereport(ERROR, (errcode_for_file_access(),
+                       errmsg("could not stat file \"%s\": %m", path)));
+    }
+
+    // Only remove if older than cutoff time
+    if (statbuf.st_mtime >= cutoff_time)
+        return;
+
+    // Remove the old file
+    if (unlink(path) != 0)
+        ereport(ERROR, (errcode_for_file_access(),
+                       errmsg("could not remove file \"%s\": %m", path)));
+
+    ereport(DEBUG2, (errmsg_internal("removing file \"%s\"", path)));
+}
+```

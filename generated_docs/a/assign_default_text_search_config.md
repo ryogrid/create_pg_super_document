@@ -28,3 +28,12 @@ This function serves as an assignment hook for the default_text_search_config GU
 - The function doesn't validate the newval parameter as that's handled by check_default_text_search_config()
 - Extremely lightweight operation that only performs cache invalidation
 - Essential for maintaining correct behavior when text search configuration is changed at runtime
+
+## Simplified Source
+
+```c
+void assign_default_text_search_config(const char *newval, void *extra) {
+    // Invalidate cached configuration to force fresh lookup
+    TSCurrentConfigCache = InvalidOid;
+}
+```

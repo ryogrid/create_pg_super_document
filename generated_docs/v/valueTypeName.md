@@ -36,3 +36,21 @@ The `valueTypeName` function provides a mapping from PgBenchValue type enumerati
 - Type strings returned are: "none", "null", "int", "double", "boolean"
 - This is a utility function that enhances the debugging and error reporting capabilities of pgbench's type system
 - The function is designed to be fast and lightweight since it's used in error paths
+
+## Simplified Source
+
+```c
+static char *valueTypeName(PgBenchValue *pval) {
+    // Return string representation of value type for error reporting
+    switch (pval->type) {
+        case PGBT_NO_VALUE: return "none";
+        case PGBT_NULL:     return "null";
+        case PGBT_INT:      return "int";
+        case PGBT_DOUBLE:   return "double";
+        case PGBT_BOOLEAN:  return "boolean";
+        default:
+            Assert(false);  // Should never happen
+            return NULL;
+    }
+}
+```

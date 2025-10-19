@@ -40,3 +40,26 @@ The function follows SQL standard behavior by returning NULL when no values were
 - Uses Int64GetDatumFast for efficient int8 datum creation
 - Validates array structure with specific size and null checks
 - Part of PostgreSQL's integer sum aggregate system
+
+## Simplified Source
+
+```c
+Datum int2int4_sum(PG_FUNCTION_ARGS) {
+    // Get transition array containing accumulated data
+    ArrayType *transarray = PG_GETARG_ARRAYTYPE_P(0);
+
+    // Validate array structure and extract transition data
+    if (ARR_HASNULL(transarray) ||
+        ARR_SIZE(transarray) != ARR_OVERHEAD_NONULLS(1) + sizeof(Int8TransTypeData))
+        elog(ERROR, "expected 2-element int8 array");
+
+    Int8TransTypeData *transdata = (Int8TransTypeData *) ARR_DATA_PTR(transarray);
+
+    // Return NULL for empty input per SQL standard
+    if (transdata->count == 0)
+        PG_RETURN_NULL();
+
+    // Return accumulated sum as int8
+    PG_RETURN_DATUM(Int64GetDatumFast(transdata->sum));
+}
+```

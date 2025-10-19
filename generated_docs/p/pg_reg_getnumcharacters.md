@@ -43,3 +43,27 @@ The function specifically checks if the color has entries in the high colormap (
 - The function prioritizes performance by avoiding expensive character enumeration for complex cases
 - Colors with  indicate presence in the high colormap, making membership uncertain
 - Used to determine if a color class is worth analyzing in detail during regex processing
+
+## Simplified Source
+
+```c
+int pg_reg_getnumcharacters(const regex_t *regex, int co) {
+    // Get the colormap from the regex structure
+    struct colormap *cm = &((struct guts *) regex->re_guts)->cmap;
+
+    // Return -1 for invalid color numbers (includes WHITE/RAINBOW)
+    if (co <= 0 || co > cm->max)
+        return -1;
+
+    // Return -1 for pseudocolors (BOS, EOS, etc.)
+    if (cm->cd[co].flags & PSEUDO)
+        return -1;
+
+    // Return -1 if color appears in high colormap (uncertain membership)
+    if (cm->cd[co].nuchrs != 0)
+        return -1;
+
+    // Return the count of simple characters for this color
+    return cm->cd[co].nschrs;
+}
+```

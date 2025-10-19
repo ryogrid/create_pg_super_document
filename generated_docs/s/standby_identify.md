@@ -41,3 +41,23 @@ If the info byte doesn't match any known standby record type, the function retur
 - Masks off extra info flags using XLR_INFO_MASK to focus on record type
 - Returns NULL for unrecognized record types rather than throwing an error
 - Essential for human-readable WAL record type reporting in debugging and monitoring
+
+## Simplified Source
+
+```c
+const char *
+standby_identify(uint8 info)
+{
+    // Extract record type from info byte
+    switch (info & ~XLR_INFO_MASK) {
+        case XLOG_STANDBY_LOCK:
+            return "LOCK";
+        case XLOG_RUNNING_XACTS:
+            return "RUNNING_XACTS";
+        case XLOG_INVALIDATIONS:
+            return "INVALIDATIONS";
+    }
+
+    return NULL;  // Unknown record type
+}
+```

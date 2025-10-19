@@ -38,3 +38,40 @@ The function uses the simplehash library's insertion mechanism and properly init
 - The isrelfile field is set based on whether the path represents a relation data file
 - Returns a pointer to the file_entry_t structure, whether newly created or existing
 - Essential for building the complete file map before deciding on rewind actions
+
+## Simplified Source
+
+```c
+static file_entry_t *insert_filehash_entry(const char *path) {
+    file_entry_t *entry;
+    bool found;
+
+    // Insert or lookup entry in hash table
+    entry = filehash_insert(filehash, path, &found);
+
+    if (!found) {
+        // Initialize new entry with default values
+        entry->path = pg_strdup(path);
+        entry->isrelfile = isRelDataFile(path);
+
+        // Initialize target file attributes
+        entry->target_exists = false;
+        entry->target_type = FILE_TYPE_UNDEFINED;
+        entry->target_size = 0;
+        entry->target_link_target = NULL;
+        entry->target_pages_to_overwrite.bitmap = NULL;
+        entry->target_pages_to_overwrite.bitmapsize = 0;
+
+        // Initialize source file attributes
+        entry->source_exists = false;
+        entry->source_type = FILE_TYPE_UNDEFINED;
+        entry->source_size = 0;
+        entry->source_link_target = NULL;
+
+        // Mark action as undecided
+        entry->action = FILE_ACTION_UNDECIDED;
+    }
+
+    return entry;
+}
+```

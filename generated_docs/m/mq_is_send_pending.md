@@ -36,3 +36,14 @@ The function consistently returns false (0) to indicate that no send operations 
 - Located in src/backend/libpq/pqmq.c at lines 106-110
 - This is a static function, not directly callable from outside pqmq.c
 - The return type is bool but the implementation returns 0 (which converts to false)
+
+## Simplified Source
+
+```c
+static bool
+mq_is_send_pending(void)
+{
+    // Shared memory queues deliver messages immediately - never pending
+    return false;
+}
+```

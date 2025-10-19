@@ -36,3 +36,16 @@ This function serves as a validation hook for the max_connections GUC parameter.
 - The calculation includes +1 to account for additional system overhead
 - This validation prevents configuration errors that could lead to system instability
 - The function is automatically called by the GUC system whenever max_connections is being set or changed
+
+## Simplified Source
+
+```c
+bool check_max_connections(int *newval, void **extra, GucSource source) {
+    // Check if total backend processes would exceed system limit
+    // Includes: new max_connections + autovacuum workers + worker processes + WAL senders + 1 overhead
+    if (*newval + autovacuum_max_workers + 1 + max_worker_processes + max_wal_senders > MAX_BACKENDS)
+        return false;
+
+    return true;  // Configuration is valid
+}
+```

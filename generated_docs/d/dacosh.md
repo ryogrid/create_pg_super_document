@@ -33,3 +33,22 @@ The dacosh function is a PostgreSQL wrapper around the standard C library acosh(
 - The function is part of PostgreSQL mathematical function library in src/backend/utils/adt/float.c
 - Located at src/backend/utils/adt/float.c:2682-2706
 - Error code ERRCODE_NUMERIC_VALUE_OUT_OF_RANGE is used for invalid domain inputs
+
+## Simplified Source
+
+```c
+Datum dacosh(PG_FUNCTION_ARGS) {
+    // Calculate inverse hyperbolic cosine (requires input >= 1.0)
+    double input = PG_GETARG_FLOAT8(0);
+
+    // Validate domain: acosh only defined for x >= 1.0
+    if (input < 1.0) {
+        ereport(ERROR,
+                (errcode(ERRCODE_NUMERIC_VALUE_OUT_OF_RANGE),
+                 errmsg("input is out of range")));
+    }
+
+    double result = acosh(input);
+    PG_RETURN_FLOAT8(result);
+}
+```

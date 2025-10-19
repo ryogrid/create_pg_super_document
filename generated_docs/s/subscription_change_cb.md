@@ -31,3 +31,17 @@ This function serves as a callback that is invoked when the subscription system 
 - The function is registered as a callback with the subscription syscache invalidation system
 - Setting MySubscriptionValid to false triggers subscription information to be reloaded when next accessed
 - This mechanism ensures consistency between subscription workers and the subscription catalog
+
+## Simplified Source
+
+```c
+/*
+ * Callback from subscription syscache invalidation.
+ */
+static void
+subscription_change_cb(Datum arg, int cacheid, uint32 hashvalue)
+{
+    // Mark cached subscription data as invalid
+    MySubscriptionValid = false;
+}
+```

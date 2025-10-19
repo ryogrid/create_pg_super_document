@@ -34,3 +34,32 @@ This function merges two TSVector signatures by performing a bitwise OR operatio
 
 ## Notes and Other Information
 This is a static function used specifically within the TSVector GiST index implementation. The function returns 1 when the result should be treated as an all-true signature (covering all possible values), and 0 for normal signature processing. The function modifies the base signature in-place, making it an efficient union operation for index maintenance.
+
+## Simplified Source
+
+```c
+static int32
+unionkey(BITVECP sbase, SignTSVector *add, int siglen)
+{
+    if (ISSIGNKEY(add)) {
+        // Adding a signature key
+        if (ISALLTRUE(add))
+            return 1;  // Result becomes all-true
+
+        // Bitwise OR with signature
+        BITVECP sadd = GETSIGN(add);
+        for (int i = 0; i < siglen; i++) {
+            sbase[i] |= sadd[i];
+        }
+    }
+    else {
+        // Adding an array key - hash each element into signature
+        int32 *ptr = GETARR(add);
+        for (int i = 0; i < ARRNELEM(add); i++) {
+            HASH(sbase, ptr[i], siglen);
+        }
+    }
+
+    return 0;  // Normal processing
+}
+```

@@ -41,3 +41,54 @@ The function processes the string from right to left (backward processing) by se
 - Part of the main stemming pipeline in Turkish word processing
 - Generated automatically by Snowball 2.2.0 stemmer generator
 - Uses backward processing pattern typical of Snowball stemmers
+
+## Simplified Source
+
+```c
+static int r_postlude(struct SN_env * z) {
+    int among_var;
+
+    // Process characters to convert uppercase back to lowercase
+    while(1) {
+        int saved_pos = z->c;
+        z->bra = z->c;
+
+        // Look for 'I' (73) or 'Y' (89) characters
+        if (z->c >= z->l || (z->p[z->c] != 73 && z->p[z->c] != 89)) {
+            among_var = 3;  // No match, advance character
+        } else {
+            among_var = find_among(z, a_1, 3);  // Find pattern match
+        }
+
+        if (!among_var) {
+            z->c = saved_pos;
+            break;
+        }
+
+        z->ket = z->c;
+
+        // Apply transformations based on pattern
+        switch (among_var) {
+            case 1:
+                slice_from_s(z, 1, s_8);  // Convert first pattern (likely 'I' → 'i')
+                break;
+            case 2:
+                slice_from_s(z, 1, s_9);  // Convert second pattern (likely 'Y' → 'y')
+                break;
+            case 3:
+                z->c++;  // Skip character and continue
+                break;
+        }
+    }
+
+    return 1;  // Success
+}
+```
+
+This function performs post-processing cleanup by:
+1. **Character scanning**: Loops through the string looking for uppercase 'I' (ASCII 73) and 'Y' (ASCII 89)
+2. **Pattern matching**: Uses pattern table a_1 to identify specific character sequences
+3. **Case restoration**: Converts uppercase characters back to their appropriate lowercase forms
+4. **Final cleanup**: Ensures text is in proper final form after stemming operations
+
+This is the counterpart to r_prelude, restoring characters that were temporarily modified during stemming.

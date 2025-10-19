@@ -35,3 +35,31 @@ This function is part of pg_dump's internal catalog ID management system. It ass
 - Uses assertions to ensure data integrity, particularly that no DumpableObject is already associated with the given CatalogId
 - Part of pg_dump's object tracking and dependency resolution system
 - The function is void and does not return any value, operating purely through side effects on the global hash table
+
+## Simplified Source
+
+```c
+void
+recordAdditionalCatalogID(CatalogId catId, DumpableObject *dobj)
+{
+    // Ensure the catalog ID hash table exists
+    Assert(catalogIdHash != NULL);
+
+    // Insert or find the catalog ID entry in the hash table
+    CatalogIdMapEntry *entry;
+    bool found;
+    entry = catalogid_insert(catalogIdHash, catId, &found);
+
+    // Initialize new entries
+    if (!found) {
+        entry->dobj = NULL;
+        entry->ext = NULL;
+    }
+
+    // Ensure no object is already mapped to this catalog ID
+    Assert(entry->dobj == NULL);
+
+    // Associate the DumpableObject with this catalog ID
+    entry->dobj = dobj;
+}
+```

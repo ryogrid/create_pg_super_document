@@ -33,3 +33,14 @@ The function is implemented as a static inline function in the cryptohash_openss
 - Part of PostgreSQL's resource management system that ensures cryptographic contexts are properly cleaned up
 - Uses the generic resource owner infrastructure with a specialized descriptor for cryptohash contexts
 - Typically called when creating new cryptographic hash contexts to ensure they're tracked for cleanup
+
+## Simplified Source
+
+```c
+static inline void
+ResourceOwnerRememberCryptoHash(ResourceOwner owner, pg_cryptohash_ctx *ctx)
+{
+    // Register the crypto hash context for automatic cleanup
+    ResourceOwnerRemember(owner, PointerGetDatum(ctx), &cryptohash_resowner_desc);
+}
+```

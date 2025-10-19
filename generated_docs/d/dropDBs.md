@@ -32,3 +32,43 @@ The function explicitly excludes critical system databases (postgres, template0,
 - Part of the clean restoration process where existing databases are dropped before recreation
 - Essential for scenarios where target cluster must exactly match source cluster state
 - Outputs descriptive header comments for better organization of dump files
+
+## Simplified Source
+
+```c
+static void dropDBs(PGconn *conn)
+{
+    PGresult *res;
+    int i;
+
+    // Query all databases that allow connections (exclude those with special restrictions)
+    res = executeQuery(conn,
+                      "SELECT datname "
+                      "FROM pg_database d "
+                      "WHERE datallowconn AND datconnlimit != -2 "
+                      "ORDER BY datname");
+
+    // Print header if databases found
+    if (PQntuples(res) > 0)
+        fprintf(OPF, "--\n-- Drop databases (except postgres and template1)\n--\n\n");
+
+    // Generate DROP statements for each database
+    for (i = 0; i < PQntuples(res); i++)
+    {
+        char *dbname = PQgetvalue(res, i, 0);
+
+        // Skip system databases - they need special handling
+        if (strcmp(dbname, "template1") != 0 &&
+            strcmp(dbname, "template0") != 0 &&
+            strcmp(dbname, "postgres") != 0)
+        {
+            fprintf(OPF, "DROP DATABASE %s%s;\n",
+                   if_exists ? "IF EXISTS " : "",
+                   fmtId(dbname));
+        }
+    }
+
+    PQclear(res);
+    fprintf(OPF, "\n\n");
+}
+```

@@ -44,3 +44,28 @@ This is a building block used by higher-level functions that generate complete X
 - Outputs properly formatted XML with appropriate whitespace and newlines
 - Located in src/backend/utils/adt/xml.c:3246-3262
 - Companion function to xsd_schema_element_end for complete schema element generation
+
+## Simplified Source
+
+```c
+static void
+xsd_schema_element_start(StringInfo result, const char *targetns)
+{
+    // Write opening schema tag with XSD namespace
+    appendStringInfoString(result,
+                           "<xsd:schema\n"
+                           "    xmlns:xsd=\"" NAMESPACE_XSD "\"");
+
+    // Add target namespace if provided
+    if (strlen(targetns) > 0) {
+        appendStringInfo(result,
+                         "\n"
+                         "    targetNamespace=\"%s\"\n"
+                         "    elementFormDefault=\"qualified\"",
+                         targetns);
+    }
+
+    // Close the opening tag
+    appendStringInfoString(result, ">\n\n");
+}
+```

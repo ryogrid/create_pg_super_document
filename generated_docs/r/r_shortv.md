@@ -45,3 +45,29 @@ The function returns 1 if a short vowel pattern is detected, 0 otherwise.
 - Used in multiple stemming steps to determine morphological boundaries
 - The function implements a backtracking approach with two different pattern tests
 - Critical for proper handling of English words ending in short vowel patterns during stemming
+
+## Simplified Source
+
+```c
+static int r_shortv(struct SN_env * z) {
+    // Test for short vowel pattern: consonant + vowel + consonant
+
+    // Try first pattern: non-WXY + vowel + non-vowel
+    int saved_pos = z->l - z->c;
+    if (out_grouping_b(z, g_v_WXY, 89, 121, 0) &&  // Not w/x/y
+        in_grouping_b(z, g_v, 97, 121, 0) &&        // Is vowel
+        out_grouping_b(z, g_v, 97, 121, 0)) {       // Not vowel
+        return 1;  // Short vowel pattern found
+    }
+
+    // Try second pattern: non-vowel + vowel at word boundary
+    z->c = z->l - saved_pos;
+    if (out_grouping_b(z, g_v, 97, 121, 0) &&       // Not vowel
+        in_grouping_b(z, g_v, 97, 121, 0) &&        // Is vowel
+        z->c <= z->lb) {                             // At word boundary
+        return 1;  // Short vowel pattern found
+    }
+
+    return 0;  // No short vowel pattern
+}
+```

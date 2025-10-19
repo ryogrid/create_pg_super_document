@@ -39,3 +39,17 @@ The postgres database is typically the default database that administrators and 
 - The file_copy strategy is used for the same performance reasons as with template0
 - This database is created after template0 in the initialization sequence
 - Unlike template databases, the postgres database is meant for regular use and connections
+
+## Simplified Source
+
+```c
+static void make_postgres(FILE *cmdfd) {
+    // Create postgres database with fixed OID for pg_upgrade compatibility
+    // Use file_copy strategy for efficiency during initdb
+    PG_CMD_PUTS("CREATE DATABASE postgres OID = " CppAsString2(PostgresDbOid)
+                " STRATEGY = file_copy;\n\n");
+
+    // Add descriptive comment
+    PG_CMD_PUTS("COMMENT ON DATABASE postgres IS 'default administrative connection database';\n\n");
+}
+```

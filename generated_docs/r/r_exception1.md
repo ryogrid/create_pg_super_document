@@ -44,3 +44,43 @@ This handling is essential because these words would be incorrectly processed by
 - The transformations preserve semantic meaning while normalizing irregular morphological variations
 - Essential for accuracy with English words that have irregular plural forms or other non-standard morphology
 - Works in conjunction with r_exception2 to provide comprehensive exception handling
+
+## Simplified Source
+
+```c
+static int r_exception1(struct SN_env * z) {
+    // Mark start position for pattern matching
+    z->bra = z->c;
+
+    // Quick character check for efficiency - check 3rd character
+    if (z->c + 2 >= z->l || z->p[z->c + 2] >> 5 != 3 ||
+        !((42750482 >> (z->p[z->c + 2] & 0x1f)) & 1)) {
+        return 0; // Quick reject based on character pattern
+    }
+
+    // Find matching exception from the predefined list
+    int among_var = find_among(z, a_10, 18);
+    if (!among_var) return 0;
+
+    z->ket = z->c;
+
+    // Must be a complete word (cursor at end of word)
+    if (z->c < z->l) return 0;
+
+    // Apply appropriate transformation for each exception
+    switch (among_var) {
+        case 1:  return slice_from_s(z, 3, s_27); // -> "ski"
+        case 2:  return slice_from_s(z, 3, s_28); // -> "sky"
+        case 3:  return slice_from_s(z, 3, s_29); // -> "die"
+        case 4:  return slice_from_s(z, 3, s_30); // -> "lie"
+        case 5:  return slice_from_s(z, 3, s_31); // -> "tie"
+        case 6:  return slice_from_s(z, 3, s_32); // -> "idl"
+        case 7:  return slice_from_s(z, 5, s_33); // -> "gentl"
+        case 8:  return slice_from_s(z, 4, s_34); // -> "ugli"
+        case 9:  return slice_from_s(z, 5, s_35); // -> "earli"
+        case 10: return slice_from_s(z, 4, s_36); // -> "onli"
+        case 11: return slice_from_s(z, 5, s_37); // -> "singl"
+    }
+    return 1;
+}
+```

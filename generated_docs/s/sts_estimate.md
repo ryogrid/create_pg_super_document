@@ -31,5 +31,16 @@ This function is typically used during parallel query planning to determine how 
 
 ## Notes and Other Information
 - This function is part of the shared tuple store infrastructure used for parallel query execution
-- The memory calculation uses  to ensure proper alignment and avoid including the flexible array member in the base calculation
+- The memory calculation uses offsetof to ensure proper alignment and avoid including the flexible array member in the base calculation
 - The returned size is used by PostgreSQL's shared memory allocation routines to reserve appropriate space before initializing the shared tuple store
+
+## Simplified Source
+```c
+size_t
+sts_estimate(int participants)
+{
+    // Calculate memory needed: base SharedTuplestore struct + participant array
+    return offsetof(SharedTuplestore, participants) +
+           sizeof(SharedTuplestoreParticipant) * participants;
+}
+```

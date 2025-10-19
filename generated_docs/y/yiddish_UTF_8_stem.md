@@ -38,3 +38,31 @@ The algorithm follows the standard Snowball stemmer pattern where the cursor is 
 - Restores cursor position to lb after suffix processing is complete
 - Part of the Snowball stemming library for Yiddish language support in PostgreSQL full-text search
 - Located in src/backend/snowball/libstemmer/stem_UTF_8_yiddish.c:1209-1229
+
+## Simplified Source
+
+```c
+extern int yiddish_UTF_8_stem(struct SN_env * z) {
+    // Step 1: Perform text preprocessing
+    int ret = r_prelude(z);
+    if (ret < 0) return ret;
+
+    // Step 2: Mark morphological regions for suffix processing
+    int c1 = z->c;  // Save current position
+    ret = r_mark_regions(z);
+    if (ret < 0) return ret;
+    z->c = c1;  // Restore position
+
+    // Step 3: Position cursor at end of word for suffix processing
+    z->lb = z->c;
+    z->c = z->l;
+
+    // Step 4: Apply standard suffix removal rules
+    ret = r_standard_suffix(z);
+    if (ret < 0) return ret;
+
+    // Step 5: Reset cursor position and return success
+    z->c = z->lb;
+    return 1;
+}
+```

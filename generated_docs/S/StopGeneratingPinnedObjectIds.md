@@ -29,3 +29,12 @@ The function serves as a clear demarcation point in the initialization process, 
 - The transition point (FirstUnpinnedObjectId) is a compile-time constant that defines the boundary between reserved system OIDs and general-purpose OIDs
 - This mechanism ensures consistent system catalog OID assignments across different PostgreSQL installations
 - The function is called via the pg_stop_making_pinned_objects() SQL function, which provides the interface for initdb scripts
+
+## Simplified Source
+
+```c
+void StopGeneratingPinnedObjectIds(void) {
+    // Advance OID counter to first unpinned range during initdb
+    SetNextObjectId(FirstUnpinnedObjectId);
+}
+```

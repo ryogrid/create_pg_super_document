@@ -29,3 +29,13 @@ The text_to_table_null function is a separate entry point that delegates directl
 - Created specifically to prevent regression test issues with different argument sets
 - Returns table rows instead of arrays, unlike its text_to_array_null counterpart
 - Part of PostgreSQL's variable-length data type utilities for set-returning functions
+
+## Simplified Source
+
+```c
+Datum text_to_table_null(PG_FUNCTION_ARGS) {
+    // Simple wrapper that delegates to text_to_table
+    // Exists to provide distinct function signature for null string handling
+    return text_to_table(fcinfo);
+}
+```

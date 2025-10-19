@@ -35,3 +35,16 @@ The function takes the info field from a WAL record header and returns a corresp
 - Used primarily by WAL analysis tools, debugging utilities, and logging systems
 - Part of PostgreSQL's relation mapping system which maintains the mapping between relation OIDs and their physical file locations
 - The function masks out irrelevant bits from the info parameter before comparison
+
+## Simplified Source
+
+```c
+const char *relmap_identify(uint8 info) {
+    // Extract operation type from WAL record info
+    switch (info & ~XLR_INFO_MASK) {
+        case XLOG_RELMAP_UPDATE:
+            return "UPDATE";
+    }
+    return NULL;  // Unknown operation type
+}
+```

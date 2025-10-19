@@ -48,3 +48,90 @@ The function handles memory allocation failures gracefully and ensures all arc a
 - No-progress states are specially marked to prevent infinite loops in matching
 - Memory allocation failure results in REG_ESPACE error
 - Arc sorting within states enables binary search during execution
+
+## Simplified Source
+
+```c
+static void
+compact(struct nfa *nfa, struct cnfa *cnfa)
+{
+    struct state *s;
+    struct arc *a;
+    size_t nstates, narcs;
+    struct carc *ca, *first;
+
+    // Count states and arcs needed
+    nstates = 0;
+    narcs = 0;
+    for (s = nfa->states; s != NULL; s = s->next) {
+        nstates++;
+        narcs += s->nouts + 1;  // +1 for endmarker
+    }
+
+    // Allocate compact arrays
+    cnfa->stflags = (char *) MALLOC(nstates * sizeof(char));
+    cnfa->states = (struct carc **) MALLOC(nstates * sizeof(struct carc *));
+    cnfa->arcs = (struct carc *) MALLOC(narcs * sizeof(struct carc));
+
+    if (cnfa->stflags == NULL || cnfa->states == NULL || cnfa->arcs == NULL) {
+        // Clean up partial allocation
+        if (cnfa->stflags != NULL) FREE(cnfa->stflags);
+        if (cnfa->states != NULL) FREE(cnfa->states);
+        if (cnfa->arcs != NULL) FREE(cnfa->arcs);
+        NERR(REG_ESPACE);
+        return;
+    }
+
+    // Copy NFA metadata
+    cnfa->nstates = nstates;
+    cnfa->pre = nfa->pre->no;
+    cnfa->post = nfa->post->no;
+    cnfa->bos[0] = nfa->bos[0];
+    cnfa->bos[1] = nfa->bos[1];
+    cnfa->eos[0] = nfa->eos[0];
+    cnfa->eos[1] = nfa->eos[1];
+    cnfa->ncolors = maxcolor(nfa->cm) + 1;
+    cnfa->flags = nfa->flags;
+    cnfa->minmatchall = nfa->minmatchall;
+    cnfa->maxmatchall = nfa->maxmatchall;
+
+    // Convert states and arcs
+    ca = cnfa->arcs;
+    for (s = nfa->states; s != NULL; s = s->next) {
+        cnfa->stflags[s->no] = 0;
+        cnfa->states[s->no] = ca;
+        first = ca;
+
+        // Convert outgoing arcs
+        for (a = s->outs; a != NULL; a = a->outchain) {
+            switch (a->type) {
+                case PLAIN:
+                    ca->co = a->co;
+                    ca->to = a->to->no;
+                    ca++;
+                    break;
+                case LACON:
+                    ca->co = (color) (cnfa->ncolors + a->co);
+                    ca->to = a->to->no;
+                    ca++;
+                    cnfa->flags |= HASLACONS;
+                    break;
+                default:
+                    NERR(REG_ASSERT);
+                    return;
+            }
+        }
+
+        // Sort arcs and add endmarker
+        carcsort(first, ca - first);
+        ca->co = COLORLESS;
+        ca->to = 0;
+        ca++;
+    }
+
+    // Mark no-progress states
+    for (a = nfa->pre->outs; a != NULL; a = a->outchain)
+        cnfa->stflags[a->to->no] = CNFA_NOPROGRESS;
+    cnfa->stflags[nfa->pre->no] = CNFA_NOPROGRESS;
+}
+```

@@ -32,3 +32,18 @@ btboolcmp is a PostgreSQL built-in function that implements comparison logic for
 - The arithmetic subtraction (int32) a - (int32) b naturally produces -1 for false < true, 0 for equal values, and 1 for true > false
 - This is a core function for B-tree indexing operations on boolean columns
 - Located in src/backend/access/nbtree/nbtcompare.c, which contains comparison functions for various PostgreSQL data types
+
+## Simplified Source
+
+```c
+Datum
+btboolcmp(PG_FUNCTION_ARGS)
+{
+    // Extract the two boolean arguments
+    bool a = PG_GETARG_BOOL(0);
+    bool b = PG_GETARG_BOOL(1);
+
+    // Compare by subtracting: false(0) < true(1)
+    PG_RETURN_INT32((int32) a - (int32) b);
+}
+```

@@ -34,3 +34,28 @@ The function performs validation to ensure the entire input string is consumed d
 - The implementation includes TODO comments noting that complete Informix error code mapping is not yet implemented
 - Part of the Informix compatibility layer in PostgreSQL ECPG
 - Uses errno to capture errors from the underlying PostgreSQL timestamp parsing function
+
+## Simplified Source
+
+```c
+int dtcvasc(char *str, timestamp *ts) {
+    // Parse string to timestamp using PostgreSQL's built-in function
+    char **endptr = &str;
+    errno = 0;
+
+    timestamp ts_tmp = PGTYPEStimestamp_from_asc(str, endptr);
+
+    // Check for parsing errors
+    int error = errno;
+    if (error)
+        return error;  // Return system error code
+
+    // Check for extra characters at end of string
+    if (**endptr)
+        return ECPG_INFORMIX_EXTRA_CHARS;
+
+    // Success - store result
+    *ts = ts_tmp;
+    return 0;
+}
+```

@@ -33,3 +33,18 @@ The function is designed to be used as a callback in the BaseBackupTargetType st
 - Used for backup targets like 'blackhole' that don't require or accept additional configuration
 - Located in src/backend/backup/basebackup_target.c at lines 213-231
 - Part of PostgreSQL's input validation system for base backup commands
+
+## Simplified Source
+
+```c
+static void *reject_target_detail(char *target, char *target_detail) {
+    // Check if target details were provided when they shouldn't be
+    if (target_detail != NULL) {
+        ereport(ERROR,
+                (errcode(ERRCODE_SYNTAX_ERROR),
+                 errmsg("target \"%s\" does not accept a target detail", target)));
+    }
+
+    return NULL;
+}
+```

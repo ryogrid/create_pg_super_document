@@ -35,3 +35,20 @@ This function serves as the error handling counterpart to both start_lo_xact and
 - Critical for maintaining database consistency by preventing partial commits of failed operations
 - Static function with scope limited to large_obj.c file
 - Simple implementation that doesn't check rollback success, focusing on cleanup rather than error reporting
+
+## Simplified Source
+
+```c
+static bool fail_lo_xact(const char *operation, bool own_transaction) {
+    PGresult *res;
+
+    // Rollback transaction if we started it and autocommit is enabled
+    if (own_transaction && pset.autocommit) {
+        res = PSQLexec("ROLLBACK");
+        PQclear(res);
+    }
+
+    // Always return false to indicate operation failure
+    return false;
+}
+```

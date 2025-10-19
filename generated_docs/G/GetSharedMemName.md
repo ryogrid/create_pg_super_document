@@ -41,3 +41,40 @@ The function ensures that each PostgreSQL instance with a different data directo
 - **Security Consideration**: Originally designed to use the Global\ namespace for better isolation, but permission issues forced the implementation to use the default namespace
 - **Path Handling**: The function handles Windows-specific path formatting and converts backslashes to forward slashes for compatibility
 - **Error Handling**: Uses FATAL level logging for critical errors, which will terminate the process if path operations fail
+
+## Simplified Source
+
+```c
+static char *
+GetSharedMemName(void)
+{
+    char *retptr;
+    DWORD bufsize, r;
+    char *cp;
+
+    // Get size needed for full path
+    bufsize = GetFullPathName(DataDir, 0, NULL, NULL);
+    if (bufsize == 0)
+        elog(FATAL, "could not get size for full pathname of datadir %s: error code %lu",
+             DataDir, GetLastError());
+
+    // Allocate memory for name with prefix
+    retptr = malloc(bufsize + 18);  /* 18 for Global\PostgreSQL: */
+    if (retptr == NULL)
+        elog(FATAL, "could not allocate memory for shared memory name");
+
+    // Build the shared memory name
+    strcpy(retptr, "Global\\PostgreSQL:");
+    r = GetFullPathName(DataDir, bufsize, retptr + 18, NULL);
+    if (r == 0 || r > bufsize)
+        elog(FATAL, "could not generate full pathname for datadir %s: error code %lu",
+             DataDir, GetLastError());
+
+    // Convert backslashes to forward slashes
+    for (cp = retptr; *cp; cp++)
+        if (*cp == '\\')
+            *cp = '/';
+
+    return retptr;
+}
+```

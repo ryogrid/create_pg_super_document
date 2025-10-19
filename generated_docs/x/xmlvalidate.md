@@ -33,3 +33,17 @@ This function was originally designed to validate XML documents against a Docume
 - Any attempt to use the XMLVALIDATE SQL function will result in an error
 - The function remains in the codebase for compatibility but is non-functional
 - Alternative XML validation approaches should be implemented outside of PostgreSQL if needed
+
+## Simplified Source
+
+```c
+Datum
+xmlvalidate(PG_FUNCTION_ARGS)
+{
+    // Function disabled for security reasons - always throws error
+    ereport(ERROR,
+            (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+             errmsg("xmlvalidate is not implemented")));
+    return 0;
+}
+```

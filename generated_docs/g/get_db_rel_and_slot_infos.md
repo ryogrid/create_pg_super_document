@@ -49,3 +49,43 @@ The function also handles memory management by freeing previously allocated data
 - Central orchestration function that coordinates multiple information-gathering subsystems
 - Part of pg_upgrade's cluster analysis and preparation infrastructure
 - Essential for building the complete picture of cluster contents before performing upgrade operations
+
+## Simplified Source
+
+```c
+void
+get_db_rel_and_slot_infos(ClusterInfo *cluster, bool live_check)
+{
+    int database_index;
+
+    // Clean up any previously allocated database information
+    if (cluster->dbarr.dbs != NULL)
+        free_db_and_rel_infos(&cluster->dbarr);
+
+    // Phase 1: Get cluster-wide information
+    get_template0_info(cluster);  // Get template0 locale/encoding info
+    get_db_infos(cluster);        // Get list of all databases
+
+    // Phase 2: For each database, get detailed relation information
+    for (database_index = 0; database_index < cluster->dbarr.ndbs; database_index++)
+    {
+        DbInfo *current_database = &cluster->dbarr.dbs[database_index];
+
+        // Get all table, index, and TOAST relation information for this database
+        get_rel_infos(cluster, current_database);
+
+        // For old clusters only: collect logical replication slot information
+        if (cluster == &old_cluster)
+            get_old_cluster_logical_slot_infos(current_database, live_check);
+    }
+
+    // Log completion and optionally print detailed information
+    if (cluster == &old_cluster)
+        pg_log(PG_VERBOSE, "\nsource databases:");
+    else
+        pg_log(PG_VERBOSE, "\ntarget databases:");
+
+    if (log_opts.verbose)
+        print_db_infos(&cluster->dbarr);
+}
+```

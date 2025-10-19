@@ -36,3 +36,16 @@ The function performs a simple numerical inequality comparison since cash values
 - Used by SQL inequality operators (!= and <>) for money/cash data types
 - Located in src/backend/utils/adt/cash.c:624-631
 - Simple and efficient implementation due to internal integer representation
+
+## Simplified Source
+
+```c
+Datum
+cash_ne(PG_FUNCTION_ARGS)
+{
+    Cash c1 = PG_GETARG_CASH(0);
+    Cash c2 = PG_GETARG_CASH(1);
+
+    PG_RETURN_BOOL(c1 != c2);
+}
+```

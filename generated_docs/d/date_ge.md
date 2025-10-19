@@ -31,3 +31,14 @@ This function provides the SQL ">=" operator for DATE data types in PostgreSQL. 
 - Part of PostgreSQL's date comparison operator family
 - Uses simple integer comparison since DateADT is represented as days since 2000-01-01
 - Follows PostgreSQL V1 function calling convention
+
+## Simplified Source
+
+```c
+Datum date_ge(PG_FUNCTION_ARGS) {
+    DateADT dateVal1 = PG_GETARG_DATEADT(0);
+    DateADT dateVal2 = PG_GETARG_DATEADT(1);
+
+    PG_RETURN_BOOL(dateVal1 >= dateVal2);
+}
+```

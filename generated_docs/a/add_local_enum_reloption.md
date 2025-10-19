@@ -39,3 +39,22 @@ This function creates and registers a new local enumeration-type relation option
 - The members array and detailmsg must remain valid for the option's lifetime
 - Part of PostgreSQL's extensible relation options framework for access method-specific configuration
 - Enum values are stored as integer indices rather than string values
+
+## Simplified Source
+
+```c
+void
+add_local_enum_reloption(local_relopts *relopts, const char *name,
+                         const char *desc, relopt_enum_elt_def *members,
+                         int default_val, const char *detailmsg, int offset)
+{
+    // Create a new local enum reloption with specified configuration
+    relopt_enum *newoption = init_enum_reloption(RELOPT_KIND_LOCAL,
+                                                 name, desc,
+                                                 members, default_val,
+                                                 detailmsg, 0);
+
+    // Add the reloption to the local relopts structure
+    add_local_reloption(relopts, (relopt_gen *) newoption, offset);
+}
+```

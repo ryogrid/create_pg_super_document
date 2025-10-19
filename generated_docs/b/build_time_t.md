@@ -43,3 +43,24 @@ The function explicitly returns a time_t (not PostgreSQL's pg_time_t), making it
 - The resulting time_t represents seconds since the Unix epoch (January 1, 1970, 00:00:00 UTC)
 - This utility function appears to be designed for timezone-related date calculations during database initialization
 - The distinction between time_t and pg_time_t is important for compatibility with different time representations in PostgreSQL
+
+## Simplified Source
+```c
+static time_t
+build_time_t(int year, int month, int day)
+{
+    struct tm tm;
+
+    // Initialize all fields to zero for safety
+    memset(&tm, 0, sizeof(tm));
+
+    // Set date components (converting to struct tm format)
+    tm.tm_mday = day;                // Day of month (1-31)
+    tm.tm_mon = month - 1;           // Month (0-11, so subtract 1)
+    tm.tm_year = year - 1900;        // Years since 1900
+    tm.tm_isdst = -1;                // Let mktime() determine DST status
+
+    // Convert to time_t (seconds since Unix epoch)
+    return mktime(&tm);
+}
+```

@@ -46,3 +46,28 @@ The function serves as the initialization step for LZ4 stream operations, establ
 - Does not perform any LZ4-specific initialization - that is handled by LZ4Stream_init()
 - Essential first step before any compression or decompression operations can begin
 - The mode parameter determines whether the stream will be used for reading or writing
+
+## Simplified Source
+
+```c
+static bool
+LZ4Stream_open(const char *path, int fd, const char *mode,
+               CompressFileHandle *CFH)
+{
+    LZ4State *state = (LZ4State *) CFH->private_data;
+
+    // Open file using either file descriptor or path
+    if (fd >= 0)
+        state->fp = fdopen(dup(fd), mode);  // Use duplicated file descriptor
+    else
+        state->fp = fopen(path, mode);      // Use file path
+
+    // Check if file opened successfully
+    if (state->fp == NULL) {
+        state->errcode = errno;
+        return false;
+    }
+
+    return true;
+}
+```

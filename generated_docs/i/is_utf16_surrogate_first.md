@@ -30,3 +30,12 @@ This function is essential for proper UTF-16 processing, allowing the system to 
 - Must be paired with a corresponding low surrogate (0xDC00-0xDFFF) to form a valid surrogate pair
 - Used in PostgreSQL's Unicode escape sequence processing and string literal parsing
 - Critical for handling supplementary Unicode characters beyond the Basic Multilingual Plane
+
+## Simplified Source
+
+```c
+static inline bool is_utf16_surrogate_first(pg_wchar c) {
+    // Check if character is in UTF-16 high surrogate range
+    return (c >= 0xD800 && c <= 0xDBFF);
+}
+```

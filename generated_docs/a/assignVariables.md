@@ -33,3 +33,43 @@ The  function is responsible for variable substitution in pgbench SQL commands. 
 - The function modifies the input SQL string in place through replaceVariable calls
 - Memory management is handled properly with free() calls for temporary variable names
 - This is a core component of pgbench's variable substitution system, enabling parameterized SQL execution in benchmark scripts
+
+## Simplified Source
+
+```c
+static char *
+assignVariables(Variables *variables, char *sql)
+{
+    char *p, *name, *val;
+
+    p = sql;
+    while ((p = strchr(p, ':')) != NULL)
+    {
+        int eaten;
+
+        // Parse variable name from SQL
+        name = parseVariable(p, &eaten);
+        if (name == NULL)
+        {
+            // Skip consecutive colons if no valid variable found
+            while (*p == ':')
+                p++;
+            continue;
+        }
+
+        // Get variable value from store
+        val = getVariable(variables, name);
+        free(name);
+        if (val == NULL)
+        {
+            p++;
+            continue;
+        }
+
+        // Replace placeholder with actual value
+        p = replaceVariable(&sql, p, eaten, val);
+    }
+
+    return sql;
+}
+```

@@ -32,3 +32,13 @@ The function performs no error checking - it relies entirely on the underlying  
 - No error checking is performed - invalid strings may cause undefined behavior
 - The function assumes base-10 input (decimal numbers only)
 - Part of the pg_upgrade utility which handles PostgreSQL major version upgrades
+
+## Simplified Source
+
+```c
+unsigned int str2uint(const char *str) {
+    // Convert decimal string to unsigned integer
+    // Used for parsing numeric values from control data files
+    return strtoul(str, NULL, 10);
+}
+```

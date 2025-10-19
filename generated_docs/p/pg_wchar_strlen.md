@@ -30,3 +30,20 @@ The implementation is optimized for simplicity and efficiency, using a straightf
 - Follows standard C library strlen semantics but adapted for pg_wchar type
 - Used by multibyte conversion functions that need to determine the length of wide character strings before processing
 - The implementation assumes the input string is properly null-terminated
+
+## Simplified Source
+
+```c
+size_t
+pg_wchar_strlen(const pg_wchar *str)
+{
+    const pg_wchar *s;
+
+    // Find the end of the string
+    for (s = str; *s; ++s)
+        ;
+
+    // Return length by pointer arithmetic
+    return (s - str);
+}
+```

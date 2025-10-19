@@ -34,3 +34,32 @@ This function serves as a specialized mapping utility that determines the approp
 - Not all I/O operations have associated timing data - evict, hit, and reuse operations return IO_COL_INVALID
 - For timing-enabled operations, it calculates the timing column by adding 1 to the operation count column index
 - Uses elog(ERROR) for unrecognized operation types, which will terminate the current transaction
+
+## Simplified Source
+
+```c
+static io_stat_col
+pgstat_get_io_time_index(IOOp io_op)
+{
+    // Return timing column index for operations that have timing data
+    // Timing columns are immediately after the operation count columns
+    switch (io_op)
+    {
+        case IOOP_READ:
+        case IOOP_WRITE:
+        case IOOP_WRITEBACK:
+        case IOOP_EXTEND:
+        case IOOP_FSYNC:
+            return pgstat_get_io_op_index(io_op) + 1;
+
+        // These operations don't have timing data
+        case IOOP_EVICT:
+        case IOOP_HIT:
+        case IOOP_REUSE:
+            return IO_COL_INVALID;
+    }
+
+    elog(ERROR, "unrecognized IOOp value: %d", io_op);
+    pg_unreachable();
+}
+```

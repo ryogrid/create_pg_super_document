@@ -62,3 +62,46 @@ For each unprocessed object, the function calls findLoop() to detect cycles star
 - Guarantees to fix at least one loop or terminates with fatal error
 - Critical for pg_dump's ability to handle complex database schemas with circular dependencies
 - Part of pg_dump's multi-pass dependency resolution strategy
+
+## Simplified Source
+
+```c
+static void findDependencyLoops(DumpableObject **objs, int nObjs, int totObjs) {
+    // Allocate tracking arrays
+    bool *processed = pg_malloc0((getMaxDumpId() + 1) * sizeof(bool));
+    DumpId *searchFailed = pg_malloc0((getMaxDumpId() + 1) * sizeof(DumpId));
+    DumpableObject **workspace = pg_malloc(totObjs * sizeof(DumpableObject *));
+    bool fixedloop = false;
+
+    // Check each object for dependency loops
+    for (int i = 0; i < nObjs; i++) {
+        DumpableObject *obj = objs[i];
+
+        // Try to find a loop starting from this object
+        int looplen = findLoop(obj, obj->dumpId, processed,
+                              searchFailed, workspace, 0);
+
+        if (looplen > 0) {
+            // Found a loop - repair it
+            repairDependencyLoop(workspace, looplen);
+            fixedloop = true;
+
+            // Mark all loop members as processed
+            for (int j = 0; j < looplen; j++)
+                processed[workspace[j]->dumpId] = true;
+        } else {
+            // No loop found, but mark object as processed anyway
+            processed[obj->dumpId] = true;
+        }
+    }
+
+    // Ensure we fixed at least one loop
+    if (!fixedloop)
+        pg_fatal("could not identify dependency loop");
+
+    // Clean up allocated memory
+    free(workspace);
+    free(searchFailed);
+    free(processed);
+}
+```

@@ -41,3 +41,34 @@ This function takes no parameters but operates on global variables:
 - Warning messages help administrators identify potential locale/configuration mismatches
 - The function always outputs the final chosen configuration to inform the user
 - Text search configurations affect how PostgreSQL performs full-text search operations and stemming
+
+## Simplified Source
+
+```c
+void setup_text_search(void) {
+    if (!default_text_search_config) {
+        // Auto-detect configuration based on locale
+        default_text_search_config = find_matching_ts_config(lc_ctype);
+        if (!default_text_search_config) {
+            pg_log_info("could not find suitable text search configuration for locale \"%s\"",
+                        lc_ctype);
+            default_text_search_config = "simple";  // Safe fallback
+        }
+    } else {
+        // Validate user-specified configuration against locale
+        const char *checkmatch = find_matching_ts_config(lc_ctype);
+
+        if (checkmatch == NULL) {
+            pg_log_warning("suitable text search configuration for locale \"%s\" is unknown",
+                           lc_ctype);
+        } else if (strcmp(checkmatch, default_text_search_config) != 0) {
+            pg_log_warning("specified text search configuration \"%s\" might not match locale \"%s\"",
+                           default_text_search_config, lc_ctype);
+        }
+    }
+
+    // Inform user of final configuration choice
+    printf(_("The default text search configuration will be set to \"%s\".\n"),
+           default_text_search_config);
+}
+```

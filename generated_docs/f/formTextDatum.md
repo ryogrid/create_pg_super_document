@@ -43,3 +43,26 @@ The function uses PostgreSQL's variable-length data (varlena) format, which incl
 - Essential for SP-GiST text processing operations, particularly in choose and picksplit functions
 - Handles both empty and non-empty strings correctly
 - The created datum must eventually be freed by PostgreSQL's memory management system
+
+## Simplified Source
+
+```c
+static Datum formTextDatum(const char *data, int datalen)
+{
+    // Allocate memory for varlena structure
+    char *p = palloc(datalen + VARHDRSZ);
+
+    // Use short header format if possible (saves space)
+    if (datalen + VARHDRSZ_SHORT <= VARATT_SHORT_MAX) {
+        SET_VARSIZE_SHORT(p, datalen + VARHDRSZ_SHORT);
+        if (datalen)
+            memcpy(p + VARHDRSZ_SHORT, data, datalen);
+    } else {
+        // Use standard header format for larger data
+        SET_VARSIZE(p, datalen + VARHDRSZ);
+        memcpy(p + VARHDRSZ, data, datalen);
+    }
+
+    return PointerGetDatum(p);
+}
+```

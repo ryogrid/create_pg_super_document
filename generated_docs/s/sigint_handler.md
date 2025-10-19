@@ -29,3 +29,14 @@ The sigint_handler function is a signal handler specifically designed to handle 
 - Uses a simple boolean flag approach to coordinate shutdown between signal context and main processing loop
 - The `time_to_stop` variable should be declared as volatile to ensure proper signal handling semantics
 - Part of the pg_waldump utility which is used for examining PostgreSQL WAL files
+
+## Simplified Source
+
+```c
+static void
+sigint_handler(SIGNAL_ARGS)
+{
+    // Signal graceful shutdown for pg_waldump
+    time_to_stop = true;
+}
+```

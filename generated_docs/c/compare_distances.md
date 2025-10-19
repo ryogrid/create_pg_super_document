@@ -37,3 +37,21 @@ However, the return values are inverted to achieve descending order (larger dist
 - Simple double value comparison with no special handling for NaN or infinity values
 - The function is static and used internally within the BRIN minmax_multi implementation
 - Part of the range consolidation strategy where largest inter-range distances are candidates for elimination
+
+## Simplified Source
+
+```c
+static int compare_distances(const void *a, const void *b) {
+    // Cast pointers to DistanceValue structures
+    DistanceValue *da = (DistanceValue *) a;
+    DistanceValue *db = (DistanceValue *) b;
+
+    // Compare distances in descending order (larger distances first)
+    if (da->value < db->value)
+        return 1;    // a < b, so a comes after b
+    else if (da->value > db->value)
+        return -1;   // a > b, so a comes before b
+
+    return 0;        // Equal values
+}
+```

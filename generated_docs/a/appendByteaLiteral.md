@@ -35,3 +35,38 @@ The implementation directly manipulates the PQExpBuffer's internal data for effi
 - The hex conversion uses lowercase letters (a-f) for consistency
 - More efficient than PQescapeByteaConn when no database connection is available
 - Does not validate input parameters - assumes valid pointers and reasonable length values
+
+## Simplified Source
+
+```c
+void appendByteaLiteral(PQExpBuffer buf, const unsigned char *str, size_t length, bool std_strings) {
+    const unsigned char *source = str;
+    char *target;
+    static const char hextbl[] = "0123456789abcdef";
+
+    // Allocate space: 2 chars per byte + prefix + quotes
+    if (!enlargePQExpBuffer(buf, 2 * length + 5))
+        return;
+
+    target = buf->data + buf->len;
+    *target++ = '\'';  // Opening quote
+
+    // Add escape sequence based on string standards
+    if (!std_strings)
+        *target++ = '\\';  // Extra backslash for non-standard strings
+    *target++ = '\\';
+    *target++ = 'x';  // Hex format prefix
+
+    // Convert each byte to two hex characters
+    while (length-- > 0) {
+        unsigned char c = *source++;
+        *target++ = hextbl[(c >> 4) & 0xF];  // High nibble
+        *target++ = hextbl[c & 0xF];         // Low nibble
+    }
+
+    // Close quote and null terminate
+    *target++ = '\'';
+    *target = '\0';
+    buf->len = target - buf->data;
+}
+```

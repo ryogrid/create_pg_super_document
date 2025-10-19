@@ -41,3 +41,82 @@ The radix tree can use either 16-bit or 32-bit character arrays depending on the
 - Critical component of PostgreSQLs multibyte character encoding conversion system
 - The radix tree structure allows for memory-efficient storage of sparse character conversion mappings
 - Byte parameters are arranged with b4 always containing the least significant byte regardless of character length
+
+## Simplified Source
+
+```c
+static inline uint32 pg_mb_radix_conv(const pg_mb_radix_tree *rt, int l,
+                                      unsigned char b1, unsigned char b2,
+                                      unsigned char b3, unsigned char b4) {
+    uint32 idx;
+
+    // Handle different character byte lengths
+    if (l == 4) {
+        // 4-byte character: validate all bytes within expected ranges
+        if (b1 < rt->b4_1_lower || b1 > rt->b4_1_upper ||
+            b2 < rt->b4_2_lower || b2 > rt->b4_2_upper ||
+            b3 < rt->b4_3_lower || b3 > rt->b4_3_upper ||
+            b4 < rt->b4_4_lower || b4 > rt->b4_4_upper)
+            return 0;  // Invalid character
+
+        // Navigate radix tree: start at root, traverse each byte level
+        idx = rt->b4root;
+        if (rt->chars32) {
+            idx = rt->chars32[b1 + idx - rt->b4_1_lower];
+            idx = rt->chars32[b2 + idx - rt->b4_2_lower];
+            idx = rt->chars32[b3 + idx - rt->b4_3_lower];
+            return rt->chars32[b4 + idx - rt->b4_4_lower];
+        } else {
+            idx = rt->chars16[b1 + idx - rt->b4_1_lower];
+            idx = rt->chars16[b2 + idx - rt->b4_2_lower];
+            idx = rt->chars16[b3 + idx - rt->b4_3_lower];
+            return rt->chars16[b4 + idx - rt->b4_4_lower];
+        }
+    }
+    else if (l == 3) {
+        // 3-byte character: similar validation and lookup
+        if (b2 < rt->b3_1_lower || b2 > rt->b3_1_upper ||
+            b3 < rt->b3_2_lower || b3 > rt->b3_2_upper ||
+            b4 < rt->b3_3_lower || b4 > rt->b3_3_upper)
+            return 0;
+
+        idx = rt->b3root;
+        if (rt->chars32) {
+            idx = rt->chars32[b2 + idx - rt->b3_1_lower];
+            idx = rt->chars32[b3 + idx - rt->b3_2_lower];
+            return rt->chars32[b4 + idx - rt->b3_3_lower];
+        } else {
+            idx = rt->chars16[b2 + idx - rt->b3_1_lower];
+            idx = rt->chars16[b3 + idx - rt->b3_2_lower];
+            return rt->chars16[b4 + idx - rt->b3_3_lower];
+        }
+    }
+    else if (l == 2) {
+        // 2-byte character
+        if (b3 < rt->b2_1_lower || b3 > rt->b2_1_upper ||
+            b4 < rt->b2_2_lower || b4 > rt->b2_2_upper)
+            return 0;
+
+        idx = rt->b2root;
+        if (rt->chars32) {
+            idx = rt->chars32[b3 + idx - rt->b2_1_lower];
+            return rt->chars32[b4 + idx - rt->b2_2_lower];
+        } else {
+            idx = rt->chars16[b3 + idx - rt->b2_1_lower];
+            return rt->chars16[b4 + idx - rt->b2_2_lower];
+        }
+    }
+    else if (l == 1) {
+        // 1-byte character: direct lookup
+        if (b4 < rt->b1_lower || b4 > rt->b1_upper)
+            return 0;
+
+        if (rt->chars32)
+            return rt->chars32[b4 + rt->b1root - rt->b1_lower];
+        else
+            return rt->chars16[b4 + rt->b1root - rt->b1_lower];
+    }
+
+    return 0;  // Invalid length
+}
+```

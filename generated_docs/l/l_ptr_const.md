@@ -42,3 +42,15 @@ This is essential for embedding C function pointers, data structure addresses, a
 - Used extensively in expression compilation (over 30 call sites in llvmjit_expr.c alone)
 - The function assumes the target platform supports converting pointers to uintptr_t and back reliably
 - Part of a family of utility functions for LLVM constant generation (l_ptr, l_int8_const, etc.)
+
+## Simplified Source
+
+```c
+static inline LLVMValueRef l_ptr_const(void *ptr, LLVMTypeRef type) {
+    // Convert C pointer to integer constant
+    LLVMValueRef integer_const = LLVMConstInt(TypeSizeT, (uintptr_t) ptr, false);
+
+    // Convert integer constant back to LLVM pointer type
+    return LLVMConstIntToPtr(integer_const, type);
+}
+```

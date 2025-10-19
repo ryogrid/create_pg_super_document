@@ -36,3 +36,26 @@ The function uses `float8_pl` for floating-point addition to ensure proper handl
 - Returns the total length as a float8 value
 - Part of PostgreSQL's geometric "arithmetic" operations suite
 - Time complexity is O(n) where n is the number of points in the path
+
+## Simplified Source
+
+```c
+Datum path_length(PG_FUNCTION_ARGS) {
+    // Extract PATH object from function argument
+    PATH *path = PG_GETARG_PATH_P(0);
+    float8 total_length = 0.0;
+
+    // Sum distances between consecutive points in the path
+    for (int i = 0; i < path->npts; i++) {
+        // Determine previous point index
+        int iprev = (i > 0) ? i - 1 : (path->closed ? path->npts - 1 : -1);
+        if (iprev == -1) continue; // Skip if open path and at first point
+
+        // Add distance between consecutive points to total
+        float8 segment_length = point_dt(&path->p[iprev], &path->p[i]);
+        total_length = float8_pl(total_length, segment_length);
+    }
+
+    PG_RETURN_FLOAT8(total_length);
+}
+```

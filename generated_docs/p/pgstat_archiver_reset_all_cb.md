@@ -26,3 +26,27 @@ This callback function implements the reset functionality for archiver statistic
 
 ## Notes and Other Information
 The reset protocol preserves historical statistics in shared memory while providing a way to report incremental values since the last reset. This approach is more robust than clearing statistics entirely, as it prevents loss of data during concurrent operations and allows for proper accounting of activities that span reset operations.
+
+## Simplified Source
+
+```c
+void
+pgstat_archiver_reset_all_cb(TimestampTz ts)
+{
+    PgStatShared_Archiver *stats_shmem = &pgStatLocal.shmem->archiver;
+
+    // Acquire exclusive lock for atomic reset operation
+    LWLockAcquire(&stats_shmem->lock, LW_EXCLUSIVE);
+
+    // Copy current stats to reset_offset (used for delta calculations)
+    pgstat_copy_changecounted_stats(&stats_shmem->reset_offset,
+                                    &stats_shmem->stats,
+                                    sizeof(stats_shmem->stats),
+                                    &stats_shmem->changecount);
+
+    // Update reset timestamp
+    stats_shmem->stats.stat_reset_timestamp = ts;
+
+    LWLockRelease(&stats_shmem->lock);
+}
+```

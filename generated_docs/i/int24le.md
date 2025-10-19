@@ -33,3 +33,16 @@ This function is part of PostgreSQL's comprehensive set of cross-type comparison
 - The comparison leverages C's automatic type promotion where the int16 value is implicitly promoted to int32 for the comparison
 - Part of PostgreSQL's operator system, typically invoked through SQL expressions like 'smallint_val <= integer_val'
 - Returns boolean true when first value is less than or equal to second, false otherwise
+
+## Simplified Source
+
+```c
+Datum int24le(PG_FUNCTION_ARGS) {
+    // Extract int16 and int32 arguments
+    int16 left_value = PG_GETARG_INT16(0);
+    int32 right_value = PG_GETARG_INT32(1);
+
+    // Compare for less-than-or-equal relationship (C automatically promotes int16 to int32)
+    PG_RETURN_BOOL(left_value <= right_value);
+}
+```

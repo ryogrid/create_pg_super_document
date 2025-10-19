@@ -35,3 +35,21 @@ This static function creates a new boolean reloption by calling allocate_relopti
 - The function is a thin wrapper around allocate_reloption with boolean-specific initialization
 - It casts the returned generic relopt_gen pointer to the more specific relopt_bool type
 - The default_val parameter allows setting the boolean default value for the reloption
+
+## Simplified Source
+
+```c
+static relopt_bool *
+init_bool_reloption(bits32 kinds, const char *name, const char *desc,
+                    bool default_val, LOCKMODE lockmode)
+{
+    // Allocate a new boolean reloption structure
+    relopt_bool *newoption = (relopt_bool *) allocate_reloption(kinds, RELOPT_TYPE_BOOL,
+                                                                name, desc, lockmode);
+
+    // Set the boolean-specific default value
+    newoption->default_val = default_val;
+
+    return newoption;
+}
+```

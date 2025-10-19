@@ -37,3 +37,18 @@ This function provides bytea substring extraction functionality with three argum
 - Throws an ERROR if length is negative
 - The function is cloned from text_substr but adapted for binary data (bytea)
 - Located in src/backend/utils/adt/varlena.c:3005-3018
+
+## Simplified Source
+
+```c
+// PostgreSQL function to extract substring from bytea with specified length
+Datum bytea_substr(PG_FUNCTION_ARGS) {
+    // Extract arguments: source bytea, start position (1-based), length
+    Datum source_bytea = PG_GETARG_DATUM(0);
+    int32 start_pos = PG_GETARG_INT32(1);
+    int32 length = PG_GETARG_INT32(2);
+
+    // Delegate to core substring function and return result
+    return PG_RETURN_BYTEA_P(bytea_substring(source_bytea, start_pos, length, false));
+}
+```

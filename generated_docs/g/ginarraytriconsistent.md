@@ -42,3 +42,82 @@ The function evaluates different array search strategies with ternary logic:
 - Null element handling varies by strategy, similar to the binary consistent function
 - Part of PostgreSQL's advanced GIN indexing infrastructure for optimized array query processing
 - Enhanced version of ginarrayconsistent that provides better selectivity estimation
+
+## Simplified Source
+
+```c
+Datum
+ginarraytriconsistent(PG_FUNCTION_ARGS)
+{
+    GinTernaryValue *check = (GinTernaryValue *) PG_GETARG_POINTER(0);
+    StrategyNumber strategy = PG_GETARG_UINT16(1);
+    int32 nkeys = PG_GETARG_INT32(3);
+    bool *nullFlags = (bool *) PG_GETARG_POINTER(6);
+    GinTernaryValue res;
+    int32 i;
+
+    switch (strategy)
+    {
+        case GinOverlapStrategy:
+            // At least one non-null element must match
+            res = GIN_FALSE;
+            for (i = 0; i < nkeys; i++)
+            {
+                if (!nullFlags[i])
+                {
+                    if (check[i] == GIN_TRUE)
+                    {
+                        res = GIN_TRUE;
+                        break;
+                    }
+                    else if (check[i] == GIN_MAYBE && res == GIN_FALSE)
+                    {
+                        res = GIN_MAYBE;
+                    }
+                }
+            }
+            break;
+
+        case GinContainsStrategy:
+            // All elements must be present (no nulls allowed)
+            res = GIN_TRUE;
+            for (i = 0; i < nkeys; i++)
+            {
+                if (check[i] == GIN_FALSE || nullFlags[i])
+                {
+                    res = GIN_FALSE;
+                    break;
+                }
+                if (check[i] == GIN_MAYBE)
+                {
+                    res = GIN_MAYBE;
+                }
+            }
+            break;
+
+        case GinContainedStrategy:
+            // Cannot determine containment from index alone
+            res = GIN_MAYBE;
+            break;
+
+        case GinEqualStrategy:
+            // Default to maybe, false if any element definitely absent
+            res = GIN_MAYBE;
+            for (i = 0; i < nkeys; i++)
+            {
+                if (check[i] == GIN_FALSE)
+                {
+                    res = GIN_FALSE;
+                    break;
+                }
+            }
+            break;
+
+        default:
+            elog(ERROR, "ginarrayconsistent: unknown strategy number: %d", strategy);
+            res = false;
+    }
+
+    PG_RETURN_GIN_TERNARY_VALUE(res);
+}
+```

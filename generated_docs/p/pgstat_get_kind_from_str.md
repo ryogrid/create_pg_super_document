@@ -34,3 +34,26 @@ This utility function performs a case-insensitive lookup to convert a string rep
 - The return statement after ereport is unreachable but included to satisfy compiler warnings
 - Part of the PostgreSQL statistics system's string-to-enum conversion infrastructure
 - Used primarily by SQL functions that accept statistics kind names as string parameters
+
+## Simplified Source
+
+```c
+PgStat_Kind
+pgstat_get_kind_from_str(char *kind_str)
+{
+    // Search through all valid statistics kinds
+    for (int kind = PGSTAT_KIND_FIRST_VALID; kind <= PGSTAT_KIND_LAST; kind++)
+    {
+        // Case-insensitive comparison with kind name
+        if (pg_strcasecmp(kind_str, pgstat_kind_infos[kind].name) == 0)
+            return kind;
+    }
+
+    // Report error if no match found
+    ereport(ERROR,
+            (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+             errmsg("invalid statistics kind: \"%s\"", kind_str)));
+
+    return PGSTAT_KIND_DATABASE;  // Never reached, avoids compiler warnings
+}
+```

@@ -41,3 +41,21 @@ This enables proper lexicographical ordering of lexemes when constructing TSVect
 - Critical for ensuring lexemes are properly sorted in TSVector construction
 - The void pointer interface is required by qsort function signature
 - Part of the array-to-TSVector conversion pipeline
+
+## Simplified Source
+
+```c
+static int compare_text_lexemes(const void *va, const void *vb) {
+    Datum a = *((const Datum *) va);
+    Datum b = *((const Datum *) vb);
+
+    // Extract string data and lengths from text objects
+    char *alex = VARDATA_ANY(a);
+    int alex_len = VARSIZE_ANY_EXHDR(a);
+    char *blex = VARDATA_ANY(b);
+    int blex_len = VARSIZE_ANY_EXHDR(b);
+
+    // Compare using TSVector's string comparison function
+    return tsCompareString(alex, alex_len, blex, blex_len, false);
+}
+```

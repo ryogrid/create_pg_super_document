@@ -38,3 +38,36 @@ The function includes overflow protection to prevent integer overflow when calcu
 - The resulting path inherits the 'closed' status from the first path (always false for valid operations)
 - Points from the first path appear first in the result, followed by points from the second path
 - Used as part of PostgreSQL's geometric data type operations for 2D paths
+
+## Simplified Source
+
+```c
+PATH* path_add(PATH *p1, PATH *p2) {
+    // Only concatenate open paths
+    if (p1->closed || p2->closed)
+        return NULL;
+
+    // Calculate memory needed for combined path
+    int total_points = p1->npts + p2->npts;
+    int size = offsetof(PATH, p) + sizeof(p1->p[0]) * total_points;
+
+    // Check for overflow
+    if (size <= 0 || total_points < 0)
+        ereport(ERROR, (errmsg("too many points requested")));
+
+    // Allocate and initialize result path
+    PATH *result = (PATH *) palloc(size);
+    result->npts = total_points;
+    result->closed = false;
+
+    // Copy points from first path, then second path
+    for (int i = 0; i < p1->npts; i++) {
+        result->p[i] = p1->p[i];
+    }
+    for (int i = 0; i < p2->npts; i++) {
+        result->p[i + p1->npts] = p2->p[i];
+    }
+
+    return result;
+}
+```

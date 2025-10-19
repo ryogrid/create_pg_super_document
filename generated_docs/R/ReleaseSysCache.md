@@ -27,3 +27,13 @@ ReleaseSysCache is a simple wrapper function around ReleaseCatCache that decreme
 - The function is a thin wrapper that delegates to the lower-level ReleaseCatCache function
 - Failure to call this function for cached tuples can lead to memory leaks and cache bloat
 - Should be called even if the tuple pointer is NULL (the underlying ReleaseCatCache handles NULL gracefully)
+
+## Simplified Source
+
+```c
+void ReleaseSysCache(HeapTuple tuple) {
+    // Simple wrapper that delegates to ReleaseCatCache
+    // for system cache tuple cleanup
+    ReleaseCatCache(tuple);
+}
+```

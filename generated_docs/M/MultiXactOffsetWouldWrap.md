@@ -37,3 +37,28 @@ The function implements different logic depending on whether the boundary is num
 - Enables use of the full 32-bit unsigned integer space for multixact offsets
 - Critical for preventing data corruption in MultiXact member offset management
 - Function is located at src/backend/access/transam/multixact.c:2832-2879
+
+## Simplified Source
+
+```c
+static bool MultiXactOffsetWouldWrap(MultiXactOffset boundary, MultiXactOffset start, uint32 distance)
+{
+    // Calculate the finish offset after adding distance
+    MultiXactOffset finish = start + distance;
+
+    // Skip offset 0 if we wrapped around UINT_MAX (offset 0 is not used)
+    if (finish < start)
+        finish++;
+
+    // Handle wraparound logic based on boundary position
+    if (start < boundary) {
+        // Normal case: boundary is ahead of start
+        // Wrapped if finish passes boundary OR if finish wrapped around
+        return finish >= boundary || finish < start;
+    } else {
+        // Wraparound case: boundary is behind start (crossed UINT_MAX)
+        // Wrapped if finish passes boundary AND didn't wrap back around
+        return finish >= boundary && finish < start;
+    }
+}
+```

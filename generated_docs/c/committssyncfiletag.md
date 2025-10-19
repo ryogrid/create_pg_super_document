@@ -36,3 +36,15 @@ The synchronization process involves opening the specified file and performing a
 - Return value follows standard Unix convention: 0 on success, -1 on failure with errno set appropriately
 - The function is declared in src/include/access/commit_ts.h and implemented in src/backend/access/transam/commit_ts.c
 - Commit timestamp files are stored as part of the SLRU subsystem and are critical for logical replication features that need to determine transaction commit ordering
+
+## Simplified Source
+
+```c
+int
+committssyncfiletag(const FileTag *ftag, char *path)
+{
+    // Sync commit timestamp file to stable storage
+    // using the commit timestamp SLRU control structure
+    return SlruSyncFileTag(CommitTsCtl, ftag, path);
+}
+```

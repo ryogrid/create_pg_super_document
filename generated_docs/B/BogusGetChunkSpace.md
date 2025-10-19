@@ -33,3 +33,17 @@ The function is part of the BOGUS_MCTX (bogus memory context) infrastructure, pr
 - Part of PostgreSQL's defensive programming approach to catch memory management errors early
 - The function is static, meaning it's only accessible within the mcxt.c compilation unit
 - Works in tandem with BogusGetChunkContext to provide comprehensive error handling for invalid memory operations
+
+## Simplified Source
+
+```c
+static Size
+BogusGetChunkSpace(void *pointer)
+{
+    // Report error with pointer address and header for debugging
+    elog(ERROR, "GetMemoryChunkSpace called with invalid pointer %p (header 0x%016llx)",
+         pointer, (unsigned long long) GetMemoryChunkHeader(pointer));
+
+    return 0; // Never reached, keeps compiler quiet
+}
+```

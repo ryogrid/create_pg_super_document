@@ -36,3 +36,15 @@ The `evalFunc` function serves as the main entry point for evaluating pgbench fu
 - Central to pgbench's dual evaluation approach that optimizes performance for different function types
 - All function evaluation in pgbench expressions ultimately flows through this dispatcher
 - The design allows for easy extension of new evaluation strategies if needed in the future
+
+## Simplified Source
+
+```c
+static bool evalFunc(CState *st, PgBenchFunction func, PgBenchExprLink *args, PgBenchValue *retval) {
+    // Route to appropriate evaluation strategy
+    if (isLazyFunc(func))
+        return evalLazyFunc(st, func, args, retval);    // Short-circuit evaluation for AND/OR/CASE
+    else
+        return evalStandardFunc(st, func, args, retval); // Eager evaluation for all other functions
+}
+```

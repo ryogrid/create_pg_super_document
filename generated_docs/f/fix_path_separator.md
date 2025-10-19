@@ -31,3 +31,26 @@ The function is essential for pg_upgrade operations that need to generate shell 
 - The caller is responsible for freeing the returned string on Windows systems
 - Used specifically for generating commands compatible with Windows builtin shell commands
 - Compilation conditional using WIN32 preprocessor directive
+
+## Simplified Source
+
+```c
+static char *
+fix_path_separator(char *path)
+{
+#ifdef WIN32
+    // Windows: Convert forward slashes to backslashes
+    char *result = pg_strdup(path);
+    char *c;
+
+    for (c = result; *c != '\0'; c++)
+        if (*c == '/')
+            *c = '\\';
+
+    return result;
+#else
+    // Non-Windows: Return path unchanged
+    return path;
+#endif
+}
+```

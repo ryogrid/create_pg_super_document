@@ -38,3 +38,43 @@ The function allocates a HashScanOpaque structure that maintains hash-specific s
 - Sets up killed tuple tracking infrastructure for deferred cleanup optimization
 - The scan position is initially invalid and will be established on the first tuple fetch
 - Returns a fully initialized IndexScanDesc ready for tuple retrieval operations
+
+## Simplified Source
+
+```c
+IndexScanDesc
+hashbeginscan(Relation rel, int nkeys, int norderbys)
+{
+    IndexScanDesc scan;
+    HashScanOpaque so;
+
+    // Hash indexes don't support ordered scans
+    Assert(norderbys == 0);
+
+    // Get basic scan descriptor
+    scan = RelationGetIndexScan(rel, nkeys, norderbys);
+
+    // Allocate hash-specific scan state
+    so = (HashScanOpaque) palloc(sizeof(HashScanOpaqueData));
+
+    // Initialize scan position as invalid (will be set on first fetch)
+    HashScanPosInvalidate(so->currPos);
+
+    // Initialize buffer references to invalid
+    so->hashso_bucket_buf = InvalidBuffer;
+    so->hashso_split_bucket_buf = InvalidBuffer;
+
+    // Initialize bucket tracking flags
+    so->hashso_buc_populated = false;
+    so->hashso_buc_split = false;
+
+    // Initialize killed items tracking
+    so->killedItems = NULL;
+    so->numKilled = 0;
+
+    // Connect hash-specific state to main scan descriptor
+    scan->opaque = so;
+
+    return scan;
+}
+```

@@ -33,3 +33,18 @@ The  function is a standard C library comparison function that compares two  str
 - Static function shared between different SP-GiST geometric implementations
 - Essential for determining optimal split points during node splitting operations
 - Uses exact floating-point comparison which is appropriate for coordinate sorting
+
+## Simplified Source
+
+```c
+static int x_cmp(const void *a, const void *b)
+{
+    SortedPoint *pa = (SortedPoint *) a;
+    SortedPoint *pb = (SortedPoint *) b;
+
+    // Compare x-coordinates of two points
+    if (pa->p->x == pb->p->x)
+        return 0;       // Equal
+    return (pa->p->x > pb->p->x) ? 1 : -1;  // Greater or less than
+}
+```

@@ -36,3 +36,21 @@ The int82 function implements type conversion from PostgreSQL's 8-byte integer t
 - Essential for safe downcasting operations in PostgreSQL's type system
 - The function name follows PostgreSQL's convention where the number indicates the byte size (8 for source, 2 for target)
 - Provides more restrictive range checking than int84, as smallint has a much smaller range than integer
+
+## Simplified Source
+
+```c
+Datum int82(PG_FUNCTION_ARGS) {
+    // Extract 64-bit integer argument
+    int64 arg = PG_GETARG_INT64(0);
+
+    // Check for overflow before conversion
+    if (arg < PG_INT16_MIN || arg > PG_INT16_MAX) {
+        ereport(ERROR, (errcode(ERRCODE_NUMERIC_VALUE_OUT_OF_RANGE),
+                        errmsg("smallint out of range")));
+    }
+
+    // Safe to convert to 16-bit integer
+    PG_RETURN_INT16((int16) arg);
+}
+```

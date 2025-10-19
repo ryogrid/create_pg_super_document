@@ -42,3 +42,22 @@ This configuration enables efficient spatial queries on box data types using qua
 - This configuration function is typically registered in the system catalogs as part of an operator class definition
 - The quadtree approach is particularly well-suited for 2D box data types as it naturally partitions space based on geometric relationships
 - Part of a larger set of SP-GiST support functions for geometric indexing including choose, picksplit, inner_consistent, and leaf_consistent functions
+
+## Simplified Source
+
+```c
+/* SP-GiST configuration function for box quadtree indexing */
+Datum
+spg_box_quad_config(PG_FUNCTION_ARGS)
+{
+    spgConfigOut *cfg = (spgConfigOut *) PG_GETARG_POINTER(1);
+
+    // Configure for box geometric data type
+    cfg->prefixType = BOXOID;        // Internal nodes store box prefixes
+    cfg->labelType = VOIDOID;        // No node labels needed
+    cfg->canReturnData = true;       // Support index-only scans
+    cfg->longValuesOK = false;       // Box data is fixed-size
+
+    PG_RETURN_VOID();
+}
+```

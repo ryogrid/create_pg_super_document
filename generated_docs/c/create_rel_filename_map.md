@@ -43,3 +43,50 @@ The function preserves critical identifiers like database OID and relation file 
 - The function assumes old and new relations have identical namespace and relation names for logging purposes
 - Part of pg_upgrade's file mapping infrastructure for PostgreSQL major version upgrades
 - Tablespace suffix handling depends on global cluster configuration variables
+
+## Simplified Source
+
+```c
+static void
+create_rel_filename_map(const char *old_data, const char *new_data,
+                        const DbInfo *old_db, const DbInfo *new_db,
+                        const RelInfo *old_rel, const RelInfo *new_rel,
+                        FileNameMap *map)
+{
+    // Configure old cluster tablespace paths
+    if (strlen(old_rel->tablespace) == 0)
+    {
+        // Relation in default tablespace - use data directory
+        map->old_tablespace = old_data;
+        map->old_tablespace_suffix = "/base";
+    }
+    else
+    {
+        // Relation in custom tablespace - use tablespace location
+        map->old_tablespace = old_rel->tablespace;
+        map->old_tablespace_suffix = old_cluster.tablespace_suffix;
+    }
+
+    // Configure new cluster tablespace paths
+    if (strlen(new_rel->tablespace) == 0)
+    {
+        // Relation in default tablespace - use data directory
+        map->new_tablespace = new_data;
+        map->new_tablespace_suffix = "/base";
+    }
+    else
+    {
+        // Relation in custom tablespace - use tablespace location
+        map->new_tablespace = new_rel->tablespace;
+        map->new_tablespace_suffix = new_cluster.tablespace_suffix;
+    }
+
+    // Preserve database and relation identifiers (must remain unchanged)
+    map->db_oid = old_db->db_oid;
+    map->relfilenumber = old_rel->relfilenumber;
+
+    // Set relation names for logging and error reporting
+    map->nspname = old_rel->nspname;
+    map->relname = old_rel->relname;
+}
+```

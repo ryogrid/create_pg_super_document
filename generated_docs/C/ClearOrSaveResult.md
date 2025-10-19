@@ -35,3 +35,26 @@ ClearOrSaveResult implements psql's error result preservation mechanism. When a 
 
 ## Notes and Other Information
 This function is central to psql's memory management strategy for query results. It implements the policy of preserving error results for debugging purposes while immediately freeing successful results to minimize memory usage. The function safely handles NULL results and ensures that only one error result is kept at a time by clearing any existing saved error before storing a new one. The preserved error results enable the \errverbose command to provide detailed error information even after subsequent queries have been executed. This applies to results from all queries, including internal "back door" queries used for debugging, making it a comprehensive error tracking mechanism.
+
+## Simplified Source
+
+```c
+static void ClearOrSaveResult(PGresult *result) {
+    if (result) {
+        // Check if result contains an error
+        switch (PQresultStatus(result)) {
+            case PGRES_NONFATAL_ERROR:
+            case PGRES_FATAL_ERROR:
+                // Save error for \errverbose command
+                PQclear(pset.last_error_result);
+                pset.last_error_result = result;
+                break;
+
+            default:
+                // Free successful results immediately
+                PQclear(result);
+                break;
+        }
+    }
+}
+```

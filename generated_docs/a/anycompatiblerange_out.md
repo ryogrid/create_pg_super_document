@@ -30,3 +30,12 @@ The function is part of PostgreSQL's pseudotype system that enables polymorphic 
 - This function is automatically used by PostgreSQL when converting anycompatiblerange values to text
 - Part of the pseudotype infrastructure that enables polymorphic function definitions
 - The actual formatting logic is handled by the concrete range type's output function
+
+## Simplified Source
+
+```c
+Datum anycompatiblerange_out(PG_FUNCTION_ARGS) {
+    // Simple wrapper that delegates to range_out for text output
+    return range_out(fcinfo);
+}
+```

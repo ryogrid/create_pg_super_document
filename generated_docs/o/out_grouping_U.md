@@ -48,3 +48,25 @@ This is particularly useful for operations like finding the end of consonant clu
 - Used extensively in morphological analysis to locate transitions between different character classes
 - The function is declared as extern, making it available to generated stemmer code
 - Cursor movement is forward (z->c += w) and stops when a target character is found
+
+## Simplified Source
+
+```c
+extern int out_grouping_U(struct SN_env * z, const unsigned char * s, int min, int max, int repeat) {
+    do {
+        int ch;
+        // Decode UTF-8 character at current position
+        int width = get_utf8(z->p, z->c, z->l, &ch);
+        if (!width) return -1;  // UTF-8 decode error
+
+        // Check if character IS in the group (opposite of in_grouping_U)
+        if (!(ch > max || (ch -= min) < 0 || (s[ch >> 3] & (0X1 << (ch & 0X7))) == 0))
+            return width;  // Character found in group, stop here
+
+        // Character not in group, advance cursor and continue
+        z->c += width;
+    } while (repeat);
+
+    return 0;  // Success - skipped all non-group characters
+}
+```

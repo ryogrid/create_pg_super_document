@@ -36,3 +36,38 @@ This function handles the \getenv backslash command which takes two arguments: a
 - Only sets the psql variable if the environment variable exists and has a value
 - When not in active_branch, uses ignore_slash_options to skip argument parsing
 - Returns PSQL_CMD_SKIP_LINE on success or PSQL_CMD_ERROR on failure
+
+## Simplified Source
+
+```c
+static backslashResult exec_command_getenv(PsqlScanState scan_state, bool active_branch, const char *cmd) {
+    bool success = true;
+
+    if (active_branch) {
+        // Parse two required arguments: psql var name and env var name
+        char *myvar = psql_scan_slash_option(scan_state, OT_NORMAL, NULL, false);
+        char *envvar = psql_scan_slash_option(scan_state, OT_NORMAL, NULL, false);
+
+        if (!myvar || !envvar) {
+            // Missing required arguments
+            pg_log_error("\\%s: missing required argument", cmd);
+            success = false;
+        } else {
+            // Get environment variable value and set psql variable
+            char *envval = getenv(envvar);
+            if (envval && !SetVariable(pset.vars, myvar, envval)) {
+                success = false;
+            }
+        }
+
+        // Cleanup allocated strings
+        free(myvar);
+        free(envvar);
+    } else {
+        // Not in active branch - just consume arguments
+        ignore_slash_options(scan_state);
+    }
+
+    return success ? PSQL_CMD_SKIP_LINE : PSQL_CMD_ERROR;
+}
+```

@@ -35,3 +35,14 @@ This function is typically called from the outer error recovery loop to ensure t
 - Preserves pending data while resetting communication state
 - Part of PostgreSQL's robust error handling infrastructure
 - Should ideally never be needed if pqcomm.c routines don't throw errors
+
+## Simplified Source
+
+```c
+static void
+socket_comm_reset(void)
+{
+    // Reset communication busy flag while preserving pending data
+    PqCommBusy = false;
+}
+```

@@ -30,3 +30,14 @@ This function serves as a language-specific wrapper for creating a Snowball stem
 - Located in the auto-generated stemmer code for Norwegian language support
 - Returns NULL if memory allocation fails during environment creation
 - Must be paired with corresponding norwegian_ISO_8859_1_close_env() call to prevent memory leaks
+
+## Simplified Source
+
+```c
+extern struct SN_env * norwegian_ISO_8859_1_create_env(void) {
+    // Create stemmer environment with 0 string arrays, 2 integer arrays
+    return SN_create_env(0, 2);
+}
+```
+
+*This simplified version shows the core functionality: creating a Snowball environment specifically configured for Norwegian text processing with the required array allocations.*

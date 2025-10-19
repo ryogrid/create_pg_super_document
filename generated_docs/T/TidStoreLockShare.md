@@ -31,3 +31,15 @@ TidStoreLockShare is a locking function that acquires a shared (read) lock on a 
 - Must be paired with TidStoreUnlock() to release the lock
 - Multiple shared locks can be held simultaneously, allowing concurrent readers
 - Part of PostgreSQL's TidStore locking protocol for parallel processing scenarios
+
+## Simplified Source
+
+```c
+void
+TidStoreLockShare(TidStore *ts)
+{
+    // Only lock if this is a shared TidStore (multi-process access)
+    if (TidStoreIsShared(ts))
+        shared_ts_lock_share(ts->tree.shared);
+}
+```

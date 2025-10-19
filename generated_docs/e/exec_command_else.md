@@ -41,3 +41,44 @@ The function handles several scenarios:
 - Validates proper nesting and usage of \\else commands to prevent syntax errors
 - Manages query text accumulation by either saving or discarding content based on execution flow
 - Error handling includes detection of multiple \\else statements and \\else without matching \\if
+
+## Simplified Source
+
+```c
+static backslashResult exec_command_else(PsqlScanState scan_state, ConditionalStack cstack, PQExpBuffer query_buf) {
+    bool success = true;
+
+    switch (conditional_stack_peek(cstack)) {
+        case IFSTATE_TRUE:
+            // Previous branch was active - save state and skip else
+            save_query_text_state(scan_state, cstack, query_buf);
+            conditional_stack_poke(cstack, IFSTATE_ELSE_FALSE);
+            break;
+
+        case IFSTATE_FALSE:
+            // No previous branch active - execute else branch
+            discard_query_text(scan_state, cstack, query_buf);
+            conditional_stack_poke(cstack, IFSTATE_ELSE_TRUE);
+            break;
+
+        case IFSTATE_IGNORED:
+            // Entire block ignored - continue ignoring
+            discard_query_text(scan_state, cstack, query_buf);
+            conditional_stack_poke(cstack, IFSTATE_ELSE_FALSE);
+            break;
+
+        case IFSTATE_ELSE_TRUE:
+        case IFSTATE_ELSE_FALSE:
+            pg_log_error("\\else: cannot occur after \\else");
+            success = false;
+            break;
+
+        case IFSTATE_NONE:
+            pg_log_error("\\else: no matching \\if");
+            success = false;
+            break;
+    }
+
+    return success ? PSQL_CMD_SKIP_LINE : PSQL_CMD_ERROR;
+}
+```

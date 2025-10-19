@@ -34,3 +34,22 @@ The  function calculates the arccosine of a value and returns the result in degr
 - Both calculation branches are guaranteed to return exactly 60.0 when x = 0.5, ensuring continuity
 - Complementary to  - together they provide accurate degree-based inverse trigonometric functions
 - Part of PostgreSQL's degree-based trigonometric function suite for improved numerical accuracy
+
+## Simplified Source
+
+```c
+static double acosd_q1(double x) {
+    // Calculate inverse cosine in degrees for x in [0,1]
+    // Returns exact values: 90° for x=0, 60° for x=0.5, 0° for x=1
+
+    if (x <= 0.5) {
+        // For small values, use asin scaling
+        double asin_result = asin(x);
+        return 90.0 - (asin_result / asin_0_5) * 30.0;
+    } else {
+        // For larger values, use acos scaling
+        double acos_result = acos(x);
+        return (acos_result / acos_0_5) * 60.0;
+    }
+}
+```

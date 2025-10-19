@@ -48,3 +48,41 @@ The function uses backward matching (indicated by the '_b' suffix in function ca
 - Returns 1 on success, 0 on no match, or negative values on error
 - Part of a multi-step stemming algorithm where each step handles different morphological patterns
 - Uses goto statements for control flow, which is common in generated snowball code
+
+## Simplified Source
+
+```c
+static int r_steps3(struct SN_env * z) {
+    int pattern_match;
+
+    // Phase 1: Delete suffixes using pattern array a_7 (7 patterns)
+    z->ket = z->c;
+    if (!find_among_b(z, a_7, 7)) return 0;
+    z->bra = z->c;
+    slice_del(z);  // Remove matched suffix
+
+    z->I[0] = 0;   // Reset state counter
+
+    // Phase 2: Try specific pattern replacement first
+    if (eq_s_b(z, 6, s_38) && z->c <= z->lb) {
+        // Specific 6-character pattern found, replace with 4-byte string
+        slice_from_s(z, 4, s_39);
+        return 1;
+    }
+
+    // Phase 3: Fallback to general pattern matching (array a_6, 32 patterns)
+    z->ket = z->c;
+    z->bra = z->c;
+    pattern_match = find_among_b(z, a_6, 32);
+    if (!pattern_match) return 0;
+    if (z->c > z->lb) return 0;  // Boundary check
+
+    // Apply replacement based on pattern
+    switch (pattern_match) {
+        case 1: slice_from_s(z, 2, s_40); break;  // 2-byte replacement
+        case 2: slice_from_s(z, 4, s_41); break;  // 4-byte replacement
+    }
+
+    return 1;  // Success
+}
+```

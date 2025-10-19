@@ -41,3 +41,34 @@ The function uses PostgreSQL's support function infrastructure to provide these 
 - The frame optimization using ROWS instead of RANGE can significantly improve performance by avoiding peer row comparisons
 - The optimization is particularly beneficial for ntile() since it doesn't depend on the actual frame boundaries but rather on the entire partition
 - Located in src/backend/utils/adt/windowfuncs.c:483-527
+
+## Simplified Source
+
+```c
+Datum
+window_ntile_support(PG_FUNCTION_ARGS)
+{
+    Node *rawreq = (Node *) PG_GETARG_POINTER(0);
+
+    // Handle monotonicity request
+    if (IsA(rawreq, SupportRequestWFuncMonotonic)) {
+        SupportRequestWFuncMonotonic *req = (SupportRequestWFuncMonotonic *) rawreq;
+        req->monotonic = MONOTONICFUNC_INCREASING;  // ntile() always increases
+        PG_RETURN_POINTER(req);
+    }
+
+    // Handle frame optimization request
+    if (IsA(rawreq, SupportRequestOptimizeWindowClause)) {
+        SupportRequestOptimizeWindowClause *req = (SupportRequestOptimizeWindowClause *) rawreq;
+
+        // Use ROWS framing instead of RANGE for better performance
+        req->frameOptions = (FRAMEOPTION_NONDEFAULT |
+                           FRAMEOPTION_ROWS |
+                           FRAMEOPTION_START_UNBOUNDED_PRECEDING |
+                           FRAMEOPTION_END_CURRENT_ROW);
+        PG_RETURN_POINTER(req);
+    }
+
+    PG_RETURN_POINTER(NULL);  // Unrecognized request type
+}
+```

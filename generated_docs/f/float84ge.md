@@ -31,3 +31,16 @@ The float84ge function implements the greater-than-or-equal-to comparison operat
 - Part of PostgreSQL's floating point arithmetic operator family
 - Returns a boolean Datum indicating whether arg1 >= arg2
 - Located in src/backend/utils/adt/float.c:3966-3988
+
+## Simplified Source
+
+```c
+Datum float84ge(PG_FUNCTION_ARGS) {
+    // Extract double precision (float8) and single precision (float4) arguments
+    float8 arg1 = PG_GETARG_FLOAT8(0);
+    float4 arg2 = PG_GETARG_FLOAT4(1);
+
+    // Compare by promoting float4 to float8 and using standard >= comparison
+    PG_RETURN_BOOL(float8_ge(arg1, (float8) arg2));
+}
+```

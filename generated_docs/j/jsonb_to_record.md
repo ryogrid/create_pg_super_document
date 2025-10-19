@@ -40,3 +40,16 @@ The function operates by:
 - Located in 
 - Typically used in SQL contexts where the return type is explicitly specified
 - Requires the output record type to be determinable from the calling context
+
+## Simplified Source
+
+```c
+Datum jsonb_to_record(PG_FUNCTION_ARGS) {
+    // Convert JSONB object to record using worker function
+    // Parameters: validate_json=false (JSONB pre-validated),
+    //           from_json=false (no record template needed),
+    //           parent_name=NULL (top-level call)
+    return populate_record_worker(fcinfo, "jsonb_to_record",
+                                  false, false, NULL);
+}
+```

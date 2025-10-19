@@ -42,3 +42,29 @@ The root vacuum is typically simpler than leaf vacuum because root pages don't r
 - No special state management or tuple movement required unlike leaf page vacuum
 - Part of the SP-GiST index WAL recovery subsystem located in src/backend/access/spgist/spgxlog.c:834-859
 - Handles the root-specific aspects of SP-GiST vacuum operations during recovery
+
+## Simplified Source
+```c
+static void spgRedoVacuumRoot(XLogReaderState *record)
+{
+    XLogRecPtr lsn = record->EndRecPtr;
+    spgxlogVacuumRoot *xldata = (spgxlogVacuumRoot *) XLogRecGetData(record);
+    Buffer buffer;
+
+    // Read and lock the root page if redo is needed
+    if (XLogReadBufferForRedo(record, 0, &buffer) == BLK_NEEDS_REDO) {
+        Page page = BufferGetPage(buffer);
+
+        // Delete tuples in batch (offsets are ordered)
+        PageIndexMultiDelete(page, xldata->offsets, xldata->nDelete);
+
+        // Update page metadata
+        PageSetLSN(page, lsn);
+        MarkBufferDirty(buffer);
+    }
+
+    // Clean up buffer
+    if (BufferIsValid(buffer))
+        UnlockReleaseBuffer(buffer);
+}
+```

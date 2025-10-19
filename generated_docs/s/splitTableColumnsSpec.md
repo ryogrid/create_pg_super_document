@@ -37,3 +37,34 @@ The function scans through the input string character by character, maintaining 
 - Handles PostgreSQL identifier quoting rules where double quotes can be escaped by doubling them
 - Uses PQmblenBounded for proper multi-byte character support based on the provided encoding
 - If no column specification is present, the columns pointer will point to the NUL terminator of the spec string
+
+## Simplified Source
+
+```c
+void splitTableColumnsSpec(const char *spec, int encoding,
+                          char **table, const char **columns)
+{
+    bool inquotes = false;
+    const char *cp = spec;
+
+    // Find first unquoted '(' or end of string
+    while (*cp && (*cp != '(' || inquotes))
+    {
+        if (*cp == '"')
+        {
+            // Handle quote escaping: "" = literal quote
+            if (inquotes && cp[1] == '"')
+                cp++;  // Skip escaped quote pair
+            else
+                inquotes = !inquotes;  // Toggle quote state
+            cp++;
+        }
+        else
+            cp += PQmblenBounded(cp, encoding);  // Multi-byte support
+    }
+
+    // Split at the found position
+    *table = pnstrdup(spec, cp - spec);  // Table name (caller must free)
+    *columns = cp;  // Points to columns part or NUL terminator
+}
+```

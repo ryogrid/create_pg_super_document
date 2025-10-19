@@ -43,3 +43,20 @@ The function can only be called when the server is running in binary upgrade mod
 - [RelFileNumber](../R/RelFileNumber.md) preservation is essential for avoiding index rebuilds during upgrades, which can be a major performance bottleneck
 - Works in conjunction with heap and toast relfilenode preservation functions to provide comprehensive physical file mapping preservation
 - Note: There appears to be a type inconsistency in relcache.c:3794 where InvalidOid is used instead of InvalidRelFileNumber
+
+## Simplified Source
+
+```c
+Datum binary_upgrade_set_next_index_relfilenode(PG_FUNCTION_ARGS)
+{
+    RelFileNumber relfilenumber = PG_GETARG_OID(0);
+
+    // Verify we're in binary upgrade mode
+    CHECK_IS_BINARY_UPGRADE;
+
+    // Store the relfilenode for the next index to be created
+    binary_upgrade_next_index_pg_class_relfilenumber = relfilenumber;
+
+    PG_RETURN_VOID();
+}
+```

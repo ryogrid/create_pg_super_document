@@ -35,3 +35,21 @@ This effectively moves the parser state back to before the current token was pro
 - The function is part of PostgreSQL's full-text search functionality
 - It's specifically designed to handle version number patterns that should be ignored during text parsing
 - The function modifies the parser state in-place without returning any value
+
+## Simplified Source
+
+```c
+static void
+SpecialVerVersion(TParser *prs)
+{
+    // Reset parser position to before current token
+    prs->state->posbyte -= prs->state->lenbytetoken;
+    prs->state->poschar -= prs->state->lenchartoken;
+
+    // Clear token length counters to ignore this token
+    prs->state->lenbytetoken = 0;
+    prs->state->lenchartoken = 0;
+}
+```
+
+This simplified version shows the essential logic: the function backs up the parser position and clears token lengths to effectively ignore a version number token during text search parsing.

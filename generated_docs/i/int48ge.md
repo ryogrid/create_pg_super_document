@@ -34,3 +34,15 @@ This function is part of PostgreSQL's cross-type comparison operators that allow
 - This function enables SQL queries like `SELECT 2147483647 >= 1::bigint`
 - The comparison is safe as the 32-bit value is implicitly promoted to 64-bit for comparison
 - Part of a family of cross-type integer comparison functions (int48eq, int48ne, int48lt, int48gt, int48le)
+
+## Simplified Source
+```c
+Datum int48ge(PG_FUNCTION_ARGS) {
+    // Extract 4-byte and 8-byte integer arguments
+    int32 val1 = PG_GETARG_INT32(0);
+    int64 val2 = PG_GETARG_INT64(1);
+
+    // Compare and return boolean result (greater than or equal)
+    PG_RETURN_BOOL(val1 >= val2);
+}
+```

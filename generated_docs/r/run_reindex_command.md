@@ -53,3 +53,47 @@ The function is designed to work with batched SQL commands (multiple REINDEX sta
 - The function does not handle query results or wait for completion - this is delegated to the parallel slot result handler
 - SQL buffer can contain multiple commands separated by newlines for batch processing
 - Function only initiates the query - actual error handling from server responses happens in the parallel slot infrastructure
+
+## Simplified Source
+
+```c
+static void
+run_reindex_command(PGconn *conn, ReindexType type, const char *name,
+                    bool echo, PQExpBufferData *sql)
+{
+    bool status;
+
+    // Echo command to stdout if requested
+    if (echo)
+        printf("%s\n", sql->data);
+
+    // Execute SQL command asynchronously
+    status = PQsendQuery(conn, sql->data) == 1;
+
+    // Report type-specific error if command failed to send
+    if (!status) {
+        switch (type) {
+            case REINDEX_DATABASE:
+                pg_log_error("reindexing of database \"%s\" failed: %s",
+                           PQdb(conn), PQerrorMessage(conn));
+                break;
+            case REINDEX_INDEX:
+                pg_log_error("reindexing of index \"%s\" in database \"%s\" failed: %s",
+                           name, PQdb(conn), PQerrorMessage(conn));
+                break;
+            case REINDEX_SCHEMA:
+                pg_log_error("reindexing of schema \"%s\" in database \"%s\" failed: %s",
+                           name, PQdb(conn), PQerrorMessage(conn));
+                break;
+            case REINDEX_SYSTEM:
+                pg_log_error("reindexing of system catalogs in database \"%s\" failed: %s",
+                           PQdb(conn), PQerrorMessage(conn));
+                break;
+            case REINDEX_TABLE:
+                pg_log_error("reindexing of table \"%s\" in database \"%s\" failed: %s",
+                           name, PQdb(conn), PQerrorMessage(conn));
+                break;
+        }
+    }
+}
+```

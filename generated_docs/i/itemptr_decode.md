@@ -32,3 +32,19 @@ The decoding process:
 - The decoding assumes the same bit layout as used in itemptr_encode (16 bits for offset, 32 bits for block number)
 - Used primarily during index validation operations where encoded TID values need to be converted back to their original form
 - The function modifies the ItemPointer structure passed as the first parameter
+
+## Simplified Source
+```c
+static inline void
+itemptr_decode(ItemPointer itemptr, int64 encoded)
+{
+    // Extract block number from upper 32 bits (shift right 16)
+    BlockNumber block = (BlockNumber) (encoded >> 16);
+
+    // Extract offset from lower 16 bits (mask with 0xFFFF)
+    OffsetNumber offset = (OffsetNumber) (encoded & 0xFFFF);
+
+    // Reconstruct ItemPointer from decoded components
+    ItemPointerSet(itemptr, block, offset);
+}
+```

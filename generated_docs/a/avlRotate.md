@@ -25,3 +25,25 @@ The avlRotate function implements a fundamental AVL tree operation that performs
 
 ## Notes and Other Information
 This function is part of PostgreSQL's crosstab view implementation in psql, which uses an AVL tree to efficiently organize and display cross-tabulated query results. The rotation operation is essential for maintaining O(log n) performance characteristics of the AVL tree by ensuring the tree remains balanced. The function operates by swapping the roles of a parent and child node while correctly updating all child pointers to maintain tree integrity.
+
+## Simplified Source
+
+```c
+static avl_node *avlRotate(avl_node **current, int dir) {
+    // Save references to nodes involved in rotation
+    avl_node *before = *current;
+    avl_node *after = (*current)->children[dir];
+
+    // Perform rotation: swap parent and child roles
+    *current = after;
+    before->children[dir] = after->children[!dir];
+
+    // Update height of the demoted node
+    avlUpdateHeight(before);
+
+    // Complete rotation by linking demoted node as child
+    after->children[!dir] = before;
+
+    return after;
+}
+```

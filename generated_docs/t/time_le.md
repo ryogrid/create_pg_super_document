@@ -32,3 +32,12 @@ The `time_le` function is a PostgreSQL built-in function that implements the les
 - Part of PostgreSQL's comprehensive set of time comparison functions
 - Uses simple numeric comparison since TimeADT is internally represented as microseconds since midnight
 - Returns true if time1 <= time2, false otherwise
+
+## Simplified Source
+
+```c
+bool time_le(TimeADT time1, TimeADT time2) {
+    // Return true if first time is earlier than or equal to second
+    return time1 <= time2;
+}
+```

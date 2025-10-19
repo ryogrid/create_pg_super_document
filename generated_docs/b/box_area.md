@@ -34,3 +34,15 @@ This function provides a public interface to calculate the area of a BOX geometr
 - Uses floating-point arithmetic (FLOAT8), so standard floating-point precision considerations apply
 - Part of the "Arithmetic" operators section for BOX geometries
 - Located in src/backend/utils/adt/geo_ops.c:796-807
+
+## Simplified Source
+
+```c
+Datum box_area(PG_FUNCTION_ARGS) {
+    // Extract the box argument
+    BOX *box = PG_GETARG_BOX_P(0);
+
+    // Calculate and return the area (width * height)
+    return PG_RETURN_FLOAT8(box_ar(box));
+}
+```

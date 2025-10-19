@@ -47,3 +47,29 @@ The function handles all transaction operation types defined in the transaction 
 - All returned strings are compile-time constants, so no memory management is required
 - Commonly used in conjunction with xact_desc for comprehensive WAL record descriptions
 - Located in src/backend/access/rmgrdesc/xactdesc.c:486-516
+
+## Simplified Source
+
+```c
+const char *xact_identify(uint8 info) {
+    // Extract operation type using mask
+    switch (info & XLOG_XACT_OPMASK) {
+        case XLOG_XACT_COMMIT:
+            return "COMMIT";
+        case XLOG_XACT_PREPARE:
+            return "PREPARE";
+        case XLOG_XACT_ABORT:
+            return "ABORT";
+        case XLOG_XACT_COMMIT_PREPARED:
+            return "COMMIT_PREPARED";
+        case XLOG_XACT_ABORT_PREPARED:
+            return "ABORT_PREPARED";
+        case XLOG_XACT_ASSIGNMENT:
+            return "ASSIGNMENT";
+        case XLOG_XACT_INVALIDATIONS:
+            return "INVALIDATION";
+        default:
+            return NULL;
+    }
+}
+```

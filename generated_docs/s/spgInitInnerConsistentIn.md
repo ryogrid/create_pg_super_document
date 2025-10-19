@@ -37,3 +37,35 @@ The function extracts key information including scan keys, order-by clauses, rec
 - The nodeLabels extraction handles the complex inner tuple structure to provide easy access to child node information
 - All scan keys and order-by data are passed through to allow the opclass method full access to query constraints
 - The returnData flag indicates whether the caller needs reconstructed tuple values for result construction
+
+## Simplified Source
+
+```c
+static void spgInitInnerConsistentIn(spgInnerConsistentIn *in,
+                                     SpGistScanOpaque so,
+                                     SpGistSearchItem *item,
+                                     SpGistInnerTuple innerTuple) {
+    // Copy scan keys and order-by information
+    in->scankeys = so->keyData;
+    in->orderbys = so->orderByData;
+    in->nkeys = so->numberOfKeys;
+    in->norderbys = so->numberOfNonNullOrderBys;
+
+    // Set traversal state from current search item
+    Assert(!item->isLeaf);  // Must be inner node
+    in->reconstructedValue = item->value;
+    in->traversalMemoryContext = so->traversalCxt;
+    in->traversalValue = item->traversalValue;
+    in->level = item->level;
+
+    // Set scan configuration
+    in->returnData = so->want_itup;
+
+    // Extract inner tuple information
+    in->allTheSame = innerTuple->allTheSame;
+    in->hasPrefix = (innerTuple->prefixSize > 0);
+    in->prefixDatum = SGITDATUM(innerTuple, &so->state);
+    in->nNodes = innerTuple->nNodes;
+    in->nodeLabels = spgExtractNodeLabels(&so->state, innerTuple);
+}
+```

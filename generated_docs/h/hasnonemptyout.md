@@ -33,3 +33,19 @@ The function iterates through the state's outgoing arc chain (`outs`) and checks
 - Used during NFA optimization, particularly in the process of eliminating empty transitions
 - Part of PostgreSQL's internal regular expression engine implementation
 - The function performs a simple linear search through the outgoing arc chain
+
+## Simplified Source
+
+```c
+static int hasnonemptyout(struct state *s) {
+    struct arc *a;
+
+    // Check each outgoing arc
+    for (a = s->outs; a != NULL; a = a->outchain) {
+        if (a->type != EMPTY)
+            return 1;  // Found a non-empty arc
+    }
+
+    return 0;  // All arcs are empty (or no arcs)
+}
+```

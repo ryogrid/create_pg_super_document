@@ -37,3 +37,24 @@ This function implements the client-side data generation strategy for pgbench da
 - Provides user feedback by printing progress messages to stderr
 - Automatically truncates existing data before generating new data
 - Part of pgbench's modular initialization system that supports different data generation strategies
+
+## Simplified Source
+
+```c
+static void initGenerateDataClientSide(PGconn *con) {
+    fprintf(stderr, "generating data (client-side)...\n");
+
+    // Wrap all operations in single transaction for optimization
+    executeStatement(con, "begin");
+
+    // Remove any existing data
+    initTruncateTables(con);
+
+    // Populate tables in order to respect foreign key constraints
+    initPopulateTable(con, "pgbench_branches", nbranches, initBranch);
+    initPopulateTable(con, "pgbench_tellers", ntellers, initTeller);
+    initPopulateTable(con, "pgbench_accounts", naccounts, initAccount);
+
+    executeStatement(con, "commit");
+}
+```

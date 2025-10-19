@@ -41,3 +41,80 @@ The function calculates the required buffer size first, accounting for:
 - Located in src/bin/psql/tab-complete.c at lines 6098-6179
 - The function is static, meaning it's only accessible within the tab-complete.c file
 - Can produce schema-only output ("schema.") when objectname is NULL but schemaname is provided
+
+## Simplified Source
+
+```c
+static char *
+requote_identifier(const char *schemaname, const char *objectname,
+                  bool quote_schema, bool quote_object)
+{
+    char *result;
+    size_t buflen = 1;  // For trailing null
+    char *ptr;
+
+    // Calculate required buffer size for schema part
+    if (schemaname) {
+        buflen += strlen(schemaname) + 1;  // +1 for dot
+        if (!quote_schema)
+            quote_schema = identifier_needs_quotes(schemaname);
+        if (quote_schema) {
+            buflen += 2;  // Quote marks
+            // Count internal quotes that need doubling
+            for (const char *p = schemaname; *p; p++) {
+                if (*p == '"')
+                    buflen++;
+            }
+        }
+    }
+
+    // Calculate required buffer size for object part
+    if (objectname) {
+        buflen += strlen(objectname);
+        if (!quote_object)
+            quote_object = identifier_needs_quotes(objectname);
+        if (quote_object) {
+            buflen += 2;  // Quote marks
+            // Count internal quotes that need doubling
+            for (const char *p = objectname; *p; p++) {
+                if (*p == '"')
+                    buflen++;
+            }
+        }
+    }
+
+    // Build the result string
+    result = pg_malloc(buflen);
+    ptr = result;
+
+    // Add schema part
+    if (schemaname) {
+        if (quote_schema)
+            *ptr++ = '"';
+        for (const char *p = schemaname; *p; p++) {
+            *ptr++ = *p;
+            if (*p == '"')
+                *ptr++ = '"';  // Double the quote
+        }
+        if (quote_schema)
+            *ptr++ = '"';
+        *ptr++ = '.';
+    }
+
+    // Add object part
+    if (objectname) {
+        if (quote_object)
+            *ptr++ = '"';
+        for (const char *p = objectname; *p; p++) {
+            *ptr++ = *p;
+            if (*p == '"')
+                *ptr++ = '"';  // Double the quote
+        }
+        if (quote_object)
+            *ptr++ = '"';
+    }
+
+    *ptr = '\0';
+    return result;
+}
+```

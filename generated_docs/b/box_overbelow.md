@@ -37,3 +37,16 @@ The function uses PostgreSQL's function call interface (PG_FUNCTION_ARGS) and re
 - The comparison specifically checks if box1->high.y <= box2->high.y
 - Uses floating-point comparison to handle potential precision issues in coordinate values
 - Part of PostgreSQL's comprehensive set of geometric relationship operators for box data types
+
+## Simplified Source
+
+```c
+Datum box_overbelow(PG_FUNCTION_ARGS) {
+    BOX *box1 = PG_GETARG_BOX_P(0);
+    BOX *box2 = PG_GETARG_BOX_P(1);
+
+    // Check if box1's top edge is at or below box2's top edge
+    // This means box1 doesn't extend higher than box2
+    PG_RETURN_BOOL(box1->high.y <= box2->high.y);
+}
+```

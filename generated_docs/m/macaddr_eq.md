@@ -34,3 +34,16 @@ The macaddr_eq function implements the equality comparison operator ('=') for MA
 - Supports SQL operations like 'WHERE mac_column = 'aa:bb:cc:dd:ee:ff'' and JOIN conditions
 - Essential for hash-based operations and unique constraints on MAC address columns
 - Located in src/backend/utils/adt/mac.c:228-236
+
+## Simplified Source
+
+```c
+Datum macaddr_eq(PG_FUNCTION_ARGS) {
+    // Extract MAC address arguments
+    macaddr *a1 = PG_GETARG_MACADDR_P(0);
+    macaddr *a2 = PG_GETARG_MACADDR_P(1);
+
+    // Compare MAC addresses and return true if equal
+    PG_RETURN_BOOL(macaddr_cmp_internal(a1, a2) == 0);
+}
+```

@@ -34,3 +34,13 @@ The function calls the underlying  function with specific parameters optimized f
 - The second parameter (3) probably specifies the number of integer variables or workspace size needed for English stemming
 - Memory management responsibility: The caller must ensure the returned environment is properly freed using the corresponding close function
 - The function provides language-specific initialization while maintaining compatibility with the generic Snowball framework
+
+## Simplified Source
+
+```c
+extern struct SN_env * english_ISO_8859_1_create_env(void) {
+    // Create a new Snowball environment configured for English stemming
+    // Parameters: 0 = no special flags, 3 = workspace size for English
+    return SN_create_env(0, 3);
+}
+```

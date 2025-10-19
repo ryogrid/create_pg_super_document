@@ -38,3 +38,14 @@ The function delegates all the actual work to , which handles the details of tup
 - Called once for each tuple encountered during the heap scan phase of index construction
 - The function doesn't perform any validation or processing of the input data - it simply forwards it to tuplesort
 - Part of the data flow from heap scanning through temporary storage to final B-tree construction
+
+## Simplified Source
+
+```c
+static void _bt_spool(BTSpool *btspool, ItemPointer self, Datum *values, bool *isnull)
+{
+    // Add index tuple data to the tuplesort for temporary storage
+    tuplesort_putindextuplevalues(btspool->sortstate, btspool->index,
+                                  self, values, isnull);
+}
+```

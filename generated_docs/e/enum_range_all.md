@@ -36,3 +36,26 @@ Like other enum functions in PostgreSQL, the actual argument value is not examin
 - Raises an error if the enum type cannot be determined from the calling context
 - The actual range generation logic is implemented in the shared `enum_range_internal` function
 - Equivalent to calling enum_range_bounds with NULL bounds for both parameters
+
+## Simplified Source
+
+```c
+Datum
+enum_range_all(PG_FUNCTION_ARGS)
+{
+    // Determine enum type from function call context
+    // (argument value is ignored, only type matters)
+    Oid enumtypoid = get_fn_expr_argtype(fcinfo->flinfo, 0);
+    if (enumtypoid == InvalidOid) {
+        ereport(ERROR,
+                (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+                 errmsg("could not determine actual enum type")));
+    }
+
+    // Return all enum values (InvalidOid bounds = no bounds)
+    PG_RETURN_ARRAYTYPE_P(enum_range_internal(enumtypoid,
+                                              InvalidOid, InvalidOid));
+}
+```
+
+**Simplified Logic**: This function returns an array containing all values of an enum type. It determines the enum type from the function call context (not the argument value) and calls `enum_range_internal` with no bounds to get all enum values.

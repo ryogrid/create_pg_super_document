@@ -34,3 +34,12 @@ The initBranch function generates one row of data for the pgbench_branches table
 - Static function scope limits its usage to within pgbench.c
 - Part of the TPC-B benchmark schema initialization process
 - Each branch represents a logical grouping in the benchmark hierarchy
+
+## Simplified Source
+
+```c
+static void initBranch(PQExpBufferData *sql, int64 curr) {
+    // Generate tab-separated row: branch_id, balance=0, filler=NULL
+    printfPQExpBuffer(sql, INT64_FORMAT "\t0\t\\N\n", curr + 1);
+}
+```

@@ -30,3 +30,16 @@ The shell_out function is designed to handle output operations on PostgreSQL she
 - Works in conjunction with pg_type.typisdefined checks to ensure type system integrity
 - The PG_RETURN_VOID at the end exists solely to keep the compiler quiet about return value expectations
 - Serves as a defensive programming measure to prevent undefined behavior on incomplete type definitions
+
+## Simplified Source
+
+```c
+Datum shell_out(PG_FUNCTION_ARGS) {
+    // Error handler for shell types (incomplete type definitions)
+    ereport(ERROR,
+            (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+             errmsg("cannot display a value of a shell type")));
+
+    PG_RETURN_VOID();  // keep compiler quiet
+}
+```

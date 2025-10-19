@@ -31,3 +31,14 @@ The function simply returns the value of the err_occurred flag from the error co
 - The function is typically used after XML processing operations to determine if they succeeded
 - The err_occurred flag is set by PostgreSQL's custom XML error handlers when libxml reports errors
 - This function should only be called with a valid, initialized PgXmlErrorContext structure
+
+## Simplified Source
+
+```c
+bool
+pg_xml_error_occurred(PgXmlErrorContext *errcxt)
+{
+    // Simply return the error flag from the context
+    return errcxt->err_occurred;
+}
+```

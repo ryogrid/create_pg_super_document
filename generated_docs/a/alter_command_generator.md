@@ -30,3 +30,12 @@ The function provides context-sensitive autocompletion by leveraging the shared 
 
 ## Notes and Other Information
 This function enables intelligent autocompletion for ALTER commands, showing options like TABLE, INDEX, FUNCTION, DATABASE, USER, etc. The ALTER command has its own set of valid targets that may differ from CREATE and DROP commands, necessitating a separate generator with specific exclusion flags. The function is integrated into multiple parts of the completion system, indicating its widespread use in providing context-aware SQL command completion.
+
+## Simplified Source
+
+```c
+static char *alter_command_generator(const char *text, int state) {
+    // Delegate to common generator, excluding ALTER-incompatible commands
+    return create_or_drop_command_generator(text, state, THING_NO_ALTER);
+}
+```

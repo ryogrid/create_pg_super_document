@@ -38,3 +38,42 @@ This function performs optimized BRIN index update replay operations when the up
 - Located at src/backend/access/brin/brin_xlog.c:170-207
 - No FSM (Free Space Map) updates are performed as noted in the comment
 - More efficient than regular updates for cases where tuple size constraints allow in-place replacement
+
+## Simplified Source
+
+```c
+static void brin_xlog_samepage_update(XLogReaderState *record) {
+    XLogRecPtr lsn = record->EndRecPtr;
+    xl_brin_samepage_update *xlrec;
+    Buffer buffer;
+    XLogRedoAction action;
+
+    // Extract WAL record data and read buffer for redo
+    xlrec = (xl_brin_samepage_update *) XLogRecGetData(record);
+    action = XLogReadBufferForRedo(record, 0, &buffer);
+
+    if (action == BLK_NEEDS_REDO) {
+        Size tuplen;
+        BrinTuple *brintuple;
+        Page page;
+        OffsetNumber offnum;
+
+        // Get the new tuple data from WAL record
+        brintuple = (BrinTuple *) XLogRecGetBlockData(record, 0, &tuplen);
+        page = (Page) BufferGetPage(buffer);
+        offnum = xlrec->offnum;
+
+        // Overwrite the existing tuple in-place
+        if (!PageIndexTupleOverwrite(page, offnum, (Item) brintuple, tuplen))
+            elog(PANIC, "brin_xlog_samepage_update: failed to replace tuple");
+
+        // Update page LSN and mark dirty
+        PageSetLSN(page, lsn);
+        MarkBufferDirty(buffer);
+    }
+
+    // Clean up buffer
+    if (BufferIsValid(buffer))
+        UnlockReleaseBuffer(buffer);
+}
+```

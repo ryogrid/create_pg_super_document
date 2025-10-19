@@ -40,3 +40,12 @@ The function uses lappend to add the validator to the existing list, allowing mu
 - The validator functions are called with the parsed option structure as input
 - This function is commonly used by access methods that need complex option validation logic
 - Validation failures in registered validators should use ereport to signal errors
+
+## Simplified Source
+
+```c
+void register_reloptions_validator(local_relopts *relopts, relopts_validator validator) {
+    // Add validator to the list of validation callbacks
+    relopts->validators = lappend(relopts->validators, validator);
+}
+```

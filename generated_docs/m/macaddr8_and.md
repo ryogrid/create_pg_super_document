@@ -37,3 +37,24 @@ The function allocates memory for a new macaddr8 result and performs the AND ope
 - Each byte of the result (a, b, c, d, e, f, g, h) corresponds to one byte of the 8-byte EUI-64/MAC-8 address
 - This is typically exposed to SQL users through bitwise operators for macaddr8 type
 - Useful for applying bit masks to MAC addresses or finding common bits between addresses
+
+## Simplified Source
+
+```c
+macaddr8* macaddr8_and(macaddr8 *addr1, macaddr8 *addr2) {
+    // Create new MAC address with bitwise AND of two input addresses
+    macaddr8 *result = allocate_macaddr8();
+
+    // Perform bitwise AND on each byte of the 8-byte MAC addresses
+    result->a = addr1->a & addr2->a;
+    result->b = addr1->b & addr2->b;
+    result->c = addr1->c & addr2->c;
+    result->d = addr1->d & addr2->d;
+    result->e = addr1->e & addr2->e;
+    result->f = addr1->f & addr2->f;
+    result->g = addr1->g & addr2->g;
+    result->h = addr1->h & addr2->h;
+
+    return result;
+}
+```

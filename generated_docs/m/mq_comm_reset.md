@@ -34,3 +34,13 @@ The function is part of the PQcommMethods interface that allows PostgreSQL to ab
 - No actual reset operations are needed for shared memory message queues
 - The empty implementation is intentional and documented with the comment "Nothing to do."
 - Essential for maintaining interface compatibility across different communication methods
+
+## Simplified Source
+
+```c
+static void
+mq_comm_reset(void)
+{
+    // No reset operations needed for shared memory message queues
+}
+```

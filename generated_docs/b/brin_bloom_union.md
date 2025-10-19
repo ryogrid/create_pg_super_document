@@ -48,3 +48,44 @@ The operation is destructive to the first filter (col_a) but leaves the second f
 - Updates the nbits_set field to maintain accurate statistics about filter density
 - The function is designed to be called during BRIN index operations that require combining summaries from different page ranges
 - Memory management is carefully handled to avoid leaks when working with potentially compressed (TOAST) data
+
+## Simplified Source
+
+```c
+Datum
+brin_bloom_union(PG_FUNCTION_ARGS)
+{
+    BrinValues *col_a = (BrinValues *) PG_GETARG_POINTER(1);
+    BrinValues *col_b = (BrinValues *) PG_GETARG_POINTER(2);
+
+    // Extract and decompress bloom filters
+    BloomFilter *filter_a = (BloomFilter *) PG_DETOAST_DATUM(col_a->bv_values[0]);
+    BloomFilter *filter_b = (BloomFilter *) PG_DETOAST_DATUM(col_b->bv_values[0]);
+
+    // Validate compatibility
+    Assert(col_a->bv_attno == col_b->bv_attno);
+    Assert(!col_a->bv_allnulls && !col_b->bv_allnulls);
+    Assert(filter_a->nbits == filter_b->nbits);
+    Assert(filter_a->nhashes == filter_b->nhashes);
+
+    // Combine filters using bitwise OR
+    int nbytes = filter_a->nbits / 8;
+    for (int i = 0; i < nbytes; i++)
+        filter_a->data[i] |= filter_b->data[i];
+
+    // Update statistics
+    filter_a->nbits_set = pg_popcount((const char *) filter_a->data, nbytes);
+
+    // Update result in col_a if filter was decompressed
+    if (PointerGetDatum(filter_a) != col_a->bv_values[0]) {
+        pfree(DatumGetPointer(col_a->bv_values[0]));
+        col_a->bv_values[0] = PointerGetDatum(filter_a);
+    }
+
+    // Clean up decompressed filter_b
+    if (PointerGetDatum(filter_b) != col_b->bv_values[0])
+        pfree(filter_b);
+
+    PG_RETURN_VOID();
+}
+```

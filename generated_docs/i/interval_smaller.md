@@ -35,3 +35,19 @@ The comparison logic relies on `interval_cmp_internal` which returns a value les
 - Part of PostgreSQL's interval utility functions, typically used in LEAST() SQL operations
 - The comment in the source emphasizes the importance of using the internal comparison function to maintain agreement with comparison operations
 - Efficient implementation that avoids unnecessary memory allocation by returning existing interval pointers
+
+## Simplified Source
+
+```c
+Datum interval_smaller(PG_FUNCTION_ARGS) {
+    // Extract two interval arguments
+    Interval *interval1 = PG_GETARG_INTERVAL_P(0);
+    Interval *interval2 = PG_GETARG_INTERVAL_P(1);
+
+    // Return the smaller interval (consistent with comparison logic)
+    if (interval_cmp_internal(interval1, interval2) < 0)
+        PG_RETURN_INTERVAL_P(interval1);
+    else
+        PG_RETURN_INTERVAL_P(interval2);
+}
+```

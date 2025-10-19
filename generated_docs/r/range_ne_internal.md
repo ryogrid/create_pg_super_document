@@ -35,3 +35,12 @@ The  function is a simple internal implementation for range inequality compariso
 - Used internally by PostgreSQL's indexing strategies and public inequality operators
 - The function inherits all the type safety and comparison logic from 
 - Located in src/backend/utils/adt/rangetypes.c:618-624
+
+## Simplified Source
+
+```c
+bool range_ne_internal(TypeCacheEntry *typcache, const RangeType *r1, const RangeType *r2) {
+    // Inequality is simply the negation of equality
+    return (!range_eq_internal(typcache, r1, r2));
+}
+```

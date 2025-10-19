@@ -30,3 +30,12 @@ Like other completion generators, it follows the standard readline interface pat
 
 ## Notes and Other Information
 This function provides context-sensitive completion for DROP commands, ensuring users only see valid options like TABLE, INDEX, FUNCTION, DATABASE, etc. Some commands that are valid for CREATE might not be valid for DROP, and vice versa, which is why separate generator functions with different exclusion flags are needed. The function is used in multiple places in the completion logic, indicating its importance in the overall tab completion system.
+
+## Simplified Source
+
+```c
+static char *drop_command_generator(const char *text, int state) {
+    // Delegate to common generator, excluding DROP-incompatible commands
+    return create_or_drop_command_generator(text, state, THING_NO_DROP);
+}
+```

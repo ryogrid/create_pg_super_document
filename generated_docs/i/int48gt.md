@@ -32,3 +32,15 @@ The int48gt function is a PostgreSQL built-in function that performs a "greater 
 - Part of the int48relop family of comparison functions
 - The int32 value is implicitly promoted to int64 during the comparison
 - Used internally by PostgreSQL for mixed integer type operations and comparisons
+
+## Simplified Source
+```c
+Datum int48gt(PG_FUNCTION_ARGS) {
+    // Extract 4-byte and 8-byte integer arguments
+    int32 val1 = PG_GETARG_INT32(0);
+    int64 val2 = PG_GETARG_INT64(1);
+
+    // Compare and return boolean result
+    PG_RETURN_BOOL(val1 > val2);
+}
+```

@@ -70,3 +70,211 @@ Key processing phases include:
 - Integrates with suffix chain processing for handling complex morphological patterns
 - Critical for Turkish text search, indexing, and natural language processing applications
 - Implements comprehensive coverage of Turkish nominal morphology patterns
+
+## Simplified Source
+
+```c
+static int r_stem_noun_suffixes(struct SN_env * z) {
+    z->ket = z->c;
+
+    // Branch 1: Handle plural suffix (-lAr)
+    if (r_mark_lAr(z)) {
+        z->bra = z->c;
+        slice_del(z);  // Remove plural suffix
+
+        // Try to process suffix chains after removing plural
+        r_stem_suffix_chain_before_ki(z);
+        return 1;
+    }
+
+    // Branch 2: Handle locative case (-ncA)
+    z->ket = z->c;
+    if (r_mark_ncA(z)) {
+        z->bra = z->c;
+        slice_del(z);
+
+        z->ket = z->c;
+        // Try possessive plural combinations or possessives/3rd person
+        if (r_mark_lArI(z)) {
+            z->bra = z->c;
+            slice_del(z);
+        }
+        else if (r_mark_possessives(z) || r_mark_sU(z)) {
+            z->bra = z->c;
+            slice_del(z);
+
+            z->ket = z->c;
+            if (r_mark_lAr(z)) {
+                z->bra = z->c;
+                slice_del(z);
+                r_stem_suffix_chain_before_ki(z);
+            }
+        }
+        else if (r_mark_lAr(z)) {
+            z->bra = z->c;
+            slice_del(z);
+            r_stem_suffix_chain_before_ki(z);
+        }
+        return 1;
+    }
+
+    // Branch 3: Handle other locative variants (-ndA, -nA)
+    z->ket = z->c;
+    if (r_mark_ndA(z) || r_mark_nA(z)) {
+        // Process possessive plural or 3rd person markers
+        if (r_mark_lArI(z)) {
+            z->bra = z->c;
+            slice_del(z);
+        }
+        else if (r_mark_sU(z)) {
+            z->bra = z->c;
+            slice_del(z);
+
+            z->ket = z->c;
+            if (r_mark_lAr(z)) {
+                z->bra = z->c;
+                slice_del(z);
+                r_stem_suffix_chain_before_ki(z);
+            }
+        }
+        else {
+            r_stem_suffix_chain_before_ki(z);
+        }
+        return 1;
+    }
+
+    // Branch 4: Handle ablative variants (-ndAn, -nU)
+    z->ket = z->c;
+    if (r_mark_ndAn(z) || r_mark_nU(z)) {
+        if (r_mark_sU(z)) {
+            z->bra = z->c;
+            slice_del(z);
+
+            z->ket = z->c;
+            if (r_mark_lAr(z)) {
+                z->bra = z->c;
+                slice_del(z);
+                r_stem_suffix_chain_before_ki(z);
+            }
+        }
+        else if (r_mark_lArI(z)) {
+            // Handle possessive plural
+        }
+        return 1;
+    }
+
+    // Branch 5: Handle ablative case (-DAn)
+    z->ket = z->c;
+    if (r_mark_DAn(z)) {
+        z->bra = z->c;
+        slice_del(z);
+
+        z->ket = z->c;
+        if (r_mark_possessives(z)) {
+            z->bra = z->c;
+            slice_del(z);
+
+            z->ket = z->c;
+            if (r_mark_lAr(z)) {
+                z->bra = z->c;
+                slice_del(z);
+                r_stem_suffix_chain_before_ki(z);
+            }
+        }
+        else if (r_mark_lAr(z)) {
+            z->bra = z->c;
+            slice_del(z);
+            r_stem_suffix_chain_before_ki(z);
+        }
+        else {
+            r_stem_suffix_chain_before_ki(z);
+        }
+        return 1;
+    }
+
+    // Branch 6: Handle genitive/instrumental case (-nUn, -ylA)
+    z->ket = z->c;
+    if (r_mark_nUn(z) || r_mark_ylA(z)) {
+        z->bra = z->c;
+        slice_del(z);
+
+        z->ket = z->c;
+        if (r_mark_lAr(z)) {
+            z->bra = z->c;
+            slice_del(z);
+            r_stem_suffix_chain_before_ki(z);
+        }
+        else if (r_mark_possessives(z) || r_mark_sU(z)) {
+            z->bra = z->c;
+            slice_del(z);
+
+            z->ket = z->c;
+            if (r_mark_lAr(z)) {
+                z->bra = z->c;
+                slice_del(z);
+                r_stem_suffix_chain_before_ki(z);
+            }
+        }
+        else {
+            r_stem_suffix_chain_before_ki(z);
+        }
+        return 1;
+    }
+
+    // Branch 7: Handle possessive plural (-lArI)
+    z->ket = z->c;
+    if (r_mark_lArI(z)) {
+        z->bra = z->c;
+        slice_del(z);
+        return 1;
+    }
+
+    // Branch 8: Try suffix chain processing
+    if (r_stem_suffix_chain_before_ki(z)) {
+        return 1;
+    }
+
+    // Branch 9: Handle remaining case suffixes (-DA, -yU, -yA)
+    z->ket = z->c;
+    if (r_mark_DA(z) || r_mark_yU(z) || r_mark_yA(z)) {
+        z->bra = z->c;
+        slice_del(z);
+
+        z->ket = z->c;
+        if (r_mark_possessives(z)) {
+            z->bra = z->c;
+            slice_del(z);
+
+            z->ket = z->c;
+            if (r_mark_lAr(z)) {
+                // Optional plural after possessive
+            }
+        }
+        else if (r_mark_lAr(z)) {
+            // Handle plural
+        }
+
+        z->bra = z->c;
+        slice_del(z);
+        z->ket = z->c;
+        r_stem_suffix_chain_before_ki(z);
+        return 1;
+    }
+
+    // Branch 10: Handle final possessives/3rd person
+    z->ket = z->c;
+    if (r_mark_possessives(z) || r_mark_sU(z)) {
+        z->bra = z->c;
+        slice_del(z);
+
+        z->ket = z->c;
+        if (r_mark_lAr(z)) {
+            z->bra = z->c;
+            slice_del(z);
+            r_stem_suffix_chain_before_ki(z);
+        }
+    }
+
+    return 1;
+}
+```

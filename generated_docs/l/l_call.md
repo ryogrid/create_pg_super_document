@@ -42,3 +42,21 @@ Function calls are essential in compiled code for invoking both user-defined fun
 - The conditional compilation ensures compatibility across LLVM version boundaries where call instruction APIs changed
 - Essential for implementing complex PostgreSQL operations that require calling back into the PostgreSQL runtime from JIT-compiled code
 - Enables the JIT compiler to generate calls to functions like memory allocation, error handling, and type-specific operations
+
+## Simplified Source
+
+```c
+static inline LLVMValueRef
+l_call(LLVMBuilderRef b, LLVMTypeRef t, LLVMValueRef fn, LLVMValueRef *args, int32 nargs, const char *name)
+{
+    // Version-compatible function call instruction
+    // LLVM 16+ requires explicit function type parameter
+#if LLVM_VERSION_MAJOR < 16
+    return LLVMBuildCall(b, fn, args, nargs, name);
+#else
+    return LLVMBuildCall2(b, t, fn, args, nargs, name);
+#endif
+}
+```
+
+This wrapper provides version-compatible function call operations. It's essential for generating calls to PostgreSQL runtime functions from JIT-compiled code, handling LLVM API differences transparently.

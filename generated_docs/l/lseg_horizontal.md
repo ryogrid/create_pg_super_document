@@ -34,4 +34,16 @@ The  function tests whether a line segment is horizontal. A line segment is cons
 - Part of PostgreSQL's geometric data type operations for line segments
 - A horizontal line segment has a slope of zero
 - Located in geo_ops.c alongside other geometric utility functions
-- Complementary to  function
+- Complementary to function
+
+## Simplified Source
+
+```c
+Datum lseg_horizontal(PG_FUNCTION_ARGS) {
+    // Get the line segment from function arguments
+    LSEG *lseg = PG_GETARG_LSEG_P(0);
+
+    // Check if both endpoints have same y-coordinate (horizontal line)
+    PG_RETURN_BOOL(FPeq(lseg->p[0].y, lseg->p[1].y));
+}
+```

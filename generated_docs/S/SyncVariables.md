@@ -44,3 +44,40 @@ The function updates both the global pset structure and psql's variable system w
 - Attempts to get the full server version string first via PQparameterStatus(), falling back to formatting the numeric version if unavailable
 - Applies client-side error verbosity and context visibility settings to the connection
 - Critical for maintaining consistency when switching between different database connections in psql
+
+## Simplified Source
+
+```c
+void SyncVariables(void) {
+    char vbuf[32];
+    const char *server_version;
+
+    // Get connection encoding and version info
+    pset.encoding = PQclientEncoding(pset.db);
+    pset.popt.topt.encoding = pset.encoding;
+    pset.sversion = PQserverVersion(pset.db);
+    setFmtEncoding(pset.encoding);
+
+    // Set connection-related psql variables
+    SetVariable(pset.vars, "DBNAME", PQdb(pset.db));
+    SetVariable(pset.vars, "USER", PQuser(pset.db));
+    SetVariable(pset.vars, "HOST", PQhost(pset.db));
+    SetVariable(pset.vars, "PORT", PQport(pset.db));
+    SetVariable(pset.vars, "ENCODING", pg_encoding_to_char(pset.encoding));
+
+    // Get server version string (prefer full text, fallback to numeric)
+    server_version = PQparameterStatus(pset.db, "server_version");
+    if (!server_version) {
+        formatPGVersionNumber(pset.sversion, true, vbuf, sizeof(vbuf));
+        server_version = vbuf;
+    }
+    SetVariable(pset.vars, "SERVER_VERSION_NAME", server_version);
+
+    snprintf(vbuf, sizeof(vbuf), "%d", pset.sversion);
+    SetVariable(pset.vars, "SERVER_VERSION_NUM", vbuf);
+
+    // Apply client error reporting settings to connection
+    PQsetErrorVerbosity(pset.db, pset.verbosity);
+    PQsetErrorContextVisibility(pset.db, pset.show_context);
+}
+```

@@ -38,3 +38,30 @@ This function constructs command-line connection parameters that can be used wit
 - Commonly used when spawning external PostgreSQL client processes during upgrade operations
 - Conditional host parameter inclusion based on socket directory availability
 - Part of pg_upgrade's external process execution infrastructure
+
+## Simplified Source
+
+```c
+char *cluster_conn_opts(ClusterInfo *cluster) {
+    static PQExpBuffer buf;
+
+    // Initialize or reset static buffer
+    if (buf == NULL)
+        buf = createPQExpBuffer();
+    else
+        resetPQExpBuffer(buf);
+
+    // Add host option if socket directory is specified
+    if (cluster->sockdir) {
+        appendPQExpBufferStr(buf, "--host ");
+        appendShellString(buf, cluster->sockdir);
+        appendPQExpBufferChar(buf, ' ');
+    }
+
+    // Add port and username options
+    appendPQExpBuffer(buf, "--port %d --username ", cluster->port);
+    appendShellString(buf, os_info.user);
+
+    return buf->data;
+}
+```

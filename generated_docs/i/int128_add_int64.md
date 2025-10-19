@@ -31,3 +31,13 @@ This function performs an in-place addition operation, adding a signed 64-bit in
 - Handles both positive and negative signed 64-bit integers correctly through automatic sign extension
 - Part of PostgreSQL's 128-bit integer arithmetic library for handling large numeric calculations
 - Companion function to int128_add_uint64 for signed integer addition operations
+
+## Simplified Source
+
+```c
+static inline void int128_add_int64(INT128 *i128, int64 v) {
+    // Simple in-place addition of signed 64-bit value to 128-bit integer
+    // Automatic sign extension handles both positive and negative values
+    *i128 += v;
+}
+```

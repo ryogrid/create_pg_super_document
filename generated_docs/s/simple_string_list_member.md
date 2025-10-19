@@ -37,3 +37,18 @@ This function performs a linear search through a SimpleStringList to determine i
 - No memory allocation is performed during the search operation
 - This is specifically designed for frontend utilities and is simpler than backend List facilities
 - The function is commonly used in PostgreSQL dump and restore utilities for filtering operations and command-line argument processing
+
+## Simplified Source
+
+```c
+bool simple_string_list_member(SimpleStringList *list, const char *val) {
+    // Search through the linked list
+    for (SimpleStringListCell *cell = list->head; cell; cell = cell->next) {
+        if (strcmp(cell->val, val) == 0) {
+            cell->touched = true;  // Mark as accessed
+            return true;
+        }
+    }
+    return false;
+}
+```

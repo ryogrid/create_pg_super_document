@@ -40,3 +40,18 @@ The filtering decision is based on whether the publication is configured to publ
 - This filtering mechanism is essential for bidirectional and multi-master replication setups
 - The function is called by the logical decoding framework for each change to determine if it should be processed
 - Simple but crucial function for maintaining replication topology integrity
+
+## Simplified Source
+
+```c
+static bool pgoutput_origin_filter(LogicalDecodingContext *ctx, RepOriginId origin_id)
+{
+    PGOutputData *data = (PGOutputData *) ctx->output_plugin_private;
+
+    // Filter out changes with origin when publish_no_origin is enabled
+    if (data->publish_no_origin && origin_id != InvalidRepOriginId)
+        return true;  // Filter out (exclude from replication)
+
+    return false;     // Don't filter (include in replication)
+}
+```

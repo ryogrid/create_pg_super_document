@@ -44,3 +44,21 @@ The function is essential for parsing backup manifests that contain WAL (Write-A
 - The function expects exactly two hexadecimal numbers separated by a slash
 - Does not perform additional validation on the parsed values beyond format checking
 - Critical for ensuring backup consistency by validating WAL position ranges
+
+## Simplified Source
+
+```c
+static bool
+parse_xlogrecptr(XLogRecPtr *result, char *input)
+{
+    uint32 hi, lo;
+
+    // Parse hexadecimal HI/LO format (e.g., "1/A0000000")
+    if (sscanf(input, "%X/%X", &hi, &lo) != 2)
+        return false;
+
+    // Combine high and low 32-bit parts into 64-bit XLogRecPtr
+    *result = ((uint64) hi) << 32 | lo;
+    return true;
+}
+```

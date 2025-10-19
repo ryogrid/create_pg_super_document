@@ -56,3 +56,52 @@ The function uses sophisticated character classification and pattern matching to
 - Part of the PostgreSQL Snowball French stemmer for full-text search functionality
 - Return value: 1 on successful processing, 0 if conditions not met or no matching suffix found
 - Static function with restricted scope to compilation unit
+
+## Simplified Source
+
+```c
+static int r_i_verb_suffix(struct SN_env * z) {
+    // Only process text after RV region boundary
+    if (z->c < z->I[2]) return 0;
+
+    // Set temporary boundaries and mark end position
+    int saved_lb = z->lb;
+    z->lb = z->I[2];
+    z->ket = z->c;
+
+    // Check for valid character pattern using bit-mask
+    if (z->c <= z->lb || z->p[z->c - 1] >> 5 != 3 ||
+        !((68944418 >> (z->p[z->c - 1] & 0x1f)) & 1)) {
+        z->lb = saved_lb;
+        return 0;
+    }
+
+    // Look for infinitive verb suffix patterns (35 patterns in a_5)
+    if (!find_among_b(z, a_5, 35)) {
+        z->lb = saved_lb;
+        return 0;
+    }
+
+    z->bra = z->c;
+
+    // Special case: reject if preceded by 'H'
+    int saved_pos = z->l - z->c;
+    if (z->c > z->lb && z->p[z->c - 1] == 'H') {
+        z->c--;
+        z->lb = saved_lb;
+        return 0;
+    }
+    z->c = z->l - saved_pos;
+
+    // Ensure preceding character is a vowel
+    if (out_grouping_b(z, g_v, 97, 251, 0)) {
+        z->lb = saved_lb;
+        return 0;
+    }
+
+    // Remove the suffix
+    slice_del(z);
+    z->lb = saved_lb;
+    return 1;
+}
+```

@@ -54,3 +54,52 @@ Build-time compiler and linker information is retrieved from preprocessor macros
 - Includes special handling for PGXS path construction (adds "/pgxs/src/makefiles/pgxs.mk" to PKGLIBDIR)
 - Build-time variables (CC, CFLAGS, etc.) may show "not recorded" if not captured during compilation
 - The function is used primarily by the pg_config utility and backend configuration reporting functions
+
+## Simplified Source
+
+```c
+ConfigData *
+get_configdata(const char *my_exec_path, size_t *configdata_len)
+{
+    ConfigData *configdata;
+    char path[MAXPGPATH];
+    int i = 0;
+
+    // Allocate array for 23 configuration items
+    *configdata_len = 23;
+    configdata = palloc_array(ConfigData, *configdata_len);
+
+    // Extract BINDIR from executable path
+    strlcpy(path, my_exec_path, sizeof(path));
+    char *lastsep = strrchr(path, '/');
+    if (lastsep) *lastsep = '\0';
+    cleanup_path(path);
+    configdata[i].name = pstrdup("BINDIR");
+    configdata[i++].setting = pstrdup(path);
+
+    // Get various installation directory paths
+    get_doc_path(my_exec_path, path);
+    cleanup_path(path);
+    configdata[i].name = pstrdup("DOCDIR");
+    configdata[i++].setting = pstrdup(path);
+
+    get_lib_path(my_exec_path, path);
+    cleanup_path(path);
+    configdata[i].name = pstrdup("LIBDIR");
+    configdata[i++].setting = pstrdup(path);
+
+    // ... (similar pattern for other directory paths)
+
+    // Add compile-time configuration values
+    configdata[i].name = pstrdup("CONFIGURE");
+    configdata[i++].setting = pstrdup(CONFIGURE_ARGS);
+
+    configdata[i].name = pstrdup("CC");
+    configdata[i++].setting = pstrdup(VAL_CC ? VAL_CC : "not recorded");
+
+    configdata[i].name = pstrdup("VERSION");
+    configdata[i++].setting = pstrdup("PostgreSQL " PG_VERSION);
+
+    return configdata;
+}
+```

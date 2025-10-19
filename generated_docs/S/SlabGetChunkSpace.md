@@ -41,3 +41,21 @@ This function is particularly useful for memory profiling, debugging, and accoun
 - Essential for accurate memory accounting and profiling in PostgreSQL
 - Uses VALGRIND macros for proper memory debugging support
 - The returned size is consistent across all chunks in the same slab context due to fixed-size allocation
+
+## Simplified Source
+```c
+Size
+SlabGetChunkSpace(void *pointer)
+{
+    MemoryChunk *chunk = PointerGetMemoryChunk(pointer);
+    SlabBlock *block = MemoryChunkGetBlock(chunk);
+
+    // Verify the block is valid
+    Assert(SlabBlockIsValid(block));
+
+    SlabContext *slab = block->slab;
+
+    // Return the full chunk size including all overhead
+    return slab->fullChunkSize;
+}
+```

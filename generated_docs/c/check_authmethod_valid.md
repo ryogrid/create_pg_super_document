@@ -42,3 +42,19 @@ The function ensures that only supported and secure authentication methods are c
 - The valid methods array varies by connection type (local socket connections support different methods than TCP/IP connections)
 - Error messages include both the invalid method and connection type for clear user feedback
 - Critical for maintaining security and functionality standards in PostgreSQL installations
+
+## Simplified Source
+
+```c
+static void check_authmethod_valid(const char *authmethod, const char *const *valid_methods, const char *conntype) {
+    // Search through valid methods array
+    for (const char *const *p = valid_methods; *p; p++) {
+        if (strcmp(authmethod, *p) == 0)
+            return;  // Found valid method
+    }
+
+    // Method not found - terminate with error
+    pg_fatal("invalid authentication method \"%s\" for \"%s\" connections",
+             authmethod, conntype);
+}
+```

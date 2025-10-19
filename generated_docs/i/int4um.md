@@ -36,3 +36,21 @@ The function follows PostgreSQL's standard function interface pattern, using PG_
 - The overflow check is essential for maintaining data integrity and preventing silent wraparound errors
 - This is the "um" (unary minus) variant of int4 operations, as indicated by the naming convention
 - The function demonstrates PostgreSQL's commitment to safe arithmetic operations with proper error handling
+
+## Simplified Source
+
+```c
+Datum int4um(PG_FUNCTION_ARGS) {
+    // Extract the int32 argument
+    int32 arg = PG_GETARG_INT32(0);
+
+    // Check for overflow condition (most negative int32 cannot be negated)
+    if (unlikely(arg == PG_INT32_MIN)) {
+        ereport(ERROR, (errcode(ERRCODE_NUMERIC_VALUE_OUT_OF_RANGE),
+                       errmsg("integer out of range")));
+    }
+
+    // Return the negated value
+    PG_RETURN_INT32(-arg);
+}
+```

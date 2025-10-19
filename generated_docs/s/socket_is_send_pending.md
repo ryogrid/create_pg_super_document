@@ -35,3 +35,14 @@ This function takes no parameters and returns:
 - The logic is straightforward: if PqSendStart < PqSendPointer, there is data between these positions that needs to be sent
 - This function is typically used before calling flush operations to avoid unnecessary system calls when no data is pending
 - The function provides a clean abstraction for buffer state checking, making the code more readable and maintainable
+
+## Simplified Source
+
+```c
+static bool
+socket_is_send_pending(void)
+{
+    // Check if there's data waiting to be sent by comparing buffer pointers
+    return (PqSendStart < PqSendPointer);
+}
+```

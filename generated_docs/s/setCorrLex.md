@@ -34,3 +34,25 @@ After either operation, the function resets both the head and tail pointers of t
 - The function implements a memory management pattern common in PostgreSQL where resources can either be transferred to a caller or automatically cleaned up
 - The waste list appears to contain ParsedLex structures that are no longer needed during the parsing process
 - Proper cleanup is essential to prevent memory leaks in text search operations
+
+## Simplified Source
+
+```c
+static void setCorrLex(LexizeData *ld, ParsedLex **correspondLexem) {
+    if (correspondLexem) {
+        // Transfer waste list to caller
+        *correspondLexem = ld->waste.head;
+    } else {
+        // Clean up waste list by freeing all nodes
+        ParsedLex *ptr = ld->waste.head;
+        while (ptr) {
+            ParsedLex *tmp = ptr->next;
+            pfree(ptr);
+            ptr = tmp;
+        }
+    }
+
+    // Clear waste list pointers
+    ld->waste.head = ld->waste.tail = NULL;
+}
+```

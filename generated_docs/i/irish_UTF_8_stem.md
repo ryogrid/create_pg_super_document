@@ -44,3 +44,47 @@ Each suffix removal phase uses cursor position saving/restoration to ensure that
 - Uses cursor position management (lb/c/l) to ensure proper word boundary handling
 - The sequential suffix processing order (noun → derivational → verb) reflects the morphological structure of Irish words
 - Each suffix removal phase is wrapped in position-saving blocks to allow independent processing attempts
+
+## Simplified Source
+
+```c
+extern int irish_UTF_8_stem(struct SN_env * z) {
+    // Save cursor position for initial morphological processing
+    int c1 = z->c;
+
+    // Step 1: Handle initial morphological transformations
+    int ret = r_initial_morph(z);
+    if (ret < 0) return ret;
+    z->c = c1;  // Restore position
+
+    // Step 2: Mark word regions (R1, R2, RV) for suffix analysis
+    ret = r_mark_regions(z);
+    if (ret < 0) return ret;
+
+    // Position cursor at word end for suffix processing
+    z->lb = z->c;
+    z->c = z->l;
+
+    // Step 3: Remove noun suffixes (first priority)
+    int saved_pos = z->l - z->c;
+    ret = r_noun_sfx(z);
+    if (ret < 0) return ret;
+    z->c = z->l - saved_pos;  // Restore for next phase
+
+    // Step 4: Remove derivational suffixes
+    saved_pos = z->l - z->c;
+    ret = r_deriv(z);
+    if (ret < 0) return ret;
+    z->c = z->l - saved_pos;  // Restore for next phase
+
+    // Step 5: Remove verb suffixes (last priority)
+    saved_pos = z->l - z->c;
+    ret = r_verb_sfx(z);
+    if (ret < 0) return ret;
+    z->c = z->l - saved_pos;
+
+    // Reset cursor to beginning
+    z->c = z->lb;
+    return 1;  // Success
+}
+```

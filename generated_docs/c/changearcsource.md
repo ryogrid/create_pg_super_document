@@ -34,3 +34,36 @@ The changearcsource function modifies an existing arc to have a different source
 - Assumes the caller has verified that oldfrom != newfrom
 - Does not handle color chain updates (if needed, caller must handle separately)
 - Used primarily in NFA optimization and state merging operations
+
+## Simplified Source
+
+```c
+static void changearcsource(struct arc *a, struct state *newfrom) {
+    struct state *oldfrom = a->from;
+    struct arc *predecessor;
+
+    // Remove arc from old source's outgoing chain
+    predecessor = a->outchainRev;
+    if (predecessor == NULL) {
+        oldfrom->outs = a->outchain;
+    } else {
+        predecessor->outchain = a->outchain;
+    }
+    if (a->outchain != NULL) {
+        a->outchain->outchainRev = predecessor;
+    }
+    oldfrom->nouts--;
+
+    // Update arc's source pointer
+    a->from = newfrom;
+
+    // Add arc to new source's outgoing chain
+    a->outchain = newfrom->outs;
+    a->outchainRev = NULL;
+    if (newfrom->outs) {
+        newfrom->outs->outchainRev = a;
+    }
+    newfrom->outs = a;
+    newfrom->nouts++;
+}
+```

@@ -37,3 +37,18 @@ The function checks two conditions: first, it automatically allows index-only sc
 - Essential for query planning decisions regarding whether to use index-only scans
 - The canReturnData flag in the operator class configuration determines support for the primary attribute
 - Enables significant performance improvements when heap table access can be avoided
+
+## Simplified Source
+
+```c
+bool spgcanreturn(Relation index, int attno)
+{
+    // INCLUDE attributes (beyond primary) can always be fetched
+    if (attno > 1)
+        return true;
+
+    // Check if opclass config allows returning data for primary attribute
+    SpGistCache *cache = spgGetCache(index);
+    return cache->config.canReturnData;
+}
+```

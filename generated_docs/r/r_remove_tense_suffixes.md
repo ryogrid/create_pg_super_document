@@ -39,3 +39,29 @@ This iterative approach is necessary because Tamil words can have multiple layer
 - Essential for handling complex Tamil verb morphology where multiple tense markers can be stacked
 - The iterative approach ensures complete removal of all tense-related suffixes
 - Part of the Tamil verb stemming pipeline in PostgreSQL's full-text search system
+
+## Simplified Source
+
+```c
+static int r_remove_tense_suffixes(struct SN_env * z) {
+    // Initialize flag to enable processing
+    z->I[1] = 1;
+
+    // Continue removing tense suffixes until none remain
+    while (z->I[1]) {
+        // Save current cursor position
+        int saved_position = z->c;
+
+        // Attempt to remove a tense suffix
+        // r_remove_tense_suffix will set z->I[1] = 0 if no suffix found
+        int saved_position_for_function = z->c;
+        r_remove_tense_suffix(z);
+        z->c = saved_position_for_function; // Restore position after function call
+
+        // If no suffix was removed (z->I[1] = 0), exit loop
+        // If suffix was removed (z->I[1] = 1), continue loop
+    }
+
+    return 1; // Always successful
+}
+```

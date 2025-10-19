@@ -44,3 +44,48 @@ This function produces the main output format for pg_waldump, displaying detaile
 - Includes optional detailed block reference information based on configuration
 - Output format: 'rmgr: NAME len (rec/tot): X/Y, tx: Z, lsn: A/B, prev C/D, desc: OPERATION details'
 - Essential function for WAL analysis and debugging in PostgreSQL
+
+## Simplified Source
+
+```c
+static void
+XLogDumpDisplayRecord(XLogDumpConfig *config, XLogReaderState *record)
+{
+    const char *id;
+    const RmgrDescData *desc = GetRmgrDesc(XLogRecGetRmid(record));
+    uint32 rec_len;
+    uint32 fpi_len;
+    uint8 info = XLogRecGetInfo(record);
+    XLogRecPtr xl_prev = XLogRecGetPrev(record);
+    StringInfoData s;
+
+    // Get record length information
+    XLogRecGetLen(record, &rec_len, &fpi_len);
+
+    // Print basic record information: manager, lengths, transaction, LSN
+    printf("rmgr: %-11s len (rec/tot): %6u/%6u, tx: %10u, lsn: %X/%08X, prev %X/%08X, ",
+           desc->rm_name,
+           rec_len, XLogRecGetTotalLen(record),
+           XLogRecGetXid(record),
+           LSN_FORMAT_ARGS(record->ReadRecPtr),
+           LSN_FORMAT_ARGS(xl_prev));
+
+    // Get operation description from resource manager
+    id = desc->rm_identify(info);
+    if (id == NULL)
+        printf("desc: UNKNOWN (%x) ", info & ~XLR_INFO_MASK);
+    else
+        printf("desc: %s ", id);
+
+    // Get detailed description from resource manager
+    initStringInfo(&s);
+    desc->rm_desc(&s, record);
+    printf("%s", s.data);
+
+    // Add block reference information if available
+    resetStringInfo(&s);
+    XLogRecGetBlockRefInfo(record, true, config->bkp_details, &s, NULL);
+    printf("%s", s.data);
+    pfree(s.data);
+}
+```

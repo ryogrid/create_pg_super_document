@@ -37,3 +37,21 @@ The  function is a PostgreSQL geometric operation that constructs a line segment
 - The term "positive-slope diagonal" refers to the mathematical convention where the line goes from lower-left to upper-right coordinates
 - Returns a line segment that can be used for further geometric calculations or spatial analysis
 - Part of PostgreSQL's comprehensive set of geometric operations for 2D spatial data
+
+## Simplified Source
+
+```c
+Datum box_diagonal(PG_FUNCTION_ARGS) {
+    // Get the input box
+    BOX *box = PG_GETARG_BOX_P(0);
+
+    // Allocate memory for the result line segment
+    LSEG *result = (LSEG *) palloc(sizeof(LSEG));
+
+    // Create diagonal line from high corner to low corner
+    statlseg_construct(result, &box->high, &box->low);
+
+    // Return the diagonal line segment
+    PG_RETURN_LSEG_P(result);
+}
+```

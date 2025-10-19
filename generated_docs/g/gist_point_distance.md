@@ -38,3 +38,29 @@ For leaf entries, it calculates the exact distance between two points. For inter
 - Essential for ORDER BY distance queries and KNN-GiST searches on point data
 - Strategy number is divided by `GeoStrategyNumberOffset` to determine the query type category
 - Returns 0.0 with compiler warning suppression when encountering unrecognized strategies
+
+## Simplified Source
+
+```c
+Datum gist_point_distance(PG_FUNCTION_ARGS) {
+    GISTENTRY *entry = (GISTENTRY *) PG_GETARG_POINTER(0);
+    StrategyNumber strategy = (StrategyNumber) PG_GETARG_UINT16(2);
+    float8 distance;
+    StrategyNumber strategyGroup = strategy / GeoStrategyNumberOffset;
+
+    switch (strategyGroup) {
+        case PointStrategyNumberGroup:
+            // Calculate distance using utility function
+            distance = computeDistance(GIST_LEAF(entry),
+                                       DatumGetBoxP(entry->key),
+                                       PG_GETARG_POINT_P(1));
+            break;
+        default:
+            elog(ERROR, "unrecognized strategy number: %d", strategy);
+            distance = 0.0;
+            break;
+    }
+
+    PG_RETURN_FLOAT8(distance);
+}
+```

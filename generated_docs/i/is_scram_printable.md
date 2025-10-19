@@ -35,3 +35,19 @@ The function iterates through each character in the string and returns false imm
 - Part of input validation for SCRAM authentication protocol
 - Used to prevent protocol injection attacks and ensure message integrity
 - Returns false for empty strings (since loop never executes and no characters are validated)
+
+## Simplified Source
+
+```c
+static bool
+is_scram_printable(char *p)
+{
+    // Check each character against SCRAM printable range (RFC 5802)
+    // Allowed: 0x21-2B and 0x2D-7E (printable ASCII except comma)
+    for (; *p; p++) {
+        if (*p < 0x21 || *p > 0x7E || *p == 0x2C)  // Exclude comma
+            return false;
+    }
+    return true;
+}
+```

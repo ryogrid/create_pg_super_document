@@ -37,3 +37,48 @@ This function is a critical preparatory step for all large object operations in 
 - The own_transaction flag is crucial for determining whether to commit/rollback the transaction later
 - Includes proper error handling for database connection issues and unknown transaction states
 - Static function with scope limited to large_obj.c file
+
+## Simplified Source
+
+```c
+static bool start_lo_xact(const char *operation, bool *own_transaction) {
+    PGTransactionStatusType tstatus;
+    PGresult *res;
+
+    *own_transaction = false;
+
+    // Check database connection
+    if (!pset.db) {
+        pg_log_error("%s: not connected to a database", operation);
+        return false;
+    }
+
+    // Check current transaction status
+    tstatus = PQtransactionStatus(pset.db);
+
+    switch (tstatus) {
+        case PQTRANS_IDLE:
+            // Start new transaction for large object operations
+            if (!(res = PSQLexec("BEGIN"))) {
+                return false;
+            }
+            PQclear(res);
+            *own_transaction = true;
+            break;
+
+        case PQTRANS_INTRANS:
+            // Use existing transaction
+            break;
+
+        case PQTRANS_INERROR:
+            pg_log_error("%s: current transaction is aborted", operation);
+            return false;
+
+        default:
+            pg_log_error("%s: unknown transaction status", operation);
+            return false;
+    }
+
+    return true;
+}
+```

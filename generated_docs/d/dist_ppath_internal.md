@@ -36,3 +36,43 @@ This function implements the core logic for computing the distance from a point 
 - Uses  flag to track whether a minimum distance has been found yet
 - Returns the shortest distance among all path segments
 - Algorithm complexity is O(n) where n is the number of points in the path
+
+## Simplified Source
+
+```c
+static float8 dist_ppath_internal(Point *pt, PATH *path) {
+    float8 result = 0.0;
+    bool have_min = false;
+    LSEG lseg;
+
+    // Ensure path has at least one point
+    Assert(path->npts > 0);
+
+    // Check distance from point to each path segment
+    for (int i = 0; i < path->npts; i++) {
+        int iprev;
+
+        // Determine previous point index
+        if (i > 0) {
+            iprev = i - 1;
+        } else {
+            // For first point, skip if open path, use last point if closed
+            if (!path->closed)
+                continue;
+            iprev = path->npts - 1;
+        }
+
+        // Create line segment and calculate distance
+        statlseg_construct(&lseg, &path->p[iprev], &path->p[i]);
+        float8 tmp = lseg_closept_point(NULL, &lseg, pt);
+
+        // Track minimum distance
+        if (!have_min || float8_lt(tmp, result)) {
+            result = tmp;
+            have_min = true;
+        }
+    }
+
+    return result;
+}
+```

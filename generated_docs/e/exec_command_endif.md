@@ -43,3 +43,36 @@ The cleanup process ensures that only query text from executed conditional branc
 - Performs final cleanup by either preserving or discarding query text accumulated during the conditional block
 - Error detection includes validation that every \\endif has a corresponding \\if
 - Handles all possible conditional states when closing a block
+
+## Simplified Source
+
+```c
+static backslashResult exec_command_endif(PsqlScanState scan_state, ConditionalStack cstack, PQExpBuffer query_buf) {
+    bool success = true;
+
+    switch (conditional_stack_peek(cstack)) {
+        case IFSTATE_TRUE:
+        case IFSTATE_ELSE_TRUE:
+            // Close if block and keep query text from active branch
+            success = conditional_stack_pop(cstack);
+            Assert(success);
+            break;
+
+        case IFSTATE_FALSE:
+        case IFSTATE_IGNORED:
+        case IFSTATE_ELSE_FALSE:
+            // Close if block and discard query text from inactive branches
+            discard_query_text(scan_state, cstack, query_buf);
+            success = conditional_stack_pop(cstack);
+            Assert(success);
+            break;
+
+        case IFSTATE_NONE:
+            pg_log_error("\\endif: no matching \\if");
+            success = false;
+            break;
+    }
+
+    return success ? PSQL_CMD_SKIP_LINE : PSQL_CMD_ERROR;
+}
+```

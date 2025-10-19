@@ -48,3 +48,42 @@ If copy_file_range() is not available at compile time (HAVE_COPY_FILE_RANGE not 
 - Failure of this test means pg_upgrade cannot use the efficient copy_file_range mechanism
 - The temporary test file name includes '.copy_file_range_test' suffix to identify its purpose
 - File descriptors are properly managed with close() calls to prevent resource leaks
+
+## Simplified Source
+
+```c
+void check_copy_file_range(void) {
+    char existing_file[MAXPGPATH];
+    char new_link_file[MAXPGPATH];
+
+    // Set up test files: PG_VERSION from old cluster, test copy in new cluster
+    snprintf(existing_file, sizeof(existing_file), "%s/PG_VERSION", old_cluster.pgdata);
+    snprintf(new_link_file, sizeof(new_link_file), "%s/PG_VERSION.copy_file_range_test", new_cluster.pgdata);
+    unlink(new_link_file);  // Clean up any previous test file
+
+#if defined(HAVE_COPY_FILE_RANGE)
+    // Test copy_file_range functionality
+    int src_fd = open(existing_file, O_RDONLY | PG_BINARY, 0);
+    if (src_fd < 0)
+        pg_fatal("could not open file \"%s\": %m", existing_file);
+
+    int dest_fd = open(new_link_file, O_RDWR | O_CREAT | O_EXCL | PG_BINARY, pg_file_create_mode);
+    if (dest_fd < 0)
+        pg_fatal("could not create file \"%s\": %m", new_link_file);
+
+    // Attempt the copy_file_range operation - copies entire file efficiently
+    if (copy_file_range(src_fd, NULL, dest_fd, NULL, SSIZE_MAX, 0) < 0)
+        pg_fatal("could not copy file range between old and new data directories: %m");
+
+    close(src_fd);
+    close(dest_fd);
+
+#else
+    // Platform doesn't support copy_file_range
+    pg_fatal("copy_file_range not supported on this platform");
+#endif
+
+    // Clean up test file
+    unlink(new_link_file);
+}
+```

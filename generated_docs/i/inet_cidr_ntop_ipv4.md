@@ -41,3 +41,59 @@ The algorithm processes octets sequentially, formatting complete 8-bit groups fi
 - Buffer size checking prevents overflow with detailed size calculations
 - Originally authored by Paul Vixie (ISC) in July 1996
 - Function is static (internal linkage) within the inet_cidr_ntop.c module
+
+## Simplified Source
+
+```c
+static char *inet_cidr_ntop_ipv4(const u_char *src, int bits, char *dst, size_t size) {
+    char *odst = dst;
+
+    // Validate prefix length
+    if (bits < 0 || bits > 32) {
+        errno = EINVAL;
+        return NULL;
+    }
+
+    // Special case for zero-length network
+    if (bits == 0) {
+        if (size < sizeof "0") goto emsgsize;
+        strcpy(dst, "0");
+        dst += 1;
+        size -= 1;
+    }
+
+    // Format complete octets (groups of 8 bits)
+    for (int b = bits / 8; b > 0; b--) {
+        if (size <= sizeof "255.") goto emsgsize;
+
+        dst += sprintf(dst, "%u", *src++);
+        if (b > 1) {
+            *dst++ = '.';
+            *dst = '\0';
+        }
+        size -= (dst - odst);
+    }
+
+    // Format partial octet if remaining bits
+    int remaining_bits = bits % 8;
+    if (remaining_bits > 0) {
+        if (size <= sizeof ".255") goto emsgsize;
+
+        if (dst != odst) *dst++ = '.';  // Add dot if not first octet
+
+        // Mask to show only network bits in partial octet
+        u_int mask = ((1 << remaining_bits) - 1) << (8 - remaining_bits);
+        dst += sprintf(dst, "%u", *src & mask);
+    }
+
+    // Add CIDR prefix notation
+    if (size <= sizeof "/32") goto emsgsize;
+    sprintf(dst, "/%u", bits);
+
+    return odst;
+
+emsgsize:
+    errno = EMSGSIZE;
+    return NULL;
+}
+```

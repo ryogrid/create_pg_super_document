@@ -306,3 +306,21 @@ Text creation and manipulation
 - The function is read-only and has no side effects
 - Used in conjunction with smgr_desc() to provide complete WAL record descriptions
 - The returned strings are static constants and should not be modified or freed
+
+## Simplified Source
+
+```c
+const char *
+smgr_identify(uint8 info)
+{
+    // Extract operation type from info byte
+    switch (info & ~XLR_INFO_MASK) {
+        case XLOG_SMGR_CREATE:
+            return "CREATE";
+        case XLOG_SMGR_TRUNCATE:
+            return "TRUNCATE";
+    }
+
+    return NULL;  // Unknown operation type
+}
+```

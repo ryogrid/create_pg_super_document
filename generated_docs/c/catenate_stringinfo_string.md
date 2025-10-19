@@ -38,3 +38,25 @@ The function is designed specifically for aggregate final functions, which are n
 - Returns a properly formatted PostgreSQL text datum with correct VARHDRSZ header
 - The function is essential for JSON aggregate functions that need to append closing brackets or other terminators
 - Located in src/backend/utils/adt/json.c:1200-1214
+
+## Simplified Source
+
+```c
+static text *catenate_stringinfo_string(StringInfo buffer, const char *addon) {
+    // Calculate total length needed
+    int buflen = buffer->len;
+    int addlen = strlen(addon);
+
+    // Allocate memory for combined result
+    text *result = (text *) palloc(buflen + addlen + VARHDRSZ);
+
+    // Set PostgreSQL text header
+    SET_VARSIZE(result, buflen + addlen + VARHDRSZ);
+
+    // Copy buffer data and addon string
+    memcpy(VARDATA(result), buffer->data, buflen);
+    memcpy(VARDATA(result) + buflen, addon, addlen);
+
+    return result;
+}
+```

@@ -56,3 +56,89 @@ If safety conditions are not met, the function issues warnings and returns witho
 - Provides comprehensive safety checks to prevent accidental data deletion
 - Script filename follows pattern: delete_old_cluster.{sh|bat}
 - Function may return early with NULL script name if safety conditions are not met
+
+## Simplified Source
+
+```c
+void create_script_for_old_cluster_deletion(char **deletion_script_file_name)
+{
+    FILE *script = NULL;
+    int tblnum;
+    char old_cluster_pgdata[MAXPGPATH], new_cluster_pgdata[MAXPGPATH];
+
+    // Generate script filename
+    *deletion_script_file_name = psprintf("%sdelete_old_cluster.%s", SCRIPT_PREFIX, SCRIPT_EXT);
+
+    // Canonicalize paths for comparison
+    strlcpy(old_cluster_pgdata, old_cluster.pgdata, MAXPGPATH);
+    canonicalize_path(old_cluster_pgdata);
+    strlcpy(new_cluster_pgdata, new_cluster.pgdata, MAXPGPATH);
+    canonicalize_path(new_cluster_pgdata);
+
+    // Safety check: new data directory should not be inside old directory
+    if (path_is_prefix_of_path(old_cluster_pgdata, new_cluster_pgdata)) {
+        pg_log(PG_WARNING, "WARNING: new data directory should not be inside the old data directory");
+        unlink(*deletion_script_file_name);
+        pg_free(*deletion_script_file_name);
+        *deletion_script_file_name = NULL;
+        return;
+    }
+
+    // Safety check: tablespaces should not be inside old cluster data directory
+    for (tblnum = 0; tblnum < os_info.num_old_tablespaces; tblnum++) {
+        char old_tablespace_dir[MAXPGPATH];
+        strlcpy(old_tablespace_dir, os_info.old_tablespaces[tblnum], MAXPGPATH);
+        canonicalize_path(old_tablespace_dir);
+
+        if (path_is_prefix_of_path(old_cluster_pgdata, old_tablespace_dir)) {
+            pg_log(PG_WARNING, "WARNING: user-defined tablespace locations should not be inside the data directory");
+            unlink(*deletion_script_file_name);
+            pg_free(*deletion_script_file_name);
+            *deletion_script_file_name = NULL;
+            return;
+        }
+    }
+
+    prep_status("Creating script to delete old cluster");
+
+    // Create and write the deletion script
+    script = fopen_priv(*deletion_script_file_name, "w");
+    if (!script) {
+        pg_fatal("could not open file \"%s\": %m", *deletion_script_file_name);
+    }
+
+#ifndef WIN32
+    fprintf(script, "#!/bin/sh\n\n");
+#endif
+
+    // Delete old cluster's default tablespace
+    fprintf(script, RMDIR_CMD " %c%s%c\n", PATH_QUOTE,
+            fix_path_separator(old_cluster.pgdata), PATH_QUOTE);
+
+    // Delete old cluster's alternate tablespaces
+    for (tblnum = 0; tblnum < os_info.num_old_tablespaces; tblnum++) {
+        if (strlen(old_cluster.tablespace_suffix) == 0) {
+            // Delete per-database directories
+            for (int dbnum = 0; dbnum < old_cluster.dbarr.ndbs; dbnum++) {
+                fprintf(script, RMDIR_CMD " %c%s%c%u%c\n", PATH_QUOTE,
+                        fix_path_separator(os_info.old_tablespaces[tblnum]),
+                        PATH_SEPARATOR, old_cluster.dbarr.dbs[dbnum].db_oid, PATH_QUOTE);
+            }
+        } else {
+            // Delete tablespace directory with suffix
+            fprintf(script, RMDIR_CMD " %c%s%s%c\n", PATH_QUOTE,
+                    fix_path_separator(os_info.old_tablespaces[tblnum]),
+                    fix_path_separator(old_cluster.tablespace_suffix), PATH_QUOTE);
+        }
+    }
+
+    fclose(script);
+
+#ifndef WIN32
+    // Make script executable
+    chmod(*deletion_script_file_name, S_IRWXU);
+#endif
+
+    check_ok();
+}
+```

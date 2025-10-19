@@ -32,3 +32,16 @@ The function calls SN_create_env(0, 2), where the first parameter (0) represents
 - Returns a pointer to SN_env structure that must be properly closed using norwegian_UTF_8_close_env
 - The returned environment is specifically tuned for Norwegian language morphology and UTF-8 text encoding
 - This is likely auto-generated code from the Snowball compiler for the Norwegian stemming algorithm
+
+## Simplified Source
+
+```c
+extern struct SN_env * norwegian_UTF_8_create_env(void) {
+    // Create a new Snowball environment for Norwegian UTF-8 stemming
+    // Parameters: 0 (string size), 2 (number of integer variables)
+    return SN_create_env(0, 2);
+}
+```
+
+**Simplified Logic:**
+This is a simple wrapper function that creates a Snowball stemming environment specifically configured for Norwegian language processing. It calls the generic environment creation function with parameters optimized for Norwegian stemming algorithms.

@@ -41,3 +41,33 @@ The function formats the output to show:
 - Handles both main transactions and subtransactions
 - Includes overflow detection for subtransaction arrays
 - Output format is designed for human readability in log files and debugging tools
+
+## Simplified Source
+
+```c
+static void
+standby_desc_running_xacts(StringInfo buf, xl_running_xacts *xlrec)
+{
+    // Show basic transaction IDs
+    appendStringInfo(buf, "nextXid %u latestCompletedXid %u oldestRunningXid %u",
+                     xlrec->nextXid, xlrec->latestCompletedXid, xlrec->oldestRunningXid);
+
+    // Show running transaction IDs if any
+    if (xlrec->xcnt > 0) {
+        appendStringInfo(buf, "; %d xacts:", xlrec->xcnt);
+        for (int i = 0; i < xlrec->xcnt; i++)
+            appendStringInfo(buf, " %u", xlrec->xids[i]);
+    }
+
+    // Show subtransaction overflow status
+    if (xlrec->subxid_overflow)
+        appendStringInfoString(buf, "; subxid overflowed");
+
+    // Show subtransaction IDs if any
+    if (xlrec->subxcnt > 0) {
+        appendStringInfo(buf, "; %d subxacts:", xlrec->subxcnt);
+        for (int i = 0; i < xlrec->subxcnt; i++)
+            appendStringInfo(buf, " %u", xlrec->xids[xlrec->xcnt + i]);
+    }
+}
+```

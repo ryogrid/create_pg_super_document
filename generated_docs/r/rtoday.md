@@ -32,3 +32,12 @@ The `rtoday` function is part of PostgreSQL's ECPG date handling compatibility l
 - Minimal implementation - just a direct call to `PGTYPESdate_today`
 - Commonly used for initializing date variables in business applications
 - Uses system date/time to determine the current date value
+
+## Simplified Source
+
+```c
+void rtoday(date *d) {
+    // Set date to current system date using PostgreSQL's built-in function
+    PGTYPESdate_today(d);
+}
+```

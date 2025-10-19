@@ -37,3 +37,22 @@ The makesign function generates a bit signature from an array of integers stored
 - Part of the GiST indexing infrastructure for tsvector full-text search functionality
 - The signature length is configurable and affects both storage size and collision probability
 - Critical for performance as it enables efficient pruning of index searches
+
+## Simplified Source
+
+```c
+static void
+makesign(BITVECP sign, SignTSVector *a, int siglen)
+{
+    // Initialize signature to all zeros
+    MemSet(sign, 0, siglen);
+
+    // Hash each array element into the signature
+    int32 *ptr = GETARR(a);
+    int32 len = ARRNELEM(a);
+
+    for (int k = 0; k < len; k++) {
+        HASH(sign, ptr[k], siglen);  // Set bits based on hash of each element
+    }
+}
+```

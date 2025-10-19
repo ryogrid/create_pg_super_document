@@ -39,3 +39,52 @@ The implementation includes careful handling of multibyte character encodings by
 - Line numbers must be positive integers (>= 1)
 - The backward parsing approach requires caution in multibyte environments
 - This is explicitly described as a "kluge" because psql uses OT_WHOLE_LINE mode for parsing these commands rather than careful argument parsing
+
+## Simplified Source
+
+```c
+static int
+strip_lineno_from_objdesc(char *obj)
+{
+    char *c;
+    int lineno;
+
+    // Handle empty or null input
+    if (!obj || obj[0] == '\0')
+        return -1;
+
+    // Start from end of string
+    c = obj + strlen(obj) - 1;
+
+    // Skip trailing whitespace
+    while (c > obj && isascii((unsigned char) *c) && isspace((unsigned char) *c))
+        c--;
+
+    // Must end with a digit
+    if (c == obj || !isascii((unsigned char) *c) || !isdigit((unsigned char) *c))
+        return -1;
+
+    // Find start of digit sequence
+    while (c > obj && isascii((unsigned char) *c) && isdigit((unsigned char) *c))
+        c--;
+
+    // Line number must be separated by space or closing paren
+    // Also ensures object name is not empty
+    if (c == obj || !isascii((unsigned char) *c) ||
+        !(isspace((unsigned char) *c) || *c == ')'))
+        return -1;
+
+    // Parse the line number
+    c++;
+    lineno = atoi(c);
+    if (lineno < 1) {
+        pg_log_error("invalid line number: %s", c);
+        return 0;
+    }
+
+    // Remove line number from original string
+    *c = '\0';
+
+    return lineno;
+}
+```

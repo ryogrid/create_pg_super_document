@@ -33,3 +33,14 @@ The function allocates memory for the stemmer environment structure and initiali
 - The function is declared as extern, making it available for external linkage
 - Memory allocation failure in SN_create_env will result in NULL return value
 - Should be paired with swedish_ISO_8859_1_close_env for proper cleanup
+
+## Simplified Source
+
+```c
+extern struct SN_env * swedish_ISO_8859_1_create_env(void) {
+    // Create Swedish stemming environment with:
+    // - 0 string arrays (S_size = 0)
+    // - 2 integer variables (I_size = 2) for algorithm state
+    return SN_create_env(0, 2);
+}
+```

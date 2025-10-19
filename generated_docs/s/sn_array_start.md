@@ -43,3 +43,21 @@ The function works alongside other semantic action handlers including `sn_object
 - Array elements are generally preserved during null-stripping, unlike object fields which may be filtered
 - Essential for maintaining proper nesting and structure in the filtered JSON output
 - The null-stripping logic primarily applies to object fields rather than array elements
+
+## Simplified Source
+
+```c
+static JsonParseErrorType sn_array_start(void *state) {
+    StripnullState *_state = (StripnullState *) state;
+
+    // Append opening bracket to output string
+    appendStringInfoCharMacro(_state->strval, '[');
+
+    return JSON_SUCCESS;
+}
+```
+
+This function:
+1. Casts the generic state pointer to the specific StripnullState type
+2. Appends the JSON array opening character '[' to the output buffer
+3. Returns success since this operation cannot fail

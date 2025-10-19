@@ -36,3 +36,26 @@ The function calls  to parse the connection string and extract the database name
 - Essential for slot synchronization as database connections are required for walrcv_exec operations
 - Part of PostgreSQL's configuration validation for logical replication setup
 - Provides clear, translatable error messages for configuration issues
+
+## Simplified Source
+
+```c
+/*
+ * Checks if dbname is specified in 'primary_conninfo'.
+ * Error out if not specified otherwise return it.
+ */
+char *
+CheckAndGetDbnameFromConninfo(void)
+{
+    // Extract database name from primary connection info
+    char *dbname = walrcv_get_dbname_from_conninfo(PrimaryConnInfo);
+
+    // Error if no database name specified
+    if (dbname == NULL)
+        ereport(ERROR,
+                errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                errmsg("replication slot synchronization requires \"dbname\" to be specified in \"primary_conninfo\""));
+
+    return dbname;
+}
+```

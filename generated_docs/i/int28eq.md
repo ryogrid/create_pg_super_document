@@ -31,3 +31,15 @@ The int28eq function implements the equality comparison operator between a 2-byt
 - Returns true if the int16 value equals the int64 value, false otherwise
 - Comment in source indicates this is part of int28relop family for 16-bit val1 relop 64-bit val2
 - Located in src/backend/utils/adt/int8.c, which contains various int8 (bigint) operations
+
+## Simplified Source
+```c
+Datum int28eq(PG_FUNCTION_ARGS) {
+    // Extract 2-byte and 8-byte integer arguments
+    int16 val1 = PG_GETARG_INT16(0);
+    int64 val2 = PG_GETARG_INT64(1);
+
+    // Compare and return boolean result (equality)
+    PG_RETURN_BOOL(val1 == val2);
+}
+```

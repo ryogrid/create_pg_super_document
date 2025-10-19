@@ -36,3 +36,42 @@ The function iterates through each TargetEntry in the input list, extracting the
 - The volatility is marked as unknown initially and will be computed on-demand when needed
 - This is part of the PathTarget manipulation functions in the PostgreSQL optimizer
 - The function is declared in src/include/optimizer/tlist.h
+
+## Simplified Source
+
+```c
+/*
+ * Create a PathTarget from a targetlist.
+ * Extracts expressions and sort group references, leaving
+ * cost and width fields as zeroes for later computation.
+ */
+PathTarget *
+make_pathtarget_from_tlist(List *tlist)
+{
+    PathTarget *target = makeNode(PathTarget);
+    int i;
+    ListCell *lc;
+
+    // Allocate array for sort group references
+    target->sortgrouprefs = (Index *) palloc(list_length(tlist) * sizeof(Index));
+
+    // Extract expressions and sort group refs from each TargetEntry
+    i = 0;
+    foreach(lc, tlist)
+    {
+        TargetEntry *tle = (TargetEntry *) lfirst(lc);
+
+        // Add expression to the PathTarget
+        target->exprs = lappend(target->exprs, tle->expr);
+
+        // Store sort group reference
+        target->sortgrouprefs[i] = tle->ressortgroupref;
+        i++;
+    }
+
+    // Mark volatility as unknown (determined on first use)
+    target->has_volatile_expr = VOLATILITY_UNKNOWN;
+
+    return target;
+}
+```

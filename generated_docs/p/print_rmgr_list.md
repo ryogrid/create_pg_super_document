@@ -30,3 +30,16 @@ The print_rmgr_list function iterates through all built-in PostgreSQL resource m
 - The output format is simple: one resource manager name per line
 - Commonly used with command-line options like --rmgr-list in pg_waldump
 - Resource manager names include system components like 'Heap', 'Btree', 'Hash', 'Gin', 'Gist', 'Sequence', 'SPGist', 'BRIN', 'CommitTs', 'ReplicationOrigin', 'Generic', 'LogicalMessage', etc.
+
+## Simplified Source
+
+```c
+static void
+print_rmgr_list(void)
+{
+    // Print all built-in resource manager names
+    for (int i = 0; i <= RM_MAX_BUILTIN_ID; i++) {
+        printf("%s\n", GetRmgrDesc(i)->rm_name);
+    }
+}
+```

@@ -36,3 +36,30 @@ This function gracefully stops the PostgreSQL postmaster process that was starte
 - Clears os_info.running_cluster to NULL after successful shutdown
 - Returns immediately if no cluster is currently running
 - Located in src/bin/pg_upgrade/server.c:331-357
+
+## Simplified Source
+
+```c
+void stop_postmaster(bool in_atexit) {
+    ClusterInfo *cluster;
+
+    // Determine which cluster is currently running
+    if (os_info.running_cluster == &old_cluster)
+        cluster = &old_cluster;
+    else if (os_info.running_cluster == &new_cluster)
+        cluster = &new_cluster;
+    else
+        return;  // No cluster running
+
+    // Execute pg_ctl stop command with appropriate shutdown mode
+    // Fast mode for atexit cleanup, smart mode for normal stops
+    exec_prog(SERVER_STOP_LOG_FILE, NULL, !in_atexit, !in_atexit,
+              "\"%s/pg_ctl\" -w -D \"%s\" -o \"%s\" %s stop",
+              cluster->bindir, cluster->pgconfig,
+              cluster->pgopts ? cluster->pgopts : "",
+              in_atexit ? "-m fast" : "-m smart");
+
+    // Clear running cluster indicator
+    os_info.running_cluster = NULL;
+}
+```

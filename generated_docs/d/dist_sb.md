@@ -35,3 +35,17 @@ The `dist_sb` function is a PostgreSQL built-in function that computes the minim
 - Returns 0.0 when the line segment intersects or is contained within the box
 - Part of PostgreSQL's geometric operator family enabling sophisticated spatial queries
 - Useful for proximity analysis between linear features and rectangular regions in spatial databases
+
+## Simplified Source
+
+```c
+Datum dist_sb(PG_FUNCTION_ARGS) {
+    // Extract line segment and box from function arguments
+    LSEG *lseg = PG_GETARG_LSEG_P(0);
+    BOX *box = PG_GETARG_BOX_P(1);
+
+    // Calculate distance between line segment and box
+    // Uses existing utility function for the core computation
+    PG_RETURN_FLOAT8(box_closept_lseg(NULL, box, lseg));
+}
+```

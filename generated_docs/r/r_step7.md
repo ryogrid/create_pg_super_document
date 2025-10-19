@@ -45,3 +45,24 @@ The byte values 129 and 132 correspond to specific Greek UTF-8 character sequenc
 - The byte value checks (129 and 132) are UTF-8 specific validations for Greek character sequences
 - This step handles morphological forms like "καλύτερος" (better) and "καλύτατος" (best)
 - Part of the final stages of the Greek stemming algorithm, handling complex morphological variations
+
+## Simplified Source
+
+```c
+static int r_step7(struct SN_env * z) {
+    // Step 1: Set cursor and validate length and character endings
+    z->ket = z->c;
+
+    // Check minimum length (7 chars) and specific UTF-8 endings (129 or 132)
+    if (z->c - 7 <= z->lb || (z->p[z->c - 1] != 129 && z->p[z->c - 1] != 132)) {
+        return 0;
+    }
+
+    // Step 2: Find and remove comparative/superlative suffixes
+    if (!find_among_b(z, a_67, 8)) return 0;  // Search 8 patterns (-τερ, -τατ forms)
+    z->bra = z->c;
+    slice_del(z);  // Remove matched suffix
+
+    return 1;
+}
+```

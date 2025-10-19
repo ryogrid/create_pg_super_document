@@ -37,3 +37,26 @@ The size calculation depends on the attribute type descriptor:
 - Memory alignment is critical for performance and correctness on different architectures
 - This function is part of the SP-GiST (Space-Partitioned Generalized Search Tree) access method implementation
 - The size calculation strategy varies based on whether the type is pass-by-value or pass-by-reference
+
+## Simplified Source
+
+```c
+unsigned int SpGistGetInnerTypeSize(SpGistTypeDesc *att, Datum datum)
+{
+    unsigned int size;
+
+    if (att->attbyval) {
+        // Pass-by-value: store as Datum
+        size = sizeof(Datum);
+    } else if (att->attlen > 0) {
+        // Fixed-length pass-by-reference: use type's fixed length
+        size = att->attlen;
+    } else {
+        // Variable-length: get actual size from datum
+        size = VARSIZE_ANY(datum);
+    }
+
+    // Align to platform boundary for performance
+    return MAXALIGN(size);
+}
+```

@@ -38,3 +38,30 @@ A successful verification confirms that the client has the correct nonce values 
 - Uses exact byte-level comparison to prevent timing attacks
 - Should be called during the client-final-message processing phase
 - Failure of this check typically indicates a protocol error or potential attack attempt
+
+## Simplified Source
+
+```c
+static bool
+verify_final_nonce(scram_state *state)
+{
+    int client_nonce_len = strlen(state->client_nonce);
+    int server_nonce_len = strlen(state->server_nonce);
+    int final_nonce_len = strlen(state->client_final_nonce);
+
+    // Check if final nonce length matches concatenated length
+    if (final_nonce_len != client_nonce_len + server_nonce_len)
+        return false;
+
+    // Verify client nonce portion is correct
+    if (memcmp(state->client_final_nonce, state->client_nonce, client_nonce_len) != 0)
+        return false;
+
+    // Verify server nonce portion is correct
+    if (memcmp(state->client_final_nonce + client_nonce_len,
+               state->server_nonce, server_nonce_len) != 0)
+        return false;
+
+    return true;  // Final nonce is valid concatenation
+}
+```

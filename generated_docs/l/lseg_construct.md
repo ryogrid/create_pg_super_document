@@ -34,3 +34,21 @@ The `lseg_construct` function is a PostgreSQL function that constructs a line se
 - Follows PostgreSQL's pattern of separating public function interfaces from internal implementation
 - Can be used in SQL queries to create line segments from point values
 - Part of PostgreSQL's geometric data type system for spatial calculations
+
+## Simplified Source
+
+```c
+Datum lseg_construct(PG_FUNCTION_ARGS) {
+    // Get two points that will define the line segment endpoints
+    Point *pt1 = PG_GETARG_POINT_P(0);
+    Point *pt2 = PG_GETARG_POINT_P(1);
+
+    // Allocate memory for new line segment
+    LSEG *result = (LSEG *) palloc(sizeof(LSEG));
+
+    // Construct the line segment from the two points
+    statlseg_construct(result, pt1, pt2);
+
+    PG_RETURN_LSEG_P(result);
+}
+```

@@ -39,3 +39,22 @@ The function differs from its OID-based counterpart by using object names (strin
 - [String](../S/String.md)-based drop hooks are particularly useful for extensions that need to track object names during drop operations
 - This hook is commonly used by logical replication systems, auditing extensions, and dependency tracking tools that need to respond to schema changes
 - Extensions can use this hook to perform cleanup operations, validate drop permissions, or maintain external metadata structures
+
+## Simplified Source
+
+```c
+void RunObjectDropHookStr(Oid classId, const char *objectName, int subId,
+                         int dropflags)
+{
+    ObjectAccessDrop drop_arg;
+
+    // Initialize structure with drop operation metadata
+    memset(&drop_arg, 0, sizeof(ObjectAccessDrop));
+    drop_arg.dropflags = dropflags;
+
+    // Call registered string-based object access hook for drop event
+    (*object_access_hook_str)(OAT_DROP,
+                             classId, objectName, subId,
+                             (void *) &drop_arg);
+}
+```

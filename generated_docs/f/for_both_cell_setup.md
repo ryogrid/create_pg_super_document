@@ -40,3 +40,21 @@ The function handles NULL initial cells by setting the corresponding index to th
 - Returns a ForBothCellState struct by value, containing both list pointers and calculated starting indices
 - The macro using this setup function stops iteration when either list runs out of elements
 - Commonly used when processing paired data structures that need to be traversed in parallel
+
+## Simplified Source
+
+```c
+static inline ForBothCellState for_both_cell_setup(const List *list1, const ListCell *initcell1,
+                                                   const List *list2, const ListCell *initcell2) {
+    ForBothCellState r = {
+        list1, list2,
+        // Set starting indices for both lists
+        initcell1 ? list_cell_number(list1, initcell1) : list_length(list1),
+        initcell2 ? list_cell_number(list2, initcell2) : list_length(list2)
+    };
+
+    return r;
+}
+```
+
+This function initializes a ForBothCellState structure for synchronized iteration through two lists. For each list, if an initial cell is provided, it calculates the starting index; otherwise it sets the index to the list length (creating empty iteration for that list).

@@ -41,3 +41,13 @@ The allocated socket set is used throughout pgbench's multi-threaded benchmark e
 - The socket set allocated by this function must be freed using the corresponding  function
 - ppoll() is preferred when available due to its higher ceiling on the number of usable sockets
 - Each thread in pgbench allocates its own socket set to manage connections to database backends
+
+## Simplified Source
+
+```c
+static socket_set *
+alloc_socket_set(int count)
+{
+    return (socket_set *) pg_malloc0(sizeof(socket_set));
+}
+```

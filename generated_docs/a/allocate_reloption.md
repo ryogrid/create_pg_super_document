@@ -41,3 +41,49 @@ This static function is responsible for allocating memory for a new reloption st
 - The function supports all standard reloption types and will error on unsupported types
 - Memory context is properly restored after allocation for non-local reloptions
 - The function duplicates name and description strings to ensure they persist independently
+
+## Simplified Source
+
+```c
+static relopt_gen *allocate_reloption(bits32 kinds, int type, const char *name,
+                                     const char *desc, LOCKMODE lockmode) {
+    MemoryContext oldcxt;
+    size_t size;
+    relopt_gen *newoption;
+
+    // Switch to TopMemoryContext for non-local options
+    if (kinds != RELOPT_KIND_LOCAL) {
+        oldcxt = MemoryContextSwitchTo(TopMemoryContext);
+    } else {
+        oldcxt = NULL;
+    }
+
+    // Determine structure size based on option type
+    switch (type) {
+        case RELOPT_TYPE_BOOL:   size = sizeof(relopt_bool); break;
+        case RELOPT_TYPE_INT:    size = sizeof(relopt_int); break;
+        case RELOPT_TYPE_REAL:   size = sizeof(relopt_real); break;
+        case RELOPT_TYPE_ENUM:   size = sizeof(relopt_enum); break;
+        case RELOPT_TYPE_STRING: size = sizeof(relopt_string); break;
+        default:
+            elog(ERROR, "unsupported reloption type %d", type);
+            return NULL;
+    }
+
+    // Allocate and initialize the option structure
+    newoption = palloc(size);
+    newoption->name = pstrdup(name);
+    newoption->desc = desc ? pstrdup(desc) : NULL;
+    newoption->kinds = kinds;
+    newoption->namelen = strlen(name);
+    newoption->type = type;
+    newoption->lockmode = lockmode;
+
+    // Restore previous memory context
+    if (oldcxt != NULL) {
+        MemoryContextSwitchTo(oldcxt);
+    }
+
+    return newoption;
+}
+```

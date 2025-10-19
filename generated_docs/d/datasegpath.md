@@ -44,3 +44,29 @@ The returned path is allocated using palloc and must be freed by the caller usin
 - Used primarily in pg_rewind for path construction and validation
 - Works with any fork type, though pg_rewind primarily uses it with the main fork
 - Part of PostgreSQL's file organization system where relations can span multiple physical files
+
+## Simplified Source
+
+```c
+static char *datasegpath(RelFileLocator rlocator, ForkNumber forknum, BlockNumber segno)
+{
+    char *base_path;
+    char *segment_path;
+
+    // Get the base path for this relation and fork
+    base_path = relpathperm(rlocator, forknum);
+
+    // If this is a segmented file (segment number > 0), append segment suffix
+    if (segno > 0)
+    {
+        segment_path = psprintf("%s.%u", base_path, segno);
+        pfree(base_path);
+        return segment_path;
+    }
+    else
+    {
+        // For segment 0 (main segment), return the base path
+        return base_path;
+    }
+}
+```

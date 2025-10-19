@@ -33,3 +33,28 @@ This function serves as a mapping utility that converts I/O operation enumeratio
 - The function includes a comment indicating that when adding new IOOp values, corresponding io_stat_col entries and case statements should be added
 - Uses elog(ERROR) for unrecognized operation types, which will terminate the current transaction
 - The mapping ensures consistent indexing for I/O statistics across PostgreSQL's statistics system
+
+## Simplified Source
+
+```c
+static io_stat_col
+pgstat_get_io_op_index(IOOp io_op)
+{
+    // Map I/O operation types to their corresponding statistics column indices
+    switch (io_op)
+    {
+        case IOOP_EVICT:     return IO_COL_EVICTIONS;
+        case IOOP_EXTEND:    return IO_COL_EXTENDS;
+        case IOOP_FSYNC:     return IO_COL_FSYNCS;
+        case IOOP_HIT:       return IO_COL_HITS;
+        case IOOP_READ:      return IO_COL_READS;
+        case IOOP_REUSE:     return IO_COL_REUSES;
+        case IOOP_WRITE:     return IO_COL_WRITES;
+        case IOOP_WRITEBACK: return IO_COL_WRITEBACKS;
+    }
+
+    // Unrecognized operation type - this is a programming error
+    elog(ERROR, "unrecognized IOOp value: %d", io_op);
+    pg_unreachable();
+}
+```

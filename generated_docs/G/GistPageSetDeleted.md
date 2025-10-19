@@ -41,3 +41,22 @@ The function modifies the page's pd_lower field to point to the end of the GISTD
 - The F_DELETED flag is set in the page's opaque area to mark it as deleted
 - This is part of the GiST vacuum and page recycling mechanism
 - The stored transaction ID allows the system to determine when it's safe to reuse the page
+
+## Simplified Source
+
+```c
+static inline void GistPageSetDeleted(Page page, FullTransactionId deletexid) {
+    // Ensure page is empty before marking as deleted
+    Assert(PageIsEmpty(page));
+
+    // Set the F_DELETED flag in page opaque area
+    GistPageGetOpaque(page)->flags |= F_DELETED;
+
+    // Adjust page layout to accommodate deletion metadata
+    ((PageHeader) page)->pd_lower = MAXALIGN(SizeOfPageHeaderData) +
+                                   sizeof(GISTDeletedPageContents);
+
+    // Store the transaction ID that deleted this page
+    ((GISTDeletedPageContents *) PageGetContents(page))->deleteXid = deletexid;
+}
+```

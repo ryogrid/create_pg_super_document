@@ -38,3 +38,12 @@ This function performs a single comparison to check if the current cursor positi
 - Used extensively across all language implementations in the Snowball library
 - Critical for maintaining precision in languages with rich inflectional morphology
 - The R2 region typically contains only the core morphological stem of words
+
+## Simplified Source
+
+```c
+static int r_R2(struct SN_env * z) {
+    // Check if current cursor position is within the R2 region (most restrictive)
+    return (z->I[0] <= z->c) ? 1 : 0;
+}
+```

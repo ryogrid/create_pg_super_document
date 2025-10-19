@@ -34,3 +34,17 @@ This function serves as a validation hook for the `recovery_target_name` Postgre
 - Unlike other recovery target check hooks, this function doesn't allocate extra data since no parsing is required
 - The function allows empty strings, enabling users to unset the recovery target name
 - Restore point names are case-sensitive and must exactly match the name used when creating the restore point
+
+## Simplified Source
+
+```c
+bool check_recovery_target_name(char **newval, void **extra, GucSource source) {
+    // Validate restore point name length against maximum filename length
+    if (strlen(*newval) >= MAXFNAMELEN) {
+        GUC_check_errdetail("recovery_target_name too long (maximum %d characters)",
+                           MAXFNAMELEN - 1);
+        return false;
+    }
+    return true;
+}
+```

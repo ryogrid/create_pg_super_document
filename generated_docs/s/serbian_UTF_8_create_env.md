@@ -40,3 +40,14 @@ The function returns a properly initialized SN_env structure that contains all n
 - The returned environment must be properly cleaned up using the corresponding close_env function
 - Essential for PostgreSQL's full-text search functionality when processing Serbian language content
 - Forms a pair with serbian_UTF_8_close_env() for proper resource management
+
+## Simplified Source
+
+```c
+extern struct SN_env * serbian_UTF_8_create_env(void) {
+    // Create Serbian stemming environment with:
+    // - Buffer size: 0 (default)
+    // - Region count: 2 (R1 and R2 for Serbian morphology)
+    return SN_create_env(0, 2);
+}
+```

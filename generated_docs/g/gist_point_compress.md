@@ -38,3 +38,30 @@ The function distinguishes between leaf and internal nodes: for leaf nodes (wher
 - Allocates new memory for both the box and return entry structures
 - Part of the standard GiST operator class implementation for geometric point types
 - The compressed format enables uniform geometric operations across different levels of the index tree
+
+## Simplified Source
+
+```c
+Datum gist_point_compress(PG_FUNCTION_ARGS) {
+    GISTENTRY *entry = (GISTENTRY *) PG_GETARG_POINTER(0);
+
+    if (entry->leafkey) {
+        // Create degenerate bounding box for point
+        BOX *box = palloc(sizeof(BOX));
+        Point *point = DatumGetPointP(entry->key);
+        GISTENTRY *retval = palloc(sizeof(GISTENTRY));
+
+        // Set both high and low coordinates to point location
+        box->high = box->low = *point;
+
+        // Create new entry with bounding box representation
+        gistentryinit(*retval, BoxPGetDatum(box),
+                      entry->rel, entry->page, entry->offset, false);
+
+        PG_RETURN_POINTER(retval);
+    }
+
+    // Internal nodes already contain compressed data
+    PG_RETURN_POINTER(entry);
+}
+```

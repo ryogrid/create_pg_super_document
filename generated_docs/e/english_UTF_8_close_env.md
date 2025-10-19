@@ -37,3 +37,13 @@ This function should be called as the cleanup counterpart to english_UTF_8_creat
 - Essential for preventing memory leaks in applications that create and destroy many stemming environments
 - Part of the proper resource management lifecycle: create_env → use → close_env
 - Thread-safe operation as it only operates on the passed environment structure
+
+## Simplified Source
+
+```c
+extern void english_UTF_8_close_env(struct SN_env * z) {
+    // Free all memory associated with the English stemming environment
+    // Parameter 0 indicates no auxiliary string arrays to deallocate
+    SN_close_env(z, 0);
+}
+```

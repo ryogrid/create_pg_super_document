@@ -27,3 +27,26 @@ The addScript function is responsible for adding a pre-parsed SQL script to the 
 - Uses pg_fatal() to terminate the program if validation fails
 - The function increments the global num_scripts counter after successfully adding a script
 - Part of pgbench script management system for handling multiple SQL workloads
+
+## Simplified Source
+
+```c
+static void
+addScript(const ParsedScript *script)
+{
+    // Validate script has at least one command
+    if (script->commands == NULL || script->commands[0] == NULL)
+        pg_fatal("empty command list for script \"%s\"", script->desc);
+
+    // Check maximum script limit
+    if (num_scripts >= MAX_SCRIPTS)
+        pg_fatal("at most %d SQL scripts are allowed", MAX_SCRIPTS);
+
+    // Validate conditional structure in script
+    CheckConditional(script);
+
+    // Add script to global array and increment counter
+    sql_script[num_scripts] = *script;
+    num_scripts++;
+}
+```

@@ -32,3 +32,18 @@ This function calculates the numerical distance between two timestamp values by 
 - The distance is computed as a simple arithmetic difference after casting timestamps to float8
 - This function is typically registered in the operator class definition for BRIN indexes on timestamp columns
 - The result is used internally by BRIN infrastructure to optimize block range selections
+
+## Simplified Source
+
+```c
+Datum brin_minmax_multi_distance_timestamp(PG_FUNCTION_ARGS) {
+    // Extract the two timestamp values
+    Timestamp dt1 = PG_GETARG_TIMESTAMP(0);
+    Timestamp dt2 = PG_GETARG_TIMESTAMP(1);
+
+    // Calculate distance as simple difference, cast to float8
+    float8 delta = (float8) dt2 - (float8) dt1;
+
+    return PG_RETURN_FLOAT8(delta);
+}
+```

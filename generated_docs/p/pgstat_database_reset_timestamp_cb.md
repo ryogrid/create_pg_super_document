@@ -33,3 +33,14 @@ The function is part of the pluggable callback system used by the statistics col
 - The function assumes that the provided `header` parameter is actually pointing to a `PgStatShared_Database` structure, which is guaranteed by the statistics framework
 - The reset timestamp is used to track when database statistics were last reset, which is important for monitoring and administrative purposes
 - Located in src/backend/utils/activity/pgstat_database.c:438-441
+
+## Simplified Source
+
+```c
+void
+pgstat_database_reset_timestamp_cb(PgStatShared_Common *header, TimestampTz ts)
+{
+    // Cast generic header to database-specific structure and update timestamp
+    ((PgStatShared_Database *) header)->stats.stat_reset_timestamp = ts;
+}
+```

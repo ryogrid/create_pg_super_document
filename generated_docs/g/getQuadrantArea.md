@@ -36,3 +36,39 @@ The  function calculates the bounding box that represents a specific quadrant's 
 - Quadrant 3: lower-left area (centroid as high corner, original low corner)
 - Quadrant 4: upper-left area (mixed corners using centroid coordinates)
 - Essential for spatial query optimization in SP-GiST quadtree indexes
+
+## Simplified Source
+
+```c
+static BOX *getQuadrantArea(BOX *bbox, Point *centroid, int quadrant)
+{
+    BOX *result = (BOX *) palloc(sizeof(BOX));
+
+    // Calculate bounding box for each quadrant relative to centroid
+    switch (quadrant)
+    {
+        case 1:  // Upper-right quadrant
+            result->high = bbox->high;
+            result->low = *centroid;
+            break;
+        case 2:  // Lower-right quadrant
+            result->high.x = bbox->high.x;
+            result->high.y = centroid->y;
+            result->low.x = centroid->x;
+            result->low.y = bbox->low.y;
+            break;
+        case 3:  // Lower-left quadrant
+            result->high = *centroid;
+            result->low = bbox->low;
+            break;
+        case 4:  // Upper-left quadrant
+            result->high.x = centroid->x;
+            result->high.y = bbox->high.y;
+            result->low.x = bbox->low.x;
+            result->low.y = centroid->y;
+            break;
+    }
+
+    return result;
+}
+```

@@ -28,3 +28,12 @@ The pg_node_tree_out function serves as the output function for PostgreSQL's pg_
 - This function provides a simple way to convert complex internal node structures to human-readable text
 - Used primarily for system catalog storage and debugging purposes where node trees need to be displayed
 - The delegation pattern ensures consistency with PostgreSQL's standard text output formatting
+
+## Simplified Source
+
+```c
+Datum pg_node_tree_out(PG_FUNCTION_ARGS) {
+    // Simple wrapper that delegates to textout for node tree display
+    return textout(fcinfo);
+}
+```

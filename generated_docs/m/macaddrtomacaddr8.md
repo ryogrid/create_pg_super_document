@@ -39,3 +39,28 @@ This is a PostgreSQL SQL function that can be called from SQL queries to convert
 - Memory allocation uses `palloc0` to ensure the result structure is zero-initialized
 - This is the complementary function to `macaddr8tomacaddr` which performs the reverse conversion
 - Located in src/backend/utils/adt/mac8.c:524-544
+
+## Simplified Source
+
+```c
+macaddr8* macaddrtomacaddr8(macaddr *addr6) {
+    // Convert 6-byte MAC to 8-byte MAC using EUI-64 expansion
+    macaddr8 *result = allocate_macaddr8();
+
+    // Copy first 3 bytes unchanged
+    result->a = addr6->a;
+    result->b = addr6->b;
+    result->c = addr6->c;
+
+    // Insert EUI-64 expansion bytes
+    result->d = 0xFF;
+    result->e = 0xFE;
+
+    // Copy last 3 bytes of original MAC
+    result->f = addr6->d;
+    result->g = addr6->e;
+    result->h = addr6->f;
+
+    return result;
+}
+```

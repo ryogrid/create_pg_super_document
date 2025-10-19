@@ -38,3 +38,30 @@ The function performs character-by-character comparison of two BPCHAR values and
 - Essential for building indexes that can efficiently support LIKE pattern matching queries
 - The comparison is compatible with "C" collation and character-by-character comparison semantics
 - Memory management follows PostgreSQL conventions with PG_FREE_IF_COPY for proper cleanup
+
+## Simplified Source
+
+```c
+Datum btbpchar_pattern_cmp(PG_FUNCTION_ARGS) {
+    // Extract the two BPCHAR arguments
+    BpChar *arg1 = PG_GETARG_BPCHAR_PP(0);
+    BpChar *arg2 = PG_GETARG_BPCHAR_PP(1);
+
+    // Perform pattern-based comparison
+    int result = internal_bpchar_pattern_compare(arg1, arg2);
+
+    // Clean up memory if needed
+    PG_FREE_IF_COPY(arg1, 0);
+    PG_FREE_IF_COPY(arg2, 1);
+
+    // Return the raw comparison result (-1, 0, or 1)
+    PG_RETURN_INT32(result);
+}
+```
+
+**Key Points:**
+- B-tree comparison support function for pattern-based BPCHAR indexing
+- Returns integer result (-1, 0, 1) rather than boolean like other operators
+- Essential for building B-tree indexes that support LIKE clause operations
+- Uses binary comparison (not locale-aware) compatible with "C" collation
+- Enables efficient index operations for pattern matching queries

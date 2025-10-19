@@ -37,3 +37,21 @@ This function is essential for creating btree indexes on pg_lsn columns, enablin
 - Enables efficient sorting and range queries on LSN values
 - Part of the pg_lsn opclass definition for btree indexes
 - The comparison is deterministic and consistent with the natural ordering of WAL positions
+
+## Simplified Source
+
+```c
+Datum pg_lsn_cmp(PG_FUNCTION_ARGS) {
+    // Extract the two LSN arguments for comparison
+    XLogRecPtr a = PG_GETARG_LSN(0);
+    XLogRecPtr b = PG_GETARG_LSN(1);
+
+    // Three-way comparison for btree index support
+    if (a > b)
+        PG_RETURN_INT32(1);   // First LSN is later
+    else if (a == b)
+        PG_RETURN_INT32(0);   // LSNs are equal
+    else
+        PG_RETURN_INT32(-1);  // First LSN is earlier
+}
+```

@@ -35,3 +35,19 @@ The function ensures proper resource management by calling the appropriate clean
 - Uses ZSTD_freeDCtx() to properly release the ZSTD decompression context allocated during streamer initialization
 - Uses PostgreSQL pfree() function for memory deallocation consistent with PostgreSQL memory management practices
 - Part of the resource management infrastructure in PostgreSQL base backup streaming system
+
+## Simplified Source
+
+```c
+static void
+bbstreamer_zstd_decompressor_free(bbstreamer *streamer)
+{
+    bbstreamer_zstd_frame *mystreamer = (bbstreamer_zstd_frame *) streamer;
+
+    // Free resources in proper order
+    bbstreamer_free(streamer->bbs_next);    // Free downstream streamer first
+    ZSTD_freeDCtx(mystreamer->dctx);        // Free decompression context
+    pfree(streamer->bbs_buffer.data);       // Free buffer data
+    pfree(streamer);                        // Free streamer structure
+}
+```

@@ -42,3 +42,30 @@ The function performs the following steps:
 - The comparison function determines the direction of sifting needed
 - Used in specialized scenarios where arbitrary node removal is required, such as in pg_dump work scheduling
 - This is a destructive operation that modifies the heap structure
+
+## Simplified Source
+
+```c
+void binaryheap_remove_node(binaryheap *heap, int n) {
+    int cmp;
+
+    // Validate heap state and bounds
+    Assert(!binaryheap_empty(heap) && heap->bh_has_heap_property);
+    Assert(n >= 0 && n < heap->bh_size);
+
+    // Compare last node with the one being removed
+    cmp = heap->bh_compare(heap->bh_nodes[--heap->bh_size],
+                           heap->bh_nodes[n],
+                           heap->bh_arg);
+
+    // Move last node to vacated position
+    heap->bh_nodes[n] = heap->bh_nodes[heap->bh_size];
+
+    // Restore heap property by sifting in appropriate direction
+    if (cmp > 0)
+        sift_up(heap, n);        // Replacement is larger, move up
+    else if (cmp < 0)
+        sift_down(heap, n);      // Replacement is smaller, move down
+    // If cmp == 0, no sifting needed
+}
+```

@@ -41,3 +41,13 @@ The function is essential for proper memory management in long-running applicati
 - Should be called for every environment created with serbian_UTF_8_create_env()
 - Essential for maintaining system stability in PostgreSQL when processing Serbian language content
 - The function returns void, indicating it performs cleanup without returning status information
+
+## Simplified Source
+
+```c
+extern void serbian_UTF_8_close_env(struct SN_env * z) {
+    // Clean up Serbian stemming environment
+    // Parameter 0: Standard cleanup mode
+    SN_close_env(z, 0);
+}
+```

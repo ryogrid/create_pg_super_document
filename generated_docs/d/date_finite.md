@@ -33,3 +33,13 @@ The function uses the `DATE_NOT_FINITE` macro to perform the actual check and re
 - Returns boolean true for finite dates, false for infinite dates
 - Part of the PostgreSQL date/time function family located in src/backend/utils/adt/date.c
 - The function handles both positive and negative infinity values through the DATE_NOT_FINITE macro
+
+## Simplified Source
+
+```c
+Datum date_finite(PG_FUNCTION_ARGS) {
+    DateADT date = PG_GETARG_DATEADT(0);
+
+    PG_RETURN_BOOL(!DATE_NOT_FINITE(date));
+}
+```

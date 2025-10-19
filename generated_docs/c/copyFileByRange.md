@@ -45,3 +45,37 @@ This approach is more efficient than traditional read/write loops as it avoids m
 - Used as an alternative to  when file cloning is not available or appropriate
 - Part of the pg_upgrade utility's file transfer mechanism for relation files during PostgreSQL upgrades
 - Provides better performance than traditional userspace copying by reducing data copying between kernel and user space
+
+## Simplified Source
+
+```c
+void copyFileByRange(const char *src, const char *dst,
+                     const char *schemaName, const char *relName) {
+#ifdef HAVE_COPY_FILE_RANGE
+    int src_fd, dest_fd;
+    ssize_t nbytes;
+
+    // Open source file for reading
+    if ((src_fd = open(src, O_RDONLY | PG_BINARY, 0)) < 0)
+        pg_fatal("error while copying relation \"%s.%s\": could not open file \"%s\": %m",
+                 schemaName, relName, src);
+
+    // Create destination file
+    if ((dest_fd = open(dst, O_RDWR | O_CREAT | O_EXCL | PG_BINARY,
+                        pg_file_create_mode)) < 0)
+        pg_fatal("error while copying relation \"%s.%s\": could not create file \"%s\": %m",
+                 schemaName, relName, dst);
+
+    // Copy file contents using kernel-optimized copy_file_range
+    do {
+        nbytes = copy_file_range(src_fd, NULL, dest_fd, NULL, SSIZE_MAX, 0);
+        if (nbytes < 0)
+            pg_fatal("error while copying relation \"%s.%s\": could not copy file range from \"%s\" to \"%s\": %m",
+                     schemaName, relName, src, dst);
+    } while (nbytes > 0);  // Continue until all data copied
+
+    close(src_fd);
+    close(dest_fd);
+#endif
+}
+```

@@ -37,3 +37,19 @@ The comparison is performed using  which safely compares 16-bit signed integers,
 - This is a static function, meaning it's only accessible within the same source file (nbtpage.c)
 - The function is designed to work with the standard C library sorting functions that expect comparators with this signature
 - The "leaf-page-wise sort order" refers to ordering items by their position/ID within a B-tree leaf page structure
+
+## Simplified Source
+
+```c
+static int _bt_delitems_cmp(const void *a, const void *b) {
+    // Cast void pointers to TM_IndexDelete structures
+    TM_IndexDelete *indexdelete1 = (TM_IndexDelete *) a;
+    TM_IndexDelete *indexdelete2 = (TM_IndexDelete *) b;
+
+    // IDs should never be equal in valid usage
+    Assert(indexdelete1->id != indexdelete2->id);
+
+    // Compare the IDs using PostgreSQL's 16-bit signed integer comparator
+    return pg_cmp_s16(indexdelete1->id, indexdelete2->id);
+}
+```

@@ -44,3 +44,80 @@ The function performs several key operations:
 - Uses psql's standard query result formatting with internationalization support
 - Returns boolean indicating success/failure of the operation
 - Part of psql's describe.c module which handles various \d commands
+
+## Simplified Source
+
+```c
+bool listPublications(const char *pattern) {
+    PQExpBufferData buf;
+    PGresult *res;
+    printQueryOpt myopt = pset.popt;
+    static const bool translate_columns[] = {false, false, false, false, false, false, false, false};
+
+    // Check server version for publication support
+    if (pset.sversion < 100000) {
+        char sverbuf[32];
+        pg_log_error("The server (version %s) does not support publications.",
+                     formatPGVersionNumber(pset.sversion, false,
+                                           sverbuf, sizeof(sverbuf)));
+        return true;
+    }
+
+    // Build base query
+    initPQExpBuffer(&buf);
+    printfPQExpBuffer(&buf,
+        "SELECT pubname AS \"%s\",\n"
+        "  pg_catalog.pg_get_userbyid(pubowner) AS \"%s\",\n"
+        "  puballtables AS \"%s\",\n"
+        "  pubinsert AS \"%s\",\n"
+        "  pubupdate AS \"%s\",\n"
+        "  pubdelete AS \"%s\"",
+        gettext_noop("Name"),
+        gettext_noop("Owner"),
+        gettext_noop("All tables"),
+        gettext_noop("Inserts"),
+        gettext_noop("Updates"),
+        gettext_noop("Deletes"));
+
+    // Add version-specific columns
+    if (pset.sversion >= 110000) {
+        appendPQExpBuffer(&buf,
+            ",\n  pubtruncate AS \"%s\"",
+            gettext_noop("Truncates"));
+    }
+    if (pset.sversion >= 130000) {
+        appendPQExpBuffer(&buf,
+            ",\n  pubviaroot AS \"%s\"",
+            gettext_noop("Via root"));
+    }
+
+    appendPQExpBufferStr(&buf, "\nFROM pg_catalog.pg_publication\n");
+
+    // Apply pattern filter if provided
+    if (!validateSQLNamePattern(&buf, pattern, false, false,
+                                NULL, "pubname", NULL,
+                                NULL,
+                                NULL, 1)) {
+        termPQExpBuffer(&buf);
+        return false;
+    }
+
+    appendPQExpBufferStr(&buf, "ORDER BY 1;");
+
+    // Execute query and display results
+    res = PSQLexec(buf.data);
+    termPQExpBuffer(&buf);
+    if (!res)
+        return false;
+
+    myopt.title = _("List of publications");
+    myopt.translate_header = true;
+    myopt.translate_columns = translate_columns;
+    myopt.n_translate_columns = lengthof(translate_columns);
+
+    printQuery(res, &myopt, pset.queryFout, false, pset.logfile);
+    PQclear(res);
+
+    return true;
+}
+```

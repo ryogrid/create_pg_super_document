@@ -45,3 +45,19 @@ This approach ensures that ItemPointers are ordered first by block number, then 
 - The 64-bit combination technique ensures correct lexicographic ordering by block number first, then offset
 - Critical for performance in GIN index operations, particularly during bitmap scan merging
 - Located in src/include/access/gin_private.h:488-498
+
+## Simplified Source
+
+```c
+static inline int ginCompareItemPointers(ItemPointer a, ItemPointer b) {
+    // Combine block number and offset into 64-bit values for comparison
+    // Block number in high 32 bits, offset in low 32 bits
+    uint64 ia = (uint64) GinItemPointerGetBlockNumber(a) << 32 |
+                GinItemPointerGetOffsetNumber(a);
+    uint64 ib = (uint64) GinItemPointerGetBlockNumber(b) << 32 |
+                GinItemPointerGetOffsetNumber(b);
+
+    // Use standard 64-bit unsigned integer comparison
+    return pg_cmp_u64(ia, ib);
+}
+```

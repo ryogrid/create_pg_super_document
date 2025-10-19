@@ -51,3 +51,32 @@ This function is more restrictive than other step5 functions, requiring both pat
 - Multiple boundary and character checks ensure safe operations and prevent invalid cursor positions
 - The replacement string s_102 is 4 characters long
 - This step appears to handle a specific Greek linguistic pattern that requires precise character-level validation
+
+## Simplified Source
+
+```c
+static int r_step5j(struct SN_env * z) {
+    // Step 1: Find and remove suffix from pattern set a_57
+    z->ket = z->c;
+    if (!find_among_b(z, a_57, 3)) return 0;
+    z->bra = z->c;
+    slice_del(z);  // Remove found suffix
+
+    // Reset stemmer state
+    z->I[0] = 0;
+
+    // Step 2: Character-specific pattern matching and replacement
+    z->ket = z->c;
+    z->bra = z->c;
+
+    // Check for specific Greek character (code 189) at position c-1
+    if (z->c - 1 <= z->lb || z->p[z->c - 1] != 189) return 0;
+
+    // Find pattern in a_58 array and apply replacement
+    if (!find_among_b(z, a_58, 6)) return 0;
+    if (z->c > z->lb) return 0;  // Boundary check
+
+    slice_from_s(z, 4, s_102);   // Replace with 4-char string s_102
+    return 1;
+}
+```

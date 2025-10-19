@@ -32,3 +32,21 @@ Notably, this function does not close the PostgreSQL connection (PGconn) contain
 - This function should be called when the libpq_source is no longer needed to prevent memory leaks
 - The function safely handles the destruction of the dynamic arrays (paths, offsets, lengths) that are used to batch file operations
 - Part of the cleanup pattern for the pg_rewind utility's resource management
+
+## Simplified Source
+
+```c
+static void
+libpq_destroy(rewind_source *source)
+{
+    libpq_source *src = (libpq_source *) source;
+
+    // Free all allocated memory
+    pfree(src->paths.data);
+    pfree(src->offsets.data);
+    pfree(src->lengths.data);
+    pfree(src);
+
+    // Note: Connection is not closed here as it wasn't opened by us
+}
+```

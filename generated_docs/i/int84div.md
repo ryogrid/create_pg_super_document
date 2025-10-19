@@ -38,3 +38,34 @@ This function implements the division operation for PostgreSQL's bigint (int8) a
 - Error handling follows PostgreSQL's standard error reporting mechanism
 - Located in src/backend/utils/adt/int8.c:932-970
 - Contains compiler hints to ensure proper optimization and avoid undefined behavior
+
+## Simplified Source
+
+```c
+Datum
+int84div(PG_FUNCTION_ARGS)
+{
+    // Extract 64-bit dividend and 32-bit divisor
+    int64 arg1 = PG_GETARG_INT64(0);
+    int32 arg2 = PG_GETARG_INT32(1);
+
+    // Check for division by zero
+    if (arg2 == 0) {
+        ereport(ERROR, (errcode(ERRCODE_DIVISION_BY_ZERO),
+                       errmsg("division by zero")));
+        PG_RETURN_NULL();
+    }
+
+    // Handle INT64_MIN / -1 overflow case
+    if (arg2 == -1) {
+        if (unlikely(arg1 == PG_INT64_MIN))
+            ereport(ERROR, (errcode(ERRCODE_NUMERIC_VALUE_OUT_OF_RANGE),
+                           errmsg("bigint out of range")));
+        PG_RETURN_INT64(-arg1);  // Division by -1 is negation
+    }
+
+    // Perform standard division (no overflow possible)
+    int64 result = arg1 / arg2;
+    PG_RETURN_INT64(result);
+}
+```

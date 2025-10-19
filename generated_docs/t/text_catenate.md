@@ -44,3 +44,37 @@ The implementation uses PostgreSQL's variable-length data structures and follows
 - Efficiently handles empty strings by checking lengths before performing memory copies
 - Follows PostgreSQL's conventions for variable-length data structure manipulation
 - The result must be freed by the caller using PostgreSQL's memory management system
+
+## Simplified Source
+
+```c
+static text *text_catenate(text *t1, text *t2) {
+    text *result;
+    int len1, len2, len;
+    char *ptr;
+
+    // Get data lengths (excluding headers)
+    len1 = VARSIZE_ANY_EXHDR(t1);
+    len2 = VARSIZE_ANY_EXHDR(t2);
+
+    // Safety check for negative lengths
+    if (len1 < 0) len1 = 0;
+    if (len2 < 0) len2 = 0;
+
+    // Calculate total size including header
+    len = len1 + len2 + VARHDRSZ;
+    result = (text *) palloc(len);
+
+    // Set result size
+    SET_VARSIZE(result, len);
+
+    // Copy data from both input texts
+    ptr = VARDATA(result);
+    if (len1 > 0)
+        memcpy(ptr, VARDATA_ANY(t1), len1);
+    if (len2 > 0)
+        memcpy(ptr + len1, VARDATA_ANY(t2), len2);
+
+    return result;
+}
+```

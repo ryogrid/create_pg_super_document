@@ -63,3 +63,50 @@ Key functionality:
 - Transaction ID is recorded on the deleted page for proper visibility handling
 - Part of PostgreSQL's GIN index deletion recovery mechanism ensuring structural consistency
 - The ginxlogDeletePage structure contains rightLink, deleteXid, and parentOffset fields needed for recovery
+
+## Simplified Source
+
+```c
+static void
+ginRedoDeletePage(XLogReaderState *record)
+{
+    XLogRecPtr lsn = record->EndRecPtr;
+    ginxlogDeletePage *data = (ginxlogDeletePage *) XLogRecGetData(record);
+    Buffer dbuffer, pbuffer, lbuffer;
+    Page page;
+
+    // Lock left page first to prevent deadlock with ginStepRight()
+    if (XLogReadBufferForRedo(record, 2, &lbuffer) == BLK_NEEDS_REDO) {
+        // Update left sibling's rightlink to skip deleted page
+        page = BufferGetPage(lbuffer);
+        GinPageGetOpaque(page)->rightlink = data->rightLink;
+        PageSetLSN(page, lsn);
+        MarkBufferDirty(lbuffer);
+    }
+
+    // Mark the target page as deleted
+    if (XLogReadBufferForRedo(record, 0, &dbuffer) == BLK_NEEDS_REDO) {
+        page = BufferGetPage(dbuffer);
+        GinPageSetDeleted(page);
+        GinPageSetDeleteXid(page, data->deleteXid);
+        PageSetLSN(page, lsn);
+        MarkBufferDirty(dbuffer);
+    }
+
+    // Remove posting item from parent page
+    if (XLogReadBufferForRedo(record, 1, &pbuffer) == BLK_NEEDS_REDO) {
+        page = BufferGetPage(pbuffer);
+        GinPageDeletePostingItem(page, data->parentOffset);
+        PageSetLSN(page, lsn);
+        MarkBufferDirty(pbuffer);
+    }
+
+    // Release all buffers
+    if (BufferIsValid(lbuffer))
+        UnlockReleaseBuffer(lbuffer);
+    if (BufferIsValid(pbuffer))
+        UnlockReleaseBuffer(pbuffer);
+    if (BufferIsValid(dbuffer))
+        UnlockReleaseBuffer(dbuffer);
+}
+```

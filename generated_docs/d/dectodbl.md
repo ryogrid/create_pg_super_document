@@ -37,3 +37,26 @@ The `dectodbl` function converts a decimal number to a double-precision floating
 - Located in src/interfaces/ecpg/compatlib/informix.c:432-452
 - May lose precision when converting from high-precision decimal to double format
 - Handles the conversion through PostgreSQL's numeric type as an intermediate step
+
+## Simplified Source
+
+```c
+int dectodbl(decimal *np, double *dblp) {
+    // Create new numeric value for intermediate conversion
+    numeric *nres = PGTYPESnumeric_new();
+    if (nres == NULL)
+        return ECPG_INFORMIX_OUT_OF_MEMORY;
+
+    // Convert decimal to numeric format
+    if (PGTYPESnumeric_from_decimal(np, nres) != 0) {
+        PGTYPESnumeric_free(nres);
+        return ECPG_INFORMIX_OUT_OF_MEMORY;
+    }
+
+    // Convert numeric to double and cleanup
+    int result = PGTYPESnumeric_to_double(nres, dblp);
+    PGTYPESnumeric_free(nres);
+
+    return result;
+}
+```

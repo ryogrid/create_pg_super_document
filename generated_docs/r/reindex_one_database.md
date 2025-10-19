@@ -66,3 +66,130 @@ The function includes version compatibility checks for concurrent reindexing (Po
 - Handles cancellation requests through the global CancelRequested flag
 - Memory management includes proper cleanup of dynamically allocated string lists and parallel slot arrays
 - The function never returns normally in case of errors - it calls exit(1) for failure cases
+
+## Simplified Source
+
+```c
+static void
+reindex_one_database(ConnParams *cparams, ReindexType type,
+                     SimpleStringList *user_list,
+                     const char *progname, bool echo,
+                     bool verbose, bool concurrently, int concurrentCons,
+                     const char *tablespace)
+{
+    PGconn *conn;
+    SimpleStringList *process_list = user_list;
+    bool parallel = concurrentCons > 1;
+    bool failed = false;
+    int items_count = 0;
+
+    // Connect to database
+    conn = connectDatabase(cparams, progname, echo, false, true);
+
+    // Version compatibility checks
+    if (concurrently && PQserverVersion(conn) < 120000)
+        pg_fatal("concurrently option requires PostgreSQL 12+");
+
+    if (tablespace && PQserverVersion(conn) < 140000)
+        pg_fatal("tablespace option requires PostgreSQL 14+");
+
+    // Prepare object list based on reindex type and parallel mode
+    if (!parallel) {
+        // Serial mode: simple object list preparation
+        switch (type) {
+            case REINDEX_DATABASE:
+            case REINDEX_SYSTEM:
+                // Create single-item list with database name
+                process_list = pg_malloc0(sizeof(SimpleStringList));
+                simple_string_list_append(process_list, PQdb(conn));
+                break;
+            case REINDEX_INDEX:
+            case REINDEX_SCHEMA:
+            case REINDEX_TABLE:
+                // Use provided user_list directly
+                break;
+        }
+    } else {
+        // Parallel mode: expand high-level types to table lists
+        switch (type) {
+            case REINDEX_DATABASE:
+            case REINDEX_SCHEMA:
+                // Get list of tables/relations for parallel processing
+                process_list = get_parallel_object_list(conn, type, user_list, echo);
+                if (process_list == NULL) return; // Nothing to process
+                break;
+            case REINDEX_INDEX:
+                // Special handling for index reindexing with table grouping
+                get_parallel_object_list(conn, type, user_list, echo);
+                if (user_list->head == NULL) return;
+                break;
+            case REINDEX_TABLE:
+                // Use provided list as-is
+                break;
+        }
+    }
+
+    // Count items and adjust concurrent connections
+    for (SimpleStringListCell *cell = process_list->head; cell; cell = cell->next) {
+        items_count++;
+        if (items_count >= concurrentCons) break;
+    }
+    concurrentCons = Min(concurrentCons, items_count);
+
+    // Set up parallel processing infrastructure
+    ParallelSlotArray *sa = ParallelSlotsSetup(concurrentCons, cparams, progname, echo, NULL);
+    ParallelSlotsAdoptConn(sa, conn);
+
+    // Process each object in the list
+    SimpleStringListCell *cell = process_list->head;
+    while (cell != NULL) {
+        if (CancelRequested) {
+            failed = true;
+            break;
+        }
+
+        // Get free parallel slot
+        ParallelSlot *free_slot = ParallelSlotsGetIdle(sa, NULL);
+        if (!free_slot) {
+            failed = true;
+            break;
+        }
+
+        // Generate and execute reindex command
+        PQExpBufferData sql;
+        initPQExpBuffer(&sql);
+        gen_reindex_command(free_slot->connection, type, cell->val,
+                           echo, verbose, concurrently, tablespace, &sql);
+
+        // For parallel index reindexing, group indices of same table
+        if (parallel && type == REINDEX_INDEX) {
+            // Process all indices of the same table together
+            while (/* indices of same table */) {
+                // Add additional reindex commands to same SQL buffer
+                cell = cell->next;
+                gen_reindex_command(free_slot->connection, type, cell->val,
+                                   echo, verbose, concurrently, tablespace, &sql);
+            }
+        }
+
+        run_reindex_command(free_slot->connection, type, cell->val, echo, &sql);
+        termPQExpBuffer(&sql);
+        cell = cell->next;
+    }
+
+    // Wait for all parallel operations to complete
+    if (!ParallelSlotsWaitCompletion(sa))
+        failed = true;
+
+    // Cleanup resources
+    if (process_list != user_list) {
+        simple_string_list_destroy(process_list);
+        pg_free(process_list);
+    }
+    ParallelSlotsTerminate(sa);
+    pfree(sa);
+
+    if (failed)
+        exit(1);
+}
+```

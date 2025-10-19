@@ -37,3 +37,18 @@ The function includes an assertion to verify that the conversion result fits wit
 - Includes runtime assertion to verify the conversion result fits in expected bounds
 - Preferred interface for callers who need null-terminated strings
 - Minimal overhead compared to the core conversion function (just adds null termination)
+
+## Simplified Source
+
+```c
+int double_to_shortest_decimal_buf(double f, char *result) {
+    // Convert double to decimal string (without null termination)
+    const int index = double_to_shortest_decimal_bufn(f, result);
+
+    // Add null terminator to make it a proper C string
+    Assert(index < DOUBLE_SHORTEST_DECIMAL_LEN);
+    result[index] = '\0';
+
+    return index;  // Return string length
+}
+```

@@ -43,3 +43,24 @@ This initialization ensures all counters start from zero and timing measurements
 - The StatsData structure contains detailed transaction lifecycle tracking including retries and various failure modes
 - Essential for multi-threaded benchmark coordination and progress reporting
 - Located in src/bin/pgbench/pgbench.c:1434-1450
+
+## Simplified Source
+
+```c
+static void initStats(StatsData *sd, pg_time_usec_t start) {
+    // Set start time for timing measurements
+    sd->start_time = start;
+
+    // Initialize all transaction counters to zero
+    sd->cnt = 0;
+    sd->skipped = 0;
+    sd->retries = 0;
+    sd->retried = 0;
+    sd->serialization_failures = 0;
+    sd->deadlock_failures = 0;
+
+    // Initialize latency and lag statistics structures
+    initSimpleStats(&sd->latency);
+    initSimpleStats(&sd->lag);
+}
+```

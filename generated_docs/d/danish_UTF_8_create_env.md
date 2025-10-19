@@ -32,3 +32,14 @@ The parameters passed to SN_create_env (1, 2) indicate the specific memory and b
 - The parameters (1, 2) specify the buffer configuration: 1 string buffer and 2 integer arrays as required by the Danish stemming algorithm
 - Part of the standard Snowball stemmer API pattern where each language has its own create/close environment functions
 - Memory allocated by this function should be freed using the corresponding close function to prevent memory leaks
+
+## Simplified Source
+
+```c
+extern struct SN_env * danish_UTF_8_create_env(void) {
+    // Create stemming environment with Danish-specific configuration:
+    // - 1 string buffer for word processing
+    // - 2 integer arrays for stemming state
+    return SN_create_env(1, 2);
+}
+```

@@ -35,3 +35,13 @@ The cleanup process includes:
 - The parameter 0 passed to SN_close_env corresponds to S_size=0 used during creation
 - Part of the language-specific interface for proper resource management in the Snowball stemming library
 - No return value (void function)
+
+## Simplified Source
+
+```c
+extern void italian_UTF_8_close_env(struct SN_env * z) {
+    // Clean up Snowball environment for Italian UTF-8 stemming
+    // Parameter 0 indicates no string buffers to deallocate (matches create_env)
+    SN_close_env(z, 0);
+}
+```

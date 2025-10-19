@@ -34,3 +34,17 @@ The `circle_ne` function compares two circles for area inequality. It computes t
 - Located in `src/backend/utils/adt/geo_ops.c:4912-4920`
 - Complement function to `circle_eq`
 - Part of PostgreSQL's geometric data type comparison operators
+
+## Simplified Source
+
+```c
+Datum
+circle_ne(PG_FUNCTION_ARGS)
+{
+    CIRCLE *circle1 = PG_GETARG_CIRCLE_P(0);
+    CIRCLE *circle2 = PG_GETARG_CIRCLE_P(1);
+
+    // Compare circles by area inequality within floating-point accuracy
+    PG_RETURN_BOOL(FPne(circle_ar(circle1), circle_ar(circle2)));
+}
+```

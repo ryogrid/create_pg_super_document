@@ -35,3 +35,19 @@ This utility function provides a simple count of all logical replication slots p
 - Used primarily for conditional logic to determine if slot-related upgrade steps are necessary
 - Function has external linkage (not static), making it available to other compilation units
 - Provides a simple interface to avoid code duplication when checking for presence of logical slots
+
+## Simplified Source
+
+```c
+int
+count_old_cluster_logical_slots(void)
+{
+    int slot_count = 0;
+
+    // Sum up all logical slots across all databases in the old cluster
+    for (int dbnum = 0; dbnum < old_cluster.dbarr.ndbs; dbnum++)
+        slot_count += old_cluster.dbarr.dbs[dbnum].slot_arr.nslots;
+
+    return slot_count;
+}
+```

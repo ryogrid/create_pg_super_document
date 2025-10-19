@@ -37,3 +37,30 @@ The calculation ensures precise memory allocation for the encoding operation, pr
 - Returns the precise number of bytes needed, not an upper bound estimate
 - Critical for proper memory management in PostgreSQL's binary data encoding operations
 - Used as part of the bytea data type implementation and other binary data handling routines
+
+## Simplified Source
+
+```c
+static uint64 esc_enc_len(const char *src, size_t srclen) {
+    const char *src_end = src + srclen;
+    uint64 output_len = 0;
+
+    while (src < src_end) {
+        if (*src == '\0' || IS_HIGHBIT_SET(*src)) {
+            // Null bytes and high-bit chars need 4 bytes (\nnn)
+            output_len += 4;
+        }
+        else if (*src == '\\') {
+            // Backslash needs 2 bytes (\\)
+            output_len += 2;
+        }
+        else {
+            // Regular character needs 1 byte
+            output_len++;
+        }
+        src++;
+    }
+
+    return output_len;
+}
+```

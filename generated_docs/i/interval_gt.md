@@ -36,3 +36,16 @@ The `interval_gt` function is a PostgreSQL function that implements the greater-
 - Part of a complete set of comparison operators for intervals (=, !=, <, >, <=, >=)
 - Used for ordering intervals in sorting operations and range comparisons
 - Complementary to `interval_lt` - returns true when the first argument is longer than the second
+
+## Simplified Source
+
+```c
+Datum interval_gt(PG_FUNCTION_ARGS) {
+    // Extract two interval arguments
+    Interval *interval1 = PG_GETARG_INTERVAL_P(0);
+    Interval *interval2 = PG_GETARG_INTERVAL_P(1);
+
+    // Compare intervals and return true if first is greater than second
+    PG_RETURN_BOOL(interval_cmp_internal(interval1, interval2) > 0);
+}
+```

@@ -47,3 +47,31 @@ Key behaviors:
 - Used internally by PostgreSQL's type system for casting operations
 - Returns unsigned values, so negative bit patterns will be interpreted as large positive integers
 - Padding bits are properly ignored in the conversion process
+
+## Simplified Source
+
+```c
+Datum
+bittoint4(PG_FUNCTION_ARGS)
+{
+    VarBit *arg = PG_GETARG_VARBIT_P(0);
+    uint32 result;
+    bits8 *r;
+
+    // Check that bit string is not too long for 32-bit integer
+    if (VARBITLEN(arg) > sizeof(result) * BITS_PER_BYTE)
+        ereport(ERROR, "integer out of range");
+
+    // Build integer value byte by byte
+    result = 0;
+    for (r = VARBITS(arg); r < VARBITEND(arg); r++) {
+        result <<= BITS_PER_BYTE;
+        result |= *r;
+    }
+
+    // Shift to account for padding bits at the end
+    result >>= VARBITPAD(arg);
+
+    return result;
+}
+```

@@ -36,3 +36,22 @@ The function includes an assertion to verify that the input data is properly nul
 - The maxlen is set to len + 1, accounting for the existing null terminator
 - Primarily used in logical replication contexts where existing buffers need to be reused efficiently
 - The cursor is initialized to 0 for potential scanning operations
+
+## Simplified Source
+
+```c
+static inline void
+initStringInfoFromString(StringInfo str, char *data, int len)
+{
+    // Verify data is properly null-terminated
+    Assert(data[len] == '\0');
+
+    // Initialize StringInfo structure to use existing buffer
+    str->data = data;
+    str->len = len;
+    str->maxlen = len + 1;  // Account for null terminator
+    str->cursor = 0;        // Reset cursor for scanning
+}
+```
+
+This function initializes a StringInfo structure to work with an existing palloc'd string buffer, allowing it to be extended using standard StringInfo operations while reusing the allocated memory.

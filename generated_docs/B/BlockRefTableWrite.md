@@ -44,3 +44,30 @@ The function uses a callback-based approach for actual I/O operations, making it
 - Data integrity is maintained through continuous CRC calculation
 - The function optimizes I/O by writing large data chunks directly, bypassing the buffer
 - Used as part of the block reference table infrastructure for PostgreSQL backup and recovery operations
+
+## Simplified Source
+
+```c
+static void
+BlockRefTableWrite(BlockRefTableBuffer *buffer, void *data, int length)
+{
+    // Update running CRC for data integrity
+    COMP_CRC32C(buffer->crc, data, length);
+
+    // If buffer can't fit new data, flush it first
+    if (buffer->used + length > BUFSIZE) {
+        buffer->io_callback(buffer->io_callback_arg, buffer->data, buffer->used);
+        buffer->used = 0;
+    }
+
+    // For large data, write directly to avoid buffer overhead
+    if (length >= BUFSIZE) {
+        buffer->io_callback(buffer->io_callback_arg, data, length);
+        return;
+    }
+
+    // Copy data into buffer for batched writing
+    memcpy(&buffer->data[buffer->used], data, length);
+    buffer->used += length;
+}
+```

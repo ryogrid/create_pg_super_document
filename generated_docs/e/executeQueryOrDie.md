@@ -45,3 +45,36 @@ This variadic function formats and executes SQL queries using printf-style forma
 - Provides verbose logging for debugging and troubleshooting upgrade operations
 - Central query execution point for most pg_upgrade database operations
 - Automatically cleans up resources (result and connection) on failure before termination
+
+## Simplified Source
+
+```c
+PGresult *executeQueryOrDie(PGconn *conn, const char *fmt, ...) {
+    static char query[QUERY_ALLOC];
+    va_list args;
+    PGresult *result;
+    ExecStatusType status;
+
+    // Format the query string using variable arguments
+    va_start(args, fmt);
+    vsnprintf(query, sizeof(query), fmt, args);
+    va_end(args);
+
+    // Log and execute the query
+    pg_log(PG_VERBOSE, "executing: %s", query);
+    result = PQexec(conn, query);
+    status = PQresultStatus(result);
+
+    // Check for successful execution
+    if ((status != PGRES_TUPLES_OK) && (status != PGRES_COMMAND_OK)) {
+        // Log error and exit on failure
+        pg_log(PG_REPORT, "SQL command failed\n%s\n%s", query, PQerrorMessage(conn));
+        PQclear(result);
+        PQfinish(conn);
+        printf(_("Failure, exiting\n"));
+        exit(1);
+    }
+
+    return result;
+}
+```

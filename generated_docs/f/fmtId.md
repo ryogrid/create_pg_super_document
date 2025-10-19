@@ -41,3 +41,12 @@ Like fmtIdEnc(), this function uses a shared buffer, so the returned string is o
 - The returned string must be used immediately before any other formatting function calls
 - Widely used across PostgreSQL's dump, restore, and administrative utilities
 - Provides consistent identifier quoting behavior across all PostgreSQL frontend tools
+
+## Simplified Source
+
+```c
+const char *fmtId(const char *rawid) {
+    // Use the globally configured encoding
+    return fmtIdEnc(rawid, getFmtEncoding());
+}
+```

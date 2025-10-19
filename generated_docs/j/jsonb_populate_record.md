@@ -41,4 +41,23 @@ This function is particularly useful for converting JSON data into typed Postgre
 - Supports type coercion from JSON values to record field types
 - Handles missing fields gracefully by preserving original values
 - Essential for converting semi-structured JSONB data to structured records
-- Callable from SQL as 
+- Callable from SQL as jsonb_populate_record()
+
+## Simplified Source
+
+```c
+/*
+ * SQL function jsonb_populate_record
+ *
+ * Populates a record from JSONB data by field name matching.
+ * Adapted from hstore's populate_record functionality.
+ */
+Datum jsonb_populate_record(PG_FUNCTION_ARGS) {
+    // Delegate to worker function with JSONB-specific parameters:
+    // - validate_json: false (JSONB already validated)
+    // - from_json: true (source is JSON, not hstore)
+    // - parent_name: NULL (top-level call)
+    return populate_record_worker(fcinfo, "jsonb_populate_record",
+                                  false, true, NULL);
+}
+``` 

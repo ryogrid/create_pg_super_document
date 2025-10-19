@@ -34,3 +34,13 @@ The design includes provisions for future flexibility - if it becomes necessary 
 - Future versions could implement conditional logic based on the operator class type
 - Used in conjunction with B-Tree deduplication and other optimization features
 - The function signature follows PostgreSQL's V1 calling convention for support functions
+
+## Simplified Source
+
+```c
+Datum btequalimage(PG_FUNCTION_ARGS) {
+    // Unconditionally return true to indicate this B-Tree operator class
+    // can safely use binary image equality comparisons for optimizations
+    PG_RETURN_BOOL(true);
+}
+```

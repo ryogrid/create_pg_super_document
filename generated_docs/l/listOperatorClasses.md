@@ -43,3 +43,101 @@ The query joins multiple system catalogs (, , , , and optionally ) to gather com
 - Error handling includes proper cleanup of allocated buffers on failure paths
 - The query uses visibility functions like  to handle schema-qualified names appropriately
 - Default operator classes are identified by the  boolean field and displayed as "yes"/"no"
+
+## Simplified Source
+
+```c
+bool listOperatorClasses(const char *access_method_pattern,
+                        const char *type_pattern, bool verbose) {
+    PQExpBufferData buf;
+    PGresult *res;
+    printQueryOpt myopt = pset.popt;
+    bool have_where = false;
+
+    initPQExpBuffer(&buf);
+
+    // Build main query with core operator class information
+    printfPQExpBuffer(&buf,
+        "SELECT "
+        "am.amname AS \"AM\", "
+        "pg_catalog.format_type(c.opcintype, NULL) AS \"Input type\", "
+        "CASE "
+        "  WHEN c.opckeytype <> 0 AND c.opckeytype <> c.opcintype "
+        "  THEN pg_catalog.format_type(c.opckeytype, NULL) "
+        "  ELSE NULL "
+        "END AS \"Storage type\", "
+        "CASE "
+        "  WHEN pg_catalog.pg_opclass_is_visible(c.oid) "
+        "  THEN pg_catalog.format('%%I', c.opcname) "
+        "  ELSE pg_catalog.format('%%I.%%I', n.nspname, c.opcname) "
+        "END AS \"Operator class\", "
+        "(CASE WHEN c.opcdefault "
+        "  THEN 'yes' "
+        "  ELSE 'no' "
+        "END) AS \"Default?\"");
+
+    // Add verbose columns if requested
+    if (verbose) {
+        appendPQExpBuffer(&buf,
+            ", CASE "
+            "  WHEN pg_catalog.pg_opfamily_is_visible(of.oid) "
+            "  THEN pg_catalog.format('%%I', of.opfname) "
+            "  ELSE pg_catalog.format('%%I.%%I', ofn.nspname, of.opfname) "
+            "END AS \"Operator family\", "
+            "pg_catalog.pg_get_userbyid(c.opcowner) AS \"Owner\"");
+    }
+
+    // Add FROM clause with joins
+    appendPQExpBufferStr(&buf,
+        " FROM pg_catalog.pg_opclass c "
+        "LEFT JOIN pg_catalog.pg_am am ON am.oid = c.opcmethod "
+        "LEFT JOIN pg_catalog.pg_namespace n ON n.oid = c.opcnamespace "
+        "LEFT JOIN pg_catalog.pg_type t ON t.oid = c.opcintype "
+        "LEFT JOIN pg_catalog.pg_namespace tn ON tn.oid = t.typnamespace");
+
+    if (verbose) {
+        appendPQExpBufferStr(&buf,
+            " LEFT JOIN pg_catalog.pg_opfamily of ON of.oid = c.opcfamily "
+            "LEFT JOIN pg_catalog.pg_namespace ofn ON ofn.oid = of.opfnamespace");
+    }
+
+    // Apply access method pattern filter
+    if (access_method_pattern) {
+        if (!validateSQLNamePattern(&buf, access_method_pattern,
+                                   false, false, NULL, "am.amname",
+                                   NULL, NULL, &have_where, 1))
+            goto error_return;
+    }
+
+    // Apply type pattern filter
+    if (type_pattern) {
+        if (!validateSQLNamePattern(&buf, type_pattern, have_where, false,
+                                   "tn.nspname", "t.typname",
+                                   "pg_catalog.format_type(t.oid, NULL)",
+                                   "pg_catalog.pg_type_is_visible(t.oid)",
+                                   NULL, 3))
+            goto error_return;
+    }
+
+    appendPQExpBufferStr(&buf, " ORDER BY 1, 2, 4;");
+
+    // Execute query
+    res = PSQLexec(buf.data);
+    termPQExpBuffer(&buf);
+    if (!res)
+        return false;
+
+    // Set up output formatting and display results
+    myopt.title = "List of operator classes";
+    myopt.translate_header = true;
+
+    printQuery(res, &myopt, pset.queryFout, false, pset.logfile);
+    PQclear(res);
+
+    return true;
+
+error_return:
+    termPQExpBuffer(&buf);
+    return false;
+}
+```

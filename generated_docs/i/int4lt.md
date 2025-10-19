@@ -35,3 +35,18 @@ This function implements the less-than comparison operator (<) for PostgreSQL's 
 - Simple implementation using C's native < operator on extracted int32 values
 - Returns boolean true if first argument is less than second, false otherwise
 - Forms part of the complete set of integer comparison operators (eq, ne, lt, le, gt, ge)
+
+## Simplified Source
+
+```c
+Datum
+int4lt(PG_FUNCTION_ARGS)
+{
+    // Extract the two integer arguments
+    int32 arg1 = PG_GETARG_INT32(0);
+    int32 arg2 = PG_GETARG_INT32(1);
+
+    // Return true if first argument is less than second
+    PG_RETURN_BOOL(arg1 < arg2);
+}
+```

@@ -33,3 +33,33 @@ This utility function analyzes the second byte of a Shift-JIS-2004 character enc
   - 0x9F-0xFC: ten = b - 0x9E, ku = even (0)
 - Essential component for Shift-JIS-2004 to EUC-JIS-2004 conversion process
 - Implements the inverse mapping of the ten encoding used in euc_jis_20042shift_jis_2004
+
+## Simplified Source
+
+```c
+static int get_ten(int b, int *ku) {
+    // Extract "ten" (column) value from Shift-JIS-2004 second byte
+    // and determine "ku" (row) parity
+
+    if (b >= 0x40 && b <= 0x7e) {
+        // Range 1: odd ku
+        *ku = 1;
+        return b - 0x3f;
+    }
+    else if (b >= 0x80 && b <= 0x9e) {
+        // Range 2: odd ku (continuation)
+        *ku = 1;
+        return b - 0x40;
+    }
+    else if (b >= 0x9f && b <= 0xfc) {
+        // Range 3: even ku
+        *ku = 0;
+        return b - 0x9e;
+    }
+    else {
+        // Invalid byte value
+        *ku = 0;
+        return -1;
+    }
+}
+```

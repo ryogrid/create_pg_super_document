@@ -36,3 +36,29 @@ This function treats a PostgreSQL bytea value as an array of bytes and retrieves
 - Uses zero-based indexing (first byte is at index 0)
 - Part of PostgreSQL's bytea data type manipulation functions in varlena.c
 - Located in src/backend/utils/adt/varlena.c:3209-3237
+
+## Simplified Source
+
+```c
+// Extract a specific byte from bytea at given index (0-based)
+Datum byteaGetByte(PG_FUNCTION_ARGS) {
+    // Extract arguments: bytea value and index position
+    bytea *input_bytea = PG_GETARG_BYTEA_PP(0);
+    int32 index = PG_GETARG_INT32(1);
+
+    // Get the length of the bytea data (excluding header)
+    int length = VARSIZE_ANY_EXHDR(input_bytea);
+
+    // Validate index bounds (0-based indexing)
+    if (index < 0 || index >= length) {
+        ereport(ERROR,
+                (errcode(ERRCODE_ARRAY_SUBSCRIPT_ERROR),
+                 errmsg("index %d out of valid range, 0..%d", index, length - 1)));
+    }
+
+    // Extract the byte at the specified index and return as integer
+    int byte_value = ((unsigned char *) VARDATA_ANY(input_bytea))[index];
+
+    return PG_RETURN_INT32(byte_value);
+}
+```

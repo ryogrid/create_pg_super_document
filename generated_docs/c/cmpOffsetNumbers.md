@@ -32,3 +32,14 @@ This function serves as a comparison function for the standard C library qsort f
 - This comparator is essential for maintaining sorted order of offset numbers during vacuum operations
 - The sorted order ensures efficient processing of heap page modifications during lazy vacuum
 - Located in src/backend/access/heap/vacuumlazy.c:1389-1409
+
+## Simplified Source
+
+```c
+static int
+cmpOffsetNumbers(const void *a, const void *b)
+{
+    // Compare two OffsetNumber values for qsort
+    return pg_cmp_u16(*(const OffsetNumber *) a, *(const OffsetNumber *) b);
+}
+```

@@ -39,3 +39,20 @@ The function allocates memory for the result string using pstrdup to ensure the 
 - The resulting string is allocated in the current memory context and will be freed automatically
 - Essential for displaying LSN values in SQL query results, logs, and user interfaces
 - Buffer size is carefully controlled by MAXPG_LSNLEN to prevent overflow
+
+## Simplified Source
+
+```c
+Datum pg_lsn_out(PG_FUNCTION_ARGS) {
+    // Extract the LSN value from function arguments
+    XLogRecPtr lsn = PG_GETARG_LSN(0);
+    char buf[MAXPG_LSNLEN + 1];
+
+    // Format as "XXXXXXXX/XXXXXXXX" hexadecimal string
+    snprintf(buf, sizeof buf, "%X/%X", LSN_FORMAT_ARGS(lsn));
+
+    // Allocate persistent memory for result and return
+    char *result = pstrdup(buf);
+    PG_RETURN_CSTRING(result);
+}
+```

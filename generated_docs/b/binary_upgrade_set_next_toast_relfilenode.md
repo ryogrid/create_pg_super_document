@@ -33,3 +33,20 @@ The function can only be called when the server is running in binary upgrade mod
 - The function sets a global variable that will be consumed when the next TOAST relation is created
 - Part of a series of similar functions that control various aspects of object creation during binary upgrades
 - Essential for maintaining relfilenode consistency across PostgreSQL version upgrades
+
+## Simplified Source
+
+```c
+Datum binary_upgrade_set_next_toast_relfilenode(PG_FUNCTION_ARGS)
+{
+    RelFileNumber relfilenumber = PG_GETARG_OID(0);
+
+    // Verify we're in binary upgrade mode
+    CHECK_IS_BINARY_UPGRADE;
+
+    // Store the relfilenode for the next TOAST table to be created
+    binary_upgrade_next_toast_pg_class_relfilenumber = relfilenumber;
+
+    PG_RETURN_VOID();
+}
+```

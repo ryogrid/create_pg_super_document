@@ -41,3 +41,38 @@ The  function provides a unified interface for variable access that automaticall
 - Initializes only the name field; caller must set the value
 - Part of pgbench's variable management system for dynamic variable creation
 - Uses context parameter for meaningful error messages during validation failures
+
+## Simplified Source
+
+```c
+static Variable *
+lookupCreateVariable(Variables *variables, const char *context, char *name)
+{
+    Variable *var;
+
+    // Try to find existing variable
+    var = lookupVariable(variables, name);
+    if (var == NULL)
+    {
+        // Validate variable name for new variables
+        if (!valid_variable_name(name))
+        {
+            pg_log_error("%s: invalid variable name: \"%s\"", context, name);
+            return NULL;
+        }
+
+        // Create new variable at end of array
+        enlargeVariables(variables, 1);
+        var = &(variables->vars[variables->nvars]);
+
+        // Initialize new variable
+        var->name = pg_strdup(name);
+        var->svalue = NULL;
+
+        variables->nvars++;
+        variables->vars_sorted = false;
+    }
+
+    return var;
+}
+```

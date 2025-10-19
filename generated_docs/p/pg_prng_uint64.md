@@ -37,3 +37,14 @@ The implementation uses the xoroshiro128** algorithm, which is a high-quality, f
 - The function modifies the input state, so concurrent access requires external synchronization
 - Forms the basis for other PRNG functions that provide different ranges or data types
 - Located in `src/common/pg_prng.c` at lines 134-143
+
+## Simplified Source
+
+```c
+uint64
+pg_prng_uint64(pg_prng_state *state)
+{
+    // Generate random 64-bit value using xoroshiro128** algorithm
+    return xoroshiro128ss(state);
+}
+```

@@ -30,3 +30,16 @@ This simple utility function is used within the psql client to build formatted l
 - The function is specifically designed for role attribute formatting in psql's describe functionality
 - It automatically handles comma separation, making it safe to call multiple times without manual separator management
 - Located in src/bin/psql/describe.c:3749-3760
+
+## Simplified Source
+
+```c
+static void add_role_attribute(PQExpBuffer buf, const char *const str) {
+    // Add comma separator if buffer already has content
+    if (buf->len > 0)
+        appendPQExpBufferStr(buf, ", ");
+
+    // Append the new attribute string
+    appendPQExpBufferStr(buf, str);
+}
+```

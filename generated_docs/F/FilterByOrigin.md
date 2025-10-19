@@ -48,3 +48,16 @@ This filtering mechanism is commonly used to:
 - Essential for preventing replication loops in complex replication topologies
 - The origin filtering is applied at the individual change level, providing fine-grained control
 - When no filter callback is provided, the default behavior is to process all changes regardless of origin
+
+## Simplified Source
+
+```c
+static inline bool FilterByOrigin(LogicalDecodingContext *ctx, RepOriginId origin_id) {
+    // If no origin filter callback is set, allow all changes through
+    if (ctx->callbacks.filter_by_origin_cb == NULL)
+        return false;
+
+    // Delegate filtering decision to the plugin-specific callback
+    return filter_by_origin_cb_wrapper(ctx, origin_id);
+}
+```

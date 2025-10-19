@@ -33,3 +33,18 @@ This function serves as the binary input routine for the brin_bloom_summary data
 - The restriction applies to both text and binary input methods, ensuring complete control over the type's lifecycle
 - The PG_RETURN_VOID at the end is never reached but included to satisfy compiler requirements
 - This function would typically be called during operations like COPY FROM BINARY or network protocol binary transfers
+
+## Simplified Source
+
+```c
+Datum
+brin_bloom_summary_recv(PG_FUNCTION_ARGS)
+{
+    // brin_bloom_summary is internal-only, disallow binary input
+    ereport(ERROR,
+            (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+             errmsg("cannot accept a value of type %s", "pg_brin_bloom_summary")));
+
+    PG_RETURN_VOID(); // Never reached, but keeps compiler happy
+}
+```

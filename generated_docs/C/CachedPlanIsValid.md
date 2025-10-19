@@ -32,3 +32,15 @@ The result is only trustworthy and free from race conditions if the caller has a
 - The validity flag is typically set/unset by other plan cache management functions
 - Race conditions can occur if proper locking is not maintained by the caller
 - Located in src/backend/utils/cache/plancache.c:1627-1639
+
+## Simplified Source
+
+```c
+bool CachedPlanIsValid(CachedPlanSource *plansource) {
+    // Verify plan source structure integrity
+    Assert(plansource->magic == CACHEDPLANSOURCE_MAGIC);
+
+    // Return current validity status
+    return plansource->is_valid;
+}
+```

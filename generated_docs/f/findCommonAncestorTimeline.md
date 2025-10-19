@@ -46,3 +46,34 @@ The function handles edge cases where clusters might have used the same timeline
 - Handles complex scenarios where timeline numbers might be reused with different begin positions
 - The divergence point calculation uses MinXLogRecPtr to handle potential invalid LSN values correctly
 - Part of pg_rewind's core algorithm for identifying the point from which to start copying changes
+
+## Simplified Source
+
+```c
+static void findCommonAncestorTimeline(TimeLineHistoryEntry *a_history, int a_nentries,
+                                      TimeLineHistoryEntry *b_history, int b_nentries,
+                                      XLogRecPtr *recptr, int *tliIndex)
+{
+    // Compare timeline histories entry by entry to find divergence point
+    int n = Min(a_nentries, b_nentries);
+    int i;
+
+    for (i = 0; i < n; i++) {
+        // Check if timeline ID or begin position differs
+        if (a_history[i].tli != b_history[i].tli ||
+            a_history[i].begin != b_history[i].begin)
+            break;
+    }
+
+    if (i > 0) {
+        // Found at least one common timeline - set divergence point
+        i--;
+        *recptr = MinXLogRecPtr(a_history[i].end, b_history[i].end);
+        *tliIndex = i;
+        return;
+    } else {
+        // No common ancestor found - this should not happen
+        pg_fatal("could not find common ancestor of the source and target cluster's timelines");
+    }
+}
+```

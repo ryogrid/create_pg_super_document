@@ -41,3 +41,33 @@ This early detection prevents errors that would otherwise occur during the globa
 - Provides user-friendly status messages via prep_status and check_ok
 - Critical for preventing silent failures during schema restoration phase
 - The function assumes os_info and new_cluster global variables are properly initialized
+
+## Simplified Source
+
+```c
+static void check_for_new_tablespace_dir(void)
+{
+    int tblnum;
+    char new_tablespace_dir[MAXPGPATH];
+
+    prep_status("Checking for new cluster tablespace directories");
+
+    // Check each old tablespace for conflicting new directories
+    for (tblnum = 0; tblnum < os_info.num_old_tablespaces; tblnum++) {
+        struct stat statbuf;
+
+        // Build expected new tablespace directory path
+        snprintf(new_tablespace_dir, MAXPGPATH, "%s%s",
+                 os_info.old_tablespaces[tblnum],
+                 new_cluster.tablespace_suffix);
+
+        // Fail if directory already exists (from previous failed upgrade)
+        if (stat(new_tablespace_dir, &statbuf) == 0 || errno != ENOENT) {
+            pg_fatal("new cluster tablespace directory already exists: \"%s\"",
+                     new_tablespace_dir);
+        }
+    }
+
+    check_ok();
+}
+```

@@ -34,3 +34,15 @@ The `path_isclosed` function is a conversion operator that checks the `closed` f
 - An open path represents line segments or curves with distinct endpoints  
 - Used in SQL queries to test path properties, e.g., `WHERE path_isclosed(mypath)`
 - Location: src/backend/utils/adt/geo_ops.c:1602-1609
+
+## Simplified Source
+
+```c
+Datum path_isclosed(PG_FUNCTION_ARGS) {
+    // Extract PATH object from function argument
+    PATH *path = PG_GETARG_PATH_P(0);
+
+    // Return the closed flag from the path structure
+    PG_RETURN_BOOL(path->closed);
+}
+```

@@ -45,3 +45,34 @@ The optimization is particularly effective because RANK() internally calculates 
 - Returns NULL for unrecognized support request types
 - The monotonicity information helps with window function reordering and other planner optimizations
 - This optimization is consistent with window_row_number_support() to enable better query planning when both functions are used together
+
+## Simplified Source
+
+```c
+Datum
+window_rank_support(PG_FUNCTION_ARGS)
+{
+    Node *rawreq = (Node *) PG_GETARG_POINTER(0);
+
+    // Handle monotonicity request
+    if (IsA(rawreq, SupportRequestWFuncMonotonic)) {
+        SupportRequestWFuncMonotonic *req = (SupportRequestWFuncMonotonic *) rawreq;
+        req->monotonic = MONOTONICFUNC_INCREASING;  // rank() always increases
+        PG_RETURN_POINTER(req);
+    }
+
+    // Handle frame optimization request
+    if (IsA(rawreq, SupportRequestOptimizeWindowClause)) {
+        SupportRequestOptimizeWindowClause *req = (SupportRequestOptimizeWindowClause *) rawreq;
+
+        // Use ROWS framing instead of RANGE for better performance
+        req->frameOptions = (FRAMEOPTION_NONDEFAULT |
+                           FRAMEOPTION_ROWS |
+                           FRAMEOPTION_START_UNBOUNDED_PRECEDING |
+                           FRAMEOPTION_END_CURRENT_ROW);
+        PG_RETURN_POINTER(req);
+    }
+
+    PG_RETURN_POINTER(NULL);  // Unrecognized request type
+}
+```

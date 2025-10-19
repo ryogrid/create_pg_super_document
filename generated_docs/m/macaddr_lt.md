@@ -33,3 +33,16 @@ The macaddr_lt function implements the less-than comparison operator ('<') for M
 - Uses the same hierarchical comparison logic as macaddr_cmp (high bits first, then low bits)
 - Supports SQL operations like 'WHERE mac_column < 'aa:bb:cc:dd:ee:ff''
 - Located in src/backend/utils/adt/mac.c:210-218
+
+## Simplified Source
+
+```c
+Datum macaddr_lt(PG_FUNCTION_ARGS) {
+    // Extract MAC address arguments
+    macaddr *a1 = PG_GETARG_MACADDR_P(0);
+    macaddr *a2 = PG_GETARG_MACADDR_P(1);
+
+    // Compare MAC addresses and return true if first < second
+    PG_RETURN_BOOL(macaddr_cmp_internal(a1, a2) < 0);
+}
+```

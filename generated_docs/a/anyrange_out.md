@@ -30,3 +30,12 @@ The anyrange_out function serves as a text output function for the anyrange pseu
 - Text output functions convert internal range representations to human-readable string format for display
 - This pseudotype enables writing generic functions that can work with different range types without knowing their specific element types at compile time
 - Essential for polymorphic range operations and generic range-handling functions
+
+## Simplified Source
+
+```c
+Datum anyrange_out(PG_FUNCTION_ARGS) {
+    // Simple wrapper that delegates to range_out for text output
+    return range_out(fcinfo);
+}
+```

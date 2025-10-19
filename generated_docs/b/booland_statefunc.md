@@ -32,3 +32,12 @@ This function serves as the state transition function for PostgreSQL's Boolean A
 - Returns true only if both current state and new input are true
 - Used in plain aggregate mode only, not in moving-aggregate mode
 - The aggregate returns true if all input values are true, false if any input value is false
+
+## Simplified Source
+```c
+bool booland_statefunc(bool current_state, bool new_value) {
+    // Logical AND for aggregate: accumulate AND across all values
+    // Returns true only if both current state and new value are true
+    return current_state && new_value;
+}
+```

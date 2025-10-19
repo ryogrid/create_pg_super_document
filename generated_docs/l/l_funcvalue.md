@@ -42,3 +42,15 @@ This provides a more convenient interface when the actual datum value is needed 
 - The datum is loaded as TypeSizeT, which corresponds to PostgreSQL's Datum type
 - Essential for accessing actual argument values in JIT-compiled expressions
 - Companion function to l_funcnull - together they provide complete access to argument nullness and values
+
+## Simplified Source
+
+```c
+// Return actual datum value for specified function argument
+static inline LLVMValueRef
+l_funcvalue(LLVMBuilderRef b, LLVMValueRef fcinfo, size_t argno)
+{
+    // Get pointer to datum field and load the value
+    return l_load(b, TypeSizeT, l_funcvaluep(b, fcinfo, argno), "");
+}
+```

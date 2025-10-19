@@ -70,3 +70,28 @@ This simple approach ensures that any page can be split when other methods fail,
 - The split is deterministic and balanced, ensuring predictable behavior
 - Typically used in scenarios where tuple-specific splitting methods cannot be applied
 - The caller is responsible for computing appropriate union keys after the split
+
+## Simplified Source
+
+```c
+static void
+gistSplitHalf(GIST_SPLITVEC *v, int len)
+{
+    // Initialize split counters
+    v->spl_nright = v->spl_nleft = 0;
+
+    // Allocate arrays for left and right sides
+    v->spl_left = palloc(len * sizeof(OffsetNumber));
+    v->spl_right = palloc(len * sizeof(OffsetNumber));
+
+    // Distribute tuples evenly: first half to right, second half to left
+    for (int i = 1; i <= len; i++) {
+        if (i < len / 2)
+            v->spl_right[v->spl_nright++] = i;
+        else
+            v->spl_left[v->spl_nleft++] = i;
+    }
+
+    // Note: union keys must be computed by caller
+}
+```

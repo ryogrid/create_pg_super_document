@@ -33,3 +33,18 @@ xidout serves as the output conversion function for the xid data type in Postgre
 - Allocates exactly 16 bytes for the output string, which is sufficient for 32-bit transaction IDs
 - The output format is a simple decimal representation of the transaction ID
 - Memory allocated by palloc() is automatically freed by PostgreSQL's memory context system
+
+## Simplified Source
+
+```c
+Datum
+xidout(PG_FUNCTION_ARGS)
+{
+    TransactionId transactionId = PG_GETARG_TRANSACTIONID(0);
+    char *result = (char *) palloc(16);
+
+    // Convert transaction ID to string representation
+    snprintf(result, 16, "%lu", (unsigned long) transactionId);
+    PG_RETURN_CSTRING(result);
+}
+```

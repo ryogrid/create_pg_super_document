@@ -35,3 +35,16 @@ This function performs a linear search through a SimpleOidList to determine if a
 - No memory allocation is performed during the search operation
 - This is specifically designed for frontend utilities and is simpler than backend List facilities
 - The function is commonly used in pg_dump for checking if specific database objects (schemas, tables, extensions) should be included in dump operations
+
+## Simplified Source
+
+```c
+bool simple_oid_list_member(SimpleOidList *list, Oid val) {
+    // Search through the linked list
+    for (SimpleOidListCell *cell = list->head; cell; cell = cell->next) {
+        if (cell->val == val)
+            return true;
+    }
+    return false;
+}
+```

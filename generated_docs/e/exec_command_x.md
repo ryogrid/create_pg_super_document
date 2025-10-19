@@ -32,3 +32,27 @@ This function handles the execution of the \x command in psql, which controls th
 - Returns PSQL_CMD_SKIP_LINE on success, PSQL_CMD_ERROR on failure
 - Memory management: Properly frees the allocated option string
 - Part of psql's comprehensive display formatting system controlled via pset.popt
+
+## Simplified Source
+
+```c
+static backslashResult
+exec_command_x(PsqlScanState scan_state, bool active_branch)
+{
+    bool success = true;
+
+    if (active_branch) {
+        // Parse optional on/off parameter
+        char *opt = psql_scan_slash_option(scan_state, OT_NORMAL, NULL, true);
+
+        // Set expanded display mode (vertical layout for wide tables)
+        success = do_pset("expanded", opt, &pset.popt, pset.quiet);
+        free(opt);
+    }
+    else {
+        ignore_slash_options(scan_state);
+    }
+
+    return success ? PSQL_CMD_SKIP_LINE : PSQL_CMD_ERROR;
+}
+```

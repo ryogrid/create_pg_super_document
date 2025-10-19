@@ -37,3 +37,16 @@ The function handles IEEE 754 floating-point special cases, particularly NaN (No
 - This implements PostgreSQL's NaN handling policy where NaN is considered greater than all regular numbers
 - Part of PostgreSQL's arithmetic data type operators system
 - Used internally by the SQL parser and executor when processing float4 greater-than operations
+
+## Simplified Source
+
+```c
+Datum float4gt(PG_FUNCTION_ARGS) {
+    // Extract the two float4 arguments from SQL call
+    float4 arg1 = PG_GETARG_FLOAT4(0);
+    float4 arg2 = PG_GETARG_FLOAT4(1);
+
+    // Delegate to helper function and return boolean result
+    return PG_RETURN_BOOL(float4_gt(arg1, arg2));
+}
+```

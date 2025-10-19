@@ -38,3 +38,47 @@ The function extracts a check array indicating the presence of query operands, e
 - The extra_data[0] contains the mapping from query items to operands
 - Part of PostgreSQL's full-text search GIN index support infrastructure
 - Located in src/backend/utils/adt/tsginidx.c:214-262
+
+## Simplified Source
+
+```c
+Datum
+gin_tsquery_consistent(PG_FUNCTION_ARGS)
+{
+    bool *check = (bool *) PG_GETARG_POINTER(0);
+    TSQuery query = PG_GETARG_TSQUERY(2);
+    Pointer *extra_data = (Pointer *) PG_GETARG_POINTER(4);
+    bool *recheck = (bool *) PG_GETARG_POINTER(5);
+    bool res = false;
+
+    // Initially assume no recheck needed
+    *recheck = false;
+
+    if (query->size > 0) {
+        GinChkVal gcv;
+
+        // Set up context for ternary execution
+        gcv.first_item = GETQUERY(query);
+        gcv.check = (GinTernaryValue *) check;
+        gcv.map_item_operand = (int *) (extra_data[0]);
+
+        // Execute query with ternary logic
+        switch (TS_execute_ternary(GETQUERY(query), &gcv,
+                                   TS_EXEC_PHRASE_NO_POS,
+                                   checkcondition_gin)) {
+            case TS_NO:
+                res = false;
+                break;
+            case TS_YES:
+                res = true;
+                break;
+            case TS_MAYBE:
+                res = true;
+                *recheck = true;  // Need heap-level verification
+                break;
+        }
+    }
+
+    PG_RETURN_BOOL(res);
+}
+```

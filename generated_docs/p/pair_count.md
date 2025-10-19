@@ -27,3 +27,26 @@ The  function analyzes a string containing geometric coordinate data and determi
 
 ## Notes and Other Information
 This function implements a validation mechanism for geometric input parsing. The requirement for an odd number of delimiters stems from the coordinate pair structure: each pair needs an internal delimiter (x,y) plus separators between pairs. The function returns -1 for invalid input, which allows calling functions to detect malformed geometric data early in the parsing process. This is a static utility function used internally by PostgreSQL's geometric data type input functions.
+
+## Simplified Source
+
+```c
+static int
+pair_count(char *s, char delim)
+{
+    int ndelim = 0;
+
+    // Count occurrences of delimiter character
+    while ((s = strchr(s, delim)) != NULL)
+    {
+        ndelim++;
+        s++;  // Move past current delimiter
+    }
+
+    // Return pair count if odd number of delimiters, else -1
+    // Valid coordinate pairs require odd number of delimiters:
+    // Examples: '(1,2),(3,4)' has 3 delims = 2 pairs
+    //           '(1,2,3,4)' has 3 delims = 2 pairs
+    return (ndelim % 2) ? ((ndelim + 1) / 2) : -1;
+}
+```

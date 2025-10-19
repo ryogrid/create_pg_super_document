@@ -35,3 +35,32 @@ The function carefully manages cursor positions throughout the process, saving a
 
 ## Notes and Other Information
 This function serves as the complete German stemming algorithm implementation for UTF-8 text in PostgreSQL. It follows the standard Snowball algorithm structure used across all language-specific stemmers. The function returns 1 on successful completion. The UTF-8 encoding support allows it to handle German-specific characters like ä, ö, ü, and ß properly. The function is designed to be thread-safe when used with separate SN_env instances.
+
+## Simplified Source
+
+```c
+extern int german_UTF_8_stem(struct SN_env * z) {
+    // Phase 1: Prelude - normalize German text
+    int cursor_pos = z->c;
+    r_prelude(z);
+    z->c = cursor_pos;
+
+    // Phase 2: Mark regions - identify R1, R2, RV boundaries
+    cursor_pos = z->c;
+    r_mark_regions(z);
+    z->c = cursor_pos;
+
+    // Phase 3: Process suffixes - apply German stemming rules
+    z->lb = z->c;
+    z->c = z->l;  // Move to end of word
+    r_standard_suffix(z);
+    z->c = z->lb; // Return to beginning
+
+    // Phase 4: Postlude - final cleanup
+    cursor_pos = z->c;
+    r_postlude(z);
+    z->c = cursor_pos;
+
+    return 1; // Success
+}
+```

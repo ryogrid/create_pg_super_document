@@ -34,3 +34,25 @@ This function takes no parameters and operates on global cluster structures (old
 - Essential for ensuring upgrade prerequisites are met before attempting data migration
 - May update parameter values as noted in the function comment, though the function signature suggests it works with global state
 - Part of the initialization sequence in PostgreSQL major version upgrades
+
+## Simplified Source
+
+```c
+void verify_directories(void) {
+    // Check current directory permissions (platform-specific)
+#ifndef WIN32
+    if (access(".", R_OK | W_OK | X_OK) != 0)
+#else
+    if (win32_check_directory_write_permissions() != 0)
+#endif
+        pg_fatal("You must have read and write access in the current directory.");
+
+    // Verify old cluster directories and executables
+    check_bin_dir(&old_cluster, false);  // false = don't check new binaries
+    check_data_dir(&old_cluster);
+
+    // Verify new cluster directories and executables
+    check_bin_dir(&new_cluster, true);   // true = check new binaries
+    check_data_dir(&new_cluster);
+}
+```

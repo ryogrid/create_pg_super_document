@@ -41,3 +41,26 @@ This step ensures that words ending in double 'l' are properly stemmed according
 - The function is part of the Snowball stemming library integrated into PostgreSQL
 - The double 'l' removal only occurs when both 'l' characters are present and the second falls within the R2 region
 - File location: src/backend/snowball/libstemmer/stem_ISO_8859_1_porter.c:546-561
+
+## Simplified Source
+
+```c
+static int r_Step_5b(struct SN_env * z) {
+    // Set up to check for terminal 'l'
+    z->ket = z->c;
+    if (z->c <= z->lb || z->p[z->c - 1] != 'l') return 0;
+    z->c--;
+    z->bra = z->c;
+
+    // Check if position is in R2 region
+    if (r_R2(z) <= 0) return 0;
+
+    // Check for double 'l' - another 'l' before current position
+    if (z->c <= z->lb || z->p[z->c - 1] != 'l') return 0;
+    z->c--;
+
+    // Remove the double 'l'
+    slice_del(z);
+    return 1;
+}
+```

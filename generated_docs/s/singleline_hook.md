@@ -31,3 +31,18 @@ The  function serves as a validation and assignment hook for the SINGLELINE psql
 - The function returns true if the value was successfully parsed and set, false otherwise
 - Located in src/bin/psql/startup.c at lines 893-898
 - Differs from normal psql behavior where SQL statements can span multiple lines
+
+## Simplified Source
+
+```c
+static bool singleline_hook(const char *newval) {
+    // Parse and validate boolean value, then set single-line mode flag
+    return ParseVariableBool(newval, "SINGLELINE", &pset.singleline);
+}
+```
+
+This hook function:
+1. Validates the new string value as a boolean
+2. Sets the global SINGLELINE flag if valid
+3. Controls whether each line is treated as a complete SQL statement
+4. Returns true on success, false on invalid input

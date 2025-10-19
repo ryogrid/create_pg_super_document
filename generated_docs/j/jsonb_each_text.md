@@ -30,3 +30,12 @@ This function is a thin wrapper around the each_worker_jsonb function, specifica
 - Returns a set of (key, value) tuples where both elements are text type
 - Part of PostgreSQL's JSONB manipulation function suite
 - More efficient than JSON processing due to JSONB's binary format
+
+## Simplified Source
+```c
+Datum jsonb_each_text(PG_FUNCTION_ARGS) {
+    // Decompose JSONB object into key-value pairs
+    // Returns values as text (not JSONB)
+    return each_worker_jsonb(fcinfo, "jsonb_each_text", true);
+}
+```

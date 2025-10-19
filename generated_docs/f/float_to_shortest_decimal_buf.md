@@ -37,3 +37,17 @@ The function delegates the actual conversion work to `float_to_shortest_decimal_
 - Contains assertion to ensure buffer bounds are respected in debug builds
 - Commonly used in PostgreSQL for float4 data type output formatting
 - The null termination makes the result suitable for use with standard C string functions
+
+## Simplified Source
+
+```c
+int float_to_shortest_decimal_buf(float f, char *result) {
+    // Convert float to decimal string (without null terminator)
+    const int length = float_to_shortest_decimal_bufn(f, result);
+
+    // Add null terminator to make it a proper C string
+    result[length] = '\0';
+
+    return length;  // Length excluding null terminator
+}
+```

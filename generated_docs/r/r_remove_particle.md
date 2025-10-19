@@ -39,3 +39,32 @@ The function returns 1 on successful removal, 0 if no particle suffix is found, 
 - The function checks boundary conditions (z->c - 2 <= z->lb) to ensure safe buffer access
 - The counter z->I[1] appears to track the number of suffix removals performed
 - The function uses character codes 104 ('h') and 110 ('n') for optimization, checking only words ending with these characters
+
+## Simplified Source
+
+```c
+static int r_remove_particle(struct SN_env * z) {
+    // Set end position for potential suffix removal
+    z->ket = z->c;
+
+    // Quick check: only process words ending with 'h' (104) or 'n' (110)
+    if (z->c - 2 <= z->lb || (z->p[z->c - 1] != 104 && z->p[z->c - 1] != 110)) {
+        return 0; // No particle suffix found
+    }
+
+    // Look for particle patterns in predefined array a_0 (3 entries)
+    if (!find_among_b(z, a_0, 3)) {
+        return 0; // No matching particle pattern
+    }
+
+    // Remove the matched particle suffix
+    z->bra = z->c;
+    int ret = slice_del(z);
+    if (ret < 0) return ret;
+
+    // Track the removal operation
+    z->I[1] -= 1;
+
+    return 1; // Success
+}
+```

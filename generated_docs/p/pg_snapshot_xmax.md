@@ -36,3 +36,17 @@ Together with ,  defines the range of transaction IDs that need to be checked ag
 - Located in 
 - The  value helps determine the range of transactions that need visibility checking - only transactions in the range [xmin, xmax) require checking against the in-progress list
 - This is a SQL-callable function that can be used in queries to analyze snapshot characteristics and understand transaction visibility boundaries
+
+## Simplified Source
+
+```c
+Datum
+pg_snapshot_xmax(PG_FUNCTION_ARGS)
+{
+    // Extract snapshot from function arguments
+    pg_snapshot *snap = (pg_snapshot *) PG_GETARG_VARLENA_P(0);
+
+    // Return the xmax field from the snapshot
+    PG_RETURN_FULLTRANSACTIONID(snap->xmax);
+}
+```

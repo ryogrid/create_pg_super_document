@@ -35,3 +35,14 @@ This function provides indexed access to individual heap tuple identifiers withi
 - Commonly used in loops to iterate through all heap TIDs in a posting list
 - Essential for operations that need random access to posting list elements
 - Used extensively in B-tree maintenance operations and search routines
+
+## Simplified Source
+
+```c
+static inline ItemPointer
+BTreeTupleGetPostingN(IndexTuple posting, int n)
+{
+    // Get the Nth posting entry by adding offset to base posting array
+    return BTreeTupleGetPosting(posting) + n;
+}
+```

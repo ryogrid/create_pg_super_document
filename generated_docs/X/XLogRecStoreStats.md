@@ -38,3 +38,40 @@ For detailed per-record statistics, it extracts the record type identifier from 
 - The record type identifier uses the upper 4 bits of xl_info, allowing 16 possible record types per resource manager
 - This function is primarily used by pg_waldump for generating detailed WAL analysis reports
 - Statistics include both count and size metrics for comprehensive WAL analysis
+
+## Simplified Source
+
+```c
+void XLogRecStoreStats(XLogStats *stats, XLogReaderState *record)
+{
+    RmgrId rmid;
+    uint8 recid;
+    uint32 rec_len, fpi_len;
+
+    Assert(stats != NULL && record != NULL);
+
+    // Increment global record count
+    stats->count++;
+
+    // Get resource manager ID and split record length
+    rmid = XLogRecGetRmid(record);
+    XLogRecGetLen(record, &rec_len, &fpi_len);
+
+    // Update per-resource manager statistics
+    stats->rmgr_stats[rmid].count++;
+    stats->rmgr_stats[rmid].rec_len += rec_len;
+    stats->rmgr_stats[rmid].fpi_len += fpi_len;
+
+    // Extract record type from upper 4 bits of xl_info
+    recid = XLogRecGetInfo(record) >> 4;
+
+    // Special handling for XACT records (use lower 3 bits for opcode)
+    if (rmid == RM_XACT_ID)
+        recid &= 0x07;
+
+    // Update detailed per-record type statistics
+    stats->record_stats[rmid][recid].count++;
+    stats->record_stats[rmid][recid].rec_len += rec_len;
+    stats->record_stats[rmid][recid].fpi_len += fpi_len;
+}
+```

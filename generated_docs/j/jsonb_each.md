@@ -39,3 +39,12 @@ This is a set-returning function (SRF) that can be used in SQL queries to extrac
 - More efficient than json_each when working with JSONB data due to the binary format
 - Part of PostgreSQL's comprehensive JSONB processing capabilities
 - JSONB format allows for better indexing and faster operations compared to text-based JSON
+
+## Simplified Source
+```c
+Datum jsonb_each(PG_FUNCTION_ARGS) {
+    // Decompose JSONB object into key-value pairs
+    // Returns values as JSONB (not text)
+    return each_worker_jsonb(fcinfo, "jsonb_each", false);
+}
+```

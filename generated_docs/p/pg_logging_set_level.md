@@ -37,3 +37,13 @@ The logging system uses this threshold in conjunction with the pg_log_debug macr
 - Debug messages use conditional compilation to avoid overhead when debug logging is disabled
 - The function performs a simple assignment with no validation of the input parameter
 - Changes take effect immediately for all subsequent log messages
+
+## Simplified Source
+
+```c
+void pg_logging_set_level(enum pg_log_level new_level)
+{
+    // Set the global minimum log level
+    __pg_log_level = new_level;
+}
+```

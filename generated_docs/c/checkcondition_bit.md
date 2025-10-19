@@ -46,3 +46,23 @@ This approach enables efficient filtering of index subtrees during query process
 - Works with bit signatures created by `makesign` function during compression
 - Enables quick elimination of irrelevant index branches during query processing
 - Part of the two-tier TSVector GiST indexing strategy (signatures for large data, arrays for smaller data)
+
+## Simplified Source
+
+```c
+static TSTernaryValue
+checkcondition_bit(void *checkval, QueryOperand *val, ExecPhraseData *data)
+{
+    SignTSVector *key = (SignTSVector *) checkval;
+
+    // Cannot find prefixes in signature tree
+    if (val->prefix)
+        return TS_MAYBE;
+
+    // Check if the bit for this hash value is set in the signature
+    if (GETBIT(GETSIGN(key), HASHVAL(val->valcrc, GETSIGLEN(key))))
+        return TS_MAYBE;  // Bit is set - value might be present
+    else
+        return TS_NO;     // Bit not set - value definitely not present
+}
+```

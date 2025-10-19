@@ -32,3 +32,20 @@ The  function initializes configuration parameters for an SP-GiST quadtree index
 - The function sets  allowing index-only scans for covered queries
 -  is appropriate since geometric points have fixed size
 - The configuration uses VOIDOID for labels since quadtree partitioning doesn't require node labels
+
+## Simplified Source
+
+```c
+Datum spg_quad_config(PG_FUNCTION_ARGS)
+{
+    spgConfigOut *cfg = (spgConfigOut *) PG_GETARG_POINTER(1);
+
+    // Configure quadtree SP-GiST parameters
+    cfg->prefixType = POINTOID;       // Use geometric points
+    cfg->labelType = VOIDOID;         // No node labels needed
+    cfg->canReturnData = true;        // Support index-only scans
+    cfg->longValuesOK = false;        // Fixed-size geometric data only
+
+    PG_RETURN_VOID();
+}
+```

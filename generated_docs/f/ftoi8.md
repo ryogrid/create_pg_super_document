@@ -37,3 +37,22 @@ This function performs a type conversion from PostgreSQL's single-precision floa
 - Uses FLOAT4_FITS_IN_INT64 macro specifically for single-precision range checking
 - Throws ERRCODE_NUMERIC_VALUE_OUT_OF_RANGE error with "bigint out of range" message for invalid inputs
 - Part of PostgreSQL's type system for safe numeric conversions from single-precision floats
+
+## Simplified Source
+
+```c
+Datum ftoi8(PG_FUNCTION_ARGS) {
+    float4 num = PG_GETARG_FLOAT4(0);
+
+    // Remove fractional part to handle edge cases
+    num = rint(num);
+
+    // Check for invalid values (NaN, infinity, out of range)
+    if (isnan(num) || !FLOAT4_FITS_IN_INT64(num)) {
+        ereport(ERROR, (errcode(ERRCODE_NUMERIC_VALUE_OUT_OF_RANGE),
+                       errmsg("bigint out of range")));
+    }
+
+    return PG_RETURN_INT64((int64) num);
+}
+```

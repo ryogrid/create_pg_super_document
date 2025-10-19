@@ -29,5 +29,19 @@ This function implements the absolute value operation for PostgreSQL's float8 (d
 - Located in src/backend/utils/adt/float.c:650-661
 - Part of PostgreSQL's float8 base operations suite
 - Uses standard C library  function for the actual computation
-- Follows PostgreSQL's standard function call convention with 
+- Follows PostgreSQL's standard function call convention with
 - Returns result using PostgreSQL's Datum system
+
+## Simplified Source
+
+```c
+Datum
+float8abs(PG_FUNCTION_ARGS)
+{
+    // Extract the float8 argument
+    float8 arg1 = PG_GETARG_FLOAT8(0);
+
+    // Return absolute value using standard C library function
+    PG_RETURN_FLOAT8(fabs(arg1));
+}
+```

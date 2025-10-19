@@ -36,3 +36,25 @@ Unlike some other type lookup functions, this function gracefully handles invali
 - The typmodin function takes an array of type modifier strings and converts them to a single int32 typmod value
 - Part of the type modifier system infrastructure along with get_typmodout
 - Declared in src/include/utils/lsyscache.h as part of the public API
+
+## Simplified Source
+
+```c
+Oid get_typmodin(Oid typid) {
+    // Look up type in system cache
+    HeapTuple tp = SearchSysCache1(TYPEOID, ObjectIdGetDatum(typid));
+
+    if (HeapTupleIsValid(tp)) {
+        // Extract pg_type struct and get typmodin function OID
+        Form_pg_type typtup = (Form_pg_type) GETSTRUCT(tp);
+        Oid result = typtup->typmodin;
+
+        // Clean up cache reference
+        ReleaseSysCache(tp);
+        return result;
+    } else {
+        // Return invalid OID if type not found
+        return InvalidOid;
+    }
+}
+```

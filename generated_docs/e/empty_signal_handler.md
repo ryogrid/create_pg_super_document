@@ -31,3 +31,11 @@ The function body is completely empty, meaning it simply returns immediately whe
 - The handler allows signals to be caught without performing any action
 - Useful for making certain operations interruptible while maintaining clean signal handling
 - The SIGNAL_ARGS macro provides portability across different signal handling implementations
+
+## Simplified Source
+
+```c
+static void empty_signal_handler(SIGNAL_ARGS) {
+    // Intentionally empty - just catch and acknowledge the signal
+}
+```

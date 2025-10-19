@@ -35,3 +35,17 @@ This function implements the SQL LEAST/min operation for the Cash data type. It 
 - Companion function to cashlarger, providing the opposite comparison operation
 - Likely used internally by SQL aggregate functions or LEAST operations on cash types
 - The comparison relies on the underlying numeric representation of Cash values
+
+## Simplified Source
+
+```c
+Datum cashsmaller(PG_FUNCTION_ARGS) {
+    // Extract two cash values to compare
+    Cash c1 = PG_GETARG_CASH(0);
+    Cash c2 = PG_GETARG_CASH(1);
+
+    // Return the smaller value using ternary operator
+    Cash result = (c1 < c2) ? c1 : c2;
+    PG_RETURN_CASH(result);
+}
+```

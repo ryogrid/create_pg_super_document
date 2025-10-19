@@ -36,3 +36,14 @@ The parameter '0' passed to SN_close_env indicates that no additional string var
 - Part of the standard resource management pattern in Snowball stemmers (create/use/close lifecycle)
 - Essential for preventing memory leaks in applications that create multiple stemming environments or run for extended periods
 - The function has no return value as cleanup operations are expected to always succeed
+
+## Simplified Source
+
+```c
+void romanian_ISO_8859_2_close_env(struct SN_env * z) {
+    // Cleanup Romanian stemming environment
+    // Delegates to core Snowball framework cleanup function
+    // No string variables to deallocate (uses only integer state)
+    SN_close_env(z, 0);
+}
+```

@@ -51,3 +51,33 @@ The function performs bounds checking to prevent infinite interval subtraction a
 - Complement function to `timetz_pl_interval`, using subtraction instead of addition
 - The date component of intervals is ignored since timetz represents only time-of-day information
 - Handles negative results by adding `USECS_PER_DAY` to wrap around to the previous day's equivalent time
+
+## Simplified Source
+
+```c
+Datum timetz_mi_interval(PG_FUNCTION_ARGS) {
+    TimeTzADT *time = PG_GETARG_TIMETZADT_P(0);
+    Interval *span = PG_GETARG_INTERVAL_P(1);
+    TimeTzADT *result;
+
+    // Check for infinite interval
+    if (INTERVAL_NOT_FINITE(span))
+        ereport(ERROR, "cannot subtract infinite interval from time");
+
+    // Allocate result structure
+    result = (TimeTzADT *) palloc(sizeof(TimeTzADT));
+
+    // Subtract interval from time component
+    result->time = time->time - span->time;
+
+    // Keep result within 24-hour day range
+    result->time -= result->time / USECS_PER_DAY * USECS_PER_DAY;
+    if (result->time < 0)
+        result->time += USECS_PER_DAY;
+
+    // Preserve original timezone
+    result->zone = time->zone;
+
+    PG_RETURN_TIMETZADT_P(result);
+}
+```

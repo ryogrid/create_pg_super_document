@@ -38,3 +38,15 @@ The function is part of PostgreSQL's type system and is typically invoked throug
 - Used internally by PostgreSQL's query engine when processing <= operator for macaddr8 types
 - The function is likely registered in pg_proc system catalog and associated with the <= operator in pg_operator
 - Part of the complete set of comparison operators for macaddr8 data type
+
+## Simplified Source
+
+```c
+Datum macaddr8_le(PG_FUNCTION_ARGS) {
+    macaddr8 *a1 = PG_GETARG_MACADDR8_P(0);
+    macaddr8 *a2 = PG_GETARG_MACADDR8_P(1);
+
+    // Return true if a1 <= a2 (comparison result <= 0)
+    PG_RETURN_BOOL(macaddr8_cmp_internal(a1, a2) <= 0);
+}
+```

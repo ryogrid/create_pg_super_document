@@ -35,4 +35,26 @@ This function implements overlap detection logic for range intervals using bound
 - More efficient than range_overlaps_internal() when working with boundary values directly
 - Uses range_cmp_bounds for proper boundary comparison that handles inclusive/exclusive bounds
 - The overlap detection logic handles all boundary inclusion/exclusion cases correctly
-- Located in 
+- Located in the multirange implementation file
+
+## Simplified Source
+
+```c
+static bool
+range_bounds_overlaps(TypeCacheEntry *typcache,
+                      RangeBound *lower1, RangeBound *upper1,
+                      RangeBound *lower2, RangeBound *upper2)
+{
+    // Check if lower bound of first range falls within second range
+    if (range_cmp_bounds(typcache, lower1, lower2) >= 0 &&
+        range_cmp_bounds(typcache, lower1, upper2) <= 0)
+        return true;
+
+    // Check if lower bound of second range falls within first range
+    if (range_cmp_bounds(typcache, lower2, lower1) >= 0 &&
+        range_cmp_bounds(typcache, lower2, upper1) <= 0)
+        return true;
+
+    return false;
+}
+``` 

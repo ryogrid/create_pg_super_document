@@ -39,3 +39,16 @@ This function is part of PostgreSQL's geometric operators and is used to test co
 - Handles memory management by freeing toasted inputs to prevent memory leaks
 - Part of PostgreSQL's geometric data type operator family for equality testing
 - Essential for polygon equality operations in spatial queries and indexing
+
+## Simplified Source
+
+```c
+bool poly_same(POLYGON *polya, POLYGON *polyb) {
+    // Quick check: polygons must have same number of points
+    if (polya->npts != polyb->npts)
+        return false;
+
+    // Use specialized comparison that handles polygon orientation
+    return plist_same(polya->npts, polya->p, polyb->p);
+}
+```

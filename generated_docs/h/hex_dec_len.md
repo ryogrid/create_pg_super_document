@@ -32,3 +32,12 @@ This utility function computes the output buffer size needed to store binary dat
 - Part of PostgreSQL's encoding/decoding subsystem in src/backend/utils/adt/encode.c
 - Function is static (internal linkage) and serves as a utility for decoding operations
 - Does not perform any validation on input parameters - caller must ensure proper input format
+
+## Simplified Source
+
+```c
+static uint64 hex_dec_len(const char *src, size_t srclen) {
+    // Each pair of hex digits becomes 1 byte, so divide by 2
+    return (uint64) srclen >> 1;  // Efficient bit shift instead of / 2
+}
+```

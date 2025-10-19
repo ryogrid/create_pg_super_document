@@ -39,3 +39,18 @@ The function formats comprehensive details including the relation identifier, bl
 - The isCatalogRel flag is specifically important for logical decoding during standby recovery
 - Output format: "rel spcOid/dbOid/relNumber; blk blockNum; snapshotConflictHorizon epoch:xid, isCatalogRel T/F"
 - Located in src/backend/access/rmgrdesc/gistdesc.c at lines 26-36
+
+## Simplified Source
+
+```c
+static void out_gistxlogPageReuse(StringInfo buf, gistxlogPageReuse *xlrec) {
+    // Format page reuse info: relation identifier, block number,
+    // snapshot conflict horizon, and catalog relation flag
+    appendStringInfo(buf, "rel %u/%u/%u; blk %u; snapshotConflictHorizon %u:%u, isCatalogRel %c",
+                     xlrec->locator.spcOid, xlrec->locator.dbOid, xlrec->locator.relNumber,
+                     xlrec->block,
+                     EpochFromFullTransactionId(xlrec->snapshotConflictHorizon),
+                     XidFromFullTransactionId(xlrec->snapshotConflictHorizon),
+                     xlrec->isCatalogRel ? 'T' : 'F');
+}
+```

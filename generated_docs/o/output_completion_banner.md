@@ -48,3 +48,42 @@ The function uses PostgreSQL's PQExpBuffer for safe string construction and prop
 - The --analyze-in-stages option is recommended to reduce the initial load on the upgraded server
 - Shell string escaping ensures that usernames containing special characters are handled safely
 - The distinction between automatic and manual cleanup helps prevent accidental data loss in complex configurations
+
+## Simplified Source
+
+```c
+void output_completion_banner(char *deletion_script_file_name)
+{
+    PQExpBufferData user_specification;
+
+    // Build user specification for vacuumdb command
+    initPQExpBuffer(&user_specification);
+    if (os_info.user_specified) {
+        appendPQExpBufferStr(&user_specification, "-U ");
+        appendShellString(&user_specification, os_info.user);
+        appendPQExpBufferChar(&user_specification, ' ');
+    }
+
+    // Display optimizer statistics warning and vacuumdb recommendation
+    pg_log(PG_REPORT,
+           "Optimizer statistics are not transferred by pg_upgrade.\n"
+           "Once you start the new server, consider running:\n"
+           "    %s/vacuumdb %s--all --analyze-in-stages",
+           new_cluster.bindir, user_specification.data);
+
+    // Display cleanup instructions based on deletion script availability
+    if (deletion_script_file_name) {
+        pg_log(PG_REPORT,
+               "Running this script will delete the old cluster's data files:\n"
+               "    %s", deletion_script_file_name);
+    } else {
+        pg_log(PG_REPORT,
+               "Could not create a script to delete the old cluster's data files\n"
+               "because user-defined tablespaces or the new cluster's data directory\n"
+               "exist in the old cluster directory. The old cluster's contents must\n"
+               "be deleted manually.");
+    }
+
+    termPQExpBuffer(&user_specification);
+}
+```

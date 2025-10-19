@@ -41,3 +41,27 @@ The function performs a series of LLVM structure field accesses:
 - Returns a pointer to the nullness field, not the actual boolean value
 - Part of the infrastructure that allows JIT-compiled code to efficiently check argument nullness
 - The function assumes the FunctionCallInfoData structure layout and NullableDatum structure format
+
+## Simplified Source
+
+```c
+// Return pointer to nullness indicator for specified function argument
+static inline LLVMValueRef
+l_funcnullp(LLVMBuilderRef b, LLVMValueRef fcinfo, size_t argno)
+{
+    LLVMValueRef args_array;
+    LLVMValueRef specific_arg;
+
+    // Get pointer to args array in FunctionCallInfoData
+    args_array = l_struct_gep(b, StructFunctionCallInfoData, fcinfo,
+                             FIELDNO_FUNCTIONCALLINFODATA_ARGS, "");
+
+    // Get pointer to specific argument in the array
+    specific_arg = l_struct_gep(b, LLVMArrayType(StructNullableDatum, 0),
+                               args_array, argno, "");
+
+    // Return pointer to isnull field of this argument
+    return l_struct_gep(b, StructNullableDatum, specific_arg,
+                       FIELDNO_NULLABLE_DATUM_ISNULL, "");
+}
+```

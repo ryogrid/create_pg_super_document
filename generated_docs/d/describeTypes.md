@@ -49,3 +49,100 @@ This function generates and executes a SQL query to list data types from the pg_
 - Provides access control information and ownership details in verbose mode
 - Uses map_typename_pattern() for enhanced pattern matching capabilities
 - Orders results by schema and type name for consistent output
+
+## Simplified Source
+
+```c
+bool
+describeTypes(const char *pattern, bool verbose, bool showSystem)
+{
+    PQExpBufferData buf;
+    PGresult *res;
+    printQueryOpt myopt = pset.popt;
+
+    initPQExpBuffer(&buf);
+
+    // Build base query for types
+    printfPQExpBuffer(&buf,
+                      "SELECT n.nspname as \"%s\",\n"
+                      "  pg_catalog.format_type(t.oid, NULL) AS \"%s\",\n",
+                      gettext_noop("Schema"),
+                      gettext_noop("Name"));
+
+    // Add verbose columns if requested
+    if (verbose) {
+        appendPQExpBuffer(&buf,
+                          "  t.typname AS \"%s\",\n"
+                          "  CASE WHEN t.typrelid != 0\n"
+                          "      THEN CAST('tuple' AS pg_catalog.text)\n"
+                          "    WHEN t.typlen < 0\n"
+                          "      THEN CAST('var' AS pg_catalog.text)\n"
+                          "    ELSE CAST(t.typlen AS pg_catalog.text)\n"
+                          "  END AS \"%s\",\n"
+                          "  pg_catalog.array_to_string(\n"
+                          "      ARRAY(\n"
+                          "          SELECT e.enumlabel\n"
+                          "          FROM pg_catalog.pg_enum e\n"
+                          "          WHERE e.enumtypid = t.oid\n"
+                          "          ORDER BY e.enumsortorder\n"
+                          "      ),\n"
+                          "      E'\\n'\n"
+                          "  ) AS \"%s\",\n"
+                          "  pg_catalog.pg_get_userbyid(t.typowner) AS \"%s\",\n",
+                          gettext_noop("Internal name"),
+                          gettext_noop("Size"),
+                          gettext_noop("Elements"),
+                          gettext_noop("Owner"));
+        printACLColumn(&buf, "t.typacl");
+        appendPQExpBufferStr(&buf, ",\n  ");
+    }
+
+    appendPQExpBuffer(&buf,
+                      "  pg_catalog.obj_description(t.oid, 'pg_type') as \"%s\"\n",
+                      gettext_noop("Description"));
+
+    appendPQExpBufferStr(&buf, "FROM pg_catalog.pg_type t\n"
+                               "     LEFT JOIN pg_catalog.pg_namespace n ON n.oid = t.typnamespace\n");
+
+    // Filter complex types (keep only standalone composite types)
+    appendPQExpBufferStr(&buf, "WHERE (t.typrelid = 0 ");
+    appendPQExpBufferStr(&buf, "OR (SELECT c.relkind = " CppAsString2(RELKIND_COMPOSITE_TYPE)
+                               " FROM pg_catalog.pg_class c "
+                               "WHERE c.oid = t.typrelid))\n");
+
+    // Filter array types unless pattern contains []
+    if (pattern == NULL || strstr(pattern, "[]") == NULL)
+        appendPQExpBufferStr(&buf, "  AND NOT EXISTS(SELECT 1 FROM pg_catalog.pg_type el WHERE el.oid = t.typelem AND el.typarray = t.oid)\n");
+
+    // Filter system schemas if not requested
+    if (!showSystem && !pattern)
+        appendPQExpBufferStr(&buf, "      AND n.nspname <> 'pg_catalog'\n"
+                                   "      AND n.nspname <> 'information_schema'\n");
+
+    // Apply pattern matching (supports both internal and external names)
+    if (!validateSQLNamePattern(&buf, map_typename_pattern(pattern),
+                                true, false,
+                                "n.nspname", "t.typname",
+                                "pg_catalog.format_type(t.oid, NULL)",
+                                "pg_catalog.pg_type_is_visible(t.oid)",
+                                NULL, 3)) {
+        termPQExpBuffer(&buf);
+        return false;
+    }
+
+    appendPQExpBufferStr(&buf, "ORDER BY 1, 2;");
+
+    // Execute query and display results
+    res = PSQLexec(buf.data);
+    termPQExpBuffer(&buf);
+    if (!res)
+        return false;
+
+    myopt.title = _("List of data types");
+    myopt.translate_header = true;
+
+    printQuery(res, &myopt, pset.queryFout, false, pset.logfile);
+    PQclear(res);
+    return true;
+}
+```

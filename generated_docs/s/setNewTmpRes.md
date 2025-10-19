@@ -36,3 +36,22 @@ The function ensures proper memory management by cleaning up old results before 
 - Proper cleanup is essential as lexeme processing can generate multiple temporary results
 - The lastRes field helps track which parsed lexeme corresponds to the current temporary results
 - Memory management follows PostgreSQL conventions using pfree() for deallocation
+
+## Simplified Source
+
+```c
+static void setNewTmpRes(LexizeData *ld, ParsedLex *lex, TSLexeme *res) {
+    // Clean up existing temporary results
+    if (ld->tmpRes) {
+        TSLexeme *ptr;
+        for (ptr = ld->tmpRes; ptr->lexeme; ptr++) {
+            pfree(ptr->lexeme);  // Free each lexeme string
+        }
+        pfree(ld->tmpRes);  // Free the array
+    }
+
+    // Set new temporary results
+    ld->tmpRes = res;
+    ld->lastRes = lex;
+}
+```

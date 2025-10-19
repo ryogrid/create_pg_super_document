@@ -40,3 +40,29 @@ This function performs a preliminary test to ensure that the target filename can
 - Terminates program on any failure (open, write, or fsync) using the die() function
 - Essential setup function that validates file operations before performance testing begins
 - File location: src/bin/pg_test_fsync/pg_test_fsync.c:243-264
+
+## Simplified Source
+
+```c
+static void
+test_open(void)
+{
+    int tmpfile;
+
+    // Test opening target file for read/write with creation
+    if ((tmpfile = open(filename, O_RDWR | O_CREAT | PG_BINARY, S_IRUSR | S_IWUSR)) == -1)
+        die("could not open output file");
+
+    needs_unlink = 1;  // Mark file for cleanup
+
+    // Write full WAL segment to pre-allocate file space
+    if (write(tmpfile, full_buf, DEFAULT_XLOG_SEG_SIZE) != DEFAULT_XLOG_SEG_SIZE)
+        die("write failed");
+
+    // Initial fsync to clear dirty buffers before testing
+    if (fsync(tmpfile) != 0)
+        die("fsync failed");
+
+    close(tmpfile);
+}
+```

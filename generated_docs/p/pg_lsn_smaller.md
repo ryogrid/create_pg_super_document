@@ -34,3 +34,16 @@ Like its counterpart pg_lsn_larger, this function uses a ternary operator for ef
 - The comparison is based on the natural ordering of LSN values in the write-ahead log sequence
 - Commonly used in checkpoint management and log retention policy implementations
 - Complementary function to pg_lsn_larger for complete min/max operations on LSNs
+
+## Simplified Source
+
+```c
+Datum pg_lsn_smaller(PG_FUNCTION_ARGS) {
+    // Extract the two LSN arguments
+    XLogRecPtr lsn1 = PG_GETARG_LSN(0);
+    XLogRecPtr lsn2 = PG_GETARG_LSN(1);
+
+    // Return the smaller (earlier) LSN value
+    PG_RETURN_LSN((lsn1 < lsn2) ? lsn1 : lsn2);
+}
+```

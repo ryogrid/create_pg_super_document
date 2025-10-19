@@ -46,3 +46,27 @@ The function follows the same error handling pattern as executeQuery but differs
 - Provides the same comprehensive error logging as executeQuery
 - Part of PostgreSQL's client utilities common command execution infrastructure
 - Also used by other PostgreSQL utilities like pg_amcheck and vacuumdb for command execution
+
+## Simplified Source
+
+```c
+static void executeCommand(PGconn *conn, const char *query) {
+    // Log the command being executed
+    pg_log_info("executing %s", query);
+
+    // Execute the SQL command
+    PGresult *res = PQexec(conn, query);
+
+    // Check if command succeeded
+    if (!res || PQresultStatus(res) != PGRES_COMMAND_OK) {
+        // Log error details and exit on failure
+        pg_log_error("query failed: %s", PQerrorMessage(conn));
+        pg_log_error_detail("Query was: %s", query);
+        PQfinish(conn);
+        exit_nicely(1);
+    }
+
+    // Clean up result
+    PQclear(res);
+}
+```

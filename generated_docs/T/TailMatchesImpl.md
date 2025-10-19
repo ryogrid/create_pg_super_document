@@ -39,3 +39,37 @@ The function uses variadic arguments to accept a flexible number of pattern stri
 - Uses va_list for handling variable arguments, properly cleaning up with va_end()
 - This is a static function, only accessible within the tab-complete.c file
 - Critical component of psql's context-aware tab completion system
+
+## Simplified Source
+
+```c
+static bool TailMatchesImpl(bool case_sensitive,
+                           int previous_words_count, char **previous_words,
+                           int narg, ...)
+{
+    va_list args;
+
+    // Check if we have enough words to match
+    if (previous_words_count < narg)
+        return false;
+
+    va_start(args, narg);
+
+    // Compare each pattern argument with corresponding tail word
+    for (int argno = 0; argno < narg; argno++)
+    {
+        const char *pattern = va_arg(args, const char *);
+
+        // Check if pattern matches the corresponding word from the end
+        // Note: previous_words[0] is the last word, so we index backwards
+        if (!word_matches(pattern, previous_words[narg - argno - 1], case_sensitive))
+        {
+            va_end(args);
+            return false;
+        }
+    }
+
+    va_end(args);
+    return true;
+}
+```

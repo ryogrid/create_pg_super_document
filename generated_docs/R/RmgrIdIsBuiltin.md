@@ -34,3 +34,14 @@ Resource managers in PostgreSQL are responsible for handling different types of 
 - Custom resource manager IDs start from RM_MIN_CUSTOM_ID (128) and go up to RM_MAX_CUSTOM_ID (255)
 - Used primarily for validation and categorization of resource manager IDs in WAL processing
 - The function is complementary to RmgrIdIsCustom() for complete coverage of valid resource manager ID ranges
+
+## Simplified Source
+
+```c
+static inline bool
+RmgrIdIsBuiltin(int rmid)
+{
+    // Check if resource manager ID is within built-in range
+    return rmid <= RM_MAX_BUILTIN_ID;
+}
+```

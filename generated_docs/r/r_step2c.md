@@ -46,3 +46,30 @@ The function operates by moving backwards from the current position () and requi
 - Returns 1 on successful transformation, 0 if no match found, or negative values on error
 - The two-phase approach first removes certain suffixes, then applies standardized replacements
 - Character validation ensures the function operates on appropriate Greek character sequences
+
+## Simplified Source
+
+```c
+static int r_step2c(struct SN_env * z) {
+    // Initial validation and suffix removal
+    z->ket = z->c;
+
+    // Check bounds (need at least 9 characters) and specific characters
+    if (z->c - 9 <= z->lb) return 0;
+    char last_char = z->p[z->c - 1];
+    if (last_char != 131 && last_char != 189) return 0;  // Check for ƒ or ½
+
+    // Find and delete suffix patterns from array a_28
+    if (!(find_among_b(z, a_28, 2))) return 0;
+    z->bra = z->c;
+    slice_del(z);  // Delete matched suffix
+
+    // Apply replacement with Greek suffix "ουδ"
+    z->ket = z->c;
+    z->bra = z->c;
+    if (!(find_among_b(z, a_29, 15))) return 0;
+    slice_from_s(z, 6, s_67);  // Replace with Greek suffix "ουδ"
+
+    return 1;  // Success
+}
+```

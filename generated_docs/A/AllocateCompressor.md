@@ -51,3 +51,31 @@ The function supports multiple compression algorithms:
 - The specific initialization is delegated to algorithm-specific functions (InitCompressor*)
 - The read and write function pointers are stored in the CompressorState for later use during compression operations
 - Located in src/bin/pg_dump/compress_io.c at lines 124-148
+
+## Simplified Source
+
+```c
+CompressorState *
+AllocateCompressor(const pg_compress_specification compression_spec,
+                   ReadFunc readF, WriteFunc writeF)
+{
+    // Allocate and zero-initialize compressor state
+    CompressorState *cs = (CompressorState *) pg_malloc0(sizeof(CompressorState));
+
+    // Set up I/O function pointers
+    cs->readF = readF;
+    cs->writeF = writeF;
+
+    // Initialize based on compression algorithm
+    if (compression_spec.algorithm == PG_COMPRESSION_NONE)
+        InitCompressorNone(cs, compression_spec);
+    else if (compression_spec.algorithm == PG_COMPRESSION_GZIP)
+        InitCompressorGzip(cs, compression_spec);
+    else if (compression_spec.algorithm == PG_COMPRESSION_LZ4)
+        InitCompressorLZ4(cs, compression_spec);
+    else if (compression_spec.algorithm == PG_COMPRESSION_ZSTD)
+        InitCompressorZstd(cs, compression_spec);
+
+    return cs;
+}
+```

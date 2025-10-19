@@ -35,3 +35,21 @@ This function is typically used when PostgreSQL needs to display the schema info
 - Uses a fixed buffer size of 64 characters, which is sufficient for any reasonable bit length specification
 - Negative typmod values result in an empty string, following PostgreSQL's convention for types without explicit constraints
 - The parenthesized format matches SQL standard syntax for type modifiers
+
+## Simplified Source
+
+```c
+// Common utility for converting bit/varbit type modifier to string
+static char *anybit_typmodout(int32 typmod) {
+    char *result = (char *) palloc(64);
+
+    // Format as "(length)" if typmod is valid, else empty string
+    if (typmod >= 0) {
+        snprintf(result, 64, "(%d)", typmod);
+    } else {
+        *result = '\0';  // Empty string for no constraint
+    }
+
+    return result;
+}
+```

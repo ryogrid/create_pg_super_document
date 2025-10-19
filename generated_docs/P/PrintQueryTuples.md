@@ -45,3 +45,29 @@ The function serves as a standardized interface for result tuple printing throug
 - Part of psql's layered result processing architecture
 - Ensures immediate output visibility through fflush() call
 - Integrates with psql's configurable output formatting system
+
+## Simplified Source
+
+```c
+static bool PrintQueryTuples(const PGresult *result, const printQueryOpt *opt,
+                            FILE *printQueryFout) {
+    bool ok = true;
+
+    // Use provided output stream or default
+    FILE *fout = printQueryFout ? printQueryFout : pset.queryFout;
+
+    // Print query results with options (use defaults if none provided)
+    printQuery(result, opt ? opt : &pset.popt, fout, false, pset.logfile);
+
+    // Ensure output is written immediately
+    fflush(fout);
+
+    // Check for output errors
+    if (ferror(fout)) {
+        pg_log_error("could not print result table: %m");
+        ok = false;
+    }
+
+    return ok;
+}
+```

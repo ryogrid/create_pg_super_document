@@ -62,3 +62,40 @@ This function is essential for integrating complex expression evaluation operati
 - Uses PostgreSQL's memory management (palloc/pfree) for temporary allocations
 - The function follows a standardized calling convention where the first two parameters are always ExprState and ExprEvalStep pointers
 - This is a lower-level function that's typically wrapped by build_EvalXFunc for easier use
+
+## Simplified Source
+
+```c
+static LLVMValueRef
+build_EvalXFuncInt(LLVMBuilderRef b, LLVMModuleRef mod, const char *funcname,
+                   LLVMValueRef v_state, ExprEvalStep *op,
+                   int nargs, LLVMValueRef *v_args)
+{
+    // Get the PostgreSQL function reference
+    LLVMValueRef v_fn = llvm_pg_func(mod, funcname);
+
+    // Validate parameter count (function expects nargs + 2 parameters)
+    if (LLVMCountParams(v_fn) != (nargs + 2))
+        elog(ERROR, "parameter mismatch: %s expects %d passed %d",
+             funcname, LLVMCountParams(v_fn), nargs + 2);
+
+    // Build parameter array
+    LLVMValueRef *params = palloc(sizeof(LLVMValueRef) * (2 + nargs));
+    int argno = 0;
+
+    // First two parameters are always state and op
+    params[argno++] = v_state;
+    params[argno++] = l_ptr_const(op, l_ptr(StructExprEvalStep));
+
+    // Add additional arguments
+    for (int i = 0; i < nargs; i++)
+        params[argno++] = v_args[i];
+
+    // Generate the function call
+    LLVMValueRef v_ret = l_call(b, LLVMGetFunctionType(v_fn), v_fn,
+                               params, argno, "");
+
+    pfree(params);
+    return v_ret;
+}
+```

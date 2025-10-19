@@ -51,3 +51,46 @@ The function includes boundary checking to ensure operations occur only within t
 - Returns 0 if no doubled consonant is found or if boundary conditions aren't met, 1 if successful
 - The boundary checking ensures consonant pair removal only occurs in appropriate word regions
 - This function is called both independently in main stemming routines and as part of other suffix processing (r_other_suffix)
+
+## Simplified Source
+
+```c
+static int r_consonant_pair(struct SN_env * z) {
+    // Save current position for restoration later
+    int test_position = z->l - z->c;
+
+    // Check if we're in valid region (beyond R1 boundary)
+    if (z->c < z->I[1]) return 0;
+
+    // Set up boundary limits
+    int saved_boundary = z->lb;
+    z->lb = z->I[1];
+    z->ket = z->c;
+
+    // Look for doubled consonants 'd' or 't'
+    if (z->c - 1 <= z->lb ||
+        (z->p[z->c - 1] != 100 && z->p[z->c - 1] != 116)) {
+        z->lb = saved_boundary;
+        return 0;
+    }
+
+    // Check against pattern list of 4 doubled consonants
+    if (!find_among_b(z, a_1, 4)) {
+        z->lb = saved_boundary;
+        return 0;
+    }
+
+    z->bra = z->c;
+    z->lb = saved_boundary;
+
+    // Restore position and remove one of the doubled consonants
+    z->c = z->l - test_position;
+    if (z->c <= z->lb) return 0;
+
+    z->c--;  // Move back one character
+    z->bra = z->c;
+    slice_del(z);  // Delete the duplicate consonant
+
+    return 1; // Success
+}
+```

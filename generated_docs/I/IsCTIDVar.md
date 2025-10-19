@@ -31,3 +31,17 @@ This macro provides a convenient way to identify CTID variables during query exe
 
 ## Notes and Other Information
 The macro includes a detailed comment explaining that checking varattno is sufficient to identify CTID variables because any Var in the relation scan qual must belong to the current table. This is guaranteed by PostgreSQL's parameter handling, where variables from other tables would have been converted to Param nodes during query planning.
+
+## Simplified Source
+
+```c
+/*
+ * Check if a node is a CTID (Current Tuple Identifier) variable.
+ * Simple three-part validation: not NULL, is a Var node, and
+ * has the special CTID attribute number.
+ */
+#define IsCTIDVar(node)  \
+    ((node) != NULL && \
+     IsA((node), Var) && \
+     ((Var *) (node))->varattno == SelfItemPointerAttributeNumber)
+```

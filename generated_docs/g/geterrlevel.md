@@ -31,3 +31,18 @@ This function takes no parameters.
 - Part of PostgreSQL's error handling system for providing access to error severity information
 - Should not be used outside of error handling contexts where the concept is meaningful
 - Companion function to geterrcode() for accessing different aspects of current error state
+
+## Simplified Source
+
+```c
+int geterrlevel(void) {
+    // Get current error data from stack
+    ErrorData *edata = &errordata[errordata_stack_depth];
+
+    // Validate error stack state
+    CHECK_STACK_DEPTH();
+
+    // Return the error level/severity
+    return edata->elevel;
+}
+```

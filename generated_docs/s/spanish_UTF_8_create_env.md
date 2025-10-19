@@ -37,3 +37,13 @@ This configuration is tailored to the requirements of the Spanish stemming algor
 - Part of the Snowball stemming library integration in PostgreSQL's full-text search system
 - Located in src/backend/snowball/libstemmer/stem_UTF_8_spanish.c:1042
 - This is a standard pattern across all Snowball language implementations, each providing their own create_env function with language-specific parameters
+
+## Simplified Source
+
+```c
+extern struct SN_env * spanish_UTF_8_create_env(void) {
+    // Create a Snowball environment for Spanish stemming
+    // Parameters: 0 string variables, 3 integer variables
+    return SN_create_env(0, 3);
+}
+```

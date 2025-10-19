@@ -40,3 +40,15 @@ The function provides a simple wrapper around the  system call with appropriate 
 - Hard linking preserves all file metadata including permissions, timestamps, and ownership
 - Cannot create hard links to directories (only regular files)
 - Used as the preferred file transfer method in pg_upgrade when both old and new data directories are on the same filesystem
+
+## Simplified Source
+
+```c
+void linkFile(const char *src, const char *dst,
+              const char *schemaName, const char *relName) {
+    // Create hard link from source to destination
+    if (link(src, dst) < 0)
+        pg_fatal("error while creating link for relation \"%s.%s\" (\"%s\" to \"%s\"): %m",
+                 schemaName, relName, src, dst);
+}
+```

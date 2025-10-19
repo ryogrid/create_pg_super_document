@@ -38,3 +38,13 @@ This ensures that all memory allocated for the Spanish stemming environment is p
 - Located in src/backend/snowball/libstemmer/stem_UTF_8_spanish.c:1044
 - This is a standard pattern across all Snowball language implementations, each providing their own close_env function
 - Essential for proper memory management in text processing applications that use the Spanish stemming functionality
+
+## Simplified Source
+
+```c
+extern void spanish_UTF_8_close_env(struct SN_env * z) {
+    // Clean up and deallocate Spanish stemming environment
+    // Parameter 0 indicates standard cleanup with no special flags
+    SN_close_env(z, 0);
+}
+```

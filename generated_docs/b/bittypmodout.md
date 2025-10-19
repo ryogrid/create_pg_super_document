@@ -38,3 +38,15 @@ The function serves as a thin wrapper around , which contains the common formatt
 - The returned string is allocated with  and managed by PostgreSQL's memory context system
 - Located in src/backend/utils/adt/varbit.c:437-451
 - Used internally by PostgreSQL when displaying schema information or formatting error messages involving bit types
+
+## Simplified Source
+
+```c
+// Convert BIT type modifier to string format (e.g., "(10)" for BIT(10))
+Datum bittypmodout(PG_FUNCTION_ARGS) {
+    int32 typmod = PG_GETARG_INT32(0);
+
+    // Use shared logic for bit and varbit type modifier formatting
+    PG_RETURN_CSTRING(anybit_typmodout(typmod));
+}
+```

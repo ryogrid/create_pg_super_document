@@ -32,3 +32,13 @@ This function follows the PostgreSQL function calling convention using `PG_FUNCT
 - This contrasts with `brin_minmax_multi_summary_recv` which explicitly prevents binary input operations
 - The asymmetry (send allowed, recv forbidden) suggests that these summaries can be serialized for storage/transmission but should not be created from external binary input
 - Located in src/backend/access/brin/brin_minmax_multi.c:3134-3137
+
+## Simplified Source
+
+```c
+Datum brin_minmax_multi_summary_send(PG_FUNCTION_ARGS) {
+    // Simply delegate to bytea's binary output function
+    // since BRIN minmax-multi summaries are stored as bytea
+    return byteasend(fcinfo);
+}
+```

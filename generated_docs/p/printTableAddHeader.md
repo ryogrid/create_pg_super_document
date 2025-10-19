@@ -42,3 +42,37 @@ This function adds a header string to the next available column position in a pr
 - Advances internal header and align pointers for next header addition
 - Alignment character typically 'l' (left) or 'r' (right) but other values may be supported
 - Used extensively in psql's describe commands and query result formatting
+
+## Simplified Source
+
+```c
+void
+printTableAddHeader(printTableContent *const content, char *header,
+                    const bool translate, const char align)
+{
+    // Check if we've exceeded the column count
+    if (content->header >= content->headers + content->ncolumns) {
+        fprintf(stderr, _("Cannot add header to table content: "
+                         "column count of %d exceeded.\n"),
+                content->ncolumns);
+        exit(EXIT_FAILURE);
+    }
+
+    // Validate multibyte encoding of header string
+    *content->header = (char *) mbvalidate((unsigned char *) header,
+                                          content->opt->encoding);
+
+#ifdef ENABLE_NLS
+    // Translate header if requested and NLS is enabled
+    if (translate)
+        *content->header = _(*content->header);
+#endif
+
+    // Move to next header position
+    content->header++;
+
+    // Set alignment for this column and advance
+    *content->align = align;
+    content->align++;
+}
+```

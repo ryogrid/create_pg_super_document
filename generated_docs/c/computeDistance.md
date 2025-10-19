@@ -46,3 +46,56 @@ This optimization is crucial for efficient index traversal during distance-order
 - Returns 0.0 when point lies inside the bounding box (internal nodes only)
 - For diagonal cases, evaluates all four box vertices to find the true minimum distance
 - Part of PostgreSQL's geometric distance infrastructure for spatial indexing
+
+## Simplified Source
+
+```c
+static float8 computeDistance(bool isLeaf, BOX *box, Point *point) {
+    float8 result = 0.0;
+
+    if (isLeaf) {
+        // Simple point-to-point distance for leaf nodes
+        result = point_point_distance(point, &box->low);
+    } else if (point->x <= box->high.x && point->x >= box->low.x &&
+               point->y <= box->high.y && point->y >= box->low.y) {
+        // Point is inside the box
+        result = 0.0;
+    } else if (point->x <= box->high.x && point->x >= box->low.x) {
+        // Point is above or below the box (aligned horizontally)
+        if (point->y > box->high.y)
+            result = float8_mi(point->y, box->high.y);
+        else if (point->y < box->low.y)
+            result = float8_mi(box->low.y, point->y);
+    } else if (point->y <= box->high.y && point->y >= box->low.y) {
+        // Point is left or right of the box (aligned vertically)
+        if (point->x > box->high.x)
+            result = float8_mi(point->x, box->high.x);
+        else if (point->x < box->low.x)
+            result = float8_mi(box->low.x, point->x);
+    } else {
+        // Point is diagonal - check all four vertices for minimum distance
+        Point vertex;
+        float8 subresult;
+
+        result = point_point_distance(point, &box->low);
+
+        subresult = point_point_distance(point, &box->high);
+        if (result > subresult)
+            result = subresult;
+
+        vertex.x = box->low.x;
+        vertex.y = box->high.y;
+        subresult = point_point_distance(point, &vertex);
+        if (result > subresult)
+            result = subresult;
+
+        vertex.x = box->high.x;
+        vertex.y = box->low.y;
+        subresult = point_point_distance(point, &vertex);
+        if (result > subresult)
+            result = subresult;
+    }
+
+    return result;
+}
+```

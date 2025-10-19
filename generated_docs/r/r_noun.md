@@ -47,3 +47,21 @@ The function follows the standard Snowball pattern: set markers, check character
 - Returns 1 on successful suffix removal, 0 if no pattern matched
 - The character filtering focuses on the final character of potential noun endings in KOI8-R encoding
 - This step occurs after verbal processing and before derivational suffix handling in the stemming pipeline
+
+## Simplified Source
+
+```c
+static int r_noun(struct SN_env * z) {
+    // Set end boundary and check for valid nominal ending character
+    z->ket = z->c;
+    if (z->c <= z->lb || !valid_noun_char(z->p[z->c - 1])) return 0;
+
+    // Match against 36 nominal patterns in a_5 array
+    if (!find_among_b(z, a_5, 36)) return 0;
+
+    // Remove the matched nominal suffix
+    z->bra = z->c;
+    slice_del(z);
+    return 1;
+}
+```

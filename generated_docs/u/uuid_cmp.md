@@ -37,3 +37,17 @@ The `uuid_cmp` function is specifically designed as a handler for B-tree index o
 - Used internally by the query planner for cost estimation and optimization
 - The comparison is lexicographic byte-wise, providing deterministic ordering
 - Essential component of the UUID operator class for indexing support
+
+## Simplified Source
+
+```c
+// B-tree index comparison function for UUID data type
+Datum uuid_cmp(PG_FUNCTION_ARGS) {
+    // Extract two UUID arguments from function call
+    pg_uuid_t *uuid1 = PG_GETARG_UUID_P(0);
+    pg_uuid_t *uuid2 = PG_GETARG_UUID_P(1);
+
+    // Return integer comparison result: <0, 0, or >0
+    PG_RETURN_INT32(uuid_internal_cmp(uuid1, uuid2));
+}
+```

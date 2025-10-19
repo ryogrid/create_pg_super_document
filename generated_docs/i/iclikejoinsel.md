@@ -34,3 +34,13 @@ The function returns a selectivity estimate as a floating-point value between 0 
 - Works in conjunction with PostgreSQL's operator class system for the ILIKE operator
 - Used for estimating selectivity of expressions like 
 - ILIKE provides case-insensitive pattern matching, making it more flexible than the standard LIKE operator
+
+## Simplified Source
+
+```c
+Datum iclikejoinsel(PG_FUNCTION_ARGS) {
+    // Estimate join selectivity for case-insensitive LIKE pattern matching
+    // Delegates to generic pattern join selectivity function
+    return patternjoinsel(fcinfo, Pattern_Type_Like_IC, false);
+}
+```

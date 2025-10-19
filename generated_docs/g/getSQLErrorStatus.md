@@ -32,3 +32,19 @@ This function examines the SQL state error code returned from PostgreSQL and map
 - Only specifically handles serialization failure (40001) and deadlock (40P01) error codes
 - Part of pgbench's retry mechanism for handling transient database errors
 - The function is static, meaning it has internal linkage within pgbench.c
+
+## Simplified Source
+```c
+static EStatus getSQLErrorStatus(const char *sqlState) {
+    // Check for specific retryable SQL error codes
+    if (sqlState != NULL) {
+        if (strcmp(sqlState, ERRCODE_T_R_SERIALIZATION_FAILURE) == 0)
+            return ESTATUS_SERIALIZATION_ERROR;
+        else if (strcmp(sqlState, ERRCODE_T_R_DEADLOCK_DETECTED) == 0)
+            return ESTATUS_DEADLOCK_ERROR;
+    }
+
+    // Default: all other errors are general SQL errors
+    return ESTATUS_OTHER_SQL_ERROR;
+}
+```

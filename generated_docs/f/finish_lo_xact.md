@@ -35,3 +35,25 @@ This function serves as the cleanup counterpart to start_lo_xact, handling the s
 - Designed to work in tandem with start_lo_xact for proper transaction lifecycle management
 - Static function with scope limited to large_obj.c file
 - Critical for maintaining transaction integrity in large object operations
+
+## Simplified Source
+
+```c
+static bool finish_lo_xact(const char *operation, bool own_transaction) {
+    PGresult *res;
+
+    // Only commit if we started our own transaction and autocommit is enabled
+    if (own_transaction && pset.autocommit) {
+        // Attempt to commit the transaction
+        if (!(res = PSQLexec("COMMIT"))) {
+            // If commit fails, rollback for safety
+            res = PSQLexec("ROLLBACK");
+            PQclear(res);
+            return false;
+        }
+        PQclear(res);
+    }
+
+    return true;
+}
+```

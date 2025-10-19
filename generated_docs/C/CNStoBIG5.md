@@ -43,3 +43,53 @@ The function first masks the input CNS code with 0x7f7f to normalize the input, 
 - The 0x7f7f mask removes the high bit formatting used in CNS encoding
 - Essential component of PostgreSQL's bidirectional character encoding support between CNS and Big5
 - Complements the BIG5toCNS function to provide complete round-trip conversion capability
+
+## Simplified Source
+
+```c
+unsigned short
+CNStoBIG5(unsigned short cns, unsigned char lc)
+{
+    int i;
+    unsigned int big5 = 0;
+
+    // Normalize CNS code by removing high bit formatting
+    cns &= 0x7f7f;
+
+    switch (lc)
+    {
+        case LC_CNS11643_1:
+            // Use binary search for Plane 1 to Big5 Level 1
+            big5 = BinarySearchRange(cnsPlane1ToBig5Level1, 24, cns);
+            break;
+
+        case LC_CNS11643_2:
+            // Use binary search for Plane 2 to Big5 Level 2
+            big5 = BinarySearchRange(cnsPlane2ToBig5Level2, 47, cns);
+            break;
+
+        case LC_CNS11643_3:
+            // Linear search through Plane 3 lookup table
+            for (i = 0; i < sizeof(b2c3) / (sizeof(unsigned short) * 2); i++)
+            {
+                if (b2c3[i][1] == cns)
+                    return b2c3[i][0];
+            }
+            break;
+
+        case LC_CNS11643_4:
+            // Linear search through Plane 4 lookup table
+            for (i = 0; i < sizeof(b1c4) / (sizeof(unsigned short) * 2); i++)
+            {
+                if (b1c4[i][1] == cns)
+                    return b1c4[i][0];
+            }
+            break;
+
+        default:
+            break;
+    }
+
+    return big5;
+}
+```

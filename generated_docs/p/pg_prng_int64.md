@@ -33,3 +33,14 @@ The function maintains uniform distribution across the entire signed integer ran
 - The underlying xoroshiro128** algorithm ensures high-quality randomness
 - Less commonly used compared to range-specific functions, but serves as a foundation
 - Located in `src/common/pg_prng.c` at lines 173-181
+
+## Simplified Source
+
+```c
+int64
+pg_prng_int64(pg_prng_state *state)
+{
+    // Generate random signed 64-bit value by casting unsigned result
+    return (int64) xoroshiro128ss(state);
+}
+```

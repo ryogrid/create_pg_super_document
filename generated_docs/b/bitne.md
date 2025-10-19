@@ -46,3 +46,28 @@ This function directly corresponds to the SQL  or  operator when used with BIT o
 - Ensures exact inequality testing - trailing bits matter ("101" != "1010")
 - Logically opposite of the  function
 - Located in src/backend/utils/adt/varbit.c:865-888
+
+## Simplified Source
+
+```c
+Datum bitne(PG_FUNCTION_ARGS) {
+    VarBit *arg1 = PG_GETARG_VARBIT_P(0);
+    VarBit *arg2 = PG_GETARG_VARBIT_P(1);
+
+    int bitlen1 = VARBITLEN(arg1);
+    int bitlen2 = VARBITLEN(arg2);
+
+    // Fast path: different lengths means not equal (so return true for !=)
+    bool result;
+    if (bitlen1 != bitlen2)
+        result = true;
+    else
+        result = (bit_cmp(arg1, arg2) != 0);
+
+    // Clean up memory for toasted values
+    PG_FREE_IF_COPY(arg1, 0);
+    PG_FREE_IF_COPY(arg2, 1);
+
+    PG_RETURN_BOOL(result);
+}
+```

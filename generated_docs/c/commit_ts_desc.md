@@ -40,3 +40,29 @@ The function examines the WAL record's info field to determine the operation typ
 - Used primarily for debugging and diagnostic purposes when examining WAL files
 - The output format includes specific details relevant to each operation type (page numbers, transaction IDs)
 - Part of the commit timestamp tracking subsystem that was introduced to support logical replication features
+
+## Simplified Source
+
+```c
+void
+commit_ts_desc(StringInfo buf, XLogReaderState *record)
+{
+    char       *rec = XLogRecGetData(record);
+    uint8       info = XLogRecGetInfo(record) & ~XLR_INFO_MASK;
+
+    if (info == COMMIT_TS_ZEROPAGE)
+    {
+        // Describe commit timestamp page zeroing operation
+        int64 pageno;
+        memcpy(&pageno, rec, sizeof(pageno));
+        appendStringInfo(buf, "%lld", (long long) pageno);
+    }
+    else if (info == COMMIT_TS_TRUNCATE)
+    {
+        // Describe commit timestamp truncate operation
+        xl_commit_ts_truncate *trunc = (xl_commit_ts_truncate *) rec;
+        appendStringInfo(buf, "pageno %lld, oldestXid %u",
+                         (long long) trunc->pageno, trunc->oldestXid);
+    }
+}
+```

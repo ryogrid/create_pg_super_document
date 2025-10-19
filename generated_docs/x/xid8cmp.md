@@ -36,3 +36,21 @@ The xid8cmp function provides a comprehensive comparison mechanism for PostgreSQ
 - Handles transaction ID wraparound correctly through underlying utility functions
 - Returns standard three-way comparison semantics (-1, 0, 1)
 - Located in src/backend/utils/adt/xid.c:277-290
+
+## Simplified Source
+
+```c
+Datum xid8cmp(PG_FUNCTION_ARGS) {
+    // Extract the two 64-bit transaction IDs from function arguments
+    FullTransactionId fxid1 = PG_GETARG_FULLTRANSACTIONID(0);
+    FullTransactionId fxid2 = PG_GETARG_FULLTRANSACTIONID(1);
+
+    // Perform three-way comparison
+    if (FullTransactionIdFollows(fxid1, fxid2))
+        PG_RETURN_INT32(1);    // fxid1 > fxid2
+    else if (FullTransactionIdEquals(fxid1, fxid2))
+        PG_RETURN_INT32(0);    // fxid1 == fxid2
+    else
+        PG_RETURN_INT32(-1);   // fxid1 < fxid2
+}
+```

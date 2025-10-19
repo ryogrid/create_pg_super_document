@@ -35,3 +35,36 @@ This function is responsible for parsing variable references in pgbench SQL scri
 - The caller is responsible for freeing the returned string
 - Used during SQL script parsing to identify and extract variable references for substitution
 - [Variable](../V/Variable.md) names can contain high-bit characters for internationalization support
+
+## Simplified Source
+
+```c
+static char *
+parseVariable(const char *sql, int *eaten)
+{
+    int     i = 1;  // Skip the colon
+    char   *name;
+
+    // Check first character - must be letter, underscore, or high-bit
+    if (IS_HIGHBIT_SET(sql[i]) ||
+        strchr("ABCDEFGHIJKLMNOPQRSTUVWXYZ" "abcdefghijklmnopqrstuvwxyz"
+               "_", sql[i]) != NULL)
+        i++;
+    else
+        return NULL;
+
+    // Continue with letters, digits, underscores, or high-bit characters
+    while (IS_HIGHBIT_SET(sql[i]) ||
+           strchr("ABCDEFGHIJKLMNOPQRSTUVWXYZ" "abcdefghijklmnopqrstuvwxyz"
+                  "_0123456789", sql[i]) != NULL)
+        i++;
+
+    // Extract variable name
+    name = pg_malloc(i);
+    memcpy(name, &sql[1], i - 1);
+    name[i - 1] = '\0';
+
+    *eaten = i;
+    return name;
+}
+```

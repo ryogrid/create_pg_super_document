@@ -45,3 +45,66 @@ The function handles special characters as follows:
 - Tab expansion follows standard 8-character tab stops
 - Control characters are rendered as escape sequences, requiring additional space
 - The function is located in src/fe_utils/mbprint.c and is part of PostgreSQL's frontend utilities for text display
+
+## Simplified Source
+
+```c
+void pg_wcssize(const unsigned char *pwcs, size_t len, int encoding,
+               int *result_width, int *result_height, int *result_format_size) {
+    int linewidth = 0, width = 0, height = 1, format_size = 0;
+    int chlen;
+
+    for (; *pwcs && len > 0; pwcs += chlen) {
+        chlen = PQmblen((const char *) pwcs, encoding);
+        if (len < (size_t) chlen) break;
+
+        int w = PQdsplen((const char *) pwcs, encoding);
+
+        if (chlen == 1) {  // Single-byte character
+            if (*pwcs == '\n') {
+                // Newline: update max width, reset line, increment height
+                if (linewidth > width) width = linewidth;
+                linewidth = 0;
+                height++;
+                format_size++;
+            } else if (*pwcs == '\r') {
+                // Carriage return: display as visible chars
+                linewidth += 2;
+                format_size += 2;
+            } else if (*pwcs == '\t') {
+                // Tab: expand to 8-char boundary
+                do {
+                    linewidth++;
+                    format_size++;
+                } while (linewidth % 8 != 0);
+            } else if (w < 0) {
+                // Control char: display as escape sequence
+                linewidth += 4;
+                format_size += 4;
+            } else {
+                // Normal char: add display width
+                linewidth += w;
+                format_size++;
+            }
+        } else if (w < 0) {
+            // Non-ASCII control char: \u0000 format
+            linewidth += 6;
+            format_size += 6;
+        } else {
+            // Regular multibyte char
+            linewidth += w;
+            format_size += chlen;
+        }
+        len -= chlen;
+    }
+
+    // Final line width check and null terminator
+    if (linewidth > width) width = linewidth;
+    format_size++;
+
+    // Set output parameters
+    if (result_width) *result_width = width;
+    if (result_height) *result_height = height;
+    if (result_format_size) *result_format_size = format_size;
+}
+```

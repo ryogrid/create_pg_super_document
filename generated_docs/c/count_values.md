@@ -37,3 +37,21 @@ The function performs a simple linear scan through the expanded ranges array, ex
 - Essential for determining storage requirements before serializing range data
 - Simple O(n) algorithm that examines each range's collapsed property
 - Used in memory allocation decisions and storage space calculations
+
+## Simplified Source
+
+```c
+static int count_values(ExpandedRange *cranges, int ncranges) {
+    int count = 0;
+
+    // Count boundary values needed for each range
+    for (int i = 0; i < ncranges; i++) {
+        if (cranges[i].collapsed)
+            count += 1;  // Single-point range needs 1 value
+        else
+            count += 2;  // Regular range needs 2 values (min, max)
+    }
+
+    return count;
+}
+```

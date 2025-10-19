@@ -37,3 +37,12 @@ The function performs a single comparison to check if the current cursor positio
 - Used extensively across Romance language stemmers (French, Italian, Spanish, Portuguese, Romanian)
 - The RV region represents the core morphological area of words in these languages
 - Simple but critical for maintaining stemming accuracy and preventing over-stemming
+
+## Simplified Source
+
+```c
+static int r_RV(struct SN_env * z) {
+    // Check if current cursor position is within the RV region
+    return (z->I[2] <= z->c) ? 1 : 0;
+}
+```

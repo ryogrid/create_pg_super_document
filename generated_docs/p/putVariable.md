@@ -37,3 +37,30 @@ This function is responsible for setting the string value of a pgbench variable 
 - Uses defensive copying (pg_strdup) to prevent issues when the input value points to the same variable being modified
 - Automatically resets the numeric value type to ensure consistency between string and numeric representations
 - Part of pgbench's variable management system for storing and manipulating test data
+
+## Simplified Source
+
+```c
+static bool
+putVariable(Variables *variables, const char *context, char *name,
+            const char *value)
+{
+    Variable *var;
+    char     *val;
+
+    // Find or create variable
+    var = lookupCreateVariable(variables, context, name);
+    if (!var)
+        return false;
+
+    // Safely duplicate value to prevent self-reference issues
+    val = pg_strdup(value);
+
+    // Update variable with new string value
+    free(var->svalue);
+    var->svalue = val;
+    var->value.type = PGBT_NO_VALUE;
+
+    return true;
+}
+```

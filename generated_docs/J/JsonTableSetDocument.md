@@ -40,3 +40,15 @@ This function effectively starts a new document processing cycle, resetting all 
 - The function is typically called once per input JSON document in a JSON_TABLE scan
 - Error handling relies on GetJsonTableExecContext to validate the context state
 - The actual work of pattern evaluation is delegated to JsonTableResetRowPattern, keeping this function focused on document setup
+
+## Simplified Source
+
+```c
+static void JsonTableSetDocument(TableFuncScanState *state, Datum value) {
+    // Get the JSON table execution context
+    JsonTableExecContext *cxt = GetJsonTableExecContext(state, "JsonTableSetDocument");
+
+    // Reset the row pattern with the new document
+    JsonTableResetRowPattern(cxt->rootplanstate, value);
+}
+```

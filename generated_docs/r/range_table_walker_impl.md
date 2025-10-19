@@ -41,3 +41,31 @@ This function serves as a building block for more comprehensive query traversals
 - Uses PostgreSQL's foreach macro for efficient list iteration
 - The actual node traversal logic is delegated to range_table_entry_walker for each individual range table entry
 - Supports the same flag-based traversal control as other walker functions in the system
+
+## Simplified Source
+
+```c
+bool range_table_walker_impl(List *rtable, tree_walker_callback walker, void *context, int flags)
+{
+    ListCell *rt;
+
+    // Walk through each range table entry
+    foreach(rt, rtable) {
+        RangeTblEntry *rte = lfirst_node(RangeTblEntry, rt);
+
+        // Delegate to range_table_entry_walker for each entry
+        if (range_table_entry_walker(rte, walker, context, flags))
+            return true;
+    }
+
+    return false;
+}
+```
+
+This simplified version maintains the original ~20 lines in ~15 lines (~75% of original size) while preserving the essential range table traversal logic. Key aspects preserved:
+
+- Simple iteration through the range table list
+- Delegation to range_table_entry_walker for actual traversal
+- Early termination semantics (return true if any walker returns true)
+- Pass-through of all parameters (walker, context, flags)
+- Standard PostgreSQL foreach pattern for list iteration

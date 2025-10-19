@@ -37,3 +37,18 @@ The function is used internally by the BRIN minmax multi operator class to deter
 - More straightforward than other distance functions due to dates simple integer representation
 - Part of the BRIN minmax multi access method implementation
 - Located in src/backend/access/brin/brin_minmax_multi.c:2080-2098
+
+## Simplified Source
+
+```c
+Datum brin_minmax_multi_distance_date(PG_FUNCTION_ARGS) {
+    // Extract date arguments (stored as integers representing days)
+    DateADT dateVal1 = PG_GETARG_DATEADT(0);
+    DateADT dateVal2 = PG_GETARG_DATEADT(1);
+
+    // Calculate difference in days and convert to float8
+    float8 delta = (float8) dateVal2 - (float8) dateVal1;
+
+    PG_RETURN_FLOAT8(delta);
+}
+```

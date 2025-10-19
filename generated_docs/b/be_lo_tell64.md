@@ -38,3 +38,25 @@ This function implements the backend support for PostgreSQL's lo_tell64() large 
 - Suitable for large objects exceeding 4GB in size
 - Returns current absolute position within the large object data stream
 - Simpler implementation than be_lo_tell due to no overflow concerns
+
+## Simplified Source
+
+```c
+Datum
+be_lo_tell64(PG_FUNCTION_ARGS)
+{
+    int32 fd = PG_GETARG_INT32(0);
+    int64 offset;
+
+    // Validate file descriptor
+    if (fd < 0 || fd >= cookies_size || cookies[fd] == NULL)
+        ereport(ERROR,
+                (errcode(ERRCODE_UNDEFINED_OBJECT),
+                 errmsg("invalid large-object descriptor: %d", fd)));
+
+    // Get current position (full 64-bit range)
+    offset = inv_tell(cookies[fd]);
+
+    PG_RETURN_INT64(offset);
+}
+```

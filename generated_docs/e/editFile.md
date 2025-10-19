@@ -42,3 +42,46 @@ The function handles both simple file editing and editor positioning to a specif
 - Handles special error cases: failed to start editor (-1) and failed to start shell (127)
 - The function flushes all output streams before invoking the editor to ensure clean display
 - On Unix systems, the editor value should not be pre-quoted as it may include command switches
+
+## Simplified Source
+
+```c
+static bool editFile(const char *fname, int lineno) {
+    const char *editorName;
+    const char *editor_lineno_arg = NULL;
+    char *sys;
+    int result;
+
+    // Find editor: check PSQL_EDITOR, EDITOR, VISUAL, then default
+    editorName = getenv("PSQL_EDITOR");
+    if (!editorName) editorName = getenv("EDITOR");
+    if (!editorName) editorName = getenv("VISUAL");
+    if (!editorName) editorName = DEFAULT_EDITOR;
+
+    // Get line number argument if needed
+    if (lineno > 0) {
+        editor_lineno_arg = getenv("PSQL_EDITOR_LINENUMBER_ARG");
+        if (!editor_lineno_arg) {
+            pg_log_error("environment variable PSQL_EDITOR_LINENUMBER_ARG must be set");
+            return false;
+        }
+    }
+
+    // Build command with platform-specific quoting
+    if (lineno > 0) {
+        sys = psprintf("exec %s %s%d '%s'", editorName, editor_lineno_arg, lineno, fname);
+    } else {
+        sys = psprintf("exec %s '%s'", editorName, fname);
+    }
+
+    // Execute editor and check result
+    fflush(NULL);
+    result = system(sys);
+    if (result == -1) {
+        pg_log_error("could not start editor \"%s\"", editorName);
+    }
+    free(sys);
+
+    return result == 0;
+}
+```

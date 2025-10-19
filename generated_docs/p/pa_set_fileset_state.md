@@ -45,3 +45,22 @@ The function uses spinlocks to ensure atomic updates to the shared state, preven
 - Part of the mechanism that coordinates data sharing between leader and parallel workers
 - Critical for ensuring parallel workers can access serialized transaction data at the right time
 - The fileset copying operation is protected by assertions ensuring proper calling context
+
+## Simplified Source
+
+```c
+void pa_set_fileset_state(ParallelApplyWorkerShared *wshared, PartialFileSetState fileset_state) {
+    // Atomically update fileset state with spinlock protection
+    SpinLockAcquire(&wshared->mutex);
+    wshared->fileset_state = fileset_state;
+
+    // Copy fileset when serialization is complete (leader worker only)
+    if (fileset_state == FS_SERIALIZE_DONE) {
+        Assert(am_leader_apply_worker());
+        Assert(MyLogicalRepWorker->stream_fileset);
+        wshared->fileset = *MyLogicalRepWorker->stream_fileset;
+    }
+
+    SpinLockRelease(&wshared->mutex);
+}
+```

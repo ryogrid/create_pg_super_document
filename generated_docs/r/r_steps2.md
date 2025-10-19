@@ -38,3 +38,28 @@ The function includes boundary validation (`z->c > z->lb`) to ensure processing 
 - State flag reset maintains consistency for potential future processing
 - Returns 1 on successful processing, 0 if no applicable patterns are found
 - Located in src/backend/snowball/libstemmer/stem_UTF_8_greek.c:2570-2587
+
+## Simplified Source
+
+```c
+static int r_steps2(struct SN_env * z) {
+    // Phase 1: Remove remaining suffixes using pattern array a_5 (7 patterns)
+    z->ket = z->c;
+    if (!find_among_b(z, a_5, 7)) return 0;
+    z->bra = z->c;
+    slice_del(z);  // Complete suffix removal
+
+    z->I[0] = 0;   // Reset state flag
+
+    // Phase 2: Standardize stem ending using pattern array a_4 (8 patterns)
+    z->ket = z->c;
+    z->bra = z->c;
+    if (!find_among_b(z, a_4, 8)) return 0;
+    if (z->c > z->lb) return 0;  // Boundary check
+
+    // Apply standardized 4-byte ending for all patterns
+    slice_from_s(z, 4, s_37);
+
+    return 1;  // Success
+}
+```

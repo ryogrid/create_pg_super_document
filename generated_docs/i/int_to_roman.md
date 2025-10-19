@@ -45,3 +45,45 @@ The algorithm works by:
 - Roman numerals follow standard conventions with subtractive notation (IV, IX, XL, XC, CD, CM)
 - Used primarily in PostgreSQL's formatting system for converting numbers to Roman numerals in to_char() functions
 - Maximum supported value is 3999 (MMMCMXCIX) due to Roman numeral system limitations
+
+## Simplified Source
+
+```c
+static char *int_to_roman(int number) {
+    char *result = (char *) palloc(16);
+    char numstr[12];
+    *result = '\0';
+
+    // Handle invalid range: Roman numerals only support 1-3999
+    if (number > 3999 || number < 1) {
+        fill_str(result, '#', 15);
+        return result;
+    }
+
+    // Convert number to string to process each digit
+    int len = snprintf(numstr, sizeof(numstr), "%d", number);
+
+    // Process each digit based on position
+    for (char *p = numstr; *p != '\0'; p++, --len) {
+        int num = *p - ('0' + 1);  // Convert char to index (0-8)
+        if (num < 0) continue;
+
+        if (len > 3) {
+            // Thousands: append 'M' for each thousand
+            while (num-- != -1) {
+                strcat(result, "M");
+            }
+        } else {
+            // Use lookup tables for hundreds, tens, units
+            if (len == 3)
+                strcat(result, rm100[num]);      // Hundreds
+            else if (len == 2)
+                strcat(result, rm10[num]);       // Tens
+            else if (len == 1)
+                strcat(result, rm1[num]);        // Units
+        }
+    }
+
+    return result;
+}
+```

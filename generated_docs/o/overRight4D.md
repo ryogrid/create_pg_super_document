@@ -29,3 +29,15 @@ This function is part of PostgreSQL's SP-GiST implementation for geometric box o
 
 ## Notes and Other Information
 This function is used in SP-GiST index operations for spatial queries involving box geometries. The 'over' prefix indicates that overlapping at the boundary is permitted, distinguishing it from the strict directional predicate right4D. It complements overLeft4D by checking the opposite directional relationship and is part of the comprehensive spatial relationship predicate system used for efficient geometric indexing and query processing in PostgreSQL.
+
+## Simplified Source
+
+```c
+/* Check if any rectangle from rect_box doesn't extend left of query */
+static bool
+overRight4D(RectBox *rect_box, RangeBox *query)
+{
+    // Use 2D function to check X-axis positioning (opposite of overLeft4D)
+    return overHigher2D(&rect_box->range_box_x, &query->left);
+}
+```

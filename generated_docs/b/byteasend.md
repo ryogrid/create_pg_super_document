@@ -37,3 +37,15 @@ As noted in the source comment, this is a "special case" where the function simp
 - The simplicity of this function reflects that bytea's internal format is already suitable for binary transmission
 - Used by various PostgreSQL subsystems that need to send binary data, particularly statistics and indexing components
 - Part of PostgreSQL's type system infrastructure for handling binary format I/O operations
+
+## Simplified Source
+
+```c
+Datum byteasend(PG_FUNCTION_ARGS) {
+    // Get a copy of the input bytea data
+    bytea *vlena = PG_GETARG_BYTEA_P_COPY(0);
+
+    // Return the bytea as-is (no conversion needed for binary format)
+    PG_RETURN_BYTEA_P(vlena);
+}
+```

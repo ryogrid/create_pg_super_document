@@ -45,3 +45,39 @@ The function uses test markers (m2, m3, m4) to preserve cursor positions between
 - Each processing step is designed to be idempotent and can safely fail without affecting other steps
 - Critical component for Norwegian full-text search capabilities in PostgreSQL
 - Follows the Porter/Snowball algorithm design philosophy for consistent, reversible stemming
+
+## Simplified Source
+
+```c
+extern int norwegian_ISO_8859_1_stem(struct SN_env * z) {
+    // Step 1: Mark word regions (R1, R2, RV boundaries)
+    int c1 = z->c;
+    r_mark_regions(z);
+    z->c = c1;
+
+    // Step 2: Process word from end to beginning
+    z->lb = z->c;
+    z->c = z->l;
+
+    // Step 3: Remove main Norwegian suffixes
+    int m2 = z->l - z->c;
+    r_main_suffix(z);
+    z->c = z->l - m2;
+
+    // Step 4: Handle consonant pairs (doubled consonants)
+    int m3 = z->l - z->c;
+    r_consonant_pair(z);
+    z->c = z->l - m3;
+
+    // Step 5: Remove additional suffixes
+    int m4 = z->l - z->c;
+    r_other_suffix(z);
+    z->c = z->l - m4;
+
+    // Step 6: Reset cursor to beginning
+    z->c = z->lb;
+    return 1;
+}
+```
+
+*This simplified version removes error handling details and focuses on the core Norwegian stemming algorithm: region marking, main suffix removal, consonant pair handling, and additional suffix processing.*

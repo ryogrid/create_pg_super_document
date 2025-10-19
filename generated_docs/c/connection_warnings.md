@@ -43,3 +43,63 @@ Key behaviors include:
 - Platform-specific behavior includes Windows codepage validation to ensure proper character encoding
 - Security information display is delegated to specialized functions that handle the complexity of SSL/TLS and GSS/SSPI details
 - Output is suppressed in quiet mode or when psql is not connected to a terminal, making it suitable for scripted use
+
+## Simplified Source
+
+```c
+void connection_warnings(bool in_startup)
+{
+    // Only display warnings in interactive mode
+    if (!pset.quiet && !pset.notty) {
+        int client_ver = PG_VERSION_NUM;
+        char client_verbuf[32];
+        char server_verbuf[32];
+
+        // Check version compatibility
+        if (pset.sversion != client_ver) {
+            // Get server version string
+            const char *server_version = PQparameterStatus(pset.db, "server_version");
+            if (!server_version) {
+                formatPGVersionNumber(pset.sversion, true, server_verbuf, sizeof(server_verbuf));
+                server_version = server_verbuf;
+            }
+
+            // Display version mismatch banner
+            printf("%s (%s, server %s)\n", pset.progname, PG_VERSION, server_version);
+        } else if (in_startup) {
+            // Display normal banner only during startup when versions match
+            printf("%s (%s)\n", pset.progname, PG_VERSION);
+        }
+
+        // Warn about major version compatibility issues
+        if (pset.sversion / 100 > client_ver / 100 ||  // Server newer than client
+            pset.sversion < 90200) {                    // Server too old (< 9.2)
+            printf("WARNING: %s major version %s, server major version %s.\n"
+                   "         Some psql features might not work.\n",
+                   pset.progname,
+                   formatPGVersionNumber(client_ver, false, client_verbuf, sizeof(client_verbuf)),
+                   formatPGVersionNumber(pset.sversion, false, server_verbuf, sizeof(server_verbuf)));
+        }
+
+#ifdef WIN32
+        // Check Windows codepage during startup
+        if (in_startup)
+            checkWin32Codepage();
+#endif
+
+        // Display security information
+        printSSLInfo();
+        printGSSInfo();
+    }
+}
+```
+
+**Simplified Logic:**
+1. **Check display conditions**: Only show output in interactive, non-quiet mode
+2. **Version comparison**: Compare client and server PostgreSQL versions
+3. **Banner display**: Show program banner with version info, including server version if different
+4. **Compatibility warnings**: Alert users about potential issues with version mismatches
+5. **Platform checks**: Validate Windows codepage settings during startup
+6. **Security info**: Display SSL/TLS and GSS/SSPI connection details
+
+This function provides essential feedback about database connection status, version compatibility, and security configuration to help users understand their psql session context.

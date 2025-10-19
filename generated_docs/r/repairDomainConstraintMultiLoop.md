@@ -33,3 +33,22 @@ This function handles complex circular dependency scenarios involving domain con
 - The postDataBoundId dependency ensures constraints are dumped in the post-data section for proper restoration order
 - Part of pg_dump's comprehensive dependency resolution system for complex database schemas
 - Handles both CHECK and NOT NULL constraints on domains in multi-loop dependency situations
+
+## Simplified Source
+
+```c
+static void repairDomainConstraintMultiLoop(DumpableObject *domainobj,
+                                           DumpableObject *constraintobj) {
+    // Step 1: Break the original dependency (domain -> constraint)
+    removeObjectDependency(domainobj, constraintobj->dumpId);
+
+    // Step 2: Mark constraint for separate dumping
+    ((ConstraintInfo *) constraintobj)->separate = true;
+
+    // Step 3: Reverse dependency direction (constraint -> domain)
+    addObjectDependency(constraintobj, domainobj->dumpId);
+
+    // Step 4: Ensure constraint goes in post-data section
+    addObjectDependency(constraintobj, postDataBoundId);
+}
+```

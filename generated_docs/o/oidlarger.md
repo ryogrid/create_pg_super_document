@@ -33,3 +33,16 @@ This function compares two OID values and returns the larger one. It performs a 
 - OID comparisons are straightforward numerical comparisons since OIDs are unsigned integers
 - The function name follows PostgreSQL's naming convention for utility functions on data types
 - Useful for finding the maximum OID in queries or system catalog operations
+
+## Simplified Source
+
+```c
+Datum oidlarger(PG_FUNCTION_ARGS) {
+    // Extract the two OID arguments
+    Oid arg1 = PG_GETARG_OID(0);
+    Oid arg2 = PG_GETARG_OID(1);
+
+    // Return the larger of the two OIDs
+    PG_RETURN_OID((arg1 > arg2) ? arg1 : arg2);
+}
+```

@@ -62,3 +62,124 @@ The function uses version checks to ensure compatibility, as different options w
 - Generated commands are semicolon-terminated
 - Uses Assert() statements to verify version requirements for newer options
 - Handles mutual exclusivity of conflicting options (e.g., no_index_cleanup vs force_index_cleanup)
+
+## Simplified Source
+
+```c
+static void prepare_vacuum_command(PQExpBuffer sql, int serverVersion,
+                                   vacuumingOptions *vacopts, const char *table) {
+    const char *paren = " (";
+    const char *comma = ", ";
+    const char *sep = paren;
+
+    resetPQExpBuffer(sql);
+
+    if (vacopts->analyze_only) {
+        // Build ANALYZE command
+        appendPQExpBufferStr(sql, "ANALYZE");
+
+        // Add parenthesized options for v11+
+        if (serverVersion >= 110000) {
+            if (vacopts->skip_locked) {
+                appendPQExpBuffer(sql, "%sSKIP_LOCKED", sep);
+                sep = comma;
+            }
+            if (vacopts->verbose) {
+                appendPQExpBuffer(sql, "%sVERBOSE", sep);
+                sep = comma;
+            }
+            if (vacopts->buffer_usage_limit) {
+                appendPQExpBuffer(sql, "%sBUFFER_USAGE_LIMIT '%s'", sep,
+                                  vacopts->buffer_usage_limit);
+                sep = comma;
+            }
+            if (sep != paren)
+                appendPQExpBufferChar(sql, ')');
+        } else {
+            // Use old syntax for older versions
+            if (vacopts->verbose)
+                appendPQExpBufferStr(sql, " VERBOSE");
+        }
+    } else {
+        // Build VACUUM command
+        appendPQExpBufferStr(sql, "VACUUM");
+
+        // Add parenthesized options for v9.0+
+        if (serverVersion >= 90000) {
+            if (vacopts->disable_page_skipping) {
+                appendPQExpBuffer(sql, "%sDISABLE_PAGE_SKIPPING", sep);
+                sep = comma;
+            }
+            if (vacopts->no_index_cleanup) {
+                appendPQExpBuffer(sql, "%sINDEX_CLEANUP FALSE", sep);
+                sep = comma;
+            }
+            if (vacopts->force_index_cleanup) {
+                appendPQExpBuffer(sql, "%sINDEX_CLEANUP TRUE", sep);
+                sep = comma;
+            }
+            if (!vacopts->do_truncate) {
+                appendPQExpBuffer(sql, "%sTRUNCATE FALSE", sep);
+                sep = comma;
+            }
+            if (!vacopts->process_main) {
+                appendPQExpBuffer(sql, "%sPROCESS_MAIN FALSE", sep);
+                sep = comma;
+            }
+            if (!vacopts->process_toast) {
+                appendPQExpBuffer(sql, "%sPROCESS_TOAST FALSE", sep);
+                sep = comma;
+            }
+            if (vacopts->skip_database_stats) {
+                appendPQExpBuffer(sql, "%sSKIP_DATABASE_STATS", sep);
+                sep = comma;
+            }
+            if (vacopts->skip_locked) {
+                appendPQExpBuffer(sql, "%sSKIP_LOCKED", sep);
+                sep = comma;
+            }
+            if (vacopts->full) {
+                appendPQExpBuffer(sql, "%sFULL", sep);
+                sep = comma;
+            }
+            if (vacopts->freeze) {
+                appendPQExpBuffer(sql, "%sFREEZE", sep);
+                sep = comma;
+            }
+            if (vacopts->verbose) {
+                appendPQExpBuffer(sql, "%sVERBOSE", sep);
+                sep = comma;
+            }
+            if (vacopts->and_analyze) {
+                appendPQExpBuffer(sql, "%sANALYZE", sep);
+                sep = comma;
+            }
+            if (vacopts->parallel_workers >= 0) {
+                appendPQExpBuffer(sql, "%sPARALLEL %d", sep,
+                                  vacopts->parallel_workers);
+                sep = comma;
+            }
+            if (vacopts->buffer_usage_limit) {
+                appendPQExpBuffer(sql, "%sBUFFER_USAGE_LIMIT '%s'", sep,
+                                  vacopts->buffer_usage_limit);
+                sep = comma;
+            }
+            if (sep != paren)
+                appendPQExpBufferChar(sql, ')');
+        } else {
+            // Use old syntax for older versions
+            if (vacopts->full)
+                appendPQExpBufferStr(sql, " FULL");
+            if (vacopts->freeze)
+                appendPQExpBufferStr(sql, " FREEZE");
+            if (vacopts->verbose)
+                appendPQExpBufferStr(sql, " VERBOSE");
+            if (vacopts->and_analyze)
+                appendPQExpBufferStr(sql, " ANALYZE");
+        }
+    }
+
+    // Add table name and terminate with semicolon
+    appendPQExpBuffer(sql, " %s;", table);
+}
+```

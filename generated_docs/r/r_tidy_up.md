@@ -51,3 +51,52 @@ The character 0xCE corresponds to 'н' in KOI8-R encoding, which is frequently i
 - Part of the automatically generated Snowball stemmer code
 - This step ensures the final stem is morphologically clean and follows Russian phonological patterns
 - Handles 4 different cleanup patterns that commonly remain after the main stemming operations
+
+## Simplified Source
+
+```c
+static int r_tidy_up(struct SN_env * z) {
+    // Set end marker to current position
+    z->ket = z->c;
+
+    // Check if we can process (within bounds and valid character)
+    if (z->c <= z->lb || z->p[z->c - 1] >> 5 != 6 ||
+        !((151011360 >> (z->p[z->c - 1] & 0x1f)) & 1)) {
+        return 0;
+    }
+
+    // Find matching cleanup pattern
+    int pattern = find_among_b(z, a_7, 4);
+    if (!pattern) return 0;
+
+    z->bra = z->c;
+
+    switch (pattern) {
+        case 1: // Remove superlative ending + double 'н'
+            slice_del(z);  // Remove suffix
+            z->ket = z->c;
+            if (z->c > z->lb && z->p[z->c - 1] == 0xCE) { // Check for 'н'
+                z->c--;
+                z->bra = z->c;
+                if (z->c > z->lb && z->p[z->c - 1] == 0xCE) { // Check for double 'н'
+                    z->c--;
+                    slice_del(z);  // Remove double 'н'
+                }
+            }
+            break;
+
+        case 2: // Remove single 'н'
+            if (z->c > z->lb && z->p[z->c - 1] == 0xCE) {
+                z->c--;
+                slice_del(z);
+            }
+            break;
+
+        case 3: // Remove remaining characters
+            slice_del(z);
+            break;
+    }
+
+    return 1; // Success
+}
+```

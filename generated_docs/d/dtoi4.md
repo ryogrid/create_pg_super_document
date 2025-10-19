@@ -37,3 +37,23 @@ This function performs type conversion from PostgreSQL's float8 data type (doubl
 - The rint() function preserves NaN and infinity values unchanged for proper error handling
 - More complex than simple casting due to the need for proper range checking and fraction handling
 - Source location: src/backend/utils/adt/float.c:1207-1231
+
+## Simplified Source
+
+```c
+Datum dtoi4(PG_FUNCTION_ARGS) {
+    // Extract double-precision input
+    float8 num = PG_GETARG_FLOAT8(0);
+
+    // Round to nearest integer (handles fractional parts)
+    num = rint(num);
+
+    // Validate range and reject NaN/out-of-range values
+    if (unlikely(isnan(num) || !FLOAT8_FITS_IN_INT32(num)))
+        ereport(ERROR, (errcode(ERRCODE_NUMERIC_VALUE_OUT_OF_RANGE),
+                       errmsg("integer out of range")));
+
+    // Convert and return as 32-bit integer
+    PG_RETURN_INT32((int32) num);
+}
+```

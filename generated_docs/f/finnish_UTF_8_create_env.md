@@ -34,3 +34,13 @@ This environment structure will contain all necessary state information for Finn
 - The integer array size of 3 corresponds to the I[0], I[1], and I[2] indices used throughout the Finnish stemming algorithm
 - The string array size of 1 provides storage for the S[0] string buffer used for temporary string operations
 - This function should be called once per stemming session before performing any stemming operations
+
+## Simplified Source
+
+```c
+extern struct SN_env * finnish_UTF_8_create_env(void) {
+    // Create Snowball environment for Finnish stemming
+    // Parameters: 1 string buffer, 3 integer slots for regions/flags
+    return SN_create_env(1, 3);
+}
+```

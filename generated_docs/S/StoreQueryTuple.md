@@ -43,3 +43,47 @@ The function performs several validation checks:
 - Memory management is handled properly with free() calls for allocated variable names
 - Returns false on any error condition, allowing the caller to handle failures appropriately
 - The \gset command is a psql-specific feature not part of standard SQL
+
+## Simplified Source
+
+```c
+static bool StoreQueryTuple(const PGresult *result) {
+    bool success = true;
+
+    // Validate result has exactly one row
+    if (PQntuples(result) < 1) {
+        pg_log_error("no rows returned for \\gset");
+        success = false;
+    } else if (PQntuples(result) > 1) {
+        pg_log_error("more than one row returned for \\gset");
+        success = false;
+    } else {
+        // Process each column in the single row
+        for (int i = 0; i < PQnfields(result); i++) {
+            char *colname = PQfname(result, i);
+            char *varname = psprintf("%s%s", pset.gset_prefix, colname);
+
+            // Skip specially treated variables
+            if (VariableHasHook(pset.vars, varname)) {
+                pg_log_warning("attempt to \\gset into specially treated variable \"%s\" ignored", varname);
+                continue;
+            }
+
+            // Set variable value or unset if NULL
+            char *value = PQgetisnull(result, 0, i) ? NULL : PQgetvalue(result, 0, i);
+
+            if (!SetVariable(pset.vars, varname, value)) {
+                free(varname);
+                success = false;
+                break;
+            }
+
+            free(varname);
+        }
+    }
+
+    return success;
+}
+```
+
+This simplified version preserves the essential logic: validate single-row result, iterate through columns, create variables with prefix, handle NULL values by unsetting, and skip protected variables.

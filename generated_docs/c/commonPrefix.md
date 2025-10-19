@@ -38,3 +38,21 @@ The function performs a simple linear scan, making it efficient for typical use 
 - Does not assume null-terminated strings; relies on explicit length parameters
 - Essential for SP-GiST operations that need to determine optimal split points and prefix handling
 - Returns 0 if strings have no common prefix or if either string is empty
+
+## Simplified Source
+
+```c
+static int commonPrefix(const char *a, const char *b, int lena, int lenb)
+{
+    int i = 0;
+
+    // Compare characters until difference found or end of either string
+    while (i < lena && i < lenb && *a == *b) {
+        a++;
+        b++;
+        i++;
+    }
+
+    return i;  // Length of common prefix
+}
+```

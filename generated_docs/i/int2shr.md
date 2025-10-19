@@ -31,3 +31,16 @@ The `int2shr` function implements the right bit shift operator for PostgreSQL's 
 - The result maintains the int16 type, so large shift values may result in complete zeroing of the value
 - Negative shift counts or very large shift counts may produce undefined behavior depending on the underlying C implementation
 - Part of the integer arithmetic operators family in PostgreSQL
+
+## Simplified Source
+```c
+Datum int2shr(PG_FUNCTION_ARGS) {
+    // Extract 16-bit integer value to shift
+    int16 arg1 = PG_GETARG_INT16(0);
+    // Extract 32-bit shift count
+    int32 arg2 = PG_GETARG_INT32(1);
+
+    // Perform right shift operation and return result
+    PG_RETURN_INT16(arg1 >> arg2);
+}
+```

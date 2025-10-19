@@ -61,3 +61,101 @@ Key features include:
 - The fast path (`system()`) is used when no output capture is needed for better performance
 - Error messages respect the timer_exceeded flag to avoid noise during benchmark timeouts
 - Debug logging provides visibility into successful variable assignments
+
+## Simplified Source
+
+```c
+static bool runShellCommand(Variables *variables, char *variable, char **argv, int argc) {
+    char command[SHELL_COMMAND_SIZE];
+    int len = 0;
+
+    // Build command string from arguments with variable substitution
+    for (int i = 0; i < argc; i++) {
+        char *arg;
+
+        // Process argument based on prefix
+        if (argv[i][0] != ':') {
+            arg = argv[i];  // String literal
+        } else if (argv[i][1] == ':') {
+            arg = argv[i] + 1;  // Escaped colon (::name -> :name)
+        } else {
+            // Variable reference (:varname)
+            arg = getVariable(variables, argv[i] + 1);
+            if (arg == NULL) {
+                pg_log_error("%s: undefined variable \"%s\"", argv[0], argv[i]);
+                return false;
+            }
+        }
+
+        // Check command size limit
+        int arglen = strlen(arg);
+        if (len + arglen + (i > 0 ? 1 : 0) >= SHELL_COMMAND_SIZE - 1) {
+            pg_log_error("%s: shell command is too long", argv[0]);
+            return false;
+        }
+
+        // Add space separator between arguments
+        if (i > 0)
+            command[len++] = ' ';
+
+        // Append argument to command
+        memcpy(command + len, arg, arglen);
+        len += arglen;
+    }
+    command[len] = '\0';
+
+    fflush(NULL);  // Ensure output is flushed before system call
+
+    // Fast path: execute without capturing output
+    if (variable == NULL) {
+        if (system(command)) {
+            if (!timer_exceeded)
+                pg_log_error("%s: could not launch shell command", argv[0]);
+            return false;
+        }
+        return true;
+    }
+
+    // Execute command and capture output for variable assignment
+    FILE *fp = popen(command, "r");
+    if (fp == NULL) {
+        pg_log_error("%s: could not launch shell command", argv[0]);
+        return false;
+    }
+
+    // Read command output
+    char res[64];
+    if (fgets(res, sizeof(res), fp) == NULL) {
+        if (!timer_exceeded)
+            pg_log_error("%s: could not read result of shell command", argv[0]);
+        pclose(fp);
+        return false;
+    }
+
+    if (pclose(fp) < 0) {
+        pg_log_error("%s: could not run shell command: %m", argv[0]);
+        return false;
+    }
+
+    // Parse output as integer and assign to variable
+    char *endptr;
+    int retval = (int) strtol(res, &endptr, 10);
+
+    // Skip trailing whitespace
+    while (*endptr != '\0' && isspace((unsigned char) *endptr))
+        endptr++;
+
+    // Validate that entire output was a valid integer
+    if (*res == '\0' || *endptr != '\0') {
+        pg_log_error("%s: shell command must return an integer (not \"%s\")", argv[0], res);
+        return false;
+    }
+
+    // Store result in variable
+    if (!putVariableInt(variables, "setshell", variable, retval))
+        return false;
+
+    pg_log_debug("%s: shell parameter name: \"%s\", value: \"%s\"", argv[0], argv[1], res);
+    return true;
+}
+```

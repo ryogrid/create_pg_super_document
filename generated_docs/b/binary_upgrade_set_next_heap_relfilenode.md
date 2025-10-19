@@ -41,3 +41,20 @@ The function can only be called when the server is running in binary upgrade mod
 - Error is raised if called outside binary upgrade mode
 - After the RelFileNumber is used for table creation, the global variable is reset to InvalidRelFileNumber
 - [RelFileNumber](../R/RelFileNumber.md) is distinct from OID - it identifies the physical storage files while OID identifies the logical database object
+
+## Simplified Source
+
+```c
+Datum binary_upgrade_set_next_heap_relfilenode(PG_FUNCTION_ARGS) {
+    // Extract the relfilenode number argument
+    RelFileNumber relfilenumber = PG_GETARG_OID(0);
+
+    // Verify we're in binary upgrade mode (throws error if not)
+    CHECK_IS_BINARY_UPGRADE;
+
+    // Store the relfilenode for the next heap relation creation
+    binary_upgrade_next_heap_pg_class_relfilenumber = relfilenumber;
+
+    PG_RETURN_VOID();
+}
+```

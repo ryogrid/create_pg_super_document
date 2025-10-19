@@ -45,3 +45,30 @@ The function ensures that plural suffix removal only occurs in appropriate morph
 - The function returns 1 on successful application, 0 if no match is found, and negative values on error
 - The pattern matching uses the a_8 array which contains 7 different plural suffix patterns
 - Region checking ensures morphologically appropriate suffix removal
+
+## Simplified Source
+
+```c
+static int r_plural(struct SN_env * z) {
+    // Set end position and check for 'k' character
+    z->ket = z->c;
+    if (z->c <= z->lb || z->p[z->c - 1] != 'k') return 0;
+
+    // Find matching plural suffix pattern
+    int among_var = find_among_b(z, a_8, 7);
+    if (!among_var) return 0;
+
+    // Set start position and verify in R1 region
+    z->bra = z->c;
+    if (r_R1(z) <= 0) return 0;
+
+    // Apply transformation based on pattern type
+    switch (among_var) {
+        case 1: slice_from_s(z, 1, s_6); break;  // Replace with s_6
+        case 2: slice_from_s(z, 1, s_7); break;  // Replace with s_7
+        case 3: slice_del(z); break;             // Delete suffix
+    }
+
+    return 1;
+}
+```

@@ -33,3 +33,17 @@ xideq serves as the equality operator function for the xid data type in PostgreS
 - Delegates the actual comparison logic to TransactionIdEquals() for consistency
 - Returns a boolean value indicating whether the two transaction IDs are equal
 - Essential for query processing involving transaction ID comparisons
+
+## Simplified Source
+
+```c
+Datum
+xideq(PG_FUNCTION_ARGS)
+{
+    TransactionId xid1 = PG_GETARG_TRANSACTIONID(0);
+    TransactionId xid2 = PG_GETARG_TRANSACTIONID(1);
+
+    // Compare the two transaction IDs for equality
+    PG_RETURN_BOOL(TransactionIdEquals(xid1, xid2));
+}
+```

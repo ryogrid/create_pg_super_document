@@ -33,3 +33,24 @@ This utility function provides a mechanism for psql slash commands to reuse the 
 - Only copies when the current query buffer is completely empty (length == 0)
 - Used by slash commands like \e (edit), \watch, and others where reusing previous queries is common
 - Part of psql's user convenience features for command re-execution
+
+## Simplified Source
+
+```c
+static bool copy_previous_query(PQExpBuffer query_buf, PQExpBuffer previous_buf)
+{
+    // Only copy if query buffer exists and is empty
+    if (query_buf && query_buf->len == 0) {
+        appendPQExpBufferStr(query_buf, previous_buf->data);
+        return true;
+    }
+    return false;
+}
+```
+
+**Simplified Logic:**
+1. Check if the current query buffer exists and is empty
+2. If so, copy the previous query text into the current buffer
+3. Return true if copy was performed, false otherwise
+
+This function enables convenient re-execution of previous queries in commands like \e (edit) and \watch, only copying when the current buffer is completely empty to avoid overwriting existing content.

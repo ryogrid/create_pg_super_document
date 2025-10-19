@@ -38,3 +38,25 @@ Unlike some other integer arithmetic functions in PostgreSQL, this function does
 - The comment 'No overflow is possible' reflects that dividing a 16-bit value by a 64-bit value cannot exceed 64-bit range
 - Note the order of operands: this computes (smallint / bigint), not (bigint / smallint)
 - Reports DIVISION_BY_ZERO error when the divisor is zero
+
+## Simplified Source
+
+```c
+Datum
+int28div(PG_FUNCTION_ARGS)
+{
+    // Extract 16-bit dividend and 64-bit divisor
+    int16 arg1 = PG_GETARG_INT16(0);
+    int64 arg2 = PG_GETARG_INT64(1);
+
+    // Check for division by zero
+    if (unlikely(arg2 == 0)) {
+        ereport(ERROR, (errcode(ERRCODE_DIVISION_BY_ZERO),
+                       errmsg("division by zero")));
+        PG_RETURN_NULL();
+    }
+
+    // Perform division (no overflow possible with int16/int64)
+    PG_RETURN_INT64((int64) arg1 / arg2);
+}
+```

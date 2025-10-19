@@ -48,3 +48,25 @@ This function takes no parameters.
 - [Hash](../H/Hash.md) index invalidation is a one-time migration task for very old PostgreSQL versions (< 10.0)  
 - This function bridges the gap between compatibility verification and actual data migration
 - The temporary start/stop of the new cluster is intentional and necessary for proper WAL record generation
+
+## Simplified Source
+
+```c
+void issue_warnings_and_set_wal_level(void)
+{
+    // Start new cluster to ensure proper WAL level settings
+    // (pg_resetwal sets wal_level to 'minimum', but standby servers need 'replica')
+    start_postmaster(&new_cluster, true);
+
+    // Handle legacy hash indexes for PostgreSQL < 10.0
+    if (GET_MAJOR_VERSION(old_cluster.major_version) <= 906) {
+        old_9_6_invalidate_hash_indexes(&new_cluster, false);
+    }
+
+    // Report any required extension updates
+    report_extension_updates(&new_cluster);
+
+    // Stop the cluster after setup tasks complete
+    stop_postmaster(false);
+}
+```

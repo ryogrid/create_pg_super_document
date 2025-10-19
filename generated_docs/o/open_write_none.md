@@ -36,3 +36,19 @@ The `open_write_none` function is a specialized file opening function for uncomp
 - Returns boolean success status - callers should check the return value
 - The opened FILE pointer is stored in CFH->private_data for later use by other compression functions
 - Typically used for write operations in the compression abstraction layer
+
+## Simplified Source
+
+```c
+static bool
+open_write_none(const char *path, const char *mode, CompressFileHandle *CFH)
+{
+    Assert(CFH->private_data == NULL);
+
+    // Open file for writing using path
+    CFH->private_data = fopen(path, mode);
+
+    // Return success status
+    return CFH->private_data != NULL;
+}
+```

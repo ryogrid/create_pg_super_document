@@ -54,3 +54,75 @@ The function handles various error conditions gracefully and provides detailed l
 - Updates xlogreader->seg.ws_tli to reflect the timeline of the read page
 - Critical component that enables pg_rewind to read WAL across timeline boundaries
 - Uses pg_rewind-specific XLogPageReadPrivate structure for timeline context
+
+## Simplified Source
+
+```c
+static int SimpleXLogPageRead(XLogReaderState *xlogreader, XLogRecPtr targetPagePtr,
+                             int reqLen, XLogRecPtr targetRecPtr, char *readBuf)
+{
+    XLogPageReadPrivate *private = (XLogPageReadPrivate *) xlogreader->private_data;
+    uint32 targetPageOff;
+    XLogSegNo targetSegNo;
+
+    // Calculate target segment and page offset
+    XLByteToSeg(targetPagePtr, targetSegNo, WalSegSz);
+    targetPageOff = XLogSegmentOffset(targetPagePtr, WalSegSz);
+
+    // Close current file if we need to switch to different segment
+    if (xlogreadfd >= 0 && !XLByteInSeg(targetPagePtr, xlogreadsegno, WalSegSz)) {
+        close(xlogreadfd);
+        xlogreadfd = -1;
+    }
+
+    XLByteToSeg(targetPagePtr, xlogreadsegno, WalSegSz);
+
+    // Open new WAL segment file if needed
+    if (xlogreadfd < 0) {
+        char xlogfname[MAXFNAMELEN];
+
+        // Switch to correct timeline for this segment
+        while (private->tliIndex < targetNentries - 1 &&
+               targetHistory[private->tliIndex].end < targetSegEnd)
+            private->tliIndex++;
+        while (private->tliIndex > 0 &&
+               targetHistory[private->tliIndex].begin >= targetSegEnd)
+            private->tliIndex--;
+
+        // Build filename and path for WAL segment
+        XLogFileName(xlogfname, targetHistory[private->tliIndex].tli,
+                    xlogreadsegno, WalSegSz);
+        snprintf(xlogfpath, MAXPGPATH, "%s/" XLOGDIR "/%s",
+                xlogreader->segcxt.ws_dir, xlogfname);
+
+        // Try to open local file
+        xlogreadfd = open(xlogfpath, O_RDONLY | PG_BINARY, 0);
+
+        // If local file not found, try archive recovery
+        if (xlogreadfd < 0 && private->restoreCommand != NULL) {
+            xlogreadfd = RestoreArchivedFile(xlogreader->segcxt.ws_dir,
+                                           xlogfname, WalSegSz,
+                                           private->restoreCommand);
+        }
+
+        if (xlogreadfd < 0)
+            return -1;
+    }
+
+    // Read the requested WAL page
+    if (lseek(xlogreadfd, (off_t) targetPageOff, SEEK_SET) < 0) {
+        pg_log_error("could not seek in file \"%s\": %m", xlogfpath);
+        return -1;
+    }
+
+    int r = read(xlogreadfd, readBuf, XLOG_BLCKSZ);
+    if (r != XLOG_BLCKSZ) {
+        pg_log_error("could not read file \"%s\"", xlogfpath);
+        return -1;
+    }
+
+    // Update reader state with timeline info
+    xlogreader->seg.ws_tli = targetHistory[private->tliIndex].tli;
+    return XLOG_BLCKSZ;
+}
+```

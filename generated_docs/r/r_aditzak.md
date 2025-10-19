@@ -48,3 +48,50 @@ The function performs sophisticated morphological analysis by checking bit patte
 - Critical for proper handling of Basque's rich verbal morphology
 - Part of the comprehensive Basque language support in PostgreSQL's full-text search
 - The "aditzak" terminology reflects the function's specific focus on Basque verb forms
+
+## Simplified Source
+
+```c
+static int r_aditzak(struct SN_env * z) {
+    int suffix_type;
+
+    // Set suffix end boundary and validate character class
+    z->ket = z->c;
+    if (z->c - 1 <= z->lb || !valid_character_class(z->p[z->c - 1]))
+        return 0;
+
+    // Find matching verb suffix from pattern array (109 patterns)
+    suffix_type = find_among_b(z, a_0, 109);
+    if (!suffix_type) return 0;
+
+    // Set suffix start boundary
+    z->bra = z->c;
+
+    // Process based on suffix type
+    switch (suffix_type) {
+        case 1:  // Simple verb suffix - requires RV region
+            if (!r_RV(z)) return 0;
+            slice_del(z);  // Delete suffix
+            break;
+
+        case 2:  // Complex verb suffix - requires R2 region
+            if (!r_R2(z)) return 0;
+            slice_del(z);  // Delete suffix
+            break;
+
+        case 3:  // Replace with canonical form 1
+            slice_from_s(z, 7, s_0);
+            break;
+
+        case 4:  // Replace with canonical form 2
+            slice_from_s(z, 7, s_1);
+            break;
+
+        case 5:  // Replace with canonical form 3
+            slice_from_s(z, 6, s_2);
+            break;
+    }
+
+    return 1;
+}
+```

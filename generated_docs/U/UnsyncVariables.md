@@ -31,3 +31,18 @@ The function is called whenever psql needs to reflect a disconnected state, ensu
 - Ensures clean state management by preventing access to stale connection information
 - Works in conjunction with SyncVariables() to maintain accurate connection state representation
 - Essential for proper variable management in interactive psql sessions where users may connect and disconnect from multiple databases
+
+## Simplified Source
+
+```c
+void UnsyncVariables(void) {
+    // Clear all connection-related psql variables
+    SetVariable(pset.vars, "DBNAME", NULL);
+    SetVariable(pset.vars, "USER", NULL);
+    SetVariable(pset.vars, "HOST", NULL);
+    SetVariable(pset.vars, "PORT", NULL);
+    SetVariable(pset.vars, "ENCODING", NULL);
+    SetVariable(pset.vars, "SERVER_VERSION_NAME", NULL);
+    SetVariable(pset.vars, "SERVER_VERSION_NUM", NULL);
+}
+```

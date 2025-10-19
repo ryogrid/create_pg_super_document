@@ -51,3 +51,59 @@ The function includes sophisticated thread/process management on Windows, includ
 - Performance optimization: Supports both blocking and non-blocking operation modes for flexible job scheduling
 - Thread safety: Carefully manages shared thread argument arrays on Windows platforms
 - Return value: Returns true if a worker was reaped, false if no workers were available or completed
+
+## Simplified Source
+
+```c
+bool
+reap_child(bool wait_for_child)
+{
+    // Nothing to reap if no parallel jobs or single-threaded mode
+    if (user_opts.jobs <= 1 || parallel_jobs == 0)
+        return false;
+
+#ifndef WIN32
+    // Unix: use waitpid to collect child process status
+    int work_status;
+    pid_t child = waitpid(-1, &work_status, wait_for_child ? 0 : WNOHANG);
+
+    if (child == (pid_t) -1)
+        pg_fatal("%s() failed: %m", "waitpid");
+    if (child == 0)
+        return false;  // No children available or completed
+    if (work_status != 0)
+        pg_fatal("child process exited abnormally: status %d", work_status);
+#else
+    // Windows: wait for thread completion
+    int thread_num = WaitForMultipleObjects(parallel_jobs, thread_handles,
+                                           false, wait_for_child ? INFINITE : 0);
+
+    if (thread_num == WAIT_TIMEOUT || thread_num == WAIT_FAILED)
+        return false;
+
+    thread_num -= WAIT_OBJECT_0;
+
+    // Check thread exit code
+    DWORD res;
+    GetExitCodeThread(thread_handles[thread_num], &res);
+    if (res != 0)
+        pg_fatal("child worker exited abnormally: %m");
+
+    // Clean up thread handle
+    CloseHandle(thread_handles[thread_num]);
+
+    // Compact arrays by moving last slot into dead child's position
+    if (thread_num != parallel_jobs - 1)
+    {
+        thread_handles[thread_num] = thread_handles[parallel_jobs - 1];
+        void *tmp_args = cur_thread_args[thread_num];
+        cur_thread_args[thread_num] = cur_thread_args[parallel_jobs - 1];
+        cur_thread_args[parallel_jobs - 1] = tmp_args;
+    }
+#endif
+
+    // Decrement job count after cleanup
+    parallel_jobs--;
+    return true;
+}
+```

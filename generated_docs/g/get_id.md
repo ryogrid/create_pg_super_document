@@ -38,3 +38,28 @@ This function takes no parameters but returns:
 - Provides helpful hint message suggesting to use 'su' to switch to an unprivileged user
 - Returns a dynamically allocated string that must be freed by the caller
 - Essential for maintaining PostgreSQL security best practices during database initialization
+
+## Simplified Source
+
+```c
+static char *
+get_id(void)
+{
+    const char *username;
+
+#ifndef WIN32
+    // Security check: prevent running as root on Unix systems
+    if (geteuid() == 0)  /* 0 is root's uid */
+    {
+        pg_log_error("cannot be run as root");
+        pg_log_error_hint("Please log in (using, e.g., \"su\") as the (unprivileged) user that will own the server process.");
+        exit(1);
+    }
+#endif
+
+    // Get the current username
+    username = get_user_name_or_exit(progname);
+
+    return pg_strdup(username);
+}
+```

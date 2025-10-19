@@ -36,3 +36,31 @@ The function traverses the WordEntry array from the beginning (ARRPTR) to the en
 - For lexemes without position information, the function assumes a length of 1, ensuring they still contribute to the total document length calculation
 - The returned length is used in ranking normalization to prevent longer documents from having artificially higher scores
 - Essential component of PostgreSQL's text search ranking system for fair comparison between documents of different lengths
+
+## Simplified Source
+
+```c
+static int cnt_length(TSVector t) {
+    // Get word entry array boundaries
+    WordEntry *ptr = ARRPTR(t);
+    WordEntry *end = (WordEntry *) STRPTR(t);
+    int total_length = 0;
+
+    // Iterate through all word entries
+    while (ptr < end) {
+        // Get position data length for current entry
+        int position_count = POSDATALEN(t, ptr);
+
+        // Count lexemes: 1 if no positions, otherwise actual position count
+        if (position_count == 0) {
+            total_length += 1;
+        } else {
+            total_length += position_count;
+        }
+
+        ptr++;
+    }
+
+    return total_length;
+}
+```

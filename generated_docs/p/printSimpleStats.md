@@ -28,3 +28,22 @@ The printSimpleStats function formats and displays basic statistical metrics for
 - Part of pgbench results reporting system for displaying performance metrics
 - Provides consistent formatting across different types of statistics (latency, lag, etc.)
 - Used for final summary statistics display rather than real-time progress reporting
+
+## Simplified Source
+
+```c
+static void
+printSimpleStats(const char *prefix, SimpleStats *ss)
+{
+    if (ss->count > 0)
+    {
+        // Calculate average and standard deviation
+        double latency = ss->sum / ss->count;
+        double stddev = sqrt(ss->sum2 / ss->count - latency * latency);
+
+        // Print statistics in milliseconds
+        printf("%s average = %.3f ms\n", prefix, 0.001 * latency);
+        printf("%s stddev = %.3f ms\n", prefix, 0.001 * stddev);
+    }
+}
+```

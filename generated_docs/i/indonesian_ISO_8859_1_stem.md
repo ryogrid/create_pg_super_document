@@ -43,3 +43,62 @@ The algorithm maintains strict vowel count checks (> 2 vowels) before each major
 - Returns 1 on successful completion, 0 if vowel count is insufficient, or negative values on error
 - The algorithm implements the Indonesian language-specific rules developed for the Snowball stemming project
 - The function modifies the input word in-place within the stemming environment
+
+## Simplified Source
+
+```c
+extern int indonesian_ISO_8859_1_stem(struct SN_env * z) {
+    // Step 1: Count vowels in the word
+    z->I[1] = 0; // vowel counter
+    z->I[0] = 0; // morphological type
+
+    // Count vowels by finding consonant-vowel boundaries
+    int start_pos = z->c;
+    while (out_grouping(z, g_vowel, 97, 117, 1) >= 0) {
+        z->I[1] += 1; // increment vowel count
+    }
+    z->c = start_pos;
+
+    // Must have more than 2 vowels to proceed
+    if (!(z->I[1] > 2)) return 0;
+
+    // Step 2: Remove suffixes from end of word
+    z->lb = z->c; z->c = z->l; // move to end
+
+    // Remove particles (kah, lah, pun)
+    r_remove_particle(z);
+    if (!(z->I[1] > 2)) return 0;
+
+    // Remove possessive pronouns (ku, mu, nya)
+    r_remove_possessive_pronoun(z);
+
+    // Step 3: Remove prefixes from beginning
+    z->c = z->lb; // move to beginning
+    if (!(z->I[1] > 2)) return 0;
+
+    // Try two prefix removal strategies:
+    if (r_remove_first_order_prefix(z)) {
+        // Path A: First-order prefix removed successfully
+        // Optionally remove suffixes and second-order prefixes
+        if (z->I[1] > 2) {
+            z->lb = z->c; z->c = z->l;
+            r_remove_suffix(z);
+            z->c = z->lb;
+        }
+        if (z->I[1] > 2) {
+            r_remove_second_order_prefix(z);
+        }
+    } else {
+        // Path B: First-order prefix removal failed
+        // Try second-order prefix, then suffix
+        r_remove_second_order_prefix(z);
+        if (z->I[1] > 2) {
+            z->lb = z->c; z->c = z->l;
+            r_remove_suffix(z);
+            z->c = z->lb;
+        }
+    }
+
+    return 1;
+}
+```

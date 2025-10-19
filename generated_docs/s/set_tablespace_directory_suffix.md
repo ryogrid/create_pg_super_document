@@ -38,3 +38,15 @@ This suffix is used to create version-specific subdirectories within tablespace 
 - This versioning scheme prevents data corruption when multiple PostgreSQL versions access the same tablespace base directory
 - The suffix is essential for the safety checks performed in init_tablespaces() to prevent upgrades between clusters with identical catalog versions
 - Memory for the suffix string is managed by psprintf and should be freed appropriately
+
+## Simplified Source
+
+```c
+static void set_tablespace_directory_suffix(ClusterInfo *cluster) {
+    // Create version-specific directory suffix: /PG_{version}_{catalog_version}
+    // This allows multiple PostgreSQL versions to coexist in same tablespace
+    cluster->tablespace_suffix = psprintf("/PG_%s_%d",
+                                          cluster->major_version_str,
+                                          cluster->controldata.cat_ver);
+}
+```

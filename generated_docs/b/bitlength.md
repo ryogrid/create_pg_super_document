@@ -36,3 +36,15 @@ The function is implemented as a simple wrapper around the `VARBITLEN` macro, wh
 - Companion to bitoctetlength() which returns the length in bytes
 - Part of the SQL standard bit string functions
 - Returns int32, which can handle bit strings up to ~2.1 billion bits
+
+## Simplified Source
+
+```c
+Datum bitlength(PG_FUNCTION_ARGS) {
+    // Extract the bit string argument
+    VarBit *arg = PG_GETARG_VARBIT_P(0);
+
+    // Return the length in bits (stored in header)
+    PG_RETURN_INT32(VARBITLEN(arg));
+}
+```

@@ -46,3 +46,27 @@ Hard links can only be created between files on the same filesystem, so this tes
 - Link mode can provide significant performance benefits for large database upgrades
 - The error message explicitly explains the filesystem requirement to help users diagnose the issue
 - Cleanup is performed regardless of test outcome to prevent leftover files
+
+## Simplified Source
+
+```c
+void check_hard_link(void) {
+    char existing_file[MAXPGPATH];
+    char new_link_file[MAXPGPATH];
+
+    // Build paths for hard link test using PG_VERSION file
+    snprintf(existing_file, sizeof(existing_file), "%s/PG_VERSION", old_cluster.pgdata);
+    snprintf(new_link_file, sizeof(new_link_file), "%s/PG_VERSION.linktest", new_cluster.pgdata);
+
+    // Remove any existing test file (cleanup from previous runs)
+    unlink(new_link_file);  // might fail, that's ok
+
+    // Attempt to create hard link between old and new data directories
+    if (link(existing_file, new_link_file) < 0)
+        pg_fatal("could not create hard link between old and new data directories: %m\n"
+                 "In link mode the old and new data directories must be on the same file system.");
+
+    // Clean up test file
+    unlink(new_link_file);
+}
+```

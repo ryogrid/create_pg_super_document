@@ -32,3 +32,29 @@ The `lexstart` function is responsible for initializing the lexical analysis pha
 
 ## Notes and Other Information
 The function uses assertions to ensure mutually exclusive flag combinations are not set simultaneously. The three lexical contexts correspond to different regex syntax modes: quoted mode treats all characters literally, extended mode supports modern regex features, and basic mode provides traditional regex functionality. The function ensures proper initialization of the token stream by calling next() to prepare the first token for the parser.
+
+## Simplified Source
+
+```c
+static void lexstart(struct vars *v) {
+    // Process any prefix options that may affect compilation
+    prefixes(v);
+    NOERR();
+
+    // Set lexical context based on compilation flags
+    if (v->cflags & REG_QUOTE) {
+        // Quoted mode - treat all characters literally
+        INTOCON(L_Q);
+    } else if (v->cflags & REG_EXTENDED) {
+        // Extended regular expression mode
+        INTOCON(L_ERE);
+    } else {
+        // Basic regular expression mode
+        INTOCON(L_BRE);
+    }
+
+    // Initialize token stream
+    v->nexttype = EMPTY;
+    next(v);  // Set up the first token
+}
+```

@@ -39,3 +39,16 @@ This function provides the SQL-callable equality comparison operator for double-
 - Located in 
 - Returns a Datum-wrapped boolean value following PostgreSQL's function calling conventions
 - Used in WHERE clauses, JOIN conditions, and other SQL constructs requiring float8 equality testing
+
+## Simplified Source
+
+```c
+Datum float8eq(PG_FUNCTION_ARGS) {
+    // Extract the two float8 arguments from SQL call
+    float8 arg1 = PG_GETARG_FLOAT8(0);
+    float8 arg2 = PG_GETARG_FLOAT8(1);
+
+    // Delegate to helper function and return boolean result
+    return PG_RETURN_BOOL(float8_eq(arg1, arg2));
+}
+```

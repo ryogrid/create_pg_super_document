@@ -50,3 +50,30 @@ The function uses a branching approach to check both lowercase 'y' and uppercase
 - This step normalizes the ambiguous nature of 'y' in English, where it can function as both consonant and vowel
 - Essential for consistent stemming results in words ending with 'y' (cities → citi, flies → fli)
 - Simple but important step in the Porter algorithm that improves stemming accuracy for y-final words
+
+## Simplified Source
+
+```c
+static int r_Step_1c(struct SN_env * z) {
+    // Mark end position for suffix
+    z->ket = z->c;
+
+    // Check for 'y' or 'Y' at current position
+    if (z->c <= z->lb || (z->p[z->c - 1] != 'y' && z->p[z->c - 1] != 'Y')) {
+        return 0; // No y/Y suffix found
+    }
+    z->c--; // Move cursor back to include the y/Y
+
+    // Mark start position for suffix
+    z->bra = z->c;
+
+    // Check if preceded by consonant (not in vowel group)
+    if (out_grouping_b(z, g_v, 97, 121, 0)) return 0;
+
+    // Ensure consonant is not at word beginning
+    if (z->c <= z->lb) return 0;
+
+    // Replace y/Y with 'i'
+    return slice_from_s(z, 1, s_8);
+}
+```

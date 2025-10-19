@@ -36,3 +36,18 @@ This callback is particularly valuable for diagnosing issues during parallel que
 - Part of PostgreSQL's comprehensive error reporting and debugging infrastructure
 - The function safely handles NULL arguments by checking the pointer before dereferencing
 - Provides human-readable error messages that include both the parameter name and the problematic value
+
+## Simplified Source
+
+```c
+static void
+guc_restore_error_context_callback(void *arg)
+{
+    char **error_info = (char **) arg;
+
+    // Add context message if parameter info is available
+    if (error_info)
+        errcontext("while setting parameter \"%s\" to \"%s\"",
+                   error_info[0], error_info[1]);
+}
+```

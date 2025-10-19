@@ -36,3 +36,18 @@ This operation is useful in algorithms where recently accessed items need to be 
 - Currently appears to be unused in the codebase but provides symmetry with dclist_move_head
 - Caution: The node must already be a member of the specified list before calling this function
 - Useful for implementing various list management strategies and cache replacement algorithms
+
+## Simplified Source
+
+```c
+static inline void
+dclist_move_tail(dclist_head *head, dlist_node *node) {
+    // Verify that node is actually in this list
+    dlist_member_check(&head->dlist, node);
+    Assert(head->count > 0);  // List must not be empty
+
+    // Move the node to the tail position
+    dlist_move_tail(&head->dlist, node);
+    // Note: Count remains unchanged since this is a move operation
+}
+```

@@ -46,3 +46,29 @@ The function is designed to be safe with NULL pointers and handles partial clean
 - Should always be called to prevent memory leaks when a stemming environment is no longer needed
 - Used by all Snowball stemmer implementations for proper resource cleanup
 - Called automatically by SN_create_env if initialization fails partway through
+
+## Simplified Source
+
+```c
+extern void SN_close_env(struct SN_env * z, int S_size)
+{
+    if (z == NULL) return;
+
+    // Free symbol array and its contents
+    if (z->S) {
+        for (int i = 0; i < S_size; i++) {
+            lose_s(z->S[i]);  // Free each symbol
+        }
+        free(z->S);
+    }
+
+    // Free integer array
+    free(z->I);
+
+    // Free primary symbol buffer
+    if (z->p) lose_s(z->p);
+
+    // Free main structure
+    free(z);
+}
+```

@@ -35,3 +35,25 @@ The function is designed to be called at the end of vacuum processing to clean u
 - The function prevents memory leaks by properly deallocating all pending items
 - After completion, the pendingList is reset to NULL, indicating an empty list
 - Part of the SP-GiST vacuum cleanup process
+
+## Simplified Source
+
+```c
+static void spgClearPendingList(spgBulkDeleteState *bds)
+{
+    spgVacPendingItem *pitem, *nitem;
+
+    // Iterate through all pending items and free them
+    for (pitem = bds->pendingList; pitem != NULL; pitem = nitem) {
+        nitem = pitem->next;
+
+        // Verify all items were processed before cleanup
+        Assert(pitem->done);
+
+        pfree(pitem);
+    }
+
+    // Clear the list pointer
+    bds->pendingList = NULL;
+}
+```

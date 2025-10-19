@@ -43,10 +43,41 @@ The function includes assertions to ensure data integrity and proper parsing, ch
 
 ## Notes and Other Information
 - This is a static function only used within gistxlog.c
-- Essential for WAL recovery of GiST page split operations  
+- Essential for WAL recovery of GiST page split operations
 - Does not allocate memory for the tuples themselves, only for the pointer array
 - The returned IndexTuple pointers point directly into the provided data buffer
 - Caller is responsible for the lifetime management of the input data buffer
 - Uses assertions to validate proper parsing of the serialized format
 - Part of the GiST index WAL recovery infrastructure
 - Critical for reconstructing page split operations during database recovery
+
+## Simplified Source
+
+```c
+static IndexTuple *decodePageSplitRecord(char *begin, int len, int *n)
+{
+    char *ptr;
+    int i = 0;
+    IndexTuple *tuples;
+
+    // Extract tuple count from beginning of data
+    memcpy(n, begin, sizeof(int));
+    ptr = begin + sizeof(int);
+
+    // Allocate array for tuple pointers
+    tuples = palloc(*n * sizeof(IndexTuple));
+
+    // Parse each tuple and set pointers
+    for (i = 0; i < *n; i++)
+    {
+        Assert(ptr - begin < len);
+        tuples[i] = (IndexTuple) ptr;
+        ptr += IndexTupleSize((IndexTuple) ptr);
+    }
+
+    // Verify we consumed all data
+    Assert(ptr - begin == len);
+
+    return tuples;
+}
+```

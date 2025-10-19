@@ -41,3 +41,39 @@ The function creates a PQExpBuffer, iterates through the keyword/value pairs, an
 - Memory management is handled properly with PQExpBuffer creation and destruction
 - The exclusion of sensitive parameters makes this suitable for command-line argument passing
 - Part of the pg_dumpall utility's database connection management subsystem
+
+## Simplified Source
+
+```c
+static char *constructConnStr(const char **keywords, const char **values)
+{
+    PQExpBuffer buf = createPQExpBuffer();
+    char *connstr;
+    int i;
+    bool firstkeyword = true;
+
+    // Build connection string in key='value' format
+    for (i = 0; keywords[i] != NULL; i++)
+    {
+        // Skip parameters that shouldn't be passed to pg_dump subprocess
+        if (strcmp(keywords[i], "dbname") == 0 ||           // varies per invocation
+            strcmp(keywords[i], "password") == 0 ||         // security risk
+            strcmp(keywords[i], "fallback_application_name") == 0)  // let pg_dump set it
+            continue;
+
+        // Add space separator between parameters
+        if (!firstkeyword)
+            appendPQExpBufferChar(buf, ' ');
+        firstkeyword = false;
+
+        // Add parameter in key='value' format
+        appendPQExpBuffer(buf, "%s=", keywords[i]);
+        appendConnStrVal(buf, values[i]);  // Properly escape the value
+    }
+
+    // Create final string and cleanup buffer
+    connstr = pg_strdup(buf->data);
+    destroyPQExpBuffer(buf);
+    return connstr;
+}
+```

@@ -44,3 +44,33 @@ This approach ensures that only specific i/j-containing plural endings are remov
 - Returns 1 on successful processing, 0 on failure
 - Located in stem_ISO_8859_1_finnish.c indicating ISO 8859-1 character encoding support
 - This function handles a specific subset of Finnish plural morphology involving i and j characters
+
+## Simplified Source
+
+```c
+static int r_i_plural(struct SN_env * z) {
+    // Set boundaries to R2 region for i-plural processing
+    if (z->c < z->I[1]) return 0;
+    int saved_boundary = z->lb;
+    z->lb = z->I[1];
+
+    // Check if current character is 'i' (105) or 'j' (106)
+    z->ket = z->c;
+    if (z->c <= z->lb || (z->p[z->c - 1] != 105 && z->p[z->c - 1] != 106)) {
+        z->lb = saved_boundary;
+        return 0;
+    }
+
+    // Find i/j plural pattern from predefined list (2 patterns)
+    if (!find_among_b(z, a_8, 2)) {
+        z->lb = saved_boundary;
+        return 0;
+    }
+    z->bra = z->c;
+    z->lb = saved_boundary;
+
+    // Remove the matched i/j plural ending
+    slice_del(z);
+    return 1;
+}
+```

@@ -42,3 +42,30 @@ XLogDumpStatsRow formats and prints a single statistical row showing record coun
 - Formats output in a consistent tabular format with fixed-width columns
 - Part of the pg_waldump utility for analyzing PostgreSQL Write-Ahead Log files
 - The formatted output shows both absolute values and percentages for easy comparison across categories
+
+## Simplified Source
+
+```c
+static void
+XLogDumpStatsRow(const char *name,
+                 uint64 n, uint64 total_count,
+                 uint64 rec_len, uint64 total_rec_len,
+                 uint64 fpi_len, uint64 total_fpi_len,
+                 uint64 tot_len, uint64 total_len)
+{
+    // Calculate percentages (safely handle division by zero)
+    double n_pct = (total_count != 0) ? 100 * (double) n / total_count : 0;
+    double rec_len_pct = (total_rec_len != 0) ? 100 * (double) rec_len / total_rec_len : 0;
+    double fpi_len_pct = (total_fpi_len != 0) ? 100 * (double) fpi_len / total_fpi_len : 0;
+    double tot_len_pct = (total_len != 0) ? 100 * (double) tot_len / total_len : 0;
+
+    // Print formatted statistics row
+    printf("%-27s "
+           "%20" INT64_MODIFIER "u (%6.02f) "
+           "%20" INT64_MODIFIER "u (%6.02f) "
+           "%20" INT64_MODIFIER "u (%6.02f) "
+           "%20" INT64_MODIFIER "u (%6.02f)\n",
+           name, n, n_pct, rec_len, rec_len_pct, fpi_len, fpi_len_pct,
+           tot_len, tot_len_pct);
+}
+```

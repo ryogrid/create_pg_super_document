@@ -39,3 +39,13 @@ The function uses snprintf to safely format the savepoint name into the provided
 - Critical for handling transaction isolation in parallel logical replication scenarios
 - The combination of subscription OID and transaction ID ensures global uniqueness even when multiple subscriptions process transactions with identical remote XIDs
 - Uses snprintf for buffer safety, preventing potential security issues from buffer overflows
+
+## Simplified Source
+
+```c
+static void pa_savepoint_name(Oid suboid, TransactionId xid, char *spname, Size szsp) {
+    // Generate unique savepoint name using subscription OID and transaction ID
+    // Format: "pg_sp_<subscription_oid>_<transaction_id>"
+    snprintf(spname, szsp, "pg_sp_%u_%u", suboid, xid);
+}
+```

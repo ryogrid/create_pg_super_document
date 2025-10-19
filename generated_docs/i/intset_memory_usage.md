@@ -30,3 +30,14 @@ The `intset_memory_usage` function provides the total memory footprint of an Int
 - The tracked memory includes all memory allocated in the IntegerSet's designated memory context
 - Memory usage tracking begins when the IntegerSet is created and continues through all node allocations
 - Useful for monitoring memory consumption and optimizing storage efficiency
+
+## Simplified Source
+
+```c
+uint64
+intset_memory_usage(IntegerSet *intset)
+{
+    // Return cached memory usage value (O(1) operation)
+    return intset->mem_used;
+}
+```

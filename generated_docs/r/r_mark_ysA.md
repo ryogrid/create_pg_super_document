@@ -38,3 +38,26 @@ The function follows a three-step validation process:
 - Uses a moderate pattern array (8 patterns) indicating several variations of the 'ysA' suffix
 - Called multiple times in the stemming process, showing its significance in Turkish morphological analysis
 - Part of the comprehensive Turkish morphological analysis system in PostgreSQL's full-text search
+
+## Simplified Source
+
+```c
+static int r_mark_ysA(struct SN_env * z) {
+    // Check minimum length and validate last character using bitmask
+    // The complex bit check validates specific Turkish characters that can precede 'ysA'
+    if (z->c - 1 <= z->lb ||
+        z->p[z->c - 1] >> 5 != 3 ||
+        !((26658 >> (z->p[z->c - 1] & 0x1f)) & 1)) {
+        return 0;
+    }
+
+    // Find Turkish 'ysA' suffix patterns (8 variations)
+    if (!find_among_b(z, a_21, 8)) return 0;
+
+    // Handle optional 'y' consonant processing
+    int ret = r_mark_suffix_with_optional_y_consonant(z);
+    if (ret <= 0) return ret;
+
+    return 1;  // Successfully found and processed suffix
+}
+```

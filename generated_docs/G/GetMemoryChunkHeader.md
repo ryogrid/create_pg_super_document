@@ -34,3 +34,24 @@ This function returns the complete uint64 header that precedes every allocated m
 - Part of PostgreSQL's memory context system architecture
 - The header contains various metadata about the memory chunk including method ID and size information
 - Valgrind integration helps detect memory access violations during debugging
+
+## Simplified Source
+
+```c
+static inline uint64
+GetMemoryChunkHeader(const void *pointer)
+{
+    uint64 header;
+
+    // Allow access to header region for reading
+    VALGRIND_MAKE_MEM_DEFINED((char *) pointer - sizeof(uint64), sizeof(uint64));
+
+    // Read the uint64 header directly preceding the pointer
+    header = *((const uint64 *) ((const char *) pointer - sizeof(uint64)));
+
+    // Restore memory protection
+    VALGRIND_MAKE_MEM_NOACCESS((char *) pointer - sizeof(uint64), sizeof(uint64));
+
+    return header;
+}
+```

@@ -37,3 +37,21 @@ The `byteaoverlay_no_len` function provides a simplified interface to the OVERLA
 - Provides cleaner SQL syntax when full replacement of a substring is desired
 - Still uses 1-based indexing for the start position as per SQL standard
 - Located in src/backend/utils/adt/varlena.c:3106-3117
+
+## Simplified Source
+
+```c
+// PostgreSQL function implementing 3-argument OVERLAY() for bytea data
+Datum byteaoverlay_no_len(PG_FUNCTION_ARGS) {
+    // Extract arguments: target bytea, replacement bytea, start position
+    bytea *target = PG_GETARG_BYTEA_PP(0);
+    bytea *replacement = PG_GETARG_BYTEA_PP(1);
+    int start_pos = PG_GETARG_INT32(2);    // substring start position
+
+    // Default replacement length to the size of replacement bytea
+    int replacement_length = VARSIZE_ANY_EXHDR(replacement);
+
+    // Delegate to core overlay function and return result
+    return PG_RETURN_BYTEA_P(bytea_overlay(target, replacement, start_pos, replacement_length));
+}
+```

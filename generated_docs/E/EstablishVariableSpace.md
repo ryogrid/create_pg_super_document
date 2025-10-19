@@ -50,3 +50,42 @@ This function is the central initialization point for psql's configuration varia
 - Each SetVariableHooks call associates a variable name with substitute and validation hook functions
 - Some variables use NULL for substitute hooks when no default substitution is needed
 - Part of psql's modular configuration architecture that separates variable storage from validation logic
+
+## Simplified Source
+
+```c
+static void EstablishVariableSpace(void) {
+    // Create the variable storage system
+    pset.vars = CreateVariableSpace();
+
+    // Set up hooks for boolean configuration variables
+    SetVariableHooks(pset.vars, "AUTOCOMMIT", bool_substitute_hook, autocommit_hook);
+    SetVariableHooks(pset.vars, "ON_ERROR_STOP", bool_substitute_hook, on_error_stop_hook);
+    SetVariableHooks(pset.vars, "QUIET", bool_substitute_hook, quiet_hook);
+    SetVariableHooks(pset.vars, "SINGLELINE", bool_substitute_hook, singleline_hook);
+    SetVariableHooks(pset.vars, "SINGLESTEP", bool_substitute_hook, singlestep_hook);
+    SetVariableHooks(pset.vars, "ECHO_HIDDEN", bool_substitute_hook, echo_hidden_hook);
+    SetVariableHooks(pset.vars, "ON_ERROR_ROLLBACK", bool_substitute_hook, on_error_rollback_hook);
+    SetVariableHooks(pset.vars, "SHOW_ALL_RESULTS", bool_substitute_hook, show_all_results_hook);
+    SetVariableHooks(pset.vars, "HIDE_TOAST_COMPRESSION", bool_substitute_hook, hide_compression_hook);
+    SetVariableHooks(pset.vars, "HIDE_TABLEAM", bool_substitute_hook, hide_tableam_hook);
+
+    // Set up hooks for numeric/special variables
+    SetVariableHooks(pset.vars, "FETCH_COUNT", fetch_count_substitute_hook, fetch_count_hook);
+    SetVariableHooks(pset.vars, "HISTSIZE", histsize_substitute_hook, histsize_hook);
+    SetVariableHooks(pset.vars, "IGNOREEOF", ignoreeof_substitute_hook, ignoreeof_hook);
+
+    // Set up hooks for string variables
+    SetVariableHooks(pset.vars, "HISTFILE", NULL, histfile_hook);
+    SetVariableHooks(pset.vars, "ECHO", echo_substitute_hook, echo_hook);
+    SetVariableHooks(pset.vars, "COMP_KEYWORD_CASE", comp_keyword_case_substitute_hook, comp_keyword_case_hook);
+    SetVariableHooks(pset.vars, "HISTCONTROL", histcontrol_substitute_hook, histcontrol_hook);
+    SetVariableHooks(pset.vars, "VERBOSITY", verbosity_substitute_hook, verbosity_hook);
+    SetVariableHooks(pset.vars, "SHOW_CONTEXT", show_context_substitute_hook, show_context_hook);
+
+    // Set up prompt variables
+    SetVariableHooks(pset.vars, "PROMPT1", NULL, prompt1_hook);
+    SetVariableHooks(pset.vars, "PROMPT2", NULL, prompt2_hook);
+    SetVariableHooks(pset.vars, "PROMPT3", NULL, prompt3_hook);
+}
+```

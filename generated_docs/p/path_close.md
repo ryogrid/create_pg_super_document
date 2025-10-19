@@ -30,3 +30,18 @@ The  function is a PostgreSQL built-in function that takes a PATH geometric type
 - The function creates a copy of the input path, so the original path remains unchanged
 - Setting the closed flag affects how the path is interpreted geometrically (as a polygon vs polyline)
 - Part of PostgreSQL's geometric data type operations suite
+
+## Simplified Source
+
+```c
+Datum path_close(PG_FUNCTION_ARGS) {
+    // Get a copy of the PATH object from function argument
+    PATH *path = PG_GETARG_PATH_P_COPY(0);
+
+    // Set the closed flag to true (convert open path to closed)
+    path->closed = true;
+
+    // Return the modified path
+    PG_RETURN_PATH_P(path);
+}
+```

@@ -32,3 +32,15 @@ This function compares two single-byte character values and returns true if the 
 - Part of PostgreSQL's built-in operator functions for character data types
 - Uses `uint8` casting to ensure unsigned comparison semantics, treating characters as byte values 0-255
 - This ensures consistent ordering regardless of whether `char` is signed or unsigned on the platform
+
+## Simplified Source
+
+```c
+Datum charle(PG_FUNCTION_ARGS) {
+    char arg1 = PG_GETARG_CHAR(0);
+    char arg2 = PG_GETARG_CHAR(1);
+
+    // Compare characters as unsigned bytes (less than or equal)
+    PG_RETURN_BOOL((uint8) arg1 <= (uint8) arg2);
+}
+```

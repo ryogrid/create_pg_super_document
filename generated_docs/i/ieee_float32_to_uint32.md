@@ -34,3 +34,33 @@ This function performs a specialized conversion from IEEE 754 single-precision f
 - The mapping ensures there are no gaps in the ordering across the zero boundary
 - Essential for spatial indexing algorithms that require order-preserving coordinate transformations
 - Takes advantage of IEEE 754's property that bit patterns naturally preserve ordering within the same sign
+
+## Simplified Source
+
+```c
+static uint32
+ieee_float32_to_uint32(float f)
+{
+    // Handle NaN special case
+    if (isnan(f))
+        return 0xFFFFFFFF;
+
+    // Use union to access float's bit representation
+    union {
+        float f;
+        uint32 i;
+    } u;
+    u.f = f;
+
+    // Transform to preserve ordering across negative/positive boundary
+    if ((u.i & 0x80000000) != 0) {
+        // Negative values: map to range 0-7FFFFFFF by bit inversion
+        u.i ^= 0xFFFFFFFF;
+    } else {
+        // Positive values (and zero): map to range 80000000-FFFFFFFF
+        u.i |= 0x80000000;
+    }
+
+    return u.i;
+}
+```

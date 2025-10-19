@@ -53,3 +53,54 @@ The function is typically used during psql initialization to establish special v
 - Part of psql's variable system initialization - used extensively in EstablishVariableSpace
 - Enables sophisticated variable behaviors like auto-sync with psql internal state
 - No return value - function always succeeds or silently fails for invalid inputs
+
+## Simplified Source
+
+```c
+void SetVariableHooks(VariableSpace space, const char *name,
+                     VariableSubstituteHook shook,
+                     VariableAssignHook ahook)
+{
+    struct _variable *current, *previous;
+
+    // Basic validation
+    if (!space || !name || !valid_variable_name(name))
+        return;
+
+    // Search for existing variable in sorted list
+    for (previous = space, current = space->next; current;
+         previous = current, current = current->next)
+    {
+        int cmp = strcmp(current->name, name);
+
+        if (cmp == 0)  // Found existing variable
+        {
+            // Update hooks and execute them
+            current->substitute_hook = shook;
+            current->assign_hook = ahook;
+            if (shook)
+                current->value = (*shook)(current->value);
+            if (ahook)
+                (*ahook)(current->value);
+            return;
+        }
+        if (cmp > 0)
+            break;  // Variable doesn't exist
+    }
+
+    // Create new variable with hooks
+    current = pg_malloc(sizeof(*current));
+    current->name = pg_strdup(name);
+    current->value = NULL;
+    current->substitute_hook = shook;
+    current->assign_hook = ahook;
+    current->next = previous->next;
+    previous->next = current;
+
+    // Execute hooks on new variable
+    if (shook)
+        current->value = (*shook)(current->value);
+    if (ahook)
+        (*ahook)(current->value);
+}
+```

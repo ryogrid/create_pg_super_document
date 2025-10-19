@@ -41,3 +41,50 @@ The encoding process works by:
 - Assumes the destination buffer is large enough to hold the encoded output plus newlines
 - Does not null-terminate the output string - caller is responsible for this if needed
 - Part of PostgreSQL's encoding/decoding subsystem for handling binary data representation
+
+## Simplified Source
+
+```c
+static uint64 pg_base64_encode(const char *src, size_t len, char *dst) {
+    char *output_ptr = dst;
+    char *line_end = dst + 76;  // Line wrap at 76 characters
+    const char *src_end = src + len;
+    int buffer_pos = 2;
+    uint32 bit_buffer = 0;
+
+    // Process input 3 bytes at a time
+    while (src < src_end) {
+        // Accumulate bits in buffer
+        bit_buffer |= (unsigned char) *src << (buffer_pos << 3);
+        buffer_pos--;
+        src++;
+
+        // When buffer full (3 bytes), output 4 base64 chars
+        if (buffer_pos < 0) {
+            *output_ptr++ = _base64[(bit_buffer >> 18) & 0x3f];
+            *output_ptr++ = _base64[(bit_buffer >> 12) & 0x3f];
+            *output_ptr++ = _base64[(bit_buffer >> 6) & 0x3f];
+            *output_ptr++ = _base64[bit_buffer & 0x3f];
+
+            buffer_pos = 2;
+            bit_buffer = 0;
+        }
+
+        // Add line break every 76 characters
+        if (output_ptr >= line_end) {
+            *output_ptr++ = '\n';
+            line_end = output_ptr + 76;
+        }
+    }
+
+    // Handle remaining bytes with padding
+    if (buffer_pos != 2) {
+        *output_ptr++ = _base64[(bit_buffer >> 18) & 0x3f];
+        *output_ptr++ = _base64[(bit_buffer >> 12) & 0x3f];
+        *output_ptr++ = (buffer_pos == 0) ? _base64[(bit_buffer >> 6) & 0x3f] : '=';
+        *output_ptr++ = '=';
+    }
+
+    return output_ptr - dst;
+}
+```

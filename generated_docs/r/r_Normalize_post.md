@@ -32,3 +32,68 @@ The function uses boundary markers (bra/ket) to define the text segments for rep
 
 ## Notes and Other Information
 This function is automatically generated code from Snowball stemming algorithms and complements r_Normalize_pre by handling normalization that must occur after stemming operations. It specifically targets Arabic character sequences that need standardization in the final output. The function processes UTF-8 encoded Arabic text and returns 1 on success or a negative value on error. The two-phase approach (backward then forward) ensures comprehensive normalization of the processed text.
+
+## Simplified Source
+
+```c
+static int r_Normalize_post(struct SN_env * z) {
+    // Phase 1: Backward processing from end of string
+    int start_pos = z->c;
+    z->lb = z->c;
+    z->c = z->l; // Move to end
+
+    // Look for patterns at end of string
+    z->ket = z->c;
+    if (z->c > z->lb + 1 &&
+        z->p[z->c - 1] >> 5 == 5 &&
+        ((124 >> (z->p[z->c - 1] & 0x1f)) & 1)) {
+
+        if (find_among_b(z, a_1, 5)) {
+            z->bra = z->c;
+            slice_from_s(z, 2, normalized_string); // Replace with 2-char sequence
+        }
+    }
+    z->c = start_pos; // Restore position
+
+    // Phase 2: Forward processing through entire string
+    int saved_pos = z->c;
+    while (1) {
+        int current_pos = z->c;
+        int char_pos = z->c;
+
+        // Check for normalization patterns
+        z->bra = z->c;
+        if (z->c + 1 < z->l &&
+            z->p[z->c + 1] >> 5 == 5 &&
+            ((124 >> (z->p[z->c + 1] & 0x1f)) & 1)) {
+
+            int pattern = find_among(z, a_2, 5);
+            if (pattern) {
+                z->ket = z->c;
+                switch (pattern) {
+                    case 1:
+                        slice_from_s(z, 2, replacement_1);
+                        break;
+                    case 2:
+                        slice_from_s(z, 2, replacement_2);
+                        break;
+                    case 3:
+                        slice_from_s(z, 2, replacement_3);
+                        break;
+                }
+                continue;
+            }
+        }
+
+        // No pattern found - advance one UTF-8 character
+        z->c = char_pos;
+        if (skip_utf8(z->p, z->c, z->l, 1) < 0) {
+            break; // End of string
+        }
+        z->c = skip_utf8(z->p, z->c, z->l, 1);
+    }
+
+    z->c = saved_pos;
+    return 1;
+}
+```

@@ -35,3 +35,22 @@ The function performs a simple but important role in psql's history management b
 - Safely handles NULL input strings by checking for validity before processing
 - Part of psql's command history management system
 - The history buffer can be later processed by pg_send_history() to save to file
+
+## Simplified Source
+
+```c
+void pg_append_history(const char *s, PQExpBuffer history_buf) {
+#ifdef USE_READLINE
+    // Only append if history is enabled and string is valid
+    if (useHistory && s) {
+        // Add the string to history buffer
+        appendPQExpBufferStr(history_buf, s);
+
+        // Ensure line ends with newline
+        if (!s[0] || s[strlen(s) - 1] != '\n') {
+            appendPQExpBufferChar(history_buf, '\n');
+        }
+    }
+#endif
+}
+```

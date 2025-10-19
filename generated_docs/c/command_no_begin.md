@@ -62,3 +62,181 @@ The function ensures that commands calling PreventInTransactionBlock() in the Po
 - Matches exactly the commands that call PreventInTransactionBlock() in PostgreSQL backend
 - Some edge cases like "DROP SYSTEM" are intentionally over-matched as they're invalid anyway
 - Essential for maintaining transaction semantics in interactive PostgreSQL sessions
+
+## Simplified Source
+
+```c
+static bool command_no_begin(const char *query)
+{
+    int wordlen;
+
+    // Skip whitespace and comments
+    query = skip_white_space(query);
+
+    // Get length of first word
+    wordlen = 0;
+    while (isalpha((unsigned char) query[wordlen]))
+        wordlen += PQmblenBounded(&query[wordlen], pset.encoding);
+
+    // Transaction control commands - these manage transactions themselves
+    if (wordlen == 5 && pg_strncasecmp(query, "abort", 5) == 0)
+        return true;
+    if (wordlen == 5 && pg_strncasecmp(query, "begin", 5) == 0)
+        return true;
+    if (wordlen == 5 && pg_strncasecmp(query, "start", 5) == 0)
+        return true;
+    if (wordlen == 6 && pg_strncasecmp(query, "commit", 6) == 0)
+        return true;
+    if (wordlen == 3 && pg_strncasecmp(query, "end", 3) == 0)
+        return true;
+    if (wordlen == 8 && pg_strncasecmp(query, "rollback", 8) == 0)
+        return true;
+
+    // PREPARE TRANSACTION (but not PREPARE statement)
+    if (wordlen == 7 && pg_strncasecmp(query, "prepare", 7) == 0) {
+        query += wordlen;
+        query = skip_white_space(query);
+
+        wordlen = 0;
+        while (isalpha((unsigned char) query[wordlen]))
+            wordlen += PQmblenBounded(&query[wordlen], pset.encoding);
+
+        if (wordlen == 11 && pg_strncasecmp(query, "transaction", 11) == 0)
+            return true;
+        return false;
+    }
+
+    // Commands not allowed within transactions
+    if (wordlen == 6 && pg_strncasecmp(query, "vacuum", 6) == 0)
+        return true;
+
+    // CLUSTER without arguments
+    if (wordlen == 7 && pg_strncasecmp(query, "cluster", 7) == 0) {
+        query += wordlen;
+        query = skip_white_space(query);
+
+        if (isalpha((unsigned char) query[0]))
+            return false; // has arguments
+        return true; // CLUSTER without arguments
+    }
+
+    // CREATE DATABASE, CREATE TABLESPACE, CREATE INDEX CONCURRENTLY
+    if (wordlen == 6 && pg_strncasecmp(query, "create", 6) == 0) {
+        query += wordlen;
+        query = skip_white_space(query);
+
+        wordlen = 0;
+        while (isalpha((unsigned char) query[wordlen]))
+            wordlen += PQmblenBounded(&query[wordlen], pset.encoding);
+
+        if (wordlen == 8 && pg_strncasecmp(query, "database", 8) == 0)
+            return true;
+        if (wordlen == 10 && pg_strncasecmp(query, "tablespace", 10) == 0)
+            return true;
+
+        // Handle CREATE [UNIQUE] INDEX CONCURRENTLY
+        if (wordlen == 6 && pg_strncasecmp(query, "unique", 6) == 0) {
+            query += wordlen;
+            query = skip_white_space(query);
+
+            wordlen = 0;
+            while (isalpha((unsigned char) query[wordlen]))
+                wordlen += PQmblenBounded(&query[wordlen], pset.encoding);
+        }
+
+        if (wordlen == 5 && pg_strncasecmp(query, "index", 5) == 0) {
+            query += wordlen;
+            query = skip_white_space(query);
+
+            wordlen = 0;
+            while (isalpha((unsigned char) query[wordlen]))
+                wordlen += PQmblenBounded(&query[wordlen], pset.encoding);
+
+            if (wordlen == 12 && pg_strncasecmp(query, "concurrently", 12) == 0)
+                return true;
+        }
+
+        return false;
+    }
+
+    // ALTER SYSTEM
+    if (wordlen == 5 && pg_strncasecmp(query, "alter", 5) == 0) {
+        query += wordlen;
+        query = skip_white_space(query);
+
+        wordlen = 0;
+        while (isalpha((unsigned char) query[wordlen]))
+            wordlen += PQmblenBounded(&query[wordlen], pset.encoding);
+
+        if (wordlen == 6 && pg_strncasecmp(query, "system", 6) == 0)
+            return true;
+
+        return false;
+    }
+
+    // DROP/REINDEX variants
+    if ((wordlen == 4 && pg_strncasecmp(query, "drop", 4) == 0) ||
+        (wordlen == 7 && pg_strncasecmp(query, "reindex", 7) == 0)) {
+        query += wordlen;
+        query = skip_white_space(query);
+
+        wordlen = 0;
+        while (isalpha((unsigned char) query[wordlen]))
+            wordlen += PQmblenBounded(&query[wordlen], pset.encoding);
+
+        if (wordlen == 8 && pg_strncasecmp(query, "database", 8) == 0)
+            return true;
+        if (wordlen == 6 && pg_strncasecmp(query, "system", 6) == 0)
+            return true;
+        if (wordlen == 10 && pg_strncasecmp(query, "tablespace", 10) == 0)
+            return true;
+
+        // Handle REINDEX [TABLE|INDEX] CONCURRENTLY
+        if (wordlen == 5 && (pg_strncasecmp(query, "index", 5) == 0 ||
+                            pg_strncasecmp(query, "table", 5) == 0)) {
+            query += wordlen;
+            query = skip_white_space(query);
+
+            wordlen = 0;
+            while (isalpha((unsigned char) query[wordlen]))
+                wordlen += PQmblenBounded(&query[wordlen], pset.encoding);
+
+            if (wordlen == 12 && pg_strncasecmp(query, "concurrently", 12) == 0)
+                return true;
+        }
+
+        // DROP INDEX CONCURRENTLY
+        if (wordlen == 5 && pg_strncasecmp(query, "index", 5) == 0) {
+            query += wordlen;
+            query = skip_white_space(query);
+
+            wordlen = 0;
+            while (isalpha((unsigned char) query[wordlen]))
+                wordlen += PQmblenBounded(&query[wordlen], pset.encoding);
+
+            if (wordlen == 12 && pg_strncasecmp(query, "concurrently", 12) == 0)
+                return true;
+
+            return false;
+        }
+
+        return false;
+    }
+
+    // DISCARD ALL (but not other DISCARD variants)
+    if (wordlen == 7 && pg_strncasecmp(query, "discard", 7) == 0) {
+        query += wordlen;
+        query = skip_white_space(query);
+
+        wordlen = 0;
+        while (isalpha((unsigned char) query[wordlen]))
+            wordlen += PQmblenBounded(&query[wordlen], pset.encoding);
+
+        if (wordlen == 3 && pg_strncasecmp(query, "all", 3) == 0)
+            return true;
+        return false;
+    }
+
+    return false;
+}
+```

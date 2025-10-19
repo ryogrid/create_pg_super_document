@@ -30,3 +30,15 @@ This function tests whether a given line is horizontal by examining the A coeffi
 - Returns a boolean result indicating whether the line is horizontal
 - Uses floating-point comparison with tolerance via FPzero() to handle numerical precision issues
 - Part of the geometric functions available for SQL queries on LINE data types
+
+## Simplified Source
+
+```c
+Datum line_horizontal(PG_FUNCTION_ARGS) {
+    // Get the input line
+    LINE *line = PG_GETARG_LINE_P(0);
+
+    // Line is horizontal if A coefficient is zero (slope = -A/B = 0)
+    PG_RETURN_BOOL(FPzero(line->A));
+}
+```

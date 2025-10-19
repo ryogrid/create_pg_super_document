@@ -35,3 +35,15 @@ This function is used in spatial indexing operations to optimize geometric queri
 - The function returns a boolean value indicating whether the spatial relationship condition is met
 - This function is complementary to `overBelow4D`, handling rectangles that don't extend below rather than above the query range
 - Works in conjunction with other 4D spatial comparison functions to provide comprehensive geometric indexing capabilities
+
+## Simplified Source
+
+```c
+/* Check if any rectangle from rect_box doesn't extend below query */
+static bool
+overAbove4D(RectBox *rect_box, RangeBox *query)
+{
+    // Use 2D function to check Y-axis positioning (opposite of overBelow4D)
+    return overHigher2D(&rect_box->range_box_y, &query->right);
+}
+```

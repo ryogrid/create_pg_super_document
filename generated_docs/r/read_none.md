@@ -32,3 +32,22 @@ This function implements the file reading functionality for the "none" compressi
 - Includes error checking with pg_fatal for read failures
 - Returns the number of bytes actually read, which may be less than requested
 - Located in src/bin/pg_dump/compress_none.c:87-99
+
+## Simplified Source
+
+```c
+static size_t
+read_none(void *ptr, size_t size, CompressFileHandle *CFH)
+{
+    FILE *fp = (FILE *) CFH->private_data;
+
+    // Read data using standard file I/O
+    size_t ret = fread(ptr, 1, size, fp);
+
+    // Check for read errors
+    if (ferror(fp))
+        pg_fatal("could not read from input file: %m");
+
+    return ret;
+}
+```

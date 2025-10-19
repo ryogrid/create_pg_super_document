@@ -29,3 +29,17 @@ This function serves as an error handling cleanup routine for the Zstandard back
 - The function is idempotent - it can be called multiple times safely due to the NULL check
 - Essential for proper resource management in PostgreSQL's backup infrastructure
 - Works in conjunction with bbsink_zstd_end_backup but handles abnormal termination cases
+
+## Simplified Source
+
+```c
+static void bbsink_zstd_cleanup(bbsink *sink) {
+    bbsink_zstd *mysink = (bbsink_zstd *) sink;
+
+    // Free Zstandard compression context if it exists
+    if (mysink->cctx) {
+        ZSTD_freeCCtx(mysink->cctx);
+        mysink->cctx = NULL;
+    }
+}
+```

@@ -35,3 +35,13 @@ The function is a thin wrapper around the generic `patternjoinsel` function, spe
 - Located in `src/backend/utils/adt/like_support.c:957-991`
 - Returns a selectivity estimate as a float8 value between 0.0 and 1.0
 - ILIKE is PostgreSQL's case-insensitive variant of the LIKE operator
+
+## Simplified Source
+
+```c
+// Simplified version of icnlikejoinsel
+Datum icnlikejoinsel(PG_FUNCTION_ARGS) {
+    // Join selectivity for case-insensitive LIKE pattern non-match
+    return patternjoinsel(fcinfo, Pattern_Type_Like_IC, true);
+}
+```

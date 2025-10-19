@@ -31,3 +31,14 @@ This function serves as a placeholder ternary consistent function for GIN (Gener
 - Used specifically for EVERYTHING keys where no actual consistency checking is needed
 - Companion function to trueConsistentFn, but for ternary logic scenarios
 - Located in src/backend/access/gin/ginlogic.c:56-64
+
+## Simplified Source
+
+```c
+static GinTernaryValue
+trueTriConsistentFn(GinScanKey key)
+{
+    // Always return definitive match for EVERYTHING keys
+    return GIN_TRUE;
+}
+```

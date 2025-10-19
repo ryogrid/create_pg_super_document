@@ -40,3 +40,41 @@ For the new target cluster, additional utilities like initdb, pg_dump, pg_dumpal
 - Performs additional validation for target cluster binaries (new_cluster)
 - Version checking is typically enabled for target cluster validation but disabled for source cluster
 - Essential for ensuring all required executables are available before starting the upgrade process
+
+## Simplified Source
+
+```c
+static void check_bin_dir(ClusterInfo *cluster, bool check_versions) {
+    struct stat statBuf;
+
+    // Verify binary directory exists and is accessible
+    if (stat(cluster->bindir, &statBuf) != 0)
+        report_status(PG_FATAL, "check for \"%s\" failed: %m", cluster->bindir);
+    else if (!S_ISDIR(statBuf.st_mode))
+        report_status(PG_FATAL, "\"%s\" is not a directory", cluster->bindir);
+
+    // Check core PostgreSQL executables required for all clusters
+    check_exec(cluster->bindir, "postgres", check_versions);
+    check_exec(cluster->bindir, "pg_controldata", check_versions);
+    check_exec(cluster->bindir, "pg_ctl", check_versions);
+
+    // Get binary version after verifying pg_ctl exists
+    get_bin_version(cluster);
+
+    // Check reset utility (name changed in v10)
+    if (GET_MAJOR_VERSION(cluster->bin_version) <= 906)
+        check_exec(cluster->bindir, "pg_resetxlog", check_versions);  // Pre-v10
+    else
+        check_exec(cluster->bindir, "pg_resetwal", check_versions);   // v10+
+
+    // Additional executables needed only for target cluster
+    if (cluster == &new_cluster) {
+        check_exec(cluster->bindir, "initdb", check_versions);
+        check_exec(cluster->bindir, "pg_dump", check_versions);
+        check_exec(cluster->bindir, "pg_dumpall", check_versions);
+        check_exec(cluster->bindir, "pg_restore", check_versions);
+        check_exec(cluster->bindir, "psql", check_versions);
+        check_exec(cluster->bindir, "vacuumdb", check_versions);
+    }
+}
+```

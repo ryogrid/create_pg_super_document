@@ -34,3 +34,17 @@ This function is a static implementation of the cleanup operation for the direct
 - Static function, only accessible within the walmethods.c compilation unit
 - Essential for preventing memory leaks in long-running backup operations
 - Uses PostgreSQL's pg_free() rather than standard free() for consistency with PostgreSQL memory management
+
+## Simplified Source
+
+```c
+static void
+dir_free(WalWriteMethod *wwmethod)
+{
+    DirectoryMethodData *dir_data = (DirectoryMethodData *) wwmethod;
+
+    // Free allocated memory
+    pg_free(dir_data->basedir);
+    pg_free(wwmethod);
+}
+```

@@ -42,3 +42,29 @@ The function reads the entire remaining content of the input buffer, sets the ap
 - The function consumes the entire remaining buffer in one operation, making it unsuitable for structured query syntax
 - Weight and prefix parameters are always set to default values (0 and false respectively) since plain text queries don't support these features
 - The function advances the parser state by incrementing the count and moving the buffer pointer to the end
+
+## Simplified Source
+
+```c
+static ts_tokentype gettoken_query_plain(TSQueryParserState state, int8 *operator,
+                                        int *lenval, char **strval,
+                                        int16 *weight, bool *prefix) {
+    // Set default values for plain text parsing
+    *weight = 0;
+    *prefix = false;
+
+    // Check if we've reached the end of input
+    if (*state->buf == '\0')
+        return PT_END;
+
+    // Treat entire remaining buffer as one token
+    *strval = state->buf;
+    *lenval = strlen(state->buf);
+
+    // Advance parser state to end
+    state->buf += *lenval;
+    state->count++;
+
+    return PT_VAL;  // Return value token type
+}
+```

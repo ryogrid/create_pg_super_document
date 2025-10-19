@@ -34,3 +34,14 @@ The comparison is done directly on the DateADT values since they are stored as i
 - Part of the PostgreSQL date comparison function family located in src/backend/utils/adt/date.c
 - The comparison works correctly with infinite date values due to their internal representation
 - Can be used in SQL as a built-in function for finding maximum dates
+
+## Simplified Source
+
+```c
+Datum date_larger(PG_FUNCTION_ARGS) {
+    DateADT dateVal1 = PG_GETARG_DATEADT(0);
+    DateADT dateVal2 = PG_GETARG_DATEADT(1);
+
+    PG_RETURN_DATEADT((dateVal1 > dateVal2) ? dateVal1 : dateVal2);
+}
+```

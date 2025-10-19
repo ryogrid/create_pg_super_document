@@ -38,3 +38,24 @@ This function serves as an internal constructor for integer-type relation option
 - The function follows PostgreSQL's pattern of separating allocation/initialization from registration
 - The returned  structure contains both generic reloption fields and integer-specific validation bounds
 - Used internally by the public  and  functions
+
+## Simplified Source
+
+```c
+static relopt_int *
+init_int_reloption(bits32 kinds, const char *name, const char *desc,
+                   int default_val, int min_val, int max_val,
+                   LOCKMODE lockmode)
+{
+    // Allocate a new integer reloption structure
+    relopt_int *newoption = (relopt_int *) allocate_reloption(kinds, RELOPT_TYPE_INT,
+                                                              name, desc, lockmode);
+
+    // Set integer-specific configuration values
+    newoption->default_val = default_val;
+    newoption->min = min_val;
+    newoption->max = max_val;
+
+    return newoption;
+}
+```

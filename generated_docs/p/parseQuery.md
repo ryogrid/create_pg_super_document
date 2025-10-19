@@ -36,3 +36,53 @@ The function iterates through the SQL string looking for ':' characters, then us
 - The function handles consecutive colons by skipping them when they don't form valid variable names
 - Memory management is important: the function duplicates the original SQL string and frees memory on errors
 - This is part of pgbench's parameter substitution mechanism that allows for parameterized SQL execution
+
+## Simplified Source
+
+```c
+static bool parseQuery(Command *cmd)
+{
+    char *sql, *p;
+
+    cmd->argc = 1;
+
+    // Duplicate SQL string for modification
+    p = sql = pg_strdup(cmd->lines.data);
+
+    // Find and replace each :param with $n
+    while ((p = strchr(p, ':')) != NULL) {
+        char var[13];
+        char *name;
+        int eaten;
+
+        // Extract variable name from :param
+        name = parseVariable(p, &eaten);
+        if (name == NULL) {
+            // Skip consecutive colons
+            while (*p == ':')
+                p++;
+            continue;
+        }
+
+        // Check argument limit (argv[0] is reserved for SQL)
+        if (cmd->argc >= MAX_ARGS) {
+            pg_log_error("statement has too many arguments (maximum is %d): %s",
+                        MAX_ARGS - 1, cmd->lines.data);
+            pg_free(name);
+            return false;
+        }
+
+        // Replace :param with $n in SQL text
+        sprintf(var, "$%d", cmd->argc);
+        p = replaceVariable(&sql, p, eaten, var);
+
+        // Store parameter name in argv array
+        cmd->argv[cmd->argc] = name;
+        cmd->argc++;
+    }
+
+    // Store modified SQL as first argument
+    cmd->argv[0] = sql;
+    return true;
+}
+```

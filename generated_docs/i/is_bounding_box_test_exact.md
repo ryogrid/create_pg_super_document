@@ -39,3 +39,24 @@ The function returns true for directional and positional relationship strategies
 - Helps avoid unnecessary exact geometric calculations when bounding box tests are sufficient
 - Located in src/backend/utils/adt/geo_spgist.c:508-530
 - The strategy numbers correspond to PostgreSQL's R-tree operator class strategy numbers for geometric types
+
+## Simplified Source
+
+```c
+static bool is_bounding_box_test_exact(StrategyNumber strategy) {
+    // Return true for directional strategies that can be determined exactly by bounding box
+    switch (strategy) {
+        case RTLeftStrategyNumber:       // left-of
+        case RTOverLeftStrategyNumber:   // overlaps-or-left
+        case RTOverRightStrategyNumber:  // overlaps-or-right
+        case RTRightStrategyNumber:      // right-of
+        case RTOverBelowStrategyNumber:  // overlaps-or-below
+        case RTBelowStrategyNumber:      // below
+        case RTAboveStrategyNumber:      // above
+        case RTOverAboveStrategyNumber:  // overlaps-or-above
+            return true;
+        default:
+            return false;  // Other strategies need exact geometric tests
+    }
+}
+```

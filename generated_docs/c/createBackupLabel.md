@@ -51,3 +51,46 @@ The backup_label format follows PostgreSQL's standard structure but is specifica
 - The backup method is hardcoded as 'pg_rewind' and backup source as 'standby'
 - Buffer overflow protection is implemented with size checking
 - Part of pg_rewind's final phase where the target directory is prepared for recovery
+
+## Simplified Source
+
+```c
+static void createBackupLabel(XLogRecPtr startpoint, TimeLineID starttli, XLogRecPtr checkpointloc)
+{
+    XLogSegNo startsegno;
+    time_t stamp_time;
+    char strfbuf[128];
+    char xlogfilename[MAXFNAMELEN];
+    struct tm *tmp;
+    char buf[1000];
+    int len;
+
+    // Generate WAL filename from start point
+    XLByteToSeg(startpoint, startsegno, WalSegSz);
+    XLogFileName(xlogfilename, starttli, startsegno, WalSegSz);
+
+    // Create timestamp for backup label
+    stamp_time = time(NULL);
+    tmp = localtime(&stamp_time);
+    strftime(strfbuf, sizeof(strfbuf), "%Y-%m-%d %H:%M:%S %Z", tmp);
+
+    // Format backup label content
+    len = snprintf(buf, sizeof(buf),
+                   "START WAL LOCATION: %X/%X (file %s)\n"
+                   "CHECKPOINT LOCATION: %X/%X\n"
+                   "BACKUP METHOD: pg_rewind\n"
+                   "BACKUP FROM: standby\n"
+                   "START TIME: %s\n",
+                   LSN_FORMAT_ARGS(startpoint), xlogfilename,
+                   LSN_FORMAT_ARGS(checkpointloc),
+                   strfbuf);
+
+    if (len >= sizeof(buf))
+        pg_fatal("backup label buffer too small");
+
+    // Write backup label file to target directory
+    open_target_file("backup_label", true);
+    write_target_range(buf, 0, len);
+    close_target_file();
+}
+```

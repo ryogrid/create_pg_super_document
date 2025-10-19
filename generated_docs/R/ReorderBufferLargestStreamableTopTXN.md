@@ -47,3 +47,34 @@ The function includes extensive commentary explaining why transactions with inco
 - The function may return NULL if no suitable streamable transaction is found
 - Contains detailed design rationale for current limitations and potential future optimizations
 - Memory accounting for subtransactions is always 0 when streaming is enabled
+
+## Simplified Source
+```c
+static ReorderBufferTXN *ReorderBufferLargestStreamableTopTXN(ReorderBuffer *rb)
+{
+    dlist_iter iter;
+    Size largest_size = 0;
+    ReorderBufferTXN *largest = NULL;
+
+    // Iterate through top-level transactions with base snapshots
+    dlist_foreach(iter, &rb->txns_by_base_snapshot_lsn) {
+        ReorderBufferTXN *txn = dlist_container(ReorderBufferTXN, base_snapshot_node, iter.cur);
+
+        // Verify transaction constraints
+        Assert(!rbtxn_is_known_subxact(txn));  // Must be top-level
+        Assert(txn->base_snapshot != NULL);    // Must have base snapshot
+
+        // Check if this transaction is suitable for streaming
+        if ((largest == NULL || txn->total_size > largest_size) &&
+            (txn->total_size > 0) &&                    // Has actual size
+            !rbtxn_has_partial_change(txn) &&          // No incomplete changes
+            rbtxn_has_streamable_change(txn)) {         // Has streamable content
+
+            largest = txn;
+            largest_size = txn->total_size;
+        }
+    }
+
+    return largest;
+}
+```

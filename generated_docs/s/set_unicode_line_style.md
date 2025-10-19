@@ -34,3 +34,20 @@ The `set_unicode_line_style` function serves as a parser and validator for Unico
 - The linestyle parameter is only modified if the function returns true, ensuring atomic updates
 - Supports exactly two line styles: single and double Unicode borders
 - Part of psql's table formatting system that allows users to customize table appearance
+
+## Simplified Source
+
+```c
+static bool set_unicode_line_style(const char *value, size_t vallen,
+                                  unicode_linestyle *linestyle) {
+    // Parse line style string and update enum value
+    if (pg_strncasecmp("single", value, vallen) == 0)
+        *linestyle = UNICODE_LINESTYLE_SINGLE;
+    else if (pg_strncasecmp("double", value, vallen) == 0)
+        *linestyle = UNICODE_LINESTYLE_DOUBLE;
+    else
+        return false;  // Invalid line style
+
+    return true;  // Successfully parsed
+}
+```

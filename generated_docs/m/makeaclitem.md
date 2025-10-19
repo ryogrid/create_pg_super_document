@@ -42,3 +42,53 @@ The function uses a static privilege mapping table that covers all standard Post
 - Uses a static privilege map for efficient string-to-privilege conversion
 - Allocates memory for the result using PostgreSQL's memory management system
 - Legacy "RULE" privileges are explicitly ignored (mapped to 0)
+
+## Simplified Source
+
+```c
+Datum
+makeaclitem(PG_FUNCTION_ARGS)
+{
+    // Extract function arguments
+    Oid grantee = PG_GETARG_OID(0);
+    Oid grantor = PG_GETARG_OID(1);
+    text *privtext = PG_GETARG_TEXT_PP(2);
+    bool goption = PG_GETARG_BOOL(3);
+
+    // Privilege mapping table for string to ACL conversion
+    static const priv_map any_priv_map[] = {
+        {"SELECT", ACL_SELECT},
+        {"INSERT", ACL_INSERT},
+        {"UPDATE", ACL_UPDATE},
+        {"DELETE", ACL_DELETE},
+        {"TRUNCATE", ACL_TRUNCATE},
+        {"REFERENCES", ACL_REFERENCES},
+        {"TRIGGER", ACL_TRIGGER},
+        {"EXECUTE", ACL_EXECUTE},
+        {"USAGE", ACL_USAGE},
+        {"CREATE", ACL_CREATE},
+        {"TEMP", ACL_CREATE_TEMP},
+        {"TEMPORARY", ACL_CREATE_TEMP},
+        {"CONNECT", ACL_CONNECT},
+        {"SET", ACL_SET},
+        {"ALTER SYSTEM", ACL_ALTER_SYSTEM},
+        {"MAINTAIN", ACL_MAINTAIN},
+        {"RULE", 0}, // Legacy privilege, ignored
+        {NULL, 0}
+    };
+
+    // Convert privilege string to ACL bitmask
+    AclMode priv = convert_any_priv_string(privtext, any_priv_map);
+
+    // Create new ACL item
+    AclItem *result = (AclItem *) palloc(sizeof(AclItem));
+    result->ai_grantee = grantee;
+    result->ai_grantor = grantor;
+
+    // Set privileges and grant options
+    ACLITEM_SET_PRIVS_GOPTIONS(*result, priv,
+                               (goption ? priv : ACL_NO_RIGHTS));
+
+    PG_RETURN_ACLITEM_P(result);
+}
+```

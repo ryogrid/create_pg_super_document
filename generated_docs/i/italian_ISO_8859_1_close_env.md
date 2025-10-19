@@ -31,3 +31,12 @@ The function ensures that all dynamically allocated memory within the Snowball e
 - After calling this function, the environment pointer should not be used for further operations
 - This follows the standard resource management pattern used throughout the Snowball stemming library
 - The function has no return value (void) as cleanup operations are expected to always succeed
+
+## Simplified Source
+```c
+extern void italian_ISO_8859_1_close_env(struct SN_env * z) {
+    // Clean up and deallocate Italian stemming environment
+    // Parameter 0 matches the string array size from create_env
+    SN_close_env(z, 0);
+}
+```

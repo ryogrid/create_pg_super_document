@@ -44,3 +44,25 @@ The function works by:
 - Used extensively across all UTF-8 language stemmers in PostgreSQL's text search
 - Essential for identifying vowels, consonants, and other character classes in stemming algorithms
 - The function is declared as extern, making it available to generated stemmer code
+
+## Simplified Source
+
+```c
+extern int in_grouping_U(struct SN_env * z, const unsigned char * s, int min, int max, int repeat) {
+    do {
+        int ch;
+        // Decode UTF-8 character at current position
+        int width = get_utf8(z->p, z->c, z->l, &ch);
+        if (!width) return -1;  // UTF-8 decode error
+
+        // Check if character is in the specified group range
+        if (ch > max || (ch -= min) < 0 || (s[ch >> 3] & (0X1 << (ch & 0X7))) == 0)
+            return width;  // Character not in group
+
+        // Advance cursor past this character
+        z->c += width;
+    } while (repeat);
+
+    return 0;  // Success
+}
+```

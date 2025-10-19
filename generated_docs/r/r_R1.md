@@ -39,3 +39,12 @@ This function performs a single comparison to check if the current cursor positi
 - Essential for handling languages with moderate inflectional complexity
 - Particularly important for Germanic, Romance, and Slavic language processing
 - Enables context-sensitive suffix removal based on word structure analysis
+
+## Simplified Source
+
+```c
+static int r_R1(struct SN_env * z) {
+    // Check if current cursor position is within the R1 region (intermediate restriction)
+    return (z->I[1] <= z->c) ? 1 : 0;
+}
+```

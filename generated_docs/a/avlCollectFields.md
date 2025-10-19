@@ -35,3 +35,22 @@ The function is specifically designed for the PostgreSQL psql crosstab view feat
 - Returns the next available index in the fields array, enabling chaining of multiple tree collections
 - Uses tree->end as a sentinel value to detect empty subtrees and terminate recursion
 - This is a key component of the PostgreSQL psql \crosstabview feature for generating pivot table outputs
+
+## Simplified Source
+
+```c
+static int avlCollectFields(avl_tree *tree, avl_node *node, pivot_field *fields, int idx) {
+    if (node == tree->end)
+        return idx;  // Base case: empty subtree
+
+    // In-order traversal: left -> current -> right
+    // Process left subtree first
+    idx = avlCollectFields(tree, node->children[0], fields, idx);
+
+    // Process current node
+    fields[idx] = node->field;
+
+    // Process right subtree and return final index
+    return avlCollectFields(tree, node->children[1], fields, idx + 1);
+}
+```

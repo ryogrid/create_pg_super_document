@@ -34,3 +34,31 @@ This function provides a wrapper around zlib's gzread() function for reading com
 - Distinguishes between Z_ERRNO errors (system errors) and zlib-specific errors
 - Uses CompressFileHandle structure to access the underlying gzFile
 - Part of the Compress File API for handling gzip-compressed files in pg_dump/pg_restore
+
+## Simplified Source
+
+```c
+static size_t Gzip_read(void *ptr, size_t size, CompressFileHandle *CFH)
+{
+    gzFile gzfp = (gzFile) CFH->private_data;
+    int gzret;
+
+    // Read data from gzip file
+    gzret = gzread(gzfp, ptr, size);
+
+    // Handle error/EOF conditions
+    if (gzret <= 0) {
+        // Check if this is actually EOF
+        if (gzret == 0 && gzeof(gzfp))
+            return 0;
+
+        // Handle read error
+        int errnum;
+        const char *errmsg = gzerror(gzfp, &errnum);
+        pg_fatal("could not read from input file: %s",
+                 errnum == Z_ERRNO ? strerror(errno) : errmsg);
+    }
+
+    return (size_t) gzret;
+}
+```

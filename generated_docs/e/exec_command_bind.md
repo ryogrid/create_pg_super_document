@@ -39,3 +39,42 @@ When active_branch is false (inside a false \if block), the function calls ignor
 - Properly handles conditional execution by ignoring arguments when not in active branch
 - The bound parameters will be used by subsequent query execution that supports prepared statement parameters
 - Memory management includes cleaning previous bindings before setting new ones
+
+## Simplified Source
+
+```c
+static backslashResult exec_command_bind(PsqlScanState scan_state, bool active_branch) {
+    backslashResult status = PSQL_CMD_SKIP_LINE;
+
+    if (active_branch) {
+        char *opt;
+        int nparams = 0;
+        int nalloc = 0;
+
+        // Clear any existing parameter bindings
+        clean_bind_state();
+
+        // Parse all arguments as parameter values
+        while ((opt = psql_scan_slash_option(scan_state, OT_NORMAL, NULL, false))) {
+            nparams++;
+
+            // Expand parameter array if needed
+            if (nparams > nalloc) {
+                nalloc = nalloc ? nalloc * 2 : 1;
+                pset.bind_params = pg_realloc_array(pset.bind_params, char *, nalloc);
+            }
+
+            pset.bind_params[nparams - 1] = opt;
+        }
+
+        // Set parameter count and flag
+        pset.bind_nparams = nparams;
+        pset.bind_flag = true;
+    } else {
+        // Ignore arguments when in false \if branch
+        ignore_slash_options(scan_state);
+    }
+
+    return status;
+}
+```

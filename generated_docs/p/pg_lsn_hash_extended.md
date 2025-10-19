@@ -35,3 +35,13 @@ The function uses PostgreSQL's standard function argument mechanism:
 - The extended hash variant is important for hash table implementations that require seed values for security or performance reasons
 - The function directly delegates to hashint8extended since LSN values are internally stored as 64-bit integers
 - Located in src/backend/utils/adt/pg_lsn.c:213-223
+
+## Simplified Source
+
+```c
+Datum pg_lsn_hash_extended(PG_FUNCTION_ARGS) {
+    // Delegate to 64-bit integer extended hash function
+    // since LSN values are internally stored as 64-bit integers
+    return hashint8extended(fcinfo);
+}
+```

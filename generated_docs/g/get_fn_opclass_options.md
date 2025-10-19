@@ -41,3 +41,24 @@ The function performs the following operations:
 - The returned bytea pointer should not be freed by the caller as it points to data managed by the expression context
 - Used in conjunction with has_fn_opclass_options() to safely check for and retrieve operator class options
 - The error message indicates that the function expects to be called only in contexts where operator class options are meaningful
+
+## Simplified Source
+```c
+bytea *get_fn_opclass_options(FmgrInfo *flinfo) {
+    // Check if function info exists and has valid expression
+    if (flinfo && flinfo->fn_expr && IsA(flinfo->fn_expr, Const)) {
+        Const *expr = (Const *) flinfo->fn_expr;
+
+        // Return bytea data if expression is BYTEA type
+        if (expr->consttype == BYTEAOID)
+            return expr->constisnull ? NULL : DatumGetByteaP(expr->constvalue);
+    }
+
+    // Error if options expected but not found
+    ereport(ERROR,
+            (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+             errmsg("operator class options info is absent in function call context")));
+
+    return NULL;
+}
+```

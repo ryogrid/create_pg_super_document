@@ -43,3 +43,44 @@ The function operates through distinct phases:
 - The function maintains cursor positions and string boundaries throughout the stemming process
 - Returns 1 on successful completion, negative values indicate errors
 - Part of the generated Snowball stemming code for Italian language processing
+
+## Simplified Source
+```c
+extern int italian_ISO_8859_1_stem(struct SN_env * z) {
+    // Phase 1: Preprocess characters and handle special cases
+    int c1 = z->c;
+    r_prelude(z);
+    z->c = c1;
+
+    // Phase 2: Mark morphological regions in the word
+    r_mark_regions(z);
+    z->lb = z->c;
+    z->c = z->l;  // Move to end of word
+
+    // Phase 3: Remove attached pronouns (Italian clitics)
+    int m2 = z->l - z->c;
+    r_attached_pronoun(z);
+    z->c = z->l - m2;
+
+    // Phase 4: Remove standard suffixes, fallback to verb suffixes
+    int m3 = z->l - z->c;
+    if (r_standard_suffix(z) == 0) {
+        // Standard suffix removal failed, try verb suffixes
+        r_verb_suffix(z);
+    }
+    z->c = z->l - m3;
+
+    // Phase 5: Clean up remaining vowel suffixes
+    int m5 = z->l - z->c;
+    r_vowel_suffix(z);
+    z->c = z->l - m5;
+
+    // Phase 6: Final post-processing
+    z->c = z->lb;
+    int c6 = z->c;
+    r_postlude(z);
+    z->c = c6;
+
+    return 1;
+}
+```

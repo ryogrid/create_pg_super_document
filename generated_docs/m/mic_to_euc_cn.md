@@ -39,3 +39,24 @@ The function uses PostgreSQL's PG_FUNCTION_ARGS macro and extracts:
 - The actual conversion logic is implemented in the mic2euc_cn helper function
 - Part of the EUC-CN encoding conversion module in PostgreSQL's multibyte support
 - Performs the reverse conversion of euc_cn_to_mic function
+
+## Simplified Source
+
+```c
+Datum mic_to_euc_cn(PG_FUNCTION_ARGS) {
+    // Extract function parameters
+    unsigned char *src = (unsigned char *) PG_GETARG_CSTRING(2);
+    unsigned char *dest = (unsigned char *) PG_GETARG_CSTRING(3);
+    int len = PG_GETARG_INT32(4);
+    bool noError = PG_GETARG_BOOL(5);
+
+    // Validate encoding conversion arguments
+    CHECK_ENCODING_CONVERSION_ARGS(PG_MULE_INTERNAL, PG_EUC_CN);
+
+    // Perform the actual encoding conversion
+    int converted = mic2euc_cn(src, dest, len, noError);
+
+    // Return number of bytes converted
+    PG_RETURN_INT32(converted);
+}
+```

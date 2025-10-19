@@ -37,4 +37,24 @@ The function follows PostgreSQL's standard function calling conventions using th
 - The function performs strict type checking to ensure both ranges are of the same type, throwing an ERROR if types don't match
 - This type checking is primarily a safety measure since PostgreSQL's ANYRANGE matching rules should prevent type mismatches at the SQL level
 - The actual intersection logic is delegated to  for code reusability
-- Located in 
+- Located in src/backend/utils/adt/rangetypes.c
+
+## Simplified Source
+
+```c
+Datum range_intersect(PG_FUNCTION_ARGS) {
+    // Extract the two range arguments
+    RangeType *r1 = PG_GETARG_RANGE_P(0);
+    RangeType *r2 = PG_GETARG_RANGE_P(1);
+
+    // Ensure both ranges are of the same type
+    if (RangeTypeGetOid(r1) != RangeTypeGetOid(r2))
+        elog(ERROR, "range types do not match");
+
+    // Get type cache for range operations
+    TypeCacheEntry *typcache = range_get_typcache(fcinfo, RangeTypeGetOid(r1));
+
+    // Compute and return the intersection
+    PG_RETURN_RANGE_P(range_intersect_internal(typcache, r1, r2));
+}
+```

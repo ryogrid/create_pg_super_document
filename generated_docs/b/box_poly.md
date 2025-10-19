@@ -35,3 +35,38 @@ The `box_poly` function converts a BOX geometric type to a POLYGON by mapping th
 - The bounding box of the resulting polygon is identical to the original box
 - Provides conversion between two different representations of rectangular shapes
 - Located in src/backend/utils/adt/geo_ops.c:4535-4563
+
+## Simplified Source
+
+```c
+Datum
+box_poly(PG_FUNCTION_ARGS)
+{
+    BOX *box = PG_GETARG_BOX_P(0);
+    POLYGON *poly;
+    int size;
+
+    // Allocate memory for polygon with 4 vertices (box corners)
+    size = offsetof(POLYGON, p) + sizeof(poly->p[0]) * 4;
+    poly = (POLYGON *) palloc(size);
+
+    // Set polygon properties
+    SET_VARSIZE(poly, size);
+    poly->npts = 4;
+
+    // Map box corners to polygon vertices (counter-clockwise)
+    poly->p[0].x = box->low.x;   // Lower-left
+    poly->p[0].y = box->low.y;
+    poly->p[1].x = box->low.x;   // Upper-left
+    poly->p[1].y = box->high.y;
+    poly->p[2].x = box->high.x;  // Upper-right
+    poly->p[2].y = box->high.y;
+    poly->p[3].x = box->high.x;  // Lower-right
+    poly->p[3].y = box->low.y;
+
+    // Set bounding box (same as original box)
+    box_construct(&poly->boundbox, &box->high, &box->low);
+
+    PG_RETURN_POLYGON_P(poly);
+}
+```

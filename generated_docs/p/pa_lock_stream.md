@@ -42,3 +42,13 @@ The lock is associated with both a transaction ID and the current subscription I
 - Works in conjunction with the corresponding unlock function (pa_unlock_stream)
 - Critical for maintaining data consistency in parallel logical replication scenarios
 - Locks are associated with both transaction ID and subscription ID for precise control
+
+## Simplified Source
+
+```c
+void pa_lock_stream(TransactionId xid, LOCKMODE lockmode) {
+    // Acquire stream lock for transaction coordination between leader and parallel workers
+    LockApplyTransactionForSession(MyLogicalRepWorker->subid, xid,
+                                  PARALLEL_APPLY_LOCK_STREAM, lockmode);
+}
+```

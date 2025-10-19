@@ -33,3 +33,18 @@ The function is part of PostgreSQL's JSONB GIN indexing infrastructure, which al
 - The pre-allocation optimization helps reduce memory fragmentation and allocation overhead when the approximate number of entries is known in advance
 - The GinEntries structure manages a dynamic buffer of Datum values used in GIN index operations
 - Memory is allocated using PostgreSQL's palloc() function, which integrates with the database's memory context system
+
+## Simplified Source
+
+```c
+static void
+init_gin_entries(GinEntries *entries, int preallocated)
+{
+    // Set up initial buffer state
+    entries->allocated = preallocated;
+    entries->count = 0;
+
+    // Pre-allocate memory if requested for performance
+    entries->buf = preallocated ? palloc(sizeof(Datum) * preallocated) : NULL;
+}
+```

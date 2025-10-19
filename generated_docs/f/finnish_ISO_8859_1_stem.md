@@ -51,3 +51,73 @@ The function uses the I[2] flag to track whether certain morphological transform
 - Returns 1 on successful stemming, negative values on error
 - Character encoding is specifically ISO-8859-1, supporting Finnish special characters (ä, ö)
 - The function is marked 'extern' indicating it's part of the public API
+
+## Simplified Source
+
+```c
+extern int finnish_ISO_8859_1_stem(struct SN_env * z) {
+    // 1. Initialize: mark morphological regions (R1, R2)
+    {
+        int c1 = z->c;
+        if (r_mark_regions(z) < 0) return -1;
+        z->c = c1;
+    }
+
+    // Initialize flags and set up backward processing
+    z->I[2] = 0;  // Clear plural processing flag
+    z->lb = z->c;
+    z->c = z->l;  // Start from end of word
+
+    // 2. Remove particles and clitics (like -ko, -ka, -han, -pa)
+    {
+        int m_test = z->l - z->c;
+        if (r_particle_etc(z) < 0) return -1;
+        z->c = z->l - m_test;
+    }
+
+    // 3. Remove possessive suffixes (like -ni, -si, -nsa)
+    {
+        int m_test = z->l - z->c;
+        if (r_possessive(z) < 0) return -1;
+        z->c = z->l - m_test;
+    }
+
+    // 4. Remove case endings (grammatical cases)
+    {
+        int m_test = z->l - z->c;
+        if (r_case_ending(z) < 0) return -1;
+        z->c = z->l - m_test;
+    }
+
+    // 5. Remove other derivational and morphological endings
+    {
+        int m_test = z->l - z->c;
+        if (r_other_endings(z) < 0) return -1;
+        z->c = z->l - m_test;
+    }
+
+    // 6. Handle plural markers based on context
+    if (z->I[2]) {
+        // If flag is set, process i/j plurals
+        int m_test = z->l - z->c;
+        if (r_i_plural(z) < 0) return -1;
+        z->c = z->l - m_test;
+    } else {
+        // Otherwise, process t plurals
+        int m_test = z->l - z->c;
+        if (r_t_plural(z) < 0) return -1;
+        z->c = z->l - m_test;
+    }
+
+    // 7. Final cleanup and normalization
+    {
+        int m_test = z->l - z->c;
+        if (r_tidy(z) < 0) return -1;
+        z->c = z->l - m_test;
+    }
+
+    // Reset cursor to start and return success
+    z->c = z->lb;
+    return 1;
+}
+```

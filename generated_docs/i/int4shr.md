@@ -35,3 +35,16 @@ The function uses PostgreSQL's function call convention with PG_FUNCTION_ARGS ma
 - For positive numbers, effectively divides by 2^n where n is the shift amount
 - For negative numbers, maintains the sign bit (arithmetic shift)
 - Behavior is undefined for negative shift amounts or shift amounts >= 32
+
+## Simplified Source
+
+```c
+Datum int4shr(PG_FUNCTION_ARGS) {
+    // Extract value to shift and shift amount from function arguments
+    int32 arg1 = PG_GETARG_INT32(0);  // Value to shift
+    int32 arg2 = PG_GETARG_INT32(1);  // Number of positions to shift right
+
+    // Perform right shift operation and return result
+    PG_RETURN_INT32(arg1 >> arg2);
+}
+```

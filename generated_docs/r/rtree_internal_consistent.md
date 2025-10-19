@@ -40,3 +40,90 @@ The function handles cases where RTSameStrategyNumber and RTContainsStrategyNumb
 - Many strategies use negated conditions to allow for potential matches within bounding boxes
 - The function consolidates RTSameStrategyNumber and RTContainsStrategyNumber cases
 - Part of the common R-tree functionality that enables spatial indexing for multiple geometric types
+
+## Simplified Source
+
+```c
+static bool rtree_internal_consistent(BOX *key, BOX *query, StrategyNumber strategy)
+{
+    bool retval;
+
+    // Internal node logic: check if subtree might contain qualifying results
+    switch (strategy)
+    {
+        case RTLeftStrategyNumber:
+            // Allow if key is not completely to the over-right of query
+            retval = !DatumGetBool(DirectFunctionCall2(box_overright,
+                                                     PointerGetDatum(key),
+                                                     PointerGetDatum(query)));
+            break;
+        case RTOverLeftStrategyNumber:
+            // Allow if key is not completely to the right of query
+            retval = !DatumGetBool(DirectFunctionCall2(box_right,
+                                                     PointerGetDatum(key),
+                                                     PointerGetDatum(query)));
+            break;
+        case RTOverlapStrategyNumber:
+            // Must actually overlap
+            retval = DatumGetBool(DirectFunctionCall2(box_overlap,
+                                                    PointerGetDatum(key),
+                                                    PointerGetDatum(query)));
+            break;
+        case RTOverRightStrategyNumber:
+            // Allow if key is not completely to the left of query
+            retval = !DatumGetBool(DirectFunctionCall2(box_left,
+                                                     PointerGetDatum(key),
+                                                     PointerGetDatum(query)));
+            break;
+        case RTRightStrategyNumber:
+            // Allow if key is not completely to the over-left of query
+            retval = !DatumGetBool(DirectFunctionCall2(box_overleft,
+                                                     PointerGetDatum(key),
+                                                     PointerGetDatum(query)));
+            break;
+        case RTSameStrategyNumber:
+        case RTContainsStrategyNumber:
+            // For both same and contains: key must contain query
+            retval = DatumGetBool(DirectFunctionCall2(box_contain,
+                                                    PointerGetDatum(key),
+                                                    PointerGetDatum(query)));
+            break;
+        case RTContainedByStrategyNumber:
+            // Any overlap might contain a contained geometry
+            retval = DatumGetBool(DirectFunctionCall2(box_overlap,
+                                                    PointerGetDatum(key),
+                                                    PointerGetDatum(query)));
+            break;
+        case RTOverBelowStrategyNumber:
+            // Allow if key is not completely above query
+            retval = !DatumGetBool(DirectFunctionCall2(box_above,
+                                                     PointerGetDatum(key),
+                                                     PointerGetDatum(query)));
+            break;
+        case RTBelowStrategyNumber:
+            // Allow if key is not completely over-above query
+            retval = !DatumGetBool(DirectFunctionCall2(box_overabove,
+                                                     PointerGetDatum(key),
+                                                     PointerGetDatum(query)));
+            break;
+        case RTAboveStrategyNumber:
+            // Allow if key is not completely over-below query
+            retval = !DatumGetBool(DirectFunctionCall2(box_overbelow,
+                                                     PointerGetDatum(key),
+                                                     PointerGetDatum(query)));
+            break;
+        case RTOverAboveStrategyNumber:
+            // Allow if key is not completely below query
+            retval = !DatumGetBool(DirectFunctionCall2(box_below,
+                                                     PointerGetDatum(key),
+                                                     PointerGetDatum(query)));
+            break;
+        default:
+            elog(ERROR, "unrecognized strategy number: %d", strategy);
+            retval = false;  // Keep compiler quiet
+            break;
+    }
+
+    return retval;
+}
+```

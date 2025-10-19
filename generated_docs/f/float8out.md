@@ -34,3 +34,18 @@ This function serves as the PostgreSQL system interface for converting float8 va
 - Simple wrapper that delegates actual work to float8out_internal()
 - Returns result compatible with PostgreSQL's Datum system
 - Used automatically by PostgreSQL when converting float8 values to text in queries, COPY operations, etc.
+
+## Simplified Source
+
+```c
+Datum
+float8out(PG_FUNCTION_ARGS)
+{
+    float8 num = PG_GETARG_FLOAT8(0);  // Extract float8 input value
+
+    // Convert to string using internal function
+    PG_RETURN_CSTRING(float8out_internal(num));
+}
+```
+
+**Simplified Logic**: This function is a simple wrapper that converts a double-precision float8 value to its string representation. It extracts the float8 argument and delegates the actual conversion work to `float8out_internal`, then returns the resulting string as a Datum.

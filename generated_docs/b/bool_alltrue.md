@@ -29,3 +29,17 @@ The bool_alltrue function serves as the final function for PostgreSQL's EVERY an
 
 ## Notes and Other Information
 This function implements the SQL EVERY aggregate semantics where the result is true if and only if all input values are true, false if any input value is false, and NULL if all input values are NULL. The comparison (state->aggtrue == state->aggcount) efficiently determines if all non-null values were true without needing to track false values separately. This function is typically registered in pg_proc as the final function for boolean AND aggregates.
+
+## Simplified Source
+```c
+bool bool_alltrue(BoolAggState* state) {
+    // If no values were processed, return NULL
+    if (state == NULL || state->aggcount == 0) {
+        return NULL;
+    }
+
+    // Return true only if all non-null values were true
+    // (count of true values equals total count of non-null values)
+    return state->aggtrue == state->aggcount;
+}
+```

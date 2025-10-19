@@ -29,3 +29,16 @@ The shell_in function is designed to handle input operations on PostgreSQL shell
 - The error message "cannot accept a value of a shell type" helps identify programming errors
 - Works in conjunction with pg_type.typisdefined checks to ensure type system integrity
 - The PG_RETURN_VOID at the end exists solely to keep the compiler quiet about return value expectations
+
+## Simplified Source
+
+```c
+Datum shell_in(PG_FUNCTION_ARGS) {
+    // Error handler for shell types (incomplete type definitions)
+    ereport(ERROR,
+            (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+             errmsg("cannot accept a value of a shell type")));
+
+    PG_RETURN_VOID();  // keep compiler quiet
+}
+```

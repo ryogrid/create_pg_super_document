@@ -42,3 +42,43 @@ The function uses pipe_read_line() to capture the executable's version output an
 - Version string format validation ensures compatibility between pg_upgrade and target executables
 - Memory management includes proper cleanup of dynamically allocated line buffer
 - Critical component of the binary directory validation process in pg_upgrade
+
+## Simplified Source
+
+```c
+static void check_exec(const char *dir, const char *program, bool check_version) {
+    char path[MAXPGPATH];
+    char *line;
+    char cmd[MAXPGPATH];
+    char versionstr[128];
+
+    // Build full path to executable
+    snprintf(path, sizeof(path), "%s/%s", dir, program);
+
+    // Check if executable exists and is executable
+    if (validate_exec(path) != 0)
+        pg_fatal("check for \"%s\" failed: %m", path);
+
+    // Test execution by running with -V flag
+    snprintf(cmd, sizeof(cmd), "\"%s\" -V", path);
+
+    if ((line = pipe_read_line(cmd)) == NULL)
+        pg_fatal("check for \"%s\" failed: cannot execute", path);
+
+    // Verify version if requested
+    if (check_version) {
+        pg_strip_crlf(line);
+
+        // Build expected version string
+        snprintf(versionstr, sizeof(versionstr), "%s (PostgreSQL) " PG_VERSION, program);
+
+        // Compare actual vs expected version
+        if (strcmp(line, versionstr) != 0)
+            pg_fatal("check for \"%s\" failed: incorrect version: found \"%s\", expected \"%s\"",
+                     path, line, versionstr);
+    }
+
+    // Clean up allocated memory
+    pg_free(line);
+}
+```

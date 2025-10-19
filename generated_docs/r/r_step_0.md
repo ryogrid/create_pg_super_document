@@ -49,3 +49,53 @@ This step is crucial for Romanian stemming as it handles language-specific morph
 - Pattern matching relies on predefined string constants (s_4 through s_10) that contain Romanian-specific character replacements
 - Critical for maintaining Romanian linguistic accuracy in the stemming process
 - Part of a multi-step Romanian stemming algorithm that processes different suffix types in sequence
+
+## Simplified Source
+
+```c
+static int r_step_0(struct SN_env * z) {
+    // Set end position and validate character
+    z->ket = z->c;
+    if (z->c - 1 <= z->lb || z->p[z->c - 1] >> 5 != 3 || !((266786 >> (z->p[z->c - 1] & 0x1f)) & 1))
+        return 0;
+
+    // Find matching suffix pattern
+    int among_var = find_among_b(z, a_1, 16);
+    if (!among_var) return 0;
+
+    z->bra = z->c;
+
+    // Check if within R1 region
+    if (r_R1(z) <= 0) return 0;
+
+    // Apply transformations based on matched pattern
+    switch (among_var) {
+        case 1:
+            slice_del(z);  // Delete suffix
+            break;
+        case 2:
+            slice_from_s(z, 1, s_4);  // Replace with s_4
+            break;
+        case 3:
+            slice_from_s(z, 1, s_5);  // Replace with s_5
+            break;
+        case 4:
+            slice_from_s(z, 1, s_6);  // Replace with s_6
+            break;
+        case 5:
+            // Conditional replacement - avoid s_7 context
+            int m1 = z->l - z->c;
+            if (eq_s_b(z, 2, s_7)) return 0;
+            z->c = z->l - m1;
+            slice_from_s(z, 1, s_8);  // Replace with s_8
+            break;
+        case 6:
+            slice_from_s(z, 2, s_9);  // Replace with s_9
+            break;
+        case 7:
+            slice_from_s(z, 3, s_10); // Replace with s_10
+            break;
+    }
+    return 1;
+}
+```

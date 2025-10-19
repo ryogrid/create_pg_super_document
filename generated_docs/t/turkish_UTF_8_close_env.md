@@ -23,3 +23,16 @@ This function serves as the counterpart to turkish_UTF_8_create_env, providing p
 
 ## Notes and Other Information
 This function must be called for every environment created with turkish_UTF_8_create_env to prevent memory leaks. The parameter 0 passed to SN_close_env matches the integer variable count used in environment creation, ensuring consistent memory management. Following the Snowball stemmer pattern, this provides language-specific cleanup while leveraging the common underlying infrastructure.
+
+## Simplified Source
+
+```c
+extern void turkish_UTF_8_close_env(struct SN_env * z) {
+    // Clean up Snowball environment for Turkish:
+    // - 0 matches the integer variable count from create_env
+    // - Properly deallocates all memory resources
+    SN_close_env(z, 0);
+}
+```
+
+**Key Logic**: Simple cleanup function that properly deallocates a Turkish Snowball environment. Uses parameter 0 (matching the integer variable count from creation) to ensure consistent memory management. Essential for preventing memory leaks when Turkish stemming operations complete.

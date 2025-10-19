@@ -56,3 +56,44 @@ Key features:
 - Status filtering logic specifically targets INSERT/UPDATE/DELETE/MERGE RETURNING clauses
 - Output is always flushed to ensure immediate visibility
 - The function handles NULL printQueryFout by falling back to the default output stream
+
+## Simplified Source
+
+```c
+static void PrintQueryStatus(PGresult *result, FILE *printQueryFout) {
+    char buf[16];
+    const char *cmdstatus = PQcmdStatus(result);
+    FILE *fout = printQueryFout ? printQueryFout : pset.queryFout;
+
+    // Skip status display for SELECT queries unless they have RETURNING clause
+    if (PQresultStatus(result) == PGRES_TUPLES_OK) {
+        if (!(strncmp(cmdstatus, "INSERT", 6) == 0 ||
+              strncmp(cmdstatus, "UPDATE", 6) == 0 ||
+              strncmp(cmdstatus, "DELETE", 6) == 0 ||
+              strncmp(cmdstatus, "MERGE", 5) == 0))
+            return;
+    }
+
+    // Display status message unless in quiet mode
+    if (!pset.quiet) {
+        if (pset.popt.topt.format == PRINT_HTML) {
+            fputs("<p>", fout);
+            html_escaped_print(cmdstatus, fout);
+            fputs("</p>\n", fout);
+        } else {
+            fprintf(fout, "%s\n", cmdstatus);
+        }
+        fflush(fout);
+    }
+
+    // Log to file if configured
+    if (pset.logfile)
+        fprintf(pset.logfile, "%s\n", cmdstatus);
+
+    // Set LASTOID variable with the OID from the result
+    snprintf(buf, sizeof(buf), "%u", (unsigned int) PQoidValue(result));
+    SetVariable(pset.vars, "LASTOID", buf);
+}
+```
+
+This simplified version preserves the core functionality: command status filtering, formatted output with HTML support, quiet mode handling, logging, and LASTOID variable management.

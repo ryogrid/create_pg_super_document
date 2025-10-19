@@ -27,3 +27,20 @@ This function validates an encoding name string to determine if it represents a 
 - Frontend encodings are a subset of all PostgreSQL encodings that are suitable for client use
 - Used for validating client_encoding parameter settings
 - Located in src/common/encnames.c:485-498
+
+## Simplified Source
+
+```c
+int pg_valid_client_encoding(const char *name) {
+    // Convert encoding name to internal encoding ID
+    int enc = pg_char_to_encoding(name);
+    if (enc < 0)
+        return -1;  // Unknown encoding name
+
+    // Check if this encoding is valid for client (frontend) use
+    if (!PG_VALID_FE_ENCODING(enc))
+        return -1;  // Not a valid client encoding
+
+    return enc;  // Return the valid encoding ID
+}
+```

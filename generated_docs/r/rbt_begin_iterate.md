@@ -43,3 +43,28 @@ The iterator maintains internal state to track the current position in the tree 
 - Multiple concurrent iterators on the same tree are supported and safe
 - The function will error out with elog(ERROR) if an unrecognized traversal order is specified
 - The iterator is considered "over" immediately if the tree root is RBTNIL (empty tree)
+
+## Simplified Source
+
+```c
+void
+rbt_begin_iterate(RBTree *rbt, RBTOrderControl ctrl, RBTreeIterator *iter)
+{
+    // Initialize common iterator state
+    iter->rbt = rbt;
+    iter->last_visited = NULL;
+    iter->is_over = (rbt->root == RBTNIL);  // Empty tree check
+
+    // Set appropriate iterator function based on traversal order
+    switch (ctrl) {
+        case LeftRightWalk:    // In-order: left, self, right
+            iter->iterate = rbt_left_right_iterator;
+            break;
+        case RightLeftWalk:    // Reverse order: right, self, left
+            iter->iterate = rbt_right_left_iterator;
+            break;
+        default:
+            elog(ERROR, "unrecognized rbtree iteration order: %d", ctrl);
+    }
+}
+```

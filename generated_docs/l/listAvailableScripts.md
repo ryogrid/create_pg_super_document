@@ -34,3 +34,22 @@ The `listAvailableScripts` function provides a user-friendly way to display all 
 - The function accesses the global builtin_script array which contains predefined benchmark scenarios
 - Located in src/bin/pgbench/pgbench.c at lines 6144-6155
 - Often called in response to command-line options that request script listing
+
+## Simplified Source
+
+```c
+static void
+listAvailableScripts(void)
+{
+    // Print header for available scripts
+    fprintf(stderr, "Available builtin scripts:\n");
+
+    // Iterate through all built-in scripts and display them
+    for (int i = 0; i < lengthof(builtin_script); i++)
+        fprintf(stderr, "  %13s: %s\n",
+                builtin_script[i].name,
+                builtin_script[i].desc);
+
+    fprintf(stderr, "\n");
+}
+```

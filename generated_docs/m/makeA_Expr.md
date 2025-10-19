@@ -37,3 +37,23 @@ The makeA_Expr function is a constructor utility that allocates and initializes 
 - The A_Expr structure includes a custom_read_write attribute for specialized serialization
 - Location tracking enables better error reporting by preserving source position information
 - The function follows PostgreSQL's standard pattern for node constructors
+
+## Simplified Source
+
+```c
+A_Expr *
+makeA_Expr(A_Expr_Kind kind, List *name,
+           Node *lexpr, Node *rexpr, int location)
+{
+    A_Expr *a = makeNode(A_Expr);
+
+    // Initialize all A_Expr fields
+    a->kind = kind;
+    a->name = name;
+    a->lexpr = lexpr;
+    a->rexpr = rexpr;
+    a->location = location;
+
+    return a;
+}
+```

@@ -35,3 +35,16 @@ The function returns the actual difference (v1 - v2), not the absolute value, so
 - The comment notes that subtype_diff functions must take care to avoid overflow
 - Essential for range operations that require measuring distances between range bounds
 - Simple implementation that handles the int32 to float8 conversion automatically
+
+## Simplified Source
+
+```c
+Datum int4range_subdiff(PG_FUNCTION_ARGS) {
+    // Extract the two integer arguments
+    int32 v1 = PG_GETARG_INT32(0);
+    int32 v2 = PG_GETARG_INT32(1);
+
+    // Return the difference as float8 to avoid overflow
+    PG_RETURN_FLOAT8((float8) v1 - (float8) v2);
+}
+```

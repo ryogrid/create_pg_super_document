@@ -35,3 +35,14 @@ The function acts as the public interface for ending gzip compression operations
 - Serves as the public interface function for gzip compression cleanup in the pg_dump compression framework
 - Very simple wrapper function that primarily provides safety checks
 - The function is static and located in src/bin/pg_dump/compress_gzip.c:144-151
+
+## Simplified Source
+
+```c
+static void EndCompressorGzip(ArchiveHandle *AH, CompressorState *cs)
+{
+    // Only finalize if compression was actually initialized
+    if (cs->private_data)
+        DeflateCompressorEnd(AH, cs);
+}
+```

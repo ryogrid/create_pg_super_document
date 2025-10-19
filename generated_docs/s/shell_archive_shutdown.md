@@ -36,3 +36,13 @@ The function serves as a placeholder for potential future cleanup operations and
 - The debug message helps administrators and developers track archiver process lifecycle
 - Future enhancements could add cleanup logic if the shell archive module evolves to maintain persistent resources
 - This callback is guaranteed to be called when the archiver process shuts down normally
+
+## Simplified Source
+
+```c
+static void shell_archive_shutdown(ArchiveModuleState *state)
+{
+    // Log archiver shutdown for debugging purposes
+    elog(DEBUG1, "archiver process shutting down");
+}
+```

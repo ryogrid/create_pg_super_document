@@ -36,3 +36,17 @@ The function is part of the xid8 function family that allows SQL users to inspec
 - Located in 
 - The  boundary is essential for garbage collection - rows with xmin less than the oldest active snapshot's xmin can potentially be vacuumed
 - This is a SQL-callable function that can be used in queries to analyze snapshot characteristics and transaction visibility ranges
+
+## Simplified Source
+
+```c
+Datum
+pg_snapshot_xmin(PG_FUNCTION_ARGS)
+{
+    // Extract snapshot from function arguments
+    pg_snapshot *snap = (pg_snapshot *) PG_GETARG_VARLENA_P(0);
+
+    // Return the xmin field from the snapshot
+    PG_RETURN_FULLTRANSACTIONID(snap->xmin);
+}
+```

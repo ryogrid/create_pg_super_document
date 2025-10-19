@@ -35,3 +35,17 @@ The function uses parse_identifier to handle both qualified (schema.object) and 
 - Essential for providing context-aware completions (e.g., columns for a specific table, arguments for a specific function)
 - The function is static and relatively simple, serving as a utility for the broader completion system
 - Works in conjunction with _complete_from_query which uses the reference values in query construction
+
+## Simplified Source
+
+```c
+static void set_completion_reference(const char *word) {
+    bool schemaquoted, objectquoted;
+
+    // Parse identifier into schema and object components
+    // Results stored in global completion_ref_schema and completion_ref_object
+    parse_identifier(word,
+                    &completion_ref_schema, &completion_ref_object,
+                    &schemaquoted, &objectquoted);
+}
+```

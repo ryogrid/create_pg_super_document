@@ -48,3 +48,43 @@ For ALLTRUE original signatures (highly compressed), it uses a specialized formu
 - The function uses different penalty calculation strategies based on signature types
 - Memory management includes temporary allocation and cleanup for signature conversion
 - Located in src/backend/utils/adt/tsgistidx.c:533-572
+
+## Simplified Source
+
+```c
+Datum gtsvector_penalty(PG_FUNCTION_ARGS) {
+    GISTENTRY *origentry = (GISTENTRY *) PG_GETARG_POINTER(0);
+    GISTENTRY *newentry = (GISTENTRY *) PG_GETARG_POINTER(1);
+    float *penalty = (float *) PG_GETARG_POINTER(2);
+
+    int siglen = GET_SIGLEN();
+    SignTSVector *origval = (SignTSVector *) DatumGetPointer(origentry->key);
+    SignTSVector *newval = (SignTSVector *) DatumGetPointer(newentry->key);
+    BITVECP orig = GETSIGN(origval);
+
+    *penalty = 0.0;
+
+    if (ISARRKEY(newval)) {
+        // Convert array to signature for comparison
+        BITVECP sign = palloc(siglen);
+        makesign(sign, newval, siglen);
+
+        if (ISALLTRUE(origval)) {
+            // Special penalty calculation for ALLTRUE signatures
+            int siglenbit = SIGLENBIT(siglen);
+            *penalty = (float)(siglenbit - sizebitvec(sign, siglen)) /
+                      (float)(siglenbit + 1);
+        } else {
+            // Standard Hamming distance for regular signatures
+            *penalty = hemdistsign(sign, orig, siglen);
+        }
+
+        pfree(sign);  // Clean up temporary signature
+    } else {
+        // Both are signatures - direct comparison
+        *penalty = hemdist(origval, newval);
+    }
+
+    PG_RETURN_POINTER(penalty);
+}
+```

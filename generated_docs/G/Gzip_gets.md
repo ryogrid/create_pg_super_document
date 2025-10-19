@@ -32,3 +32,15 @@ This function provides a direct wrapper around zlib's gzgets() function for read
 - Unlike other Gzip_* functions, this does not include explicit error handling with pg_fatal()
 - Reads until newline, EOF, or buffer limit is reached
 - Null-terminates the result string automatically (handled by gzgets)
+
+## Simplified Source
+
+```c
+static char *Gzip_gets(char *ptr, int size, CompressFileHandle *CFH)
+{
+    gzFile gzfp = (gzFile) CFH->private_data;
+
+    // Simple wrapper around gzgets - read line from gzip file
+    return gzgets(gzfp, ptr, size);
+}
+```

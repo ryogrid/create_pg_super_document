@@ -33,3 +33,13 @@ The function is automatically generated code from the Snowball stemming compiler
 - Should be paired with `irish_ISO_8859_1_close_env()` to properly clean up allocated resources
 - The ISO-8859-1 encoding variant is specifically for Western European character sets that include Irish language characters
 - Located in `src/backend/snowball/libstemmer/stem_ISO_8859_1_irish.c:467`
+
+## Simplified Source
+
+```c
+extern struct SN_env * irish_ISO_8859_1_create_env(void) {
+    // Create Snowball environment for Irish stemming
+    // Parameters: 0 string variables, 3 integer variables
+    return SN_create_env(0, 3);
+}
+```

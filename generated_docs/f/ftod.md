@@ -32,3 +32,15 @@ This function performs a simple type conversion from PostgreSQL's float4 data ty
 - The conversion preserves all precision from the original float4 value
 - No special handling needed for NaN or infinity values as C casting handles these correctly
 - Source location: src/backend/utils/adt/float.c:1176-1187
+
+## Simplified Source
+
+```c
+Datum ftod(PG_FUNCTION_ARGS) {
+    // Extract single-precision input
+    float4 num = PG_GETARG_FLOAT4(0);
+
+    // Convert to double precision and return
+    PG_RETURN_FLOAT8((float8) num);
+}
+```

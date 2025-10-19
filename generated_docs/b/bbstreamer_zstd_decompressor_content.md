@@ -46,3 +46,41 @@ The function uses ZSTD_decompressStream() to perform the actual decompression wo
 - The function manages buffer overflow by forwarding data to the next streamer when the output buffer fills up
 - Uses ZSTD_inBuffer and ZSTD_outBuffer structures to manage input/output buffers efficiently
 - Part of the PostgreSQL base backup streaming infrastructure for handling compressed backup data
+
+## Simplified Source
+
+```c
+static void
+bbstreamer_zstd_decompressor_content(bbstreamer *streamer,
+                                   bbstreamer_member *member,
+                                   const char *data, int len,
+                                   bbstreamer_archive_context context)
+{
+    bbstreamer_zstd_frame *mystreamer = (bbstreamer_zstd_frame *) streamer;
+    ZSTD_inBuffer inBuf = {data, len, 0};
+
+    // Process all input data
+    while (inBuf.pos < inBuf.size) {
+
+        // Forward output buffer when full, then reset
+        if (mystreamer->zstd_outBuf.pos >= mystreamer->zstd_outBuf.size) {
+            bbstreamer_content(mystreamer->base.bbs_next, member,
+                             mystreamer->zstd_outBuf.dst,
+                             mystreamer->zstd_outBuf.pos,
+                             context);
+
+            // Reset output buffer for next chunk
+            reset_output_buffer();
+        }
+
+        // Decompress input to output buffer
+        size_t ret = ZSTD_decompressStream(mystreamer->dctx,
+                                         &mystreamer->zstd_outBuf, &inBuf);
+
+        // Handle decompression errors
+        if (ZSTD_isError(ret))
+            pg_log_error("could not decompress data: %s",
+                        ZSTD_getErrorName(ret));
+    }
+}
+```

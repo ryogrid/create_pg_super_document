@@ -33,3 +33,27 @@ This function serves as a callback to reset all I/O statistics stored in shared 
 - Clears all statistics data structures using memset to zero them out completely
 - This is a callback function used by PostgreSQL's statistics reset infrastructure
 - Located in src/backend/utils/activity/pgstat_io.c:255-276
+
+## Simplified Source
+
+```c
+void pgstat_io_reset_all_cb(TimestampTz ts)
+{
+    // Reset I/O statistics for all backend types
+    for (int i = 0; i < BACKEND_NUM_TYPES; i++)
+    {
+        LWLock *lock = &pgStatLocal.shmem->io.locks[i];
+        PgStat_BktypeIO *stats = &pgStatLocal.shmem->io.stats.stats[i];
+
+        LWLockAcquire(lock, LW_EXCLUSIVE);
+
+        // Set reset timestamp using first backend type's lock
+        if (i == 0)
+            pgStatLocal.shmem->io.stats.stat_reset_timestamp = ts;
+
+        // Clear all statistics data
+        memset(stats, 0, sizeof(*stats));
+        LWLockRelease(lock);
+    }
+}
+```

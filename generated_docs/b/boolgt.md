@@ -32,3 +32,11 @@ This function provides the implementation for the Boolean greater-than operator 
 - [Boolean](../B/Boolean.md) comparison follows the ordering: false < true
 - Returns true only when arg1 is true and arg2 is false
 - Integrated into PostgreSQL's operator system for the '>' operator on Boolean types
+
+## Simplified Source
+```c
+bool boolgt(bool arg1, bool arg2) {
+    // Return true if arg1 > arg2 (true is greater than false)
+    return arg1 > arg2;
+}
+```

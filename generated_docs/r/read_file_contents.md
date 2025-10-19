@@ -32,3 +32,38 @@ This utility function reads the complete contents of an open file descriptor int
 - Handles files of arbitrary size through dynamic buffer growth
 - Part of pgbench's file processing infrastructure for reading script files
 - Does not perform error checking on fread() - relies on caller to handle file errors
+
+## Simplified Source
+
+```c
+static char *
+read_file_contents(FILE *fd)
+{
+    char *buf;
+    size_t buflen = BUFSIZ;
+    size_t used = 0;
+
+    // Allocate initial buffer
+    buf = pg_malloc(buflen);
+
+    // Read file in chunks, expanding buffer as needed
+    for (;;)
+    {
+        size_t nread = fread(buf + used, 1, BUFSIZ, fd);
+        used += nread;
+
+        // EOF or error - stop reading
+        if (nread < BUFSIZ)
+            break;
+
+        // Expand buffer for more data
+        buflen += BUFSIZ;
+        buf = pg_realloc(buf, buflen);
+    }
+
+    // Null-terminate the buffer
+    buf[used] = '\0';
+
+    return buf;
+}
+```

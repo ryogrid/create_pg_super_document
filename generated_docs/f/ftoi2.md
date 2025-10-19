@@ -45,3 +45,22 @@ The function follows PostgreSQL's error handling standards, generating a NUMERIC
 - This is a narrowing conversion that may lose precision when the float4 has fractional components
 - The smallint range is much smaller than int32, making overflow more likely and requiring careful validation
 - Commonly used when precise integer storage in minimal space is required from floating-point calculations
+
+## Simplified Source
+
+```c
+Datum ftoi2(PG_FUNCTION_ARGS) {
+    float4 num = PG_GETARG_FLOAT4(0);
+
+    // Round to remove fractional part
+    num = rint(num);
+
+    // Check for invalid values and range overflow
+    if (isnan(num) || !FLOAT4_FITS_IN_INT16(num)) {
+        ereport(ERROR, (errcode(ERRCODE_NUMERIC_VALUE_OUT_OF_RANGE),
+                       errmsg("smallint out of range")));
+    }
+
+    PG_RETURN_INT16((int16) num);
+}
+```

@@ -33,3 +33,16 @@ The ResOwnerReleaseHMAC function serves as a resource cleanup callback that is a
 - Essential for robust resource management in database server environment
 - Only used when HMAC contexts are registered with resource owners
 - Provides automatic cleanup even when explicit cleanup is forgotten
+
+## Simplified Source
+
+```c
+static void ResOwnerReleaseHMAC(Datum res) {
+    // Convert Datum back to HMAC context pointer
+    pg_hmac_ctx *ctx = (pg_hmac_ctx *) DatumGetPointer(res);
+
+    // Clear resource owner reference and free context
+    ctx->resowner = NULL;
+    pg_hmac_free(ctx);
+}
+```

@@ -23,3 +23,13 @@ The basque_UTF_8_create_env function serves as a specialized constructor for Bas
 
 ## Notes and Other Information
 This is a public interface function marked with extern for external linkage, typically called by higher-level stemming interfaces or PostgreSQL's text search infrastructure. The parameters (0, 3) are specific to the Basque stemming algorithm's requirements. The returned SN_env pointer must be properly managed and eventually freed using the corresponding basque_UTF_8_close_env function to prevent memory leaks.
+
+## Simplified Source
+
+```c
+extern struct SN_env * basque_UTF_8_create_env(void) {
+    // Create a Snowball environment for Basque UTF-8 stemming
+    // Parameters: 0 (no special flags), 3 (string variables needed)
+    return SN_create_env(0, 3);
+}
+```

@@ -50,3 +50,60 @@ This function takes no parameters but modifies global state:
 - The validation checks help catch common issues where tablespace symbolic links become broken during cluster migration preparation
 - Only user-defined tablespaces are processed; system tablespaces (pg_default, pg_global) are excluded from the query
 - The function uses template1 database for connection, ensuring it can connect even if user databases have issues
+
+## Simplified Source
+
+```c
+static void get_tablespace_paths(void) {
+    PGconn *conn;
+    PGresult *res;
+    int tblnum;
+    int i_spclocation;
+    char query[QUERY_ALLOC];
+
+    // Connect to old cluster and query user tablespaces
+    conn = connectToServer(&old_cluster, "template1");
+    snprintf(query, sizeof(query),
+             "SELECT pg_catalog.pg_tablespace_location(oid) AS spclocation "
+             "FROM pg_catalog.pg_tablespace "
+             "WHERE spcname != 'pg_default' AND spcname != 'pg_global'");
+
+    res = executeQueryOrDie(conn, "%s", query);
+
+    // Allocate memory for tablespace paths
+    os_info.num_old_tablespaces = PQntuples(res);
+    if (os_info.num_old_tablespaces != 0)
+        os_info.old_tablespaces =
+            (char **) pg_malloc(os_info.num_old_tablespaces * sizeof(char *));
+    else
+        os_info.old_tablespaces = NULL;
+
+    i_spclocation = PQfnumber(res, "spclocation");
+
+    // Process each tablespace path
+    for (tblnum = 0; tblnum < os_info.num_old_tablespaces; tblnum++) {
+        struct stat statBuf;
+
+        // Store tablespace path
+        os_info.old_tablespaces[tblnum] =
+            pg_strdup(PQgetvalue(res, tblnum, i_spclocation));
+
+        // Validate path exists and is a directory
+        if (stat(os_info.old_tablespaces[tblnum], &statBuf) != 0) {
+            if (errno == ENOENT)
+                report_status(PG_FATAL, "tablespace directory \"%s\" does not exist",
+                              os_info.old_tablespaces[tblnum]);
+            else
+                report_status(PG_FATAL, "could not stat tablespace directory \"%s\": %m",
+                              os_info.old_tablespaces[tblnum]);
+        }
+        if (!S_ISDIR(statBuf.st_mode))
+            report_status(PG_FATAL, "tablespace path \"%s\" is not a directory",
+                          os_info.old_tablespaces[tblnum]);
+    }
+
+    // Cleanup
+    PQclear(res);
+    PQfinish(conn);
+}
+```

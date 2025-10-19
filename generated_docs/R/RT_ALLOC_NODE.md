@@ -98,3 +98,44 @@ The allocation process:
 - The fanout field may overflow to zero for NODE_KIND_256, which is acceptable since that node type doesn't introspect this value
 - Part of PostgreSQL's generic radix tree implementation for high-performance key-value storage
 - Memory allocation failures will be handled by the underlying PostgreSQL memory management system
+
+## Simplified Source
+
+```c
+static inline RT_CHILD_PTR
+RT_ALLOC_NODE(RT_RADIX_TREE *tree, const uint8 kind, const RT_SIZE_CLASS size_class)
+{
+    RT_CHILD_PTR allocnode;
+    RT_NODE *node;
+
+    // Allocate memory based on size class
+    size_t allocsize = RT_SIZE_CLASS_INFO[size_class].allocsize;
+    allocnode.alloc = MemoryContextAlloc(tree->node_slabs[size_class], allocsize);
+
+    // Set up local pointer access
+    RT_PTR_SET_LOCAL(tree, &allocnode);
+    node = allocnode.local;
+
+    // Initialize node contents based on type
+    switch (kind) {
+        case RT_NODE_KIND_4:
+        case RT_NODE_KIND_16:
+        case RT_NODE_KIND_256:
+            // Clear node structure up to children array
+            memset(node, 0, offsetof(RT_NODE, children));
+            break;
+        case RT_NODE_KIND_48:
+            // Special case: initialize slot indices to invalid
+            memset(node, 0, offsetof(RT_NODE_48, slot_idxs));
+            memset(((RT_NODE_48*)node)->slot_idxs, RT_INVALID_SLOT_IDX,
+                   sizeof(((RT_NODE_48*)node)->slot_idxs));
+            break;
+    }
+
+    // Set node metadata
+    node->kind = kind;
+    node->fanout = RT_SIZE_CLASS_INFO[size_class].fanout;
+
+    return allocnode;
+}
+```

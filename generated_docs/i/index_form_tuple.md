@@ -38,3 +38,15 @@ The function is part of PostgreSQL's index tuple interface routines and provides
 - Located in src/backend/access/common/indextuple.c:44-64
 - Used extensively across different index access methods (B-tree, Hash, GiST, GIN)
 - The function simplifies memory management by automatically using the current memory context
+
+## Simplified Source
+
+```c
+IndexTuple index_form_tuple(TupleDesc tupleDescriptor,
+                           const Datum *values,
+                           const bool *isnull) {
+    // Wrapper that uses CurrentMemoryContext for allocation
+    return index_form_tuple_context(tupleDescriptor, values, isnull,
+                                   CurrentMemoryContext);
+}
+```

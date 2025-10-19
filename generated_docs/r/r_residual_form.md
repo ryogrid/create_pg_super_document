@@ -44,3 +44,54 @@ The r_residual_form function is a Portuguese-specific stemming function that pro
 - The s_10 string constant contains replacement text for case 2 transformations
 - Demonstrates the need for character-level analysis in some morphologically complex languages
 - Return value of 1 indicates successful processing, 0 indicates no residual form match found
+
+## Simplified Source
+
+```c
+static int r_residual_form(struct SN_env * z) {
+    // Set end position and find residual pattern match
+    z->ket = z->c;
+    int among_var = find_among_b(z, a_8, 4);
+    if (!among_var) return 0;
+
+    z->bra = z->c;
+
+    switch (among_var) {
+        case 1:
+            // Check RV region and delete suffix
+            if (r_RV(z) <= 0) return 0;
+            slice_del(z);
+
+            // Handle 'gu' or 'ci' patterns
+            z->ket = z->c;
+            int saved_pos = z->l - z->c;
+
+            // Try 'gu' pattern: check for 'u' preceded by 'g'
+            if (z->c > z->lb && z->p[z->c - 1] == 'u') {
+                z->c--;
+                z->bra = z->c;
+                if (z->c > z->lb && z->p[z->c - 1] == 'g') {
+                    // Valid 'gu' pattern found
+                } else {
+                    // Not 'gu', restore and try 'ci'
+                    z->c = z->l - saved_pos;
+                    if (z->c <= z->lb || z->p[z->c - 1] != 'i') return 0;
+                    z->c--;
+                    z->bra = z->c;
+                    if (z->c <= z->lb || z->p[z->c - 1] != 'c') return 0;
+                }
+            }
+
+            // Final RV check and deletion
+            if (r_RV(z) <= 0) return 0;
+            slice_del(z);
+            break;
+
+        case 2:
+            // Simple suffix replacement
+            slice_from_s(z, 1, s_10);
+            break;
+    }
+    return 1;
+}
+```

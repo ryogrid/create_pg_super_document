@@ -33,3 +33,18 @@ Uses PostgreSQL's standard function argument interface:
 - Represents a potential area for future enhancement in PostgreSQL's query optimizer
 - Part of PostgreSQL's extensible operator selectivity framework
 - The comment indicates this is temporary implementation pending proper join selectivity analysis
+
+## Simplified Source
+
+```c
+Datum
+arraycontjoinsel(PG_FUNCTION_ARGS)
+{
+    // This is currently just a stub function
+    Oid operator = PG_GETARG_OID(1);
+
+    // Return default selectivity for the operator
+    // TODO: Implement proper join selectivity estimation for array operators
+    PG_RETURN_FLOAT8(DEFAULT_SEL(operator));
+}
+```

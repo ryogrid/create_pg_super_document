@@ -50,3 +50,39 @@ Each stage uses test-and-restore cursor positioning to ensure the original word 
 - The function preserves the original cursor position, making it safe for integration into larger text processing pipelines
 - Part of PostgreSQL's comprehensive full-text search capabilities for Swedish language support
 - The cursor positioning (z->lb = z->c; z->c = z->l; ... z->c = z->lb) ensures processing works backward from word end while maintaining the original position
+
+## Simplified Source
+
+```c
+extern int swedish_ISO_8859_1_stem(struct SN_env * z) {
+    // Step 1: Mark vowel-consonant regions (RV, R1, R2) for suffix rules
+    int original_position = z->c;
+    int ret = r_mark_regions(z);
+    if (ret < 0) return ret;
+    z->c = original_position;
+
+    // Set up word boundaries for backward processing
+    z->lb = z->c;
+    z->c = z->l;
+
+    // Step 2: Remove main Swedish suffixes
+    int position1 = z->l - z->c;
+    r_main_suffix(z);
+    z->c = z->l - position1;
+
+    // Step 3: Reduce doubled consonants (e.g., "ss" -> "s")
+    int position2 = z->l - z->c;
+    r_consonant_pair(z);
+    z->c = z->l - position2;
+
+    // Step 4: Handle remaining suffixes and special replacements
+    int position3 = z->l - z->c;
+    r_other_suffix(z);
+    z->c = z->l - position3;
+
+    // Restore original cursor position
+    z->c = z->lb;
+
+    return 1; // Success
+}
+```

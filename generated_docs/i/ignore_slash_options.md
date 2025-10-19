@@ -40,3 +40,25 @@ The function uses a simple loop that continues calling `psql_scan_slash_option()
 - Memory management is handled properly by immediately freeing each option string after reading
 - The function handles the fact that different commands consume different numbers of parameters by reading until no more are available
 - Works specifically with OT_NORMAL type options; other option types require different handling functions
+
+## Simplified Source
+
+```c
+static void ignore_slash_options(PsqlScanState scan_state)
+{
+    char *arg;
+
+    // Read and discard all normal slash command options
+    while ((arg = psql_scan_slash_option(scan_state, OT_NORMAL, NULL, false)) != NULL) {
+        free(arg);
+    }
+}
+```
+
+**Simplified Logic:**
+1. Loop through all available normal command options in the input stream
+2. Read each option using the scanner
+3. Immediately free the option string to avoid memory leaks
+4. Continue until no more options are available
+
+This function is used during inactive branch processing to consume slash command parameters without executing them, maintaining proper parsing flow in conditional command structures.

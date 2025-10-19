@@ -33,3 +33,30 @@ The function is implemented as a simple loop that delegates the actual reparamet
 - The function is primarily used through the REJECT_IF_PATH_LIST_NOT_REPARAMETERIZABLE macro, which provides early termination in optimization routines when reparameterization is not possible
 - Returns false immediately upon finding the first non-reparameterizable path, making it an efficient short-circuit evaluation
 - Located in src/backend/optimizer/util/pathnode.c:4571-4584
+
+## Simplified Source
+
+```c
+/*
+ * Check if all paths in a list can be reparameterized by a child relation.
+ * Returns false as soon as any path fails the test (short-circuit evaluation).
+ */
+static bool
+pathlist_is_reparameterizable_by_child(List *pathlist, RelOptInfo *child_rel)
+{
+    ListCell *lc;
+
+    // Check each path in the list
+    foreach(lc, pathlist)
+    {
+        Path *path = (Path *) lfirst(lc);
+
+        // If any path can't be reparameterized, fail immediately
+        if (!path_is_reparameterizable_by_child(path, child_rel))
+            return false;
+    }
+
+    // All paths passed the test
+    return true;
+}
+```

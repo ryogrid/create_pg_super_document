@@ -42,3 +42,72 @@ The `exec_command_prompt` function handles the `\prompt` backslash command in ps
 - Properly validates that required variable name argument is provided
 - Located in `src/bin/psql/command.c:2201-2277`
 - Essential for creating interactive psql scripts that need user input
+
+## Simplified Source
+
+```c
+static backslashResult exec_command_prompt(PsqlScanState scan_state, bool active_branch, const char *cmd) {
+    if (!active_branch) {
+        ignore_slash_options(scan_state);
+        return PSQL_CMD_SKIP_LINE;
+    }
+
+    // Parse arguments: either "\prompt variable" or "\prompt prompt_text variable"
+    char *arg1 = psql_scan_slash_option(scan_state, OT_NORMAL, NULL, false);
+    char *arg2 = psql_scan_slash_option(scan_state, OT_NORMAL, NULL, false);
+
+    if (!arg1) {
+        pg_log_error("\\%s: missing required argument", cmd);
+        return PSQL_CMD_ERROR;
+    }
+
+    char *prompt_text = NULL;
+    char *variable_name = arg1;
+
+    // If two args provided, first is prompt text, second is variable
+    if (arg2) {
+        prompt_text = arg1;
+        variable_name = arg2;
+    }
+
+    char *result;
+    bool success = true;
+
+    // Handle interactive vs file input
+    if (!pset.inputfile) {
+        // Interactive mode: use SIGINT-aware prompting
+        PromptInterruptContext prompt_ctx = {
+            .jmpbuf = sigint_interrupt_jmp,
+            .enabled = &sigint_interrupt_enabled,
+            .canceled = false
+        };
+        result = simple_prompt_extended(prompt_text, true, &prompt_ctx);
+
+        if (prompt_ctx.canceled) {
+            success = false;
+        }
+    } else {
+        // File mode: display prompt and read from stdin
+        if (prompt_text) {
+            fputs(prompt_text, stdout);
+            fflush(stdout);
+        }
+        result = gets_fromFile(stdin);
+        if (!result) {
+            pg_log_error("\\%s: could not read value for variable", cmd);
+            success = false;
+        }
+    }
+
+    // Set the variable if we got a result
+    if (success && result && !SetVariable(pset.vars, variable_name, result)) {
+        success = false;
+    }
+
+    free(result);
+    free(arg1);
+    free(arg2);
+
+    return success ? PSQL_CMD_SKIP_LINE : PSQL_CMD_ERROR;
+}
+```

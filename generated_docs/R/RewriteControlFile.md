@@ -44,3 +44,39 @@ The function performs several key operations:
 - This function performs the actual "point of no return" operation that modifies the control file
 - The update_controlfile call with the flush parameter set to true ensures data is written to disk immediately
 - After this function completes, the database will have a new, clean control file ready for startup
+
+## Simplified Source
+
+```c
+static void RewriteControlFile(void)
+{
+    // Set redo point to start of new WAL segment
+    XLogSegNoOffsetToRecPtr(newXlogSegNo, SizeOfXLogLongPHD, WalSegSz,
+                            ControlFile.checkPointCopy.redo);
+    ControlFile.checkPointCopy.time = (pg_time_t) time(NULL);
+
+    // Reset database to clean shutdown state
+    ControlFile.state = DB_SHUTDOWNED;
+    ControlFile.checkPoint = ControlFile.checkPointCopy.redo;
+
+    // Clear recovery-related fields
+    ControlFile.minRecoveryPoint = 0;
+    ControlFile.minRecoveryPointTLI = 0;
+    ControlFile.backupStartPoint = 0;
+    ControlFile.backupEndPoint = 0;
+    ControlFile.backupEndRequired = false;
+
+    // Set conservative defaults for WAL and connection settings
+    ControlFile.wal_level = WAL_LEVEL_MINIMAL;
+    ControlFile.wal_log_hints = false;
+    ControlFile.track_commit_timestamp = false;
+    ControlFile.MaxConnections = 100;
+    ControlFile.max_wal_senders = 10;
+    ControlFile.max_worker_processes = 8;
+    ControlFile.max_prepared_xacts = 0;
+    ControlFile.max_locks_per_xact = 64;
+
+    // Write updated control file to disk
+    update_controlfile(".", &ControlFile, true);
+}
+```

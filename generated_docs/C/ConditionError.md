@@ -25,7 +25,16 @@ This is a specialized error reporting function for conditional statement errors 
 
 ## Notes and Other Information
 - This is a fatal error function that does not return to caller
-- Part of pgbench's conditional statement validation system  
+- Part of pgbench's conditional statement validation system
 - Provides structured error reporting for script debugging
 - The error message format includes script name and command number for precise error location
 - Used exclusively by CheckConditional function for various conditional syntax errors
+
+## Simplified Source
+```c
+static void ConditionError(const char *desc, int cmdn, const char *msg) {
+    // Report fatal conditional error with script context
+    pg_fatal("condition error in script \"%s\" command %d: %s",
+             desc, cmdn, msg);
+}
+```

@@ -35,3 +35,20 @@ This is a static utility function that implements reference counting for snapsho
 - Used when creating new snapshot references or passing snapshots to external code
 - Critical for preventing memory leaks and use-after-free errors in logical replication
 - Located in src/backend/replication/logical/snapbuild.c:455-466
+
+## Simplified Source
+
+```c
+/*
+ * Increase refcount of a snapshot.
+ *
+ * This is used when handing out a snapshot to some external resource or when
+ * adding a Snapshot as builder->snapshot.
+ */
+static void
+SnapBuildSnapIncRefcount(Snapshot snap)
+{
+    // Increment the reference count
+    snap->active_count++;
+}
+```

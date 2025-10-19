@@ -42,3 +42,22 @@ The function acts as a thin wrapper around populate_recordset_worker, providing 
 - Commonly used in ETL operations and data transformation workflows
 - Each output record corresponds to one input array element, maintaining order
 - Field mapping is based on JSON object key names matching record type field names
+
+## Simplified Source
+
+```c
+/*
+ * SQL function jsonb_populate_recordset
+ *
+ * Creates a set of records from a JSONB array of objects.
+ * Each array element must be an object that populates one record.
+ * More efficient than JSON version due to optimized tuple-building.
+ */
+Datum jsonb_populate_recordset(PG_FUNCTION_ARGS) {
+    // Delegate to recordset worker function with JSONB-specific parameters:
+    // - validate_json: false (JSONB already validated)
+    // - from_json: true (source is JSON format)
+    return populate_recordset_worker(fcinfo, "jsonb_populate_recordset",
+                                     false, true);
+}
+```

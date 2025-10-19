@@ -32,3 +32,16 @@ The `dclist_head_element_off` function is an internal utility that computes the 
 - Located in src/include/lib/ilist.h:888-899
 - Returns a void pointer that must be cast to the appropriate structure type
 - Used as part of the container_of pattern for type-safe structure member access
+
+## Simplified Source
+
+```c
+static inline void *
+dclist_head_element_off(dclist_head *head, size_t off) {
+    // Ensure list is not empty
+    Assert(!dclist_is_empty(head));
+
+    // Calculate address of containing structure by subtracting offset
+    return (char *) head->dlist.head.next - off;
+}
+```

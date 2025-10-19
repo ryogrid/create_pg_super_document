@@ -30,3 +30,19 @@ btrim1 is a PostgreSQL built-in function that provides a simplified interface fo
 - Uses the dotrim helper function with a hardcoded space character set (" ", 1)
 - Performs bidirectional trimming (both front and back enabled with true, true parameters)
 - Provides a more efficient alternative to btrim when only whitespace trimming is needed
+
+## Simplified Source
+
+```c
+Datum btrim1(PG_FUNCTION_ARGS) {
+    // Extract input string argument
+    text *string = PG_GETARG_TEXT_PP(0);
+
+    // Call core trimming function with hardcoded space character set
+    text *result = dotrim(VARDATA_ANY(string), VARSIZE_ANY_EXHDR(string),
+                         " ", 1,  // trim spaces only
+                         true, true);  // trim left=true, trim right=true
+
+    PG_RETURN_TEXT_P(result);
+}
+```

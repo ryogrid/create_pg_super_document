@@ -33,3 +33,14 @@ This helps users understand what type name caused the parsing failure, making de
 - The callback mechanism allows for clean error handling without cluttering the main parsing logic
 - Follows PostgreSQL's standard error callback pattern
 - The arg parameter is expected to be a null-terminated string containing the problematic type name
+
+## Simplified Source
+
+```c
+static void pts_error_callback(void *arg) {
+    const char *str = (const char *) arg;
+
+    // Provide error context with the invalid type name
+    errcontext("invalid type name \"%s\"", str);
+}
+```

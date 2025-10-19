@@ -53,3 +53,38 @@ This design choice is intentional - since the function is often used in error re
 - Designed to never throw errors since it's primarily used in error reporting contexts
 - Supports all logical replication message types including streaming and prepared transaction operations
 - The function is located in src/backend/replication/logical/proto.c:1217-1271
+
+## Simplified Source
+
+```c
+const char *logicalrep_message_type(LogicalRepMsgType action) {
+    static char err_unknown[20];
+
+    // Map message type enum to human-readable string
+    switch (action) {
+        case LOGICAL_REP_MSG_BEGIN:            return "BEGIN";
+        case LOGICAL_REP_MSG_COMMIT:           return "COMMIT";
+        case LOGICAL_REP_MSG_ORIGIN:           return "ORIGIN";
+        case LOGICAL_REP_MSG_INSERT:           return "INSERT";
+        case LOGICAL_REP_MSG_UPDATE:           return "UPDATE";
+        case LOGICAL_REP_MSG_DELETE:           return "DELETE";
+        case LOGICAL_REP_MSG_TRUNCATE:         return "TRUNCATE";
+        case LOGICAL_REP_MSG_RELATION:         return "RELATION";
+        case LOGICAL_REP_MSG_TYPE:             return "TYPE";
+        case LOGICAL_REP_MSG_MESSAGE:          return "MESSAGE";
+        case LOGICAL_REP_MSG_BEGIN_PREPARE:    return "BEGIN PREPARE";
+        case LOGICAL_REP_MSG_PREPARE:          return "PREPARE";
+        case LOGICAL_REP_MSG_COMMIT_PREPARED:  return "COMMIT PREPARED";
+        case LOGICAL_REP_MSG_ROLLBACK_PREPARED: return "ROLLBACK PREPARED";
+        case LOGICAL_REP_MSG_STREAM_START:     return "STREAM START";
+        case LOGICAL_REP_MSG_STREAM_STOP:      return "STREAM STOP";
+        case LOGICAL_REP_MSG_STREAM_COMMIT:    return "STREAM COMMIT";
+        case LOGICAL_REP_MSG_STREAM_ABORT:     return "STREAM ABORT";
+        case LOGICAL_REP_MSG_STREAM_PREPARE:   return "STREAM PREPARE";
+    }
+
+    // Handle unknown message types gracefully (for error reporting)
+    snprintf(err_unknown, sizeof(err_unknown), "??? (%d)", action);
+    return err_unknown;
+}
+```

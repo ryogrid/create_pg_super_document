@@ -33,3 +33,13 @@ This function serves as a wrapper around SlruSyncFileTag specifically for multix
 - Provides a type-safe interface for multixact member file synchronization
 - Companion function to multixactoffsetssyncfiletag, handling the member data files
 - Located in src/backend/access/transam/multixact.c:3576-3579
+
+## Simplified Source
+
+```c
+int multixactmemberssyncfiletag(const FileTag *ftag, char *path)
+{
+    // Delegate to generic SLRU file sync using MultiXact member control structure
+    return SlruSyncFileTag(MultiXactMemberCtl, ftag, path);
+}
+```

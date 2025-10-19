@@ -49,3 +49,27 @@ The function works by:
 - This function is critical for dynamic tree growth - trees start small and expand upward as needed
 - Used in PostgreSQL's generic radix tree implementation for efficient sparse key-value storage
 - The returned shift is always a multiple of 8, corresponding to byte boundaries in the 64-bit key
+
+## Simplified Source
+
+```c
+#define RT_KEY_GET_SHIFT RT_MAKE_NAME(key_get_shift)
+
+static inline int
+RT_KEY_GET_SHIFT(uint64 key)
+{
+    if (key == 0)
+        return 0;
+    else
+        // Find leftmost set bit, align to byte boundary
+        return (pg_leftmost_one_pos64(key) / RT_SPAN) * RT_SPAN;
+}
+```
+
+**Key Points:**
+- Macro that generates function name for calculating key shift values
+- Returns minimum shift needed to accommodate a given key in the radix tree
+- Special case: returns 0 for key value 0
+- Uses `pg_leftmost_one_pos64()` to find most significant bit position
+- Aligns shift to `RT_SPAN` (8-bit) boundaries for byte-oriented tree traversal
+- Critical for dynamic tree growth - determines tree height needed for keys

@@ -34,3 +34,27 @@ The `close_none` function is a static helper function that implements file closi
 - The function is static, limiting its scope to the compress_none.c file
 - Part of the modular compression system in pg_dump that provides consistent file closing interface across different compression methods
 - errno is cleared before the fclose() call to ensure accurate error reporting
+
+## Simplified Source
+
+```c
+static bool
+close_none(CompressFileHandle *CFH)
+{
+    FILE *fp = (FILE *) CFH->private_data;
+    int ret = 0;
+
+    // Clean up private data pointer
+    CFH->private_data = NULL;
+
+    // Close file if it exists
+    if (fp) {
+        errno = 0;
+        ret = fclose(fp);
+        if (ret != 0)
+            pg_log_error("could not close file: %m");
+    }
+
+    return ret == 0;
+}
+```

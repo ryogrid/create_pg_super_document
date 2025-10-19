@@ -30,3 +30,21 @@ This function is part of the JSON null-stripping functionality in PostgreSQL. It
 
 ## Notes and Other Information
 This function is part of a set of semantic action callbacks used by the JSON parser when processing JSON data for null value removal. The function is designed to be stateless except for the output buffer manipulation, making it safe for use in the JSON parsing framework. The use of `appendStringInfoCharMacro` provides efficient single-character appending to the string buffer.
+
+## Simplified Source
+
+```c
+static JsonParseErrorType sn_array_end(void *state) {
+    StripnullState *_state = (StripnullState *) state;
+
+    // Append closing bracket to output string
+    appendStringInfoCharMacro(_state->strval, ']');
+
+    return JSON_SUCCESS;
+}
+```
+
+This function:
+1. Casts the generic state pointer to the specific StripnullState type
+2. Appends the JSON array closing character ']' to the output buffer
+3. Returns success since this operation cannot fail

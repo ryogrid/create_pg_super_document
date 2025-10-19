@@ -39,3 +39,30 @@ The  function creates and writes the PG_VERSION file, which is essential for Pos
 - The file contains only the major version number (e.g., "17") and a newline
 - Memory allocated for the path string is properly freed after use
 - Opens files in binary mode for cross-platform compatibility
+
+## Simplified Source
+
+```c
+static void
+write_version_file(const char *extrapath)
+{
+    FILE *version_file;
+    char *path;
+
+    // Construct file path - main data dir or subdirectory
+    if (extrapath == NULL)
+        path = psprintf("%s/PG_VERSION", pg_data);
+    else
+        path = psprintf("%s/%s/PG_VERSION", pg_data, extrapath);
+
+    // Open file for writing
+    if ((version_file = fopen(path, PG_BINARY_W)) == NULL)
+        pg_fatal("could not open file \"%s\" for writing: %m", path);
+
+    // Write major version number and close
+    if (fprintf(version_file, "%s\n", PG_MAJORVERSION) < 0 || fclose(version_file))
+        pg_fatal("could not write file \"%s\": %m", path);
+
+    free(path);
+}
+```

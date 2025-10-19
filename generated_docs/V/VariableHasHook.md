@@ -43,3 +43,26 @@ The function is primarily used to check if variables need special handling durin
 - Takes advantage of alphabetical ordering for efficient search
 - Part of psql's variable system - used to determine if variables need special processing
 - Simple boolean test - doesn't provide information about which specific hooks are present
+
+## Simplified Source
+
+```c
+bool VariableHasHook(VariableSpace space, const char *name)
+{
+    struct _variable *current;
+
+    // Search through sorted variable list
+    for (current = space->next; current; current = current->next)
+    {
+        int cmp = strcmp(current->name, name);
+
+        if (cmp == 0)  // Found variable
+            return (current->substitute_hook != NULL ||
+                    current->assign_hook != NULL);
+        if (cmp > 0)
+            break;  // Variable not found (past it in sorted list)
+    }
+
+    return false;  // Variable not found
+}
+```

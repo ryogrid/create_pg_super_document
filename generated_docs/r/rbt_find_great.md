@@ -37,3 +37,32 @@ This function performs a specialized search to find the node with the smallest v
 - Time complexity is O(log n) for balanced trees
 - Useful for range queries and finding successor nodes in ordered traversals
 - The data parameter's RBTNode fields don't need to be valid since only the embedded user data is used
+
+## Simplified Source
+
+```c
+RBTNode *
+rbt_find_great(RBTree *rbt, const RBTNode *data, bool equal_match)
+{
+    RBTNode *node = rbt->root;
+    RBTNode *greater = NULL;  // Best candidate found so far
+
+    while (node != RBTNIL)
+    {
+        int cmp = rbt->comparator(data, node, rbt->arg);
+
+        if (equal_match && cmp == 0)
+            return node;  // Exact match allowed and found
+        else if (cmp < 0)
+        {
+            // Current node is greater - save as candidate
+            greater = node;
+            node = node->left;  // Look for smaller candidates
+        }
+        else
+            node = node->right;  // Need larger values
+    }
+
+    return greater;  // Return best candidate (or NULL)
+}
+```

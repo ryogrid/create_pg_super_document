@@ -26,3 +26,12 @@ ReorderBufferReturnRelids deallocates memory for an array of Oid values that was
 
 ## Notes and Other Information
 This function should only be called on Oid arrays that were allocated using ReorderBufferGetRelids(). The ReorderBuffer parameter is included for API consistency and potential future use, though the current implementation only performs a simple pfree() operation. It's part of the memory management pair for handling relation ID arrays in TRUNCATE operations during logical replication.
+
+## Simplified Source
+```c
+void ReorderBufferReturnRelids(ReorderBuffer *rb, Oid *relids)
+{
+    // Simple deallocation of relation ID array
+    pfree(relids);
+}
+```

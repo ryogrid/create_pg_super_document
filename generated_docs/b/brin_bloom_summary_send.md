@@ -32,3 +32,14 @@ This function serves as the binary output routine for the brin_bloom_summary dat
 - Unlike text output (brin_bloom_summary_out), this preserves the exact binary representation
 - The delegation to byteasend ensures compatibility with PostgreSQL's standard binary serialization infrastructure
 - This function is essential for operations that need to transfer bloom summaries between processes or over network connections
+
+## Simplified Source
+
+```c
+Datum
+brin_bloom_summary_send(PG_FUNCTION_ARGS)
+{
+    // Bloom summaries use bytea-compatible format, so delegate to byteasend
+    return byteasend(fcinfo);
+}
+```

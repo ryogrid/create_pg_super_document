@@ -35,3 +35,18 @@ This function captures the current state of the query buffer and scanner to allo
 - Part of psql's conditional command infrastructure that supports \if/\elif/\else/\endif constructs
 - Works in conjunction with  to provide rollback capability
 - The function safely handles NULL query_buf by only setting query length when buffer exists
+
+## Simplified Source
+
+```c
+static void save_query_text_state(PsqlScanState scan_state, ConditionalStack cstack,
+                                   PQExpBuffer query_buf) {
+    // Save current query buffer length if buffer exists
+    if (query_buf)
+        conditional_stack_set_query_len(cstack, query_buf->len);
+
+    // Save current parenthesis nesting depth from lexer
+    conditional_stack_set_paren_depth(cstack,
+                                       psql_scan_get_paren_depth(scan_state));
+}
+```

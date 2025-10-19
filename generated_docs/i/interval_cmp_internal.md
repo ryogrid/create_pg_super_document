@@ -41,3 +41,18 @@ This function provides the core comparison logic for interval data types in Post
 - Uses 128-bit arithmetic to handle large interval values without overflow
 - Comparison is based on normalized linear representation (30-day months, 24-hour days)
 - Located in src/backend/utils/adt/timestamp.c:2505-2513
+
+## Simplified Source
+
+```c
+static int
+interval_cmp_internal(const Interval *interval1, const Interval *interval2)
+{
+    // Convert both intervals to linear 128-bit representations
+    INT128 span1 = interval_cmp_value(interval1);
+    INT128 span2 = interval_cmp_value(interval2);
+
+    // Compare and return standard result (-1, 0, 1)
+    return int128_compare(span1, span2);
+}
+```

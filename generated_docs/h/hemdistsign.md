@@ -37,3 +37,20 @@ This function computes the Hamming distance between two bit vector signatures by
 
 ## Notes and Other Information
 This is a static helper function optimized for byte-wise Hamming distance calculation. The implementation deliberately uses a lookup table approach rather than popcount functions, as indicated by the inline comment. This choice reflects performance considerations specific to the typical signature sizes and usage patterns in TSVector GiST indexes. The function is fundamental to many GiST operations that need to measure signature similarity.
+
+## Simplified Source
+
+```c
+static int hemdistsign(BITVECP a, BITVECP b, int siglen) {
+    int dist = 0;
+
+    // Compare signatures byte by byte
+    for (int i = 0; i < siglen; i++) {
+        // XOR to find differing bits, then count them
+        unsigned char diff = a[i] ^ b[i];
+        dist += pg_number_of_ones[diff];  // Use lookup table for efficiency
+    }
+
+    return dist;  // Total number of differing bits (Hamming distance)
+}
+```

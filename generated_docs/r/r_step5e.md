@@ -48,3 +48,36 @@ This step is distinctive because it expands rather than reduces the word, sugges
 - Returns 1 on successful pattern matching and substitution, 0 if required patterns don't match, or negative values on error
 - Part of the sequential Greek stemming pipeline, executed in the later stages of the stemming process
 - The expansion behavior suggests this step handles Greek morphological normalization rather than traditional stemming reduction
+
+## Simplified Source
+
+```c
+static int r_step5e(struct SN_env * z) {
+    // Initial pattern matching with stricter length requirement
+    z->ket = z->c;
+
+    // Check minimum length (11 chars) and specific character (181)
+    if (z->c - 11 <= z->lb || z->p[z->c - 1] != 181) return 0;
+
+    // Find pattern from a_44 (2 patterns)
+    if (!find_among_b(z, a_44, 2)) return 0;
+
+    // Remove the matched pattern
+    z->bra = z->c;
+    slice_del(z);
+    z->I[0] = 0;  // Reset state
+
+    // Expansion replacement at word boundary
+    z->ket = z->c;
+    z->bra = z->c;
+
+    // Must find 4-character pattern at word beginning
+    if (!eq_s_b(z, 4, s_88)) return 0;
+    if (z->c > z->lb) return 0;  // Must be at word beginning
+
+    // Expand from 4 to 10 characters (unusual for stemming)
+    slice_from_s(z, 10, s_89);
+
+    return 1;  // Success
+}
+```

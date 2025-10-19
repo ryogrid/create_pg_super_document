@@ -30,3 +30,13 @@ The function internally calls , passing 0 as the  parameter, indicating that no 
 - Follows the Snowball stemmer naming convention: 
 - Safe to call with NULL pointer - the underlying  function handles this case
 - Part of PostgreSQL's text search functionality for Irish language support
+
+## Simplified Source
+
+```c
+extern void irish_ISO_8859_1_close_env(struct SN_env * z) {
+    // Clean up Snowball environment for Irish stemming
+    // Parameter 0 indicates no string arrays to deallocate
+    SN_close_env(z, 0);
+}
+```

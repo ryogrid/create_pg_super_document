@@ -36,3 +36,19 @@ The xid8_larger function implements a maximum operation for PostgreSQL's full tr
 - Handles edge cases where transaction IDs may have wrapped around
 - Returns a FullTransactionId Datum, not a boolean like comparison operators
 - Located in src/backend/utils/adt/xid.c:291-302
+
+## Simplified Source
+
+```c
+Datum xid8_larger(PG_FUNCTION_ARGS) {
+    // Get the two transaction IDs to compare
+    FullTransactionId fxid1 = PG_GETARG_FULLTRANSACTIONID(0);
+    FullTransactionId fxid2 = PG_GETARG_FULLTRANSACTIONID(1);
+
+    // Return whichever transaction ID is larger (comes later)
+    if (FullTransactionIdFollows(fxid1, fxid2))
+        PG_RETURN_FULLTRANSACTIONID(fxid1);
+    else
+        PG_RETURN_FULLTRANSACTIONID(fxid2);
+}
+```

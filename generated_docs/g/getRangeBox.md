@@ -34,3 +34,23 @@ The RangeBox structure provides a more convenient access pattern for SP-GiST ope
 - Part of the geometric SP-GiST indexing infrastructure that treats 2D boxes as 4D points for efficient spatial indexing
 - The RangeBox structure consists of two Range structures (left and right), each containing low and high float8 values
 - This abstraction helps in quadrant-based spatial partitioning where boxes are compared based on their coordinate ranges
+
+## Simplified Source
+
+```c
+static RangeBox *getRangeBox(BOX *box) {
+    // Allocate memory for the range box structure
+    RangeBox *range_box = (RangeBox *) palloc(sizeof(RangeBox));
+
+    // Convert BOX coordinates to 4D range representation
+    // X-axis range (left)
+    range_box->left.low = box->low.x;
+    range_box->left.high = box->high.x;
+
+    // Y-axis range (right)
+    range_box->right.low = box->low.y;
+    range_box->right.high = box->high.y;
+
+    return range_box;
+}
+```

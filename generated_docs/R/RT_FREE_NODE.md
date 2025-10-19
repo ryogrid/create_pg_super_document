@@ -44,3 +44,33 @@ RT_FREE_NODE is part of PostgreSQL's templated radix tree implementation that ha
 - Critical for preventing memory leaks during node restructuring operations
 - Used extensively during tree growth, shrinking, and deletion operations
 - The function does not recursively free child nodes - caller must handle that separately if needed
+
+## Simplified Source
+
+```c
+static void
+RT_FREE_NODE(RT_RADIX_TREE *tree, RT_CHILD_PTR node)
+{
+#ifdef RT_DEBUG
+    // Update debug statistics by finding node size class
+    int i;
+    for (i = 0; i < RT_NUM_SIZE_CLASSES; i++) {
+        if ((node.local)->fanout == RT_SIZE_CLASS_INFO[i].fanout)
+            break;
+    }
+
+    // Handle node256 special case (fanout overflows to 0)
+    if (i == RT_NUM_SIZE_CLASSES)
+        i = RT_CLASS_256;
+
+    tree->ctl->num_nodes[i]--;
+#endif
+
+    // Free the allocated memory
+#ifdef RT_SHMEM
+    dsa_free(tree->dsa, node.alloc);
+#else
+    pfree((void *) node.alloc);
+#endif
+}
+```

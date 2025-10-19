@@ -32,3 +32,19 @@ This function provides a fast character-by-character comparison of two string se
 - Faster than memcmp() for this specific use case according to the comment
 - Part of PostgreSQL's string similarity and distance functions
 - The backwards comparison allows for early termination as soon as a mismatch is found
+
+## Simplified Source
+
+```c
+static inline bool rest_of_char_same(const char *s1, const char *s2, int len) {
+    // Compare characters backwards from the specified length
+    while (len > 0) {
+        len--;
+        // Early return on first mismatch
+        if (s1[len] != s2[len])
+            return false;
+    }
+    // All characters matched
+    return true;
+}
+```

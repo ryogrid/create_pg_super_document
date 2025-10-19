@@ -30,3 +30,11 @@ This function calculates the total number of transaction failures in pgbench by 
 - Returns an int64 value to accommodate potentially large failure counts
 - The function simply adds two failure counters: serialization_failures and deadlock_failures from the StatsData structure
 - Used in both progress reporting during benchmark execution and final results reporting
+
+## Simplified Source
+```c
+static int64 getFailures(const StatsData *stats) {
+    // Sum all transaction failure types
+    return (stats->serialization_failures + stats->deadlock_failures);
+}
+```

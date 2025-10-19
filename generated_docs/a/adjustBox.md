@@ -46,3 +46,21 @@ This operation is fundamental in spatial indexing algorithms where bounding boxe
 - Located in src/backend/access/gist/gistproc.c:146-163
 - The coordinate comparisons ensure that the box only expands when necessary, maintaining efficiency
 - Critical component of spatial index maintenance operations in PostgreSQL's GiST implementation
+
+## Simplified Source
+
+```c
+static void
+adjustBox(BOX *b, const BOX *addon)
+{
+    // Expand box b to include addon by taking max high and min low coordinates
+    if (float8_lt(b->high.x, addon->high.x))
+        b->high.x = addon->high.x;
+    if (float8_gt(b->low.x, addon->low.x))
+        b->low.x = addon->low.x;
+    if (float8_lt(b->high.y, addon->high.y))
+        b->high.y = addon->high.y;
+    if (float8_gt(b->low.y, addon->low.y))
+        b->low.y = addon->low.y;
+}
+```

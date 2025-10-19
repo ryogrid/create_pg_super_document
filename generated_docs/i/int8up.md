@@ -30,3 +30,15 @@ This function performs unary plus operation on a 64-bit signed integer argument.
 - The function is essentially an identity operation for int64 values
 - Located in src/backend/utils/adt/int8.c:454-461
 - This is one of the simplest arithmetic operators in the bigint operator family
+
+## Simplified Source
+
+```c
+Datum int8up(PG_FUNCTION_ARGS) {
+    // Extract 64-bit integer argument
+    int64 arg = PG_GETARG_INT64(0);
+
+    // Unary plus: return value unchanged
+    PG_RETURN_INT64(arg);
+}
+```

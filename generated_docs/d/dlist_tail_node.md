@@ -32,3 +32,13 @@ This function is a convenience wrapper around `dlist_tail_element_off` that retu
 - Part of PostgreSQL's intrusive list implementation in src/include/lib/ilist.h
 - Returns a pointer to the actual dlist_node structure, not the containing data structure
 - Companion function to dlist_head_node for accessing the opposite end of the list
+
+## Simplified Source
+
+```c
+static inline dlist_node *
+dlist_tail_node(dlist_head *head) {
+    // Return the last node in the list (assumes list is not empty)
+    return (dlist_node *) dlist_tail_element_off(head, 0);
+}
+```

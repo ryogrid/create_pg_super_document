@@ -33,3 +33,21 @@ This function retrieves the user OID for a PostgreSQL backend process identified
 - Auxiliary processes that are not associated with a specific user may return InvalidOid (0)
 - Used for security auditing to track which user account is associated with each database connection
 - Located in src/backend/utils/adt/pgstatfuncs.c:694-705
+
+## Simplified Source
+
+```c
+Datum
+pg_stat_get_backend_userid(PG_FUNCTION_ARGS)
+{
+    int32 procNumber = PG_GETARG_INT32(0);
+    PgBackendStatus *beentry;
+
+    // Get backend entry by process number
+    if ((beentry = pgstat_get_beentry_by_proc_number(procNumber)) == NULL)
+        PG_RETURN_NULL();
+
+    // Return the user OID from backend status
+    PG_RETURN_OID(beentry->st_userid);
+}
+```

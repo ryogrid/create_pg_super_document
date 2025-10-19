@@ -45,3 +45,29 @@ The exponential distribution is particularly useful in pgbench for modeling scen
 - Part of pgbench's advanced random number generation capabilities for realistic workload simulation
 - The uniform random value is adjusted to (0, 1] range to avoid log(0) which would be undefined
 - Mathematical implementation ensures the exponential distribution properties are preserved when mapping to the integer range
+
+## Simplified Source
+
+```c
+static int64 getExponentialRand(pg_prng_state *state, int64 min, int64 max, double parameter) {
+    // Generate exponentially distributed random value using inverse transform sampling
+
+    // Calculate cut-off probability: exp(-parameter)
+    double cut = exp(-parameter);
+
+    // Get uniform random value in (0, 1] to avoid log(0)
+    double uniform = 1.0 - pg_prng_double(state);
+
+    // Apply inverse exponential CDF transformation
+    double rand = -log(cut + (1.0 - cut) * uniform) / parameter;
+
+    // Scale to integer range [min, max]
+    return min + (int64) ((max - min + 1) * rand);
+}
+```
+
+**Key Points:**
+- Uses inverse transform sampling to generate exponential distribution
+- Parameter controls decay rate: higher values favor smaller numbers
+- Cut-off value exp(-parameter) represents probability density at max
+- Essential for modeling real-world database workload patterns

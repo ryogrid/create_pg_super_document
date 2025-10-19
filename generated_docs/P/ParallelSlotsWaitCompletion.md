@@ -39,3 +39,30 @@ This function is essential for ensuring all parallel operations complete before 
 - Skips null connections (empty slots) during iteration
 - Essential for synchronization in parallel database operations
 - Located in src/fe_utils/parallel_slot.c:501-539
+
+## Simplified Source
+
+```c
+bool
+ParallelSlotsWaitCompletion(ParallelSlotArray *sa)
+{
+    int i;
+
+    // Wait for each slot to complete
+    for (i = 0; i < sa->numslots; i++)
+    {
+        if (sa->slots[i].connection == NULL)
+            continue; // Skip empty slots
+
+        // Process query results
+        if (!consumeQueryResult(&sa->slots[i]))
+            return false; // Error occurred
+
+        // Mark slot as available and clear handler
+        sa->slots[i].inUse = false;
+        ParallelSlotClearHandler(&sa->slots[i]);
+    }
+
+    return true; // All slots completed successfully
+}
+```

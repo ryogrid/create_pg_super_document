@@ -33,3 +33,16 @@ This function implements the greater-than-or-equal-to comparison operator (>=) b
 - Handles cross-type comparison between different integer sizes
 - Uses standard PostgreSQL function calling conventions with PG_FUNCTION_ARGS
 - Returns boolean result indicating whether int4 >= int2
+
+## Simplified Source
+
+```c
+Datum int42ge(PG_FUNCTION_ARGS) {
+    // Extract arguments: int32 and int16
+    int32 arg1 = PG_GETARG_INT32(0);
+    int16 arg2 = PG_GETARG_INT16(1);
+
+    // Compare and return boolean result
+    PG_RETURN_BOOL(arg1 >= arg2);
+}
+```

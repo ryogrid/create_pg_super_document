@@ -48,3 +48,31 @@ The function signature includes provisions for strategy number and extra data pa
 - Essential for implementing prefix-based text search queries in GIN indexes
 - Part of the operator class infrastructure supporting "begins with" type searches
 - Memory management includes proper cleanup of variable-length arguments
+
+## Simplified Source
+
+```c
+Datum
+gin_cmp_prefix(PG_FUNCTION_ARGS)
+{
+    text *a = PG_GETARG_TEXT_PP(0);
+    text *b = PG_GETARG_TEXT_PP(1);
+    // Strategy and extra_data parameters available but unused
+    int cmp;
+
+    // Compare with prefix matching enabled
+    cmp = tsCompareString(VARDATA_ANY(a), VARSIZE_ANY_EXHDR(a),
+                          VARDATA_ANY(b), VARSIZE_ANY_EXHDR(b),
+                          true);  // prefix matching enabled
+
+    // Convert negative results to prevent continued scanning
+    if (cmp < 0)
+        cmp = 1;
+
+    // Clean up copied arguments
+    PG_FREE_IF_COPY(a, 0);
+    PG_FREE_IF_COPY(b, 1);
+
+    PG_RETURN_INT32(cmp);
+}
+```

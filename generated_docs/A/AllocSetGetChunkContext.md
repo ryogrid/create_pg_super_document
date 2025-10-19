@@ -35,3 +35,31 @@ AllocSetGetChunkContext takes a memory pointer and returns the associated Memory
 - Handles both regular and external memory chunks appropriately  
 - Includes assertion to validate the memory block integrity
 - Part of the AllocSet memory context implementation in PostgreSQL's memory management system
+
+## Simplified Source
+
+```c
+MemoryContext
+AllocSetGetChunkContext(void *pointer)
+{
+    MemoryChunk *chunk = PointerGetMemoryChunk(pointer);
+    AllocBlock block;
+    AllocSet set;
+
+    // Allow access to chunk header for inspection
+    VALGRIND_MAKE_MEM_DEFINED(chunk, ALLOC_CHUNKHDRSZ);
+
+    // Get the containing block (handle external chunks)
+    if (MemoryChunkIsExternal(chunk))
+        block = ExternalChunkGetBlock(chunk);
+    else
+        block = (AllocBlock) MemoryChunkGetBlock(chunk);
+
+    // Restore memory access restrictions
+    VALGRIND_MAKE_MEM_NOACCESS(chunk, ALLOC_CHUNKHDRSZ);
+
+    // Return the memory context from the block's AllocSet
+    set = block->aset;
+    return &set->header;
+}
+```

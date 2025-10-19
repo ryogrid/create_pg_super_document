@@ -36,3 +36,21 @@ The `box_distance` function computes the Euclidean distance between the center p
 - Returns a float8 (double precision) value representing the distance between box centers
 - Part of the geometric operations suite for the BOX data type in PostgreSQL
 - The distance calculation is performed using standard Euclidean distance formula via `point_dt`
+
+## Simplified Source
+
+```c
+Datum box_distance(PG_FUNCTION_ARGS) {
+    // Extract the two box arguments
+    BOX *box1 = PG_GETARG_BOX_P(0);
+    BOX *box2 = PG_GETARG_BOX_P(1);
+    Point center1, center2;
+
+    // Calculate center points of both boxes
+    box_cn(&center1, box1);
+    box_cn(&center2, box2);
+
+    // Return the Euclidean distance between the centers
+    return PG_RETURN_FLOAT8(point_dt(&center1, &center2));
+}
+```

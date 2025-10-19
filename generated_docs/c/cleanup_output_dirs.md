@@ -50,3 +50,45 @@ The double-removal approach addresses Windows-specific timing issues where files
 - Preserves directories containing historical log data while cleaning temporary files
 - Uses Assert() statements for unexpected directory states (non-existent or mount points)
 - The function is designed to be safe to call multiple times and handles various error conditions gracefully
+
+## Simplified Source
+
+```c
+void cleanup_output_dirs(void) {
+    // Close internal log file
+    fclose(log_opts.internal);
+
+    // Skip cleanup if retention is enabled
+    if (log_opts.retain)
+        return;
+
+    // Remove base directory (try twice for Windows)
+    if (!rmtree(log_opts.basedir, true))
+        rmtree(log_opts.basedir, true);
+
+    // Handle root directory based on its state
+    switch (pg_check_dir(log_opts.rootdir)) {
+        case 0:  // non-existent
+        case 3:  // contains mount point
+            Assert(false);
+            break;
+
+        case 1:  // empty
+        case 2:  // contains only dot files
+            // Remove empty root directory (try twice for Windows)
+            if (!rmtree(log_opts.rootdir, true))
+                rmtree(log_opts.rootdir, true);
+            break;
+
+        case 4:  // exists with content
+            // Keep directory with historical logs
+            break;
+
+        default:
+            // Log access errors
+            pg_log(PG_WARNING, "could not access directory \"%s\": %m",
+                   log_opts.rootdir);
+            break;
+    }
+}
+```

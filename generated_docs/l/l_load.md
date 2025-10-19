@@ -43,3 +43,21 @@ The load instruction is one of the most fundamental operations in LLVM, used to 
 - The conditional compilation ensures compatibility across LLVM version boundaries where API changes occurred
 - Essential for reading values from memory in generated LLVM code, making it a core building block for JIT operations
 - Used extensively in tuple slot operations, expression evaluation, and function calls within the JIT compiler
+
+## Simplified Source
+
+```c
+static inline LLVMValueRef
+l_load(LLVMBuilderRef b, LLVMTypeRef t, LLVMValueRef v, const char *name)
+{
+    // Version-compatible load instruction
+    // LLVM 16+ requires explicit type parameter
+#if LLVM_VERSION_MAJOR < 16
+    return LLVMBuildLoad(b, v, name);
+#else
+    return LLVMBuildLoad2(b, t, v, name);
+#endif
+}
+```
+
+This wrapper provides version-compatible load operations for reading values from memory. It's one of the most fundamental and frequently used functions in PostgreSQL's JIT infrastructure, handling API differences between LLVM versions.

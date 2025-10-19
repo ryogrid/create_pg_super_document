@@ -36,3 +36,24 @@ The function performs an insertion operation similar to the main file hash table
 - Prevents duplicate entries by checking if the path already exists
 - Essential for maintaining WAL file integrity during database rewind operations
 - Typically called during checkpoint analysis and WAL processing phases
+
+## Simplified Source
+
+```c
+void
+keepwal_add_entry(const char *path)
+{
+    keepwal_entry *entry;
+    bool found;
+
+    // Ensure keepwal is initialized
+    Assert(keepwal != NULL);
+
+    // Insert entry into keepwal hash table
+    entry = keepwal_insert(keepwal, path, &found);
+
+    // Store path if this is a new entry
+    if (!found)
+        entry->path = pg_strdup(path);
+}
+```

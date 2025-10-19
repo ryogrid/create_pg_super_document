@@ -31,3 +31,34 @@ The function follows the standard Snowball stemmer pattern: it sets up a test po
 
 ## Notes and Other Information
 This function is part of the comprehensive French stemming algorithm and works in conjunction with other morphological processing functions like r_un_accent, r_standard_suffix, and r_residual_suffix. The doubled consonant removal is typically performed as part of the final cleanup phase of the stemming process. The function returns 1 on success (when a doubled consonant is found and removed) or 0 when no action is taken.
+
+## Simplified Source
+
+```c
+static int r_un_double(struct SN_env * z) {
+    // Test for doubled consonant patterns at word end
+    int test_pos = z->l - z->c;
+
+    // Check for valid character and pattern match (5 patterns in a_8)
+    if (z->c - 2 <= z->lb || z->p[z->c - 1] >> 5 != 3 ||
+        !((1069056 >> (z->p[z->c - 1] & 0x1f)) & 1)) {
+        return 0;
+    }
+
+    if (!find_among_b(z, a_8, 5)) {
+        return 0;
+    }
+
+    // Restore position after test
+    z->c = z->l - test_pos;
+
+    // Mark and remove one instance of doubled consonant
+    z->ket = z->c;
+    if (z->c <= z->lb) return 0;
+    z->c--;
+    z->bra = z->c;
+
+    slice_del(z);
+    return 1;
+}
+```

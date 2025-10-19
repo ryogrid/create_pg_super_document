@@ -47,3 +47,45 @@ The function uses pointer equality for path comparison, which is sufficient for 
 - The queue size is limited to prevent unbounded memory usage and ensure reasonable batch sizes for network operations
 - This is a static function used internally within the libpq_source.c module
 - The function handles the balance between request efficiency (through merging) and memory management (through chunking and queue limits)
+
+## Simplified Source
+
+```c
+static void
+libpq_queue_fetch_range(rewind_source *source, const char *path, off_t off, size_t len)
+{
+    libpq_source *src = (libpq_source *) source;
+
+    // Try to merge with previous request if contiguous
+    if (src->num_requests > 0) {
+        fetch_range_request *prev = &src->request_queue[src->num_requests - 1];
+
+        if (prev->offset + prev->length == off &&
+            prev->length < MAX_CHUNK_SIZE &&
+            prev->path == path) {
+            // Extend previous request up to MAX_CHUNK_SIZE
+            size_t thislen = Min(len, MAX_CHUNK_SIZE - prev->length);
+            prev->length += thislen;
+            off += thislen;
+            len -= thislen;
+        }
+    }
+
+    // Split remaining data into chunks
+    while (len > 0) {
+        // Process queue if full
+        if (src->num_requests == MAX_CHUNKS_PER_QUERY)
+            process_queued_fetch_requests(src);
+
+        // Add new chunk request
+        int32 thislen = Min(len, MAX_CHUNK_SIZE);
+        src->request_queue[src->num_requests].path = path;
+        src->request_queue[src->num_requests].offset = off;
+        src->request_queue[src->num_requests].length = thislen;
+        src->num_requests++;
+
+        off += thislen;
+        len -= thislen;
+    }
+}
+```

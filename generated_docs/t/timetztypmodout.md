@@ -36,3 +36,14 @@ The function takes a numeric type modifier (typically representing precision) an
 - When no precision is specified (typmod < 0), returns just "with time zone"
 - Shares common formatting logic with `timetypmodout` through the `anytime_typmodout` helper function
 - Part of PostgreSQL's type introspection and display system
+
+## Simplified Source
+
+```c
+Datum timetztypmodout(PG_FUNCTION_ARGS) {
+    int32 typmod = PG_GETARG_INT32(0);
+
+    // Convert TIMETZ type modifier to string representation
+    PG_RETURN_CSTRING(anytime_typmodout(true, typmod));
+}
+```

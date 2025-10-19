@@ -36,3 +36,20 @@ This function is typically used during text search parsing to clean up processed
 - The function ensures proper queue management during lexeme processing
 - The curSub pointer is updated to maintain continuity in processing after the move operation
 - [RemoveHead](../R/RemoveHead.md)() is responsible for the actual transfer mechanism from towork to waste
+
+## Simplified Source
+
+```c
+static void moveToWaste(LexizeData *ld, ParsedLex *stop) {
+    // Process work queue until we reach the stop lexeme
+    while (ld->towork.head) {
+        if (ld->towork.head == stop) {
+            // Set next processing position and exit
+            ld->curSub = stop->next;
+            RemoveHead(ld);  // Move stop lexeme to waste
+            break;
+        }
+        RemoveHead(ld);  // Move current head to waste
+    }
+}
+```

@@ -39,3 +39,23 @@ Unlike some other similar functions, this one does not call additional suffix pr
 - The a_5 array contains two patterns: 'na' and 'ne' representing the dative case markers
 - Simpler structure compared to other mark functions as it doesn't require additional consonant processing
 - Used specifically in noun suffix processing chains for identifying dative case
+
+## Simplified Source
+
+```c
+static int r_mark_nA(struct SN_env * z) {
+    // Check vowel harmony first
+    int harmony_check = r_check_vowel_harmony(z);
+    if (harmony_check <= 0) return harmony_check;
+
+    // Ensure character at c-1 is 'a' or 'e' (vowel harmony A variants)
+    if (z->c - 1 <= z->lb || (z->p[z->c - 1] != 97 && z->p[z->c - 1] != 101))
+        return 0;
+
+    // Match against 2 'nA' suffix patterns (na, ne)
+    if (!(find_among_b(z, a_5, 2)))
+        return 0;
+
+    return 1;  // Successfully found nA suffix pattern
+}
+```

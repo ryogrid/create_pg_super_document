@@ -31,3 +31,15 @@ This function compares two single-byte character values and returns true if they
 - Located in `src/backend/utils/adt/char.c` at lines 136-144
 - Part of PostgreSQL's built-in operator functions for character data types
 - Uses direct comparison without casting, unlike some other character comparison functions
+
+## Simplified Source
+
+```c
+Datum charne(PG_FUNCTION_ARGS) {
+    char arg1 = PG_GETARG_CHAR(0);
+    char arg2 = PG_GETARG_CHAR(1);
+
+    // Compare characters for inequality (not equal)
+    PG_RETURN_BOOL(arg1 != arg2);
+}
+```

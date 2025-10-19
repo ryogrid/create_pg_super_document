@@ -37,3 +37,16 @@ The underlying comparison logic in `float8_ne` implements the rule that:
 - This function is typically invoked through PostgreSQLs operator system rather than direct calls
 - The NaN handling ensures IEEE 754 compliance where NaN != NaN is false, but NaN != any_other_value is true
 - Part of PostgreSQLs comprehensive floating-point arithmetic system
+
+## Simplified Source
+
+```c
+Datum float8ne(PG_FUNCTION_ARGS) {
+    // Extract the two float8 arguments from SQL call
+    float8 arg1 = PG_GETARG_FLOAT8(0);
+    float8 arg2 = PG_GETARG_FLOAT8(1);
+
+    // Delegate to helper function and return boolean result
+    return PG_RETURN_BOOL(float8_ne(arg1, arg2));
+}
+```

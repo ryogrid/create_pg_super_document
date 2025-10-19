@@ -55,3 +55,94 @@ The algorithm is based on the research paper "A new double sorting-based node sp
 - The algorithm handles both points and boxes as it projects them as intervals for analysis
 - Fallback to a simpler splitting method if no acceptable split is found
 - The splitting quality directly impacts query performance of spatial indexes
+
+## Simplified Source
+
+```c
+Datum gist_box_picksplit(PG_FUNCTION_ARGS)
+{
+    GistEntryVector *entryvec = (GistEntryVector *) PG_GETARG_POINTER(0);
+    GIST_SPLITVEC *v = (GIST_SPLITVEC *) PG_GETARG_POINTER(1);
+    OffsetNumber i, maxoff;
+    ConsiderSplitContext context;
+    BOX *box, *leftBox, *rightBox;
+    int dim, commonEntriesCount;
+    SplitInterval *intervalsLower, *intervalsUpper;
+    CommonEntry *commonEntries;
+    int nentries;
+
+    memset(&context, 0, sizeof(ConsiderSplitContext));
+
+    maxoff = entryvec->n - 1;
+    nentries = context.entriesCount = maxoff - FirstOffsetNumber + 1;
+
+    // Allocate interval arrays for both axes
+    intervalsLower = palloc(nentries * sizeof(SplitInterval));
+    intervalsUpper = palloc(nentries * sizeof(SplitInterval));
+
+    // Calculate overall bounding box of all entries
+    for (i = FirstOffsetNumber; i <= maxoff; i = OffsetNumberNext(i)) {
+        box = DatumGetBoxP(entryvec->vector[i].key);
+        if (i == FirstOffsetNumber)
+            context.boundingBox = *box;
+        else
+            adjustBox(&context.boundingBox, box);
+    }
+
+    // Try splits along both X and Y axes
+    context.first = true;
+    for (dim = 0; dim < 2; dim++) {
+        // Project entries as intervals on current axis
+        for (i = FirstOffsetNumber; i <= maxoff; i = OffsetNumberNext(i)) {
+            box = DatumGetBoxP(entryvec->vector[i].key);
+            if (dim == 0) {
+                intervalsLower[i - FirstOffsetNumber].lower = box->low.x;
+                intervalsLower[i - FirstOffsetNumber].upper = box->high.x;
+            } else {
+                intervalsLower[i - FirstOffsetNumber].lower = box->low.y;
+                intervalsLower[i - FirstOffsetNumber].upper = box->high.y;
+            }
+        }
+
+        // Create sorted arrays by lower and upper bounds
+        memcpy(intervalsUpper, intervalsLower, sizeof(SplitInterval) * nentries);
+        qsort(intervalsLower, nentries, sizeof(SplitInterval), interval_cmp_lower);
+        qsort(intervalsUpper, nentries, sizeof(SplitInterval), interval_cmp_upper);
+
+        // Find optimal split points by examining interval combinations
+        // (Implementation details simplified - involves complex iteration
+        // through sorted intervals to find best left/right split boundaries)
+
+        // Two main loops:
+        // 1. Iterate over right group lower bounds, find minimal left upper bounds
+        // 2. Iterate over left group upper bounds, find maximal right lower bounds
+        // Each combination is evaluated using g_box_consider_split()
+    }
+
+    // Use fallback split if no acceptable split found
+    if (context.first) {
+        fallbackSplit(entryvec, v);
+        PG_RETURN_POINTER(v);
+    }
+
+    // Allocate result arrays
+    v->spl_left = palloc(nentries * sizeof(OffsetNumber));
+    v->spl_right = palloc(nentries * sizeof(OffsetNumber));
+    v->spl_nleft = 0;
+    v->spl_nright = 0;
+
+    // Allocate bounding boxes for both groups
+    leftBox = palloc0(sizeof(BOX));
+    rightBox = palloc0(sizeof(BOX));
+
+    // Classify and distribute entries into left, right, and common groups
+    // Common entries are distributed to minimize penalty
+    commonEntriesCount = 0;
+    commonEntries = palloc(nentries * sizeof(CommonEntry));
+
+    // (Additional logic for entry classification and distribution)
+    // Final step: compute union bounding boxes for both result groups
+
+    PG_RETURN_POINTER(v);
+}
+```

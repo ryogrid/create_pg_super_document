@@ -39,3 +39,32 @@ The  function implements the choose method for SP-GiST quadtree indexes. When in
 - Handles degenerate case where all points are identical with  flag
 - The  field is always set to 0 since quadtree doesn't compress levels
 -  passes the original point data through to the next level unchanged
+
+## Simplified Source
+
+```c
+Datum spg_quad_choose(PG_FUNCTION_ARGS) {
+    spgChooseIn *in = (spgChooseIn *) PG_GETARG_POINTER(0);
+    spgChooseOut *out = (spgChooseOut *) PG_GETARG_POINTER(1);
+    Point *inPoint = DatumGetPointP(in->datum);
+
+    // Handle degenerate case: all points are identical
+    if (in->allTheSame) {
+        out->resultType = spgMatchNode;
+        out->result.matchNode.levelAdd = 0;
+        out->result.matchNode.restDatum = PointPGetDatum(inPoint);
+        PG_RETURN_VOID();
+    }
+
+    // Normal case: determine quadrant based on centroid
+    Point *centroid = DatumGetPointP(in->prefixDatum);
+
+    // Route to appropriate quadrant (getQuadrant returns 1-4, convert to 0-3)
+    out->resultType = spgMatchNode;
+    out->result.matchNode.nodeN = getQuadrant(centroid, inPoint) - 1;
+    out->result.matchNode.levelAdd = 0;
+    out->result.matchNode.restDatum = PointPGetDatum(inPoint);
+
+    PG_RETURN_VOID();
+}
+```

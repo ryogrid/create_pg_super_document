@@ -33,3 +33,19 @@ The `point_box` function converts a single point into a box representation by cr
 - Memory for the result is allocated using palloc and will be managed by PostgreSQL's memory context system
 - This conversion allows points to participate in box-oriented geometric operations and comparisons
 - The comment explicitly mentions this creates an "empty box", referring to the zero-area nature of the result
+
+## Simplified Source
+
+```c
+BOX* point_box(Point *pt) {
+    BOX *box = (BOX *) palloc(sizeof(BOX));
+
+    // Create degenerate box where both corners equal the point
+    box->high.x = pt->x;
+    box->low.x = pt->x;
+    box->high.y = pt->y;
+    box->low.y = pt->y;
+
+    return box;
+}
+```

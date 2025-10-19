@@ -33,3 +33,12 @@ The  function is a PostgreSQL built-in function that implements the less-than co
 - Part of PostgreSQL's comprehensive set of time comparison functions
 - Uses simple numeric comparison since TimeADT is internally represented as microseconds since midnight
 - Returns true if time1 < time2, false otherwise
+
+## Simplified Source
+
+```c
+bool time_lt(TimeADT time1, TimeADT time2) {
+    // Simple comparison: return true if first time is earlier than second
+    return time1 < time2;
+}
+```

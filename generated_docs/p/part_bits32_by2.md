@@ -31,3 +31,23 @@ This function implements the bit-spreading operation required for Morton code (Z
 - Essential component of the Morton code generation process for spatial indexing
 - The five-step process efficiently spreads 32 bits across 64 positions using bitwise operations
 - Bitmasks used: 0x0000FFFF0000FFFF, 0x00FF00FF00FF00FF, 0x0F0F0F0F0F0F0F0F, 0x3333333333333333, 0x5555555555555555
+
+## Simplified Source
+
+```c
+static uint64
+part_bits32_by2(uint32 x)
+{
+    uint64 n = x;
+
+    // Progressively spread bits by inserting zeros between them
+    // Each step doubles the spacing between bits
+    n = (n | (n << 16)) & UINT64CONST(0x0000FFFF0000FFFF);  // 16-bit groups
+    n = (n | (n << 8))  & UINT64CONST(0x00FF00FF00FF00FF);  // 8-bit groups
+    n = (n | (n << 4))  & UINT64CONST(0x0F0F0F0F0F0F0F0F);  // 4-bit groups
+    n = (n | (n << 2))  & UINT64CONST(0x3333333333333333);  // 2-bit groups
+    n = (n | (n << 1))  & UINT64CONST(0x5555555555555555);  // 1-bit groups
+
+    return n;
+}
+```

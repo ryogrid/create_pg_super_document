@@ -37,3 +37,18 @@ This function represents part of PostgreSQL's evolution away from direct ACL man
 - Maintained for backward compatibility but provides no actual functionality
 - The PG_RETURN_NULL() at the end is never reached due to the ERROR, but kept for compiler satisfaction
 - Represents PostgreSQL's approach to deprecating functions while maintaining ABI stability
+
+## Simplified Source
+
+```c
+Datum
+aclinsert(PG_FUNCTION_ARGS)
+{
+    // This function is deprecated and no longer supported
+    ereport(ERROR,
+            (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+             errmsg("aclinsert is no longer supported")));
+
+    PG_RETURN_NULL(); // Never reached, kept for compiler
+}
+```

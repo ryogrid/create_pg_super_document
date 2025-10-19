@@ -32,3 +32,17 @@ This function implements the less-than comparison operator (`<`) for the UUID da
 
 ## Notes and Other Information
 This function follows PostgreSQL's standard pattern for implementing SQL operators as C functions. It uses PostgreSQL's function call convention with `PG_FUNCTION_ARGS` and the associated macros for argument extraction and return value handling. The comparison semantics are purely lexicographic based on the binary UUID representation.
+
+## Simplified Source
+
+```c
+Datum
+uuid_lt(PG_FUNCTION_ARGS)
+{
+    pg_uuid_t *arg1 = PG_GETARG_UUID_P(0);
+    pg_uuid_t *arg2 = PG_GETARG_UUID_P(1);
+
+    // Return true if first UUID is less than second UUID
+    PG_RETURN_BOOL(uuid_internal_cmp(arg1, arg2) < 0);
+}
+```

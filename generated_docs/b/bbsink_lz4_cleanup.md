@@ -30,3 +30,17 @@ The `bbsink_lz4_cleanup` function is a cleanup handler specifically designed for
 - The function specifically targets the `ctx` member of the `bbsink_lz4` structure, which is of type `LZ4F_compressionContext_t`
 - This cleanup function is essential for preventing memory leaks in LZ4-compressed basebackup operations
 - The function follows PostgreSQL's pattern of having type-specific cleanup handlers for different sink types
+
+## Simplified Source
+
+```c
+static void bbsink_lz4_cleanup(bbsink *sink) {
+    bbsink_lz4 *mysink = (bbsink_lz4 *) sink;
+
+    // Free LZ4 compression context if it exists
+    if (mysink->ctx) {
+        LZ4F_freeCompressionContext(mysink->ctx);
+        mysink->ctx = NULL;
+    }
+}
+```

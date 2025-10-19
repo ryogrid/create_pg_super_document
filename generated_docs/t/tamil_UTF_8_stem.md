@@ -58,3 +58,61 @@ Each stage preserves the original cursor position using save/restore patterns, a
 - Essential component of PostgreSQL's multilingual full-text search capabilities for Tamil content
 - Supports UTF-8 encoded Tamil text with proper Unicode handling
 - Forms part of the broader Snowball stemming framework used across multiple languages in PostgreSQL
+
+## Simplified Source
+
+```c
+extern int tamil_UTF_8_stem(struct SN_env * z) {
+    // Initialize processing flags
+    z->I[0] = 0;
+
+    // Apply initial character fixes
+    int cursor_pos = z->c;
+    r_fix_ending(z);
+    z->c = cursor_pos;
+
+    // Check minimum length requirement
+    if (r_has_min_length(z) <= 0)
+        return 0;
+
+    // Remove prefixes (save/restore cursor for each step)
+    cursor_pos = z->c;
+    r_remove_question_prefixes(z);
+    z->c = cursor_pos;
+
+    cursor_pos = z->c;
+    r_remove_pronoun_prefixes(z);
+    z->c = cursor_pos;
+
+    // Remove suffixes in linguistic order
+    cursor_pos = z->c;
+    r_remove_question_suffixes(z);
+    z->c = cursor_pos;
+
+    cursor_pos = z->c;
+    r_remove_um(z);  // Remove "um" particles
+    z->c = cursor_pos;
+
+    cursor_pos = z->c;
+    r_remove_common_word_endings(z);
+    z->c = cursor_pos;
+
+    cursor_pos = z->c;
+    r_remove_vetrumai_urupukal(z);  // Remove case markers
+    z->c = cursor_pos;
+
+    cursor_pos = z->c;
+    r_remove_plural_suffix(z);
+    z->c = cursor_pos;
+
+    cursor_pos = z->c;
+    r_remove_command_suffixes(z);
+    z->c = cursor_pos;
+
+    cursor_pos = z->c;
+    r_remove_tense_suffixes(z);
+    z->c = cursor_pos;
+
+    return 1;  // Always succeeds
+}
+```

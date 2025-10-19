@@ -45,3 +45,58 @@ The display is carefully curated to show only fields that will not be reset by t
 - The boolean values (like full_page_writes and float8ByVal) are displayed as human-readable "on/off" or "by value/by reference" strings
 - Provides essential information for database administrators to understand the database's current state and configuration before and after running pg_resetwal
 - The output format is designed to be both machine-parseable and human-readable for administrative scripts and manual inspection
+
+## Simplified Source
+
+```c
+static void PrintControlValues(bool guessed) {
+    // Print header based on whether values were guessed or read
+    if (guessed)
+        printf("Guessed pg_control values:\n\n");
+    else
+        printf("Current pg_control values:\n\n");
+
+    // Display version and identification info
+    printf("pg_control version number:            %u\n", ControlFile.pg_control_version);
+    printf("Catalog version number:               %u\n", ControlFile.catalog_version_no);
+    printf("Database system identifier:           %llu\n",
+           (unsigned long long) ControlFile.system_identifier);
+
+    // Display checkpoint information
+    printf("Latest checkpoint's TimeLineID:       %u\n", ControlFile.checkPointCopy.ThisTimeLineID);
+    printf("Latest checkpoint's full_page_writes: %s\n",
+           ControlFile.checkPointCopy.fullPageWrites ? "on" : "off");
+    printf("Latest checkpoint's NextXID:          %u:%u\n",
+           EpochFromFullTransactionId(ControlFile.checkPointCopy.nextXid),
+           XidFromFullTransactionId(ControlFile.checkPointCopy.nextXid));
+    printf("Latest checkpoint's NextOID:          %u\n", ControlFile.checkPointCopy.nextOid);
+    printf("Latest checkpoint's NextMultiXactId:  %u\n", ControlFile.checkPointCopy.nextMulti);
+    printf("Latest checkpoint's NextMultiOffset:  %u\n", ControlFile.checkPointCopy.nextMultiOffset);
+
+    // Display aging/cleanup information
+    printf("Latest checkpoint's oldestXID:        %u\n", ControlFile.checkPointCopy.oldestXid);
+    printf("Latest checkpoint's oldestXID's DB:   %u\n", ControlFile.checkPointCopy.oldestXidDB);
+    printf("Latest checkpoint's oldestActiveXID:  %u\n", ControlFile.checkPointCopy.oldestActiveXid);
+    printf("Latest checkpoint's oldestMultiXid:   %u\n", ControlFile.checkPointCopy.oldestMulti);
+    printf("Latest checkpoint's oldestMulti's DB: %u\n", ControlFile.checkPointCopy.oldestMultiDB);
+    printf("Latest checkpoint's oldestCommitTsXid:%u\n", ControlFile.checkPointCopy.oldestCommitTsXid);
+    printf("Latest checkpoint's newestCommitTsXid:%u\n", ControlFile.checkPointCopy.newestCommitTsXid);
+
+    // Display architecture and configuration constants
+    printf("Maximum data alignment:               %u\n", ControlFile.maxAlign);
+    printf("Database block size:                  %u\n", ControlFile.blcksz);
+    printf("Blocks per segment of large relation: %u\n", ControlFile.relseg_size);
+    printf("WAL block size:                       %u\n", ControlFile.xlog_blcksz);
+    printf("Bytes per WAL segment:                %u\n", ControlFile.xlog_seg_size);
+    printf("Maximum length of identifiers:        %u\n", ControlFile.nameDataLen);
+    printf("Maximum columns in an index:          %u\n", ControlFile.indexMaxKeys);
+    printf("Maximum size of a TOAST chunk:        %u\n", ControlFile.toast_max_chunk_size);
+    printf("Size of a large-object chunk:         %u\n", ControlFile.loblksize);
+
+    // Display type storage information
+    printf("Date/time type storage:               64-bit integers\n");
+    printf("Float8 argument passing:              %s\n",
+           (ControlFile.float8ByVal ? "by value" : "by reference"));
+    printf("Data page checksum version:           %u\n", ControlFile.data_checksum_version);
+}
+```

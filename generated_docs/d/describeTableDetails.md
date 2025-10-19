@@ -41,3 +41,80 @@ This design allows for efficient batch processing when multiple tables match a p
 - Error handling includes proper cleanup of PostgreSQL result sets and buffers
 - The function serves as a bridge between pattern matching and individual table description
 - Returns false on any error (no matches, SQL errors, or cancellation) for proper error propagation
+
+## Simplified Source
+
+```c
+bool describeTableDetails(const char *pattern, bool verbose, bool showSystem) {
+    PQExpBufferData buf;
+    PGresult *res;
+    int i;
+
+    initPQExpBuffer(&buf);
+
+    // Query to find all matching tables/relations
+    printfPQExpBuffer(&buf,
+        "SELECT c.oid,\n"
+        "  n.nspname,\n"
+        "  c.relname\n"
+        "FROM pg_catalog.pg_class c\n"
+        "     LEFT JOIN pg_catalog.pg_namespace n ON n.oid = c.relnamespace\n");
+
+    // Filter out system schemas unless requested
+    if (!showSystem && !pattern) {
+        appendPQExpBufferStr(&buf,
+            "WHERE n.nspname <> 'pg_catalog'\n"
+            "      AND n.nspname <> 'information_schema'\n");
+    }
+
+    // Apply pattern filter if provided
+    if (!validateSQLNamePattern(&buf, pattern, !showSystem && !pattern, false,
+                                "n.nspname", "c.relname", NULL,
+                                "pg_catalog.pg_table_is_visible(c.oid)",
+                                NULL, 3)) {
+        termPQExpBuffer(&buf);
+        return false;
+    }
+
+    // Execute query to get matching tables
+    appendPQExpBufferStr(&buf, "ORDER BY 2, 3;");
+    res = PSQLexec(buf.data);
+    termPQExpBuffer(&buf);
+    if (!res)
+        return false;
+
+    // Check if any tables were found
+    if (PQntuples(res) == 0) {
+        if (!pset.quiet) {
+            if (pattern)
+                pg_log_error("Did not find any relation named \"%s\".", pattern);
+            else
+                pg_log_error("Did not find any relations.");
+        }
+        PQclear(res);
+        return false;
+    }
+
+    // Process each matching table
+    for (i = 0; i < PQntuples(res); i++) {
+        const char *oid = PQgetvalue(res, i, 0);
+        const char *nspname = PQgetvalue(res, i, 1);
+        const char *relname = PQgetvalue(res, i, 2);
+
+        // Display details for this table
+        if (!describeOneTableDetails(nspname, relname, oid, verbose)) {
+            PQclear(res);
+            return false;
+        }
+
+        // Check for user cancellation
+        if (cancel_pressed) {
+            PQclear(res);
+            return false;
+        }
+    }
+
+    PQclear(res);
+    return true;
+}
+```

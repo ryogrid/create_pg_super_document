@@ -36,3 +36,27 @@ The function delegates the actual setting management to the `do_pset` function, 
 - Affects both regular query results and meta-command output that displays tabular data
 - The setting persists for the duration of the psql session unless changed again
 - Source code location: src/bin/psql/command.c:2605-2626
+
+## Simplified Source
+
+```c
+static backslashResult
+exec_command_t(PsqlScanState scan_state, bool active_branch)
+{
+    bool success = true;
+
+    if (active_branch) {
+        // Parse optional parameter (on/off or toggle)
+        char *opt = psql_scan_slash_option(scan_state, OT_NORMAL, NULL, true);
+
+        // Set tuples_only option (suppresses headers/row count)
+        success = do_pset("tuples_only", opt, &pset.popt, pset.quiet);
+        free(opt);
+    }
+    else {
+        ignore_slash_options(scan_state);
+    }
+
+    return success ? PSQL_CMD_SKIP_LINE : PSQL_CMD_ERROR;
+}
+```

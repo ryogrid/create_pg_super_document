@@ -33,3 +33,17 @@ The  function is a PostgreSQL built-in function that returns the absolute value 
 - Uses standard C library math functions for the actual computation
 - Follows PostgreSQL's function calling convention using PG_FUNCTION_ARGS macro
 - Returns result using PostgreSQL's Datum system for type-safe value passing
+
+## Simplified Source
+
+```c
+Datum
+float4abs(PG_FUNCTION_ARGS)
+{
+    // Extract the float4 argument
+    float4 arg1 = PG_GETARG_FLOAT4(0);
+
+    // Return absolute value using standard C library function
+    PG_RETURN_FLOAT4(fabsf(arg1));
+}
+```

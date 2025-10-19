@@ -49,3 +49,43 @@ The quadtree partitioning divides the 2D space into four quadrants (NE, NW, SE, 
 - The function is typically registered as part of an SP-GiST operator class for Point data types
 - Uses 1-based quadrant numbering from getQuadrant() but converts to 0-based indexing for internal use
 - Part of PostgreSQL's extensible indexing framework, specifically designed for spatial data structures
+
+## Simplified Source
+
+```c
+Datum spg_quad_picksplit(PG_FUNCTION_ARGS) {
+    spgPickSplitIn *in = (spgPickSplitIn *) PG_GETARG_POINTER(0);
+    spgPickSplitOut *out = (spgPickSplitOut *) PG_GETARG_POINTER(1);
+    Point *centroid = palloc0(sizeof(*centroid));
+
+    // Calculate centroid as average of all input points
+    for (int i = 0; i < in->nTuples; i++) {
+        Point *p = DatumGetPointP(in->datums[i]);
+        centroid->x += p->x;
+        centroid->y += p->y;
+    }
+    centroid->x /= in->nTuples;
+    centroid->y /= in->nTuples;
+
+    // Set up output for quadtree split
+    out->hasPrefix = true;
+    out->prefixDatum = PointPGetDatum(centroid);
+    out->nNodes = 4;  // Four quadrants
+    out->nodeLabels = NULL;
+
+    // Allocate arrays for tuple-to-node mapping
+    out->mapTuplesToNodes = palloc(sizeof(int) * in->nTuples);
+    out->leafTupleDatums = palloc(sizeof(Datum) * in->nTuples);
+
+    // Assign each tuple to appropriate quadrant
+    for (int i = 0; i < in->nTuples; i++) {
+        Point *p = DatumGetPointP(in->datums[i]);
+        int quadrant = getQuadrant(centroid, p) - 1;  // Convert 1-4 to 0-3
+
+        out->leafTupleDatums[i] = PointPGetDatum(p);
+        out->mapTuplesToNodes[i] = quadrant;
+    }
+
+    PG_RETURN_VOID();
+}
+```

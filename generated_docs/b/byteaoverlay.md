@@ -37,3 +37,19 @@ The  function provides a direct implementation of the SQL OVERLAY() function for
 - Follows the SQL standard specification for OVERLAY() operations
 - Position arguments use 1-based indexing as per SQL standard
 - Located in src/backend/utils/adt/varlena.c:3095-3105
+
+## Simplified Source
+
+```c
+// PostgreSQL function implementing SQL OVERLAY() for bytea data
+Datum byteaoverlay(PG_FUNCTION_ARGS) {
+    // Extract arguments: target bytea, replacement bytea, start pos, length
+    bytea *target = PG_GETARG_BYTEA_PP(0);
+    bytea *replacement = PG_GETARG_BYTEA_PP(1);
+    int start_pos = PG_GETARG_INT32(2);    // substring start position
+    int length = PG_GETARG_INT32(3);       // substring length to replace
+
+    // Delegate to core overlay function and return result
+    return PG_RETURN_BYTEA_P(bytea_overlay(target, replacement, start_pos, length));
+}
+```

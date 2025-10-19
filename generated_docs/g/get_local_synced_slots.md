@@ -33,3 +33,36 @@ The function performs validation by asserting that all synchronized slots must b
 - Includes an assertion to verify that all synced slots are logical slots, helping catch programming errors
 - The returned list should be freed by the caller when no longer needed
 - An empty list (NIL) is returned if no synchronized slots exist
+
+## Simplified Source
+
+```c
+/*
+ * Get the list of local logical slots that are synchronized from the
+ * primary server.
+ */
+static List *
+get_local_synced_slots(void)
+{
+    List *local_slots = NIL;
+
+    // Lock replication slot control for safe access
+    LWLockAcquire(ReplicationSlotControlLock, LW_SHARED);
+
+    // Iterate through all replication slots
+    for (int i = 0; i < max_replication_slots; i++)
+    {
+        ReplicationSlot *slot = &ReplicationSlotCtl->replication_slots[i];
+
+        // Check if this is an active synchronized slot
+        if (slot->in_use && slot->data.synced)
+        {
+            // Add synchronized slot to our list
+            local_slots = lappend(local_slots, slot);
+        }
+    }
+
+    LWLockRelease(ReplicationSlotControlLock);
+    return local_slots;
+}
+```

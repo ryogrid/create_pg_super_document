@@ -44,3 +44,49 @@ The function configures semantic handlers for various JSON elements (objects, ar
 - The parser state tracks version field presence and maintains current parsing state
 - Designed for UTF-8 encoded JSON input with strict parsing enabled
 - Part of PostgreSQL's backup manifest processing infrastructure
+
+## Simplified Source
+
+```c
+JsonManifestParseIncrementalState *
+json_parse_manifest_incremental_init(JsonManifestParseContext *context)
+{
+    JsonManifestParseIncrementalState *incstate;
+    JsonManifestParseState *parse;
+    pg_cryptohash_ctx *manifest_ctx;
+
+    // Allocate incremental state and parse state structures
+    incstate = palloc(sizeof(JsonManifestParseIncrementalState));
+    parse = palloc(sizeof(JsonManifestParseState));
+
+    // Initialize parse state
+    parse->context = context;
+    parse->state = JM_EXPECT_TOPLEVEL_START;
+    parse->saw_version_field = false;
+
+    // Set up incremental JSON lexer for UTF-8 with strict parsing
+    makeJsonLexContextIncremental(&(incstate->lex), PG_UTF8, true);
+
+    // Configure semantic action handlers
+    incstate->sem.semstate = parse;
+    incstate->sem.object_start = json_manifest_object_start;
+    incstate->sem.object_end = json_manifest_object_end;
+    incstate->sem.array_start = json_manifest_array_start;
+    incstate->sem.array_end = json_manifest_array_end;
+    incstate->sem.object_field_start = json_manifest_object_field_start;
+    incstate->sem.object_field_end = NULL;
+    incstate->sem.array_element_start = NULL;
+    incstate->sem.array_element_end = NULL;
+    incstate->sem.scalar = json_manifest_scalar;
+
+    // Initialize SHA256 hash context for manifest verification
+    manifest_ctx = pg_cryptohash_create(PG_SHA256);
+    if (manifest_ctx == NULL)
+        context->error_cb(context, "out of memory");
+    if (pg_cryptohash_init(manifest_ctx) < 0)
+        context->error_cb(context, "could not initialize checksum of manifest");
+    incstate->manifest_ctx = manifest_ctx;
+
+    return incstate;
+}
+```

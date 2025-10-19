@@ -59,3 +59,47 @@ The function formats progress as both absolute numbers and percentages, making i
 - Database name truncation uses leading truncation with "..." prefix when the name exceeds the display width
 - Progress reporting can be completely disabled via the `opts.show_progress` flag
 - The function maintains global state through `last_progress_report` to implement rate limiting
+
+## Simplified Source
+
+```c
+static void
+progress_report(uint64 relations_total, uint64 relations_checked,
+                uint64 relpages_total, uint64 relpages_checked,
+                const char *datname, bool force, bool finished)
+{
+    int percent_rel = 0;
+    int percent_pages = 0;
+    char checked_rel[32];
+    char total_rel[32];
+    char checked_pages[32];
+    char total_pages[32];
+    pg_time_t now;
+
+    // Exit early if progress reporting is disabled
+    if (!opts.show_progress)
+        return;
+
+    // Rate limiting: max once per second unless forced
+    now = time(NULL);
+    if (now == last_progress_report && !force && !finished)
+        return;
+
+    last_progress_report = now;
+
+    // Calculate completion percentages
+    if (relations_total)
+        percent_rel = (int) (relations_checked * 100 / relations_total);
+    if (relpages_total)
+        percent_pages = (int) (relpages_checked * 100 / relpages_total);
+
+    // Format progress numbers
+    snprintf(checked_rel, sizeof(checked_rel), UINT64_FORMAT, relations_checked);
+    snprintf(total_rel, sizeof(total_rel), UINT64_FORMAT, relations_total);
+    snprintf(checked_pages, sizeof(checked_pages), UINT64_FORMAT, relpages_checked);
+    snprintf(total_pages, sizeof(total_pages), UINT64_FORMAT, relpages_total);
+
+    // Display progress output (remaining output logic simplified)
+    // ...
+}
+```

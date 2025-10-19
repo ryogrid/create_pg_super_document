@@ -47,3 +47,34 @@ This function is crucial for proper stemming of verbs with attached pronouns in 
 - The a_1 array contains 39 different attached pronoun patterns specific to Romance languages
 - This is a static function, indicating it's only used within the specific stemmer implementation file
 - The function is replicated across multiple Romance language stemmer files with identical logic
+
+## Simplified Source
+
+```c
+static int r_attached_pronoun(struct SN_env * z) {
+    // Set end boundary at current cursor
+    z->ket = z->c;
+
+    // Check if previous character is a valid letter (bit manipulation check)
+    if (z->c - 1 <= z->lb ||
+        z->p[z->c - 1] >> 5 != 3 ||
+        !((1634850 >> (z->p[z->c - 1] & 0x1f)) & 1)) {
+        return 0;
+    }
+
+    // Look for attached pronoun pattern (39 patterns in a_1)
+    if (!find_among_b(z, a_1, 39)) {
+        return 0;
+    }
+
+    z->bra = z->c;  // Set start boundary
+
+    // Verify we're in R1 region before removal
+    if (!r_R1(z)) {
+        return 0;
+    }
+
+    // Remove the attached pronoun
+    return slice_del(z);
+}
+```

@@ -32,3 +32,13 @@ The function is the counterpart to yiddish_UTF_8_create_env and should always be
 - The parameter 0 passed to SN_close_env indicates no additional cleanup is needed for string variables
 - Part of the standard Snowball stemmer interface pattern for resource management
 - Located in src/backend/snowball/libstemmer/stem_UTF_8_yiddish.c:1232
+
+## Simplified Source
+
+```c
+extern void yiddish_UTF_8_close_env(struct SN_env * z) {
+    // Clean up and deallocate Snowball environment
+    // Parameter 0: no additional string variable cleanup needed
+    SN_close_env(z, 0);
+}
+```

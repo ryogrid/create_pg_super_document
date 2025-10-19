@@ -44,3 +44,47 @@ The order of operations is crucial - general endings are removed first, followed
 - Ensures processing only occurs within the R1 region by setting 
 - Part of the automatically generated Snowball stemming code for Armenian language support
 - The function is stateless and thread-safe when used with separate SN_env structures
+
+## Simplified Source
+
+```c
+extern int armenian_UTF_8_stem(struct SN_env * z) {
+    // Mark morphological regions (R1, R2) in the word
+    if (r_mark_regions(z) < 0) return 0;
+
+    // Set processing boundaries: work backwards from end, stay within R1
+    z->lb = z->c;
+    z->c = z->l;
+
+    // Ensure we have a minimum word length (R1 region must exist)
+    if (z->c < z->I[1]) return 0;
+
+    int original_lb = z->lb;
+    z->lb = z->I[1];  // Set lower boundary to R1
+
+    // Phase 1: Remove general endings
+    int pos = z->l - z->c;
+    r_ending(z);
+    z->c = z->l - pos;
+
+    // Phase 2: Remove verb suffixes
+    pos = z->l - z->c;
+    r_verb(z);
+    z->c = z->l - pos;
+
+    // Phase 3: Remove adjective suffixes
+    pos = z->l - z->c;
+    r_adjective(z);
+    z->c = z->l - pos;
+
+    // Phase 4: Remove noun suffixes
+    pos = z->l - z->c;
+    r_noun(z);
+    z->c = z->l - pos;
+
+    // Restore original boundaries
+    z->lb = original_lb;
+    z->c = z->lb;
+    return 1;
+}
+```

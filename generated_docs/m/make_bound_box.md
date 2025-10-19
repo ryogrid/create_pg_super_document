@@ -36,3 +36,29 @@ The function uses PostgreSQLs float8 comparison functions to handle floating-poi
 - The bounding box is stored directly in the polygon structures boundbox field
 - Uses safe float8 comparison functions rather than direct < and > operators
 - Part of PostgreSQLs geometric data type implementation
+
+## Simplified Source
+
+```c
+static void make_bound_box(POLYGON *poly) {
+    // Initialize bounds with first point coordinates
+    float8 x1 = poly->p[0].x;
+    float8 y1 = poly->p[0].y;
+    float8 x2 = poly->p[0].x;
+    float8 y2 = poly->p[0].y;
+
+    // Find minimum and maximum x,y coordinates across all points
+    for (int i = 1; i < poly->npts; i++) {
+        if (poly->p[i].x < x1) x1 = poly->p[i].x;  // Update min x
+        if (poly->p[i].x > x2) x2 = poly->p[i].x;  // Update max x
+        if (poly->p[i].y < y1) y1 = poly->p[i].y;  // Update min y
+        if (poly->p[i].y > y2) y2 = poly->p[i].y;  // Update max y
+    }
+
+    // Store the calculated bounding box in the polygon structure
+    poly->boundbox.low.x = x1;
+    poly->boundbox.high.x = x2;
+    poly->boundbox.low.y = y1;
+    poly->boundbox.high.y = y2;
+}
+```

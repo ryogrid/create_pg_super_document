@@ -33,3 +33,15 @@ This function enables PostgreSQL to display timestamp type specifications like `
 - Used for displaying precision specifications in system catalogs and user interfaces
 - Returns a C string that represents the typmod in SQL syntax format
 - Located in src/backend/utils/adt/timestamp.c:310-324
+
+## Simplified Source
+
+```c
+// Convert timestamp type modifier to string format
+Datum timestamptypmodout(PG_FUNCTION_ARGS) {
+    int32 typmod = PG_GETARG_INT32(0);
+
+    // Use common formatting function for timestamp (not timestamptz)
+    PG_RETURN_CSTRING(anytimestamp_typmodout(false, typmod));
+}
+```

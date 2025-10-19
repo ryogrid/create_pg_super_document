@@ -51,3 +51,56 @@ The algorithm uses a priority-based approach where higher-priority suffix remova
 
 ## Notes and Other Information
 This function is specifically designed for UTF-8 encoded French text and differs from the ISO-8859-1 version (french_ISO_8859_1_stem) in character encoding handling. The function returns 1 on successful completion. The algorithm maintains cursor positions and boundary markers throughout processing to ensure correct morphological analysis. The stemming process is designed to be reversible where possible and follows standard French linguistic rules for morphological decomposition.
+
+## Simplified Source
+
+```c
+extern int french_UTF_8_stem(struct SN_env * z) {
+    // Step 1: Preprocess the word (normalize characters)
+    int saved_cursor = z->c;
+    r_prelude(z);
+    z->c = saved_cursor;
+
+    // Step 2: Mark morphological regions
+    r_mark_regions(z);
+
+    // Step 3: Process suffixes from end of word
+    z->lb = z->c;
+    z->c = z->l;  // Start from end
+
+    // Try suffix removal in priority order
+    if (!r_standard_suffix(z)) {
+        if (!r_i_verb_suffix(z)) {
+            r_verb_suffix(z);
+        }
+    } else {
+        // Handle special character replacements (Y→i, ç→c)
+        z->ket = z->c;
+        if (z->c > z->lb && z->p[z->c - 1] == 'Y') {
+            z->c--;
+            z->bra = z->c;
+            slice_from_s(z, 1, "i");
+        } else if (eq_s_b(z, 2, "ç")) {
+            z->bra = z->c;
+            slice_from_s(z, 1, "c");
+        }
+    }
+
+    // If no standard/verb suffixes found, try residual suffixes
+    if (!r_standard_suffix(z) && !r_i_verb_suffix(z) && !r_verb_suffix(z)) {
+        r_residual_suffix(z);
+    }
+
+    // Step 4: Clean up doubled consonants and accents
+    r_un_double(z);
+    r_un_accent(z);
+
+    // Step 5: Final postprocessing
+    z->c = z->lb;
+    saved_cursor = z->c;
+    r_postlude(z);
+    z->c = saved_cursor;
+
+    return 1;  // Success
+}
+```

@@ -38,3 +38,69 @@ The parser correctly handles escape sequences within quoted identifiers (double 
 
 ## Notes and Other Information
 The function allocates memory for output strings that must be freed by the caller. It handles catalog.schema.object patterns by dropping catalog names and keeping only schema.object. Multibyte character processing ensures safe operation across different client encodings. The downcasing behavior attempts to match PostgreSQL's backend identifier processing but may differ due to locale variations.
+
+## Simplified Source
+
+```c
+static void
+parse_identifier(const char *ident,
+                char **schemaname, char **objectname,
+                bool *schemaquoted, bool *objectquoted)
+{
+    size_t buflen = strlen(ident) + 1;
+    bool enc_is_single_byte = (pg_encoding_max_length(pset.encoding) == 1);
+    char *sname = NULL;
+    char *oname = pg_malloc(buflen);
+    char *optr = oname;
+    bool inquotes = false;
+
+    // Initialize output flags
+    *schemaquoted = *objectquoted = false;
+
+    // Parse the identifier character by character
+    while (*ident) {
+        unsigned char ch = (unsigned char) *ident++;
+
+        if (ch == '"') {
+            if (inquotes && *ident == '"') {
+                // Double quote within quoted identifier = literal quote
+                *optr++ = '"';
+                ident++;
+            } else {
+                // Toggle quote state
+                inquotes = !inquotes;
+                *objectquoted = true;
+            }
+        } else if (ch == '.' && !inquotes) {
+            // Found schema separator - move current name to schema
+            *optr = '\0';
+            free(sname);  // Drop any catalog name
+            sname = oname;
+            oname = pg_malloc(buflen);
+            optr = oname;
+            *schemaquoted = *objectquoted;
+            *objectquoted = false;
+        } else if (!enc_is_single_byte && IS_HIGHBIT_SET(ch)) {
+            // Handle multibyte characters safely
+            int chlen = PQmblenBounded(ident - 1, pset.encoding);
+            *optr++ = (char) ch;
+            while (--chlen > 0)
+                *optr++ = *ident++;
+        } else {
+            // Regular character - downcase if not quoted
+            if (!inquotes) {
+                if (ch >= 'A' && ch <= 'Z')
+                    ch += 'a' - 'A';
+                else if (enc_is_single_byte && IS_HIGHBIT_SET(ch) && isupper(ch))
+                    ch = tolower(ch);
+            }
+            *optr++ = (char) ch;
+        }
+    }
+
+    // Finalize outputs
+    *optr = '\0';
+    *schemaname = sname;
+    *objectname = oname;
+}
+```

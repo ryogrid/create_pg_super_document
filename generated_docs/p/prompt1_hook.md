@@ -29,3 +29,13 @@ This function serves as a validation hook for the PROMPT1 psql variable. Unlike 
 - Prompt strings can contain special formatting sequences that are expanded when displayed
 - This is the simplest of the psql variable hooks, requiring no error handling or complex validation
 - Located in src/bin/psql/startup.c:1098-1104
+
+## Simplified Source
+
+```c
+static bool prompt1_hook(const char *newval) {
+    // Set prompt1 to new value or empty string if NULL
+    pset.prompt1 = newval ? newval : "";
+    return true;  // Always succeeds - no validation needed
+}
+```

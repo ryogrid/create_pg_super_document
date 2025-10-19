@@ -30,3 +30,12 @@ This function performs an in-place addition operation, adding an unsigned 64-bit
 - The function modifies the INT128 variable in-place rather than returning a new value
 - Part of PostgreSQL's 128-bit integer arithmetic library for handling large numeric calculations
 - Used internally by other int128 arithmetic functions for compound operations
+
+## Simplified Source
+
+```c
+static inline void int128_add_uint64(INT128 *i128, uint64 v) {
+    // Simple in-place addition of unsigned 64-bit value to 128-bit integer
+    *i128 += v;
+}
+```

@@ -33,3 +33,18 @@ The function accesses the LogicalDecodingContext through the reorder buffer's pr
 - Streaming support is determined by the output plugin configuration
 - Used as a prerequisite check before attempting streaming operations
 - The streaming capability is typically set during logical decoding context initialization
+
+## Simplified Source
+
+```c
+/* Returns true if the output plugin supports streaming */
+static inline bool
+ReorderBufferCanStream(ReorderBuffer *rb)
+{
+    // Get the logical decoding context from reorder buffer
+    LogicalDecodingContext *ctx = rb->private_data;
+
+    // Return whether streaming is enabled
+    return ctx->streaming;
+}
+```

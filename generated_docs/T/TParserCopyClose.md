@@ -37,3 +37,19 @@ This selective cleanup approach is essential for the copy parser design, where s
 - Essential for proper memory management when using parser copies
 - Includes conditional compilation for WPARSER_TRACE debugging support
 - The original parser must handle cleanup of shared string data when it is closed
+
+## Simplified Source
+
+```c
+static void TParserCopyClose(TParser *prs) {
+    // Free all parser state positions in the stack
+    while (prs->state) {
+        TParserPosition *next = prs->state->prev;
+        pfree(prs->state);
+        prs->state = next;
+    }
+
+    // Free the parser structure itself
+    pfree(prs);
+}
+```

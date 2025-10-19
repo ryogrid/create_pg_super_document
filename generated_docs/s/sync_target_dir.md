@@ -32,3 +32,16 @@ This function performs a complete synchronization of the target data directory t
 - Part of the performance optimization strategy in pg_rewind - single bulk sync rather than per-file syncing
 - The two-pass fsync approach in sync_pgdata helps reduce I/O contention and improves overall performance
 - Critical for data integrity - ensures all rewind operations are durably committed to storage
+
+## Simplified Source
+
+```c
+void sync_target_dir(void) {
+    // Skip sync if disabled or in dry run mode
+    if (!do_sync || dry_run)
+        return;
+
+    // Perform optimized sync of entire data directory
+    sync_pgdata(datadir_target, PG_VERSION_NUM, sync_method);
+}
+```

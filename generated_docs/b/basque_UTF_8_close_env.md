@@ -23,3 +23,13 @@ The basque_UTF_8_close_env function serves as a specialized destructor for Basqu
 
 ## Notes and Other Information
 This is a public interface function marked with extern for external linkage, typically called by higher-level stemming interfaces or PostgreSQL's text search infrastructure when stemming operations are complete. It is the required counterpart to basque_UTF_8_create_env and should always be called to prevent memory leaks. The function accepts a null pointer safely (as handled by the underlying SN_close_env implementation).
+
+## Simplified Source
+
+```c
+extern void basque_UTF_8_close_env(struct SN_env * z) {
+    // Clean up and deallocate the Basque stemming environment
+    // Parameter: 0 (no special cleanup flags)
+    SN_close_env(z, 0);
+}
+```

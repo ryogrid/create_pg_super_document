@@ -34,3 +34,16 @@ This function implements the division operator for mixed-precision floating-poin
 - The float4 divisor is implicitly cast to float8 before division to maintain precision
 - Division by zero and other floating-point exceptions are handled by the underlying float8_div function
 - Returns a Datum containing the float8 result
+
+## Simplified Source
+
+```c
+Datum float84div(PG_FUNCTION_ARGS) {
+    // Extract float8 dividend and float4 divisor
+    float8 arg1 = PG_GETARG_FLOAT8(0);
+    float4 arg2 = PG_GETARG_FLOAT4(1);
+
+    // Convert float4 to float8 and perform division
+    PG_RETURN_FLOAT8(float8_div(arg1, (float8) arg2));
+}
+```

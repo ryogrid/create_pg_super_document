@@ -30,3 +30,16 @@ This function implements the less-than-or-equal-to comparison operator (<=) for 
 - Part of PostgreSQL's comprehensive integer comparison operator family
 - Used internally by the query planner and executor for smallint comparisons
 - Returns PostgreSQL Datum type for integration with the function call framework
+
+## Simplified Source
+
+```c
+Datum int2le(PG_FUNCTION_ARGS) {
+    // Extract two 16-bit integer arguments
+    int16 first_value = PG_GETARG_INT16(0);
+    int16 second_value = PG_GETARG_INT16(1);
+
+    // Return true if first <= second, false otherwise
+    PG_RETURN_BOOL(first_value <= second_value);
+}
+```

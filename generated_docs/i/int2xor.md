@@ -30,3 +30,15 @@ The `int2xor` function implements the bitwise XOR operation for PostgreSQL's `sm
 - Part of PostgreSQL's arithmetic and bitwise operations for integer types
 - The function follows PostgreSQL's standard function interface using `PG_FUNCTION_ARGS` and return macros
 - Typically accessed through the SQL bitwise XOR operator `#` rather than direct function calls
+
+## Simplified Source
+```c
+Datum int2xor(PG_FUNCTION_ARGS) {
+    // Extract two 16-bit integer arguments
+    int16 arg1 = PG_GETARG_INT16(0);
+    int16 arg2 = PG_GETARG_INT16(1);
+
+    // Perform bitwise XOR operation and return result
+    PG_RETURN_INT16(arg1 ^ arg2);
+}
+```

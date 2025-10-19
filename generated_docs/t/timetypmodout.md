@@ -34,3 +34,14 @@ This function is typically used when PostgreSQL needs to display the complete ty
 - Located in src/backend/utils/adt/date.c:1566-1576
 - Companion function to  for type modifier input
 - Used by system catalogs and introspection functions to display complete type information
+
+## Simplified Source
+
+```c
+Datum timetypmodout(PG_FUNCTION_ARGS) {
+    int32 typmod = PG_GETARG_INT32(0);
+
+    // Delegate to common time typmod formatting function
+    PG_RETURN_CSTRING(anytime_typmodout(false, typmod));
+}
+```

@@ -47,3 +47,24 @@ When a help option is detected, it calls the provided help handler function. For
 - The function only checks argv[1], so it should be called before any argument reordering
 - Uses exit(0) for both help and version, providing clean termination
 - Part of the fe_utils library for frontend utility functions
+
+## Simplified Source
+
+```c
+void handle_help_version_opts(int argc, char *argv[],
+                             const char *fixed_progname, help_handler hlp) {
+    if (argc > 1) {
+        // Check for help options
+        if (strcmp(argv[1], "--help") == 0 || strcmp(argv[1], "-?") == 0) {
+            hlp(get_progname(argv[0]));
+            exit(0);
+        }
+
+        // Check for version options
+        if (strcmp(argv[1], "--version") == 0 || strcmp(argv[1], "-V") == 0) {
+            printf("%s (PostgreSQL) " PG_VERSION "\n", fixed_progname);
+            exit(0);
+        }
+    }
+}
+```

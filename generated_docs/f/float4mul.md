@@ -33,3 +33,30 @@ The `float4mul` function is a PostgreSQL fmgr-compatible function that multiplie
 - Both overflow and underflow detection are performed by the underlying float4_mul function
 - Located in src/backend/utils/adt/float.c alongside other float4 arithmetic operators
 - The function signature follows PostgreSQL's standard pattern for SQL-callable functions
+
+## Simplified Source
+
+```c
+Datum
+float4mul(PG_FUNCTION_ARGS)
+{
+    // Extract two float4 arguments from function call
+    float4 arg1 = PG_GETARG_FLOAT4(0);  // first multiplicand
+    float4 arg2 = PG_GETARG_FLOAT4(1);  // second multiplicand
+
+    // Perform multiplication with overflow and underflow checking
+    float4 result = arg1 * arg2;
+
+    // Check for overflow: result infinite but inputs were finite
+    if (isinf(result) && !isinf(arg1) && !isinf(arg2)) {
+        float_overflow_error();
+    }
+
+    // Check for underflow: result zero but inputs were non-zero
+    if (result == 0.0f && arg1 != 0.0f && arg2 != 0.0f) {
+        float_underflow_error();
+    }
+
+    PG_RETURN_FLOAT4(result);
+}
+```

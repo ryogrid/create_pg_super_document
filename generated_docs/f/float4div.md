@@ -34,3 +34,35 @@ The `float4div` function is a PostgreSQL fmgr-compatible function that divides t
 - Division by zero raises an error unless the dividend is NaN
 - Located in src/backend/utils/adt/float.c alongside other float4 arithmetic operators
 - The function signature follows PostgreSQL's standard pattern for SQL-callable functions
+
+## Simplified Source
+
+```c
+Datum
+float4div(PG_FUNCTION_ARGS)
+{
+    // Extract two float4 arguments from function call
+    float4 arg1 = PG_GETARG_FLOAT4(0);  // dividend
+    float4 arg2 = PG_GETARG_FLOAT4(1);  // divisor
+
+    // Check for division by zero (unless dividend is NaN)
+    if (arg2 == 0.0f && !isnan(arg1)) {
+        float_zero_divide_error();
+    }
+
+    // Perform division
+    float4 result = arg1 / arg2;
+
+    // Check for overflow: result infinite but dividend was finite
+    if (isinf(result) && !isinf(arg1)) {
+        float_overflow_error();
+    }
+
+    // Check for underflow: result zero but dividend non-zero and divisor finite
+    if (result == 0.0f && arg1 != 0.0f && !isinf(arg2)) {
+        float_underflow_error();
+    }
+
+    PG_RETURN_FLOAT4(result);
+}
+```

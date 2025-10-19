@@ -33,3 +33,22 @@ This function serves as a comparator for qsort_arg operations on arrays of WordE
 - Uses case-insensitive string comparison (false parameter to tsCompareString)
 - Essential for maintaining lexicographically sorted word entries in tsvector data structures
 - The buffer string argument provides access to the actual text content referenced by WordEntry position and length fields
+
+## Simplified Source
+
+```c
+static int
+compareentry(const void *va, const void *vb, void *arg)
+{
+    const WordEntry *a = (const WordEntry *) va;
+    const WordEntry *b = (const WordEntry *) vb;
+    char *BufferStr = (char *) arg;
+
+    // Compare the string content of two word entries
+    return tsCompareString(&BufferStr[a->pos], a->len,
+                          &BufferStr[b->pos], b->len,
+                          false);
+}
+```
+
+This simplified version shows the core comparison logic: extract string pointers from WordEntry structures using their position and length fields, then use PostgreSQL's `tsCompareString` function for lexicographical comparison. This enables sorting word entries by their text content.

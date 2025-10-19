@@ -46,3 +46,42 @@ Key features include:
 - Provides different messages for retry attempts vs. transaction termination
 - Essential for debugging and monitoring pgbench performance in verbose mode
 - Messages are logged at INFO level for visibility without being overly intrusive
+
+## Simplified Source
+
+```c
+static void printVerboseErrorMessages(CState *st, pg_time_usec_t *now, bool is_retry)
+{
+    static PQExpBuffer buf = NULL;
+
+    // Initialize or reset message buffer
+    if (buf == NULL)
+        buf = createPQExpBuffer();
+    else
+        resetPQExpBuffer(buf);
+
+    // Build basic message with client ID and retry status
+    printfPQExpBuffer(buf, "client %d ", st->id);
+    appendPQExpBufferStr(buf, is_retry ?
+                         "repeats the transaction after the error" :
+                         "ends the failed transaction");
+    appendPQExpBuffer(buf, " (try %u", st->tries);
+
+    // Add max tries if not unlimited
+    if (max_tries)
+        appendPQExpBuffer(buf, "/%u", max_tries);
+
+    // Add latency percentage if latency limit is configured
+    if (latency_limit)
+    {
+        pg_time_now_lazy(now);
+        appendPQExpBuffer(buf, ", %.3f%% of the maximum time of tries was used",
+                          (100.0 * (*now - st->txn_scheduled) / latency_limit));
+    }
+
+    appendPQExpBufferStr(buf, ")\n");
+
+    // Output the formatted message
+    pg_log_info("%s", buf->data);
+}
+```

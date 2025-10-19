@@ -32,3 +32,16 @@ pg_extern_compiler_barrier is a fallback implementation of compiler barrier func
 - Defined in src/backend/port/atomics.c under conditional compilation (PG_HAVE_COMPILER_BARRIER_EMULATION)
 - Mapped to pg_compiler_barrier_impl via macro in src/include/port/atomics/fallback.h
 - Works by preventing compilers from doing inter-translation unit optimizations across the call
+
+## Simplified Source
+
+```c
+void pg_extern_compiler_barrier(void) {
+    /*
+     * Fallback compiler barrier implementation.
+     * The function call itself prevents compiler
+     * reordering - no actual code needed.
+     */
+    /* do nothing */
+}
+```

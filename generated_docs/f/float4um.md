@@ -32,3 +32,17 @@ The `float4um` function is a PostgreSQL built-in function that returns the negat
 - Follows PostgreSQL's function calling convention using PG_FUNCTION_ARGS macro
 - Returns result using PostgreSQL's Datum system for type-safe value passing
 - The function explicitly stores the result in a local variable before returning it
+
+## Simplified Source
+
+```c
+Datum
+float4um(PG_FUNCTION_ARGS)
+{
+    // Extract the float4 argument
+    float4 arg1 = PG_GETARG_FLOAT4(0);
+
+    // Apply unary minus operation and return result
+    PG_RETURN_FLOAT4(-arg1);
+}
+```

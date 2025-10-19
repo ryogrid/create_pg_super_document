@@ -33,3 +33,14 @@ The higher selectivity value for positional operators reflects the intuition tha
 - Part of the geometric selectivity function family in geo_selfuncs.c
 - The higher selectivity reflects the more common nature of positional relationships compared to overlap operations
 - Still uses a hardcoded value due to the same fundamental challenge of unknown spatial data distribution
+
+## Simplified Source
+
+```c
+Datum positionsel(PG_FUNCTION_ARGS) {
+    // Return selectivity estimate for positional operators (left, right, above, below)
+    PG_RETURN_FLOAT8(0.1);
+}
+```
+
+This selectivity function estimates how likely one geometric object is to be positioned relative to another (left of, right of, above, below). It returns 10%, which is higher than area-based operators since positional relationships are generally more common than complex geometric overlaps.

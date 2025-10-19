@@ -35,4 +35,16 @@ The function extracts the support request from its arguments and delegates the a
 - It specifically handles case-sensitive regular expression patterns, as opposed to the case-insensitive variants
 - The ~ operator in PostgreSQL uses this support function for query optimization
 - The actual logic for selectivity estimation and index optimization is implemented in the shared  function
-- Located in 
+- Located in
+
+## Simplified Source
+
+```c
+Datum textregexeq_support(PG_FUNCTION_ARGS) {
+    // Extract the support request from function arguments
+    Node *rawreq = (Node *) PG_GETARG_POINTER(0);
+
+    // Delegate to common pattern matching support with regex type
+    return like_regex_support(rawreq, Pattern_Type_Regex);
+}
+```

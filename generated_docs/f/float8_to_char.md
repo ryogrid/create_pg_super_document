@@ -52,3 +52,108 @@ The function includes special handling for double-precision floating-point preci
 - Higher precision handling compared to float4_to_char due to double-precision characteristics
 - Part of PostgreSQL's comprehensive text formatting system in src/backend/utils/adt/formatting.c
 - Uses double arithmetic for multiplier calculations to maintain precision
+
+## Simplified Source
+
+```c
+Datum
+float8_to_char(PG_FUNCTION_ARGS)
+{
+    float8 value = PG_GETARG_FLOAT8(0);
+    text *fmt = PG_GETARG_TEXT_PP(1);
+    NUMDesc Num;
+    FormatNode *format;
+    text *result;
+    bool shouldFree;
+    int out_pre_spaces = 0, sign = 0;
+    char *numstr, *p;
+
+    // Prepare format parsing and number description
+    NUM_TOCHAR_prepare;
+
+    if (IS_ROMAN(&Num))
+    {
+        // Convert to Roman numerals
+        numstr = int_to_roman((int) rint(value));
+    }
+    else if (IS_EEEE(&Num))
+    {
+        // Scientific notation formatting
+        if (isnan(value) || isinf(value))
+        {
+            // Handle special values (NaN/infinity) with '#' fill
+            numstr = (char *) palloc(Num.pre + Num.post + 7);
+            fill_str(numstr, '#', Num.pre + Num.post + 6);
+            *numstr = ' ';
+            *(numstr + Num.pre + 1) = '.';
+        }
+        else
+        {
+            // Format in scientific notation
+            numstr = psprintf("%+.*e", Num.post, value);
+            // Replace '+' with space for consistency
+            if (*numstr == '+')
+                *numstr = ' ';
+        }
+    }
+    else
+    {
+        // Standard decimal formatting
+        float8 val = value;
+        char *orgnum;
+        int numstr_pre_len;
+
+        // Apply multiplier if specified
+        if (IS_MULTI(&Num))
+        {
+            double multi = pow((double) 10, (double) Num.multi);
+            val = value * multi;
+            Num.pre += Num.multi;
+        }
+
+        // Calculate precision limits based on DBL_DIG
+        orgnum = psprintf("%.0f", fabs(val));
+        numstr_pre_len = strlen(orgnum);
+
+        // Adjust precision to avoid false precision artifacts
+        if (numstr_pre_len >= DBL_DIG)
+            Num.post = 0;
+        else if (numstr_pre_len + Num.post > DBL_DIG)
+            Num.post = DBL_DIG - numstr_pre_len;
+
+        orgnum = psprintf("%.*f", Num.post, val);
+
+        // Extract sign and number part
+        if (*orgnum == '-')
+        {
+            sign = '-';
+            numstr = orgnum + 1;
+        }
+        else
+        {
+            sign = '+';
+            numstr = orgnum;
+        }
+
+        // Calculate pre-decimal length and padding needs
+        if ((p = strchr(numstr, '.')))
+            numstr_pre_len = p - numstr;
+        else
+            numstr_pre_len = strlen(numstr);
+
+        if (numstr_pre_len < Num.pre)
+            out_pre_spaces = Num.pre - numstr_pre_len;
+        else if (numstr_pre_len > Num.pre)
+        {
+            // Handle overflow with '#' fill
+            numstr = (char *) palloc(Num.pre + Num.post + 2);
+            fill_str(numstr, '#', Num.pre + Num.post + 1);
+            *(numstr + Num.pre) = '.';
+        }
+    }
+
+    // Complete formatting and return result
+    NUM_TOCHAR_finish;
+    PG_RETURN_TEXT_P(result);
+}
+```

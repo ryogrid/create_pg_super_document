@@ -25,3 +25,12 @@ This function serves as a cleanup method for Portuguese stemming environments, e
 
 ## Notes and Other Information
 This function is the counterpart to portuguese_UTF_8_create_env and must be called to prevent memory leaks when a Portuguese stemming environment is no longer needed. The parameter 0 passed to SN_close_env matches the number of string variables (0) that were allocated during environment creation. Proper pairing of create and close calls is essential for correct memory management in applications using the Portuguese stemmer. The function follows the standard resource management pattern used throughout the Snowball stemming library.
+
+## Simplified Source
+```c
+extern void portuguese_UTF_8_close_env(struct SN_env * z) {
+    // Clean up Snowball environment for Portuguese stemming
+    // 0 = matches the string variable count from create_env
+    SN_close_env(z, 0);
+}
+```

@@ -36,3 +36,12 @@ This function is part of PostgreSQL's type I/O system and is called when VARCHAR
 - Part of PostgreSQL's standard type I/O function set registered in system catalogs
 - The delegation to `textsend` ensures consistency and reduces code duplication
 - Used specifically for binary protocol output, complementing `varcharout` which handles text protocol output
+
+## Simplified Source
+
+```c
+Datum varcharsend(PG_FUNCTION_ARGS) {
+    // Delegate to textsend since VARCHAR and text have identical binary format
+    return textsend(fcinfo);
+}
+```

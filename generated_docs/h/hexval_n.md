@@ -32,3 +32,20 @@ The function assumes that all input characters are valid hexadecimal digits - va
 - No bounds checking is performed on the input string - the caller must ensure  has at least  valid characters
 - Used primarily for parsing Unicode escape sequences in the format  and  where X represents hexadecimal digits
 - Located at src/backend/utils/adt/varlena.c:6488-6501
+
+## Simplified Source
+
+```c
+static unsigned int
+hexval_n(const char *instr, size_t n)
+{
+    unsigned int result = 0;
+
+    // Convert each hex digit and shift to correct position
+    for (size_t i = 0; i < n; i++) {
+        result += hexval(instr[i]) << (4 * (n - i - 1));
+    }
+
+    return result;
+}
+```

@@ -164,3 +164,34 @@ write_data_to_archive_lz4_doc.md: Path to the directory to synchronize recursive
 - Does not follow symbolic links (walkdir called with process_symlinks = false)
 - Used by utilities like pg_basebackup and pg_dump for ensuring data durability
 - More straightforward than sync_pgdata but less feature-rich for complex PostgreSQL data directory layouts
+
+## Simplified Source
+
+```c
+void sync_dir_recurse(const char *dir, DataDirSyncMethod sync_method)
+{
+    switch (sync_method)
+    {
+        case DATA_DIR_SYNC_METHOD_SYNCFS:
+            // Use Linux syncfs() to sync the whole filesystem
+            #ifdef HAVE_SYNCFS
+                do_syncfs(dir);
+            #else
+                pg_log_error("this build does not support sync method \"syncfs\"");
+                exit(EXIT_FAILURE);
+            #endif
+            break;
+
+        case DATA_DIR_SYNC_METHOD_FSYNC:
+            // Use traditional fsync() on individual files
+            // Optional pre-sync hint for performance
+            #ifdef PG_FLUSH_DATA_WORKS
+                walkdir(dir, pre_sync_fname, false);
+            #endif
+
+            // Perform actual fsync operations recursively
+            walkdir(dir, fsync_fname, false);
+            break;
+    }
+}
+```

@@ -31,3 +31,30 @@ This function implements the iteration logic for traversing set bits in a datapa
 - Uses byte-oriented bitmap access with modulo arithmetic for bit positioning
 - The iterator maintains its position across calls, enabling proper sequential traversal
 - Part of the standard iterator pattern used throughout the pg_rewind utility for bitmap processing
+
+## Simplified Source
+
+```c
+bool datapagemap_next(datapagemap_iterator_t *iter, BlockNumber *blkno) {
+    datapagemap_t *map = iter->map;
+
+    // Iterate through bitmap starting from current position
+    while (iter->nextblkno < map->bitmapsize * 8) {
+        BlockNumber current_block = iter->nextblkno;
+        int byte_offset = current_block / 8;
+        int bit_position = current_block % 8;
+
+        // Move to next block for next iteration
+        iter->nextblkno++;
+
+        // Check if this bit is set in the bitmap
+        if (map->bitmap[byte_offset] & (1 << bit_position)) {
+            *blkno = current_block;
+            return true;
+        }
+    }
+
+    // No more set bits found
+    return false;
+}
+```

@@ -38,3 +38,29 @@ AllocSetGetChunkSpace calculates the total memory space used by an allocated chu
 - Uses Valgrind annotations to control memory access during chunk inspection
 - Includes validation assertions for block and free list index integrity
 - Part of PostgreSQL's memory context system for tracking memory usage
+
+## Simplified Source
+
+```c
+Size
+AllocSetGetChunkSpace(void *pointer)
+{
+    MemoryChunk *chunk = PointerGetMemoryChunk(pointer);
+
+    // Allow access to chunk header
+    VALGRIND_MAKE_MEM_DEFINED(chunk, ALLOC_CHUNKHDRSZ);
+
+    if (MemoryChunkIsExternal(chunk)) {
+        // External chunk: calculate space from chunk to block end
+        AllocBlock block = ExternalChunkGetBlock(chunk);
+        VALGRIND_MAKE_MEM_NOACCESS(chunk, ALLOC_CHUNKHDRSZ);
+        return block->endptr - (char *) chunk;
+    }
+
+    // Regular chunk: use free list index to determine size
+    int fidx = MemoryChunkGetValue(chunk);
+    VALGRIND_MAKE_MEM_NOACCESS(chunk, ALLOC_CHUNKHDRSZ);
+
+    return GetChunkSizeFromFreeListIdx(fidx) + ALLOC_CHUNKHDRSZ;
+}
+```

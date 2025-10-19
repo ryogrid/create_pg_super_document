@@ -57,3 +57,63 @@ By comparing the performance of these two approaches, the test reveals whether t
 - Uses the standard alarm-based timing mechanism for accurate performance measurement
 - Important for PostgreSQL installations where multiple backend processes write to shared files
 - The test design accounts for potential filesystem caching effects by reopening files
+
+## Simplified Source
+
+```c
+static void test_file_descriptor_sync(void)
+{
+    int tmpfile, ops;
+
+    printf(_("\nTest if fsync on non-write file descriptor is honored:\n"));
+    printf(_("(If the times are similar, fsync() can sync data written on a different\n"
+             "descriptor.)\n"));
+
+    // Test 1: Normal behavior - write, fsync, close on same descriptor
+    printf(LABEL_FORMAT, "write, fsync, close");
+    fflush(stdout);
+
+    START_TIMER;
+    for (ops = 0; alarm_triggered == false; ops++) {
+        // Open, write, fsync, and close on same descriptor
+        tmpfile = open(filename, O_RDWR | PG_BINARY, 0);
+        if (tmpfile == -1) die("could not open output file");
+
+        if (write(tmpfile, buf, XLOG_BLCKSZ) != XLOG_BLCKSZ)
+            die("write failed");
+        if (fsync(tmpfile) != 0)
+            die("fsync failed");
+        close(tmpfile);
+
+        // Additional open/close for consistency
+        tmpfile = open(filename, O_RDWR | PG_BINARY, 0);
+        if (tmpfile == -1) die("could not open output file");
+        close(tmpfile);
+    }
+    STOP_TIMER;
+
+    // Test 2: Cross-descriptor sync - write on one descriptor, fsync on another
+    printf(LABEL_FORMAT, "write, close, fsync");
+    fflush(stdout);
+
+    START_TIMER;
+    for (ops = 0; alarm_triggered == false; ops++) {
+        // Write and close
+        tmpfile = open(filename, O_RDWR | PG_BINARY, 0);
+        if (tmpfile == -1) die("could not open output file");
+
+        if (write(tmpfile, buf, XLOG_BLCKSZ) != XLOG_BLCKSZ)
+            die("write failed");
+        close(tmpfile);
+
+        // Reopen and fsync on different descriptor
+        tmpfile = open(filename, O_RDWR | PG_BINARY, 0);
+        if (tmpfile == -1) die("could not open output file");
+
+        if (fsync(tmpfile) != 0)
+            die("fsync failed");
+        close(tmpfile);
+    }
+    STOP_TIMER;
+}
+```

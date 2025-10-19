@@ -34,3 +34,25 @@ The `getc_none` function is a static helper function that implements character-o
 - Part of the modular compression system in pg_dump that provides consistent character-reading interface across different compression methods
 - The error-on-EOF behavior makes this function unsuitable for cases where EOF is an expected condition
 - Returns the character read as an int (0-255 range for valid characters)
+
+## Simplified Source
+
+```c
+static int
+getc_none(CompressFileHandle *CFH)
+{
+    FILE *fp = (FILE *) CFH->private_data;
+    int ret;
+
+    // Read character and handle EOF as fatal error
+    ret = fgetc(fp);
+    if (ret == EOF) {
+        if (!feof(fp))
+            pg_fatal("could not read from input file: %m");
+        else
+            pg_fatal("could not read from input file: end of file");
+    }
+
+    return ret;
+}
+```

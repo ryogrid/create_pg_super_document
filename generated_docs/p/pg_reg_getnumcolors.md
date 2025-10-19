@@ -33,3 +33,17 @@ The function accesses the colormap structure within the regex's internal guts an
 - Color numbers start from 0, so the total count is 
 - The colormap contains both a simple array for characters ≤ MAX_SIMPLE_CHR and a more complex mapping system for higher Unicode characters
 - The function performs basic validation by checking the regex magic number before accessing internal structures
+
+## Simplified Source
+
+```c
+int pg_reg_getnumcolors(const regex_t *regex) {
+    // Validate regex structure
+    assert(regex != NULL && regex->re_magic == REMAGIC);
+
+    // Get colormap from regex internals
+    struct colormap *cm = &((struct guts *) regex->re_guts)->cmap;
+
+    return cm->max + 1;  // Return total color count (0-based, so +1)
+}
+```

@@ -34,3 +34,24 @@ This function determines if a Bump memory context is empty of any allocated spac
 - Returns false as soon as any non-empty block is found (early termination optimization)
 - Part of the standard MemoryContext interface for introspection
 - Located in src/backend/utils/mmgr/bump.c:660-687
+
+## Simplified Source
+
+```c
+bool BumpIsEmpty(MemoryContext context) {
+    BumpContext *set = (BumpContext *) context;
+    dlist_iter iter;
+
+    // Iterate through all blocks in the context
+    dlist_foreach(iter, &set->blocks) {
+        BumpBlock *block = dlist_container(BumpBlock, node, iter.cur);
+
+        // If any block has allocated data, context is not empty
+        if (!BumpBlockIsEmpty(block))
+            return false;
+    }
+
+    // All blocks are empty
+    return true;
+}
+```

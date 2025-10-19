@@ -43,3 +43,27 @@ The function handles all major hash index WAL record types including metadata op
 - [String](../S/String.md) identifiers are concise and descriptive, suitable for logging and debugging output
 - Part of PostgreSQL's resource manager identification framework for hash indexes
 - Commonly used by WAL analysis tools and debugging utilities
+
+## Simplified Source
+
+```c
+const char *hash_identify(uint8 info) {
+    // Extract operation type by masking out info flags
+    switch (info & ~XLR_INFO_MASK) {
+        case XLOG_HASH_INIT_META_PAGE:       return "INIT_META_PAGE";
+        case XLOG_HASH_INIT_BITMAP_PAGE:     return "INIT_BITMAP_PAGE";
+        case XLOG_HASH_INSERT:               return "INSERT";
+        case XLOG_HASH_ADD_OVFL_PAGE:        return "ADD_OVFL_PAGE";
+        case XLOG_HASH_SPLIT_ALLOCATE_PAGE:  return "SPLIT_ALLOCATE_PAGE";
+        case XLOG_HASH_SPLIT_PAGE:           return "SPLIT_PAGE";
+        case XLOG_HASH_SPLIT_COMPLETE:       return "SPLIT_COMPLETE";
+        case XLOG_HASH_MOVE_PAGE_CONTENTS:   return "MOVE_PAGE_CONTENTS";
+        case XLOG_HASH_SQUEEZE_PAGE:         return "SQUEEZE_PAGE";
+        case XLOG_HASH_DELETE:               return "DELETE";
+        case XLOG_HASH_SPLIT_CLEANUP:        return "SPLIT_CLEANUP";
+        case XLOG_HASH_UPDATE_META_PAGE:     return "UPDATE_META_PAGE";
+        case XLOG_HASH_VACUUM_ONE_PAGE:      return "VACUUM_ONE_PAGE";
+        default:                             return NULL;
+    }
+}
+```

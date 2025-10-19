@@ -37,3 +37,13 @@ As noted in the source file comments, these selectivity estimates are considered
 - Part of the geo_selfuncs.c file which contains selectivity functions specifically for geometric operators
 - The low selectivity value is designed to encourage index usage, as GiST indexes are particularly beneficial for geometric queries
 - Future improvements would require statistical analysis of actual geometric data distributions to provide more accurate estimates
+
+## Simplified Source
+
+```c
+Datum contjoinsel(PG_FUNCTION_ARGS) {
+    // Return conservative join selectivity estimate for containment operations
+    // Similar to contsel but for join operations
+    PG_RETURN_FLOAT8(0.001);
+}
+```

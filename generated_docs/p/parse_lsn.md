@@ -38,3 +38,30 @@ This function is critical for backup label parsing where LSN values need to be e
 - The function restores the original character at the end boundary after parsing
 - Combines two 32-bit values into a single 64-bit XLogRecPtr using bit shifting and OR operations
 - Critical for converting human-readable LSN values from backup labels into internal PostgreSQL format
+
+## Simplified Source
+
+```c
+static bool
+parse_lsn(char *s, char *e, XLogRecPtr *lsn, char **c)
+{
+    char save = *e;
+    int nchars;
+    bool success;
+    unsigned hi;
+    unsigned lo;
+
+    // Temporarily null-terminate for safe parsing
+    *e = '\0';
+    success = (sscanf(s, "%X/%X%n", &hi, &lo, &nchars) == 2);
+    *e = save;
+
+    if (success) {
+        // Combine hi/lo into 64-bit LSN
+        *lsn = ((XLogRecPtr) hi) << 32 | (XLogRecPtr) lo;
+        *c = s + nchars;
+    }
+
+    return success;
+}
+```

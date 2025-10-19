@@ -33,3 +33,14 @@ This function is specifically designed for join scenarios where geometric area-b
 - Part of the geometric selectivity function family in geo_selfuncs.c
 - The conservative estimate encourages the use of geometric indexes in join operations
 - Shares the same accuracy limitations as other geometric selectivity functions due to unknown spatial data distribution
+
+## Simplified Source
+
+```c
+Datum areajoinsel(PG_FUNCTION_ARGS) {
+    // Return conservative join selectivity estimate for area-based operators
+    PG_RETURN_FLOAT8(0.005);
+}
+```
+
+This join selectivity function returns a hardcoded estimate of 0.5% for geometric operators that depend on area calculations in join operations. Like its counterpart `areasel`, it uses a conservative value to encourage index usage in geometric joins.

@@ -38,3 +38,25 @@ This function implements the standard heap insertion algorithm. It adds the new 
 - The element is initially placed at the end of the array to preserve the complete binary tree structure, then moved to its proper position
 - More expensive than binaryheap_add_unordered() but provides immediate heap validity
 - Commonly used in priority queue operations where elements need to be inserted into an existing working heap
+
+## Simplified Source
+
+```c
+void binaryheap_add(binaryheap *heap, bh_node_type d) {
+    // Check for capacity overflow
+    if (heap->bh_size >= heap->bh_space) {
+#ifdef FRONTEND
+        pg_fatal("out of binary heap slots");
+#else
+        elog(ERROR, "out of binary heap slots");
+#endif
+    }
+
+    // Add new element at end of heap array
+    heap->bh_nodes[heap->bh_size] = d;
+    heap->bh_size++;
+
+    // Restore heap property by sifting the new element up
+    sift_up(heap, heap->bh_size - 1);
+}
+```

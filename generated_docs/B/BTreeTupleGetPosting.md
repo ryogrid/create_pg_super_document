@@ -33,3 +33,12 @@ This function calculates and returns a pointer to the beginning of the heap TID 
 - Essential for iterating through all heap TIDs in a posting list
 - The returned pointer is properly aligned and points to valid ItemPointer data
 - Used extensively throughout B-tree operations that need to access individual heap TIDs
+
+## Simplified Source
+
+```c
+static inline ItemPointer BTreeTupleGetPosting(IndexTuple posting) {
+    // Calculate pointer to posting list array by adding offset to tuple base
+    return (ItemPointer) ((char *) posting + BTreeTupleGetPostingOffset(posting));
+}
+```

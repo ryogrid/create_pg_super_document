@@ -35,3 +35,24 @@ This function adds a new OID value to the end of a SimpleOidList. It allocates m
 - The function maintains both head and tail pointers for efficient O(1) append operations
 - This is specifically designed for frontend utilities and is simpler than backend List facilities
 - The list cells are linked via next pointers forming a singly-linked list structure
+
+## Simplified Source
+
+```c
+void simple_oid_list_append(SimpleOidList *list, Oid val) {
+    // Allocate memory for new list cell
+    SimpleOidListCell *cell = (SimpleOidListCell *) pg_malloc(sizeof(SimpleOidListCell));
+
+    // Initialize the new cell
+    cell->next = NULL;
+    cell->val = val;
+
+    // Link the cell to the list
+    if (list->tail) {
+        list->tail->next = cell;  // Add to end of existing list
+    } else {
+        list->head = cell;        // First element in empty list
+    }
+    list->tail = cell;           // Update tail pointer
+}
+```

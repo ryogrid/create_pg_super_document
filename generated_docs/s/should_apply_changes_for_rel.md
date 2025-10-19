@@ -44,3 +44,48 @@ The function is critical for coordinating parallel table synchronization and ens
 - The function includes safeguards against race conditions during ALTER SUBSCRIPTION ... REFRESH PUBLICATION
 - TABLESYNC workers are restricted to their assigned table to prevent interference with parallel synchronization
 - Error handling prevents parallel workers from proceeding with unsynchronized tables
+
+## Simplified Source
+
+```c
+/*
+ * Should this worker apply changes for given relation.
+ *
+ * This is mainly needed for initial relation data sync as that runs in
+ * separate worker process running in parallel and we need some way to skip
+ * changes coming to the leader apply worker during the sync of a table.
+ */
+static bool
+should_apply_changes_for_rel(LogicalRepRelMapEntry *rel)
+{
+    switch (MyLogicalRepWorker->type)
+    {
+        case WORKERTYPE_TABLESYNC:
+            // Table sync workers only apply to their assigned table
+            return MyLogicalRepWorker->relid == rel->localreloid;
+
+        case WORKERTYPE_PARALLEL_APPLY:
+            // Parallel workers only handle ready relations
+            if (rel->state != SUBREL_STATE_READY &&
+                rel->state != SUBREL_STATE_UNKNOWN)
+                ereport(ERROR,
+                        errcode(ERRCODE_OBJECT_NOT_IN_PREREQUISITE_STATE),
+                        errmsg("logical replication parallel apply worker for subscription \"%s\" will stop",
+                               MySubscription->name),
+                        errdetail("Cannot handle streamed replication transactions using parallel apply workers until all tables have been synchronized."));
+
+            return rel->state == SUBREL_STATE_READY;
+
+        case WORKERTYPE_APPLY:
+            // Apply workers handle ready tables or synced tables within LSN range
+            return (rel->state == SUBREL_STATE_READY ||
+                    (rel->state == SUBREL_STATE_SYNCDONE &&
+                     rel->statelsn <= remote_final_lsn));
+
+        case WORKERTYPE_UNKNOWN:
+            elog(ERROR, "Unknown worker type");
+    }
+
+    return false;
+}
+```

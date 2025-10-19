@@ -55,3 +55,37 @@ The function is designed to be called frequently during index operations, hence 
 - The cached offset optimization (attcacheoff >= 0) avoids expensive offset recalculation for fixed-length attribute types
 - Falls back to nocache_index_getattr for variable-length attributes or when cache information is not available
 - Used extensively throughout PostgreSQL's index access methods (B-tree, Hash, GiST, GIN)
+
+## Simplified Source
+
+```c
+static inline Datum index_getattr(IndexTuple tup, int attnum, TupleDesc tupleDesc, bool *isnull) {
+    // Validate inputs
+    Assert(PointerIsValid(isnull));
+    Assert(attnum > 0);
+
+    *isnull = false;
+
+    // Fast path: no nulls in tuple
+    if (!IndexTupleHasNulls(tup)) {
+        // Use cached offset if available
+        if (TupleDescAttr(tupleDesc, attnum - 1)->attcacheoff >= 0) {
+            return fetchatt(TupleDescAttr(tupleDesc, attnum - 1),
+                           (char *) tup + IndexInfoFindDataOffset(tup->t_info)
+                           + TupleDescAttr(tupleDesc, attnum - 1)->attcacheoff);
+        } else {
+            // No cached offset - use slower extraction
+            return nocache_index_getattr(tup, attnum, tupleDesc);
+        }
+    }
+
+    // Tuple has nulls - check if this attribute is null
+    if (att_isnull(attnum - 1, (bits8 *) tup + sizeof(IndexTupleData))) {
+        *isnull = true;
+        return (Datum) NULL;
+    } else {
+        // Attribute not null - extract value
+        return nocache_index_getattr(tup, attnum, tupleDesc);
+    }
+}
+```

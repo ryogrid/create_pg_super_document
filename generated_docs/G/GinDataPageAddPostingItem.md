@@ -41,3 +41,35 @@ This function adds a PostingItem to a non-leaf GIN data page at the specified of
 - Uses memmove for safe overlapping memory operations when shifting existing items
 - Part of the GIN (Generalized Inverted Index) access method implementation
 - Essential for B-tree maintenance operations including splits and redistributions
+
+## Simplified Source
+
+```c
+void GinDataPageAddPostingItem(Page page, PostingItem *data, OffsetNumber offset) {
+    OffsetNumber maxoff = GinPageGetOpaque(page)->maxoff;
+    char *ptr;
+
+    // Validate input - ensure valid block number and non-leaf page
+    Assert(PostingItemGetBlockNumber(data) != InvalidBlockNumber);
+    Assert(!GinPageIsLeaf(page));
+
+    // Determine insertion position
+    if (offset == InvalidOffsetNumber) {
+        // Append at end
+        ptr = (char *) GinDataPageGetPostingItem(page, maxoff + 1);
+    } else {
+        // Insert at specific position, shift existing items if needed
+        ptr = (char *) GinDataPageGetPostingItem(page, offset);
+        if (offset != maxoff + 1) {
+            memmove(ptr + sizeof(PostingItem), ptr,
+                    (maxoff - offset + 1) * sizeof(PostingItem));
+        }
+    }
+
+    // Insert the new item and update page metadata
+    memcpy(ptr, data, sizeof(PostingItem));
+    maxoff++;
+    GinPageGetOpaque(page)->maxoff = maxoff;
+    GinDataPageSetDataSize(page, maxoff * sizeof(PostingItem));
+}
+```

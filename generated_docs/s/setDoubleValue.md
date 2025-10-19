@@ -31,3 +31,15 @@ The  function is a simple utility function in pgbench that initializes a  struct
 - Part of pgbench's typed value system that allows variables and expressions to hold different data types
 - The function performs no validation on the input parameters - it assumes valid pointers and values
 - Used extensively in mathematical function evaluation within pgbench expressions
+
+## Simplified Source
+
+```c
+static void setDoubleValue(PgBenchValue *pv, double dval) {
+    // Set value type to double
+    pv->type = PGBT_DOUBLE;
+
+    // Store the double value
+    pv->u.dval = dval;
+}
+```

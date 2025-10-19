@@ -35,3 +35,12 @@ This cleanup ensures that future attempts to start a new launcher or check launc
 - The function is registered using before_shmem_exit() to ensure it's called during process shutdown
 - Setting launcher_pid to 0 is the standard way to indicate that no launcher process is running in PostgreSQL's logical replication system
 - This cleanup is essential for preventing race conditions when starting new launcher processes
+
+## Simplified Source
+
+```c
+static void logicalrep_launcher_onexit(int code, Datum arg) {
+    // Reset launcher PID to indicate no launcher is running
+    LogicalRepCtx->launcher_pid = 0;
+}
+```

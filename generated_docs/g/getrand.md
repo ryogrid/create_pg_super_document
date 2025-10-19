@@ -40,3 +40,19 @@ An important limitation is that the difference between max and min must not over
 - Used extensively in benchmark operations that require random value selection
 - The underlying  ensures high-quality randomness suitable for benchmarking
 - Both min and max bounds are inclusive in the generated range
+
+## Simplified Source
+
+```c
+static int64 getrand(pg_prng_state *state, int64 min, int64 max) {
+    // Generate uniform random value in range [min, max] inclusive
+    // Uses linear transformation: random_in_[0, max-min] + min
+    return min + (int64) pg_prng_uint64_range(state, 0, max - min);
+}
+```
+
+**Key Points:**
+- Generates uniformly distributed random integers in inclusive range [min, max]
+- Uses linear transformation to map [0, max-min] to [min, max]
+- Limitation: (max - min) must not overflow int64 (not validated)
+- Essential for pgbench's random data generation and script selection

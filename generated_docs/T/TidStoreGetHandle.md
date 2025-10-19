@@ -32,3 +32,17 @@ The function delegates to the internal  function to obtain the actual DSA pointe
 - Returns a  type, which is PostgreSQL's handle type for Dynamic Shared Area pointers
 - Used primarily in parallel vacuum operations to share TID tracking data between processes
 - The returned handle can be passed to other processes to attach to the same shared TidStore
+
+## Simplified Source
+
+```c
+dsa_pointer
+TidStoreGetHandle(TidStore *ts)
+{
+    // Verify this is a shared TidStore
+    Assert(TidStoreIsShared(ts));
+
+    // Return DSA handle from the shared tree
+    return (dsa_pointer) shared_ts_get_handle(ts->tree.shared);
+}
+```

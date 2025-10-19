@@ -44,3 +44,37 @@ The algorithm either sets a low boundary (if the bit is set) or a high boundary 
 - Essential for SP-GiST's ability to progressively narrow search space during index traversal
 - The function preserves existing constraints while applying new centroid-based refinements
 - Part of the geometric SP-GiST implementation that enables efficient spatial query processing through hierarchical space partitioning
+
+## Simplified Source
+
+```c
+static RectBox *nextRectBox(RectBox *rect_box, RangeBox *centroid, uint8 quadrant) {
+    // Create copy of current rectangle box
+    RectBox *next_rect_box = (RectBox *) palloc(sizeof(RectBox));
+    memcpy(next_rect_box, rect_box, sizeof(RectBox));
+
+    // Refine X-axis boundaries based on quadrant bits
+    if (quadrant & 0x8)
+        next_rect_box->range_box_x.left.low = centroid->left.low;
+    else
+        next_rect_box->range_box_x.left.high = centroid->left.low;
+
+    if (quadrant & 0x4)
+        next_rect_box->range_box_x.right.low = centroid->left.high;
+    else
+        next_rect_box->range_box_x.right.high = centroid->left.high;
+
+    // Refine Y-axis boundaries based on quadrant bits
+    if (quadrant & 0x2)
+        next_rect_box->range_box_y.left.low = centroid->right.low;
+    else
+        next_rect_box->range_box_y.left.high = centroid->right.low;
+
+    if (quadrant & 0x1)
+        next_rect_box->range_box_y.right.low = centroid->right.high;
+    else
+        next_rect_box->range_box_y.right.high = centroid->right.high;
+
+    return next_rect_box;
+}
+```

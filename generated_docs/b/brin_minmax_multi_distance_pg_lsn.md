@@ -34,3 +34,18 @@ This function calculates the numerical distance between two pg_lsn (Log Sequence
 - This function is typically registered in BRIN operator class definitions for pg_lsn columns
 - LSN distance calculations are crucial for replication lag monitoring and WAL-based operations
 - The distance is cast to float8 for consistency with other BRIN distance functions
+
+## Simplified Source
+
+```c
+Datum brin_minmax_multi_distance_pg_lsn(PG_FUNCTION_ARGS) {
+    // Extract the two LSN values
+    XLogRecPtr lsna = PG_GETARG_LSN(0);
+    XLogRecPtr lsnb = PG_GETARG_LSN(1);
+
+    // Calculate distance as simple subtraction (LSN is just int64 position)
+    float8 delta = (lsnb - lsna);
+
+    return PG_RETURN_FLOAT8(delta);
+}
+```

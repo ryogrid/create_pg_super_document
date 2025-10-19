@@ -38,3 +38,33 @@ The function connects to the template1 database and queries the pg_catalog.pg_pr
 - Location: src/bin/pg_upgrade/check.c:1179-1213
 - The check uses the standard PostgreSQL system catalog pg_prepared_xacts which contains information about all currently prepared transactions
 - This validation is mandatory - prepared transactions must be manually resolved before pg_upgrade can proceed
+
+## Simplified Source
+
+```c
+static void check_for_prepared_transactions(ClusterInfo *cluster)
+{
+    PGresult *res;
+    PGconn *conn = connectToServer(cluster, "template1");
+
+    prep_status("Checking for prepared transactions");
+
+    // Query for any existing prepared transactions
+    res = executeQueryOrDie(conn,
+                           "SELECT * "
+                           "FROM pg_catalog.pg_prepared_xacts");
+
+    // Fail if any prepared transactions exist
+    if (PQntuples(res) != 0) {
+        if (cluster == &old_cluster) {
+            pg_fatal("The source cluster contains prepared transactions");
+        } else {
+            pg_fatal("The target cluster contains prepared transactions");
+        }
+    }
+
+    PQclear(res);
+    PQfinish(conn);
+    check_ok();
+}
+```

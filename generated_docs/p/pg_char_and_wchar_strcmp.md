@@ -36,3 +36,20 @@ The function follows the standard strcmp semantics, returning 0 for equal string
 - This function is part of PostgreSQL's multibyte character support infrastructure
 - The code is derived from BSD's strcmp implementation, as noted in the copyright header
 - pg_wchar is defined as unsigned int, allowing it to represent Unicode code points and multibyte characters
+
+## Simplified Source
+
+```c
+int
+pg_char_and_wchar_strcmp(const char *s1, const pg_wchar *s2)
+{
+    // Compare strings character by character
+    while ((pg_wchar) *s1 == *s2++) {
+        if (*s1++ == 0)
+            return 0;  // Both strings ended, they're equal
+    }
+
+    // Return difference when mismatch found
+    return *(const unsigned char *) s1 - *(const pg_wchar *) (s2 - 1);
+}
+```

@@ -37,3 +37,29 @@ The function operates on the current error context and uses the context_domain f
 - Part of PostgreSQL's error reporting infrastructure for providing execution context
 - Manages recursion depth and memory context for safe operation
 - Typically accessed through the errcontext() macro rather than called directly
+
+## Simplified Source
+
+```c
+int errcontext_msg(const char *fmt, ...) {
+    ErrorData *edata = &errordata[errordata_stack_depth];
+    MemoryContext oldcontext;
+
+    // Track recursion and validate stack
+    recursion_depth++;
+    CHECK_STACK_DEPTH();
+
+    // Switch to error's memory context
+    oldcontext = MemoryContextSwitchTo(edata->assoc_context);
+
+    // Evaluate context message with STACKING capability
+    // Uses context_domain and true flag to append to existing context
+    EVALUATE_MESSAGE(edata->context_domain, context, true, true);
+
+    // Restore context and recursion level
+    MemoryContextSwitchTo(oldcontext);
+    recursion_depth--;
+
+    return 0;
+}
+```

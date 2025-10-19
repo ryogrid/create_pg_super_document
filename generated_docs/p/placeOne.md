@@ -52,3 +52,48 @@ This function determines the optimal placement for a single don't-care tuple by 
 - Updates the appropriate split vector arrays and counters after placement decision
 - Part of the split optimization process that redistributes flexible tuples for better balance
 - The penalty computation considers the geometric/spatial relationship between the tuple and existing union keys
+
+## Simplified Source
+
+```c
+static void
+placeOne(Relation r, GISTSTATE *giststate, GistSplitVector *v,
+         IndexTuple itup, OffsetNumber off, int attno)
+{
+    GISTENTRY identry[INDEX_MAX_KEYS];
+    bool isnull[INDEX_MAX_KEYS];
+    bool toLeft = true;
+
+    // Decompress tuple attributes
+    gistDeCompressAtt(giststate, r, itup, NULL, 0, identry, isnull);
+
+    // Compare penalties for each attribute starting from attno
+    for (int i = attno; i < giststate->nonLeafTupdesc->natts; i++) {
+        GISTENTRY entry;
+        float lpenalty, rpenalty;
+
+        // Calculate penalty for left side
+        gistentryinit(entry, v->spl_lattr[i], r, NULL, 0, false);
+        lpenalty = gistpenalty(giststate, i, &entry, v->spl_lisnull[i],
+                               identry + i, isnull[i]);
+
+        // Calculate penalty for right side
+        gistentryinit(entry, v->spl_rattr[i], r, NULL, 0, false);
+        rpenalty = gistpenalty(giststate, i, &entry, v->spl_risnull[i],
+                               identry + i, isnull[i]);
+
+        // If penalties differ, choose side with lower penalty
+        if (lpenalty != rpenalty) {
+            if (lpenalty > rpenalty)
+                toLeft = false;
+            break;
+        }
+    }
+
+    // Add tuple to chosen side
+    if (toLeft)
+        v->splitVector.spl_left[v->splitVector.spl_nleft++] = off;
+    else
+        v->splitVector.spl_right[v->splitVector.spl_nright++] = off;
+}
+```

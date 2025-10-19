@@ -45,3 +45,34 @@ The function is critical for B-tree operations that need to uniquely identify tu
 - For posting list tuples, returns the first heap TID in the list, which serves as the minimum value for comparison purposes
 - The function is essential for maintaining B-tree ordering and uniqueness constraints
 - Used extensively throughout B-tree maintenance operations including deduplication, comparison, and truncation
+
+## Simplified Source
+
+```c
+static inline ItemPointer
+BTreeTupleGetHeapTID(IndexTuple itup)
+{
+    if (BTreeTupleIsPivot(itup))
+    {
+        // Check if pivot tuple has heap TID representation
+        if ((ItemPointerGetOffsetNumberNoCheck(&itup->t_tid) &
+             BT_PIVOT_HEAP_TID_ATTR) != 0)
+        {
+            // Heap TID is stored at end of tuple structure
+            return (ItemPointer) ((char *) itup + IndexTupleSize(itup) -
+                                  sizeof(ItemPointerData));
+        }
+
+        // Heap TID attribute was truncated
+        return NULL;
+    }
+    else if (BTreeTupleIsPosting(itup))
+    {
+        // For posting list tuple, return first heap TID
+        return BTreeTupleGetPosting(itup);
+    }
+
+    // For regular tuple, return the t_tid field directly
+    return &itup->t_tid;
+}
+```

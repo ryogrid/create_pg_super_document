@@ -49,3 +49,32 @@ The function is essential for memory accounting, debugging, and optimization ana
 - The returned size always includes the Generation_CHUNKHDRSZ overhead
 - Provides foundation for memory context statistics and optimization decisions
 - Thread-safe operation through careful memory access patterns
+
+## Simplified Source
+
+```c
+Size GenerationGetChunkSpace(void *pointer) {
+    MemoryChunk *chunk = PointerGetMemoryChunk(pointer);
+    Size chunksize;
+
+    // Allow access to chunk header for analysis
+    VALGRIND_MAKE_MEM_DEFINED(chunk, Generation_CHUNKHDRSZ);
+
+    // Calculate chunk size based on allocation type
+    if (MemoryChunkIsExternal(chunk)) {
+        // External chunk: size from pointer to block end
+        GenerationBlock *block = ExternalChunkGetBlock(chunk);
+        chunksize = block->endptr - (char *) pointer;
+    }
+    else {
+        // Internal chunk: size stored in chunk header
+        chunksize = MemoryChunkGetValue(chunk);
+    }
+
+    // Restore memory protection
+    VALGRIND_MAKE_MEM_NOACCESS(chunk, Generation_CHUNKHDRSZ);
+
+    // Return total space including header overhead
+    return Generation_CHUNKHDRSZ + chunksize;
+}
+```

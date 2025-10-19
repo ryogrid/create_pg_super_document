@@ -33,3 +33,23 @@ This function is part of the state machine logic that handles URL and host parsi
 - The function has side effects - it modifies the wanthost flag when returning 1
 - Part of PostgreSQL's full-text search URL/host parsing functionality
 - Used in conjunction with other parsing functions to handle complex URL structures in text search
+
+## Simplified Source
+
+```c
+static int
+p_isstophost(TParser *prs)
+{
+    // If we're expecting a host token
+    if (prs->wanthost) {
+        // Stop expecting it and signal to stop host parsing
+        prs->wanthost = false;
+        return 1;
+    }
+
+    // Continue host parsing
+    return 0;
+}
+```
+
+This simplified version shows the essential logic: check if the parser is expecting a host token, reset the flag if so, and return whether to stop host parsing (1) or continue (0).

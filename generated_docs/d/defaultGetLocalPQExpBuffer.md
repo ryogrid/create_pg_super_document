@@ -38,3 +38,21 @@ The function is explicitly marked as non-reentrant and non-thread-safe due to it
 - This implementation is replaced in multi-threaded contexts (like pg_dump parallel mode) with thread-safe alternatives
 - The buffer remains valid until the next call to this function, making it suitable only for temporary string operations
 - Part of PostgreSQL's frontend utility library for string processing operations
+
+## Simplified Source
+
+```c
+static PQExpBuffer defaultGetLocalPQExpBuffer(void) {
+    static PQExpBuffer id_return = NULL;
+
+    if (id_return) {
+        // Reuse existing buffer, just reset contents
+        resetPQExpBuffer(id_return);
+    } else {
+        // First time: create new buffer
+        id_return = createPQExpBuffer();
+    }
+
+    return id_return;
+}
+```

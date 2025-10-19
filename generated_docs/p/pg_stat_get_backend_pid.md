@@ -31,3 +31,21 @@ This function retrieves the process ID of a PostgreSQL backend process by its pr
 - This function is used internally by system views like pg_stat_activity to display backend process information
 - The function accesses shared memory data structures that track all active backend processes
 - Located in src/backend/utils/adt/pgstatfuncs.c:668-680
+
+## Simplified Source
+
+```c
+Datum pg_stat_get_backend_pid(PG_FUNCTION_ARGS)
+{
+    int32 procNumber = PG_GETARG_INT32(0);
+    PgBackendStatus *beentry;
+
+    // Get backend status entry by process number
+    beentry = pgstat_get_beentry_by_proc_number(procNumber);
+    if (beentry == NULL)
+        PG_RETURN_NULL();
+
+    // Return the process ID from the backend status entry
+    PG_RETURN_INT32(beentry->st_procpid);
+}
+```

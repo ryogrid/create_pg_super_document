@@ -34,3 +34,24 @@ The algorithm works by:
 - The function assumes that  and  array are properly initialized globally
 - For single script scenarios, it provides an optimization by avoiding random number generation
 - The weighted selection ensures that scripts with higher weights are chosen more frequently
+
+## Simplified Source
+
+```c
+static int chooseScript(TState *thread) {
+    // Fast path for single script
+    if (num_scripts == 1)
+        return 0;
+
+    // Generate random number in range [0, total_weight-1]
+    int64 weight = getrand(&thread->ts_choose_rs, 0, total_weight - 1);
+
+    // Find script by subtracting weights until negative
+    int i = 0;
+    do {
+        weight -= sql_script[i++].weight;
+    } while (weight >= 0);
+
+    return i - 1;  // Return the selected script index
+}
+```

@@ -38,3 +38,16 @@ Any other value is rejected with a specific error message. This strict validatio
 - Empty string allows unsetting this parameter to use other recovery target types (LSN, name, time, XID)
 - Error messages are provided through GUC_check_errdetail for user feedback
 - This hook prevents configuration conflicts in PostgreSQL's point-in-time recovery mechanism
+
+## Simplified Source
+
+```c
+bool check_recovery_target(char **newval, void **extra, GucSource source) {
+    // Only allow "immediate" or empty string values
+    if (strcmp(*newval, "immediate") != 0 && strcmp(*newval, "") != 0) {
+        GUC_check_errdetail("The only allowed value is \"immediate\".");
+        return false;
+    }
+    return true;
+}
+```

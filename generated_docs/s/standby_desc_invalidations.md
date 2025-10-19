@@ -59,3 +59,43 @@ Additionally, it handles relation cache initialization file invalidations, which
 - Provides detailed type-specific formatting for each invalidation message type
 - Essential for debugging cache coherency issues in replication and transaction processing
 - Part of PostgreSQL's cache invalidation infrastructure for maintaining consistency
+
+## Simplified Source
+
+```c
+void
+standby_desc_invalidations(StringInfo buf,
+                          int nmsgs, SharedInvalidationMessage *msgs,
+                          Oid dbId, Oid tsId,
+                          bool relcacheInitFileInval)
+{
+    // Return early if no invalidation messages
+    if (nmsgs <= 0)
+        return;
+
+    // Show relcache init file invalidation if applicable
+    if (relcacheInitFileInval)
+        appendStringInfo(buf, "; relcache init file inval dbid %u tsid %u", dbId, tsId);
+
+    // Process each invalidation message
+    appendStringInfoString(buf, "; inval msgs:");
+    for (int i = 0; i < nmsgs; i++) {
+        SharedInvalidationMessage *msg = &msgs[i];
+
+        if (msg->id >= 0)
+            appendStringInfo(buf, " catcache %d", msg->id);
+        else if (msg->id == SHAREDINVALCATALOG_ID)
+            appendStringInfo(buf, " catalog %u", msg->cat.catId);
+        else if (msg->id == SHAREDINVALRELCACHE_ID)
+            appendStringInfo(buf, " relcache %u", msg->rc.relId);
+        else if (msg->id == SHAREDINVALSMGR_ID)
+            appendStringInfoString(buf, " smgr");
+        else if (msg->id == SHAREDINVALRELMAP_ID)
+            appendStringInfo(buf, " relmap db %u", msg->rm.dbId);
+        else if (msg->id == SHAREDINVALSNAPSHOT_ID)
+            appendStringInfo(buf, " snapshot %u", msg->sn.relId);
+        else
+            appendStringInfo(buf, " unrecognized id %d", msg->id);
+    }
+}
+```

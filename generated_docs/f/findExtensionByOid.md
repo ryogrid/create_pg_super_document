@@ -34,3 +34,18 @@ This function is part of the pg_dump utility's object lookup system for PostgreS
 - Part of the pg_dump utility's internal object management system for handling PostgreSQL extensions
 - Extensions are add-on modules that extend PostgreSQL's functionality
 - The function is specific to extension objects and follows the same pattern as other findXXXByOid functions
+
+## Simplified Source
+
+```c
+ExtensionInfo *findExtensionByOid(Oid oid) {
+    // Create catalog ID for extension lookup
+    CatalogId catId;
+    catId.tableoid = ExtensionRelationId;
+    catId.oid = oid;
+
+    // Find object and return as ExtensionInfo
+    DumpableObject *dobj = findObjectByCatalogId(catId);
+    return (ExtensionInfo *) dobj;  // Returns NULL if not found
+}
+```

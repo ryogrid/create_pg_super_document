@@ -35,3 +35,12 @@ The function allows flexible date/time parsing by accepting a format string that
 - The underlying function supports standard strftime-like format specifiers
 - Returns 0 on success, non-zero on error
 - If no format string is provided to the underlying function, it defaults to "%Y-%m-%d %H:%M:%S"
+
+## Simplified Source
+
+```c
+int dtcvfmtasc(char *inbuf, char *fmtstr, timestamp *dtvalue) {
+    // Parse formatted timestamp string using PostgreSQL's built-in function
+    return PGTYPEStimestamp_defmt_asc(inbuf, fmtstr, dtvalue);
+}
+```

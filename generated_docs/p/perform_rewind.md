@@ -65,3 +65,109 @@ The function handles different source types (local directory vs live server conn
 - Error handling includes detailed messages for debugging rewind failures
 - Respects the dry_run mode by skipping actual control file updates when enabled
 - Located at src/bin/pg_rewind/pg_rewind.c:553-732
+
+## Simplified Source
+
+```c
+static void perform_rewind(filemap_t *filemap, rewind_source *source,
+                          XLogRecPtr chkptrec, TimeLineID chkpttli, XLogRecPtr chkptredo)
+{
+    XLogRecPtr endrec;
+    TimeLineID endtli;
+    ControlFileData ControlFile_new;
+
+    // Execute all file actions from the analysis phase
+    for (int i = 0; i < filemap->nentries; i++) {
+        file_entry_t *entry = filemap->entries[i];
+
+        // Copy modified data pages for relation files
+        if (entry->target_pages_to_overwrite.bitmapsize > 0) {
+            datapagemap_iterator_t *iter = datapagemap_iterate(&entry->target_pages_to_overwrite);
+            BlockNumber blkno;
+            while (datapagemap_next(iter, &blkno)) {
+                off_t offset = blkno * BLCKSZ;
+                source->queue_fetch_range(source, entry->path, offset, BLCKSZ);
+            }
+            pg_free(iter);
+        }
+
+        // Execute the main file action
+        switch (entry->action) {
+            case FILE_ACTION_COPY:
+                source->queue_fetch_file(source, entry->path, entry->source_size);
+                break;
+            case FILE_ACTION_TRUNCATE:
+                truncate_target_file(entry->path, entry->source_size);
+                break;
+            case FILE_ACTION_COPY_TAIL:
+                source->queue_fetch_range(source, entry->path, entry->target_size,
+                                        entry->source_size - entry->target_size);
+                break;
+            case FILE_ACTION_REMOVE:
+                remove_target(entry);
+                break;
+            case FILE_ACTION_CREATE:
+                create_target(entry);
+                break;
+            case FILE_ACTION_NONE:
+                // No action needed
+                break;
+        }
+    }
+
+    // Complete all queued data transfers
+    source->finish_fetch(source);
+    close_target_file();
+    progress_report(true);
+
+    // Fetch and validate the source control file
+    size_t size;
+    char *buffer = source->fetch_file(source, "global/pg_control", &size);
+    digestControlFile(&ControlFile_source_after, buffer, size);
+    pg_free(buffer);
+
+    // Sanity check for local sources
+    if (datadir_source &&
+        memcmp(&ControlFile_source, &ControlFile_source_after, sizeof(ControlFileData)) != 0) {
+        pg_fatal("source system was modified while pg_rewind was running");
+    }
+
+    // Adjust checkpoint info if source has newer restartpoint
+    if (ControlFile_source.checkPointCopy.redo < chkptredo) {
+        chkptredo = ControlFile_source.checkPointCopy.redo;
+        chkpttli = ControlFile_source.checkPointCopy.ThisTimeLineID;
+        chkptrec = ControlFile_source.checkPoint;
+    }
+
+    // Create backup label for WAL replay
+    createBackupLabel(chkptredo, chkpttli, chkptrec);
+
+    // Determine recovery endpoint based on source type
+    if (connstr_source) {
+        // Live server source
+        if (ControlFile_source_after.state == DB_IN_ARCHIVE_RECOVERY) {
+            // Standby server - use minRecoveryPoint
+            endrec = ControlFile_source_after.minRecoveryPoint;
+            endtli = ControlFile_source_after.minRecoveryPointTLI;
+        } else {
+            // Production server - use current WAL insert location
+            endrec = source->get_current_wal_insert_lsn(source);
+            endtli = Max(ControlFile_source_after.checkPointCopy.ThisTimeLineID,
+                        ControlFile_source_after.minRecoveryPointTLI);
+        }
+    } else {
+        // Local directory source - use shutdown checkpoint
+        endrec = ControlFile_source_after.checkPoint;
+        endtli = ControlFile_source_after.checkPointCopy.ThisTimeLineID;
+    }
+
+    // Update target control file for recovery
+    memcpy(&ControlFile_new, &ControlFile_source_after, sizeof(ControlFileData));
+    ControlFile_new.minRecoveryPoint = endrec;
+    ControlFile_new.minRecoveryPointTLI = endtli;
+    ControlFile_new.state = DB_IN_ARCHIVE_RECOVERY;
+
+    if (!dry_run)
+        update_controlfile(datadir_target, &ControlFile_new, do_sync);
+}
+```

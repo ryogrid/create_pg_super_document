@@ -41,3 +41,27 @@ The function carefully handles the CRC calculation by creating a copy of the cur
 - Used as the final step in block reference table file creation to ensure proper file structure and data integrity
 - Part of PostgreSQL's backup and recovery infrastructure for tracking block references
 - The sentinel entry helps readers detect the end of valid entries during file parsing
+
+## Simplified Source
+
+```c
+static void
+BlockRefTableFileTerminate(BlockRefTableBuffer *buffer)
+{
+    BlockRefTableSerializedEntry zero_entry = {{0}};
+    pg_crc32c final_crc;
+
+    // Write sentinel entry to mark end of data
+    BlockRefTableWrite(buffer, &zero_entry, sizeof(BlockRefTableSerializedEntry));
+
+    // Copy CRC state before writing it (to avoid affecting calculation)
+    final_crc = buffer->crc;
+    FIN_CRC32C(final_crc);
+
+    // Write the final CRC checksum
+    BlockRefTableWrite(buffer, &final_crc, sizeof(pg_crc32c));
+
+    // Flush any remaining buffered data
+    BlockRefTableFlush(buffer);
+}
+```

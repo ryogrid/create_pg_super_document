@@ -40,6 +40,29 @@ The function returns NULL for datasets with 0 or 1 values (N ≤ 1) since sample
 - Uses first and third elements of transition array (N and Sxx), ignores Sx (sum)
 - [Result](../R/Result.md) is guaranteed to be non-negative due to mathematical properties of variance
 - Implements unbiased sample variance, unlike VAR_POP which computes biased population variance
-- Part of PostgreSQL's statistical aggregate infrastructure  
+- Part of PostgreSQL's statistical aggregate infrastructure
 - Located in src/backend/utils/adt/float.c:3160-3181
 - Relies on numerically stable Sxx values computed by accumulator functions
+
+## Simplified Source
+
+```c
+Datum
+float8_var_samp(PG_FUNCTION_ARGS)
+{
+    ArrayType *transarray = PG_GETARG_ARRAYTYPE_P(0);
+
+    // Extract N (count) and Sxx (sum of squared deviations) from transition state
+    float8 *transvalues = check_float8_array(transarray, "float8_var_samp", 3);
+    float8 N = transvalues[0];    // Count of values
+    // transvalues[1] (Sx) ignored for variance calculation
+    float8 Sxx = transvalues[2];  // Sum of squared deviations
+
+    // Sample variance undefined for N ≤ 1 (need at least 2 values)
+    if (N <= 1.0)
+        PG_RETURN_NULL();
+
+    // Return sample variance with Bessel's correction: Sxx / (N-1)
+    PG_RETURN_FLOAT8(Sxx / (N - 1.0));
+}
+```

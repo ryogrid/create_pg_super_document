@@ -41,3 +41,61 @@ The `do_lo_import` function implements the PostgreSQL \lo_import command functio
 - Provides proper error handling and cleanup on failure
 - Uses proper SQL string escaping when adding comments to prevent injection
 - Part of psql's large object management subsystem
+
+## Simplified Source
+
+```c
+bool do_lo_import(const char *filename_arg, const char *comment_arg) {
+    bool own_transaction;
+
+    // Start transaction for large object operations
+    if (!start_lo_xact("\\lo_import", &own_transaction))
+        return false;
+
+    // Import file as large object
+    SetCancelConn(NULL);
+    Oid loid = lo_import(pset.db, filename_arg);
+    ResetCancelConn();
+
+    // Check if import failed
+    if (loid == InvalidOid) {
+        pg_log_info("%s", PQerrorMessage(pset.db));
+        return fail_lo_xact("\\lo_import", own_transaction);
+    }
+
+    // Add comment if provided
+    if (comment_arg) {
+        // Build COMMENT ON LARGE OBJECT statement
+        char *cmdbuf = pg_malloc_extended(strlen(comment_arg) * 2 + 256, MCXT_ALLOC_NO_OOM);
+        if (!cmdbuf)
+            return fail_lo_xact("\\lo_import", own_transaction);
+
+        sprintf(cmdbuf, "COMMENT ON LARGE OBJECT %u IS '", loid);
+        char *bufptr = cmdbuf + strlen(cmdbuf);
+        bufptr += PQescapeStringConn(pset.db, bufptr, comment_arg, strlen(comment_arg), NULL);
+        strcpy(bufptr, "'");
+
+        // Execute comment statement
+        PGresult *res = PSQLexec(cmdbuf);
+        if (!res) {
+            free(cmdbuf);
+            return fail_lo_xact("\\lo_import", own_transaction);
+        }
+
+        PQclear(res);
+        free(cmdbuf);
+    }
+
+    // Commit transaction
+    if (!finish_lo_xact("\\lo_import", own_transaction))
+        return false;
+
+    // Report success and set LASTOID variable
+    print_lo_result("lo_import %u", loid);
+    char oidbuf[32];
+    sprintf(oidbuf, "%u", loid);
+    SetVariable(pset.vars, "LASTOID", oidbuf);
+
+    return true;
+}
+```

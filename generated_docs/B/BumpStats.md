@@ -40,3 +40,41 @@ This function analyzes the memory usage of a Bump context by iterating through a
 - Can be called for both individual context analysis and system-wide statistics aggregation
 - Part of PostgreSQL's memory context debugging and monitoring infrastructure
 - Located in src/backend/utils/mmgr/bump.c:688-737
+
+## Simplified Source
+
+```c
+void BumpStats(MemoryContext context, MemoryStatsPrintFunc printfunc,
+               void *passthru, MemoryContextCounters *totals, bool print_to_stderr) {
+    BumpContext *set = (BumpContext *) context;
+    Size nblocks = 0;
+    Size totalspace = 0;
+    Size freespace = 0;
+    dlist_iter iter;
+
+    // Iterate through all blocks to collect statistics
+    dlist_foreach(iter, &set->blocks) {
+        BumpBlock *block = dlist_container(BumpBlock, node, iter.cur);
+
+        nblocks++;
+        totalspace += (block->endptr - (char *) block);
+        freespace += (block->endptr - block->freeptr);
+    }
+
+    // Format and print statistics if requested
+    if (printfunc) {
+        char stats_string[200];
+        snprintf(stats_string, sizeof(stats_string),
+                 "%zu total in %zu blocks; %zu free; %zu used",
+                 totalspace, nblocks, freespace, totalspace - freespace);
+        printfunc(context, passthru, stats_string, print_to_stderr);
+    }
+
+    // Accumulate into totals if provided
+    if (totals) {
+        totals->nblocks += nblocks;
+        totals->totalspace += totalspace;
+        totals->freespace += freespace;
+    }
+}
+```

@@ -48,3 +48,30 @@ This specialized handling maintains Hungarian vowel harmony and morphological st
 - Returns 1 on successful processing, 0 if no pattern matches, and negative values on errors
 - This function is part of the comprehensive Hungarian case system handling in PostgreSQL's full-text search
 - The sublative case is less common than other cases but essential for complete morphological analysis
+
+## Simplified Source
+
+```c
+static int r_case_other(struct SN_env * z) {
+    // Set end marker and check minimum length + 'l' ending (108)
+    z->ket = z->c;
+    if (z->c - 3 <= z->lb || z->p[z->c - 1] != 108) return 0;
+
+    // Find sublative case pattern (6 different 'l' endings)
+    int among_var = find_among_b(z, a_6, 6);
+    if (!among_var) return 0;
+
+    // Set start marker and verify in R1 region
+    z->bra = z->c;
+    if (r_R1(z) <= 0) return 0;
+
+    // Apply appropriate transformation based on pattern
+    switch (among_var) {
+        case 1: slice_del(z); break;            // 'stul', 'stül' → delete
+        case 2: slice_from_s(z, 1, s_4); break; // 'astul', 'ástul' → 'a'
+        case 3: slice_from_s(z, 1, s_5); break; // 'estül', 'éstül' → 'e'
+    }
+
+    return 1;
+}
+```

@@ -39,3 +39,20 @@ The function is the inverse operation of , converting from individual date compo
 - Converts short integers to regular integers to match PostgreSQL's internal function expectations
 - Always returns 0 (success) - [error](../e/error.md) handling is presumably done by the underlying  function
 - Part of the date conversion utilities that allow Informix applications to work with PostgreSQL's date handling
+
+## Simplified Source
+
+```c
+int rmdyjul(short *mdy, date *d) {
+    // Convert short values to int for PostgreSQL's built-in function
+    int mdy_int[3];
+    mdy_int[0] = mdy[0];  // Month
+    mdy_int[1] = mdy[1];  // Day
+    mdy_int[2] = mdy[2];  // Year
+
+    // Convert month/day/year to Julian date using PostgreSQL's function
+    PGTYPESdate_mdyjul(mdy_int, d);
+
+    return 0;  // Always success
+}
+```

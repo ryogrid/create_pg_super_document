@@ -46,3 +46,61 @@ After parsing, it performs a cross-validation step by reconstructing the expecte
 - Handles segmented files (files split into multiple segments due to size limits)
 - Part of pg_rewind's file classification system that determines how different types of files should be handled during the rewind process
 - The cross-validation step using datasegpath ensures that files with similar but incorrect naming patterns are not mistakenly identified as relation files
+
+## Simplified Source
+
+```c
+static bool
+isRelDataFile(const char *path)
+{
+    RelFileLocator rlocator;
+    unsigned int segNo;
+    int nmatch;
+    bool matched = false;
+
+    // Initialize locator values
+    rlocator.spcOid = InvalidOid;
+    rlocator.dbOid = InvalidOid;
+    rlocator.relNumber = InvalidRelFileNumber;
+    segNo = 0;
+
+    // Try matching global tablespace pattern: global/<relnum>.<segno>
+    nmatch = sscanf(path, "global/%u.%u", &rlocator.relNumber, &segNo);
+    if (nmatch == 1 || nmatch == 2)
+    {
+        rlocator.spcOid = GLOBALTABLESPACE_OID;
+        rlocator.dbOid = 0;
+        matched = true;
+    }
+    else
+    {
+        // Try default tablespace: base/<dboid>/<relnum>.<segno>
+        nmatch = sscanf(path, "base/%u/%u.%u",
+                        &rlocator.dbOid, &rlocator.relNumber, &segNo);
+        if (nmatch == 2 || nmatch == 3)
+        {
+            rlocator.spcOid = DEFAULTTABLESPACE_OID;
+            matched = true;
+        }
+        else
+        {
+            // Try custom tablespace pattern
+            nmatch = sscanf(path, "pg_tblspc/%u/" TABLESPACE_VERSION_DIRECTORY "/%u/%u.%u",
+                            &rlocator.spcOid, &rlocator.dbOid, &rlocator.relNumber, &segNo);
+            if (nmatch == 3 || nmatch == 4)
+                matched = true;
+        }
+    }
+
+    // Cross-validate by reconstructing the path
+    if (matched)
+    {
+        char *check_path = datasegpath(rlocator, MAIN_FORKNUM, segNo);
+        if (strcmp(check_path, path) != 0)
+            matched = false;
+        pfree(check_path);
+    }
+
+    return matched;
+}
+```

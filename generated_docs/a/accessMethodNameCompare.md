@@ -39,3 +39,24 @@ The function follows the same error handling pattern as pgTypeNameCompare, treat
 - Used specifically for sorting operator classes and operator families by their associated access methods
 - Part of the comprehensive sorting system ensuring deterministic pg_dump output order
 - Located in src/bin/pg_dump/pg_dump_sort.c:515-544
+
+## Simplified Source
+
+```c
+static int accessMethodNameCompare(Oid am1, Oid am2) {
+    // Quick equality check
+    if (am1 == am2)
+        return 0;
+
+    // Look up access method information for both OIDs
+    AccessMethodInfo *amobj1 = findAccessMethodByOid(am1);
+    AccessMethodInfo *amobj2 = findAccessMethodByOid(am2);
+
+    // Handle catalog corruption - return equal if either method not found
+    if (!amobj1 || !amobj2)
+        return 0;
+
+    // Compare access method names alphabetically
+    return strcmp(amobj1->dobj.name, amobj2->dobj.name);
+}
+```

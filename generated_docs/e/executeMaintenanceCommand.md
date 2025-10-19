@@ -42,3 +42,30 @@ The function sets up a cancellation handler before executing the command and res
 - Designed specifically for maintenance operations that may take significant time to complete
 - Properly manages memory by calling PQclear on the result set
 - The function handles the common pattern of maintenance operations: setup cancellation, execute, cleanup cancellation, return status
+
+## Simplified Source
+
+```c
+bool executeMaintenanceCommand(PGconn *conn, const char *query, bool echo) {
+    // Echo command if requested
+    if (echo)
+        printf("%s\n", query);
+
+    // Set up cancellation handler for Ctrl-C support
+    SetCancelConn(conn);
+
+    // Execute the maintenance command
+    PGresult *res = PQexec(conn, query);
+
+    // Clean up cancellation handler
+    ResetCancelConn();
+
+    // Check if command succeeded
+    bool success = (res && PQresultStatus(res) == PGRES_COMMAND_OK);
+
+    // Clean up result
+    PQclear(res);
+
+    return success;
+}
+```

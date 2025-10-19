@@ -45,3 +45,25 @@ pa_switch_to_partial_serialize implements a deadlock avoidance mechanism in Post
 - The fileset state is updated to FS_SERIALIZE_IN_PROGRESS to coordinate with the parallel worker
 - Designed to handle situations where parallel workers might become stuck waiting on locks from other backends
 - Part of the broader deadlock prevention strategy for parallel logical replication
+
+## Simplified Source
+
+```c
+void pa_switch_to_partial_serialize(ParallelApplyWorkerInfo *winfo, bool stream_locked) {
+    // Log the switch to serialization mode
+    ereport(LOG, (errmsg("logical replication apply worker will serialize the remaining changes of remote transaction %u to a file", winfo->shared->xid)));
+
+    // Switch to file serialization mode
+    winfo->serialize_changes = true;
+
+    // Initialize the stream fileset for this transaction
+    stream_start_internal(winfo->shared->xid, true);
+
+    // Acquire stream lock if not already held to coordinate with parallel worker
+    if (!stream_locked)
+        pa_lock_stream(winfo->shared->xid, AccessExclusiveLock);
+
+    // Update fileset state to indicate serialization in progress
+    pa_set_fileset_state(winfo->shared, FS_SERIALIZE_IN_PROGRESS);
+}
+```

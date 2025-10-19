@@ -34,3 +34,16 @@ The function uses PostgreSQL's function call convention with PG_FUNCTION_ARGS ma
 - The left shift operation multiplies the value by 2^n where n is the shift amount
 - [Result](../R/Result.md) follows standard C left shift semantics for 32-bit signed integers
 - Behavior is undefined for negative shift amounts or shift amounts >= 32
+
+## Simplified Source
+
+```c
+Datum int4shl(PG_FUNCTION_ARGS) {
+    // Extract value to shift and shift amount from function arguments
+    int32 arg1 = PG_GETARG_INT32(0);  // Value to shift
+    int32 arg2 = PG_GETARG_INT32(1);  // Number of positions to shift left
+
+    // Perform left shift operation and return result
+    PG_RETURN_INT32(arg1 << arg2);
+}
+```

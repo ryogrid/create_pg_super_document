@@ -37,3 +37,30 @@ The function is designed as part of PostgreSQL's text search parser to identify 
 - Specifically rejects: double quote, less-than, greater-than, backslash, caret, backtick, curly braces, and pipe characters
 - Used within PostgreSQL's text search functionality to properly tokenize URLs in text content
 - The function assumes the parser is positioned at a valid character location
+
+## Simplified Source
+
+```c
+static int p_isurlchar(TParser *prs) {
+    char ch;
+
+    // Only accept single-byte characters
+    if (prs->state->charlen != 1)
+        return 0;
+
+    ch = *(prs->str + prs->state->posbyte);
+
+    // Reject control characters and extended ASCII
+    if (ch <= 0x20 || ch >= 0x7F)
+        return 0;
+
+    // Reject RFC 3986 disallowed characters
+    switch (ch) {
+        case '"': case '<': case '>': case '\\':
+        case '^': case '`': case '{': case '|': case '}':
+            return 0;
+    }
+
+    return 1;
+}
+```

@@ -32,3 +32,14 @@ XLogFileNameById constructs a WAL segment file name by directly combining the pr
 - More direct than XLogFileName when log and segment numbers are pre-calculated
 - Primarily used in archive cleanup utilities where specific log/segment combinations need to be processed
 - The generated filename follows the same format as XLogFileName: TTTTTTTTFFFFFFFFSSSSSSSS
+
+## Simplified Source
+```c
+static inline void
+XLogFileNameById(char *fname, TimeLineID tli, uint32 log, uint32 seg)
+{
+    // Generate WAL filename from timeline ID, log number, and segment number
+    // Format: 8-digit timeline + 8-digit log + 8-digit segment (hex)
+    snprintf(fname, MAXFNAMELEN, "%08X%08X%08X", tli, log, seg);
+}
+```

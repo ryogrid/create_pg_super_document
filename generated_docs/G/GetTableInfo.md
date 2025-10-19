@@ -58,3 +58,78 @@ If a scale factor was provided via command line but differs from the database co
 - Exits the program on critical errors (missing tables, invalid data)
 - The scale factor represents the number of branches and is used to calculate other table sizes
 - Located in src/bin/pgbench/pgbench.c:5344-5452
+
+## Simplified Source
+
+```c
+static void GetTableInfo(PGconn *con, bool scale_given)
+{
+    PGresult *res;
+
+    // Get scaling factor from pgbench_branches table count
+    res = PQexec(con, "select count(*) from pgbench_branches");
+    if (PQresultStatus(res) != PGRES_TUPLES_OK) {
+        char *sqlState = PQresultErrorField(res, PG_DIAG_SQLSTATE);
+
+        pg_log_error("could not count number of branches: %s", PQerrorMessage(con));
+
+        if (sqlState && strcmp(sqlState, ERRCODE_UNDEFINED_TABLE) == 0)
+            pg_log_error_hint("Perhaps you need to do initialization (\"pgbench -i\") in database \"%s\".", PQdb(con));
+
+        exit(1);
+    }
+
+    scale = atoi(PQgetvalue(res, 0, 0));
+    if (scale < 0)
+        pg_fatal("invalid count(*) from pgbench_branches: \"%s\"", PQgetvalue(res, 0, 0));
+
+    PQclear(res);
+
+    // Warn if user-provided scale is overridden
+    if (scale_given)
+        pg_log_warning("scale option ignored, using count from pgbench_branches table (%d)", scale);
+
+    // Query partition information for pgbench_accounts table
+    res = PQexec(con,
+        "select o.n, p.partstrat, pg_catalog.count(i.inhparent) "
+        "from pg_catalog.pg_class as c "
+        "join pg_catalog.pg_namespace as n on (n.oid = c.relnamespace) "
+        "cross join lateral (select pg_catalog.array_position(pg_catalog.current_schemas(true), n.nspname)) as o(n) "
+        "left join pg_catalog.pg_partitioned_table as p on (p.partrelid = c.oid) "
+        "left join pg_catalog.pg_inherits as i on (c.oid = i.inhparent) "
+        "where c.relname = 'pgbench_accounts' and o.n is not null "
+        "group by 1, 2 "
+        "order by 1 asc "
+        "limit 1");
+
+    if (PQresultStatus(res) != PGRES_TUPLES_OK) {
+        // Assume no partitioning for older PostgreSQL versions
+        partition_method = PART_NONE;
+        partitions = 0;
+    }
+    else if (PQntuples(res) == 0) {
+        pg_log_error("no pgbench_accounts table found in \"search_path\"");
+        pg_log_error_hint("Perhaps you need to do initialization (\"pgbench -i\") in database \"%s\".", PQdb(con));
+        exit(1);
+    }
+    else {
+        // Extract partition information
+        if (PQgetisnull(res, 0, 1))
+            partition_method = PART_NONE;
+        else {
+            char *ps = PQgetvalue(res, 0, 1);
+
+            if (strcmp(ps, "r") == 0)
+                partition_method = PART_RANGE;
+            else if (strcmp(ps, "h") == 0)
+                partition_method = PART_HASH;
+            else
+                pg_fatal("unexpected partition method: \"%s\"", ps);
+        }
+
+        partitions = atoi(PQgetvalue(res, 0, 2));
+    }
+
+    PQclear(res);
+}
+```

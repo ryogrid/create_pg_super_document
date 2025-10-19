@@ -44,3 +44,29 @@ The function is part of PostgreSQL's careful OID management during bootstrap, wh
 - **Thread safety**: Uses exclusive locking even though only callable during single-threaded initdb (defensive programming)
 - **Error handling**: Provides clear error messages for both environment and value validation failures
 - **Bootstrap coordination**: Works with other OID management functions to establish proper OID ranges during database initialization
+
+## Simplified Source
+
+```c
+static void SetNextObjectId(Oid nextOid) {
+    // Safety check: only allowed during initdb
+    if (IsPostmasterEnvironment) {
+        elog(ERROR, "cannot advance OID counter anymore");
+    }
+
+    // Take exclusive lock on OID generation
+    LWLockAcquire(OidGenLock, LW_EXCLUSIVE);
+
+    // Prevent moving counter backward
+    if (TransamVariables->nextOid > nextOid) {
+        elog(ERROR, "too late to advance OID counter to %u, it is now %u",
+             nextOid, TransamVariables->nextOid);
+    }
+
+    // Set the new OID counter and reset prefetch count
+    TransamVariables->nextOid = nextOid;
+    TransamVariables->oidCount = 0;
+
+    LWLockRelease(OidGenLock);
+}
+```

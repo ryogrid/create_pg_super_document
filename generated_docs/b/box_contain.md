@@ -40,3 +40,16 @@ This containment relationship is a fundamental spatial operation used extensivel
 - Implements the "contains" operator (~) in PostgreSQL's geometric operations
 - Complementary to the  function which tests the opposite relationship
 - Critical for spatial query optimization and index traversal algorithms
+
+## Simplified Source
+
+```c
+Datum box_contain(PG_FUNCTION_ARGS) {
+    BOX *box1 = PG_GETARG_BOX_P(0);
+    BOX *box2 = PG_GETARG_BOX_P(1);
+
+    // Check if box1 contains box2
+    // Uses the internal box_contain_box function
+    PG_RETURN_BOOL(box_contain_box(box1, box2));
+}
+```

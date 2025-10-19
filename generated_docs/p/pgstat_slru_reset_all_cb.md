@@ -29,3 +29,14 @@ This function serves as a callback handler for resetting all SLRU (Simple LRU) s
 - The timestamp parameter allows tracking when the reset occurred for auditing purposes
 - Provides atomic reset of all SLRU statistics to maintain consistency
 - Used in conjunction with PostgreSQL's statistics reset infrastructure
+
+## Simplified Source
+
+```c
+void pgstat_slru_reset_all_cb(TimestampTz ts)
+{
+    // Reset all SLRU statistics counters
+    for (int i = 0; i < SLRU_NUM_ELEMENTS; i++)
+        pgstat_reset_slru_counter_internal(i, ts);
+}
+```

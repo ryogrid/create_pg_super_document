@@ -30,3 +30,18 @@ The FETCH_COUNT variable in psql determines how many rows should be retrieved an
 - The function returns a boolean indicating whether the parsing and validation was successful
 - The parsed value is stored in pset.fetch_count if validation succeeds
 - This hook is part of psql's variable management system that ensures type safety and validation for configuration variables
+
+## Simplified Source
+
+```c
+static bool fetch_count_hook(const char *newval) {
+    // Parse and validate numeric value, then set fetch count
+    return ParseVariableNum(newval, "FETCH_COUNT", &pset.fetch_count);
+}
+```
+
+This hook function:
+1. Validates the new string value as a number
+2. Sets the global FETCH_COUNT value if valid
+3. Controls how many rows psql fetches at once (0 = all rows)
+4. Returns true on success, false on invalid input

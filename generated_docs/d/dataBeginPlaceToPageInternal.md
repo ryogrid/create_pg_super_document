@@ -45,3 +45,26 @@ The function is designed to be called before entering the insertion critical sec
 - The free space check uses sizeof(PostingItem) as the minimum space requirement
 - In split scenarios, the function delegates the actual split logic to dataSplitPageInternal
 - The updateblkno parameter is specific to internal node operations where downlinks need updating
+
+## Simplified Source
+
+```c
+static GinPlaceToPageRC
+dataBeginPlaceToPageInternal(GinBtree btree, Buffer buf, GinBtreeStack *stack,
+                            void *insertdata, BlockNumber updateblkno,
+                            void **ptp_workspace,
+                            Page *newlpage, Page *newrpage) {
+    Page page = BufferGetPage(buf);
+
+    // Check if new PostingItem fits on current page
+    if (GinNonLeafDataPageGetFreeSpace(page) < sizeof(PostingItem)) {
+        // Not enough space - trigger page split
+        dataSplitPageInternal(btree, buf, stack, insertdata, updateblkno,
+                             newlpage, newrpage);
+        return GPTP_SPLIT;
+    }
+
+    // Sufficient space available - proceed with insertion
+    return GPTP_INSERT;
+}
+```

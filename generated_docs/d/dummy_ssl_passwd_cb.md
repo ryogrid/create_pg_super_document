@@ -33,3 +33,19 @@ This function serves as a protective mechanism against OpenSSL's default behavio
 - Ensures graceful failure rather than hanging on interactive prompts
 - Critical for PostgreSQL's automated SSL management in server environments
 - The empty passphrase guarantees failure, which is the intended behavior for security
+
+## Simplified Source
+
+```c
+static int
+dummy_ssl_passwd_cb(char *buf, int size, int rwflag, void *userdata)
+{
+    // Set flag to indicate this callback was used for error reporting
+    dummy_ssl_passwd_cb_called = true;
+
+    // Return empty string to guarantee failure
+    Assert(size > 0);
+    buf[0] = '\0';
+    return 0;
+}
+```

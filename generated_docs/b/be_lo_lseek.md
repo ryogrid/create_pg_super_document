@@ -32,3 +32,33 @@ The `be_lo_lseek` function provides seeking functionality for PostgreSQL large o
 - Validates file descriptor similar to other large object functions
 - Part of PostgreSQL's SQL-accessible large object API
 - The whence parameter follows standard lseek conventions (SEEK_SET=0, SEEK_CUR=1, SEEK_END=2)
+
+## Simplified Source
+
+```c
+Datum
+be_lo_lseek(PG_FUNCTION_ARGS)
+{
+    int32 fd = PG_GETARG_INT32(0);
+    int32 offset = PG_GETARG_INT32(1);
+    int32 whence = PG_GETARG_INT32(2);
+    int64 status;
+
+    // Validate file descriptor
+    if (fd < 0 || fd >= cookies_size || cookies[fd] == NULL)
+        ereport(ERROR,
+                (errcode(ERRCODE_UNDEFINED_OBJECT),
+                 errmsg("invalid large-object descriptor: %d", fd)));
+
+    // Perform seek operation
+    status = inv_seek(cookies[fd], offset, whence);
+
+    // Check for overflow when converting to 32-bit result
+    if (status != (int32) status)
+        ereport(ERROR,
+                (errcode(ERRCODE_NUMERIC_VALUE_OUT_OF_RANGE),
+                 errmsg("lo_lseek result out of range for large-object descriptor %d", fd)));
+
+    PG_RETURN_INT32((int32) status);
+}
+```

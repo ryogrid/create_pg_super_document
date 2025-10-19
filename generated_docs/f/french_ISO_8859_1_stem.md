@@ -62,3 +62,65 @@ The function uses a sophisticated backtracking mechanism to try different suffix
 - The function modifies the input text in-place within the SN_env structure
 - Character constants like 0xE7 (ç) are specific to ISO-8859-1 encoding
 - Processing order is critical: suffix removal before cleanup operations
+
+## Simplified Source
+
+```c
+extern int french_ISO_8859_1_stem(struct SN_env * z) {
+    // Phase 1: Character preprocessing
+    int start_pos = z->c;
+    r_prelude(z);
+    z->c = start_pos;
+
+    // Phase 2: Mark morphological regions (R1, R2, RV)
+    r_mark_regions(z);
+
+    // Phase 3: Process from end of word
+    z->lb = z->c;
+    z->c = z->l;
+
+    // Phase 4: Try suffix removal in priority order
+    int suffix_pos = z->l - z->c;
+
+    // Try standard suffixes first
+    if (r_standard_suffix(z) == 0) {
+        // If no standard suffix, try verb suffixes
+        z->c = z->l - suffix_pos;
+        if (r_i_verb_suffix(z) == 0) {
+            z->c = z->l - suffix_pos;
+            if (r_verb_suffix(z) == 0) {
+                // Try residual suffixes as last resort
+                z->c = z->l - suffix_pos;
+                r_residual_suffix(z);
+            }
+        }
+    }
+
+    // Phase 5: Character corrections (Y→i, ç→c)
+    z->c = z->l - suffix_pos;
+    z->ket = z->c;
+    if (z->c > z->lb && z->p[z->c - 1] == 'Y') {
+        z->c--;
+        z->bra = z->c;
+        slice_from_s(z, 1, s_33);  // Replace with 'i'
+    } else if (z->c > z->lb && z->p[z->c - 1] == 0xE7) {
+        z->c--;
+        z->bra = z->c;
+        slice_from_s(z, 1, s_34);  // Replace with 'c'
+    }
+
+    // Phase 6: Cleanup operations
+    int cleanup_pos = z->l - z->c;
+    r_un_double(z);  // Remove doubled consonants
+    z->c = z->l - cleanup_pos;
+    r_un_accent(z);  // Remove accents
+
+    // Phase 7: Final processing
+    z->c = z->lb;
+    int final_pos = z->c;
+    r_postlude(z);
+    z->c = final_pos;
+
+    return 1;
+}
+```

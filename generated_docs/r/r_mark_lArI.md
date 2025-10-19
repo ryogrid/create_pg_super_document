@@ -33,3 +33,19 @@ This function is part of the Turkish language stemming implementation that speci
 - The 'lArI' suffix is important in Turkish grammar as it indicates plural possession
 - Part of the comprehensive suffix identification system for Turkish morphological analysis
 - The function is highly specific to this particular suffix pattern, making it efficient for targeted matching
+
+## Simplified Source
+
+```c
+static int r_mark_lArI(struct SN_env * z) {
+    // Check if we have at least 3 characters and last character is 'ı' variant
+    if (z->c - 3 <= z->lb || (z->p[z->c - 1] != 105 && z->p[z->c - 1] != 177))
+        return 0;
+
+    // Match against 'lArI' suffix patterns with vowel harmony
+    if (!(find_among_b(z, a_1, 2)))
+        return 0;
+
+    return 1;  // Successfully found lArI suffix pattern
+}
+```

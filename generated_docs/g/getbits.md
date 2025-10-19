@@ -36,3 +36,35 @@ The validation includes checking for leading zeros to prevent octal interpretati
 - Only accepts pure decimal digit strings - any non-digit character causes failure
 - Used primarily for parsing CIDR prefix lengths in network address parsing functions
 - The function is strict about format - empty strings or strings with no digits return failure
+
+## Simplified Source
+
+```c
+static int getbits(const char *src, int *bitsp) {
+    int val = 0;
+    int n = 0;  // digit count
+    char ch;
+
+    // Parse each character in the string
+    while ((ch = *src++) != '\0') {
+        // Check if character is a digit
+        if (ch >= '0' && ch <= '9') {
+            // Reject leading zeros (unless single '0')
+            if (n++ != 0 && val == 0) return 0;
+
+            val = val * 10 + (ch - '0');
+
+            // Check range limit (max 128 for IPv6)
+            if (val > 128) return 0;
+        } else {
+            return 0;  // Non-digit character found
+        }
+    }
+
+    // Must have at least one digit
+    if (n == 0) return 0;
+
+    *bitsp = val;
+    return 1;  // Success
+}
+```

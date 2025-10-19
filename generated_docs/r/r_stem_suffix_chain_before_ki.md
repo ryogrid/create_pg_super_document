@@ -56,3 +56,104 @@ The algorithm uses backtracking and cursor position management to handle the rec
 - Manages complex branching logic with labeled gotos for efficient pattern matching
 - Critical for proper noun phrase analysis in Turkish text processing
 - Handles vowel harmony through subsidiary marking functions
+
+## Simplified Source
+
+```c
+static int r_stem_suffix_chain_before_ki(struct SN_env * z) {
+    z->ket = z->c;
+
+    // Must start with "-ki" suffix
+    int ret = r_mark_ki(z);
+    if (ret <= 0) return ret;
+
+    // Branch 1: Handle locative case (-DA) patterns
+    if (r_mark_DA(z)) {
+        z->bra = z->c;
+        slice_del(z);  // Remove DA suffix
+
+        z->ket = z->c;
+
+        // Try plural marker after locative
+        if (r_mark_lAr(z)) {
+            z->bra = z->c;
+            slice_del(z);  // Remove lAr
+
+            // Recursively process any remaining suffix chains
+            r_stem_suffix_chain_before_ki(z);
+        }
+        // Try possessive markers after locative
+        else if (r_mark_possessives(z)) {
+            z->bra = z->c;
+            slice_del(z);  // Remove possessive
+
+            z->ket = z->c;
+            // Optional plural after possessive
+            if (r_mark_lAr(z)) {
+                z->bra = z->c;
+                slice_del(z);
+                r_stem_suffix_chain_before_ki(z);
+            }
+        }
+        return 1;
+    }
+
+    // Branch 2: Handle genitive case (-nUn) patterns
+    if (r_mark_nUn(z)) {
+        z->bra = z->c;
+        slice_del(z);  // Remove nUn suffix
+
+        z->ket = z->c;
+
+        // Try possessive plural combination
+        if (r_mark_lArI(z)) {
+            z->bra = z->c;
+            slice_del(z);
+        }
+        // Try possessives or 3rd person marker
+        else if (r_mark_possessives(z) || r_mark_sU(z)) {
+            z->bra = z->c;
+            slice_del(z);
+
+            z->ket = z->c;
+            // Optional plural
+            if (r_mark_lAr(z)) {
+                z->bra = z->c;
+                slice_del(z);
+                r_stem_suffix_chain_before_ki(z);
+            }
+        }
+        else {
+            // Continue processing remaining chains
+            r_stem_suffix_chain_before_ki(z);
+        }
+        return 1;
+    }
+
+    // Branch 3: Handle alternative locative (-ndA) patterns
+    if (r_mark_ndA(z)) {
+        // Try possessive plural or 3rd person marker
+        if (r_mark_lArI(z)) {
+            z->bra = z->c;
+            slice_del(z);
+        }
+        else if (r_mark_sU(z)) {
+            z->bra = z->c;
+            slice_del(z);
+
+            z->ket = z->c;
+            if (r_mark_lAr(z)) {
+                z->bra = z->c;
+                slice_del(z);
+                r_stem_suffix_chain_before_ki(z);
+            }
+        }
+        else {
+            r_stem_suffix_chain_before_ki(z);
+        }
+        return 1;
+    }
+
+    return 1;
+}
+```

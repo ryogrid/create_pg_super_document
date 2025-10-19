@@ -35,3 +35,30 @@ The function takes an enum's internal OID representation and looks up the corres
 - Provides specific error messages for invalid internal enum OID values
 - Part of the basic I/O support for enum types, complementing enum_in
 - The function is also used by anyenum_out for pseudotype handling
+
+## Simplified Source
+
+```c
+Datum
+enum_out(PG_FUNCTION_ARGS)
+{
+    Oid enumval = PG_GETARG_OID(0);  // Get enum OID from input
+
+    // Look up enum label in system catalog
+    HeapTuple tup = SearchSysCache1(ENUMOID, ObjectIdGetDatum(enumval));
+    if (!HeapTupleIsValid(tup)) {
+        ereport(ERROR,
+                (errcode(ERRCODE_INVALID_BINARY_REPRESENTATION),
+                 errmsg("invalid internal value for enum: %u", enumval)));
+    }
+
+    // Extract enum label from catalog tuple
+    Form_pg_enum en = (Form_pg_enum) GETSTRUCT(tup);
+    char *result = pstrdup(NameStr(en->enumlabel));
+
+    ReleaseSysCache(tup);
+    PG_RETURN_CSTRING(result);
+}
+```
+
+**Simplified Logic**: This function converts an enum's internal OID to its string label by looking it up in the system catalog. It searches the enum catalog, validates the OID exists, extracts the label string, and returns a copy for output.

@@ -32,3 +32,23 @@ This function performs a simple numerical comparison between the search key (loc
 - Unlike compare3, this function performs a single-value comparison since it deals with simple local codes rather than combined UTF-8 sequences
 - Part of PostgreSQLs multibyte character encoding conversion subsystem
 - The counterpart to compare3, handling the reverse direction of character encoding conversion
+
+## Simplified Source
+
+```c
+static int compare4(const void *p1, const void *p2) {
+    // Extract search key: local character code
+    uint32 search_code = *(const uint32 *) p1;
+
+    // Extract comparison target from local-to-UTF structure
+    uint32 target_code = ((const pg_local_to_utf_combined *) p2)->code;
+
+    // Simple numerical comparison
+    if (search_code > target_code)
+        return 1;
+    else if (search_code == target_code)
+        return 0;
+    else
+        return -1;
+}
+```

@@ -35,3 +35,13 @@ The function is part of PostgreSQL's array utility functions and provides a way 
 - Only supports one-dimensional arrays; multi-dimensional arrays will cause an error
 - Uses PostgreSQL's function call interface (PG_FUNCTION_ARGS)
 - Located in src/backend/utils/adt/array_userfuncs.c:1231-1243
+
+## Simplified Source
+
+```c
+Datum array_position_start(PG_FUNCTION_ARGS) {
+    // Simple wrapper function that delegates to array_position_common
+    // for finding the position of a value in an array starting from beginning
+    return array_position_common(fcinfo);
+}
+```

@@ -36,3 +36,31 @@ This is the primary entry point for Hindi word stemming in PostgreSQL's text sea
 - Part of PostgreSQL's full-text search capabilities for Hindi language support
 - The suffix patterns in  are based on Hindi morphology rules
 - Sets up proper cursor boundaries (, , ) before and after processing
+
+## Simplified Source
+
+```c
+extern int hindi_UTF_8_stem(struct SN_env * z) {
+    // Skip one UTF-8 character from current position
+    int ret = skip_utf8(z->p, z->c, z->l, 1);
+    if (ret < 0) return 0;
+    z->c = ret;
+
+    // Set boundaries for suffix searching
+    z->lb = z->c;
+    z->c = z->l;
+
+    // Search for suffix patterns and remove if found
+    z->ket = z->c;
+    if (!(find_among_b(z, a_0, 132))) return 0;  // Check 132 suffix patterns
+    z->bra = z->c;
+
+    // Delete the matched suffix
+    ret = slice_del(z);
+    if (ret < 0) return ret;
+
+    // Reset cursor position
+    z->c = z->lb;
+    return 1;
+}
+```

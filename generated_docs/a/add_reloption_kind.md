@@ -48,3 +48,20 @@ This function takes no parameters and returns a relopt_kind value.
 - This function is typically called during extension or custom access method initialization
 - The returned relopt_kind can be used with add_reloption to register custom options
 - Error handling ensures graceful failure when the system limit is exceeded
+
+## Simplified Source
+
+```c
+relopt_kind add_reloption_kind(void) {
+    // Check if we've exceeded the maximum allowed kinds
+    if (last_assigned_kind >= RELOPT_KIND_MAX) {
+        ereport(ERROR,
+                (errcode(ERRCODE_PROGRAM_LIMIT_EXCEEDED),
+                 errmsg("user-defined relation parameter types limit exceeded")));
+    }
+
+    // Shift to next power-of-2 value for unique identifier
+    last_assigned_kind <<= 1;
+    return (relopt_kind) last_assigned_kind;
+}
+```

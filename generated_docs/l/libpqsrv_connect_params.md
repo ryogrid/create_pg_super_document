@@ -39,3 +39,29 @@ This variant is particularly useful when connection parameters are already struc
 - Callers must use PQstatus() to verify if the returned connection is valid since connection failures do not result in thrown errors
 - Part of the libpqsrv suite of functions designed for server-side PostgreSQL connection management
 - The keywords and values arrays must have the same length and be null-terminated
+
+## Simplified Source
+
+```c
+static inline PGconn *
+libpqsrv_connect_params(const char *const *keywords,
+                        const char *const *values,
+                        int expand_dbname,
+                        uint32 wait_event_info)
+{
+    PGconn *conn = NULL;
+
+    // Reserve file descriptor and prepare for connection
+    libpqsrv_connect_prepare();
+
+    // Start asynchronous connection with parameter arrays
+    conn = PQconnectStartParams(keywords, values, expand_dbname);
+
+    // Complete connection with interrupt handling
+    libpqsrv_connect_internal(conn, wait_event_info);
+
+    return conn;
+}
+```
+
+This function wraps PQconnectdbParams() to provide server-side connection management using parameter arrays instead of connection strings, with file descriptor reservation and interrupt processing.

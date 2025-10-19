@@ -38,4 +38,40 @@ The function includes an assertion check  to ensure the input bit string is prop
 - Uses bit shifting operations () to efficiently iterate through bits within each byte
 - Allocates result string with  to accommodate the null terminator
 - The output format is purely binary (0s and 1s), making it easy to understand the exact bit pattern
-- Located in 
+- Located in
+
+## Simplified Source
+
+```c
+Datum varbit_out(PG_FUNCTION_ARGS) {
+    VarBit *s = PG_GETARG_VARBIT_P(0);
+
+    // Get bit length and allocate result string
+    int len = VARBITLEN(s);
+    char *result = palloc(len + 1);
+    char *r = result;
+    bits8 *sp = VARBITS(s);
+
+    // Process full bytes (8 bits each)
+    int i;
+    for (i = 0; i <= len - BITS_PER_BYTE; i += BITS_PER_BYTE, sp++) {
+        bits8 x = *sp;
+        for (int k = 0; k < BITS_PER_BYTE; k++) {
+            *r++ = IS_HIGHBIT_SET(x) ? '1' : '0';
+            x <<= 1;  // Shift to next bit
+        }
+    }
+
+    // Process remaining bits in partial byte
+    if (i < len) {
+        bits8 x = *sp;
+        for (int k = i; k < len; k++) {
+            *r++ = IS_HIGHBIT_SET(x) ? '1' : '0';
+            x <<= 1;
+        }
+    }
+
+    *r = '\0';
+    PG_RETURN_CSTRING(result);
+}
+```

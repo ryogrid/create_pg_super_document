@@ -35,3 +35,20 @@ This function is typically used when a `cvec` needs to be reused for a new set o
 - The function includes an assertion to ensure the input pointer is not NULL
 - Returns the same pointer for convenience in function chaining
 - Part of PostgreSQL's regular expression compilation subsystem
+
+## Simplified Source
+
+```c
+static struct cvec *
+clearcvec(struct cvec *cv)
+{
+    assert(cv != NULL);
+
+    // Reset counts to empty state
+    cv->nchrs = 0;
+    cv->nranges = 0;
+    cv->cclasscode = -1;  // No character class
+
+    return cv;  // Return for convenience in chaining
+}
+```

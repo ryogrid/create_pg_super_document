@@ -54,3 +54,70 @@ Additionally, the function tracks WAL filenames that should be preserved during 
 - Uses backward chaining through xl_prev pointers to traverse WAL history efficiently
 - Critical for ensuring pg_rewind starts from a consistent checkpoint state
 - The checkpoint found determines the scope of data that needs to be synchronized
+
+## Simplified Source
+
+```c
+void findLastCheckpoint(const char *datadir, XLogRecPtr forkptr, int tliIndex,
+                       XLogRecPtr *lastchkptrec, TimeLineID *lastchkpttli,
+                       XLogRecPtr *lastchkptredo, const char *restoreCommand)
+{
+    XLogRecord *record;
+    XLogRecPtr searchptr;
+    XLogReaderState *xlogreader;
+    XLogPageReadPrivate private;
+
+    // Skip page header if fork pointer is at page boundary
+    if (forkptr % XLOG_BLCKSZ == 0) {
+        if (XLogSegmentOffset(forkptr, WalSegSz) == 0)
+            forkptr += SizeOfXLogLongPHD;
+        else
+            forkptr += SizeOfXLogShortPHD;
+    }
+
+    // Initialize WAL reader for backward traversal
+    private.tliIndex = tliIndex;
+    private.restoreCommand = restoreCommand;
+    xlogreader = XLogReaderAllocate(WalSegSz, datadir,
+                                   XL_ROUTINE(.page_read = &SimpleXLogPageRead),
+                                   &private);
+    if (xlogreader == NULL)
+        pg_fatal("out of memory while allocating a WAL reading processor");
+
+    // Walk backwards through WAL records to find checkpoint
+    searchptr = forkptr;
+    for (;;) {
+        XLogBeginRead(xlogreader, searchptr);
+        record = XLogReadRecord(xlogreader, &errormsg);
+
+        if (record == NULL) {
+            pg_fatal("could not find previous WAL record at %X/%X",
+                    LSN_FORMAT_ARGS(searchptr));
+        }
+
+        // Track WAL files to preserve during rewind
+        keepwal_add_entry(current_xlog_filename);
+
+        // Check if this is a checkpoint record before the fork point
+        uint8 info = XLogRecGetInfo(xlogreader) & ~XLR_INFO_MASK;
+        if (searchptr < forkptr &&
+            XLogRecGetRmid(xlogreader) == RM_XLOG_ID &&
+            (info == XLOG_CHECKPOINT_SHUTDOWN || info == XLOG_CHECKPOINT_ONLINE)) {
+
+            // Found checkpoint - extract checkpoint data
+            CheckPoint checkPoint;
+            memcpy(&checkPoint, XLogRecGetData(xlogreader), sizeof(CheckPoint));
+            *lastchkptrec = searchptr;
+            *lastchkpttli = checkPoint.ThisTimeLineID;
+            *lastchkptredo = checkPoint.redo;
+            break;
+        }
+
+        // Continue backwards to previous record
+        searchptr = record->xl_prev;
+    }
+
+    // Cleanup
+    XLogReaderFree(xlogreader);
+}
+```

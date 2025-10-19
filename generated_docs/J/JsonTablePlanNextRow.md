@@ -33,3 +33,19 @@ This function serves as a polymorphic dispatcher for different types of JSON tab
 - Returns true if a row was successfully retrieved, false if the plan has exhausted all rows
 - The function includes an assertion and compiler appeasement return statement that should never be reached
 - [Plan](../P/Plan.md) type validation is performed at runtime, with invalid types triggering an ERROR-level log message
+
+## Simplified Source
+
+```c
+static bool JsonTablePlanNextRow(JsonTablePlanState *planstate) {
+    // Dispatch to appropriate plan-specific function based on plan type
+    if (IsA(planstate->plan, JsonTablePathScan))
+        return JsonTablePlanScanNextRow(planstate);
+    else if (IsA(planstate->plan, JsonTableSiblingJoin))
+        return JsonTablePlanJoinNextRow(planstate);
+    else
+        elog(ERROR, "invalid JsonTablePlan %d", (int) planstate->plan->type);
+
+    return false; // Should never reach here
+}
+```

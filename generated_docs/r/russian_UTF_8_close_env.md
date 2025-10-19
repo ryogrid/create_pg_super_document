@@ -36,3 +36,13 @@ The function is essential for proper resource management in long-running applica
 - After calling this function, the environment pointer becomes invalid and should not be used
 - Part of the standard Snowball stemmer interface pattern ensuring proper resource management
 - Critical for memory management in PostgreSQL's full-text search system when processing Russian text
+
+## Simplified Source
+
+```c
+extern void russian_UTF_8_close_env(struct SN_env * z) {
+    // Clean up and deallocate Russian stemming environment
+    // Parameter 0 indicates no special cleanup requirements
+    SN_close_env(z, 0);
+}
+```

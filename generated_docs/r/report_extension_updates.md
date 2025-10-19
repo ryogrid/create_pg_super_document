@@ -41,3 +41,61 @@ The function queries the pg_available_extensions view to compare installed_versi
 - The generated script must be executed by a database superuser after upgrade completion
 - Part of pg_upgrade's comprehensive post-upgrade maintenance task identification system
 - Helps ensure that extensions remain current and compatible with the new PostgreSQL version
+
+## Simplified Source
+
+```c
+void report_extension_updates(ClusterInfo *cluster) {
+    int dbnum;
+    FILE *script = NULL;
+    char *output_path = "update_extensions.sql";
+
+    prep_status("Checking for extension updates");
+
+    // Check each database for extensions needing updates
+    for (dbnum = 0; dbnum < cluster->dbarr.ndbs; dbnum++) {
+        DbInfo *active_db = &cluster->dbarr.dbs[dbnum];
+        PGconn *conn = connectToServer(cluster, active_db->db_name);
+
+        // Find extensions where installed version != default version
+        PGresult *res = executeQueryOrDie(conn,
+            "SELECT name FROM pg_available_extensions "
+            "WHERE installed_version != default_version");
+
+        int ntups = PQntuples(res);
+
+        // Generate UPDATE commands for each outdated extension
+        for (int rowno = 0; rowno < ntups; rowno++) {
+            // Open script file if needed
+            if (script == NULL)
+                script = fopen_priv(output_path, "w");
+
+            // Add database connection command if first extension in this DB
+            if (!db_used) {
+                PQExpBufferData connectbuf;
+                initPQExpBuffer(&connectbuf);
+                appendPsqlMetaConnect(&connectbuf, active_db->db_name);
+                fputs(connectbuf.data, script);
+                termPQExpBuffer(&connectbuf);
+                db_used = true;
+            }
+
+            // Generate ALTER EXTENSION UPDATE command
+            fprintf(script, "ALTER EXTENSION %s UPDATE;\n",
+                quote_identifier(PQgetvalue(res, rowno, i_name)));
+        }
+
+        PQclear(res);
+        PQfinish(conn);
+    }
+
+    // Report results to user
+    if (script) {
+        fclose(script);
+        report_status(PG_REPORT, "notice");
+        pg_log(PG_REPORT, "Extensions need updating. Run %s to update them.", output_path);
+    } else {
+        check_ok();
+    }
+}
+```

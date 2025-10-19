@@ -40,3 +40,14 @@ PL/pgSQL is considered a core PostgreSQL feature and is typically installed by d
 - Installing PL/pgSQL during initdb ensures it's available immediately for user applications
 - The language is implemented as a trusted procedural language, meaning non-superusers can create functions in it
 - This is typically one of the last steps in database initialization, after core system structures are established
+
+## Simplified Source
+
+```c
+static void
+load_plpgsql(FILE *cmdfd)
+{
+    // Install PL/pgSQL procedural language extension
+    PG_CMD_PUTS("CREATE EXTENSION plpgsql;\n\n");
+}
+```

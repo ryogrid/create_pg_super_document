@@ -40,3 +40,33 @@ The function includes validation to ensure the provided block number corresponds
 - The conversion relies on the spares array which tracks overflow page counts at each split level
 - Returns 0-based bit numbers consistent with bitmap indexing conventions
 - Critical for maintaining consistency between physical block storage and logical bitmap representation
+
+## Simplified Source
+
+```c
+uint32 _hash_ovflblkno_to_bitno(HashMetaPage metap, BlockNumber ovflblkno) {
+    uint32 splitnum = metap->hashm_ovflpoint;
+
+    // Find which split level contains this overflow block
+    for (uint32 i = 1; i <= splitnum; i++) {
+        if (ovflblkno <= (BlockNumber) _hash_get_totalbuckets(i)) {
+            break; // Block number too low for this split
+        }
+
+        // Calculate relative position within this split
+        uint32 bitnum = ovflblkno - _hash_get_totalbuckets(i);
+
+        // Validate bit number is within valid range for this split level
+        if (bitnum > metap->hashm_spares[i - 1] &&
+            bitnum <= metap->hashm_spares[i]) {
+            return bitnum - 1; // Convert to 0-based bit number
+        }
+    }
+
+    // Invalid overflow block number
+    ereport(ERROR,
+            (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+             errmsg("invalid overflow block number %u", ovflblkno)));
+    return 0;
+}
+```

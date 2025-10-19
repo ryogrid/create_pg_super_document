@@ -47,3 +47,101 @@ The function handles multiple categories of Tamil endings including grammatical 
 - Handles Tamil-specific orthographic rules and character sequence normalizations
 - Some transformations are conditional on the  flag, suggesting context-dependent processing
 - The extensive pattern matching suggests this handles numerous Tamil morphological variations
+
+## Simplified Source
+
+```c
+static int r_fix_ending(struct SN_env * z) {
+    // Check minimum word length (must have more than 3 UTF-8 characters)
+    if (!(len_utf8(z->p) > 3)) return 0;
+
+    // Set up boundaries for backward processing
+    z->lb = z->c;
+    z->c = z->l;
+
+    int saved_position = z->l - z->c;
+
+    // Pattern matching cascade for different Tamil ending types
+
+    // Try first pattern set (a_1) with specific character checks
+    z->ket = z->c;
+    if (z->c - 5 <= z->lb || (z->p[z->c - 1] != 141 && z->p[z->c - 1] != 164)) {
+        // Try specific 6-character patterns
+        if (eq_s_b(z, 6, s_14) && find_among_b(z, a_2, 3)) {
+            z->bra = z->c;
+            slice_del(z);
+            goto success;
+        }
+
+        // Try 12-character replacement patterns
+        if (eq_s_b(z, 12, s_15) || eq_s_b(z, 12, s_16)) {
+            z->bra = z->c;
+            slice_from_s(z, 6, s_17);
+            goto success;
+        }
+
+        // Additional 12-character patterns with specific replacements
+        if (eq_s_b(z, 12, s_18)) {
+            z->bra = z->c;
+            slice_from_s(z, 6, s_19);
+            goto success;
+        }
+
+        // Conditional pattern matching based on flag z->I[0]
+        if (z->I[0] && eq_s_b(z, 12, s_24)) {
+            // Additional context check
+            if (!eq_s_b(z, 3, s_25)) {
+                z->bra = z->c;
+                slice_from_s(z, 6, s_26);
+                goto success;
+            }
+        }
+
+        // Try 9 or 15 character patterns
+        if (eq_s_b(z, 9, s_27) || eq_s_b(z, 15, s_28)) {
+            z->bra = z->c;
+            slice_from_s(z, 3, s_29);
+            goto success;
+        }
+
+        // Complex pattern: 3-char + pattern match + 3-char + pattern match
+        if (eq_s_b(z, 3, s_30) && find_among_b(z, a_3, 6) &&
+            eq_s_b(z, 3, s_31) && find_among_b(z, a_4, 6)) {
+            z->bra = z->c;
+            slice_del(z);
+            goto success;
+        }
+
+        // Simple 9-character pattern replacement
+        if (eq_s_b(z, 9, s_32)) {
+            z->bra = z->c;
+            slice_from_s(z, 3, s_33);
+            goto success;
+        }
+
+        // Final fallback patterns
+        if (eq_s_b(z, 3, s_43)) {
+            // Check context before deletion
+            if (find_among_b(z, a_10, 8) || eq_s_b(z, 3, s_44)) {
+                z->bra = z->c;
+                slice_del(z);
+                goto success;
+            }
+        }
+
+        return 0; // No patterns matched
+    } else {
+        // Handle first pattern set match
+        if (find_among_b(z, a_1, 3)) {
+            z->bra = z->c;
+            slice_del(z);
+            goto success;
+        }
+        return 0;
+    }
+
+success:
+    z->c = z->lb; // Reset cursor position
+    return 1;     // Transformation applied
+}
+```

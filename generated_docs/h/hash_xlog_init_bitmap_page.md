@@ -40,3 +40,56 @@ The function performs two main operations: first, it initializes the bitmap page
 - During normal operation, both pages would be locked simultaneously, but during replay this isn't necessary since the transaction hasn't committed yet
 - Init fork handling ensures proper synchronization between shared buffers and disk for both the bitmap page and metapage
 - The metapage's hashm_mapp array is updated to include the new bitmap page location, and hashm_nmaps is incremented
+
+## Simplified Source
+
+```c
+static void
+hash_xlog_init_bitmap_page(XLogReaderState *record)
+{
+    XLogRecPtr lsn = record->EndRecPtr;
+    Buffer bitmapbuf;
+    Buffer metabuf;
+    Page page;
+    HashMetaPage metap;
+    uint32 num_buckets;
+    ForkNumber forknum;
+
+    // Extract bitmap initialization data
+    xl_hash_init_bitmap_page *xlrec = (xl_hash_init_bitmap_page *) XLogRecGetData(record);
+
+    // Initialize bitmap page
+    bitmapbuf = XLogInitBufferForRedo(record, 0);
+    _hash_initbitmapbuffer(bitmapbuf, xlrec->bmsize, true);
+    PageSetLSN(BufferGetPage(bitmapbuf), lsn);
+    MarkBufferDirty(bitmapbuf);
+
+    // Handle init fork synchronization for bitmap page
+    XLogRecGetBlockTag(record, 0, NULL, &forknum, NULL);
+    if (forknum == INIT_FORKNUM)
+        FlushOneBuffer(bitmapbuf);
+    UnlockReleaseBuffer(bitmapbuf);
+
+    // Update metapage to register the new bitmap page
+    if (XLogReadBufferForRedo(record, 1, &metabuf) == BLK_NEEDS_REDO)
+    {
+        page = BufferGetPage(metabuf);
+        metap = HashPageGetMeta(page);
+
+        // Add new bitmap page to metapage registry
+        num_buckets = metap->hashm_maxbucket + 1;
+        metap->hashm_mapp[metap->hashm_nmaps] = num_buckets + 1;
+        metap->hashm_nmaps++;
+
+        PageSetLSN(page, lsn);
+        MarkBufferDirty(metabuf);
+
+        // Handle init fork synchronization for metapage
+        XLogRecGetBlockTag(record, 1, NULL, &forknum, NULL);
+        if (forknum == INIT_FORKNUM)
+            FlushOneBuffer(metabuf);
+    }
+    if (BufferIsValid(metabuf))
+        UnlockReleaseBuffer(metabuf);
+}
+```

@@ -43,3 +43,25 @@ The function handles two types of tablespace WAL records:
 - The function only handles the core tablespace operations (CREATE/DROP) and ignores other record types
 - Output format for CREATE operations includes both tablespace ID and path in quotes
 - Output format for DROP operations includes only the tablespace ID
+
+## Simplified Source
+
+```c
+void
+tblspc_desc(StringInfo buf, XLogReaderState *record)
+{
+    char *rec = XLogRecGetData(record);
+    uint8 info = XLogRecGetInfo(record) & ~XLR_INFO_MASK;
+
+    if (info == XLOG_TBLSPC_CREATE) {
+        // Tablespace creation: show ID and path
+        xl_tblspc_create_rec *xlrec = (xl_tblspc_create_rec *) rec;
+        appendStringInfo(buf, "%u \"%s\"", xlrec->ts_id, xlrec->ts_path);
+    }
+    else if (info == XLOG_TBLSPC_DROP) {
+        // Tablespace drop: show only ID
+        xl_tblspc_drop_rec *xlrec = (xl_tblspc_drop_rec *) rec;
+        appendStringInfo(buf, "%u", xlrec->ts_id);
+    }
+}
+```

@@ -35,3 +35,15 @@ This function is typically called by PostgreSQL's type system when a VARCHAR val
 - The returned C string is allocated in the current memory context and should be freed appropriately by the caller
 - This is a standard PostgreSQL type output function that follows the conventional function signature for type I/O operations
 - The function is registered in the PostgreSQL system catalogs as the output function for the VARCHAR type
+
+## Simplified Source
+
+```c
+Datum varcharout(PG_FUNCTION_ARGS) {
+    // Get the VARCHAR datum from argument 0
+    Datum txt = PG_GETARG_DATUM(0);
+
+    // Convert to C string using text conversion (VARCHAR uses text structure)
+    PG_RETURN_CSTRING(TextDatumGetCString(txt));
+}
+```

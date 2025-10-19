@@ -31,3 +31,13 @@ The function is part of PostgreSQL's locale management system, which maintains c
 - The function only invalidates the cache; actual locale information refresh happens lazily when needed
 - Works in conjunction with `check_locale_monetary` which validates the new locale value before assignment
 - Part of a broader locale management system that includes similar functions for numeric and time locales
+
+## Simplified Source
+
+```c
+void assign_locale_monetary(const char *newval, void *extra) {
+    // Mark cached locale conversion info as invalid
+    // Forces refresh of monetary formatting when next needed
+    CurrentLocaleConvValid = false;
+}
+```

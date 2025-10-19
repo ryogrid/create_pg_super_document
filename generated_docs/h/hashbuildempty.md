@@ -33,3 +33,13 @@ The function is a simple wrapper around _hash_init, calling it with 0 tuples to 
 - Essential for database bootstrap and recovery scenarios
 - Much simpler than hashbuild since no heap scanning or tuple processing is required
 - The empty index can later be populated through normal insert operations
+
+## Simplified Source
+
+```c
+void hashbuildempty(Relation index)
+{
+    // Initialize empty hash index with minimal structure
+    _hash_init(index, 0, INIT_FORKNUM);
+}
+```

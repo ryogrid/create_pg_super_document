@@ -37,3 +37,44 @@ The algorithm mirrors the left-right iterator but with reversed logic: it handle
 - The function assumes proper iterator initialization before first call
 - Used as part of PostgreSQL's Red-Black tree iteration framework for reverse-ordered data access
 - Particularly useful when applications need to process data in descending order without additional sorting
+
+## Simplified Source
+
+```c
+static RBTNode *
+rbt_right_left_iterator(RBTreeIterator *iter)
+{
+    // First call: find rightmost node in tree
+    if (iter->last_visited == NULL) {
+        iter->last_visited = iter->rbt->root;
+        while (iter->last_visited->right != RBTNIL)
+            iter->last_visited = iter->last_visited->right;
+        return iter->last_visited;
+    }
+
+    // If current node has left subtree, find rightmost in that subtree
+    if (iter->last_visited->left != RBTNIL) {
+        iter->last_visited = iter->last_visited->left;
+        while (iter->last_visited->right != RBTNIL)
+            iter->last_visited = iter->last_visited->right;
+        return iter->last_visited;
+    }
+
+    // Move up tree until we find a node we came to from the right
+    for (;;) {
+        RBTNode *came_from = iter->last_visited;
+        iter->last_visited = iter->last_visited->parent;
+
+        if (iter->last_visited == NULL) {
+            iter->is_over = true;
+            break;
+        }
+
+        // If we came from right subtree, this is next node
+        if (iter->last_visited->right == came_from)
+            break;
+    }
+
+    return iter->last_visited;
+}
+```

@@ -34,3 +34,33 @@ The function handles the formatting carefully, adding semicolons and spaces betw
 - Located in src/backend/access/rmgrdesc/genericdesc.c, indicating it's part of the generic resource manager description functionality
 - The parsing logic carefully manages pointer arithmetic to avoid buffer overruns
 - Output format: "offset X, length Y; offset A, length B" for multiple entries
+
+## Simplified Source
+
+```c
+void
+generic_desc(StringInfo buf, XLogReaderState *record)
+{
+    Pointer     ptr = XLogRecGetData(record),
+                end = ptr + XLogRecGetDataLen(record);
+
+    // Parse through all page region entries
+    while (ptr < end)
+    {
+        OffsetNumber offset, length;
+
+        // Extract offset and length for this region
+        memcpy(&offset, ptr, sizeof(offset));
+        ptr += sizeof(offset);
+        memcpy(&length, ptr, sizeof(length));
+        ptr += sizeof(length);
+        ptr += length;
+
+        // Format output with proper punctuation
+        if (ptr < end)
+            appendStringInfo(buf, "offset %u, length %u; ", offset, length);
+        else
+            appendStringInfo(buf, "offset %u, length %u", offset, length);
+    }
+}
+```

@@ -45,3 +45,68 @@ The function uses a bitmask approach to track which required components have bee
 - Enforces that incremental backup information must be complete (both LSN and TLI) or absent
 - Part of the pg_combinebackup utility for combining incremental backups
 - All parsing errors result in fatal termination with descriptive error messages
+
+## Simplified Source
+
+```c
+void
+parse_backup_label(char *filename, StringInfo buf,
+                   TimeLineID *start_tli, XLogRecPtr *start_lsn,
+                   TimeLineID *previous_tli, XLogRecPtr *previous_lsn)
+{
+    int found = 0;
+
+    // Initialize output parameters
+    *start_tli = 0;
+    *start_lsn = InvalidXLogRecPtr;
+    *previous_tli = 0;
+    *previous_lsn = InvalidXLogRecPtr;
+
+    // Parse each line in the buffer
+    while (buf->cursor < buf->len) {
+        char *s = &buf->data[buf->cursor];
+        int eo = get_eol_offset(buf);
+        char *e = &buf->data[eo];
+        char *c;
+
+        // Parse START WAL LOCATION line
+        if (line_starts_with(s, e, "START WAL LOCATION: ", &s)) {
+            if (!parse_lsn(s, e, start_lsn, &c) || c >= e || *c != ' ')
+                pg_fatal("%s: could not parse START WAL LOCATION", filename);
+            found |= 1;
+        }
+        // Parse START TIMELINE line
+        else if (line_starts_with(s, e, "START TIMELINE: ", &s)) {
+            if (!parse_tli(s, e, start_tli) || *start_tli == 0)
+                pg_fatal("%s: could not parse START TIMELINE", filename);
+            found |= 2;
+        }
+        // Parse INCREMENTAL FROM LSN line
+        else if (line_starts_with(s, e, "INCREMENTAL FROM LSN: ", &s)) {
+            if (!parse_lsn(s, e, previous_lsn, &c) || c >= e || *c != '\n')
+                pg_fatal("%s: could not parse INCREMENTAL FROM LSN", filename);
+            found |= 4;
+        }
+        // Parse INCREMENTAL FROM TLI line
+        else if (line_starts_with(s, e, "INCREMENTAL FROM TLI: ", &s)) {
+            if (!parse_tli(s, e, previous_tli) || *previous_tli == 0)
+                pg_fatal("%s: could not parse INCREMENTAL FROM TLI", filename);
+            found |= 8;
+        }
+
+        buf->cursor = eo;
+    }
+
+    // Validate required fields are present
+    if ((found & 1) == 0)
+        pg_fatal("%s: could not find START WAL LOCATION", filename);
+    if ((found & 2) == 0)
+        pg_fatal("%s: could not find START TIMELINE", filename);
+
+    // Validate incremental backup fields consistency
+    if ((found & 4) != 0 && (found & 8) == 0)
+        pg_fatal("%s: INCREMENTAL FROM LSN requires INCREMENTAL FROM TLI", filename);
+    if ((found & 8) != 0 && (found & 4) == 0)
+        pg_fatal("%s: INCREMENTAL FROM TLI requires INCREMENTAL FROM LSN", filename);
+}
+```

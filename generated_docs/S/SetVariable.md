@@ -55,3 +55,81 @@ The function validates variable names and handles edge cases like NULL parameter
 - [Variables](../V/Variables.md) are maintained in alphabetical order for efficient searching
 - Part of psql's variable system, widely used throughout the codebase
 - Handles memory management automatically, including proper cleanup on failures
+
+## Simplified Source
+
+```c
+bool
+SetVariable(VariableSpace space, const char *name, const char *value)
+{
+    struct _variable *current, *previous;
+
+    // Validate parameters
+    if (!space || !name)
+        return false;
+
+    if (!valid_variable_name(name)) {
+        // Allow deletion of invalid names
+        if (!value)
+            return true;
+        pg_log_error("invalid variable name: \"%s\"", name);
+        return false;
+    }
+
+    // Search for existing variable in sorted list
+    for (previous = space, current = space->next;
+         current;
+         previous = current, current = current->next) {
+        int cmp = strcmp(current->name, name);
+
+        if (cmp == 0) {
+            // Found variable - update it
+            char *new_value = value ? pg_strdup(value) : NULL;
+            bool confirmed;
+
+            // Apply hooks for value transformation and validation
+            if (current->substitute_hook)
+                new_value = current->substitute_hook(new_value);
+
+            if (current->assign_hook)
+                confirmed = current->assign_hook(new_value);
+            else
+                confirmed = true;
+
+            if (confirmed) {
+                // Update the variable value
+                pg_free(current->value);
+                current->value = new_value;
+
+                // Remove variable if no value and no hooks
+                if (new_value == NULL &&
+                    current->substitute_hook == NULL &&
+                    current->assign_hook == NULL) {
+                    previous->next = current->next;
+                    free(current->name);
+                    free(current);
+                }
+            } else {
+                pg_free(new_value);
+            }
+
+            return confirmed;
+        }
+        if (cmp > 0)
+            break; // Not found - insert here
+    }
+
+    // Variable not found - create new one if value provided
+    if (value) {
+        current = pg_malloc(sizeof *current);
+        current->name = pg_strdup(name);
+        current->value = pg_strdup(value);
+        current->substitute_hook = NULL;
+        current->assign_hook = NULL;
+        current->next = previous->next;
+        previous->next = current;
+    }
+
+    return true;
+}
+```

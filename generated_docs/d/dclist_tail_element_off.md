@@ -31,3 +31,23 @@ This function is an internal utility that calculates the memory address of the s
 - Includes an assertion to ensure the list is not empty before accessing the tail
 - Uses pointer arithmetic to convert from node address to containing structure address
 - Part of PostgreSQL's efficient intrusive list implementation where list nodes are embedded in data structures rather than allocated separately
+
+## Simplified Source
+
+```c
+static inline void *
+dclist_tail_element_off(dclist_head *head, size_t off)
+{
+    // Ensure list is not empty before accessing tail
+    Assert(!dclist_is_empty(head));
+
+    // Get containing struct address by subtracting offset from tail node address
+    return (char *) head->dlist.head.prev - off;
+}
+```
+
+**Key Points:**
+- Internal utility for intrusive list implementation
+- Uses pointer arithmetic: tail_node_address - offset = containing_struct_address
+- The `prev` pointer of the head points to the tail in a circular doubly-linked list
+- Inline function for efficient access in container_of style operations

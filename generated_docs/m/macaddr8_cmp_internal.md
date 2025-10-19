@@ -42,3 +42,25 @@ The comparison is performed using two utility macros:
 - Serves as the core comparison logic for all macaddr8 comparison operators
 - Uses efficient bit manipulation to compare 8-byte MAC addresses as two 32-bit values
 - The comparison follows standard lexicographic ordering based on byte values
+
+## Simplified Source
+
+```c
+static int32 macaddr8_cmp_internal(macaddr8 *a1, macaddr8 *a2) {
+    // Compare high-order 32 bits first (bytes a,b,c,d)
+    if (hibits(a1) < hibits(a2))
+        return -1;
+    else if (hibits(a1) > hibits(a2))
+        return 1;
+
+    // High bits equal, compare low-order 32 bits (bytes e,f,g,h)
+    else if (lobits(a1) < lobits(a2))
+        return -1;
+    else if (lobits(a1) > lobits(a2))
+        return 1;
+
+    // Both parts equal
+    else
+        return 0;
+}
+```

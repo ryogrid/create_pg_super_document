@@ -34,3 +34,27 @@ The function follows the standard psql command processing pattern, returning app
 - Uses OT_WHOLE_LINE option type when extracting the command, meaning it captures the entire remainder of the line as the shell command
 - The function properly handles memory management by freeing the allocated command string after execution
 - Part of the psql meta-command processing system, specifically handling the `\!` escape to shell functionality
+
+## Simplified Source
+
+```c
+static backslashResult
+exec_command_shell_escape(PsqlScanState scan_state, bool active_branch)
+{
+    bool success = true;
+
+    if (active_branch) {
+        // Parse entire command line as shell command
+        char *opt = psql_scan_slash_option(scan_state, OT_WHOLE_LINE, NULL, false);
+
+        // Execute shell command
+        success = do_shell(opt);
+        free(opt);
+    }
+    else {
+        ignore_slash_whole_line(scan_state);
+    }
+
+    return success ? PSQL_CMD_SKIP_LINE : PSQL_CMD_ERROR;
+}
+```

@@ -38,3 +38,32 @@ Examples of behavior:
 - Part of PostgreSQL's number formatting system that handles precise decimal formatting
 - Includes debug logging support when DEBUG_TO_FROM_CHAR compilation flag is enabled
 - Simple but critical utility for proper numeric string formatting and trailing zero handling
+
+## Simplified Source
+
+```c
+static char *
+get_last_relevant_decnum(char *num)
+{
+    // Find decimal point in the string
+    char *p = strchr(num, '.');
+
+    // Return NULL if no decimal point exists
+    if (!p)
+        return NULL;
+
+    // Start result at decimal point position
+    char *result = p;
+
+    // Scan forward from decimal point to find last non-zero digit
+    while (*(++p))
+    {
+        if (*p != '0')
+            result = p;  // Update to latest non-zero position
+    }
+
+    // Return pointer to last relevant character
+    // (either last non-zero digit or decimal point if all zeros)
+    return result;
+}
+```

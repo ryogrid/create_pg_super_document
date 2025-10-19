@@ -39,3 +39,26 @@ The function uses  internally with case-sensitive comparison (false parameter), 
 - Properly handles variable-length text data with PostgreSQL's TOAST mechanism
 - Memory management includes freeing copied arguments to prevent leaks
 - Part of GIN index infrastructure for full-text search capabilities
+
+## Simplified Source
+
+```c
+Datum
+gin_cmp_tslexeme(PG_FUNCTION_ARGS)
+{
+    text *a = PG_GETARG_TEXT_PP(0);
+    text *b = PG_GETARG_TEXT_PP(1);
+    int cmp;
+
+    // Compare the two lexemes using text search comparison
+    cmp = tsCompareString(VARDATA_ANY(a), VARSIZE_ANY_EXHDR(a),
+                          VARDATA_ANY(b), VARSIZE_ANY_EXHDR(b),
+                          false);  // case-sensitive comparison
+
+    // Clean up copied arguments
+    PG_FREE_IF_COPY(a, 0);
+    PG_FREE_IF_COPY(b, 1);
+
+    PG_RETURN_INT32(cmp);
+}
+```

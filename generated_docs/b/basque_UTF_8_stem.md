@@ -26,3 +26,45 @@ The basque_UTF_8_stem function implements the complete Basque stemming algorithm
 
 ## Notes and Other Information
 This is the public interface function for Basque UTF-8 stemming, marked with extern for external linkage. The processing order (verbs → nouns → adjectives) reflects the morphological complexity and priority in Basque language structure. The function returns 1 on successful completion and handles error conditions from the constituent processing functions. The cursor management ensures proper boundary handling throughout the multi-stage processing pipeline.
+
+## Simplified Source
+
+```c
+extern int basque_UTF_8_stem(struct SN_env * z) {
+    // Step 1: Mark morphological regions (R1, R2, RV)
+    if (r_mark_regions(z) < 0) return -1;
+
+    // Set up backward processing from end of word
+    z->lb = z->c;
+    z->c = z->l;
+
+    // Step 2: Process verbs (aditzak) - most complex morphology
+    while (1) {
+        int saved_pos = z->l - z->c;
+        if (r_aditzak(z) == 0) {
+            z->c = z->l - saved_pos;
+            break;
+        }
+        if (r_aditzak(z) < 0) return -1;
+    }
+
+    // Step 3: Process nouns (izenak) - medium complexity
+    while (1) {
+        int saved_pos = z->l - z->c;
+        if (r_izenak(z) == 0) {
+            z->c = z->l - saved_pos;
+            break;
+        }
+        if (r_izenak(z) < 0) return -1;
+    }
+
+    // Step 4: Process adjectives (adjetiboak) - simplest morphology
+    int saved_pos = z->l - z->c;
+    r_adjetiboak(z); // Error handling optional for adjectives
+    z->c = z->l - saved_pos;
+
+    // Restore cursor to beginning
+    z->c = z->lb;
+    return 1; // Success
+}
+```

@@ -48,3 +48,39 @@ The function expects the WAL record to contain full-page images rather than incr
 - For non-leaf splits, clears incomplete-split flags on child pages using block reference 3
 - Root splits involve three pages: original (becomes left), new right page, and new root page
 - Part of PostgreSQL's GIN index WAL recovery mechanism ensuring index structure consistency
+
+## Simplified Source
+
+```c
+static void
+ginRedoSplit(XLogReaderState *record)
+{
+    ginxlogSplit *data = (ginxlogSplit *) XLogRecGetData(record);
+    Buffer lbuffer, rbuffer, rootbuf;
+    bool isLeaf = (data->flags & GIN_INSERT_ISLEAF) != 0;
+    bool isRoot = (data->flags & GIN_SPLIT_ROOT) != 0;
+
+    // For non-leaf splits, clear incomplete split flag on child page
+    if (!isLeaf)
+        ginRedoClearIncompleteSplit(record, 3);
+
+    // Restore left page from full-page image
+    if (XLogReadBufferForRedo(record, 0, &lbuffer) != BLK_RESTORED)
+        elog(ERROR, "GIN split record did not contain full-page image of left page");
+
+    // Restore right page from full-page image
+    if (XLogReadBufferForRedo(record, 1, &rbuffer) != BLK_RESTORED)
+        elog(ERROR, "GIN split record did not contain full-page image of right page");
+
+    // For root splits, also restore the new root page
+    if (isRoot) {
+        if (XLogReadBufferForRedo(record, 2, &rootbuf) != BLK_RESTORED)
+            elog(ERROR, "GIN split record did not contain full-page image of root page");
+        UnlockReleaseBuffer(rootbuf);
+    }
+
+    // Release all buffers
+    UnlockReleaseBuffer(rbuffer);
+    UnlockReleaseBuffer(lbuffer);
+}
+```

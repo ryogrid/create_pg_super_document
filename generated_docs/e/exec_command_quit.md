@@ -34,3 +34,12 @@ The `exec_command_quit` function handles both the `\q` and `\quit` backslash com
 - Supports both `\q` and `\quit` command variants (handled by command dispatcher)
 - Located in `src/bin/psql/command.c:2333-2346`
 - Essential for providing a clean exit mechanism from psql sessions
+
+## Simplified Source
+
+```c
+static backslashResult exec_command_quit(PsqlScanState scan_state, bool active_branch) {
+    // Only terminate if in active conditional branch
+    return active_branch ? PSQL_CMD_TERMINATE : PSQL_CMD_SKIP_LINE;
+}
+```

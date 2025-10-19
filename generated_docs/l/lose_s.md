@@ -36,4 +36,16 @@ Swap:        8388608           0     8388608 - Memory deallocation function
 - Safely handles NULL pointers by checking before attempting deallocation
 - Must subtract HEAD offset to get the original malloc'd pointer for proper memory deallocation
 - Essential for preventing memory leaks in stemming operations
-- Always pair with  for proper memory management lifecycle
+- Always pair with create_s for proper memory management lifecycle
+
+## Simplified Source
+
+```c
+extern void lose_s(symbol * p) {
+    // Handle NULL pointers safely
+    if (p == NULL) return;
+
+    // Free memory at original malloc'd address (subtract header offset)
+    free((char *) p - HEAD);
+}
+```

@@ -62,3 +62,58 @@ Hot standby conflict resolution is important because removing DEAD tuples can co
 - The function updates two buffers: the target page buffer and the meta page buffer
 - Proper buffer management ensures no resource leaks during recovery
 - The xl_hash_vacuum_one_page structure contains the offsets array of tuples to delete and conflict resolution information
+
+## Simplified Source
+
+```c
+static void
+hash_xlog_vacuum_one_page(XLogReaderState *record)
+{
+    XLogRecPtr lsn = record->EndRecPtr;
+    xl_hash_vacuum_one_page *xldata = (xl_hash_vacuum_one_page *) XLogRecGetData(record);
+    OffsetNumber *toDelete = xldata->offsets;
+    Buffer buffer;
+    Buffer metabuf;
+    XLogRedoAction action;
+
+    // Handle hot standby conflicts before updating pages
+    if (InHotStandby) {
+        RelFileLocator rlocator;
+        XLogRecGetBlockTag(record, 0, &rlocator, NULL, NULL);
+        ResolveRecoveryConflictWithSnapshot(xldata->snapshotConflictHorizon,
+                                           xldata->isCatalogRel, rlocator);
+    }
+
+    // Vacuum tuples from target page
+    action = XLogReadBufferForRedoExtended(record, 0, RBM_NORMAL, true, &buffer);
+    if (action == BLK_NEEDS_REDO) {
+        Page page = (Page) BufferGetPage(buffer);
+
+        // Remove dead tuples
+        PageIndexMultiDelete(page, toDelete, xldata->ntuples);
+
+        // Clear dead tuples flag
+        HashPageOpaque pageopaque = HashPageGetOpaque(page);
+        pageopaque->hasho_flag &= ~LH_PAGE_HAS_DEAD_TUPLES;
+
+        PageSetLSN(page, lsn);
+        MarkBufferDirty(buffer);
+    }
+    if (BufferIsValid(buffer))
+        UnlockReleaseBuffer(buffer);
+
+    // Update meta page tuple count
+    if (XLogReadBufferForRedo(record, 1, &metabuf) == BLK_NEEDS_REDO) {
+        Page metapage = BufferGetPage(metabuf);
+        HashMetaPage metap = HashPageGetMeta(metapage);
+
+        // Decrement tuple count
+        metap->hashm_ntuples -= xldata->ntuples;
+
+        PageSetLSN(metapage, lsn);
+        MarkBufferDirty(metabuf);
+    }
+    if (BufferIsValid(metabuf))
+        UnlockReleaseBuffer(metabuf);
+}
+```

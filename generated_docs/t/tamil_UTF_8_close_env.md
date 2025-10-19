@@ -32,3 +32,12 @@ The function is the counterpart to `tamil_UTF_8_create_env` and should be called
 - The function safely handles NULL pointers (via the underlying `SN_close_env` implementation)
 - Part of PostgreSQL's Snowball stemmer integration for supporting Tamil full-text search cleanup
 - Located in the auto-generated stemmer code for Tamil language processing
+
+## Simplified Source
+
+```c
+extern void tamil_UTF_8_close_env(struct SN_env * z) {
+    // Close Tamil stemming environment with 0 string arrays to deallocate
+    SN_close_env(z, 0);
+}
+```

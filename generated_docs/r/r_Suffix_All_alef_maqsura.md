@@ -31,3 +31,30 @@ This function is part of the Arabic stemming algorithm implementation in Postgre
 - Returns 1 on successful replacement, 0 if the pattern is not found
 - This is a critical normalization step that must occur before other stemming operations to ensure consistent results
 - The function operates on the current word stored in the Snowball environment structure
+
+## Simplified Source
+
+```c
+static int r_Suffix_All_alef_maqsura(struct SN_env * z) {
+    // Mark current position as end boundary
+    z->ket = z->c;
+
+    // Check if word ends with alef maqsura character (137)
+    if (z->c - 1 <= z->lb || z->p[z->c - 1] != 137) {
+        return 0;  // No alef maqsura found
+    }
+
+    // Find the alef maqsura pattern using predefined array (1 pattern)
+    if (!find_among_b(z, a_21, 1)) {
+        return 0;  // Pattern not found
+    }
+
+    // Mark start boundary for replacement
+    z->bra = z->c;
+
+    // Replace alef maqsura (ى) with ya (ي) character
+    slice_from_s(z, 2, s_66);  // Replace with 2-byte ya character
+
+    return 1;  // Successfully normalized
+}
+```

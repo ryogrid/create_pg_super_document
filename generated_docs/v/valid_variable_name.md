@@ -34,3 +34,37 @@ The function is designed to be consistent with variable name character definitio
 - After the first character, digits are allowed in subsequent positions
 - This implementation is synchronized with scanner definitions in multiple PostgreSQL components
 - The function is static and specific to pgbench, copied and modified from psql's implementation
+
+## Simplified Source
+
+```c
+static bool valid_variable_name(const char *name) {
+    const unsigned char *ptr = (const unsigned char *) name;
+
+    // Must not be empty
+    if (*ptr == '\0')
+        return false;
+
+    // First character: must be letter, underscore, or non-ASCII (no digits)
+    if (IS_HIGHBIT_SET(*ptr) ||
+        strchr("ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+               "abcdefghijklmnopqrstuvwxyz"
+               "_", *ptr) != NULL)
+        ptr++;
+    else
+        return false;
+
+    // Remaining characters: letters, digits, underscore, or non-ASCII
+    while (*ptr) {
+        if (IS_HIGHBIT_SET(*ptr) ||
+            strchr("ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+                   "abcdefghijklmnopqrstuvwxyz"
+                   "_0123456789", *ptr) != NULL)
+            ptr++;
+        else
+            return false;
+    }
+
+    return true;
+}
+```

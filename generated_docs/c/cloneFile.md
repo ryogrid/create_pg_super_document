@@ -44,6 +44,46 @@ If cloning fails at any point, the function terminates the program with a fatal 
 ## Notes and Other Information
 - The function is conditionally compiled based on platform capabilities (,  for macOS,  and  for Linux)
 - On Linux, the function opens the source file in read-only mode and creates the destination file with appropriate permissions
-- If the clone operation fails on Linux, the partially created destination file is cleaned up using 
+- If the clone operation fails on Linux, the partially created destination file is cleaned up using
 - The function is primarily used during PostgreSQL upgrades to efficiently duplicate relation files
 - Clone operations require filesystem support (e.g., BTRFS, APFS) and may fall back to regular copying in some upgrade scenarios
+
+## Simplified Source
+
+```c
+void cloneFile(const char *src, const char *dst,
+               const char *schemaName, const char *relName) {
+#if defined(HAVE_COPYFILE) && defined(COPYFILE_CLONE_FORCE)
+    // macOS implementation using copyfile()
+    if (copyfile(src, dst, NULL, COPYFILE_CLONE_FORCE) < 0)
+        pg_fatal("error while cloning relation \"%s.%s\" (\"%s\" to \"%s\"): %m",
+                 schemaName, relName, src, dst);
+
+#elif defined(__linux__) && defined(FICLONE)
+    // Linux implementation using ioctl FICLONE
+    int src_fd, dest_fd;
+
+    // Open source file for reading
+    if ((src_fd = open(src, O_RDONLY | PG_BINARY, 0)) < 0)
+        pg_fatal("error while cloning relation \"%s.%s\": could not open file \"%s\": %m",
+                 schemaName, relName, src);
+
+    // Create destination file
+    if ((dest_fd = open(dst, O_RDWR | O_CREAT | O_EXCL | PG_BINARY,
+                        pg_file_create_mode)) < 0)
+        pg_fatal("error while cloning relation \"%s.%s\": could not create file \"%s\": %m",
+                 schemaName, relName, dst);
+
+    // Perform the clone operation
+    if (ioctl(dest_fd, FICLONE, src_fd) < 0) {
+        int save_errno = errno;
+        unlink(dst);  // Clean up on failure
+        pg_fatal("error while cloning relation \"%s.%s\" (\"%s\" to \"%s\"): %s",
+                 schemaName, relName, src, dst, strerror(save_errno));
+    }
+
+    close(src_fd);
+    close(dest_fd);
+#endif
+}
+```

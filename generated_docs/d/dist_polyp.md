@@ -34,3 +34,17 @@ This function implements the distance calculation between a POLYGON and a Point 
 - The actual distance computation logic is implemented in 
 - Returns the shortest distance between any point on the polygon boundary/interior and the given point
 - Part of PostgreSQL's geometric data types functionality in geo_ops.c
+
+## Simplified Source
+
+```c
+Datum dist_polyp(PG_FUNCTION_ARGS) {
+    // Extract polygon and point from function arguments
+    POLYGON *poly = PG_GETARG_POLYGON_P(0);
+    Point *point = PG_GETARG_POINT_P(1);
+
+    // Calculate distance from polygon to point
+    // Uses same internal function as dist_ppoly (distance is symmetric)
+    PG_RETURN_FLOAT8(dist_ppoly_internal(point, poly));
+}
+```

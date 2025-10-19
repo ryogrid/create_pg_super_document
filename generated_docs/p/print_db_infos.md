@@ -34,3 +34,21 @@ This function provides verbose logging output for database information during th
 - Part of the pg_upgrade utility's debugging and monitoring system
 - Provides hierarchical output: database name followed by its relations and slots
 - Database names are quoted in the output for clarity
+
+## Simplified Source
+
+```c
+static void
+print_db_infos(DbInfoArr *db_arr)
+{
+    // Print information for each database
+    for (int dbnum = 0; dbnum < db_arr->ndbs; dbnum++) {
+        DbInfo *pDbInfo = &db_arr->dbs[dbnum];
+
+        // Log database name and print detailed info
+        pg_log(PG_VERBOSE, "Database: \"%s\"", pDbInfo->db_name);
+        print_rel_infos(&pDbInfo->rel_arr);
+        print_slot_infos(&pDbInfo->slot_arr);
+    }
+}
+```

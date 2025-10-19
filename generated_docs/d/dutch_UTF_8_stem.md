@@ -60,3 +60,32 @@ The function ensures proper cursor management throughout all phases and provides
 - Part of the libstemmer library providing standardized stemming interfaces
 - Complements the ISO-8859-1 variant (dutch_ISO_8859_1_stem) for different character encoding requirements
 - The structured approach enables easy debugging and maintenance of the Dutch stemming rules
+
+## Simplified Source
+
+```c
+extern int dutch_UTF_8_stem(struct SN_env * z) {
+    // Phase 1: Initial preprocessing and character normalization
+    int saved_cursor = z->c;
+    if (r_prelude(z) < 0) return -1;
+    z->c = saved_cursor;
+
+    // Phase 2: Mark R1 and R2 regions for morphological boundaries
+    saved_cursor = z->c;
+    if (r_mark_regions(z) < 0) return -1;
+    z->c = saved_cursor;
+
+    // Phase 3: Process suffixes (main stemming phase)
+    z->lb = z->c;
+    z->c = z->l;  // Move to end for backward processing
+    if (r_standard_suffix(z) < 0) return -1;
+
+    // Phase 4: Final cleanup and character transformations
+    z->c = z->lb;
+    saved_cursor = z->c;
+    if (r_postlude(z) < 0) return -1;
+    z->c = saved_cursor;
+
+    return 1;  // Success
+}
+```

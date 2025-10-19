@@ -32,3 +32,13 @@ The function internally calls `SN_close_env` with a parameter of 0, indicating t
 - Located in src/backend/snowball/libstemmer/stem_ISO_8859_1_dutch.c:602-603
 - This is an external interface function, making it accessible from other parts of the PostgreSQL codebase
 - Should be called for every environment created with `dutch_ISO_8859_1_create_env` to prevent memory leaks
+
+## Simplified Source
+
+```c
+extern void dutch_ISO_8859_1_close_env(struct SN_env * z) {
+    // Cleanup Snowball environment for Dutch stemming
+    // Parameter 0: no string arrays to deallocate
+    SN_close_env(z, 0);
+}
+```

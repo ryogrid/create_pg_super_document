@@ -26,3 +26,19 @@ int8larger compares two 64-bit signed integers and returns the larger value. Thi
 
 ## Notes and Other Information
 This function provides the underlying implementation for PostgreSQL's greatest() function when applied to bigint values, or for any SQL context where the maximum of two bigint values is needed. The implementation uses a simple ternary operator for the comparison. The function is defined in src/backend/utils/adt/int8.c:866-877.
+
+## Simplified Source
+
+```c
+Datum
+int8larger(PG_FUNCTION_ARGS)
+{
+    // Extract two bigint arguments
+    int64 arg1 = PG_GETARG_INT64(0);
+    int64 arg2 = PG_GETARG_INT64(1);
+
+    // Return the larger value
+    int64 result = (arg1 > arg2) ? arg1 : arg2;
+    PG_RETURN_INT64(result);
+}
+```

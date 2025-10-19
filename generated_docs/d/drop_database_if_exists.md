@@ -37,3 +37,21 @@ The function works by:
 - The warning level setting prevents noise in test output when dropping non-existent databases
 - Part of PostgreSQL's test cleanup and setup infrastructure
 - Designed to be safe for use in automated testing environments where database state may be uncertain
+
+## Simplified Source
+
+```c
+static void drop_database_if_exists(const char *dbname) {
+    // Start building a psql command
+    StringInfo buf = psql_start_command();
+
+    // Suppress warnings about non-existent databases
+    psql_add_command(buf, "SET client_min_messages = warning");
+
+    // Drop the database if it exists (won't error if missing)
+    psql_add_command(buf, "DROP DATABASE IF EXISTS \"%s\"", dbname);
+
+    // Execute commands against the postgres database
+    psql_end_command(buf, "postgres");
+}
+```

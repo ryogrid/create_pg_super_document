@@ -35,3 +35,15 @@ The `path_isopen` function is a conversion operator that checks if a PATH object
 - Used in SQL queries to test path properties, e.g., `WHERE path_isopen(mypath)`
 - Provides convenient access to test for open paths without requiring negation in SQL queries
 - Location: src/backend/utils/adt/geo_ops.c:1610-1617
+
+## Simplified Source
+
+```c
+Datum path_isopen(PG_FUNCTION_ARGS) {
+    // Extract PATH object from function argument
+    PATH *path = PG_GETARG_PATH_P(0);
+
+    // Return negation of closed flag (open = !closed)
+    PG_RETURN_BOOL(!path->closed);
+}
+```

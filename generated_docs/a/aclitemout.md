@@ -42,3 +42,57 @@ The aclitemout function is a PostgreSQL output function that converts an interna
 - Allocates sufficient buffer space for maximum possible output length
 - Part of PostgreSQL's type system infrastructure for ACL item input/output
 - Privilege characters are defined in ACL_ALL_RIGHTS_STR constant
+
+## Simplified Source
+
+```c
+Datum aclitemout(PG_FUNCTION_ARGS) {
+    AclItem *aip = PG_GETARG_ACLITEM_P(0);
+    char *out, *p;
+    HeapTuple htup;
+    unsigned i;
+
+    // Allocate buffer for output string
+    out = palloc(strlen("=/") + 2 * N_ACL_RIGHTS + 2 * (2 * NAMEDATALEN + 2) + 1);
+    p = out;
+    *p = '\0';
+
+    // Format grantee (role name or OID)
+    if (aip->ai_grantee != ACL_ID_PUBLIC) {
+        htup = SearchSysCache1(AUTHOID, ObjectIdGetDatum(aip->ai_grantee));
+        if (HeapTupleIsValid(htup)) {
+            putid(p, NameStr(((Form_pg_authid) GETSTRUCT(htup))->rolname));
+            ReleaseSysCache(htup);
+        } else {
+            sprintf(p, "%u", aip->ai_grantee);  // Use OID if role not found
+        }
+    }
+
+    // Move to end of grantee string
+    while (*p) ++p;
+
+    *p++ = '=';
+
+    // Format privileges and grant options
+    for (i = 0; i < N_ACL_RIGHTS; ++i) {
+        if (ACLITEM_GET_PRIVS(*aip) & (UINT64CONST(1) << i))
+            *p++ = ACL_ALL_RIGHTS_STR[i];
+        if (ACLITEM_GET_GOPTIONS(*aip) & (UINT64CONST(1) << i))
+            *p++ = '*';  // Mark grant option
+    }
+
+    *p++ = '/';
+    *p = '\0';
+
+    // Format grantor (role name or OID)
+    htup = SearchSysCache1(AUTHOID, ObjectIdGetDatum(aip->ai_grantor));
+    if (HeapTupleIsValid(htup)) {
+        putid(p, NameStr(((Form_pg_authid) GETSTRUCT(htup))->rolname));
+        ReleaseSysCache(htup);
+    } else {
+        sprintf(p, "%u", aip->ai_grantor);  // Use OID if role not found
+    }
+
+    PG_RETURN_CSTRING(out);
+}
+```

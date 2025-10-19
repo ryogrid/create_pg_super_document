@@ -33,3 +33,24 @@ This function implements the core algorithm for determining the "true" length of
 - Used internally by many CHAR type operations including comparisons, sorting, and hashing
 - Performance-critical function that uses simple backwards iteration for efficiency
 - The function handles edge cases like strings shorter than the specified length gracefully
+
+## Simplified Source
+
+```c
+int bpchartruelen(char *s, int len) {
+    // Find last non-space character by scanning backwards
+    for (int i = len - 1; i >= 0; i--) {
+        if (s[i] != ' ') {
+            return i + 1;  // Return length including this character
+        }
+    }
+    return 0;  // All spaces or empty string
+}
+```
+
+**Key Points:**
+- Scans backwards from end of string to find last non-space character
+- Returns effective length excluding trailing spaces
+- Assumes space (' ') is single-byte in all supported encodings
+- Essential for CHAR type semantics where trailing spaces are padding
+- Returns 0 for strings that are all spaces or empty

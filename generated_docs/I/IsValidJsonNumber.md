@@ -25,3 +25,40 @@ The IsValidJsonNumber function provides a standalone way to validate JSON number
 
 ## Notes and Other Information
 This function is particularly useful for validating JSON numbers in contexts where a full JSON parse is not needed. The function handles the JSON number specification correctly, including support for negative numbers by preprocessing the minus sign. The implementation creates a dummy lexer context specifically for validation purposes, making it safe to use independently of other JSON parsing operations. Note that the function requires casting away const-ness of the input string, which is documented as an ugly but necessary implementation detail.
+
+## Simplified Source
+
+```c
+bool IsValidJsonNumber(const char *str, size_t len)
+{
+    bool numeric_error;
+    size_t total_len;
+    JsonLexContext dummy_lex;
+
+    // Basic validation
+    if (len <= 0)
+        return false;
+
+    // Initialize dummy lexer context
+    dummy_lex.incremental = false;
+    dummy_lex.inc_state = NULL;
+    dummy_lex.pstack = NULL;
+
+    // Handle negative numbers by skipping leading '-'
+    if (*str == '-') {
+        dummy_lex.input = str + 1;
+        dummy_lex.input_length = len - 1;
+    } else {
+        dummy_lex.input = str;
+        dummy_lex.input_length = len;
+    }
+
+    dummy_lex.token_start = dummy_lex.input;
+
+    // Validate the number using JSON lexer
+    json_lex_number(&dummy_lex, dummy_lex.input, &numeric_error, &total_len);
+
+    // Return true if no error and entire string was consumed
+    return (!numeric_error) && (total_len == dummy_lex.input_length);
+}
+```

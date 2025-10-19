@@ -46,3 +46,35 @@ This function opens a target file for writing as part of pg_rewind's file synchr
 - Honors PostgreSQL's standard file creation permissions via pg_file_create_mode
 - Essential for pg_rewind's ability to synchronize files between PostgreSQL data directories
 - File operations are designed to be atomic and safe for database file handling
+
+## Simplified Source
+
+```c
+void open_target_file(const char *path, bool trunc) {
+    // Skip file operations in dry-run mode
+    if (dry_run)
+        return;
+
+    // Check if same file is already open and truncation not needed
+    if (dstfd != -1 && !trunc &&
+        strcmp(path, &dstpath[strlen(datadir_target) + 1]) == 0) {
+        return; // File already open
+    }
+
+    // Close any currently open file
+    close_target_file();
+
+    // Build full target file path
+    snprintf(dstpath, sizeof(dstpath), "%s/%s", datadir_target, path);
+
+    // Set file open mode (write, create, binary)
+    int mode = O_WRONLY | O_CREAT | PG_BINARY;
+    if (trunc)
+        mode |= O_TRUNC;
+
+    // Open the target file
+    dstfd = open(dstpath, mode, pg_file_create_mode);
+    if (dstfd < 0)
+        pg_fatal("could not open target file \"%s\": %m", dstpath);
+}
+```

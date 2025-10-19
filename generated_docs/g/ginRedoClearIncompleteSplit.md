@@ -41,3 +41,30 @@ The function reads the buffer for the specified block, checks if redo is needed,
 - The function safely handles the case where the buffer might not be valid
 - Page modifications are protected by proper LSN updates to ensure WAL consistency
 - The incomplete split mechanism is crucial for maintaining index consistency across system crashes during split operations
+
+## Simplified Source
+
+```c
+static void
+ginRedoClearIncompleteSplit(XLogReaderState *record, uint8 block_id)
+{
+    XLogRecPtr lsn = record->EndRecPtr;
+    Buffer buffer;
+    Page page;
+
+    // Read buffer and check if redo is needed
+    if (XLogReadBufferForRedo(record, block_id, &buffer) == BLK_NEEDS_REDO) {
+        // Get page and clear incomplete split flag
+        page = (Page) BufferGetPage(buffer);
+        GinPageGetOpaque(page)->flags &= ~GIN_INCOMPLETE_SPLIT;
+
+        // Update page LSN and mark dirty for WAL consistency
+        PageSetLSN(page, lsn);
+        MarkBufferDirty(buffer);
+    }
+
+    // Clean up buffer if valid
+    if (BufferIsValid(buffer))
+        UnlockReleaseBuffer(buffer);
+}
+```

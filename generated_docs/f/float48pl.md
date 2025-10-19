@@ -36,3 +36,16 @@ This function is part of PostgreSQL's mixed-precision arithmetic operators that 
 - The function signature follows PostgreSQL's function calling convention using PG_FUNCTION_ARGS
 - [Result](../R/Result.md) precision is determined by the higher-precision operand (float8)
 - Ensures mathematical operations between different float types are handled consistently
+
+## Simplified Source
+
+```c
+Datum float48pl(PG_FUNCTION_ARGS) {
+    // Get arguments: float4 + float8
+    float4 arg1 = PG_GETARG_FLOAT4(0);  // Single-precision operand
+    float8 arg2 = PG_GETARG_FLOAT8(1);  // Double-precision operand
+
+    // Promote float4 to float8 and add using float8_pl
+    PG_RETURN_FLOAT8(float8_pl((float8) arg1, arg2));
+}
+```

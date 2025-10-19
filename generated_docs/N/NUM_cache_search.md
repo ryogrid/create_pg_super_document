@@ -33,3 +33,27 @@ This function performs a linear search through the numeric formatting cache to f
 - Returns NULL when no matching entry is found
 - Cache hit updates entry age to implement LRU replacement policy
 - Part of the numeric formatting cache management system located in src/backend/utils/adt/formatting.c:5131-5151
+
+## Simplified Source
+
+```c
+static NUMCacheEntry *NUM_cache_search(const char *str) {
+    // Prevent counter overflow before incrementing
+    NUM_prevent_counter_overflow();
+
+    // Linear search through cache entries
+    for (int i = 0; i < n_NUMCache; i++) {
+        NUMCacheEntry *ent = NUMCache[i];
+
+        // Check if entry is valid and format string matches
+        if (ent->valid && strcmp(ent->str, str) == 0) {
+            // Cache hit: update age for LRU ordering
+            ent->age = (++NUMCounter);
+            return ent;
+        }
+    }
+
+    // No match found
+    return NULL;
+}
+```

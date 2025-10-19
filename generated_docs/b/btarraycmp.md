@@ -38,3 +38,15 @@ This function is specifically designed for B-tree index support operations where
 - Essential for efficient array indexing and sorting operations in PostgreSQL
 - Performance depends on array size and element type comparison complexity
 - Used internally by the B-tree access method for maintaining sorted array indexes
+
+## Simplified Source
+
+```c
+Datum btarraycmp(PG_FUNCTION_ARGS) {
+    // Return three-way comparison result for B-tree operations
+    // Returns: -1 (less than), 0 (equal), or 1 (greater than)
+    return PG_RETURN_INT32(array_cmp(fcinfo));
+}
+```
+
+This function provides a three-way comparison result for arrays, essential for B-tree index operations. Unlike boolean comparison functions, it returns the actual comparison result (-1, 0, or 1) from `array_cmp()` for efficient sorting and indexing.

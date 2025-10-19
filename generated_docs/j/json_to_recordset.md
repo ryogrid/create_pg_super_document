@@ -29,3 +29,18 @@ The `json_to_recordset` function is a wrapper that provides the SQL interface fo
 - The `true, false` parameters indicate: is JSON (not JSONB), and no record argument provided
 - The output record structure is inferred from the query context rather than from an explicit record argument
 - Part of PostgreSQL`s JSON functionality for treating JSON data relationally without explicit type definitions
+
+## Simplified Source
+
+```c
+Datum json_to_recordset(PG_FUNCTION_ARGS) {
+    // Delegate to the main recordset population worker
+    // Parameters: function context, function name, is_json=true, has_record_arg=false
+    return populate_recordset_worker(fcinfo, "json_to_recordset", true, false);
+}
+```
+
+This function is a simple wrapper that:
+1. Takes the standard PostgreSQL function arguments
+2. Calls the main recordset worker with JSON format and no explicit record argument
+3. Returns the populated recordset with structure inferred from context

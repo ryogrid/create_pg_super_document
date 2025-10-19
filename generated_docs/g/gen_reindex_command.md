@@ -66,3 +66,78 @@ The function builds commands in the format:
 - The function always terminates the command with a semicolon
 - No validation is performed on input parameters - caller is responsible for providing valid values
 - The generated command is appended to existing buffer content, allowing for command batching
+
+## Simplified Source
+
+```c
+static void
+gen_reindex_command(PGconn *conn, ReindexType type, const char *name,
+                    bool echo, bool verbose, bool concurrently,
+                    const char *tablespace, PQExpBufferData *sql)
+{
+    const char *sep = "(";
+
+    // Start building REINDEX command
+    appendPQExpBufferStr(sql, "REINDEX ");
+
+    // Add options in parentheses if any are specified
+    if (verbose) {
+        appendPQExpBuffer(sql, "%sVERBOSE", sep);
+        sep = ", ";
+    }
+
+    if (tablespace) {
+        appendPQExpBuffer(sql, "%sTABLESPACE %s", sep,
+                         fmtIdEnc(tablespace, PQclientEncoding(conn)));
+        sep = ", ";
+    }
+
+    // Close options parentheses if any options were added
+    if (sep != "(")
+        appendPQExpBufferStr(sql, ") ");
+
+    // Add object type keyword
+    switch (type) {
+        case REINDEX_DATABASE:
+            appendPQExpBufferStr(sql, "DATABASE ");
+            break;
+        case REINDEX_INDEX:
+            appendPQExpBufferStr(sql, "INDEX ");
+            break;
+        case REINDEX_SCHEMA:
+            appendPQExpBufferStr(sql, "SCHEMA ");
+            break;
+        case REINDEX_SYSTEM:
+            appendPQExpBufferStr(sql, "SYSTEM ");
+            break;
+        case REINDEX_TABLE:
+            appendPQExpBufferStr(sql, "TABLE ");
+            break;
+    }
+
+    // Add CONCURRENTLY option after object type
+    if (concurrently)
+        appendPQExpBufferStr(sql, "CONCURRENTLY ");
+
+    // Add object name with appropriate formatting
+    switch (type) {
+        case REINDEX_DATABASE:
+        case REINDEX_SYSTEM:
+            // Simple identifier encoding for database/system names
+            appendPQExpBufferStr(sql, fmtIdEnc(name, PQclientEncoding(conn)));
+            break;
+        case REINDEX_INDEX:
+        case REINDEX_TABLE:
+            // Qualified relation format for tables and indexes
+            appendQualifiedRelation(sql, name, conn, echo);
+            break;
+        case REINDEX_SCHEMA:
+            // Plain name for schemas
+            appendPQExpBufferStr(sql, name);
+            break;
+    }
+
+    // Terminate command with semicolon
+    appendPQExpBufferChar(sql, ';');
+}
+```

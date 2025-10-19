@@ -32,3 +32,12 @@ The `bernoulli_initsamplescan` function is called during PostgreSQL executor ini
 - The allocated memory will be automatically freed when the memory context is destroyed
 - This initialization occurs once per scan, before any actual sampling begins
 - The BernoulliSamplerData structure will be used to store sampling parameters and state during scan execution
+
+## Simplified Source
+```c
+static void bernoulli_initsamplescan(SampleScanState *node, int eflags)
+{
+    // Allocate and initialize Bernoulli sampler state
+    node->tsm_state = palloc0(sizeof(BernoulliSamplerData));
+}
+```

@@ -33,3 +33,37 @@ The  function is responsible for reading script files in pgbench, PostgreSQL's b
 - Automatically handles both regular files and stdin input transparently
 - Memory management is properly handled with free() call after script parsing
 - The filename parameter storage must persist as noted in the comment, suggesting the filename string is retained by ParseScript
+
+## Simplified Source
+
+```c
+static void
+process_file(const char *filename, int weight)
+{
+    FILE *fd;
+    char *buf;
+
+    // Open file or use stdin
+    if (strcmp(filename, "-") == 0)
+        fd = stdin;
+    else if ((fd = fopen(filename, "r")) == NULL)
+        pg_fatal("could not open file \"%s\": %m", filename);
+
+    // Read entire file contents
+    buf = read_file_contents(fd);
+
+    // Check for read errors
+    if (ferror(fd))
+        pg_fatal("could not read file \"%s\": %m", filename);
+
+    // Close file if not stdin
+    if (fd != stdin)
+        fclose(fd);
+
+    // Parse and register the script
+    ParseScript(buf, filename, weight);
+
+    // Clean up
+    free(buf);
+}
+```

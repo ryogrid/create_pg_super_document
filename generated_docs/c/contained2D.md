@@ -35,3 +35,23 @@ This static helper function tests for the reverse containment relationship in 2D
 - Returns true if there is potential for containment, false otherwise
 - Serves as a building block for higher-dimensional contained tests like `contained4D`
 - Critical for implementing "contained by" spatial operators in PostgreSQL geometric queries
+
+## Simplified Source
+
+```c
+/* Check if any range from range_box can be contained by query range */
+static bool
+contained2D(RangeBox *range_box, Range *query)
+{
+    // Test if left range overlaps with query bounds
+    bool left_overlaps = (range_box->left.low <= query->high) &&
+                        (range_box->left.high >= query->low);
+
+    // Test if right range overlaps with query bounds
+    bool right_overlaps = (range_box->right.low <= query->high) &&
+                         (range_box->right.high >= query->low);
+
+    // Both ranges must overlap for potential containment
+    return left_overlaps && right_overlaps;
+}
+```

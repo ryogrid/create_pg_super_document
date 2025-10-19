@@ -33,3 +33,13 @@ This is the companion cleanup function to `arabic_UTF_8_create_env`, responsible
 - Part of the standard Snowball stemmer API pattern for proper resource management
 - Failure to call this function will result in memory leaks
 - The function cleans up all resources including the 3 integer state variables and working string buffer allocated during environment creation
+
+## Simplified Source
+
+```c
+extern void arabic_UTF_8_close_env(struct SN_env * z) {
+    // Clean up Arabic Snowball environment
+    // Parameter 0: number of string arrays to clean (matches create_env)
+    SN_close_env(z, 0);
+}
+```

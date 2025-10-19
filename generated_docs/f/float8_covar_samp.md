@@ -36,3 +36,24 @@ This function calculates the sample covariance by extracting the sum of products
 - Part of PostgreSQL's statistical aggregate functions suite
 - The transition array structure: [0]=N, [1]=Sx, [2]=Sxx, [3]=Sy, [4]=Syy, [5]=Sxy
 - Location: src/backend/utils/adt/float.c:3625-3643
+
+## Simplified Source
+
+```c
+Datum float8_covar_samp(PG_FUNCTION_ARGS) {
+    ArrayType *transarray = PG_GETARG_ARRAYTYPE_P(0);
+
+    // Extract regression values from 6-element array
+    float8 *transvalues = check_float8_array(transarray, "float8_covar_samp", 6);
+    float8 N = transvalues[0];   // Count of data points
+    float8 Sxy = transvalues[5]; // Sum of products (X*Y)
+
+    // Return NULL if insufficient sample size (need at least 2 points)
+    if (N < 2.0)
+        PG_RETURN_NULL();
+
+    // Return sample covariance: sum of products / (count - 1)
+    // Uses Bessel's correction for unbiased estimation
+    PG_RETURN_FLOAT8(Sxy / (N - 1.0));
+}
+```

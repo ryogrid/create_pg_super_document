@@ -34,3 +34,22 @@ This function extends the hashint8 algorithm by incorporating an additional 64-b
 - Located in src/backend/access/hash/hashfunc.c:103-115
 - Essential for hash-based operations requiring additional collision resistance
 - The seed parameter enables better hash distribution in scenarios like hash joins with multiple hash functions
+
+## Simplified Source
+
+```c
+Datum
+hashint8extended(PG_FUNCTION_ARGS)
+{
+    // Extract 64-bit integer and seed
+    int64 val = PG_GETARG_INT64(0);
+    uint32 lohalf = (uint32) val;
+    uint32 hihalf = (uint32) (val >> 32);
+
+    // Combine high and low halves using XOR (same approach as hashint8)
+    lohalf ^= (val >= 0) ? hihalf : ~hihalf;
+
+    // Hash combined value with extended function
+    return hash_uint32_extended(lohalf, PG_GETARG_INT64(1));
+}
+```

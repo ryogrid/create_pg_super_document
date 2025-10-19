@@ -38,3 +38,14 @@ This function takes no parameters (uses `PG_FUNCTION_ARGS` macro for PostgreSQL 
 - Helps administrators track configuration management activities
 - Different from server start time - this reflects the last configuration reload event
 - The function is defined in `src/backend/utils/adt/timestamp.c` at lines 1642-1653
+
+## Simplified Source
+
+```c
+Datum
+pg_conf_load_time(PG_FUNCTION_ARGS)
+{
+    // Return the configuration reload timestamp stored in global variable
+    PG_RETURN_TIMESTAMPTZ(PgReloadTime);
+}
+```

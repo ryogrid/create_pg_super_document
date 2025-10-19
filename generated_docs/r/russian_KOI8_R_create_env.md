@@ -25,3 +25,13 @@ The function calls SN_create_env with parameters (0, 2), indicating no string ar
 
 ## Notes and Other Information
 This function is part of PostgreSQL's full-text search infrastructure for Russian language support. The returned environment must be properly closed using russian_KOI8_R_close_env to prevent memory leaks. The function returns NULL on allocation failure, so callers should check the return value. The KOI8-R encoding support reflects historical importance of this character set in Russian computing environments.
+
+## Simplified Source
+
+```c
+extern struct SN_env * russian_KOI8_R_create_env(void) {
+    // Create Snowball environment for Russian KOI8-R stemming
+    // Parameters: 0 string slots, 2 integer slots for morphological regions
+    return SN_create_env(0, 2);
+}
+```

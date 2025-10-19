@@ -35,3 +35,16 @@ This function implements the addition operation for mixed-precision floating-poi
 - This is the reverse operand order compared to float48pl - float8 comes first, then float4
 - Located in src/backend/utils/adt/float.c:3819-3827
 - Part of a family of float84 functions including float84mi, float84mul, and float84div
+
+## Simplified Source
+
+```c
+Datum float84pl(PG_FUNCTION_ARGS) {
+    // Get arguments: float8 + float4
+    float8 arg1 = PG_GETARG_FLOAT8(0);  // Double-precision operand
+    float4 arg2 = PG_GETARG_FLOAT4(1);  // Single-precision operand
+
+    // Promote float4 to float8 and add using float8_pl
+    PG_RETURN_FLOAT8(float8_pl(arg1, (float8) arg2));
+}
+```

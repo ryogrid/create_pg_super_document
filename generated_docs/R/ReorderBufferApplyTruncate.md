@@ -43,3 +43,17 @@ TRUNCATE operations are special in logical replication because they can affect m
 - The streaming parameter determines the execution path, enabling support for both traditional and streaming logical replication modes
 - Complements ReorderBufferApplyChange by handling the specific case of TRUNCATE operations
 - Helper function design pattern reduces code duplication in ReorderBufferProcessTXN
+
+## Simplified Source
+```c
+static inline void ReorderBufferApplyTruncate(ReorderBuffer *rb, ReorderBufferTXN *txn,
+                                            int nrelations, Relation *relations,
+                                            ReorderBufferChange *change, bool streaming)
+{
+    // Choose between streaming and regular truncate application
+    if (streaming)
+        rb->stream_truncate(rb, txn, nrelations, relations, change);
+    else
+        rb->apply_truncate(rb, txn, nrelations, relations, change);
+}
+```

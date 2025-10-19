@@ -32,3 +32,26 @@ This function computes the sample standard deviation from aggregate transition v
 - Part of PostgreSQL's statistical aggregate function suite
 - Implements SQL:2003 standard STDDEV_SAMP aggregate function
 - The Sxx value is guaranteed to be non-negative due to its mathematical definition
+
+## Simplified Source
+
+```c
+Datum
+float8_stddev_samp(PG_FUNCTION_ARGS)
+{
+    ArrayType *transarray = PG_GETARG_ARRAYTYPE_P(0);
+
+    // Extract N (count) and Sxx (sum of squared deviations) from transition state
+    float8 *transvalues = check_float8_array(transarray, "float8_stddev_samp", 3);
+    float8 N = transvalues[0];    // Count of values
+    // transvalues[1] (Sx) ignored for standard deviation calculation
+    float8 Sxx = transvalues[2];  // Sum of squared deviations
+
+    // Sample standard deviation undefined for N ≤ 1 (need at least 2 values)
+    if (N <= 1.0)
+        PG_RETURN_NULL();
+
+    // Return sample standard deviation with Bessel's correction: sqrt(Sxx / (N-1))
+    PG_RETURN_FLOAT8(sqrt(Sxx / (N - 1.0)));
+}
+```

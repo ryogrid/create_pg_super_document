@@ -35,3 +35,12 @@ The function simply returns the current value of XactTopFullTransactionId withou
 - Located in src/backend/access/transam/xact.c:496-508
 - Used primarily for SQL functions that need to expose the current transaction ID only if it already exists
 - Complementary to GetTopFullTransactionId which always ensures an ID is assigned
+
+## Simplified Source
+
+```c
+FullTransactionId GetTopFullTransactionIdIfAny(void) {
+    // Return current top-level transaction ID without forcing assignment
+    return XactTopFullTransactionId;
+}
+```

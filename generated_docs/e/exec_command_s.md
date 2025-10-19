@@ -47,3 +47,36 @@ When executed in an active branch, the function first attempts to parse an optio
 - The function properly handles conditional execution by ignoring options when not in an active branch
 - Returns  if the history operation fails, otherwise returns 
 - A newline is explicitly added when displaying history to screen (when no filename is provided)
+
+## Simplified Source
+
+```c
+static backslashResult exec_command_s(PsqlScanState scan_state, bool active_branch) {
+    if (!active_branch) {
+        ignore_slash_options(scan_state);
+        return PSQL_CMD_SKIP_LINE;
+    }
+
+    // Parse optional filename for saving history
+    char *filename = psql_scan_slash_option(scan_state, OT_NORMAL, NULL, true);
+
+    // Handle tilde expansion for home directory
+    expand_tilde(&filename);
+
+    // Save to file or display on screen based on filename presence
+    bool success = printHistory(filename, pset.popt.topt.pager);
+
+    // Provide feedback when successfully writing to file
+    if (success && !pset.quiet && filename) {
+        printf(_("Wrote history to file \"%s\".\n"), filename);
+    }
+
+    // Add newline when displaying to screen (no filename)
+    if (!filename) {
+        putchar('\n');
+    }
+
+    free(filename);
+    return success ? PSQL_CMD_SKIP_LINE : PSQL_CMD_ERROR;
+}
+```

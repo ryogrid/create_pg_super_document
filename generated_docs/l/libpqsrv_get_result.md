@@ -39,3 +39,32 @@ This function provides an interrupt-aware wrapper around PQgetResult() by first 
 - Continues consuming socket input until the connection is no longer busy
 - Returns NULL if PQconsumeInput() fails, indicating connection problems
 - Located in src/include/libpq/libpq-be-fe-helpers.h:334-385
+
+## Simplified Source
+
+```c
+static inline PGresult *libpqsrv_get_result(PGconn *conn, uint32 wait_event_info) {
+    // Wait until connection is ready for non-blocking result retrieval
+    while (PQisBusy(conn)) {
+        // Wait for socket readability or interrupts
+        int rc = WaitLatchOrSocket(MyLatch,
+                                 WL_EXIT_ON_PM_DEATH | WL_LATCH_SET | WL_SOCKET_READABLE,
+                                 PQsocket(conn), 0, wait_event_info);
+
+        // Handle interrupts
+        if (rc & WL_LATCH_SET) {
+            ResetLatch(MyLatch);
+            CHECK_FOR_INTERRUPTS();
+        }
+
+        // Consume available data from socket
+        if (PQconsumeInput(conn) == 0) {
+            // Connection trouble - PQgetResult() will return NULL
+            break;
+        }
+    }
+
+    // Now get the result without blocking
+    return PQgetResult(conn);
+}
+```

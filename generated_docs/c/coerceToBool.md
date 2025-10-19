@@ -35,3 +35,20 @@ The `coerceToBool` function performs type coercion from a PgBenchValue to a bool
 - Error messages include the actual type name for better debugging
 - This function enforces pgbench's type safety in boolean operations
 - Part of pgbench's type coercion system alongside coerceToInt and coerceToDouble
+
+## Simplified Source
+
+```c
+static bool coerceToBool(PgBenchValue *pval, bool *bval) {
+    // Only accept values that are already boolean type
+    if (pval->type == PGBT_BOOLEAN) {
+        *bval = pval->u.bval;
+        return true;
+    }
+
+    // Reject all other types with error message
+    pg_log_error("cannot coerce %s to boolean", valueTypeName(pval));
+    *bval = false;  // Prevent uninitialized variable warnings
+    return false;
+}
+```

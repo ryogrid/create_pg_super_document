@@ -31,3 +31,14 @@ The `process_builtin` function serves as a wrapper that processes predefined bui
 - The function uses the script description from the BuiltinScript structure as the "filename" parameter for ParseScript
 - Located in src/bin/pgbench/pgbench.c at lines 6137-6143
 - Multiple calls from main() indicate this function is used to load various built-in benchmark scenarios
+
+## Simplified Source
+
+```c
+static void
+process_builtin(const BuiltinScript *bi, int weight)
+{
+    // Parse the built-in script and add it to the script list
+    ParseScript(bi->script, bi->desc, weight);
+}
+```

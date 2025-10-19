@@ -33,3 +33,12 @@ The function essentially acts as a wrapper that forwards the function call infor
 - Part of PostgreSQL's built-in series generation functions for numeric types
 - Located in src/backend/utils/adt/int8.c:1377-1382
 - Marked as non-persistent, meaning it generates values on-demand rather than storing them
+
+## Simplified Source
+
+```c
+Datum generate_series_int8(PG_FUNCTION_ARGS) {
+    // Delegate to step-based implementation
+    return generate_series_step_int8(fcinfo);
+}
+```

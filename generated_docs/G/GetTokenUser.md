@@ -40,3 +40,39 @@ The function follows Windows API conventions for dynamic buffer allocation - it 
 - The function is static (internal to src/common/exec.c) and primarily used for Windows security token manipulation
 - Part of PostgreSQL's Windows authentication and security infrastructure for handling restricted tokens and DACL modifications
 - Memory allocation uses LPTR flag (LMEM_FIXED | LMEM_ZEROINIT) to get zero-initialized memory
+
+## Simplified Source
+
+```c
+static BOOL GetTokenUser(HANDLE hToken, PTOKEN_USER *ppTokenUser) {
+    DWORD buffer_size;
+
+    *ppTokenUser = NULL;
+
+    // First call: get required buffer size
+    if (!GetTokenInformation(hToken, TokenUser, NULL, 0, &buffer_size)) {
+        if (GetLastError() != ERROR_INSUFFICIENT_BUFFER) {
+            // Unexpected error - log and return failure
+            return FALSE;
+        }
+
+        // Allocate memory for token user information
+        *ppTokenUser = (PTOKEN_USER) LocalAlloc(LPTR, buffer_size);
+        if (*ppTokenUser == NULL) {
+            // Out of memory
+            return FALSE;
+        }
+    }
+
+    // Second call: get actual token user information
+    if (!GetTokenInformation(hToken, TokenUser, *ppTokenUser, buffer_size, &buffer_size)) {
+        // Failed to get token info - cleanup and return failure
+        LocalFree(*ppTokenUser);
+        *ppTokenUser = NULL;
+        return FALSE;
+    }
+
+    // Success - caller must call LocalFree() on returned memory
+    return TRUE;
+}
+```

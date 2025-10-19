@@ -46,3 +46,58 @@ The retry logic is particularly important for frontend tools that may be reading
 - CRC validation covers all data except the CRC field itself using offsetof(ControlFileData, crc)
 - In frontend environments, short sleeps (10ms) between retries help avoid reading partially written data
 - Critical for PostgreSQL startup, recovery, and various utility operations that need to examine cluster state
+
+## Simplified Source
+
+```c
+ControlFileData *
+get_controlfile_by_exact_path(const char *ControlFilePath, bool *crc_ok_p)
+{
+    ControlFileData *ControlFile;
+    int fd;
+    pg_crc32c calculated_crc;
+    int bytes_read;
+
+    ControlFile = palloc_object(ControlFileData);
+
+    // Open control file (different methods for backend vs frontend)
+#ifndef FRONTEND
+    fd = OpenTransientFile(ControlFilePath, O_RDONLY | PG_BINARY);
+    if (fd == -1)
+        ereport(ERROR, (errcode_for_file_access(),
+                errmsg("could not open file \"%s\" for reading: %m", ControlFilePath)));
+#else
+    fd = open(ControlFilePath, O_RDONLY | PG_BINARY, 0);
+    if (fd == -1)
+        pg_fatal("could not open file \"%s\" for reading: %m", ControlFilePath);
+#endif
+
+    // Read the complete control file data
+    bytes_read = read(fd, ControlFile, sizeof(ControlFileData));
+    if (bytes_read != sizeof(ControlFileData)) {
+        // Handle read errors (abbreviated for simplicity)
+        pg_fatal("could not read control file completely");
+    }
+
+    // Close file
+#ifndef FRONTEND
+    CloseTransientFile(fd);
+#else
+    close(fd);
+#endif
+
+    // Verify CRC integrity
+    INIT_CRC32C(calculated_crc);
+    COMP_CRC32C(calculated_crc, (char *) ControlFile, offsetof(ControlFileData, crc));
+    FIN_CRC32C(calculated_crc);
+    *crc_ok_p = EQ_CRC32C(calculated_crc, ControlFile->crc);
+
+    // Validate byte ordering
+    if (ControlFile->pg_control_version % 65536 == 0 &&
+        ControlFile->pg_control_version / 65536 != 0) {
+        pg_log_warning("possible byte ordering mismatch");
+    }
+
+    return ControlFile;
+}
+```

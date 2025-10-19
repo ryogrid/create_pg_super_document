@@ -36,3 +36,44 @@ The algorithm handles three main cases: initial traversal (finding the leftmost 
 - Maintains the last_visited pointer to track current position in the tree
 - The function assumes proper iterator initialization before first call
 - Used as part of PostgreSQL's Red-Black tree iteration framework for ordered data access
+
+## Simplified Source
+
+```c
+static RBTNode *
+rbt_left_right_iterator(RBTreeIterator *iter)
+{
+    // First call: find leftmost node in tree
+    if (iter->last_visited == NULL) {
+        iter->last_visited = iter->rbt->root;
+        while (iter->last_visited->left != RBTNIL)
+            iter->last_visited = iter->last_visited->left;
+        return iter->last_visited;
+    }
+
+    // If current node has right subtree, find leftmost in that subtree
+    if (iter->last_visited->right != RBTNIL) {
+        iter->last_visited = iter->last_visited->right;
+        while (iter->last_visited->left != RBTNIL)
+            iter->last_visited = iter->last_visited->left;
+        return iter->last_visited;
+    }
+
+    // Move up tree until we find a node we came to from the left
+    for (;;) {
+        RBTNode *came_from = iter->last_visited;
+        iter->last_visited = iter->last_visited->parent;
+
+        if (iter->last_visited == NULL) {
+            iter->is_over = true;
+            break;
+        }
+
+        // If we came from left subtree, this is next node
+        if (iter->last_visited->left == came_from)
+            break;
+    }
+
+    return iter->last_visited;
+}
+```

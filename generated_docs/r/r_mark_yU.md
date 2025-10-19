@@ -34,3 +34,23 @@ This function is part of the Turkish language stemming implementation that handl
 - Vowel harmony checking is crucial as Turkish suffixes must harmonize with stem vowels
 - Less frequently used compared to other mark functions, primarily called from noun suffix processing
 - Part of the comprehensive Turkish morphological analysis system that handles complex suffix variations
+
+## Simplified Source
+
+```c
+static int r_mark_yU(struct SN_env * z) {
+    // Check vowel harmony first
+    int harmony_check = r_check_vowel_harmony(z);
+    if (harmony_check <= 0) return harmony_check;
+
+    // Ensure current character is in U vowel group (exclude ı and İ)
+    if (in_grouping_b_U(z, g_U, 105, 305, 0))
+        return 0;
+
+    // Mark suffix with optional y consonant
+    int suffix_result = r_mark_suffix_with_optional_y_consonant(z);
+    if (suffix_result <= 0) return suffix_result;
+
+    return 1;  // Successfully marked yU suffix
+}
+```

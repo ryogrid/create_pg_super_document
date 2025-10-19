@@ -38,3 +38,19 @@ The function combines both equality and greater-than comparisons into a single o
 - Typically invoked through SQL expressions like `jsonb_col >= jsonb_value`
 - Critical for implementing BETWEEN clauses and similar inclusive range operations with JSONB data
 - Completes the set of comparison operators needed for full B-Tree indexing support on JSONB columns
+
+## Simplified Source
+
+```c
+Datum jsonb_ge(PG_FUNCTION_ARGS) {
+    Jsonb *jba = PG_GETARG_JSONB_P(0);
+    Jsonb *jbb = PG_GETARG_JSONB_P(1);
+
+    // Return true if first value is greater than or equal to second
+    bool res = (compareJsonbContainers(&jba->root, &jbb->root) >= 0);
+
+    PG_FREE_IF_COPY(jba, 0);
+    PG_FREE_IF_COPY(jbb, 1);
+    PG_RETURN_BOOL(res);
+}
+```

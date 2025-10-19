@@ -29,3 +29,12 @@ The  function is a simple accessor function that returns the mathematical consta
 - No input validation needed as it returns a constant value
 - Located in src/backend/utils/adt/float.c:2566-2575
 - Useful for SQL queries requiring the pi constant for mathematical calculations
+
+## Simplified Source
+
+```c
+Datum dpi(PG_FUNCTION_ARGS) {
+    // Return the mathematical constant π (pi)
+    PG_RETURN_FLOAT8(M_PI);
+}
+```

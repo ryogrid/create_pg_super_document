@@ -34,3 +34,17 @@ This function is part of the bbstreamer framework's three-phase lifecycle where 
 - The cleanup order is important: free the basepath member first, then the containing structure
 - This function should only be called after finalization has completed successfully
 - Located in src/bin/pg_basebackup/bbstreamer_file.c at lines 390-396
+
+## Simplified Source
+
+```c
+static void
+bbstreamer_extractor_free(bbstreamer *streamer)
+{
+    bbstreamer_extractor *extractor = (bbstreamer_extractor *) streamer;
+
+    // Free allocated memory
+    pfree(extractor->basepath);
+    pfree(extractor);
+}
+```

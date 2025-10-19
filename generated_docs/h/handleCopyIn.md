@@ -45,3 +45,113 @@ For text mode, the function reads data line by line to properly detect the EOF m
 - Ensures proper cleanup of connection state even if copy operation fails
 - Buffer management ensures EOF markers are never split across read operations
 - Compatible with both protocol version 2 and 3, though version 2 support is maintained for backward compatibility
+
+## Simplified Source
+
+```c
+bool handleCopyIn(PGconn *conn, FILE *copystream, bool isbinary, PGresult **res) {
+    bool success = true;
+    char buffer[COPYBUFSIZ];
+    bool show_prompt;
+
+    // Set up interrupt handling for user cancellation
+    if (sigsetjmp(sigint_interrupt_jmp, 1) != 0) {
+        // User interrupted - terminate copy operation
+        PQputCopyEnd(conn, "canceled by user");
+        success = false;
+        goto cleanup;
+    }
+
+    // Show prompts if reading from terminal
+    show_prompt = isatty(fileno(copystream));
+    if (show_prompt && !pset.quiet) {
+        puts("Enter data to be copied followed by a newline.\n"
+             "End with a backslash and a period on a line by itself, or an EOF signal.");
+    }
+
+    if (isbinary) {
+        // Binary mode: read data in chunks
+        for (;;) {
+            sigint_interrupt_enabled = true;
+            int bytes_read = fread(buffer, 1, COPYBUFSIZ, copystream);
+            sigint_interrupt_enabled = false;
+
+            if (bytes_read <= 0)
+                break;
+
+            if (PQputCopyData(conn, buffer, bytes_read) <= 0) {
+                success = false;
+                break;
+            }
+        }
+    } else {
+        // Text mode: read line by line to detect EOF marker (\.)
+        bool copy_done = false;
+        int buffer_len = 0;
+        bool at_line_start = true;
+
+        while (!copy_done) {
+            if (at_line_start && show_prompt) {
+                fputs(get_prompt(PROMPT_COPY, NULL), stdout);
+                fflush(stdout);
+            }
+
+            sigint_interrupt_enabled = true;
+            char *line_result = fgets(&buffer[buffer_len],
+                                      COPYBUFSIZ - buffer_len, copystream);
+            sigint_interrupt_enabled = false;
+
+            if (!line_result) {
+                copy_done = true;
+            } else {
+                int line_length = strlen(line_result);
+                buffer_len += line_length;
+
+                // Check for complete line and EOF marker
+                if (buffer[buffer_len - 1] == '\n') {
+                    if (at_line_start &&
+                        (line_length == 3 && memcmp(line_result, "\\.\n", 3) == 0)) {
+                        copy_done = true;
+                    }
+                    at_line_start = true;
+                } else {
+                    at_line_start = false;
+                }
+            }
+
+            // Send buffer when full or copy complete
+            if (buffer_len >= COPYBUFSIZ - 5 || (copy_done && buffer_len > 0)) {
+                if (PQputCopyData(conn, buffer, buffer_len) <= 0) {
+                    success = false;
+                    break;
+                }
+                buffer_len = 0;
+            }
+        }
+    }
+
+    // Check for read errors
+    if (ferror(copystream))
+        success = false;
+
+    // Terminate the copy operation
+    PQputCopyEnd(conn, success ? NULL : "aborted because of read failure");
+
+cleanup:
+    clearerr(copystream);
+
+    // Ensure we exit COPY_IN state
+    while (*res = PQgetResult(conn), PQresultStatus(*res) == PGRES_COPY_IN) {
+        success = false;
+        PQclear(*res);
+        PQputCopyEnd(conn, "trying to exit copy mode");
+    }
+
+    if (PQresultStatus(*res) != PGRES_COMMAND_OK) {
+        pg_log_info("%s", PQerrorMessage(conn));
+        success = false;
+    }
+
+    return success;
+}
+```

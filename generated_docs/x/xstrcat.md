@@ -32,3 +32,16 @@ This utility function extends a dynamically allocated string by appending additi
 - Automatically handles memory management, preventing memory leaks by freeing the original string
 - The function modifies the input pointer to point to the newly allocated concatenated string
 - Heavily used in parse_slash_copy to incrementally build the SQL COPY command
+
+## Simplified Source
+
+```c
+static void xstrcat(char **var, const char *more) {
+    // Create new string with concatenated content
+    char *newvar = psprintf("%s%s", *var, more);
+
+    // Free original string and update pointer
+    free(*var);
+    *var = newvar;
+}
+```

@@ -42,3 +42,38 @@ The function integrates with the XLogReaderState structure to maintain file hand
 - Critical for follow mode operation where WAL files may not be immediately available
 - Part of the pg_waldump utility's integration with PostgreSQL's XLogReader infrastructure
 - Uses MAXPGPATH to ensure filename buffer doesn't overflow
+
+## Simplified Source
+
+```c
+static void WALDumpOpenSegment(XLogReaderState *state, XLogSegNo nextSegNo, TimeLineID *tli_p) {
+    TimeLineID tli = *tli_p;
+    char fname[MAXPGPATH];
+    int tries;
+
+    // Generate WAL filename from timeline and segment number
+    XLogFileName(fname, tli, nextSegNo, state->segcxt.ws_segsize);
+
+    // Retry opening file for follow mode (up to 5 seconds)
+    for (tries = 0; tries < 10; tries++) {
+        state->seg.ws_file = open_file_in_directory(state->segcxt.ws_dir, fname);
+
+        if (state->seg.ws_file >= 0)
+            return; // Success
+
+        // If file not found, wait and retry (for follow mode)
+        if (errno == ENOENT) {
+            int save_errno = errno;
+            pg_usleep(500 * 1000); // Wait 500ms
+            errno = save_errno;
+            continue;
+        }
+
+        // Any other error - stop retrying
+        break;
+    }
+
+    // Failed to open file after retries
+    pg_fatal("could not find file \"%s\": %m", fname);
+}
+```

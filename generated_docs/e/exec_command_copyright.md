@@ -29,3 +29,18 @@ The  function handles the  command in psql, which displays the PostgreSQL copyri
 - No error handling required as copyright display cannot fail meaningfully
 - Takes no arguments and ignores any command line parameters
 - Part of the psql interactive command system located in src/bin/psql/command.c:737-748
+
+## Simplified Source
+
+```c
+static backslashResult
+exec_command_copyright(PsqlScanState scan_state, bool active_branch)
+{
+    if (active_branch) {
+        // Display PostgreSQL copyright notice
+        print_copyright();
+    }
+
+    return PSQL_CMD_SKIP_LINE;
+}
+```

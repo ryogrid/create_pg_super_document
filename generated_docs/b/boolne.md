@@ -35,3 +35,11 @@ The function provides the fundamental inequality comparison logic for boolean da
 - Complement of the `booleq` function (returns opposite result)
 - Essential for boolean inequality comparisons in WHERE clauses, JOIN conditions, and other SQL constructs
 - Located in `src/backend/utils/adt/bool.c` at lines 232-240
+
+## Simplified Source
+```c
+bool boolne(bool arg1, bool arg2) {
+    // Return true if the two boolean values are different
+    return arg1 != arg2;
+}
+```

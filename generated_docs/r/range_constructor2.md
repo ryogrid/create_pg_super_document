@@ -36,3 +36,37 @@ The `range_constructor2` function constructs a PostgreSQL range type from two in
 - NULL arguments are interpreted as infinite bounds rather than causing errors
 - The range type is automatically inferred from the function call context
 - This is the most commonly used range constructor following mathematical interval notation [a, b)
+
+## Simplified Source
+
+```c
+Datum
+range_constructor2(PG_FUNCTION_ARGS)
+{
+	Datum arg1 = PG_GETARG_DATUM(0);
+	Datum arg2 = PG_GETARG_DATUM(1);
+	Oid range_type_oid = get_fn_expr_rettype(fcinfo->flinfo);
+
+	// Get type cache for range operations
+	TypeCacheEntry *typcache = range_get_typcache(fcinfo, range_type_oid);
+
+	// Set up lower bound: inclusive, treat NULL as infinite
+	RangeBound lower;
+	lower.val = PG_ARGISNULL(0) ? (Datum) 0 : arg1;
+	lower.infinite = PG_ARGISNULL(0);
+	lower.inclusive = true;
+	lower.lower = true;
+
+	// Set up upper bound: exclusive, treat NULL as infinite
+	RangeBound upper;
+	upper.val = PG_ARGISNULL(1) ? (Datum) 0 : arg2;
+	upper.infinite = PG_ARGISNULL(1);
+	upper.inclusive = false;
+	upper.lower = false;
+
+	// Create and validate the range
+	RangeType *range = make_range(typcache, &lower, &upper, false, NULL);
+
+	PG_RETURN_RANGE_P(range);
+}
+```

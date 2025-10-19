@@ -39,3 +39,18 @@ The function serves as a fatal-error variant of appendShellStringNoError(), prio
 - Fatal error behavior makes it unsuitable for situations requiring graceful error recovery
 - Future PostgreSQL versions may reject LF/CR characters at the database level (in CREATE ROLE/DATABASE) to prevent these issues upstream
 - Consider using appendShellStringNoError() if graceful error handling is required
+
+## Simplified Source
+
+```c
+void appendShellString(PQExpBuffer buf, const char *str) {
+    // Delegate to non-error version for actual processing
+    if (!appendShellStringNoError(buf, str)) {
+        // Fatal error: string contains dangerous characters (LF or CR)
+        fprintf(stderr,
+                _("shell command argument contains a newline or carriage return: \"%s\"\n"),
+                str);
+        exit(EXIT_FAILURE);
+    }
+}
+```

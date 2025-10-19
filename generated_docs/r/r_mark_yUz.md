@@ -39,3 +39,25 @@ The function works by:
 - The function checks the character 'z' at position (z->c - 1) to ensure it's looking at the right suffix ending
 - The function returns 1 on successful match, 0 on failure, and propagates negative return values from called functions
 - This is part of the Turkish morphological analysis system used for full-text search indexing in PostgreSQL
+
+## Simplified Source
+
+```c
+static int r_mark_yUz(struct SN_env * z) {
+    // Check vowel harmony compliance
+    int ret = r_check_vowel_harmony(z);
+    if (ret <= 0) return ret;
+
+    // Verify current character is 'z' (ASCII 122)
+    if (z->c - 1 <= z->lb || z->p[z->c - 1] != 122) return 0;
+
+    // Match against "yUz" suffix patterns (iz, uz, ız, üz)
+    if (!find_among_b(z, a_14, 4)) return 0;
+
+    // Handle optional 'y' consonant insertion
+    ret = r_mark_suffix_with_optional_y_consonant(z);
+    if (ret <= 0) return ret;
+
+    return 1; // Success
+}
+```

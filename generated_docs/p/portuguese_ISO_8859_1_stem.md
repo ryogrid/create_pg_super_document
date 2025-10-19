@@ -50,3 +50,61 @@ The function uses a state machine approach with backtracking, where different su
 - Processes text from right-to-left during suffix removal phases
 - Specific to ISO-8859-1 character encoding for Portuguese text
 - Part of the libstemmer library implementation for PostgreSQL's text search functionality
+
+## Simplified Source
+
+```c
+extern int portuguese_ISO_8859_1_stem(struct SN_env * z) {
+    // Step 1: Preprocess text (character normalization)
+    int saved_cursor = z->c;
+    r_prelude(z);
+    z->c = saved_cursor;
+
+    // Step 2: Mark morphological regions (R1, R2, RV)
+    r_mark_regions(z);
+
+    // Step 3: Move cursor to end for suffix processing
+    z->lb = z->c;
+    z->c = z->l;
+
+    // Step 4: Try suffix removal strategies in priority order
+    int suffix_removed = 0;
+
+    // Try standard suffix removal first
+    if (r_standard_suffix(z)) {
+        suffix_removed = 1;
+    }
+    // If no standard suffix, try verb suffix removal
+    else if (r_verb_suffix(z)) {
+        suffix_removed = 1;
+    }
+    // If neither worked, try residual suffix removal
+    else {
+        r_residual_suffix(z);
+    }
+
+    // Step 5: Handle special 'ci' pattern in RV region
+    if (suffix_removed) {
+        z->ket = z->c;
+        if (z->c > z->lb && z->p[z->c - 1] == 'i') {
+            z->c--;
+            z->bra = z->c;
+            // Check if preceded by 'c' and in RV region
+            if (z->c > z->lb && z->p[z->c - 1] == 'c' && r_RV(z)) {
+                slice_del(z);
+            }
+        }
+    }
+
+    // Step 6: Process residual forms
+    r_residual_form(z);
+
+    // Step 7: Final postprocessing
+    z->c = z->lb;
+    saved_cursor = z->c;
+    r_postlude(z);
+    z->c = saved_cursor;
+
+    return 1;
+}
+```

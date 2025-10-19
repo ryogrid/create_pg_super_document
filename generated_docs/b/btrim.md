@@ -130,3 +130,20 @@ gawkpath_prepend ()
 - Located in src/backend/utils/adt/oracle_compat.c:342-361
 - Uses the dotrim helper function with both front and back trimming enabled (true, true parameters)
 - Follows PostgreSQL's function calling convention using PG_FUNCTION_ARGS and related macros
+
+## Simplified Source
+
+```c
+Datum btrim(PG_FUNCTION_ARGS) {
+    // Extract input string and character set arguments
+    text *string = PG_GETARG_TEXT_PP(0);
+    text *set = PG_GETARG_TEXT_PP(1);
+
+    // Call core trimming function for both front and back trimming
+    text *result = dotrim(VARDATA_ANY(string), VARSIZE_ANY_EXHDR(string),
+                         VARDATA_ANY(set), VARSIZE_ANY_EXHDR(set),
+                         true, true);  // trim left=true, trim right=true
+
+    PG_RETURN_TEXT_P(result);
+}
+```

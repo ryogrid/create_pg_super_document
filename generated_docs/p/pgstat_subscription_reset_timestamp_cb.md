@@ -29,3 +29,12 @@ The callback mechanism allows the statistics system to perform type-specific ope
 
 ## Notes and Other Information
 This function is part of PostgreSQL's statistics callback infrastructure and is registered with the statistics system for subscription-type statistics. It is not called directly by user code but rather invoked automatically by the statistics framework during reset operations. The reset timestamp is useful for determining when statistics were last cleared, which can be important for interpreting the meaning and age of accumulated statistics data.
+
+## Simplified Source
+
+```c
+void pgstat_subscription_reset_timestamp_cb(PgStatShared_Common *header, TimestampTz ts) {
+    // Cast generic header to subscription-specific structure and set reset timestamp
+    ((PgStatShared_Subscription *) header)->stats.stat_reset_timestamp = ts;
+}
+```

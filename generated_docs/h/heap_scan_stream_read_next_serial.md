@@ -43,3 +43,26 @@ This function works with both forward and backward scans, and supports TID range
 - Supports both forward and backward scan directions through the heapgettup_advance_block function
 - Part of PostgreSQL's streaming read API that optimizes I/O patterns for table scanning
 - Returns InvalidBlockNumber to signal scan completion to the streaming read infrastructure
+
+## Simplified Source
+
+```c
+static BlockNumber heap_scan_stream_read_next_serial(ReadStream *stream,
+                                                    void *callback_private_data,
+                                                    void *per_buffer_data) {
+    HeapScanDesc scan = (HeapScanDesc) callback_private_data;
+
+    if (unlikely(!scan->rs_inited)) {
+        // First call: determine initial block to scan
+        scan->rs_prefetch_block = heapgettup_initial_block(scan, scan->rs_dir);
+        scan->rs_inited = true;
+    } else {
+        // Subsequent calls: advance to next block in scan direction
+        scan->rs_prefetch_block = heapgettup_advance_block(scan,
+                                                          scan->rs_prefetch_block,
+                                                          scan->rs_dir);
+    }
+
+    return scan->rs_prefetch_block;
+}
+```

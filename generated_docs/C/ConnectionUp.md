@@ -34,3 +34,14 @@ ConnectionUp provides a simple way to verify the status of the current PostgreSQ
 - Part of psql's connection management and error handling infrastructure
 - The function relies on the global pset structure which contains psql's runtime state
 - Simple but critical for maintaining robust database connectivity in interactive sessions
+
+## Simplified Source
+
+```c
+static bool
+ConnectionUp(void)
+{
+    // Check if connection is not in bad state
+    return PQstatus(pset.db) != CONNECTION_BAD;
+}
+```

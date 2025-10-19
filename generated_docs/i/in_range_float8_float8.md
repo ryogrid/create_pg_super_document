@@ -42,3 +42,42 @@ The function performs range checking by computing base +/- offset and comparing 
 - Handles infinite base and offset combinations that would produce NaN results
 - Does not require a float8_float4 variant as implicit coercion handles mixed precision scenarios
 - Source location: src/backend/utils/adt/float.c:1020-1095
+
+## Simplified Source
+
+```c
+Datum in_range_float8_float8(PG_FUNCTION_ARGS) {
+    // Extract arguments: value, base, offset, subtract flag, less flag
+    float8 val = PG_GETARG_FLOAT8(0);
+    float8 base = PG_GETARG_FLOAT8(1);
+    float8 offset = PG_GETARG_FLOAT8(2);
+    bool sub = PG_GETARG_BOOL(3);
+    bool less = PG_GETARG_BOOL(4);
+
+    // Validate offset: must be non-negative and not NaN
+    if (isnan(offset) || offset < 0)
+        ereport(ERROR, (errcode(ERRCODE_INVALID_PRECEDING_OR_FOLLOWING_SIZE),
+                       errmsg("invalid preceding or following size in window function")));
+
+    // Handle NaN cases: NaN sorts after all non-NaN values
+    if (isnan(val)) {
+        if (isnan(base))
+            PG_RETURN_BOOL(true);  // NaN = NaN
+        else
+            PG_RETURN_BOOL(!less); // NaN > non-NaN
+    }
+    else if (isnan(base)) {
+        PG_RETURN_BOOL(less);      // non-NaN < NaN
+    }
+
+    // Handle infinite base/offset edge case
+    if (isinf(offset) && isinf(base) && (sub ? base > 0 : base < 0))
+        PG_RETURN_BOOL(true);
+
+    // Compute range boundary: base +/- offset
+    float8 sum = sub ? base - offset : base + offset;
+
+    // Compare value with boundary
+    PG_RETURN_BOOL(less ? val <= sum : val >= sum);
+}
+```

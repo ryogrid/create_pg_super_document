@@ -36,3 +36,14 @@ The function is particularly useful for applications that require non-negative r
 - Provides the full precision range of positive 64-bit signed integers
 - The "p" suffix likely stands for "positive" to distinguish from the full-range version
 - Located in `src/common/pg_prng.c` at lines 182-191
+
+## Simplified Source
+
+```c
+int64
+pg_prng_int64p(pg_prng_state *state)
+{
+    // Generate positive int64 by masking off sign bit
+    return (int64) (xoroshiro128ss(state) & UINT64CONST(0x7FFFFFFFFFFFFFFF));
+}
+```

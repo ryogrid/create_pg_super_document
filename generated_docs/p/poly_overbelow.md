@@ -37,3 +37,12 @@ The implementation uses bounding box comparisons rather than full polygon inters
 - Uses bounding box comparison (boundbox.high.y) for efficient computation
 - Returns true when polygon A's upper bound is at or below polygon B's upper bound
 - Part of PostgreSQL's geometric data type operator family for spatial relationships
+
+## Simplified Source
+
+```c
+bool poly_overbelow(POLYGON *polya, POLYGON *polyb) {
+    // Check if polygon A's highest point is at or below polygon B's highest point
+    return polya->boundbox.high.y <= polyb->boundbox.high.y;
+}
+```

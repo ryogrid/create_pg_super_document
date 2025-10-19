@@ -35,3 +35,31 @@ This function retrieves the start timestamp of a backend process identified by i
 - Helps identify long-running backend processes and analyze process lifecycle
 - This is different from activity_start (current query) and xact_start (current transaction) timestamps
 - Useful for monitoring backend process uptime and identifying processes that may need attention
+
+## Simplified Source
+
+```c
+Datum
+pg_stat_get_backend_start(PG_FUNCTION_ARGS)
+{
+    int32 procNumber = PG_GETARG_INT32(0);
+    TimestampTz result;
+    PgBackendStatus *beentry;
+
+    // Get backend entry by process number
+    if ((beentry = pgstat_get_beentry_by_proc_number(procNumber)) == NULL)
+        PG_RETURN_NULL();
+
+    // Check user permissions
+    if (!HAS_PGSTAT_PERMISSIONS(beentry->st_userid))
+        PG_RETURN_NULL();
+
+    result = beentry->st_proc_start_timestamp;
+
+    // Return NULL if timestamp is 0 (probably can't happen)
+    if (result == 0)
+        PG_RETURN_NULL();
+
+    PG_RETURN_TIMESTAMPTZ(result);
+}
+```

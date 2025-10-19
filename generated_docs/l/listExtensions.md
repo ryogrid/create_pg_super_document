@@ -44,3 +44,53 @@ The query retrieves:
 - Pattern validation is handled by validateSQLNamePattern to ensure SQL injection safety
 - Results are ordered by extension name for consistent presentation
 - Unlike the more detailed listExtensionContents, this provides a summary view of all extensions
+
+## Simplified Source
+
+```c
+bool listExtensions(const char *pattern) {
+    PQExpBufferData buf;
+    PGresult *res;
+    printQueryOpt myopt = pset.popt;
+
+    // Initialize buffer and build query
+    initPQExpBuffer(&buf);
+    printfPQExpBuffer(&buf,
+        "SELECT e.extname AS \"%s\", "
+        "e.extversion AS \"%s\", n.nspname AS \"%s\", c.description AS \"%s\"\n"
+        "FROM pg_catalog.pg_extension e "
+        "LEFT JOIN pg_catalog.pg_namespace n ON n.oid = e.extnamespace "
+        "LEFT JOIN pg_catalog.pg_description c ON c.objoid = e.oid "
+        "AND c.classoid = 'pg_catalog.pg_extension'::pg_catalog.regclass\n",
+        gettext_noop("Name"),
+        gettext_noop("Version"),
+        gettext_noop("Schema"),
+        gettext_noop("Description"));
+
+    // Apply pattern filter if provided
+    if (!validateSQLNamePattern(&buf, pattern,
+                                false, false,
+                                NULL, "e.extname", NULL,
+                                NULL,
+                                NULL, 1)) {
+        termPQExpBuffer(&buf);
+        return false;
+    }
+
+    appendPQExpBufferStr(&buf, "ORDER BY 1;");
+
+    // Execute query and display results
+    res = PSQLexec(buf.data);
+    termPQExpBuffer(&buf);
+    if (!res)
+        return false;
+
+    myopt.title = _("List of installed extensions");
+    myopt.translate_header = true;
+
+    printQuery(res, &myopt, pset.queryFout, false, pset.logfile);
+    PQclear(res);
+
+    return true;
+}
+```

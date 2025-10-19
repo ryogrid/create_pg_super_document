@@ -33,3 +33,13 @@ The very low selectivity value acknowledges that containment relationships are r
 - Part of the geometric selectivity function family in geo_selfuncs.c
 - The very low selectivity reflects the rarity of complete containment relationships in typical spatial data
 - Comparison with other geometric selectivities: containment (0.001) < area-based/overlap (0.005) < positional (0.1)
+
+## Simplified Source
+
+```c
+Datum contsel(PG_FUNCTION_ARGS) {
+    // Return conservative selectivity estimate for containment operations
+    // Containment is a tighter constraint than overlap, so lower probability
+    PG_RETURN_FLOAT8(0.001);
+}
+```

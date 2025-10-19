@@ -37,3 +37,31 @@ This function implements the backend support for PostgreSQL's lo_tell() large ob
 - Part of PostgreSQL's large object API for position tracking
 - The overflow check ensures backward compatibility with 32-bit interfaces
 - Returns current absolute position within the large object data stream
+
+## Simplified Source
+
+```c
+Datum
+be_lo_tell(PG_FUNCTION_ARGS)
+{
+    int32 fd = PG_GETARG_INT32(0);
+    int64 offset;
+
+    // Validate file descriptor
+    if (fd < 0 || fd >= cookies_size || cookies[fd] == NULL)
+        ereport(ERROR,
+                (errcode(ERRCODE_UNDEFINED_OBJECT),
+                 errmsg("invalid large-object descriptor: %d", fd)));
+
+    // Get current position
+    offset = inv_tell(cookies[fd]);
+
+    // Check for overflow when converting to 32-bit result
+    if (offset != (int32) offset)
+        ereport(ERROR,
+                (errcode(ERRCODE_NUMERIC_VALUE_OUT_OF_RANGE),
+                 errmsg("lo_tell result out of range for large-object descriptor %d", fd)));
+
+    PG_RETURN_INT32((int32) offset);
+}
+```

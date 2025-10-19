@@ -32,3 +32,13 @@ The `deccmp` function implements decimal comparison for Informix compatibility i
 - Memory management and null handling are handled by the `deccall2` wrapper
 - Essential for implementing conditional logic and sorting with decimal values
 - Provides seamless migration path for applications using Informix decimal comparisons
+
+## Simplified Source
+
+```c
+int deccmp(decimal *arg1, decimal *arg2) {
+    // Compare two decimal numbers using Informix-compatible semantics
+    // Returns: <0 if arg1 < arg2, 0 if equal, >0 if arg1 > arg2
+    return deccall2(arg1, arg2, PGTYPESnumeric_cmp);
+}
+```

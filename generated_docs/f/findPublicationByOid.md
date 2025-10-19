@@ -36,3 +36,18 @@ This function is part of the pg_dump utility's object lookup system for PostgreS
 - Publications are a key component of PostgreSQL's logical replication system
 - The function follows the same pattern as other findXXXByOid functions in the codebase
 - Used when dumping publication-related metadata and relationships
+
+## Simplified Source
+
+```c
+PublicationInfo *findPublicationByOid(Oid oid) {
+    // Create catalog ID for publication lookup
+    CatalogId catId;
+    catId.tableoid = PublicationRelationId;
+    catId.oid = oid;
+
+    // Find object and return as PublicationInfo
+    DumpableObject *dobj = findObjectByCatalogId(catId);
+    return (PublicationInfo *) dobj;  // Returns NULL if not found
+}
+```

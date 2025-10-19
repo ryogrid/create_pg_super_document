@@ -35,3 +35,14 @@ The function is intentionally simple and focused, performing only the specific t
 - Essential for generating well-formed XML Schema documents
 - Located in src/backend/utils/adt/xml.c:3263-3269
 - Used consistently across all XML Schema generation functions in PostgreSQL
+
+## Simplified Source
+
+```c
+static void
+xsd_schema_element_end(StringInfo result)
+{
+    // Simply append the closing schema tag
+    appendStringInfoString(result, "</xsd:schema>");
+}
+```

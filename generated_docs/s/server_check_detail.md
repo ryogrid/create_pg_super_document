@@ -34,3 +34,19 @@ The function performs only basic presence validation - more detailed validation 
 - Actual directory validation and permissions checking occurs later in bbsink_server_new()
 - Located in src/backend/backup/basebackup_target.c at lines 232-241
 - Part of PostgreSQL's two-phase validation system: early parameter presence check, then detailed validation during execution
+
+## Simplified Source
+
+```c
+static void *server_check_detail(char *target, char *target_detail) {
+    // Server backups require a target detail (directory path)
+    if (target_detail == NULL) {
+        ereport(ERROR,
+                (errcode(ERRCODE_SYNTAX_ERROR),
+                 errmsg("target \"%s\" requires a target detail", target)));
+    }
+
+    // Return the target detail for further processing
+    return target_detail;
+}
+```

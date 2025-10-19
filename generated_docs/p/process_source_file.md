@@ -47,3 +47,32 @@ This function is part of the larger pg_rewind workflow where files from both sou
 - Prevents duplicate processing by checking the source_exists flag in the file entry
 - The link_target parameter is duplicated with pg_strdup() when not NULL to ensure proper memory management
 - This function is typically called during the source file enumeration phase of pg_rewind, before any file actions are decided or executed
+
+## Simplified Source
+
+```c
+void
+process_source_file(const char *path, file_type_t type, size_t size,
+                   const char *link_target)
+{
+    file_entry_t *entry;
+
+    // Treat pg_wal symlinks as directories
+    if (strcmp(path, "pg_wal") == 0 && type == FILE_TYPE_SYMLINK)
+        type = FILE_TYPE_DIRECTORY;
+
+    // Validate relation data files are regular files
+    if (type != FILE_TYPE_REGULAR && isRelDataFile(path))
+        pg_fatal("data file \"%s\" in source is not a regular file", path);
+
+    // Store source file metadata
+    entry = insert_filehash_entry(path);
+    if (entry->source_exists)
+        pg_fatal("duplicate source file \"%s\"", path);
+
+    entry->source_exists = true;
+    entry->source_type = type;
+    entry->source_size = size;
+    entry->source_link_target = link_target ? pg_strdup(link_target) : NULL;
+}
+```

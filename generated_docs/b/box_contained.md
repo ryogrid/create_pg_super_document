@@ -38,3 +38,16 @@ This containment relationship is fundamental in spatial operations and is used e
 - Part of PostgreSQL's comprehensive set of geometric relationship operators for box data types
 - The function implements the "contained by" operator (@) in PostgreSQL's geometric operations
 - Complementary to the  function which tests the opposite relationship
+
+## Simplified Source
+
+```c
+Datum box_contained(PG_FUNCTION_ARGS) {
+    BOX *box1 = PG_GETARG_BOX_P(0);
+    BOX *box2 = PG_GETARG_BOX_P(1);
+
+    // Check if box1 is contained within box2
+    // This reverses the arguments to box_contain_box
+    PG_RETURN_BOOL(box_contain_box(box2, box1));
+}
+```

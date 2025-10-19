@@ -35,3 +35,23 @@ The makeDefElemExtended function is the comprehensive constructor for DefElem no
 - The defaction parameter enables specification of operations like ADD, DROP, SET for ALTER statement contexts
 - Less commonly used than makeDefElem since most definition elements don't require namespace qualification or specific actions
 - Provides maximum flexibility for complex DDL statement parsing and transformation scenarios
+
+## Simplified Source
+
+```c
+DefElem *
+makeDefElemExtended(char *nameSpace, char *name, Node *arg,
+                    DefElemAction defaction, int location)
+{
+    DefElem *res = makeNode(DefElem);
+
+    // Initialize all DefElem fields
+    res->defnamespace = nameSpace;
+    res->defname = name;
+    res->arg = arg;
+    res->defaction = defaction;
+    res->location = location;
+
+    return res;
+}
+```

@@ -37,3 +37,38 @@ This static function constructs a PostgreSQL connection string with properly quo
 - Caller is responsible for checking connection status and handling failures
 - Utilizes global os_info.user for the database username
 - Essential building block for pg_upgrade's database connectivity infrastructure
+
+## Simplified Source
+
+```c
+static PGconn *get_db_conn(ClusterInfo *cluster, const char *db_name) {
+    PQExpBufferData conn_opts;
+    PGconn *conn;
+
+    // Build connection string with proper parameter quoting
+    initPQExpBuffer(&conn_opts);
+
+    // Add database name
+    appendPQExpBufferStr(&conn_opts, "dbname=");
+    appendConnStrVal(&conn_opts, db_name);
+
+    // Add username
+    appendPQExpBufferStr(&conn_opts, " user=");
+    appendConnStrVal(&conn_opts, os_info.user);
+
+    // Add port number
+    appendPQExpBuffer(&conn_opts, " port=%d", cluster->port);
+
+    // Add socket directory if specified
+    if (cluster->sockdir) {
+        appendPQExpBufferStr(&conn_opts, " host=");
+        appendConnStrVal(&conn_opts, cluster->sockdir);
+    }
+
+    // Establish connection and cleanup buffer
+    conn = PQconnectdb(conn_opts.data);
+    termPQExpBuffer(&conn_opts);
+
+    return conn;
+}
+```

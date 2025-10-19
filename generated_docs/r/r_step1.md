@@ -37,3 +37,36 @@ After successful suffix processing, the function sets `z->I[0] = 0`, which appea
 - Returns 1 on successful suffix match and transformation, 0 if no applicable suffix is found
 - Part of the multi-step Greek stemming algorithm that includes case conversion, multiple suffix removal phases, and cleanup
 - Located in src/backend/snowball/libstemmer/stem_UTF_8_greek.c:2474-2540
+
+## Simplified Source
+
+```c
+static int r_step1(struct SN_env * z) {
+    int pattern_match;
+
+    // Find Greek suffix pattern in array a_1 (40 patterns)
+    z->ket = z->c;
+    pattern_match = find_among_b(z, a_1, 40);
+    if (!pattern_match) return 0;
+
+    z->bra = z->c;
+
+    // Replace suffix with appropriate stem ending based on pattern
+    switch (pattern_match) {
+        case 1:  slice_from_s(z, 4, s_24); break;   // 4-byte replacement
+        case 2:  slice_from_s(z, 6, s_25); break;   // 6-byte replacement
+        case 3:  slice_from_s(z, 6, s_26); break;
+        case 4:  slice_from_s(z, 4, s_27); break;
+        case 5:  slice_from_s(z, 8, s_28); break;   // 8-byte replacement
+        case 6:  slice_from_s(z, 6, s_29); break;
+        case 7:  slice_from_s(z, 6, s_30); break;
+        case 8:  slice_from_s(z, 6, s_31); break;
+        case 9:  slice_from_s(z, 4, s_32); break;
+        case 10: slice_from_s(z, 12, s_33); break;  // 12-byte replacement
+        case 11: slice_from_s(z, 10, s_34); break;  // 10-byte replacement
+    }
+
+    z->I[0] = 0;  // Reset state flag for next phase
+    return 1;     // Success
+}
+```

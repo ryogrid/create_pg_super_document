@@ -34,3 +34,19 @@ This function serves as a GUC assign hook for the  parameter. It receives the va
 - Sets global recovery state variables that guide the timeline selection during WAL replay
 - The numeric conversion is safe here since validation was already performed in the check hook
 - Located in src/backend/access/transam/xlogrecovery.c:4999-5011
+
+## Simplified Source
+
+```c
+void assign_recovery_target_timeline(const char *newval, void *extra)
+{
+    // Set the recovery timeline goal from validated input
+    recoveryTargetTimeLineGoal = *((RecoveryTargetTimeLineGoal *) extra);
+
+    // For numeric timelines, parse and store the specific timeline ID
+    if (recoveryTargetTimeLineGoal == RECOVERY_TARGET_TIMELINE_NUMERIC)
+        recoveryTargetTLIRequested = (TimeLineID) strtoul(newval, NULL, 0);
+    else
+        recoveryTargetTLIRequested = 0;  // Dynamic determination during recovery
+}
+```

@@ -31,3 +31,17 @@ This function implements the unary minus (negation) operation for PostgreSQL's f
 - Implements unary minus using simple C negation operator
 - Follows PostgreSQL's standard function call convention with `PG_FUNCTION_ARGS`
 - Returns result using PostgreSQL's Datum system
+
+## Simplified Source
+
+```c
+Datum
+float8um(PG_FUNCTION_ARGS)
+{
+    // Extract the float8 argument
+    float8 arg1 = PG_GETARG_FLOAT8(0);
+
+    // Apply unary minus operation and return result
+    PG_RETURN_FLOAT8(-arg1);
+}
+```

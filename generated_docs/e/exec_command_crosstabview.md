@@ -33,3 +33,28 @@ This function handles the \crosstabview command in psql, which allows users to p
 - Returns PSQL_CMD_SEND when active to indicate the query should be sent to the server
 - Returns PSQL_CMD_SKIP_LINE as default status
 - Part of psql's backslash command system for interactive query formatting
+
+## Simplified Source
+
+```c
+static backslashResult
+exec_command_crosstabview(PsqlScanState scan_state, bool active_branch)
+{
+    backslashResult status = PSQL_CMD_SKIP_LINE;
+
+    if (active_branch) {
+        // Parse up to 4 crosstab arguments (vertical, horizontal, data, sort columns)
+        for (int i = 0; i < lengthof(pset.ctv_args); i++) {
+            pset.ctv_args[i] = psql_scan_slash_option(scan_state, OT_NORMAL, NULL, true);
+        }
+
+        // Enable crosstab formatting for next query
+        pset.crosstab_flag = true;
+        status = PSQL_CMD_SEND;
+    } else {
+        ignore_slash_options(scan_state);
+    }
+
+    return status;
+}
+```

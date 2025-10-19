@@ -33,3 +33,12 @@ The function is part of the BRIN minmax multi-column infrastructure and is used 
 - The returned integer represents the maximum number of distinct values that can be stored per range
 - Part of the configuration management for BRIN minmax multi-column index optimization
 - Simple wrapper function that could potentially be inlined for performance
+
+## Simplified Source
+
+```c
+static int brin_minmax_multi_get_values(BrinDesc *bdesc, MinMaxMultiOptions *opts) {
+    // Simple wrapper to get configured values per range from options
+    return MinMaxMultiGetValuesPerRange(opts);
+}
+```

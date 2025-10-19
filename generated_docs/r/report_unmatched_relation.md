@@ -42,3 +42,79 @@ The function performs lookups to find related tables when dealing with indexes (
 - Generates different log messages depending on whether the unmatched relation is from the old or new cluster
 - Part of pg_upgrade's error reporting and debugging infrastructure
 - Helps administrators understand upgrade failures related to schema mismatches between clusters
+
+## Simplified Source
+
+```c
+static void
+report_unmatched_relation(const RelInfo *rel, const DbInfo *db, bool is_new_db)
+{
+    Oid relation_oid = rel->reloid;
+    char relation_description[1000];
+    int i;
+
+    // Start with basic relation description (namespace.name)
+    snprintf(relation_description, sizeof(relation_description), "\"%s.%s\"",
+             rel->nspname, rel->relname);
+
+    // If this is an index, add information about the table it indexes
+    if (rel->indtable)
+    {
+        // Search for the table this index belongs to
+        for (i = 0; i < db->rel_arr.nrels; i++)
+        {
+            const RelInfo *indexed_table = &db->rel_arr.rels[i];
+
+            if (indexed_table->reloid == rel->indtable)
+            {
+                snprintf(relation_description + strlen(relation_description),
+                         sizeof(relation_description) - strlen(relation_description),
+                         _(" which is an index on \"%s.%s\""),
+                         indexed_table->nspname, indexed_table->relname);
+                // Switch focus to the indexed table for further analysis
+                rel = indexed_table;
+                break;
+            }
+        }
+
+        // Handle case where indexed table wasn't found
+        if (i >= db->rel_arr.nrels)
+            snprintf(relation_description + strlen(relation_description),
+                     sizeof(relation_description) - strlen(relation_description),
+                     _(" which is an index on OID %u"), rel->indtable);
+    }
+
+    // If this is a TOAST table, add information about the heap table
+    if (rel->toastheap)
+    {
+        // Search for the heap table this TOAST table belongs to
+        for (i = 0; i < db->rel_arr.nrels; i++)
+        {
+            const RelInfo *heap_table = &db->rel_arr.rels[i];
+
+            if (heap_table->reloid == rel->toastheap)
+            {
+                snprintf(relation_description + strlen(relation_description),
+                         sizeof(relation_description) - strlen(relation_description),
+                         _(" which is the TOAST table for \"%s.%s\""),
+                         heap_table->nspname, heap_table->relname);
+                break;
+            }
+        }
+
+        // Handle case where heap table wasn't found
+        if (i >= db->rel_arr.nrels)
+            snprintf(relation_description + strlen(relation_description),
+                     sizeof(relation_description) - strlen(relation_description),
+                     _(" which is the TOAST table for OID %u"), rel->toastheap);
+    }
+
+    // Log appropriate message based on which cluster the relation comes from
+    if (is_new_db)
+        pg_log(PG_WARNING, "No match found in old cluster for new relation with OID %u in database \"%s\": %s",
+               relation_oid, db->db_name, relation_description);
+    else
+        pg_log(PG_WARNING, "No match found in new cluster for old relation with OID %u in database \"%s\": %s",
+               relation_oid, db->db_name, relation_description);
+}
+```

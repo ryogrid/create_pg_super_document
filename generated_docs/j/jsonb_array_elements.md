@@ -34,3 +34,20 @@ The function serves as a thin wrapper around the  function, which performs the a
 - Designed for use in SQL queries where JSONB array expansion is needed
 - The function name is registered in PostgreSQL's system catalogs to make it available as a SQL function
 - Works specifically with JSONB format, which provides better performance than text-based JSON processing
+
+## Simplified Source
+```c
+/*
+ * SQL functions json_array_elements and json_array_elements_text
+ *
+ * get the elements from a json array
+ *
+ * a lot of this processing is similar to the json_each* functions
+ */
+
+Datum jsonb_array_elements(PG_FUNCTION_ARGS) {
+    // Extract all elements from JSONB array as set of JSONB rows
+    // Returns elements as JSONB (not text)
+    return elements_worker_jsonb(fcinfo, "jsonb_array_elements", false);
+}
+```

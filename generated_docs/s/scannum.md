@@ -44,3 +44,25 @@ This ensures that repetition counts stay within reasonable bounds and prevents p
 - Used specifically for parsing the numeric components of quantifiers like {n}, {n,}, and {n,m}
 - The function assumes that v->nextvalue contains the numeric value of the current digit character
 - Bounds checking prevents both integer overflow and excessively large repetition counts
+
+## Simplified Source
+
+```c
+static int scannum(struct vars *v) {
+    int n = 0;
+
+    // Parse digits while within bounds
+    while (SEE(DIGIT) && n < DUPMAX) {
+        n = n * 10 + v->nextvalue;  // Convert digit to number
+        NEXT();  // Move to next character
+    }
+
+    // Check for overflow or too many digits
+    if (SEE(DIGIT) || n > DUPMAX) {
+        ERR(REG_BADBR);  // Bad brace/quantifier error
+        return 0;
+    }
+
+    return n;  // Return parsed number
+}
+```

@@ -41,3 +41,63 @@ This function generates and executes a SQL query to list tablespaces from the pg
 - Retrieves shared object descriptions from the pg_tablespace catalog
 - Orders results alphabetically by tablespace name
 - Returns boolean indicating success/failure of the operation
+
+## Simplified Source
+
+```c
+bool
+describeTablespaces(const char *pattern, bool verbose)
+{
+    PQExpBufferData buf;
+    PGresult *res;
+    printQueryOpt myopt = pset.popt;
+
+    initPQExpBuffer(&buf);
+
+    // Build base query for tablespaces
+    printfPQExpBuffer(&buf,
+                      "SELECT spcname AS \"%s\",\n"
+                      "  pg_catalog.pg_get_userbyid(spcowner) AS \"%s\",\n"
+                      "  pg_catalog.pg_tablespace_location(oid) AS \"%s\"",
+                      gettext_noop("Name"),
+                      gettext_noop("Owner"),
+                      gettext_noop("Location"));
+
+    // Add verbose columns if requested
+    if (verbose) {
+        appendPQExpBufferStr(&buf, ",\n  ");
+        printACLColumn(&buf, "spcacl");
+        appendPQExpBuffer(&buf,
+                          ",\n  spcoptions AS \"%s\""
+                          ",\n  pg_catalog.pg_size_pretty(pg_catalog.pg_tablespace_size(oid)) AS \"%s\""
+                          ",\n  pg_catalog.shobj_description(oid, 'pg_tablespace') AS \"%s\"",
+                          gettext_noop("Options"),
+                          gettext_noop("Size"),
+                          gettext_noop("Description"));
+    }
+
+    appendPQExpBufferStr(&buf, "\nFROM pg_catalog.pg_tablespace\n");
+
+    // Apply pattern filtering
+    if (!validateSQLNamePattern(&buf, pattern, false, false,
+                                NULL, "spcname", NULL, NULL, NULL, 1)) {
+        termPQExpBuffer(&buf);
+        return false;
+    }
+
+    appendPQExpBufferStr(&buf, "ORDER BY 1;");
+
+    // Execute query and display results
+    res = PSQLexec(buf.data);
+    termPQExpBuffer(&buf);
+    if (!res)
+        return false;
+
+    myopt.title = _("List of tablespaces");
+    myopt.translate_header = true;
+
+    printQuery(res, &myopt, pset.queryFout, false, pset.logfile);
+    PQclear(res);
+    return true;
+}
+```

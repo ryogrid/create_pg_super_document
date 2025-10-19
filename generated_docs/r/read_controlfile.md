@@ -51,3 +51,60 @@ This function takes no parameters and returns a boolean indicating success/valid
 - The function is designed to be fault-tolerant - it can work with corrupted control files by marking data as 'guessed'
 - Currently includes placeholder code for updating old pg_control versions, though no actual version migration is implemented
 - Returns false for invalid WAL segment sizes, which would prevent pg_resetwal from proceeding with potentially dangerous operations
+
+## Simplified Source
+
+```c
+static bool read_controlfile(void) {
+    int fd;
+    int len;
+    char *buffer;
+    pg_crc32c crc;
+
+    // Open pg_control file
+    if ((fd = open(XLOG_CONTROL_FILE, O_RDONLY | PG_BINARY, 0)) < 0) {
+        pg_log_error("could not open file \"%s\" for reading: %m", XLOG_CONTROL_FILE);
+        if (errno == ENOENT)
+            pg_log_error_hint("If you are sure the data directory path is correct, execute\n"
+                             "  touch %s\nand try again.", XLOG_CONTROL_FILE);
+        exit(1);
+    }
+
+    // Allocate aligned buffer and read file
+    buffer = (char *) pg_malloc(PG_CONTROL_FILE_SIZE);
+    len = read(fd, buffer, PG_CONTROL_FILE_SIZE);
+    if (len < 0)
+        pg_fatal("could not read file \"%s\": %m", XLOG_CONTROL_FILE);
+    close(fd);
+
+    // Check size and version
+    if (len >= sizeof(ControlFileData) &&
+        ((ControlFileData *) buffer)->pg_control_version == PG_CONTROL_VERSION) {
+
+        // Verify CRC checksum
+        INIT_CRC32C(crc);
+        COMP_CRC32C(crc, buffer, offsetof(ControlFileData, crc));
+        FIN_CRC32C(crc);
+
+        if (!EQ_CRC32C(crc, ((ControlFileData *) buffer)->crc)) {
+            pg_log_warning("pg_control exists but has invalid CRC; proceed with caution");
+            guessed = true;
+        }
+
+        // Copy data to global ControlFile
+        memcpy(&ControlFile, buffer, sizeof(ControlFile));
+
+        // Validate WAL segment size
+        if (!IsValidWalSegSize(ControlFile.xlog_seg_size)) {
+            pg_log_warning("pg_control specifies invalid WAL segment size; proceed with caution");
+            return false;
+        }
+
+        return true;
+    }
+
+    // Control file is corrupted or wrong version
+    pg_log_warning("pg_control exists but is broken or wrong version; ignoring it");
+    return false;
+}
+```

@@ -32,3 +32,39 @@ This accent removal is crucial for proper French stemming because many French wo
 
 ## Notes and Other Information
 This function operates specifically on ISO-8859-1 encoded text where é is represented as 0xE9 and è as 0xE8. The function is part of the postlude phase of French stemming and works alongside other normalization functions like r_un_double. The accent removal only occurs when the accented character follows a consonant, preserving accent patterns that are linguistically significant in other contexts.
+
+## Simplified Source
+
+```c
+static int r_un_accent(struct SN_env * z) {
+    // Find consonant by moving backwards through non-vowels
+    int i = 1;
+    while (true) {
+        if (out_grouping_b(z, g_v, 97, 251, 0)) {
+            break;  // Found consonant
+        }
+        i--;
+    }
+    if (i > 0) return 0;  // No consonant found
+
+    // Mark position for potential replacement
+    z->ket = z->c;
+
+    // Check for é (0xE9) or è (0xE8) and replace with 'e'
+    int saved_pos = z->l - z->c;
+    if (z->c > z->lb && z->p[z->c - 1] == 0xE9) {
+        // Found é - replace it
+        z->c--;
+    } else {
+        z->c = z->l - saved_pos;
+        if (z->c <= z->lb || z->p[z->c - 1] != 0xE8) {
+            return 0;  // Neither é nor è found
+        }
+        z->c--;  // Found è - replace it
+    }
+
+    z->bra = z->c;
+    slice_from_s(z, 1, s_32);  // Replace with 'e'
+    return 1;
+}
+```

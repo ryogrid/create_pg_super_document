@@ -33,3 +33,19 @@ This function is part of the Turkish language stemming implementation that speci
 - Vowel harmony validation is essential as Turkish suffix vowels must harmonize with stem vowels
 - Less frequently used compared to more general mark functions, indicating it targets specific suffix types
 - Part of the comprehensive Turkish morphological analysis system for accurate text processing and search
+
+## Simplified Source
+
+```c
+static int r_mark_nU(struct SN_env * z) {
+    // Validate vowel harmony first
+    int harmony_check = r_check_vowel_harmony(z);
+    if (harmony_check <= 0) return harmony_check;
+
+    // Match against 4 'nU' suffix patterns
+    if (!(find_among_b(z, a_2, 4)))
+        return 0;
+
+    return 1;  // Successfully found nU suffix pattern
+}
+```

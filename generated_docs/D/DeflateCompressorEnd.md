@@ -41,3 +41,30 @@ The function ensures proper resource cleanup and prevents memory leaks by freein
 - Uses pg_fatal for error handling if deflateEnd fails
 - Resets cs->private_data to NULL after cleanup to prevent dangling pointer access
 - The function is static and located in src/bin/pg_dump/compress_gzip.c:80-101
+
+## Simplified Source
+
+```c
+static void DeflateCompressorEnd(ArchiveHandle *AH, CompressorState *cs)
+{
+    GzipCompressorState *gzipcs = (GzipCompressorState *) cs->private_data;
+    z_streamp zp = gzipcs->zp;
+
+    // Prepare for final flush - no more input
+    zp->next_in = NULL;
+    zp->avail_in = 0;
+
+    // Flush any remaining compressed data
+    DeflateCompressorCommon(AH, cs, true);
+
+    // Finalize compression stream
+    if (deflateEnd(zp) != Z_OK)
+        pg_fatal("could not close compression stream: %s", zp->msg);
+
+    // Clean up allocated memory
+    pg_free(gzipcs->outbuf);
+    pg_free(gzipcs->zp);
+    pg_free(gzipcs);
+    cs->private_data = NULL;
+}
+```

@@ -37,3 +37,14 @@ This function is part of the memory context infrastructure used by various memor
 - The context and flags parameters are currently unused but maintained for API consistency with other failure handlers
 - Size validation typically catches issues like negative sizes, extremely large sizes, or sizes that would cause integer overflow
 - This function helps maintain robust error handling across PostgreSQL's various memory context implementations
+
+## Simplified Source
+
+```c
+void
+MemoryContextSizeFailure(MemoryContext context, Size size, int flags)
+{
+    // Report invalid allocation size and terminate
+    elog(ERROR, "invalid memory alloc request size %zu", size);
+}
+```

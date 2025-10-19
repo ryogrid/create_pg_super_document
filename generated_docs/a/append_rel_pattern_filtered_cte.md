@@ -40,3 +40,28 @@ This function generates a CTE that filters patterns from a raw pattern CTE to in
 - Example: Connected to 'foo', patterns 'foo.bar.baz' and 'alpha.beta' are included, 'other_db.schema.table' is excluded
 - Essential for ensuring patterns only apply to relations in the currently connected database
 - Part of the multi-stage filtering process in pg_amcheck's relation discovery system
+
+## Simplified Source
+
+```c
+static void append_rel_pattern_filtered_cte(PQExpBuffer buf, const char *raw,
+                                           const char *filtered, PGconn *conn) {
+    // Create filtered CTE that includes only database-relevant patterns
+    appendPQExpBuffer(buf,
+        "\n%s (pattern_id, nsp_regex, rel_regex, heap_only, btree_only) AS ("
+        "\nSELECT pattern_id, nsp_regex, rel_regex, heap_only, btree_only "
+        "FROM %s r"
+        "\nWHERE (r.db_regex IS NULL "  // No database specified
+        "OR ", filtered, raw);
+
+    // Add current database name as escaped string literal
+    appendStringLiteralConn(buf, PQdb(conn), conn);
+
+    // Complete the filter condition
+    appendPQExpBufferStr(buf, " ~ r.db_regex)")  // Database matches current
+    appendPQExpBufferStr(buf,
+        " AND (r.nsp_regex IS NOT NULL"        // Must have namespace
+        " OR r.rel_regex IS NOT NULL)"         // or relation pattern
+        "),");
+}
+```

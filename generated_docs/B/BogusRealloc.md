@@ -35,3 +35,17 @@ This function is part of PostgreSQL's memory management error detection system, 
 - Used as a method pointer in the BOGUS_MCTX memory context method structure for the realloc operation
 - Helps catch attempts to reallocate corrupted or invalid memory chunks
 - The size and flags parameters are ignored since this is an error condition
+
+## Simplified Source
+
+```c
+static void *
+BogusRealloc(void *pointer, Size size, int flags)
+{
+    // Report error with pointer address and header for debugging
+    elog(ERROR, "repalloc called with invalid pointer %p (header 0x%016llx)",
+         pointer, (unsigned long long) GetMemoryChunkHeader(pointer));
+
+    return NULL; // Never reached, keeps compiler quiet
+}
+```

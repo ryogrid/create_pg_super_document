@@ -36,3 +36,16 @@ The function uses safe pointer-to-integer conversion through intptr_t to handle 
 - Returns standard three-way comparison result (-1, 0, 1)
 - Part of the dependency resolution and object ordering system in pg_dump
 - Located in src/bin/pg_dump/pg_dump_sort.c:1729-1735
+
+## Simplified Source
+
+```c
+static int int_cmp(void *a, void *b, void *arg) {
+    // Convert void pointers back to integers
+    int ai = (int) (intptr_t) a;
+    int bi = (int) (intptr_t) b;
+
+    // Use PostgreSQL's standard 32-bit integer comparison
+    return pg_cmp_s32(ai, bi);
+}
+```

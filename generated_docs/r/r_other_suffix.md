@@ -65,3 +65,63 @@ The function uses test position mechanism to preserve cursor state during the fi
 - The bit manipulation filtering (1572992 >> (z->p[z->c - 1] & 0x1f)) provides fast character-based exclusion
 - Always returns 1 indicating successful processing (even if no changes were made)
 - The test position mechanism (m1, m3) ensures cursor state is properly maintained across operations
+
+## Simplified Source
+
+```c
+static int r_other_suffix(struct SN_env * z) {
+    // Stage 1: Handle compound suffix patterns
+    int saved_pos1 = z->l - z->c;
+    z->ket = z->c;
+
+    // Look for specific 2-character patterns s_0 and s_1
+    if (eq_s_b(z, 2, s_0)) {
+        z->bra = z->c;
+        if (eq_s_b(z, 2, s_1)) {
+            slice_del(z);  // Delete compound suffix
+        }
+    }
+    z->c = z->l - saved_pos1;  // Restore position
+
+    // Stage 2: Handle secondary suffix patterns
+    if (z->c < z->I[1]) return 0;  // Check region boundary
+
+    int saved_boundary = z->lb;
+    z->lb = z->I[1];
+    z->ket = z->c;
+
+    // Quick character filter before pattern matching
+    if (z->c - 1 <= z->lb || z->p[z->c - 1] >> 5 != 3 ||
+        !((1572992 >> (z->p[z->c - 1] & 0x1f)) & 1)) {
+        z->lb = saved_boundary;
+        return 0;
+    }
+
+    // Try to match one of 5 secondary suffix patterns
+    int suffix_match = find_among_b(z, a_2, 5);
+    if (!suffix_match) {
+        z->lb = saved_boundary;
+        return 0;
+    }
+
+    z->bra = z->c;
+    z->lb = saved_boundary;
+
+    // Apply appropriate action based on matched pattern
+    switch (suffix_match) {
+        case 1:
+            // Delete suffix and clean up doubled consonants
+            slice_del(z);
+            int saved_pos2 = z->l - z->c;
+            r_consonant_pair(z);
+            z->c = z->l - saved_pos2;
+            break;
+        case 2:
+            // Replace suffix with 3-character string
+            slice_from_s(z, 3, s_2);
+            break;
+    }
+
+    return 1; // Success
+}
+```

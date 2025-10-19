@@ -57,3 +57,57 @@ For plural suffixes, it applies these rules:
 - Implements sophisticated logic for 'ied/ies' handling based on word length
 - The vowel check in case 3 ensures that 's' is only removed from valid plural forms
 - Part of the standard Porter stemming algorithm implementation in PostgreSQL's full-text search capabilities
+
+## Simplified Source
+
+```c
+static int r_Step_1a(struct SN_env * z) {
+    // Phase 1: Remove possessive suffixes (' , 's, 's')
+    int saved_pos = z->l - z->c;
+    z->ket = z->c;
+
+    // Check for apostrophe or 's' at end
+    if (z->c > z->lb && (z->p[z->c - 1] == 39 || z->p[z->c - 1] == 115)) {
+        if (find_among_b(z, a_1, 3)) {  // Match possessive patterns
+            z->bra = z->c;
+            slice_del(z);  // Remove possessive suffix
+        }
+    }
+
+    // Phase 2: Handle plural suffixes (ied, s, ies, sses, ss, us)
+    z->ket = z->c;
+
+    // Must end with 'd' or 's' to be a plural
+    if (z->c <= z->lb || (z->p[z->c - 1] != 100 && z->p[z->c - 1] != 115)) {
+        return 0;
+    }
+
+    int among_var = find_among_b(z, a_2, 6);  // Match plural patterns
+    if (!among_var) return 0;
+
+    z->bra = z->c;
+    switch (among_var) {
+        case 1:  // sses -> ss
+            slice_from_s(z, 2, s_2);  // Replace with "ss"
+            break;
+
+        case 2:  // ied/ies -> i or ie
+            if (z->c >= z->lb + 2) {
+                slice_from_s(z, 1, s_3);  // Replace with "i"
+            } else {
+                slice_from_s(z, 2, s_4);  // Replace with "ie"
+            }
+            break;
+
+        case 3:  // s -> delete (if valid context)
+            // Only delete 's' if preceded by valid consonant + vowel
+            z->c--;
+            if (out_grouping_b(z, g_v, 97, 121, 1) > 0) {
+                slice_del(z);  // Delete the 's'
+            }
+            break;
+    }
+
+    return 1;  // Success
+}
+```

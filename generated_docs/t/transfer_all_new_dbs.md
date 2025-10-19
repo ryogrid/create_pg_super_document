@@ -40,3 +40,42 @@ The function ensures proper database name matching and generates file mappings u
 - Memory allocated for mappings is properly freed after use, even when n_maps is 0
 - The function will terminate with pg_fatal if an old database cannot be found in the new cluster
 - The old_tablespace parameter allows filtering transfers to a specific tablespace, supporting parallel processing
+
+## Simplified Source
+
+```c
+void transfer_all_new_dbs(DbInfoArr *old_db_arr, DbInfoArr *new_db_arr,
+                         char *old_pgdata, char *new_pgdata, char *old_tablespace) {
+    int old_dbnum, new_dbnum;
+
+    // Process each database from the old cluster
+    for (old_dbnum = new_dbnum = 0; old_dbnum < old_db_arr->ndbs; old_dbnum++, new_dbnum++) {
+        DbInfo *old_db = &old_db_arr->dbs[old_dbnum];
+        DbInfo *new_db = NULL;
+        FileNameMap *mappings;
+        int n_maps;
+
+        // Find matching database in new cluster by name
+        for (; new_dbnum < new_db_arr->ndbs; new_dbnum++) {
+            new_db = &new_db_arr->dbs[new_dbnum];
+            if (strcmp(old_db->db_name, new_db->db_name) == 0)
+                break;
+        }
+
+        // Ensure old database exists in new cluster
+        if (new_dbnum >= new_db_arr->ndbs)
+            pg_fatal("old database \"%s\" not found in the new cluster", old_db->db_name);
+
+        // Generate file mappings for this database pair
+        mappings = gen_db_file_maps(old_db, new_db, &n_maps, old_pgdata, new_pgdata);
+
+        // Transfer files if mappings exist
+        if (n_maps) {
+            transfer_single_new_db(mappings, n_maps, old_tablespace);
+        }
+
+        // Clean up allocated mappings
+        pg_free(mappings);
+    }
+}
+```

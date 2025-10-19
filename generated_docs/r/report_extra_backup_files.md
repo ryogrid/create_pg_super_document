@@ -35,3 +35,25 @@ The function iterates through the manifest files using the manifest iterator int
 - Files that should be ignored (as determined by should_ignore_relpath) are not reported as errors
 - Each missing file generates an individual error report through report_backup_error
 - This function is typically called near the end of the verification process after all files have been checked
+
+## Simplified Source
+
+```c
+static void
+report_extra_backup_files(verifier_context *context)
+{
+    manifest_data *manifest = context->manifest;
+    manifest_files_iterator it;
+    manifest_file *m;
+
+    // Iterate through all manifest files
+    manifest_files_start_iterate(manifest->files, &it);
+    while ((m = manifest_files_iterate(manifest->files, &it)) != NULL) {
+        // Report unmatched files that shouldn't be ignored
+        if (!m->matched && !should_ignore_relpath(context, m->pathname))
+            report_backup_error(context,
+                               "\"%s\" is present in the manifest but not on disk",
+                               m->pathname);
+    }
+}
+```

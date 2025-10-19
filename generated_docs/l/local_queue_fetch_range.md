@@ -44,3 +44,48 @@ Unlike local_queue_fetch_file which copies entire files, this function is design
 - Uses off_t type for offset to support large files (>2GB on systems with large file support)
 - Calculates read chunk size dynamically, using full buffer size or remaining bytes, whichever is smaller
 - Located in src/bin/pg_rewind/local_source.c:128-175
+
+## Simplified Source
+
+```c
+static void
+local_queue_fetch_range(rewind_source *source, const char *path, off_t off, size_t len)
+{
+    const char *datadir = ((local_source *) source)->datadir;
+    PGIOAlignedBlock buf;
+    char srcpath[MAXPGPATH];
+    int srcfd;
+    off_t begin = off;
+    off_t end = off + len;
+
+    // Build source file path
+    snprintf(srcpath, sizeof(srcpath), "%s/%s", datadir, path);
+
+    // Open and seek to starting position
+    srcfd = open(srcpath, O_RDONLY | PG_BINARY, 0);
+    if (srcfd < 0)
+        pg_fatal("could not open source file \"%s\": %m", srcpath);
+
+    if (lseek(srcfd, begin, SEEK_SET) == -1)
+        pg_fatal("could not seek in source file: %m");
+
+    // Prepare target file (don't truncate for range operations)
+    open_target_file(path, false);
+
+    // Copy specified range in chunks
+    while (end - begin > 0) {
+        size_t thislen = (end - begin > sizeof(buf)) ? sizeof(buf) : end - begin;
+        ssize_t readlen = read(srcfd, buf.data, thislen);
+
+        if (readlen < 0)
+            pg_fatal("could not read file \"%s\": %m", srcpath);
+        else if (readlen == 0)
+            pg_fatal("unexpected EOF while reading file \"%s\"", srcpath);
+
+        write_target_range(buf.data, begin, readlen);
+        begin += readlen;
+    }
+
+    close(srcfd);
+}
+```

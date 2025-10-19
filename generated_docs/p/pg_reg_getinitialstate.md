@@ -31,3 +31,17 @@ This function retrieves the initial state of the NFA from a compiled regular exp
 - Returns the `pre` field from the compiled NFA structure, which identifies the initial state
 - This is part of the regex export API that provides access to internal regex structures for analysis and debugging purposes
 - The initial state is crucial for regex matching algorithms as it defines the starting point for state transitions
+
+## Simplified Source
+
+```c
+int pg_reg_getinitialstate(const regex_t *regex) {
+    // Validate regex structure
+    assert(regex != NULL && regex->re_magic == REMAGIC);
+
+    // Get compiled NFA from regex internals
+    struct cnfa *cnfa = &((struct guts *) regex->re_guts)->search;
+
+    return cnfa->pre;  // Return initial state ID
+}
+```

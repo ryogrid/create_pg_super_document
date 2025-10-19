@@ -36,3 +36,14 @@ An important design consideration is that this function does not handle the deal
 - The function delegates all actual deletion logic to the internal rbt_delete_node function
 - Care must be taken not to rely on the freefunc for subsidiary data cleanup, as a different physical node may be the one actually freed due to tree restructuring during deletion
 - Used extensively in PostgreSQL's testing framework to validate Red-Black tree deletion functionality
+
+## Simplified Source
+
+```c
+void
+rbt_delete(RBTree *rbt, RBTNode *node)
+{
+    // Simple wrapper - delegate to internal deletion function
+    rbt_delete_node(rbt, node);
+}
+```

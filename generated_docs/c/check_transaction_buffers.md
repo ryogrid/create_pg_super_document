@@ -38,3 +38,12 @@ The transaction_buffers parameter controls the number of shared memory buffers a
 - The transaction_buffers parameter can be auto-tuned (set to 0) to let PostgreSQL calculate optimal values
 - This hook is called during configuration file parsing, SQL SET commands, and other configuration changes
 - The function maintains consistency with other SLRU buffer validation by using the common check_slru_buffers() implementation
+
+## Simplified Source
+```c
+bool check_transaction_buffers(int *newval, void **extra, GucSource source)
+{
+    // Validate transaction_buffers GUC parameter using common SLRU validation
+    return check_slru_buffers("transaction_buffers", newval);
+}
+```

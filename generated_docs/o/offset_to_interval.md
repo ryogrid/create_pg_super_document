@@ -32,3 +32,19 @@ offset_to_interval is a utility function that creates a PostgreSQL Interval stru
 - Primarily used for converting time differences into interval format for the pg_stat_replication system view
 - The TimeOffset type represents time in microseconds
 - Located in src/backend/replication/walsender.c at lines 3889-3904
+
+## Simplified Source
+
+```c
+static Interval *offset_to_interval(TimeOffset offset)
+{
+    Interval *result = palloc(sizeof(Interval));
+
+    // Initialize interval with no months or days
+    result->month = 0;
+    result->day = 0;
+    result->time = offset;  // Store entire duration in time field (microseconds)
+
+    return result;
+}
+```

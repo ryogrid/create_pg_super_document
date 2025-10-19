@@ -42,3 +42,36 @@ The  function is the core implementation for range equality comparison in Postgr
 - Empty ranges are considered equal regardless of any bounds they might have stored
 - The bounds comparison is delegated to  which handles the complexity of comparing bounds with different inclusiveness flags
 - Located in src/backend/utils/adt/rangetypes.c:573-604
+
+## Simplified Source
+
+```c
+bool range_eq_internal(TypeCacheEntry *typcache, const RangeType *r1, const RangeType *r2) {
+    RangeBound lower1, upper1, lower2, upper2;
+    bool empty1, empty2;
+
+    // Verify both ranges have the same type
+    if (RangeTypeGetOid(r1) != RangeTypeGetOid(r2))
+        elog(ERROR, "range types do not match");
+
+    // Extract bounds and empty status from both ranges
+    range_deserialize(typcache, r1, &lower1, &upper1, &empty1);
+    range_deserialize(typcache, r2, &lower2, &upper2, &empty2);
+
+    // Two empty ranges are always equal
+    if (empty1 && empty2)
+        return true;
+
+    // One empty, one non-empty means not equal
+    if (empty1 != empty2)
+        return false;
+
+    // Compare lower bounds and upper bounds
+    if (range_cmp_bounds(typcache, &lower1, &lower2) != 0)
+        return false;
+    if (range_cmp_bounds(typcache, &upper1, &upper2) != 0)
+        return false;
+
+    return true;
+}
+```

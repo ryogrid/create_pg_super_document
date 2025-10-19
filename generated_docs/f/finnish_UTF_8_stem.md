@@ -46,3 +46,38 @@ The function uses backward processing (from end to beginning) and employs condit
 - Designed specifically for UTF-8 encoding, with a parallel ISO-8859-1 version available for Latin-1 text
 - Each morphological step is attempted but failures don't prevent subsequent processing steps
 - The function resets the cursor position after each step to allow independent processing of different morphological layers
+
+## Simplified Source
+
+```c
+extern int finnish_UTF_8_stem(struct SN_env * z) {
+    // Mark morphological regions (R1, R2, RV boundaries)
+    int c1 = z->c;
+    r_mark_regions(z);
+    z->c = c1;
+
+    // Initialize plural flag and set cursor to word end
+    z->I[2] = 0;
+    z->lb = z->c;
+    z->c = z->l;
+
+    // Process morphological layers in sequence
+    r_particle_etc(z);     // Remove particles and clitics
+    r_possessive(z);       // Remove possessive suffixes
+    r_case_ending(z);      // Remove case endings
+    r_other_endings(z);    // Remove other morphological endings
+
+    // Handle plural forms based on previous analysis
+    if (z->I[2]) {
+        r_i_plural(z);     // Process i-plurals if flag set
+    } else {
+        r_t_plural(z);     // Process t-plurals otherwise
+    }
+
+    // Final cleanup and normalization
+    r_tidy(z);
+
+    z->c = z->lb;
+    return 1;
+}
+```

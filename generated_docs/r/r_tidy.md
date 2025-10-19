@@ -39,3 +39,106 @@ The function uses backward processing (from end to beginning of the word) and em
 - The function operates only within the R1 region boundary to avoid over-stemming
 - Uses character groups g_AEI, g_C, and g_V1 for pattern matching
 - The cleanup operations are designed specifically for Finnish morphological patterns and may produce unexpected results on non-Finnish text
+
+## Simplified Source
+
+```c
+static int r_tidy(struct SN_env * z) {
+    // Work within R1 region for all cleanup operations
+    {
+        int mlimit1;
+        if (z->c < z->I[1]) return 0;
+        mlimit1 = z->lb; z->lb = z->I[1];
+
+        // 1. Long vowel normalization - remove redundant characters after LONG patterns
+        {
+            int m_test = z->l - z->c;
+            {
+                int m_inner = z->l - z->c;
+                if (r_LONG(z)) {
+                    z->c = z->l - m_inner;
+                    z->ket = z->c;
+                    if (z->c > z->lb) {
+                        z->c--;
+                        z->bra = z->c;
+                        if (slice_del(z) < 0) return -1;
+                    }
+                }
+            }
+            z->c = z->l - m_test;
+        }
+
+        // 2. Remove AEI vowels before consonants
+        {
+            int m_test = z->l - z->c;
+            z->ket = z->c;
+            if (!in_grouping_b(z, g_AEI, 97, 228, 0)) {  // If current char is AEI
+                z->bra = z->c;
+                if (!in_grouping_b(z, g_C, 98, 122, 0)) {  // And next is consonant
+                    if (slice_del(z) < 0) return -1;
+                }
+            }
+            z->c = z->l - m_test;
+        }
+
+        // 3. Remove 'oj' and 'uj' endings
+        {
+            int m_test = z->l - z->c;
+            z->ket = z->c;
+            if (z->c > z->lb && z->p[z->c - 1] == 'j') {
+                z->c--;
+                z->bra = z->c;
+                // Check for 'o' or 'u' before 'j'
+                {
+                    int m_inner = z->l - z->c;
+                    if (z->c > z->lb && z->p[z->c - 1] == 'o') {
+                        z->c--;
+                    } else {
+                        z->c = z->l - m_inner;
+                        if (z->c > z->lb && z->p[z->c - 1] == 'u') {
+                            z->c--;
+                        } else {
+                            goto skip_oj_uj;
+                        }
+                    }
+                }
+                if (slice_del(z) < 0) return -1;
+            }
+        skip_oj_uj:
+            z->c = z->l - m_test;
+        }
+
+        // 4. Remove 'jo' endings
+        {
+            int m_test = z->l - z->c;
+            z->ket = z->c;
+            if (z->c > z->lb && z->p[z->c - 1] == 'o') {
+                z->c--;
+                z->bra = z->c;
+                if (z->c > z->lb && z->p[z->c - 1] == 'j') {
+                    z->c--;
+                    if (slice_del(z) < 0) return -1;
+                }
+            }
+            z->c = z->l - m_test;
+        }
+
+        z->lb = mlimit1;
+    }
+
+    // Final normalization: remove duplicate consonants after vowels
+    if (in_grouping_b(z, g_V1, 97, 246, 1) < 0) return 0;  // Find vowel
+    z->ket = z->c;
+    if (in_grouping_b(z, g_C, 98, 122, 0)) return 0;  // Must be followed by consonant
+    z->bra = z->c;
+
+    // Extract consonant and check if it's duplicated
+    z->S[0] = slice_to(z, z->S[0]);
+    if (z->S[0] == 0) return -1;
+    if (!eq_v_b(z, z->S[0])) return 0;  // Check if same consonant appears again
+
+    // Remove the duplicate consonant
+    if (slice_del(z) < 0) return -1;
+    return 1;
+}
+```

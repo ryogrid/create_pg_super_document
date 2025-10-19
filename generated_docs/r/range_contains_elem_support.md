@@ -36,3 +36,27 @@ The function examines the function call expression and attempts to find a simpli
 - The function returns NULL if the request type is not SupportRequestSimplify
 - Part of PostgreSQL's range type system for efficient range operations optimization
 - Forms a complementary pair with elem_contained_by_range_support for bidirectional containment optimization
+
+## Simplified Source
+
+```c
+Datum range_contains_elem_support(PG_FUNCTION_ARGS) {
+    Node *rawreq = (Node *) PG_GETARG_POINTER(0);
+    Node *ret = NULL;
+
+    // Handle planner simplification requests for range @> element operator
+    if (IsA(rawreq, SupportRequestSimplify)) {
+        SupportRequestSimplify *req = (SupportRequestSimplify *) rawreq;
+        FuncExpr *fexpr = req->fcall;
+
+        // Extract left (range) and right (element) operands
+        Expr *leftop = linitial(fexpr->args);
+        Expr *rightop = lsecond(fexpr->args);
+
+        // Find simplified clause with original operand order
+        ret = find_simplified_clause(req->root, leftop, rightop);
+    }
+
+    PG_RETURN_POINTER(ret);
+}
+```

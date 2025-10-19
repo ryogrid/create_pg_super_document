@@ -49,3 +49,41 @@ The function handles three main expression types:
 - Error handling includes logging undefined variable errors and fatal errors for unexpected expression node types
 - The recursive nature allows for complex nested expressions to be properly evaluated
 - [Variable](../V/Variable.md) lookup includes validation to ensure variables exist before attempting to access their values
+
+## Simplified Source
+
+```c
+static bool evaluateExpr(CState *st, PgBenchExpr *expr, PgBenchValue *retval) {
+    switch (expr->etype) {
+        case ENODE_CONSTANT:
+            // Return constant value directly
+            *retval = expr->u.constant;
+            return true;
+
+        case ENODE_VARIABLE: {
+            // Look up variable by name
+            Variable *var = lookupVariable(&st->variables, expr->u.variable.varname);
+            if (var == NULL) {
+                pg_log_error("undefined variable \"%s\"", expr->u.variable.varname);
+                return false;
+            }
+
+            // Ensure variable has a valid value
+            if (!makeVariableValue(var))
+                return false;
+
+            // Return variable's current value
+            *retval = var->value;
+            return true;
+        }
+
+        case ENODE_FUNCTION:
+            // Delegate to function evaluation
+            return evalFunc(st, expr->u.function.function, expr->u.function.args, retval);
+
+        default:
+            // Should never reach here
+            pg_fatal("unexpected enode type in evaluation: %d", expr->etype);
+    }
+}
+```

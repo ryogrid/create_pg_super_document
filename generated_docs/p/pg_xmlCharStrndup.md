@@ -43,3 +43,22 @@ The function is widely used throughout PostgreSQL's XML processing code, particu
 - The function always null-terminates the result, ensuring compatibility with string functions
 - Widely used in XML table functions and XPath processing where PostgreSQL strings need to be converted to libxml format
 - The function assumes that xmlChar and char have compatible byte representations for the copying operation
+
+## Simplified Source
+
+```c
+static xmlChar *
+pg_xmlCharStrndup(const char *str, size_t len)
+{
+    // Allocate memory for xmlChar array (including null terminator)
+    xmlChar *result = (xmlChar *) palloc((len + 1) * sizeof(xmlChar));
+
+    // Copy specified number of bytes from source string
+    memcpy(result, str, len);
+
+    // Null-terminate the result
+    result[len] = '\0';
+
+    return result;
+}
+```

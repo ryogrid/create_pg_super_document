@@ -49,3 +49,64 @@ The algorithm uses careful backtracking and position management to ensure proper
 - Implements the official Indonesian stemming rules as defined in the Snowball algorithm
 - The vowel count check (I[1] > 2) is performed multiple times throughout to prevent over-stemming of short words
 - Position saving/restoring (c5, c7, c9, c10, etc.) allows for backtracking when certain removal operations fail
+
+## Simplified Source
+
+```c
+extern int indonesian_UTF_8_stem(struct SN_env * z) {
+    // Step 1: Count vowels to ensure word is long enough
+    z->I[1] = 0; // vowel counter
+    int c1 = z->c;
+    while(1) {
+        int c2 = z->c;
+        // Move past vowel characters
+        int ret = out_grouping_U(z, g_vowel, 97, 117, 1);
+        if (ret < 0) break;
+        z->c += ret;
+        z->I[1] += 1;
+    }
+    z->c = c1;
+
+    // Must have more than 2 vowels to proceed
+    if (!(z->I[1] > 2)) return 0;
+
+    // Step 2: Process from end of word
+    z->lb = z->c; z->c = z->l;
+
+    // Remove particles (lah, kah, tah, pun)
+    r_remove_particle(z);
+    if (!(z->I[1] > 2)) return 0;
+
+    // Remove possessive pronouns (ku, mu, nya)
+    r_remove_possessive_pronoun(z);
+    z->c = z->lb;
+    if (!(z->I[1] > 2)) return 0;
+
+    // Step 3: Try prefix removal strategies
+    int c5 = z->c;
+
+    // Strategy A: Try first-order prefix removal
+    if (r_remove_first_order_prefix(z)) {
+        // If successful, optionally remove suffix and second-order prefix
+        if (z->I[1] > 2) {
+            z->lb = z->c; z->c = z->l;
+            r_remove_suffix(z);
+            z->c = z->lb;
+        }
+        if (z->I[1] > 2) {
+            r_remove_second_order_prefix(z);
+        }
+    } else {
+        // Strategy B: Try second-order prefix, then optional suffix
+        z->c = c5;
+        r_remove_second_order_prefix(z);
+        if (z->I[1] > 2) {
+            z->lb = z->c; z->c = z->l;
+            r_remove_suffix(z);
+            z->c = z->lb;
+        }
+    }
+
+    return 1; // Success
+}
+```

@@ -39,3 +39,16 @@ This function serves as a validation hook for the max_wal_senders GUC parameter.
 - WAL senders are particularly important for high-availability and disaster recovery setups
 - The function is automatically invoked by the GUC system whenever max_wal_senders is being modified
 - Each WAL sender process handles streaming WAL data to standby servers or WAL archiving processes
+
+## Simplified Source
+
+```c
+bool check_max_wal_senders(int *newval, void **extra, GucSource source) {
+    // Check if total backend processes would exceed system limit
+    // Includes: max_connections + autovacuum workers + worker processes + new WAL senders + 1 overhead
+    if (MaxConnections + autovacuum_max_workers + 1 + max_worker_processes + *newval > MAX_BACKENDS)
+        return false;
+
+    return true;  // Configuration is valid
+}
+```

@@ -37,3 +37,52 @@ The function assumes that all roles have already been created by the dumpRoles f
 - Outputs descriptive header comments in the dump file for clarity
 - Error handling includes proper cleanup and informative error messages
 - Part of the pg_dumpall utility's comprehensive database cluster backup functionality
+
+## Simplified Source
+
+```c
+static void dumpRoleGUCPrivs(PGconn *conn) {
+    PGresult *res;
+
+    // Query for parameters with non-default ACLs
+    res = executeQuery(conn,
+        "SELECT parname, "
+        "pg_catalog.pg_get_userbyid(" CppAsString2(BOOTSTRAP_SUPERUSERID) ") AS parowner, "
+        "paracl, "
+        "pg_catalog.acldefault('p', " CppAsString2(BOOTSTRAP_SUPERUSERID) ") AS acldefault "
+        "FROM pg_catalog.pg_parameter_acl "
+        "ORDER BY 1");
+
+    if (PQntuples(res) > 0) {
+        fprintf(OPF, "--\n-- Role privileges on configuration parameters\n--\n\n");
+    }
+
+    // Process each parameter with custom ACLs
+    for (int i = 0; i < PQntuples(res); i++) {
+        PQExpBuffer buf = createPQExpBuffer();
+        char *parname = PQgetvalue(res, i, 0);
+        char *parowner = PQgetvalue(res, i, 1);
+        char *paracl = PQgetvalue(res, i, 2);
+        char *acldefault = PQgetvalue(res, i, 3);
+        char *fparname = pg_strdup(fmtId(parname));
+
+        // Generate GRANT/REVOKE commands from ACL data
+        if (!buildACLCommands(fparname, NULL, NULL, "PARAMETER",
+                            paracl, acldefault, parowner, "",
+                            server_version, buf)) {
+            pg_log_error("could not parse ACL list (%s) for parameter \"%s\"",
+                        paracl, parname);
+            PQfinish(conn);
+            exit_nicely(1);
+        }
+
+        fprintf(OPF, "%s", buf->data);
+
+        free(fparname);
+        destroyPQExpBuffer(buf);
+    }
+
+    PQclear(res);
+    fprintf(OPF, "\n\n");
+}
+```

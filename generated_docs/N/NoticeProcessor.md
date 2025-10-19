@@ -38,3 +38,17 @@ NoticeProcessor serves as a notice message handler for PostgreSQL client connect
 - The arg parameter is explicitly marked as unused, indicating this implementation doesn't require additional context
 - This is part of psql's client-side message handling infrastructure
 - The function ensures notice messages are displayed to users in a consistent format alongside other psql output
+
+## Simplified Source
+
+```c
+void
+NoticeProcessor(void *arg, const char *message)
+{
+    // arg parameter is not used in this implementation
+    (void) arg;
+
+    // Output the notice message using standard psql logging
+    pg_log_info("%s", message);
+}
+```

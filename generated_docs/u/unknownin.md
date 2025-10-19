@@ -32,4 +32,16 @@ The  function is a PostgreSQL data type input function that handles the conversi
 - Uses  to create a memory-managed copy of the input string
 - The  type is primarily used during query parsing and planning when the actual type of a literal or expression cannot be determined immediately
 - Part of PostgreSQL's type system infrastructure for handling type resolution
-- Located in 
+- Located in src/backend/utils/adt/varlena.c
+
+## Simplified Source
+
+```c
+Datum unknownin(PG_FUNCTION_ARGS) {
+    // Get input C string
+    char *str = PG_GETARG_CSTRING(0);
+
+    // Return a duplicated copy (unknown type uses same representation as cstring)
+    PG_RETURN_CSTRING(pstrdup(str));
+}
+``` 

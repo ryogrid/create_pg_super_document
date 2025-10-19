@@ -32,3 +32,14 @@ This function implements the PostgreSQL built-in function for converting int2 (1
 - The conversion is lossless since int2 values (16-bit integers) can be exactly represented in float4 (single-precision floating-point)
 - Part of PostgreSQL's type conversion system for numeric types
 - Similar to i4tof but operates on smaller integer values (int2 vs int4)
+
+## Simplified Source
+
+```c
+Datum i2tof(PG_FUNCTION_ARGS) {
+    int16 num = PG_GETARG_INT16(0);
+
+    // Simple cast from int16 to float4
+    PG_RETURN_FLOAT4((float4) num);
+}
+```

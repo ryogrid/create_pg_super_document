@@ -39,3 +39,22 @@ Unlike categories 1 and 2, this function does not implement conditional logic or
 - Part of the automatically generated code from Snowball stemming rules
 - Returns 1 on successful pattern match and removal, 0 if no pattern matched
 - Error conditions from slice_del are propagated upward
+
+## Simplified Source
+
+```c
+static int r_remove_category_3(struct SN_env * z) {
+    // Set end boundary marker
+    z->ket = z->c;
+
+    // Search for any of 91 category 3 suffix patterns
+    if (!find_among_b(z, a_3, 91))
+        return 0;
+
+    // Set start boundary and remove the matched suffix
+    z->bra = z->c;
+    slice_del(z);
+
+    return 1;
+}
+```

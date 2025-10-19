@@ -39,3 +39,49 @@ This function handles the replay of the completion phase of a hash index split o
 - Updates bucket flags even when pages are restored from full-page images, as flags are not included in the images
 - Part of PostgreSQL's hash index WAL recovery infrastructure for split operations
 - The function handles buffer validity checks to ensure proper resource management
+
+## Simplified Source
+
+```c
+static void
+hash_xlog_split_complete(XLogReaderState *record)
+{
+    XLogRecPtr lsn = record->EndRecPtr;
+    xl_hash_split_complete *xlrec = (xl_hash_split_complete *) XLogRecGetData(record);
+    Buffer oldbuf;
+    Buffer newbuf;
+    XLogRedoAction action;
+
+    // Update old bucket page flag
+    action = XLogReadBufferForRedo(record, 0, &oldbuf);
+    if (action == BLK_NEEDS_REDO || action == BLK_RESTORED)
+    {
+        Page oldpage = BufferGetPage(oldbuf);
+        HashPageOpaque oldopaque = HashPageGetOpaque(oldpage);
+
+        // Set the final bucket flag
+        oldopaque->hasho_flag = xlrec->old_bucket_flag;
+
+        PageSetLSN(oldpage, lsn);
+        MarkBufferDirty(oldbuf);
+    }
+    if (BufferIsValid(oldbuf))
+        UnlockReleaseBuffer(oldbuf);
+
+    // Update new bucket page flag
+    action = XLogReadBufferForRedo(record, 1, &newbuf);
+    if (action == BLK_NEEDS_REDO || action == BLK_RESTORED)
+    {
+        Page newpage = BufferGetPage(newbuf);
+        HashPageOpaque nopaque = HashPageGetOpaque(newpage);
+
+        // Set the final bucket flag
+        nopaque->hasho_flag = xlrec->new_bucket_flag;
+
+        PageSetLSN(newpage, lsn);
+        MarkBufferDirty(newbuf);
+    }
+    if (BufferIsValid(newbuf))
+        UnlockReleaseBuffer(newbuf);
+}
+```

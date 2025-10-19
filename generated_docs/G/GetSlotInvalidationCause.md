@@ -32,3 +32,26 @@ This function takes a string representation of a replication slot invalidation r
 - The function uses assertions to validate input and ensure a match is found, making it suitable for debug builds
 - This is a utility function that provides a reverse mapping from string to enum, typically used when deserializing or parsing invalidation reasons
 - The function assumes that the SlotInvalidationCauses array contains string representations corresponding to each enum value
+
+## Simplified Source
+
+```c
+ReplicationSlotInvalidationCause GetSlotInvalidationCause(const char *invalidation_reason)
+{
+    ReplicationSlotInvalidationCause cause;
+    ReplicationSlotInvalidationCause result = RS_INVAL_NONE;
+
+    // Search through all possible invalidation causes
+    for (cause = RS_INVAL_NONE; cause <= RS_INVAL_MAX_CAUSES; cause++)
+    {
+        // Compare input string with predefined cause strings
+        if (strcmp(SlotInvalidationCauses[cause], invalidation_reason) == 0)
+        {
+            result = cause;
+            break;
+        }
+    }
+
+    return result;
+}
+```

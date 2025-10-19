@@ -41,3 +41,47 @@ This step is crucial for proper stemming as it prevents over-aggressive removal 
 - For "l" removal, it specifically requires the preceding character to also be "l" (double-l pattern)
 - Returns 1 on successful operation, 0 if no applicable pattern found
 - Critical for maintaining word integrity while achieving proper morphological normalization
+
+## Simplified Source
+
+```c
+static int r_Step_5(struct SN_env * z) {
+    // Mark end position for suffix
+    z->ket = z->c;
+
+    // Quick check: only process if ending with 'e' or 'l'
+    if (z->c <= z->lb || (z->p[z->c - 1] != 101 && z->p[z->c - 1] != 108)) {
+        return 0; // Not ending in 'e' or 'l'
+    }
+
+    // Find which suffix we have ('e' or 'l')
+    int among_var = find_among_b(z, a_8, 2);
+    if (!among_var) return 0;
+
+    z->bra = z->c;
+
+    switch (among_var) {
+        case 1: // Final 'e' removal
+            // Delete if in R2, or if in R1 but not after short syllable
+            if (r_R2(z) > 0) {
+                // In R2 - delete the 'e'
+                return slice_del(z);
+            } else if (r_R1(z) > 0) {
+                // In R1 - delete only if not preceded by short syllable
+                if (r_shortv(z) == 0) { // No short syllable
+                    return slice_del(z);
+                }
+            }
+            return 0; // Don't delete
+
+        case 2: // Final 'l' removal
+            // Delete if in R2 and preceded by another 'l'
+            if (r_R2(z) > 0 && z->c > z->lb && z->p[z->c - 1] == 'l') {
+                z->c--; // Include the preceding 'l'
+                return slice_del(z);
+            }
+            return 0;
+    }
+    return 1;
+}
+```

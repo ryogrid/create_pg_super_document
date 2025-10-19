@@ -33,3 +33,16 @@ This function implements the equality comparison operator (`=`) for the UUID dat
 
 ## Notes and Other Information
 Equality comparison is fundamental for UUID operations and is heavily used in database operations like joins, lookups, and constraint enforcement. The function returns true only when `uuid_internal_cmp` returns exactly zero, indicating that all 16 bytes of the UUID data are identical. This ensures that UUIDs are compared as complete binary values rather than as structured data.
+
+## Simplified Source
+
+```c
+Datum uuid_eq(PG_FUNCTION_ARGS) {
+    // Extract two UUID arguments from function call
+    pg_uuid_t *uuid1 = PG_GETARG_UUID_P(0);
+    pg_uuid_t *uuid2 = PG_GETARG_UUID_P(1);
+
+    // Compare UUIDs byte-wise and return true if identical
+    PG_RETURN_BOOL(uuid_internal_cmp(uuid1, uuid2) == 0);
+}
+```

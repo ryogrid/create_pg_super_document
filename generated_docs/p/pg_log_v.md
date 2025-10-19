@@ -61,3 +61,68 @@ The function implements different behaviors for each log type:
 - Fatal errors include an extra newline to ensure clean output even when interrupting status messages
 - All output is immediately flushed to ensure real-time feedback during long operations
 - Supports internationalization through the _() macro for message translation
+
+## Simplified Source
+
+```c
+static void pg_log_v(eLogType type, const char *fmt, va_list ap) {
+    char message[QUERY_ALLOC];
+
+    // Format the message with variadic arguments
+    vsnprintf(message, sizeof(message), _(fmt), ap);
+
+    // Write to internal log file (if open and appropriate verbosity)
+    if (((type != PG_VERBOSE && type != PG_STATUS) || log_opts.verbose) &&
+        log_opts.internal != NULL) {
+
+        if (type == PG_STATUS)
+            fprintf(log_opts.internal, "  %s\n", message);  // Status gets indent
+        else if (type == PG_REPORT_NONL)
+            fprintf(log_opts.internal, "%s", message);      // No newline
+        else
+            fprintf(log_opts.internal, "%s\n", message);    // Standard format
+
+        fflush(log_opts.internal);
+    }
+
+    // Handle console output based on message type
+    switch (type) {
+        case PG_VERBOSE:
+            if (log_opts.verbose)
+                printf("%s\n", message);
+            break;
+
+        case PG_STATUS:
+            // Progress messages: special formatting for terminals
+            if (log_opts.isatty) {
+                // Truncate long messages and use carriage return for overwriting
+                bool fits = (strlen(message) <= MESSAGE_WIDTH - 2);
+                printf("  %s%-*.*s\r",
+                       fits ? "" : "...",
+                       MESSAGE_WIDTH - 2, MESSAGE_WIDTH - 2,
+                       fits ? message : message + strlen(message) - MESSAGE_WIDTH + 5);
+            } else if (log_opts.verbose) {
+                printf("  %s\n", message);
+            }
+            break;
+
+        case PG_REPORT_NONL:
+            printf("%s", message);  // No newline for status preparation
+            break;
+
+        case PG_REPORT:
+        case PG_WARNING:
+            printf("%s\n", message);
+            break;
+
+        case PG_FATAL:
+            // Fatal errors: extra newline and exit
+            printf("\n%s\n", message);
+            printf(_("Failure, exiting\n"));
+            exit(1);
+            break;
+    }
+
+    fflush(stdout);
+}
+```

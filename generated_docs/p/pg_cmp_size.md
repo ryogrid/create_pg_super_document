@@ -33,3 +33,14 @@ This function is designed for comparing size_t values, which are typically used 
 - Part of a family of comparison functions for different integer types, providing consistent comparison semantics
 - Particularly useful for sorting operations involving memory sizes or array dimensions
 - The size_t type ensures platform-appropriate sizing, making this function portable across different architectures
+
+## Simplified Source
+
+```c
+static inline int pg_cmp_size(size_t a, size_t b) {
+    // Branchless comparison: returns -1, 0, or 1
+    // (a > b) evaluates to 1 if true, 0 if false
+    // (a < b) evaluates to 1 if true, 0 if false
+    return (a > b) - (a < b);
+}
+```

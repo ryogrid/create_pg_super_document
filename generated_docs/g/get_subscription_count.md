@@ -36,3 +36,25 @@ This function queries the pg_catalog.pg_subscription system catalog to count all
 - Part of the broader metadata collection phase that occurs early in the upgrade process
 - Function has external linkage (not static), making it available to other compilation units
 - Essential for determining if logical replication subscriptions exist that may affect upgrade behavior
+
+## Simplified Source
+
+```c
+void
+get_subscription_count(ClusterInfo *cluster)
+{
+    PGconn *conn;
+    PGresult *res;
+
+    // Connect to template1 database and count subscriptions
+    conn = connectToServer(cluster, "template1");
+    res = executeQueryOrDie(conn, "SELECT count(*) FROM pg_catalog.pg_subscription");
+
+    // Store subscription count in cluster structure
+    cluster->nsubs = atoi(PQgetvalue(res, 0, 0));
+
+    // Cleanup database connection
+    PQclear(res);
+    PQfinish(conn);
+}
+```

@@ -31,3 +31,12 @@ The function allocates memory for the environment structure and initializes it w
 - Must be paired with italian_ISO_8859_1_close_env to properly clean up allocated resources
 - Returns a pointer to the newly created SN_env structure, or NULL on allocation failure
 - This is part of the standard Snowball stemmer interface pattern used across all language implementations
+
+## Simplified Source
+```c
+extern struct SN_env * italian_ISO_8859_1_create_env(void) {
+    // Create Snowball environment for Italian stemming
+    // Parameters: 0 string arrays, 3 integer arrays
+    return SN_create_env(0, 3);
+}
+```

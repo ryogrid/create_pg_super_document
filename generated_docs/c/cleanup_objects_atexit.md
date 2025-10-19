@@ -49,3 +49,56 @@ This function takes no parameters but operates on several global variables:
 - Critical for preventing resource leaks on the primary server when subscription setup fails
 - Does not attempt cleanup on the target server after promotion, as the replica would need to be recreated anyway
 - Uses conditional cleanup based on flags tracking what objects were actually created during the process
+
+## Simplified Source
+
+```c
+static void cleanup_objects_atexit(void) {
+    // Only run cleanup if operation failed
+    if (success) {
+        return;
+    }
+
+    // Warn user if recovery ended - replica needs recreation
+    if (recovery_ended) {
+        pg_log_warning("failed after the end of recovery");
+        pg_log_warning_hint("The target server cannot be used as a physical replica anymore. "
+                           "You must recreate the physical replica before continuing.");
+    }
+
+    // Clean up publications and replication slots for each database
+    for (int i = 0; i < num_dbs; i++) {
+        if (dbinfo[i].made_publication || dbinfo[i].made_replslot) {
+            PGconn *conn = connect_database(dbinfo[i].pubconninfo, false);
+
+            if (conn != NULL) {
+                // Successfully connected - clean up objects
+                if (dbinfo[i].made_publication) {
+                    drop_publication(conn, &dbinfo[i]);
+                }
+                if (dbinfo[i].made_replslot) {
+                    drop_replication_slot(conn, &dbinfo[i], dbinfo[i].replslotname);
+                }
+                disconnect_database(conn, false);
+            } else {
+                // Connection failed - warn about leftover objects
+                if (dbinfo[i].made_publication) {
+                    pg_log_warning("publication \"%s\" left behind in database \"%s\"",
+                                 dbinfo[i].pubname, dbinfo[i].dbname);
+                    pg_log_warning_hint("Drop this publication before trying again.");
+                }
+                if (dbinfo[i].made_replslot) {
+                    pg_log_warning("replication slot \"%s\" left behind in database \"%s\"",
+                                 dbinfo[i].replslotname, dbinfo[i].dbname);
+                    pg_log_warning_hint("Drop this replication slot to avoid WAL retention.");
+                }
+            }
+        }
+    }
+
+    // Stop standby server if running
+    if (standby_running) {
+        stop_standby_server(subscriber_dir);
+    }
+}
+```

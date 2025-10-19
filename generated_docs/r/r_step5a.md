@@ -67,3 +67,46 @@ The `r_step5a` function implements a sophisticated four-phase transformation pro
 - The character validation (181/0xB5) in phase 2 suggests specific Unicode handling for Greek text
 - All replacement strings are related to the Greek root "αγαμ"/"αμ", indicating morphological standardization
 - Returns 1 on successful completion of all applicable phases, 0 if mandatory phases fail, or negative on error
+
+## Simplified Source
+
+```c
+static int r_step5a(struct SN_env * z) {
+    // Phase 1: Optional check for "αγαμε" at word boundary
+    int saved_pos1 = z->l - z->c;
+    if (eq_s_b(z, 10, s_72) && z->c <= z->lb) {  // Found "αγαμε" at word start
+        slice_from_s(z, 8, s_73);  // Replace with "αγαμ"
+    }
+    z->c = z->l - saved_pos1;  // Restore position regardless
+
+    // Phase 2: Optional pattern matching with character validation
+    int saved_pos2 = z->l - z->c;
+    z->ket = z->c;
+    if (z->c - 9 > z->lb && z->p[z->c - 1] == 181) {  // Check specific character
+        if (find_among_b(z, a_35, 5)) {  // Try to find pattern from a_35 (5 patterns)
+            z->bra = z->c;
+            slice_del(z);  // Remove matched pattern
+            z->I[0] = 0;   // Reset state
+        }
+    }
+    z->c = z->l - saved_pos2;  // Restore position
+
+    // Phase 3: Mandatory suffix processing for "αμε"
+    z->ket = z->c;
+    if (!eq_s_b(z, 6, s_74)) return 0;  // Must find "αμε"
+    z->bra = z->c;
+    slice_del(z);  // Remove "αμε"
+    z->I[0] = 0;   // Reset state
+
+    // Phase 4: Final pattern replacement at word boundary
+    z->ket = z->c;
+    z->bra = z->c;
+    if (!find_among_b(z, a_36, 12)) return 0;  // Find from a_36 (12 patterns)
+    if (z->c > z->lb) return 0;  // Must be at word beginning
+
+    // Replace with "αμ"
+    slice_from_s(z, 4, s_75);
+
+    return 1;  // Success
+}
+```

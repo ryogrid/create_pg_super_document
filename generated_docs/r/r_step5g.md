@@ -47,3 +47,51 @@ The function uses the Snowball environment structure to manage cursor positions 
 - The function modifies the input string in-place by removing/replacing suffixes
 - Uses multiple suffix lookup arrays (a_47, a_48, a_49, a_50) and replacement strings (s_94, s_95)
 - The character code 184 appears to be a specific Greek character marker in the UTF-8 encoding scheme
+
+## Simplified Source
+
+```c
+static int r_step5g(struct SN_env * z) {
+    // Phase 1: Optional suffix removal with backtracking
+    int saved_pos1 = z->l - z->c;
+    z->ket = z->c;
+
+    if (find_among_b(z, a_47, 3)) {  // Try to find from a_47 (3 patterns)
+        z->bra = z->c;
+        slice_del(z);  // Remove matched suffix
+        z->I[0] = 0;   // Reset state
+    }
+    z->c = z->l - saved_pos1;  // Restore position
+
+    // Phase 2: Mandatory suffix removal
+    z->ket = z->c;
+    if (!find_among_b(z, a_50, 3)) return 0;  // Must find from a_50 (3 patterns)
+
+    z->bra = z->c;
+    slice_del(z);  // Remove matched suffix
+    z->I[0] = 0;   // Reset state
+
+    // Phase 3: Conditional replacement with two alternatives
+    int saved_pos2 = z->l - z->c;
+    z->ket = z->c;
+    z->bra = z->c;
+
+    if (find_among_b(z, a_48, 6)) {  // First alternative: a_48 (6 patterns)
+        slice_from_s(z, 4, s_94);  // Replace with s_94 (4 chars)
+    } else {
+        // Second alternative: character validation + pattern matching
+        z->c = z->l - saved_pos2;
+        z->ket = z->c;
+        z->bra = z->c;
+
+        // Check for specific character (184) and find pattern
+        if (z->c - 1 <= z->lb || z->p[z->c - 1] != 184) return 0;
+        if (!find_among_b(z, a_49, 5)) return 0;  // a_49 has 5 patterns
+        if (z->c > z->lb) return 0;  // Must be at word beginning
+
+        slice_from_s(z, 4, s_95);  // Replace with s_95 (4 chars)
+    }
+
+    return 1;  // Success
+}
+```

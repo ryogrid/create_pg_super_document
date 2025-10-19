@@ -31,6 +31,26 @@ This function implements the standard three-way comparison for 64-bit signed int
 
 ## Notes and Other Information
 - This function is part of PostgreSQL's B-tree index support infrastructure for 64-bit integers
-- Located in 
+- Located in
 - Returns standard comparison values: >0 for greater than, 0 for equal, <0 for less than
 - Used internally by the B-tree access method for organizing and searching bigint values in indexes
+
+## Simplified Source
+
+```c
+Datum
+btint8cmp(PG_FUNCTION_ARGS)
+{
+    // Extract the two 64-bit integer arguments
+    int64 a = PG_GETARG_INT64(0);
+    int64 b = PG_GETARG_INT64(1);
+
+    // Use explicit comparison to avoid overflow issues with 64-bit values
+    if (a > b)
+        PG_RETURN_INT32(1);    // A_GREATER_THAN_B
+    else if (a == b)
+        PG_RETURN_INT32(0);
+    else
+        PG_RETURN_INT32(-1);   // A_LESS_THAN_B
+}
+```

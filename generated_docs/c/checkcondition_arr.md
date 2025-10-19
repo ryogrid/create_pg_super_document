@@ -43,3 +43,32 @@ When a match is found, the function returns `TS_MAYBE` rather than `TS_YES` beca
 - Part of the TSVector GiST index support infrastructure for full-text search
 - Works in conjunction with the compression algorithms that create sorted hash arrays
 - The binary search maintains the loop invariant: `StopLow <= val < StopHigh`
+
+## Simplified Source
+
+```c
+static TSTernaryValue
+checkcondition_arr(void *checkval, QueryOperand *val, ExecPhraseData *data)
+{
+    // Cannot handle prefix searches with hash-based storage
+    if (val->prefix)
+        return TS_MAYBE;
+
+    // Binary search through sorted hash array
+    int32 *low = ((CHKVAL *) checkval)->arrb;
+    int32 *high = ((CHKVAL *) checkval)->arre;
+
+    while (low < high) {
+        int32 *middle = low + (high - low) / 2;
+
+        if (*middle == val->valcrc)
+            return TS_MAYBE;  // Found match (maybe due to hash collisions)
+        else if (*middle < val->valcrc)
+            low = middle + 1;
+        else
+            high = middle;
+    }
+
+    return TS_NO;  // Not found
+}
+```

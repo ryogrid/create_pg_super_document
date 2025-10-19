@@ -32,3 +32,19 @@ This utility function compares two string parameters to determine if a parameter
 - Returns true if old_val was NULL but new_val is not NULL (parameter being set for first time)
 - Returns true if both values are non-NULL but different according to strcmp
 - Part of psql's connection parameter management infrastructure
+
+## Simplified Source
+
+```c
+static bool param_is_newly_set(const char *old_val, const char *new_val) {
+    // Return false if no new value provided
+    if (new_val == NULL)
+        return false;
+
+    // Return true if value changed or is being set for first time
+    if (old_val == NULL || strcmp(old_val, new_val) != 0)
+        return true;
+
+    return false;
+}
+```

@@ -43,3 +43,29 @@ This function is a subroutine for  that processes a subset of index tuples to cr
 - The dontcare array filtering mechanism is optional - if dontcare is NULL, all specified entries are included
 - Index entries are 1-based in the entries array but converted to 0-based for itvec access
 - Part of the GiST index splitting algorithm that determines how to partition tuples among child nodes
+
+## Simplified Source
+
+```c
+static void
+gistunionsubkeyvec(GISTSTATE *giststate, IndexTuple *itvec, GistSplitUnion *gsvp)
+{
+    // Create temporary array for tuples to include in union
+    IndexTuple *cleanedItVec = palloc(sizeof(IndexTuple) * gsvp->len);
+    int cleanedLen = 0;
+
+    // Filter out don't-care tuples
+    for (int i = 0; i < gsvp->len; i++) {
+        if (gsvp->dontcare && gsvp->dontcare[gsvp->entries[i]]) {
+            continue; // Skip don't-care tuples
+        }
+        cleanedItVec[cleanedLen++] = itvec[gsvp->entries[i] - 1];
+    }
+
+    // Compute union of remaining tuples
+    gistMakeUnionItVec(giststate, cleanedItVec, cleanedLen,
+                       gsvp->attr, gsvp->isnull);
+
+    pfree(cleanedItVec);
+}
+```

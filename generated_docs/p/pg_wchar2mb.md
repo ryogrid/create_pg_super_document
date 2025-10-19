@@ -33,3 +33,14 @@ This function performs the reverse operation of pg_mb2wchar, converting a null-t
 - Returns the number of bytes written to the destination buffer
 - The function provides a convenient wrapper for full string conversion without requiring explicit length calculation
 - Less commonly used compared to the length-limited variants, possibly due to buffer safety considerations
+
+## Simplified Source
+
+```c
+int pg_wchar2mb(const pg_wchar *from, char *to) {
+    // Convert wide character string to multibyte using database encoding
+    // Calculate wchar string length and delegate to encoding-specific function
+    return pg_wchar_table[DatabaseEncoding->encoding].wchar2mb_with_len(
+        from, (unsigned char *) to, pg_wchar_strlen(from));
+}
+```

@@ -40,3 +40,22 @@ This function takes no parameters.
 - This function represents a "point of no return" in the upgrade process - after this point, failure requires re-initializing the new cluster
 - In check mode, this function terminates the program successfully, indicating that the upgrade would be feasible
 - The warning message emphasizes the critical nature of this checkpoint in the upgrade workflow
+
+## Simplified Source
+
+```c
+void report_clusters_compatible(void) {
+    // Check mode: report success and exit cleanly
+    if (user_opts.check) {
+        pg_log(PG_REPORT, "\n*Clusters are compatible*");
+        stop_postmaster(false);
+        cleanup_output_dirs();
+        exit(0);
+    }
+
+    // Upgrade mode: warn about point of no return
+    pg_log(PG_REPORT, "\n"
+           "If pg_upgrade fails after this point, you must re-initdb the\n"
+           "new cluster before continuing.");
+}
+```

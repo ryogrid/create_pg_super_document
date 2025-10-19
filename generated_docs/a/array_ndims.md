@@ -34,3 +34,19 @@ The  function is a PostgreSQL built-in function that examines an array and retur
 - Part of PostgreSQL's array manipulation function suite
 - Defined in src/backend/utils/adt/arrayfuncs.c:1652-1667
 - Thread-safe and read-only operation on array metadata
+
+## Simplified Source
+
+```c
+Datum array_ndims(PG_FUNCTION_ARGS) {
+    // Get the array argument
+    AnyArrayType *v = PG_GETARG_ANY_ARRAY_P(0);
+
+    // Validate array has reasonable dimension count
+    if (AARR_NDIM(v) <= 0 || AARR_NDIM(v) > MAXDIM)
+        PG_RETURN_NULL();
+
+    // Return the number of dimensions
+    PG_RETURN_INT32(AARR_NDIM(v));
+}
+```

@@ -44,3 +44,17 @@ The function returns a boolean indicating success or failure, making error handl
 - No support for SIGINT-based cancellation (prompt_ctx is always NULL)
 - More memory-efficient than `pg_get_line()` for sequential line processing
 - Located in src/common/pg_get_line.c:95-123
+
+## Simplified Source
+
+```c
+bool
+pg_get_line_buf(FILE *stream, StringInfo buf)
+{
+    // Clear any previous data from the buffer
+    resetStringInfo(buf);
+
+    // Read line data into the buffer
+    return pg_get_line_append(stream, buf, NULL);
+}
+```

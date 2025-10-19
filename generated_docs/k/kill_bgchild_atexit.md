@@ -38,3 +38,15 @@ This function takes no parameters but operates on global variables:
 - Prevents orphaned WAL streaming or compression processes
 - The function checks both that a valid process ID exists (bgchild > 0) and that the process hasn't already exited
 - Registered with atexit() when background processes are started, typically in StartLogStreamer()
+
+## Simplified Source
+
+```c
+static void
+kill_bgchild_atexit(void)
+{
+    // Terminate background child if still running
+    if (bgchild > 0 && !bgchild_exited)
+        kill(bgchild, SIGTERM);
+}
+```

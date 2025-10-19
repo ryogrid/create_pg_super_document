@@ -32,7 +32,24 @@ The function can only be called when the server is running in binary upgrade mod
 ## Notes and Other Information
 - This function is exposed as a SQL-callable function for use by pg_upgrade tools
 - The function performs a security check via  macro which throws an error if not in binary upgrade mode
-- The global variable  is declared as  in , making it accessible across PostgreSQL modules
-- Located in 
+- The global variable is declared as in, making it accessible across PostgreSQL modules
+- Located in
 - Essential for preserving user-defined and system type OIDs during major version upgrades
 - Works in conjunction with type creation functions that check this variable to assign the specified OID
+
+## Simplified Source
+
+```c
+Datum binary_upgrade_set_next_pg_type_oid(PG_FUNCTION_ARGS) {
+    // Extract the type OID argument
+    Oid typoid = PG_GETARG_OID(0);
+
+    // Verify we're in binary upgrade mode (throws error if not)
+    CHECK_IS_BINARY_UPGRADE;
+
+    // Store the OID for the next type creation
+    binary_upgrade_next_pg_type_oid = typoid;
+
+    PG_RETURN_VOID();
+}
+```

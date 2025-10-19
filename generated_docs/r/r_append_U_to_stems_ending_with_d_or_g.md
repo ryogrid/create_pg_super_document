@@ -43,3 +43,40 @@ The function uses complex logic with multiple labels and backtracking to handle 
 - Part of the post-processing phase in Turkish word stemming
 - Generated automatically by Snowball 2.2.0 stemmer generator
 - Uses UTF-8 encoded Turkish characters (ı, ö, ü) represented as byte sequences
+
+## Simplified Source
+
+```c
+static int r_append_U_to_stems_ending_with_d_or_g(struct SN_env * z) {
+    // Check if stem ends with 'd' or 'g'
+    if (z->c <= z->lb) return 0;
+
+    char last_char = z->p[z->c - 1];
+    if (last_char != 'd' && last_char != 'g') return 0;
+
+    // Find the preceding vowel to determine harmony
+    if (out_grouping_b_U(z, g_vowel, 97, 305, 1) < 0) return 0;
+
+    char prev_vowel = z->p[z->c - 1];
+
+    // Apply Turkish vowel harmony rules
+    if (prev_vowel == 'a' || eq_s_b(z, 2, s_9)) {  // 'a' or 'ı'
+        // Back unrounded vowels → append 'ı'
+        insert_s(z, z->c, z->c, 2, s_10);
+    }
+    else if (prev_vowel == 'e' || prev_vowel == 'i') {
+        // Front unrounded vowels → append 'i'
+        insert_s(z, z->c, z->c, 1, s_11);
+    }
+    else if (prev_vowel == 'o' || prev_vowel == 'u') {
+        // Back rounded vowels → append 'u'
+        insert_s(z, z->c, z->c, 1, s_12);
+    }
+    else if (eq_s_b(z, 2, s_13) || eq_s_b(z, 2, s_14)) {  // 'ö' or 'ü'
+        // Front rounded vowels → append 'ü'
+        insert_s(z, z->c, z->c, 2, s_15);
+    }
+
+    return 1;  // Successfully applied vowel harmony
+}
+```

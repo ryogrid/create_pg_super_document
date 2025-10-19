@@ -34,3 +34,21 @@ This function is a PostgreSQL built-in function that implements a comparison fun
 - This function follows the standard C library qsort comparison function convention
 - Used by PostgreSQL's sorting and indexing infrastructure for cash values
 - Essential for implementing ORDER BY clauses and B-tree indexes on cash columns
+
+## Simplified Source
+
+```c
+Datum cash_cmp(PG_FUNCTION_ARGS) {
+    // Extract two cash values from function arguments
+    Cash c1 = PG_GETARG_CASH(0);
+    Cash c2 = PG_GETARG_CASH(1);
+
+    // Standard three-way comparison
+    if (c1 > c2)
+        PG_RETURN_INT32(1);   // First value is greater
+    else if (c1 == c2)
+        PG_RETURN_INT32(0);   // Values are equal
+    else
+        PG_RETURN_INT32(-1);  // First value is less
+}
+```

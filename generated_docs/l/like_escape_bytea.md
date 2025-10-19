@@ -42,3 +42,19 @@ The function handles the conversion by:
   - Other escape characters: converts them to backslashes and handles backslash doubling
 - The function is located in src/backend/utils/adt/like.c:447-454
 - It's designed to work with PostgreSQL's function call interface using the PG_FUNCTION_ARGS macro system
+
+## Simplified Source
+
+```c
+Datum like_escape_bytea(PG_FUNCTION_ARGS) {
+    // Extract pattern and escape character from arguments
+    bytea *pat = PG_GETARG_BYTEA_PP(0);
+    bytea *esc = PG_GETARG_BYTEA_PP(1);
+
+    // Convert escape characters using single-byte processing
+    // (casts to text are safe since escape processing works at byte level)
+    bytea *result = SB_do_like_escape((text *) pat, (text *) esc);
+
+    PG_RETURN_BYTEA_P((bytea *) result);
+}
+```

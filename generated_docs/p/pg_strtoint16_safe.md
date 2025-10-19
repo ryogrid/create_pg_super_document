@@ -41,3 +41,137 @@ Error handling is performed through PostgreSQL's `ereturn()` mechanism, which al
 - The function name follows PostgreSQL's `_safe` convention for functions that use ErrorSaveContext
 - Handles the full range of 16-bit signed integers (-32,768 to 32,767)
 - Branch prediction hints (`likely`/`unlikely`) optimize performance for common cases
+
+## Simplified Source
+
+```c
+int16 pg_strtoint16_safe(const char *s, Node *escontext) {
+    const char *ptr = s;
+    uint16 tmp = 0;
+    bool neg = false;
+
+    // Fast path: try simple decimal parsing first
+    if (*ptr == '-') {
+        ptr++;
+        neg = true;
+    }
+
+    // Parse digits quickly for common case
+    unsigned char digit = (*ptr - '0');
+    if (digit < 10) {
+        ptr++;
+        tmp = digit;
+
+        // Continue parsing decimal digits
+        while ((digit = (*ptr - '0')) < 10) {
+            ptr++;
+            if (tmp > -(PG_INT16_MIN / 10))
+                goto out_of_range;
+            tmp = tmp * 10 + digit;
+        }
+
+        // If we consumed the whole string, we're done
+        if (*ptr == '\0') {
+            if (neg) {
+                if (tmp > (uint16)(-(PG_INT16_MIN + 1)) + 1)
+                    goto out_of_range;
+                return -((int16)tmp);
+            }
+            if (tmp > PG_INT16_MAX)
+                goto out_of_range;
+            return (int16)tmp;
+        }
+    }
+
+    // Slow path: handle spaces, different bases, underscores
+    tmp = 0;
+    ptr = s;
+
+    // Skip leading whitespace
+    while (isspace(*ptr)) ptr++;
+
+    // Handle sign
+    if (*ptr == '-') {
+        ptr++;
+        neg = true;
+    } else if (*ptr == '+') {
+        ptr++;
+    }
+
+    // Determine base and parse accordingly
+    if (ptr[0] == '0' && (ptr[1] == 'x' || ptr[1] == 'X')) {
+        // Hexadecimal
+        ptr += 2;
+        while (isxdigit(*ptr) || *ptr == '_') {
+            if (*ptr == '_') {
+                ptr++;
+                if (!isxdigit(*ptr)) goto invalid_syntax;
+                continue;
+            }
+            if (tmp > -(PG_INT16_MIN / 16)) goto out_of_range;
+            tmp = tmp * 16 + hexlookup[*ptr++];
+        }
+    } else if (ptr[0] == '0' && (ptr[1] == 'o' || ptr[1] == 'O')) {
+        // Octal
+        ptr += 2;
+        while ((*ptr >= '0' && *ptr <= '7') || *ptr == '_') {
+            if (*ptr == '_') {
+                ptr++;
+                if (*ptr < '0' || *ptr > '7') goto invalid_syntax;
+                continue;
+            }
+            if (tmp > -(PG_INT16_MIN / 8)) goto out_of_range;
+            tmp = tmp * 8 + (*ptr++ - '0');
+        }
+    } else if (ptr[0] == '0' && (ptr[1] == 'b' || ptr[1] == 'B')) {
+        // Binary
+        ptr += 2;
+        while ((*ptr >= '0' && *ptr <= '1') || *ptr == '_') {
+            if (*ptr == '_') {
+                ptr++;
+                if (*ptr < '0' || *ptr > '1') goto invalid_syntax;
+                continue;
+            }
+            if (tmp > -(PG_INT16_MIN / 2)) goto out_of_range;
+            tmp = tmp * 2 + (*ptr++ - '0');
+        }
+    } else {
+        // Decimal with possible underscores
+        while ((*ptr >= '0' && *ptr <= '9') || *ptr == '_') {
+            if (*ptr == '_') {
+                ptr++;
+                if (!isdigit(*ptr)) goto invalid_syntax;
+                continue;
+            }
+            if (tmp > -(PG_INT16_MIN / 10)) goto out_of_range;
+            tmp = tmp * 10 + (*ptr++ - '0');
+        }
+    }
+
+    // Skip trailing whitespace
+    while (isspace(*ptr)) ptr++;
+
+    if (*ptr != '\0') goto invalid_syntax;
+
+    // Convert to signed result
+    if (neg) {
+        if (tmp > (uint16)(-(PG_INT16_MIN + 1)) + 1)
+            goto out_of_range;
+        return -((int16)tmp);
+    }
+
+    if (tmp > PG_INT16_MAX)
+        goto out_of_range;
+    return (int16)tmp;
+
+out_of_range:
+    ereturn(escontext, 0,
+            (errcode(ERRCODE_NUMERIC_VALUE_OUT_OF_RANGE),
+             errmsg("value \"%s\" is out of range for type %s", s, "smallint")));
+
+invalid_syntax:
+    ereturn(escontext, 0,
+            (errcode(ERRCODE_INVALID_TEXT_REPRESENTATION),
+             errmsg("invalid input syntax for type %s: \"%s\"", "smallint", s)));
+}
+```

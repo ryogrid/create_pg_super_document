@@ -44,3 +44,30 @@ This function is typically used as a final function in PostgreSQL's aggregate sy
 - Requires exactly 6 elements in the input transition array
 - Combined with the slope, the intercept fully defines the linear regression line: y = slope * x + intercept
 - Uses more transition array elements than slope calculation (Sx and Sy are needed)
+
+## Simplified Source
+
+```c
+Datum float8_regr_intercept(PG_FUNCTION_ARGS) {
+    ArrayType *transarray = PG_GETARG_ARRAYTYPE_P(0);
+
+    // Extract regression values from 6-element array
+    float8 *transvalues = check_float8_array(transarray, "float8_regr_intercept", 6);
+    float8 N = transvalues[0];   // Count of data points
+    float8 Sx = transvalues[1];  // Sum of X values
+    float8 Sxx = transvalues[2]; // Sum of squares for X
+    float8 Sy = transvalues[3];  // Sum of Y values
+    float8 Sxy = transvalues[5]; // Sum of cross-products
+
+    // Return NULL if no data points
+    if (N < 1.0)
+        PG_RETURN_NULL();
+
+    // Return NULL for vertical line (undefined regression)
+    if (Sxx == 0)
+        PG_RETURN_NULL();
+
+    // Return y-intercept: (Sy - Sx * Sxy / Sxx) / N
+    PG_RETURN_FLOAT8((Sy - Sx * Sxy / Sxx) / N);
+}
+```

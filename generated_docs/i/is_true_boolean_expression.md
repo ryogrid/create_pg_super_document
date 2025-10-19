@@ -37,3 +37,23 @@ The function is designed to work within psqls conditional execution stack, where
 - Central component of psqls conditional command infrastructure
 - The name parameter is passed through to ParseVariableBool for error context
 - Part of the psql conditional execution system supporting complex scripting scenarios
+
+## Simplified Source
+
+```c
+// Simplified version of is_true_boolean_expression
+static bool is_true_boolean_expression(PsqlScanState scan_state, const char *name) {
+    // Gather all command arguments into a boolean expression
+    PQExpBuffer buf = gather_boolean_expression(scan_state);
+    bool value = false;
+
+    // Parse and evaluate the expression
+    bool success = ParseVariableBool(buf->data, name, &value);
+
+    // Clean up buffer
+    destroyPQExpBuffer(buf);
+
+    // Return true only if parsing succeeded AND expression evaluated to true
+    return success && value;
+}
+```

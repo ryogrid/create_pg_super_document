@@ -37,3 +37,17 @@ This validation is crucial because WAL segment size is a fundamental parameter t
 - Changes to WAL segment size typically require reinitializing the database cluster (initdb)
 - The function returns true for valid values and false for invalid ones
 - Error details are provided via GUC_check_errdetail() to give users clear feedback on validation failures
+
+## Simplified Source
+
+```c
+bool check_wal_segment_size(int *newval, void **extra, GucSource source) {
+    // Validate WAL segment size (must be power of 2, 1MB-1GB)
+    if (!IsValidWalSegSize(*newval)) {
+        GUC_check_errdetail("The WAL segment size must be a power of two between 1 MB and 1 GB.");
+        return false;
+    }
+
+    return true;
+}
+```

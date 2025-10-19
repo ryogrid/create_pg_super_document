@@ -57,3 +57,176 @@ The implementation uses a three-way merge algorithm similar to merging sorted ar
 - Handles cases where either input tsvector may be empty
 - Maintains the haspos flags correctly for lexemes with and without positional data
 - Uses SHORTALIGN for proper memory alignment of position data structures
+
+## Simplified Source
+
+```c
+Datum tsvector_concat(PG_FUNCTION_ARGS) {
+    TSVector in1 = PG_GETARG_TSVECTOR(0);
+    TSVector in2 = PG_GETARG_TSVECTOR(1);
+    TSVector out;
+    WordEntry *ptr, *ptr1, *ptr2;
+    int maxpos = 0, i, j, i1, i2, dataoff, output_bytes;
+    char *data, *data1, *data2;
+
+    // Find maximum position in first TSVector for offset calculation
+    ptr = ARRPTR(in1);
+    i = in1->size;
+    while (i--) {
+        if ((j = POSDATALEN(in1, ptr)) != 0) {
+            WordEntryPos *p = POSDATAPTR(in1, ptr);
+            while (j--) {
+                if (WEP_GETPOS(*p) > maxpos)
+                    maxpos = WEP_GETPOS(*p);
+                p++;
+            }
+        }
+        ptr++;
+    }
+
+    // Initialize merge pointers and allocate result TSVector
+    ptr1 = ARRPTR(in1);
+    ptr2 = ARRPTR(in2);
+    data1 = STRPTR(in1);
+    data2 = STRPTR(in2);
+    i1 = in1->size;
+    i2 = in2->size;
+
+    output_bytes = VARSIZE(in1) + VARSIZE(in2) + i1 + i2;  // Conservative estimate
+    out = (TSVector) palloc0(output_bytes);
+    SET_VARSIZE(out, output_bytes);
+    out->size = in1->size + in2->size;
+
+    ptr = ARRPTR(out);
+    data = STRPTR(out);
+    dataoff = 0;
+
+    // Three-way merge: both TSVectors have entries
+    while (i1 && i2) {
+        int cmp = compareEntry(data1, ptr1, data2, ptr2);
+
+        if (cmp < 0) {
+            // Copy entry from first TSVector
+            ptr->haspos = ptr1->haspos;
+            ptr->len = ptr1->len;
+            memcpy(data + dataoff, data1 + ptr1->pos, ptr1->len);
+            ptr->pos = dataoff;
+            dataoff += ptr1->len;
+
+            if (ptr->haspos) {
+                dataoff = SHORTALIGN(dataoff);
+                memcpy(data + dataoff, _POSVECPTR(in1, ptr1),
+                       POSDATALEN(in1, ptr1) * sizeof(WordEntryPos) + sizeof(uint16));
+                dataoff += POSDATALEN(in1, ptr1) * sizeof(WordEntryPos) + sizeof(uint16);
+            }
+            ptr++; ptr1++; i1--;
+
+        } else if (cmp > 0) {
+            // Copy entry from second TSVector with position offset
+            ptr->haspos = ptr2->haspos;
+            ptr->len = ptr2->len;
+            memcpy(data + dataoff, data2 + ptr2->pos, ptr2->len);
+            ptr->pos = dataoff;
+            dataoff += ptr2->len;
+
+            if (ptr->haspos) {
+                int addlen = add_pos(in2, ptr2, out, ptr, maxpos);
+                if (addlen == 0) {
+                    ptr->haspos = 0;
+                } else {
+                    dataoff = SHORTALIGN(dataoff);
+                    dataoff += addlen * sizeof(WordEntryPos) + sizeof(uint16);
+                }
+            }
+            ptr++; ptr2++; i2--;
+
+        } else {
+            // Merge entries with same lexeme
+            ptr->haspos = ptr1->haspos | ptr2->haspos;
+            ptr->len = ptr1->len;
+            memcpy(data + dataoff, data1 + ptr1->pos, ptr1->len);
+            ptr->pos = dataoff;
+            dataoff += ptr1->len;
+
+            if (ptr->haspos) {
+                if (ptr1->haspos) {
+                    // Copy positions from first TSVector
+                    dataoff = SHORTALIGN(dataoff);
+                    memcpy(data + dataoff, _POSVECPTR(in1, ptr1),
+                           POSDATALEN(in1, ptr1) * sizeof(WordEntryPos) + sizeof(uint16));
+                    dataoff += POSDATALEN(in1, ptr1) * sizeof(WordEntryPos) + sizeof(uint16);
+
+                    // Add positions from second TSVector if present
+                    if (ptr2->haspos)
+                        dataoff += add_pos(in2, ptr2, out, ptr, maxpos) * sizeof(WordEntryPos);
+                } else {
+                    // Only second TSVector has positions
+                    int addlen = add_pos(in2, ptr2, out, ptr, maxpos);
+                    if (addlen == 0) {
+                        ptr->haspos = 0;
+                    } else {
+                        dataoff = SHORTALIGN(dataoff);
+                        dataoff += addlen * sizeof(WordEntryPos) + sizeof(uint16);
+                    }
+                }
+            }
+            ptr++; ptr1++; ptr2++; i1--; i2--;
+        }
+    }
+
+    // Copy remaining entries from first TSVector
+    while (i1) {
+        ptr->haspos = ptr1->haspos;
+        ptr->len = ptr1->len;
+        memcpy(data + dataoff, data1 + ptr1->pos, ptr1->len);
+        ptr->pos = dataoff;
+        dataoff += ptr1->len;
+
+        if (ptr->haspos) {
+            dataoff = SHORTALIGN(dataoff);
+            memcpy(data + dataoff, _POSVECPTR(in1, ptr1),
+                   POSDATALEN(in1, ptr1) * sizeof(WordEntryPos) + sizeof(uint16));
+            dataoff += POSDATALEN(in1, ptr1) * sizeof(WordEntryPos) + sizeof(uint16);
+        }
+        ptr++; ptr1++; i1--;
+    }
+
+    // Copy remaining entries from second TSVector with position offset
+    while (i2) {
+        ptr->haspos = ptr2->haspos;
+        ptr->len = ptr2->len;
+        memcpy(data + dataoff, data2 + ptr2->pos, ptr2->len);
+        ptr->pos = dataoff;
+        dataoff += ptr2->len;
+
+        if (ptr->haspos) {
+            int addlen = add_pos(in2, ptr2, out, ptr, maxpos);
+            if (addlen == 0) {
+                ptr->haspos = 0;
+            } else {
+                dataoff = SHORTALIGN(dataoff);
+                dataoff += addlen * sizeof(WordEntryPos) + sizeof(uint16);
+            }
+        }
+        ptr++; ptr2++; i2--;
+    }
+
+    // Check for string length overflow
+    if (dataoff > MAXSTRPOS)
+        ereport(ERROR, (errcode(ERRCODE_PROGRAM_LIMIT_EXCEEDED),
+                       errmsg("string is too long for tsvector (%d bytes, max %d bytes)",
+                             dataoff, MAXSTRPOS)));
+
+    // Finalize output size and compact memory
+    int output_size = ptr - ARRPTR(out);
+    out->size = output_size;
+    if (data != STRPTR(out))
+        memmove(STRPTR(out), data, dataoff);
+    output_bytes = CALCDATASIZE(out->size, dataoff);
+    SET_VARSIZE(out, output_bytes);
+
+    PG_FREE_IF_COPY(in1, 0);
+    PG_FREE_IF_COPY(in2, 1);
+    PG_RETURN_POINTER(out);
+}
+```

@@ -46,3 +46,35 @@ This step is more restrictive than Step2a, using specific character validation b
 - The character check ensures that only words ending with specific Arabic characters are processed
 - Part of the sequential verb stemming process alongside Step2a and Step2c
 - Returns 1 on successful suffix removal and 0 when conditions are not met or no applicable suffix is found
+
+## Simplified Source
+
+```c
+static int r_Suffix_Verb_Step2b(struct SN_env * z) {
+    // Mark current position as end boundary
+    z->ket = z->c;
+
+    // Pre-filter: Check if word ends with specific Arabic characters (133 or 167)
+    // and has at least 3 characters from left boundary
+    if (z->c - 3 <= z->lb ||
+        (z->p[z->c - 1] != 133 && z->p[z->c - 1] != 167)) {
+        return 0;  // Doesn't meet pre-conditions
+    }
+
+    // Find matching verb suffix from small predefined array (2 suffixes)
+    if (!find_among_b(z, a_19, 2)) {
+        return 0;  // No suffix found
+    }
+
+    // Mark start boundary for deletion
+    z->bra = z->c;
+
+    // Ensure minimum word length of 5 UTF-8 characters
+    if (len_utf8(z->p) >= 5) {
+        slice_del(z);  // Delete the suffix
+        return 1;      // Successfully processed
+    }
+
+    return 0;  // Word too short
+}
+```

@@ -36,3 +36,15 @@ The function is designed to be efficient and handles detoasting automatically th
 - Part of PostgreSQL's type input/output infrastructure and automatically invoked during type conversions
 - Efficiently handles both compressed (toasted) and uncompressed JSON values
 - The output is suitable for display to clients or for further string processing
+
+## Simplified Source
+
+```c
+Datum json_out(PG_FUNCTION_ARGS) {
+    // Get JSON as datum (detoasting handled by TextDatumGetCString)
+    Datum txt = PG_GETARG_DATUM(0);
+
+    // Convert JSON text to C-string for output
+    return PG_RETURN_CSTRING(TextDatumGetCString(txt));
+}
+```

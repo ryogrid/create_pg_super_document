@@ -40,3 +40,47 @@ This function implements platform-specific logic to check if the WAL streaming s
 - Returns false when no end position is available yet, allowing streaming to continue
 - Critical for implementing controlled WAL streaming termination during base backup operations
 - The timeline and segment_finished parameters are currently not used in the function logic
+
+## Simplified Source
+
+```c
+static bool
+reached_end_position(XLogRecPtr segendpos, uint32 timeline, bool segment_finished)
+{
+    // If we don't have the end position yet, try to get it
+    if (!has_xlogendptr) {
+#ifndef WIN32
+        // Unix: Check pipe for end position data (non-blocking)
+        fd_set fds;
+        struct timeval tv = {0};
+
+        FD_ZERO(&fds);
+        FD_SET(bgpipe[0], &fds);
+
+        if (select(bgpipe[0] + 1, &fds, NULL, NULL, &tv) == 1) {
+            // Read and parse end position from pipe
+            char xlogend[64] = {0};
+            uint32 hi, lo;
+
+            if (read(bgpipe[0], xlogend, sizeof(xlogend) - 1) < 0)
+                pg_fatal("could not read from ready pipe: %m");
+
+            if (sscanf(xlogend, "%X/%X", &hi, &lo) != 2)
+                pg_fatal("could not parse write-ahead log location \"%s\"", xlogend);
+
+            // Set the end position
+            xlogendptr = ((uint64) hi) << 32 | lo;
+            has_xlogendptr = 1;
+        } else {
+            return false; // No end position available yet
+        }
+#else
+        // Windows: Wait for main thread to set end position
+        return false;
+#endif
+    }
+
+    // Compare current position with end position
+    return (segendpos >= xlogendptr);
+}
+```

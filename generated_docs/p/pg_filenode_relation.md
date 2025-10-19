@@ -37,3 +37,26 @@ This function is especially valuable for database administration tasks, forensic
 - Validates relfilenumber input before processing to prevent RelidByRelfilenumber misbehavior
 - Part of the database size and file system utility functions in PostgreSQL
 - Located in src/backend/utils/adt/dbsize.c:930-953
+
+## Simplified Source
+
+```c
+Datum pg_filenode_relation(PG_FUNCTION_ARGS) {
+    Oid reltablespace = PG_GETARG_OID(0);
+    RelFileNumber relfilenumber = PG_GETARG_OID(1);
+    Oid heaprel;
+
+    // Validate relfilenumber to prevent misbehavior
+    if (!RelFileNumberIsValid(relfilenumber))
+        PG_RETURN_NULL();
+
+    // Look up relation OID by tablespace and file number
+    heaprel = RelidByRelfilenumber(reltablespace, relfilenumber);
+
+    // Return result or NULL if not found
+    if (!OidIsValid(heaprel))
+        PG_RETURN_NULL();
+    else
+        PG_RETURN_OID(heaprel);
+}
+```

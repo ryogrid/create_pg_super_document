@@ -31,3 +31,12 @@ The formula (srclen * 3) >> 2 is equivalent to (srclen * 3) / 4, which accounts 
 - Uses bit shifting (>> 2) instead of division for better performance
 - The calculation provides an upper bound estimate and doesn't account for whitespace or padding characters that might be present in the encoded input
 - Used as part of the broader encoding/decoding infrastructure in PostgreSQL
+
+## Simplified Source
+
+```c
+static uint64 pg_base64_dec_len(const char *src, size_t srclen) {
+    // Base64: 4 bytes input -> 3 bytes output
+    return ((uint64) srclen * 3) >> 2;  // Efficient multiply by 3/4
+}
+```

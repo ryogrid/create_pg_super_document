@@ -34,3 +34,16 @@ This function is a PostgreSQL SQL-callable wrapper around the internal float8_cm
 - This function serves as the comparison operator for B-tree indexes on float8 (double precision) columns
 - The actual comparison logic is delegated to float8_cmp_internal, which handles special cases like NaN values
 - Returns an int32 value following PostgreSQL's comparison function convention (-1, 0, 1)
+
+## Simplified Source
+
+```c
+Datum btfloat8cmp(PG_FUNCTION_ARGS) {
+    // Extract two double-precision arguments
+    float8 arg1 = PG_GETARG_FLOAT8(0);
+    float8 arg2 = PG_GETARG_FLOAT8(1);
+
+    // Delegate to internal comparison function and return result
+    PG_RETURN_INT32(float8_cmp_internal(arg1, arg2));
+}
+```

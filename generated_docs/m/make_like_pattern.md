@@ -31,3 +31,42 @@ The function also handles multibyte characters correctly by detecting high-bit-s
 
 ## Notes and Other Information
 The function creates a pattern that matches any string starting with the input word followed by any characters (prefix matching). Multibyte character handling prevents corruption in unsafe client encodings. The returned string is ready for direct insertion into SQL queries and must be freed by the caller. The intermediate buffer is automatically freed before returning.
+
+## Simplified Source
+
+```c
+static char *
+make_like_pattern(const char *word)
+{
+    char *result;
+    char *buffer = pg_malloc(strlen(word) * 2 + 2);  // Space for escaping + % + null
+    char *bptr = buffer;
+
+    // Process each character in the input word
+    while (*word) {
+        // Escape LIKE special characters _ and %
+        if (*word == '_' || *word == '%')
+            *bptr++ = '\\';
+
+        if (IS_HIGHBIT_SET(*word)) {
+            // Handle multibyte characters safely
+            int chlen = PQmblenBounded(word, pset.encoding);
+
+            while (chlen-- > 0)
+                *bptr++ = *word++;
+        } else {
+            // Copy single-byte character
+            *bptr++ = *word++;
+        }
+    }
+
+    // Append wildcard for prefix matching
+    *bptr++ = '%';
+    *bptr = '\0';
+
+    // Escape the pattern for SQL query insertion
+    result = escape_string(buffer);
+    free(buffer);
+    return result;
+}
+```

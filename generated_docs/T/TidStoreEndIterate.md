@@ -35,3 +35,21 @@ This function is the required counterpart to TidStoreBeginIterate and must be ca
 - Automatically handles both shared and local TidStore cleanup
 - Frees both the output buffer and the iterator structure itself
 - Should be called even if iteration was not completed (e.g., due to early termination)
+
+## Simplified Source
+
+```c
+void
+TidStoreEndIterate(TidStoreIter *iter)
+{
+    // Clean up appropriate iterator type
+    if (TidStoreIsShared(iter->ts))
+        shared_ts_end_iterate(iter->tree_iter.shared);
+    else
+        local_ts_end_iterate(iter->tree_iter.local);
+
+    // Free allocated memory
+    pfree(iter->output.offsets);
+    pfree(iter);
+}
+```

@@ -44,3 +44,16 @@ This function is part of PostgreSQL's type system that allows seamless compariso
 - Handles mixed-precision comparisons by promoting the lower precision operand
 - The actual comparison logic is delegated to `float8_ge` after type promotion
 - Returns a Datum-wrapped boolean value as per PostgreSQL's function call convention
+
+## Simplified Source
+
+```c
+Datum float48ge(PG_FUNCTION_ARGS) {
+    // Extract float4 and float8 arguments
+    float4 arg1 = PG_GETARG_FLOAT4(0);
+    float8 arg2 = PG_GETARG_FLOAT8(1);
+
+    // Convert float4 to float8 and compare for greater-than-or-equal
+    PG_RETURN_BOOL(float8_ge((float8) arg1, arg2));
+}
+```

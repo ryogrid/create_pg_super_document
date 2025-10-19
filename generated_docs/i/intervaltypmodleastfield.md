@@ -44,3 +44,55 @@ This ordering differs from the standard dt.h macros and provides a consistent wa
 - Essential for interval type system operations that need to understand the effective resolution
 - Static function, used internally within timestamp.c for interval type support
 - For compound intervals (e.g., "day to second"), returns the code for the least significant field in the range
+
+## Simplified Source
+
+```c
+static int
+intervaltypmodleastfield(int32 typmod)
+{
+    // Return SECOND (0) for invalid typmod - full precision
+    if (typmod < 0)
+        return 0;
+
+    // Map interval field combinations to significance levels
+    // SECOND=0, MINUTE=1, HOUR=2, DAY=3, MONTH=4, YEAR=5
+    switch (INTERVAL_RANGE(typmod)) {
+        case INTERVAL_MASK(YEAR):
+            return 5;       // YEAR
+        case INTERVAL_MASK(MONTH):
+            return 4;       // MONTH
+        case INTERVAL_MASK(DAY):
+            return 3;       // DAY
+        case INTERVAL_MASK(HOUR):
+            return 2;       // HOUR
+        case INTERVAL_MASK(MINUTE):
+            return 1;       // MINUTE
+        case INTERVAL_MASK(SECOND):
+            return 0;       // SECOND
+
+        // Compound ranges - return least significant field
+        case INTERVAL_MASK(YEAR) | INTERVAL_MASK(MONTH):
+            return 4;       // MONTH
+        case INTERVAL_MASK(DAY) | INTERVAL_MASK(HOUR):
+            return 2;       // HOUR
+        case INTERVAL_MASK(DAY) | INTERVAL_MASK(HOUR) | INTERVAL_MASK(MINUTE):
+            return 1;       // MINUTE
+        case INTERVAL_MASK(DAY) | INTERVAL_MASK(HOUR) | INTERVAL_MASK(MINUTE) | INTERVAL_MASK(SECOND):
+            return 0;       // SECOND
+        case INTERVAL_MASK(HOUR) | INTERVAL_MASK(MINUTE):
+            return 1;       // MINUTE
+        case INTERVAL_MASK(HOUR) | INTERVAL_MASK(MINUTE) | INTERVAL_MASK(SECOND):
+            return 0;       // SECOND
+        case INTERVAL_MASK(MINUTE) | INTERVAL_MASK(SECOND):
+            return 0;       // SECOND
+        case INTERVAL_FULL_RANGE:
+            return 0;       // SECOND
+
+        default:
+            elog(ERROR, "invalid INTERVAL typmod: 0x%x", typmod);
+            break;
+    }
+    return 0;
+}
+```

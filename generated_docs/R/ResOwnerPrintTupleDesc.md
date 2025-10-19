@@ -38,3 +38,18 @@ The function is part of PostgreSQL's resource management infrastructure that hel
 - The returned string format is: "TupleDesc [address] ([typeid],[typmod])"
 - Part of the resource owner callback system introduced for better resource tracking
 - Used primarily for debugging and diagnostic purposes, not for normal operation
+
+## Simplified Source
+
+```c
+static char *
+ResOwnerPrintTupleDesc(Datum res)
+{
+    // Convert Datum to TupleDesc pointer
+    TupleDesc tupdesc = (TupleDesc) DatumGetPointer(res);
+
+    // Return formatted debug string with address, type ID, and type modifier
+    return psprintf("TupleDesc %p (%u,%d)",
+                    tupdesc, tupdesc->tdtypeid, tupdesc->tdtypmod);
+}
+```

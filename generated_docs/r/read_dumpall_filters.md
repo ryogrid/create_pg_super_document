@@ -50,3 +50,46 @@ The function uses PostgreSQL's generic filter infrastructure (FilterStateData, f
 - The restriction to database-only filters reflects pg_dumpall's scope as a cluster-wide dump utility
 - Filter file format follows the same conventions as other PostgreSQL utilities like pg_dump
 - Supports the "-" filename convention for reading filters from STDIN, enabling pipeline usage
+
+## Simplified Source
+
+```c
+static void read_dumpall_filters(const char *filename, SimpleStringList *pattern) {
+    FilterStateData fstate;
+    char *objname;
+    FilterCommandType comtype;
+    FilterObjectType objtype;
+
+    // Initialize filter parsing
+    filter_init(&fstate, filename, exit);
+
+    // Process each filter item
+    while (filter_read_item(&fstate, &objname, &comtype, &objtype)) {
+        // Reject include filters - only exclude filters allowed
+        if (comtype == FILTER_COMMAND_TYPE_INCLUDE) {
+            pg_log_filter_error(&fstate, "include filter not allowed");
+            exit_nicely(1);
+        }
+
+        // Only support database object type
+        switch (objtype) {
+            case FILTER_OBJECT_TYPE_DATABASE:
+                // Add valid database exclusion pattern
+                simple_string_list_append(pattern, objname);
+                break;
+
+            default:
+                // Reject all other object types
+                pg_log_filter_error(&fstate, "unsupported filter object");
+                exit_nicely(1);
+        }
+
+        // Clean up object name
+        if (objname)
+            free(objname);
+    }
+
+    // Clean up filter state
+    filter_free(&fstate);
+}
+```

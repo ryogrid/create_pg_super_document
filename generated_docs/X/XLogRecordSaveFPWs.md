@@ -42,3 +42,59 @@ This function iterates through all block references in a WAL record, identifies 
 - Provides comprehensive error handling for file operations
 - Useful for forensic analysis and understanding WAL content at the page level
 - Each saved file represents a complete 8KB database page as stored in the WAL
+
+## Simplified Source
+
+```c
+static void
+XLogRecordSaveFPWs(XLogReaderState *record, const char *savepath)
+{
+    // Iterate through all block references in the WAL record
+    for (int block_id = 0; block_id <= XLogRecMaxBlockId(record); block_id++) {
+        PGAlignedBlock buf;
+        Page page;
+        char filename[MAXPGPATH];
+        char forkname[FORKNAMECHARS + 2];
+        FILE *file;
+        BlockNumber blk;
+        RelFileLocator rnode;
+        ForkNumber fork;
+
+        // Skip blocks without references or full page images
+        if (!XLogRecHasBlockRef(record, block_id) || !XLogRecHasBlockImage(record, block_id))
+            continue;
+
+        page = (Page) buf.data;
+
+        // Restore the full page image (decompresses if needed)
+        if (!RestoreBlockImage(record, block_id, page))
+            pg_fatal("%s", record->errormsg_buf);
+
+        // Get block tag information (relation, fork, block number)
+        XLogRecGetBlockTagExtended(record, block_id, &rnode, &fork, &blk, NULL);
+
+        // Generate fork name for filename
+        if (fork >= 0 && fork <= MAX_FORKNUM)
+            sprintf(forkname, "_%s", forkNames[fork]);
+        else
+            pg_fatal("invalid fork number: %u", fork);
+
+        // Create descriptive filename with timeline, LSN, and relation info
+        snprintf(filename, MAXPGPATH, "%s/%08X-%08X-%08X.%u.%u.%u.%u%s", savepath,
+                 record->seg.ws_tli,
+                 LSN_FORMAT_ARGS(record->ReadRecPtr),
+                 rnode.spcOid, rnode.dbOid, rnode.relNumber, blk, forkname);
+
+        // Write the page to file
+        file = fopen(filename, PG_BINARY_W);
+        if (!file)
+            pg_fatal("could not open file \"%s\": %m", filename);
+
+        if (fwrite(page, BLCKSZ, 1, file) != 1)
+            pg_fatal("could not write file \"%s\": %m", filename);
+
+        if (fclose(file) != 0)
+            pg_fatal("could not close file \"%s\": %m", filename);
+    }
+}
+```

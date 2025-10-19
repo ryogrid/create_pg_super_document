@@ -38,3 +38,38 @@ The search strategy is optimized for the common case where pages grow through in
 - Returns InvalidOffsetNumber if the target block number is not found
 - Optimized for insertion-heavy workloads where pointers typically move to the right
 - Part of the GIN (Generalized Inverted Index) access method implementation
+
+## Simplified Source
+
+```c
+static OffsetNumber dataFindChildPtr(GinBtree btree, Page page, BlockNumber blkno, OffsetNumber storedOff) {
+    OffsetNumber maxoff = GinPageGetOpaque(page)->maxoff;
+    PostingItem *pitem;
+
+    // Phase 1: Check if stored offset still points to the target block
+    if (storedOff >= FirstOffsetNumber && storedOff <= maxoff) {
+        pitem = GinDataPageGetPostingItem(page, storedOff);
+        if (PostingItemGetBlockNumber(pitem) == blkno)
+            return storedOff;
+
+        // Phase 2: Search to the right (common case after insertions)
+        for (OffsetNumber i = storedOff + 1; i <= maxoff; i++) {
+            pitem = GinDataPageGetPostingItem(page, i);
+            if (PostingItemGetBlockNumber(pitem) == blkno)
+                return i;
+        }
+
+        // Limit search range for phase 3
+        maxoff = storedOff - 1;
+    }
+
+    // Phase 3: Full scan from beginning (fallback)
+    for (OffsetNumber i = FirstOffsetNumber; i <= maxoff; i++) {
+        pitem = GinDataPageGetPostingItem(page, i);
+        if (PostingItemGetBlockNumber(pitem) == blkno)
+            return i;
+    }
+
+    return InvalidOffsetNumber;
+}
+```

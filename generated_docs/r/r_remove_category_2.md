@@ -39,3 +39,45 @@ The backtracking mechanism allows the function to test multiple alternative patt
 - Part of the automatically generated code from Snowball stemming rules
 - Returns 1 on successful pattern match and processing, 0 if no valid pattern found
 - Error conditions from slice_del are propagated upward
+
+## Simplified Source
+
+```c
+static int r_remove_category_2(struct SN_env * z) {
+    int pattern_match;
+
+    // Set end boundary and validate UTF-8 character
+    z->ket = z->c;
+    if (z->c - 2 <= z->lb || z->p[z->c - 1] >> 5 != 4 || !((262 >> (z->p[z->c - 1] & 0x1f)) & 1))
+        return 0;
+
+    // Find matching pattern in category 2 array (3 patterns)
+    pattern_match = find_among_b(z, a_2, 3);
+    if (!pattern_match) return 0;
+
+    z->bra = z->c;
+
+    switch (pattern_match) {
+        case 1:
+            // Try multiple 6-character patterns with backtracking
+            if (eq_s_b(z, 6, s_2) || eq_s_b(z, 6, s_3) ||
+                eq_s_b(z, 6, s_4) || eq_s_b(z, 6, s_5)) {
+                slice_del(z);  // Remove matched suffix
+            } else {
+                return 0;
+            }
+            break;
+
+        case 2:
+            // Check for 9-character pattern and remove if found
+            if (eq_s_b(z, 9, s_6)) {
+                slice_del(z);
+            } else {
+                return 0;
+            }
+            break;
+    }
+
+    return 1;
+}
+```

@@ -42,3 +42,36 @@ The function carefully manages cursor positions throughout the process, saving a
 - Part of the ISO 8859-1 character encoding family of stemmers, specifically handling German morphology
 - The algorithm structure follows the standard Snowball stemmer pattern used across multiple languages
 - Error handling propagates negative return values from constituent functions to the caller
+
+## Simplified Source
+
+```c
+extern int german_ISO_8859_1_stem(struct SN_env * z) {
+    // Phase 1: Prelude - normalize German characters and diacritics
+    int c1 = z->c;
+    int ret = r_prelude(z);
+    if (ret < 0) return ret;
+    z->c = c1;
+
+    // Phase 2: Mark regions - identify morphological boundaries (R1, R2, RV)
+    int c2 = z->c;
+    ret = r_mark_regions(z);
+    if (ret < 0) return ret;
+    z->c = c2;
+
+    // Phase 3: Suffix removal - process word from right to left
+    z->lb = z->c;
+    z->c = z->l;
+    ret = r_standard_suffix(z);
+    if (ret < 0) return ret;
+    z->c = z->lb;
+
+    // Phase 4: Postlude - final cleanup and normalization
+    int c3 = z->c;
+    ret = r_postlude(z);
+    if (ret < 0) return ret;
+    z->c = c3;
+
+    return 1; // Success
+}
+```

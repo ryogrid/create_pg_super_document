@@ -33,3 +33,22 @@ SetShellResultVariables is a public function that manages psql's special variabl
 
 ## Notes and Other Information
 This function is part of psql's shell integration system, providing feedback mechanisms for commands that interact with the operating system. Unlike SetResultVariables which handles SQL query results, this function specifically deals with external command execution. The distinction between wait_result and exit_code is important: wait_result contains the raw status from system calls which may include signal information, while the exit_code extracts just the program's exit status. The SHELL_ERROR and SHELL_EXIT_CODE variables enable psql scripts to implement robust error handling for shell operations, making it possible to write conditional logic based on external command success or failure.
+
+## Simplified Source
+
+```c
+void
+SetShellResultVariables(int wait_result)
+{
+    char exit_code_buf[32];
+
+    // Set error flag based on wait result (0 means success)
+    SetVariable(pset.vars, "SHELL_ERROR",
+                (wait_result == 0) ? "false" : "true");
+
+    // Extract and set the exit code
+    snprintf(exit_code_buf, sizeof(exit_code_buf), "%d",
+             wait_result_to_exit_code(wait_result));
+    SetVariable(pset.vars, "SHELL_EXIT_CODE", exit_code_buf);
+}
+```

@@ -36,3 +36,27 @@ The iterator is designed to efficiently process bitmap data by pre-allocating an
 - The caller is responsible for maintaining appropriate locking on the TidStore throughout the iteration process
 - The output buffer is initially sized to contain offsets from one completely full bitmap element (2 * BITS_PER_BITMAPWORD)
 - The function handles both shared and local TidStore variants automatically
+
+## Simplified Source
+
+```c
+TidStoreIter *
+TidStoreBeginIterate(TidStore *ts)
+{
+    // Create and initialize iterator structure
+    TidStoreIter *iter = palloc0(sizeof(TidStoreIter));
+    iter->ts = ts;
+
+    // Allocate output buffer for at least one full bitmap element
+    iter->output.max_offset = 2 * BITS_PER_BITMAPWORD;
+    iter->output.offsets = palloc(sizeof(OffsetNumber) * iter->output.max_offset);
+
+    // Initialize appropriate iterator based on TidStore type
+    if (TidStoreIsShared(ts))
+        iter->tree_iter.shared = shared_ts_begin_iterate(ts->tree.shared);
+    else
+        iter->tree_iter.local = local_ts_begin_iterate(ts->tree.local);
+
+    return iter;
+}
+```

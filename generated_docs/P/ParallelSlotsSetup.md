@@ -43,3 +43,31 @@ This function creates a new ParallelSlotArray structure and initializes it with 
 - Memory is allocated using palloc0 for zero-initialization
 - Function is part of the public API for PostgreSQL parallel processing utilities
 - Essential first step in setting up parallel database operations
+
+## Simplified Source
+
+```c
+ParallelSlotArray *
+ParallelSlotsSetup(int numslots, ConnParams *cparams, const char *progname,
+                   bool echo, const char *initcmd)
+{
+    ParallelSlotArray *sa;
+
+    Assert(numslots > 0);
+    Assert(cparams != NULL);
+    Assert(progname != NULL);
+
+    // Allocate memory for slot array plus slots
+    sa = (ParallelSlotArray *) palloc0(offsetof(ParallelSlotArray, slots) +
+                                       numslots * sizeof(ParallelSlot));
+
+    // Store configuration parameters
+    sa->numslots = numslots;
+    sa->cparams = cparams;
+    sa->progname = progname;
+    sa->echo = echo;
+    sa->initcmd = initcmd;
+
+    return sa;
+}
+```

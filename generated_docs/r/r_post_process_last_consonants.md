@@ -40,3 +40,35 @@ These transformations follow Turkish consonant devoicing rules where voiced cons
 - Returns 1 on success, 0 if no pattern matches, or negative value on error
 - Part of the final cleanup phase in Turkish word stemming
 - Generated automatically by Snowball 2.2.0 stemmer generator
+
+## Simplified Source
+
+```c
+static int r_post_process_last_consonants(struct SN_env * z) {
+    z->ket = z->c;
+
+    // Find Turkish consonants that need devoicing at word boundaries
+    int among_var = find_among_b(z, a_23, 4);
+    if (!among_var) return 0;
+
+    z->bra = z->c;
+
+    // Apply Turkish consonant devoicing rules
+    switch (among_var) {
+        case 1:  // 'b' → 'p' (devoicing)
+            slice_from_s(z, 1, s_5);
+            break;
+        case 2:  // 'c' → 'ç' (devoicing)
+            slice_from_s(z, 2, s_6);
+            break;
+        case 3:  // 'd' → 't' (devoicing)
+            slice_from_s(z, 1, s_7);
+            break;
+        case 4:  // 'ğ' → 'k' (devoicing)
+            slice_from_s(z, 1, s_8);
+            break;
+    }
+
+    return 1;  // Successfully applied consonant transformation
+}
+```

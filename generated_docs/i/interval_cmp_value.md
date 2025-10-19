@@ -40,3 +40,26 @@ This function implements the core logic for interval comparison by converting an
 - This is a static inline function for performance optimization
 - Part of PostgreSQL's interval comparison infrastructure
 - Located in src/backend/utils/adt/timestamp.c:2483-2504
+
+## Simplified Source
+
+```c
+static inline INT128
+interval_cmp_value(const Interval *interval)
+{
+    INT128 span;
+    int64 days;
+
+    // Convert months and days to total days (30 days per month)
+    days = interval->month * INT64CONST(30);
+    days += interval->day;
+
+    // Start with the time component as base 128-bit value
+    span = int64_to_int128(interval->time);
+
+    // Add days converted to microseconds using 128-bit arithmetic
+    int128_add_int64_mul_int64(&span, days, USECS_PER_DAY);
+
+    return span;
+}
+```

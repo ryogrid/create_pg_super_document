@@ -40,3 +40,159 @@ This function parses the complex syntax of psql's \copy command, which supports 
 - Returns NULL on parsing errors with appropriate error messages logged
 - The function builds SQL command components in before_tofrom and after_tofrom fields
 - Critical component of psql's \copy command infrastructure
+
+## Simplified Source
+
+```c
+static struct copy_options *parse_slash_copy(const char *args)
+{
+    struct copy_options *result;
+    char *token;
+    const char *whitespace = " \t\n\r";
+    char nonstd_backslash = standard_strings() ? 0 : '\\';
+
+    if (!args) {
+        pg_log_error("\\copy: arguments required");
+        return NULL;
+    }
+
+    result = pg_malloc0(sizeof(struct copy_options));
+    result->before_tofrom = pg_strdup(""); // Initialize for appending
+
+    // Get first token
+    token = strtokx(args, whitespace, ".,()", "\"",
+                   0, false, false, pset.encoding);
+    if (!token)
+        goto error;
+
+    // Handle legacy BINARY keyword (7.3 compatibility)
+    if (pg_strcasecmp(token, "binary") == 0) {
+        xstrcat(&result->before_tofrom, token);
+        token = strtokx(NULL, whitespace, ".,()", "\"",
+                       0, false, false, pset.encoding);
+        if (!token)
+            goto error;
+    }
+
+    // Handle COPY (query) case
+    if (token[0] == '(') {
+        int parens = 1;
+
+        while (parens > 0) {
+            xstrcat(&result->before_tofrom, " ");
+            xstrcat(&result->before_tofrom, token);
+            token = strtokx(NULL, whitespace, "()", "\"'",
+                           nonstd_backslash, true, false, pset.encoding);
+            if (!token)
+                goto error;
+            if (token[0] == '(')
+                parens++;
+            else if (token[0] == ')')
+                parens--;
+        }
+    }
+
+    // Add current token and get next
+    xstrcat(&result->before_tofrom, " ");
+    xstrcat(&result->before_tofrom, token);
+    token = strtokx(NULL, whitespace, ".,()", "\"",
+                   0, false, false, pset.encoding);
+    if (!token)
+        goto error;
+
+    // Handle schema.table syntax
+    if (token[0] == '.') {
+        xstrcat(&result->before_tofrom, token);
+        token = strtokx(NULL, whitespace, ".,()", "\"",
+                       0, false, false, pset.encoding);
+        if (!token)
+            goto error;
+        xstrcat(&result->before_tofrom, token);
+        token = strtokx(NULL, whitespace, ".,()", "\"",
+                       0, false, false, pset.encoding);
+        if (!token)
+            goto error;
+    }
+
+    // Handle column list in parentheses
+    if (token[0] == '(') {
+        for (;;) {
+            xstrcat(&result->before_tofrom, " ");
+            xstrcat(&result->before_tofrom, token);
+            token = strtokx(NULL, whitespace, "()", "\"",
+                           0, false, false, pset.encoding);
+            if (!token)
+                goto error;
+            if (token[0] == ')')
+                break;
+        }
+        xstrcat(&result->before_tofrom, " ");
+        xstrcat(&result->before_tofrom, token);
+        token = strtokx(NULL, whitespace, ".,()", "\"",
+                       0, false, false, pset.encoding);
+        if (!token)
+            goto error;
+    }
+
+    // Parse FROM/TO direction
+    if (pg_strcasecmp(token, "from") == 0)
+        result->from = true;
+    else if (pg_strcasecmp(token, "to") == 0)
+        result->from = false;
+    else
+        goto error;
+
+    // Parse file/stream destination
+    token = strtokx(NULL, whitespace, ";", "'",
+                   0, false, false, pset.encoding);
+    if (!token)
+        goto error;
+
+    if (pg_strcasecmp(token, "program") == 0) {
+        // Handle PROGRAM 'command'
+        token = strtokx(NULL, whitespace, ";", "'",
+                       0, false, false, pset.encoding);
+        if (!token)
+            goto error;
+
+        int toklen = strlen(token);
+        if (token[0] != '\'' || toklen < 2 || token[toklen - 1] != '\'')
+            goto error;
+
+        strip_quotes(token, '\'', 0, pset.encoding);
+        result->program = true;
+        result->file = pg_strdup(token);
+    }
+    else if (pg_strcasecmp(token, "stdin") == 0 ||
+             pg_strcasecmp(token, "stdout") == 0) {
+        result->file = NULL;
+    }
+    else if (pg_strcasecmp(token, "pstdin") == 0 ||
+             pg_strcasecmp(token, "pstdout") == 0) {
+        result->psql_inout = true;
+        result->file = NULL;
+    }
+    else {
+        // Regular filename (optionally quoted)
+        strip_quotes(token, '\'', 0, pset.encoding);
+        result->file = pg_strdup(token);
+        expand_tilde(&result->file);
+    }
+
+    // Collect remaining options
+    token = strtokx(NULL, "", NULL, NULL,
+                   0, false, false, pset.encoding);
+    if (token)
+        result->after_tofrom = pg_strdup(token);
+
+    return result;
+
+error:
+    if (token)
+        pg_log_error("\\copy: parse error at \"%s\"", token);
+    else
+        pg_log_error("\\copy: parse error at end of line");
+    free_copy_options(result);
+    return NULL;
+}
+```

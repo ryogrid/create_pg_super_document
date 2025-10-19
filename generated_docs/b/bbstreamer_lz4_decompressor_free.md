@@ -34,3 +34,17 @@ The cleanup sequence is important for avoiding memory leaks and ensuring that al
 - Assumes all processing has completed and no further decompression operations will be performed
 - Part of the standard bbstreamer cleanup protocol where each streamer is responsible for cleaning up both its own resources and propagating cleanup down the processing chain
 - Uses PostgreSQL's memory management functions (pfree) rather than standard C library free(), consistent with PostgreSQL's memory context system
+
+## Simplified Source
+
+```c
+static void bbstreamer_lz4_decompressor_free(bbstreamer *streamer) {
+    bbstreamer_lz4_frame *mystreamer = (bbstreamer_lz4_frame *) streamer;
+
+    // Free components in proper order: chain first, then resources
+    bbstreamer_free(streamer->bbs_next);
+    LZ4F_freeDecompressionContext(mystreamer->dctx);
+    pfree(streamer->bbs_buffer.data);
+    pfree(streamer);
+}
+```

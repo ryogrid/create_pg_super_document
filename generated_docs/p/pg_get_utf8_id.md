@@ -28,3 +28,18 @@ This function serves as a cached accessor for the UTF-8 character encoding ID in
 - Uses lazy initialization pattern - the encoding ID is only looked up when first needed
 - The static variable  is initialized to -1 to indicate it hasn't been set yet
 - This is part of PostgreSQL's frontend utilities for handling multibyte character printing
+
+## Simplified Source
+
+```c
+static int pg_get_utf8_id(void) {
+    static int utf8_id = -1;
+
+    // Cache UTF-8 encoding ID on first call
+    if (utf8_id < 0) {
+        utf8_id = pg_char_to_encoding("utf8");
+    }
+
+    return utf8_id;
+}
+```

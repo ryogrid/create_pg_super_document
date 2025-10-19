@@ -44,3 +44,25 @@ The function operates by matching against these patterns using find_among_b, ens
 - Case suffix removal is essential for Hungarian full-text search as it reduces inflected forms to their base stems
 - The function returns 1 on successful case processing, 0 if no case pattern matches, and negative values on errors
 - This is one of the most comprehensive case handling functions in the Hungarian stemmer due to the language's rich morphological system
+
+## Simplified Source
+
+```c
+static int r_case(struct SN_env * z) {
+    // Set end marker and look for any of 44 Hungarian case endings
+    z->ket = z->c;
+    if (!find_among_b(z, a_4, 44)) return 0;
+
+    // Set start marker and verify suffix is in R1 region
+    z->bra = z->c;
+    if (r_R1(z) <= 0) return 0;
+
+    // Remove the case suffix
+    if (slice_del(z) < 0) return -1;
+
+    // Handle vowel ending adjustments after case removal
+    if (r_v_ending(z) <= 0) return 0;
+
+    return 1;
+}
+```

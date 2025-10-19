@@ -37,3 +37,14 @@ The function outputs concise but comprehensive information that helps with debug
 - The isCatalogRel flag helps handle recovery conflicts during logical decoding on standby servers
 - This function processes deletion operations on leaf pages where index tuples are removed
 - Located in src/backend/access/rmgrdesc/gistdesc.c at lines 37-44
+
+## Simplified Source
+
+```c
+static void out_gistxlogDelete(StringInfo buf, gistxlogDelete *xlrec) {
+    // Format deletion info: conflict horizon, item count, and catalog flag
+    appendStringInfo(buf, "delete: snapshotConflictHorizon %u, nitems: %u, isCatalogRel %c",
+                     xlrec->snapshotConflictHorizon, xlrec->ntodelete,
+                     xlrec->isCatalogRel ? 'T' : 'F');
+}
+```

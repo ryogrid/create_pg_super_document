@@ -30,3 +30,15 @@ The int82ge function implements the greater-than-or-equal-to comparison operator
 - Handles automatic type promotion from int16 to int64 for comparison
 - Returns true if the int64 value is greater than or equal to the int16 value, false otherwise
 - Located in src/backend/utils/adt/int8.c, which contains various int8 (bigint) operations
+
+## Simplified Source
+```c
+Datum int82ge(PG_FUNCTION_ARGS) {
+    // Extract 8-byte and 2-byte integer arguments
+    int64 val1 = PG_GETARG_INT64(0);
+    int16 val2 = PG_GETARG_INT16(1);
+
+    // Compare and return boolean result (greater than or equal)
+    PG_RETURN_BOOL(val1 >= val2);
+}
+```

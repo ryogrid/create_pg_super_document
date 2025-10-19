@@ -37,3 +37,15 @@ The function stores the provided error number and domain in global variables (`s
 - Works in conjunction with `format_elog_string` to complete the error formatting process
 - Used in various PostgreSQL subsystems including GUC (Grand Unified Configuration) and archive modules
 - The saved values are typically used by subsequent formatting functions
+
+## Simplified Source
+
+```c
+void pre_format_elog_string(int errnumber, const char *domain) {
+    // Save errno before argument evaluation can change it
+    save_format_errnumber = errnumber;
+
+    // Save caller's text domain for message localization
+    save_format_domain = domain;
+}
+```

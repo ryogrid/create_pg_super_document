@@ -30,3 +30,12 @@ The function ensures that all dynamically allocated memory within the stemmer en
 - Safe to call with NULL pointer (handled by SN_close_env)
 - Essential for proper resource management in PostgreSQL's full-text search functionality
 - The function performs no operation if passed a NULL environment pointer
+
+## Simplified Source
+
+```c
+extern void greek_UTF_8_close_env(struct SN_env * z) {
+    // Clean up Greek UTF-8 stemmer environment
+    SN_close_env(z, 0);
+}
+```

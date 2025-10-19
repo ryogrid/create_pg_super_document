@@ -34,3 +34,15 @@ The function follows PostgreSQL's function call convention using the PG_FUNCTION
 - This conversion is potentially lossy as it discards the epoch information contained in the FullTransactionId
 - The function is used internally by PostgreSQL's type system for implicit and explicit casts from XID8 to XID
 - Located in src/backend/utils/adt/xid.c, which contains transaction ID utility functions
+
+## Simplified Source
+
+```c
+Datum xid8toxid(PG_FUNCTION_ARGS) {
+    // Get the 64-bit full transaction ID from function arguments
+    FullTransactionId fxid = PG_GETARG_FULLTRANSACTIONID(0);
+
+    // Extract and return the 32-bit transaction ID portion
+    PG_RETURN_TRANSACTIONID(XidFromFullTransactionId(fxid));
+}
+```

@@ -36,3 +36,16 @@ This function retrieves the count of heap tuple identifiers (TIDs) stored in a p
 - Widely used throughout the B-tree implementation for processing posting tuples
 - Essential for memory allocation and iteration when working with posting lists
 - The returned value is always greater than 1 for valid posting tuples
+
+## Simplified Source
+
+```c
+static inline uint16 BTreeTupleGetNPosting(IndexTuple posting) {
+    // Verify this is a posting tuple
+    Assert(BTreeTupleIsPosting(posting));
+
+    // Extract offset number and mask out posting flag to get TID count
+    OffsetNumber existing = ItemPointerGetOffsetNumberNoCheck(&posting->t_tid);
+    return (existing & BT_OFFSET_MASK);
+}
+```

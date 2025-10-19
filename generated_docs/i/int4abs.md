@@ -32,3 +32,20 @@ The  function implements PostgreSQL's absolute value operation for 32-bit intege
 - Uses PostgreSQL's function calling convention with  and return macros
 - Part of PostgreSQL's integer arithmetic functions located in 
 - The  macro is used for branch prediction optimization on the overflow check
+
+## Simplified Source
+
+```c
+Datum int4abs(PG_FUNCTION_ARGS) {
+    int32 value = PG_GETARG_INT32(0);
+
+    // Check for overflow case: abs(INT_MIN) cannot be represented
+    if (value == PG_INT32_MIN) {
+        ereport(ERROR, (errcode(ERRCODE_NUMERIC_VALUE_OUT_OF_RANGE),
+                       errmsg("integer out of range")));
+    }
+
+    // Return absolute value
+    PG_RETURN_INT32((value < 0) ? -value : value);
+}
+```

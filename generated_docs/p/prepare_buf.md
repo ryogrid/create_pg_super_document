@@ -34,3 +34,20 @@ This function prepares a test buffer by filling it with random data and setting 
 - The buffer size is based on DEFAULT_XLOG_SEG_SIZE to match PostgreSQL's actual WAL segment size
 - Essential setup function that must be called before running filesystem sync tests
 - File location: src/bin/pg_test_fsync/pg_test_fsync.c:231-242
+
+## Simplified Source
+
+```c
+static void
+prepare_buf(void)
+{
+    int ops;
+
+    // Fill buffer with random data to avoid filesystem optimizations
+    for (ops = 0; ops < DEFAULT_XLOG_SEG_SIZE; ops++)
+        full_buf[ops] = (char) pg_prng_int32(&pg_global_prng_state);
+
+    // Create aligned pointer for WAL block testing
+    buf = (char *) TYPEALIGN(XLOG_BLCKSZ, full_buf);
+}
+```

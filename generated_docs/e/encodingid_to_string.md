@@ -34,3 +34,18 @@ The  function is a simple utility that converts an integer encoding identifier t
 - Simple wrapper around sprintf with memory management via pg_strdup
 - Part of the database initialization infrastructure in initdb
 - The function assumes the encoding ID fits within the bounds of a standard integer
+
+## Simplified Source
+
+```c
+static char *
+encodingid_to_string(int enc)
+{
+    char result[20];
+
+    // Convert encoding ID to string
+    sprintf(result, "%d", enc);
+
+    return pg_strdup(result);
+}
+```

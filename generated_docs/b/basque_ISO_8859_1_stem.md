@@ -26,3 +26,45 @@ This is the primary entry point for Basque stemming in PostgreSQL's Snowball ste
 
 ## Notes and Other Information
 This function implements the complete Basque stemming algorithm following Snowball methodology. The processing order (verbs→nouns→adjectives) reflects Basque morphological priorities. The function uses loop constructs with labels for verb and noun processing, allowing multiple suffix removals, while adjective processing is done only once. It returns 1 on successful completion of the stemming process.
+
+## Simplified Source
+
+```c
+extern int basque_ISO_8859_1_stem(struct SN_env * z) {
+    // Establish morphological region boundaries (R1, R2, RV)
+    r_mark_regions(z);
+
+    // Set up for backward processing from end of word
+    z->lb = z->c;
+    z->c = z->l;
+
+    // Phase 1: Process verb suffixes (multiple passes allowed)
+    while (1) {
+        int saved_position = z->l - z->c;
+        if (r_aditzak(z) == 0) {  // No more verb suffixes found
+            z->c = z->l - saved_position;
+            break;
+        }
+        // Continue processing if verb suffix was found and removed
+    }
+
+    // Phase 2: Process noun suffixes (multiple passes allowed)
+    while (1) {
+        int saved_position = z->l - z->c;
+        if (r_izenak(z) == 0) {  // No more noun suffixes found
+            z->c = z->l - saved_position;
+            break;
+        }
+        // Continue processing if noun suffix was found and removed
+    }
+
+    // Phase 3: Process adjective suffixes (single pass)
+    int saved_position = z->l - z->c;
+    r_adjetiboak(z);  // Try to remove adjective suffix
+    z->c = z->l - saved_position;  // Restore position regardless
+
+    // Reset cursor to beginning of word
+    z->c = z->lb;
+    return 1;
+}
+```

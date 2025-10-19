@@ -47,3 +47,67 @@ The exclusion rules are maintained in sync with basebackup.c to ensure consisten
 - Provides different debug log messages for source vs target exclusions
 - Critical for avoiding conflicts with files that are automatically managed by PostgreSQL server startup/shutdown processes
 - Helps ensure that pg_rewind only processes files that are actually relevant for database state synchronization
+
+## Simplified Source
+
+```c
+static bool check_file_excluded(const char *path, bool is_source)
+{
+    char local_path[MAXPGPATH];
+    int exclude_index;
+    const char *filename;
+
+    // Skip all temporary files (pgsql_tmp directories and files)
+    if (strstr(path, "/" PG_TEMP_FILE_PREFIX) != NULL ||
+        strstr(path, "/" PG_TEMP_FILES_DIR "/") != NULL)
+    {
+        return true;
+    }
+
+    // Check against list of individual excluded files
+    for (exclude_index = 0; excludeFiles[exclude_index].name != NULL; exclude_index++)
+    {
+        int compare_length = strlen(excludeFiles[exclude_index].name);
+
+        // Extract filename from full path
+        filename = last_dir_separator(path);
+        if (filename == NULL)
+            filename = path;
+        else
+            filename++;
+
+        // Adjust comparison length based on prefix matching rules
+        if (!excludeFiles[exclude_index].match_prefix)
+            compare_length++;
+
+        // Check if filename matches excluded file pattern
+        if (strncmp(filename, excludeFiles[exclude_index].name, compare_length) == 0)
+        {
+            if (is_source)
+                pg_log_debug("entry \"%s\" excluded from source file list", path);
+            else
+                pg_log_debug("entry \"%s\" excluded from target file list", path);
+            return true;
+        }
+    }
+
+    // Check against directories whose contents should be completely excluded
+    for (exclude_index = 0; excludeDirContents[exclude_index] != NULL; exclude_index++)
+    {
+        snprintf(local_path, sizeof(local_path), "%s/",
+                excludeDirContents[exclude_index]);
+
+        // Check if path starts with excluded directory
+        if (strstr(path, local_path) == path)
+        {
+            if (is_source)
+                pg_log_debug("entry \"%s\" excluded from source file list", path);
+            else
+                pg_log_debug("entry \"%s\" excluded from target file list", path);
+            return true;
+        }
+    }
+
+    return false;
+}
+```

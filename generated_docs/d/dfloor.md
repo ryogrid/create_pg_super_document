@@ -35,3 +35,14 @@ This function implements the PostgreSQL built-in FLOOR function for float8 (doub
 - Complements `dceil` (which rounds upward) and `dround` (which rounds to nearest)
 - Follows IEEE 754 standards for floor operations
 - Note the behavioral difference with negative numbers: floor(-2.3) = -3.0, not -2.0
+
+## Simplified Source
+
+```c
+Datum dfloor(PG_FUNCTION_ARGS) {
+    float8 arg1 = PG_GETARG_FLOAT8(0);
+
+    // Return largest integer <= input
+    PG_RETURN_FLOAT8(floor(arg1));
+}
+```

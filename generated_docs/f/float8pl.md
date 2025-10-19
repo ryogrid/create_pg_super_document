@@ -34,3 +34,24 @@ The `float8pl` function is a PostgreSQL fmgr-compatible function that adds two f
 - Located in src/backend/utils/adt/float.c alongside other float8 arithmetic operators
 - The function signature follows PostgreSQL's standard pattern for SQL-callable functions
 - Similar to float4pl but operates on double-precision (64-bit) floating-point values instead of single-precision (32-bit)
+
+## Simplified Source
+
+```c
+Datum
+float8pl(PG_FUNCTION_ARGS)
+{
+    // Extract two float8 arguments from function call
+    float8 arg1 = PG_GETARG_FLOAT8(0);
+    float8 arg2 = PG_GETARG_FLOAT8(1);
+
+    // Perform addition with overflow checking
+    float8 result = arg1 + arg2;
+    if (isinf(result) && !isinf(arg1) && !isinf(arg2)) {
+        // Overflow error if result is infinite but inputs were finite
+        float_overflow_error();
+    }
+
+    PG_RETURN_FLOAT8(result);
+}
+```

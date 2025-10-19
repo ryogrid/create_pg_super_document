@@ -34,3 +34,39 @@ This function implements an iterative suffix removal process for Lithuanian stem
 - Located in src/backend/snowball/libstemmer/stem_UTF_8_lithuanian.c:653-675
 - Static function scope indicates internal use within the Lithuanian stemmer module
 - The iterative nature allows for removal of multiple layered suffixes in a single step
+
+## Simplified Source
+
+```c
+static int r_step2(struct SN_env * z) {
+    while(1) {
+        // Save current position for backtracking
+        int saved_pos = z->l - z->c;
+
+        // Check if we're within the R0 region boundary
+        if (z->c < z->I[0]) break;
+
+        // Set region boundary and find suffix match
+        int saved_lb = z->lb;
+        z->lb = z->I[0];
+        z->ket = z->c;
+
+        // Look for Lithuanian suffix patterns (62 patterns in a_1 array)
+        if (!find_among_b(z, a_1, 62)) {
+            z->lb = saved_lb;
+            z->c = z->l - saved_pos;
+            break;
+        }
+
+        // Mark deletion boundaries and restore boundary
+        z->bra = z->c;
+        z->lb = saved_lb;
+
+        // Delete the matched suffix
+        if (slice_del(z) < 0) return -1;
+
+        // Continue to find more suffixes
+    }
+    return 1;
+}
+```

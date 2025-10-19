@@ -42,3 +42,32 @@ This function is particularly useful for system administration queries and infor
 - Allocates exactly NAMEDATALEN bytes for the result name
 - Located in src/backend/utils/adt/ruleutils.c:2749-2786
 - Handles both existing and non-existing roles gracefully
+
+## Simplified Source
+
+```c
+Datum pg_get_userbyid(PG_FUNCTION_ARGS) {
+    Oid roleid = PG_GETARG_OID(0);
+    Name result;
+
+    // Allocate and initialize result buffer
+    result = (Name) palloc(NAMEDATALEN);
+    memset(NameStr(*result), 0, NAMEDATALEN);
+
+    // Look up role in pg_authid catalog
+    HeapTuple roletup = SearchSysCache1(AUTHOID, ObjectIdGetDatum(roleid));
+
+    if (HeapTupleIsValid(roletup)) {
+        // Role found: extract and return role name
+        Form_pg_authid role_rec = (Form_pg_authid) GETSTRUCT(roletup);
+        *result = role_rec->rolname;
+        ReleaseSysCache(roletup);
+    }
+    else {
+        // Role not found: return fallback format
+        sprintf(NameStr(*result), "unknown (OID=%u)", roleid);
+    }
+
+    PG_RETURN_NAME(result);
+}
+```

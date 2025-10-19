@@ -31,3 +31,15 @@ TidStoreUnlock releases any lock previously acquired on a TidStore object. The f
 - Must be called to release locks acquired by TidStoreLockShare() or TidStoreLockExclusive()
 - Failure to call this function after acquiring a lock can lead to deadlocks in multi-process scenarios
 - Part of PostgreSQL's TidStore locking protocol for parallel processing
+
+## Simplified Source
+
+```c
+void
+TidStoreUnlock(TidStore *ts)
+{
+    // Only unlock if this is a shared TidStore (multi-process access)
+    if (TidStoreIsShared(ts))
+        shared_ts_unlock(ts->tree.shared);
+}
+```

@@ -46,3 +46,21 @@ This conversion is useful for treating time values as durations in interval arit
 - This conversion allows time values to participate in interval arithmetic operations
 - The function creates a "pure time" interval without any calendar-based components
 - Located in src/backend/utils/adt/date.c:1989-2011
+
+## Simplified Source
+
+```c
+Interval* time_interval(TimeADT time_value) {
+    // Convert time to interval representation
+    Interval *result = allocate_memory(sizeof(Interval));
+
+    // Set time component (microseconds since midnight)
+    result->time = time_value;
+
+    // Initialize date components to zero (no days or months)
+    result->day = 0;
+    result->month = 0;
+
+    return result;
+}
+```

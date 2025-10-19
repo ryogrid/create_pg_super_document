@@ -40,3 +40,32 @@ The function handles two output modes: expanded format (where each row spans mul
 - Sets both the output file handle and pager status through pointer parameters
 - Integrates with PostgreSQL's PageOutput system for terminal-aware paging
 - Static function, only accessible within the print.c compilation unit
+
+## Simplified Source
+
+```c
+static void IsPagerNeeded(const printTableContent *cont, int extra_lines,
+                         bool expanded, FILE **fout, bool *is_pager) {
+    if (*fout == stdout) {
+        // Calculate total lines needed
+        int lines;
+        if (expanded)
+            lines = (cont->ncolumns + 1) * cont->nrows;  // Each row spans multiple lines
+        else
+            lines = cont->nrows + 1;  // Normal table format + header
+
+        // Add footer lines (if not tuples-only mode)
+        if (!cont->opt->tuples_only) {
+            // FIXME: counts footer entries, not actual lines
+            for (printTableFooter *f = cont->footers; f; f = f->next)
+                lines++;
+        }
+
+        // Setup pager based on total line count
+        *fout = PageOutput(lines + extra_lines, cont->opt);
+        *is_pager = (*fout != stdout);
+    } else {
+        *is_pager = false;
+    }
+}
+```

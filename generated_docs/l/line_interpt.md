@@ -40,3 +40,22 @@ This function calculates the intersection point of two LINE objects. It serves a
 - Returns NULL when lines are parallel or identical
 - Memory for the result Point is allocated using palloc
 - The actual intersection logic is implemented in the line_interpt_line helper function
+
+## Simplified Source
+
+```c
+Datum line_interpt(PG_FUNCTION_ARGS) {
+    // Get the two input lines
+    LINE *l1 = PG_GETARG_LINE_P(0);
+    LINE *l2 = PG_GETARG_LINE_P(1);
+
+    // Allocate memory for the intersection point
+    Point *result = (Point *) palloc(sizeof(Point));
+
+    // Calculate intersection point; return NULL if lines don't intersect
+    if (!line_interpt_line(result, l1, l2))
+        PG_RETURN_NULL();
+
+    PG_RETURN_POINT_P(result);
+}
+```

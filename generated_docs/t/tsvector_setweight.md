@@ -53,3 +53,47 @@ This operation is commonly used to assign uniform importance to all terms in a d
 - Throws an ERROR for invalid weight characters
 - Case-insensitive weight specification (both uppercase and lowercase accepted)
 - Essential for implementing document ranking and relevance scoring in full-text search
+
+## Simplified Source
+
+```c
+Datum tsvector_setweight(PG_FUNCTION_ARGS) {
+    TSVector in = PG_GETARG_TSVECTOR(0);
+    char cw = PG_GETARG_CHAR(1);
+    TSVector out;
+    int i, j, w = 0;
+    WordEntry *entry;
+    WordEntryPos *p;
+
+    // Map weight character to numeric value
+    switch (cw) {
+        case 'A': case 'a': w = 3; break;
+        case 'B': case 'b': w = 2; break;
+        case 'C': case 'c': w = 1; break;
+        case 'D': case 'd': w = 0; break;
+        default:
+            elog(ERROR, "unrecognized weight: %d", cw);
+    }
+
+    // Create copy of input TSVector
+    out = (TSVector) palloc(VARSIZE(in));
+    memcpy(out, in, VARSIZE(in));
+
+    // Update weights for all position entries
+    entry = ARRPTR(out);
+    i = out->size;
+    while (i--) {
+        if ((j = POSDATALEN(out, entry)) != 0) {
+            p = POSDATAPTR(out, entry);
+            while (j--) {
+                WEP_SETWEIGHT(*p, w);  // Set new weight
+                p++;
+            }
+        }
+        entry++;
+    }
+
+    PG_FREE_IF_COPY(in, 0);
+    PG_RETURN_POINTER(out);
+}
+```

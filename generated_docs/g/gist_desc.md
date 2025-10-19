@@ -51,3 +51,34 @@ The function handles six different types of GiST WAL operations:
 - The XLOG_GIST_ASSIGN_LSN case has no details to output as it's a simple operation
 - Each GiST WAL record type has its own specialized output function that formats the specific data structures
 - The function is located in src/backend/access/rmgrdesc/gistdesc.c:61-89
+
+## Simplified Source
+
+```c
+void gist_desc(StringInfo buf, XLogReaderState *record) {
+    char *rec = XLogRecGetData(record);
+    uint8 info = XLogRecGetInfo(record) & ~XLR_INFO_MASK;
+
+    // Dispatch to appropriate output function based on GiST operation type
+    switch (info) {
+        case XLOG_GIST_PAGE_UPDATE:
+            out_gistxlogPageUpdate(buf, (gistxlogPageUpdate *) rec);
+            break;
+        case XLOG_GIST_PAGE_REUSE:
+            out_gistxlogPageReuse(buf, (gistxlogPageReuse *) rec);
+            break;
+        case XLOG_GIST_DELETE:
+            out_gistxlogDelete(buf, (gistxlogDelete *) rec);
+            break;
+        case XLOG_GIST_PAGE_SPLIT:
+            out_gistxlogPageSplit(buf, (gistxlogPageSplit *) rec);
+            break;
+        case XLOG_GIST_PAGE_DELETE:
+            out_gistxlogPageDelete(buf, (gistxlogPageDelete *) rec);
+            break;
+        case XLOG_GIST_ASSIGN_LSN:
+            // No details to output for LSN assignment
+            break;
+    }
+}
+```

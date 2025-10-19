@@ -43,3 +43,16 @@ The visibility determination follows PostgreSQL's snapshot isolation rules:
 - Located in 
 - The underlying  function uses binary search optimization for snapshots with many in-progress transactions
 - This is a SQL-callable function that can be used in queries to determine transaction visibility relationships
+
+## Simplified Source
+
+```c
+Datum pg_visible_in_snapshot(PG_FUNCTION_ARGS) {
+    // Get the transaction ID and snapshot from function arguments
+    FullTransactionId value = PG_GETARG_FULLTRANSACTIONID(0);
+    pg_snapshot *snap = (pg_snapshot *) PG_GETARG_VARLENA_P(1);
+
+    // Use internal function to determine visibility and return result
+    PG_RETURN_BOOL(is_visible_fxid(value, snap));
+}
+```

@@ -35,3 +35,27 @@ This function is specifically used when describing heap truncate WAL records, he
 - Used exclusively for WAL record description in heap truncate operations
 - The CASCADE flag indicates that dependent objects should also be truncated
 - The RESTART_SEQS flag indicates that associated sequences should be restarted from their initial values
+
+## Simplified Source
+
+```c
+static void truncate_flags_desc(StringInfo buf, uint8 flags) {
+    // Start the flags description
+    appendStringInfoString(buf, "flags: [");
+
+    // Check each truncate flag and append description
+    if (flags & XLH_TRUNCATE_CASCADE)
+        appendStringInfoString(buf, "CASCADE, ");
+    if (flags & XLH_TRUNCATE_RESTART_SEQS)
+        appendStringInfoString(buf, "RESTART_SEQS, ");
+
+    // Remove trailing ", " if any flags were added
+    if (buf->data[buf->len - 1] == ' ') {
+        buf->len -= 2;  // Remove ", "
+        buf->data[buf->len] = '\0';
+    }
+
+    // Close the flags description
+    appendStringInfoChar(buf, ']');
+}
+```

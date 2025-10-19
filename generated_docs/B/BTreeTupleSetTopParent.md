@@ -35,3 +35,18 @@ The top parent mechanism is part of PostgreSQL's B-tree deletion algorithm, whic
 - Essential for the B-tree deletion algorithm's ability to track page relationships during unlinking
 - Used in both normal deletion operations and WAL recovery scenarios
 - The top parent link is temporary and exists only during the deletion process to ensure structural integrity
+
+## Simplified Source
+
+```c
+static inline void
+BTreeTupleSetTopParent(IndexTuple leafhikey, BlockNumber blkno)
+{
+    // Set the parent page block number in the high key's t_tid field
+    ItemPointerSetBlockNumber(&leafhikey->t_tid, blkno);
+
+    // Configure the tuple as a pivot tuple with zero attributes
+    // This transforms the high key into a special pivot for deletion tracking
+    BTreeTupleSetNAtts(leafhikey, 0, false);
+}
+```

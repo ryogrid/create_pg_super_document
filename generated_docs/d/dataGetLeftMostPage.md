@@ -33,3 +33,15 @@ This function extracts the block number of the leftmost child page from a GIN B-
 - Simple and efficient operation that directly accesses the first item without searching
 - Essential for B-tree navigation patterns that require accessing the leftmost subtree
 - Part of the GIN (Generalized Inverted Index) access method implementation
+
+## Simplified Source
+
+```c
+static BlockNumber dataGetLeftMostPage(GinBtree btree, Page page) {
+    // Get the first PostingItem on the page
+    PostingItem *pitem = GinDataPageGetPostingItem(page, FirstOffsetNumber);
+
+    // Return the block number it points to
+    return PostingItemGetBlockNumber(pitem);
+}
+```

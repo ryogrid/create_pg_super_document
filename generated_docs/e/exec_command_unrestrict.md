@@ -45,3 +45,44 @@ The function validates that psql is currently in restricted mode, requires a key
 - Part of psql's security framework for controlled access environments
 - The restriction key is typically set when entering restricted mode via command-line options or programmatic means
 - Source code location: src/bin/psql/command.c:2681-2720
+
+## Simplified Source
+
+```c
+static backslashResult
+exec_command_unrestrict(PsqlScanState scan_state, bool active_branch,
+                        const char *cmd)
+{
+    if (active_branch) {
+        // Parse required key parameter
+        char *opt = psql_scan_slash_option(scan_state, OT_NORMAL, NULL, true);
+
+        // Validate key parameter is provided
+        if (opt == NULL || opt[0] == '\0') {
+            pg_log_error("\\%s: missing required argument", cmd);
+            return PSQL_CMD_ERROR;
+        }
+
+        // Check if currently in restricted mode
+        if (!restricted) {
+            pg_log_error("\\%s: not currently in restricted mode", cmd);
+            return PSQL_CMD_ERROR;
+        }
+
+        // Verify the key matches
+        if (strcmp(opt, restrict_key) == 0) {
+            // Exit restricted mode
+            pfree(restrict_key);
+            restricted = false;
+        } else {
+            pg_log_error("\\%s: wrong key", cmd);
+            return PSQL_CMD_ERROR;
+        }
+    }
+    else {
+        ignore_slash_options(scan_state);
+    }
+
+    return PSQL_CMD_SKIP_LINE;
+}
+```

@@ -43,3 +43,16 @@ Unlike , this function requires an existing record as a template and updates its
 - Differs from  in that it requires and updates an existing record template
 - The function signature in SQL is: 
 - Fields not present in the JSON object retain their original values from the template record
+
+## Simplified Source
+
+```c
+Datum json_populate_record(PG_FUNCTION_ARGS) {
+    // Populate record from JSON using worker function
+    // Parameters: validate_json=true (JSON needs validation),
+    //           from_json=true (has record template),
+    //           parent_name=NULL (top-level call)
+    return populate_record_worker(fcinfo, "json_populate_record",
+                                  true, true, NULL);
+}
+```

@@ -33,3 +33,13 @@ The `compareVariableNames` function serves as a comparison function for sorting 
 - Uses const void* parameters as required by qsort/bsearch interface
 - Simple wrapper around strcmp() with appropriate type casting
 - Located in src/bin/pgbench/pgbench.c:1596-1603 and supports efficient variable management in pgbench
+
+## Simplified Source
+
+```c
+static int compareVariableNames(const void *v1, const void *v2) {
+    // Compare variable names using lexicographic ordering
+    return strcmp(((const Variable *) v1)->name,
+                  ((const Variable *) v2)->name);
+}
+```

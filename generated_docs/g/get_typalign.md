@@ -35,3 +35,25 @@ This function performs a system catalog lookup to retrieve the alignment require
 - Part of the lsyscache.c module which provides cached access to frequently-needed system catalog information
 - This function is used internally by PostgreSQL's type system to ensure proper memory alignment when handling values
 - Proper alignment is crucial for performance and correctness on architectures that require aligned memory access
+
+## Simplified Source
+
+```c
+char get_typalign(Oid typid) {
+    // Look up type in system cache
+    HeapTuple tp = SearchSysCache1(TYPEOID, ObjectIdGetDatum(typid));
+
+    if (HeapTupleIsValid(tp)) {
+        // Extract pg_type struct and get alignment requirement
+        Form_pg_type typtup = (Form_pg_type) GETSTRUCT(tp);
+        char result = typtup->typalign;
+
+        // Clean up cache reference
+        ReleaseSysCache(tp);
+        return result;
+    } else {
+        // Return default int alignment if type not found
+        return TYPALIGN_INT;
+    }
+}
+```

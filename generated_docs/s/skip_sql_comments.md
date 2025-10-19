@@ -35,3 +35,33 @@ The function uses a simple state machine approach, continuously checking each ch
 - Used as a preprocessing step before more detailed SQL command parsing and validation
 - The comment handling stops at newline characters, following standard SQL comment behavior
 - Whitespace detection uses the standard isspace() function, which handles various whitespace characters
+
+## Simplified Source
+```c
+static char *skip_sql_comments(char *sql_command) {
+    char *p = sql_command;
+
+    // Skip whitespace and line comments
+    for (;;) {
+        if (isspace((unsigned char) *p)) {
+            // Skip whitespace characters
+            p++;
+        } else if (strncmp(p, "--", 2) == 0) {
+            // Skip '--' style comment until newline
+            p = strchr(p, '\n');
+            if (p == NULL)
+                return NULL;  // Comment goes to end of string
+            p++;
+        } else {
+            // Found start of actual content
+            break;
+        }
+    }
+
+    // Return NULL if only whitespace and comments found
+    if (*p == '\0')
+        return NULL;
+
+    return p;
+}
+```

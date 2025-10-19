@@ -38,3 +38,53 @@ The function reserves two distinct memory regions: the protective region (ShmemP
 - Validates that reserved addresses match expected addresses exactly
 - Part of PostgreSQL's platform-specific shared memory management for Windows
 - Critical for ensuring deterministic shared memory layout across child processes
+
+## Simplified Source
+
+```c
+int
+pgwin32_ReserveSharedMemoryRegion(HANDLE hChild)
+{
+    void *address;
+
+    // Validate required globals are set
+    Assert(ShmemProtectiveRegion != NULL);
+    Assert(UsedShmemSegAddr != NULL);
+    Assert(UsedShmemSegSize != 0);
+
+    // Reserve the protective memory region
+    address = VirtualAllocEx(hChild, ShmemProtectiveRegion,
+                            PROTECTIVE_REGION_SIZE,
+                            MEM_RESERVE, PAGE_NOACCESS);
+    if (address == NULL)
+    {
+        elog(LOG, "could not reserve shared memory region (addr=%p) for child %p: error code %lu",
+             ShmemProtectiveRegion, hChild, GetLastError());
+        return false;
+    }
+    if (address != ShmemProtectiveRegion)
+    {
+        elog(LOG, "reserved shared memory region got incorrect address %p, expected %p",
+             address, ShmemProtectiveRegion);
+        return false;
+    }
+
+    // Reserve the main shared memory segment
+    address = VirtualAllocEx(hChild, UsedShmemSegAddr, UsedShmemSegSize,
+                            MEM_RESERVE, PAGE_READWRITE);
+    if (address == NULL)
+    {
+        elog(LOG, "could not reserve shared memory region (addr=%p) for child %p: error code %lu",
+             UsedShmemSegAddr, hChild, GetLastError());
+        return false;
+    }
+    if (address != UsedShmemSegAddr)
+    {
+        elog(LOG, "reserved shared memory region got incorrect address %p, expected %p",
+             address, UsedShmemSegAddr);
+        return false;
+    }
+
+    return true;
+}
+```

@@ -32,3 +32,11 @@ This function provides the implementation for the Boolean greater-than-or-equal-
 - Returns true when arg1 >= arg2 (false >= false, true >= false, true >= true)
 - Returns false only when arg1 is false and arg2 is true
 - Integrated into PostgreSQL's operator system for the '>=' operator on Boolean types
+
+## Simplified Source
+```c
+bool boolge(bool arg1, bool arg2) {
+    // Return true if arg1 >= arg2 (true is greater than or equal to false)
+    return arg1 >= arg2;
+}
+```

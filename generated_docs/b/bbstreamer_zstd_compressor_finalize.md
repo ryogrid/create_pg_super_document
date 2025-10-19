@@ -40,3 +40,43 @@ The function manages the output buffer similarly to the content function, forwar
 - Properly propagates finalization to the next streamer in the pipeline
 - Uses BBSTREAMER_UNKNOWN context since this is end-of-stream processing without specific archive member context
 - Critical for ensuring compression integrity and completing the zstd frame properly
+
+## Simplified Source
+
+```c
+static void
+bbstreamer_zstd_compressor_finalize(bbstreamer *streamer)
+{
+    bbstreamer_zstd_frame *mystreamer = (bbstreamer_zstd_frame *) streamer;
+    size_t yet_to_flush;
+
+    // Flush remaining compressed data until complete
+    do {
+        ZSTD_inBuffer in = {NULL, 0, 0}; // Empty input for finalization
+
+        // Check if output buffer needs space for final compression
+        if (output_buffer_needs_space()) {
+            // Send current buffer to next streamer and reset
+            forward_current_buffer_and_reset();
+        }
+
+        // Compress with end-of-stream flag
+        yet_to_flush = ZSTD_compressStream2(mystreamer->cctx,
+                                          &mystreamer->zstd_outBuf,
+                                          &in, ZSTD_e_end);
+
+        // Handle compression errors
+        if (ZSTD_isError(yet_to_flush))
+            pg_log_error("could not compress data: %s",
+                        ZSTD_getErrorName(yet_to_flush));
+
+    } while (yet_to_flush > 0); // Continue until all data flushed
+
+    // Forward any remaining buffer data
+    if (mystreamer->zstd_outBuf.pos > 0)
+        forward_remaining_data();
+
+    // Finalize the next streamer in pipeline
+    bbstreamer_finalize(mystreamer->base.bbs_next);
+}
+```

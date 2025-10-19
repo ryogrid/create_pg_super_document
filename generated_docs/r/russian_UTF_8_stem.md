@@ -52,3 +52,66 @@ The algorithm works backwards from the end of the word (right-to-left processing
 - The preprocessing loop handles the Russian-specific йо→ё character normalization
 - Uses region-based suffix removal to ensure morphologically valid stemming
 - Part of PostgreSQL's full-text search functionality for Russian language support
+
+## Simplified Source
+
+```c
+extern int russian_UTF_8_stem(struct SN_env * z) {
+    // Step 1: Handle йо to ё character normalization
+    int original_pos = z->c;
+    while(1) {
+        int pos_backup = z->c;
+        z->bra = z->c;
+        if (!(eq_s(z, 2, s_9))) {
+            // Skip to next UTF-8 character if no match
+            int ret = skip_utf8(z->p, z->c, z->l, 1);
+            if (ret < 0) break;
+            z->c = ret;
+            continue;
+        }
+        z->ket = z->c;
+        z->c = pos_backup;
+        // Replace йо with ё
+        slice_from_s(z, 2, s_10);
+    }
+    z->c = original_pos;
+
+    // Step 2: Mark morphological regions (R1, R2)
+    r_mark_regions(z);
+
+    // Step 3: Process suffixes from right to left
+    z->lb = z->c;
+    z->c = z->l;  // Start from end of word
+
+    if (z->c >= z->I[1]) {  // Only process if in valid region
+        // Try perfective gerund removal first (highest priority)
+        if (r_perfective_gerund(z) != 0) {
+            // Success - continue to post-processing
+        } else {
+            // Try reflexive suffix, then other suffix types
+            r_reflexive(z);  // Optional reflexive removal
+
+            // Try suffix types in order: adjective, verb, noun
+            if (r_adjectival(z) == 0) {
+                if (r_verb(z) == 0) {
+                    r_noun(z);  // Last resort
+                }
+            }
+        }
+
+        // Step 4: Remove и ending if present
+        z->ket = z->c;
+        if (eq_s_b(z, 2, s_11)) {
+            z->bra = z->c;
+            slice_del(z);
+        }
+
+        // Step 5: Post-processing
+        r_derivational(z);  // Remove derivational suffixes
+        r_tidy_up(z);       // Final cleanup
+    }
+
+    z->c = z->lb;  // Reset position
+    return 1;      // Success
+}
+```

@@ -41,3 +41,17 @@ This function provides the PostgreSQL function interface for file import operati
 - The actual file reading and large object creation logic is implemented in 
 - Located in 
 - For importing with a specific OID, see the related  function
+
+## Simplified Source
+
+```c
+Datum
+be_lo_import(PG_FUNCTION_ARGS)
+{
+    // Extract filename parameter from function arguments
+    text *filename = PG_GETARG_TEXT_PP(0);
+
+    // Import file as large object with auto-assigned OID
+    return PG_RETURN_OID(lo_import_internal(filename, InvalidOid));
+}
+```

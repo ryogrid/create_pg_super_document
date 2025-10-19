@@ -35,3 +35,30 @@ This function handles the \gset backslash command which stores the results of th
 - When not in active_branch, uses ignore_slash_options to skip argument parsing
 - Returns PSQL_CMD_SEND to indicate the next query should be processed with gset mode
 - The gset_prefix memory is freed later in the query processing cycle
+
+## Simplified Source
+
+```c
+static backslashResult exec_command_gset(PsqlScanState scan_state, bool active_branch) {
+    backslashResult status = PSQL_CMD_SKIP_LINE;
+
+    if (active_branch) {
+        // Parse optional prefix argument
+        char *prefix = psql_scan_slash_option(scan_state, OT_NORMAL, NULL, false);
+
+        if (prefix) {
+            pset.gset_prefix = prefix;
+        } else {
+            // Use empty string prefix to trigger variable storing
+            pset.gset_prefix = pg_strdup("");
+        }
+
+        status = PSQL_CMD_SEND;
+    } else {
+        // Not in active branch - consume arguments
+        ignore_slash_options(scan_state);
+    }
+
+    return status;
+}
+```

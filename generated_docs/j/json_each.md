@@ -38,3 +38,22 @@ This is a set-returning function (SRF) that can be used in SQL queries to extrac
 - Part of PostgreSQL's comprehensive JSON processing capabilities
 - Materialize mode ensures all results are available before returning to the caller
 - Uses temporary memory contexts for efficient memory management during tuple construction
+
+## Simplified Source
+```c
+/*
+ * SQL function json_each and json_each_text
+ *
+ * decompose a json object into key value pairs.
+ *
+ * Unlike json_object_keys() these SRFs operate in materialize mode,
+ * stashing results into a Tuplestore object as they go.
+ * The construction of tuples is done using a temporary memory context
+ * that is cleared out after each tuple is built.
+ */
+Datum json_each(PG_FUNCTION_ARGS) {
+    // Decompose JSON object into key-value pairs
+    // Returns values as JSON (not text)
+    return each_worker(fcinfo, false);
+}
+```

@@ -31,3 +31,18 @@ The `range_empty` function is a range predicate function that checks whether a P
 - Returns true for ranges that contain no elements, false otherwise
 - Part of the standard range predicate function family
 - Commonly used in conditional logic and range validation operations
+
+## Simplified Source
+
+```c
+Datum
+range_empty(PG_FUNCTION_ARGS)
+{
+	RangeType *range = PG_GETARG_RANGE_P(0);
+
+	// Check RANGE_EMPTY flag in range header
+	char flags = range_get_flags(range);
+
+	PG_RETURN_BOOL(flags & RANGE_EMPTY);
+}
+```

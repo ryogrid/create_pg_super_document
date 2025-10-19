@@ -30,3 +30,21 @@ This function provides a debugging aid for examining the contents of a datapagem
 - Follows the standard iterator pattern with proper cleanup
 - Part of the pg_rewind utility's debugging infrastructure for bitmap visualization
 - The output format shows each block number on a separate debug log line
+
+## Simplified Source
+
+```c
+void datapagemap_print(datapagemap_t *map)
+{
+    datapagemap_iterator_t *iter;
+    BlockNumber blocknum;
+
+    // Create iterator and traverse all set bits
+    iter = datapagemap_iterate(map);
+    while (datapagemap_next(iter, &blocknum))
+        pg_log_debug("block %u", blocknum);
+
+    // Clean up iterator
+    pg_free(iter);
+}
+```

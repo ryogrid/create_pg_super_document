@@ -38,3 +38,38 @@ The `do_lo_unlink` function implements the PostgreSQL \lo_unlink command functio
 - Uses lo_unlink return status of -1 to detect errors
 - Part of psql's large object management subsystem
 - Permanently removes the large object and all its associated data from the database
+
+## Simplified Source
+
+```c
+bool do_lo_unlink(const char *loid_arg) {
+    bool own_transaction;
+
+    // Convert string OID to actual OID
+    Oid loid = atooid(loid_arg);
+
+    // Start transaction for large object operations
+    if (!start_lo_xact("\\lo_unlink", &own_transaction))
+        return false;
+
+    // Delete the large object
+    SetCancelConn(NULL);
+    int status = lo_unlink(pset.db, loid);
+    ResetCancelConn();
+
+    // Check if deletion failed
+    if (status == -1) {
+        pg_log_info("%s", PQerrorMessage(pset.db));
+        return fail_lo_xact("\\lo_unlink", own_transaction);
+    }
+
+    // Commit transaction
+    if (!finish_lo_xact("\\lo_unlink", own_transaction))
+        return false;
+
+    // Report successful deletion
+    print_lo_result("lo_unlink %u", loid);
+
+    return true;
+}
+```

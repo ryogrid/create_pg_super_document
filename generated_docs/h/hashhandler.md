@@ -47,3 +47,40 @@ The function sets up all the operational parameters for hash indexes, including 
 - The function configures hash indexes as non-clusterable and non-parallel for building
 - [Hash](../H/Hash.md) indexes use INT4OID as their key type
 - Returns the configured IndexAmRoutine via PG_RETURN_POINTER macro
+
+## Simplified Source
+
+```c
+Datum hashhandler(PG_FUNCTION_ARGS)
+{
+    IndexAmRoutine *amroutine = makeNode(IndexAmRoutine);
+
+    // Set hash index capabilities and limitations
+    amroutine->amstrategies = HTMaxStrategyNumber;
+    amroutine->amsupport = HASHNProcs;
+    amroutine->amcanorder = false;        // No ordered scans
+    amroutine->amcanunique = false;       // No uniqueness constraints
+    amroutine->amcanmulticol = false;     // Single column only
+    amroutine->amcanbackward = true;      // Supports backward scans
+    amroutine->ampredlocks = true;        // Supports predicate locking
+    amroutine->amkeytype = INT4OID;       // Hash key type
+
+    // Assign callback functions for hash operations
+    amroutine->ambuild = hashbuild;
+    amroutine->ambuildempty = hashbuildempty;
+    amroutine->aminsert = hashinsert;
+    amroutine->ambulkdelete = hashbulkdelete;
+    amroutine->amvacuumcleanup = hashvacuumcleanup;
+    amroutine->amcostestimate = hashcostestimate;
+    amroutine->amoptions = hashoptions;
+    amroutine->amvalidate = hashvalidate;
+    amroutine->amadjustmembers = hashadjustmembers;
+    amroutine->ambeginscan = hashbeginscan;
+    amroutine->amrescan = hashrescan;
+    amroutine->amgettuple = hashgettuple;
+    amroutine->amgetbitmap = hashgetbitmap;
+    amroutine->amendscan = hashendscan;
+
+    PG_RETURN_POINTER(amroutine);
+}
+```

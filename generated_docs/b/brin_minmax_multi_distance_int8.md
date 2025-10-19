@@ -36,3 +36,16 @@ The function is designed specifically for range boundaries where the first argum
 - Part of the extensible operator class framework for BRIN indexes
 - The distance calculation is essential for determining when ranges should be merged or split in multi-range BRIN summaries
 - Note: For very large int8 values, some precision may be lost during the cast to double
+
+## Simplified Source
+
+```c
+Datum brin_minmax_multi_distance_int8(PG_FUNCTION_ARGS) {
+    // Extract 64-bit integer arguments
+    int64 a1 = PG_GETARG_INT64(0);
+    int64 a2 = PG_GETARG_INT64(1);
+
+    // Calculate distance (a2 - a1) and convert to double
+    PG_RETURN_FLOAT8((double) a2 - (double) a1);
+}
+```

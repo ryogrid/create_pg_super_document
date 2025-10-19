@@ -47,3 +47,48 @@ The function works backwards from the end of the word (right-to-left processing)
 - Implements a fallback strategy for suffix removal, trying more specific patterns first before falling back to general ones
 - Part of PostgreSQL's text search infrastructure, specifically located in src/backend/snowball/libstemmer/stem_UTF_8_spanish.c:988
 - The algorithm follows linguistic rules specific to Spanish morphology and handles the complex suffix system of the Spanish language
+
+## Simplified Source
+
+```c
+extern int spanish_UTF_8_stem(struct SN_env * z) {
+    // Step 1: Mark morphological regions in the word
+    if (r_mark_regions(z) < 0) return -1;
+
+    // Set processing boundaries
+    z->lb = z->c;
+    z->c = z->l;
+
+    // Step 2: Remove attached pronouns
+    int saved_pos = z->l - z->c;
+    r_attached_pronoun(z);
+    z->c = z->l - saved_pos;
+
+    // Step 3: Apply suffix removal strategy (try in order of specificity)
+    saved_pos = z->l - z->c;
+
+    // Try standard suffixes first
+    if (r_standard_suffix(z) == 0) {
+        // If no standard suffix, try y-verb suffixes
+        if (r_y_verb_suffix(z) == 0) {
+            // If no y-verb suffix, try general verb suffixes
+            r_verb_suffix(z);
+        }
+    }
+
+    z->c = z->l - saved_pos;
+
+    // Step 4: Handle any remaining residual suffixes
+    saved_pos = z->l - z->c;
+    r_residual_suffix(z);
+    z->c = z->l - saved_pos;
+
+    // Step 5: Apply final post-processing transformations
+    z->c = z->lb;
+    int final_pos = z->c;
+    r_postlude(z);
+    z->c = final_pos;
+
+    return 1; // Success
+}
+```

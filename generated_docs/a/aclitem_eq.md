@@ -36,3 +36,19 @@ This function is part of PostgreSQL's type system infrastructure, allowing AclIt
 - Returns true only for exact matches; no partial equality or privilege subset checking
 - Used internally by PostgreSQL's type system for operations like DISTINCT, GROUP BY, and hash joins involving aclitem values
 - The function signature follows PostgreSQL's V1 calling convention for system functions
+
+## Simplified Source
+
+```c
+Datum aclitem_eq(PG_FUNCTION_ARGS) {
+    AclItem *a1 = PG_GETARG_ACLITEM_P(0);
+    AclItem *a2 = PG_GETARG_ACLITEM_P(1);
+
+    // Compare all three fields for exact equality
+    bool result = a1->ai_privs == a2->ai_privs &&
+                  a1->ai_grantee == a2->ai_grantee &&
+                  a1->ai_grantor == a2->ai_grantor;
+
+    PG_RETURN_BOOL(result);
+}
+```

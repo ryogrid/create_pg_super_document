@@ -38,3 +38,13 @@ The function is part of PostgreSQL's text search parser infrastructure that need
 - Essential for proper handling of hyphenated words and compound terms in text search
 - The backtracking mechanism allows for context-sensitive re-parsing of tokens containing hyphens
 - Part of a broader set of "Special" functions that handle different punctuation and formatting scenarios in text parsing
+
+## Simplified Source
+
+```c
+static void SpecialHyphen(TParser *prs) {
+    // Rewind parser position to re-process hyphen in different context
+    prs->state->posbyte -= prs->state->lenbytetoken;
+    prs->state->poschar -= prs->state->lenchartoken;
+}
+```

@@ -33,3 +33,27 @@ The cleanup follows a specific order: downstream streamers are freed first, then
 - Releases LZ4 compression context to avoid LZ4 library memory leaks  
 - Follows proper cleanup order: downstream first, then local resources
 - Part of the resource management system for backup streaming operations
+
+## Simplified Source
+
+```c
+static void
+bbstreamer_lz4_compressor_free(bbstreamer *streamer)
+{
+    bbstreamer_lz4_frame *mystreamer;
+
+    mystreamer = (bbstreamer_lz4_frame *) streamer;
+
+    // Free downstream streamer chain
+    bbstreamer_free(streamer->bbs_next);
+
+    // Free LZ4 compression context
+    LZ4F_freeCompressionContext(mystreamer->cctx);
+
+    // Free internal buffer
+    pfree(streamer->bbs_buffer.data);
+
+    // Free the streamer structure
+    pfree(streamer);
+}
+```

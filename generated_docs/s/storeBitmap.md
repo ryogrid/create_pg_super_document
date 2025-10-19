@@ -36,3 +36,21 @@ This function serves as a storeRes callback specifically for bitmap index scans 
 - Asserts that distance-related parameters are not used since bitmap scans don't support ordering
 - Increments the ntids counter to track the number of matching tuples found
 - Located at src/backend/access/spgist/spgscan.c:931-941
+
+## Simplified Source
+
+```c
+static void storeBitmap(SpGistScanOpaque so, ItemPointer heapPtr,
+                        Datum leafValue, bool isnull,
+                        SpGistLeafTuple leafTuple, bool recheck,
+                        bool recheckDistances, double *distances) {
+    // Bitmap scans don't use distances
+    Assert(!recheckDistances && !distances);
+
+    // Add the heap tuple pointer to the tuple bitmap
+    tbm_add_tuples(so->tbm, heapPtr, 1, recheck);
+
+    // Increment count of found tuples
+    so->ntids++;
+}
+```

@@ -62,3 +62,117 @@ Key features include comprehensive server version compatibility checking, dynami
 - Automatically uses SKIP_DATABASE_STATS optimization when supported by the server
 - Includes comprehensive error handling and cleanup procedures
 - The function is marked static, indicating internal use within vacuumdb.c only
+
+## Simplified Source
+
+```c
+static void vacuum_one_database(ConnParams *cparams,
+                                vacuumingOptions *vacopts,
+                                int stage,
+                                SimpleStringList *objects,
+                                int concurrentCons,
+                                const char *progname, bool echo, bool quiet) {
+    PGconn *conn;
+    PGresult *res;
+    ParallelSlotArray *sa;
+    SimpleStringList dbtables = {NULL, NULL};
+    PQExpBuffer sql, catalog_query;
+    bool failed = false;
+
+    // Connect to the database
+    conn = connectDatabase(cparams, progname, echo, false, true);
+
+    // Check server version compatibility for various vacuum options
+    if (vacopts->disable_page_skipping && PQserverVersion(conn) < 90600)
+        pg_fatal("disable-page-skipping requires PostgreSQL 9.6+");
+    // ... (other version checks simplified)
+
+    // Print progress message
+    if (!quiet) {
+        if (stage != ANALYZE_NO_STAGE)
+            printf("processing database \"%s\": %s\n", PQdb(conn), stage_messages[stage]);
+        else
+            printf("vacuuming database \"%s\"\n", PQdb(conn));
+    }
+
+    // Build catalog query to find tables to process
+    initPQExpBuffer(&catalog_query);
+
+    // Add table/schema filtering logic if objects specified
+    if (objects) {
+        // Build CTE for matching specified objects
+        for (cell = objects->head; cell; cell = cell->next) {
+            // Add table/schema specifications to query
+        }
+    }
+
+    // Base catalog query for discoverable tables
+    appendPQExpBufferStr(&catalog_query,
+        "SELECT c.relname, ns.nspname FROM pg_catalog.pg_class c "
+        "JOIN pg_catalog.pg_namespace ns ON c.relnamespace = ns.oid "
+        "WHERE c.relpersistence != 't'");  // Exclude temp tables
+
+    // Add filtering conditions
+    if (vacopts->min_xid_age != 0) {
+        appendPQExpBuffer(&catalog_query,
+            " AND GREATEST(age(c.relfrozenxid), age(t.relfrozenxid)) >= %d",
+            vacopts->min_xid_age);
+    }
+
+    // Execute catalog query to get table list
+    res = executeQuery(conn, catalog_query.data, echo);
+    termPQExpBuffer(&catalog_query);
+
+    // Build qualified table name list
+    initPQExpBuffer(&sql);
+    for (int i = 0; i < PQntuples(res); i++) {
+        char *qualified_name = fmtQualifiedIdEnc(PQgetvalue(res, i, 1),
+                                                 PQgetvalue(res, i, 0),
+                                                 PQclientEncoding(conn));
+        simple_string_list_append(&dbtables, qualified_name);
+    }
+    PQclear(res);
+
+    // Setup parallel execution slots
+    if (concurrentCons > PQntuples(res))
+        concurrentCons = PQntuples(res);
+    if (concurrentCons <= 0)
+        concurrentCons = 1;
+
+    sa = ParallelSlotsSetup(concurrentCons, cparams, progname, echo,
+                           stage != ANALYZE_NO_STAGE ? stage_commands[stage] : NULL);
+    ParallelSlotsAdoptConn(sa, conn);
+
+    // Process each table
+    for (cell = dbtables.head; cell != NULL; cell = cell->next) {
+        if (CancelRequested) {
+            failed = true;
+            break;
+        }
+
+        ParallelSlot *free_slot = ParallelSlotsGetIdle(sa, NULL);
+        if (!free_slot) {
+            failed = true;
+            break;
+        }
+
+        // Prepare and execute vacuum command for this table
+        prepare_vacuum_command(&sql, PQserverVersion(free_slot->connection),
+                               vacopts, cell->val);
+        ParallelSlotSetHandler(free_slot, TableCommandResultHandler, NULL);
+        run_vacuum_command(free_slot->connection, sql.data, echo, cell->val);
+    }
+
+    // Wait for all operations to complete
+    if (!ParallelSlotsWaitCompletion(sa))
+        failed = true;
+
+    // Cleanup
+    ParallelSlotsTerminate(sa);
+    pg_free(sa);
+    termPQExpBuffer(&sql);
+
+    if (failed)
+        exit(1);
+}
+```

@@ -32,3 +32,17 @@ This function provides the basic XML-to-text conversion functionality without an
 - The comment "It is actually binary compatible" indicates the implementation relies on internal type compatibility
 - This is the simpler version of XML-to-text conversion; xmltotext_with_options provides more sophisticated formatting capabilities
 - Located in src/backend/utils/adt/xml.c at lines 646-655
+
+## Simplified Source
+
+```c
+Datum
+xmltotext(PG_FUNCTION_ARGS)
+{
+    // Get XML data from function arguments
+    xmltype *data = PG_GETARG_XML_P(0);
+
+    // Direct binary cast to text (XML and text are binary compatible)
+    PG_RETURN_TEXT_P((text *) data);
+}
+```

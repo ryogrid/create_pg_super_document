@@ -32,3 +32,23 @@ This function provides a unified interface for closing compression file handles 
 
 ## Notes and Other Information
 The function returns a boolean indicating success or failure of the close operation, though the memory cleanup always occurs regardless of the close result. It uses free_keep_errno to preserve error codes that might be set by the compression-specific close function. The function safely handles cases where private_data is NULL, indicating no active file to close. This function serves as the complementary cleanup operation to InitCompressFileHandle and InitDiscoverCompressFileHandle.
+
+## Simplified Source
+
+```c
+bool
+EndCompressFileHandle(CompressFileHandle *CFH)
+{
+    bool ret = false;
+
+    // Close file if it's open
+    errno = 0;
+    if (CFH->private_data)
+        ret = CFH->close_func(CFH);
+
+    // Always free the handle memory
+    free_keep_errno(CFH);
+
+    return ret;
+}
+```

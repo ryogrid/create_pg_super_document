@@ -32,3 +32,17 @@ The `int4gcd` function serves as the PostgreSQL SQL function interface for compu
 - All complex logic and edge case handling is delegated to `int4gcd_internal`
 - Part of PostgreSQL's integer arithmetic functions in `src/backend/utils/adt/int.c`
 - The actual mathematical computation, overflow handling, and optimization are handled by the internal implementation
+
+## Simplified Source
+
+```c
+Datum int4gcd(PG_FUNCTION_ARGS) {
+    int32 a = PG_GETARG_INT32(0);  // First integer
+    int32 b = PG_GETARG_INT32(1);  // Second integer
+
+    // Delegate to internal implementation
+    int32 result = int4gcd_internal(a, b);
+
+    PG_RETURN_INT32(result);
+}
+```

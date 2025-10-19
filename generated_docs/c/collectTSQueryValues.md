@@ -37,3 +37,38 @@ This function iterates through all items in a TSQuery structure and extracts the
 - The function only processes QI_VAL type query items, skipping operators and other item types
 - [String](../S/String.md) lengths are determined from the qoperand.length field and copied from the operand data at the specified distance offset
 - The returned array contains exactly `*nvalues_p` elements, all properly null-terminated strings
+
+## Simplified Source
+
+```c
+static char **collectTSQueryValues(TSQuery a, int *nvalues_p) {
+    // Get query items and operand data
+    QueryItem *items = GETQUERY(a);
+    char *operand_data = GETOPERAND(a);
+
+    // Allocate array for extracted values
+    char **values = (char **) palloc(sizeof(char *) * a->size);
+    int value_count = 0;
+
+    // Process each query item
+    for (int i = 0; i < a->size; i++) {
+        // Only process value items (skip operators)
+        if (items[i].type == QI_VAL) {
+            // Extract string length and position
+            int length = items[i].qoperand.length;
+
+            // Allocate memory and copy the string
+            char *value = palloc(length + 1);
+            memcpy(value, operand_data + items[i].qoperand.distance, length);
+            value[length] = '\0';  // Null terminate
+
+            // Add to values array
+            values[value_count++] = value;
+        }
+    }
+
+    // Return count and values array
+    *nvalues_p = value_count;
+    return values;
+}
+```

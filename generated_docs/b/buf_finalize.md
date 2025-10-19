@@ -32,3 +32,22 @@ This function completes the construction of a pg_snapshot structure that has bee
 - After finalization, the original StringInfo buffer is freed and cannot be used again
 - The SET_VARSIZE macro properly sets the PostgreSQL variable-length structure size
 - Memory management responsibility transfers from the StringInfo to the returned snapshot
+
+## Simplified Source
+
+```c
+static pg_snapshot *buf_finalize(StringInfo buf) {
+    // Cast buffer data to pg_snapshot structure
+    pg_snapshot *snap = (pg_snapshot *) buf->data;
+
+    // Set the proper variable-length size for the snapshot
+    SET_VARSIZE(snap, buf->len);
+
+    // Clean up the StringInfo buffer
+    buf->data = NULL;  // Transfer ownership of data
+    pfree(buf);        // Free the buffer structure
+
+    // Return the finalized snapshot
+    return snap;
+}
+```

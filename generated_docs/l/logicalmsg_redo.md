@@ -33,3 +33,17 @@ This function is called during WAL replay to handle XLOG_LOGICAL_MESSAGE records
 - The function validates the operation code to ensure WAL record integrity
 - Logical messages are stored in WAL but don't affect physical database state during recovery
 - Part of the logical message resource manager (RM_LOGICALMSG_ID) in the WAL replay system
+
+## Simplified Source
+
+```c
+void logicalmsg_redo(XLogReaderState *record) {
+    uint8 info = XLogRecGetInfo(record) & ~XLR_INFO_MASK;
+
+    // Validate the record type - should only be logical message
+    if (info != XLOG_LOGICAL_MESSAGE)
+        elog(PANIC, "logicalmsg_redo: unknown op code %u", info);
+
+    // No actual redo work needed - logical messages are processed during logical decoding
+}
+```

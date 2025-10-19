@@ -32,3 +32,29 @@ This function implements the FNV-1a hash algorithm, a non-cryptographic hash fun
 - Returns signed int64 result despite hash nature (common in PostgreSQL codebase)
 - Part of pgbench's standard function evaluation system for generating hash-based values
 - Located in src/bin/pgbench/pgbench.c:1245-1269
+
+## Simplified Source
+
+```c
+static int64
+getHashFnv1a(int64 val, uint64 seed)
+{
+    int64 result;
+    int i;
+
+    // Initialize hash with offset basis XOR seed
+    result = FNV_OFFSET_BASIS ^ seed;
+
+    // Process value byte by byte
+    for (i = 0; i < 8; ++i)
+    {
+        int32 octet = val & 0xff;
+
+        val = val >> 8;
+        result = result ^ octet;  // XOR with byte (FNV-1a variant)
+        result = result * FNV_PRIME;  // Multiply by FNV prime
+    }
+
+    return result;
+}
+```

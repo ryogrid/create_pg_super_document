@@ -36,3 +36,41 @@ This function calculates the numerical distance between two 8-byte MAC address v
 - This function is typically registered in BRIN operator class definitions for macaddr8 columns
 - The distance represents the numerical gap between MAC addresses in the extended address space
 - [macaddr8](../m/macaddr8.md) supports both EUI-64 and modified EUI-64 formats used in IPv6 link-local addresses
+
+## Simplified Source
+
+```c
+Datum brin_minmax_multi_distance_macaddr8(PG_FUNCTION_ARGS) {
+    // Extract the two 8-byte MAC address values
+    macaddr8 *a = PG_GETARG_MACADDR8_P(0);
+    macaddr8 *b = PG_GETARG_MACADDR8_P(1);
+
+    // Calculate distance by treating MAC as base-256 number
+    // Process bytes from most significant (h) to least significant (a)
+    float8 delta = ((float8) b->h - (float8) a->h);
+    delta /= 256;
+
+    delta += ((float8) b->g - (float8) a->g);
+    delta /= 256;
+
+    delta += ((float8) b->f - (float8) a->f);
+    delta /= 256;
+
+    delta += ((float8) b->e - (float8) a->e);
+    delta /= 256;
+
+    delta += ((float8) b->d - (float8) a->d);
+    delta /= 256;
+
+    delta += ((float8) b->c - (float8) a->c);
+    delta /= 256;
+
+    delta += ((float8) b->b - (float8) a->b);
+    delta /= 256;
+
+    delta += ((float8) b->a - (float8) a->a);
+    delta /= 256;
+
+    return PG_RETURN_FLOAT8(delta);
+}
+```

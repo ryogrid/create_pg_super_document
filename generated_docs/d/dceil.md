@@ -34,3 +34,14 @@ This function implements the PostgreSQL built-in CEIL (ceiling) function for flo
 - The result is returned as float8, not as an integer type
 - Complements `dfloor` (which rounds downward) and `dround` (which rounds to nearest)
 - Follows IEEE 754 standards for ceiling operations
+
+## Simplified Source
+
+```c
+Datum dceil(PG_FUNCTION_ARGS) {
+    float8 arg1 = PG_GETARG_FLOAT8(0);
+
+    // Return smallest integer >= input
+    PG_RETURN_FLOAT8(ceil(arg1));
+}
+```

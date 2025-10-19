@@ -38,3 +38,12 @@ This function is typically called on every invocation of a set-returning functio
 - The function is extremely lightweight, consisting of only a single pointer dereference and return
 - Part of the standard SRF (Set Returning Function) protocol alongside init_MultiFuncCall and end_MultiFuncCall
 - The returned context contains state information that persists across multiple function calls
+
+## Simplified Source
+```c
+FuncCallContext *per_MultiFuncCall(PG_FUNCTION_ARGS) {
+    // Simply retrieve the previously stored function context
+    // from the function info's extra data field
+    return (FuncCallContext *) fcinfo->flinfo->fn_extra;
+}
+```

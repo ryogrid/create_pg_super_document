@@ -35,3 +35,21 @@ The function follows a two-step validation process:
 - Returns 1 on successful match, 0 on failure, following standard Snowball stemming conventions
 - The function checks that there are at least 2 characters before the current position and that the character before the cursor is 'z' (ASCII 122)
 - Part of the comprehensive Turkish stemming algorithm that handles the complex morphology of the Turkish language
+
+## Simplified Source
+
+```c
+static int r_mark_nUz(struct SN_env * z) {
+    // Check vowel harmony compliance
+    int ret = r_check_vowel_harmony(z);
+    if (ret <= 0) return ret;
+
+    // Verify position and current character is 'z' (ASCII 122)
+    if (z->c - 2 <= z->lb || z->p[z->c - 1] != 122) return 0;
+
+    // Match against "nUz" suffix patterns
+    if (!find_among_b(z, a_17, 4)) return 0;
+
+    return 1; // Success
+}
+```

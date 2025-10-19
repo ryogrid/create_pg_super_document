@@ -49,3 +49,29 @@ Return value:
 - Part of PostgreSQL's internal array construction infrastructure
 - Assumes input parameters are valid (no validation performed at this level)
 - Memory layout follows PostgreSQL's variable-length object conventions
+
+## Simplified Source
+
+```c
+static ArrayType *create_array_envelope(int ndims, int *dimv, int *lbsv,
+                                       int nbytes, Oid elmtype, int dataoffset) {
+    ArrayType *result;
+
+    // Allocate and initialize array structure
+    result = (ArrayType *) palloc0(nbytes);
+    SET_VARSIZE(result, nbytes);
+
+    // Set array metadata
+    result->ndim = ndims;
+    result->dataoffset = dataoffset;
+    result->elemtype = elmtype;
+
+    // Copy dimension and lower bound arrays
+    memcpy(ARR_DIMS(result), dimv, ndims * sizeof(int));
+    memcpy(ARR_LBOUND(result), lbsv, ndims * sizeof(int));
+
+    return result;
+}
+```
+
+This utility function creates the structural envelope of a PostgreSQL array by allocating memory and initializing all metadata fields (dimensions, lower bounds, element type, data offset). It uses zero-initialization for safety and copies the dimension/bound arrays into the proper array structure locations.

@@ -30,3 +30,16 @@ The function performs simple arithmetic subtraction since PostgreSQL dates are s
 - Simple implementation similar to int4range_subdiff since dates use int32 storage
 - Located in src/backend/utils/adt/rangetypes.c:1655-1663
 - Used internally by PostgreSQL's range type system for date range operations requiring difference calculations
+
+## Simplified Source
+
+```c
+Datum daterange_subdiff(PG_FUNCTION_ARGS) {
+    // Extract the two date arguments (days since epoch)
+    int32 v1 = PG_GETARG_INT32(0);
+    int32 v2 = PG_GETARG_INT32(1);
+
+    // Return the difference in days as float8
+    PG_RETURN_FLOAT8((float8) v1 - (float8) v2);
+}
+```

@@ -29,3 +29,17 @@ This function serves as a comparator for the qsort library function, specificall
 - This is a static function, meaning it has file scope and is only accessible within spgtextproc.c
 - The function follows the standard qsort comparator contract: returns negative, zero, or positive values for less-than, equal-to, or greater-than comparisons respectively
 - The 'c' field being compared likely represents character values in the context of text processing within SP-GiST indexes
+
+## Simplified Source
+
+```c
+static int cmpNodePtr(const void *a, const void *b)
+{
+    // Cast void pointers to spgNodePtr structures
+    const spgNodePtr *aa = (const spgNodePtr *) a;
+    const spgNodePtr *bb = (const spgNodePtr *) b;
+
+    // Compare the 'c' fields (likely character values)
+    return pg_cmp_s16(aa->c, bb->c);
+}
+```

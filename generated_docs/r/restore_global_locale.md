@@ -35,3 +35,24 @@ This function complements save_global_locale() by restoring a locale setting tha
 - Failure to restore results in program termination via pg_fatal()
 - The category parameter should match the one used when saving the locale
 - Part of initdb's locale management system for safe locale switching
+
+## Simplified Source
+
+```c
+static void
+restore_global_locale(int category, save_locale_t save)
+{
+#ifdef WIN32
+    // Windows: Use wide-character setlocale
+    if (!_wsetlocale(category, save))
+        pg_fatal("failed to restore old locale");
+#else
+    // Unix: Use standard setlocale
+    if (!setlocale(category, save))
+        pg_fatal("failed to restore old locale \"%s\"", save);
+#endif
+
+    // Clean up allocated memory
+    free(save);
+}
+```

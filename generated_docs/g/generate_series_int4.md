@@ -30,3 +30,14 @@ The `generate_series_int4` function serves as a non-persistent numeric series ge
 - Part of PostgreSQL's generate_series() family of functions for creating sequential data
 - Returns a `Datum` type following PostgreSQL's function calling convention
 - The actual series generation logic is implemented in `generate_series_step_int4`
+
+## Simplified Source
+```c
+/*
+ * Non-persistent numeric series generator - wrapper function
+ */
+Datum generate_series_int4(PG_FUNCTION_ARGS) {
+    // Delegate to the step-based implementation with default step of 1
+    return generate_series_step_int4(fcinfo);
+}
+```

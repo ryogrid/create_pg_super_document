@@ -58,3 +58,39 @@ None - the function operates on global control file variables:
 - All validation failures are fatal and immediately terminate the program
 - The function performs "fail-fast" validation to catch problems before any modifications begin
 - Located at src/bin/pg_rewind/pg_rewind.c:733-790
+
+## Simplified Source
+
+```c
+static void sanityChecks(void)
+{
+    // Check that both clusters originated from same initial database
+    if (ControlFile_target.system_identifier != ControlFile_source.system_identifier)
+        pg_fatal("source and target clusters are from different systems");
+
+    // Verify version compatibility
+    if (ControlFile_target.pg_control_version != PG_CONTROL_VERSION ||
+        ControlFile_source.pg_control_version != PG_CONTROL_VERSION ||
+        ControlFile_target.catalog_version_no != CATALOG_VERSION_NO ||
+        ControlFile_source.catalog_version_no != CATALOG_VERSION_NO) {
+        pg_fatal("clusters are not compatible with this version of pg_rewind");
+    }
+
+    // Ensure target has data integrity protection
+    if (ControlFile_target.data_checksum_version != PG_DATA_CHECKSUM_VERSION &&
+        !ControlFile_target.wal_log_hints) {
+        pg_fatal("target server needs to use either data checksums or \"wal_log_hints = on\"");
+    }
+
+    // Verify target server is properly shut down
+    if (ControlFile_target.state != DB_SHUTDOWNED &&
+        ControlFile_target.state != DB_SHUTDOWNED_IN_RECOVERY)
+        pg_fatal("target server must be shut down cleanly");
+
+    // For local directory sources, also verify source shutdown
+    if (datadir_source &&
+        ControlFile_source.state != DB_SHUTDOWNED &&
+        ControlFile_source.state != DB_SHUTDOWNED_IN_RECOVERY)
+        pg_fatal("source data directory must be shut down cleanly");
+}
+```

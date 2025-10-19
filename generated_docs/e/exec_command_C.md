@@ -9,7 +9,8 @@ exec_command_C implements the \C backslash command that overrides the table titl
 ## Definition
 
 ```c
-enum trivalue reuse_previous = TRI_DEFAULT;
+static backslashResult
+exec_command_C(PsqlScanState scan_state, bool active_branch)
 ```
 ## Detailed Description
 exec_command_C sets or clears the table title that appears above query result tables in psql output. The function accepts an optional argument that becomes the new title - if no argument is provided (or an empty string), the title is cleared. The implementation uses psql_scan_slash_option() with the 'true' parameter to allow empty strings, then calls do_pset() to update the "title" print setting.
@@ -38,3 +39,25 @@ When active_branch is false (inside a false \if block), the function calls ignor
 - The title will appear above result tables in subsequent query output
 - Originally designed for HTML caption functionality but now applies to various output formats
 - Memory is properly managed with free() call after processing the argument
+
+## Simplified Source
+
+```c
+static backslashResult exec_command_C(PsqlScanState scan_state, bool active_branch) {
+    bool success = true;
+
+    if (active_branch) {
+        // Parse optional title argument (empty string allowed)
+        char *opt = psql_scan_slash_option(scan_state, OT_NORMAL, NULL, true);
+
+        // Set the table title using pset mechanism
+        success = do_pset("title", opt, &pset.popt, pset.quiet);
+        free(opt);
+    } else {
+        // Ignore arguments when in false \if branch
+        ignore_slash_options(scan_state);
+    }
+
+    return success ? PSQL_CMD_SKIP_LINE : PSQL_CMD_ERROR;
+}
+```

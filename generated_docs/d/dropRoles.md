@@ -37,3 +37,47 @@ The function handles different PostgreSQL server versions: for version 9.6 and l
 - The roles are processed in alphabetical order (ORDER BY 1)
 - Includes appropriate SQL comments to identify the DROP ROLE section in the output
 - Part of pg_dumpall's role management functionality for database cluster restoration
+
+## Simplified Source
+
+```c
+static void dropRoles(PGconn *conn) {
+    PQExpBuffer buf = createPQExpBuffer();
+    PGresult *res;
+    int i_rolname, i;
+
+    // Query for role names, excluding system roles on newer versions
+    if (server_version >= 90600) {
+        printfPQExpBuffer(buf,
+            "SELECT rolname FROM %s "
+            "WHERE rolname !~ '^pg_' "
+            "ORDER BY 1", role_catalog);
+    } else {
+        printfPQExpBuffer(buf,
+            "SELECT rolname FROM %s "
+            "ORDER BY 1", role_catalog);
+    }
+
+    res = executeQuery(conn, buf->data);
+    i_rolname = PQfnumber(res, "rolname");
+
+    // Output header comment
+    if (PQntuples(res) > 0) {
+        fprintf(OPF, "--\n-- Drop roles\n--\n\n");
+    }
+
+    // Generate DROP ROLE statements for each role
+    for (i = 0; i < PQntuples(res); i++) {
+        const char *rolename = PQgetvalue(res, i, i_rolname);
+
+        fprintf(OPF, "DROP ROLE %s%s;\n",
+                if_exists ? "IF EXISTS " : "",
+                fmtId(rolename));
+    }
+
+    // Cleanup
+    PQclear(res);
+    destroyPQExpBuffer(buf);
+    fprintf(OPF, "\n\n");
+}
+```

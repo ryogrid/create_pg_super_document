@@ -43,3 +43,55 @@ The ternary flag determines whether the check array contains boolean values or G
 - Short-circuiting behavior improves performance by avoiding unnecessary evaluations
 - The ternary parameter allows the same function to work with both boolean and tri-state logic
 - Error handling for invalid node types suggests the function expects only specific node types in valid query trees
+
+## Simplified Source
+
+```c
+static GinTernaryValue
+execute_jsp_gin_node(JsonPathGinNode *node, void *check, bool ternary)
+{
+    GinTernaryValue res, v;
+    int i;
+
+    switch (node->type)
+    {
+        case JSP_GIN_AND:
+            // Logical AND with short-circuiting
+            res = GIN_TRUE;
+            for (i = 0; i < node->val.nargs; i++)
+            {
+                v = execute_jsp_gin_node(node->args[i], check, ternary);
+                if (v == GIN_FALSE)
+                    return GIN_FALSE;  // Short-circuit on first FALSE
+                else if (v == GIN_MAYBE)
+                    res = GIN_MAYBE;   // Remember if any child is uncertain
+            }
+            return res;
+
+        case JSP_GIN_OR:
+            // Logical OR with short-circuiting
+            res = GIN_FALSE;
+            for (i = 0; i < node->val.nargs; i++)
+            {
+                v = execute_jsp_gin_node(node->args[i], check, ternary);
+                if (v == GIN_TRUE)
+                    return GIN_TRUE;   // Short-circuit on first TRUE
+                else if (v == GIN_MAYBE)
+                    res = GIN_MAYBE;   // Remember if any child is uncertain
+            }
+            return res;
+
+        case JSP_GIN_ENTRY:
+            // Look up entry match result from check array
+            int index = node->val.entryIndex;
+            if (ternary)
+                return ((GinTernaryValue *) check)[index];
+            else
+                return ((bool *) check)[index] ? GIN_TRUE : GIN_FALSE;
+
+        default:
+            elog(ERROR, "invalid jsonpath gin node type: %d", node->type);
+            return GIN_FALSE;
+    }
+}
+```

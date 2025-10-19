@@ -59,3 +59,136 @@ After processing all chunks, the function validates that the number of received 
 - Resets the request queue after successful processing to prepare for subsequent batches
 - This is a static function used internally within the libpq_source.c module
 - Critical for ensuring data integrity during the pg_rewind file synchronization process
+
+## Simplified Source
+
+```c
+static void
+process_queued_fetch_requests(libpq_source *src)
+{
+    const char *params[3];
+    PGresult *res;
+    int chunkno;
+
+    if (src->num_requests == 0)
+        return;
+
+    pg_log_debug("getting %d file chunks", src->num_requests);
+
+    // Build parameter arrays for prepared statement
+    resetStringInfo(&src->paths);
+    resetStringInfo(&src->offsets);
+    resetStringInfo(&src->lengths);
+
+    // Format as PostgreSQL arrays: {path1,path2...}, {off1,off2...}, {len1,len2...}
+    appendStringInfoChar(&src->paths, '{');
+    appendStringInfoChar(&src->offsets, '{');
+    appendStringInfoChar(&src->lengths, '{');
+
+    for (int i = 0; i < src->num_requests; i++)
+    {
+        fetch_range_request *rq = &src->request_queue[i];
+
+        if (i > 0)
+        {
+            appendStringInfoChar(&src->paths, ',');
+            appendStringInfoChar(&src->offsets, ',');
+            appendStringInfoChar(&src->lengths, ',');
+        }
+
+        appendArrayEscapedString(&src->paths, rq->path);
+        appendStringInfo(&src->offsets, INT64_FORMAT, (int64) rq->offset);
+        appendStringInfo(&src->lengths, INT64_FORMAT, (int64) rq->length);
+    }
+    appendStringInfoChar(&src->paths, '}');
+    appendStringInfoChar(&src->offsets, '}');
+    appendStringInfoChar(&src->lengths, '}');
+
+    // Execute prepared statement with array parameters
+    params[0] = src->paths.data;
+    params[1] = src->offsets.data;
+    params[2] = src->lengths.data;
+
+    if (PQsendQueryPrepared(src->conn, "fetch_chunks_stmt", 3, params, NULL, NULL, 1) != 1)
+        pg_fatal("could not send query: %s", PQerrorMessage(src->conn));
+
+    if (PQsetSingleRowMode(src->conn) != 1)
+        pg_fatal("could not set libpq connection to single row mode");
+
+    // Process each returned chunk
+    chunkno = 0;
+    while ((res = PQgetResult(src->conn)) != NULL)
+    {
+        fetch_range_request *rq = &src->request_queue[chunkno];
+        char *filename;
+        int filenamelen;
+        int64 chunkoff;
+        int chunksize;
+        char *chunk;
+
+        // Handle different result types
+        switch (PQresultStatus(res))
+        {
+            case PGRES_SINGLE_TUPLE:
+                break;
+            case PGRES_TUPLES_OK:
+                PQclear(res);
+                continue;    // Final zero-row result
+            default:
+                pg_fatal("unexpected result while fetching remote files: %s",
+                         PQresultErrorMessage(res));
+        }
+
+        // Basic validation
+        if (chunkno > src->num_requests)
+            pg_fatal("received more data chunks than requested");
+
+        // Extract chunk data from result
+        memcpy(&chunkoff, PQgetvalue(res, 0, 1), sizeof(int64));
+        chunkoff = pg_ntoh64(chunkoff);
+        chunksize = PQgetlength(res, 0, 2);
+
+        filenamelen = PQgetlength(res, 0, 0);
+        filename = pg_malloc(filenamelen + 1);
+        memcpy(filename, PQgetvalue(res, 0, 0), filenamelen);
+        filename[filenamelen] = '\0';
+
+        chunk = PQgetvalue(res, 0, 2);
+
+        // Handle file deletion (NULL chunk) or write chunk data
+        if (PQgetisnull(res, 0, 2))
+        {
+            pg_log_debug("received null value for chunk for file \"%s\", file has been deleted",
+                         filename);
+            remove_target_file(filename, true);
+        }
+        else
+        {
+            pg_log_debug("received chunk for file \"%s\", offset %lld, size %d",
+                         filename, (long long int) chunkoff, chunksize);
+
+            // Validate chunk matches request
+            if (strcmp(filename, rq->path) != 0)
+                pg_fatal("received data for file \"%s\", when requested for \"%s\"",
+                         filename, rq->path);
+            if (chunkoff != rq->offset)
+                pg_fatal("received data at offset %lld of file \"%s\", when requested for offset %lld",
+                         (long long int) chunkoff, rq->path, (long long int) rq->offset);
+
+            // Write chunk to target file
+            open_target_file(filename, false);
+            write_target_range(chunk, chunkoff, chunksize);
+        }
+
+        pg_free(filename);
+        PQclear(res);
+        chunkno++;
+    }
+
+    // Validate all requests were processed
+    if (chunkno != src->num_requests)
+        pg_fatal("unexpected number of data chunks received");
+
+    src->num_requests = 0;
+}
+```

@@ -38,3 +38,15 @@ The `box_cn` function is a static helper function that computes the center point
 - Uses PostgreSQL's safe arithmetic functions (`float8_pl`, `float8_div`) rather than direct C operators
 - Widely used by other geometric functions that need box center coordinates
 - Part of the internal implementation for PostgreSQL's geometric BOX data type operations
+
+## Simplified Source
+
+```c
+static void box_cn(Point *center, BOX *box) {
+    // Calculate center x-coordinate: (high.x + low.x) / 2
+    center->x = float8_div(float8_pl(box->high.x, box->low.x), 2.0);
+
+    // Calculate center y-coordinate: (high.y + low.y) / 2
+    center->y = float8_div(float8_pl(box->high.y, box->low.y), 2.0);
+}
+```

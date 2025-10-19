@@ -50,3 +50,50 @@ The function uses an `among_var` variable to handle conditional logic in the swi
 - Includes boundary checking (`z->c > z->lb`) in the fallback tier to prevent invalid cursor positions
 - The switch statement in Tier 2 currently only handles case 1, suggesting potential for future expansion
 - Uses a hierarchical fallback system ensuring at least one replacement strategy succeeds if the initial suffix is found
+
+## Simplified Source
+
+```c
+static int r_step5i(struct SN_env * z) {
+    // Step 1: Find and remove suffix from pattern set a_56
+    z->ket = z->c;
+    if (!find_among_b(z, a_56, 3)) return 0;
+    z->bra = z->c;
+    slice_del(z);  // Remove found suffix
+
+    // Reset stemmer state
+    z->I[0] = 0;
+
+    // Step 2: Try Tier 1 - exact string match
+    int saved_pos = z->l - z->c;
+    z->ket = z->c;
+    z->bra = z->c;
+    if (eq_s_b(z, 8, s_98)) {
+        slice_from_s(z, 4, s_99);  // Replace with 4-char string s_99
+        return 1;
+    }
+
+    // Step 3: Try Tier 2 - pattern match with switch logic
+    z->c = z->l - saved_pos;
+    int saved_pos2 = z->l - z->c;
+    z->ket = z->c;
+    z->bra = z->c;
+    int pattern = find_among_b(z, a_54, 12);
+    if (pattern) {
+        if (pattern == 1) {
+            slice_from_s(z, 4, s_100);  // Replace with 4-char string s_100
+        }
+        return 1;
+    }
+
+    // Step 4: Try Tier 3 - fallback replacement
+    z->c = z->l - saved_pos2;
+    z->ket = z->c;
+    z->bra = z->c;
+    if (!find_among_b(z, a_55, 44)) return 0;
+    if (z->c > z->lb) return 0;  // Boundary check
+    slice_from_s(z, 4, s_101);   // Replace with 4-char string s_101
+
+    return 1;
+}
+```

@@ -36,3 +36,28 @@ The function examines the function call expression and attempts to find a simpli
 - It swaps operand order when calling find_simplified_clause, which suggests it's looking for equivalent expressions with different operand arrangements
 - The function returns NULL if the request type is not SupportRequestSimplify
 - Part of PostgreSQL's range type system for efficient range operations optimization
+
+## Simplified Source
+
+```c
+Datum elem_contained_by_range_support(PG_FUNCTION_ARGS) {
+    // Get the support request from the planner
+    Node *rawreq = (Node *) PG_GETARG_POINTER(0);
+    Node *ret = NULL;
+
+    // Handle simplification requests
+    if (IsA(rawreq, SupportRequestSimplify)) {
+        SupportRequestSimplify *req = (SupportRequestSimplify *) rawreq;
+        FuncExpr *fexpr = req->fcall;
+
+        // Extract the two operands from the function call
+        Expr *leftop = linitial(fexpr->args);
+        Expr *rightop = lsecond(fexpr->args);
+
+        // Attempt to find a simplified equivalent clause
+        ret = find_simplified_clause(req->root, rightop, leftop);
+    }
+
+    PG_RETURN_POINTER(ret);
+}
+```

@@ -43,3 +43,54 @@ The `deccall3` function is an internal helper in the ECPG Informix compatibility
 - Properly handles the case where result variable is aliased with input arguments
 - Comprehensive memory cleanup on all error paths
 - Used by arithmetic operations like addition, subtraction, multiplication, and division
+
+## Simplified Source
+
+```c
+static int deccall3(decimal *arg1, decimal *arg2, decimal *result,
+                   int (*ptr)(numeric *, numeric *, numeric *)) {
+    numeric *a1, *a2, *nres;
+
+    // Check for null inputs (return 0 if either is null)
+    if (risnull(CDECIMALTYPE, (char *) arg1) || risnull(CDECIMALTYPE, (char *) arg2)) {
+        return 0;
+    }
+
+    // Allocate numeric values for conversion
+    if ((a1 = PGTYPESnumeric_new()) == NULL) return ECPG_INFORMIX_OUT_OF_MEMORY;
+    if ((a2 = PGTYPESnumeric_new()) == NULL) {
+        PGTYPESnumeric_free(a1);
+        return ECPG_INFORMIX_OUT_OF_MEMORY;
+    }
+    if ((nres = PGTYPESnumeric_new()) == NULL) {
+        PGTYPESnumeric_free(a1);
+        PGTYPESnumeric_free(a2);
+        return ECPG_INFORMIX_OUT_OF_MEMORY;
+    }
+
+    // Convert decimal inputs to numeric
+    if (PGTYPESnumeric_from_decimal(arg1, a1) != 0 ||
+        PGTYPESnumeric_from_decimal(arg2, a2) != 0) {
+        PGTYPESnumeric_free(a1);
+        PGTYPESnumeric_free(a2);
+        PGTYPESnumeric_free(nres);
+        return ECPG_INFORMIX_OUT_OF_MEMORY;
+    }
+
+    // Call the target function
+    int ret = (*ptr)(a1, a2, nres);
+
+    // Convert result back to decimal if successful
+    if (ret == 0) {
+        rsetnull(CDECIMALTYPE, (char *) result);  // Handle potential conversion errors
+        PGTYPESnumeric_to_decimal(nres, result);
+    }
+
+    // Clean up all allocated memory
+    PGTYPESnumeric_free(nres);
+    PGTYPESnumeric_free(a1);
+    PGTYPESnumeric_free(a2);
+
+    return ret;
+}
+```

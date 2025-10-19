@@ -113,3 +113,45 @@ update_symbol_types.py: ScanDirection indicating the current scan direction (for
 - Resets arrays to first element: index 0 for forward scans, num_elems-1 for backward scans
 - Only processes SK_SEARCHARRAY scan keys with BTEqualStrategyNumber strategy
 - Critical for maintaining scan correctness when transitioning between different primitive scans
+
+## Simplified Source
+
+```c
+static void _bt_rewind_nonrequired_arrays(IndexScanDesc scan, ScanDirection dir)
+{
+    BTScanOpaque so = (BTScanOpaque) scan->opaque;
+    int arrayidx = 0;
+
+    // Process each scan key to find non-required arrays
+    for (int ikey = 0; ikey < so->numberOfKeys; ikey++)
+    {
+        ScanKey cur = so->keyData + ikey;
+        BTArrayKeyInfo *array;
+        int first_elem_dir;
+
+        // Skip non-array keys and non-equality strategies
+        if (!(cur->sk_flags & SK_SEARCHARRAY) ||
+            cur->sk_strategy != BTEqualStrategyNumber)
+            continue;
+
+        array = &so->arrayKeys[arrayidx++];
+
+        // Skip required arrays (only reset non-required ones)
+        if (cur->sk_flags & (SK_BT_REQFWD | SK_BT_REQBKWD))
+            continue;
+
+        // Determine first element based on scan direction
+        if (ScanDirectionIsForward(dir))
+            first_elem_dir = 0;                    // First element for forward scan
+        else
+            first_elem_dir = array->num_elems - 1; // Last element for backward scan
+
+        // Reset array to first element if not already there
+        if (array->cur_elem != first_elem_dir)
+        {
+            array->cur_elem = first_elem_dir;
+            cur->sk_argument = array->elem_values[first_elem_dir];
+        }
+    }
+}
+```

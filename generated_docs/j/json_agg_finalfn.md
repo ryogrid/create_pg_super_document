@@ -40,3 +40,25 @@ The function follows PostgreSQL's aggregate function convention where a NULL res
 - The function assumes the JSON array opening bracket "[" was already added during the aggregate's initialization or transition phases
 - Returns a properly formed JSON array text value that can be consumed by PostgreSQL's JSON processing functions
 - Part of PostgreSQL's JSON aggregate functionality that allows converting multiple rows into a single JSON array
+
+## Simplified Source
+
+```c
+Datum json_agg_finalfn(PG_FUNCTION_ARGS) {
+    JsonAggState *state;
+
+    // Verify this is called in aggregate context
+    Assert(AggCheckCallContext(fcinfo, NULL));
+
+    // Get state from argument (NULL if no input)
+    state = PG_ARGISNULL(0) ? NULL : (JsonAggState *) PG_GETARG_POINTER(0);
+
+    // Return NULL for empty aggregation (standard behavior)
+    if (state == NULL) {
+        return PG_RETURN_NULL();
+    }
+
+    // Complete JSON array by adding closing bracket
+    return PG_RETURN_TEXT_P(catenate_stringinfo_string(state->str, "]"));
+}
+```

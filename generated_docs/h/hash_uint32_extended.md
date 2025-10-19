@@ -41,3 +41,14 @@ This function is essential for PostgreSQL's extended hash infrastructure where 6
 
 ## Notes and Other Information
 This function serves as the extended hashing interface for various PostgreSQL integer-based data types, providing the foundation for collision-resistant hash operations. It's particularly important in contexts where hash table security and distribution quality are critical, such as in access control lists, complex data types like ranges and multiranges, and time zone handling. The 64-bit output space and seeding capability make it suitable for production environments where hash collision attacks are a concern.
+
+## Simplified Source
+```c
+static inline Datum
+hash_uint32_extended(uint32 k, uint64 seed)
+{
+    // Delegate to specialized 32-bit integer hashing with seed
+    // Returns 64-bit hash value for enhanced collision resistance
+    return UInt64GetDatum(hash_bytes_uint32_extended(k, seed));
+}
+```

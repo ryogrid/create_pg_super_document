@@ -31,3 +31,13 @@ The environment created by this function contains:
 
 ## Notes and Other Information
 The function passes specific parameters (0, 3) to SN_create_env, where these values configure the environment for German language requirements. The returned environment must be properly closed using german_UTF_8_close_env to prevent memory leaks. This function is part of the external API for the German UTF-8 stemmer and is typically called once per stemming session to initialize the processing environment.
+
+## Simplified Source
+
+```c
+extern struct SN_env * german_UTF_8_create_env(void) {
+    // Create environment configured for German UTF-8 stemming
+    // Parameters: 0 = string size, 3 = integer array size
+    return SN_create_env(0, 3);
+}
+```

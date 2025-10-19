@@ -40,3 +40,42 @@ This function implements the \\lo_export psql command functionality, which expor
 - Part of psql's large object management commands (\\lo_export, \\lo_import, \\lo_unlink)
 - Implements complete error handling with transaction rollback on failure
 - Success status from lo_export is checked as 1, with any other value indicating failure
+
+## Simplified Source
+
+```c
+bool do_lo_export(const char *loid_arg, const char *filename_arg) {
+    int status;
+    bool own_transaction;
+
+    // Start transaction for large object operation
+    if (!start_lo_xact("\\lo_export", &own_transaction)) {
+        return false;
+    }
+
+    // Enable cancellation support for long operations
+    SetCancelConn(NULL);
+
+    // Perform the actual export operation
+    status = lo_export(pset.db, atooid(loid_arg), filename_arg);
+
+    // Restore cancellation state
+    ResetCancelConn();
+
+    // Check if export failed (status != 1 indicates failure)
+    if (status != 1) {
+        pg_log_info("%s", PQerrorMessage(pset.db));
+        return fail_lo_xact("\\lo_export", own_transaction);
+    }
+
+    // Commit transaction if we started one
+    if (!finish_lo_xact("\\lo_export", own_transaction)) {
+        return false;
+    }
+
+    // Report success to user
+    print_lo_result("lo_export");
+
+    return true;
+}
+```

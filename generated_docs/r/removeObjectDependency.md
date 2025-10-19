@@ -38,3 +38,23 @@ The function is particularly important in pg_dump's dependency resolution and lo
 - Primarily used in pg_dump_sort.c for breaking dependency loops and resolving circular references
 - The function handles the case where the refId doesn't exist in the dependencies array gracefully (no-op)
 - Critical for pg_dump's ability to handle complex object relationships and ensure proper dump ordering
+
+## Simplified Source
+
+```c
+void
+removeObjectDependency(DumpableObject *dobj, DumpId refId)
+{
+    // Compact the dependencies array by removing all instances of refId
+    int j = 0;
+    for (int i = 0; i < dobj->nDeps; i++) {
+        // Keep dependencies that don't match the target ID
+        if (dobj->dependencies[i] != refId) {
+            dobj->dependencies[j++] = dobj->dependencies[i];
+        }
+    }
+
+    // Update the count to reflect the new number of dependencies
+    dobj->nDeps = j;
+}
+```

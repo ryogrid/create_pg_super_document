@@ -36,3 +36,28 @@ The algorithm exploits the property that 0 and -0 are identical in two's complem
 - The bit-shifting approach provides O(1) time complexity for index calculation
 - The blocklist_shift value in SlabContext determines the granularity of the index mapping
 - Index 0 is reserved exclusively for completely full blocks (0 free chunks)
+
+## Simplified Source
+
+```c
+static inline int32
+SlabBlocklistIndex(SlabContext *slab, int nfree)
+{
+    int32 index;
+    int32 blocklist_shift = slab->blocklist_shift;
+
+    Assert(nfree >= 0 && nfree <= slab->chunksPerBlock);
+
+    // Use two's complement arithmetic to efficiently map free chunks to index
+    // 0 free chunks -> index 0, any other count -> index >= 1
+    index = -((-nfree) >> blocklist_shift);
+
+    // Verify correct index calculation
+    if (nfree == 0)
+        Assert(index == 0);
+    else
+        Assert(index >= 1 && index < SLAB_BLOCKLIST_COUNT);
+
+    return index;
+}
+```

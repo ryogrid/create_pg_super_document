@@ -34,3 +34,23 @@ This function serves as a GUC assign hook for the  parameter. It validates that 
 - The TransactionId value has already been validated by check_recovery_target_xid
 - Sets global recovery state variables that guide WAL replay to stop at the specified transaction
 - Located in src/backend/access/transam/xlogrecovery.c:5035-5048
+
+## Simplified Source
+
+```c
+void assign_recovery_target_xid(const char *newval, void *extra)
+{
+    // Ensure no conflicting recovery targets are already set
+    if (recoveryTarget != RECOVERY_TARGET_UNSET &&
+        recoveryTarget != RECOVERY_TARGET_XID)
+        error_multiple_recovery_targets();
+
+    // Set XID target if value provided, otherwise clear target
+    if (newval && strcmp(newval, "") != 0) {
+        recoveryTarget = RECOVERY_TARGET_XID;
+        recoveryTargetXid = *((TransactionId *) extra);
+    } else {
+        recoveryTarget = RECOVERY_TARGET_UNSET;
+    }
+}
+```

@@ -38,3 +38,18 @@ The interpolation is performed using the formula: `result = lo + pct * (hi - lo)
 - Part of PostgreSQL's implementation of the PERCENTILE_CONT aggregate function for interval data types
 - The complexity compared to float8_lerp reflects the sophisticated internal structure of PostgreSQL interval types
 - Handles all components of intervals (years, months, days, time) through the underlying interval arithmetic functions
+
+## Simplified Source
+
+```c
+static Datum interval_lerp(Datum lo, Datum hi, double pct) {
+    // Calculate the difference: (hi - lo)
+    Datum diff = DirectFunctionCall2(interval_mi, hi, lo);
+
+    // Scale the difference by percentage: diff * pct
+    Datum scaled_diff = DirectFunctionCall2(interval_mul, diff, Float8GetDatumFast(pct));
+
+    // Add scaled difference to lower bound: lo + (scaled_diff)
+    return DirectFunctionCall2(interval_pl, scaled_diff, lo);
+}
+```

@@ -31,3 +31,17 @@ This function provides a safe wrapper around PostgreSQL's PQfinish() function to
 - Part of pgbench's connection lifecycle management
 - Used during error handling, normal connection cleanup, and thread termination
 - Ensures proper resource cleanup to prevent connection leaks
+
+## Simplified Source
+
+```c
+static void
+finishCon(CState *st)
+{
+    if (st->con != NULL)
+    {
+        PQfinish(st->con);
+        st->con = NULL;
+    }
+}
+```

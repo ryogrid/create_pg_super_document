@@ -43,3 +43,20 @@ Once set, the scan will begin at startBlk and process numBlks blocks. If numBlks
 - Setting numBlks to InvalidBlockNumber means "scan from startBlk to end of table"
 - Used by index build operations to scan specific ranges of a table during parallel index creation
 - The scan limits override the default behavior of scanning the entire table
+
+## Simplified Source
+
+```c
+void heap_setscanlimits(TableScanDesc sscan, BlockNumber startBlk, BlockNumber numBlks) {
+    HeapScanDesc scan = (HeapScanDesc) sscan;
+
+    // Validate preconditions
+    Assert(!scan->rs_inited);                              // Must not be initialized yet
+    Assert(!(scan->rs_base.rs_flags & SO_ALLOW_SYNC));    // No synchronized scanning
+    Assert(startBlk == 0 || startBlk < scan->rs_nblocks); // Valid start block
+
+    // Set scan range limits
+    scan->rs_startblock = startBlk;
+    scan->rs_numblocks = numBlks;
+}
+```

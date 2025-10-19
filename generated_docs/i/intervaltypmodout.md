@@ -52,3 +52,85 @@ It then translates these into standard SQL interval notation (e.g., "day to seco
 - Only includes precision specification in output when it differs from INTERVAL_FULL_PRECISION
 - Uses a fixed 64-byte buffer for output formatting, sufficient for all valid interval type specifications
 - Part of PostgreSQL's type system infrastructure providing human-readable type information
+
+## Simplified Source
+
+```c
+Datum
+intervaltypmodout(PG_FUNCTION_ARGS)
+{
+    int32 typmod = PG_GETARG_INT32(0);
+    char *res = (char *) palloc(64);
+    int fields;
+    int precision;
+    const char *fieldstr;
+
+    // Return empty string for invalid typmod
+    if (typmod < 0) {
+        *res = '\0';
+        PG_RETURN_CSTRING(res);
+    }
+
+    // Extract fields and precision from typmod
+    fields = INTERVAL_RANGE(typmod);
+    precision = INTERVAL_PRECISION(typmod);
+
+    // Map field combinations to readable strings
+    switch (fields) {
+        case INTERVAL_MASK(YEAR):
+            fieldstr = " year";
+            break;
+        case INTERVAL_MASK(MONTH):
+            fieldstr = " month";
+            break;
+        case INTERVAL_MASK(DAY):
+            fieldstr = " day";
+            break;
+        case INTERVAL_MASK(HOUR):
+            fieldstr = " hour";
+            break;
+        case INTERVAL_MASK(MINUTE):
+            fieldstr = " minute";
+            break;
+        case INTERVAL_MASK(SECOND):
+            fieldstr = " second";
+            break;
+        case INTERVAL_MASK(YEAR) | INTERVAL_MASK(MONTH):
+            fieldstr = " year to month";
+            break;
+        case INTERVAL_MASK(DAY) | INTERVAL_MASK(HOUR):
+            fieldstr = " day to hour";
+            break;
+        case INTERVAL_MASK(DAY) | INTERVAL_MASK(HOUR) | INTERVAL_MASK(MINUTE):
+            fieldstr = " day to minute";
+            break;
+        case INTERVAL_MASK(DAY) | INTERVAL_MASK(HOUR) | INTERVAL_MASK(MINUTE) | INTERVAL_MASK(SECOND):
+            fieldstr = " day to second";
+            break;
+        case INTERVAL_MASK(HOUR) | INTERVAL_MASK(MINUTE):
+            fieldstr = " hour to minute";
+            break;
+        case INTERVAL_MASK(HOUR) | INTERVAL_MASK(MINUTE) | INTERVAL_MASK(SECOND):
+            fieldstr = " hour to second";
+            break;
+        case INTERVAL_MASK(MINUTE) | INTERVAL_MASK(SECOND):
+            fieldstr = " minute to second";
+            break;
+        case INTERVAL_FULL_RANGE:
+            fieldstr = "";
+            break;
+        default:
+            elog(ERROR, "invalid INTERVAL typmod: 0x%x", typmod);
+            fieldstr = "";
+            break;
+    }
+
+    // Format result with or without precision
+    if (precision != INTERVAL_FULL_PRECISION)
+        snprintf(res, 64, "%s(%d)", fieldstr, precision);
+    else
+        snprintf(res, 64, "%s", fieldstr);
+
+    PG_RETURN_CSTRING(res);
+}
+```

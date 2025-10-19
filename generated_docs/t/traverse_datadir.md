@@ -33,3 +33,13 @@ This function serves as a convenient entry point for traversing all files within
 - Used extensively in pg_rewind for operations that need to process all files in a data directory
 - The callback function type process_file_callback_t defines the interface for file processing operations
 - Common use cases include file comparison, copying, and validation operations during database rewind procedures
+
+## Simplified Source
+
+```c
+void traverse_datadir(const char *datadir, process_file_callback_t callback)
+{
+    // Delegate to recursive directory traversal function
+    recurse_dir(datadir, NULL, callback);
+}
+```

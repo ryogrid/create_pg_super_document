@@ -34,3 +34,14 @@ The function is implemented as a static inline function for performance, as it's
 - Used during B-tree construction, page splitting operations, and structural modifications
 - The function directly modifies the pivot tuple's t_tid field to establish parent-child relationships in the B-tree structure
 - Performance-critical function implemented as static inline for efficiency during bulk operations and frequent structural changes
+
+## Simplified Source
+
+```c
+static inline void
+BTreeTupleSetDownLink(IndexTuple pivot, BlockNumber blkno)
+{
+    // Set the child page block number in pivot tuple's t_tid field
+    ItemPointerSetBlockNumber(&pivot->t_tid, blkno);
+}
+```

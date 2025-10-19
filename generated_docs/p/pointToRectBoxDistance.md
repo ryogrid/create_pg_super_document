@@ -40,3 +40,33 @@ If the point is inside the rectangle, both dx and dy will be 0, resulting in a d
 - The distance calculation is optimized to avoid unnecessary square root operations when possible
 - Essential for implementing efficient nearest neighbor searches in geometric indexes
 - The function handles edge cases where the point lies within the rectangle bounds (returns 0 distance)
+
+## Simplified Source
+
+```c
+/* Calculate minimum distance between point and rectangular bounding box */
+static double
+pointToRectBoxDistance(Point *point, RectBox *rect_box)
+{
+    double dx, dy;
+
+    // Calculate horizontal distance
+    if (point->x < rect_box->range_box_x.left.low)
+        dx = rect_box->range_box_x.left.low - point->x;  // Point left of box
+    else if (point->x > rect_box->range_box_x.right.high)
+        dx = point->x - rect_box->range_box_x.right.high;  // Point right of box
+    else
+        dx = 0;  // Point within x-range
+
+    // Calculate vertical distance
+    if (point->y < rect_box->range_box_y.left.low)
+        dy = rect_box->range_box_y.left.low - point->y;  // Point below box
+    else if (point->y > rect_box->range_box_y.right.high)
+        dy = point->y - rect_box->range_box_y.right.high;  // Point above box
+    else
+        dy = 0;  // Point within y-range
+
+    // Return Euclidean distance
+    return HYPOT(dx, dy);
+}
+```

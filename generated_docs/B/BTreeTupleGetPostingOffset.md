@@ -34,3 +34,15 @@ This function retrieves the byte offset that points to the actual posting list d
 - Used in conjunction with BTreeTupleGetNPosting to access posting list data
 - Essential for memory layout calculations when working with posting tuples
 - The offset points to the start of the heap TID array within the tuple's data
+
+## Simplified Source
+
+```c
+static inline uint32 BTreeTupleGetPostingOffset(IndexTuple posting) {
+    // Verify this is a posting tuple
+    Assert(BTreeTupleIsPosting(posting));
+
+    // Extract posting offset from block number field
+    return ItemPointerGetBlockNumberNoCheck(&posting->t_tid);
+}
+```

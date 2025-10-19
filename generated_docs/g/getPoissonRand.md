@@ -31,3 +31,23 @@ This function implements a random number generator that produces values approxim
 - The function ensures the uniform random value is in (0,1] by computing 1.0 - [pg_prng_double](../p/pg_prng_double.md)(state)
 - Part of pgbench utility for PostgreSQL performance testing
 - Located in src/bin/pgbench/pgbench.c:1179-1200
+
+## Simplified Source
+
+```c
+static int64 getPoissonRand(pg_prng_state *state, double center) {
+    // Generate Poisson-distributed random value using inverse transform sampling
+
+    // Get uniform random value in (0, 1] to avoid log(0)
+    double uniform = 1.0 - pg_prng_double(state);
+
+    // Apply inverse transform: -ln(uniform) * center, round to integer
+    return (int64) (-log(uniform) * center + 0.5);
+}
+```
+
+**Key Points:**
+- Uses inverse transform sampling to approximate Poisson distribution
+- Center parameter defines the expected average (mean) of generated values
+- Converts uniform [0,1) to (0,1] range to avoid logarithm of zero
+- Results are rounded to nearest integers for discrete output

@@ -30,3 +30,12 @@ The function returns the server version as an integer in the same format used th
 - Returns an integer representing the server version in PostgreSQL's standard version encoding format
 - The function is a direct passthrough to libpq's PQserverVersion, ensuring consistent version reporting
 - Located at src/backend/replication/libpqwalreceiver/libpqwalreceiver.c:491-501
+
+## Simplified Source
+
+```c
+static int libpqrcv_server_version(WalReceiverConn *conn) {
+    // Simple wrapper around libpq function
+    return PQserverVersion(conn->streamConn);
+}
+```

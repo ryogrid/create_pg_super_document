@@ -37,3 +37,26 @@ The function iterates through all block references in the record, checking each 
 - The function accesses xlogreader's private decoded backup blocks to get bimg_len
 - This is primarily used for WAL statistics collection and pg_waldump functionality
 - The separation of FPI and non-FPI data is crucial for understanding WAL overhead
+
+## Simplified Source
+
+```c
+void XLogRecGetLen(XLogReaderState *record, uint32 *rec_len, uint32 *fpi_len)
+{
+    int block_id;
+
+    // Calculate total full-page image (FPI) data size
+    *fpi_len = 0;
+    for (block_id = 0; block_id <= XLogRecMaxBlockId(record); block_id++) {
+        if (!XLogRecHasBlockRef(record, block_id))
+            continue;
+
+        // Add FPI length if this block has a full-page image
+        if (XLogRecHasBlockImage(record, block_id))
+            *fpi_len += XLogRecGetBlock(record, block_id)->bimg_len;
+    }
+
+    // Record data length = total length - FPI length
+    *rec_len = XLogRecGetTotalLen(record) - *fpi_len;
+}
+```

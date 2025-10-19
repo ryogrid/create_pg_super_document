@@ -35,3 +35,15 @@ The time_ne function implements the inequality operator (<> or !=) for TIME data
 - Returns a PostgreSQL boolean Datum that can be used in SQL expressions
 - Provides the logical complement to time_eq for complete equality/inequality comparison support
 - Essential for SQL operations like NOT EQUAL, exclusion constraints, and negated equality conditions
+
+## Simplified Source
+
+```c
+Datum time_ne(PG_FUNCTION_ARGS) {
+    TimeADT time1 = PG_GETARG_TIMEADT(0);
+    TimeADT time2 = PG_GETARG_TIMEADT(1);
+
+    // Compare times for inequality
+    PG_RETURN_BOOL(time1 != time2);
+}
+```

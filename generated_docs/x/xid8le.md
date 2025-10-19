@@ -36,3 +36,16 @@ This function combines the logic of both equality and less-than comparison, maki
 - Essential for range queries, boundary conditions, and inclusive comparisons involving transaction IDs
 - Provides comprehensive ordering support when combined with the other xid8 comparison functions
 - Uses PostgreSQL's standard function interface macros for argument handling and return value management
+
+## Simplified Source
+
+```c
+Datum xid8le(PG_FUNCTION_ARGS) {
+    // Extract the two 64-bit transaction IDs from function arguments
+    FullTransactionId fxid1 = PG_GETARG_FULLTRANSACTIONID(0);
+    FullTransactionId fxid2 = PG_GETARG_FULLTRANSACTIONID(1);
+
+    // Return true if first transaction ID precedes or equals the second
+    PG_RETURN_BOOL(FullTransactionIdPrecedesOrEquals(fxid1, fxid2));
+}
+```

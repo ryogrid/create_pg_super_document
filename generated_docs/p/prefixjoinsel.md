@@ -34,3 +34,13 @@ The function returns a selectivity estimate as a floating-point value between 0 
 - Works in conjunction with PostgreSQL's operator class system for prefix-based operators
 - Used for estimating selectivity of expressions involving string prefix matching operations
 - Prefix matching is commonly used in text search and string comparison scenarios
+
+## Simplified Source
+
+```c
+Datum prefixjoinsel(PG_FUNCTION_ARGS) {
+    // Estimate join selectivity for prefix matching operations
+    // Delegates to generic pattern join selectivity function
+    return patternjoinsel(fcinfo, Pattern_Type_Prefix, false);
+}
+```

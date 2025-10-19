@@ -42,3 +42,38 @@ Unlike pg_control corruption (which pg_resetwal is designed to handle), a corrup
 - The function expects the version string to be on the first line of the PG_VERSION file
 - Error handling includes both file I/O errors and version compatibility checks
 - The function uses pg_fatal and pg_log_error for different types of errors, providing appropriate detail levels
+
+## Simplified Source
+
+```c
+static void CheckDataVersion(void) {
+    const char *ver_file = "PG_VERSION";
+    FILE *ver_fd;
+    char rawline[64];
+
+    // Open PG_VERSION file
+    if ((ver_fd = fopen(ver_file, "r")) == NULL)
+        pg_fatal("could not open file \"%s\" for reading: %m", ver_file);
+
+    // Read first line containing version number
+    if (!fgets(rawline, sizeof(rawline), ver_fd)) {
+        if (!ferror(ver_fd))
+            pg_fatal("unexpected empty file \"%s\"", ver_file);
+        else
+            pg_fatal("could not read file \"%s\": %m", ver_file);
+    }
+
+    // Strip trailing whitespace
+    pg_strip_crlf(rawline);
+
+    // Compare with current program version
+    if (strcmp(rawline, PG_MAJORVERSION) != 0) {
+        pg_log_error("data directory is of wrong version");
+        pg_log_error_detail("File \"%s\" contains \"%s\", which is not compatible with this program's version \"%s\".",
+                           ver_file, rawline, PG_MAJORVERSION);
+        exit(1);
+    }
+
+    fclose(ver_fd);
+}
+```

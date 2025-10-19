@@ -37,3 +37,19 @@ The xid8_smaller function implements a minimum operation for PostgreSQL's full t
 - Returns a FullTransactionId Datum, not a boolean like comparison operators
 - Complement to xid8_larger function
 - Located in src/backend/utils/adt/xid.c:303-321
+
+## Simplified Source
+
+```c
+Datum xid8_smaller(PG_FUNCTION_ARGS) {
+    // Get the two transaction IDs to compare
+    FullTransactionId fxid1 = PG_GETARG_FULLTRANSACTIONID(0);
+    FullTransactionId fxid2 = PG_GETARG_FULLTRANSACTIONID(1);
+
+    // Return whichever transaction ID is smaller (comes earlier)
+    if (FullTransactionIdPrecedes(fxid1, fxid2))
+        PG_RETURN_FULLTRANSACTIONID(fxid1);
+    else
+        PG_RETURN_FULLTRANSACTIONID(fxid2);
+}
+```

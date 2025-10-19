@@ -24,3 +24,13 @@ This function serves as the cleanup counterpart to basque_ISO_8859_1_create_env,
 
 ## Notes and Other Information
 This function must be called for every SN_env structure created by basque_ISO_8859_1_create_env to prevent memory leaks. The parameter 0 passed to SN_close_env corresponds to the configuration used during environment creation. After calling this function, the SN_env pointer becomes invalid and should not be used.
+
+## Simplified Source
+
+```c
+extern void basque_ISO_8859_1_close_env(struct SN_env * z) {
+    // Clean up Snowball environment for Basque stemming
+    // Parameter 0 corresponds to configuration used during creation
+    SN_close_env(z, 0);
+}
+```

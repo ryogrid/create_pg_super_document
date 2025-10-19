@@ -40,3 +40,107 @@ The `evalLazyFunc` function provides lazy evaluation semantics for pgbench funct
 - Critical for performance optimization in pgbench expressions by avoiding unnecessary computations
 - The function assumes validation has been done by `isLazyFunc` before being called
 - Handles three-valued logic (true/false/null) consistent with SQL semantics
+
+## Simplified Source
+
+```c
+static bool evalLazyFunc(CState *st, PgBenchFunction func, PgBenchExprLink *args, PgBenchValue *retval) {
+    PgBenchValue first_arg, second_arg;
+    bool bool_val1, bool_val2;
+
+    // Evaluate first condition
+    if (!evaluateExpr(st, args->expr, &first_arg))
+        return false;
+
+    args = args->next;
+
+    switch (func) {
+        case PGBENCH_AND:
+            // Handle NULL: NULL AND anything = NULL
+            if (first_arg.type == PGBT_NULL) {
+                setNullValue(retval);
+                return true;
+            }
+
+            // Convert to boolean and check short-circuit
+            if (!coerceToBool(&first_arg, &bool_val1))
+                return false;
+
+            // Short-circuit: false AND anything = false
+            if (!bool_val1) {
+                setBoolValue(retval, false);
+                return true;
+            }
+
+            // Evaluate second argument
+            if (!evaluateExpr(st, args->expr, &second_arg))
+                return false;
+
+            // Handle NULL in second argument
+            if (second_arg.type == PGBT_NULL) {
+                setNullValue(retval);
+                return true;
+            }
+
+            // Return second boolean value
+            if (coerceToBool(&second_arg, &bool_val2)) {
+                setBoolValue(retval, bool_val2);
+                return true;
+            }
+            return false;
+
+        case PGBENCH_OR:
+            // Handle NULL: NULL OR anything = NULL
+            if (first_arg.type == PGBT_NULL) {
+                setNullValue(retval);
+                return true;
+            }
+
+            // Convert to boolean and check short-circuit
+            if (!coerceToBool(&first_arg, &bool_val1))
+                return false;
+
+            // Short-circuit: true OR anything = true
+            if (bool_val1) {
+                setBoolValue(retval, true);
+                return true;
+            }
+
+            // Evaluate and return second argument
+            if (!evaluateExpr(st, args->expr, &second_arg))
+                return false;
+
+            if (second_arg.type == PGBT_NULL) {
+                setNullValue(retval);
+                return true;
+            }
+
+            if (coerceToBool(&second_arg, &bool_val2)) {
+                setBoolValue(retval, bool_val2);
+                return true;
+            }
+            return false;
+
+        case PGBENCH_CASE:
+            // Execute branch if condition is true
+            if (valueTruth(&first_arg))
+                return evaluateExpr(st, args->expr, retval);
+
+            // Move to next condition or else clause
+            args = args->next;
+
+            // Check if this is the final else case
+            if (args->next == NULL)
+                return evaluateExpr(st, args->expr, retval);
+
+            // Recursively handle next WHEN condition
+            return evalLazyFunc(st, PGBENCH_CASE, args, retval);
+
+        default:
+            // Should never reach here
+            Assert(0);
+            break;
+    }
+    return false;
+}
+```

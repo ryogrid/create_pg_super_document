@@ -31,3 +31,17 @@ The function examines the cluster's major version and catalog version to determi
 - Returns true only for PostgreSQL 9.4 clusters with catalog versions prior to the JSONB format change
 - Part of the pg_upgrade utility's comprehensive data type compatibility checking framework
 - The catalog version comparison ensures precise detection of clusters that need JSONB migration handling
+
+## Simplified Source
+
+```c
+bool jsonb_9_4_check_applicable(ClusterInfo *cluster) {
+    // Check if this is PostgreSQL 9.4 with old JSONB format
+    // JSONB storage format changed during 9.4 beta
+    if (GET_MAJOR_VERSION(cluster->major_version) == 904 &&
+        cluster->controldata.cat_ver < JSONB_FORMAT_CHANGE_CAT_VER)
+        return true;
+
+    return false;
+}
+```

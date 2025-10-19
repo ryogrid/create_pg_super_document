@@ -34,3 +34,19 @@ The show_item function performs a linear search through a ConfigData array to fi
 - Part of the pg_config utility which exposes PostgreSQL build configuration information
 - Used to extract specific configuration values rather than displaying all available options
 - The function assumes the ConfigData structure has 'name' and 'setting' string fields
+
+## Simplified Source
+
+```c
+static void
+show_item(const char *configname, ConfigData *configdata, size_t configdata_len)
+{
+    int i;
+
+    // Search through config array for matching name
+    for (i = 0; i < configdata_len; i++) {
+        if (strcmp(configname, configdata[i].name) == 0)
+            printf("%s\n", configdata[i].setting);
+    }
+}
+```

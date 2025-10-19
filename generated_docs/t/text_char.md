@@ -38,3 +38,29 @@ This function converts a PostgreSQL text value to a "char" data type following s
 - The octal conversion follows the pattern: (first_digit << 6) + (second_digit << 3) + third_digit
 - Used internally by PostgreSQL's type conversion system for text to char casts
 - The function follows PostgreSQL's V1 calling convention using the PG_FUNCTION_ARGS interface
+
+## Simplified Source
+
+```c
+Datum text_char(PG_FUNCTION_ARGS) {
+    text *arg1 = PG_GETARG_TEXT_PP(0);
+    char *ch = VARDATA_ANY(arg1);
+    char result;
+
+    // Handle octal escape sequences (\ooo format)
+    if (VARSIZE_ANY_EXHDR(arg1) == 4 && ch[0] == '\\' &&
+        ISOCTAL(ch[1]) && ISOCTAL(ch[2]) && ISOCTAL(ch[3])) {
+        result = (FROMOCTAL(ch[1]) << 6) +
+                 (FROMOCTAL(ch[2]) << 3) +
+                 FROMOCTAL(ch[3]);
+    } else if (VARSIZE_ANY_EXHDR(arg1) > 0) {
+        // Take first character from non-empty text
+        result = ch[0];
+    } else {
+        // Empty string returns null character
+        result = '\0';
+    }
+
+    PG_RETURN_CHAR(result);
+}
+```

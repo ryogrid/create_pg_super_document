@@ -35,3 +35,12 @@ Together with `void_in` and `void_send`, this function completes the I/O interfa
 - Essential for making "SELECT function_returning_void(...)" work properly in SQL
 - Uses PostgreSQL's memory allocation to ensure proper cleanup
 - Provides a consistent string representation for void values in query results
+
+## Simplified Source
+
+```c
+Datum void_out(PG_FUNCTION_ARGS) {
+    // Returns empty string representation for void values
+    PG_RETURN_CSTRING(pstrdup(""));
+}
+```

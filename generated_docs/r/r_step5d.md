@@ -49,3 +49,46 @@ The function is more restrictive than previous steps, requiring exact pattern ma
 - Returns 1 on successful pattern matching and substitution, 0 if required patterns don't match, or negative values on error
 - Part of the sequential Greek stemming pipeline, typically executed after steps 5a, 5b, and 5c
 - The function performs direct 6-character to 6-character substitutions, maintaining word length in the replacement phase
+
+## Simplified Source
+
+```c
+static int r_step5d(struct SN_env * z) {
+    // Initial pattern matching with character validation
+    z->ket = z->c;
+
+    // Check minimum length and specific character (131)
+    if (z->c - 9 <= z->lb || z->p[z->c - 1] != 131) return 0;
+
+    // Find pattern from a_43 (2 patterns)
+    if (!find_among_b(z, a_43, 2)) return 0;
+
+    // Remove the matched pattern
+    z->bra = z->c;
+    slice_del(z);
+    z->I[0] = 0;  // Reset state
+
+    // Conditional replacement with backtracking
+    int saved_pos = z->l - z->c;
+    z->ket = z->c;
+    z->bra = z->c;
+
+    // Try first replacement pattern
+    if (eq_s_b(z, 6, s_84) && z->c <= z->lb) {
+        // Replace s_84 with s_85 (both 6 characters)
+        slice_from_s(z, 6, s_85);
+    } else {
+        // Try alternative replacement pattern
+        z->c = z->l - saved_pos;
+        z->ket = z->c;
+        z->bra = z->c;
+
+        if (!eq_s_b(z, 6, s_86)) return 0;  // Must find s_86
+
+        // Replace s_86 with s_87 (both 6 characters)
+        slice_from_s(z, 6, s_87);
+    }
+
+    return 1;  // Success
+}
+```

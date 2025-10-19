@@ -39,3 +39,19 @@ The TAR terminator's primary purpose is to add missing NUL byte blocks during fi
 - The function performs assertions to ensure it receives unparsed input as expected
 - Located in src/bin/pg_basebackup/bbstreamer_tar.c:478-495
 - Part of the pg_basebackup tool's TAR streaming functionality
+
+## Simplified Source
+
+```c
+static void bbstreamer_tar_terminator_content(bbstreamer *streamer,
+                                              bbstreamer_member *member,
+                                              const char *data, int len,
+                                              bbstreamer_archive_context context) {
+    // Validate unparsed input assumptions
+    Assert(member == NULL);
+    Assert(context == BBSTREAMER_UNKNOWN);
+
+    // Forward data unchanged to next streamer
+    bbstreamer_content(streamer->bbs_next, member, data, len, context);
+}
+```

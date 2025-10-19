@@ -33,3 +33,19 @@ The created memory context is a child of TopMemoryContext, ensuring it persists 
 - The memory context uses ALLOCSET_SMALL_SIZES which is optimized for small, frequently allocated objects
 - The context is named 'Backend Status Snapshot' for debugging and memory tracking purposes
 - Part of PostgreSQL's statistics infrastructure for tracking backend process states
+
+## Simplified Source
+
+```c
+static void
+pgstat_setup_backend_status_context(void)
+{
+    // Create memory context for backend status snapshots if not already created
+    if (!backendStatusSnapContext)
+        backendStatusSnapContext = AllocSetContextCreate(TopMemoryContext,
+                                                         "Backend Status Snapshot",
+                                                         ALLOCSET_SMALL_SIZES);
+}
+```
+
+This simplified version shows the essential logic: a lazy initialization function that creates a dedicated memory context for backend status snapshots only when needed, using small-size allocation parameters for efficiency.

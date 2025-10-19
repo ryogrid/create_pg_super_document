@@ -30,3 +30,53 @@ This function processes a DocRepresentation entry and updates the corresponding 
 
 ## Notes and Other Information
 This is a static function within the tsrank.c module that plays a crucial role in building the data structures needed for text search ranking. The function carefully manages position arrays considering insertion direction and prevents duplicate entries for the same word position. The MAXQROPOS limit controls the maximum number of positions that can be stored per operand.
+
+## Simplified Source
+
+```c
+static void
+fillQueryRepresentationData(QueryRepresentation *qr, DocRepresentation *entry)
+{
+    int i;
+    int lastPos;
+    QueryRepresentationOperand *opData;
+
+    // Process all query items in the document entry
+    for (i = 0; i < entry->data.query.nitem; i++)
+    {
+        // Skip non-operand items
+        if (entry->data.query.items[i]->type != QI_VAL)
+            continue;
+
+        opData = QR_GET_OPERAND_DATA(qr, entry->data.query.items[i]);
+        opData->operandexists = true;
+
+        // Handle first position for this operand
+        if (opData->npos == 0)
+        {
+            lastPos = (opData->reverseinsert) ? (MAXQROPOS - 1) : 0;
+            opData->pos[lastPos] = entry->pos;
+            opData->npos++;
+            continue;
+        }
+
+        // Calculate where last position was stored
+        lastPos = opData->reverseinsert ?
+            (MAXQROPOS - opData->npos) :
+            (opData->npos - 1);
+
+        // Add new position if different from last one
+        if (WEP_GETPOS(opData->pos[lastPos]) != WEP_GETPOS(entry->pos))
+        {
+            lastPos = opData->reverseinsert ?
+                (MAXQROPOS - 1 - opData->npos) :
+                (opData->npos);
+
+            opData->pos[lastPos] = entry->pos;
+            opData->npos++;
+        }
+    }
+}
+```
+
+This simplified version shows how the function populates operand position data: iterate through query items, mark operands as existing, and store their positions while avoiding duplicates. Handles both forward and reverse insertion modes for efficient array management.

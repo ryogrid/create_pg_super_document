@@ -34,3 +34,15 @@ This function is part of PostgreSQL's cross-type comparison operators that allow
 - The comparison is safe as the 16-bit value is implicitly promoted to 64-bit for comparison
 - Part of a family of cross-type integer comparison functions (int82eq, int82ne, int82le, int82gt, int82ge)
 - Used when a bigint value needs to be compared with a smallint value using the less-than operator
+
+## Simplified Source
+```c
+Datum int82lt(PG_FUNCTION_ARGS) {
+    // Extract 8-byte and 2-byte integer arguments
+    int64 val1 = PG_GETARG_INT64(0);
+    int16 val2 = PG_GETARG_INT16(1);
+
+    // Compare and return boolean result (less than)
+    PG_RETURN_BOOL(val1 < val2);
+}
+```

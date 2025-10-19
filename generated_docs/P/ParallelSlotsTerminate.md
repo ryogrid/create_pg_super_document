@@ -35,3 +35,24 @@ The function iterates through each slot in the array, checks if a connection exi
 - Part of the frontend utilities parallel slot management system
 - Essential for preventing connection leaks in parallel operations
 - Located in src/fe_utils/parallel_slot.c:479-500
+
+## Simplified Source
+
+```c
+void
+ParallelSlotsTerminate(ParallelSlotArray *sa)
+{
+    int i;
+
+    // Close all active connections
+    for (i = 0; i < sa->numslots; i++)
+    {
+        PGconn *conn = sa->slots[i].connection;
+
+        if (conn == NULL)
+            continue; // Skip empty slots
+
+        disconnectDatabase(conn); // Close the connection
+    }
+}
+```

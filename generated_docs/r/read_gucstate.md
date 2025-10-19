@@ -38,3 +38,32 @@ After locating the null terminator, the function updates the source pointer to p
 - Essential for proper parsing of the serialized string format used in GUC state transfer
 - Used multiple times in sequence to read the different string components of each serialized GUC variable (name, value, source file)
 - Part of PostgreSQL's mechanism for restoring configuration state in parallel worker processes
+
+## Simplified Source
+
+```c
+static char *
+read_gucstate(char **srcptr, char *srcend)
+{
+    char *current_string = *srcptr;
+    char *ptr;
+
+    // Check for buffer underrun
+    if (*srcptr >= srcend)
+        elog(ERROR, "incomplete GUC state");
+
+    // Find the null terminator
+    for (ptr = *srcptr; ptr < srcend && *ptr != '\0'; ptr++)
+        ;
+
+    // Ensure we found a null terminator
+    if (ptr >= srcend)
+        elog(ERROR, "could not find null terminator in GUC state");
+
+    // Advance source pointer past the null terminator
+    *srcptr = ptr + 1;
+
+    // Return pointer to the current string
+    return current_string;
+}
+```

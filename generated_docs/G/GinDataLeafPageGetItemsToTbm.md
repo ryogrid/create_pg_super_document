@@ -41,3 +41,27 @@ This function is optimized for scenarios where TIDs will be used for bitmap oper
 - More memory-efficient than `GinDataLeafPageGetItems` when TIDs are destined for bitmap operations
 - The function modifies the passed TID bitmap in-place
 - Handles both compressed and uncompressed page formats transparently
+
+## Simplified Source
+
+```c
+int GinDataLeafPageGetItemsToTbm(Page page, TIDBitmap *tbm) {
+    int nitems;
+
+    if (GinPageIsCompressed(page)) {
+        // Handle compressed pages - decode posting lists directly to bitmap
+        GinPostingList *segment = GinDataLeafPageGetPostingList(page);
+        Size len = GinDataLeafPageGetPostingListSize(page);
+        nitems = ginPostingListDecodeAllSegmentsToTbm(segment, len, tbm);
+    } else {
+        // Handle uncompressed pages - get TID array and add to bitmap
+        ItemPointer uncompressed = dataLeafPageGetUncompressed(page, &nitems);
+
+        if (nitems > 0) {
+            tbm_add_tuples(tbm, uncompressed, nitems, false);
+        }
+    }
+
+    return nitems;
+}
+```

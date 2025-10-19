@@ -39,3 +39,21 @@ The function allocates a 21-character buffer (sufficient for the maximum uint64 
 - The function uses PostgreSQL's memory management through  rather than standard malloc
 - Output format is always decimal, providing a consistent string representation across platforms
 - Located in src/backend/utils/adt/xid.c alongside other transaction ID utility functions
+
+## Simplified Source
+
+```c
+Datum xid8out(PG_FUNCTION_ARGS) {
+    // Get the 64-bit full transaction ID from function arguments
+    FullTransactionId fxid = PG_GETARG_FULLTRANSACTIONID(0);
+
+    // Allocate buffer for string representation (21 chars for max uint64 + null)
+    char *result = (char *) palloc(21);
+
+    // Format the transaction ID as a decimal string
+    snprintf(result, 21, UINT64_FORMAT, U64FromFullTransactionId(fxid));
+
+    // Return the formatted string
+    PG_RETURN_CSTRING(result);
+}
+```

@@ -38,3 +38,23 @@ The operation is performed directly on the history data structure, modifying the
 - Handles platform differences in HIST_ENTRY.line declaration (const vs non-const)
 - The transformation is reversible - NL_IN_HISTORY markers can be converted back to newlines
 - Used as part of the history persistence mechanism in psql
+
+## Simplified Source
+
+```c
+static void encode_history(void) {
+    // Iterate through all history entries
+    BEGIN_ITERATE_HISTORY(cur_hist);
+    {
+        char *cur_ptr;
+
+        // Replace newlines with special marker for safe file storage
+        for (cur_ptr = (char *) cur_hist->line; *cur_ptr; cur_ptr++) {
+            if (*cur_ptr == '\n') {
+                *cur_ptr = NL_IN_HISTORY;
+            }
+        }
+    }
+    END_ITERATE_HISTORY();
+}
+```

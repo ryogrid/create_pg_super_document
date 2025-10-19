@@ -36,3 +36,19 @@ This function serves as the main entry point for compressing data using ZSTD in 
 - The actual compression and output writing is handled by the shared `_ZstdWriteCommon` function
 - Registered as a callback function during compressor initialization for handling data writes
 - Works in coordination with `EndCompressorZstd` which handles final compression flushing
+
+## Simplified Source
+```c
+static void WriteDataToArchiveZstd(ArchiveHandle *AH, CompressorState *cs,
+                                   const void *data, size_t dLen) {
+    ZstdCompressorState *zstdcs = (ZstdCompressorState *) cs->private_data;
+
+    // Setup input buffer for compression
+    zstdcs->input.src = data;
+    zstdcs->input.size = dLen;
+    zstdcs->input.pos = 0;
+
+    // Perform compression processing
+    _ZstdWriteCommon(AH, cs, false);
+}
+```

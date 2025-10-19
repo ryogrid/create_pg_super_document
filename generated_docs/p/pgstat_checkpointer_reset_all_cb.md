@@ -33,3 +33,27 @@ This function implements the statistics reset callback for checkpointer statisti
 - The reset protocol copies current stats to reset_offset, allowing the statistics system to calculate deltas
 - After reset, reported statistics will show values relative to the reset point rather than absolute values since system start
 - The function is part of the callback mechanism used by the statistics reset infrastructure
+
+## Simplified Source
+
+```c
+void
+pgstat_checkpointer_reset_all_cb(TimestampTz ts)
+{
+    PgStatShared_Checkpointer *stats_shmem = &pgStatLocal.shmem->checkpointer;
+
+    // Acquire exclusive lock for atomic reset operation
+    LWLockAcquire(&stats_shmem->lock, LW_EXCLUSIVE);
+
+    // Copy current stats to reset_offset (used for delta calculations)
+    pgstat_copy_changecounted_stats(&stats_shmem->reset_offset,
+                                    &stats_shmem->stats,
+                                    sizeof(stats_shmem->stats),
+                                    &stats_shmem->changecount);
+
+    // Update reset timestamp
+    stats_shmem->stats.stat_reset_timestamp = ts;
+
+    LWLockRelease(&stats_shmem->lock);
+}
+```

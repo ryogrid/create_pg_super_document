@@ -37,3 +37,26 @@ The `decadd` function implements decimal addition for Informix compatibility in 
 - Automatically handles null input checking through the `deccall3` wrapper
 - Uses errno to detect specific numeric operation errors
 - Essential function for applications porting from Informix to PostgreSQL
+
+## Simplified Source
+
+```c
+int decadd(decimal *arg1, decimal *arg2, decimal *sum) {
+    // Clear error status before operation
+    errno = 0;
+
+    // Perform decimal addition using the internal helper
+    deccall3(arg1, arg2, sum, PGTYPESnumeric_add);
+
+    // Check for specific numeric errors and return appropriate codes
+    if (errno == PGTYPES_NUM_OVERFLOW) {
+        return ECPG_INFORMIX_NUM_OVERFLOW;
+    } else if (errno == PGTYPES_NUM_UNDERFLOW) {
+        return ECPG_INFORMIX_NUM_UNDERFLOW;
+    } else if (errno != 0) {
+        return -1;  // General error
+    } else {
+        return 0;   // Success
+    }
+}
+```

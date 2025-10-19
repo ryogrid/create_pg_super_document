@@ -48,3 +48,25 @@ A key design consideration is that trailing zeros are significant - a bit string
 - Trailing bits and padding are significant in comparisons - "1" ≠ "10" even if numerically equivalent
 - The function is static and not directly exposed to SQL, but used by all bit string comparison operators
 - Located in src/backend/utils/adt/varbit.c:818-840
+
+## Simplified Source
+
+```c
+static int32 bit_cmp(VarBit *arg1, VarBit *arg2) {
+    int bytelen1 = VARBITBYTES(arg1);
+    int bytelen2 = VARBITBYTES(arg2);
+
+    // Compare common bytes first
+    int32 cmp = memcmp(VARBITS(arg1), VARBITS(arg2), Min(bytelen1, bytelen2));
+
+    // If bytes are equal, compare by length
+    if (cmp == 0) {
+        int bitlen1 = VARBITLEN(arg1);
+        int bitlen2 = VARBITLEN(arg2);
+        if (bitlen1 != bitlen2)
+            cmp = (bitlen1 < bitlen2) ? -1 : 1;
+    }
+
+    return cmp;  // <0, 0, >0 for less, equal, greater
+}
+```

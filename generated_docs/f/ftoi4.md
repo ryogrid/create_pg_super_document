@@ -44,3 +44,22 @@ The function follows PostgreSQL's error reporting conventions, generating a NUME
 - Follows PostgreSQL's version-1 calling convention for built-in functions
 - The conversion may result in precision loss when the float4 value has fractional components, which are rounded away
 - Commonly used in SQL operations that require integer results from floating-point calculations
+
+## Simplified Source
+
+```c
+Datum ftoi4(PG_FUNCTION_ARGS) {
+    float4 num = PG_GETARG_FLOAT4(0);
+
+    // Round to remove fractional part
+    num = rint(num);
+
+    // Check for invalid values and range overflow
+    if (isnan(num) || !FLOAT4_FITS_IN_INT32(num)) {
+        ereport(ERROR, (errcode(ERRCODE_NUMERIC_VALUE_OUT_OF_RANGE),
+                       errmsg("integer out of range")));
+    }
+
+    PG_RETURN_INT32((int32) num);
+}
+```

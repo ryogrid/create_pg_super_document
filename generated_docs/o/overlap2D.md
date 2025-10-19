@@ -32,3 +32,13 @@ This is a static helper function used in PostgreSQL spatial indexing (SP-GiST) f
 - Uses floating-point comparison functions (FPge, FPle) for robust numeric comparisons
 - Returns true if any overlap exists, false otherwise
 - Serves as a building block for higher-dimensional overlap tests like overlap4D
+
+## Simplified Source
+
+```c
+static bool overlap2D(RangeBox *range_box, Range *query) {
+    // Check if ranges overlap: right.high >= query.low AND left.low <= query.high
+    return FPge(range_box->right.high, query->low) &&
+           FPle(range_box->left.low, query->high);
+}
+```

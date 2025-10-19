@@ -35,3 +35,23 @@ This function serves as the assignment hook for the `recovery_target_name` Postg
 - Named restore points are created during normal database operation using `pg_create_restore_point()`
 - Empty string values result in unsetting the recovery target rather than an error
 - The restore point name must exactly match a previously created restore point for recovery to succeed
+
+## Simplified Source
+
+```c
+void assign_recovery_target_name(const char *newval, void *extra) {
+    // Check for conflicts with other recovery target types
+    if (recoveryTarget != RECOVERY_TARGET_UNSET &&
+        recoveryTarget != RECOVERY_TARGET_NAME)
+        error_multiple_recovery_targets();
+
+    if (newval && strcmp(newval, "") != 0) {
+        // Set named recovery target
+        recoveryTarget = RECOVERY_TARGET_NAME;
+        recoveryTargetName = newval;  // Store restore point name directly
+    } else {
+        // Unset recovery target
+        recoveryTarget = RECOVERY_TARGET_UNSET;
+    }
+}
+```

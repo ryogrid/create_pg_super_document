@@ -37,3 +37,19 @@ The function validates that both ranges are of the same type and returns false i
 - [Range](../R/Range.md) types must match or an error is raised
 - The actual comparison logic compares the lower bound of the first range with the upper bound of the second range
 - Located in src/backend/utils/adt/rangetypes.c:727-756
+
+## Simplified Source
+
+```c
+Datum range_after(PG_FUNCTION_ARGS) {
+    // Extract range arguments: r1 >> r2 (is r1 strictly after r2?)
+    RangeType *r1 = PG_GETARG_RANGE_P(0);
+    RangeType *r2 = PG_GETARG_RANGE_P(1);
+
+    // Get type cache for this range type
+    TypeCacheEntry *typcache = range_get_typcache(fcinfo, RangeTypeGetOid(r1));
+
+    // Delegate to internal after function and return result
+    return PG_RETURN_BOOL(range_after_internal(typcache, r1, r2));
+}
+```

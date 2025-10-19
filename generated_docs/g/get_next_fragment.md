@@ -37,3 +37,44 @@ The `get_next_fragment` function is designed to intelligently split text search 
 - Uses backward adjustment to preserve interesting words when truncating fragments
 - Part of PostgreSQL's advanced text search highlighting and fragment selection system
 - Located in src/backend/tsearch/wparser_def.c:2220-2270
+
+## Simplified Source
+
+```c
+static void
+get_next_fragment(HeadlineParsedText *prs, int *startpos, int *endpos,
+                  int *curlen, int *poslen, int max_words)
+{
+    // Phase 1: Move startpos to first interesting (query-matching) word
+    for (int i = *startpos; i <= *endpos; i++) {
+        *startpos = i;
+        if (INTERESTINGWORD(i))
+            break;
+    }
+
+    // Phase 2: Count words up to max_words limit
+    *curlen = 0;
+    *poslen = 0;
+    int i;
+    for (i = *startpos; i <= *endpos && *curlen < max_words; i++) {
+        if (!NONWORDTOKEN(prs->words[i].type))
+            *curlen += 1;
+        if (INTERESTINGWORD(i))
+            *poslen += 1;
+    }
+
+    // Phase 3: If truncated, move endpos back to an interesting word
+    if (*endpos > i) {
+        *endpos = i;
+        for (i = *endpos; i >= *startpos; i--) {
+            *endpos = i;
+            if (INTERESTINGWORD(i))
+                break;
+            if (!NONWORDTOKEN(prs->words[i].type))
+                *curlen -= 1;
+        }
+    }
+}
+```
+
+This simplified version shows the essential algorithm: find a fragment starting and ending with query-matching words, respecting the max_words limit by counting words and adjusting boundaries to preserve meaningful endpoints.

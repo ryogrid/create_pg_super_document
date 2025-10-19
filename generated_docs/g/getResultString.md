@@ -33,3 +33,29 @@ This function generates human-readable status strings for failed or skipped tran
 - Possible return values: "skipped", "serialization", "deadlock", "failed"
 - Contains error handling for unexpected status values using pg_fatal()
 - Used in conjunction with transaction logging to provide meaningful status descriptions
+
+## Simplified Source
+```c
+static const char *getResultString(bool skipped, EStatus estatus) {
+    // Handle skipped transactions
+    if (skipped)
+        return "skipped";
+
+    // Provide detailed failure information if enabled
+    else if (failures_detailed) {
+        switch (estatus) {
+            case ESTATUS_SERIALIZATION_ERROR:
+                return "serialization";
+            case ESTATUS_DEADLOCK_ERROR:
+                return "deadlock";
+            default:
+                // Unexpected error - should never occur
+                pg_fatal("unexpected error status: %d", estatus);
+        }
+    }
+
+    // Generic failure message
+    else
+        return "failed";
+}
+```

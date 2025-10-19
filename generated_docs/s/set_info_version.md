@@ -49,3 +49,34 @@ This function takes no parameters and operates on global variables:
 - The "strange version" comment in the code refers to the specific formatting requirements of SQL information schema standards
 - The function is designed to be called once during initdb execution to set up version information for the new database cluster
 - The formatted version string is stored in a global buffer and used when creating information schema views
+
+## Simplified Source
+
+```c
+static void
+set_info_version(void)
+{
+    char *letterversion;
+    long major = 0, minor = 0, micro = 0;
+    char *endptr;
+    char *vstr = pg_strdup(PG_VERSION);
+    char *ptr;
+
+    // Find end of numeric part to separate version from letters
+    ptr = vstr + (strlen(vstr) - 1);
+    while (ptr != vstr && (*ptr < '0' || *ptr > '9'))
+        ptr--;
+    letterversion = ptr + 1;
+
+    // Parse major.minor.micro version components
+    major = strtol(vstr, &endptr, 10);
+    if (*endptr)
+        minor = strtol(endptr + 1, &endptr, 10);
+    if (*endptr)
+        micro = strtol(endptr + 1, &endptr, 10);
+
+    // Format as XX.YY.ZZZZletters for information schema
+    snprintf(infoversion, sizeof(infoversion), "%02ld.%02ld.%04ld%s",
+             major, minor, micro, letterversion);
+}
+```

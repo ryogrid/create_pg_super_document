@@ -33,3 +33,21 @@ The  function serves as the cleanup function for PostgreSQL's default text searc
 - The function properly handles resource cleanup to prevent memory leaks
 - Located in src/backend/tsearch/wparser_def.c:1918-1931
 - Works in conjunction with other parser functions like prsd_start and prsd_nexttoken to provide complete parsing functionality
+
+## Simplified Source
+
+```c
+Datum
+prsd_end(PG_FUNCTION_ARGS)
+{
+    // Get the parser instance from function arguments
+    TParser *p = (TParser *) PG_GETARG_POINTER(0);
+
+    // Clean up and close the parser
+    TParserClose(p);
+
+    PG_RETURN_VOID();
+}
+```
+
+This simplified version shows the essential logic: extract the parser instance from the function arguments, clean it up using TParserClose, and return void. This is a typical PostgreSQL cleanup function pattern.

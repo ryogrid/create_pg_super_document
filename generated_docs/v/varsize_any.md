@@ -34,3 +34,12 @@ The function is also useful during debugging sessions where you need to examine 
 - The underlying VARSIZE_ANY macro handles the complexity of determining sizes for various varlena formats (compressed, external, etc.)
 - Returns the total size including any varlena header information
 - This is a thin wrapper with minimal overhead - the actual size computation is performed by the VARSIZE_ANY macro
+
+## Simplified Source
+
+```c
+size_t varsize_any(void *p) {
+    // Simple wrapper for VARSIZE_ANY macro to enable JIT inlining
+    return VARSIZE_ANY(p);
+}
+```

@@ -42,3 +42,20 @@ The extensive comment in the source code provides a detailed mathematical exampl
 - The detailed mathematical analysis in the comments demonstrates the precision considerations involved
 - Part of PostgreSQL's comprehensive type input/output system
 - The precision handling makes this function particularly important for scientific and financial applications where floating-point accuracy is critical
+
+## Simplified Source
+
+```c
+Datum
+float4in(PG_FUNCTION_ARGS)
+{
+    char *num = PG_GETARG_CSTRING(0);  // Get input string
+
+    // Convert string to float4 using internal function
+    // Avoids double-rounding errors by using strtof() directly
+    PG_RETURN_FLOAT4(float4in_internal(num, NULL, "real", num,
+                                       fcinfo->context));
+}
+```
+
+**Simplified Logic**: This function converts a string representation of a number to a single-precision float4 value. It delegates the actual conversion work to `float4in_internal`, which uses `strtof()` instead of `strtod()` to avoid double-rounding precision errors that can occur when converting decimal strings to floating-point values.

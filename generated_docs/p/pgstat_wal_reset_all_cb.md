@@ -36,3 +36,22 @@ The function is part of PostgreSQL's statistics collection framework and is desi
 - The reset timestamp allows tracking of when statistics collection was last restarted
 - This callback is part of the PostgreSQL statistics collection framework's modular design
 - Located in src/backend/utils/activity/pgstat_wal.c:167-177
+
+## Simplified Source
+
+```c
+void pgstat_wal_reset_all_cb(TimestampTz ts) {
+    PgStatShared_Wal *stats_shmem = &pgStatLocal.shmem->wal;
+
+    // Acquire exclusive lock for thread-safe access
+    LWLockAcquire(&stats_shmem->lock, LW_EXCLUSIVE);
+
+    // Clear all WAL statistics counters
+    memset(&stats_shmem->stats, 0, sizeof(stats_shmem->stats));
+
+    // Set the reset timestamp
+    stats_shmem->stats.stat_reset_timestamp = ts;
+
+    LWLockRelease(&stats_shmem->lock);
+}
+```

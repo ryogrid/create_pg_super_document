@@ -33,3 +33,16 @@ The `cstring_out` function serves as the output conversion function for PostgreS
 - The function maintains proper memory management by using `pstrdup()` for string duplication
 - Located in `src/backend/utils/adt/pseudotypes.c:115-122`
 - Both input and output functions for cstring are essentially identical, performing string duplication for memory context management
+
+## Simplified Source
+
+```c
+Datum
+cstring_out(PG_FUNCTION_ARGS)
+{
+    char *str = PG_GETARG_CSTRING(0);
+
+    // Duplicate the string for proper memory management
+    PG_RETURN_CSTRING(pstrdup(str));
+}
+```

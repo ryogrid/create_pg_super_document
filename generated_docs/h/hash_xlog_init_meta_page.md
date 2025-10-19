@@ -36,3 +36,40 @@ The function extracts the metapage initialization parameters from the WAL record
 - Special handling is required for init forks to maintain synchronization between shared buffers and disk state
 - The function ensures the metapage LSN is properly set for recovery consistency
 - Init fork handling is necessary because create index operations don't log a full page image of the metapage
+
+## Simplified Source
+
+```c
+static void
+hash_xlog_init_meta_page(XLogReaderState *record)
+{
+    XLogRecPtr lsn = record->EndRecPtr;
+    Page page;
+    Buffer metabuf;
+    ForkNumber forknum;
+
+    // Extract initialization data from WAL record
+    xl_hash_init_meta_page *xlrec = (xl_hash_init_meta_page *) XLogRecGetData(record);
+
+    // Create and initialize the metapage buffer
+    metabuf = XLogInitBufferForRedo(record, 0);
+    Assert(BufferIsValid(metabuf));
+
+    // Initialize metapage with stored parameters
+    _hash_init_metabuffer(metabuf, xlrec->num_tuples, xlrec->procid,
+                          xlrec->ffactor, true);
+
+    // Set LSN and mark dirty
+    page = (Page) BufferGetPage(metabuf);
+    PageSetLSN(page, lsn);
+    MarkBufferDirty(metabuf);
+
+    // Handle init fork synchronization if needed
+    XLogRecGetBlockTag(record, 0, NULL, &forknum, NULL);
+    if (forknum == INIT_FORKNUM)
+        FlushOneBuffer(metabuf);
+
+    // Release buffer
+    UnlockReleaseBuffer(metabuf);
+}
+```

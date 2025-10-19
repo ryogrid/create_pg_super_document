@@ -53,3 +53,68 @@ Key behaviors:
 - The function ensures pad bits remain zero by calling 
 - Maximum shift values are bounded by VARBITMAXLEN to prevent integer overflow
 - Right shifts require special handling to zero the leading bits correctly
+
+## Simplified Source
+
+```c
+Datum
+bitshiftright(PG_FUNCTION_ARGS)
+{
+    VarBit *arg = PG_GETARG_VARBIT_P(0);
+    int32 shft = PG_GETARG_INT32(1);
+    VarBit *result;
+    int byte_shift, ishift, len;
+    bits8 *p, *r;
+
+    // Negative shift becomes left shift
+    if (shft < 0) {
+        if (shft < -VARBITMAXLEN)
+            shft = -VARBITMAXLEN;
+        return DirectFunctionCall2(bitshiftleft,
+                                  VarBitPGetDatum(arg),
+                                  Int32GetDatum(-shft));
+    }
+
+    // Allocate result with same size as input
+    result = (VarBit *) palloc(VARSIZE(arg));
+    SET_VARSIZE(result, VARSIZE(arg));
+    VARBITLEN(result) = VARBITLEN(arg);
+    r = VARBITS(result);
+
+    // If shifting all bits out, return all zeros
+    if (shft >= VARBITLEN(arg)) {
+        MemSet(r, 0, VARBITBYTES(arg));
+        return result;
+    }
+
+    // Calculate byte and bit shifts
+    byte_shift = shft / BITS_PER_BYTE;
+    ishift = shft % BITS_PER_BYTE;
+    p = VARBITS(arg);
+
+    // Zero the leading bytes
+    MemSet(r, 0, byte_shift);
+    r += byte_shift;
+
+    if (ishift == 0) {
+        // Byte-aligned shift: use fast memory copy
+        len = VARBITBYTES(arg) - byte_shift;
+        memcpy(r, p, len);
+        r += len;
+    } else {
+        // Bit-level shift: combine adjacent bytes
+        if (r < VARBITEND(result))
+            *r = 0;  // Initialize first byte
+        for (; r < VARBITEND(result); p++) {
+            *r |= *p >> ishift;
+            if ((++r) < VARBITEND(result))
+                *r = (*p << (BITS_PER_BYTE - ishift)) & BITMASK;
+        }
+    }
+
+    // Fix any 1's that may have shifted into pad bits
+    VARBIT_PAD_LAST(result, r);
+
+    return result;
+}
+```

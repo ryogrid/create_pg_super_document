@@ -50,3 +50,33 @@ This function is designed for queries that return configuration values, status i
 - The function will terminate the program with  if the query fails or returns an unexpected result format
 - Commonly used for queries like 'SHOW full_page_writes' or functions that return single values like LSN positions
 - The strict validation ensures that programming errors or unexpected server responses are caught immediately
+
+## Simplified Source
+
+```c
+static char *run_simple_query(PGconn *conn, const char *sql)
+{
+    PGresult *result;
+    char *return_value;
+
+    // Execute the SQL query
+    result = PQexec(conn, sql);
+
+    // Check if query executed successfully
+    if (PQresultStatus(result) != PGRES_TUPLES_OK)
+        pg_fatal("error running query (%s) on source server: %s",
+                sql, PQresultErrorMessage(result));
+
+    // Validate result set format: exactly 1 row, 1 column, non-NULL value
+    if (PQnfields(result) != 1 || PQntuples(result) != 1 || PQgetisnull(result, 0, 0))
+        pg_fatal("unexpected result set from query");
+
+    // Copy the result value to a new string
+    return_value = pg_strdup(PQgetvalue(result, 0, 0));
+
+    // Clean up the result
+    PQclear(result);
+
+    return return_value;
+}
+```

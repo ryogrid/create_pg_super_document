@@ -38,3 +38,15 @@ The function follows PostgreSQL's standard function calling convention, extracti
 - No error handling or range validation is necessary since the conversion cannot fail
 - Commonly used when smallint values need to participate in floating-point arithmetic operations
 - The converted values retain their exact mathematical value in the new floating-point representation
+
+## Simplified Source
+
+```c
+Datum i2tod(PG_FUNCTION_ARGS) {
+    // Extract 16-bit integer input
+    int16 num = PG_GETARG_INT16(0);
+
+    // Convert to double precision and return
+    PG_RETURN_FLOAT8((float8) num);
+}
+```

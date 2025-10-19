@@ -39,3 +39,19 @@ The function processes WAL records of type  by extracting the relation locator i
 - The output format follows the pattern "rel spcOid/dbOid/relNumber" for relation identification
 - Located in 
 - Used primarily for debugging and WAL analysis tools
+
+## Simplified Source
+
+```c
+void seq_desc(StringInfo buf, XLogReaderState *record) {
+    // Extract record data and operation type
+    char *rec = XLogRecGetData(record);
+    uint8 info = XLogRecGetInfo(record) & ~XLR_INFO_MASK;
+    xl_seq_rec *xlrec = (xl_seq_rec *) rec;
+
+    // Handle sequence log operations
+    if (info == XLOG_SEQ_LOG)
+        appendStringInfo(buf, "rel %u/%u/%u",
+                        xlrec->locator.spcOid, xlrec->locator.dbOid, xlrec->locator.relNumber);
+}
+```

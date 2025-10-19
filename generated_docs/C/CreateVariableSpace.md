@@ -33,3 +33,25 @@ This function takes no parameters and returns a newly allocated VariableSpace.
 - Memory is allocated using pg_malloc, which provides error handling for allocation failures
 - The header node has all fields (name, value, hooks, next) initialized to NULL
 - This is part of psql's variable management system for storing user-defined and built-in variables
+
+## Simplified Source
+
+```c
+VariableSpace
+CreateVariableSpace(void)
+{
+    struct _variable *ptr;
+
+    // Allocate memory for the variable space header
+    ptr = pg_malloc(sizeof *ptr);
+
+    // Initialize all fields to NULL (creates empty list header)
+    ptr->name = NULL;
+    ptr->value = NULL;
+    ptr->substitute_hook = NULL;
+    ptr->assign_hook = NULL;
+    ptr->next = NULL;
+
+    return ptr;
+}
+```

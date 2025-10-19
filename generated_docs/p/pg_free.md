@@ -38,3 +38,12 @@ This function is part of PostgreSQL's frontend memory utilities located in src/c
 - The function provides no additional safety checks or error handling beyond what the standard free() provides
 - It's safe to pass NULL to this function, as the underlying free() handles NULL pointers correctly
 - This function is the standard way to free memory in PostgreSQL frontend code that was allocated with pg_malloc(), pg_malloc0(), or similar frontend allocation functions
+
+## Simplified Source
+
+```c
+void pg_free(void *ptr) {
+    // Simply call standard C library free()
+    free(ptr);
+}
+```

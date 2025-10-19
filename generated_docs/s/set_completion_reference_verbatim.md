@@ -32,3 +32,13 @@ This function is a utility in PostgreSQL's psql tab completion system that confi
 - Part of the reference completion mechanism that helps determine what objects should be suggested during tab completion
 - The function ensures that schema references are cleared when only object-level completion is needed
 - Used in cases where the completion reference should be taken literally without parsing for schema qualifications
+
+## Simplified Source
+
+```c
+static void set_completion_reference_verbatim(const char *word) {
+    // Set object reference to exact word, clear schema reference
+    completion_ref_schema = NULL;
+    completion_ref_object = pg_strdup(word);
+}
+```

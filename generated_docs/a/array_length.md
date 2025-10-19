@@ -41,3 +41,27 @@ The `array_length` function retrieves the length (size) of a specific dimension 
 - Part of PostgreSQL's array introspection function suite
 - Defined in src/backend/utils/adt/arrayfuncs.c:1763-1789
 - Used internally by array manipulation functions like `trim_array`
+
+## Simplified Source
+
+```c
+Datum array_length(PG_FUNCTION_ARGS) {
+    // Get array and requested dimension number
+    AnyArrayType *v = PG_GETARG_ANY_ARRAY_P(0);
+    int reqdim = PG_GETARG_INT32(1);
+
+    // Validate array structure
+    if (AARR_NDIM(v) <= 0 || AARR_NDIM(v) > MAXDIM)
+        PG_RETURN_NULL();
+
+    // Validate requested dimension is within bounds
+    if (reqdim <= 0 || reqdim > AARR_NDIM(v))
+        PG_RETURN_NULL();
+
+    // Get dimension sizes and return the requested dimension's length
+    int *dimv = AARR_DIMS(v);
+    int result = dimv[reqdim - 1];  // Convert 1-based to 0-based indexing
+
+    PG_RETURN_INT32(result);
+}
+```

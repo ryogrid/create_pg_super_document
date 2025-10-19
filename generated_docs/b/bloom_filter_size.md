@@ -37,3 +37,30 @@ The function ensures the filter size is rounded to whole bytes and implements a 
 - The sizing formula is based on standard Bloom filter theory for optimal space/accuracy trade-offs
 - All output parameters are optional (can be NULL) allowing caller to retrieve only needed values
 - Located in src/backend/access/brin/brin_bloom.c:271-309
+
+## Simplified Source
+
+```c
+static void
+bloom_filter_size(int ndistinct, double false_positive_rate,
+                  int *nbytesp, int *nbitsp, int *nhashesp)
+{
+    // Calculate optimal number of bits using Bloom filter formula
+    // Formula: -(n * ln(p)) / (ln(2))^2
+    int nbits = ceil(-(ndistinct * log(false_positive_rate)) / pow(log(2.0), 2));
+
+    // Round up to whole bytes
+    int nbytes = (nbits + 7) / 8;
+    nbits = nbytes * 8;
+
+    // Calculate optimal number of hash functions
+    // Formula: round(log(2.0) * bits / distinct_values)
+    double k = log(2.0) * nbits / ndistinct;
+    int nhashes = (k - floor(k) >= 0.5) ? ceil(k) : floor(k);
+
+    // Return requested parameters
+    if (nbytesp) *nbytesp = nbytes;
+    if (nbitsp) *nbitsp = nbits;
+    if (nhashesp) *nhashesp = nhashes;
+}
+```

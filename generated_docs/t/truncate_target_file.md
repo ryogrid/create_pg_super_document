@@ -36,3 +36,30 @@ This function is part of the pg_rewind utility's file operations module. It open
 - Provides detailed error messages for both open and ftruncate failures
 - Part of the pg_rewind utility which synchronizes PostgreSQL data directories
 - The newsize parameter is cast to unsigned int in error messages for consistent formatting
+
+## Simplified Source
+
+```c
+void truncate_target_file(const char *path, off_t newsize) {
+    char dstpath[MAXPGPATH];
+    int fd;
+
+    // Skip actual operation in dry run mode
+    if (dry_run)
+        return;
+
+    // Build full target path
+    snprintf(dstpath, sizeof(dstpath), "%s/%s", datadir_target, path);
+
+    // Open file for writing
+    fd = open(dstpath, O_WRONLY, pg_file_create_mode);
+    if (fd < 0)
+        pg_fatal("could not open file \"%s\" for truncation: %m", dstpath);
+
+    // Truncate to specified size
+    if (ftruncate(fd, newsize) != 0)
+        pg_fatal("could not truncate file \"%s\" to %u: %m", dstpath, (unsigned int) newsize);
+
+    close(fd);
+}
+```

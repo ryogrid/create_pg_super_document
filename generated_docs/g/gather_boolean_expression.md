@@ -38,3 +38,28 @@ The function is intentionally simple and does not perform any validation of the 
 - Designed with extensibility in mind for future conditional command enhancements like "\\if defined VARNAME"
 - Does not perform expression validation - delegates that to ParseVariableBool and similar functions
 - Part of the psql conditional command processing infrastructure
+
+## Simplified Source
+
+```c
+// Simplified version of gather_boolean_expression
+static PQExpBuffer gather_boolean_expression(PsqlScanState scan_state) {
+    PQExpBuffer exp_buf = createPQExpBuffer();
+    int num_options = 0;
+    char *value;
+
+    // Collect all remaining arguments into a single expression string
+    while ((value = psql_scan_slash_option(scan_state, OT_NORMAL, NULL, false)) != NULL) {
+        // Add space separator between tokens
+        if (num_options > 0)
+            appendPQExpBufferChar(exp_buf, ' ');
+
+        // Append this token to the expression
+        appendPQExpBufferStr(exp_buf, value);
+        num_options++;
+        free(value);
+    }
+
+    return exp_buf;
+}
+```

@@ -35,3 +35,19 @@ The comparison logic relies on `interval_cmp_internal` which returns a value gre
 - Part of PostgreSQL's interval utility functions, typically used in GREATEST() SQL operations
 - Efficient implementation that avoids unnecessary memory allocation by returning existing interval pointers
 - Maintains consistency with PostgreSQL's interval comparison semantics through use of `interval_cmp_internal`
+
+## Simplified Source
+
+```c
+Datum interval_larger(PG_FUNCTION_ARGS) {
+    // Extract two interval arguments
+    Interval *interval1 = PG_GETARG_INTERVAL_P(0);
+    Interval *interval2 = PG_GETARG_INTERVAL_P(1);
+
+    // Return the larger interval
+    if (interval_cmp_internal(interval1, interval2) > 0)
+        PG_RETURN_INTERVAL_P(interval1);
+    else
+        PG_RETURN_INTERVAL_P(interval2);
+}
+```

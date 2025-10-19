@@ -34,3 +34,22 @@ This is a static helper function within the pg_rewind utility's file operations 
 - Provides detailed error messages including the full path and system error details
 - Part of the pg_rewind utility which synchronizes PostgreSQL data directories
 - Unlike remove_target_file, this function does not have a missing_ok parameter and will always report errors if the directory removal fails
+
+## Simplified Source
+
+```c
+static void remove_target_dir(const char *path) {
+    char dstpath[MAXPGPATH];
+
+    // Skip actual operation in dry run mode
+    if (dry_run)
+        return;
+
+    // Build full target path
+    snprintf(dstpath, sizeof(dstpath), "%s/%s", datadir_target, path);
+
+    // Remove directory (must be empty)
+    if (rmdir(dstpath) != 0)
+        pg_fatal("could not remove directory \"%s\": %m", dstpath);
+}
+```

@@ -43,3 +43,37 @@ The function operates on the word from right to left (end to beginning) and uses
 - Part of the generated Snowball stemmer code for Danish language support in PostgreSQL's full-text search
 - The algorithm follows the standard Danish stemming rules as defined in the Snowball project
 - Processing is done backwards from the end of the word (z->c = z->l) and then cursor is reset to beginning (z->c = z->lb)
+
+## Simplified Source
+
+```c
+extern int danish_UTF_8_stem(struct SN_env * z) {
+    // Save current position and mark vowel/consonant regions
+    int original_pos = z->c;
+    r_mark_regions(z);
+    z->c = original_pos;
+
+    // Process word from end to beginning
+    z->lb = z->c;
+    z->c = z->l;
+
+    // Apply Danish stemming rules in sequence:
+
+    // 1. Remove main suffixes (verb/noun endings)
+    r_main_suffix(z);
+
+    // 2. Handle consonant pairs after suffix removal
+    r_consonant_pair(z);
+
+    // 3. Remove other secondary suffixes
+    r_other_suffix(z);
+
+    // 4. Final undoubling of consonants
+    r_undouble(z);
+
+    // Reset cursor to beginning
+    z->c = z->lb;
+
+    return 1; // Success
+}
+```

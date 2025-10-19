@@ -42,3 +42,87 @@ XLogDumpDisplayStats generates a formatted statistical report of WAL records pro
 - Shows LSN range being analyzed in the header
 - Final totals show percentages of record vs FPI data within the total combined size
 - Skips custom resource managers that have zero records to reduce noise
+
+## Simplified Source
+
+```c
+static void
+XLogDumpDisplayStats(XLogDumpConfig *config, XLogStats *stats)
+{
+    // Return early if no stats computed yet
+    if (XLogRecPtrIsInvalid(stats->endptr))
+        return;
+
+    uint64 total_count = 0, total_rec_len = 0, total_fpi_len = 0, total_len = 0;
+
+    // Calculate totals across all resource managers
+    for (int ri = 0; ri <= RM_MAX_ID; ri++) {
+        if (!RmgrIdIsValid(ri))
+            continue;
+        total_count += stats->rmgr_stats[ri].count;
+        total_rec_len += stats->rmgr_stats[ri].rec_len;
+        total_fpi_len += stats->rmgr_stats[ri].fpi_len;
+    }
+    total_len = total_rec_len + total_fpi_len;
+
+    // Print header and column headers
+    printf("WAL statistics between %X/%X and %X/%X:\n",
+           LSN_FORMAT_ARGS(stats->startptr), LSN_FORMAT_ARGS(stats->endptr));
+
+    printf("%-27s %20s %8s %20s %8s %20s %8s %20s %8s\n",
+           "Type", "N", "(%)", "Record size", "(%)", "FPI size", "(%)", "Combined size", "(%)");
+
+    // Display stats for each resource manager
+    for (int ri = 0; ri <= RM_MAX_ID; ri++) {
+        if (!RmgrIdIsValid(ri))
+            continue;
+
+        const RmgrDescData *desc = GetRmgrDesc(ri);
+
+        if (!config->stats_per_record) {
+            // Show aggregate stats per resource manager
+            uint64 count = stats->rmgr_stats[ri].count;
+            uint64 rec_len = stats->rmgr_stats[ri].rec_len;
+            uint64 fpi_len = stats->rmgr_stats[ri].fpi_len;
+            uint64 tot_len = rec_len + fpi_len;
+
+            if (RmgrIdIsCustom(ri) && count == 0)
+                continue;
+
+            XLogDumpStatsRow(desc->rm_name, count, total_count,
+                           rec_len, total_rec_len, fpi_len, total_fpi_len,
+                           tot_len, total_len);
+        } else {
+            // Show detailed stats per record type
+            for (int rj = 0; rj < MAX_XLINFO_TYPES; rj++) {
+                uint64 count = stats->record_stats[ri][rj].count;
+                if (count == 0)
+                    continue;
+
+                uint64 rec_len = stats->record_stats[ri][rj].rec_len;
+                uint64 fpi_len = stats->record_stats[ri][rj].fpi_len;
+                uint64 tot_len = rec_len + fpi_len;
+
+                const char *id = desc->rm_identify(rj << 4);
+                if (id == NULL)
+                    id = psprintf("UNKNOWN (%x)", rj << 4);
+
+                XLogDumpStatsRow(psprintf("%s/%s", desc->rm_name, id),
+                               count, total_count, rec_len, total_rec_len,
+                               fpi_len, total_fpi_len, tot_len, total_len);
+            }
+        }
+    }
+
+    // Print totals row with percentages
+    double rec_len_pct = (total_len != 0) ? 100 * (double) total_rec_len / total_len : 0;
+    double fpi_len_pct = (total_len != 0) ? 100 * (double) total_fpi_len / total_len : 0;
+
+    printf("%-27s %20" INT64_MODIFIER "u %-9s%20" INT64_MODIFIER "u %-9s"
+           "%20" INT64_MODIFIER "u %-9s%20" INT64_MODIFIER "u %-6s\n",
+           "Total", stats->count, "",
+           total_rec_len, psprintf("[%.02f%%]", rec_len_pct),
+           total_fpi_len, psprintf("[%.02f%%]", fpi_len_pct),
+           total_len, "[100%]");
+}
+```

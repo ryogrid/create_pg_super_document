@@ -35,3 +35,23 @@ Importantly, this function only frees the string contents pointed to by the stru
 - Used in PostgreSQL's locale handling to manage memory for copied locale information
 - All string members of struct lconv are safely freed using the standard free() function
 - The function assumes that all string pointers were allocated with malloc() or are NULL
+
+## Simplified Source
+
+```c
+static void free_struct_lconv(struct lconv *s) {
+    // Free numeric formatting strings
+    free(s->decimal_point);
+    free(s->thousands_sep);
+    free(s->grouping);
+
+    // Free monetary formatting strings
+    free(s->int_curr_symbol);
+    free(s->currency_symbol);
+    free(s->mon_decimal_point);
+    free(s->mon_thousands_sep);
+    free(s->mon_grouping);
+    free(s->positive_sign);
+    free(s->negative_sign);
+}
+```

@@ -46,3 +46,44 @@ Special handling includes:
 - Some parameters like float8_pass_by_value are validated separately in specialized functions
 - Data checksum compatibility is strictly enforced - clusters must both use checksums or both not use them
 - The function acts as a critical safety gate in the upgrade process, preventing potentially catastrophic mismatched upgrades
+
+## Simplified Source
+
+```c
+void check_control_data(ControlData *oldctrl, ControlData *newctrl) {
+    // Check memory alignment (32-bit vs 64-bit compatibility)
+    if (oldctrl->align == 0 || oldctrl->align != newctrl->align)
+        pg_fatal("old and new pg_controldata alignments are invalid or do not match.\n"
+                 "Likely one cluster is a 32-bit install, the other 64-bit");
+
+    // Check block sizes must match
+    if (oldctrl->blocksz == 0 || oldctrl->blocksz != newctrl->blocksz)
+        pg_fatal("old and new pg_controldata block sizes are invalid or do not match");
+
+    // Check WAL configuration
+    if (oldctrl->walsz == 0 || oldctrl->walsz != newctrl->walsz)
+        pg_fatal("old and new pg_controldata WAL block sizes are invalid or do not match");
+
+    if (oldctrl->walseg == 0 || oldctrl->walseg != newctrl->walseg)
+        pg_fatal("old and new pg_controldata WAL segment sizes are invalid or do not match");
+
+    // Check data type configurations
+    if (oldctrl->ident == 0 || oldctrl->ident != newctrl->ident)
+        pg_fatal("old and new pg_controldata maximum identifier lengths are invalid or do not match");
+
+    if (oldctrl->toast == 0 || oldctrl->toast != newctrl->toast)
+        pg_fatal("old and new pg_controldata maximum TOAST chunk sizes are invalid or do not match");
+
+    // Check date/time storage compatibility
+    if (oldctrl->date_is_int != newctrl->date_is_int)
+        pg_fatal("old and new pg_controldata date/time storage types do not match");
+
+    // Check data checksum compatibility
+    if (oldctrl->data_checksum_version == 0 && newctrl->data_checksum_version != 0)
+        pg_fatal("old cluster does not use data checksums but the new one does");
+    else if (oldctrl->data_checksum_version != 0 && newctrl->data_checksum_version == 0)
+        pg_fatal("old cluster uses data checksums but the new one does not");
+    else if (oldctrl->data_checksum_version != newctrl->data_checksum_version)
+        pg_fatal("old and new cluster pg_controldata checksum versions do not match");
+}
+```

@@ -34,4 +34,16 @@ The function extracts the support request from its arguments and delegates the a
 - This function is part of PostgreSQL's planner support function infrastructure
 - It specifically handles case-sensitive LIKE patterns (as opposed to ILIKE which is case-insensitive)
 - The actual logic for selectivity estimation and index optimization is implemented in the shared  function
-- Located in 
+- Located in src/backend/utils/adt/like_support.c
+
+## Simplified Source
+
+```c
+Datum textlike_support(PG_FUNCTION_ARGS) {
+    // Extract the planner support request
+    Node *rawreq = (Node *) PG_GETARG_POINTER(0);
+
+    // Delegate to common pattern support function for LIKE patterns
+    PG_RETURN_POINTER(like_regex_support(rawreq, Pattern_Type_Like));
+}
+``` 

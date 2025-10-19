@@ -44,3 +44,47 @@ The function delegates the actual prefix extraction to the `regexp_fixed_prefix`
 - For exact matches, the rest selectivity is set to 1.0 (100% selectivity)
 - The function is conservative in its analysis to ensure correctness of query results
 - Used by the query planner to optimize regex operations like SIMILAR TO and ~ operators
+
+## Simplified Source
+
+```c
+// Simplified version of regex_fixed_prefix
+static Pattern_Prefix_Status regex_fixed_prefix(Const *patt_const, bool case_insensitive,
+                                               Oid collation, Const **prefix_const,
+                                               Selectivity *rest_selec) {
+    // Only TEXT type supported, reject BYTEA
+    if (patt_const->consttype == BYTEAOID)
+        ereport(ERROR, (errmsg("regex not supported on bytea")));
+
+    // Extract fixed prefix from regex pattern
+    char *prefix = regexp_fixed_prefix(DatumGetTextPP(patt_const->constvalue),
+                                     case_insensitive, collation, &exact);
+
+    if (prefix == NULL) {
+        // No prefix found - calculate selectivity for entire pattern
+        *prefix_const = NULL;
+        if (rest_selec != NULL) {
+            char *patt = TextDatumGetCString(patt_const->constvalue);
+            *rest_selec = regex_selectivity(patt, strlen(patt), case_insensitive, 0);
+            pfree(patt);
+        }
+        return Pattern_Prefix_None;
+    }
+
+    // Found prefix - create const and calculate remaining selectivity
+    *prefix_const = string_to_const(prefix, patt_const->consttype);
+
+    if (rest_selec != NULL) {
+        if (exact) {
+            *rest_selec = 1.0;  // Exact match
+        } else {
+            char *patt = TextDatumGetCString(patt_const->constvalue);
+            *rest_selec = regex_selectivity(patt, strlen(patt), case_insensitive, strlen(prefix));
+            pfree(patt);
+        }
+    }
+
+    pfree(prefix);
+    return exact ? Pattern_Prefix_Exact : Pattern_Prefix_Partial;
+}
+```

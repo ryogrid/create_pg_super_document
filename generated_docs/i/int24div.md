@@ -38,3 +38,21 @@ This function implements the division operator for mixed-precision integer arith
 - No overflow checking needed since (int16->int32) / int32 cannot overflow int32 range
 - Contains a PG_RETURN_NULL() statement that helps the compiler understand unreachable code paths
 - Final function in the int24 family of mixed-precision arithmetic operations
+
+## Simplified Source
+
+```c
+Datum int24div(PG_FUNCTION_ARGS) {
+    int16 dividend = PG_GETARG_INT16(0);  // 16-bit dividend
+    int32 divisor = PG_GETARG_INT32(1);   // 32-bit divisor
+
+    // Check for division by zero
+    if (divisor == 0) {
+        ereport(ERROR, (errcode(ERRCODE_DIVISION_BY_ZERO),
+                       errmsg("division by zero")));
+    }
+
+    // Perform division (no overflow possible)
+    PG_RETURN_INT32((int32) dividend / divisor);
+}
+```

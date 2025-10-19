@@ -36,3 +36,23 @@ RT_ALLOC_LEAF is part of PostgreSQL's templated radix tree implementation found 
 - Returns an RT_CHILD_PTR structure containing the allocated memory pointer
 - This is part of a generic/templated implementation, so the actual function name varies based on the prefix used when instantiating the radix tree template
 - The allocated leaf memory must be properly initialized by the caller before use
+
+## Simplified Source
+
+```c
+static RT_CHILD_PTR
+RT_ALLOC_LEAF(RT_RADIX_TREE *tree, size_t allocsize)
+{
+    RT_CHILD_PTR leaf;
+
+    // Allocate memory for leaf node
+    leaf.alloc = MemoryContextAlloc(tree->leaf_context, allocsize);
+
+    // Update statistics in debug mode
+#ifdef RT_DEBUG
+    tree->ctl->num_leaves++;
+#endif
+
+    return leaf;
+}
+```

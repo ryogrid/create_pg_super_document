@@ -32,3 +32,13 @@ The binary format consists of:
 - Used internally by PostgreSQL when sending bit data in binary format over network connections
 - Part of the PostgreSQL function manager (fmgr) system with the standard PG_FUNCTION_ARGS interface
 - Located in src/backend/utils/adt/varbit.c:376-390
+
+## Simplified Source
+
+```c
+// Convert bit string to binary format for network transmission
+Datum bit_send(PG_FUNCTION_ARGS) {
+    // Delegate to varbit_send since BIT and VARBIT use same binary format
+    return varbit_send(fcinfo);
+}
+```

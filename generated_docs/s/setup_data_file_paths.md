@@ -54,3 +54,45 @@ This function acts as a central coordinator for file path management, ensuring t
 - The bootstrap catalog interface file (postgres.bki) is the most critical, containing the initial system catalog structure
 - Configuration template files provide default settings that can be customized after initialization
 - SQL creation scripts establish the standard PostgreSQL system objects and functionality
+
+## Simplified Source
+
+```c
+void setup_data_file_paths(void) {
+    // Set paths for all essential initialization files
+    set_input(&bki_file, "postgres.bki");  // Bootstrap catalog interface
+    set_input(&hba_file, "pg_hba.conf.sample");  // Authentication config
+    set_input(&ident_file, "pg_ident.conf.sample");  // User mapping
+    set_input(&conf_file, "postgresql.conf.sample");  // Main config
+    set_input(&dictionary_file, "snowball_create.sql");  // Text search
+    set_input(&info_schema_file, "information_schema.sql");  // Info schema
+    set_input(&features_file, "sql_features.txt");  // SQL features reference
+    set_input(&system_constraints_file, "system_constraints.sql");  // Constraints
+    set_input(&system_functions_file, "system_functions.sql");  // Functions
+    set_input(&system_views_file, "system_views.sql");  // Views
+
+    // Show configuration if requested
+    if (show_setting || debug) {
+        fprintf(stderr,
+                "VERSION=%s\nPGDATA=%s\nshare_path=%s\nPGPATH=%s\n"
+                "POSTGRES_SUPERUSERNAME=%s\nPOSTGRES_BKI=%s\n"
+                "POSTGRESQL_CONF_SAMPLE=%s\nPG_HBA_SAMPLE=%s\nPG_IDENT_SAMPLE=%s\n",
+                PG_VERSION, pg_data, share_path, bin_path,
+                username, bki_file, conf_file, hba_file, ident_file);
+        if (show_setting)
+            exit(0);
+    }
+
+    // Validate all files exist and are accessible
+    check_input(bki_file);
+    check_input(hba_file);
+    check_input(ident_file);
+    check_input(conf_file);
+    check_input(dictionary_file);
+    check_input(info_schema_file);
+    check_input(features_file);
+    check_input(system_constraints_file);
+    check_input(system_functions_file);
+    check_input(system_views_file);
+}
+```

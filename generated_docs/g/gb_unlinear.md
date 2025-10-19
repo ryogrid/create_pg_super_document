@@ -30,3 +30,18 @@ The function applies the inverse mathematical operations:
 
 ## Notes and Other Information
 This function is the mathematical inverse of `gb_linear` and is essential for the UTF-8 to GB18030 conversion process. The function ensures that `gb_unlinear(gb_linear(x)) == x` for any valid 4-byte GB18030 character. Like `gb_linear`, it's declared as `static inline` for performance optimization in character encoding conversions. The bit shifting operations pack the bytes in big-endian format to match the expected GB18030 representation.
+
+## Simplified Source
+
+```c
+static inline uint32 gb_unlinear(uint32 lin) {
+    // Convert linear value back to GB18030 byte values
+    uint32 r0 = 0x81 + lin / 12600;      // First byte (range 0x81-0xfe)
+    uint32 r1 = 0x30 + (lin / 1260) % 10; // Second byte (range 0x30-0x39)
+    uint32 r2 = 0x81 + (lin / 10) % 126;  // Third byte (range 0x81-0xfe)
+    uint32 r3 = 0x30 + lin % 10;          // Fourth byte (range 0x30-0x39)
+
+    // Pack bytes into 32-bit GB18030 character
+    return (r0 << 24) | (r1 << 16) | (r2 << 8) | r3;
+}
+```

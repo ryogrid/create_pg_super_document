@@ -36,3 +36,16 @@ The `uuid_ne` function is a PostgreSQL built-in function that compares two UUID 
 - Complements the uuid_eq function for equality testing
 - The comparison is byte-wise, ensuring exact UUID matching
 - Essential for UUID-based filtering and conditional logic in database applications
+
+## Simplified Source
+
+```c
+Datum uuid_ne(PG_FUNCTION_ARGS) {
+    // Extract two UUID arguments from function call
+    pg_uuid_t *uuid1 = PG_GETARG_UUID_P(0);
+    pg_uuid_t *uuid2 = PG_GETARG_UUID_P(1);
+
+    // Return true if UUIDs are not equal
+    PG_RETURN_BOOL(uuid_internal_cmp(uuid1, uuid2) != 0);
+}
+```

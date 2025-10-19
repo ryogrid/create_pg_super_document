@@ -40,3 +40,57 @@ Key behaviors include:
 - The socket file descriptor may change between PQconnectPoll() calls, so it's retrieved fresh on each iteration
 - PGRES_POLLING_ACTIVE state is considered unreachable in this context and triggers an assertion failure
 - Error reporting is intentionally deferred to the caller, which checks the final connection status
+
+## Simplified Source
+
+```c
+static void wait_until_connected(PGconn *conn)
+{
+    bool forRead = false;
+
+    while (true) {
+        // Check for user cancellation on each iteration
+        if (cancel_pressed)
+            break;
+
+        // Get current socket (may change between polls)
+        int sock = PQsocket(conn);
+        if (sock == -1)
+            break;
+
+        // Poll socket with 1-second timeout to handle cancellation race condition
+        pg_usec_time_t end_time = PQgetCurrentTimeUSec() + 1000000; // 1 second
+        int rc = PQsocketPoll(sock, forRead, !forRead, end_time);
+        if (rc == -1)
+            return;
+
+        // Advance connection state machine
+        switch (PQconnectPoll(conn)) {
+            case PGRES_POLLING_OK:
+            case PGRES_POLLING_FAILED:
+                return; // Connection complete (success or failure)
+
+            case PGRES_POLLING_READING:
+                forRead = true;
+                continue; // Need to wait for read
+
+            case PGRES_POLLING_WRITING:
+                forRead = false;
+                continue; // Need to wait for write
+
+            case PGRES_POLLING_ACTIVE:
+                pg_unreachable(); // Should not happen
+        }
+    }
+}
+```
+
+**Simplified Logic:**
+1. **Loop until connection completes**: Continue polling until success, failure, or cancellation
+2. **Check cancellation**: Test for SIGINT on each iteration for responsiveness
+3. **Get socket**: Retrieve current socket FD (may change during connection process)
+4. **Poll with timeout**: Wait up to 1 second for socket I/O readiness to avoid blocking indefinitely
+5. **Advance state machine**: Call PQconnectPoll() to process next connection step
+6. **Handle states**: Set read/write direction based on what the connection protocol needs next
+
+This function handles PostgreSQL's asynchronous connection protocol, balancing connection progress with user cancellation responsiveness using a simple timeout-based approach.

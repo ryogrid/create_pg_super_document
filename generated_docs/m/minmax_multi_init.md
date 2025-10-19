@@ -38,3 +38,24 @@ The function calculates the total memory needed by combining the fixed header si
 - Critical component of BRIN minmax-multi index initialization
 - Located in src/backend/access/brin/brin_minmax_multi.c:486-515
 - Returns a pointer to the newly allocated and initialized Ranges structure
+
+## Simplified Source
+
+```c
+static Ranges *
+minmax_multi_init(int maxvalues)
+{
+    Assert(maxvalues > 0);
+
+    // Calculate total memory needed: header + space for Datum values
+    Size len = offsetof(Ranges, values) + (maxvalues * sizeof(Datum));
+
+    // Allocate and zero-initialize the structure
+    Ranges *ranges = (Ranges *) palloc0(len);
+
+    // Set maximum capacity
+    ranges->maxvalues = maxvalues;
+
+    return ranges;
+}
+```

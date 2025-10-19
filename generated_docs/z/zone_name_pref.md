@@ -31,3 +31,25 @@ This function assigns preference scores to timezone names to help select the mos
 - Used during timezone selection to break ties when multiple zones have identical behavioral scores
 - Part of the strategy to prefer canonical timezone names over aliases or system-specific names
 - Helps ensure that PostgreSQL installations use standard, portable timezone names when possible
+
+## Simplified Source
+
+```c
+static int
+zone_name_pref(const char *zonename)
+{
+    // Prefer UTC variants (higher scores are better)
+    if (strcmp(zonename, "UTC") == 0)
+        return 50;
+    if (strcmp(zonename, "Etc/UTC") == 0)
+        return 40;
+
+    // Discourage pseudo-timezone names
+    if (strcmp(zonename, "localtime") == 0 ||
+        strcmp(zonename, "posixrules") == 0)
+        return -50;
+
+    // Neutral preference for all other names
+    return 0;
+}
+```

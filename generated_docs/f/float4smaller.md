@@ -36,3 +36,21 @@ The `float4smaller` function is a PostgreSQL built-in function that compares two
 - Returns result using PostgreSQL's Datum system for type-safe value passing
 - The function handles proper float4 comparison semantics including NaN handling through the `float4_lt` function
 - Complementary to `float4larger` function for min/max operations
+
+## Simplified Source
+
+```c
+Datum
+float4smaller(PG_FUNCTION_ARGS)
+{
+    // Extract both float4 arguments
+    float4 arg1 = PG_GETARG_FLOAT4(0);
+    float4 arg2 = PG_GETARG_FLOAT4(1);
+
+    // Return the smaller value using PostgreSQL's float4 comparison
+    if (float4_lt(arg1, arg2))
+        PG_RETURN_FLOAT4(arg1);
+    else
+        PG_RETURN_FLOAT4(arg2);
+}
+```

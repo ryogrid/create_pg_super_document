@@ -37,3 +37,25 @@ This function serves as a GiST distance operator for polygon data types, impleme
 - Relies on gist_bbox_distance for the actual distance calculation logic
 - Part of the GiST operator class infrastructure for geometric data types
 - The distance returned is a float8 value representing the minimum distance between the query point and the polygon
+
+## Simplified Source
+
+```c
+Datum
+gist_poly_distance(PG_FUNCTION_ARGS)
+{
+    // Extract arguments
+    GISTENTRY *entry = (GISTENTRY *) PG_GETARG_POINTER(0);
+    Datum query = PG_GETARG_DATUM(1);
+    StrategyNumber strategy = (StrategyNumber) PG_GETARG_UINT16(2);
+    bool *recheck = (bool *) PG_GETARG_POINTER(4);
+
+    // Calculate distance using bounding box approximation
+    float8 distance = gist_bbox_distance(entry, query, strategy);
+
+    // Mark for rechecking since bounding box is only an approximation
+    *recheck = true;
+
+    return PG_RETURN_FLOAT8(distance);
+}
+```

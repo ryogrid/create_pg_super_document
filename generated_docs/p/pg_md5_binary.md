@@ -45,3 +45,35 @@ Like pg_md5_hash, this function uses PostgreSQL's cryptohash API for secure MD5 
 - Handles memory management automatically, including cleanup on both success and failure paths
 - Commonly used in authentication protocols (like RADIUS) where binary hash values are required
 - Error conditions include out-of-memory scenarios and MD5 computation failures
+
+## Simplified Source
+
+```c
+bool pg_md5_binary(const void *buff, size_t len, void *outbuf, const char **errstr)
+{
+    pg_cryptohash_ctx *ctx;
+
+    // Initialize error string
+    *errstr = NULL;
+
+    // Create MD5 hash context
+    ctx = pg_cryptohash_create(PG_MD5);
+    if (ctx == NULL) {
+        *errstr = pg_cryptohash_error(NULL);  // Out of memory
+        return false;
+    }
+
+    // Perform MD5 computation: init, update, finalize
+    if (pg_cryptohash_init(ctx) < 0 ||
+        pg_cryptohash_update(ctx, buff, len) < 0 ||
+        pg_cryptohash_final(ctx, outbuf, MD5_DIGEST_LENGTH) < 0) {
+        *errstr = pg_cryptohash_error(ctx);
+        pg_cryptohash_free(ctx);
+        return false;
+    }
+
+    // Clean up and return success
+    pg_cryptohash_free(ctx);
+    return true;
+}
+```

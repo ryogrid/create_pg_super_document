@@ -40,3 +40,35 @@ This function initializes locale settings and service directories for PostgreSQL
 - Essential initialization function called by virtually all PostgreSQL programs during startup
 - Handles both development and installed configurations by using executable location to find resource directories
 - Part of PostgreSQL's portable runtime environment setup
+
+## Simplified Source
+
+```c
+void set_pglocale_pgservice(const char *argv0, const char *app) {
+    char path[MAXPGPATH];
+    char my_exec_path[MAXPGPATH];
+
+    // Set system locale for non-backend applications
+    if (strcmp(app, PG_TEXTDOMAIN("postgres")) != 0) {
+        setlocale(LC_ALL, "");
+    }
+
+    // Find the executable's location
+    if (find_my_exec(argv0, my_exec_path) < 0)
+        return;
+
+#ifdef ENABLE_NLS
+    // Set up internationalization paths
+    get_locale_path(my_exec_path, path);
+    bindtextdomain(app, path);
+    textdomain(app);
+    setenv("PGLOCALEDIR", path, 0);  // Don't override existing setting
+#endif
+
+    // Set up system configuration directory if not already set
+    if (getenv("PGSYSCONFDIR") == NULL) {
+        get_etc_path(my_exec_path, path);
+        setenv("PGSYSCONFDIR", path, 0);
+    }
+}
+```

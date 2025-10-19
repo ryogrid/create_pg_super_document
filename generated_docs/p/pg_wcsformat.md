@@ -50,3 +50,75 @@ The function handles special formatting:
 - Each line in the output is null-terminated
 - The lineptr array is terminated with a NULL ptr field in the final element
 - Control character handling ensures safe display of potentially problematic input
+
+## Simplified Source
+
+```c
+void pg_wcsformat(const unsigned char *pwcs, size_t len, int encoding,
+                 struct lineptr *lines, int count) {
+    int linewidth = 0, chlen;
+    unsigned char *ptr = lines->ptr;
+
+    for (; *pwcs && len > 0; pwcs += chlen) {
+        chlen = PQmblen((const char *) pwcs, encoding);
+        if (len < (size_t) chlen) break;
+
+        int w = PQdsplen((const char *) pwcs, encoding);
+
+        if (chlen == 1) {  // Single-byte character
+            if (*pwcs == '\n') {
+                // Newline: finish line, start next
+                *ptr++ = '\0';
+                lines->width = linewidth;
+                linewidth = 0;
+                lines++;
+                count--;
+                if (count <= 0) exit(1);  // Safety check
+                lines->ptr = ptr;
+            } else if (*pwcs == '\r') {
+                // Carriage return: literal \r
+                strcpy((char *) ptr, "\\r");
+                linewidth += 2;
+                ptr += 2;
+            } else if (*pwcs == '\t') {
+                // Tab: expand to spaces
+                do {
+                    *ptr++ = ' ';
+                    linewidth++;
+                } while (linewidth % 8 != 0);
+            } else if (w < 0) {
+                // Control char: hex escape
+                sprintf((char *) ptr, "\\x%02X", *pwcs);
+                linewidth += 4;
+                ptr += 4;
+            } else {
+                // Normal char: copy as-is
+                linewidth += w;
+                *ptr++ = *pwcs;
+            }
+        } else if (w < 0) {
+            // Non-ASCII control char: Unicode escape
+            if (encoding == PG_UTF8) {
+                sprintf((char *) ptr, "\\u%04X", utf8_to_unicode(pwcs));
+            } else {
+                sprintf((char *) ptr, "\\u????");
+            }
+            ptr += 6;
+            linewidth += 6;
+        } else {
+            // Regular multibyte char: copy all bytes
+            for (int i = 0; i < chlen; i++) {
+                *ptr++ = pwcs[i];
+            }
+            linewidth += w;
+        }
+        len -= chlen;
+    }
+
+    // Finish final line
+    lines->width = linewidth;
+    *ptr++ = '\0';
+    if (count <= 0) exit(1);
+    (lines + 1)->ptr = NULL;  // Terminate array
+}
+```

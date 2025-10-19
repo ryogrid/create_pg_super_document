@@ -41,3 +41,19 @@ This function is essential for memory management operations that need to identif
 - Returns a pointer to the MemoryContext header embedded within the SlabContext structure
 - Essential for the memory context hierarchy and debugging capabilities
 - Assumes the pointer was allocated by a slab allocator (verified by assertion)
+
+## Simplified Source
+```c
+MemoryContext
+SlabGetChunkContext(void *pointer)
+{
+    MemoryChunk *chunk = PointerGetMemoryChunk(pointer);
+    SlabBlock *block = MemoryChunkGetBlock(chunk);
+
+    // Verify the block is valid
+    Assert(SlabBlockIsValid(block));
+
+    // Return the memory context from the slab that owns this block
+    return &block->slab->header;
+}
+```

@@ -42,3 +42,18 @@ This is a fundamental operation for maintaining the integrity and efficiency of 
 - Simple but essential function for GiST index maintenance operations
 - Used internally by PostgreSQL's GiST index infrastructure
 - Part of the complete TSQuery GiST operator class implementation providing efficient text search capabilities
+
+## Simplified Source
+
+```c
+Datum gtsquery_same(PG_FUNCTION_ARGS) {
+    TSQuerySign a = PG_GETARG_TSQUERYSIGN(0);
+    TSQuerySign b = PG_GETARG_TSQUERYSIGN(1);
+    bool *result = (bool *) PG_GETARG_POINTER(2);
+
+    // Simple equality check between signatures
+    *result = (a == b);
+
+    PG_RETURN_POINTER(result);
+}
+```

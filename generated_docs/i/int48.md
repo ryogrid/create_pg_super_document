@@ -31,3 +31,15 @@ The int48 function implements type conversion from PostgreSQL's 4-byte integer t
 - Located in src/backend/utils/adt/int8.c in the conversion operators section
 - Commonly used in SQL operations where int4 values need to be promoted to int8 for arithmetic or comparison operations
 - The function name follows PostgreSQL's convention where the number indicates the byte size (4 for source, 8 for target)
+
+## Simplified Source
+
+```c
+Datum int48(PG_FUNCTION_ARGS) {
+    // Extract 32-bit integer argument
+    int32 arg = PG_GETARG_INT32(0);
+
+    // Convert to 64-bit integer with sign extension
+    PG_RETURN_INT64((int64) arg);
+}
+```

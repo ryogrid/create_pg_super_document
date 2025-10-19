@@ -53,3 +53,137 @@ Each test writes XLOG_BLCKSZ-sized blocks (typically 8KB) and measures performan
 - Uses alarm-based timing mechanism to ensure consistent test duration across different sync methods
 - Handles write failures gracefully and provides informative error messages
 - The function is critical for PostgreSQL performance tuning as the choice of sync method significantly impacts WAL performance
+
+## Simplified Source
+
+```c
+static void
+test_sync(int writes_per_op)
+{
+    int tmpfile, ops, writes;
+    bool fs_warning = false;
+
+    // Display test header
+    if (writes_per_op == 1)
+        printf("Compare file sync methods using one %dkB write:\n", XLOG_BLCKSZ_K);
+    else
+        printf("Compare file sync methods using two %dkB writes:\n", XLOG_BLCKSZ_K);
+    printf("(in \"wal_sync_method\" preference order, except fdatasync is Linux's default)\n");
+
+    // Test open_datasync (O_DSYNC) if available
+    printf(LABEL_FORMAT, "open_datasync");
+    fflush(stdout);
+
+#ifdef O_DSYNC
+    if ((tmpfile = open_direct(filename, O_RDWR | O_DSYNC | PG_BINARY, 0)) == -1)
+    {
+        printf(NA_FORMAT, "n/a*");
+        fs_warning = true;
+    }
+    else
+    {
+        START_TIMER;
+        for (ops = 0; alarm_triggered == false; ops++)
+        {
+            for (writes = 0; writes < writes_per_op; writes++)
+                if (pg_pwrite(tmpfile, buf, XLOG_BLCKSZ, writes * XLOG_BLCKSZ) != XLOG_BLCKSZ)
+                    die("write failed");
+        }
+        STOP_TIMER;
+        close(tmpfile);
+    }
+#else
+    printf(NA_FORMAT, "n/a");
+#endif
+
+    // Test fdatasync
+    printf(LABEL_FORMAT, "fdatasync");
+    fflush(stdout);
+
+    if ((tmpfile = open(filename, O_RDWR | PG_BINARY, 0)) == -1)
+        die("could not open output file");
+    START_TIMER;
+    for (ops = 0; alarm_triggered == false; ops++)
+    {
+        for (writes = 0; writes < writes_per_op; writes++)
+            if (pg_pwrite(tmpfile, buf, XLOG_BLCKSZ, writes * XLOG_BLCKSZ) != XLOG_BLCKSZ)
+                die("write failed");
+        fdatasync(tmpfile);
+    }
+    STOP_TIMER;
+    close(tmpfile);
+
+    // Test fsync
+    printf(LABEL_FORMAT, "fsync");
+    fflush(stdout);
+
+    if ((tmpfile = open(filename, O_RDWR | PG_BINARY, 0)) == -1)
+        die("could not open output file");
+    START_TIMER;
+    for (ops = 0; alarm_triggered == false; ops++)
+    {
+        for (writes = 0; writes < writes_per_op; writes++)
+            if (pg_pwrite(tmpfile, buf, XLOG_BLCKSZ, writes * XLOG_BLCKSZ) != XLOG_BLCKSZ)
+                die("write failed");
+        if (fsync(tmpfile) != 0)
+            die("fsync failed");
+    }
+    STOP_TIMER;
+    close(tmpfile);
+
+    // Test fsync_writethrough if available
+    printf(LABEL_FORMAT, "fsync_writethrough");
+    fflush(stdout);
+
+#ifdef HAVE_FSYNC_WRITETHROUGH
+    if ((tmpfile = open(filename, O_RDWR | PG_BINARY, 0)) == -1)
+        die("could not open output file");
+    START_TIMER;
+    for (ops = 0; alarm_triggered == false; ops++)
+    {
+        for (writes = 0; writes < writes_per_op; writes++)
+            if (pg_pwrite(tmpfile, buf, XLOG_BLCKSZ, writes * XLOG_BLCKSZ) != XLOG_BLCKSZ)
+                die("write failed");
+        if (pg_fsync_writethrough(tmpfile) != 0)
+            die("fsync failed");
+    }
+    STOP_TIMER;
+    close(tmpfile);
+#else
+    printf(NA_FORMAT, "n/a");
+#endif
+
+    // Test open_sync (O_SYNC) if available
+    printf(LABEL_FORMAT, "open_sync");
+    fflush(stdout);
+
+#ifdef O_SYNC
+    if ((tmpfile = open_direct(filename, O_RDWR | O_SYNC | PG_BINARY, 0)) == -1)
+    {
+        printf(NA_FORMAT, "n/a*");
+        fs_warning = true;
+    }
+    else
+    {
+        START_TIMER;
+        for (ops = 0; alarm_triggered == false; ops++)
+        {
+            for (writes = 0; writes < writes_per_op; writes++)
+                if (pg_pwrite(tmpfile, buf, XLOG_BLCKSZ, writes * XLOG_BLCKSZ) != XLOG_BLCKSZ)
+                    die("write failed");
+        }
+        STOP_TIMER;
+        close(tmpfile);
+    }
+#else
+    printf(NA_FORMAT, "n/a");
+#endif
+
+    // Display filesystem warning if needed
+    if (fs_warning)
+    {
+        printf("* This file system and its mount options do not support direct\n"
+               "  I/O, e.g. ext4 in journaled mode.\n");
+    }
+}
+```

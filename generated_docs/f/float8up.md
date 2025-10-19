@@ -31,3 +31,17 @@ This function implements the unary plus operation for PostgreSQL's float8 (doubl
 - Follows PostgreSQL's standard function call convention with `PG_FUNCTION_ARGS`
 - Returns result using PostgreSQL's Datum system
 - This operation is essentially a no-op but exists for completeness of the unary operator set
+
+## Simplified Source
+
+```c
+Datum
+float8up(PG_FUNCTION_ARGS)
+{
+    // Extract the float8 argument
+    float8 arg = PG_GETARG_FLOAT8(0);
+
+    // Unary plus operation: return the value unchanged
+    PG_RETURN_FLOAT8(arg);
+}
+```

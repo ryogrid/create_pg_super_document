@@ -30,3 +30,14 @@ The  function is a simple wrapper around the standard C library's  function. It 
 - The function assumes that CFH->private_data contains a valid FILE pointer
 - Returns a boolean value: true if end-of-file is reached, false otherwise
 - This function is typically assigned to a function pointer in compression handle initialization
+
+## Simplified Source
+
+```c
+static bool
+eof_none(CompressFileHandle *CFH)
+{
+    // Simple wrapper around feof for uncompressed files
+    return feof((FILE *) CFH->private_data) != 0;
+}
+```

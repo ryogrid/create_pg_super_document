@@ -38,3 +38,29 @@ The function follows the standard Snowball stemmer pattern of setting boundary m
 - Returns 1 on successful suffix removal, 0 if no suffix found, or error code if operation fails
 - The distinction between R1 and R2 regions ensures that suffixes are only removed when they appear in linguistically appropriate contexts
 - This function is called as part of the overall Irish stemming algorithm after initial morphological processing
+
+## Simplified Source
+
+```c
+static int r_noun_sfx(struct SN_env * z) {
+    // Set boundary and find noun suffix pattern
+    z->ket = z->c;
+    int among_var = find_among_b(z, a_1, 16);
+    if (!among_var) return 0;
+
+    z->bra = z->c;
+
+    // Remove suffix based on morphological region
+    switch (among_var) {
+        case 1:
+            // Delete if in R1 region (first morphological boundary)
+            if (r_R1(z) > 0) slice_del(z);
+            break;
+        case 2:
+            // Delete if in R2 region (more restrictive boundary)
+            if (r_R2(z) > 0) slice_del(z);
+            break;
+    }
+    return 1;
+}
+```

@@ -31,3 +31,16 @@ The float84gt function implements the greater-than comparison operator between a
 - Part of PostgreSQL's floating point arithmetic operator family
 - Returns a boolean Datum indicating whether arg1 > arg2
 - Located in src/backend/utils/adt/float.c:3957-3965
+
+## Simplified Source
+
+```c
+Datum float84gt(PG_FUNCTION_ARGS) {
+    // Extract float8 and float4 arguments
+    float8 arg1 = PG_GETARG_FLOAT8(0);
+    float4 arg2 = PG_GETARG_FLOAT4(1);
+
+    // Convert float4 to float8 and compare for greater-than
+    PG_RETURN_BOOL(float8_gt(arg1, (float8) arg2));
+}
+```

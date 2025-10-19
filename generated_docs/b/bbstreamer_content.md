@@ -47,3 +47,17 @@ The function performs a basic assertion to ensure the streamer is not NULL befor
 - The Assert macro ensures defensive programming by catching NULL streamer pointers in debug builds
 - This function is fundamental to the bbstreamer pipeline pattern, where data flows through multiple processing stages
 - The context parameter helps streamers understand what type of data they're receiving, enabling appropriate handling for headers, content, and trailers
+
+## Simplified Source
+
+```c
+static inline void bbstreamer_content(bbstreamer *streamer, bbstreamer_member *member,
+                                     const char *data, int len,
+                                     bbstreamer_archive_context context) {
+    // Validate streamer exists
+    Assert(streamer != NULL);
+
+    // Delegate to streamer-specific content handler
+    streamer->bbs_ops->content(streamer, member, data, len, context);
+}
+```

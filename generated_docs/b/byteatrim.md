@@ -33,3 +33,18 @@ byteatrim is a PostgreSQL built-in function that performs bidirectional trimming
 - Uses the dobyteatrim helper function with both front and back trimming enabled (true, true parameters)
 - Operates on raw binary data without character encoding considerations
 - Follows PostgreSQL's function calling convention using PG_FUNCTION_ARGS and related macros
+
+## Simplified Source
+
+```c
+Datum byteatrim(PG_FUNCTION_ARGS) {
+    // Extract binary data arguments
+    bytea *string = PG_GETARG_BYTEA_PP(0);
+    bytea *set = PG_GETARG_BYTEA_PP(1);
+
+    // Call core binary trimming function for both front and back trimming
+    bytea *result = dobyteatrim(string, set, true, true);
+
+    PG_RETURN_BYTEA_P(result);
+}
+```

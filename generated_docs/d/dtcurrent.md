@@ -31,3 +31,12 @@ The function internally uses the system's current date and time, converts it to 
 - Provides compatibility for applications migrating from Informix to PostgreSQL
 - The function does not perform error checking on the input parameter
 - The timestamp format follows PostgreSQL's internal timestamp representation
+
+## Simplified Source
+
+```c
+void dtcurrent(timestamp *ts) {
+    // Get current timestamp using PostgreSQL's built-in function
+    PGTYPEStimestamp_current(ts);
+}
+```

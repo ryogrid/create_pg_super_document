@@ -31,3 +31,32 @@ is_an_int performs string validation to determine if the input matches the patte
 - Uses proper unsigned char casting to avoid undefined behavior with character classification functions
 - Returns false for empty strings, strings with only whitespace, or strings containing non-digit characters after the optional sign
 - Essential for input validation in pgbench's variable and configuration parsing
+
+## Simplified Source
+
+```c
+static bool
+is_an_int(const char *str)
+{
+    const char *ptr = str;
+
+    // Skip leading whitespace
+    while (*ptr && isspace((unsigned char) *ptr))
+        ptr++;
+
+    // Skip optional sign
+    if (*ptr == '+' || *ptr == '-')
+        ptr++;
+
+    // Must have at least one digit
+    if (*ptr && !isdigit((unsigned char) *ptr))
+        return false;
+
+    // Consume all digits
+    while (*ptr && isdigit((unsigned char) *ptr))
+        ptr++;
+
+    // Must reach end of string
+    return *ptr == '\0';
+}
+```

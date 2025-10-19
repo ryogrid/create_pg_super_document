@@ -40,3 +40,47 @@ The function includes sophisticated character validation using bitwise operation
 - Uses bitwise validation (-1610481664 >> (z->p[z->c - 1] & 0x1f)) & 1 for character checking
 - Implements Greek-specific character validation for UTF-8 encoded text
 - Uses predefined arrays (a_19, a_20, a_21) and string constants (s_62, s_63)
+
+## Simplified Source
+
+```c
+static int r_steps9(struct SN_env * z) {
+    // Initial validation and pattern matching
+    z->ket = z->c;
+
+    // Check bounds (need at least 7 characters) and character properties
+    if (z->c - 7 <= z->lb) return 0;
+    if (!char_matches_greek_filter(z->p[z->c - 1])) return 0;
+
+    // Find and delete suffix patterns from array a_21
+    if (!(find_among_b(z, a_21, 3))) return 0;
+    z->bra = z->c;
+    slice_del(z);  // Delete matched suffix
+    z->I[0] = 0;   // Reset counter
+
+    // Save position for potential backtracking
+    int saved_pos = z->l - z->c;
+
+    // Try first replacement strategy with array a_19
+    z->ket = z->c;
+    z->bra = z->c;
+    if (find_among_b(z, a_19, 4) && z->c <= z->lb) {
+        slice_from_s(z, 4, s_62);  // Replace with s_62
+        return 1;  // Success with first strategy
+    }
+
+    // Fallback: check for specific characters µ (181) or ½ (189)
+    z->c = z->l - saved_pos;  // Restore position
+    z->ket = z->c;
+    z->bra = z->c;
+    if (z->c - 1 <= z->lb) return 0;
+
+    char last_char = z->p[z->c - 1];
+    if (last_char != 181 && last_char != 189) return 0;
+
+    if (!(find_among_b(z, a_20, 2))) return 0;
+    slice_from_s(z, 4, s_63);  // Replace with s_63
+
+    return 1;  // Success
+}
+```

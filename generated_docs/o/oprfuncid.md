@@ -32,3 +32,22 @@ oprfuncid retrieves the OID of the function that implements an operator's actual
 - The returned function OID can be used to look up function details in pg_proc
 - Essential for understanding operator behavior and performance characteristics
 - Provides the bridge between operator syntax and function execution
+
+## Simplified Source
+
+```c
+/*
+ * Extract the implementing function's OID from an operator tuple.
+ * Every operator in PostgreSQL is backed by a function that
+ * performs the actual computation.
+ */
+Oid
+oprfuncid(Operator op)
+{
+    // Get the pg_operator form from the tuple
+    Form_pg_operator pgopform = (Form_pg_operator) GETSTRUCT(op);
+
+    // Return the OID of the implementing function
+    return pgopform->oprcode;
+}
+```

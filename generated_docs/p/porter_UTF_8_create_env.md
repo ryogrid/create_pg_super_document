@@ -41,3 +41,13 @@ This function is typically called once at the beginning of a stemming session to
 - The 3 integer variables (I[0], I[1], I[2]) are used for R1 region, R2 region, and Y-conversion flag respectively
 - Part of the Snowball stemming library's public interface for the Porter UTF-8 algorithm
 - File location: src/backend/snowball/libstemmer/stem_UTF_8_porter.c:720-721
+
+## Simplified Source
+
+```c
+extern struct SN_env * porter_UTF_8_create_env(void) {
+    // Create environment with 0 string variables and 3 integer variables
+    // Integer variables used for: R1 region, R2 region, Y-conversion flag
+    return SN_create_env(0, 3);
+}
+```

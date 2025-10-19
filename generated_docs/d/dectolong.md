@@ -39,3 +39,32 @@ The `dectolong` function is part of PostgreSQL's ECPG (Embedded SQL in C) compat
 - Located in src/interfaces/ecpg/compatlib/informix.c:480-507
 - Uses errno to detect overflow conditions in the underlying numeric conversion
 - Companion function to `dectoint` but for long integer conversions
+
+## Simplified Source
+
+```c
+int dectolong(decimal *np, long *lngp) {
+    // Create new numeric value for intermediate conversion
+    numeric *nres = PGTYPESnumeric_new();
+    if (nres == NULL)
+        return ECPG_INFORMIX_OUT_OF_MEMORY;
+
+    // Convert decimal to numeric format
+    if (PGTYPESnumeric_from_decimal(np, nres) != 0) {
+        PGTYPESnumeric_free(nres);
+        return ECPG_INFORMIX_OUT_OF_MEMORY;
+    }
+
+    // Convert numeric to long integer with overflow detection
+    errno = 0;
+    int ret = PGTYPESnumeric_to_long(nres, lngp);
+    int errnum = errno;
+    PGTYPESnumeric_free(nres);
+
+    // Handle overflow error
+    if (ret == -1 && errnum == PGTYPES_NUM_OVERFLOW)
+        ret = ECPG_INFORMIX_NUM_OVERFLOW;
+
+    return ret;
+}
+```

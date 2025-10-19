@@ -38,3 +38,26 @@ This operation allows for comparing MAC addresses based solely on their manufact
 - In EUI-64 format, the manufacturer portion is still the first 3 bytes, same as traditional MAC addresses
 - Useful for network administration and device inventory management based on manufacturer
 - The resulting address can be used for manufacturer-based filtering and grouping operations
+
+## Simplified Source
+
+```c
+macaddr8* macaddr8_trunc(macaddr8 *addr) {
+    // Create new MAC address keeping only manufacturer portion (first 3 bytes)
+    macaddr8 *result = allocate_macaddr8();
+
+    // Copy manufacturer identifier (first 3 bytes)
+    result->a = addr->a;
+    result->b = addr->b;
+    result->c = addr->c;
+
+    // Zero out device-specific portion (last 5 bytes)
+    result->d = 0;
+    result->e = 0;
+    result->f = 0;
+    result->g = 0;
+    result->h = 0;
+
+    return result;
+}
+```

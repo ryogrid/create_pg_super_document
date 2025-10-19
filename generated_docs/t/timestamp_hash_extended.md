@@ -29,3 +29,14 @@ This function provides extended hash support for timestamp values in PostgreSQL'
 - Extended hash functions typically accept a seed parameter to provide additional entropy and reduce hash collisions
 - Part of PostgreSQL's extended hash function infrastructure for improved hash-based operation performance
 - Maintains consistency with the underlying integer representation while providing enhanced hash distribution
+
+## Simplified Source
+
+```c
+Datum
+timestamp_hash_extended(PG_FUNCTION_ARGS)
+{
+    // Delegate to 64-bit extended hash function for consistent timestamp hashing
+    return hashint8extended(fcinfo);
+}
+```

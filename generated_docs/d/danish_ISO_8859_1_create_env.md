@@ -32,3 +32,14 @@ The function initializes the environment with parameters specific to Danish lang
 - Part of the Snowball stemming library public interface
 - Memory allocated by this function should be freed using danish_ISO_8859_1_close_env
 - Located in stem_ISO_8859_1_danish.c:311
+
+## Simplified Source
+
+```c
+extern struct SN_env * danish_ISO_8859_1_create_env(void) {
+    // Create stemming environment for Danish with:
+    // - 1: string buffer for pattern storage
+    // - 2: integer variables (for R1, R2 region markers)
+    return SN_create_env(1, 2);
+}
+```

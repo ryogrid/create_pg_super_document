@@ -36,3 +36,78 @@ This function queries the PostgreSQL system catalogs to retrieve comprehensive i
 - Supports cancellation via cancel_pressed global variable
 - Orders results by namespace and configuration name for consistent output
 - This is a static function used internally by psql's describe functionality for text search configurations
+
+## Simplified Source
+
+```c
+static bool listTSConfigsVerbose(const char *pattern) {
+    PQExpBufferData buf;
+    PGresult *res;
+
+    // Initialize query buffer
+    initPQExpBuffer(&buf);
+
+    // Build query to get configuration info with parser details
+    printfPQExpBuffer(&buf,
+        "SELECT c.oid, c.cfgname, n.nspname, p.prsname, np.nspname AS pnspname "
+        "FROM pg_catalog.pg_ts_config c "
+        "LEFT JOIN pg_catalog.pg_namespace n ON n.oid = c.cfgnamespace, "
+        "pg_catalog.pg_ts_parser p "
+        "LEFT JOIN pg_catalog.pg_namespace np ON np.oid = p.prsnamespace "
+        "WHERE p.oid = c.cfgparser");
+
+    // Validate and add pattern matching
+    if (!validateSQLNamePattern(&buf, pattern, true, false,
+                               "n.nspname", "c.cfgname", NULL,
+                               "pg_catalog.pg_ts_config_is_visible(c.oid)",
+                               NULL, 3)) {
+        termPQExpBuffer(&buf);
+        return false;
+    }
+
+    // Add ordering
+    appendPQExpBufferStr(&buf, " ORDER BY 3, 2;");
+
+    // Execute query
+    res = PSQLexec(buf.data);
+    termPQExpBuffer(&buf);
+    if (!res) return false;
+
+    // Check if any configurations found
+    if (PQntuples(res) == 0) {
+        if (!pset.quiet) {
+            if (pattern) {
+                pg_log_error("Did not find any text search configuration named \"%s\".", pattern);
+            } else {
+                pg_log_error("Did not find any text search configurations.");
+            }
+        }
+        PQclear(res);
+        return false;
+    }
+
+    // Describe each configuration in detail
+    for (int i = 0; i < PQntuples(res); i++) {
+        const char *oid = PQgetvalue(res, i, 0);
+        const char *cfgname = PQgetvalue(res, i, 1);
+        const char *nspname = PQgetisnull(res, i, 2) ? NULL : PQgetvalue(res, i, 2);
+        const char *prsname = PQgetvalue(res, i, 3);
+        const char *pnspname = PQgetisnull(res, i, 4) ? NULL : PQgetvalue(res, i, 4);
+
+        // Show detailed configuration information
+        if (!describeOneTSConfig(oid, nspname, cfgname, pnspname, prsname)) {
+            PQclear(res);
+            return false;
+        }
+
+        // Check for user cancellation
+        if (cancel_pressed) {
+            PQclear(res);
+            return false;
+        }
+    }
+
+    PQclear(res);
+    return true;
+}
+```

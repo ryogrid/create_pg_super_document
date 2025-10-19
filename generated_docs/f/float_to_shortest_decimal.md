@@ -35,3 +35,17 @@ The function abstracts away buffer management concerns and provides a simple int
 - The returned string is always null-terminated and ready for use with standard C string functions
 - Memory allocation size is exactly FLOAT_SHORTEST_DECIMAL_LEN bytes, no waste
 - Caller responsibility to free the returned pointer to avoid memory leaks
+
+## Simplified Source
+
+```c
+char *float_to_shortest_decimal(float f) {
+    // Allocate memory for the decimal string representation
+    char *result = (char *) palloc(FLOAT_SHORTEST_DECIMAL_LEN);
+
+    // Convert float to decimal string and store in allocated buffer
+    float_to_shortest_decimal_buf(f, result);
+
+    return result;  // Caller must free this memory
+}
+```

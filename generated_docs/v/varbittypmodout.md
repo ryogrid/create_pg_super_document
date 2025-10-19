@@ -39,3 +39,14 @@ The function takes the internal type modifier value (which represents the maximu
 - Used primarily for display purposes in system catalogs, error messages, and type descriptions
 - Returns formatted string like "(10)" for VARBIT(10) or empty string if no modifier specified
 - Located in src/backend/utils/adt/varbit.c:782-787
+
+## Simplified Source
+
+```c
+Datum varbittypmodout(PG_FUNCTION_ARGS) {
+    int32 typmod = PG_GETARG_INT32(0);
+
+    // Delegate to common bit type modifier formatting function
+    PG_RETURN_CSTRING(anybit_typmodout(typmod));
+}
+```

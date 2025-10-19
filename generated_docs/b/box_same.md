@@ -39,3 +39,18 @@ The function is part of PostgreSQL's relational operator system for BOX types an
 - Frequently used in PostgreSQL's indexing systems (GiST and SP-GiST) for geometric data
 - Returns boolean result suitable for SQL equality expressions (BOX '...' = BOX '...')
 - Located in geo_ops.c alongside other geometric comparison functions
+
+## Simplified Source
+
+```c
+Datum
+box_same(PG_FUNCTION_ARGS)
+{
+    BOX *box1 = PG_GETARG_BOX_P(0);
+    BOX *box2 = PG_GETARG_BOX_P(1);
+
+    // Check if both corner points are exactly equal
+    PG_RETURN_BOOL(point_eq_point(&box1->high, &box2->high) &&
+                   point_eq_point(&box1->low, &box2->low));
+}
+```

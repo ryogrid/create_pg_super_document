@@ -47,3 +47,51 @@ The function ensures that no postmaster processes interfere with the upgrade pro
 - Implements sophisticated postmaster.pid handling to distinguish between running servers and stale files
 - WAL replay consideration: allows recovery of committed transactions during stale pid file cleanup
 - Essential safety mechanism preventing data corruption during upgrades
+
+## Simplified Source
+
+```c
+static void setup(char *argv0, bool *live_check) {
+    // Validate environment to prevent libpq connection issues
+    check_pghost_envvar();
+
+    // Set default binary directory if not specified by user
+    if (!new_cluster.bindir) {
+        char exec_path[MAXPGPATH];
+
+        if (find_my_exec(argv0, exec_path) < 0)
+            pg_fatal("could not find own program executable");
+
+        // Extract directory path from executable
+        *last_dir_separator(exec_path) = '\0';
+        canonicalize_path(exec_path);
+        new_cluster.bindir = pg_strdup(exec_path);
+    }
+
+    // Verify required directories exist
+    verify_directories();
+
+    // Check for running postmaster on old cluster
+    if (pid_lock_file_exists(old_cluster.pgdata)) {
+        if (start_postmaster(&old_cluster, false)) {
+            // Pid file was stale, clean shutdown
+            stop_postmaster(false);
+        } else {
+            // Server is actually running
+            if (!user_opts.check)
+                pg_fatal("postmaster servicing old cluster, please shutdown");
+            else
+                *live_check = true;  // Allow live check mode
+        }
+    }
+
+    // Check for running postmaster on new cluster
+    if (pid_lock_file_exists(new_cluster.pgdata)) {
+        if (start_postmaster(&new_cluster, false)) {
+            stop_postmaster(false);  // Clean up stale process
+        } else {
+            pg_fatal("postmaster servicing new cluster, please shutdown");
+        }
+    }
+}
+```

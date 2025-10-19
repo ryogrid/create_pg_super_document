@@ -42,3 +42,84 @@ After handling the kind-specific information, the function serializes the common
 - The  field typically contains the operator or function name associated with the expression
 - Location information is preserved for error reporting and debugging purposes
 - Part of PostgreSQL's parse tree serialization system, useful for debugging parser output and plan analysis
+
+## Simplified Source
+
+```c
+static void
+_outA_Expr(StringInfo str, const A_Expr *node)
+{
+    // Write node type identifier
+    WRITE_NODE_TYPE("A_EXPR");
+
+    // Handle different expression kinds with descriptive tags
+    switch (node->kind) {
+        case AEXPR_OP:
+            // Simple operator (no special tag)
+            WRITE_NODE_FIELD(name);
+            break;
+
+        case AEXPR_OP_ANY:
+        case AEXPR_OP_ALL:
+            // Subquery operators: ANY/ALL
+            appendStringInfoString(str, node->kind == AEXPR_OP_ANY ? " ANY" : " ALL");
+            WRITE_NODE_FIELD(name);
+            break;
+
+        case AEXPR_DISTINCT:
+        case AEXPR_NOT_DISTINCT:
+            // Distinctness operators
+            appendStringInfoString(str, node->kind == AEXPR_DISTINCT ? " DISTINCT" : " NOT_DISTINCT");
+            WRITE_NODE_FIELD(name);
+            break;
+
+        case AEXPR_LIKE:
+        case AEXPR_ILIKE:
+        case AEXPR_SIMILAR:
+            // Pattern matching operators
+            appendStringInfoString(str,
+                node->kind == AEXPR_LIKE ? " LIKE" :
+                node->kind == AEXPR_ILIKE ? " ILIKE" : " SIMILAR");
+            WRITE_NODE_FIELD(name);
+            break;
+
+        case AEXPR_BETWEEN:
+        case AEXPR_NOT_BETWEEN:
+        case AEXPR_BETWEEN_SYM:
+        case AEXPR_NOT_BETWEEN_SYM:
+            // BETWEEN operators (with symmetric variants)
+            appendStringInfoString(str,
+                node->kind == AEXPR_BETWEEN ? " BETWEEN" :
+                node->kind == AEXPR_NOT_BETWEEN ? " NOT_BETWEEN" :
+                node->kind == AEXPR_BETWEEN_SYM ? " BETWEEN_SYM" : " NOT_BETWEEN_SYM");
+            WRITE_NODE_FIELD(name);
+            break;
+
+        case AEXPR_NULLIF:
+            appendStringInfoString(str, " NULLIF");
+            WRITE_NODE_FIELD(name);
+            break;
+
+        case AEXPR_IN:
+            appendStringInfoString(str, " IN");
+            WRITE_NODE_FIELD(name);
+            break;
+
+        default:
+            elog(ERROR, "unrecognized A_Expr_Kind: %d", (int) node->kind);
+    }
+
+    // Write expression operands and location
+    WRITE_NODE_FIELD(lexpr);    // Left expression
+    WRITE_NODE_FIELD(rexpr);    // Right expression
+    WRITE_LOCATION_FIELD(location);  // Source location for errors
+}
+```
+
+**Key Simplifications:**
+- Grouped similar expression kinds using conditional logic instead of separate cases
+- Added descriptive comments explaining expression categories
+- Consolidated repetitive patterns while preserving all 14 expression types
+- Maintained error handling for unknown expression kinds
+- Preserved essential operator name and operand serialization
+- Reduced from ~70 lines to ~45 lines while keeping all functionality

@@ -59,3 +59,52 @@ The function integrates pattern processing with safety checks to prevent common 
 - Returns false on validation failure and true on success
 - The maxparts parameter varies depending on the type of object being described (1 for simple names, 2 for schema.name, 3 for database.schema.name)
 - Essential for maintaining the security and robustness of psql's pattern matching capabilities
+
+## Simplified Source
+
+```c
+static bool validateSQLNamePattern(PQExpBuffer buf, const char *pattern, bool have_where,
+                                   bool force_escape, const char *schemavar,
+                                   const char *namevar, const char *altnamevar,
+                                   const char *visibilityrule, bool *added_clause,
+                                   int maxparts) {
+    PQExpBufferData dbbuf;
+    int dotcnt;
+    bool added;
+
+    // Process the SQL name pattern
+    initPQExpBuffer(&dbbuf);
+    added = processSQLNamePattern(pset.db, buf, pattern, have_where, force_escape,
+                                  schemavar, namevar, altnamevar,
+                                  visibilityrule, &dbbuf, &dotcnt);
+    if (added_clause != NULL)
+        *added_clause = added;
+
+    // Validate dot count doesn't exceed maximum allowed parts
+    if (dotcnt >= maxparts) {
+        pg_log_error("improper qualified name (too many dotted names): %s",
+                     pattern);
+        goto error_return;
+    }
+
+    // Check for cross-database references
+    if (maxparts > 1 && dotcnt == maxparts - 1) {
+        if (PQdb(pset.db) == NULL) {
+            pg_log_error("You are currently not connected to a database.");
+            goto error_return;
+        }
+        if (strcmp(PQdb(pset.db), dbbuf.data) != 0) {
+            pg_log_error("cross-database references are not implemented: %s",
+                         pattern);
+            goto error_return;
+        }
+    }
+
+    termPQExpBuffer(&dbbuf);
+    return true;
+
+error_return:
+    termPQExpBuffer(&dbbuf);
+    return false;
+}
+```

@@ -43,3 +43,47 @@ The function implements several heuristics:
 - Integrates with GNU Readline library features like rl_completion_suppress_quote
 - Handles complex edge cases around quote management that arise in interactive shell environments
 - Part of a larger filename completion system that includes dequote_file_name for the reverse operation
+
+## Simplified Source
+
+```c
+static char *
+quote_file_name(char *fname, int match_type, char *quote_pointer)
+{
+    char *s;
+    struct stat statbuf;
+
+    // Apply SQL-style quoting if needed
+    s = quote_if_needed(fname, " \t\r\n\"`",
+                        '\'', *completion_charp,
+                        completion_force_quote,
+                        pset.encoding);
+    if (!s)
+        s = pg_strdup(fname);
+
+    // Strip trailing quote in specific cases:
+    // - User didn't type a quote AND (multiple matches OR already quoted OR file doesn't exist OR is directory)
+    if (*s == '\'' &&
+        completion_last_char != '\'' &&
+        (match_type != SINGLE_MATCH ||
+         (quote_pointer && *quote_pointer == '\'') ||
+         stat(fname, &statbuf) != 0 ||
+         S_ISDIR(statbuf.st_mode))) {
+        char *send = s + strlen(s) - 1;
+
+        Assert(*send == '\'');
+        *send = '\0';
+    }
+
+    // Let Readline handle additional quote management
+    #ifdef HAVE_RL_COMPLETION_SUPPRESS_QUOTE
+    rl_completion_suppress_quote = 0;
+    #endif
+
+    // Replace non-single-quote with proper single quote
+    if (quote_pointer && *quote_pointer != '\'')
+        *quote_pointer = '\0';
+
+    return s;
+}
+```

@@ -36,3 +36,28 @@ The function properly handles IEEE 754 floating-point special cases, particularl
 -  handles NaN values specially: returns true if one operand is NaN and the other is not, or if both are regular numbers and not equal
 - Part of PostgreSQL's arithmetic data type operators system
 - Used internally by the SQL parser and executor when processing float4 not-equal operations
+
+## Simplified Source
+
+```c
+Datum
+float4ne(PG_FUNCTION_ARGS)
+{
+    // Extract two float4 arguments from function call
+    float4 arg1 = PG_GETARG_FLOAT4(0);
+    float4 arg2 = PG_GETARG_FLOAT4(1);
+
+    // Perform NaN-aware not-equal comparison
+    // NaN != NaN returns false (PostgreSQL convention, NaNs are equal)
+    // NaN != non-NaN returns true
+    // For non-NaN values, use standard inequality
+    bool result;
+    if (isnan(arg1)) {
+        result = !isnan(arg2);  // True if only arg1 is NaN
+    } else {
+        result = isnan(arg2) || arg1 != arg2;  // True if arg2 is NaN or values differ
+    }
+
+    PG_RETURN_BOOL(result);
+}
+```

@@ -33,3 +33,25 @@ The function first checks the morphological context (z->I[0] <= 2). Then it temp
 - Uses temporary cursor manipulation (m1 = z->l - z->c) to safely check the preceding character
 - The '-i' suffix in Indonesian can be a verbal suffix, and its removal must follow specific phonological rules
 - The function uses goto/label for efficient backtracking when the character check fails
+
+## Simplified Source
+
+```c
+static int r_SUFFIX_I_OK(struct SN_env * z) {
+    // Check morphological validity: z->I[0] must be <= 2
+    if (z->I[0] > 2) return 0;
+
+    // Save current position
+    int saved_pos = z->l - z->c;
+
+    // Check if preceding character is 's' - if so, reject
+    if (z->c > z->lb && z->p[z->c - 1] == 's') {
+        z->c = z->l - saved_pos; // restore position
+        return 0;
+    }
+
+    // Restore position and allow -i suffix removal
+    z->c = z->l - saved_pos;
+    return 1;
+}
+```

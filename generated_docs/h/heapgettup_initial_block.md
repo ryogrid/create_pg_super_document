@@ -35,3 +35,37 @@ This function calculates the appropriate initial block number for heap scanning 
 - Returns InvalidBlockNumber for empty tables or when no blocks are available
 - Implements proper wraparound logic for backward scans that don't start from block 0
 - Critical component of heap scan initialization that determines the scan's starting point
+
+## Simplified Source
+
+```c
+static pg_noinline BlockNumber heapgettup_initial_block(HeapScanDesc scan, ScanDirection dir) {
+    Assert(!scan->rs_inited);
+    Assert(scan->rs_base.rs_parallel == NULL);
+
+    // Return invalid block for empty tables or no blocks to scan
+    if (scan->rs_nblocks == 0 || scan->rs_numblocks == 0) {
+        return InvalidBlockNumber;
+    }
+
+    if (ScanDirectionIsForward(dir)) {
+        // Forward scan: start from configured start block
+        return scan->rs_startblock;
+    } else {
+        // Backward scan: disable sync scanning for efficiency
+        scan->rs_base.rs_flags &= ~SO_ALLOW_SYNC;
+
+        // Calculate last block considering scan limits
+        if (scan->rs_numblocks != InvalidBlockNumber) {
+            return (scan->rs_startblock + scan->rs_numblocks - 1) % scan->rs_nblocks;
+        }
+
+        // Handle wraparound for scans not starting from block 0
+        if (scan->rs_startblock > 0) {
+            return scan->rs_startblock - 1;
+        }
+
+        return scan->rs_nblocks - 1;
+    }
+}
+```

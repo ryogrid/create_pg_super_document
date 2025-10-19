@@ -44,3 +44,43 @@ This function writes a specified buffer to a target file at a given offset. It p
 - Critical for applying file differences during PostgreSQL data directory synchronization
 - Maintains file position for subsequent writes without reopening
 - Essential component of pg_rewind's block-level file copying mechanism
+
+## Simplified Source
+
+```c
+void write_target_range(char *buf, off_t begin, size_t size) {
+    // Update progress tracking
+    fetch_done += size;
+    progress_report(false);
+
+    // Skip actual writing in dry-run mode
+    if (dry_run)
+        return;
+
+    // Seek to the target position in file
+    if (lseek(dstfd, begin, SEEK_SET) == -1)
+        pg_fatal("could not seek in target file \"%s\": %m", dstpath);
+
+    // Write data with retry logic for partial writes
+    size_t bytes_remaining = size;
+    char *current_pos = buf;
+
+    while (bytes_remaining > 0) {
+        errno = 0;
+        ssize_t bytes_written = write(dstfd, current_pos, bytes_remaining);
+
+        if (bytes_written < 0) {
+            // Default to no disk space error if write didn't set errno
+            if (errno == 0)
+                errno = ENOSPC;
+            pg_fatal("could not write file \"%s\": %m", dstpath);
+        }
+
+        // Advance position and reduce remaining bytes
+        current_pos += bytes_written;
+        bytes_remaining -= bytes_written;
+    }
+
+    // Keep file open for subsequent operations
+}
+```

@@ -38,3 +38,24 @@ The function returns a FILE pointer that can be used by the calling code to writ
 - Error handling provides clear diagnostic messages through PostgreSQL's  mechanism
 - The function creates new files or truncates existing files with the same name
 - Located in src/bin/pg_basebackup/bbstreamer_file.c:355-377
+
+## Simplified Source
+
+```c
+static FILE *
+create_file_for_extract(const char *filename, mode_t mode)
+{
+    // Open file for binary writing
+    FILE *file = fopen(filename, "wb");
+    if (file == NULL)
+        pg_fatal("could not create file \"%s\": %m", filename);
+
+    // Set file permissions (except on Windows)
+#ifndef WIN32
+    if (chmod(filename, mode))
+        pg_fatal("could not set permissions on file \"%s\": %m", filename);
+#endif
+
+    return file;
+}
+```

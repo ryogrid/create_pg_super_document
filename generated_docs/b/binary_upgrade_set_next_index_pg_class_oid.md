@@ -41,3 +41,20 @@ The function can only be called when the server is running in binary upgrade mod
 - After the OID is used for index creation, the global variable is reset to InvalidOid
 - This mechanism ensures that indexes maintain their original OIDs from the source cluster in the upgraded cluster
 - Works in conjunction with similar functions for heap tables and toast tables to provide comprehensive OID preservation
+
+## Simplified Source
+
+```c
+Datum binary_upgrade_set_next_index_pg_class_oid(PG_FUNCTION_ARGS)
+{
+    Oid reloid = PG_GETARG_OID(0);
+
+    // Verify we're in binary upgrade mode
+    CHECK_IS_BINARY_UPGRADE;
+
+    // Store the OID for the next index to be created
+    binary_upgrade_next_index_pg_class_oid = reloid;
+
+    PG_RETURN_VOID();
+}
+```

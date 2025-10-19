@@ -46,3 +46,31 @@ The sophisticated character checking mechanism uses bitwise operations to effici
 - The bitwise character validation (using constant 10768) efficiently filters for valid ending characters
 - Region checking ensures morphologically appropriate suffix removal
 - The extensive pattern set and complex character checking reflect the rich morphological complexity of Hungarian plural possessive forms
+
+## Simplified Source
+
+```c
+static int r_plur_owner(struct SN_env * z) {
+    // Set end position and validate character using bitwise check
+    z->ket = z->c;
+    if (z->c <= z->lb || z->p[z->c - 1] >> 5 != 3 ||
+        !((10768 >> (z->p[z->c - 1] & 0x1f)) & 1)) return 0;
+
+    // Find matching plural possessor suffix pattern from 42 patterns
+    int among_var = find_among_b(z, a_11, 42);
+    if (!among_var) return 0;
+
+    // Set start position and verify in R1 region
+    z->bra = z->c;
+    if (r_R1(z) <= 0) return 0;
+
+    // Apply transformation based on pattern type
+    switch (among_var) {
+        case 1: slice_del(z); break;              // Delete suffix
+        case 2: slice_from_s(z, 1, s_12); break; // Replace with s_12
+        case 3: slice_from_s(z, 1, s_13); break; // Replace with s_13
+    }
+
+    return 1;
+}
+```

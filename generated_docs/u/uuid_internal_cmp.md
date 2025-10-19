@@ -35,3 +35,15 @@ This is a static internal helper function that provides the core comparison logi
 
 ## Notes and Other Information
 This function is marked as static and is only used internally within the uuid.c module. All public UUID comparison functions delegate to this internal implementation, ensuring consistent comparison semantics across all UUID operations. The lexicographic byte comparison means that UUID ordering is based purely on the binary representation, not on any semantic interpretation of UUID structure or version.
+
+## Simplified Source
+
+```c
+static int
+uuid_internal_cmp(const pg_uuid_t *arg1, const pg_uuid_t *arg2)
+{
+    // Compare UUIDs byte-wise using standard library function
+    // Returns: <0 if arg1 < arg2, 0 if equal, >0 if arg1 > arg2
+    return memcmp(arg1->data, arg2->data, UUID_LEN);
+}
+```

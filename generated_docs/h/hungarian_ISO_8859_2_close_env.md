@@ -31,3 +31,12 @@ The function calls SN_close_env(z, 0), where the second parameter (0) correspond
 - The function handles NULL pointers safely (via SN_close_env implementation)
 - Part of the Snowball stemming library's language-specific API
 - Located in src/backend/snowball/libstemmer/stem_ISO_8859_2_hungarian.c:861
+
+## Simplified Source
+
+```c
+extern void hungarian_ISO_8859_2_close_env(struct SN_env * z) {
+    // Clean up Snowball environment - 0 string arrays to deallocate
+    SN_close_env(z, 0);
+}
+```

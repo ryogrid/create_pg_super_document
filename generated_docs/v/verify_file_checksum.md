@@ -54,3 +54,83 @@ The verification process includes multiple validation checkpoints:
 - The function handles both I/O errors and checksum computation errors gracefully
 - Memory management is handled by the caller (buffer allocation/deallocation)
 - File descriptors are properly closed in all code paths, including error conditions
+
+## Simplified Source
+
+```c
+static void
+verify_file_checksum(verifier_context *context, manifest_file *m,
+                     char *fullpath, uint8 *buffer)
+{
+    pg_checksum_context checksum_ctx;
+    const char *relpath = m->pathname;
+    int fd;
+    int rc;
+    size_t bytes_read = 0;
+    uint8 checksumbuf[PG_CHECKSUM_MAX_LENGTH];
+    int checksumlen;
+
+    // Open file for reading
+    if ((fd = open(fullpath, O_RDONLY | PG_BINARY, 0)) < 0) {
+        report_backup_error(context, "could not open file \"%s\": %m", relpath);
+        return;
+    }
+
+    // Initialize checksum computation
+    if (pg_checksum_init(&checksum_ctx, m->checksum_type) < 0) {
+        report_backup_error(context, "could not initialize checksum of file \"%s\"", relpath);
+        close(fd);
+        return;
+    }
+
+    // Read file in chunks and update checksum
+    while ((rc = read(fd, buffer, READ_CHUNK_SIZE)) > 0) {
+        bytes_read += rc;
+        if (pg_checksum_update(&checksum_ctx, buffer, rc) < 0) {
+            report_backup_error(context, "could not update checksum of file \"%s\"", relpath);
+            close(fd);
+            return;
+        }
+
+        // Update progress
+        done_size += rc;
+        progress_report(false);
+    }
+
+    if (rc < 0)
+        report_backup_error(context, "could not read file \"%s\": %m", relpath);
+
+    // Close file
+    if (close(fd) != 0) {
+        report_backup_error(context, "could not close file \"%s\": %m", relpath);
+        return;
+    }
+
+    // Check for read errors
+    if (rc < 0)
+        return;
+
+    // Verify file size matches manifest
+    if (bytes_read != m->size) {
+        report_backup_error(context,
+                           "file \"%s\" should contain %zu bytes, but read %zu bytes",
+                           relpath, m->size, bytes_read);
+        return;
+    }
+
+    // Finalize checksum computation
+    checksumlen = pg_checksum_final(&checksum_ctx, checksumbuf);
+    if (checksumlen < 0) {
+        report_backup_error(context, "could not finalize checksum of file \"%s\"", relpath);
+        return;
+    }
+
+    // Compare checksum with manifest
+    if (checksumlen != m->checksum_length)
+        report_backup_error(context,
+                           "file \"%s\" has checksum of length %d, but expected %d",
+                           relpath, m->checksum_length, checksumlen);
+    else if (memcmp(checksumbuf, m->checksum_payload, checksumlen) != 0)
+        report_backup_error(context, "checksum mismatch for file \"%s\"", relpath);
+}
+```

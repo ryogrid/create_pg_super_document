@@ -61,3 +61,88 @@ The function operates in-place and can completely eliminate arrays from a scan i
 - When arrays are removed due to single-element optimization, remaining arrays are shifted forward in the BTArrayKeyInfo array
 - For parallel scans, the function enforces a limit on the number of array keys to prevent excessive shared memory usage
 - The optimization of converting single-element arrays to non-array keys is purely for performance and not required for correctness
+
+## Simplified Source
+
+```c
+static void _bt_preprocess_array_keys_final(IndexScanDesc scan, int *keyDataMap)
+{
+    BTScanOpaque so = (BTScanOpaque) scan->opaque;
+    Relation rel = scan->indexRelation;
+    int arrayidx = 0;
+
+    // Early exit if no array keys to process
+    if (so->numArrayKeys == 0)
+        return;
+
+    // Process each output equality scan key
+    for (int output_ikey = 0; output_ikey < so->numberOfKeys; output_ikey++)
+    {
+        ScanKey outkey = so->keyData + output_ikey;
+        int input_ikey;
+
+        // Skip non-equality strategies
+        if (outkey->sk_strategy != BTEqualStrategyNumber)
+            continue;
+
+        input_ikey = keyDataMap[output_ikey];
+
+        // Handle non-array keys: set up ORDER procedures
+        if (!(outkey->sk_flags & SK_SEARCHARRAY))
+        {
+            // Skip NULL searches and non-required keys
+            if ((outkey->sk_flags & SK_SEARCHNULL) ||
+                !(outkey->sk_flags & SK_BT_REQFWD))
+                continue;
+
+            // Set up ORDER procedure for comparison
+            Oid elemtype = outkey->sk_subtype;
+            if (elemtype == InvalidOid)
+                elemtype = rel->rd_opcintype[outkey->sk_attno - 1];
+
+            _bt_setup_array_cmp(scan, outkey, elemtype,
+                               &so->orderProcs[output_ikey], NULL);
+            continue;
+        }
+
+        // Handle array keys: reposition ORDER procedures
+        so->orderProcs[output_ikey] = so->orderProcs[input_ikey];
+
+        // Update array scan key references
+        for (; arrayidx < so->numArrayKeys; arrayidx++)
+        {
+            BTArrayKeyInfo *array = &so->arrayKeys[arrayidx];
+
+            if (array->scan_key == input_ikey)
+            {
+                array->scan_key = output_ikey;
+
+                // Optimize single-element arrays to non-array keys
+                if (array->num_elems == 1)
+                {
+                    outkey->sk_flags &= ~SK_SEARCHARRAY;
+                    outkey->sk_argument = array->elem_values[0];
+                    so->numArrayKeys--;
+
+                    if (so->numArrayKeys == 0)
+                        return;
+
+                    // Shift remaining arrays forward
+                    memmove(array, array + 1,
+                           sizeof(BTArrayKeyInfo) * (so->numArrayKeys - arrayidx));
+                }
+                else
+                {
+                    arrayidx++;
+                }
+                break;
+            }
+        }
+    }
+
+    // Check parallel scan limits
+    if (scan->parallel_scan && so->numArrayKeys > INDEX_MAX_KEYS)
+        ereport(ERROR, (errcode(ERRCODE_PROGRAM_LIMIT_EXCEEDED),
+                       errmsg_internal("too many array scan keys for parallel btree scan")));
+}
+```

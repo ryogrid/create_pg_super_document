@@ -32,3 +32,16 @@ The decision to never abort is based on the effectiveness of Z-order abbreviatio
 - Part of PostgreSQL's sort support callback interface
 - Static function, only used internally within gistproc.c
 - Complements gist_bbox_zorder_abbrev_convert in the abbreviation framework
+
+## Simplified Source
+
+```c
+static bool
+gist_bbox_zorder_abbrev_abort(int memtupcount, SortSupport ssup)
+{
+    // Never abort Z-order abbreviation
+    // On 64-bit systems: abbreviation is lossless, always beneficial
+    // On 32-bit systems: simplified approach, maintain abbreviation regardless
+    return false;
+}
+```

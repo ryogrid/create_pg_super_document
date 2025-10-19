@@ -40,3 +40,12 @@ However, the implementation has a known limitation: it is not safe for applicati
 - The design may be deprecated in future versions as indicated by comments suggesting eventual removal of fmtId()
 - Critical for proper handling of non-ASCII characters in database identifiers
 - Should be called once per database connection to set the appropriate encoding for that session
+
+## Simplified Source
+
+```c
+void setFmtEncoding(int encoding) {
+    // Set global encoding for identifier formatting functions
+    fmtIdEncoding = encoding;
+}
+```

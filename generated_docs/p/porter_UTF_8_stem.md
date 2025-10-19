@@ -52,3 +52,56 @@ The algorithm ensures proper morphological analysis by respecting region boundar
 - Uses integer variables I[0], I[1], I[2] for region boundaries and state tracking
 - Part of the Snowball stemming library integrated into PostgreSQL for text search functionality
 - File location: src/backend/snowball/libstemmer/stem_UTF_8_porter.c:564-719
+
+## Simplified Source
+
+```c
+extern int porter_UTF_8_stem(struct SN_env * z) {
+    // Initialize state tracking
+    z->I[2] = 0;
+
+    // Step 1: Convert initial 'y' to 'Y' if present
+    if (z->c < z->l && z->p[z->c] == 'y') {
+        slice_from_s(z, 1, s_21);  // Replace 'y' with 'Y'
+        z->I[2] = 1;  // Mark Y conversion occurred
+    }
+
+    // Step 2: Convert vowel-adjacent 'y' to 'Y' throughout word
+    while (/* find vowel followed by 'y' */) {
+        slice_from_s(z, 1, s_22);  // Replace 'y' with 'Y'
+        z->I[2] = 1;
+    }
+
+    // Step 3: Identify R1 and R2 regions for morphological boundaries
+    z->I[1] = z->l;  // R1 start (default to end)
+    z->I[0] = z->l;  // R2 start (default to end)
+
+    // Find first vowel-consonant boundary for R1
+    // Find second vowel-consonant boundary for R2
+    find_regions(z);
+
+    // Step 4: Apply Porter algorithm steps sequentially
+    z->lb = z->c;
+    z->c = z->l;  // Start from end of word
+
+    // Execute the main Porter stemming steps
+    r_Step_1a(z);  // Handle plurals, past participles
+    r_Step_1b(z);  // Handle verb forms, double consonants
+    r_Step_1c(z);  // Replace terminal 'y' with 'i'
+    r_Step_2(z);   // Remove derivational suffixes
+    r_Step_3(z);   // Remove additional suffixes
+    r_Step_4(z);   // Remove common suffixes in R2
+    r_Step_5a(z);  // Remove terminal 'e'
+    r_Step_5b(z);  // Remove double 'l'
+
+    // Step 5: Convert remaining 'Y' back to 'y' if any conversions occurred
+    z->c = z->lb;
+    if (z->I[2]) {  // If Y conversions were made
+        while (/* find 'Y' characters */) {
+            slice_from_s(z, 1, s_23);  // Replace 'Y' with 'y'
+        }
+    }
+
+    return 1;  // Success
+}
+```

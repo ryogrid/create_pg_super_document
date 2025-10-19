@@ -38,3 +38,82 @@ This function generates HTML output in vertical format, displaying table data as
 - Includes cancellation support during processing
 - Uses same alignment settings as horizontal mode for data values
 - Footers are rendered as paragraph elements when table processing completes
+
+## Simplified Source
+
+```c
+static void
+print_html_vertical(const printTableContent *cont, FILE *fout)
+{
+    // Extract options for easier access
+    bool opt_tuples_only = cont->opt->tuples_only;
+    unsigned short opt_border = cont->opt->border;
+    const char *opt_table_attr = cont->opt->tableAttr;
+    unsigned long record = cont->opt->prior_records + 1;
+
+    if (cancel_pressed)
+        return;
+
+    // Start table if needed
+    if (cont->opt->start_table) {
+        // Print opening table tag with border and attributes
+        fprintf(fout, "<table border=\"%d\"", opt_border);
+        if (opt_table_attr)
+            fprintf(fout, " %s", opt_table_attr);
+        fputs(">\n", fout);
+
+        // Add title as caption
+        if (!opt_tuples_only && cont->title) {
+            fputs("  <caption>", fout);
+            html_escaped_print(cont->title, fout);
+            fputs("</caption>\n", fout);
+        }
+    }
+
+    // Print records vertically (each field becomes a row)
+    for (unsigned int i = 0, const char *const *ptr = cont->cells; *ptr; i++, ptr++) {
+        // Start new record separator
+        if (i % cont->ncolumns == 0) {
+            if (cancel_pressed) break;
+
+            if (!opt_tuples_only)
+                fprintf(fout, "\n  <tr><td colspan=\"2\" align=\"center\">Record %lu</td></tr>\n", record++);
+            else
+                fputs("\n  <tr><td colspan=\"2\">&nbsp;</td></tr>\n", fout);
+        }
+
+        // Print field name and value as separate table row
+        fputs("  <tr valign=\"top\">\n    <th>", fout);
+        html_escaped_print(cont->headers[i % cont->ncolumns], fout);
+        fputs("</th>\n", fout);
+
+        // Print data cell with alignment
+        const char *align = (cont->aligns[i % cont->ncolumns] == 'r') ? "right" : "left";
+        fprintf(fout, "    <td align=\"%s\">", align);
+
+        // Handle empty cells with non-breaking space
+        if ((*ptr)[strspn(*ptr, " \t")] == '\0')
+            fputs("&nbsp; ", fout);
+        else
+            html_escaped_print(*ptr, fout);
+
+        fputs("</td>\n  </tr>\n", fout);
+    }
+
+    // Close table and add footers
+    if (cont->opt->stop_table) {
+        fputs("</table>\n", fout);
+
+        // Print footers as paragraph
+        if (!opt_tuples_only && cont->footers && !cancel_pressed) {
+            fputs("<p>", fout);
+            for (printTableFooter *f = cont->footers; f; f = f->next) {
+                html_escaped_print(f->data, fout);
+                fputs("<br />\n", fout);
+            }
+            fputs("</p>", fout);
+        }
+        fputc('\n', fout);
+    }
+}
+```

@@ -32,7 +32,20 @@ The comparison is performed by comparing the high-order bits first, then the low
 
 ## Notes and Other Information
 - This function is part of PostgreSQL's MAC address data type implementation
-- It follows the standard PostgreSQL function calling conventions using 
+- It follows the standard PostgreSQL function calling conventions using
 - The actual comparison logic is delegated to  which compares high and low order bits sequentially
 - Used internally by PostgreSQL's operator system to support the '>' operator for MAC addresses
-- Located in 
+- Located in
+
+## Simplified Source
+
+```c
+Datum macaddr_gt(PG_FUNCTION_ARGS) {
+    // Extract MAC address arguments
+    macaddr *a1 = PG_GETARG_MACADDR_P(0);
+    macaddr *a2 = PG_GETARG_MACADDR_P(1);
+
+    // Compare MAC addresses and return true if first > second
+    PG_RETURN_BOOL(macaddr_cmp_internal(a1, a2) > 0);
+}
+``` 

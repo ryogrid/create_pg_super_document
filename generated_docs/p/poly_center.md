@@ -33,3 +33,24 @@ The `poly_center` function calculates the center point of a polygon by utilizing
 - The function leverages existing polygon-to-circle conversion logic rather than implementing center calculation directly
 - This method ensures consistency with other geometric operations that work with circles
 - Located in src/backend/utils/adt/geo_ops.c:4503-4518
+
+## Simplified Source
+
+```c
+Datum
+poly_center(PG_FUNCTION_ARGS)
+{
+    POLYGON *poly = PG_GETARG_POLYGON_P(0);
+    Point *result;
+    CIRCLE circle;
+
+    // Allocate memory for result point
+    result = (Point *) palloc(sizeof(Point));
+
+    // Convert polygon to equivalent circle and extract center
+    poly_to_circle(&circle, poly);
+    *result = circle.center;
+
+    PG_RETURN_POINT_P(result);
+}
+```

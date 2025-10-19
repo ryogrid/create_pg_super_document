@@ -42,3 +42,34 @@ The function uses PostgreSQL's function call interface macros to extract argumen
 - Implements safe integer division with proper edge case handling
 - The function follows PostgreSQL's naming convention where 'int8' refers to 64-bit integers and '2' refers to 16-bit integers
 - No overflow is possible for normal division cases due to the smaller divisor size
+
+## Simplified Source
+
+```c
+Datum
+int82div(PG_FUNCTION_ARGS)
+{
+    // Extract 64-bit dividend and 16-bit divisor
+    int64 arg1 = PG_GETARG_INT64(0);
+    int16 arg2 = PG_GETARG_INT16(1);
+
+    // Check for division by zero
+    if (unlikely(arg2 == 0)) {
+        ereport(ERROR, (errcode(ERRCODE_DIVISION_BY_ZERO),
+                       errmsg("division by zero")));
+        PG_RETURN_NULL();
+    }
+
+    // Handle INT64_MIN / -1 overflow case
+    if (arg2 == -1) {
+        if (unlikely(arg1 == PG_INT64_MIN))
+            ereport(ERROR, (errcode(ERRCODE_NUMERIC_VALUE_OUT_OF_RANGE),
+                           errmsg("bigint out of range")));
+        PG_RETURN_INT64(-arg1);  // Division by -1 is negation
+    }
+
+    // Perform standard division (no overflow possible)
+    int64 result = arg1 / arg2;
+    PG_RETURN_INT64(result);
+}
+```

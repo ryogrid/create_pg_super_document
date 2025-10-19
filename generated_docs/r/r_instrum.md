@@ -41,3 +41,31 @@ The function follows the standard Hungarian stemming rules where instrumental ca
 - This function specifically handles the Hungarian instrumental case, which is formed by adding '-val/-vel' suffixes that can appear as '-al/-el' after certain consonants
 - The function returns 1 on successful processing, 0 if conditions aren't met, and negative values on errors
 - The instrumental case removal is part of the broader Hungarian morphological analysis in PostgreSQL's full-text search capabilities
+
+## Simplified Source
+
+```c
+static int r_instrum(struct SN_env * z) {
+    // Set end marker and check for 'l' character (instrumental case marker)
+    z->ket = z->c;
+    if (z->c - 1 <= z->lb || z->p[z->c - 1] != 108) return 0;
+
+    // Find instrumental suffix pattern ('al' or 'el')
+    if (!find_among_b(z, a_3, 2)) return 0;
+
+    // Set start marker and verify suffix is in R1 region
+    z->bra = z->c;
+    if (r_R1(z) <= 0) return 0;
+
+    // Check for doubled consonants before removal
+    if (r_double(z) <= 0) return 0;
+
+    // Remove the instrumental suffix
+    if (slice_del(z) < 0) return -1;
+
+    // Handle consonant undoubling after suffix removal
+    if (r_undouble(z) <= 0) return 0;
+
+    return 1;
+}
+```

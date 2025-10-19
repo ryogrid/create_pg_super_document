@@ -38,3 +38,12 @@ The restart point is typically set during snapshot serialization and restoration
 - The restart point ensures logical decoding can resume from a consistent state
 - Typically used in conjunction with snapshot serialization and restoration processes
 - The set restart point affects where future decoding operations will begin processing WAL records
+
+## Simplified Source
+```c
+void ReorderBufferSetRestartPoint(ReorderBuffer *rb, XLogRecPtr ptr)
+{
+    // Set the restart point for logical decoding
+    rb->current_restart_decoding_lsn = ptr;
+}
+```

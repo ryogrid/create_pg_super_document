@@ -67,3 +67,32 @@ The function ensures proper cursor management throughout all phases and provides
 - Generated automatically by the Snowball compiler from Dutch stemming rules
 - Integrates seamlessly with PostgreSQL's full-text search infrastructure
 - Supports the complete range of Dutch linguistic features including vowel harmony and consonant doubling
+
+## Simplified Source
+
+```c
+extern int dutch_ISO_8859_1_stem(struct SN_env * z) {
+    // Phase 1: Prelude - normalize characters and handle special cases
+    int saved_pos = z->c;
+    if (r_prelude(z) < 0) return -1;
+    z->c = saved_pos;
+
+    // Phase 2: Mark regions - identify R1/R2 boundaries for suffix removal
+    saved_pos = z->c;
+    if (r_mark_regions(z) < 0) return -1;
+    z->c = saved_pos;
+
+    // Phase 3: Suffix processing - main stemming from word end
+    z->lb = z->c;
+    z->c = z->l;  // Start from end of word
+    if (r_standard_suffix(z) < 0) return -1;
+
+    // Phase 4: Postlude - final cleanup and normalization
+    z->c = z->lb;
+    saved_pos = z->c;
+    if (r_postlude(z) < 0) return -1;
+    z->c = saved_pos;
+
+    return 1;  // Success
+}
+```

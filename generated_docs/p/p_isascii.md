@@ -33,4 +33,14 @@ This function is essential for distinguishing between ASCII and non-ASCII charac
 - Uses proper casting to unsigned char to prevent sign extension problems
 - Part of the character classification system for text search parsing
 - Critical for distinguishing ASCII from Unicode characters in multilingual text processing
-- Used as a building block for more specific character type tests like 
+- Used as a building block for more specific character type tests like p_isasclet
+
+## Simplified Source
+
+```c
+static int p_isascii(TParser *prs) {
+    // Check if current character is single-byte ASCII
+    return (prs->state->charlen == 1 &&
+            isascii((unsigned char) *(prs->str + prs->state->posbyte))) ? 1 : 0;
+}
+```

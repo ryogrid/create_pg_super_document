@@ -33,3 +33,23 @@ The i4toi2 function is a PostgreSQL type conversion function that narrows a 32-b
 - Located in src/backend/utils/adt/int.c:348-361
 - Counterpart conversion function is i2toi4 (widening conversion)
 - Used in explicit casts from integer to smallint
+
+## Simplified Source
+
+```c
+Datum
+i4toi2(PG_FUNCTION_ARGS)
+{
+    // Extract 32-bit integer argument
+    int32 arg1 = PG_GETARG_INT32(0);
+
+    // Check if value fits in 16-bit range (SHRT_MIN to SHRT_MAX)
+    if (arg1 < SHRT_MIN || arg1 > SHRT_MAX)
+        ereport(ERROR,
+                (errcode(ERRCODE_NUMERIC_VALUE_OUT_OF_RANGE),
+                 errmsg("smallint out of range")));
+
+    // Safe to convert now
+    PG_RETURN_INT16((int16) arg1);
+}
+```

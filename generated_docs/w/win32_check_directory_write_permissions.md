@@ -34,3 +34,20 @@ This function takes no parameters and operates on the current working directory.
 - Returns -1 on failure (cannot create file) or the result of unlink() on success
 - Part of the platform-specific directory verification logic in PostgreSQL's pg_upgrade utility
 - The comment references Microsoft documentation about Windows access() limitations
+
+## Simplified Source
+
+```c
+static int win32_check_directory_write_permissions(void) {
+    int fd;
+
+    // Try to create a test file (we would create this file anyway during upgrade)
+    if ((fd = open(GLOBALS_DUMP_FILE, O_RDWR | O_CREAT, S_IRUSR | S_IWUSR)) < 0)
+        return -1;  // Cannot create file - no write permission
+
+    close(fd);
+
+    // Clean up test file - return result of deletion
+    return unlink(GLOBALS_DUMP_FILE);
+}
+```

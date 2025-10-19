@@ -35,3 +35,20 @@ The function uses a three-way conditional logic:
 - Specifically designed for timeline history file operations where InvalidXLogRecPtr represents infinity
 - Should only be used when comparing WAL locations related to history files
 - Part of the pg_rewind utility which synchronizes a PostgreSQL data directory with another copy of the same directory
+
+## Simplified Source
+
+```c
+static XLogRecPtr
+MinXLogRecPtr(XLogRecPtr a, XLogRecPtr b)
+{
+    // Handle invalid WAL locations (treated as infinity)
+    if (XLogRecPtrIsInvalid(a))
+        return b;
+    if (XLogRecPtrIsInvalid(b))
+        return a;
+
+    // Both valid - return standard minimum
+    return Min(a, b);
+}
+```

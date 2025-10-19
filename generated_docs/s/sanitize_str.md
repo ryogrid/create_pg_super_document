@@ -32,3 +32,30 @@ The function uses a static buffer to store the sanitized result, making it suita
 - Maximum output length is 30 characters plus null terminator
 - Thread safety: Not thread-safe due to static buffer usage
 - Primarily used for security-safe logging of potentially untrusted input during authentication processes
+
+## Simplified Source
+
+```c
+static char *
+sanitize_str(const char *s)
+{
+    static char buf[30 + 1];  // Static buffer for result
+    int i;
+
+    // Copy up to 30 characters, replacing non-printable with '?'
+    for (i = 0; i < sizeof(buf) - 1; i++) {
+        char c = s[i];
+
+        if (c == '\0')          // End of string
+            break;
+
+        if (c >= 0x21 && c <= 0x7E)  // Printable ASCII
+            buf[i] = c;
+        else
+            buf[i] = '?';       // Replace non-printable
+    }
+
+    buf[i] = '\0';              // Null terminate
+    return buf;
+}
+```

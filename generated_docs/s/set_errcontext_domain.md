@@ -32,3 +32,20 @@ This function sets the message domain to be used by subsequent errcontext() call
 - Usually called transparently through the errcontext() macro rather than directly
 - Part of PostgreSQL's internationalization framework for error messages
 - Operates on the current errordata stack entry without validation beyond stack depth checking
+
+## Simplified Source
+
+```c
+int set_errcontext_domain(const char *domain) {
+    ErrorData *edata = &errordata[errordata_stack_depth];
+
+    // Validate error stack state (no recursion tracking needed)
+    CHECK_STACK_DEPTH();
+
+    // Set context domain for translation
+    // Default to PostgreSQL backend domain if none specified
+    edata->context_domain = domain ? domain : PG_TEXTDOMAIN("postgres");
+
+    return 0;
+}
+```

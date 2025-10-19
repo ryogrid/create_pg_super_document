@@ -47,3 +47,37 @@ The function uses cursor management and boundary checking to ensure safe string 
 - Both replacement strings (s_96, s_97) are 6 characters long
 - Includes boundary checking (`z->c > z->lb`) to prevent invalid cursor positions
 - The two replacement strategies are mutually exclusive - only one will be executed per function call
+
+## Simplified Source
+
+```c
+static int r_step5h(struct SN_env * z) {
+    // Step 1: Find and remove suffix from pattern set a_53
+    z->ket = z->c;
+    if (!find_among_b(z, a_53, 3)) return 0;
+    z->bra = z->c;
+    slice_del(z);  // Remove found suffix
+
+    // Reset stemmer state
+    z->I[0] = 0;
+
+    // Step 2: Try first replacement strategy
+    int saved_pos = z->l - z->c;
+    z->ket = z->c;
+    z->bra = z->c;
+    if (find_among_b(z, a_51, 12)) {
+        slice_from_s(z, 6, s_96);  // Replace with 6-char string s_96
+        return 1;
+    }
+
+    // Step 3: Try second replacement strategy if first failed
+    z->c = z->l - saved_pos;
+    z->ket = z->c;
+    z->bra = z->c;
+    if (!find_among_b(z, a_52, 25)) return 0;
+    if (z->c > z->lb) return 0;  // Boundary check
+    slice_from_s(z, 6, s_97);    // Replace with 6-char string s_97
+
+    return 1;
+}
+```

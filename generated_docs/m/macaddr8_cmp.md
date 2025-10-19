@@ -38,3 +38,15 @@ The function is typically registered in the system catalogs and can be invoked t
 - Used internally by PostgreSQL's query engine for macaddr8 sorting and comparison
 - The function is likely registered in pg_proc system catalog for SQL accessibility
 - Follows PostgreSQL's standard comparison function interface pattern
+
+## Simplified Source
+
+```c
+Datum macaddr8_cmp(PG_FUNCTION_ARGS) {
+    macaddr8 *a1 = PG_GETARG_MACADDR8_P(0);
+    macaddr8 *a2 = PG_GETARG_MACADDR8_P(1);
+
+    // Delegate to internal comparison function
+    PG_RETURN_INT32(macaddr8_cmp_internal(a1, a2));
+}
+```

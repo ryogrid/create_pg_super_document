@@ -31,3 +31,15 @@ This function acts as the primary entry point for row iteration in PostgreSQL's 
 - After successful row fetching, subsequent JsonTableGetValue calls can extract individual column values from the prepared row context
 - The function operates on the root plan state (cxt->rootplanstate), which may contain complex nested plan hierarchies
 - This is typically called repeatedly by the PostgreSQL executor until it returns false, indicating the end of the result set
+
+## Simplified Source
+
+```c
+static bool JsonTableFetchRow(TableFuncScanState *state) {
+    // Get the JSON table execution context
+    JsonTableExecContext *cxt = GetJsonTableExecContext(state, "JsonTableFetchRow");
+
+    // Delegate to the root plan for row fetching
+    return JsonTablePlanNextRow(cxt->rootplanstate);
+}
+```

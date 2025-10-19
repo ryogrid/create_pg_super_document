@@ -45,3 +45,26 @@ This mapping is crucial for determining how long a transaction will wait for sta
 - The mapping ensures that the internal replication system uses the correct waiting behavior based on user configuration
 - Part of the GUC hook system that translates user-facing configuration into internal system state
 - No validation is performed - the GUC system handles value validation before calling this function
+
+## Simplified Source
+
+```c
+void assign_synchronous_commit(int newval, void *extra)
+{
+    switch (newval)
+    {
+        case SYNCHRONOUS_COMMIT_REMOTE_WRITE:
+            SyncRepWaitMode = SYNC_REP_WAIT_WRITE;    // Wait for write to standby OS
+            break;
+        case SYNCHRONOUS_COMMIT_REMOTE_FLUSH:
+            SyncRepWaitMode = SYNC_REP_WAIT_FLUSH;    // Wait for flush to standby disk
+            break;
+        case SYNCHRONOUS_COMMIT_REMOTE_APPLY:
+            SyncRepWaitMode = SYNC_REP_WAIT_APPLY;    // Wait for apply on standby
+            break;
+        default:
+            SyncRepWaitMode = SYNC_REP_NO_WAIT;       // No waiting (off/local modes)
+            break;
+    }
+}
+```

@@ -34,3 +34,28 @@ This design allows extensible nodes to define their own copying semantics while 
 - The function demonstrates the delegation pattern - generic framework code delegates to type-specific implementations
 - The  field is used as a key to look up the appropriate methods for the specific extensible node type
 - This approach allows third-party extensions to define custom node types that integrate seamlessly with PostgreSQL's node infrastructure
+
+## Simplified Source
+
+```c
+static ExtensibleNode *
+_copyExtensibleNode(const ExtensibleNode *from)
+{
+    ExtensibleNode *newnode;
+    const ExtensibleNodeMethods *methods;
+
+    // Get the methods for this extensible node type
+    methods = GetExtensibleNodeMethods(from->extnodename, false);
+
+    // Allocate a new node with the correct size
+    newnode = (ExtensibleNode *) newNode(methods->node_size, T_ExtensibleNode);
+
+    // Copy the node type name
+    COPY_STRING_FIELD(extnodename);
+
+    // Delegate to the node-specific copy method
+    methods->nodeCopy(newnode, from);
+
+    return newnode;
+}
+```

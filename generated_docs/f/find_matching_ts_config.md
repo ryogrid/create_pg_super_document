@@ -36,3 +36,39 @@ The  function determines an appropriate text search configuration based on the l
 - The returned string is a pointer to a static array element and should not be freed
 - Comments indicate potential future enhancement to handle space characters and Norwegian locale variants
 - Essential for automatic text search configuration during database initialization based on system locale
+
+## Simplified Source
+
+```c
+static const char *
+find_matching_ts_config(const char *lc_type)
+{
+    char *langname, *ptr;
+
+    // Extract language name from locale string
+    if (lc_type == NULL)
+        langname = pg_strdup("");
+    else
+    {
+        ptr = langname = pg_strdup(lc_type);
+        // Stop at locale delimiters: underscore, hyphen, dot, or @
+        while (*ptr &&
+               *ptr != '_' && *ptr != '-' && *ptr != '.' && *ptr != '@')
+            ptr++;
+        *ptr = '\0';
+    }
+
+    // Search for matching text search configuration
+    for (int i = 0; tsearch_config_languages[i].tsconfname; i++)
+    {
+        if (pg_strcasecmp(tsearch_config_languages[i].langname, langname) == 0)
+        {
+            free(langname);
+            return tsearch_config_languages[i].tsconfname;
+        }
+    }
+
+    free(langname);
+    return NULL;
+}
+```

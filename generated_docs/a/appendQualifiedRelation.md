@@ -53,3 +53,62 @@ After obtaining the qualified name, it formats it properly using fmtQualifiedIdE
 - Resets search_path before performing the resolution to ensure consistent behavior
 - Properly handles multi-byte character encodings by using the connection's client encoding
 - The resulting qualified name is suitable for use in SQL commands that will be executed under a secure search_path
+
+## Simplified Source
+
+```c
+void appendQualifiedRelation(PQExpBuffer buf, const char *spec,
+                            PGconn *conn, bool echo)
+{
+    char *table;
+    const char *columns;
+    PQExpBufferData sql;
+    PGresult *res;
+    int ntups;
+
+    // Split TABLE[(COLUMNS)] into parts
+    splitTableColumnsSpec(spec, PQclientEncoding(conn), &table, &columns);
+
+    // Build query to resolve table name using regclass
+    initPQExpBuffer(&sql);
+    appendPQExpBufferStr(&sql,
+                        "SELECT c.relname, ns.nspname\n"
+                        " FROM pg_catalog.pg_class c,"
+                        " pg_catalog.pg_namespace ns\n"
+                        " WHERE c.relnamespace OPERATOR(pg_catalog.=) ns.oid\n"
+                        "  AND c.oid OPERATOR(pg_catalog.=) ");
+    appendStringLiteralConn(&sql, table, conn);
+    appendPQExpBufferStr(&sql, "::pg_catalog.regclass;");
+
+    // Reset search_path for security
+    executeCommand(conn, "RESET search_path;", echo);
+
+    // Execute the resolution query
+    res = executeQuery(conn, sql.data, echo);
+    ntups = PQntuples(res);
+    if (ntups != 1)
+    {
+        pg_log_error(ngettext("query returned %d row instead of one: %s",
+                             "query returned %d rows instead of one: %s",
+                             ntups),
+                    ntups, sql.data);
+        PQfinish(conn);
+        exit(1);
+    }
+
+    // Append qualified name and columns to buffer
+    appendPQExpBufferStr(buf,
+                        fmtQualifiedIdEnc(PQgetvalue(res, 0, 1),  // schema
+                                         PQgetvalue(res, 0, 0),   // table
+                                         PQclientEncoding(conn)));
+    appendPQExpBufferStr(buf, columns);
+
+    // Clean up
+    PQclear(res);
+    termPQExpBuffer(&sql);
+    pg_free(table);
+
+    // Restore secure search_path
+    PQclear(executeQuery(conn, ALWAYS_SECURE_SEARCH_PATH_SQL, echo));
+}
+```

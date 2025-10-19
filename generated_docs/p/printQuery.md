@@ -56,3 +56,62 @@ The function iterates through all rows and columns of the result set, applying l
 - Memory management is handled carefully with mustfree flags for dynamically allocated formatted strings
 - The function supports both column content translation and header translation independently
 - Footer text can be added through the opt->footers array for additional context or summary information
+
+## Simplified Source
+
+```c
+void printQuery(const PGresult *result, const printQueryOpt *opt,
+               FILE *fout, bool is_pager, FILE *flog) {
+    printTableContent cont;
+    int i, r, c;
+
+    if (cancel_pressed)
+        return;
+
+    // Initialize table with result dimensions
+    printTableInit(&cont, &opt->topt, opt->title,
+                   PQnfields(result), PQntuples(result));
+
+    // Add column headers with proper alignment
+    for (i = 0; i < cont.ncolumns; i++) {
+        printTableAddHeader(&cont, PQfname(result, i),
+                           opt->translate_header,
+                           column_type_alignment(PQftype(result, i)));
+    }
+
+    // Fill table cells
+    for (r = 0; r < cont.nrows; r++) {
+        for (c = 0; c < cont.ncolumns; c++) {
+            char *cell;
+            bool mustfree = false;
+            bool translate;
+
+            // Handle NULL values
+            if (PQgetisnull(result, r, c)) {
+                cell = opt->nullPrint ? opt->nullPrint : "";
+            } else {
+                cell = PQgetvalue(result, r, c);
+
+                // Apply numeric locale formatting for right-aligned columns
+                if (cont.aligns[c] == 'r' && opt->topt.numericLocale) {
+                    cell = format_numeric_locale(cell);
+                    mustfree = true;
+                }
+            }
+
+            translate = (opt->translate_columns && opt->translate_columns[c]);
+            printTableAddCell(&cont, cell, translate, mustfree);
+        }
+    }
+
+    // Add footers if provided
+    if (opt->footers) {
+        for (char **footer = opt->footers; *footer; footer++)
+            printTableAddFooter(&cont, *footer);
+    }
+
+    // Print table and cleanup
+    printTable(&cont, fout, is_pager, flog);
+    printTableCleanup(&cont);
+}
+```

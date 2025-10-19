@@ -32,3 +32,12 @@ This function is called during the initialization phase of query execution to se
 - The allocated SystemSamplerData structure contains fields for cutoff value, random seed, next block number, and last tuple offset
 - Memory allocated here will be automatically freed when the query execution context is destroyed
 - The eflags parameter is provided for potential future use but is currently ignored
+
+## Simplified Source
+```c
+static void system_initsamplescan(SampleScanState *node, int eflags)
+{
+    // Allocate and initialize SYSTEM sampler state
+    node->tsm_state = palloc0(sizeof(SystemSamplerData));
+}
+```

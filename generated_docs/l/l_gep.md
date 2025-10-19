@@ -38,3 +38,21 @@ The GetElementPtr instruction is fundamental in LLVM for computing addresses of 
 - The conditional compilation based on LLVM_VERSION_MAJOR ensures forward and backward compatibility
 - Located in the LLVM JIT emit header file, indicating it's a core utility for LLVM code generation
 - The function is heavily used throughout PostgreSQL's JIT compilation for tuple deformation and expression evaluation
+
+## Simplified Source
+
+```c
+static inline LLVMValueRef
+l_gep(LLVMBuilderRef b, LLVMTypeRef t, LLVMValueRef v, LLVMValueRef *indices, int32 nindices, const char *name)
+{
+    // Version-compatible Get Element Pointer instruction
+    // LLVM 16+ requires explicit type parameter
+#if LLVM_VERSION_MAJOR < 16
+    return LLVMBuildGEP(b, v, indices, nindices, name);
+#else
+    return LLVMBuildGEP2(b, t, v, indices, nindices, name);
+#endif
+}
+```
+
+This wrapper provides version-compatible GEP (Get Element Pointer) operations for computing addresses of array elements and struct members. It handles the API differences between LLVM versions automatically.

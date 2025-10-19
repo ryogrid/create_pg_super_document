@@ -32,3 +32,29 @@ This function configures the STARTUPINFO structure for a new process to inherit 
 - NULL handles are converted to INVALID_HANDLE_VALUE to ensure consistent behavior across process boundaries
 - This ensures that the postmaster process runs in an environment similar to pg_ctl when started as a service
 - The function is marked as static, limiting its scope to the pg_ctl.c file
+
+## Simplified Source
+
+```c
+static void
+InheritStdHandles(STARTUPINFO *si)
+{
+    // Enable standard handle inheritance
+    si->dwFlags |= STARTF_USESTDHANDLES;
+
+    // Get and configure stdin handle
+    si->hStdInput = GetStdHandle(STD_INPUT_HANDLE);
+    if (si->hStdInput == NULL)
+        si->hStdInput = INVALID_HANDLE_VALUE;
+
+    // Get and configure stdout handle
+    si->hStdOutput = GetStdHandle(STD_OUTPUT_HANDLE);
+    if (si->hStdOutput == NULL)
+        si->hStdOutput = INVALID_HANDLE_VALUE;
+
+    // Get and configure stderr handle
+    si->hStdError = GetStdHandle(STD_ERROR_HANDLE);
+    if (si->hStdError == NULL)
+        si->hStdError = INVALID_HANDLE_VALUE;
+}
+```

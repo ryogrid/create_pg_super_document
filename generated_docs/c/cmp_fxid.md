@@ -33,3 +33,20 @@ The comparison uses the FullTransactionIdPrecedes() function to determine the or
 - Follows the standard C library comparator function signature for use with qsort/bsearch
 - Essential for maintaining sorted arrays of transaction IDs in snapshot processing
 - The comparison properly handles transaction ID wraparound through the underlying FullTransactionIdPrecedes function
+
+## Simplified Source
+
+```c
+static int cmp_fxid(const void *aa, const void *bb) {
+    // Extract the FullTransactionId values from void pointers
+    FullTransactionId a = *(const FullTransactionId *) aa;
+    FullTransactionId b = *(const FullTransactionId *) bb;
+
+    // Three-way comparison: a < b returns -1, a > b returns 1, a == b returns 0
+    if (FullTransactionIdPrecedes(a, b))
+        return -1;
+    if (FullTransactionIdPrecedes(b, a))
+        return 1;
+    return 0;
+}
+```

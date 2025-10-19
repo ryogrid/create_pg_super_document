@@ -38,3 +38,12 @@ The function abstracts the LLVM C API call and provides a more concise interface
 - Used extensively in both expression compilation and tuple deformation code
 - Provides a cleaner interface compared to directly calling LLVMPointerType
 - Essential for maintaining type safety when generating LLVM IR that manipulates PostgreSQL data structures
+
+## Simplified Source
+
+```c
+static inline LLVMTypeRef l_ptr(LLVMTypeRef t) {
+    // Create a pointer type for the given base type in address space 0
+    return LLVMPointerType(t, 0);
+}
+```

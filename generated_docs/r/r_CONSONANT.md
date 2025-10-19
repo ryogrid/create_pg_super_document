@@ -29,3 +29,14 @@ This function is part of the Snowball-generated Hindi stemming algorithm. It per
 - Returns 0 if current position IS a consonant (function fails when in grouping) 
 - The function operates in backward direction (indicated by  in the called function name)
 - Part of the broader Hindi language stemming functionality in PostgreSQL's text search capabilities
+
+## Simplified Source
+
+```c
+static int r_CONSONANT(struct SN_env * z) {
+    // Check if current position is NOT a consonant in Devanagari range (2325-2399)
+    // Returns 1 if not a consonant, 0 if it is a consonant
+    if (in_grouping_b_U(z, g_consonant, 2325, 2399, 0)) return 0;
+    return 1;
+}
+```

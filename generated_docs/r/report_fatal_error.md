@@ -41,3 +41,19 @@ This function provides a standardized way to handle fatal errors in the pg_verif
 - Uses PostgreSQL's standard logging infrastructure to ensure consistent error formatting
 - Supports internationalization through gettext for error message localization
 - The pg_restrict qualifier on the format string parameter is a PostgreSQL-specific annotation for optimization hints
+
+## Simplified Source
+
+```c
+static void report_fatal_error(const char *fmt, ...) {
+    va_list ap;
+
+    // Log the fatal error message
+    va_start(ap, fmt);
+    pg_log_generic_v(PG_LOG_ERROR, PG_LOG_PRIMARY, gettext(fmt), ap);
+    va_end(ap);
+
+    // Exit immediately - this is a fatal error
+    exit(1);
+}
+```

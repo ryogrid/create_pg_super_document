@@ -34,3 +34,24 @@ The `float4mi` function is a PostgreSQL fmgr-compatible function that subtracts 
 - Overflow detection is performed by the underlying float4_mi function
 - Located in src/backend/utils/adt/float.c alongside other float4 arithmetic operators
 - The function signature follows PostgreSQL's standard pattern for SQL-callable functions
+
+## Simplified Source
+
+```c
+Datum
+float4mi(PG_FUNCTION_ARGS)
+{
+    // Extract two float4 arguments from function call
+    float4 arg1 = PG_GETARG_FLOAT4(0);  // minuend
+    float4 arg2 = PG_GETARG_FLOAT4(1);  // subtrahend
+
+    // Perform subtraction with overflow checking
+    float4 result = arg1 - arg2;
+    if (isinf(result) && !isinf(arg1) && !isinf(arg2)) {
+        // Overflow error if result is infinite but inputs were finite
+        float_overflow_error();
+    }
+
+    PG_RETURN_FLOAT4(result);
+}
+```

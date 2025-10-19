@@ -49,3 +49,25 @@ This function performs a field-by-field comparison between a standard C library 
 - Returns  if all time fields match exactly,  if any field differs
 - Part of the timezone detection mechanism in initdb
 - Used to validate that PostgreSQL's timezone calculations align with the system's timezone behavior
+
+## Simplified Source
+
+```c
+static bool
+compare_tm(struct tm *s, struct pg_tm *p)
+{
+    // Compare all time fields between system and PostgreSQL time structures
+    if (s->tm_sec != p->tm_sec ||
+        s->tm_min != p->tm_min ||
+        s->tm_hour != p->tm_hour ||
+        s->tm_mday != p->tm_mday ||
+        s->tm_mon != p->tm_mon ||
+        s->tm_year != p->tm_year ||
+        s->tm_wday != p->tm_wday ||
+        s->tm_yday != p->tm_yday ||
+        s->tm_isdst != p->tm_isdst)
+        return false;
+
+    return true;
+}
+```

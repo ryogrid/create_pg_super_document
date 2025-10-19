@@ -50,3 +50,81 @@ The function sets up a JsonManifestParseContext with appropriate callback functi
 - Returns a dynamically allocated manifest_data structure that must be freed by the caller
 - Handles both O(1) single-read parsing for small files and streaming incremental parsing for large files
 - Uses PG_BINARY flag for cross-platform compatibility when opening files
+
+## Simplified Source
+
+```c
+static manifest_data *parse_manifest_file(char *manifest_path) {
+    int fd;
+    struct stat statbuf;
+    manifest_files_hash *ht;
+    char *buffer;
+    JsonManifestParseContext context;
+    manifest_data *result;
+    int chunk_size = READ_CHUNK_SIZE;
+
+    // Open and get size of manifest file
+    fd = open(manifest_path, O_RDONLY | PG_BINARY, 0);
+    if (fd < 0)
+        report_fatal_error("could not open file \"%s\": %m", manifest_path);
+
+    if (fstat(fd, &statbuf) != 0)
+        report_fatal_error("could not stat file \"%s\": %m", manifest_path);
+
+    // Create hash table for manifest data
+    off_t estimate = statbuf.st_size / ESTIMATED_BYTES_PER_MANIFEST_LINE;
+    uint32 initial_size = Min(PG_UINT32_MAX, Max(estimate, 256));
+    ht = manifest_files_create(initial_size, NULL);
+
+    // Initialize result structure and parsing context
+    result = pg_malloc0(sizeof(manifest_data));
+    result->files = ht;
+    context.private_data = result;
+    context.version_cb = verifybackup_version_cb;
+    context.system_identifier_cb = verifybackup_system_identifier;
+    context.per_file_cb = verifybackup_per_file_cb;
+    context.per_wal_range_cb = verifybackup_per_wal_range_cb;
+    context.error_cb = report_manifest_error;
+
+    // Parse file: either all-at-once or in chunks
+    if (statbuf.st_size <= chunk_size) {
+        // Small file: read entire content and parse
+        buffer = pg_malloc(statbuf.st_size);
+        int rc = read(fd, buffer, statbuf.st_size);
+        if (rc != statbuf.st_size)
+            pg_fatal("could not read file \"%s\"", manifest_path);
+
+        close(fd);
+        json_parse_manifest(&context, buffer, statbuf.st_size);
+    } else {
+        // Large file: incremental parsing in chunks
+        JsonManifestParseIncrementalState *inc_state;
+        inc_state = json_parse_manifest_incremental_init(&context);
+        buffer = pg_malloc(chunk_size + 1);
+
+        int bytes_left = statbuf.st_size;
+        while (bytes_left > 0) {
+            // Determine chunk size (ensure final chunk has complete checksum)
+            int bytes_to_read = chunk_size;
+            if (bytes_left < chunk_size)
+                bytes_to_read = bytes_left;
+            else if (bytes_left < 2 * chunk_size)
+                bytes_to_read = bytes_left / 2;
+
+            // Read and parse chunk
+            int rc = read(fd, buffer, bytes_to_read);
+            if (rc != bytes_to_read)
+                pg_fatal("could not read file \"%s\"", manifest_path);
+
+            bytes_left -= rc;
+            json_parse_manifest_incremental_chunk(inc_state, buffer, rc, bytes_left == 0);
+        }
+
+        json_parse_manifest_incremental_shutdown(inc_state);
+        close(fd);
+    }
+
+    pfree(buffer);
+    return result;
+}
+```

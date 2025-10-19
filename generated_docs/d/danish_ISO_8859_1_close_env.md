@@ -32,3 +32,17 @@ The function ensures that all memory allocated for the Danish stemming environme
 - Should be called for every environment created with danish_ISO_8859_1_create_env to prevent memory leaks
 - Safe to call with NULL pointer (handled by underlying SN_close_env)
 - Located in stem_ISO_8859_1_danish.c:313
+
+## Simplified Source
+
+```c
+extern void danish_ISO_8859_1_close_env(struct SN_env * z) {
+    // Clean up Danish stemming environment
+    SN_close_env(z, 1);
+}
+```
+
+This function is a simple wrapper that:
+1. Takes a Danish stemming environment pointer
+2. Calls the generic cleanup function with parameter 1 (indicating 1 string buffer to deallocate)
+3. Ensures proper memory deallocation for Danish stemming operations

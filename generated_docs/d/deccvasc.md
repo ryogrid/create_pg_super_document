@@ -42,3 +42,50 @@ The function follows Informix semantics for decimal conversion, making it easier
 - Uses PostgreSQL's numeric type internally for precision and accuracy
 - Memory management includes proper cleanup of allocated strings and numeric values
 - Part of the Informix compatibility layer in src/interfaces/ecpg/compatlib/informix.c
+
+## Simplified Source
+
+```c
+int deccvasc(const char *cp, int len, decimal *np) {
+    // Initialize output decimal as null
+    rsetnull(CDECIMALTYPE, (char *) np);
+
+    // Handle null input
+    if (risnull(CSTRINGTYPE, cp))
+        return 0;
+
+    // Create null-terminated string copy
+    char *str = ecpg_strndup(cp, len);
+    if (!str)
+        return ECPG_INFORMIX_NUM_UNDERFLOW;
+
+    // Convert string to numeric format
+    errno = 0;
+    numeric *result = PGTYPESnumeric_from_asc(str, NULL);
+
+    int ret = 0;
+    if (!result) {
+        // Handle conversion errors based on errno
+        switch (errno) {
+            case PGTYPES_NUM_OVERFLOW:
+                ret = ECPG_INFORMIX_NUM_OVERFLOW;
+                break;
+            case PGTYPES_NUM_BAD_NUMERIC:
+                ret = ECPG_INFORMIX_BAD_NUMERIC;
+                break;
+            default:
+                ret = ECPG_INFORMIX_BAD_EXPONENT;
+                break;
+        }
+    } else {
+        // Convert numeric to decimal format
+        if (PGTYPESnumeric_to_decimal(result, np) != 0)
+            ret = ECPG_INFORMIX_NUM_OVERFLOW;
+
+        PGTYPESnumeric_free(result);
+    }
+
+    free(str);
+    return ret;
+}
+```

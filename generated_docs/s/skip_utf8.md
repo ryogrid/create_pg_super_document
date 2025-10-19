@@ -41,3 +41,30 @@ The  function is a critical UTF-8 text processing utility in PostgreSQL's Snowba
 - Essential for proper character navigation in international text processing
 - Used extensively across all UTF-8 language stemming modules in PostgreSQL
 - Ensures character-level rather than byte-level text traversal for proper linguistic processing
+
+## Simplified Source
+
+```c
+extern int skip_utf8(const symbol * p, int c, int limit, int n) {
+    // Input validation
+    if (n < 0) return -1;
+
+    // Skip n UTF-8 characters forward
+    for (; n > 0; n--) {
+        if (c >= limit) return -1;  // Boundary check
+
+        int b = p[c++];  // Get next byte
+
+        // If this is a multi-byte UTF-8 character (starts with 11...)
+        if (b >= 0xC0) {
+            // Skip continuation bytes (10......)
+            while (c < limit) {
+                b = p[c];
+                if (b >= 0xC0 || b < 0x80) break;  // Not a continuation byte
+                c++;
+            }
+        }
+    }
+    return c;
+}
+```

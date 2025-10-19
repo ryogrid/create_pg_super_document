@@ -46,3 +46,44 @@ The function uses the system catalog lookup to find type information and employs
 - Uses system catalog caching for efficient type lookup
 - Part of PostgreSQL's regtype type system implementation
 - Located in src/backend/utils/adt/regproc.c
+
+## Simplified Source
+
+```c
+Datum regtypeout(PG_FUNCTION_ARGS) {
+    Oid typid = PG_GETARG_OID(0);
+    char *result;
+
+    // Handle invalid OID
+    if (typid == InvalidOid) {
+        result = pstrdup("-");
+        PG_RETURN_CSTRING(result);
+    }
+
+    // Look up type in system catalog
+    HeapTuple typetup = SearchSysCache1(TYPEOID, ObjectIdGetDatum(typid));
+
+    if (HeapTupleIsValid(typetup)) {
+        Form_pg_type typeform = (Form_pg_type) GETSTRUCT(typetup);
+
+        // Bootstrap mode: return simple type name
+        if (IsBootstrapProcessingMode()) {
+            char *typname = NameStr(typeform->typname);
+            result = pstrdup(typname);
+        }
+        // Normal mode: use formatted type name with namespace
+        else {
+            result = format_type_be(typid);
+        }
+
+        ReleaseSysCache(typetup);
+    }
+    else {
+        // Type not found: return numeric OID
+        result = (char *) palloc(NAMEDATALEN);
+        snprintf(result, NAMEDATALEN, "%u", typid);
+    }
+
+    PG_RETURN_CSTRING(result);
+}
+```

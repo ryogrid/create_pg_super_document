@@ -36,3 +36,14 @@ This function takes no parameters (uses `PG_FUNCTION_ARGS` macro for PostgreSQL 
 - Commonly used in monitoring systems to track server availability and restart events
 - Different from connection start times or transaction start times - this is the server process start time
 - The function is defined in `src/backend/utils/adt/timestamp.c` at lines 1636-1641
+
+## Simplified Source
+
+```c
+Datum
+pg_postmaster_start_time(PG_FUNCTION_ARGS)
+{
+    // Return the server start timestamp stored in global variable
+    PG_RETURN_TIMESTAMPTZ(PgStartTime);
+}
+```

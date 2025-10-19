@@ -47,3 +47,20 @@ The typical usage pattern involves calling  before an operation, then following 
 - The MESSAGE_WIDTH padding ensures professional-looking aligned output across different message lengths
 - Used extensively throughout pg_upgrade for virtually every major operation
 - Messages should be kept concise to avoid truncation and maintain readability
+
+## Simplified Source
+
+```c
+void prep_status(const char *fmt, ...) {
+    va_list args;
+    char message[MAX_STRING];
+
+    // Format the message using variadic arguments
+    va_start(args, fmt);
+    vsnprintf(message, sizeof(message), fmt, args);
+    va_end(args);
+
+    // Output with fixed width padding for alignment (no newline)
+    pg_log(PG_REPORT_NONL, "%-*s", MESSAGE_WIDTH, message);
+}
+```

@@ -35,3 +35,22 @@ The function only performs its operations when both `showprogress` and `verbose`
 - Memory management is handled carefully: the previous filename string is freed before setting a new one
 - The function is conditionally active only when both progress reporting and verbose output are enabled
 - Setting filename to NULL will clear the current progress filename
+
+## Simplified Source
+
+```c
+static void
+progress_update_filename(const char *filename)
+{
+    // Only update if progress reporting and verbose mode are both enabled
+    if (showprogress && verbose) {
+        // Free existing filename and set new one
+        free(progress_filename);
+
+        if (filename)
+            progress_filename = pg_strdup(filename);
+        else
+            progress_filename = NULL;
+    }
+}
+```

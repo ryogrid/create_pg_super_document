@@ -41,3 +41,84 @@ WriteBlockRefTable converts an in-memory BlockRefTable hash table into a seriali
 - Uses CRC32C checksumming for data integrity verification
 - Handles empty tables gracefully (only writes magic number and terminator)
 - Memory allocation for serialized data is proportional to the number of hash table entries
+
+## Simplified Source
+
+```c
+void WriteBlockRefTable(BlockRefTable *brtab,
+                        io_callback_fn write_callback,
+                        void *write_callback_arg) {
+    BlockRefTableSerializedEntry *sdata = NULL;
+    BlockRefTableBuffer buffer;
+    uint32 magic = BLOCKREFTABLE_MAGIC;
+
+    // Initialize output buffer with callback and CRC
+    memset(&buffer, 0, sizeof(BlockRefTableBuffer));
+    buffer.io_callback = write_callback;
+    buffer.io_callback_arg = write_callback_arg;
+    INIT_CRC32C(buffer.crc);
+
+    // Write magic number header
+    BlockRefTableWrite(&buffer, &magic, sizeof(uint32));
+
+    // Process entries if table is not empty
+    if (brtab->hash->members > 0) {
+        unsigned i = 0;
+        blockreftable_iterator it;
+        BlockRefTableEntry *brtentry;
+
+        // Extract and serialize all entries
+        sdata = palloc(brtab->hash->members * sizeof(BlockRefTableSerializedEntry));
+        blockreftable_start_iterate(brtab->hash, &it);
+
+        while ((brtentry = blockreftable_iterate(brtab->hash, &it)) != NULL) {
+            BlockRefTableSerializedEntry *sentry = &sdata[i++];
+
+            // Copy entry metadata
+            sentry->rlocator = brtentry->key.rlocator;
+            sentry->forknum = brtentry->key.forknum;
+            sentry->limit_block = brtentry->limit_block;
+            sentry->nchunks = brtentry->nchunks;
+
+            // Trim trailing zero chunks for storage optimization
+            while (sentry->nchunks > 0 &&
+                   brtentry->chunk_usage[sentry->nchunks - 1] == 0)
+                sentry->nchunks--;
+        }
+
+        // Sort entries for deterministic output
+        qsort(sdata, brtab->hash->members, sizeof(BlockRefTableSerializedEntry),
+              BlockRefTableComparator);
+
+        // Write each sorted entry with its data
+        for (i = 0; i < brtab->hash->members; ++i) {
+            BlockRefTableSerializedEntry *sentry = &sdata[i];
+            BlockRefTableKey key = {{0}};
+
+            // Write entry header
+            BlockRefTableWrite(&buffer, sentry, sizeof(BlockRefTableSerializedEntry));
+
+            // Look up original entry for chunk data
+            memcpy(&key.rlocator, &sentry->rlocator, sizeof(RelFileLocator));
+            key.forknum = sentry->forknum;
+            brtentry = blockreftable_lookup(brtab->hash, key);
+
+            // Write chunk usage array
+            if (sentry->nchunks != 0)
+                BlockRefTableWrite(&buffer, brtentry->chunk_usage,
+                                   sentry->nchunks * sizeof(uint16));
+
+            // Write actual chunk data
+            for (unsigned j = 0; j < brtentry->nchunks; ++j) {
+                if (brtentry->chunk_usage[j] == 0)
+                    continue;
+                BlockRefTableWrite(&buffer, brtentry->chunk_data[j],
+                                   brtentry->chunk_usage[j] * sizeof(uint16));
+            }
+        }
+    }
+
+    // Write terminator and flush buffer
+    BlockRefTableFileTerminate(&buffer);
+}
+```

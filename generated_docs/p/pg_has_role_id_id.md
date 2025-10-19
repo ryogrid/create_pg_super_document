@@ -33,3 +33,25 @@ The  function is a PostgreSQL system function that determines if a user has spec
 - Returns a boolean Datum that can be used in SQL queries
 - The function follows PostgreSQL's standard function calling convention using PG_FUNCTION_ARGS
 - Access control checks are performed through the ACL (Access Control List) subsystem
+
+## Simplified Source
+
+```c
+Datum
+pg_has_role_id_id(PG_FUNCTION_ARGS)
+{
+    // Extract function arguments
+    Oid roleid = PG_GETARG_OID(0);           // User role checking privileges
+    Oid roleoid = PG_GETARG_OID(1);          // Target role being checked
+    text *priv_type_text = PG_GETARG_TEXT_PP(2); // Privilege type string
+
+    // Convert privilege string to ACL mode
+    AclMode mode = convert_role_priv_string(priv_type_text);
+
+    // Check if the user role has specified privilege on target role
+    AclResult aclresult = pg_role_aclcheck(roleoid, roleid, mode);
+
+    // Return true if privilege check succeeded
+    PG_RETURN_BOOL(aclresult == ACLCHECK_OK);
+}
+```

@@ -44,3 +44,36 @@ The function implements careful synchronization to avoid race conditions between
 - Handles the timing between memory queue processing and file-based message replay
 - Static function indicating internal use within the parallel apply worker infrastructure
 - Essential component of the parallel logical replication message handling system
+
+## Simplified Source
+
+```c
+static bool pa_process_spooled_messages_if_required(void) {
+    PartialFileSetState fileset_state = pa_get_fileset_state();
+
+    // No spooled messages to process
+    if (fileset_state == FS_EMPTY)
+        return false;
+
+    // Wait for leader to finish serialization to prevent deadlock
+    if (fileset_state == FS_SERIALIZE_IN_PROGRESS) {
+        pa_lock_stream(MyParallelShared->xid, AccessShareLock);
+        pa_unlock_stream(MyParallelShared->xid, AccessShareLock);
+        fileset_state = pa_get_fileset_state();
+    }
+
+    // Transition from serialization done to ready state
+    if (fileset_state == FS_SERIALIZE_DONE) {
+        pa_set_fileset_state(MyParallelShared, FS_READY);
+    }
+    // Process spooled messages and reset state
+    else if (fileset_state == FS_READY) {
+        apply_spooled_messages(&MyParallelShared->fileset,
+                              MyParallelShared->xid,
+                              InvalidXLogRecPtr);
+        pa_set_fileset_state(MyParallelShared, FS_EMPTY);
+    }
+
+    return true;
+}
+```

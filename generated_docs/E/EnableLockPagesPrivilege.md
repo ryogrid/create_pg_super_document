@@ -49,3 +49,55 @@ The function provides detailed error reporting with appropriate PostgreSQL error
 - **Security Context**: Operates on the current process token and requires appropriate permissions to modify privileges
 - **Resource Cleanup**: Properly closes the process token handle in all code paths
 - **Localization**: Error messages are marked for translation to match Windows localization
+
+## Simplified Source
+
+```c
+static bool
+EnableLockPagesPrivilege(int elevel)
+{
+    HANDLE hToken;
+    TOKEN_PRIVILEGES tp;
+    LUID luid;
+
+    // Open current process token for privilege adjustment
+    if (!OpenProcessToken(GetCurrentProcess(), TOKEN_ADJUST_PRIVILEGES | TOKEN_QUERY, &hToken))
+    {
+        ereport(elevel, (errmsg("could not enable user right \"Lock pages in memory\": error code %lu", GetLastError())));
+        return FALSE;
+    }
+
+    // Look up the privilege value for locking memory
+    if (!LookupPrivilegeValue(NULL, SE_LOCK_MEMORY_NAME, &luid))
+    {
+        ereport(elevel, (errmsg("could not enable user right \"Lock pages in memory\": error code %lu", GetLastError())));
+        CloseHandle(hToken);
+        return FALSE;
+    }
+
+    // Set up privilege structure
+    tp.PrivilegeCount = 1;
+    tp.Privileges[0].Luid = luid;
+    tp.Privileges[0].Attributes = SE_PRIVILEGE_ENABLED;
+
+    // Enable the privilege
+    if (!AdjustTokenPrivileges(hToken, FALSE, &tp, 0, NULL, NULL))
+    {
+        ereport(elevel, (errmsg("could not enable user right \"Lock pages in memory\": error code %lu", GetLastError())));
+        CloseHandle(hToken);
+        return FALSE;
+    }
+
+    // Check for specific privilege assignment errors
+    if (GetLastError() == ERROR_NOT_ALL_ASSIGNED)
+    {
+        ereport(elevel, (errmsg("could not enable user right \"Lock pages in memory\""),
+                        errhint("Assign user right \"Lock pages in memory\" to the Windows user account which runs PostgreSQL.")));
+        CloseHandle(hToken);
+        return FALSE;
+    }
+
+    CloseHandle(hToken);
+    return TRUE;
+}
+```

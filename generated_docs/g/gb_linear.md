@@ -31,3 +31,20 @@ The linear conversion uses weighted multipliers (12600, 1260, 10, 1) that corres
 
 ## Notes and Other Information
 This function is part of PostgreSQL's character encoding conversion system, specifically for UTF-8 ↔ GB18030 conversions. The linear representation enables efficient mapping to Unicode code points and simplifies the conversion algorithms. The function is declared as  for performance optimization in character encoding operations.
+
+## Simplified Source
+
+```c
+static inline uint32 gb_linear(uint32 gb) {
+    // Extract each byte from the 4-byte GB18030 character
+    uint32 b0 = (gb & 0xff000000) >> 24;  // First byte
+    uint32 b1 = (gb & 0x00ff0000) >> 16;  // Second byte
+    uint32 b2 = (gb & 0x0000ff00) >> 8;   // Third byte
+    uint32 b3 = (gb & 0x000000ff);        // Fourth byte
+
+    // Convert to linear space using weighted position values
+    // GB18030 ranges: bytes 1,3: 0x81-0xfe (126 values), bytes 2,4: 0x30-0x39 (10 values)
+    return b0 * 12600 + b1 * 1260 + b2 * 10 + b3 -
+           (0x81 * 12600 + 0x30 * 1260 + 0x81 * 10 + 0x30);
+}
+```

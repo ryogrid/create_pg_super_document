@@ -47,3 +47,45 @@ This function constructs a ForeignScan plan node, which is used to scan foreign 
 - Several fields (checkAsUser, fs_server, fs_relids, fs_base_relids, fsSystemCol) are left to be filled by create_foreignscan_plan
 - Cost calculation is deferred to the calling function create_foreignscan_plan
 - The outer_plan parameter allows ForeignScan to participate in join pushdown optimizations where joins are executed on the foreign server
+
+## Simplified Source
+
+```c
+ForeignScan *
+make_foreignscan(List *qptlist, List *qpqual, Index scanrelid,
+                List *fdw_exprs, List *fdw_private, List *fdw_scan_tlist,
+                List *fdw_recheck_quals, Plan *outer_plan)
+{
+    // Create new ForeignScan node
+    ForeignScan *node = makeNode(ForeignScan);
+    Plan *plan = &node->scan.plan;
+
+    // Set up basic plan fields
+    plan->targetlist = qptlist;
+    plan->qual = qpqual;
+    plan->lefttree = outer_plan;
+    plan->righttree = NULL;
+
+    // Configure scan relation
+    node->scan.scanrelid = scanrelid;
+
+    // Set default operation type (may be overridden by FDW)
+    node->operation = CMD_SELECT;
+    node->resultRelation = 0;
+
+    // Initialize FDW-specific fields
+    node->fdw_exprs = fdw_exprs;
+    node->fdw_private = fdw_private;
+    node->fdw_scan_tlist = fdw_scan_tlist;
+    node->fdw_recheck_quals = fdw_recheck_quals;
+
+    // Fields to be filled later by create_foreignscan_plan
+    node->checkAsUser = InvalidOid;
+    node->fs_server = InvalidOid;
+    node->fs_relids = NULL;
+    node->fs_base_relids = NULL;
+    node->fsSystemCol = false;
+
+    return node;
+}
+```

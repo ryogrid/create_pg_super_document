@@ -30,3 +30,12 @@ This function serves as the assignment hook for the `log_destination` GUC parame
 - Changes to Log_destination take effect immediately for subsequent log messages
 - Part of PostgreSQL's flexible logging system that supports multiple simultaneous destinations
 - Located in src/backend/utils/error/elog.c:2294-2302
+
+## Simplified Source
+
+```c
+void assign_log_destination(const char *newval, void *extra) {
+    // Apply the validated log destination bitmask to global variable
+    Log_destination = *((int *) extra);
+}
+```

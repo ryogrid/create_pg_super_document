@@ -32,3 +32,19 @@ This function provides verbose logging output for relation information during th
 - [Relation](../R/Relation.md) names and tablespace names are quoted in the output for clarity
 - Part of the pg_upgrade utility's debugging and monitoring system for relation metadata
 - Provides essential information for troubleshooting upgrade issues related to specific relations
+
+## Simplified Source
+
+```c
+static void
+print_rel_infos(RelInfoArr *rel_arr)
+{
+    // Print detailed information for each relation
+    for (int relnum = 0; relnum < rel_arr->nrels; relnum++)
+        pg_log(PG_VERBOSE, "relname: \"%s.%s\", reloid: %u, reltblspace: \"%s\"",
+               rel_arr->rels[relnum].nspname,
+               rel_arr->rels[relnum].relname,
+               rel_arr->rels[relnum].reloid,
+               rel_arr->rels[relnum].tablespace);
+}
+```

@@ -33,3 +33,19 @@ This function ensures proper resource management for the Hungarian stemmer compo
 - Safe to call with a NULL pointer - the underlying `SN_close_env` function handles this case
 - Should be called for every environment created with `hungarian_UTF_8_create_env()` to prevent memory leaks
 - Part of the resource management lifecycle for Hungarian text stemming operations
+
+## Simplified Source
+
+```c
+extern void hungarian_UTF_8_close_env(struct SN_env * z) {
+    // Clean up Snowball environment for Hungarian UTF-8 stemming
+    // Parameter 0 indicates number of string arrays to deallocate
+    SN_close_env(z, 0);
+}
+```
+
+**Simplified Logic:**
+- Direct wrapper around `SN_close_env()`
+- Handles cleanup of Hungarian stemmer environment
+- Uses parameter 0 to match creation parameters (0 string arrays)
+- Safe to call with NULL pointer

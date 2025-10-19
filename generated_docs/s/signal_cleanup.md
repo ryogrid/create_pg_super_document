@@ -34,3 +34,22 @@ The signal_cleanup function serves as a signal handler for pg_test_fsync utility
 - Uses  instead of  for immediate termination without cleanup handlers
 - Silences compiler warnings about unused return value from write()
 - Critical for proper cleanup when pg_test_fsync is interrupted during testing
+
+## Simplified Source
+
+```c
+static void signal_cleanup(SIGNAL_ARGS)
+{
+    int rc;
+
+    // Clean up temporary file if needed
+    if (needs_unlink)
+        unlink(filename);
+
+    // Finish incomplete line on stdout
+    rc = write(STDOUT_FILENO, "\n", 1);
+    (void) rc;  // Silence compiler warnings
+
+    _exit(1);
+}
+```

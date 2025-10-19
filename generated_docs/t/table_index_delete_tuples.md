@@ -38,3 +38,14 @@ A critical aspect of this function is its return of a snapshotConflictHorizon Tr
 - The function modifies the delstate parameter to mark which entries are safe to delete
 - Used primarily by index access methods during bulk deletion operations
 - The snapshotConflictHorizon helps maintain consistency in streaming replication scenarios
+
+## Simplified Source
+```c
+static inline TransactionId
+table_index_delete_tuples(Relation rel, TM_IndexDeleteOp *delstate)
+{
+    // Delegate to table access method to determine which index tuples are safe to delete
+    // Returns transaction ID for Hot Standby conflict resolution during WAL replay
+    return rel->rd_tableam->index_delete_tuples(rel, delstate);
+}
+```

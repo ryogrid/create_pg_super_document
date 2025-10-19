@@ -43,3 +43,37 @@ The function uses the \startpipeline command's prepared flag as a marker to trac
 - The prepared flag on \startpipeline serves as an optimization to avoid re-preparing pipeline commands
 - Only SQL commands within the pipeline are prepared; meta-commands are skipped
 - The function does not advance the command counter, leaving that to the caller
+
+## Simplified Source
+
+```c
+static void prepareCommandsInPipeline(CState *st)
+{
+    Command **commands = sql_script[st->use_file].commands;
+
+    // Ensure we're at a startpipeline command
+    Assert(commands[st->command]->type == META_COMMAND &&
+           commands[st->command]->meta == META_STARTPIPELINE);
+
+    // Allocate prepared state tracking if needed
+    if (!st->prepared)
+        allocCStatePrepared(st);
+
+    // Skip if this pipeline already processed
+    if (st->prepared[st->use_file][st->command])
+        return;
+
+    // Prepare all commands until endpipeline
+    for (int j = st->command + 1; commands[j] != NULL; j++)
+    {
+        if (commands[j]->type == META_COMMAND &&
+            commands[j]->meta == META_ENDPIPELINE)
+            break;
+
+        prepareCommand(st, j);
+    }
+
+    // Mark pipeline as prepared
+    st->prepared[st->use_file][st->command] = true;
+}
+```

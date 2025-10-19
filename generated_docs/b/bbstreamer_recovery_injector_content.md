@@ -59,3 +59,92 @@ The function ensures proper recovery configuration injection while maintaining a
 - Modifies archive headers when injecting content, requiring subsequent bbstreamers to regenerate them
 - Critical for maintaining archive integrity while injecting recovery configuration files
 - Located in src/bin/pg_basebackup/bbstreamer_inject.c:85-199
+
+## Simplified Source
+
+```c
+static void
+bbstreamer_recovery_injector_content(bbstreamer *streamer,
+                                   bbstreamer_member *member,
+                                   const char *data, int len,
+                                   bbstreamer_archive_context context)
+{
+    bbstreamer_recovery_injector *mystreamer;
+
+    mystreamer = (bbstreamer_recovery_injector *) streamer;
+
+    switch (context)
+    {
+        case BBSTREAMER_MEMBER_HEADER:
+            // Copy member info for potential modification
+            memcpy(&mystreamer->member, member, sizeof(bbstreamer_member));
+
+            if (mystreamer->is_recovery_guc_supported)
+            {
+                // For modern PostgreSQL: skip standby.signal, modify postgresql.auto.conf
+                mystreamer->skip_file = (strcmp(member->pathname, "standby.signal") == 0);
+                mystreamer->is_postgresql_auto_conf = (strcmp(member->pathname, "postgresql.auto.conf") == 0);
+
+                if (mystreamer->is_postgresql_auto_conf)
+                {
+                    mystreamer->found_postgresql_auto_conf = true;
+                    // Increase file size to accommodate injected content
+                    mystreamer->member.size += mystreamer->recoveryconfcontents->len;
+                    data = NULL; // Invalidate header for regeneration
+                    len = 0;
+                }
+            }
+            else
+            {
+                // For legacy PostgreSQL: skip recovery.conf
+                mystreamer->skip_file = (strcmp(member->pathname, "recovery.conf") == 0);
+            }
+
+            if (mystreamer->skip_file)
+                return;
+            break;
+
+        case BBSTREAMER_MEMBER_CONTENTS:
+        case BBSTREAMER_MEMBER_TRAILER:
+            if (mystreamer->skip_file)
+                return;
+
+            // Append recovery config to postgresql.auto.conf
+            if (context == BBSTREAMER_MEMBER_TRAILER && mystreamer->is_postgresql_auto_conf)
+                bbstreamer_content(mystreamer->base.bbs_next, member,
+                                 mystreamer->recoveryconfcontents->data,
+                                 mystreamer->recoveryconfcontents->len,
+                                 BBSTREAMER_MEMBER_CONTENTS);
+            break;
+
+        case BBSTREAMER_ARCHIVE_TRAILER:
+            if (mystreamer->is_recovery_guc_supported)
+            {
+                // Inject postgresql.auto.conf if not found
+                if (!mystreamer->found_postgresql_auto_conf)
+                    bbstreamer_inject_file(mystreamer->base.bbs_next,
+                                         "postgresql.auto.conf",
+                                         mystreamer->recoveryconfcontents->data,
+                                         mystreamer->recoveryconfcontents->len);
+
+                // Inject empty standby.signal file
+                bbstreamer_inject_file(mystreamer->base.bbs_next, "standby.signal", "", 0);
+            }
+            else
+            {
+                // Inject recovery.conf for legacy PostgreSQL
+                bbstreamer_inject_file(mystreamer->base.bbs_next,
+                                     "recovery.conf",
+                                     mystreamer->recoveryconfcontents->data,
+                                     mystreamer->recoveryconfcontents->len);
+            }
+            break;
+
+        default:
+            pg_fatal("unexpected state while injecting recovery settings");
+    }
+
+    // Forward data to next streamer
+    bbstreamer_content(mystreamer->base.bbs_next, &mystreamer->member, data, len, context);
+}
+```

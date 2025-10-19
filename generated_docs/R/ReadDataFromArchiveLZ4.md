@@ -44,3 +44,63 @@ This function implements the decompression logic for LZ4-compressed archive data
 - Part of PostgreSQL's pg_dump LZ4 decompression implementation
 - The function is designed to work with the archive format's streaming interface
 - Uses memset() to clear output buffer before each decompression operation
+
+## Simplified Source
+
+```c
+static void
+ReadDataFromArchiveLZ4(ArchiveHandle *AH, CompressorState *cs)
+{
+    size_t r, readbuflen;
+    char *outbuf, *readbuf;
+    LZ4F_decompressionContext_t ctx = NULL;
+    LZ4F_decompressOptions_t dec_opt;
+    LZ4F_errorCode_t status;
+
+    // Initialize LZ4 decompression context
+    memset(&dec_opt, 0, sizeof(dec_opt));
+    status = LZ4F_createDecompressionContext(&ctx, LZ4F_VERSION);
+    if (LZ4F_isError(status))
+        pg_fatal("could not create LZ4 decompression context: %s",
+                 LZ4F_getErrorName(status));
+
+    // Allocate buffers for input and output
+    outbuf = pg_malloc0(DEFAULT_IO_BUFFER_SIZE);
+    readbuf = pg_malloc0(DEFAULT_IO_BUFFER_SIZE);
+    readbuflen = DEFAULT_IO_BUFFER_SIZE;
+
+    // Read and decompress data in chunks
+    while ((r = cs->readF(AH, &readbuf, &readbuflen)) > 0)
+    {
+        char *readp = readbuf;
+        char *readend = readbuf + r;
+
+        // Process each chunk of compressed data
+        while (readp < readend)
+        {
+            size_t out_size = DEFAULT_IO_BUFFER_SIZE;
+            size_t read_size = readend - readp;
+
+            // Decompress current chunk
+            memset(outbuf, 0, DEFAULT_IO_BUFFER_SIZE);
+            status = LZ4F_decompress(ctx, outbuf, &out_size,
+                                     readp, &read_size, &dec_opt);
+            if (LZ4F_isError(status))
+                pg_fatal("could not decompress: %s", LZ4F_getErrorName(status));
+
+            // Write decompressed data to archive
+            ahwrite(outbuf, 1, out_size, AH);
+            readp += read_size;
+        }
+    }
+
+    // Cleanup
+    pg_free(outbuf);
+    pg_free(readbuf);
+
+    status = LZ4F_freeDecompressionContext(ctx);
+    if (LZ4F_isError(status))
+        pg_fatal("could not free LZ4 decompression context: %s",
+                 LZ4F_getErrorName(status));
+}
+```

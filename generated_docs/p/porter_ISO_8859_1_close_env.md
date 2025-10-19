@@ -35,3 +35,13 @@ The function should always be called when finished with a stemming environment t
 - Safe to call with NULL pointer (handled by underlying SN_close_env)
 - Part of PostgreSQL's full-text search resource management
 - Should be called in cleanup/error handling paths to ensure resources are released
+
+## Simplified Source
+
+```c
+extern void porter_ISO_8859_1_close_env(struct SN_env * z) {
+    // Clean up Snowball environment with:
+    // - 0 string variables to deallocate
+    SN_close_env(z, 0);
+}
+```

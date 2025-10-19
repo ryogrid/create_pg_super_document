@@ -32,3 +32,13 @@ This function serves as the main entry point for the json_array_elements_text SQ
 - The third parameter (true) to elements_worker indicates that text conversion should be performed
 - Useful when you need string representations of JSON array elements for text processing operations
 - Uses PostgreSQL's set-returning function (SRF) framework to return multiple rows
+
+## Simplified Source
+
+```c
+Datum json_array_elements_text(PG_FUNCTION_ARGS) {
+    // Simple wrapper that calls the main worker function
+    // with text conversion enabled (true parameter)
+    return elements_worker(fcinfo, "json_array_elements_text", true);
+}
+```

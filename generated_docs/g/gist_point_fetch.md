@@ -38,3 +38,27 @@ The function creates a new Point structure and populates it with coordinates fro
 - Allocates new memory for both the point and return entry structures
 - Part of the standard GiST operator class implementation for geometric point types
 - Ensures that point queries return Point data types rather than the internal BOX representation used within the index
+
+## Simplified Source
+
+```c
+Datum gist_point_fetch(PG_FUNCTION_ARGS) {
+    GISTENTRY *entry = (GISTENTRY *) PG_GETARG_POINTER(0);
+    BOX *boundbox = DatumGetBoxP(entry->key);
+    Point *point;
+    GISTENTRY *retval;
+
+    retval = palloc(sizeof(GISTENTRY));
+
+    // Extract point coordinates from degenerate bounding box
+    point = (Point *) palloc(sizeof(Point));
+    point->x = boundbox->high.x;
+    point->y = boundbox->high.y;
+
+    // Create new entry with original point format
+    gistentryinit(*retval, PointerGetDatum(point),
+                  entry->rel, entry->page, entry->offset, false);
+
+    PG_RETURN_POINTER(retval);
+}
+```

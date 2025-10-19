@@ -29,3 +29,18 @@ This function performs a type conversion from PostgreSQL's internal 64-bit integ
 - This is a PostgreSQL built-in function that can be invoked from SQL
 - The conversion may lose precision for very large integer values due to the limitations of double-precision floating-point representation
 - Part of PostgreSQL's type system for automatic and explicit type conversions between numeric types
+
+## Simplified Source
+
+```c
+Datum i8tod(PG_FUNCTION_ARGS) {
+    // Extract 64-bit integer argument
+    int64 arg = PG_GETARG_INT64(0);
+
+    // Convert to double-precision floating-point
+    float8 result = arg;
+
+    // Return converted value
+    PG_RETURN_FLOAT8(result);
+}
+```

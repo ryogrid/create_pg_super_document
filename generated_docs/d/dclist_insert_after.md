@@ -37,3 +37,21 @@ The function includes important safety measures: it validates that the reference
 - Implemented as a static inline function for performance efficiency
 - Currently unused in the codebase, suggesting it may be part of a complete API intended for future use
 - Part of PostgreSQL's intrusive list implementation that doesn't require separate memory allocation for list nodes
+
+## Simplified Source
+
+```c
+static inline void
+dclist_insert_after(dclist_head *head, dlist_node *after, dlist_node *node) {
+    // Validate that 'after' node is actually in this list
+    dlist_member_check(&head->dlist, after);
+    Assert(head->count > 0);  // List must not be empty
+
+    // Insert the new node after the specified node
+    dlist_insert_after(after, node);
+
+    // Update count and check for overflow
+    head->count++;
+    Assert(head->count > 0);  // Overflow check
+}
+```

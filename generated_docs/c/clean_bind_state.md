@@ -34,3 +34,24 @@ When bind parameters are active (indicated by  being true), the function iterate
 - It's essential for preventing memory leaks when using parameterized queries
 - The function safely handles the case where no bind parameters are currently set
 - Located in src/bin/psql/common.c:2255-2277
+
+## Simplified Source
+
+```c
+void clean_bind_state(void)
+{
+    // Free bind parameters if they exist
+    if (pset.bind_flag) {
+        // Free each individual parameter string
+        for (int i = 0; i < pset.bind_nparams; i++)
+            free(pset.bind_params[i]);
+
+        // Free the parameter array itself
+        free(pset.bind_params);
+    }
+
+    // Reset bind state
+    pset.bind_params = NULL;
+    pset.bind_flag = false;
+}
+```

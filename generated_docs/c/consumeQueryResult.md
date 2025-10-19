@@ -34,3 +34,27 @@ This function is responsible for completely draining all query results from a gi
 - Returns false if any individual result processing fails, but continues processing remaining results
 - Part of PostgreSQL's frontend utility library for managing parallel query execution
 - The function ensures proper cleanup by consuming all results even if some fail to process
+
+## Simplified Source
+
+```c
+static bool consumeQueryResult(ParallelSlot *slot) {
+    bool ok = true;
+    PGresult *result;
+
+    // Setup cancellation handling
+    SetCancelConn(slot->connection);
+
+    // Process all pending results
+    while ((result = PQgetResult(slot->connection)) != NULL) {
+        if (!processQueryResult(slot, result)) {
+            ok = false;  // Track failures but continue processing
+        }
+    }
+
+    // Clean up cancellation handling
+    ResetCancelConn();
+
+    return ok;
+}
+```

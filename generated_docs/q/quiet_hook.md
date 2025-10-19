@@ -30,3 +30,18 @@ The  function serves as a validation and assignment hook for the QUIET psql vari
 - The function returns true if the value was successfully parsed and set, false otherwise
 - Located in src/bin/psql/startup.c at lines 887-892
 - Useful for automated scripts where minimal output is desired
+
+## Simplified Source
+
+```c
+static bool quiet_hook(const char *newval) {
+    // Parse and validate boolean value, then set quiet mode flag
+    return ParseVariableBool(newval, "QUIET", &pset.quiet);
+}
+```
+
+This hook function:
+1. Validates the new string value as a boolean
+2. Sets the global QUIET flag if valid
+3. Controls psql's verbosity (suppresses informational messages when enabled)
+4. Returns true on success, false on invalid input

@@ -40,3 +40,32 @@ This function converts a PostgreSQL "char" value to a text data type following s
 - Properly manages PostgreSQL's variable-length data structures with appropriate header information
 - Used internally by PostgreSQL's type conversion system for char to text casts
 - The function follows PostgreSQL's V1 calling convention using the PG_FUNCTION_ARGS interface
+
+## Simplified Source
+
+```c
+Datum char_text(PG_FUNCTION_ARGS) {
+    char arg1 = PG_GETARG_CHAR(0);
+    text *result = palloc(VARHDRSZ + 4);
+
+    // Handle high-bit characters (>= 128): convert to octal escape sequence
+    if (IS_HIGHBIT_SET(arg1)) {
+        SET_VARSIZE(result, VARHDRSZ + 4);
+        (VARDATA(result))[0] = '\\';
+        (VARDATA(result))[1] = TOOCTAL(((unsigned char) arg1) >> 6);
+        (VARDATA(result))[2] = TOOCTAL((((unsigned char) arg1) >> 3) & 07);
+        (VARDATA(result))[3] = TOOCTAL(((unsigned char) arg1) & 07);
+    }
+    // Handle normal characters (not null)
+    else if (arg1 != '\0') {
+        SET_VARSIZE(result, VARHDRSZ + 1);
+        *(VARDATA(result)) = arg1;
+    }
+    // Handle null character: create empty text
+    else {
+        SET_VARSIZE(result, VARHDRSZ);
+    }
+
+    PG_RETURN_TEXT_P(result);
+}
+```

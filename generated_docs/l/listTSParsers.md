@@ -45,3 +45,54 @@ The query joins with the namespace catalog to show schema information and uses t
 - Common built-in parsers include 'default' parser for general text processing
 - Custom parsers can be created for specialized document types or languages
 - The function serves as a gateway to either simple or verbose parser information depending on the verbose parameter
+
+## Simplified Source
+
+```c
+bool listTSParsers(const char *pattern, bool verbose) {
+    PQExpBufferData buf;
+    PGresult *res;
+    printQueryOpt myopt = pset.popt;
+
+    // Delegate to verbose function if verbose mode requested
+    if (verbose) {
+        return listTSParsersVerbose(pattern);
+    }
+
+    // Initialize query buffer
+    initPQExpBuffer(&buf);
+
+    // Build SELECT query for basic parser information
+    printfPQExpBuffer(&buf,
+        "SELECT n.nspname as \"Schema\", "
+        "p.prsname as \"Name\", "
+        "pg_catalog.obj_description(p.oid, 'pg_ts_parser') as \"Description\" "
+        "FROM pg_catalog.pg_ts_parser p "
+        "LEFT JOIN pg_catalog.pg_namespace n ON n.oid = p.prsnamespace");
+
+    // Validate and add pattern matching
+    if (!validateSQLNamePattern(&buf, pattern, false, false,
+                               "n.nspname", "p.prsname", NULL,
+                               "pg_catalog.pg_ts_parser_is_visible(p.oid)",
+                               NULL, 3)) {
+        termPQExpBuffer(&buf);
+        return false;
+    }
+
+    // Add ordering
+    appendPQExpBufferStr(&buf, " ORDER BY 1, 2;");
+
+    // Execute query
+    res = PSQLexec(buf.data);
+    termPQExpBuffer(&buf);
+    if (!res) return false;
+
+    // Configure and display results
+    myopt.title = "List of text search parsers";
+    myopt.translate_header = true;
+    printQuery(res, &myopt, pset.queryFout, false, pset.logfile);
+
+    PQclear(res);
+    return true;
+}
+```

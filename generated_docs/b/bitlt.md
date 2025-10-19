@@ -34,3 +34,21 @@ The  function is a PostgreSQL function that implements the "<" operator for bit 
 - The comparison is lexicographical, considering all bits including trailing zeros
 - Memory management is handled through PG_FREE_IF_COPY to prevent leaks in btree operations
 - Located in src/backend/utils/adt/varbit.c:889-903
+
+## Simplified Source
+
+```c
+Datum bitlt(PG_FUNCTION_ARGS) {
+    VarBit *arg1 = PG_GETARG_VARBIT_P(0);
+    VarBit *arg2 = PG_GETARG_VARBIT_P(1);
+
+    // Check if first argument is less than second
+    bool result = (bit_cmp(arg1, arg2) < 0);
+
+    // Clean up memory for toasted values
+    PG_FREE_IF_COPY(arg1, 0);
+    PG_FREE_IF_COPY(arg2, 1);
+
+    PG_RETURN_BOOL(result);
+}
+```

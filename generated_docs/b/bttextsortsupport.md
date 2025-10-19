@@ -35,3 +35,27 @@ The  function is a PostgreSQL function that implements sort support for text dat
 - It ensures proper memory context management by switching contexts before and after setup
 - The function serves as a specialized entry point for text sorting within PostgreSQL's B-tree indexing system
 - Located in src/backend/utils/adt/varlena.c at lines 1846-1872
+
+## Simplified Source
+
+This function sets up B-tree sort support for text data types by delegating to the generic string sorting infrastructure with proper memory context management.
+
+```c
+Datum
+bttextsortsupport(PG_FUNCTION_ARGS)
+{
+    SortSupport ssup = (SortSupport) PG_GETARG_POINTER(0);
+    Oid collid = ssup->ssup_collation;
+
+    // Switch to sort support memory context for setup
+    MemoryContext oldcontext = MemoryContextSwitchTo(ssup->ssup_cxt);
+
+    // Use generic string sort support for text type
+    varstr_sortsupport(ssup, TEXTOID, collid);
+
+    // Restore previous memory context
+    MemoryContextSwitchTo(oldcontext);
+
+    PG_RETURN_VOID();
+}
+```

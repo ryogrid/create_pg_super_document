@@ -31,3 +31,13 @@ This function performs cleanup operations for a tar parser bbstreamer when it is
 - Does not free the streamer structure itself, only its associated resources
 - Critical for preventing memory leaks in the backup streaming pipeline
 - Follows PostgreSQL memory management conventions using pfree for allocated memory
+
+## Simplified Source
+
+```c
+static void bbstreamer_tar_parser_free(bbstreamer *streamer) {
+    // Free internal buffer and chain components
+    pfree(streamer->bbs_buffer.data);
+    bbstreamer_free(streamer->bbs_next);
+}
+```

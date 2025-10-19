@@ -32,3 +32,16 @@ This function provides the SQL operator  for OID values in PostgreSQL. It extrac
 - The function is located in 
 - OID comparisons are straightforward numerical comparisons since OIDs are unsigned integers
 - The function name follows PostgreSQL's naming convention for comparison operators (oid + ge for 'greater or equal')
+
+## Simplified Source
+
+```c
+Datum oidge(PG_FUNCTION_ARGS) {
+    // Extract the two OID arguments
+    Oid arg1 = PG_GETARG_OID(0);
+    Oid arg2 = PG_GETARG_OID(1);
+
+    // Compare and return boolean result
+    PG_RETURN_BOOL(arg1 >= arg2);
+}
+```

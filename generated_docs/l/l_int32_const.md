@@ -39,3 +39,16 @@ This is part of PostgreSQL's JIT compilation infrastructure and is widely used d
 - Essential for generating efficient JIT code that manipulates PostgreSQL's internal data representations
 - Common for representing function IDs, array indices, larger offsets, and complex numeric computations
 - The 32-bit variant is the most commonly used among the integer constant functions due to its versatility
+
+## Simplified Source
+
+```c
+static inline LLVMValueRef
+l_int32_const(LLVMContextRef lc, int32 i)
+{
+    // Create LLVM constant for 32-bit signed integer
+    return LLVMConstInt(LLVMInt32TypeInContext(lc), i, false);
+}
+```
+
+This helper function wraps LLVM's constant integer creation for 32-bit values. It's the most commonly used variant in PostgreSQL's JIT infrastructure, creating constants for function IDs, array indices, and various numeric computations.

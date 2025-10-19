@@ -32,3 +32,12 @@ The `isLazyFunc` function identifies functions in pgbench that require lazy eval
 - Supports pgbench's dual evaluation strategy: eager evaluation for most functions and lazy evaluation for control-flow functions
 - Critical for implementing proper short-circuit evaluation semantics in pgbench expressions
 - The three lazy functions (AND, OR, CASE) are the only ones that require conditional argument evaluation
+
+## Simplified Source
+
+```c
+static bool isLazyFunc(PgBenchFunction func) {
+    // Check if function requires lazy evaluation (short-circuit semantics)
+    return func == PGBENCH_AND || func == PGBENCH_OR || func == PGBENCH_CASE;
+}
+```

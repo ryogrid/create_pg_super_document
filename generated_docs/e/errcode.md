@@ -37,3 +37,20 @@ The function operates on the current error stack entry without incrementing the 
 - Used in conjunction with functions like ereport(), errmsg(), and other error construction utilities
 - The sqlerrcode parameter should be created using the MAKE_SQLSTATE() macro for proper encoding
 - Part of the error message construction chain that builds complete error reports with multiple attributes
+
+## Simplified Source
+
+```c
+int errcode(int sqlerrcode) {
+    // Get current error data from stack
+    ErrorData *edata = &errordata[errordata_stack_depth];
+
+    // Validate error stack state
+    CHECK_STACK_DEPTH();
+
+    // Set the SQLSTATE error code
+    edata->sqlerrcode = sqlerrcode;
+
+    return 0;  // Return value not meaningful
+}
+```

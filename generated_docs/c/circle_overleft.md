@@ -50,3 +50,19 @@ The function serves as the implementation for PostgreSQL's `&<` operator for cir
 - Follows PostgreSQL's standard function interface using PG_FUNCTION_ARGS and PG_RETURN_BOOL macros
 - Located alongside other circle positional operators in the geometric operations module
 - Critical for efficient spatial query processing and index-based optimizations
+
+## Simplified Source
+
+```c
+Datum
+circle_overleft(PG_FUNCTION_ARGS)
+{
+    CIRCLE *circle1 = PG_GETARG_CIRCLE_P(0);
+    CIRCLE *circle2 = PG_GETARG_CIRCLE_P(1);
+
+    // Test if right edge of circle1 <= right edge of circle2
+    // Right edge = center.x + radius for each circle
+    PG_RETURN_BOOL(FPle(float8_pl(circle1->center.x, circle1->radius),
+                        float8_pl(circle2->center.x, circle2->radius)));
+}
+```

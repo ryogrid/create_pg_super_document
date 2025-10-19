@@ -39,3 +39,35 @@ This function is a fundamental building block used internally by other geometric
 - Uses PostgreSQL's `float8_gt` function for proper floating-point comparison with NaN handling
 - Essential for maintaining BOX invariants where high.x >= low.x and high.y >= low.y
 - Located in the geometric operations module (geo_ops.c) alongside other BOX manipulation functions
+
+## Simplified Source
+
+```c
+static inline void
+box_construct(BOX *result, Point *pt1, Point *pt2)
+{
+    // Determine x-coordinate bounds (high.x >= low.x)
+    if (float8_gt(pt1->x, pt2->x))
+    {
+        result->high.x = pt1->x;
+        result->low.x = pt2->x;
+    }
+    else
+    {
+        result->high.x = pt2->x;
+        result->low.x = pt1->x;
+    }
+
+    // Determine y-coordinate bounds (high.y >= low.y)
+    if (float8_gt(pt1->y, pt2->y))
+    {
+        result->high.y = pt1->y;
+        result->low.y = pt2->y;
+    }
+    else
+    {
+        result->high.y = pt2->y;
+        result->low.y = pt1->y;
+    }
+}
+```

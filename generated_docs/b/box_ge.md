@@ -35,3 +35,16 @@ This function implements the greater-than-or-equal-to operator for BOX data type
 - Uses floating-point arithmetic, so standard floating-point precision considerations apply
 - Returns true if both boxes have equal areas or if the first box's area is larger
 - Located in src/backend/utils/adt/geo_ops.c:780-795
+
+## Simplified Source
+
+```c
+Datum box_ge(PG_FUNCTION_ARGS) {
+    // Extract the two box arguments
+    BOX *box1 = PG_GETARG_BOX_P(0);
+    BOX *box2 = PG_GETARG_BOX_P(1);
+
+    // Return true if box1's area >= box2's area
+    return PG_RETURN_BOOL(FPge(box_ar(box1), box_ar(box2)));
+}
+```

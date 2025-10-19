@@ -28,3 +28,25 @@ This function serves as a final function for the SQL REGR_SXX aggregate, which c
 - Part of PostgreSQL's implementation of SQL:2003 regression statistical functions
 - Used in conjunction with float8_regr_accum for the complete REGR_SXX aggregate implementation
 - The transition array index 2 specifically contains the sum of squared deviations of X values
+
+## Simplified Source
+
+```c
+Datum
+float8_regr_sxx(PG_FUNCTION_ARGS)
+{
+    ArrayType *transarray = PG_GETARG_ARRAYTYPE_P(0);
+
+    // Extract N (count) and Sxx (sum of squared deviations of X) from 6-element regression state
+    float8 *transvalues = check_float8_array(transarray, "float8_regr_sxx", 6);
+    float8 N = transvalues[0];    // Count of data points
+    float8 Sxx = transvalues[2];  // Sum of squared deviations of X: Σ(X - X̄)²
+
+    // Return NULL for empty datasets
+    if (N < 1.0)
+        PG_RETURN_NULL();
+
+    // Return sum of squared deviations of X (guaranteed non-negative)
+    PG_RETURN_FLOAT8(Sxx);
+}
+```

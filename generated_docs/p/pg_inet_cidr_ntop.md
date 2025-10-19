@@ -40,3 +40,20 @@ The function acts as a dispatcher, delegating the actual conversion work to spec
 - The function assumes network byte order for input addresses
 - Originally authored by Paul Vixie (ISC) in July 1996
 - This is part of PostgreSQL's network data type support infrastructure
+
+## Simplified Source
+
+```c
+char *pg_inet_cidr_ntop(int af, const void *src, int bits, char *dst, size_t size) {
+    // Convert network address to CIDR format based on address family
+    switch (af) {
+        case PGSQL_AF_INET:
+            return inet_cidr_ntop_ipv4(src, bits, dst, size);
+        case PGSQL_AF_INET6:
+            return inet_cidr_ntop_ipv6(src, bits, dst, size);
+        default:
+            errno = EAFNOSUPPORT;  // Unsupported address family
+            return NULL;
+    }
+}
+```

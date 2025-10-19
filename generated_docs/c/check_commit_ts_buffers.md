@@ -34,3 +34,14 @@ The function delegates the actual validation logic to `check_slru_buffers()`, wh
 - The validation ensures the buffer count falls within acceptable ranges and constraints
 - The function maintains consistency with other SLRU buffer validation across PostgreSQL subsystems
 - The `commit_timestamp_buffers` parameter controls memory allocation for the commit timestamp tracking system
+
+## Simplified Source
+
+```c
+bool
+check_commit_ts_buffers(int *newval, void **extra, GucSource source)
+{
+    // Delegate validation to generic SLRU buffer checker
+    return check_slru_buffers("commit_timestamp_buffers", newval);
+}
+```

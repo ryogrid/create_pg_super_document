@@ -38,3 +38,16 @@ This function performs a three-way comparison between a float8 and a float4 valu
 - Used in B-tree indexing scenarios where float8 and float4 values need to be compared
 - The type promotion from float4 to float8 is implicit and handled by the C type system
 - Returns an int32 value following PostgreSQL's comparison function convention (-1, 0, 1)
+
+## Simplified Source
+
+```c
+Datum btfloat84cmp(PG_FUNCTION_ARGS) {
+    // Extract double-precision and single-precision arguments
+    float8 arg1 = PG_GETARG_FLOAT8(0);
+    float4 arg2 = PG_GETARG_FLOAT4(1);
+
+    // Widen float4 to float8 and compare
+    PG_RETURN_INT32(float8_cmp_internal(arg1, arg2));
+}
+```

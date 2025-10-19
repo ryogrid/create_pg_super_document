@@ -39,3 +39,27 @@ The function follows the typical Snowball stemmer pattern of returning success (
 - Part of Turkish morphological analysis focusing on dative case and directional suffixes
 - The a_4 array contains only two simple vowel patterns that this function can match
 - Used specifically in noun suffix processing chains
+
+## Simplified Source
+
+```c
+static int r_mark_yA(struct SN_env * z) {
+    // Check vowel harmony first
+    int harmony_check = r_check_vowel_harmony(z);
+    if (harmony_check <= 0) return harmony_check;
+
+    // Ensure current character is 'a' or 'e' (vowel harmony A variants)
+    if (z->c <= z->lb || (z->p[z->c - 1] != 97 && z->p[z->c - 1] != 101))
+        return 0;
+
+    // Match against 2 'yA' suffix patterns
+    if (!(find_among_b(z, a_4, 2)))
+        return 0;
+
+    // Mark suffix with optional y consonant
+    int suffix_result = r_mark_suffix_with_optional_y_consonant(z);
+    if (suffix_result <= 0) return suffix_result;
+
+    return 1;  // Successfully marked yA suffix
+}
+```

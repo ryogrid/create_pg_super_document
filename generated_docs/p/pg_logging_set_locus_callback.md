@@ -32,3 +32,13 @@ This function registers a callback that will be invoked during log message proce
 - Only one locus callback can be registered at a time; setting a new callback overwrites the previous one
 - The filename and line number information is used to provide context in log output, showing where the log message originated
 - If no callback is set, location information will not be included in log messages
+
+## Simplified Source
+
+```c
+void pg_logging_set_locus_callback(void (*cb) (const char **filename, uint64 *lineno))
+{
+    // Set the global locus callback function for source location info
+    log_locus_callback = cb;
+}
+```

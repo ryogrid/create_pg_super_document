@@ -36,3 +36,28 @@ float4eq is a PostgreSQL built-in function wrapper that implements the equality 
 - This NaN handling ensures consistent sort order and is somewhat arbitrary but necessary for database operations
 - Part of PostgreSQL's type system for single-precision floating-point arithmetic
 - Located in src/backend/utils/adt/float.c:819-827
+
+## Simplified Source
+
+```c
+Datum
+float4eq(PG_FUNCTION_ARGS)
+{
+    // Extract two float4 arguments from function call
+    float4 arg1 = PG_GETARG_FLOAT4(0);
+    float4 arg2 = PG_GETARG_FLOAT4(1);
+
+    // Perform NaN-aware equality comparison
+    // NaN == NaN returns true (PostgreSQL convention)
+    // NaN == non-NaN returns false
+    // For non-NaN values, use standard equality
+    bool result;
+    if (isnan(arg1)) {
+        result = isnan(arg2);  // Both NaN or only arg1 is NaN
+    } else {
+        result = !isnan(arg2) && arg1 == arg2;  // Standard equality if neither is NaN
+    }
+
+    PG_RETURN_BOOL(result);
+}
+```

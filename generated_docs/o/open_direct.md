@@ -39,3 +39,33 @@ This function attempts to open a file with direct I/O enabled to bypass the oper
 - Platform-specific conditional compilation ensures compatibility across different operating systems
 - Essential for accurate I/O performance testing by eliminating cache effects
 - File location: src/bin/pg_test_fsync/pg_test_fsync.c:265-289
+
+## Simplified Source
+
+```c
+static int
+open_direct(const char *path, int flags, mode_t mode)
+{
+    int fd;
+
+    // Enable direct I/O if supported (Linux)
+#ifdef O_DIRECT
+    flags |= O_DIRECT;
+#endif
+
+    // Open the file
+    fd = open(path, flags, mode);
+
+    // Alternative direct I/O method for BSD/macOS
+#if !defined(O_DIRECT) && defined(F_NOCACHE)
+    if (fd >= 0 && fcntl(fd, F_NOCACHE, 1) < 0) {
+        int save_errno = errno;
+        close(fd);
+        errno = save_errno;
+        return -1;
+    }
+#endif
+
+    return fd;
+}
+```

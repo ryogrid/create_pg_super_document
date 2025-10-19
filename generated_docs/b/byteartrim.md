@@ -37,3 +37,20 @@ The function is implemented as a PostgreSQL V1 calling convention function, taki
 - Returns the original string unchanged if either the input string or trim set is empty
 - Complements the  function which performs left trimming
 - Uses PostgreSQL's memory management functions () for result allocation
+
+## Simplified Source
+
+```c
+Datum byteartrim(PG_FUNCTION_ARGS) {
+    // Get input bytea string and trim set from function arguments
+    bytea *string = PG_GETARG_BYTEA_PP(0);
+    bytea *set = PG_GETARG_BYTEA_PP(1);
+
+    // Delegate to common trim function for right-side trimming only
+    // Parameters: input_string, trim_set, left_trim=false, right_trim=true
+    bytea *result = dobyteatrim(string, set, false, true);
+
+    // Return the trimmed bytea result
+    PG_RETURN_BYTEA_P(result);
+}
+```

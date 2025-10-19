@@ -33,3 +33,16 @@ This function implements the greater-than-or-equal-to comparison operator (`>=`)
 
 ## Notes and Other Information
 This function complements the other UUID comparison operators to provide a complete set of relational operators. It returns true when `uuid_internal_cmp` returns a value greater than or equal to zero, indicating that the first UUID is not less than the second in lexicographic order. Together with the other comparison functions, it enables full range query support and proper sorting behavior for UUID columns.
+
+## Simplified Source
+
+```c
+Datum uuid_ge(PG_FUNCTION_ARGS) {
+    // Extract two UUID arguments from function call
+    pg_uuid_t *uuid1 = PG_GETARG_UUID_P(0);
+    pg_uuid_t *uuid2 = PG_GETARG_UUID_P(1);
+
+    // Return true if first UUID >= second UUID lexicographically
+    PG_RETURN_BOOL(uuid_internal_cmp(uuid1, uuid2) >= 0);
+}
+```

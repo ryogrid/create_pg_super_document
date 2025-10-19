@@ -32,3 +32,21 @@ This function retrieves the database OID for a PostgreSQL backend process identi
 - The database OID can be used with system catalogs (like pg_database) to resolve the actual database name
 - Auxiliary processes that are not connected to a specific database may return InvalidOid (0)
 - Located in src/backend/utils/adt/pgstatfuncs.c:681-693
+
+## Simplified Source
+
+```c
+Datum pg_stat_get_backend_dbid(PG_FUNCTION_ARGS)
+{
+    int32 procNumber = PG_GETARG_INT32(0);
+    PgBackendStatus *beentry;
+
+    // Get backend status entry by process number
+    beentry = pgstat_get_beentry_by_proc_number(procNumber);
+    if (beentry == NULL)
+        PG_RETURN_NULL();
+
+    // Return the database OID from the backend status entry
+    PG_RETURN_OID(beentry->st_databaseid);
+}
+```

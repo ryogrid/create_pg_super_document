@@ -30,5 +30,14 @@ This function is part of the pg_rewind utility's file management system, which c
 - The hash table is implemented using PostgreSQL's simplehash library
 - The initial size is set to 1000 entries (FILEHASH_INITIAL_SIZE)
 - This function must be called before any other file hash operations
-- The global  variable is used throughout the filemap.c module
+- The global filehash variable is used throughout the filemap.c module
 - Part of the pg_rewind utility's file tracking system for database rewind operations
+
+## Simplified Source
+
+```c
+void filehash_init(void) {
+    // Create hash table for file map with initial size
+    filehash = filehash_create(FILEHASH_INITIAL_SIZE, NULL);
+}
+```

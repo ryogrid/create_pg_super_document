@@ -30,3 +30,23 @@ The function implements a safety check to prevent the creation of a PostgreSQL c
 - The function only checks for password-required authentication methods: "md5", "password", and "scram-sha-256"
 - Other authentication methods like "trust", "peer", "ident", etc., do not require password validation
 - This validation occurs during the initdb process to ensure the resulting database cluster is properly configured and accessible
+
+## Simplified Source
+
+```c
+static void check_need_password(const char *authmethodlocal, const char *authmethodhost) {
+    // Check if both local and host connections require password authentication
+    bool local_needs_password = (strcmp(authmethodlocal, "md5") == 0 ||
+                                  strcmp(authmethodlocal, "password") == 0 ||
+                                  strcmp(authmethodlocal, "scram-sha-256") == 0);
+
+    bool host_needs_password = (strcmp(authmethodhost, "md5") == 0 ||
+                                strcmp(authmethodhost, "password") == 0 ||
+                                strcmp(authmethodhost, "scram-sha-256") == 0);
+
+    // If both need passwords but no password source provided, fail
+    if (local_needs_password && host_needs_password && !(pwprompt || pwfilename)) {
+        pg_fatal("must specify a password for the superuser to enable password authentication");
+    }
+}
+```

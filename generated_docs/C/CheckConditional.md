@@ -35,3 +35,60 @@ This function validates the syntactic correctness of conditional constructs in a
 - Ensures that every if has a matching endif and proper nesting
 - Detects illegal sequences like elif after else or multiple else clauses
 - Called during script loading/preparation phase, not during execution
+
+## Simplified Source
+
+```c
+static void
+CheckConditional(const ParsedScript *ps)
+{
+    // Create stack to track conditional nesting
+    ConditionalStack cs = conditional_stack_create();
+
+    // Iterate through all commands in the script
+    for (int i = 0; ps->commands[i] != NULL; i++)
+    {
+        Command *cmd = ps->commands[i];
+
+        if (cmd->type == META_COMMAND)
+        {
+            switch (cmd->meta)
+            {
+                case META_IF:
+                    // Push new conditional level
+                    conditional_stack_push(cs, IFSTATE_FALSE);
+                    break;
+
+                case META_ELIF:
+                    // Validate elif placement
+                    if (conditional_stack_empty(cs))
+                        ConditionError(ps->desc, i + 1, "\\elif without matching \\if");
+                    if (conditional_stack_peek(cs) == IFSTATE_ELSE_FALSE)
+                        ConditionError(ps->desc, i + 1, "\\elif after \\else");
+                    break;
+
+                case META_ELSE:
+                    // Validate else placement
+                    if (conditional_stack_empty(cs))
+                        ConditionError(ps->desc, i + 1, "\\else without matching \\if");
+                    if (conditional_stack_peek(cs) == IFSTATE_ELSE_FALSE)
+                        ConditionError(ps->desc, i + 1, "\\else after \\else");
+                    conditional_stack_poke(cs, IFSTATE_ELSE_FALSE);
+                    break;
+
+                case META_ENDIF:
+                    // Pop conditional level
+                    if (!conditional_stack_pop(cs))
+                        ConditionError(ps->desc, i + 1, "\\endif without matching \\if");
+                    break;
+            }
+        }
+    }
+
+    // Check for unmatched if statements
+    if (!conditional_stack_empty(cs))
+        ConditionError(ps->desc, i + 1, "\\if without matching \\endif");
+
+    conditional_stack_destroy(cs);
+}
+```

@@ -45,3 +45,30 @@ The function includes proper error handling, translating Windows socket errors t
 - Sets errno to 0 on successful completion
 - Part of PostgreSQLs Windows socket abstraction layer that provides POSIX-like socket behavior
 - The overlapped flag is crucial for efficient Windows socket event handling and I/O completion ports
+
+## Simplified Source
+
+```c
+SOCKET pgwin32_socket(int af, int type, int protocol)
+{
+    SOCKET socket_handle;
+    unsigned long enable_nonblocking = 1;
+
+    // Create overlapped socket for async I/O
+    socket_handle = WSASocket(af, type, protocol, NULL, 0, WSA_FLAG_OVERLAPPED);
+    if (socket_handle == INVALID_SOCKET) {
+        TranslateSocketError();
+        return INVALID_SOCKET;
+    }
+
+    // Configure socket for non-blocking mode
+    if (ioctlsocket(socket_handle, FIONBIO, &enable_nonblocking)) {
+        TranslateSocketError();
+        closesocket(socket_handle);  // Clean up on failure
+        return INVALID_SOCKET;
+    }
+
+    errno = 0;  // Clear errno on success
+    return socket_handle;
+}
+```

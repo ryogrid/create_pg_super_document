@@ -39,3 +39,38 @@ The  function is a low-level UTF-8 decoding utility that extracts and decodes a 
 - Properly masks continuation bytes (0x3F) and leading byte indicators
 - Used by character grouping functions that need to classify Unicode characters by category
 - Critical for supporting international languages in PostgreSQL's full-text search stemming
+
+## Simplified Source
+
+```c
+static int get_utf8(const symbol * p, int c, int l, int * slot) {
+    // Check buffer bounds
+    if (c >= l) return 0;
+
+    int b0 = p[c++];
+
+    // 1-byte UTF-8 (ASCII: 0xxxxxxx)
+    if (b0 < 0xC0 || c == l) {
+        *slot = b0;
+        return 1;
+    }
+
+    // 2-byte UTF-8 (110xxxxx 10xxxxxx)
+    int b1 = p[c++] & 0x3F;
+    if (b0 < 0xE0 || c == l) {
+        *slot = (b0 & 0x1F) << 6 | b1;
+        return 2;
+    }
+
+    // 3-byte UTF-8 (1110xxxx 10xxxxxx 10xxxxxx)
+    int b2 = p[c++] & 0x3F;
+    if (b0 < 0xF0 || c == l) {
+        *slot = (b0 & 0xF) << 12 | b1 << 6 | b2;
+        return 3;
+    }
+
+    // 4-byte UTF-8 (11110xxx 10xxxxxx 10xxxxxx 10xxxxxx)
+    *slot = (b0 & 0x7) << 18 | b1 << 12 | b2 << 6 | (p[c] & 0x3F);
+    return 4;
+}
+```

@@ -39,3 +39,24 @@ This function provides a convenient interface specifically for write operations,
 - Part of the gzip compression backend for PostgreSQL's pg_dump utility
 - Requires HAVE_LIBZ to be defined for compilation (depends on zlib library)
 - Designed specifically for write operations where the .gz extension should be automatically added
+
+## Simplified Source
+
+```c
+static bool
+Gzip_open_write(const char *path, const char *mode, CompressFileHandle *CFH)
+{
+    // Create filename with .gz extension
+    char *gzip_filename = psprintf("%s.gz", path);
+
+    // Open the gzip file using the compression handle's open function
+    bool success = CFH->open_func(gzip_filename, -1, mode, CFH);
+
+    // Clean up allocated filename while preserving errno
+    int saved_errno = errno;
+    pg_free(gzip_filename);
+    errno = saved_errno;
+
+    return success;
+}
+```

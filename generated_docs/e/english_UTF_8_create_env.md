@@ -40,3 +40,13 @@ This environment must be created before calling english_UTF_8_stem() and should 
 - The created environment is reusable for multiple stemming operations
 - Thread safety depends on each thread having its own SN_env instance
 - Part of the external API for the Snowball stemming library
+
+## Simplified Source
+
+```c
+extern struct SN_env * english_UTF_8_create_env(void) {
+    // Create a Snowball environment for English stemming
+    // Parameters: 0 string arrays, 3 integer variables needed
+    return SN_create_env(0, 3);
+}
+```

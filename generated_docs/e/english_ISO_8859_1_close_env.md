@@ -31,3 +31,12 @@ The function delegates the actual cleanup work to the underlying  function, pass
 - After calling this function, the environment pointer becomes invalid and should not be used
 - Proper pairing with the create function is essential for correct memory management in applications using the English stemmer
 - The function provides language-specific cleanup while maintaining compatibility with the generic Snowball framework
+
+## Simplified Source
+
+```c
+extern void english_ISO_8859_1_close_env(struct SN_env * z) {
+    // Clean up Snowball environment for English stemming
+    SN_close_env(z, 0);
+}
+```

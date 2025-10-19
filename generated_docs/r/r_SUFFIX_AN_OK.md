@@ -31,3 +31,15 @@ If this condition is true, the function returns 1 (OK for suffix removal); if z-
 - Value 1 probably corresponds to a specific word category where '-an' suffix removal would be morphologically incorrect
 - The '-an' suffix in Indonesian can form nouns from verbs or indicate various grammatical functions
 - This validation ensures that stemming maintains linguistic accuracy by preventing inappropriate suffix removal
+
+## Simplified Source
+
+```c
+static int r_SUFFIX_AN_OK(struct SN_env * z) {
+    // Check if '-an' suffix removal is morphologically valid
+    // Reject if word type is 1 (specific morphological class)
+    if (z->I[0] == 1) return 0;
+
+    return 1; // OK to remove -an suffix
+}
+```

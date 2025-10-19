@@ -305,3 +305,30 @@ Text creation and manipulation
 - The tuple count correction only applies when heap count is accurate (not estimated)
 - Works in conjunction with gistbulkdelete to implement PostgreSQL's two-phase vacuum approach
 - Part of the standard PostgreSQL index access method interface
+
+## Simplified Source
+
+```c
+IndexBulkDeleteResult *
+gistvacuumcleanup(IndexVacuumInfo *info, IndexBulkDeleteResult *stats)
+{
+    // Skip processing in ANALYZE ONLY mode
+    if (info->analyze_only)
+        return stats;
+
+    // If no bulk delete was performed, scan index to gather statistics
+    if (stats == NULL) {
+        stats = palloc0(sizeof(IndexBulkDeleteResult));
+        gistvacuumscan(info, stats, NULL, NULL);
+    }
+
+    // Correct potentially inflated tuple counts from concurrent page splits
+    // Only if we have accurate heap count (not estimated)
+    if (!info->estimated_count) {
+        if (stats->num_index_tuples > info->num_heap_tuples)
+            stats->num_index_tuples = info->num_heap_tuples;
+    }
+
+    return stats;
+}
+```

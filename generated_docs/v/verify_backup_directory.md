@@ -48,3 +48,55 @@ This function performs recursive directory verification as part of the backup ve
 - Memory management is handled properly with pfree calls for dynamically allocated path strings
 - The function uses PostgreSQL's string handling functions (psprintf, pstrdup) for path manipulation
 - Part of the pg_verifybackup utility's core verification pipeline
+
+## Simplified Source
+
+```c
+static void
+verify_backup_directory(verifier_context *context, char *relpath, char *fullpath)
+{
+    DIR *dir;
+    struct dirent *dirent;
+
+    // Open directory
+    dir = opendir(fullpath);
+    if (dir == NULL) {
+        // Top-level directory failure is fatal
+        if (relpath == NULL)
+            report_fatal_error("could not open directory \"%s\": %m", fullpath);
+
+        // Subdirectory failure is non-fatal, add to ignore list
+        report_backup_error(context, "could not open directory \"%s\": %m", fullpath);
+        simple_string_list_append(&context->ignore_list, relpath);
+        return;
+    }
+
+    // Process each directory entry
+    while (errno = 0, (dirent = readdir(dir)) != NULL) {
+        char *filename = dirent->d_name;
+        char *newfullpath = psprintf("%s/%s", fullpath, filename);
+        char *newrelpath;
+
+        // Skip "." and ".."
+        if (filename[0] == '.' && (filename[1] == '\0' || strcmp(filename, "..") == 0))
+            continue;
+
+        // Build relative path
+        if (relpath == NULL)
+            newrelpath = pstrdup(filename);
+        else
+            newrelpath = psprintf("%s/%s", relpath, filename);
+
+        // Verify file/subdirectory if not ignored
+        if (!should_ignore_relpath(context, newrelpath))
+            verify_backup_file(context, newrelpath, newfullpath);
+
+        pfree(newfullpath);
+        pfree(newrelpath);
+    }
+
+    // Close directory
+    if (closedir(dir))
+        report_backup_error(context, "could not close directory \"%s\": %m", fullpath);
+}
+```

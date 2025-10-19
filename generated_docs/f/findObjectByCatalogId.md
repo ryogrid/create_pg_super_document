@@ -46,3 +46,23 @@ This function performs a lookup operation to find a DumpableObject associated wi
 - Forms the foundation for type-specific finder functions (findTableByOid, findTypeByOid, etc.)
 - Safe to use with potentially invalid CatalogIds due to built-in NULL checking
 - Critical component of pg_dump's object dependency resolution and cross-referencing system
+
+## Simplified Source
+
+```c
+DumpableObject *
+findObjectByCatalogId(CatalogId catalogId)
+{
+    // Check if the catalog ID hash table is initialized
+    if (catalogIdHash == NULL)
+        return NULL;
+
+    // Look up the catalog ID in the hash table
+    CatalogIdMapEntry *entry = catalogid_lookup(catalogIdHash, catalogId);
+    if (entry == NULL)
+        return NULL;
+
+    // Return the DumpableObject from the entry
+    return entry->dobj;
+}
+```

@@ -313,3 +313,33 @@ Text creation and manipulation
 - Essential for WAL record identification in debugging tools and log output
 - Located in the same file as  (src/backend/access/rmgrdesc/spgdesc.c)
 - Uses bitwise masking to extract the operation type from the info byte, ignoring other flags
+
+## Simplified Source
+
+```c
+const char *
+spg_identify(uint8 info)
+{
+    // Extract operation type from info byte
+    switch (info & ~XLR_INFO_MASK) {
+        case XLOG_SPGIST_ADD_LEAF:
+            return "ADD_LEAF";
+        case XLOG_SPGIST_MOVE_LEAFS:
+            return "MOVE_LEAFS";
+        case XLOG_SPGIST_ADD_NODE:
+            return "ADD_NODE";
+        case XLOG_SPGIST_SPLIT_TUPLE:
+            return "SPLIT_TUPLE";
+        case XLOG_SPGIST_PICKSPLIT:
+            return "PICKSPLIT";
+        case XLOG_SPGIST_VACUUM_LEAF:
+            return "VACUUM_LEAF";
+        case XLOG_SPGIST_VACUUM_ROOT:
+            return "VACUUM_ROOT";
+        case XLOG_SPGIST_VACUUM_REDIRECT:
+            return "VACUUM_REDIRECT";
+    }
+
+    return NULL;  // Unknown operation type
+}
+```

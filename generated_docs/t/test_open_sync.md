@@ -47,3 +47,41 @@ The function handles direct I/O through the open_direct function and provides ap
 - Uses alarm-based timing mechanism consistent with other test functions
 - Provides "n/a*" output when direct I/O is not supported by the filesystem
 - Critical for determining optimal write sizes when using synchronous I/O in PostgreSQL
+
+## Simplified Source
+
+```c
+static void test_open_sync(const char *msg, int writes_size)
+{
+    int tmpfile, ops, writes;
+
+    printf(LABEL_FORMAT, msg);
+    fflush(stdout);
+
+#ifdef O_SYNC
+    // Open file with synchronous I/O flag
+    tmpfile = open_direct(filename, O_RDWR | O_SYNC | PG_BINARY, 0);
+
+    if (tmpfile == -1) {
+        printf(NA_FORMAT, _("n/a*"));
+        return;
+    }
+
+    // Time repeated write operations
+    START_TIMER;
+    for (ops = 0; alarm_triggered == false; ops++) {
+        // Write 16kB total in chunks of writes_size
+        for (writes = 0; writes < 16 / writes_size; writes++) {
+            if (pg_pwrite(tmpfile, buf, writes_size * 1024,
+                         writes * writes_size * 1024) != writes_size * 1024) {
+                die("write failed");
+            }
+        }
+    }
+    STOP_TIMER;
+    close(tmpfile);
+#else
+    printf(NA_FORMAT, _("n/a"));
+#endif
+}
+```

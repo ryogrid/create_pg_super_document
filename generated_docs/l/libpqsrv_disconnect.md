@@ -32,3 +32,17 @@ The design philosophy follows the principle that if a connection was never succe
 - Must be used as the counterpart to libpqsrv_connect or libpqsrv_connect_params to properly release reserved file descriptors
 - Part of the resource management strategy for server-side PostgreSQL connections
 - The function design simplifies PG_CATCH() exception handlers by allowing unconditional cleanup calls
+
+## Simplified Source
+
+```c
+static inline void libpqsrv_disconnect(PGconn *conn) {
+    // Allow NULL connections for easier error handling
+    if (conn == NULL)
+        return;
+
+    // Release reserved file descriptor and close connection
+    ReleaseExternalFD();
+    PQfinish(conn);
+}
+```

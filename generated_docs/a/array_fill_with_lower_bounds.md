@@ -48,3 +48,44 @@ Internal variables:
 - Located in src/backend/utils/adt/arrayfuncs.c at lines 5980-6020
 - Part of PostgreSQL's array manipulation infrastructure
 - Error handling includes specific error codes for invalid NULL inputs (ERRCODE_NULL_VALUE_NOT_ALLOWED)
+
+## Simplified Source
+
+```c
+Datum array_fill_with_lower_bounds(PG_FUNCTION_ARGS) {
+    ArrayType *dims, *lbs, *result;
+    Oid elmtype;
+    Datum value;
+    bool isnull;
+
+    // Validate required array arguments are not NULL
+    if (PG_ARGISNULL(1) || PG_ARGISNULL(2)) {
+        ereport(ERROR, (errcode(ERRCODE_NULL_VALUE_NOT_ALLOWED),
+                errmsg("dimension array or low bound array cannot be null")));
+    }
+
+    // Extract dimensions and lower bounds arrays
+    dims = PG_GETARG_ARRAYTYPE_P(1);
+    lbs = PG_GETARG_ARRAYTYPE_P(2);
+
+    // Handle fill value (may be NULL)
+    if (!PG_ARGISNULL(0)) {
+        value = PG_GETARG_DATUM(0);
+        isnull = false;
+    } else {
+        value = 0;
+        isnull = true;
+    }
+
+    // Determine element type and create the array
+    elmtype = get_fn_expr_argtype(fcinfo->flinfo, 0);
+    if (!OidIsValid(elmtype)) {
+        elog(ERROR, "could not determine data type of input");
+    }
+
+    result = array_fill_internal(dims, lbs, value, isnull, elmtype, fcinfo);
+    PG_RETURN_ARRAYTYPE_P(result);
+}
+```
+
+This function creates a new array with custom dimensions and lower bounds, filled with a specified value. It validates inputs, handles NULL fill values, determines the element type dynamically, then delegates to `array_fill_internal()` for the actual array construction.

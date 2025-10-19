@@ -60,3 +60,52 @@ The function uses bit manipulation (815616 mask) for efficient character classif
 - Case 13 has additional constraint requiring 'l' before 'ogi' suffix
 - Case 15 validates LI-ending against specific character set (c,d,e,g,h,k,m,n,r,t) to avoid incorrect deletions
 - Critical component for handling complex English derivational morphology in PostgreSQL's full-text search capabilities
+
+## Simplified Source
+
+```c
+static int r_Step_2(struct SN_env * z) {
+    // Mark end position for suffix
+    z->ket = z->c;
+
+    // Quick character check for efficiency
+    if (z->c - 1 <= z->lb || z->p[z->c - 1] >> 5 != 3 ||
+        !((815616 >> (z->p[z->c - 1] & 0x1f)) & 1)) {
+        return 0;
+    }
+
+    // Find matching suffix from predefined list
+    int among_var = find_among_b(z, a_5, 24);
+    if (!among_var) return 0;
+
+    z->bra = z->c;
+
+    // Ensure we're in R1 region
+    if (r_R1(z) <= 0) return 0;
+
+    // Apply appropriate transformation based on suffix
+    switch (among_var) {
+        case 1: return slice_from_s(z, 4, s_9);   // -> "tion"
+        case 2: return slice_from_s(z, 4, s_10);  // -> "ence"
+        case 3: return slice_from_s(z, 4, s_11);  // -> "ance"
+        case 4: return slice_from_s(z, 4, s_12);  // -> "able"
+        case 5: return slice_from_s(z, 3, s_13);  // -> "ent"
+        case 6: return slice_from_s(z, 3, s_14);  // -> "ize"
+        case 7: return slice_from_s(z, 3, s_15);  // -> "ate"
+        case 8: return slice_from_s(z, 2, s_16);  // -> "al"
+        case 9: return slice_from_s(z, 3, s_17);  // -> "ful"
+        case 10: return slice_from_s(z, 3, s_18); // -> "ous"
+        case 11: return slice_from_s(z, 3, s_19); // -> "ive"
+        case 12: return slice_from_s(z, 3, s_20); // -> "ble"
+        case 13: // Special case: 'ogi' preceded by 'l' -> "og"
+            if (z->c <= z->lb || z->p[z->c - 1] != 'l') return 0;
+            z->c--;
+            return slice_from_s(z, 2, s_21);
+        case 14: return slice_from_s(z, 4, s_22); // -> "less"
+        case 15: // 'li' suffixes - delete if preceded by valid characters
+            if (in_grouping_b(z, g_valid_LI, 99, 116, 0)) return 0;
+            return slice_del(z);
+    }
+    return 1;
+}
+```

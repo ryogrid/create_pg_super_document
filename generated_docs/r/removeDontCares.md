@@ -35,3 +35,31 @@ This utility function processes an array of tuple indices (typically  or  from a
 - Applied separately to both left and right side arrays during split processing
 - The dontcare array is indexed by tuple offset numbers, not by position in the input array 
 - Essential for split optimization where some tuples can be freely reassigned between split sides
+
+## Simplified Source
+
+```c
+static void
+removeDontCares(OffsetNumber *a, int *len, const bool *dontcare)
+{
+    int origlen = *len;
+    int newlen = origlen;
+    OffsetNumber *curwpos = a;
+
+    // Compact array by removing don't-care entries
+    for (int i = 0; i < origlen; i++) {
+        OffsetNumber ai = a[i];
+
+        if (dontcare[ai] == false) {
+            // Keep this entry - copy to new position
+            *curwpos = ai;
+            curwpos++;
+        } else {
+            // Skip don't-care entry
+            newlen--;
+        }
+    }
+
+    *len = newlen;
+}
+```

@@ -37,3 +37,25 @@ Like its counterpart get_typmodin, this function gracefully handles invalid type
 - Part of the type modifier system infrastructure along with get_typmodin
 - Complements get_typmodin by providing the reverse transformation (int32 typmod → string representation)
 - Not currently declared in public headers, suggesting it may be intended for internal use only
+
+## Simplified Source
+
+```c
+Oid get_typmodout(Oid typid) {
+    // Look up type in system cache
+    HeapTuple tp = SearchSysCache1(TYPEOID, ObjectIdGetDatum(typid));
+
+    if (HeapTupleIsValid(tp)) {
+        // Extract pg_type struct and get typmodout function OID
+        Form_pg_type typtup = (Form_pg_type) GETSTRUCT(tp);
+        Oid result = typtup->typmodout;
+
+        // Clean up cache reference
+        ReleaseSysCache(tp);
+        return result;
+    } else {
+        // Return invalid OID if type not found
+        return InvalidOid;
+    }
+}
+```

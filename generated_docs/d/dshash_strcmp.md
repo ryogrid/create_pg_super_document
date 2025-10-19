@@ -30,3 +30,18 @@ dshash_strcmp serves as a wrapper function around the standard library's strcmp 
 
 ## Notes and Other Information
 This function is part of the dshash utility functions that provide standardized interfaces for common operations like comparison and hashing. The function includes important safety checks through Assert statements that verify both input strings are properly null-terminated and their lengths are less than the specified size parameter, helping prevent buffer overflows and ensuring data integrity. The unused `arg` parameter maintains compatibility with the expected function signature for dshash comparison functions. The function returns the standard strcmp result convention: negative, zero, or positive values for less than, equal to, or greater than comparisons respectively.
+
+## Simplified Source
+
+```c
+int
+dshash_strcmp(const void *a, const void *b, size_t size, void *arg)
+{
+    // Safety checks to ensure strings fit in buffer
+    Assert(strlen((const char *) a) < size);
+    Assert(strlen((const char *) b) < size);
+
+    // Simple wrapper around standard strcmp
+    return strcmp((const char *) a, (const char *) b);
+}
+```

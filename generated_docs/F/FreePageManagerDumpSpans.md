@@ -37,3 +37,27 @@ This function traverses a linked list of free page spans starting from the given
 - Highlights discrepancies between expected and actual span sizes
 - Outputs page numbers in a compact format for easy analysis
 - Terminates output with a newline character
+
+## Simplified Source
+
+```c
+static void FreePageManagerDumpSpans(FreePageManager *fpm, FreePageSpanLeader *span,
+                                     Size expected_pages, StringInfo buf) {
+    char *base = fpm_segment_base(fpm);
+
+    // Traverse linked list of spans
+    while (span != NULL) {
+        // Show page number, with size in parentheses if unexpected
+        if (span->npages != expected_pages)
+            appendStringInfo(buf, " %zu(%zu)", fmp_pointer_to_page(base, span),
+                             span->npages);
+        else
+            appendStringInfo(buf, " %zu", fmp_pointer_to_page(base, span));
+
+        // Move to next span in the list
+        span = relptr_access(base, span->next);
+    }
+
+    appendStringInfoChar(buf, '\n');
+}
+```

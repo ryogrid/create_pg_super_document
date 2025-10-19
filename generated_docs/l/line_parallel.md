@@ -35,3 +35,16 @@ This function checks if two LINE objects are parallel by negating the result of 
 - The function follows PostgreSQL's V1 calling convention using PG_FUNCTION_ARGS macro
 - Uses NULL as first parameter to line_interpt_line to indicate intersection test only
 - Implements parallel test as the logical inverse of intersection test
+
+## Simplified Source
+
+```c
+Datum line_parallel(PG_FUNCTION_ARGS) {
+    // Get the two input lines
+    LINE *l1 = PG_GETARG_LINE_P(0);
+    LINE *l2 = PG_GETARG_LINE_P(1);
+
+    // Lines are parallel if they don't intersect (inverse of intersection test)
+    PG_RETURN_BOOL(!line_interpt_line(NULL, l1, l2));
+}
+```

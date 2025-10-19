@@ -33,3 +33,12 @@ The process_alarm function serves as a signal handler specifically for SIGALRM s
 - Essential for implementing consistent test durations in pg_test_fsync
 - Must be signal-safe as it runs in signal context
 - Part of the timing infrastructure that enables reproducible benchmark results
+
+## Simplified Source
+
+```c
+static void process_alarm(SIGNAL_ARGS)
+{
+    alarm_triggered = true;
+}
+```

@@ -35,3 +35,18 @@ This is part of PostgreSQL's full-text search functionality, specifically the Sn
 - The parameters passed to  indicate that the Hungarian stemmer requires 0 string arrays and 1 integer array for its internal state
 - Returns NULL if memory allocation fails during environment creation
 - Must be paired with a corresponding  call to properly clean up resources
+
+## Simplified Source
+
+```c
+extern struct SN_env * hungarian_UTF_8_create_env(void) {
+    // Create Snowball environment for Hungarian UTF-8 stemming
+    // Parameters: 0 string arrays, 1 integer array
+    return SN_create_env(0, 1);
+}
+```
+
+**Simplified Logic:**
+- Direct wrapper around `SN_create_env()`
+- Configures environment specifically for Hungarian text processing
+- Uses parameters (0, 1) indicating 0 string arrays and 1 integer array required by Hungarian stemmer

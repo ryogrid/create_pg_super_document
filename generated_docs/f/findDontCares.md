@@ -51,3 +51,41 @@ This function analyzes tuples on both sides of a GiST split to find those that h
 - Don't-care identification is used for split optimization - these tuples can be reassigned to balance the split
 - The penalty function determines geometric/spatial relationships between index keys for spatial data types
 - Part of the user-defined picksplit process where custom splitting strategies can leverage don't-care tuples for optimization
+
+## Simplified Source
+
+```c
+static int
+findDontCares(Relation r, GISTSTATE *giststate, GISTENTRY *valvec,
+              GistSplitVector *spl, int attno)
+{
+    GISTENTRY entry;
+    int NumDontCare = 0;
+
+    // Check left-side tuples against right union key
+    gistentryinit(entry, spl->splitVector.spl_rdatum, r, NULL, 0, false);
+    for (int i = 0; i < spl->splitVector.spl_nleft; i++) {
+        int j = spl->splitVector.spl_left[i];
+        float penalty = gistpenalty(giststate, attno, &entry, false,
+                                    &valvec[j], false);
+        if (penalty == 0.0) {
+            spl->spl_dontcare[j] = true;
+            NumDontCare++;
+        }
+    }
+
+    // Check right-side tuples against left union key
+    gistentryinit(entry, spl->splitVector.spl_ldatum, r, NULL, 0, false);
+    for (int i = 0; i < spl->splitVector.spl_nright; i++) {
+        int j = spl->splitVector.spl_right[i];
+        float penalty = gistpenalty(giststate, attno, &entry, false,
+                                    &valvec[j], false);
+        if (penalty == 0.0) {
+            spl->spl_dontcare[j] = true;
+            NumDontCare++;
+        }
+    }
+
+    return NumDontCare;
+}
+```

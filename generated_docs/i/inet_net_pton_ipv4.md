@@ -41,3 +41,78 @@ Key differences from inet_cidr_pton_ipv4: this function doesn't perform classful
 - Always extends the address representation to four full octets
 - Accepts host addresses with netmasks, unlike pure network address parsers
 - Authored by Paul Vixie (ISC) in October 1998
+
+## Simplified Source
+
+```c
+static int inet_net_pton_ipv4(const char *src, u_char *dst) {
+    const u_char *odst = dst;
+    int ch, bits = -1;
+    size_t size = 4;
+
+    // Parse dotted decimal octets
+    while (ch = *src++, isdigit((unsigned char) ch)) {
+        int tmp = 0;
+
+        // Parse one decimal octet
+        do {
+            int n = ch - '0';
+            tmp = tmp * 10 + n;
+            if (tmp > 255) goto enoent;
+        } while ((ch = *src++) != '\0' && isdigit((unsigned char) ch));
+
+        if (size-- == 0) goto emsgsize;
+        *dst++ = (u_char) tmp;
+
+        if (ch == '\0' || ch == '/') break;
+        if (ch != '.') goto enoent;
+    }
+
+    // Parse CIDR prefix if present
+    if (ch == '/' && isdigit((unsigned char) src[0]) && dst > odst) {
+        ch = *src++; // Skip '/'
+        bits = 0;
+
+        do {
+            int n = ch - '0';
+            bits = bits * 10 + n;
+        } while ((ch = *src++) != '\0' && isdigit((unsigned char) ch));
+
+        if (ch != '\0') goto enoent;
+        if (bits > 32) goto emsgsize;
+    }
+
+    // Must reach end of string
+    if (ch != '\0') goto enoent;
+
+    // Default to /32 only if all four octets specified
+    if (bits == -1) {
+        if (dst - odst == 4) {
+            bits = 32;
+        } else {
+            goto enoent;
+        }
+    }
+
+    // Must have written something
+    if (dst == odst) goto enoent;
+
+    // Validate prefix length doesn't overspecify mantissa
+    if ((bits / 8) > (dst - odst)) goto enoent;
+
+    // Extend address to four octets
+    while (size-- > 0) {
+        *dst++ = 0;
+    }
+
+    return bits;
+
+enoent:
+    errno = ENOENT;
+    return -1;
+
+emsgsize:
+    errno = EMSGSIZE;
+    return -1;
+}
+```

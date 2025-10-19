@@ -31,3 +31,16 @@ The `circle_radius` function is a simple accessor function that extracts and ret
 - Returns the result as a PostgreSQL float8 (double precision) value
 - The function follows PostgreSQLs V1 calling convention for SQL functions
 - The radius is a fundamental property of the CIRCLE structure in PostgreSQLs geometric types
+
+## Simplified Source
+
+```c
+Datum circle_radius(PG_FUNCTION_ARGS) {
+    CIRCLE *circle = PG_GETARG_CIRCLE_P(0);
+
+    // Return the radius field directly from the circle structure
+    PG_RETURN_FLOAT8(circle->radius);
+}
+```
+
+This function provides direct access to a circle's radius value. It simply extracts the circle argument and returns the radius field from the circle structure without any calculations.

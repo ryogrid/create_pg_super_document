@@ -34,3 +34,21 @@ EnableQueryId provides a programmatic interface for third-party plugins to signa
 - Part of PostgreSQL's extensibility framework for query monitoring and analysis
 - Used in conjunction with other query jumbling functions like JumbleQuery
 - Allows plugins like pg_stat_statements to request query ID generation without bypassing administrative controls
+
+## Simplified Source
+
+```c
+void
+EnableQueryId(void)
+{
+    // Enable query ID computation if not explicitly disabled by admin
+    if (compute_query_id != COMPUTE_QUERY_ID_OFF)
+        query_id_enabled = true;
+}
+```
+
+**Key Simplifications:**
+- Added descriptive comment explaining the core logic
+- Preserved the essential configuration check and flag setting
+- This function was already quite simple - only needed clarifying comments
+- Maintained the plugin-extensibility design while respecting admin configuration

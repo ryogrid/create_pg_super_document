@@ -34,3 +34,14 @@ The function is implemented as a static inline function in the cryptohash_openss
 - Must be called before manually freeing cryptographic hash contexts to avoid resource management conflicts
 - Works in conjunction with ResourceOwnerRememberCryptoHash to provide complete resource lifecycle management
 - Uses the same specialized descriptor (cryptohash_resowner_desc) as its counterpart remember function
+
+## Simplified Source
+
+```c
+static inline void
+ResourceOwnerForgetCryptoHash(ResourceOwner owner, pg_cryptohash_ctx *ctx)
+{
+    // Unregister the crypto hash context from automatic cleanup
+    ResourceOwnerForget(owner, PointerGetDatum(ctx), &cryptohash_resowner_desc);
+}
+```

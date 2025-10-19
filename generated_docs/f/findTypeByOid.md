@@ -38,3 +38,26 @@ This function is part of the pg_dump utility's object management system. It sear
 - Part of the pg_dump object lookup infrastructure for database schema dumping
 - Works with both regular types (DO_TYPE) and dummy types (DO_DUMMY_TYPE)
 - Located in src/bin/pg_dump/common.c:888-906
+
+## Simplified Source
+
+```c
+TypeInfo *
+findTypeByOid(Oid oid)
+{
+    // Construct a CatalogId for the type lookup
+    CatalogId catId;
+    catId.tableoid = TypeRelationId;
+    catId.oid = oid;
+
+    // Look up the object using the generic catalog ID lookup
+    DumpableObject *dobj = findObjectByCatalogId(catId);
+
+    // Verify the object type is correct (if found)
+    Assert(dobj == NULL ||
+           dobj->objType == DO_TYPE || dobj->objType == DO_DUMMY_TYPE);
+
+    // Return as TypeInfo pointer
+    return (TypeInfo *) dobj;
+}
+```

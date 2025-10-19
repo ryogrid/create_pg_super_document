@@ -37,3 +37,78 @@ The function assumes all SPGiST-indexable operators are strict, meaning any null
 - Processes order-by data by removing NULL keys and maintaining offset mappings for non-NULL keys
 - Assumes SPGiST operators are strict (null inputs produce null outputs)
 - If no qualifiers are provided, enables both null and non-null searches for a whole-index scan
+
+## Simplified Source
+
+```c
+static void spgPrepareScanKeys(IndexScanDesc scan) {
+    SpGistScanOpaque so = (SpGistScanOpaque) scan->opaque;
+    bool qual_ok = true;
+    bool haveIsNull = false;
+    bool haveNotNull = false;
+    int nkeys = 0;
+
+    // Process ORDER BY clauses - copy order-by data and remove NULLs
+    so->numberOfOrderBys = scan->numberOfOrderBys;
+    so->orderByData = scan->orderByData;
+
+    if (so->numberOfOrderBys > 0) {
+        int j = 0;
+        // Remove NULL keys but track their original positions
+        for (int i = 0; i < scan->numberOfOrderBys; i++) {
+            ScanKey skey = &so->orderByData[i];
+            if (skey->sk_flags & SK_ISNULL) {
+                so->nonNullOrderByOffsets[i] = -1;  // Mark as NULL
+            } else {
+                if (i != j)
+                    so->orderByData[j] = *skey;
+                so->nonNullOrderByOffsets[i] = j++;
+            }
+        }
+        so->numberOfNonNullOrderBys = j;
+    } else {
+        so->numberOfNonNullOrderBys = 0;
+    }
+
+    // Handle case with no scan keys - scan entire index
+    if (scan->numberOfKeys <= 0) {
+        so->searchNulls = true;
+        so->searchNonNulls = true;
+        so->numberOfKeys = 0;
+        return;
+    }
+
+    // Process scan keys and separate null-related conditions
+    for (int i = 0; i < scan->numberOfKeys; i++) {
+        ScanKey skey = &scan->keyData[i];
+
+        if (skey->sk_flags & SK_SEARCHNULL) {
+            haveIsNull = true;              // IS NULL condition
+        } else if (skey->sk_flags & SK_SEARCHNOTNULL) {
+            haveNotNull = true;             // IS NOT NULL condition
+        } else if (skey->sk_flags & SK_ISNULL) {
+            qual_ok = false;                // NULL argument makes scan unsatisfiable
+            break;
+        } else {
+            so->keyData[nkeys++] = *skey;   // Regular qualifier
+            haveNotNull = true;             // Implies NOT NULL requirement
+        }
+    }
+
+    // IS NULL + other conditions = unsatisfiable
+    if (haveIsNull && haveNotNull)
+        qual_ok = false;
+
+    // Set final scan parameters
+    if (qual_ok) {
+        so->searchNulls = haveIsNull;
+        so->searchNonNulls = haveNotNull;
+        so->numberOfKeys = nkeys;
+    } else {
+        // Unsatisfiable condition - don't search anything
+        so->searchNulls = false;
+        so->searchNonNulls = false;
+        so->numberOfKeys = 0;
+    }
+}
+```

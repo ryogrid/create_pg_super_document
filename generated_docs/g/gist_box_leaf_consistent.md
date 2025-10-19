@@ -37,3 +37,83 @@ The function supports all standard R-tree spatial strategies by mapping each str
 - Uses PostgreSQL's DirectFunctionCall2 mechanism to invoke the appropriate box comparison function
 - Returns false and logs an error for unrecognized strategy numbers
 - Part of the GiST framework's consistent method implementation for box data types
+
+## Simplified Source
+
+```c
+static bool gist_box_leaf_consistent(BOX *key, BOX *query, StrategyNumber strategy)
+{
+    bool retval;
+
+    // Dispatch to appropriate box operator based on strategy
+    switch (strategy)
+    {
+        case RTLeftStrategyNumber:
+            retval = DatumGetBool(DirectFunctionCall2(box_left,
+                                                    PointerGetDatum(key),
+                                                    PointerGetDatum(query)));
+            break;
+        case RTOverLeftStrategyNumber:
+            retval = DatumGetBool(DirectFunctionCall2(box_overleft,
+                                                    PointerGetDatum(key),
+                                                    PointerGetDatum(query)));
+            break;
+        case RTOverlapStrategyNumber:
+            retval = DatumGetBool(DirectFunctionCall2(box_overlap,
+                                                    PointerGetDatum(key),
+                                                    PointerGetDatum(query)));
+            break;
+        case RTOverRightStrategyNumber:
+            retval = DatumGetBool(DirectFunctionCall2(box_overright,
+                                                    PointerGetDatum(key),
+                                                    PointerGetDatum(query)));
+            break;
+        case RTRightStrategyNumber:
+            retval = DatumGetBool(DirectFunctionCall2(box_right,
+                                                    PointerGetDatum(key),
+                                                    PointerGetDatum(query)));
+            break;
+        case RTSameStrategyNumber:
+            retval = DatumGetBool(DirectFunctionCall2(box_same,
+                                                    PointerGetDatum(key),
+                                                    PointerGetDatum(query)));
+            break;
+        case RTContainsStrategyNumber:
+            retval = DatumGetBool(DirectFunctionCall2(box_contain,
+                                                    PointerGetDatum(key),
+                                                    PointerGetDatum(query)));
+            break;
+        case RTContainedByStrategyNumber:
+            retval = DatumGetBool(DirectFunctionCall2(box_contained,
+                                                    PointerGetDatum(key),
+                                                    PointerGetDatum(query)));
+            break;
+        case RTOverBelowStrategyNumber:
+            retval = DatumGetBool(DirectFunctionCall2(box_overbelow,
+                                                    PointerGetDatum(key),
+                                                    PointerGetDatum(query)));
+            break;
+        case RTBelowStrategyNumber:
+            retval = DatumGetBool(DirectFunctionCall2(box_below,
+                                                    PointerGetDatum(key),
+                                                    PointerGetDatum(query)));
+            break;
+        case RTAboveStrategyNumber:
+            retval = DatumGetBool(DirectFunctionCall2(box_above,
+                                                    PointerGetDatum(key),
+                                                    PointerGetDatum(query)));
+            break;
+        case RTOverAboveStrategyNumber:
+            retval = DatumGetBool(DirectFunctionCall2(box_overabove,
+                                                    PointerGetDatum(key),
+                                                    PointerGetDatum(query)));
+            break;
+        default:
+            elog(ERROR, "unrecognized strategy number: %d", strategy);
+            retval = false;  // Keep compiler quiet
+            break;
+    }
+
+    return retval;
+}
+```

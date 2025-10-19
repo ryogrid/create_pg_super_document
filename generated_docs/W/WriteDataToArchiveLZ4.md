@@ -44,3 +44,45 @@ This function implements the compression logic for writing data to LZ4-compresse
 - The function advances the data pointer as it processes chunks
 - Immediately writes compressed data to avoid buffering large amounts of compressed data
 - Works with the streaming compression context maintained in the LZ4State structure
+
+## Simplified Source
+
+```c
+static void
+WriteDataToArchiveLZ4(ArchiveHandle *AH, CompressorState *cs,
+                      const void *data, size_t dLen)
+{
+    LZ4State *state = (LZ4State *) cs->private_data;
+    size_t remaining = dLen;
+    size_t status, chunk;
+
+    // Write header if this is the first call
+    if (state->needs_header_flush)
+    {
+        cs->writeF(AH, state->buffer, state->compressedlen);
+        state->needs_header_flush = false;
+    }
+
+    // Process data in chunks
+    while (remaining > 0)
+    {
+        // Determine chunk size (max DEFAULT_IO_BUFFER_SIZE)
+        chunk = (remaining > DEFAULT_IO_BUFFER_SIZE) ?
+                DEFAULT_IO_BUFFER_SIZE : remaining;
+        remaining -= chunk;
+
+        // Compress current chunk
+        status = LZ4F_compressUpdate(state->ctx,
+                                     state->buffer, state->buflen,
+                                     data, chunk, NULL);
+        if (LZ4F_isError(status))
+            pg_fatal("could not compress data: %s", LZ4F_getErrorName(status));
+
+        // Write compressed data to archive
+        cs->writeF(AH, state->buffer, status);
+
+        // Advance to next chunk
+        data = ((char *) data) + chunk;
+    }
+}
+```

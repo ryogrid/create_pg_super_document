@@ -33,3 +33,13 @@ Unlike the monetary and numeric locale assignment functions which invalidate `Cu
 - Part of a broader locale management system that includes similar functions for monetary and numeric locales
 - Uses a separate cache validity flag (`CurrentLCTimeValid`) distinct from the general locale conversion cache
 - The LC_TIME locale setting affects formatting of dates, times, month names, day names, and other temporal elements throughout the database system
+
+## Simplified Source
+
+```c
+void assign_locale_time(const char *newval, void *extra) {
+    // Mark cached LC_TIME locale info as invalid
+    // Forces refresh of time formatting when next needed
+    CurrentLCTimeValid = false;
+}
+```

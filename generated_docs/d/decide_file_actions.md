@@ -49,3 +49,41 @@ The resulting filemap contains entries sorted in the order that their actions sh
 - The function assumes that the global filehash has been populated with file information from both source and target systems
 - After this function completes, the filemap is ready for execution by other parts of pg_rewind
 - The nentries field in the returned filemap equals the number of members in the input filehash
+
+## Simplified Source
+
+```c
+filemap_t *decide_file_actions(void)
+{
+    int i;
+    filehash_iterator iterator;
+    file_entry_t *entry;
+    filemap_t *filemap;
+
+    // First pass: decide action for each file entry
+    filehash_start_iterate(filehash, &iterator);
+    while ((entry = filehash_iterate(filehash, &iterator)) != NULL)
+    {
+        entry->action = decide_file_action(entry);
+    }
+
+    // Allocate filemap structure with space for all entries
+    filemap = pg_malloc(offsetof(filemap_t, entries) +
+                       filehash->members * sizeof(file_entry_t *));
+    filemap->nentries = filehash->members;
+
+    // Second pass: copy all entries into the array
+    filehash_start_iterate(filehash, &iterator);
+    i = 0;
+    while ((entry = filehash_iterate(filehash, &iterator)) != NULL)
+    {
+        filemap->entries[i++] = entry;
+    }
+
+    // Sort entries in execution order
+    qsort(&filemap->entries, filemap->nentries, sizeof(file_entry_t *),
+          final_filemap_cmp);
+
+    return filemap;
+}
+```

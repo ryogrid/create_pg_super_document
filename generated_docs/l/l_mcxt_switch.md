@@ -46,3 +46,30 @@ The function handles the case where the `CurrentMemoryContext` global variable h
 - Memory context switching is performance-critical in PostgreSQL, making JIT optimization valuable
 - Used in expression compilation where functions might allocate memory or require specific memory contexts
 - The function ensures that JIT-compiled code properly integrates with PostgreSQL's error handling and memory cleanup mechanisms
+
+## Simplified Source
+
+```c
+// Generate LLVM code to switch memory context, return previous context
+static inline LLVMValueRef
+l_mcxt_switch(LLVMModuleRef mod, LLVMBuilderRef b, LLVMValueRef new_context)
+{
+    const char *global_name = "CurrentMemoryContext";
+    LLVMValueRef current_global;
+    LLVMValueRef previous_context;
+
+    // Find or create CurrentMemoryContext global variable
+    current_global = LLVMGetNamedGlobal(mod, global_name);
+    if (!current_global) {
+        current_global = LLVMAddGlobal(mod, l_ptr(StructMemoryContextData), global_name);
+    }
+
+    // Load previous context to return
+    previous_context = l_load(b, l_ptr(StructMemoryContextData), current_global, global_name);
+
+    // Store new context as current
+    LLVMBuildStore(b, new_context, current_global);
+
+    return previous_context;
+}
+```

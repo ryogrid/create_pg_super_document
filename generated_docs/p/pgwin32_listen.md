@@ -30,3 +30,22 @@ pgwin32_listen is a thin wrapper around the standard Windows socket listen() fun
 - The function maintains the same interface as the standard listen() function but adds PostgreSQL's error translation
 - Used internally by PostgreSQL on Windows systems to ensure proper error handling and signal integration
 - The actual listen() call is undefned via macro at the top of the file to access the system function directly
+
+## Simplified Source
+
+```c
+int pgwin32_listen(SOCKET s, int backlog)
+{
+    int result;
+
+    // Call standard listen function to put socket in listening mode
+    result = listen(s, backlog);
+
+    // Translate Windows socket errors to PostgreSQL errno format
+    if (result < 0) {
+        TranslateSocketError();
+    }
+
+    return result;
+}
+```

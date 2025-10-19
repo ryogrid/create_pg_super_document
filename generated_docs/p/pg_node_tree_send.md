@@ -32,3 +32,14 @@ The pg_node_tree type is used internally by PostgreSQL to store serialized repre
 - The function leverages the existing text binary serialization infrastructure by delegating to textsend
 - This is consistent with pg_node_tree's internal storage as text representations of node structures
 - Binary send/receive functions are used for efficient client-server communication in PostgreSQL's wire protocol
+
+## Simplified Source
+
+```c
+Datum
+pg_node_tree_send(PG_FUNCTION_ARGS)
+{
+	// Delegate to textsend for binary serialization
+	return textsend(fcinfo);
+}
+```

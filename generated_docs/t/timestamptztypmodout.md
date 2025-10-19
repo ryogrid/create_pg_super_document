@@ -36,3 +36,15 @@ The function delegates the actual formatting logic to , passing  to indicate thi
 - Called automatically by PostgreSQL's type system infrastructure during introspection operations
 - Counterpart to  for bidirectional typmod conversion
 - Essential for tools like pg_dump to accurately recreate table definitions
+
+## Simplified Source
+
+```c
+// Convert timestamptz type modifier to string format
+Datum timestamptztypmodout(PG_FUNCTION_ARGS) {
+    int32 typmod = PG_GETARG_INT32(0);
+
+    // Use common formatting function for timestamptz (with timezone)
+    PG_RETURN_CSTRING(anytimestamp_typmodout(true, typmod));
+}
+```

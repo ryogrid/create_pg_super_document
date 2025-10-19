@@ -32,6 +32,23 @@ The function can only be called when the server is running in binary upgrade mod
 ## Notes and Other Information
 - This function is exposed as a SQL-callable function for use by pg_upgrade tools
 - The function performs a security check via  macro which throws an error if not in binary upgrade mode
-- The global variable  is declared as  in , making it accessible across PostgreSQL modules
-- Located in 
+- The global variable is declared as in, making it accessible across PostgreSQL modules
+- Located in
 - Part of the broader binary upgrade infrastructure that preserves object OIDs during major version upgrades
+
+## Simplified Source
+
+```c
+Datum binary_upgrade_set_next_pg_tablespace_oid(PG_FUNCTION_ARGS) {
+    // Extract the tablespace OID argument
+    Oid tbspoid = PG_GETARG_OID(0);
+
+    // Verify we're in binary upgrade mode (throws error if not)
+    CHECK_IS_BINARY_UPGRADE;
+
+    // Store the OID for the next tablespace creation
+    binary_upgrade_next_pg_tablespace_oid = tbspoid;
+
+    PG_RETURN_VOID();
+}
+```

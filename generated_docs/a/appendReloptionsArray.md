@@ -53,3 +53,51 @@ Key behaviors:
 - Uses intelligent quoting strategy - avoids quotes for simple identifiers that don't need them
 - Commonly used with empty prefix ("") or "toast." prefix for toast table options
 - Part of the pg_dump and psql utilities for handling PostgreSQL relation option formatting
+
+## Simplified Source
+
+```c
+bool appendReloptionsArray(PQExpBuffer buffer, const char *reloptions,
+                          const char *prefix, int encoding, bool std_strings) {
+    char **options;
+    int noptions;
+
+    // Parse the PostgreSQL array format
+    if (!parsePGArray(reloptions, &options, &noptions)) {
+        free(options);
+        return false;
+    }
+
+    // Process each option
+    for (int i = 0; i < noptions; i++) {
+        char *option = options[i];
+        char *name = option;
+        char *value = "";
+
+        // Split on '=' separator (name=value format)
+        char *separator = strchr(option, '=');
+        if (separator) {
+            *separator = '\0';
+            value = separator + 1;
+        }
+
+        // Add comma separator between options
+        if (i > 0) {
+            appendPQExpBufferStr(buffer, ", ");
+        }
+
+        // Format: prefix + name + "="
+        appendPQExpBuffer(buffer, "%s%s=", prefix, fmtId(name));
+
+        // Quote value only if necessary (not a simple identifier)
+        if (strcmp(fmtId(value), value) == 0) {
+            appendPQExpBufferStr(buffer, value);  // Simple identifier
+        } else {
+            appendStringLiteral(buffer, value, encoding, std_strings);  // Quoted
+        }
+    }
+
+    free(options);
+    return true;
+}
+```

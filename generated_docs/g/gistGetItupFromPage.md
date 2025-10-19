@@ -37,3 +37,28 @@ This function extracts the most recently added index tuple from a buffer page us
 - Uses an assertion to ensure the page is not empty before attempting retrieval
 - Updates the page's free space counter to reflect the released space
 - Essential for the buffer management during GiST index construction when tuples need to be moved between buffers
+
+## Simplified Source
+
+```c
+static void
+gistGetItupFromPage(GISTNodeBufferPage *pageBuffer, IndexTuple *itup)
+{
+    IndexTuple ptr;
+    Size itupsz;
+
+    // Ensure page is not empty
+    Assert(!PAGE_IS_EMPTY(pageBuffer));
+
+    // Get pointer to last tuple (at end of free space)
+    ptr = (IndexTuple) ((char *) pageBuffer + BUFFER_PAGE_DATA_OFFSET + PAGE_FREE_SPACE(pageBuffer));
+    itupsz = IndexTupleSize(ptr);
+
+    // Make a copy of the tuple for caller
+    *itup = (IndexTuple) palloc(itupsz);
+    memcpy(*itup, ptr, itupsz);
+
+    // Mark space as free again
+    PAGE_FREE_SPACE(pageBuffer) += MAXALIGN(itupsz);
+}
+```

@@ -36,3 +36,22 @@ This function tokenizes a delimited string using the standard C library `strtok`
 - Tokens are added to the list in the order they appear in the input string
 - Handles multiple consecutive delimiters by treating them as separating empty tokens (standard `strtok` behavior)
 - Essential for parsing command-line arguments and configuration files in the regression test framework
+
+## Simplified Source
+
+```c
+static void split_to_stringlist(const char *s, const char *delim, _stringlist **listhead) {
+    // Create working copy since strtok modifies the string
+    char *copy = pg_strdup(s);
+
+    // Tokenize and add each token to the list
+    char *token = strtok(copy, delim);
+    while (token) {
+        add_stringlist_item(listhead, token);
+        token = strtok(NULL, delim);
+    }
+
+    // Clean up working copy
+    free(copy);
+}
+```

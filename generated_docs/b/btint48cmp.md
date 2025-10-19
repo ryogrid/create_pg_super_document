@@ -31,8 +31,28 @@ This function implements cross-type comparison between 32-bit and 64-bit integer
 
 ## Notes and Other Information
 - This function enables mixed-type comparisons between int4 and int8 data types in B-tree indexes
-- Located in 
+- Located in
 - The int4 value is automatically promoted to int8 precision during comparison
 - Returns standard comparison values: >0 for greater than, 0 for equal, <0 for less than
 - Part of PostgreSQL's comprehensive type system support for B-tree index operations
 - Follows the naming convention where '48' indicates int4-to-int8 comparison
+
+## Simplified Source
+
+```c
+Datum
+btint48cmp(PG_FUNCTION_ARGS)
+{
+    // Extract int32 and int64 arguments for cross-type comparison
+    int32 a = PG_GETARG_INT32(0);
+    int64 b = PG_GETARG_INT64(1);
+
+    // Compare with automatic promotion of int32 to int64
+    if (a > b)
+        PG_RETURN_INT32(1);    // A_GREATER_THAN_B
+    else if (a == b)
+        PG_RETURN_INT32(0);
+    else
+        PG_RETURN_INT32(-1);   // A_LESS_THAN_B
+}
+```

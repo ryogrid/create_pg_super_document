@@ -33,3 +33,16 @@ This function implements the equality comparison operator between an 8-byte (64-
 - Located in src/backend/utils/adt/int8.c:170-178
 - This is one of the relational operators for mixed-precision integer comparisons
 - The comparison is performed directly using C's == operator after type extraction
+
+## Simplified Source
+
+```c
+Datum int84eq(PG_FUNCTION_ARGS) {
+    // Extract 64-bit and 32-bit integers from function arguments
+    int64 val1 = PG_GETARG_INT64(0);
+    int32 val2 = PG_GETARG_INT32(1);
+
+    // Return boolean result of equality comparison (32-bit is promoted to 64-bit)
+    PG_RETURN_BOOL(val1 == val2);
+}
+```

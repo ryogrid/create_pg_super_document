@@ -40,3 +40,31 @@ The function first compares the overlapping portions of both strings using memcm
 - The comparison is performed at the byte level, making it suitable for building indexes that can efficiently support LIKE pattern matching
 - Located in  at lines 2797-2818
 - Part of PostgreSQL's text pattern matching infrastructure introduced to optimize LIKE clause operations
+
+## Simplified Source
+
+This function performs character-by-character comparison of text values using memcmp, suitable for LIKE clause indexing. It compares content byte-wise and falls back to length comparison for identical prefixes.
+
+```c
+static int
+internal_text_pattern_compare(text *arg1, text *arg2)
+{
+    // Get lengths of both text values (excluding headers)
+    int len1 = VARSIZE_ANY_EXHDR(arg1);
+    int len2 = VARSIZE_ANY_EXHDR(arg2);
+
+    // Compare the overlapping portion byte-wise
+    int result = memcmp(VARDATA_ANY(arg1), VARDATA_ANY(arg2), Min(len1, len2));
+
+    if (result != 0)
+        return result;  // Different content, return comparison result
+
+    // Content identical, compare by length
+    if (len1 < len2)
+        return -1;      // arg1 is shorter
+    else if (len1 > len2)
+        return 1;       // arg1 is longer
+    else
+        return 0;       // Equal length and content
+}
+```

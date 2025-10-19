@@ -34,3 +34,41 @@ The  function is an internal helper function in the ECPG Informix compatibility 
 - Always cleans up allocated memory before returning
 - Returns the result of the called function pointer or error codes on failure
 - Part of the ECPG interface for Informix decimal type compatibility
+
+## Simplified Source
+
+```c
+static int deccall2(decimal *arg1, decimal *arg2, int (*ptr)(numeric *, numeric *)) {
+    numeric *a1, *a2;
+
+    // Allocate numeric values
+    if ((a1 = PGTYPESnumeric_new()) == NULL) {
+        return ECPG_INFORMIX_OUT_OF_MEMORY;
+    }
+    if ((a2 = PGTYPESnumeric_new()) == NULL) {
+        PGTYPESnumeric_free(a1);
+        return ECPG_INFORMIX_OUT_OF_MEMORY;
+    }
+
+    // Convert decimal arguments to numeric
+    if (PGTYPESnumeric_from_decimal(arg1, a1) != 0) {
+        PGTYPESnumeric_free(a1);
+        PGTYPESnumeric_free(a2);
+        return ECPG_INFORMIX_OUT_OF_MEMORY;
+    }
+    if (PGTYPESnumeric_from_decimal(arg2, a2) != 0) {
+        PGTYPESnumeric_free(a1);
+        PGTYPESnumeric_free(a2);
+        return ECPG_INFORMIX_OUT_OF_MEMORY;
+    }
+
+    // Call the target function with converted arguments
+    int result = (*ptr)(a1, a2);
+
+    // Clean up allocated memory
+    PGTYPESnumeric_free(a1);
+    PGTYPESnumeric_free(a2);
+
+    return result;
+}
+```

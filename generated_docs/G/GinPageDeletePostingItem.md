@@ -37,3 +37,27 @@ This function removes a PostingItem from a non-leaf GIN data page at the specifi
 - Does not perform deletion from the last position optimization (uses memmove regardless)
 - Part of the GIN (Generalized Inverted Index) access method implementation
 - Essential for B-tree maintenance operations including page merging and vacuuming
+
+## Simplified Source
+
+```c
+void GinPageDeletePostingItem(Page page, OffsetNumber offset) {
+    OffsetNumber maxoff = GinPageGetOpaque(page)->maxoff;
+
+    // Validate input - ensure non-leaf page and valid offset
+    Assert(!GinPageIsLeaf(page));
+    Assert(offset >= FirstOffsetNumber && offset <= maxoff);
+
+    // Shift subsequent items forward to fill the gap
+    if (offset != maxoff) {
+        memmove(GinDataPageGetPostingItem(page, offset),
+                GinDataPageGetPostingItem(page, offset + 1),
+                sizeof(PostingItem) * (maxoff - offset));
+    }
+
+    // Update page metadata
+    maxoff--;
+    GinPageGetOpaque(page)->maxoff = maxoff;
+    GinDataPageSetDataSize(page, maxoff * sizeof(PostingItem));
+}
+```

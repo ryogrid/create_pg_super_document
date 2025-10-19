@@ -42,3 +42,31 @@ During replay, the function reads the meta page buffer, extracts the xl_hash_upd
 - Meta page updates are critical for maintaining accurate statistics and ensuring proper hash index behavior
 - The xl_hash_update_meta_page structure contains the WAL record data with the new tuple count
 - Buffer management follows standard PostgreSQL patterns to prevent resource leaks during recovery
+
+## Simplified Source
+
+```c
+static void
+hash_xlog_update_meta_page(XLogReaderState *record)
+{
+    XLogRecPtr lsn = record->EndRecPtr;
+    xl_hash_update_meta_page *xldata = (xl_hash_update_meta_page *) XLogRecGetData(record);
+    Buffer metabuf;
+
+    // Read meta page buffer and check if redo is needed
+    if (XLogReadBufferForRedo(record, 0, &metabuf) == BLK_NEEDS_REDO) {
+        Page page = BufferGetPage(metabuf);
+        HashMetaPage metap = HashPageGetMeta(page);
+
+        // Update tuple count in meta page
+        metap->hashm_ntuples = xldata->ntuples;
+
+        PageSetLSN(page, lsn);
+        MarkBufferDirty(metabuf);
+    }
+
+    // Release buffer
+    if (BufferIsValid(metabuf))
+        UnlockReleaseBuffer(metabuf);
+}
+```

@@ -45,3 +45,33 @@ The pg_waldump command is constructed with specific parameters including the WAL
 - The function relies on the pg_waldump utility being available in the specified path
 - LSN (Log Sequence Number) formatting is handled by the LSN_FORMAT_ARGS macro for proper display
 - This validation is crucial for ensuring backup recoverability and WAL continuity
+
+## Simplified Source
+
+```c
+static void
+parse_required_wal(verifier_context *context, char *pg_waldump_path, char *wal_directory)
+{
+    manifest_data *manifest = context->manifest;
+    manifest_wal_range *this_wal_range = manifest->first_wal_range;
+
+    // Process each WAL range in the manifest
+    while (this_wal_range != NULL) {
+        char *pg_waldump_cmd;
+
+        // Build pg_waldump command for this WAL range
+        pg_waldump_cmd = psprintf("\"%s\" --quiet --path=\"%s\" --timeline=%u --start=%X/%X --end=%X/%X\n",
+                                  pg_waldump_path, wal_directory, this_wal_range->tli,
+                                  LSN_FORMAT_ARGS(this_wal_range->start_lsn),
+                                  LSN_FORMAT_ARGS(this_wal_range->end_lsn));
+
+        // Execute pg_waldump to validate WAL range
+        fflush(NULL);
+        if (system(pg_waldump_cmd) != 0)
+            report_backup_error(context, "WAL parsing failed for timeline %u", this_wal_range->tli);
+
+        // Move to next WAL range
+        this_wal_range = this_wal_range->next;
+    }
+}
+```

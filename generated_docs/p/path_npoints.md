@@ -36,3 +36,15 @@ The `path_npoints` function is a conversion operator that extracts and returns t
 - Can be used in WHERE clauses to filter paths by their point count
 - Related to comparison functions `path_n_le` and `path_n_ge` that compare point counts between paths
 - Location: src/backend/utils/adt/geo_ops.c:1618-1626
+
+## Simplified Source
+
+```c
+Datum path_npoints(PG_FUNCTION_ARGS) {
+    // Extract PATH object from function argument
+    PATH *path = PG_GETARG_PATH_P(0);
+
+    // Return the number of points in the path
+    PG_RETURN_INT32(path->npts);
+}
+```

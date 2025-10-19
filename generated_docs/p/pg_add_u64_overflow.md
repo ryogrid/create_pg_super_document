@@ -33,3 +33,23 @@ When overflow is detected in the fallback implementation, the function sets a du
 - In the manual implementation, overflow is detected by checking if the result is less than the first operand
 - The dummy value 0x5EED is used to prevent compiler warnings about uninitialized memory when overflow occurs
 - This function is part of PostgreSQL's safe arithmetic operations suite for preventing integer overflow vulnerabilities
+
+## Simplified Source
+
+```c
+static inline bool pg_add_u64_overflow(uint64 a, uint64 b, uint64 *result) {
+    // Use compiler built-in if available for optimal performance
+    #if defined(HAVE__BUILTIN_OP_OVERFLOW)
+        return __builtin_add_overflow(a, b, result);
+    #else
+        // Manual overflow check: result < a indicates overflow
+        uint64 sum = a + b;
+        if (sum < a) {
+            *result = 0x5EED;  // Dummy value to avoid compiler warnings
+            return true;       // Overflow occurred
+        }
+        *result = sum;
+        return false;          // No overflow
+    #endif
+}
+```

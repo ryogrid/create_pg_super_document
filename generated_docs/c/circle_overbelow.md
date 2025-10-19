@@ -33,3 +33,19 @@ The  function performs a positional comparison between two circles to determine 
 - Uses floating-point arithmetic with proper precision handling via  and 
 - Located in 
 - Part of PostgreSQL's geometric data type operators for spatial queries
+
+## Simplified Source
+
+```c
+Datum
+circle_overbelow(PG_FUNCTION_ARGS)
+{
+    CIRCLE *circle1 = PG_GETARG_CIRCLE_P(0);
+    CIRCLE *circle2 = PG_GETARG_CIRCLE_P(1);
+
+    // Test if upper edge of circle1 <= upper edge of circle2
+    // Upper edge = center.y + radius for each circle
+    PG_RETURN_BOOL(FPle(float8_pl(circle1->center.y, circle1->radius),
+                        float8_pl(circle2->center.y, circle2->radius)));
+}
+```

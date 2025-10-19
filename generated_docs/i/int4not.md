@@ -33,3 +33,15 @@ The function uses PostgreSQL's function call convention with PG_FUNCTION_ARGS ma
 - The bitwise NOT operation flips all bits: ~0 becomes -1, ~(-1) becomes 0
 - For any integer x, the result is -(x+1) due to two's complement representation
 - [Result](../R/Result.md) follows standard C bitwise complement semantics for 32-bit signed integers
+
+## Simplified Source
+
+```c
+Datum int4not(PG_FUNCTION_ARGS) {
+    // Extract 32-bit integer from function argument
+    int32 arg1 = PG_GETARG_INT32(0);
+
+    // Perform bitwise NOT operation and return result
+    PG_RETURN_INT32(~arg1);
+}
+```

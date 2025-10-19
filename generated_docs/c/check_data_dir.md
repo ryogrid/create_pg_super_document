@@ -32,3 +32,35 @@ The function checks for the presence of core PostgreSQL directories including ba
 - Handles PostgreSQL version-specific directory naming changes (v10+ renames)
 - Essential for ensuring data directory integrity before upgrade operations
 - Part of the pg_upgrade utility's pre-flight validation process
+
+## Simplified Source
+
+```c
+static void check_data_dir(ClusterInfo *cluster) {
+    const char *pg_data = cluster->pgdata;
+
+    // Get the cluster version first
+    cluster->major_version = get_major_server_version(cluster);
+
+    // Check core PostgreSQL directories
+    check_single_dir(pg_data, "");           // Root data directory
+    check_single_dir(pg_data, "base");       // Database files
+    check_single_dir(pg_data, "global");     // Cluster-wide files
+    check_single_dir(pg_data, "pg_multixact");
+    check_single_dir(pg_data, "pg_subtrans");
+    check_single_dir(pg_data, "pg_tblspc");
+    check_single_dir(pg_data, "pg_twophase");
+
+    // Check WAL directory (name changed in v10)
+    if (GET_MAJOR_VERSION(cluster->major_version) <= 906)
+        check_single_dir(pg_data, "pg_xlog");    // Pre-v10
+    else
+        check_single_dir(pg_data, "pg_wal");     // v10+
+
+    // Check transaction log directory (name changed in v10)
+    if (GET_MAJOR_VERSION(cluster->major_version) <= 906)
+        check_single_dir(pg_data, "pg_clog");    // Pre-v10
+    else
+        check_single_dir(pg_data, "pg_xact");    // v10+
+}
+```

@@ -43,3 +43,59 @@ This approach separates adjacent inputs and distributes values uniformly across 
 - Uses 6 transformation rounds empirically chosen for good performance/randomness tradeoff
 - Handles power-of-2 masking to work with arbitrary size ranges
 - Located in src/bin/pgbench/pgbench.c:1303-1393
+
+## Simplified Source
+
+```c
+static int64 permute(const int64 val, const int64 isize, const int64 seed) {
+    // Pseudorandom permutation for pgbench workload generation
+    // NOT cryptographically secure - designed for benchmarking performance
+
+    if (isize < 2) return 0;  // Nothing to permute
+
+    // Initialize PRNG with seed
+    pg_prng_state state;
+    pg_prng_seed(&state, (uint64) seed);
+
+    // Work with unsigned values
+    uint64 size = (uint64) isize;
+    uint64 v = (uint64) val % size;
+
+    // Calculate mask for largest power of 2 <= size
+    int masklen = pg_leftmost_one_pos64(size);
+    uint64 mask = (((uint64) 1) << masklen) - 1;
+
+    // Apply 6 rounds of bijective transformations
+    for (int i = 0; i < 6; i++) {
+        // Transform lower half: multiply (odd), XOR, rotate
+        uint64 m = (pg_prng_uint64(&state) & mask) | 1;  // Ensure odd
+        uint64 r = pg_prng_uint64(&state) & mask;
+        if (v <= mask) {
+            v = ((v * m) ^ r) & mask;
+            v = ((v << 1) & mask) | (v >> (masklen - 1));  // Rotate
+        }
+
+        // Transform upper half: same operations on (size-1-v)
+        m = (pg_prng_uint64(&state) & mask) | 1;
+        r = pg_prng_uint64(&state) & mask;
+        uint64 t = size - 1 - v;
+        if (t <= mask) {
+            t = ((t * m) ^ r) & mask;
+            t = ((t << 1) & mask) | (t >> (masklen - 1));
+            v = size - 1 - t;
+        }
+
+        // Apply random offset across full range
+        r = pg_prng_uint64_range(&state, 0, size - 1);
+        v = (v + r) % size;
+    }
+
+    return (int64) v;
+}
+```
+
+**Key Points:**
+- Generates pseudorandom permutations for values in range [0, size)
+- Uses 6 rounds of bijective transformations (multiply, XOR, rotate, offset)
+- For small sizes (≤20), achieves roughly uniform distribution over all permutations
+- Essential for creating realistic data access patterns in benchmarks

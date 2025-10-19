@@ -35,3 +35,17 @@ The `circle_ge` function implements the "greater than or equal" comparison opera
 - Located in src/backend/utils/adt/geo_ops.c:4948-4964
 - The comparison is based on the mathematical area formula: π × radius²
 - Complements the circle_le function by providing the inverse comparison operation
+
+## Simplified Source
+
+```c
+Datum circle_ge(PG_FUNCTION_ARGS) {
+    CIRCLE *circle1 = PG_GETARG_CIRCLE_P(0);
+    CIRCLE *circle2 = PG_GETARG_CIRCLE_P(1);
+
+    // Compare circle areas using floating-point greater-than-or-equal
+    PG_RETURN_BOOL(FPge(circle_ar(circle1), circle_ar(circle2)));
+}
+```
+
+This function implements the >= operator for circles by comparing their areas. It extracts two circle arguments and uses the `FPge` function to perform a floating-point comparison of their areas calculated by `circle_ar`.

@@ -36,3 +36,14 @@ The function is designed to work with `cvec` structures that were allocated by `
 - The function is designed to work with the specific memory layout where chrs[] and ranges[] arrays are allocated together with the struct
 - Part of PostgreSQL's regular expression compilation subsystem for character class management
 - Once called, the `cvec` pointer becomes invalid and should not be used again
+
+## Simplified Source
+
+```c
+static void
+freecvec(struct cvec *cv)
+{
+    // Free the entire cvec structure and its embedded arrays
+    FREE(cv);
+}
+```

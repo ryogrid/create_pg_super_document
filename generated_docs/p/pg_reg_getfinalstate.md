@@ -32,3 +32,17 @@ This function retrieves the final state of the NFA from a compiled regular expre
 - This is part of the regex export API that provides access to internal regex structures for analysis and debugging purposes
 - The final state is crucial for regex matching algorithms as it defines the successful termination point for pattern matching
 - Together with the initial state, this defines the bounds of the NFA state machine
+
+## Simplified Source
+
+```c
+int pg_reg_getfinalstate(const regex_t *regex) {
+    // Validate regex structure
+    assert(regex != NULL && regex->re_magic == REMAGIC);
+
+    // Get compiled NFA from regex internals
+    struct cnfa *cnfa = &((struct guts *) regex->re_guts)->search;
+
+    return cnfa->post;  // Return final/accepting state ID
+}
+```

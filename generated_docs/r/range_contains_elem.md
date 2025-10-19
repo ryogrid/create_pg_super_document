@@ -40,3 +40,21 @@ This function tests whether a PostgreSQL range type contains a specific element 
 - Works with all range types (int4range, numrange, tsrange, etc.)
 - Part of PostgreSQL's comprehensive range type system supporting GiST indexing
 - The actual containment algorithm is in `range_contains_elem_internal` at line 2627-2674
+
+## Simplified Source
+
+```c
+Datum
+range_contains_elem(PG_FUNCTION_ARGS)
+{
+	RangeType *range = PG_GETARG_RANGE_P(0);
+	Datum element = PG_GETARG_DATUM(1);
+	TypeCacheEntry *typcache;
+
+	// Get type cache for comparison operations
+	typcache = range_get_typcache(fcinfo, RangeTypeGetOid(range));
+
+	// Delegate to internal containment function
+	PG_RETURN_BOOL(range_contains_elem_internal(typcache, range, element));
+}
+```

@@ -36,3 +36,12 @@ This function tests whether a given point lies inside a polygon, using the same 
 - Located at src/backend/utils/adt/geo_ops.c:4017-4026
 - No explicit memory management is needed as the function doesn't create copies of the input data
 - Supports different SQL operator syntaxes for point-in-polygon testing
+
+## Simplified Source
+
+```c
+bool pt_contained_poly(Point *p, POLYGON *poly) {
+    // Test if point is inside polygon using point-in-polygon algorithm
+    return point_inside(p, poly->npts, poly->p) != 0;
+}
+```

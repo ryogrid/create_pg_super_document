@@ -36,3 +36,30 @@ The function extracts two BPCHAR arguments from the PostgreSQL function call int
 - The comparison is compatible with regular bpchareq/bpcharne operators and support functions when using "C" collation
 - Memory management is handled through PG_FREE_IF_COPY macros to prevent memory leaks
 - Returns true only when the comparison result is > 0, indicating the first argument is strictly greater than the second
+
+## Simplified Source
+
+```c
+Datum bpchar_pattern_gt(PG_FUNCTION_ARGS) {
+    // Extract the two BPCHAR arguments
+    BpChar *arg1 = PG_GETARG_BPCHAR_PP(0);
+    BpChar *arg2 = PG_GETARG_BPCHAR_PP(1);
+
+    // Perform pattern-based comparison
+    int result = internal_bpchar_pattern_compare(arg1, arg2);
+
+    // Clean up memory if needed
+    PG_FREE_IF_COPY(arg1, 0);
+    PG_FREE_IF_COPY(arg2, 1);
+
+    // Return true if arg1 > arg2
+    PG_RETURN_BOOL(result > 0);
+}
+```
+
+**Key Points:**
+- Implements "greater than" operator for pattern-based BPCHAR comparison
+- Uses binary comparison (not locale-aware) suitable for LIKE indexes
+- Delegates actual comparison to `internal_bpchar_pattern_compare()`
+- Handles memory management with `PG_FREE_IF_COPY` macros
+- Returns true only if first argument is lexicographically strictly greater

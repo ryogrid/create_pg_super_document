@@ -54,3 +54,79 @@ The implementation efficiently filters positions by weight when weight restricti
 - Function is optimized for common cases: simple existence checking vs. full position collection
 - Critical component in text search phrase matching and ranking calculations
 - Handles edge cases like empty position arrays and memory cleanup on partial matches
+
+## Simplified Source
+
+```c
+static TSTernaryValue checkclass_str(CHKVAL *chkval, WordEntry *entry,
+                                    QueryOperand *val, ExecPhraseData *data) {
+    TSTernaryValue result = TS_NO;
+
+    if (entry->haspos) {
+        // Extract position vector from lexeme data
+        WordEntryPosVector *posvec = (WordEntryPosVector *)
+            (chkval->values + SHORTALIGN(entry->pos + entry->len));
+
+        if (val->weight && data) {
+            // Filter positions by weight and collect them
+            WordEntryPos *posvec_iter = posvec->pos;
+            WordEntryPos *dptr;
+
+            data->pos = palloc(sizeof(WordEntryPos) * posvec->npos);
+            data->allocated = true;
+            dptr = data->pos;
+
+            // Check each position for matching weight
+            while (posvec_iter < posvec->pos + posvec->npos) {
+                if (val->weight & (1 << WEP_GETWEIGHT(*posvec_iter))) {
+                    *dptr = WEP_GETPOS(*posvec_iter);
+                    dptr++;
+                }
+                posvec_iter++;
+            }
+
+            data->npos = dptr - data->pos;
+            if (data->npos > 0) {
+                result = TS_YES;
+            } else {
+                // No matching positions found
+                pfree(data->pos);
+                data->pos = NULL;
+                data->allocated = false;
+            }
+
+        } else if (val->weight) {
+            // Just check for weight match, don't collect positions
+            WordEntryPos *posvec_iter = posvec->pos;
+            while (posvec_iter < posvec->pos + posvec->npos) {
+                if (val->weight & (1 << WEP_GETWEIGHT(*posvec_iter))) {
+                    result = TS_YES;
+                    break;  // Found match, no need to continue
+                }
+                posvec_iter++;
+            }
+
+        } else if (data) {
+            // No weight restriction, collect all positions
+            data->npos = posvec->npos;
+            data->pos = posvec->pos;
+            data->allocated = false;
+            result = TS_YES;
+
+        } else {
+            // Simple case: no weight check, positions not needed
+            result = TS_YES;
+        }
+
+    } else {
+        // No position info available
+        if (data) {
+            result = TS_MAYBE;  // Uncertain match for phrase queries
+        } else {
+            result = TS_YES;    // Simple existence match
+        }
+    }
+
+    return result;
+}
+```

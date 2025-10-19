@@ -39,3 +39,23 @@ The function follows PostgreSQLs standard comparison function convention:
 - The function handles cross-type comparison between int8 and int4 data types
 - Located in src/backend/access/nbtree/nbtcompare.c:188-200
 - Uses PostgreSQLs standard three-way comparison result convention for B-tree operations
+
+## Simplified Source
+
+```c
+Datum
+btint84cmp(PG_FUNCTION_ARGS)
+{
+    // Extract int64 and int32 arguments for cross-type comparison
+    int64 a = PG_GETARG_INT64(0);
+    int32 b = PG_GETARG_INT32(1);
+
+    // Compare with automatic promotion of int32 to int64
+    if (a > b)
+        PG_RETURN_INT32(1);    // A_GREATER_THAN_B
+    else if (a == b)
+        PG_RETURN_INT32(0);
+    else
+        PG_RETURN_INT32(-1);   // A_LESS_THAN_B
+}
+```

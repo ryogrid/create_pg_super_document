@@ -44,3 +44,25 @@ For Valgrind-enabled builds, the function provides additional debugging support 
 - The function does not perform NULL pointer checks - passing NULL will likely cause a crash
 - For aligned allocations, the function works with the redirection mechanism established by `MemoryContextAllocAligned`
 - Located in src/backend/utils/mmgr/mcxt.c at lines 1520-1539
+
+## Simplified Source
+
+```c
+void pfree(void *pointer)
+{
+    // Get memory context info for debugging (Valgrind builds only)
+    #ifdef USE_VALGRIND
+        MemoryContextMethodID method = GetMemoryChunkMethodID(pointer);
+        MemoryContext context = GetMemoryChunkContext(pointer);
+    #endif
+
+    // Free the memory using the appropriate memory context method
+    MCXT_METHOD(pointer, free_p)(pointer);
+
+    // Notify Valgrind about the deallocation (Valgrind builds only)
+    #ifdef USE_VALGRIND
+        if (method != MCTX_ALIGNED_REDIRECT_ID)
+            VALGRIND_MEMPOOL_FREE(context, pointer);
+    #endif
+}
+```

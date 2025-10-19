@@ -35,3 +35,15 @@ The function enforces strict requirements for shared memory hash tables, ensurin
 - Used in conjunction with other sizing functions for complete memory planning
 - Critical for shared memory allocation accuracy - under-allocation would cause failures
 - The calculated size covers non-expandable structures only
+
+## Simplified Source
+```c
+Size hash_get_shared_size(HASHCTL *info, int flags) {
+    // Validate that directory size is specified and fixed
+    Assert(flags & HASH_DIRSIZE);
+    Assert(info->dsize == info->max_dsize);
+
+    // Calculate memory for hash header + directory segments
+    return sizeof(HASHHDR) + info->dsize * sizeof(HASHSEGMENT);
+}
+```

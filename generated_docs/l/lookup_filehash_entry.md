@@ -32,3 +32,14 @@ This function is typically used when you need to check if a file entry already e
 - Does not modify the hash table or create new entries
 - Provides read-only access to existing file entries
 - Commonly used during WAL block change processing to locate files that need page-level modifications
+
+## Simplified Source
+
+```c
+static file_entry_t *
+lookup_filehash_entry(const char *path)
+{
+    // Simple hash table lookup for existing file entry
+    return filehash_lookup(filehash, path);
+}
+```

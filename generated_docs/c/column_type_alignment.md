@@ -44,3 +44,27 @@ The function uses a switch statement to categorize data types, explicitly listin
 - The default case handles all non-numeric types including text, varchar, char, date, time, timestamp, boolean, bytea, arrays, and user-defined types
 - This alignment information is typically used by table formatting functions to properly pad and position column content
 - The simple character return value ('r' or 'l') makes it easy to integrate with existing table formatting systems
+
+## Simplified Source
+
+```c
+char column_type_alignment(Oid ftype) {
+    // Right-align numeric types for better readability
+    switch (ftype) {
+        case INT2OID:     // smallint
+        case INT4OID:     // integer
+        case INT8OID:     // bigint
+        case FLOAT4OID:   // real
+        case FLOAT8OID:   // double precision
+        case NUMERICOID:  // numeric/decimal
+        case OIDOID:      // object identifier
+        case XIDOID:      // transaction ID
+        case XID8OID:     // 8-byte transaction ID
+        case CIDOID:      // command ID
+        case MONEYOID:    // money
+            return 'r';   // right-aligned
+        default:
+            return 'l';   // left-aligned (text, dates, etc.)
+    }
+}
+```

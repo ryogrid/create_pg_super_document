@@ -38,3 +38,22 @@ The function follows a three-step validation process:
 - The additional `r_mark_suffix_with_optional_y_consonant` call shows the complexity of Turkish phonological rules
 - Called multiple times in the stemming process, demonstrating its importance in Turkish morphological analysis
 - Part of the comprehensive Turkish morphological analysis system in PostgreSQL's full-text search
+
+## Simplified Source
+
+```c
+static int r_mark_yDU(struct SN_env * z) {
+    // Step 1: Check Turkish vowel harmony rules
+    int ret = r_check_vowel_harmony(z);
+    if (ret <= 0) return ret;
+
+    // Step 2: Find Turkish 'yDU' suffix patterns (32 variations)
+    if (!find_among_b(z, a_20, 32)) return 0;
+
+    // Step 3: Handle optional 'y' consonant processing
+    ret = r_mark_suffix_with_optional_y_consonant(z);
+    if (ret <= 0) return ret;
+
+    return 1;  // Successfully found and processed suffix
+}
+```

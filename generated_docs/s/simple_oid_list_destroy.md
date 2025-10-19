@@ -34,3 +34,18 @@ This function deallocates all memory associated with a SimpleOidList by iteratin
 - This is specifically designed for frontend utilities and is simpler than backend List facilities
 - Provides proper cleanup to prevent memory leaks when an OID list is no longer needed
 - The function follows standard linked list destruction patterns used throughout PostgreSQL frontend utilities
+
+## Simplified Source
+
+```c
+void simple_oid_list_destroy(SimpleOidList *list) {
+    SimpleOidListCell *current = list->head;
+
+    // Traverse and free each cell in the linked list
+    while (current != NULL) {
+        SimpleOidListCell *next = current->next;
+        pg_free(current);
+        current = next;
+    }
+}
+```

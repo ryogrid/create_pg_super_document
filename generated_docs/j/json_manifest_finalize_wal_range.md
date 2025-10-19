@@ -51,3 +51,43 @@ WAL ranges are critical for backup consistency, defining exactly which portions 
 - WAL ranges are essential for point-in-time recovery and backup consistency verification
 - Part of PostgreSQL's backup manifest infrastructure ensuring WAL data integrity and completeness
 - Uses PostgreSQL's internal memory management (pfree) for consistent memory handling
+
+## Simplified Source
+
+```c
+static void
+json_manifest_finalize_wal_range(JsonManifestParseState *parse)
+{
+    JsonManifestParseContext *context = parse->context;
+    TimeLineID timeline_id;
+    XLogRecPtr start_lsn, end_lsn;
+
+    // Validate all required fields are present
+    if (!parse->timeline)
+        json_manifest_parse_failure(context, "missing timeline");
+    if (!parse->start_lsn)
+        json_manifest_parse_failure(context, "missing start LSN");
+    if (!parse->end_lsn)
+        json_manifest_parse_failure(context, "missing end LSN");
+
+    // Parse timeline string to integer
+    timeline_id = strtoul(parse->timeline, &ep, 10);
+    if (*ep)
+        json_manifest_parse_failure(context, "timeline is not an integer");
+
+    // Parse LSN values from strings
+    if (!parse_xlogrecptr(&start_lsn, parse->start_lsn))
+        json_manifest_parse_failure(context, "could not parse start LSN");
+    if (!parse_xlogrecptr(&end_lsn, parse->end_lsn))
+        json_manifest_parse_failure(context, "could not parse end LSN");
+
+    // Notify callback with parsed WAL range details
+    context->per_wal_range_cb(context, timeline_id, start_lsn, end_lsn);
+
+    // Clean up allocated memory
+    pfree(parse->timeline);
+    pfree(parse->start_lsn);
+    pfree(parse->end_lsn);
+    parse->timeline = parse->start_lsn = parse->end_lsn = NULL;
+}
+```

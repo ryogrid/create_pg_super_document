@@ -38,3 +38,16 @@ This is part of PostgreSQL's JIT compilation infrastructure and is primarily use
 - Also used in expression compilation for generating 16-bit constants
 - Essential for generating efficient JIT code that manipulates PostgreSQL's internal data representations
 - Common for representing attribute numbers, column offsets, and other metadata in compiled code
+
+## Simplified Source
+
+```c
+static inline LLVMValueRef
+l_int16_const(LLVMContextRef lc, int16 i)
+{
+    // Create LLVM constant for 16-bit signed integer
+    return LLVMConstInt(LLVMInt16TypeInContext(lc), i, false);
+}
+```
+
+This helper function simply wraps LLVM's constant integer creation for 16-bit values. It creates the appropriate LLVM type in the given context and returns a constant value that can be embedded in JIT-compiled code.

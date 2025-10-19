@@ -34,3 +34,16 @@ The returned DSA area can be used for managing shared memory allocation and acce
 - The DSA area enables dynamic allocation of shared memory structures across multiple processes
 - Essential for multi-process vacuum operations where TidStores need to be shared between worker processes
 - Returns the actual DSA area pointer stored in the TidStore structure
+
+## Simplified Source
+
+```c
+dsa_area *
+TidStoreGetDSA(TidStore *ts)
+{
+    // Verify this is a shared TidStore
+    Assert(TidStoreIsShared(ts));
+
+    return ts->area;
+}
+```

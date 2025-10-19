@@ -45,3 +45,13 @@ The ternary logic is particularly valuable in index scans where TS_MAYBE indicat
 - More precise than the boolean TS_execute for scenarios requiring exact match certainty
 - Used primarily in index access methods rather than user-facing operations
 - The ternary result enables optimizations in index scanning by distinguishing between "definitely matches", "definitely doesn't match", and "needs detailed check"
+
+## Simplified Source
+
+```c
+TSTernaryValue TS_execute_ternary(QueryItem *curitem, void *arg, uint32 flags,
+                                  TSExecuteCallback chkcond) {
+    // Direct passthrough to recursive executor, preserving ternary logic
+    return TS_execute_recurse(curitem, arg, flags, chkcond);
+}
+```

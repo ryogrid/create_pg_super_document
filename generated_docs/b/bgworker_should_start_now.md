@@ -39,3 +39,45 @@ The function uses a cascading switch statement where later states inherit the ab
 - Workers with later start times can start in earlier postmaster states
 - Shutdown and termination states (PM_SHUTDOWN, PM_STOP_BACKENDS, etc.) never allow new worker starts
 - Critical for ensuring background workers start at appropriate times during database lifecycle
+
+## Simplified Source
+
+```c
+static bool
+bgworker_should_start_now(BgWorkerStartTime start_time)
+{
+    switch (pmState)
+    {
+        // Shutdown states - no workers should start
+        case PM_NO_CHILDREN:
+        case PM_WAIT_DEAD_END:
+        case PM_SHUTDOWN_2:
+        case PM_SHUTDOWN:
+        case PM_WAIT_BACKENDS:
+        case PM_STOP_BACKENDS:
+            break;
+
+        // Normal running state - allow recovery-finished workers
+        case PM_RUN:
+            if (start_time == BgWorkerStart_RecoveryFinished)
+                return true;
+            /* fall through */
+
+        // Hot standby state - allow consistent-state workers
+        case PM_HOT_STANDBY:
+            if (start_time == BgWorkerStart_ConsistentState)
+                return true;
+            /* fall through */
+
+        // Early states - allow postmaster-start workers
+        case PM_RECOVERY:
+        case PM_STARTUP:
+        case PM_INIT:
+            if (start_time == BgWorkerStart_PostmasterStart)
+                return true;
+            /* fall through */
+    }
+
+    return false;
+}
+```

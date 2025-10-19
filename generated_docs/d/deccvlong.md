@@ -43,3 +43,29 @@ This function maintains Informix semantics for decimal conversion, ensuring seam
 - Handles larger integer values than deccvint due to long integer range
 - Maintains exact precision when converting from long integer to decimal format
 - Used in test cases for validating long integer to decimal conversions
+
+## Simplified Source
+
+```c
+int deccvlong(long lng, decimal *np) {
+    // Initialize output decimal as null
+    rsetnull(CDECIMALTYPE, (char *) np);
+
+    // Handle null input
+    if (risnull(CLONGTYPE, (char *) &lng))
+        return 0;
+
+    // Create new numeric value
+    numeric *nres = PGTYPESnumeric_new();
+    if (nres == NULL)
+        return ECPG_INFORMIX_OUT_OF_MEMORY;
+
+    // Convert long integer to numeric, then numeric to decimal
+    int result = PGTYPESnumeric_from_long(lng, nres);
+    if (result == 0)
+        result = PGTYPESnumeric_to_decimal(nres, np);
+
+    PGTYPESnumeric_free(nres);
+    return result;
+}
+```

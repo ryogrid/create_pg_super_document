@@ -46,3 +46,52 @@ The function is essential for handling Romanian words with complex morphological
 - Critical for accurate stemming of Romanian compound words and complex morphological forms
 - The multi-character replacements (s_11 through s_16) contain Romanian-specific character sequences that maintain linguistic validity
 - Part of a coordinated stemming strategy where combination processing precedes or complements standard suffix handling
+
+## Simplified Source
+
+```c
+static int r_combo_suffix(struct SN_env * z) {
+    // Save current position for potential restoration
+    int m_test1 = z->l - z->c;
+
+    // Set end position and find complex suffix pattern
+    z->ket = z->c;
+    int among_var = find_among_b(z, a_2, 46);
+    if (!among_var) return 0;
+
+    z->bra = z->c;
+
+    // Check if within R1 region
+    if (r_R1(z) <= 0) return 0;
+
+    // Apply multi-character replacements based on pattern
+    switch (among_var) {
+        case 1:
+            slice_from_s(z, 4, s_11);  // 4-char replacement
+            break;
+        case 2:
+            slice_from_s(z, 4, s_12);  // 4-char replacement
+            break;
+        case 3:
+            slice_from_s(z, 2, s_13);  // 2-char replacement
+            break;
+        case 4:
+            slice_from_s(z, 2, s_14);  // 2-char replacement
+            break;
+        case 5:
+            slice_from_s(z, 2, s_15);  // 2-char replacement
+            break;
+        case 6:
+            slice_from_s(z, 2, s_16);  // 2-char replacement
+            break;
+    }
+
+    // Set flag indicating combination processing occurred
+    z->I[3] = 1;
+
+    // Restore original position
+    z->c = z->l - m_test1;
+
+    return 1;
+}
+```

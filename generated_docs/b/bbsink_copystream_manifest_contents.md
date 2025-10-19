@@ -30,3 +30,18 @@ This function transmits manifest content data by sending CopyData protocol messa
 - Uses the msgbuffer from the bbsink_copystream structure to store protocol message data
 - The function adds 1 to the length to account for the leading 'd' type byte
 - Located in src/backend/backup/basebackup_copy.c:273-287
+
+## Simplified Source
+
+```c
+static void bbsink_copystream_manifest_contents(bbsink *sink, size_t len)
+{
+    bbsink_copystream *mysink = (bbsink_copystream *) sink;
+
+    // Send manifest data to client if enabled
+    if (mysink->send_to_client) {
+        // Send CopyData message with type byte 'd' + manifest content
+        pq_putmessage('d', mysink->msgbuffer, len + 1);
+    }
+}
+```

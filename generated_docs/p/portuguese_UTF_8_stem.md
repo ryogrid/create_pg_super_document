@@ -33,3 +33,52 @@ This function implements the complete Portuguese stemming algorithm by orchestra
 
 ## Notes and Other Information
 The function implements a sophisticated backtracking mechanism where if standard suffix removal fails, it attempts verb suffix removal, and if that fails, it tries residual suffix processing. It includes a special case for removing "i" preceded by "c" in the RV region. The function always returns 1 on successful completion, with negative values indicating errors from the underlying processing functions. The algorithm maintains proper cursor positioning throughout the multi-phase processing pipeline.
+
+## Simplified Source
+```c
+extern int portuguese_UTF_8_stem(struct SN_env * z) {
+    // Step 1: Preprocess the word
+    int c1 = z->c;
+    r_prelude(z);
+    z->c = c1;
+
+    // Step 2: Mark morphological regions
+    r_mark_regions(z);
+
+    // Step 3: Process suffixes (right-to-left)
+    z->lb = z->c;
+    z->c = z->l;
+
+    // Try standard suffix removal first
+    if (r_standard_suffix(z) == 0) {
+        // If standard suffix fails, try verb suffix
+        if (r_verb_suffix(z) == 0) {
+            // If verb suffix fails, try residual suffix
+            r_residual_suffix(z);
+        }
+    }
+
+    // Special case: remove 'i' preceded by 'c' in RV region
+    z->ket = z->c;
+    if (z->c > z->lb && z->p[z->c - 1] == 'i') {
+        z->c--;
+        z->bra = z->c;
+        if (z->c > z->lb && z->p[z->c - 1] == 'c') {
+            if (r_RV(z)) {
+                slice_del(z);
+            }
+        }
+    }
+
+    // Step 4: Apply residual form processing
+    r_residual_form(z);
+
+    // Step 5: Post-process the result
+    z->c = z->lb;
+    int c9 = z->c;
+    r_postlude(z);
+    z->c = c9;
+
+    return 1;
+}
+```

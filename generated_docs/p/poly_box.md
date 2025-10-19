@@ -33,3 +33,22 @@ The `poly_box` function extracts the bounding box from a polygon and returns it 
 - The bounding box is typically computed when the polygon is created or modified
 - Useful for spatial indexing and quick geometric comparisons
 - Located in src/backend/utils/adt/geo_ops.c:4519-4534
+
+## Simplified Source
+
+```c
+Datum
+poly_box(PG_FUNCTION_ARGS)
+{
+    POLYGON *poly = PG_GETARG_POLYGON_P(0);
+    BOX *box;
+
+    // Allocate memory for result box
+    box = (BOX *) palloc(sizeof(BOX));
+
+    // Copy the pre-computed bounding box from polygon
+    *box = poly->boundbox;
+
+    PG_RETURN_BOX_P(box);
+}
+```

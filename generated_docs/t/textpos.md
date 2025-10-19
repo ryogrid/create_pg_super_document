@@ -32,3 +32,20 @@ The  function is a PostgreSQL built-in function that implements the SQL standard
 - Returns 1-based position (SQL standard) rather than 0-based (C standard)
 - Respects database collation settings for text comparison
 - Part of PostgreSQL's variable-length data type operations in varlena.c
+
+## Simplified Source
+
+This function is a simple wrapper that implements the SQL POSITION() function by delegating to the core text_position function with collation support.
+
+```c
+Datum
+textpos(PG_FUNCTION_ARGS)
+{
+    // Get the source text and search substring
+    text *str = PG_GETARG_TEXT_PP(0);
+    text *search_str = PG_GETARG_TEXT_PP(1);
+
+    // Find position using collation-aware search and return 1-based index
+    PG_RETURN_INT32((int32) text_position(str, search_str, PG_GET_COLLATION()));
+}
+```

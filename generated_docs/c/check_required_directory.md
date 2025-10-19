@@ -42,3 +42,40 @@ This function validates directory options for pg_upgrade with a flexible resolut
 - Error messages are user-friendly and include specific option names and environment variables
 - Supports optional directories (missingOk=true) for non-critical paths like socket directories
 - Follows priority: command line → environment variable → current directory (if useCwd=true) → error/optional
+
+## Simplified Source
+
+```c
+static void
+check_required_directory(char **dirpath, const char *envVarName, bool useCwd,
+                        const char *cmdLineOption, const char *description,
+                        bool missingOk)
+{
+    // If no directory path provided, try to resolve it
+    if (*dirpath == NULL || strlen(*dirpath) == 0)
+    {
+        // First try environment variable
+        const char *envVar = getenv(envVarName);
+        if (envVar && strlen(envVar))
+            *dirpath = pg_strdup(envVar);
+        // Then try current working directory if allowed
+        else if (useCwd)
+        {
+            char cwd[MAXPGPATH];
+            if (!getcwd(cwd, MAXPGPATH))
+                pg_fatal("could not determine current directory");
+            *dirpath = pg_strdup(cwd);
+        }
+        // Allow missing if configured, otherwise error
+        else if (missingOk)
+            return;
+        else
+            pg_fatal("You must identify the directory where the %s.\n"
+                    "Please use the %s command-line option or the %s environment variable.",
+                    description, cmdLineOption, envVarName);
+    }
+
+    // Clean up path (remove trailing separators)
+    canonicalize_path(*dirpath);
+}
+```

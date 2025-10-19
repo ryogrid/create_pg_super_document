@@ -31,3 +31,23 @@ This function performs unary minus operation on a 64-bit signed integer argument
 - The function specifically checks for overflow when the input is PG_INT64_MIN (the most negative 64-bit integer), as negating this value would exceed the positive range of 64-bit signed integers
 - Error handling follows PostgreSQL conventions by using ereport with ERRCODE_NUMERIC_VALUE_OUT_OF_RANGE
 - Located in src/backend/utils/adt/int8.c:440-453, part of the arithmetic operators section for 64-bit integers
+
+## Simplified Source
+
+```c
+Datum int8um(PG_FUNCTION_ARGS) {
+    // Extract 64-bit integer argument
+    int64 arg = PG_GETARG_INT64(0);
+
+    // Check for overflow condition (can't negate minimum int64 value)
+    if (unlikely(arg == PG_INT64_MIN)) {
+        ereport(ERROR,
+                (errcode(ERRCODE_NUMERIC_VALUE_OUT_OF_RANGE),
+                 errmsg("bigint out of range")));
+    }
+
+    // Return negated value
+    int64 result = -arg;
+    PG_RETURN_INT64(result);
+}
+```

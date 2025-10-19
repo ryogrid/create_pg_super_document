@@ -47,3 +47,41 @@ This function is more restrictive than other suffix removal functions, requiring
 - The a_15 array contains only 2 command suffix patterns, suggesting these are highly specific morphological markers
 - Part of Tamil verb stemming pipeline that handles different verb aspects and moods
 - Character validation (191) likely corresponds to specific Tamil Unicode characters used in command forms
+
+## Simplified Source
+
+```c
+static int r_remove_command_suffixes(struct SN_env * z) {
+    // Check minimum word length before processing
+    int ret = r_has_min_length(z);
+    if (ret <= 0) return ret;
+
+    // Initialize state flag
+    z->I[1] = 0;
+
+    // Set up backward processing boundaries
+    z->lb = z->c;
+    z->c = z->l;
+
+    // Validate specific character pattern for command suffixes
+    z->ket = z->c;
+    if (z->c - 5 <= z->lb || z->p[z->c - 1] != 191) {
+        return 0; // Required character pattern not found
+    }
+
+    // Look for command suffix patterns (only 2 patterns in a_15)
+    if (!find_among_b(z, a_15, 2)) {
+        return 0; // No command suffix patterns matched
+    }
+
+    // Command suffix found - remove it completely
+    z->bra = z->c;
+    slice_del(z);
+
+    // Mark successful processing and reset position
+    z->I[1] = 1;
+    z->c = z->lb;
+
+    return 1; // Success
+}
+```

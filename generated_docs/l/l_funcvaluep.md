@@ -39,3 +39,27 @@ The function performs the same initial navigation as l_funcnullp but accesses th
 - Essential for JIT-compiled code to access function argument values efficiently
 - The datum field contains the actual PostgreSQL Datum value for the argument
 - Used extensively in expression compilation where argument values need to be accessed
+
+## Simplified Source
+
+```c
+// Return pointer to datum value for specified function argument
+static inline LLVMValueRef
+l_funcvaluep(LLVMBuilderRef b, LLVMValueRef fcinfo, size_t argno)
+{
+    LLVMValueRef args_array;
+    LLVMValueRef specific_arg;
+
+    // Get pointer to args array in FunctionCallInfoData
+    args_array = l_struct_gep(b, StructFunctionCallInfoData, fcinfo,
+                             FIELDNO_FUNCTIONCALLINFODATA_ARGS, "");
+
+    // Get pointer to specific argument in the array
+    specific_arg = l_struct_gep(b, LLVMArrayType(StructNullableDatum, 0),
+                               args_array, argno, "");
+
+    // Return pointer to datum field of this argument
+    return l_struct_gep(b, StructNullableDatum, specific_arg,
+                       FIELDNO_NULLABLE_DATUM_DATUM, "");
+}
+```

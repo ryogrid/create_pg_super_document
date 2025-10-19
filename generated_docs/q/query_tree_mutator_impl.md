@@ -53,3 +53,80 @@ The implementation handles the complexity of query structure by delegating range
 - The function assumes the input Query node is valid and uses Assert to verify this
 - Reduces code duplication by centralizing knowledge of where all query expression subtrees are located
 - Supports both top-level query transformation and recursive descent into subqueries
+
+## Simplified Source
+
+```c
+Query *query_tree_mutator_impl(Query *query, tree_mutator_callback mutator, void *context, int flags)
+{
+    Assert(query != NULL && IsA(query, Query));
+
+    // Copy the query unless in-place modification is requested
+    if (!(flags & QTW_DONT_COPY_QUERY)) {
+        Query *newquery;
+        FLATCOPY(newquery, query, Query);
+        query = newquery;
+    }
+
+    // Mutate the main expression lists of the query
+    MUTATE(query->targetList, query->targetList, List *);
+    MUTATE(query->withCheckOptions, query->withCheckOptions, List *);
+    MUTATE(query->onConflict, query->onConflict, OnConflictExpr *);
+    MUTATE(query->mergeActionList, query->mergeActionList, List *);
+    MUTATE(query->mergeJoinCondition, query->mergeJoinCondition, Node *);
+    MUTATE(query->returningList, query->returningList, List *);
+    MUTATE(query->jointree, query->jointree, FromExpr *);
+    MUTATE(query->setOperations, query->setOperations, Node *);
+    MUTATE(query->havingQual, query->havingQual, Node *);
+    MUTATE(query->limitOffset, query->limitOffset, Node *);
+    MUTATE(query->limitCount, query->limitCount, Node *);
+
+    // Handle sorting/grouping clauses based on flags
+    if (flags & QTW_EXAMINE_SORTGROUP) {
+        // Mutate all sort/group clause structures
+        MUTATE(query->groupClause, query->groupClause, List *);
+        MUTATE(query->windowClause, query->windowClause, List *);
+        MUTATE(query->sortClause, query->sortClause, List *);
+        MUTATE(query->distinctClause, query->distinctClause, List *);
+    } else {
+        // Even if not examining sort groups, still mutate window expressions
+        List *resultlist = NIL;
+        ListCell *temp;
+
+        foreach(temp, query->windowClause) {
+            WindowClause *wc = lfirst_node(WindowClause, temp);
+            WindowClause *newnode;
+
+            FLATCOPY(newnode, wc, WindowClause);
+            MUTATE(newnode->startOffset, wc->startOffset, Node *);
+            MUTATE(newnode->endOffset, wc->endOffset, Node *);
+
+            resultlist = lappend(resultlist, (Node *) newnode);
+        }
+        query->windowClause = resultlist;
+    }
+
+    // Handle CTEs based on flags
+    if (!(flags & QTW_IGNORE_CTE_SUBQUERIES)) {
+        MUTATE(query->cteList, query->cteList, List *);
+    } else {
+        // Copy CTE list as-is without mutation
+        query->cteList = copyObject(query->cteList);
+    }
+
+    // Delegate range table mutation to specialized function
+    query->rtable = range_table_mutator(query->rtable, mutator, context, flags);
+
+    return query;
+}
+```
+
+This simplified version reduces the original ~100 lines to ~50 lines (~50% of original size) while preserving the essential query mutation logic. Key simplifications:
+
+- Removed extensive comments and kept only essential ones
+- Maintained the core MUTATE pattern for all query components
+- Preserved the copy vs. in-place modification logic controlled by flags
+- Kept the special handling of window clauses when sort groups are ignored
+- Maintained the CTE handling with conditional mutation based on flags
+- Preserved delegation to range_table_mutator for range table processing
+- Kept the essential FLATCOPY pattern for creating node copies

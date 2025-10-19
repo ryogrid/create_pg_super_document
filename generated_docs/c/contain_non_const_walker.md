@@ -35,3 +35,31 @@ The function implements a selective traversal strategy: it continues recursion o
 - Returns false for NULL nodes and Const nodes (indicating no non-const content found)
 - Returns true immediately for any non-Const, non-List node (indicating non-const content found)
 - The early termination strategy is essential for maintaining linear time complexity in expression evaluation
+
+## Simplified Source
+
+```c
+/*
+ * Check for non-constant nodes in expression trees.
+ * Early termination optimization: abort immediately on finding
+ * any non-Const node to avoid O(N^2) performance.
+ */
+static bool
+contain_non_const_walker(Node *node, void *context)
+{
+    // NULL nodes don't contain non-constants
+    if (node == NULL)
+        return false;
+
+    // Const nodes are what we want - continue looking
+    if (IsA(node, Const))
+        return false;
+
+    // Lists might contain constants, so recurse into them
+    if (IsA(node, List))
+        return expression_tree_walker(node, contain_non_const_walker, context);
+
+    // Any other node type is non-constant - stop search
+    return true;
+}
+```

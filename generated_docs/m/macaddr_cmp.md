@@ -33,3 +33,16 @@ The macaddr_cmp function is a PostgreSQL built-in function that implements three
 - The comparison is performed hierarchically: first by the high-order 24 bits of the MAC address, then by the low-order 24 bits
 - Returns values compatible with qsort-style comparison functions (-1, 0, 1)
 - Located in src/backend/utils/adt/mac.c:197-209
+
+## Simplified Source
+
+```c
+// Simplified version of macaddr_cmp
+Datum macaddr_cmp(PG_FUNCTION_ARGS) {
+    macaddr *a1 = PG_GETARG_MACADDR_P(0);
+    macaddr *a2 = PG_GETARG_MACADDR_P(1);
+
+    // Delegate to internal comparison function
+    PG_RETURN_INT32(macaddr_cmp_internal(a1, a2));
+}
+```

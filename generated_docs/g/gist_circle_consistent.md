@@ -40,3 +40,34 @@ The function always sets the recheck flag to true because all geometric operatio
 - Part of PostgreSQL's geometric data type support in GiST indexes
 - Handles null inputs safely by returning false
 - The index entries are stored as bounding boxes, not the original circle shapes, which enables efficient geometric indexing while maintaining correctness through the recheck mechanism
+
+## Simplified Source
+
+```c
+Datum gist_circle_consistent(PG_FUNCTION_ARGS) {
+    GISTENTRY *entry = (GISTENTRY *) PG_GETARG_POINTER(0);
+    CIRCLE *query = PG_GETARG_CIRCLE_P(1);
+    StrategyNumber strategy = (StrategyNumber) PG_GETARG_UINT16(2);
+    bool *recheck = (bool *) PG_GETARG_POINTER(4);
+    BOX bbox;
+    bool result;
+
+    // All circle comparisons require recheck since we use bounding boxes
+    *recheck = true;
+
+    // Handle NULL cases
+    if (DatumGetBoxP(entry->key) == NULL || query == NULL)
+        PG_RETURN_BOOL(false);
+
+    // Convert query circle to bounding box
+    bbox.high.x = float8_pl(query->center.x, query->radius);
+    bbox.low.x = float8_mi(query->center.x, query->radius);
+    bbox.high.y = float8_pl(query->center.y, query->radius);
+    bbox.low.y = float8_mi(query->center.y, query->radius);
+
+    // Compare bounding boxes using R-tree logic
+    result = rtree_internal_consistent(DatumGetBoxP(entry->key), &bbox, strategy);
+
+    PG_RETURN_BOOL(result);
+}
+```

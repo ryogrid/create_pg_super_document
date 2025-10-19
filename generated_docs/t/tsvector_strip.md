@@ -46,3 +46,39 @@ The function:
 - The original lexeme ordering and content is preserved
 - Useful for storage optimization when positional information is not needed
 - The function handles memory management properly with PG_FREE_IF_COPY
+
+## Simplified Source
+
+```c
+Datum tsvector_strip(PG_FUNCTION_ARGS) {
+    TSVector in = PG_GETARG_TSVECTOR(0);
+    TSVector out;
+    int i, len = 0;
+    WordEntry *arrin = ARRPTR(in), *arrout;
+    char *cur;
+
+    // Calculate total length of all lexemes
+    for (i = 0; i < in->size; i++)
+        len += arrin[i].len;
+
+    // Allocate new TSVector for stripped result
+    len = CALCDATASIZE(in->size, len);
+    out = (TSVector) palloc0(len);
+    SET_VARSIZE(out, len);
+    out->size = in->size;
+
+    // Copy lexemes without position information
+    arrout = ARRPTR(out);
+    cur = STRPTR(out);
+    for (i = 0; i < in->size; i++) {
+        memcpy(cur, STRPTR(in) + arrin[i].pos, arrin[i].len);
+        arrout[i].haspos = 0;  // Strip position data
+        arrout[i].len = arrin[i].len;
+        arrout[i].pos = cur - STRPTR(out);
+        cur += arrout[i].len;
+    }
+
+    PG_FREE_IF_COPY(in, 0);
+    PG_RETURN_POINTER(out);
+}
+```

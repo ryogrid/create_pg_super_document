@@ -39,3 +39,37 @@ This callback function is invoked whenever the JSON parser encounters the end of
 - The function implements a state machine pattern to track parsing progress through different sections of the manifest
 - Error handling is provided for unexpected object endings through json_manifest_parse_failure
 - The function always returns JSON_SUCCESS, with errors handled through the parse failure mechanism
+
+## Simplified Source
+
+```c
+static JsonParseErrorType json_manifest_object_end(void *state) {
+    JsonManifestParseState *parse = state;
+
+    switch (parse->state) {
+        case JM_EXPECT_TOPLEVEL_END:
+            // End of main manifest object
+            parse->state = JM_EXPECT_EOF;
+            break;
+
+        case JM_EXPECT_THIS_FILE_FIELD:
+            // End of file object - finalize the file entry
+            json_manifest_finalize_file(parse);
+            parse->state = JM_EXPECT_FILES_NEXT;
+            break;
+
+        case JM_EXPECT_THIS_WAL_RANGE_FIELD:
+            // End of WAL range object - finalize the WAL range entry
+            json_manifest_finalize_wal_range(parse);
+            parse->state = JM_EXPECT_WAL_RANGES_NEXT;
+            break;
+
+        default:
+            // Unexpected object end
+            json_manifest_parse_failure(parse->context, "unexpected object end");
+            break;
+    }
+
+    return JSON_SUCCESS;
+}
+```

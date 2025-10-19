@@ -46,3 +46,45 @@ When setting a new encoding, the function updates the database connection's enco
 - When active_branch is false, arguments are consumed but not processed
 - The ENCODING psql variable is updated to reflect the new encoding for use in other contexts
 - Encoding validation is handled by the underlying PostgreSQL client library functions
+
+## Simplified Source
+
+```c
+static backslashResult
+exec_command_encoding(PsqlScanState scan_state, bool active_branch)
+{
+    if (active_branch)
+    {
+        char *encoding = psql_scan_slash_option(scan_state, OT_NORMAL, NULL, false);
+
+        if (!encoding)
+        {
+            // Show current encoding
+            puts(pg_encoding_to_char(pset.encoding));
+        }
+        else
+        {
+            // Set new encoding
+            if (PQsetClientEncoding(pset.db, encoding) == -1)
+            {
+                pg_log_error("%s: invalid encoding name or conversion procedure not found", encoding);
+            }
+            else
+            {
+                // Update internal psql encoding state
+                pset.encoding = PQclientEncoding(pset.db);
+                pset.popt.topt.encoding = pset.encoding;
+                setFmtEncoding(pset.encoding);
+                SetVariable(pset.vars, "ENCODING", pg_encoding_to_char(pset.encoding));
+            }
+            free(encoding);
+        }
+    }
+    else
+    {
+        ignore_slash_options(scan_state);
+    }
+
+    return PSQL_CMD_SKIP_LINE;
+}
+```

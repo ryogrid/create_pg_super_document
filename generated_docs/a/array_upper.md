@@ -41,3 +41,30 @@ The `array_upper` function retrieves the upper bound (ending index) of a specifi
 - Part of PostgreSQL's array introspection function suite
 - Defined in src/backend/utils/adt/arrayfuncs.c:1733-1762
 - Essential for determining valid index ranges for array elements
+
+## Simplified Source
+
+```c
+Datum array_upper(PG_FUNCTION_ARGS) {
+    // Get array and requested dimension number
+    AnyArrayType *v = PG_GETARG_ANY_ARRAY_P(0);
+    int reqdim = PG_GETARG_INT32(1);
+
+    // Validate array structure
+    if (AARR_NDIM(v) <= 0 || AARR_NDIM(v) > MAXDIM)
+        PG_RETURN_NULL();
+
+    // Validate requested dimension is within bounds
+    if (reqdim <= 0 || reqdim > AARR_NDIM(v))
+        PG_RETURN_NULL();
+
+    // Get dimension info: lower bounds and sizes
+    int *lb = AARR_LBOUND(v);
+    int *dimv = AARR_DIMS(v);
+
+    // Calculate upper bound: size + lower_bound - 1
+    int result = dimv[reqdim - 1] + lb[reqdim - 1] - 1;
+
+    PG_RETURN_INT32(result);
+}
+```

@@ -43,3 +43,34 @@ The function handles various PostgreSQL transaction states:
 - Includes special handling for broken connections (CONNECTION_BAD)
 - Contains assertions and error logging for unexpected states that should never occur
 - Used extensively in pgbench's connection state advancement logic to determine appropriate actions
+
+## Simplified Source
+
+```c
+static TStatus getTransactionStatus(PGconn *con)
+{
+    PGTransactionStatusType tx_status = PQtransactionStatus(con);
+
+    switch (tx_status)
+    {
+        case PQTRANS_IDLE:
+            return TSTATUS_IDLE;
+
+        case PQTRANS_INTRANS:
+        case PQTRANS_INERROR:
+            return TSTATUS_IN_BLOCK;
+
+        case PQTRANS_UNKNOWN:
+            // Check if connection is broken
+            if (PQstatus(con) == CONNECTION_BAD)
+                return TSTATUS_CONN_ERROR;
+            // Fall through to error case
+
+        case PQTRANS_ACTIVE:
+        default:
+            // Unexpected transaction status
+            pg_log_error("unexpected transaction status %d", tx_status);
+            return TSTATUS_OTHER_ERROR;
+    }
+}
+```

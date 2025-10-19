@@ -21,8 +21,7 @@ The function uses a mathematical formula that provides:
 - A floor value of 1e-30 for distances greater than 100
 
 ## Parameters / Member Variables
--  04:49:01 up 21:14,  0 users,  load average: 0.54, 0.56, 0.55
-USER     TTY      FROM             LOGIN@   IDLE   JCPU   PCPU WHAT: The distance (in word positions) between two words in the text
+- `w`: The distance (in word positions) between two words in the text
 
 ## Dependencies
 - Functions called/Symbols referenced:
@@ -35,4 +34,19 @@ USER     TTY      FROM             LOGIN@   IDLE   JCPU   PCPU WHAT: The distanc
 - This is a static function, meaning it's only accessible within the tsrank.c file
 - The function implements a specific mathematical model for text search relevance where word proximity significantly affects scoring
 - For distances greater than 100 word positions, the function returns a minimal weight (1e-30), effectively treating such distant words as having negligible correlation
-- The exponential decay formula  is tuned to provide reasonable weight distribution for typical text search scenarios
+- The exponential decay formula is tuned to provide reasonable weight distribution for typical text search scenarios
+
+## Simplified Source
+
+```c
+static float4 word_distance(int32 w) {
+    // For very distant words, return minimal weight
+    if (w > 100) {
+        return 1e-30f;
+    }
+
+    // Calculate weight using exponential decay formula
+    // Closer words get higher weights
+    return 1.0 / (1.005 + 0.05 * exp(((float4) w) / 1.5 - 2));
+}
+```

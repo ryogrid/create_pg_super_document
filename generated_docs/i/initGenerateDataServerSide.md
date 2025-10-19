@@ -39,3 +39,46 @@ This function provides an alternative approach to initializing pgbench test data
 - Requires PostgreSQL server support for generate_series function (available in all supported versions)
 - Provides user feedback by printing progress messages to stderr
 - Part of pgbench's flexible initialization system allowing choice between client and server-side strategies
+
+## Simplified Source
+
+```c
+static void initGenerateDataServerSide(PGconn *con) {
+    PQExpBufferData sql;
+
+    fprintf(stderr, "generating data (server-side)...\n");
+
+    // Wrap all operations in single transaction
+    executeStatement(con, "begin");
+
+    // Remove existing data
+    initTruncateTables(con);
+
+    initPQExpBuffer(&sql);
+
+    // Generate branches data using server-side generate_series
+    printfPQExpBuffer(&sql,
+                     "insert into pgbench_branches(bid,bbalance) "
+                     "select bid, 0 "
+                     "from generate_series(1, %d) as bid", nbranches * scale);
+    executeStatement(con, sql.data);
+
+    // Generate tellers data with branch assignment
+    printfPQExpBuffer(&sql,
+                     "insert into pgbench_tellers(tid,bid,tbalance) "
+                     "select tid, (tid - 1) / %d + 1, 0 "
+                     "from generate_series(1, %d) as tid", ntellers, ntellers * scale);
+    executeStatement(con, sql.data);
+
+    // Generate accounts data with branch assignment
+    printfPQExpBuffer(&sql,
+                     "insert into pgbench_accounts(aid,bid,abalance,filler) "
+                     "select aid, (aid - 1) / %d + 1, 0, '' "
+                     "from generate_series(1, " INT64_FORMAT ") as aid",
+                     naccounts, (int64) naccounts * scale);
+    executeStatement(con, sql.data);
+
+    termPQExpBuffer(&sql);
+    executeStatement(con, "commit");
+}
+```

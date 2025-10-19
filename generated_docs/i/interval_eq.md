@@ -33,3 +33,16 @@ The `interval_eq` function is a PostgreSQL function that implements the equality
 - Uses PostgreSQL's internal function argument and return value macros
 - The actual comparison logic is delegated to `interval_cmp_internal()`
 - Registered in the PostgreSQL system catalogs to handle interval equality operations in SQL queries
+
+## Simplified Source
+
+```c
+Datum interval_eq(PG_FUNCTION_ARGS) {
+    // Extract two interval arguments
+    Interval *interval1 = PG_GETARG_INTERVAL_P(0);
+    Interval *interval2 = PG_GETARG_INTERVAL_P(1);
+
+    // Compare intervals and return true if equal
+    PG_RETURN_BOOL(interval_cmp_internal(interval1, interval2) == 0);
+}
+```

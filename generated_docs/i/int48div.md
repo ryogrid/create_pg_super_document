@@ -34,3 +34,25 @@ The `int48div` function performs division of a 32-bit integer by a 64-bit intege
 - No overflow checking is needed since dividing a smaller type by a larger type cannot overflow
 - The PG_RETURN_NULL() call is included to help the compiler understand control flow but is never executed
 - Located in src/backend/utils/adt/int8.c at lines 1013-1031
+
+## Simplified Source
+
+```c
+Datum
+int48div(PG_FUNCTION_ARGS)
+{
+    // Extract 32-bit dividend and 64-bit divisor
+    int32 arg1 = PG_GETARG_INT32(0);
+    int64 arg2 = PG_GETARG_INT64(1);
+
+    // Check for division by zero
+    if (unlikely(arg2 == 0)) {
+        ereport(ERROR, (errcode(ERRCODE_DIVISION_BY_ZERO),
+                       errmsg("division by zero")));
+        PG_RETURN_NULL();
+    }
+
+    // Perform division (no overflow possible with int32/int64)
+    PG_RETURN_INT64((int64) arg1 / arg2);
+}
+```

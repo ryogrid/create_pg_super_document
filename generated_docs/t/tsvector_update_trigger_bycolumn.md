@@ -39,3 +39,15 @@ This trigger function is typically used in scenarios where a fixed, predetermine
 - Provides consistent text search processing across all rows using the same configuration
 - Automatically called when INSERT or UPDATE operations occur on the table where this trigger is installed
 - More efficient than the byid variant when all rows use the same configuration since no per-row lookups are needed
+
+## Simplified Source
+
+```c
+Datum
+tsvector_update_trigger_bycolumn(PG_FUNCTION_ARGS)
+{
+    // Delegate to main trigger function with byid=true parameter
+    // This indicates configuration should be looked up by name
+    return tsvector_update_trigger(fcinfo, true);
+}
+```

@@ -47,3 +47,33 @@ This handler is essential for robust parallel database maintenance operations wh
 - Uses SQL state codes to differentiate between error types
 - Part of the PostgreSQL frontend utilities parallel processing framework
 - Located in src/fe_utils/parallel_slot.c:540-564
+
+## Simplified Source
+
+```c
+bool
+TableCommandResultHandler(PGresult *res, PGconn *conn, void *context)
+{
+    Assert(res != NULL);
+    Assert(conn != NULL);
+
+    // Check if command succeeded
+    if (PQresultStatus(res) != PGRES_COMMAND_OK)
+    {
+        char *sqlState = PQresultErrorField(res, PG_DIAG_SQLSTATE);
+
+        // Log the error
+        pg_log_error("processing of database \"%s\" failed: %s",
+                     PQdb(conn), PQerrorMessage(conn));
+
+        // If it's a missing table error, continue processing
+        if (sqlState && strcmp(sqlState, ERRCODE_UNDEFINED_TABLE) != 0)
+        {
+            PQclear(res);
+            return false; // Fatal error, stop processing
+        }
+    }
+
+    return true; // Success or harmless missing table error
+}
+```

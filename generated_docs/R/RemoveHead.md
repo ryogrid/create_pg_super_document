@@ -35,3 +35,15 @@ The function also resets the posDict counter to 0, indicating that dictionary pr
 - Essential for lexeme lifecycle management in text search processing
 - Maintains efficient queue operations while preserving processed elements for potential cleanup
 - Part of the lexical analysis state machine in PostgreSQL's full-text search
+
+## Simplified Source
+
+```c
+static void RemoveHead(LexizeData *ld) {
+    // Move head element from work queue to waste queue
+    LPLAddTail(&ld->waste, LPLRemoveHead(&ld->towork));
+
+    // Reset dictionary position to start
+    ld->posDict = 0;
+}
+```

@@ -35,3 +35,32 @@ The function filters mappings based on the old_tablespace parameter, allowing it
 - The vm_must_add_frozenbit flag is passed to transfer_relfile to handle visibility map rewriting when upgrading from older versions
 - Tablespace filtering allows this function to be used in parallel processing scenarios where different processes handle different tablespaces
 - The function is marked static, indicating it is only used within the same source file
+
+## Simplified Source
+
+```c
+static void transfer_single_new_db(FileNameMap *maps, int size, char *old_tablespace) {
+    bool vm_must_add_frozenbit = false;
+
+    // Check if visibility map needs special handling for frozen bit
+    if (old_cluster.controldata.cat_ver < VISIBILITY_MAP_FROZEN_BIT_CAT_VER &&
+        new_cluster.controldata.cat_ver >= VISIBILITY_MAP_FROZEN_BIT_CAT_VER) {
+        vm_must_add_frozenbit = true;
+    }
+
+    // Process each file mapping
+    for (int mapnum = 0; mapnum < size; mapnum++) {
+        // Skip if tablespace doesn't match (for parallel processing)
+        if (old_tablespace == NULL ||
+            strcmp(maps[mapnum].old_tablespace, old_tablespace) == 0) {
+
+            // Transfer primary relation file
+            transfer_relfile(&maps[mapnum], "", vm_must_add_frozenbit);
+
+            // Transfer auxiliary files (Free Space Map and Visibility Map)
+            transfer_relfile(&maps[mapnum], "_fsm", vm_must_add_frozenbit);
+            transfer_relfile(&maps[mapnum], "_vm", vm_must_add_frozenbit);
+        }
+    }
+}
+```

@@ -32,3 +32,18 @@ The HISTSIZE variable in psql determines how many previous commands are kept in 
 - This hook works in conjunction with histsize_substitute_hook which provides a default value of "500"
 - This hook is part of psql's variable management system that ensures type safety and validation for configuration variables
 - The validated history size controls both the in-memory command history and potentially the saved history file size
+
+## Simplified Source
+
+```c
+static bool histsize_hook(const char *newval) {
+    // Parse and validate numeric value, then set history size
+    return ParseVariableNum(newval, "HISTSIZE", &pset.histsize);
+}
+```
+
+This hook function:
+1. Validates the new string value as a number
+2. Sets the global HISTSIZE value if valid
+3. Controls the maximum number of commands stored in history
+4. Returns true on success, false on invalid input

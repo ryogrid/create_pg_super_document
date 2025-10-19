@@ -44,3 +44,24 @@ The function is part of the systematic Arabic morphological analysis that remove
 - Part of the generated Snowball stemmer code for Arabic language processing
 - The byte value 134 (0x86) represents part of the UTF-8 encoding for Arabic characters
 - Maintains word length constraints typical of Arabic morphology (minimum 5 characters after stemming)
+
+## Simplified Source
+
+```c
+static int r_Suffix_Noun_Step1b(struct SN_env * z) {
+    // Check for specific Arabic character (134) and find suffix pattern
+    z->ket = z->c;
+    if (z->c - 1 <= z->lb || z->p[z->c - 1] != 134) return 0;
+
+    if (!find_among_b(z, a_11, 1)) return 0;  // Find ن (nun) suffix
+    z->bra = z->c;
+
+    // Remove suffix if minimum length > 5
+    if (len_utf8(z->p) > 5) {
+        slice_del(z);
+        return 1;
+    }
+
+    return 0;
+}
+```

@@ -43,3 +43,19 @@ The function is used internally by the BRIN minmax multi operator class for time
 - More complex than regular time distance due to timezone considerations
 - Part of the BRIN minmax multi access method implementation
 - Located in src/backend/access/brin/brin_minmax_multi.c:2119-2136
+
+## Simplified Source
+
+```c
+Datum brin_minmax_multi_distance_timetz(PG_FUNCTION_ARGS) {
+    // Extract the two time-with-timezone values
+    TimeTzADT *ta = PG_GETARG_TIMETZADT_P(0);
+    TimeTzADT *tb = PG_GETARG_TIMETZADT_P(1);
+
+    // Calculate distance combining time difference and timezone offset difference
+    // Convert timezone difference from seconds to microseconds for consistent units
+    float8 delta = (tb->time - ta->time) + (tb->zone - ta->zone) * USECS_PER_SEC;
+
+    return PG_RETURN_FLOAT8(delta);
+}
+```

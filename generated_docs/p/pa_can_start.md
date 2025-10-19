@@ -32,3 +32,32 @@ This function performs a series of checks to determine if a parallel apply worke
 - Prevents parallel worker creation when skiplsn is set, as streaming transactions need to be serialized for LSN comparison
 - Ensures all table synchronizations are ready before allowing parallel workers, as remote_final_lsn determination is required for applying changes to relations not in READY state
 - Part of PostgreSQL's logical replication parallel processing system located in src/backend/replication/logical/applyparallelworker.c:265-326
+
+## Simplified Source
+
+```c
+static bool pa_can_start(void) {
+    // Only leader apply workers can start parallel workers
+    if (!am_leader_apply_worker())
+        return false;
+
+    // Check for subscription parameter changes
+    maybe_reread_subscription();
+
+    // Must be using parallel streaming mode
+    if (!MyLogicalRepWorker->parallel_apply)
+        return false;
+
+    // Don't allow parallel workers when skiplsn is set
+    // (streaming transactions need to be serialized for LSN comparison)
+    if (!XLogRecPtrIsInvalid(MySubscription->skiplsn))
+        return false;
+
+    // All table synchronizations must be ready
+    // (needed for remote_final_lsn determination)
+    if (!AllTablesyncsReady())
+        return false;
+
+    return true;
+}
+```

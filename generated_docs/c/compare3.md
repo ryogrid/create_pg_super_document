@@ -31,3 +31,25 @@ The comparison follows a lexicographic ordering: first by the primary UTF-8 code
 - The function implements a three-way comparison returning -1, 0, or 1 as required by bsearch()
 - The comparison logic handles two uint32 values as a compound key, enabling efficient lookup of combined UTF-8 character sequences
 - Part of PostgreSQLs multibyte character encoding conversion subsystem
+
+## Simplified Source
+
+```c
+static int compare3(const void *p1, const void *p2) {
+    // Extract search key: two consecutive UTF-8 codes
+    uint32 search1 = *(const uint32 *) p1;
+    uint32 search2 = *((const uint32 *) p1 + 1);
+
+    // Extract comparison target from combined structure
+    uint32 target1 = ((const pg_utf_to_local_combined *) p2)->utf1;
+    uint32 target2 = ((const pg_utf_to_local_combined *) p2)->utf2;
+
+    // Lexicographic comparison: first by utf1, then by utf2
+    if (search1 > target1 || (search1 == target1 && search2 > target2))
+        return 1;
+    else if (search1 == target1 && search2 == target2)
+        return 0;
+    else
+        return -1;
+}
+```

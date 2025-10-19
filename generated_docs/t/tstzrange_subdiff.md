@@ -35,3 +35,18 @@ The function performs arithmetic subtraction on the timestamp values (stored as 
 - PostgreSQL stores timestamptz internally as int64 microsecond counts since January 1, 2000 UTC
 - Located in src/backend/utils/adt/rangetypes.c:1675-1683
 - Used internally by PostgreSQL's range type system for timestamptz range operations requiring time interval calculations
+
+## Simplified Source
+
+```c
+Datum tstzrange_subdiff(PG_FUNCTION_ARGS) {
+    // Extract the two timestamptz arguments (microseconds since epoch in UTC)
+    Timestamp v1 = PG_GETARG_TIMESTAMP(0);
+    Timestamp v2 = PG_GETARG_TIMESTAMP(1);
+
+    // Calculate difference in seconds by converting from microseconds
+    float8 result = ((float8) v1 - (float8) v2) / USECS_PER_SEC;
+
+    PG_RETURN_FLOAT8(result);
+}
+```

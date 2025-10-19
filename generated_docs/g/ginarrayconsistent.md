@@ -41,3 +41,76 @@ The function handles four different strategies with varying consistency requirem
 - Null handling varies by strategy - Contains strategy explicitly excludes nulls, while Equal strategy allows them
 - Essential component of PostgreSQL's array GIN operator classes for query evaluation
 - The function provides fast index-level filtering before more expensive tuple-level rechecks
+
+## Simplified Source
+
+```c
+Datum
+ginarrayconsistent(PG_FUNCTION_ARGS)
+{
+    bool *check = (bool *) PG_GETARG_POINTER(0);
+    StrategyNumber strategy = PG_GETARG_UINT16(1);
+    int32 nkeys = PG_GETARG_INT32(3);
+    bool *recheck = (bool *) PG_GETARG_POINTER(5);
+    bool *nullFlags = (bool *) PG_GETARG_POINTER(7);
+    bool res;
+    int32 i;
+
+    switch (strategy)
+    {
+        case GinOverlapStrategy:
+            // No recheck needed - at least one non-null element must match
+            *recheck = false;
+            res = false;
+            for (i = 0; i < nkeys; i++)
+            {
+                if (check[i] && !nullFlags[i])
+                {
+                    res = true;
+                    break;
+                }
+            }
+            break;
+
+        case GinContainsStrategy:
+            // No recheck needed - all elements must match (no nulls)
+            *recheck = false;
+            res = true;
+            for (i = 0; i < nkeys; i++)
+            {
+                if (!check[i] || nullFlags[i])
+                {
+                    res = false;
+                    break;
+                }
+            }
+            break;
+
+        case GinContainedStrategy:
+            // Always requires recheck
+            *recheck = true;
+            res = true;
+            break;
+
+        case GinEqualStrategy:
+            // Requires recheck for proper null handling
+            *recheck = true;
+            res = true;
+            for (i = 0; i < nkeys; i++)
+            {
+                if (!check[i])
+                {
+                    res = false;
+                    break;
+                }
+            }
+            break;
+
+        default:
+            elog(ERROR, "ginarrayconsistent: unknown strategy number: %d", strategy);
+            res = false;
+    }
+
+    PG_RETURN_BOOL(res);
+}
+```

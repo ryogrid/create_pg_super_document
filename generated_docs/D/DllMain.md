@@ -37,3 +37,16 @@ The function specifically responds to the DLL_PROCESS_ATTACH notification by sto
 - Follows the minimal DllMain implementation pattern recommended for most DLLs
 - Part of the Windows DLL loading protocol and infrastructure
 - Global variable g_module is used by other functions in the same compilation unit
+
+## Simplified Source
+
+```c
+BOOL WINAPI DllMain(HANDLE hModule, DWORD ul_reason_for_call, LPVOID lpReserved) {
+    // Store module handle when DLL is loaded into a process
+    if (ul_reason_for_call == DLL_PROCESS_ATTACH) {
+        g_module = hModule;
+    }
+
+    return TRUE;
+}
+```

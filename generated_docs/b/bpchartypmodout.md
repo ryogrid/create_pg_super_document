@@ -32,3 +32,15 @@ The `bpchartypmodout` function serves as the type modifier output function for P
 - The function is a thin wrapper around the more generic `anychar_typmodout` function
 - Used when PostgreSQL needs to display type information, such as in `\d` commands in psql or INFORMATION_SCHEMA views
 - Converts internal type modifier encoding back to human-readable format (e.g., internal value to "(10)" for CHAR(10))
+
+## Simplified Source
+
+```c
+Datum bpchartypmodout(PG_FUNCTION_ARGS) {
+    // Get the internal type modifier value
+    int32 typmod = PG_GETARG_INT32(0);
+
+    // Delegate to the generic character type modifier output function
+    PG_RETURN_CSTRING(anychar_typmodout(typmod));
+}
+```

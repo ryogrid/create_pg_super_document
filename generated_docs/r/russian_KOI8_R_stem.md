@@ -34,3 +34,88 @@ The function operates on the input string in reverse (from end to beginning) to 
 
 ## Notes and Other Information
 This function is part of PostgreSQL's full-text search capabilities, specifically for Russian language support. The KOI8-R encoding was historically important for Russian computing systems. The function returns 1 on successful completion or a negative error code on failure. The stemming algorithm preserves the original word structure while systematically removing morphological elements, making it suitable for information retrieval and text analysis applications.
+
+## Simplified Source
+
+```c
+extern int russian_KOI8_R_stem(struct SN_env * z) {
+    // 1. Normalize input: Replace 0xA3 characters with 'e'
+    int start_pos = z->c;
+    while (1) {
+        int current_pos = z->c;
+        while (1) {
+            int char_pos = z->c;
+            z->bra = z->c;
+            if (z->c == z->l || z->p[z->c] != 0xA3) {
+                // No more 0xA3 characters, move to next position
+                z->c = char_pos;
+                if (z->c >= z->l) break; // End of string
+                z->c++;
+                continue;
+            }
+            // Found 0xA3, replace with 'e'
+            z->c++;
+            z->ket = z->c;
+            z->c = char_pos;
+            slice_from_s(z, 1, s_0); // Replace with 'e'
+            break;
+        }
+        if (z->c >= z->l) break; // No more characters
+    }
+    z->c = start_pos;
+
+    // 2. Mark morphological regions (RV, R1, R2)
+    r_mark_regions(z);
+
+    // 3. Set up for suffix removal (work backwards)
+    z->lb = z->c;
+    z->c = z->l;
+
+    // 4. Remove suffixes in priority order (within RV region)
+    if (z->c >= z->I[1]) { // Check RV boundary
+        int saved_lb = z->lb;
+        z->lb = z->I[1];
+
+        int saved_pos = z->l - z->c;
+
+        // Try perfective gerund first (highest priority)
+        if (r_perfective_gerund(z) == 0) {
+            // If no perfective gerund, try other endings
+            z->c = z->l - saved_pos;
+
+            // Try reflexive suffix
+            r_reflexive(z);
+
+            // Try adjectival, verb, or noun endings
+            int pos_before_morphology = z->l - z->c;
+            if (r_adjectival(z) == 0) {
+                z->c = z->l - pos_before_morphology;
+                if (r_verb(z) == 0) {
+                    z->c = z->l - pos_before_morphology;
+                    r_noun(z);
+                }
+            }
+        }
+
+        // 5. Remove remaining 'и' character if present
+        z->c = z->l - saved_pos;
+        z->ket = z->c;
+        if (z->c > z->lb && z->p[z->c - 1] == 0xC9) { // 'и' in KOI8-R
+            z->c--;
+            z->bra = z->c;
+            slice_del(z);
+        }
+
+        // 6. Optional: Remove derivational suffixes
+        r_derivational(z);
+
+        // 7. Final cleanup
+        r_tidy_up(z);
+
+        z->lb = saved_lb;
+    }
+
+    z->c = z->lb;
+    return 1;
+}
+```

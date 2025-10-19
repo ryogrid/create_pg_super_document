@@ -35,3 +35,12 @@ This provides a clean starting state for subsequent statistical data accumulatio
 - Part of pgbench's statistical tracking infrastructure
 - The SimpleStats structure contains: count (int64), min/max/sum/sum2 (double)
 - Located in src/bin/pgbench/pgbench.c:1394-1402
+
+## Simplified Source
+
+```c
+static void initSimpleStats(SimpleStats *ss) {
+    // Initialize all fields to zero: count, min, max, sum, sum2
+    memset(ss, 0, sizeof(SimpleStats));
+}
+```

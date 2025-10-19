@@ -36,3 +36,34 @@ This function creates a `.done` file in the `archive_status` directory to indica
 - Returns false on any error during file creation or closing
 - Error messages are logged using pg_log_error for debugging purposes
 - Part of the WAL archiving status tracking system in pg_basebackup utility
+
+## Simplified Source
+
+```c
+static bool
+mark_file_as_archived(StreamCtl *stream, const char *fname)
+{
+    static char tmppath[MAXPGPATH];
+    Walfile *f;
+
+    // Create path for .done status file
+    snprintf(tmppath, sizeof(tmppath), "archive_status/%s.done", fname);
+
+    // Create the status file
+    f = stream->walmethod->ops->open_for_write(stream->walmethod, tmppath, NULL, 0);
+    if (f == NULL) {
+        pg_log_error("could not create archive status file \"%s\": %s",
+                     tmppath, GetLastWalMethodError(stream->walmethod));
+        return false;
+    }
+
+    // Close the status file
+    if (stream->walmethod->ops->close(f, CLOSE_NORMAL) != 0) {
+        pg_log_error("could not close archive status file \"%s\": %s",
+                     tmppath, GetLastWalMethodError(stream->walmethod));
+        return false;
+    }
+
+    return true;
+}
+```

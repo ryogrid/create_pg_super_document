@@ -37,3 +37,19 @@ The function configures two types of signal handling:
 - The  handler ensures that temporary files and other resources are cleaned up if initdb is interrupted
 - This setup is crucial for maintaining system integrity during database cluster initialization
 - The function is typically called early in the initialization process to establish proper signal handling before critical operations begin
+
+## Simplified Source
+
+```c
+void setup_signals(void) {
+    // Set up signal handlers for graceful cleanup
+    pqsignal(SIGHUP, trapsig);   // Hangup
+    pqsignal(SIGINT, trapsig);   // Interrupt (Ctrl+C)
+    pqsignal(SIGQUIT, trapsig);  // Quit
+    pqsignal(SIGTERM, trapsig);  // Terminate
+
+    // Ignore signals that shouldn't terminate the process
+    pqsignal(SIGPIPE, SIG_IGN);  // Broken pipe (when writing to backend)
+    pqsignal(SIGSYS, SIG_IGN);   // Invalid system call (during probing)
+}
+```

@@ -31,3 +31,13 @@ The function is part of PostgreSQL's reindex coordination system that prevents i
 - Uses a simple global variable comparison for efficient checking
 - Essential for maintaining consistency during concurrent index operations
 - Helps coordinate with other reindex-related functions like SetReindexProcessing and ResetReindexProcessing
+
+## Simplified Source
+
+```c
+bool ReindexIsProcessingHeap(Oid heapOid)
+{
+    // Check if this heap is currently being reindexed
+    return heapOid == currentlyReindexedHeap;
+}
+```

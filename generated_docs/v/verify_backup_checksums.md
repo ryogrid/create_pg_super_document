@@ -41,3 +41,44 @@ The verification process involves reading each qualifying file from disk and com
 - The function constructs full file paths by combining the backup directory with relative paths from the manifest
 - Checksum verification is conditional based on should_verify_checksum() and should_ignore_relpath() filters
 - This function represents the core checksum verification phase of the backup validation process
+
+## Simplified Source
+
+```c
+static void
+verify_backup_checksums(verifier_context *context)
+{
+    manifest_data *manifest = context->manifest;
+    manifest_files_iterator it;
+    manifest_file *m;
+    uint8 *buffer;
+
+    // Start progress reporting
+    progress_report(false);
+
+    // Allocate buffer for file reading
+    buffer = pg_malloc(READ_CHUNK_SIZE * sizeof(uint8));
+
+    // Iterate through all manifest files
+    manifest_files_start_iterate(manifest->files, &it);
+    while ((m = manifest_files_iterate(manifest->files, &it)) != NULL) {
+        // Check if file should have checksum verified
+        if (should_verify_checksum(m) && !should_ignore_relpath(context, m->pathname)) {
+            char *fullpath;
+
+            // Build full path to file
+            fullpath = psprintf("%s/%s", context->backup_directory, m->pathname);
+
+            // Verify the file's checksum
+            verify_file_checksum(context, m, fullpath, buffer);
+
+            // Clean up path string
+            pfree(fullpath);
+        }
+    }
+
+    // Clean up buffer and complete progress reporting
+    pfree(buffer);
+    progress_report(true);
+}
+```

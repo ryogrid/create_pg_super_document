@@ -52,3 +52,35 @@ The function validates that the input string represents a valid number and handl
 - The function relies on pre-defined arrays numTH and numth containing the actual suffix strings
 - Used extensively in PostgreSQL's date/time and numeric formatting functions for generating ordinal representations
 - The function is designed to be efficient for repeated calls during formatting operations
+
+## Simplified Source
+
+```c
+static const char *get_th(char *num, int type) {
+    int len = strlen(num);
+    int last = num[len - 1];
+
+    // Validate input is a number
+    if (!isdigit(last)) {
+        ereport(ERROR, (errcode(ERRCODE_INVALID_TEXT_REPRESENTATION),
+                       errmsg("\"%s\" is not a number", num)));
+    }
+
+    // Handle teen numbers (11-19): all get "TH"
+    if ((len > 1) && (num[len - 2] == '1')) {
+        last = 0;  // Force "TH" suffix
+    }
+
+    // Determine ordinal suffix based on last digit
+    switch (last) {
+        case '1':
+            return (type == TH_UPPER) ? numTH[0] : numth[0];  // "ST"/"st"
+        case '2':
+            return (type == TH_UPPER) ? numTH[1] : numth[1];  // "ND"/"nd"
+        case '3':
+            return (type == TH_UPPER) ? numTH[2] : numth[2];  // "RD"/"rd"
+        default:
+            return (type == TH_UPPER) ? numTH[3] : numth[3];  // "TH"/"th"
+    }
+}
+```

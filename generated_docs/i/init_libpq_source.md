@@ -47,3 +47,36 @@ This allows pg_rewind to treat both local file system sources and remote libpq s
 - The caller retains ownership of the PGconn but should not use it directly while the source is active
 - The returned source must eventually be destroyed using the libpq_destroy function
 - All StringInfo structures (paths, offsets, lengths) are initialized to manage batched operations efficiently
+
+## Simplified Source
+
+```c
+rewind_source *
+init_libpq_source(PGconn *conn)
+{
+    libpq_source *src;
+
+    // Initialize the libpq connection
+    init_libpq_conn(conn);
+
+    // Allocate and initialize libpq source structure
+    src = pg_malloc0(sizeof(libpq_source));
+
+    // Set up function pointers for source operations
+    src->common.traverse_files = libpq_traverse_files;
+    src->common.fetch_file = libpq_fetch_file;
+    src->common.queue_fetch_file = libpq_queue_fetch_file;
+    src->common.queue_fetch_range = libpq_queue_fetch_range;
+    src->common.finish_fetch = libpq_finish_fetch;
+    src->common.get_current_wal_insert_lsn = libpq_get_current_wal_insert_lsn;
+    src->common.destroy = libpq_destroy;
+
+    // Store connection and initialize string buffers
+    src->conn = conn;
+    initStringInfo(&src->paths);
+    initStringInfo(&src->offsets);
+    initStringInfo(&src->lengths);
+
+    return &src->common;
+}
+```

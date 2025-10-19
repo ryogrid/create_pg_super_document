@@ -40,3 +40,21 @@ This function is part of the GIN B-tree navigation infrastructure and ensures ef
 - The function uses the page's right bound to make navigation decisions efficiently
 - Deleted pages are always skipped by moving right
 - Part of the GIN index B-tree traversal algorithm that ensures optimal search performance
+
+## Simplified Source
+
+```c
+static bool dataIsMoveRight(GinBtree btree, Page page) {
+    // Don't move right if this is the rightmost page
+    if (GinPageRightMost(page))
+        return false;
+
+    // Always move right if the page is deleted
+    if (GinPageIsDeleted(page))
+        return true;
+
+    // Move right if target item is greater than page's right bound
+    ItemPointer right_bound = GinDataPageGetRightBound(page);
+    return (ginCompareItemPointers(&btree->itemptr, right_bound) > 0);
+}
+```

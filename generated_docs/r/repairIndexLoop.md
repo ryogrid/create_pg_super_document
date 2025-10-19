@@ -30,3 +30,13 @@ This function is part of PostgreSQL's pg_dump dependency resolution system, spec
 - Part of PostgreSQL's partitioning feature support in pg_dump
 - The repair involves simply breaking the dependency from parent to child partition index
 - Essential for proper dump ordering when dealing with partitioned tables and their associated indexes
+
+## Simplified Source
+
+```c
+static void repairIndexLoop(DumpableObject *partedindex,
+                            DumpableObject *partindex) {
+    // Break circular dependency by removing partitioned index's dependency on partition index
+    removeObjectDependency(partedindex, partindex->dumpId);
+}
+```

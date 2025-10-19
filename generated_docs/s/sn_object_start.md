@@ -42,3 +42,21 @@ This function operates as part of the JSON parsing callback system, working in c
 - Uses PostgreSQL's StringInfo infrastructure for efficient string building
 - Always returns JSON_SUCCESS as object start operations cannot fail
 - The function comment indicates that null field state management happens in field start handlers and is reset during scalar actions
+
+## Simplified Source
+
+```c
+static JsonParseErrorType sn_object_start(void *state) {
+    StripnullState *_state = (StripnullState *) state;
+
+    // Append opening brace to output string
+    appendStringInfoCharMacro(_state->strval, '{');
+
+    return JSON_SUCCESS;
+}
+```
+
+This function:
+1. Casts the generic state pointer to the specific StripnullState type
+2. Appends the JSON object opening character '{' to the output buffer
+3. Returns success since this operation cannot fail

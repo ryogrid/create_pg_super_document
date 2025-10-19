@@ -38,3 +38,34 @@ The function processes ranges first (which are sorted), followed by values (whic
 - Each expanded range is marked with a collapsed flag: false for true ranges, true for single values
 - This expansion facilitates subsequent operations like sorting and merging that work more easily with uniform range structures
 - The function is static and used internally within the BRIN minmax_multi implementation
+
+## Simplified Source
+
+```c
+static void
+fill_expanded_ranges(ExpandedRange *eranges, int neranges, Ranges *ranges)
+{
+    Assert(neranges == (ranges->nranges + ranges->nvalues));
+
+    int idx = 0;
+
+    // First, expand true ranges (intervals with min/max)
+    for (int i = 0; i < ranges->nranges; i++) {
+        eranges[idx].minval = ranges->values[2 * i];     // min value
+        eranges[idx].maxval = ranges->values[2 * i + 1]; // max value
+        eranges[idx].collapsed = false; // true interval
+        idx++;
+    }
+
+    // Then, expand individual values (as degenerate ranges)
+    for (int i = 0; i < ranges->nvalues; i++) {
+        Datum value = ranges->values[2 * ranges->nranges + i];
+        eranges[idx].minval = value;
+        eranges[idx].maxval = value; // same value for both min/max
+        eranges[idx].collapsed = true; // single point
+        idx++;
+    }
+
+    Assert(idx == neranges);
+}
+```

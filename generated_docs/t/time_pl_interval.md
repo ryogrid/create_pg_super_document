@@ -40,4 +40,28 @@ This function implements the PostgreSQL operator for adding an interval to a tim
 - Infinite intervals are explicitly rejected with error code 
 - Negative results are normalized by adding  to ensure a positive time value
 - This function is typically invoked through PostgreSQL's operator system rather than direct function calls
-- Located in 
+- Located in
+
+## Simplified Source
+
+```c
+Datum time_pl_interval(PG_FUNCTION_ARGS) {
+    TimeADT time = PG_GETARG_TIMEADT(0);
+    Interval *span = PG_GETARG_INTERVAL_P(1);
+    TimeADT result;
+
+    // Check for infinite interval
+    if (INTERVAL_NOT_FINITE(span))
+        ereport(ERROR, "cannot add infinite interval to time");
+
+    // Add interval to time
+    result = time + span->time;
+
+    // Keep result within 24-hour day range
+    result -= result / USECS_PER_DAY * USECS_PER_DAY;
+    if (result < 0)
+        result += USECS_PER_DAY;
+
+    PG_RETURN_TIMEADT(result);
+}
+```

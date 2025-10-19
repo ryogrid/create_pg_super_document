@@ -42,3 +42,30 @@ The  function is a qsort-compatible comparison function that establishes a total
 - Entry pointer comparison provides deterministic ordering when position and weight are identical
 - Essential for proper functioning of cover distance algorithms that rely on sorted document representations
 - Part of PostgreSQL's full-text search ranking infrastructure in the tsrank.c module
+
+## Simplified Source
+
+```c
+static int
+compareDocR(const void *va, const void *vb)
+{
+    const DocRepresentation *a = (const DocRepresentation *) va;
+    const DocRepresentation *b = (const DocRepresentation *) vb;
+
+    // Primary sort: by position
+    if (WEP_GETPOS(a->pos) != WEP_GETPOS(b->pos))
+        return (WEP_GETPOS(a->pos) > WEP_GETPOS(b->pos)) ? 1 : -1;
+
+    // Secondary sort: by weight (when positions are equal)
+    if (WEP_GETWEIGHT(a->pos) != WEP_GETWEIGHT(b->pos))
+        return (WEP_GETWEIGHT(a->pos) > WEP_GETWEIGHT(b->pos)) ? 1 : -1;
+
+    // Tertiary sort: by entry pointer (when position and weight are equal)
+    if (a->data.map.entry == b->data.map.entry)
+        return 0;
+
+    return (a->data.map.entry > b->data.map.entry) ? 1 : -1;
+}
+```
+
+This simplified version shows the three-level sorting hierarchy for DocRepresentation structures: position (primary), weight (secondary), and entry pointer (tertiary). This ordering enables efficient processing of document representations in text search ranking algorithms.

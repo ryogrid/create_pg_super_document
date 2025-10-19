@@ -30,3 +30,16 @@ Similar to other B-tree tuple functions, it avoids asserting that the tuple is a
 - The function operates on a leaf page's high key tuple, which temporarily stores parent page information during deletion
 - Implemented as static inline for performance during deletion operations
 - Works in conjunction with BTreeTupleSetTopParent to manage top parent links during page deletion sequences
+
+## Simplified Source
+
+```c
+static inline BlockNumber
+BTreeTupleGetTopParent(IndexTuple leafhikey)
+{
+    // Extract top parent block number from leaf high key's t_tid field
+    // Used during page deletion to track parent page relationships
+    // Uses NoCheck version to avoid false positives in !heapkeyspace indexes
+    return ItemPointerGetBlockNumberNoCheck(&leafhikey->t_tid);
+}
+```

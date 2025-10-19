@@ -35,3 +35,20 @@ The function follows the standard qsort comparison function contract, where the 
 - Specifically used in range statistics computation to sort range lengths for percentile calculations
 - The function is declared static, making it internal to the rangetypes_typanalyze.c file
 - Handles standard IEEE 754 float8 comparison semantics
+
+## Simplified Source
+
+```c
+static int float8_qsort_cmp(const void *a1, const void *a2, void *arg) {
+    const float8 *f1 = (const float8 *) a1;
+    const float8 *f2 = (const float8 *) a2;
+
+    // Standard three-way comparison for sorting
+    if (*f1 < *f2)
+        return -1;
+    else if (*f1 == *f2)
+        return 0;
+    else
+        return 1;
+}
+```

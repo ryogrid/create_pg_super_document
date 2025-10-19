@@ -36,3 +36,19 @@ When a valid initial cell is provided, the function uses `list_cell_number` to c
 - Part of PostgreSQL's list iteration infrastructure that provides convenient cell-based iteration
 - Returns a ForEachState struct by value, containing the list pointer and calculated starting index
 - The function relies on `list_cell_number` for bounds checking of the initial cell
+
+## Simplified Source
+
+```c
+static inline ForEachState for_each_cell_setup(const List *lst, const ListCell *initcell) {
+    ForEachState r = {
+        lst,
+        // If initcell is provided, get its index, otherwise use list length
+        initcell ? list_cell_number(lst, initcell) : list_length(lst)
+    };
+
+    return r;
+}
+```
+
+This function initializes a ForEachState structure for list iteration, setting the list pointer and starting index. If initcell is NULL, it sets the index to list length (creating an empty iteration), otherwise it converts the cell pointer to its index position.

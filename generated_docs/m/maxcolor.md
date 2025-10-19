@@ -32,3 +32,18 @@ The function performs error checking using the CISERR() macro before returning t
 - Essential for NFA (Non-deterministic Finite Automaton) optimization algorithms that need to know the color space size
 - Simple getter function that provides safe access to internal colormap state
 - Used during regex compilation optimization phases
+
+## Simplified Source
+
+```c
+static color
+maxcolor(struct colormap *cm)
+{
+    // Return invalid color if error condition exists
+    if (CISERR())
+        return COLORLESS;
+
+    // Return the highest color number in use
+    return (color) cm->max;
+}
+```

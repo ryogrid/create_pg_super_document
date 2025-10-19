@@ -36,3 +36,30 @@ The `int42div` function implements division between a 32-bit integer (int4) and 
 - Division by zero is explicitly checked and reported as an error
 - The function includes a compiler hint (PG_RETURN_NULL after division by zero error) to help with optimization
 - No general overflow checking is needed for division operations except the INT_MIN / -1 case
+
+## Simplified Source
+
+```c
+Datum int42div(PG_FUNCTION_ARGS) {
+    int32 dividend = PG_GETARG_INT32(0);  // 32-bit dividend
+    int16 divisor = PG_GETARG_INT16(1);   // 16-bit divisor
+
+    // Check for division by zero
+    if (divisor == 0) {
+        ereport(ERROR, (errcode(ERRCODE_DIVISION_BY_ZERO),
+                       errmsg("division by zero")));
+    }
+
+    // Handle special case: INT_MIN / -1 would overflow
+    if (divisor == -1) {
+        if (dividend == PG_INT32_MIN) {
+            ereport(ERROR, (errcode(ERRCODE_NUMERIC_VALUE_OUT_OF_RANGE),
+                           errmsg("integer out of range")));
+        }
+        PG_RETURN_INT32(-dividend);  // Division by -1 is negation
+    }
+
+    // Perform normal division
+    PG_RETURN_INT32(dividend / divisor);
+}
+```

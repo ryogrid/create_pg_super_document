@@ -51,3 +51,51 @@ This function takes no parameters and operates on:
 - The final "+1" ensures that the new WAL starts in completely unused space
 - Critical for ensuring data integrity during WAL reset operations by avoiding overlap with existing WAL data
 - The function assumes that any present WAL files have been used, following xlog.c's file pre-creation behavior
+
+## Simplified Source
+
+```c
+static void FindEndOfXLOG(void)
+{
+    DIR *xldir;
+    struct dirent *xlde;
+    uint64 xlogbytepos;
+
+    // Start with checkpoint address from control file
+    XLByteToSeg(ControlFile.checkPointCopy.redo, newXlogSegNo,
+                ControlFile.xlog_seg_size);
+
+    // Scan pg_wal directory for existing WAL files
+    xldir = opendir(XLOGDIR);
+    if (xldir == NULL)
+        pg_fatal("could not open directory \"%s\": %m", XLOGDIR);
+
+    // Find highest segment number among all WAL files
+    while (errno = 0, (xlde = readdir(xldir)) != NULL)
+    {
+        if (IsXLogFileName(xlde->d_name) || IsPartialXLogFileName(xlde->d_name))
+        {
+            TimeLineID tli;
+            XLogSegNo segno;
+
+            // Extract segment number from filename
+            XLogFromFileName(xlde->d_name, &tli, &segno,
+                             ControlFile.xlog_seg_size);
+
+            // Keep track of highest segment number found
+            if (segno > newXlogSegNo)
+                newXlogSegNo = segno;
+        }
+    }
+
+    if (errno)
+        pg_fatal("could not read directory \"%s\": %m", XLOGDIR);
+    if (closedir(xldir))
+        pg_fatal("could not close directory \"%s\": %m", XLOGDIR);
+
+    // Convert to new segment size and advance to virgin territory
+    xlogbytepos = newXlogSegNo * ControlFile.xlog_seg_size;
+    newXlogSegNo = (xlogbytepos + ControlFile.xlog_seg_size - 1) / WalSegSz;
+    newXlogSegNo++;
+}
+```

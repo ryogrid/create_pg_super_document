@@ -32,3 +32,12 @@ This function serves as a wrapper interface between PostgreSQL's file synchroniz
 - Returns an integer value (presumably status code) from the underlying SlruSyncFileTag function
 - Provides modularity by isolating CLOG synchronization details from the generic sync system
 - Essential for ensuring CLOG data is properly written to persistent storage for crash recovery
+
+## Simplified Source
+```c
+int clogsyncfiletag(const FileTag *ftag, char *path)
+{
+    // Sync CLOG file using SLRU synchronization mechanism
+    return SlruSyncFileTag(XactCtl, ftag, path);
+}
+```

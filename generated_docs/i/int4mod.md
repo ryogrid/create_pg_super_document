@@ -34,3 +34,26 @@ The `int4mod` function implements the modulo operation between two 32-bit intege
 - Modulo -1 always mathematically equals 0, which is returned directly
 - No general overflow checking is needed for modulo operations
 - The function includes a compiler hint (PG_RETURN_NULL after division by zero error) to help with optimization
+
+## Simplified Source
+
+```c
+Datum int4mod(PG_FUNCTION_ARGS) {
+    int32 dividend = PG_GETARG_INT32(0);  // First operand
+    int32 divisor = PG_GETARG_INT32(1);   // Second operand
+
+    // Check for division by zero
+    if (divisor == 0) {
+        ereport(ERROR, (errcode(ERRCODE_DIVISION_BY_ZERO),
+                       errmsg("division by zero")));
+    }
+
+    // Handle special case: any number % -1 = 0
+    if (divisor == -1) {
+        PG_RETURN_INT32(0);
+    }
+
+    // Perform modulo operation
+    PG_RETURN_INT32(dividend % divisor);
+}
+```

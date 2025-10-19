@@ -34,3 +34,25 @@ This function handles the finalization phase of tar parsing when the input strea
 - Propagates finalization to the next bbstreamer in the processing chain
 - Uses pg_fatal for unrecoverable error conditions when stream ends unexpectedly
 - Critical for proper cleanup and error detection in the backup streaming pipeline
+
+## Simplified Source
+
+```c
+static void bbstreamer_tar_parser_finalize(bbstreamer *streamer) {
+    bbstreamer_tar_parser *mystreamer = (bbstreamer_tar_parser *) streamer;
+
+    // Validate parser is in acceptable final state
+    if (mystreamer->next_context != BBSTREAMER_ARCHIVE_TRAILER &&
+        (mystreamer->next_context != BBSTREAMER_MEMBER_HEADER ||
+         mystreamer->base.bbs_buffer.len > 0))
+        pg_fatal("COPY stream ended before last file was finished");
+
+    // Send remaining data as archive trailer
+    bbstreamer_content(streamer->bbs_next, NULL,
+                       streamer->bbs_buffer.data, streamer->bbs_buffer.len,
+                       BBSTREAMER_ARCHIVE_TRAILER);
+
+    // Finalize the processing chain
+    bbstreamer_finalize(streamer->bbs_next);
+}
+```

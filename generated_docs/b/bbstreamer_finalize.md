@@ -41,3 +41,15 @@ The function performs a basic assertion to ensure the streamer is not NULL befor
 - Different bbstreamer types use finalization for various purposes: compression streamers may flush remaining data, file writers may close handles, parsers may process trailing data
 - The Assert macro ensures defensive programming by catching NULL streamer pointers in debug builds
 - This function is critical for proper resource management in the pg_basebackup streaming architecture
+
+## Simplified Source
+
+```c
+static inline void bbstreamer_finalize(bbstreamer *streamer) {
+    // Validate streamer exists
+    Assert(streamer != NULL);
+
+    // Delegate to streamer-specific finalize handler
+    streamer->bbs_ops->finalize(streamer);
+}
+```

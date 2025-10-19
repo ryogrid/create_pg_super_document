@@ -42,3 +42,37 @@ The function sets up the command type as SQL_COMMAND, initializes statistics tra
 - Statistics tracking is initialized but will be populated during command execution
 - The function assumes the input buffer contains complete, well-formed SQL text from the parser
 - Memory allocation uses pg_malloc which will terminate the program on allocation failure
+
+## Simplified Source
+
+```c
+static Command *create_sql_command(PQExpBuffer buf, const char *source)
+{
+    Command *my_command;
+    char *p = skip_sql_comments(buf->data);
+
+    // Return NULL if only comments/whitespace
+    if (p == NULL)
+        return NULL;
+
+    // Allocate and initialize Command structure
+    my_command = (Command *) pg_malloc(sizeof(Command));
+    initPQExpBuffer(&my_command->lines);
+    appendPQExpBufferStr(&my_command->lines, p);
+
+    // Initialize all command fields
+    my_command->first_line = NULL;     /* set later */
+    my_command->type = SQL_COMMAND;
+    my_command->meta = META_NONE;
+    my_command->argc = 0;
+    my_command->retries = 0;
+    my_command->failures = 0;
+    memset(my_command->argv, 0, sizeof(my_command->argv));
+    my_command->varprefix = NULL;      /* allocated later, if needed */
+    my_command->expr = NULL;
+    initSimpleStats(&my_command->stats);
+    my_command->prepname = NULL;       /* set later, if needed */
+
+    return my_command;
+}
+```

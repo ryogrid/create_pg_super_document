@@ -40,3 +40,16 @@ The function operates directly on the page header structure, modifying the pd_ls
 - The MASK_MARKER constant is used to replace actual values during comparison operations
 - This masking is essential for automated testing and validation of WAL replay mechanisms
 - The function modifies the page in-place and does not return any value
+
+## Simplified Source
+
+```c
+void mask_page_lsn_and_checksum(Page page) {
+    PageHeader phdr = (PageHeader) page;
+
+    // Mask LSN and checksum for consistency checks
+    // These fields differ between primary and standby during WAL replay
+    PageXLogRecPtrSet(phdr->pd_lsn, (uint64) MASK_MARKER);
+    phdr->pd_checksum = MASK_MARKER;
+}
+```

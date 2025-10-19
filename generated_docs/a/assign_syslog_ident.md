@@ -36,3 +36,26 @@ This function manages the syslog identifier string used by PostgreSQL when loggi
 - The syslog connection is reopened lazily when needed rather than immediately
 - Properly manages memory by freeing the old identifier before setting the new one
 - Located in src/backend/utils/error/elog.c:2303-2334
+
+## Simplified Source
+
+```c
+void assign_syslog_ident(const char *newval, void *extra) {
+#ifdef HAVE_SYSLOG
+    // Only update if the identifier actually changed
+    if (syslog_ident == NULL || strcmp(syslog_ident, newval) != 0) {
+        // Close existing syslog connection if open
+        if (openlog_done) {
+            closelog();
+            openlog_done = false;
+        }
+
+        // Update to new identifier
+        free(syslog_ident);
+        syslog_ident = strdup(newval);
+        // Note: strdup failure is handled gracefully by write_syslog()
+    }
+#endif
+    // Without syslog support, do nothing
+}
+```

@@ -38,3 +38,30 @@ The `bpchar_sortsupport` function sets up optimized sorting support for BpChar d
 - Used internally by the query planner and executor for efficient sorting of BpChar columns
 - Part of PostgreSQL's type system for CHAR(n) data type operations
 - Enables various sorting optimizations including abbreviation keys for faster comparisons
+
+## Simplified Source
+
+```c
+Datum bpchar_sortsupport(PG_FUNCTION_ARGS) {
+    SortSupport ssup = (SortSupport) PG_GETARG_POINTER(0);
+    Oid collid = ssup->ssup_collation;
+
+    // Switch to sort support memory context
+    MemoryContext oldcontext = MemoryContextSwitchTo(ssup->ssup_cxt);
+
+    // Delegate to generic string sort support with BpChar type
+    varstr_sortsupport(ssup, BPCHAROID, collid);
+
+    // Restore previous memory context
+    MemoryContextSwitchTo(oldcontext);
+
+    PG_RETURN_VOID();
+}
+```
+
+**Key Points:**
+- Initializes optimized sorting support for BpChar (CHAR) data type
+- Extracts collation information for locale-aware sorting
+- Switches memory context for proper resource management
+- Delegates to generic `varstr_sortsupport()` with BpChar type ID
+- Enables performance optimizations for ORDER BY and index operations

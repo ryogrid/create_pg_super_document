@@ -36,3 +36,41 @@ The  function determines the PostgreSQL version of the binaries in a cluster's b
 - Version parsing logic handles the PostgreSQL version numbering change that occurred with version 10
 - Error handling includes checks for command execution failure and version parsing failure
 - The function modifies the bin_version field of the provided ClusterInfo structure
+
+## Simplified Source
+
+```c
+static void get_bin_version(ClusterInfo *cluster) {
+    char cmd[MAXPGPATH], cmd_output[MAX_STRING];
+    FILE *output;
+    int rc, v1 = 0, v2 = 0;
+
+    // Execute pg_ctl --version command
+    snprintf(cmd, sizeof(cmd), "\"%s/pg_ctl\" --version", cluster->bindir);
+    fflush(NULL);
+
+    // Open command and read version output
+    if ((output = popen(cmd, "r")) == NULL ||
+        fgets(cmd_output, sizeof(cmd_output), output) == NULL)
+        pg_fatal("could not get pg_ctl version data using %s: %m", cmd);
+
+    // Check command execution result
+    rc = pclose(output);
+    if (rc != 0)
+        pg_fatal("could not get pg_ctl version data using %s: %s",
+                 cmd, wait_result_to_str(rc));
+
+    // Parse version numbers from output
+    if (sscanf(cmd_output, "%*s %*s %d.%d", &v1, &v2) < 1)
+        pg_fatal("could not get pg_ctl version output from %s", cmd);
+
+    // Convert to internal version format
+    if (v1 < 10) {
+        // Old style versioning (e.g., 9.6.1): major.minor.patch
+        cluster->bin_version = v1 * 10000 + v2 * 100;
+    } else {
+        // New style versioning (e.g., 10.1): major.minor
+        cluster->bin_version = v1 * 10000;
+    }
+}
+```

@@ -29,3 +29,20 @@ This function handles the replay of a hash index split operation during PostgreS
 - The function assumes the WAL record contains a full-page image and will throw an ERROR if this expectation is not met
 - Part of PostgreSQL's hash index WAL recovery infrastructure
 - The simplicity of this function reflects that split operations are logged as complete page images rather than incremental changes
+
+## Simplified Source
+
+```c
+static void
+hash_xlog_split_page(XLogReaderState *record)
+{
+    Buffer buf;
+
+    // Restore the split page from full-page image
+    if (XLogReadBufferForRedo(record, 0, &buf) != BLK_RESTORED)
+        elog(ERROR, "Hash split record did not contain a full-page image");
+
+    // Release the buffer
+    UnlockReleaseBuffer(buf);
+}
+```

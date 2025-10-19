@@ -30,3 +30,12 @@ This function serves as the cleanup counterpart to , ensuring proper deallocatio
 - Part of the standard Snowball stemmer interface pattern used across all supported languages
 - The function handles null pointer checks and other safety measures through the underlying 
 - After calling this function, the environment pointer should not be used again
+
+## Simplified Source
+
+```c
+extern void hindi_UTF_8_close_env(struct SN_env * z) {
+    // Clean up Hindi UTF-8 stemmer environment
+    SN_close_env(z, 0);
+}
+```

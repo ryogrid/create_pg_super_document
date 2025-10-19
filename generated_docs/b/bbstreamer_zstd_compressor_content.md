@@ -44,3 +44,39 @@ The compression is performed iteratively until all input data is processed. The 
 - Handles buffer overflow by forwarding data to the next streamer and resetting the output buffer
 - Error handling includes checking for zstd compression errors and logging them appropriately
 - The function processes all input data in a loop, ensuring complete compression of the provided data chunk
+
+## Simplified Source
+
+```c
+static void bbstreamer_zstd_compressor_content(bbstreamer *streamer,
+                                               bbstreamer_member *member,
+                                               const char *data, int len,
+                                               bbstreamer_archive_context context) {
+    bbstreamer_zstd_frame *mystreamer = (bbstreamer_zstd_frame *) streamer;
+    ZSTD_inBuffer inBuf = {data, len, 0};
+
+    while (inBuf.pos < inBuf.size) {
+        size_t max_needed = ZSTD_compressBound(inBuf.size - inBuf.pos);
+
+        // Check if output buffer has enough space
+        if (mystreamer->zstd_outBuf.size - mystreamer->zstd_outBuf.pos < max_needed) {
+            // Forward current compressed data and reset buffer
+            bbstreamer_content(mystreamer->base.bbs_next, member,
+                               mystreamer->zstd_outBuf.dst,
+                               mystreamer->zstd_outBuf.pos, context);
+
+            // Reset output buffer
+            mystreamer->zstd_outBuf.dst = mystreamer->base.bbs_buffer.data;
+            mystreamer->zstd_outBuf.size = mystreamer->base.bbs_buffer.maxlen;
+            mystreamer->zstd_outBuf.pos = 0;
+        }
+
+        // Compress data chunk
+        size_t result = ZSTD_compressStream2(mystreamer->cctx, &mystreamer->zstd_outBuf,
+                                             &inBuf, ZSTD_e_continue);
+
+        if (ZSTD_isError(result))
+            pg_log_error("could not compress data: %s", ZSTD_getErrorName(result));
+    }
+}
+```

@@ -41,6 +41,30 @@ The function is designed to be "gentle" by allowing realloc calls with the same 
 ## Notes and Other Information
 - Explicitly does not support actual reallocation to different sizes
 - Uses test-and-elog instead of Assert for block validation due to high likelihood of errors
-- Includes VALGRIND memory access control for debugging support  
+- Includes VALGRIND memory access control for debugging support
 - The design philosophy prioritizes slab allocator efficiency over reallocation flexibility
 - Returns NULL after error (though execution stops at elog(ERROR))
+
+## Simplified Source
+```c
+void *
+SlabRealloc(void *pointer, Size size, int flags)
+{
+    MemoryChunk *chunk = PointerGetMemoryChunk(pointer);
+    SlabBlock *block = MemoryChunkGetBlock(chunk);
+
+    // Validate the block belongs to a slab context
+    if (!SlabBlockIsValid(block))
+        elog(ERROR, "could not find block containing chunk %p", chunk);
+
+    SlabContext *slab = block->slab;
+
+    // Allow realloc only if size matches exactly (slab uses fixed-size chunks)
+    if (size == slab->chunkSize)
+        return pointer;
+
+    // Slab allocator cannot change chunk sizes
+    elog(ERROR, "slab allocator does not support realloc()");
+    return NULL;
+}
+```

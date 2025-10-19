@@ -30,3 +30,18 @@ This function performs cleanup of a SimpleStringList data structure by traversin
 - The function does not set any pointers to NULL, so the caller should ensure proper handling of the list pointer after destruction
 - Used primarily in PostgreSQL frontend utilities for cleanup operations
 - Located in src/fe_utils/simple_list.c:125-143
+
+## Simplified Source
+
+```c
+void simple_string_list_destroy(SimpleStringList *list) {
+    SimpleStringListCell *current = list->head;
+
+    // Traverse and free each cell in the linked list
+    while (current != NULL) {
+        SimpleStringListCell *next = current->next;
+        pg_free(current);
+        current = next;
+    }
+}
+```

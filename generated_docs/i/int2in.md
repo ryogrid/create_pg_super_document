@@ -30,3 +30,17 @@ int2in is a PostgreSQL input function that serves as the string-to-int2 conversi
 - Returns a Datum containing the converted int2 value
 - Error handling is delegated to pg_strtoint16_safe which will report appropriate errors for invalid input
 - The function follows PostgreSQL's standard function calling convention using PG_FUNCTION_ARGS
+
+## Simplified Source
+
+```c
+Datum
+int2in(PG_FUNCTION_ARGS)
+{
+    // Extract string argument from function call
+    char *num = PG_GETARG_CSTRING(0);
+
+    // Convert string to 16-bit integer safely and return result
+    PG_RETURN_INT16(pg_strtoint16_safe(num, fcinfo->context));
+}
+```

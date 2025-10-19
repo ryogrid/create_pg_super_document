@@ -36,3 +36,22 @@ The  function manages the dynamic growth of the Variables array structure. When 
 - Uses pg_realloc for memory management, which handles allocation failures appropriately
 - Part of pgbench's variable management system for dynamic array growth
 - Maintains existing variable data during reallocation operations
+
+## Simplified Source
+
+```c
+static void
+enlargeVariables(Variables *variables, int needed)
+{
+    // Calculate total variables required
+    needed += variables->nvars;
+
+    // Expand array if current capacity insufficient
+    if (variables->max_vars < needed)
+    {
+        variables->max_vars = needed + VARIABLES_ALLOC_MARGIN;
+        variables->vars = (Variable *)
+            pg_realloc(variables->vars, variables->max_vars * sizeof(Variable));
+    }
+}
+```

@@ -37,3 +37,23 @@ The  function initializes cached constants (sin_30, one_minus_cos_60, asin_0_5, 
 - Sets degree_consts_set flag to true when initialization is complete
 - The complex design ensures that degree-based trig functions return exactly 1.0 for expressions like sin(30°)/sin(30°)
 - Uses volatile temporary variables in calling code to ensure proper rounding on machines with wide float registers
+
+## Simplified Source
+
+```c
+static void init_degree_constants(void) {
+    // Compute trigonometric constants for degree-based functions
+    // Uses variables instead of literals to prevent compiler optimization
+    sin_30 = sin(degree_c_thirty * RADIANS_PER_DEGREE);
+    one_minus_cos_60 = 1.0 - cos(degree_c_sixty * RADIANS_PER_DEGREE);
+    asin_0_5 = asin(degree_c_one_half);
+    acos_0_5 = acos(degree_c_one_half);
+    atan_1_0 = atan(degree_c_one);
+
+    // Compute tan and cot using degree-based sine/cosine functions
+    tan_45 = sind_q1(degree_c_forty_five) / cosd_q1(degree_c_forty_five);
+    cot_45 = cosd_q1(degree_c_forty_five) / sind_q1(degree_c_forty_five);
+
+    degree_consts_set = true;
+}
+```

@@ -29,3 +29,17 @@ The bool_anytrue function serves as the final function for PostgreSQL's SOME/ANY
 
 ## Notes and Other Information
 This function implements the SQL SOME/ANY aggregate semantics where the result is true if at least one input value is true, false if all input values are false, and NULL if all input values are NULL. The comparison (state->aggtrue > 0) efficiently determines if any non-null values were true by checking if the true count is positive. This function is typically registered in pg_proc as the final function for boolean OR aggregates and complements bool_alltrue in providing complete boolean aggregate functionality.
+
+## Simplified Source
+```c
+bool bool_anytrue(BoolAggState* state) {
+    // If no values were processed, return NULL
+    if (state == NULL || state->aggcount == 0) {
+        return NULL;
+    }
+
+    // Return true if at least one non-null value was true
+    // (count of true values is greater than zero)
+    return state->aggtrue > 0;
+}
+```

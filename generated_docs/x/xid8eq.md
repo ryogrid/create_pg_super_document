@@ -34,3 +34,16 @@ The function follows the standard PostgreSQL function calling convention, using 
 - It's typically invoked through SQL equality comparisons using the '=' operator on xid8 values
 - The function is located in src/backend/utils/adt/xid.c along with other transaction ID utility functions
 - Uses PostgreSQL's standard function interface macros for argument handling and return value management
+
+## Simplified Source
+
+```c
+Datum xid8eq(PG_FUNCTION_ARGS) {
+    // Extract the two 64-bit transaction IDs from function arguments
+    FullTransactionId fxid1 = PG_GETARG_FULLTRANSACTIONID(0);
+    FullTransactionId fxid2 = PG_GETARG_FULLTRANSACTIONID(1);
+
+    // Return true if the transaction IDs are equal
+    PG_RETURN_BOOL(FullTransactionIdEquals(fxid1, fxid2));
+}
+```

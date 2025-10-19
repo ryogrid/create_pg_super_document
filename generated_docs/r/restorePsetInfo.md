@@ -38,3 +38,26 @@ This function is designed to work in tandem with savePsetInfo, providing a compl
 - The topt.line_style field points to constant data that doesn't require special handling
 - After this function completes, the save pointer becomes invalid and should not be used
 - Essential for implementing temporary modifications to print settings that can be reverted
+
+## Simplified Source
+
+```c
+void restorePsetInfo(printQueryOpt *popt, printQueryOpt *save) {
+    // Free existing dynamically allocated strings to prevent memory leaks
+    free(popt->topt.fieldSep.separator);
+    free(popt->topt.recordSep.separator);
+    free(popt->topt.tableAttr);
+    free(popt->nullPrint);
+    free(popt->title);
+
+    // Verify footers and translate_columns are never set in psql
+    Assert(popt->footers == NULL);
+    Assert(popt->translate_columns == NULL);
+
+    // Copy entire structure, transferring ownership of pointers
+    memcpy(popt, save, sizeof(printQueryOpt));
+
+    // Free the save structure (its strings now belong to popt)
+    free(save);
+}
+```

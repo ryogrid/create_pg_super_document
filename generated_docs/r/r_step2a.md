@@ -40,3 +40,36 @@ The function uniquely combines suffix removal with string insertion, and include
 - Implements negative validation using a_25 array to prevent incorrect transformations
 - Combines suffix removal with string insertion, making it distinct from other step functions
 - Uses predefined arrays (a_24, a_25) and string constant (s_65)
+
+## Simplified Source
+
+```c
+static int r_step2a(struct SN_env * z) {
+    // Initial validation and pattern matching
+    z->ket = z->c;
+
+    // Check bounds (need at least 7 characters) and specific characters
+    if (z->c - 7 <= z->lb) return 0;
+    char last_char = z->p[z->c - 1];
+    if (last_char != 131 && last_char != 189) return 0;  // Check for ƒ or ½
+
+    // Find and delete suffix patterns from array a_24
+    if (!(find_among_b(z, a_24, 2))) return 0;
+    z->bra = z->c;
+    slice_del(z);  // Delete matched suffix
+
+    // Negative validation: ensure no patterns from a_25 are present
+    int saved_pos = z->l - z->c;
+    if (find_among_b(z, a_25, 10)) {
+        return 0;  // Abort if negative patterns found
+    }
+    z->c = z->l - saved_pos;  // Restore position
+
+    // Insert 4-character string at current position
+    int saved_cursor = z->c;
+    insert_s(z, z->c, z->c, 4, s_65);
+    z->c = saved_cursor;  // Restore cursor position
+
+    return 1;  // Success
+}
+```

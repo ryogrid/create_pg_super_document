@@ -40,3 +40,30 @@ The `lookupVariable` function provides efficient variable lookup functionality i
 - Returns NULL for non-existent variables, allowing callers to handle missing variables appropriately
 - Critical component of pgbench's variable management system for efficient lookups
 - Located in src/bin/pgbench/pgbench.c:1604-1630 and widely used throughout variable operations
+
+## Simplified Source
+
+```c
+static Variable *lookupVariable(Variables *variables, char *name) {
+    Variable key;
+
+    // Handle empty variable array (prevents issues on some platforms)
+    if (variables->nvars <= 0)
+        return NULL;
+
+    // Sort array if not already sorted (lazy sorting)
+    if (!variables->vars_sorted) {
+        qsort(variables->vars, variables->nvars, sizeof(Variable),
+              compareVariableNames);
+        variables->vars_sorted = true;
+    }
+
+    // Perform binary search for the variable
+    key.name = name;
+    return (Variable *) bsearch(&key,
+                                variables->vars,
+                                variables->nvars,
+                                sizeof(Variable),
+                                compareVariableNames);
+}
+```

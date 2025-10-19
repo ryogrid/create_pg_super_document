@@ -32,3 +32,14 @@ This function provides a simple and efficient way to check if a bump memory bloc
 - Essential for implementing context-level emptiness checks and memory management policies
 - Returns true only when no allocations have ever been made from the block
 - Used in combination with other functions to implement higher-level memory management strategies
+
+## Simplified Source
+
+```c
+static inline bool
+BumpBlockIsEmpty(BumpBlock *block)
+{
+    // Empty if free pointer hasn't moved from initial position
+    return (block->freeptr == ((char *) block + Bump_BLOCKHDRSZ));
+}
+```

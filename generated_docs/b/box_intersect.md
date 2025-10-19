@@ -39,3 +39,28 @@ The  function is a PostgreSQL geometric operation that computes the intersection
 - The intersection algorithm ensures the result box has the correct geometric properties by taking appropriate min/max values
 - Returns NULL when boxes don't intersect, following PostgreSQL's convention for geometric operations
 - Part of the "Funky operations" section in the geometric operations module
+
+## Simplified Source
+
+```c
+Datum box_intersect(PG_FUNCTION_ARGS) {
+    // Extract the two box arguments
+    BOX *box1 = PG_GETARG_BOX_P(0);
+    BOX *box2 = PG_GETARG_BOX_P(1);
+
+    // Check if boxes overlap; return NULL if they don't
+    if (!box_ov(box1, box2))
+        return PG_RETURN_NULL();
+
+    // Create result box with intersection coordinates
+    BOX *result = (BOX *) palloc(sizeof(BOX));
+
+    // Intersection bounds: min of highs, max of lows
+    result->high.x = float8_min(box1->high.x, box2->high.x);
+    result->low.x = float8_max(box1->low.x, box2->low.x);
+    result->high.y = float8_min(box1->high.y, box2->high.y);
+    result->low.y = float8_max(box1->low.y, box2->low.y);
+
+    return PG_RETURN_BOX_P(result);
+}
+```

@@ -37,3 +37,22 @@ This function is a utility for managing dynamic arrays of variable names in Post
 - The formatted strings created by psprintf are owned by the array and should be freed when the array is deallocated
 - Used specifically for building lists of psql variables for tab completion
 - The prefix and suffix parameters allow for flexible formatting of variable names (e.g., adding quotes or special characters)
+
+## Simplified Source
+
+```c
+static void
+append_variable_names(char ***varnames, int *nvars, int *maxvars,
+                     const char *varname, const char *prefix, const char *suffix)
+{
+    // Resize array if needed (double the capacity)
+    if (*nvars >= *maxvars) {
+        *maxvars *= 2;
+        *varnames = (char **) pg_realloc(*varnames,
+                                        ((*maxvars) + 1) * sizeof(char *));
+    }
+
+    // Add formatted variable name to array
+    (*varnames)[(*nvars)++] = psprintf("%s%s%s", prefix, varname, suffix);
+}
+```

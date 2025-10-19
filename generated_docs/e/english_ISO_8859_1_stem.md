@@ -51,3 +51,56 @@ The function uses a sophisticated control flow with labels and gotos to handle t
 - The algorithm includes length checks to avoid stemming very short words
 - Error handling is built-in with negative return values propagated from called functions
 - The ISO-8859-1 encoding specification in the function name indicates this version is optimized for Latin-1 character set processing
+
+## Simplified Source
+
+```c
+extern int english_ISO_8859_1_stem(struct SN_env * z) {
+    // Save starting position
+    int start_pos = z->c;
+
+    // 1. First check for exception words (complete word replacements)
+    if (r_exception1(z) > 0) {
+        return 1; // Exception handled, done
+    }
+
+    // Reset position and check word length
+    z->c = start_pos;
+    if (z->c + 3 > z->l) {
+        return 1; // Word too short, no stemming needed
+    }
+
+    // 2. Preprocessing and region marking
+    r_prelude(z);         // Character normalization
+    r_mark_regions(z);    // Mark R1, R2, RV regions
+
+    // Set up for suffix processing (work backwards from end)
+    z->lb = z->c;  // Set left boundary
+    z->c = z->l;   // Start from end of word
+
+    // 3. Step 1a: Handle plurals and possessives
+    r_Step_1a(z);
+
+    // 4. Check for second set of exceptions (preserve certain words)
+    if (r_exception2(z) > 0) {
+        // Exception found, skip remaining steps
+        z->c = z->lb;
+        r_postlude(z);
+        return 1;
+    }
+
+    // 5. Execute remaining stemming steps in sequence
+    r_Step_1b(z);  // -ed, -ing suffixes
+    r_Step_1c(z);  // y -> i transformation
+    r_Step_2(z);   // Complex suffixes (-ation, -ness, etc.)
+    r_Step_3(z);   // -icate, -ative, etc.
+    r_Step_4(z);   // Final suffix removal
+    r_Step_5(z);   // Final e/l cleanup
+
+    // 6. Post-processing cleanup
+    z->c = z->lb;
+    r_postlude(z);
+
+    return 1; // Stemming complete
+}
+```

@@ -39,3 +39,12 @@ The function provides a simple but informative output showing how many pages the
 - The function focuses on the most essential information (number of resulting pages) rather than detailed split metadata
 - Page splits can occur on both leaf and internal pages of the GiST index
 - Located in src/backend/access/rmgrdesc/gistdesc.c at lines 45-51
+
+## Simplified Source
+
+```c
+static void out_gistxlogPageSplit(StringInfo buf, gistxlogPageSplit *xlrec) {
+    // Format page split info: number of resulting pages
+    appendStringInfo(buf, "page_split: splits to %d pages", xlrec->npage);
+}
+```

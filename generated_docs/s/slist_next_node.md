@@ -38,3 +38,23 @@ The operation runs in O(1) constant time and is implemented as an inline functio
 - Returns a pointer to the next node in the list, which the caller can then process
 - Designed for use in controlled list traversal where the caller manages iteration bounds
 - The head parameter is required for the integrity checking performed by slist_has_next
+
+## Simplified Source
+
+```c
+static inline slist_node *
+slist_next_node(slist_head *head, slist_node *node)
+{
+    // Safety check: ensure there is a next node
+    Assert(slist_has_next(head, node));
+
+    // Return the next node
+    return node->next;
+}
+```
+
+**Key Points:**
+- Simple wrapper that returns the next pointer with safety validation
+- Uses Assert to enforce the precondition that a next node exists
+- Prevents accessing beyond the end of the list in debug builds
+- O(1) constant time operation for efficient list traversal

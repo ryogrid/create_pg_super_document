@@ -34,3 +34,15 @@ The function is marked as static inline for performance, as it's a simple pointe
 - The function performs a simple pointer comparison and does not validate list membership
 - Used internally by other list navigation functions like dlist_prev_node
 - Part of PostgreSQL's intrusive doubly-linked list implementation in ilist.h
+
+## Simplified Source
+
+```c
+// Check if node has a preceding node in the doubly-linked list
+static inline bool
+dlist_has_prev(const dlist_head *head, const dlist_node *node)
+{
+    // Node has previous element if its prev pointer doesn't point to sentinel
+    return node->prev != &head->head;
+}
+```

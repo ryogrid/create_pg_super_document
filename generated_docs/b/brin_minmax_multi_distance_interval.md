@@ -36,3 +36,26 @@ This function calculates the numerical distance between two PostgreSQL interval 
 - Distance is computed as: (day_difference + fractional_day_difference)
 - This function is typically registered in BRIN operator class definitions for interval columns
 - The approximation of 30 days per month may result in slightly less efficient ranges but maintains consistency with interval ordering
+
+## Simplified Source
+
+```c
+Datum brin_minmax_multi_distance_interval(PG_FUNCTION_ARGS) {
+    // Extract the two interval values
+    Interval *ia = PG_GETARG_INTERVAL_P(0);
+    Interval *ib = PG_GETARG_INTERVAL_P(1);
+
+    // Calculate fractional day components (sub-day time differences)
+    int64 dayfraction = (ib->time % USECS_PER_DAY) - (ia->time % USECS_PER_DAY);
+
+    // Calculate full day differences from time, day, and month components
+    int64 days = (ib->time / USECS_PER_DAY) - (ia->time / USECS_PER_DAY);
+    days += (int64) ib->day - (int64) ia->day;
+    days += ((int64) ib->month - (int64) ia->month) * 30;  // Assume 30 days per month
+
+    // Convert to fractional days as double precision result
+    float8 delta = (double) days + dayfraction / (double) USECS_PER_DAY;
+
+    return PG_RETURN_FLOAT8(delta);
+}
+```

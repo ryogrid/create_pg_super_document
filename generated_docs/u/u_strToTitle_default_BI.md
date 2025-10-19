@@ -55,3 +55,16 @@ LC_ALL=: Locale string (e.g., "en_US") for locale-specific capitalization rules
 - Return value is the length of the converted string or the required buffer size if destCapacity is insufficient
 - Proper error handling is provided through the UErrorCode parameter, which should be checked by callers
 - The function handles all Unicode character ranges and locale-specific title case rules through ICU's implementation
+
+## Simplified Source
+
+```c
+static int32_t u_strToTitle_default_BI(UChar *dest, int32_t destCapacity,
+                                       const UChar *src, int32_t srcLength,
+                                       const char *locale, UErrorCode *pErrorCode) {
+    // Wrapper around ICU's u_strToTitle with default break iterator (NULL)
+    // Converts Unicode string to title case using locale-specific rules
+    return u_strToTitle(dest, destCapacity, src, srcLength,
+                       NULL, locale, pErrorCode);
+}
+```

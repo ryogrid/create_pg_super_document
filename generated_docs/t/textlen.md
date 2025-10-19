@@ -36,3 +36,15 @@ This function serves as a SQL-callable wrapper around the internal `text_length`
 - Returns logical character count, not physical storage bytes
 - The logical length can be less than VARSIZE due to storage overhead and compression
 - Commonly used in SQL LENGTH() function implementations
+
+## Simplified Source
+
+```c
+Datum textlen(PG_FUNCTION_ARGS) {
+    // Get text datum without decompressing if possible
+    Datum str = PG_GETARG_DATUM(0);
+
+    // Return logical character length (not storage size)
+    PG_RETURN_INT32(text_length(str));
+}
+```

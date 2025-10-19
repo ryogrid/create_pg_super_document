@@ -34,3 +34,55 @@ Each case handles different Arabic prefix patterns and replaces them with approp
 
 ## Notes and Other Information
 This is the first of two prefix stripping steps in the Arabic stemming algorithm, focusing on the most common and straightforward prefix patterns. The function ensures linguistic accuracy by maintaining minimum word length requirements after prefix removal. It returns 1 on successful prefix processing or 0 if no applicable prefixes are found. The function works in conjunction with r_Prefix_Step2 to provide comprehensive prefix handling for Arabic text.
+
+## Simplified Source
+
+```c
+static int r_Prefix_Step1(struct SN_env * z) {
+    // Set start boundary
+    z->bra = z->c;
+
+    // Pre-check: ensure character at c+3 is valid Arabic
+    if (z->c + 3 >= z->l ||
+        z->p[z->c + 3] >> 5 != 5 ||
+        !((188 >> (z->p[z->c + 3] & 0x1f)) & 1)) {
+        return 0; // Invalid or out of bounds
+    }
+
+    // Find prefix pattern
+    int pattern = find_among(z, a_4, 5);
+    if (!pattern) {
+        return 0; // No pattern found
+    }
+
+    z->ket = z->c;
+
+    // Process prefix patterns (all require length > 3)
+    switch (pattern) {
+        case 1: // Replace prefix with normalized form 1
+            if (len_utf8(z->p) <= 3) return 0;
+            slice_from_s(z, 2, normalized_prefix_1);
+            break;
+
+        case 2: // Replace prefix with normalized form 2
+            if (len_utf8(z->p) <= 3) return 0;
+            slice_from_s(z, 2, normalized_prefix_2);
+            break;
+
+        case 3: // Replace prefix with normalized form 3
+            if (len_utf8(z->p) <= 3) return 0;
+            slice_from_s(z, 2, normalized_prefix_3);
+            break;
+
+        case 4: // Replace prefix with normalized form 4
+            if (len_utf8(z->p) <= 3) return 0;
+            slice_from_s(z, 2, normalized_prefix_4);
+            break;
+
+        default:
+            return 0; // Unknown pattern
+    }
+
+    return 1; // Success
+}
+```

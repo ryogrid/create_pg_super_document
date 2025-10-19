@@ -38,3 +38,19 @@ The function includes an assertion to verify that the first argument is less tha
 - Returns the distance as a float8 datum for consistency with other distance functions
 - Part of the BRIN minmax multi access method implementation
 - Located in src/backend/access/brin/brin_minmax_multi.c:2021-2046
+
+## Simplified Source
+
+```c
+Datum brin_minmax_multi_distance_numeric(PG_FUNCTION_ARGS) {
+    // Extract numeric arguments as Datums
+    Datum a1 = PG_GETARG_DATUM(0);
+    Datum a2 = PG_GETARG_DATUM(1);
+
+    // Calculate difference: a2 - a1
+    Datum difference = DirectFunctionCall2(numeric_sub, a2, a1);
+
+    // Convert numeric result to float8 and return
+    PG_RETURN_DATUM(DirectFunctionCall1(numeric_float8, difference));
+}
+```

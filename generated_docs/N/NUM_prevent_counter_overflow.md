@@ -31,3 +31,20 @@ This function takes no parameters.
 - The right-shift operation (>>= 1) is used for efficient division by 2
 - Critical for maintaining cache integrity in long-running PostgreSQL sessions where many numeric formatting operations occur
 - Part of the numeric formatting cache management system located in src/backend/utils/adt/formatting.c:5060-5071
+
+## Simplified Source
+
+```c
+static inline void NUM_prevent_counter_overflow(void) {
+    // Check if counter is approaching integer overflow
+    if (NUMCounter >= (INT_MAX - 1)) {
+        // Halve all cache entry ages to preserve relative ordering
+        for (int i = 0; i < n_NUMCache; i++) {
+            NUMCache[i]->age >>= 1;  // Right-shift by 1 = divide by 2
+        }
+
+        // Halve the global counter too
+        NUMCounter >>= 1;
+    }
+}
+```

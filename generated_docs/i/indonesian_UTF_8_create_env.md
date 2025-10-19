@@ -31,3 +31,12 @@ The function is part of the public interface for the Indonesian Snowball stemmer
 - This function must be called before using the Indonesian stemming functionality
 - The returned environment should be freed using the corresponding close function when no longer needed
 - Part of the standard Snowball stemmer interface pattern used across all language implementations
+
+## Simplified Source
+
+```c
+extern struct SN_env * indonesian_UTF_8_create_env(void) {
+    // Create Snowball environment with 0 string vars and 2 integer vars
+    return SN_create_env(0, 2);
+}
+```

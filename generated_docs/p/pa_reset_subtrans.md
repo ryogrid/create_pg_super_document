@@ -35,3 +35,12 @@ The function is typically called during error recovery scenarios or when cleanin
 - Used primarily in logical replication parallel worker contexts
 - Part of the cleanup process during stream abort, prepare, and commit operations
 - The subxactlist global variable maintains the list of subtransactions being tracked by the parallel worker
+
+## Simplified Source
+
+```c
+void pa_reset_subtrans(void) {
+    // Clear subtransaction list - memory freed automatically at transaction end
+    subxactlist = NIL;
+}
+```

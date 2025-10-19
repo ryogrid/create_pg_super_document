@@ -36,3 +36,12 @@ The function simply returns the fullTransactionId field from the CurrentTransact
 - Located in src/backend/access/transam/xact.c:527-537
 - This function appears to be part of the internal transaction management API but may not have direct external callers in the current codebase
 - Complementary to GetCurrentFullTransactionId which always ensures an ID is assigned
+
+## Simplified Source
+
+```c
+FullTransactionId GetCurrentFullTransactionIdIfAny(void) {
+    // Return current sub-transaction ID without forcing assignment
+    return CurrentTransactionState->fullTransactionId;
+}
+```

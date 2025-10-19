@@ -40,3 +40,27 @@ The function uses a bitmask approach where each bit in the array `s` represents 
 - The bitmask uses bit operations: `(s[ch >> 3] & (0X1 << (ch & 0X7)))` to check if a character is in the group
 - Used extensively across multiple language-specific Snowball stemmers for vowel/consonant detection and region marking
 - Character position (z->c) is incremented for each matching character when repeat is enabled
+
+## Simplified Source
+
+```c
+extern int in_grouping(struct SN_env * z, const unsigned char * s, int min, int max, int repeat) {
+    do {
+        int ch;
+        // Check if at end of string
+        if (z->c >= z->l) return -1;
+
+        // Get current character (single byte, non-UTF8)
+        ch = z->p[z->c];
+
+        // Check if character is in the specified group range
+        if (ch > max || (ch -= min) < 0 || (s[ch >> 3] & (0X1 << (ch & 0X7))) == 0)
+            return 1;  // Character not in group
+
+        // Advance to next character
+        z->c++;
+    } while (repeat);
+
+    return 0;  // Success
+}
+```

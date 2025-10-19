@@ -36,3 +36,23 @@ The function uses bounding box comparison for efficiency and is the mirror opera
 - Essential for R-tree spatial indexing and geometric query optimization
 - Typically invoked through PostgreSQL's operator system (likely the &> operator for polygons)
 - Memory management prevents leaks with compressed polygon data
+
+## Simplified Source
+
+```c
+Datum poly_overright(PG_FUNCTION_ARGS) {
+    // Extract both polygons from function arguments
+    POLYGON *polya = PG_GETARG_POLYGON_P(0);
+    POLYGON *polyb = PG_GETARG_POLYGON_P(1);
+
+    // Check if polygon A overlaps or is right of polygon B
+    // Compare leftmost points (allows for overlap/touching)
+    bool result = polya->boundbox.low.x >= polyb->boundbox.low.x;
+
+    // Free memory for toasted inputs (important for R-tree indexes)
+    PG_FREE_IF_COPY(polya, 0);
+    PG_FREE_IF_COPY(polyb, 1);
+
+    PG_RETURN_BOOL(result);
+}
+```

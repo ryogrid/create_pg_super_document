@@ -40,3 +40,33 @@ The `GetJsonTableExecContext` function serves as a critical validation and extra
 - Part of the JSON_TABLE functionality which allows querying JSON data as relational tables
 - Provides consistent error messages that include the calling function name for better debugging
 - Essential for maintaining the integrity of JSON_TABLE execution state across complex operations
+
+## Simplified Source
+
+```c
+static inline JsonTableExecContext *
+GetJsonTableExecContext(TableFuncScanState *state, const char *fname) {
+    JsonTableExecContext *result;
+
+    // Validate state is the correct type
+    if (!IsA(state, TableFuncScanState)) {
+        elog(ERROR, "%s called with invalid TableFuncScanState", fname);
+    }
+
+    // Extract the execution context from opaque pointer
+    result = (JsonTableExecContext *) state->opaque;
+
+    // Validate magic number to ensure structure integrity
+    if (result->magic != JSON_TABLE_EXEC_CONTEXT_MAGIC) {
+        elog(ERROR, "%s called with invalid TableFuncScanState", fname);
+    }
+
+    return result;
+}
+```
+
+This function:
+1. Validates the input state is a proper TableFuncScanState structure
+2. Extracts the JsonTableExecContext from the opaque field
+3. Validates the context integrity using a magic number check
+4. Returns the validated context or throws an error with caller information

@@ -37,3 +37,20 @@ The function iterates through the state's entire outgoing arc chain and uses the
 - Part of the constraint handling system in PostgreSQL's regex engine
 - Useful for determining whether states need special processing during NFA transformations
 - Located in src/backend/regex/regc_nfa.c:2349-2369
+
+## Simplified Source
+
+```c
+static int
+hasconstraintout(struct state *s)
+{
+    struct arc *a;
+
+    // Check all outgoing arcs for constraints
+    for (a = s->outs; a != NULL; a = a->outchain) {
+        if (isconstraintarc(a))
+            return 1;
+    }
+    return 0;
+}
+```

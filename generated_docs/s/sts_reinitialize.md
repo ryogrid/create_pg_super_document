@@ -30,3 +30,16 @@ The function is designed to be called between scan cycles and must not be called
 - The function resets read_page to 0 for all participants, ensuring they start from the beginning
 - Synchronization to prevent concurrent access during reinitialization is the callers responsibility
 - This is part of the shared tuplestore parallel scanning infrastructure used in PostgreSQLs parallel query execution
+
+## Simplified Source
+```c
+void
+sts_reinitialize(SharedTuplestoreAccessor *accessor)
+{
+    // Reset read position for all participants to start from beginning
+    for (int i = 0; i < accessor->sts->nparticipants; ++i)
+    {
+        accessor->sts->participants[i].read_page = 0;
+    }
+}
+```

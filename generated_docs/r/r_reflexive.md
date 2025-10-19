@@ -46,3 +46,21 @@ The function follows the standard Snowball stemmer pattern:
 - The character check (bytes 209/0xD1 and 216/0xD8) corresponds to the final characters of reflexive endings in KOI8-R encoding
 - This represents the first step in the Russian stemming algorithm before processing other morphological elements
 - The function is specifically designed for KOI8-R encoding; a parallel UTF-8 version exists for Unicode text
+
+## Simplified Source
+
+```c
+static int r_reflexive(struct SN_env * z) {
+    // Set end boundary and check for reflexive ending characters (ся, сь)
+    z->ket = z->c;
+    if (z->c - 1 <= z->lb || !is_reflexive_ending_char(z->p[z->c - 1])) return 0;
+
+    // Match against reflexive patterns in a_3 array (ся, сь)
+    if (!find_among_b(z, a_3, 2)) return 0;
+
+    // Remove the reflexive suffix
+    z->bra = z->c;
+    slice_del(z);
+    return 1;
+}
+```

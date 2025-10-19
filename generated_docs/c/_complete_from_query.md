@@ -65,3 +65,170 @@ Key features include:
 - Implements a hack to prevent readline from adding spaces after bare schema names
 - Handles memory management carefully to prevent leaks across completion sessions
 - The function is static and quite large (340+ lines), indicating its central importance to the completion system
+
+## Simplified Source
+
+```c
+static char *_complete_from_query(const char *simple_query,
+                                 const SchemaQuery *schema_query,
+                                 const char *const *keywords,
+                                 bool verbatim,
+                                 const char *text, int state) {
+    static int list_index, num_schema_only, num_query_other, num_keywords;
+    static PGresult *result = NULL;
+    static bool non_empty_object, schemaquoted, objectquoted;
+
+    // Initialize on first call
+    if (state == 0) {
+        // Reset static state
+        list_index = 0;
+        num_schema_only = num_query_other = num_keywords = 0;
+        PQclear(result);
+        result = NULL;
+
+        // Parse input text into schema and object parts
+        char *schemaname, *objectname;
+        if (verbatim) {
+            objectname = pg_strdup(text);
+            schemaname = NULL;
+        } else {
+            parse_identifier(text, &schemaname, &objectname,
+                           &schemaquoted, &objectquoted);
+        }
+
+        non_empty_object = (*objectname != '\0');
+
+        // Create LIKE pattern and escape strings for query
+        char *e_object_like = make_like_pattern(objectname);
+        char *e_schemaname = schemaname ? escape_string(schemaname) : NULL;
+        char *e_ref_object = completion_ref_object ? escape_string(completion_ref_object) : NULL;
+        char *e_ref_schema = completion_ref_schema ? escape_string(completion_ref_schema) : NULL;
+
+        // Build query
+        PQExpBufferData query_buffer;
+        initPQExpBuffer(&query_buffer);
+
+        if (schema_query) {
+            // Complex schema-aware query construction
+            if (schemaname == NULL || schema_query->namespace == NULL) {
+                // Unqualified name completion
+                appendPQExpBuffer(&query_buffer, "SELECT %s%s, NULL::pg_catalog.text FROM %s",
+                                schema_query->use_distinct ? "DISTINCT " : "",
+                                schema_query->result, schema_query->catname);
+                // Add WHERE clause with conditions and LIKE pattern
+                appendPQExpBuffer(&query_buffer, " WHERE (%s) LIKE '%s'",
+                                schema_query->result, e_object_like);
+                // Add schema completion if supported
+                if (schema_query->namespace) {
+                    appendPQExpBuffer(&query_buffer,
+                                    "\nUNION ALL\nSELECT NULL::pg_catalog.text, n.nspname "
+                                    "FROM pg_catalog.pg_namespace n WHERE n.nspname LIKE '%s'",
+                                    e_object_like);
+                }
+            } else {
+                // Qualified name completion
+                appendPQExpBuffer(&query_buffer, "SELECT %s%s, n.nspname FROM %s, pg_catalog.pg_namespace n",
+                                schema_query->use_distinct ? "DISTINCT " : "",
+                                schema_query->result, schema_query->catname);
+                appendPQExpBuffer(&query_buffer, " WHERE %s = n.oid AND (%s) LIKE '%s' AND n.nspname = '%s'",
+                                schema_query->namespace, schema_query->result,
+                                e_object_like, e_schemaname);
+            }
+        } else {
+            // Simple query with sprintf-style formatting
+            appendPQExpBuffer(&query_buffer, simple_query,
+                            e_object_like, e_ref_object, e_ref_schema);
+        }
+
+        // Add result limit and execute query
+        appendPQExpBuffer(&query_buffer, "\nLIMIT %d", completion_max_records);
+        result = exec_query(query_buffer.data);
+
+        // Cleanup
+        termPQExpBuffer(&query_buffer);
+        free(schemaname);
+        free(objectname);
+        free(e_object_like);
+        free(e_schemaname);
+        free(e_ref_object);
+        free(e_ref_schema);
+    }
+
+    // Return next result from query
+    if (result && PQresultStatus(result) == PGRES_TUPLES_OK) {
+        while (list_index < PQntuples(result)) {
+            const char *item = NULL, *nsp = NULL;
+
+            if (!PQgetisnull(result, list_index, 0))
+                item = PQgetvalue(result, list_index, 0);
+            if (PQnfields(result) > 1 && !PQgetisnull(result, list_index, 1))
+                nsp = PQgetvalue(result, list_index, 1);
+            list_index++;
+
+            // Return verbatim or check quoting requirements
+            if (verbatim) {
+                num_query_other++;
+                return pg_strdup(item);
+            }
+
+            // Skip items requiring quotes if user input wasn't quoted
+            if (non_empty_object) {
+                if (item && !objectquoted && identifier_needs_quotes(item))
+                    continue;
+                if (nsp && !schemaquoted && identifier_needs_quotes(nsp))
+                    continue;
+            }
+
+            // Count and return properly quoted result
+            if (item == NULL && nsp != NULL)
+                num_schema_only++;
+            else
+                num_query_other++;
+
+            return requote_identifier(nsp, item, schemaquoted, objectquoted);
+        }
+
+        // Try keyword completion after query results exhausted
+        int nskip = list_index - PQntuples(result);
+
+        // Check schema query keywords
+        if (schema_query && schema_query->keywords) {
+            const char *const *itemp = schema_query->keywords;
+            while (*itemp) {
+                const char *item = *itemp++;
+                if (nskip-- <= 0) {
+                    list_index++;
+                    if (pg_strncasecmp(text, item, strlen(text)) == 0) {
+                        num_keywords++;
+                        return pg_strdup_keyword_case(item, text);
+                    }
+                }
+            }
+        }
+
+        // Check additional keywords
+        if (keywords) {
+            const char *const *itemp = keywords;
+            while (*itemp) {
+                const char *item = *itemp++;
+                if (nskip-- <= 0) {
+                    list_index++;
+                    if (pg_strncasecmp(text, item, strlen(text)) == 0) {
+                        num_keywords++;
+                        return pg_strdup_keyword_case(item, text);
+                    }
+                }
+            }
+        }
+    }
+
+    // Completion finished - special handling for schema-only results
+    if (num_schema_only > 0 && num_query_other == 0 && num_keywords == 0)
+        rl_completion_append_character = '\0';
+
+    // Cleanup and return NULL to indicate completion end
+    PQclear(result);
+    result = NULL;
+    return NULL;
+}
+```

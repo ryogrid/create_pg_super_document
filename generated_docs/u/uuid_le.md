@@ -32,3 +32,17 @@ This function implements the less-than-or-equal-to comparison operator (`<=`) fo
 
 ## Notes and Other Information
 Like other UUID comparison functions, this follows PostgreSQL's standard function call convention and delegates to `uuid_internal_cmp` for the actual comparison logic. The `<=` operation returns true when `uuid_internal_cmp` returns a value less than or equal to zero, indicating the first UUID is not greater than the second.
+
+## Simplified Source
+
+```c
+Datum
+uuid_le(PG_FUNCTION_ARGS)
+{
+    pg_uuid_t *arg1 = PG_GETARG_UUID_P(0);
+    pg_uuid_t *arg2 = PG_GETARG_UUID_P(1);
+
+    // Return true if first UUID is less than or equal to second UUID
+    PG_RETURN_BOOL(uuid_internal_cmp(arg1, arg2) <= 0);
+}
+```

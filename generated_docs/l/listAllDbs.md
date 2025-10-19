@@ -45,3 +45,90 @@ When verbose mode is enabled, the function includes additional columns for datab
 - Access control list (ACL) information is displayed using the standard printACLColumn formatter
 - Returns boolean status indicating success/failure of the operation
 - The query includes a safety check using has_database_privilege() to prevent errors when accessing database size information
+
+## Simplified Source
+
+```c
+bool listAllDbs(const char *pattern, bool verbose) {
+    PGresult *res;
+    PQExpBufferData buf;
+    printQueryOpt myopt = pset.popt;
+
+    // Initialize SQL query buffer
+    initPQExpBuffer(&buf);
+
+    // Build base SELECT query with database info
+    printfPQExpBuffer(&buf,
+        "SELECT\n"
+        "  d.datname as \"Name\",\n"
+        "  pg_catalog.pg_get_userbyid(d.datdba) as \"Owner\",\n"
+        "  pg_catalog.pg_encoding_to_char(d.encoding) as \"Encoding\",");
+
+    // Add locale provider column (version-dependent)
+    if (pset.sversion >= 150000)
+        appendPQExpBuffer(&buf, "  CASE d.datlocprovider WHEN 'b' THEN 'builtin' WHEN 'c' THEN 'libc' WHEN 'i' THEN 'icu' END AS \"Locale Provider\",\n");
+    else
+        appendPQExpBuffer(&buf, "  'libc' AS \"Locale Provider\",\n");
+
+    // Add collation and locale info (version-dependent)
+    appendPQExpBuffer(&buf, "  d.datcollate as \"Collate\",\n  d.datctype as \"Ctype\",");
+
+    if (pset.sversion >= 170000)
+        appendPQExpBuffer(&buf, "  d.datlocale as \"Locale\",");
+    else if (pset.sversion >= 150000)
+        appendPQExpBuffer(&buf, "  d.daticulocale as \"Locale\",");
+    else
+        appendPQExpBuffer(&buf, "  NULL as \"Locale\",");
+
+    // Add ICU rules for newer versions
+    if (pset.sversion >= 160000)
+        appendPQExpBuffer(&buf, "  d.daticurules as \"ICU Rules\",");
+    else
+        appendPQExpBuffer(&buf, "  NULL as \"ICU Rules\",");
+
+    // Add access privileges
+    appendPQExpBufferStr(&buf, "  ");
+    printACLColumn(&buf, "d.datacl");
+
+    // Add verbose columns if requested
+    if (verbose) {
+        appendPQExpBuffer(&buf,
+            ",\n  CASE WHEN pg_catalog.has_database_privilege(d.datname, 'CONNECT')\n"
+            "       THEN pg_catalog.pg_size_pretty(pg_catalog.pg_database_size(d.datname))\n"
+            "       ELSE 'No Access'\n"
+            "  END as \"Size\""
+            ",\n  t.spcname as \"Tablespace\""
+            ",\n  pg_catalog.shobj_description(d.oid, 'pg_database') as \"Description\"");
+    }
+
+    // Add FROM clause and optional JOIN
+    appendPQExpBufferStr(&buf, "\nFROM pg_catalog.pg_database d\n");
+    if (verbose)
+        appendPQExpBufferStr(&buf, "  JOIN pg_catalog.pg_tablespace t on d.dattablespace = t.oid\n");
+
+    // Apply pattern filter if provided
+    if (pattern) {
+        if (!validateSQLNamePattern(&buf, pattern, false, false,
+                                    NULL, "d.datname", NULL, NULL, NULL, 1)) {
+            termPQExpBuffer(&buf);
+            return false;
+        }
+    }
+
+    // Execute query and display results
+    appendPQExpBufferStr(&buf, "ORDER BY 1;");
+    res = PSQLexec(buf.data);
+    termPQExpBuffer(&buf);
+
+    if (!res)
+        return false;
+
+    // Set display options and print results
+    myopt.title = "List of databases";
+    myopt.translate_header = true;
+    printQuery(res, &myopt, pset.queryFout, false, pset.logfile);
+
+    PQclear(res);
+    return true;
+}
+```

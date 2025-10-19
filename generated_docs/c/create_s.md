@@ -36,3 +36,22 @@ The  function allocates memory for a new symbol structure and initializes it wit
 - Allocates memory for header plus CREATE_SIZE + 1 symbol units
 - Initializes symbol with zero size but CREATE_SIZE capacity
 - Part of the Snowball stemming algorithm implementation used for full-text search
+
+## Simplified Source
+
+```c
+extern symbol * create_s(void) {
+    // Allocate memory for symbol structure with header and data
+    void * mem = malloc(HEAD + (CREATE_SIZE + 1) * sizeof(symbol));
+    if (mem == NULL) return NULL;
+
+    // Point to data area after header
+    symbol * p = (symbol *) (HEAD + (char *) mem);
+
+    // Initialize symbol with default capacity and zero size
+    CAPACITY(p) = CREATE_SIZE;
+    SET_SIZE(p, 0);
+
+    return p;
+}
+```

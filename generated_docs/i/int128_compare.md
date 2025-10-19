@@ -34,3 +34,16 @@ This function performs a three-way comparison between two 128-bit integers, foll
 - The function parameters are passed by value rather than by reference, unlike the addition functions
 - Essential for sorting, ordering, and conditional operations involving 128-bit integers
 - Part of PostgreSQL's 128-bit integer arithmetic library for handling large numeric calculations
+
+## Simplified Source
+
+```c
+static inline int int128_compare(INT128 x, INT128 y) {
+    // Standard three-way comparison
+    if (x < y)
+        return -1;
+    if (x > y)
+        return 1;
+    return 0;  // x == y
+}
+```

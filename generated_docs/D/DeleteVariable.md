@@ -27,5 +27,15 @@ The  function provides a convenient wrapper for deleting variables from psql's v
 
 ## Notes and Other Information
 - Deleting a nonexistent variable is explicitly documented as not being an error
-- The function returns the result of the underlying  call
+- The function returns the result of the underlying SetVariable call
 - Located in src/bin/psql/variables.c:404-415
+
+## Simplified Source
+
+```c
+bool DeleteVariable(VariableSpace space, const char *name)
+{
+    // Delete variable by setting its value to NULL
+    return SetVariable(space, name, NULL);
+}
+```

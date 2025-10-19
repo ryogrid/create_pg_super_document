@@ -41,3 +41,23 @@ The function includes an assertion to ensure it is only called with non-pivot tu
 - Used primarily in B-tree operations that need to determine the range of heap TIDs covered by a tuple
 - Critical for comparison operations and tuple truncation logic in B-tree maintenance
 - Complements BTreeTupleGetHeapTID which returns the minimum heap TID
+
+## Simplified Source
+
+```c
+static inline ItemPointer
+BTreeTupleGetMaxHeapTID(IndexTuple itup)
+{
+    Assert(!BTreeTupleIsPivot(itup));
+
+    if (BTreeTupleIsPosting(itup))
+    {
+        // For posting list tuple, get count and return last TID
+        uint16 nposting = BTreeTupleGetNPosting(itup);
+        return BTreeTupleGetPostingN(itup, nposting - 1);
+    }
+
+    // For regular tuple, return the only TID
+    return &itup->t_tid;
+}
+```

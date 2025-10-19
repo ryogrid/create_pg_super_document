@@ -33,3 +33,15 @@ This function compares two 8-byte MAC addresses and returns true if the first MA
 - The comparison logic treats MAC addresses as 64-bit unsigned integers for ordering purposes
 - Returns true (1) if a1 > a2, false (0) otherwise
 - Part of PostgreSQL's MAC address data type support introduced for 8-byte MAC addresses
+
+## Simplified Source
+
+```c
+Datum macaddr8_gt(PG_FUNCTION_ARGS) {
+    macaddr8 *a1 = PG_GETARG_MACADDR8_P(0);
+    macaddr8 *a2 = PG_GETARG_MACADDR8_P(1);
+
+    // Return true if a1 > a2 (comparison result > 0)
+    PG_RETURN_BOOL(macaddr8_cmp_internal(a1, a2) > 0);
+}
+```

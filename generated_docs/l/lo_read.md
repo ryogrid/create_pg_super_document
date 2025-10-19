@@ -41,3 +41,30 @@ The `lo_read` function is a backend implementation that reads data from a large 
 - Assumes large objects support byte-oriented operations for simplified implementation
 - Used by higher-level functions that provide the fmgr-callable interface
 - Essential for data retrieval operations in PostgreSQL's large object subsystem
+
+## Simplified Source
+
+```c
+int
+lo_read(int fd, char *buf, int len)
+{
+    LargeObjectDesc *lobj;
+
+    // Validate file descriptor
+    if (fd < 0 || fd >= cookies_size || cookies[fd] == NULL)
+        ereport(ERROR,
+                (errcode(ERRCODE_UNDEFINED_OBJECT),
+                 errmsg("invalid large-object descriptor: %d", fd)));
+
+    lobj = cookies[fd];
+
+    // Check read permission
+    if ((lobj->flags & IFS_RDLOCK) == 0)
+        ereport(ERROR,
+                (errcode(ERRCODE_OBJECT_NOT_IN_PREREQUISITE_STATE),
+                 errmsg("large object descriptor %d was not opened for reading", fd)));
+
+    // Perform the read operation
+    return inv_read(lobj, buf, len);
+}
+```

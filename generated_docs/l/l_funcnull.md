@@ -41,3 +41,15 @@ This provides a more convenient interface when the actual nullness value is need
 - Widely used in expression compilation for null checking logic
 - The returned value can be used directly in LLVM conditional branches and comparisons
 - Essential for implementing PostgreSQL's three-valued logic (true/false/null) in JIT-compiled code
+
+## Simplified Source
+
+```c
+// Return actual nullness value for specified function argument
+static inline LLVMValueRef
+l_funcnull(LLVMBuilderRef b, LLVMValueRef fcinfo, size_t argno)
+{
+    // Get pointer to nullness field and load the boolean value
+    return l_load(b, TypeStorageBool, l_funcnullp(b, fcinfo, argno), "");
+}
+```

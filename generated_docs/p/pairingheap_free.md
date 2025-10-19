@@ -32,3 +32,14 @@ The function uses PostgreSQL's memory management system via `pfree` to release t
 - The heap pointer becomes invalid after calling this function
 - Uses PostgreSQL's `pfree` which is the counterpart to `palloc` used in `pairingheap_allocate`
 - Typical usage pattern would be to first remove/free all nodes from the heap, then call this function to clean up the heap structure
+
+## Simplified Source
+
+```c
+void
+pairingheap_free(pairingheap *heap)
+{
+    // Free only the heap structure itself, not the nodes within it
+    pfree(heap);
+}
+```

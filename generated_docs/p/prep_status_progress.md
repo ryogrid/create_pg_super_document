@@ -50,3 +50,25 @@ The function intelligently adapts its output format based on the destination and
 - Works in conjunction with  and  to provide detailed progress feedback
 - The conditional newline behavior ensures proper formatting across different output contexts
 - Essential for providing user feedback during time-consuming pg_upgrade operations like file transfers and object creation
+
+## Simplified Source
+
+```c
+void prep_status_progress(const char *fmt, ...) {
+    va_list args;
+    char message[MAX_STRING];
+
+    // Format the message using variadic arguments
+    va_start(args, fmt);
+    vsnprintf(message, sizeof(message), fmt, args);
+    va_end(args);
+
+    // Choose output format based on TTY and verbose settings
+    if (log_opts.isatty || log_opts.verbose)
+        // TTY/verbose: include newline for progress items on next line
+        pg_log(PG_REPORT, "%-*s", MESSAGE_WIDTH, message);
+    else
+        // Non-TTY/non-verbose: no newline for compact output
+        pg_log(PG_REPORT_NONL, "%-*s", MESSAGE_WIDTH, message);
+}
+```

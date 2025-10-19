@@ -41,3 +41,43 @@ This static helper function provides detailed formatting for B-tree vacuum and d
 - Uses assertions to validate offset numbers and ensure updated items have deleted TIDs
 - The output format prioritizes readability over literal representation of the physical data structure
 - Essential for understanding the specific items affected by B-tree vacuum and delete operations in WAL analysis
+
+## Simplified Source
+
+```c
+static void delvacuum_desc(StringInfo buf, char *block_data, uint16 ndeleted, uint16 nupdated) {
+    // Parse data structure layout
+    OffsetNumber *deletedoffsets = (OffsetNumber *) block_data;
+    OffsetNumber *updatedoffsets = (OffsetNumber *) (block_data + ndeleted * sizeof(OffsetNumber));
+    xl_btree_update *updates = (xl_btree_update *) ((char *) updatedoffsets + nupdated * sizeof(OffsetNumber));
+
+    // Display deleted page offsets
+    appendStringInfoString(buf, ", deleted:");
+    array_desc(buf, deletedoffsets, sizeof(OffsetNumber), ndeleted, &offset_elem_desc, NULL);
+
+    // Display updated items with detailed TID information
+    appendStringInfoString(buf, ", updated: [");
+    for (int i = 0; i < nupdated; i++) {
+        OffsetNumber off = updatedoffsets[i];
+
+        // Format update information: offset, number of deleted TIDs, and TID list
+        appendStringInfo(buf, "{ off: %u, nptids: %u, ptids: [", off, updates->ndeletedtids);
+
+        // Display each deleted TID position
+        for (int p = 0; p < updates->ndeletedtids; p++) {
+            uint16 *ptid = (uint16 *) ((char *) updates + SizeOfBtreeUpdate) + p;
+            appendStringInfo(buf, "%u", *ptid);
+            if (p < updates->ndeletedtids - 1)
+                appendStringInfoString(buf, ", ");
+        }
+
+        appendStringInfoString(buf, "] }");
+        if (i < nupdated - 1)
+            appendStringInfoString(buf, ", ");
+
+        // Move to next update structure
+        updates = (xl_btree_update *) ((char *) updates + SizeOfBtreeUpdate + updates->ndeletedtids * sizeof(uint16));
+    }
+    appendStringInfoChar(buf, ']');
+}
+```

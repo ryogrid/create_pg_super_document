@@ -36,3 +36,24 @@ The function constructs the same registry key path that was created during regis
 - Counterpart to DllRegisterServer, providing clean uninstallation capability
 - Part of the Windows-specific event logging infrastructure cleanup for PostgreSQL
 - Essential for proper DLL uninstallation and system cleanup
+
+## Simplified Source
+
+```c
+STDAPI DllUnregisterServer(void) {
+    char key_name[400];
+
+    // Build registry key path for event source
+    _snprintf(key_name, sizeof(key_name),
+              "SYSTEM\\CurrentControlSet\\Services\\EventLog\\Application\\%s",
+              event_source);
+
+    // Remove the registry key and all its values
+    if (RegDeleteKey(HKEY_LOCAL_MACHINE, key_name)) {
+        MessageBox(NULL, "Could not delete the registry key.", "PostgreSQL error", MB_OK | MB_ICONSTOP);
+        return SELFREG_E_TYPELIB;
+    }
+
+    return S_OK;
+}
+```

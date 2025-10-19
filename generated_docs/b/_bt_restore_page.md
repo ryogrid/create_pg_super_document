@@ -44,3 +44,40 @@ The restoration process involves careful memory handling since the items in the 
 - Will panic if unable to add an item to the page, indicating a serious recovery error
 - The reverse-order insertion is critical for maintaining the original tuple ordering
 - Limited to MaxIndexTuplesPerPage items per restoration operation
+
+## Simplified Source
+
+```c
+static void _bt_restore_page(Page page, char *from, int len)
+{
+    IndexTupleData itupdata;
+    Size itemsz;
+    char *end = from + len;
+    Item items[MaxIndexTuplesPerPage];
+    uint16 itemsizes[MaxIndexTuplesPerPage];
+    int nitems = 0;
+
+    // First pass: scan forward to identify all tuples
+    while (from < end)
+    {
+        // Copy tuple header safely (may not be aligned)
+        memcpy(&itupdata, from, sizeof(IndexTupleData));
+        itemsz = IndexTupleSize(&itupdata);
+        itemsz = MAXALIGN(itemsz);
+
+        // Store tuple info for later insertion
+        items[nitems] = (Item) from;
+        itemsizes[nitems] = itemsz;
+        nitems++;
+
+        from += itemsz;
+    }
+
+    // Second pass: add tuples in reverse order to maintain original ordering
+    for (int i = nitems - 1; i >= 0; i--)
+    {
+        if (PageAddItem(page, items[i], itemsizes[i], nitems - i, false, false) == InvalidOffsetNumber)
+            elog(PANIC, "_bt_restore_page: cannot add item to page");
+    }
+}
+```

@@ -39,3 +39,21 @@ This utility function is used internally by the xact description functions to ap
 - Only outputs when nrels > 0, avoiding empty sections in descriptions
 - Uses MAIN_FORKNUM as the default fork for path generation
 - Critical for debugging and WAL analysis by providing readable relation references
+
+## Simplified Source
+
+```c
+static void xact_desc_relations(StringInfo buf, char *label, int nrels, RelFileLocator *xlocators) {
+    if (nrels > 0) {
+        // Add label to output buffer
+        appendStringInfo(buf, "; %s:", label);
+
+        // Append each relation path
+        for (int i = 0; i < nrels; i++) {
+            char *path = relpathperm(xlocators[i], MAIN_FORKNUM);
+            appendStringInfo(buf, " %s", path);
+            pfree(path);
+        }
+    }
+}
+```

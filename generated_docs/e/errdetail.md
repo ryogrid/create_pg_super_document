@@ -45,3 +45,28 @@ Like other error reporting functions, `errdetail` operates within PostgreSQL's e
 - Detail messages should provide specific diagnostic information, not repeat the primary message
 - Part of PostgreSQL's structured error reporting that allows clients to display errors in organized fashion
 - Detail information can help users understand and resolve the underlying problem
+
+## Simplified Source
+
+```c
+int errdetail(const char *fmt, ...) {
+    ErrorData *edata = &errordata[errordata_stack_depth];
+    MemoryContext oldcontext;
+
+    // Track recursion and validate stack
+    recursion_depth++;
+    CHECK_STACK_DEPTH();
+
+    // Switch to error's memory context
+    oldcontext = MemoryContextSwitchTo(edata->assoc_context);
+
+    // Evaluate detail message with translation
+    EVALUATE_MESSAGE(edata->domain, detail, false, true);
+
+    // Restore context and recursion level
+    MemoryContextSwitchTo(oldcontext);
+    recursion_depth--;
+
+    return 0;
+}
+```

@@ -40,3 +40,24 @@ The function is designed to work as part of the compression file handle abstract
 - Returns a boolean indicating success or failure of the file opening operation
 - The function assumes the caller will handle any necessary error checking based on the return value and errno
 - Part of the LZ4 compression implementation for PostgreSQL's pg_dump utility
+
+## Simplified Source
+
+```c
+static bool
+LZ4Stream_open_write(const char *path, const char *mode, CompressFileHandle *CFH)
+{
+    // Create filename with .lz4 extension
+    char *fname = psprintf("%s.lz4", path);
+
+    // Delegate to the configured open function
+    bool ret = CFH->open_func(fname, -1, mode, CFH);
+
+    // Clean up allocated filename while preserving errno
+    int save_errno = errno;
+    pg_free(fname);
+    errno = save_errno;
+
+    return ret;
+}
+```

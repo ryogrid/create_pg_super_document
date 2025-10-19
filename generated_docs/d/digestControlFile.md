@@ -46,3 +46,33 @@ The function is essential for ensuring that pg_rewind operates on valid control 
 - Sets the global WalSegSz variable based on the control file data
 - WAL segment size must be a power of two between 1 MB and 1 GB
 - Located at src/bin/pg_rewind/pg_rewind.c:1023-1055
+
+## Simplified Source
+
+```c
+static void digestControlFile(ControlFileData *ControlFile, const char *content, size_t size)
+{
+    // Verify control file size is correct
+    if (size != PG_CONTROL_FILE_SIZE)
+        pg_fatal("unexpected control file size %d, expected %d",
+                (int) size, PG_CONTROL_FILE_SIZE);
+
+    // Copy raw control file data to structure
+    memcpy(ControlFile, content, sizeof(ControlFileData));
+
+    // Extract and validate WAL segment size
+    WalSegSz = ControlFile->xlog_seg_size;
+
+    if (!IsValidWalSegSize(WalSegSz)) {
+        pg_log_error(ngettext("invalid WAL segment size in control file (%d byte)",
+                             "invalid WAL segment size in control file (%d bytes)",
+                             WalSegSz),
+                    WalSegSz);
+        pg_log_error_detail("The WAL segment size must be a power of two between 1 MB and 1 GB.");
+        exit(1);
+    }
+
+    // Perform additional control file validation
+    checkControlFile(ControlFile);
+}
+```

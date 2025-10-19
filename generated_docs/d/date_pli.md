@@ -42,3 +42,26 @@ Special handling is provided for infinite date values - when the input date is i
 - Throws ERRCODE_DATETIME_VALUE_OUT_OF_RANGE error for overflow or out-of-range results
 - Part of the PostgreSQL date arithmetic function family located in src/backend/utils/adt/date.c
 - Supports both positive and negative day additions for flexible date calculations
+
+## Simplified Source
+
+```c
+Datum date_pli(PG_FUNCTION_ARGS) {
+    DateADT date = PG_GETARG_DATEADT(0);
+    int32 days = PG_GETARG_INT32(1);
+
+    // Infinite dates remain unchanged
+    if (DATE_NOT_FINITE(date))
+        PG_RETURN_DATEADT(date);
+
+    // Add days to the date
+    DateADT result = date + days;
+
+    // Check for overflow and valid date range
+    if ((days >= 0 ? (result < date) : (result > date)) || !IS_VALID_DATE(result))
+        ereport(ERROR, (errcode(ERRCODE_DATETIME_VALUE_OUT_OF_RANGE),
+                       errmsg("date out of range")));
+
+    PG_RETURN_DATEADT(result);
+}
+```

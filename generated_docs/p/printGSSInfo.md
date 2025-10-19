@@ -39,3 +39,23 @@ The function is intentionally minimal compared to  because GSSAPI encryption typ
 - Unlike SSL connections, GSSAPI doesn't expose detailed protocol or cipher information through libpq's standard interface
 - The function serves as a security confirmation tool, letting users verify their connection is encrypted when GSSAPI is configured
 - Works in conjunction with  to provide comprehensive connection security information
+
+## Simplified Source
+
+```c
+static void printGSSInfo(void)
+{
+    // Only proceed if GSSAPI encryption is active
+    if (!PQgssEncInUse(pset.db))
+        return;
+
+    // Display simple GSSAPI encryption confirmation
+    printf("GSSAPI-encrypted connection\n");
+}
+```
+
+**Simplified Logic:**
+1. **Check GSSAPI status**: Return early if GSSAPI encryption is not in use
+2. **Display confirmation**: Show simple message confirming GSSAPI encryption is active
+
+This function provides a straightforward confirmation that the database connection is using GSSAPI encryption, which is an enterprise-grade alternative to SSL/TLS often used with Kerberos authentication systems.

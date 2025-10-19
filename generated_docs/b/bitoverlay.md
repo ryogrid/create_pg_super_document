@@ -36,3 +36,18 @@ This function serves as a wrapper around the internal `bit_overlay` function, ha
 - This is a PostgreSQL built-in function accessible via SQL
 - Error handling and bounds checking are performed in the internal bit_overlay function
 - The function follows PostgreSQL's standard pattern for built-in functions using PG_FUNCTION_ARGS
+
+## Simplified Source
+
+```c
+Datum bitoverlay(PG_FUNCTION_ARGS) {
+    // Extract arguments: target string, replacement string, start position, length
+    VarBit *target = PG_GETARG_VARBIT_P(0);
+    VarBit *replacement = PG_GETARG_VARBIT_P(1);
+    int start_pos = PG_GETARG_INT32(2);    // 1-based position
+    int length = PG_GETARG_INT32(3);       // length to replace
+
+    // Delegate to internal overlay function
+    PG_RETURN_VARBIT_P(bit_overlay(target, replacement, start_pos, length));
+}
+```

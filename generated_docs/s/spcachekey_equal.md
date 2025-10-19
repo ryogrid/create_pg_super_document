@@ -31,3 +31,14 @@ This function implements the equality comparison logic for SearchPathCacheKey st
 - The function returns true only if both the role ID and search path string match exactly
 - Essential component for hash table collision resolution in the search path cache
 - Performance-critical function that's inlined for efficiency in hash table operations
+
+## Simplified Source
+
+```c
+static inline bool spcachekey_equal(SearchPathCacheKey a, SearchPathCacheKey b)
+{
+    // Compare both role ID and search path string
+    return a.roleid == b.roleid &&
+           strcmp(a.searchPath, b.searchPath) == 0;
+}
+```

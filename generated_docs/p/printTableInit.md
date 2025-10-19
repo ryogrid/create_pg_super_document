@@ -43,3 +43,47 @@ This function initializes a printTableContent structure that will be used to sto
 - Initializes cellmustfree and footers to NULL initially
 - Sets up current position pointers (header, cell, footer, align) for iterative content addition
 - Uses pg_malloc0 for zero-initialized memory allocation
+
+## Simplified Source
+
+```c
+void
+printTableInit(printTableContent *const content, const printTableOpt *opt,
+               const char *title, const int ncolumns, const int nrows)
+{
+    // Set basic table parameters
+    content->opt = opt;
+    content->title = title;  // Not duplicated - caller must maintain
+    content->ncolumns = ncolumns;
+    content->nrows = nrows;
+
+    // Allocate memory for headers array
+    content->headers = pg_malloc0((ncolumns + 1) * sizeof(*content->headers));
+
+    // Calculate total cells with overflow protection
+    uint64 total_cells = (uint64) ncolumns * nrows;
+    if (total_cells >= SIZE_MAX / sizeof(*content->cells)) {
+        fprintf(stderr, _("Cannot print table contents: number of cells %lld is equal to or exceeds maximum %lld.\n"),
+                (long long int) total_cells,
+                (long long int) (SIZE_MAX / sizeof(*content->cells)));
+        exit(EXIT_FAILURE);
+    }
+
+    // Allocate memory for cells array
+    content->cells = pg_malloc0((total_cells + 1) * sizeof(*content->cells));
+
+    // Initialize optional arrays to NULL
+    content->cellmustfree = NULL;
+    content->footers = NULL;
+
+    // Allocate memory for column alignment settings
+    content->aligns = pg_malloc0((ncolumns + 1) * sizeof(*content->align));
+
+    // Set up current position pointers for adding content
+    content->header = content->headers;
+    content->cell = content->cells;
+    content->footer = content->footers;
+    content->align = content->aligns;
+    content->cellsadded = 0;
+}
+```

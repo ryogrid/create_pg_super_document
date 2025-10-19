@@ -35,3 +35,22 @@ The function allocates a fixed-size buffer of 32 characters, which is sufficient
 - Allocates 32 bytes for the result string, providing extra space beyond the required 18 bytes
 - The output format is consistent regardless of the input format used when the value was created
 - Memory management follows PostgreSQL conventions with palloc for allocation
+
+## Simplified Source
+
+```c
+// Simplified version of macaddr_out
+Datum macaddr_out(PG_FUNCTION_ARGS) {
+    macaddr *addr = PG_GETARG_MACADDR_P(0);
+    char *result;
+
+    // Allocate buffer for output string
+    result = (char *) palloc(32);
+
+    // Format MAC address as colon-separated lowercase hex
+    snprintf(result, 32, "%02x:%02x:%02x:%02x:%02x:%02x",
+             addr->a, addr->b, addr->c, addr->d, addr->e, addr->f);
+
+    PG_RETURN_CSTRING(result);
+}
+```

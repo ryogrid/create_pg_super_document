@@ -34,3 +34,16 @@ The `path_n_ge` function implements the "greater than or equal" comparison opera
 - Returns true if the first path has greater or equal points than the second path
 - Used internally by PostgreSQL's SQL operator system when the `>=` operator is applied to path objects
 - Location: src/backend/utils/adt/geo_ops.c:1589-1601
+
+## Simplified Source
+
+```c
+Datum path_n_ge(PG_FUNCTION_ARGS) {
+    // Extract two PATH objects from function arguments
+    PATH *p1 = PG_GETARG_PATH_P(0);
+    PATH *p2 = PG_GETARG_PATH_P(1);
+
+    // Compare number of points: return true if p1 >= p2 in point count
+    PG_RETURN_BOOL(p1->npts >= p2->npts);
+}
+```

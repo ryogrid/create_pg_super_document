@@ -41,3 +41,13 @@ The function inherits all the behavior of SetVariable, including:
 - Part of psql's variable system for handling boolean configuration options
 - Used extensively during psql startup for setting default boolean variables
 - Counterpart would be setting a variable to "off" or deleting it for boolean false
+
+## Simplified Source
+
+```c
+bool SetVariableBool(VariableSpace space, const char *name)
+{
+    // Simply calls SetVariable with "on" value to represent boolean true
+    return SetVariable(space, name, "on");
+}
+```

@@ -39,3 +39,20 @@ This is typically called repeatedly during the dump process as data needs to be 
 - Simple adapter function that prepares input and delegates to the compression worker
 - Part of the pg_dump compression callback interface system
 - The function is static and located in src/bin/pg_dump/compress_gzip.c:152-162
+
+## Simplified Source
+
+```c
+static void WriteDataToArchiveGzip(ArchiveHandle *AH, CompressorState *cs,
+                                   const void *data, size_t dLen)
+{
+    GzipCompressorState *gzipcs = (GzipCompressorState *) cs->private_data;
+
+    // Set up input data for compression
+    gzipcs->zp->next_in = data;
+    gzipcs->zp->avail_in = dLen;
+
+    // Compress the data (no flush)
+    DeflateCompressorCommon(AH, cs, false);
+}
+```

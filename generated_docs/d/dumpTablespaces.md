@@ -41,3 +41,91 @@ Like other dump functions, it excludes built-in system tablespaces (those with p
 - Special handling for tablespace options through ALTER TABLESPACE SET commands
 - Error handling includes proper cleanup and informative error messages
 - Essential component of complete cluster backup and restoration process
+
+## Simplified Source
+
+```c
+static void dumpTablespaces(PGconn *conn)
+{
+    PGresult *res;
+    int i;
+
+    // Query all user-defined tablespaces (exclude built-in pg_* tablespaces)
+    res = executeQuery(conn, "SELECT oid, spcname, "
+                           "pg_catalog.pg_get_userbyid(spcowner) AS spcowner, "
+                           "pg_catalog.pg_tablespace_location(oid), "
+                           "spcacl, acldefault('t', spcowner) AS acldefault, "
+                           "array_to_string(spcoptions, ', '),"
+                           "pg_catalog.shobj_description(oid, 'pg_tablespace') "
+                           "FROM pg_catalog.pg_tablespace "
+                           "WHERE spcname !~ '^pg_' "
+                           "ORDER BY 1");
+
+    // Print header if tablespaces found
+    if (PQntuples(res) > 0)
+        fprintf(OPF, "--\n-- Tablespaces\n--\n\n");
+
+    // Process each tablespace
+    for (i = 0; i < PQntuples(res); i++)
+    {
+        PQExpBuffer buf = createPQExpBuffer();
+        Oid spcoid = atooid(PQgetvalue(res, i, 0));
+        char *spcname = PQgetvalue(res, i, 1);
+        char *spcowner = PQgetvalue(res, i, 2);
+        char *spclocation = PQgetvalue(res, i, 3);
+        char *spcacl = PQgetvalue(res, i, 4);
+        char *acldefault = PQgetvalue(res, i, 5);
+        char *spcoptions = PQgetvalue(res, i, 6);
+        char *spccomment = PQgetvalue(res, i, 7);
+        char *formatted_name = pg_strdup(fmtId(spcname));
+
+        // Handle binary upgrade mode - preserve original OID
+        if (binary_upgrade) {
+            appendPQExpBuffer(buf, "SELECT pg_catalog.binary_upgrade_set_next_pg_tablespace_oid('%u'::pg_catalog.oid);\n", spcoid);
+        }
+
+        // Generate CREATE TABLESPACE statement
+        appendPQExpBuffer(buf, "CREATE TABLESPACE %s", formatted_name);
+        appendPQExpBuffer(buf, " OWNER %s", fmtId(spcowner));
+
+        // Handle location - empty string for in-place tablespaces
+        appendPQExpBufferStr(buf, " LOCATION ");
+        if (is_absolute_path(spclocation))
+            appendStringLiteralConn(buf, spclocation, conn);
+        else
+            appendStringLiteralConn(buf, "", conn);
+        appendPQExpBufferStr(buf, ";\n");
+
+        // Add tablespace options if present
+        if (spcoptions && spcoptions[0] != '\0')
+            appendPQExpBuffer(buf, "ALTER TABLESPACE %s SET (%s);\n", formatted_name, spcoptions);
+
+        // Generate ACL commands for permissions
+        if (!skip_acls) {
+            buildACLCommands(formatted_name, NULL, NULL, "TABLESPACE",
+                           spcacl, acldefault, spcowner, "", server_version, buf);
+        }
+
+        // Add comment if present
+        if (!no_comments && spccomment && spccomment[0] != '\0') {
+            appendPQExpBuffer(buf, "COMMENT ON TABLESPACE %s IS ", formatted_name);
+            appendStringLiteralConn(buf, spccomment, conn);
+            appendPQExpBufferStr(buf, ";\n");
+        }
+
+        // Add security labels
+        if (!no_security_labels)
+            buildShSecLabels(conn, "pg_tablespace", spcoid, "TABLESPACE", spcname, buf);
+
+        // Output the generated SQL
+        fprintf(OPF, "%s", buf->data);
+
+        // Cleanup
+        free(formatted_name);
+        destroyPQExpBuffer(buf);
+    }
+
+    PQclear(res);
+    fprintf(OPF, "\n\n");
+}
+```

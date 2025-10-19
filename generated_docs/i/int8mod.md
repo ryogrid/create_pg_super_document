@@ -36,3 +36,30 @@ The int8mod function implements the modulo (remainder) operation for PostgreSQL'
 - Comment indicates this addresses floating-point exceptions on certain machines for INT64_MIN % -1
 - No overflow is possible with modulo operation (unlike division)
 - Compiler workaround comment for GCC optimization issues with unreachable code
+
+## Simplified Source
+
+```c
+Datum int8mod(PG_FUNCTION_ARGS) {
+    // Extract dividend and divisor arguments
+    int64 arg1 = PG_GETARG_INT64(0);
+    int64 arg2 = PG_GETARG_INT64(1);
+
+    // Check for division by zero
+    if (unlikely(arg2 == 0)) {
+        ereport(ERROR,
+                (errcode(ERRCODE_DIVISION_BY_ZERO),
+                 errmsg("division by zero")));
+        PG_RETURN_NULL();
+    }
+
+    // Handle special case: modulo by -1 always returns 0
+    // (avoids floating-point exceptions on some machines)
+    if (arg2 == -1) {
+        PG_RETURN_INT64(0);
+    }
+
+    // Perform normal modulo operation
+    PG_RETURN_INT64(arg1 % arg2);
+}
+```

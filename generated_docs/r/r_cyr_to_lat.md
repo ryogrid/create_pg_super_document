@@ -45,3 +45,50 @@ The mapping includes all standard Serbian Cyrillic letters to their Latin counte
 - Returns 1 on successful completion, negative values indicate errors
 - Uses a finite state machine approach with nested loops and goto statements for control flow
 - Essential for processing Serbian text that may contain mixed Cyrillic and Latin scripts
+
+## Simplified Source
+
+```c
+static int r_cyr_to_lat(struct SN_env * z) {
+    int original_pos = z->c;
+
+    // Scan through entire string converting Cyrillic to Latin
+    while(1) {
+        int scan_pos = z->c;
+
+        // Try to find a Cyrillic character at current position
+        z->bra = z->c;
+        int cyrillic_char = find_among(z, a_0, 30);  // Check against 30 Cyrillic chars
+
+        if (cyrillic_char) {
+            z->ket = z->c;
+
+            // Replace with corresponding Latin character(s)
+            switch (cyrillic_char) {
+                case 1: slice_from_s(z, 1, s_0); break;   // а→a
+                case 2: slice_from_s(z, 1, s_1); break;   // б→b
+                case 3: slice_from_s(z, 1, s_2); break;   // в→v
+                case 4: slice_from_s(z, 1, s_3); break;   // г→g
+                case 5: slice_from_s(z, 1, s_4); break;   // д→d
+                case 6: slice_from_s(z, 2, s_5); break;   // ђ→đ (2 bytes)
+                case 7: slice_from_s(z, 1, s_6); break;   // е→e
+                case 8: slice_from_s(z, 2, s_7); break;   // ж→ž (2 bytes)
+                case 9: slice_from_s(z, 1, s_8); break;   // з→z
+                case 10: slice_from_s(z, 1, s_9); break;  // и→i
+                // ... (similar mappings for cases 11-30)
+                case 29: slice_from_s(z, 3, s_28); break; // Special 3-byte sequence
+                case 30: slice_from_s(z, 2, s_29); break; // Special 2-byte sequence
+            }
+            z->c = scan_pos;
+        } else {
+            // No Cyrillic character found, advance to next UTF-8 character
+            int ret = skip_utf8(z->p, z->c, z->l, 1);
+            if (ret < 0) break;  // End of string
+            z->c = ret;
+        }
+    }
+
+    z->c = original_pos;  // Reset position
+    return 1;             // Success
+}
+```

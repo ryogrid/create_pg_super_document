@@ -29,3 +29,14 @@ The `default_identify` function serves as a fallback identification function for
 - Used as a fallback when custom resource managers don't provide their own identification functions
 - Part of the pg_waldump utility for analyzing WAL (Write-Ahead Logging) files
 - The info parameter is accepted but ignored since there's no way to interpret custom resource manager info codes
+
+## Simplified Source
+
+```c
+static const char *
+default_identify(uint8 info)
+{
+    // No identification available for custom resource managers
+    return NULL;
+}
+```

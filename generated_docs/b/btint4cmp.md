@@ -35,3 +35,23 @@ btint4cmp is a PostgreSQL built-in function that implements comparison logic for
 - This is a core function for B-tree indexing operations on integer columns
 - Located in src/backend/access/nbtree/nbtcompare.c alongside other B-tree comparison functions
 - The explicit conditional approach makes the function more readable and prevents subtle overflow bugs that could occur with subtraction near integer limits
+
+## Simplified Source
+
+```c
+Datum
+btint4cmp(PG_FUNCTION_ARGS)
+{
+    // Extract the two 32-bit integer arguments
+    int32 a = PG_GETARG_INT32(0);
+    int32 b = PG_GETARG_INT32(1);
+
+    // Use explicit comparison to avoid overflow issues
+    if (a > b)
+        PG_RETURN_INT32(1);    // A_GREATER_THAN_B
+    else if (a == b)
+        PG_RETURN_INT32(0);
+    else
+        PG_RETURN_INT32(-1);   // A_LESS_THAN_B
+}
+```

@@ -35,3 +35,18 @@ This function is useful for applications that need to allocate appropriate buffe
 - The encoding parameter is a numeric ID, not a string name
 - Part of PostgreSQL's character encoding metadata system
 - Located in src/backend/utils/mb/mbutils.c:644-659
+
+## Simplified Source
+
+```c
+Datum pg_encoding_max_length_sql(PG_FUNCTION_ARGS) {
+    // Get the encoding ID from function arguments
+    int encoding = PG_GETARG_INT32(0);
+
+    // Return max character length if encoding is valid, otherwise NULL
+    if (PG_VALID_ENCODING(encoding))
+        PG_RETURN_INT32(pg_wchar_table[encoding].maxmblen);
+    else
+        PG_RETURN_NULL();
+}
+```

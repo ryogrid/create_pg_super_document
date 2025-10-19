@@ -33,3 +33,15 @@ The function acts as a wrapper around the global object_access_hook function poi
 - This is part of PostgreSQL's extensible object access hook system that allows extensions to intercept and respond to various database operations
 - The hook system is commonly used by security extensions, auditing tools, and other PostgreSQL extensions that need to monitor database activity
 - The function passes 0 as the subId parameter and NULL as the auxiliary data parameter, indicating no sub-object identification or additional context is provided for function execution events
+
+## Simplified Source
+
+```c
+void RunFunctionExecuteHook(Oid objectId)
+{
+    // Call registered object access hook for function execution
+    (*object_access_hook)(OAT_FUNCTION_EXECUTE,
+                         ProcedureRelationId, objectId, 0,
+                         NULL);
+}
+```

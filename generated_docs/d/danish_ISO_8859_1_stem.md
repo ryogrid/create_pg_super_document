@@ -40,3 +40,43 @@ The stemming process follows these steps:
 - Part of the Snowball stemming library implementation for Danish language
 - Uses backward processing (from end of word) for most suffix operations
 - Located in stem_ISO_8859_1_danish.c:274-310
+
+## Simplified Source
+
+```c
+extern int danish_ISO_8859_1_stem(struct SN_env * z) {
+    // Step 1: Mark morphological regions (R1, R2)
+    int start_pos = z->c;
+    if (r_mark_regions(z) < 0) return -1;
+    z->c = start_pos;
+
+    // Set up for backward processing (end to beginning)
+    z->lb = z->c;
+    z->c = z->l;
+
+    // Step 2: Remove main suffixes
+    int saved_pos = z->l - z->c;
+    r_main_suffix(z);
+    z->c = z->l - saved_pos;
+
+    // Step 3: Handle consonant pair reductions
+    saved_pos = z->l - z->c;
+    r_consonant_pair(z);
+    z->c = z->l - saved_pos;
+
+    // Step 4: Process additional suffixes
+    saved_pos = z->l - z->c;
+    r_other_suffix(z);
+    z->c = z->l - saved_pos;
+
+    // Step 5: Remove doubled consonants
+    saved_pos = z->l - z->c;
+    r_undouble(z);
+    z->c = z->l - saved_pos;
+
+    // Restore original cursor position
+    z->c = z->lb;
+
+    return 1; // Success
+}
+```

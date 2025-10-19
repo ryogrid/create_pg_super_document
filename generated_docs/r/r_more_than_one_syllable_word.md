@@ -40,3 +40,34 @@ This check is crucial because many Turkish stemming operations should only be ap
 - Uses the g_vowel character group that defines Turkish vowels (a, e, ı, i, o, ö, u, ü)
 - Part of the initial validation phase in Turkish word stemming
 - Generated automatically by Snowball 2.2.0 stemmer generator
+
+## Simplified Source
+
+```c
+static int r_more_than_one_syllable_word(struct SN_env * z) {
+    int original_pos = z->c;
+    int syllable_count = 2;  // Need to find at least 2 syllables
+
+    // Try to find 2 vowel groups (syllables)
+    while (syllable_count > 0) {
+        int current_pos = z->c;
+
+        // Move forward past non-vowel characters to find next vowel
+        int ret = out_grouping_U(z, g_vowel, 97, 305, 1);
+        if (ret < 0) {
+            // No more vowels found
+            z->c = current_pos;
+            break;
+        }
+        z->c += ret;
+        syllable_count--;
+    }
+
+    z->c = original_pos;  // Restore original position
+
+    // Return 1 if we found at least 2 syllables
+    return (syllable_count == 0) ? 1 : 0;
+}
+```
+
+**Key Logic**: Counts vowel groups in a Turkish word to determine if it has multiple syllables. Scans forward through the word, finding vowel groups using the Turkish vowel set (a, e, ı, i, o, ö, u, ü), and returns 1 only if at least 2 syllables are detected, ensuring stemming operations are only applied to multi-syllabic words.

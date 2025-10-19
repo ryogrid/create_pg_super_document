@@ -33,3 +33,13 @@ These parameters are specifically tuned for the Italian stemming algorithm's req
 - Part of the language-specific interface for the Snowball stemming library
 - The parameters (0, 3) are optimized for Italian language processing requirements
 - Memory allocation failures in SN_create_env will cause this function to return NULL
+
+## Simplified Source
+
+```c
+extern struct SN_env * italian_UTF_8_create_env(void) {
+    // Create Snowball environment for Italian UTF-8 stemming
+    // Parameters: 0 string buffers, 3 integer variables for region tracking
+    return SN_create_env(0, 3);
+}
+```

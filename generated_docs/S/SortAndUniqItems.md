@@ -49,3 +49,54 @@ This preprocessing is essential for efficient query processing in text search ra
 - Critical preprocessing step that enables efficient text search ranking by eliminating redundant query terms
 - The deduplication relies on the sorted order to identify and remove consecutive duplicates efficiently
 - Essential component for optimizing complex queries that may contain repeated terms
+
+## Simplified Source
+
+```c
+static QueryOperand **
+SortAndUniqItems(TSQuery q, int *size)
+{
+    char *operand = GETOPERAND(q);
+    QueryItem *item = GETQUERY(q);
+    QueryOperand **res, **ptr, **prevptr;
+
+    // Allocate array for operand pointers
+    ptr = res = (QueryOperand **) palloc(sizeof(QueryOperand *) * *size);
+
+    // Collect all operands from query tree
+    while ((*size)--)
+    {
+        if (item->type == QI_VAL)
+        {
+            *ptr = (QueryOperand *) item;
+            ptr++;
+        }
+        item++;
+    }
+
+    *size = ptr - res;
+    if (*size < 2)
+        return res;
+
+    // Sort operands by string content
+    qsort_arg(res, *size, sizeof(QueryOperand *), compareQueryOperand, operand);
+
+    // Remove consecutive duplicates
+    ptr = res + 1;
+    prevptr = res;
+    while (ptr - res < *size)
+    {
+        if (compareQueryOperand((void *) ptr, (void *) prevptr, (void *) operand) != 0)
+        {
+            prevptr++;
+            *prevptr = *ptr;
+        }
+        ptr++;
+    }
+
+    *size = prevptr + 1 - res;
+    return res;
+}
+```
+
+This simplified version shows the three-phase process: 1) collect all query operands from the tree, 2) sort them lexicographically, and 3) remove duplicates. The result is a clean array of unique operands ready for efficient processing.

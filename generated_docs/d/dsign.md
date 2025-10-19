@@ -34,3 +34,22 @@ This is a PostgreSQL SQL-callable function that follows the PostgreSQL function 
 - The function handles all three cases of the sign function explicitly with simple conditional logic
 - Located in src/backend/utils/adt/float.c which contains various floating-point utility functions
 - Follows standard PostgreSQL function conventions for SQL-callable functions
+
+## Simplified Source
+
+```c
+Datum dsign(PG_FUNCTION_ARGS) {
+    float8 arg1 = PG_GETARG_FLOAT8(0);
+    float8 result;
+
+    // Return sign: 1.0 for positive, -1.0 for negative, 0.0 for zero
+    if (arg1 > 0)
+        result = 1.0;
+    else if (arg1 < 0)
+        result = -1.0;
+    else
+        result = 0.0;
+
+    PG_RETURN_FLOAT8(result);
+}
+```

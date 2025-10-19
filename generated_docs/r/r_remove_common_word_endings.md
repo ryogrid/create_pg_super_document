@@ -46,3 +46,85 @@ The function uses a sophisticated pattern matching system that tries to match th
 - Sets  flag when modifications are made to indicate processing occurred
 - Part of the Snowball stemming algorithm specifically designed for Tamil text processing
 - The function handles complex Tamil morphology including various grammatical endings
+
+## Simplified Source
+
+```c
+static int r_remove_common_word_endings(struct SN_env * z) {
+    // Initialize state flag
+    z->I[1] = 0;
+
+    // Check minimum word length before processing
+    int ret = r_has_min_length(z);
+    if (ret <= 0) return ret;
+
+    // Set up backward processing boundaries
+    z->lb = z->c;
+    z->c = z->l;
+
+    int saved_position = z->l - z->c;
+    int test_position = z->l - z->c;
+
+    // Try primary suffix patterns (replace with standardized form)
+    z->ket = z->c;
+
+    // Check for various length patterns in priority order
+    if (eq_s_b(z, 12, s_56) || eq_s_b(z, 15, s_57) || eq_s_b(z, 12, s_58) ||
+        eq_s_b(z, 15, s_59) || eq_s_b(z, 9, s_60) || eq_s_b(z, 12, s_61) ||
+        eq_s_b(z, 15, s_62) || eq_s_b(z, 12, s_63) || eq_s_b(z, 12, s_64) ||
+        eq_s_b(z, 9, s_65) || eq_s_b(z, 15, s_66)) {
+
+        // Primary pattern found - replace with standardized form
+        z->bra = z->c;
+        slice_from_s(z, 3, s_70);
+        z->I[1] = 1;
+        z->c = z->l - test_position;
+        goto success;
+    }
+
+    // Check special 9-character pattern with exclusion validation
+    if (eq_s_b(z, 9, s_67)) {
+        // Ensure it's not in exclusion list
+        if (!find_among_b(z, a_16, 8)) {
+            z->bra = z->c;
+            slice_from_s(z, 3, s_70);
+            z->I[1] = 1;
+            z->c = z->l - test_position;
+            goto success;
+        }
+    }
+
+    // Check remaining single patterns
+    if (eq_s_b(z, 6, s_68) || eq_s_b(z, 9, s_69)) {
+        z->bra = z->c;
+        slice_from_s(z, 3, s_70);
+        z->I[1] = 1;
+        z->c = z->l - test_position;
+        goto success;
+    }
+
+    // No primary patterns matched - try secondary patterns (complete removal)
+    z->c = z->l - saved_position;
+    test_position = z->l - z->c;
+    z->ket = z->c;
+
+    if (find_among_b(z, a_17, 13)) {
+        // Secondary pattern found - remove completely
+        z->bra = z->c;
+        slice_del(z);
+        z->I[1] = 1;
+        z->c = z->l - test_position;
+        goto success;
+    }
+
+    return 0; // No patterns matched
+
+success:
+    z->c = z->lb;
+
+    // Apply post-processing corrections
+    r_fix_endings(z);
+
+    return 1; // Success
+}
+```

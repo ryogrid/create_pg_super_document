@@ -42,3 +42,52 @@ The function iterates through all blocks referenced in the WAL record, reads eac
 - Works in conjunction with GenericXLogFinish to provide crash recovery guarantees
 - BLK_NEEDS_REDO action indicates when actual redo work is required
 - Automatically handles cases where blocks don't need redo (e.g., already applied)
+
+## Simplified Source
+
+```c
+void generic_redo(XLogReaderState *record)
+{
+    XLogRecPtr lsn = record->EndRecPtr;
+    Buffer buffers[MAX_GENERIC_XLOG_PAGES];
+    uint8 block_id;
+
+    // Process each block referenced in the WAL record
+    for (block_id = 0; block_id <= XLogRecMaxBlockId(record); block_id++)
+    {
+        // Skip blocks not referenced in this record
+        if (!XLogRecHasBlockRef(record, block_id)) {
+            buffers[block_id] = InvalidBuffer;
+            continue;
+        }
+
+        // Read buffer and determine if redo is needed
+        XLogRedoAction action = XLogReadBufferForRedo(record, block_id, &buffers[block_id]);
+
+        // Apply delta changes if block needs redo
+        if (action == BLK_NEEDS_REDO) {
+            Page page = BufferGetPage(buffers[block_id]);
+
+            // Get delta data and apply changes
+            Size blockDeltaSize;
+            char *blockDelta = XLogRecGetBlockData(record, block_id, &blockDeltaSize);
+            applyPageRedo(page, blockDelta, blockDeltaSize);
+
+            // Zero the hole between pd_lower and pd_upper for consistency
+            PageHeader pageHeader = (PageHeader) page;
+            memset(page + pageHeader->pd_lower, 0,
+                   pageHeader->pd_upper - pageHeader->pd_lower);
+
+            // Update LSN and mark as dirty
+            PageSetLSN(page, lsn);
+            MarkBufferDirty(buffers[block_id]);
+        }
+    }
+
+    // Release all acquired buffers
+    for (block_id = 0; block_id <= XLogRecMaxBlockId(record); block_id++) {
+        if (BufferIsValid(buffers[block_id]))
+            UnlockReleaseBuffer(buffers[block_id]);
+    }
+}
+```

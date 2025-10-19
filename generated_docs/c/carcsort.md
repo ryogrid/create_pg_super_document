@@ -35,3 +35,15 @@ The function only performs sorting when there are multiple arcs (n > 1), avoidin
 - The comparison is delegated to  which handles the color-based ordering logic
 - Only sorts when necessary (n > 1) to avoid overhead on single-arc states
 - Called during the compact NFA construction phase to prepare for efficient runtime execution
+
+## Simplified Source
+
+```c
+static void
+carcsort(struct carc *first, size_t n)
+{
+    // Only sort if there are multiple arcs
+    if (n > 1)
+        qsort(first, n, sizeof(struct carc), carc_cmp);
+}
+```

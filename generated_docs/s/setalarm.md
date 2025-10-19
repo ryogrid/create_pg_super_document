@@ -37,3 +37,24 @@ The function is typically called once at the beginning of benchmark execution wh
 - The comment "This function will be called at most once" in the Windows version indicates it's designed for single-use in pgbench's execution model
 - Both implementations ultimately set the global  flag when the timer expires
 - The timer is used in conjunction with pgbench's  (duration) command-line option
+
+## Simplified Source
+
+```c
+static void
+setalarm(int seconds)
+{
+    HANDLE queue;
+    HANDLE timer;
+
+    // Create timer queue (Windows implementation)
+    queue = CreateTimerQueue();
+
+    // Check for overflow and create timer
+    if (seconds > ((DWORD) -1) / 1000 ||
+        !CreateTimerQueueTimer(&timer, queue,
+                               win32_timer_callback, NULL, seconds * 1000, 0,
+                               WT_EXECUTEINTIMERTHREAD | WT_EXECUTEONLYONCE))
+        pg_fatal("failed to set timer");
+}
+```

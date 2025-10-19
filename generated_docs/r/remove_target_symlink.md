@@ -31,3 +31,22 @@ This function is part of the pg_rewind utility's file operation system. It safel
 - Uses MAXPGPATH for path buffer sizing to ensure safe path construction
 - Provides detailed error messages including the full path and system error details when unlink fails
 - Part of the pg_rewind utility which synchronizes a PostgreSQL cluster with another timeline
+
+## Simplified Source
+
+```c
+static void remove_target_symlink(const char *path) {
+    char dstpath[MAXPGPATH];
+
+    // Skip actual operation in dry run mode
+    if (dry_run)
+        return;
+
+    // Build full target path
+    snprintf(dstpath, sizeof(dstpath), "%s/%s", datadir_target, path);
+
+    // Remove symbolic link
+    if (unlink(dstpath) != 0)
+        pg_fatal("could not remove symbolic link \"%s\": %m", dstpath);
+}
+```

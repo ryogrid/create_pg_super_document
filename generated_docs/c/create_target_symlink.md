@@ -36,3 +36,21 @@ This is a static helper function within the pg_rewind utility's file operations 
 - Part of the pg_rewind utility which synchronizes PostgreSQL data directories
 - Symbolic links are commonly used in PostgreSQL installations for tablespaces and other external storage locations
 - Function assumes the parent directory already exists and will fail if the parent path is missing
+
+## Simplified Source
+
+```c
+static void create_target_symlink(const char *path, const char *link)
+{
+    char dstpath[MAXPGPATH];
+
+    // Skip operation in dry run mode
+    if (dry_run)
+        return;
+
+    // Build full target path and create symlink
+    snprintf(dstpath, sizeof(dstpath), "%s/%s", datadir_target, path);
+    if (symlink(link, dstpath) != 0)
+        pg_fatal("could not create symbolic link at \"%s\": %m", dstpath);
+}
+```

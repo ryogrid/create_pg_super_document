@@ -34,3 +34,15 @@ This function follows PostgreSQL's standard pattern for type output functions, u
 - The unknown data type is used internally by PostgreSQL for values whose type cannot be determined during parsing
 - The function performs a simple string duplication since the internal and external representations are identical for the unknown type
 - Memory management is handled by pstrdup, which allocates memory in the appropriate PostgreSQL memory context
+
+## Simplified Source
+
+```c
+Datum unknownout(PG_FUNCTION_ARGS) {
+    // Get the internal string representation (already a C string)
+    char *str = PG_GETARG_CSTRING(0);
+
+    // Return a duplicated copy for safe output
+    PG_RETURN_CSTRING(pstrdup(str));
+}
+```

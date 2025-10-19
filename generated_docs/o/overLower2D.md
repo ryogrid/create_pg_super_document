@@ -35,3 +35,18 @@ This function is part of PostgreSQL's geometric SP-GiST implementation for 2D sp
 - The function implements an "overlap or left-of" check, ensuring that range lower bounds are at most equal to the query's upper bound
 - This function is utilized by higher-level 4D overlap functions like `overLeft4D` and `overBelow4D`
 - The comment indicates it checks if ranges "not extend to the right side" of the query, meaning they either overlap or are positioned to the left
+
+## Simplified Source
+
+```c
+/* Check if any range from range_box doesn't extend past query's right side */
+static bool
+overLower2D(RangeBox *range_box, Range *query)
+{
+    // Both left and right ranges must start at or before query's end
+    bool left_not_past = (range_box->left.low <= query->high);
+    bool right_not_past = (range_box->right.low <= query->high);
+
+    return left_not_past && right_not_past;
+}
+```

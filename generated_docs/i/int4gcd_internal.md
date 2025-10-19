@@ -40,3 +40,36 @@ The algorithm follows mathematical GCD properties where the result is always the
 - Performs initial swap to put larger absolute value in `arg1`, reducing the number of modulo operations needed
 - Returns positive result by negating if the final result is negative
 - Located in `src/backend/utils/adt/int.c` as part of PostgreSQL's integer arithmetic utilities
+
+## Simplified Source
+
+```c
+static int32 int4gcd_internal(int32 a, int32 b) {
+    // Normalize inputs: put greater absolute value in 'b'
+    // Work in negative space to handle INT_MIN safely
+    int32 neg_a = (a < 0) ? a : -a;
+    int32 neg_b = (b < 0) ? b : -b;
+    if (neg_a > neg_b) {
+        int32 temp = a; a = b; b = temp;  // swap
+    }
+
+    // Handle INT_MIN overflow cases
+    if (a == PG_INT32_MIN) {
+        if (b == 0 || b == PG_INT32_MIN) {
+            ereport(ERROR, (errcode(ERRCODE_NUMERIC_VALUE_OUT_OF_RANGE),
+                           errmsg("integer out of range")));
+        }
+        if (b == -1) return 1;  // gcd(INT_MIN, -1) = 1
+    }
+
+    // Euclidean algorithm: gcd(a,b) = gcd(b, a % b)
+    while (b != 0) {
+        int32 temp = b;
+        b = a % b;
+        a = temp;
+    }
+
+    // Ensure positive result
+    return (a < 0) ? -a : a;
+}
+```

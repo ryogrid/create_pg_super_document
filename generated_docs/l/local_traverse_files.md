@@ -30,3 +30,14 @@ The function acts as a thin wrapper that adapts the generic rewind_source interf
 - The function performs a type cast from rewind_source* to local_source* to access the datadir member
 - Part of the strategy pattern implementation that allows pg_rewind to handle both local and remote sources uniformly
 - Located in src/bin/pg_rewind/local_source.c:60-65
+
+## Simplified Source
+
+```c
+static void
+local_traverse_files(rewind_source *source, process_file_callback_t callback)
+{
+    // Cast to local_source and traverse the local data directory
+    traverse_datadir(((local_source *) source)->datadir, callback);
+}
+```

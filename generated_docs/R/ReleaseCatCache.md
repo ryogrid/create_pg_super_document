@@ -34,3 +34,13 @@ The function serves as the standard interface for releasing cache references wit
 - Part of PostgreSQL's resource management system for tracking cache entry usage
 - Essential for preventing memory leaks in long-running transactions
 - The tuple parameter should be the exact HeapTuple returned by a SearchCatCache call
+
+## Simplified Source
+
+```c
+void ReleaseCatCache(HeapTuple tuple) {
+    // Simple wrapper that delegates to ReleaseCatCacheWithOwner
+    // using the current resource owner context
+    ReleaseCatCacheWithOwner(tuple, CurrentResourceOwner);
+}
+```

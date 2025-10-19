@@ -38,3 +38,23 @@ The function follows PostgreSQL convention for SQL-callable functions by using P
 - Uses a copy of the input text for safe processing
 - Companion function to to_ascii_encname, differing only in parameter type (int vs name)
 - Error handling follows PostgreSQL standards with appropriate error codes
+
+## Simplified Source
+
+```c
+Datum to_ascii_enc(PG_FUNCTION_ARGS) {
+    text *data = PG_GETARG_TEXT_P_COPY(0);
+    int enc = PG_GETARG_INT32(1);
+
+    // Validate the encoding ID
+    if (!PG_VALID_ENCODING(enc)) {
+        ereport(ERROR, (errcode(ERRCODE_UNDEFINED_OBJECT),
+                errmsg("%d is not a valid encoding code", enc)));
+    }
+
+    // Convert to ASCII and return result
+    PG_RETURN_TEXT_P(encode_to_ascii(data, enc));
+}
+```
+
+This function converts text to ASCII using an integer encoding ID. It validates the encoding parameter, creates a copy of the input text for safe processing, then delegates the actual conversion to `encode_to_ascii()`. Error handling provides clear messages for invalid encoding codes.

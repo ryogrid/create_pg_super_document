@@ -45,3 +45,24 @@ After unpinning, the area follows normal DSA lifecycle management and will be cl
 - Essential for proper lifecycle management of pinned DSA areas
 - Failure to unpin areas that were pinned can lead to memory leaks in long-running systems
 - Used in conjunction with  to implement controlled persistence of shared memory areas
+
+## Simplified Source
+
+```c
+void dsa_unpin(dsa_area *area) {
+    // Acquire exclusive lock for thread safety
+    LWLockAcquire(DSA_AREA_LOCK(area), LW_EXCLUSIVE);
+
+    // Validate that area is currently pinned
+    if (!area->control->pinned) {
+        LWLockRelease(DSA_AREA_LOCK(area));
+        elog(ERROR, "dsa_area not pinned");
+    }
+
+    // Clear pinned state and decrement reference count
+    area->control->pinned = false;
+    --area->control->refcnt;
+
+    LWLockRelease(DSA_AREA_LOCK(area));
+}
+```

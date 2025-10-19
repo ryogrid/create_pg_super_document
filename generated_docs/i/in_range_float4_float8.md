@@ -44,3 +44,42 @@ Like its float8 counterpart, this function handles special floating-point cases 
 - Handles infinite base and offset combinations that would produce NaN results
 - The higher precision offset allows for more accurate range calculations with single-precision data
 - Source location: src/backend/utils/adt/float.c:1096-1175
+
+## Simplified Source
+
+```c
+Datum in_range_float4_float8(PG_FUNCTION_ARGS) {
+    // Extract arguments: float4 value/base, float8 offset, boolean flags
+    float4 val = PG_GETARG_FLOAT4(0);
+    float4 base = PG_GETARG_FLOAT4(1);
+    float8 offset = PG_GETARG_FLOAT8(2);
+    bool sub = PG_GETARG_BOOL(3);
+    bool less = PG_GETARG_BOOL(4);
+
+    // Validate offset: must be non-negative and not NaN
+    if (isnan(offset) || offset < 0)
+        ereport(ERROR, (errcode(ERRCODE_INVALID_PRECEDING_OR_FOLLOWING_SIZE),
+                       errmsg("invalid preceding or following size in window function")));
+
+    // Handle NaN cases: NaN sorts after all non-NaN values
+    if (isnan(val)) {
+        if (isnan(base))
+            PG_RETURN_BOOL(true);  // NaN = NaN
+        else
+            PG_RETURN_BOOL(!less); // NaN > non-NaN
+    }
+    else if (isnan(base)) {
+        PG_RETURN_BOOL(less);      // non-NaN < NaN
+    }
+
+    // Handle infinite base/offset edge case
+    if (isinf(offset) && isinf(base) && (sub ? base > 0 : base < 0))
+        PG_RETURN_BOOL(true);
+
+    // Compute range boundary in float8 precision: base +/- offset
+    float8 sum = sub ? base - offset : base + offset;
+
+    // Compare value with boundary
+    PG_RETURN_BOOL(less ? val <= sum : val >= sum);
+}
+```

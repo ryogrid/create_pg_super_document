@@ -33,3 +33,22 @@ This function adds a new pointer to the end of a SimplePtrList by creating a new
 - The function maintains both head and tail pointers for efficient O(1) append operations
 - Used primarily in PostgreSQL frontend utilities for collecting lists of database objects and relations
 - Located in src/fe_utils/simple_list.c:162-175
+
+## Simplified Source
+
+```c
+void simple_ptr_list_append(SimplePtrList *list, void *ptr) {
+    // Create new cell and set its data
+    SimplePtrListCell *new_cell = pg_malloc(sizeof(SimplePtrListCell));
+    new_cell->next = NULL;
+    new_cell->ptr = ptr;
+
+    // Link into list (either as first element or after tail)
+    if (list->tail) {
+        list->tail->next = new_cell;
+    } else {
+        list->head = new_cell;
+    }
+    list->tail = new_cell;
+}
+```

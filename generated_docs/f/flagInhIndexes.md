@@ -35,3 +35,52 @@ The function iterates through all tables, focusing only on partition tables that
 The function only processes partition tables (not regular inheritance), as indicated by the ispartition check. Each partition table can have only one parent, which is verified by an assertion. The dependencies established include not only the indexes themselves but also their underlying tables to prevent parallel restore operations from interfering with each other.
 
 The IndexAttachInfo objects created have the DO_INDEX_ATTACH object type and are tracked in the parent index's partattaches list for organizational purposes during the dump process. This ensures that index attachment operations occur in the proper sequence during database restoration.
+
+## Simplified Source
+
+```c
+static void
+flagInhIndexes(Archive *fout, TableInfo tblinfo[], int numTables)
+{
+    // Process each table in the database
+    for (int i = 0; i < numTables; i++) {
+        // Skip non-partition tables
+        if (!tblinfo[i].ispartition || tblinfo[i].numParents == 0)
+            continue;
+
+        // Process each index on this partition table
+        for (int j = 0; j < tblinfo[i].numIndexes; j++) {
+            IndxInfo *index = &(tblinfo[i].indexes[j]);
+
+            // Skip indexes without parent indexes
+            if (index->parentidx == 0)
+                continue;
+
+            // Find the parent index
+            IndxInfo *parentidx = findIndexByOid(index->parentidx);
+            if (parentidx == NULL)
+                continue;
+
+            // Create IndexAttachInfo object for ATTACH INDEX operation
+            IndexAttachInfo *attachinfo = pg_malloc_object(IndexAttachInfo);
+
+            // Set up the attach info object
+            attachinfo->dobj.objType = DO_INDEX_ATTACH;
+            AssignDumpId(&attachinfo->dobj);
+            attachinfo->dobj.name = pg_strdup(index->dobj.name);
+            attachinfo->dobj.namespace = index->indextable->dobj.namespace;
+            attachinfo->parentIdx = parentidx;
+            attachinfo->partitionIdx = index;
+
+            // Establish dependencies to ensure proper restore order
+            addObjectDependency(&attachinfo->dobj, index->dobj.dumpId);
+            addObjectDependency(&attachinfo->dobj, parentidx->dobj.dumpId);
+            addObjectDependency(&attachinfo->dobj, index->indextable->dobj.dumpId);
+            addObjectDependency(&attachinfo->dobj, parentidx->indextable->dobj.dumpId);
+
+            // Track this attachment in the parent index
+            simple_ptr_list_append(&parentidx->partattaches, &attachinfo->dobj);
+        }
+    }
+}
+```

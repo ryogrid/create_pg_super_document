@@ -42,3 +42,53 @@ The function processes command arguments, handling the special "-n" flag to supp
 - Memory allocated for argument values is properly freed after use
 - The function always returns PSQL_CMD_SKIP_LINE to indicate the command line should be skipped from further processing
 - When active_branch is false, arguments are consumed but not processed (for conditional command handling)
+
+## Simplified Source
+
+```c
+static backslashResult
+exec_command_echo(PsqlScanState scan_state, bool active_branch, const char *cmd)
+{
+    if (active_branch) {
+        char *value;
+        char quoted;
+        bool no_newline = false;
+        bool first = true;
+        FILE *fout;
+
+        // Determine output stream based on command
+        if (strcmp(cmd, "qecho") == 0) {
+            fout = pset.queryFout;  // Query output file
+        } else if (strcmp(cmd, "warn") == 0) {
+            fout = stderr;          // Standard error
+        } else {
+            fout = stdout;          // Standard output (\echo)
+        }
+
+        // Process all arguments
+        while ((value = psql_scan_slash_option(scan_state, OT_NORMAL, &quoted, false))) {
+            // Check for -n flag (no newline) as first unquoted argument
+            if (first && !no_newline && !quoted && strcmp(value, "-n") == 0) {
+                no_newline = true;
+            } else {
+                // Output space before argument (except first)
+                if (!first) {
+                    fputc(' ', fout);
+                }
+                fputs(value, fout);
+                first = false;
+            }
+            free(value);
+        }
+
+        // Add newline unless suppressed by -n flag
+        if (!no_newline) {
+            fputs("\n", fout);
+        }
+    } else {
+        ignore_slash_options(scan_state);
+    }
+
+    return PSQL_CMD_SKIP_LINE;
+}
+```

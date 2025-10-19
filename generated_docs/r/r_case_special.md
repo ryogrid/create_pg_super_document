@@ -45,3 +45,30 @@ This specialized handling is necessary because some Hungarian case forms require
 - Returns 1 on successful transformation, 0 if no pattern matches, and negative values on errors
 - This transformation approach preserves the phonological constraints of Hungarian morphology
 - The pre-check for 'n' or 't' endings optimizes performance by avoiding unnecessary pattern matching
+
+## Simplified Source
+
+```c
+static int r_case_special(struct SN_env * z) {
+    // Set end marker and check for 'n' or 't' endings (110, 116)
+    z->ket = z->c;
+    if (z->c - 1 <= z->lb || (z->p[z->c - 1] != 110 && z->p[z->c - 1] != 116))
+        return 0;
+
+    // Find special case pattern ('án', 'én', 'ánként')
+    int among_var = find_among_b(z, a_5, 3);
+    if (!among_var) return 0;
+
+    // Set start marker and verify in R1 region
+    z->bra = z->c;
+    if (r_R1(z) <= 0) return 0;
+
+    // Transform endings to appropriate vowels
+    switch (among_var) {
+        case 1: slice_from_s(z, 1, s_2); break; // 'én' → 'e'
+        case 2: slice_from_s(z, 1, s_3); break; // 'án', 'ánként' → 'a'
+    }
+
+    return 1;
+}
+```

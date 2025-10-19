@@ -41,3 +41,19 @@ This function is a key component in PostgreSQL's date/time formatting system, us
 - Commonly used in PostgreSQL's to_char() function for formatting dates with ordinal day/month representations
 - The function assumes the input  is a valid numeric string - validation is handled by the underlying  function
 - Return value is the destination buffer pointer, allowing for function chaining
+
+## Simplified Source
+
+```c
+static char *str_numth(char *dest, char *num, int type) {
+    // Copy number to destination if different buffers
+    if (dest != num) {
+        strcpy(dest, num);
+    }
+
+    // Append ordinal suffix (ST/ND/RD/TH)
+    strcat(dest, get_th(num, type));
+
+    return dest;
+}
+```

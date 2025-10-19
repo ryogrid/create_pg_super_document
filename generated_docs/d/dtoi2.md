@@ -42,3 +42,23 @@ The function follows PostgreSQL's error handling conventions, throwing a NUMERIC
 - Part of PostgreSQL's comprehensive type conversion system, located in src/backend/utils/adt/float.c
 - The function signature follows PostgreSQL's version-1 calling convention for built-in functions
 - [Range](../R/Range.md) validation uses the FLOAT8_FITS_IN_INT16 macro which likely checks against INT16_MIN and INT16_MAX boundaries
+
+## Simplified Source
+
+```c
+Datum dtoi2(PG_FUNCTION_ARGS) {
+    // Extract double-precision input
+    float8 num = PG_GETARG_FLOAT8(0);
+
+    // Round to nearest integer (handles fractional parts)
+    num = rint(num);
+
+    // Validate range and reject NaN/out-of-range values
+    if (unlikely(isnan(num) || !FLOAT8_FITS_IN_INT16(num)))
+        ereport(ERROR, (errcode(ERRCODE_NUMERIC_VALUE_OUT_OF_RANGE),
+                       errmsg("smallint out of range")));
+
+    // Convert and return as 16-bit integer
+    PG_RETURN_INT16((int16) num);
+}
+```

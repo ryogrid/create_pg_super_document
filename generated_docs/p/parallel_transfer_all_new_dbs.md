@@ -48,3 +48,73 @@ The function ensures proper stdio state before forking and includes comprehensiv
 - Performance optimization: Enables concurrent tablespace transfers, dramatically improving upgrade time for large databases
 - Error handling: Uses pg_fatal() for critical errors that should terminate the upgrade process
 - Process isolation: On Unix, uses _exit(0) to avoid atexit() functions in child processes
+
+## Simplified Source
+
+```c
+void
+parallel_transfer_all_new_dbs(DbInfoArr *old_db_arr, DbInfoArr *new_db_arr,
+                              char *old_pgdata, char *new_pgdata,
+                              char *old_tablespace)
+{
+    // If not using parallel jobs, execute sequentially
+    if (user_opts.jobs <= 1)
+        transfer_all_new_dbs(old_db_arr, new_db_arr, old_pgdata, new_pgdata, NULL);
+    else
+    {
+        // Parallel execution mode
+#ifdef WIN32
+        // Initialize Windows thread infrastructure if needed
+        if (thread_handles == NULL)
+            thread_handles = pg_malloc(user_opts.jobs * sizeof(HANDLE));
+        if (transfer_thread_args == NULL)
+        {
+            transfer_thread_args = pg_malloc(user_opts.jobs * sizeof(transfer_thread_arg *));
+            for (int i = 0; i < user_opts.jobs; i++)
+                transfer_thread_args[i] = pg_malloc0(sizeof(transfer_thread_arg));
+        }
+        cur_thread_args = (void **) transfer_thread_args;
+#endif
+
+        // Clean up any completed jobs
+        while (reap_child(false))
+            ;
+
+        // Wait for slot if at job limit
+        if (parallel_jobs >= user_opts.jobs)
+            reap_child(true);
+
+        parallel_jobs++;
+        fflush(NULL);  // Ensure clean stdio state
+
+#ifndef WIN32
+        // Unix: fork child process
+        pid_t child = fork();
+        if (child == 0)
+        {
+            transfer_all_new_dbs(old_db_arr, new_db_arr, old_pgdata, new_pgdata, old_tablespace);
+            _exit(0);  // Clean exit from child
+        }
+        else if (child < 0)
+            pg_fatal("could not create worker process: %m");
+#else
+        // Windows: create thread
+        transfer_thread_arg *new_arg = transfer_thread_args[parallel_jobs - 1];
+        new_arg->old_db_arr = old_db_arr;
+        new_arg->new_db_arr = new_db_arr;
+        pg_free(new_arg->old_pgdata);
+        new_arg->old_pgdata = pg_strdup(old_pgdata);
+        pg_free(new_arg->new_pgdata);
+        new_arg->new_pgdata = pg_strdup(new_pgdata);
+        pg_free(new_arg->old_tablespace);
+        new_arg->old_tablespace = old_tablespace ? pg_strdup(old_tablespace) : NULL;
+
+        HANDLE child = (HANDLE) _beginthreadex(NULL, 0, (void *) win32_transfer_all_new_dbs,
+                                               new_arg, 0, NULL);
+        if (child == 0)
+            pg_fatal("could not create worker thread: %m");
+        thread_handles[parallel_jobs - 1] = child;
+#endif
+    }
+}
+```

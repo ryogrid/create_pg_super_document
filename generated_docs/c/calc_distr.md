@@ -43,3 +43,74 @@ Additionally, it models the collective effect of rare elements (not included in 
 - The Poisson convolution models the scenario where many low-probability elements collectively affect selectivity
 - Implements the law of total probability for independent events
 - Space complexity: O(m), Time complexity: O(n*m) for the main calculation plus O(m²) for Poisson convolution
+
+## Simplified Source
+
+```c
+static float *
+calc_distr(const float *p, int n, int m, float rest)
+{
+    // Allocate two rows for dynamic programming matrix
+    float *row = (float *) palloc((m + 1) * sizeof(float));
+    float *prev_row = (float *) palloc((m + 1) * sizeof(float));
+
+    // Initialize: M[0,0] = 1 (probability of 0 events from 0 events)
+    row[0] = 1.0f;
+
+    // Dynamic programming: calculate probabilities for each event
+    for (int i = 1; i <= n; i++)
+    {
+        float prob = p[i - 1];  // Probability of current event
+
+        // Swap current and previous rows
+        float *tmp = row;
+        row = prev_row;
+        prev_row = tmp;
+
+        // Calculate probabilities for j occurrences
+        for (int j = 0; j <= i && j <= m; j++)
+        {
+            float val = 0.0f;
+
+            // Probability that event doesn't occur
+            if (j < i)
+                val += prev_row[j] * (1.0f - prob);
+
+            // Probability that event occurs
+            if (j > 0)
+                val += prev_row[j - 1] * prob;
+
+            row[j] = val;
+        }
+    }
+
+    // Handle rare elements using Poisson distribution
+    if (rest > DEFAULT_CONTAIN_SEL)
+    {
+        // Swap rows for convolution calculation
+        float *tmp = row;
+        row = prev_row;
+        prev_row = tmp;
+
+        // Initialize result array
+        for (int i = 0; i <= m; i++)
+            row[i] = 0.0f;
+
+        // Calculate Poisson probabilities and convolve
+        float poisson_prob = exp(-rest);  // P(X=0) for Poisson(rest)
+
+        for (int i = 0; i <= m; i++)
+        {
+            // Add contribution from Poisson value i
+            for (int j = 0; j <= m - i; j++)
+                row[j + i] += prev_row[j] * poisson_prob;
+
+            // Update to next Poisson probability: P(X=i+1)
+            poisson_prob *= rest / (float)(i + 1);
+        }
+    }
+
+    pfree(prev_row);
+    return row;
+}
+```

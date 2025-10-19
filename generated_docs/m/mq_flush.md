@@ -36,3 +36,14 @@ The function is part of the PQcommMethods interface that allows PostgreSQL to ab
 - The empty implementation is intentional and documented with the comment "Nothing to do."
 - Essential for maintaining interface compatibility across different communication methods
 - Shared memory queues provide immediate data transmission without the need for explicit flushing
+
+## Simplified Source
+
+```c
+static int
+mq_flush(void)
+{
+    // No-op: Shared memory queues don't need explicit flushing
+    return 0;
+}
+```

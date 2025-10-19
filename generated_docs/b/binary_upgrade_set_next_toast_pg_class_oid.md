@@ -42,3 +42,20 @@ The function can only be called when the server is running in binary upgrade mod
 - TOAST tables are essential for storing values larger than approximately 2KB in PostgreSQL
 - This mechanism ensures that the relationship between base tables and their TOAST tables is preserved across upgrades
 - Works as part of the comprehensive OID preservation system alongside heap table and index OID preservation functions
+
+## Simplified Source
+
+```c
+Datum binary_upgrade_set_next_toast_pg_class_oid(PG_FUNCTION_ARGS)
+{
+    Oid reloid = PG_GETARG_OID(0);
+
+    // Verify we're in binary upgrade mode
+    CHECK_IS_BINARY_UPGRADE;
+
+    // Store the OID for the next TOAST table to be created
+    binary_upgrade_next_toast_pg_class_oid = reloid;
+
+    PG_RETURN_VOID();
+}
+```

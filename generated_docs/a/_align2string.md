@@ -31,3 +31,23 @@ The `_align2string` function serves as a conversion utility that maps enum value
 - All supported psql output formats are covered: aligned tables, CSV, HTML, LaTeX variants, troff, unaligned, wrapped, and asciidoc
 - The returned strings are const and should not be modified by the caller
 - Used primarily for user interface purposes where format names need to be displayed
+
+## Simplified Source
+
+```c
+static const char *_align2string(enum printFormat in) {
+    switch (in) {
+        case PRINT_NOTHING:         return "nothing";
+        case PRINT_ALIGNED:         return "aligned";
+        case PRINT_ASCIIDOC:        return "asciidoc";
+        case PRINT_CSV:             return "csv";
+        case PRINT_HTML:            return "html";
+        case PRINT_LATEX:           return "latex";
+        case PRINT_LATEX_LONGTABLE: return "latex-longtable";
+        case PRINT_TROFF_MS:        return "troff-ms";
+        case PRINT_UNALIGNED:       return "unaligned";
+        case PRINT_WRAPPED:         return "wrapped";
+    }
+    return "unknown";
+}
+```

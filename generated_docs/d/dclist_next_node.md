@@ -31,3 +31,16 @@ The `dclist_next_node` function retrieves the next node in a doubly-linked count
 - The caller must ensure that a next node exists before calling this function
 - Located in src/include/lib/ilist.h:867-878
 - Returns a pointer to the next dlist_node in the sequence
+
+## Simplified Source
+
+```c
+static inline dlist_node *
+dclist_next_node(dclist_head *head, dlist_node *node) {
+    // Ensure list is not empty
+    Assert(head->count > 0);
+
+    // Return the next node (assumes one exists)
+    return dlist_next_node(&head->dlist, node);
+}
+```

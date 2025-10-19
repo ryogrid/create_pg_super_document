@@ -32,3 +32,27 @@ The  function is used during PostgreSQL upgrade operations to verify whether a P
 - The function only checks for file existence, not whether the PID in the file corresponds to a running process
 - Handles ENOTDIR and ENOENT errors as normal conditions, but treats other open() failures as fatal errors
 - Part of PostgreSQL's pg_upgrade utility for major version upgrades
+
+## Simplified Source
+
+```c
+bool pid_lock_file_exists(const char *datadir) {
+    char path[MAXPGPATH];
+    int fd;
+
+    // Construct path to postmaster.pid file
+    snprintf(path, sizeof(path), "%s/postmaster.pid", datadir);
+
+    // Try to open the file
+    if ((fd = open(path, O_RDONLY, 0)) < 0) {
+        // Expected errors: file not found or invalid directory
+        if (errno != ENOENT && errno != ENOTDIR)
+            pg_fatal("could not open file \"%s\" for reading: %m", path);
+        return false;
+    }
+
+    // File exists - close and return true
+    close(fd);
+    return true;
+}
+```

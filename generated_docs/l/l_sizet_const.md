@@ -29,5 +29,18 @@ This utility function wraps LLVM's  function to create size_t constant values in
 - This function is heavily used throughout PostgreSQL's JIT expression and deform compilation
 - The function relies on the global TypeSizeT which must be properly initialized
 - Used for creating constants related to memory offsets, array indices, and size calculations
-- The third parameter  in LLVMConstInt indicates the value is not sign-extended
+- The third parameter in LLVMConstInt indicates the value is not sign-extended
 - Critical for ensuring platform-independent size handling in JIT-compiled code
+
+## Simplified Source
+
+```c
+static inline LLVMValueRef
+l_sizet_const(size_t i)
+{
+    // Create LLVM constant for size_t value (platform-dependent size)
+    return LLVMConstInt(TypeSizeT, i, false);
+}
+```
+
+This helper function creates LLVM constants for size_t values, which are crucial for memory operations and array indexing. Unlike the other integer constants, it uses a global TypeSizeT type and doesn't take an LLVM context parameter.

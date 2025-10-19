@@ -35,3 +35,22 @@ psql_cancel_callback serves as the signal handler callback for interruption requ
 - The cancel_pressed flag provides a polling-based cancellation mechanism for long operations
 - Part of psql's signal handling and graceful shutdown infrastructure
 - Works in conjunction with psql_setup_cancel_handler for complete interrupt handling
+
+## Simplified Source
+
+```c
+static void
+psql_cancel_callback(void)
+{
+#ifndef WIN32
+    // If waiting for input, immediately jump out
+    if (sigint_interrupt_enabled) {
+        sigint_interrupt_enabled = false;
+        siglongjmp(sigint_interrupt_jmp, 1);
+    }
+#endif
+
+    // Set flag for polling-based cancellation
+    cancel_pressed = true;
+}
+```

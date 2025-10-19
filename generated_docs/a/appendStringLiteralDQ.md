@@ -37,3 +37,35 @@ The algorithm ensures compliance with PostgreSQL's dollar-quoting rules by check
 - Uses a cycling suffix system ('_XXXXXXX') to generate unique delimiters when conflicts are detected
 - The delimiter collision detection specifically excludes the trailing '$' to handle edge cases where strings end with potential delimiter patterns
 - Commonly used in pg_dump for preserving complex string content like function bodies without modification
+
+## Simplified Source
+
+```c
+void appendStringLiteralDQ(PQExpBuffer buf, const char *str, const char *dqprefix) {
+    static const char suffixes[] = "_XXXXXXX";
+    int nextchar = 0;
+    PQExpBuffer delimBuf = createPQExpBuffer();
+
+    // Build initial delimiter: $ + optional prefix
+    appendPQExpBufferChar(delimBuf, '$');
+    if (dqprefix)
+        appendPQExpBufferStr(delimBuf, dqprefix);
+
+    // Ensure delimiter doesn't appear in the string
+    // (Check without trailing $ to avoid conflicts with strings ending in potential delimiters)
+    while (strstr(str, delimBuf->data) != NULL) {
+        appendPQExpBufferChar(delimBuf, suffixes[nextchar++]);
+        nextchar %= sizeof(suffixes) - 1;  // Cycle through suffix characters
+    }
+
+    // Add trailing $ to complete delimiter
+    appendPQExpBufferChar(delimBuf, '$');
+
+    // Generate dollar-quoted string: delimiter + content + delimiter
+    appendPQExpBufferStr(buf, delimBuf->data);
+    appendPQExpBufferStr(buf, str);
+    appendPQExpBufferStr(buf, delimBuf->data);
+
+    destroyPQExpBuffer(delimBuf);
+}
+```

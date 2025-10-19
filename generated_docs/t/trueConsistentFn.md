@@ -30,3 +30,13 @@ This function serves as a placeholder consistent function for GIN (Generalized I
 - Used specifically for keys that should match everything, eliminating the need for complex consistency logic
 - The recheckCurItem = false assignment indicates that no heap-level rechecking is required since the key matches everything by definition
 - Located in src/backend/access/gin/ginlogic.c:50-55
+
+## Simplified Source
+
+```c
+static bool trueConsistentFn(GinScanKey key) {
+    // Always return true for EVERYTHING keys - no consistency check needed
+    key->recheckCurItem = false;  // No heap-level recheck required
+    return true;
+}
+```

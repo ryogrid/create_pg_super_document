@@ -55,3 +55,51 @@ The statistics can be output in two ways: through a callback function for custom
 - The function supports both immediate output via callback and cumulative statistics collection
 - Part of PostgreSQL's generation memory context system designed for allocation patterns where chunks are typically freed in bulk
 - Uses assertions to validate the GenerationContext before processing
+
+## Simplified Source
+
+```c
+void GenerationStats(MemoryContext context,
+                     MemoryStatsPrintFunc printfunc, void *passthru,
+                     MemoryContextCounters *totals, bool print_to_stderr) {
+    GenerationContext *set = (GenerationContext *) context;
+    Size nblocks = 0;
+    Size nchunks = 0;
+    Size nfreechunks = 0;
+    Size totalspace;
+    Size freespace = 0;
+    dlist_iter iter;
+
+    // Include context header in total space calculation
+    totalspace = MAXALIGN(sizeof(GenerationContext));
+
+    // Iterate through all blocks to collect statistics
+    dlist_foreach(iter, &set->blocks) {
+        GenerationBlock *block = dlist_container(GenerationBlock, node, iter.cur);
+
+        nblocks++;
+        nchunks += block->nchunks;
+        nfreechunks += block->nfree;
+        totalspace += block->blksize;
+        freespace += (block->endptr - block->freeptr);
+    }
+
+    // Format and print statistics if requested
+    if (printfunc) {
+        char stats_string[200];
+        snprintf(stats_string, sizeof(stats_string),
+                 "%zu total in %zu blocks (%zu chunks); %zu free (%zu chunks); %zu used",
+                 totalspace, nblocks, nchunks, freespace,
+                 nfreechunks, totalspace - freespace);
+        printfunc(context, passthru, stats_string, print_to_stderr);
+    }
+
+    // Accumulate into totals if provided
+    if (totals) {
+        totals->nblocks += nblocks;
+        totals->freechunks += nfreechunks;
+        totals->totalspace += totalspace;
+        totals->freespace += freespace;
+    }
+}
+```

@@ -30,3 +30,14 @@ The  function is a simple signal handler designed to provide graceful terminatio
 - The handler is registered for termination signals in the main function of WAL receiver utilities
 - The simple design (just setting a flag) makes it signal-safe, avoiding potential issues with more complex operations in signal handlers
 - Used in both pg_receivewal and pg_recvlogical utilities for consistent termination handling
+
+## Simplified Source
+
+```c
+static void
+sigexit_handler(SIGNAL_ARGS)
+{
+    // Signal main loop to stop gracefully
+    time_to_stop = true;
+}
+```

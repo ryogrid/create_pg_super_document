@@ -48,3 +48,126 @@ This is the most sophisticated table formatting function in PostgreSQL's printin
 - Uses sophisticated memory management with multiple dynamically allocated arrays
 - Function is static, indicating it's only used within the print.c module
 - Essential for creating the professional table output that PostgreSQL is known for in psql client
+
+## Simplified Source
+
+```c
+static void
+print_aligned_text(const printTableContent *cont, FILE *fout, bool is_pager)
+{
+    bool opt_tuples_only = cont->opt->tuples_only;
+    unsigned short opt_border = cont->opt->border;
+    const printTextFormat *format = get_line_style(cont->opt);
+    unsigned int col_count = cont->ncolumns;
+    unsigned int *width_header, *max_width, *width_wrap;
+    unsigned int width_total;
+    int output_columns = 0;
+
+    if (cancel_pressed)
+        return;
+
+    // Allocate arrays for column width calculations
+    width_header = pg_malloc0(col_count * sizeof(*width_header));
+    max_width = pg_malloc0(col_count * sizeof(*max_width));
+    width_wrap = pg_malloc0(col_count * sizeof(*width_wrap));
+
+    // Scan headers to find maximum widths
+    for (int i = 0; i < col_count; i++)
+    {
+        int width, nl_lines, bytes_required;
+        pg_wcssize(cont->headers[i], strlen(cont->headers[i]),
+                   encoding, &width, &nl_lines, &bytes_required);
+        if (width > max_width[i])
+            max_width[i] = width;
+        width_header[i] = width;
+    }
+
+    // Scan all cells to find maximum widths
+    for (const char *const *ptr = cont->cells; *ptr; ptr++)
+    {
+        int width, nl_lines, bytes_required;
+        pg_wcssize(*ptr, strlen(*ptr), encoding,
+                   &width, &nl_lines, &bytes_required);
+        if (width > max_width[i % col_count])
+            max_width[i % col_count] = width;
+    }
+
+    // Calculate total width needed
+    width_total = (opt_border == 0) ? col_count :
+                  (opt_border == 1) ? col_count * 3 - 1 : col_count * 3 + 1;
+    for (int i = 0; i < col_count; i++)
+        width_total += max_width[i];
+
+    // Set wrap widths and determine output columns
+    for (int i = 0; i < col_count; i++)
+        width_wrap[i] = max_width[i];
+
+    if (cont->opt->columns > 0)
+        output_columns = cont->opt->columns;
+    // Handle terminal width detection...
+
+    // Switch to vertical mode if table too wide
+    if (cont->opt->expanded == 2 && output_columns > 0 &&
+        cont->ncolumns > 1 && width_total > output_columns)
+    {
+        print_aligned_vertical(cont, fout, is_pager);
+        goto cleanup;
+    }
+
+    // Print title if present
+    if (cont->title && !opt_tuples_only)
+        fprintf(fout, "%s\n", cont->title);
+
+    // Print headers with borders
+    if (!opt_tuples_only)
+    {
+        if (opt_border == 2)
+            _print_horizontal_line(col_count, width_wrap, opt_border,
+                                   PRINT_RULE_TOP, format, fout);
+
+        // Print header row with proper formatting...
+        _print_horizontal_line(col_count, width_wrap, opt_border,
+                               PRINT_RULE_MIDDLE, format, fout);
+    }
+
+    // Print data rows
+    for (int i = 0, ptr = cont->cells; *ptr; i += col_count, ptr += col_count)
+    {
+        if (cancel_pressed)
+            break;
+
+        // Format and print each cell in the row
+        for (int j = 0; j < col_count; j++)
+        {
+            // Handle borders, alignment, and wrapping
+            if (opt_border >= 1)
+                fputs(" ", fout);
+
+            // Print cell content with proper alignment
+            if (cont->aligns[j] == 'r')
+                fprintf(fout, "%*s", width_wrap[j], ptr[j]);
+            else
+                fprintf(fout, "%-*s", width_wrap[j], ptr[j]);
+
+            if (j < col_count - 1 && opt_border >= 1)
+                fputs(" | ", fout);
+        }
+        fputc('\n', fout);
+    }
+
+    // Print footer
+    if (cont->opt->stop_table)
+    {
+        if (opt_border == 2)
+            _print_horizontal_line(col_count, width_wrap, opt_border,
+                                   PRINT_RULE_BOTTOM, format, fout);
+        fputc('\n', fout);
+    }
+
+cleanup:
+    // Free allocated memory
+    free(width_header);
+    free(max_width);
+    free(width_wrap);
+}
+```

@@ -29,3 +29,25 @@ This function uses the select() system call to monitor a set of socket file desc
 - Only monitors for read readiness (input activity) - write and exception sets are NULL
 - Part of pgbench's asynchronous I/O handling for managing multiple concurrent database connections
 - Uses sa->maxfd + 1 as the nfds parameter to select(), following POSIX requirements
+
+## Simplified Source
+
+```c
+static int
+wait_on_socket_set(socket_set *sa, int64 usecs)
+{
+    if (usecs > 0)
+    {
+        // Convert microseconds to timeval for timeout
+        struct timeval timeout;
+        timeout.tv_sec = usecs / 1000000;
+        timeout.tv_usec = usecs % 1000000;
+        return select(sa->maxfd + 1, &sa->fds, NULL, NULL, &timeout);
+    }
+    else
+    {
+        // Block indefinitely until socket activity
+        return select(sa->maxfd + 1, &sa->fds, NULL, NULL, NULL);
+    }
+}
+```

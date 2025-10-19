@@ -36,3 +36,23 @@ The  function extracts the center point from a PostgreSQL CIRCLE geometric data 
 - The center coordinates are directly copied from the input circle's center field
 - This is a PostgreSQL built-in function that can be called from SQL as 
 - Memory allocation is handled by PostgreSQL's memory context system
+
+## Simplified Source
+
+```c
+Datum circle_center(PG_FUNCTION_ARGS) {
+    CIRCLE *circle = PG_GETARG_CIRCLE_P(0);
+    Point *result;
+
+    // Allocate memory for the result point
+    result = (Point *) palloc(sizeof(Point));
+
+    // Copy center coordinates from circle to result point
+    result->x = circle->center.x;
+    result->y = circle->center.y;
+
+    PG_RETURN_POINT_P(result);
+}
+```
+
+This function extracts the center point from a circle. It allocates a new Point structure, copies the x and y coordinates from the circle's center field, and returns the point to PostgreSQL.

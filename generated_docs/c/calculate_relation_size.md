@@ -47,3 +47,43 @@ Notably, this function can safely be applied to temporary tables from other sess
 - The function is defined in src/backend/utils/adt/dbsize.c:308-345
 - Segment numbering starts at 0 (base file has no suffix), then continues with .1, .2, etc.
 - Critical component used by higher-level size calculation functions throughout PostgreSQL's size reporting system
+
+## Simplified Source
+
+```c
+static int64 calculate_relation_size(RelFileLocator *rfn, ProcNumber backend, ForkNumber forknum) {
+    int64 totalsize = 0;
+    char *relationpath;
+    char pathname[MAXPGPATH];
+    unsigned int segcount = 0;
+
+    // Get base path for the relation fork
+    relationpath = relpathbackend(*rfn, backend, forknum);
+
+    // Iterate through all segment files
+    for (segcount = 0;; segcount++) {
+        struct stat fst;
+
+        CHECK_FOR_INTERRUPTS();
+
+        // Build pathname for current segment
+        if (segcount == 0)
+            snprintf(pathname, MAXPGPATH, "%s", relationpath);
+        else
+            snprintf(pathname, MAXPGPATH, "%s.%u", relationpath, segcount);
+
+        // Check if segment file exists
+        if (stat(pathname, &fst) < 0) {
+            if (errno == ENOENT)
+                break;  // No more segments
+            else
+                ereport(ERROR, "could not stat file \"%s\"", pathname);
+        }
+
+        // Add segment size to total
+        totalsize += fst.st_size;
+    }
+
+    return totalsize;
+}
+```

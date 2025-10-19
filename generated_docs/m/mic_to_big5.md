@@ -38,3 +38,22 @@ The `mic_to_big5` function is a PostgreSQL conversion function that handles the 
 - Returns the number of bytes successfully converted
 - Validates that the conversion is between the expected encodings (MIC to Big5)
 - The actual conversion logic is implemented in the `mic2big5` helper function
+
+## Simplified Source
+
+```c
+Datum mic_to_big5(PG_FUNCTION_ARGS) {
+    // Extract conversion parameters from function arguments
+    unsigned char *src = (unsigned char *) PG_GETARG_CSTRING(2);
+    unsigned char *dest = (unsigned char *) PG_GETARG_CSTRING(3);
+    int len = PG_GETARG_INT32(4);
+    bool noError = PG_GETARG_BOOL(5);
+
+    // Validate this is a MIC to Big5 conversion
+    CHECK_ENCODING_CONVERSION_ARGS(PG_MULE_INTERNAL, PG_BIG5);
+
+    // Perform the actual conversion and return bytes converted
+    int converted = mic2big5(src, dest, len, noError);
+    PG_RETURN_INT32(converted);
+}
+```

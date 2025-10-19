@@ -38,3 +38,12 @@ The implementation uses bounding box comparisons for efficient computation, maki
 - Compares boundbox.low.y values of both polygons
 - Part of PostgreSQL's geometric data type operator family for spatial relationships
 - Essential for R-tree index operations requiring spatial ordering with overlap detection
+
+## Simplified Source
+
+```c
+bool poly_overabove(POLYGON *polya, POLYGON *polyb) {
+    // Check if polygon A's lowest point is at or above polygon B's lowest point
+    return polya->boundbox.low.y >= polyb->boundbox.low.y;
+}
+```

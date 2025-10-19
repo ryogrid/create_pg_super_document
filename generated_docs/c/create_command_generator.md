@@ -30,3 +30,12 @@ The function follows the standard readline completion generator interface, takin
 
 ## Notes and Other Information
 This function is part of psql's context-sensitive tab completion system. It ensures that after typing "CREATE", users only see completions for valid CREATE commands like TABLE, INDEX, FUNCTION, etc., while filtering out commands that don't make sense in this context. The function leverages the shared completion infrastructure while providing CREATE-specific filtering.
+
+## Simplified Source
+
+```c
+static char *create_command_generator(const char *text, int state) {
+    // Delegate to common generator, excluding CREATE-incompatible commands
+    return create_or_drop_command_generator(text, state, THING_NO_CREATE);
+}
+```

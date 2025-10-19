@@ -32,3 +32,18 @@ This function is used as part of PostgreSQL's pattern matching optimization wher
 - Returns true if increment was successful, false if the byte was already at maximum value (255)
 - The `len` parameter is not used in this implementation but is kept for consistency with similar increment functions
 - Part of PostgreSQL's LIKE pattern optimization infrastructure
+
+## Simplified Source
+
+```c
+// Simplified version of byte_increment
+static bool byte_increment(unsigned char *ptr, int len) {
+    // Check if byte is already at maximum (255)
+    if (*ptr >= 255)
+        return false;
+
+    // Increment the byte value
+    (*ptr)++;
+    return true;
+}
+```

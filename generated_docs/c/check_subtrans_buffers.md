@@ -33,3 +33,12 @@ This function serves as a validation hook for the subtransaction_buffers configu
 - The actual validation logic is in check_slru_buffers, which ensures the value is a multiple of SLRU_BANK_SIZE
 - Part of PostgreSQL's configuration validation framework for SLRU-based subsystems
 - Located in src/backend/access/transam/subtrans.c:254-269
+
+## Simplified Source
+
+```c
+bool check_subtrans_buffers(int *newval, void **extra, GucSource source) {
+    // Validate subtransaction buffer count using generic SLRU validation
+    return check_slru_buffers("subtransaction_buffers", newval);
+}
+```

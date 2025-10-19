@@ -44,3 +44,54 @@ This function ensures that 'e' endings are only removed when they follow consona
 - The integration with r_undouble ensures proper consonant handling after suffix removal
 - Only called from r_standard_suffix, indicating its role as a specialized sub-operation in Dutch stemming
 - Available in both ISO-8859-1 and UTF-8 variants for different character encodings
+
+## Simplified Source
+
+```c
+static int r_e_ending(struct SN_env * z) {
+    // Initialize state flag
+    z->I[2] = 0;
+    z->ket = z->c;
+
+    // Check if word ends with 'e'
+    if (z->c <= z->lb || z->p[z->c - 1] != 'e') {
+        return 0;  // No 'e' ending found
+    }
+
+    // Move cursor to position before 'e'
+    z->c--;
+    z->bra = z->c;
+
+    // Verify we're in the R1 region (valid stemming area)
+    if (r_R1(z) <= 0) {
+        return 0;  // Not in R1 region
+    }
+
+    // Check that character before 'e' is NOT a vowel
+    int saved_pos = z->l - z->c;
+    if (out_grouping_b(z, g_v, 97, 232, 0)) {
+        return 0;  // Previous character is a vowel, don't remove 'e'
+    }
+    z->c = z->l - saved_pos;  // Restore position
+
+    // Remove the 'e' ending
+    slice_del(z);
+
+    // Set success flag
+    z->I[2] = 1;
+
+    // Clean up any doubled consonants that may result
+    r_undouble(z);
+
+    return 1;  // Success
+}
+```
+
+This function handles Dutch 'e' ending removal with these conditions:
+1. **Word ends with 'e'**: Checks for trailing 'e' character
+2. **R1 region check**: Ensures removal occurs in morphologically appropriate area
+3. **Consonant requirement**: Only removes 'e' if preceded by a consonant (not vowel)
+4. **Safe removal**: Deletes the 'e' and sets success flag (z->I[2] = 1)
+5. **Consonant cleanup**: Calls r_undouble to fix doubled consonants
+
+This prevents over-stemming by preserving 'e' endings after vowels, which are often part of the word root in Dutch.

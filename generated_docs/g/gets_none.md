@@ -33,3 +33,14 @@ The `gets_none` function is a static helper function that implements line-orient
 - The function is static, limiting its scope to the compress_none.c file
 - Part of the modular compression system in pg_dump that provides consistent line-reading interface across different compression methods
 - Useful for reading text-based dump formats line by line
+
+## Simplified Source
+
+```c
+static char *
+gets_none(char *ptr, int size, CompressFileHandle *CFH)
+{
+    // Simple wrapper around fgets for uncompressed files
+    return fgets(ptr, size, (FILE *) CFH->private_data);
+}
+```

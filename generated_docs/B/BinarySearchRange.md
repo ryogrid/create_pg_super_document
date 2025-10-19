@@ -40,3 +40,65 @@ The algorithm includes sophisticated distance calculations that account for the 
 - Returns 0 if no valid mapping is found or if the peer value is 0
 - The algorithm assumes the input array is properly sorted by the code field
 - Critical for proper character encoding conversion in PostgreSQL's multi-byte character support
+
+## Simplified Source
+
+```c
+static unsigned short BinarySearchRange(const codes_t *array, int high, unsigned short code)
+{
+    int low = 0;
+    int mid = high >> 1;
+
+    // Binary search for the code range
+    for (; low <= high; mid = (low + high) >> 1)
+    {
+        if ((array[mid].code <= code) && (array[mid + 1].code > code))
+        {
+            if (array[mid].peer == 0)
+                return 0;
+
+            if (code >= 0xa140U)
+            {
+                // Big5 to CNS conversion
+                int tmp = ((code & 0xff00) - (array[mid].code & 0xff00)) >> 8;
+                int high_byte = code & 0x00ff;
+                int low_byte = array[mid].code & 0x00ff;
+
+                // Calculate distance with Big5 radix (0x9d) and bias adjustment
+                int distance = tmp * 0x9d + high_byte - low_byte +
+                    (high_byte >= 0xa1 ? (low_byte >= 0xa1 ? 0 : -0x22)
+                     : (low_byte >= 0xa1 ? +0x22 : 0));
+
+                // Convert distance to CNS code point
+                tmp = (array[mid].peer & 0x00ff) + distance - 0x21;
+                tmp = (array[mid].peer & 0xff00) + ((tmp / 0x5e) << 8)
+                    + 0x21 + tmp % 0x5e;
+                return tmp;
+            }
+            else
+            {
+                // CNS to Big5 conversion
+                int tmp = ((code & 0xff00) - (array[mid].code & 0xff00)) >> 8;
+
+                // Calculate distance with ISO charset radix (0x5e)
+                int distance = tmp * 0x5e
+                    + ((int) (code & 0x00ff) - (int) (array[mid].code & 0x00ff));
+
+                // Convert distance to Big5 code point
+                int low_byte = array[mid].peer & 0x00ff;
+                tmp = low_byte + distance - (low_byte >= 0xa1 ? 0x62 : 0x40);
+                low_byte = tmp % 0x9d;
+                tmp = (array[mid].peer & 0xff00) + ((tmp / 0x9d) << 8)
+                    + (low_byte > 0x3e ? 0x62 : 0x40) + low_byte;
+                return tmp;
+            }
+        }
+        else if (array[mid].code > code)
+            high = mid - 1;
+        else
+            low = mid + 1;
+    }
+
+    return 0;  // No mapping found
+}
+```

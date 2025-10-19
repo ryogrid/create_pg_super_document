@@ -32,3 +32,18 @@ This function serves as the input routine for the brin_bloom_summary data type, 
 - The brin_bloom_summary type stores data in binary form only
 - This restriction prevents users from manually creating or manipulating bloom summaries, maintaining data integrity
 - The PG_RETURN_VOID at the end is never reached but included to satisfy compiler requirements
+
+## Simplified Source
+
+```c
+Datum
+brin_bloom_summary_in(PG_FUNCTION_ARGS)
+{
+    // brin_bloom_summary is internal-only, disallow text input
+    ereport(ERROR,
+            (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+             errmsg("cannot accept a value of type %s", "pg_brin_bloom_summary")));
+
+    PG_RETURN_VOID(); // Never reached, but keeps compiler happy
+}
+```

@@ -49,3 +49,73 @@ This callback function is invoked when the JSON parser encounters the start of a
 - Comprehensive error handling for unrecognized fields at each level through json_manifest_parse_failure
 - The function always returns JSON_SUCCESS, with errors handled through the parse failure mechanism
 - The isnull parameter is accepted for compatibility but not currently used in the implementation
+
+## Simplified Source
+
+```c
+static JsonParseErrorType json_manifest_object_field_start(void *state, char *fname, bool isnull) {
+    JsonManifestParseState *parse = state;
+
+    switch (parse->state) {
+        case JM_EXPECT_TOPLEVEL_FIELD:
+            // Handle top-level manifest fields
+            if (!parse->saw_version_field) {
+                // Version must be first field
+                if (strcmp(fname, "PostgreSQL-Backup-Manifest-Version") != 0)
+                    json_manifest_parse_failure(parse->context, "expected version indicator");
+                parse->state = JM_EXPECT_VERSION_VALUE;
+                parse->saw_version_field = true;
+            } else if (strcmp(fname, "System-Identifier") == 0) {
+                parse->state = JM_EXPECT_SYSTEM_IDENTIFIER_VALUE;
+            } else if (strcmp(fname, "Files") == 0) {
+                parse->state = JM_EXPECT_FILES_START;
+            } else if (strcmp(fname, "WAL-Ranges") == 0) {
+                parse->state = JM_EXPECT_WAL_RANGES_START;
+            } else if (strcmp(fname, "Manifest-Checksum") == 0) {
+                parse->state = JM_EXPECT_MANIFEST_CHECKSUM_VALUE;
+            } else {
+                json_manifest_parse_failure(parse->context, "unrecognized top-level field");
+            }
+            break;
+
+        case JM_EXPECT_THIS_FILE_FIELD:
+            // Handle file object fields
+            if (strcmp(fname, "Path") == 0)
+                parse->file_field = JMFF_PATH;
+            else if (strcmp(fname, "Encoded-Path") == 0)
+                parse->file_field = JMFF_ENCODED_PATH;
+            else if (strcmp(fname, "Size") == 0)
+                parse->file_field = JMFF_SIZE;
+            else if (strcmp(fname, "Last-Modified") == 0)
+                parse->file_field = JMFF_LAST_MODIFIED;
+            else if (strcmp(fname, "Checksum-Algorithm") == 0)
+                parse->file_field = JMFF_CHECKSUM_ALGORITHM;
+            else if (strcmp(fname, "Checksum") == 0)
+                parse->file_field = JMFF_CHECKSUM;
+            else
+                json_manifest_parse_failure(parse->context, "unexpected file field");
+            parse->state = JM_EXPECT_THIS_FILE_VALUE;
+            break;
+
+        case JM_EXPECT_THIS_WAL_RANGE_FIELD:
+            // Handle WAL range object fields
+            if (strcmp(fname, "Timeline") == 0)
+                parse->wal_range_field = JMWRF_TIMELINE;
+            else if (strcmp(fname, "Start-LSN") == 0)
+                parse->wal_range_field = JMWRF_START_LSN;
+            else if (strcmp(fname, "End-LSN") == 0)
+                parse->wal_range_field = JMWRF_END_LSN;
+            else
+                json_manifest_parse_failure(parse->context, "unexpected WAL range field");
+            parse->state = JM_EXPECT_THIS_WAL_RANGE_VALUE;
+            break;
+
+        default:
+            json_manifest_parse_failure(parse->context, "unexpected object field");
+            break;
+    }
+
+    pfree(fname);
+    return JSON_SUCCESS;
+}
+```

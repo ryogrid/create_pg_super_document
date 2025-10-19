@@ -31,3 +31,18 @@ The  function serves as a validation and assignment hook for the SINGLESTEP psql
 - The function returns true if the value was successfully parsed and set, false otherwise
 - Located in src/bin/psql/startup.c at lines 899-904
 - Provides a debugging mechanism similar to single-step execution in debuggers
+
+## Simplified Source
+
+```c
+static bool singlestep_hook(const char *newval) {
+    // Parse and validate boolean value, then set single-step mode flag
+    return ParseVariableBool(newval, "SINGLESTEP", &pset.singlestep);
+}
+```
+
+This hook function:
+1. Validates the new string value as a boolean
+2. Sets the global SINGLESTEP flag if valid
+3. Controls whether psql prompts before executing each command (debugging mode)
+4. Returns true on success, false on invalid input

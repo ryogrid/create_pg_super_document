@@ -41,3 +41,13 @@ The `patternjoinsel` function provides a basic selectivity estimate for pattern-
 - Part of PostgreSQL's join selectivity estimation framework
 - Located in `src/backend/utils/adt/like_support.c:875-884`
 - The comment `For the moment we just punt` indicates this is a placeholder implementation
+
+## Simplified Source
+
+```c
+static double patternjoinsel(PG_FUNCTION_ARGS, Pattern_Type ptype, bool negate) {
+    // Currently uses a simple default selectivity estimate
+    // Returns complement for negated patterns
+    return negate ? (1.0 - DEFAULT_MATCH_SEL) : DEFAULT_MATCH_SEL;
+}
+```

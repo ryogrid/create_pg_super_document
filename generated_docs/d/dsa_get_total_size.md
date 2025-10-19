@@ -32,3 +32,18 @@ The returned size represents only the currently active segments and does not inc
 - Returns only the size of active segments, not freed segments that may still be attached
 - The size is measured in bytes and represents virtual memory usage
 - This function is useful for monitoring memory usage and implementing memory management policies
+
+## Simplified Source
+
+```c
+size_t dsa_get_total_size(dsa_area *area) {
+    size_t size;
+
+    // Acquire lock to read total size atomically
+    LWLockAcquire(DSA_AREA_LOCK(area), LW_EXCLUSIVE);
+    size = area->control->total_segment_size;
+    LWLockRelease(DSA_AREA_LOCK(area));
+
+    return size;
+}
+```

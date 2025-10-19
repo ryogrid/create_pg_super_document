@@ -43,3 +43,18 @@ This function provides more control over large object creation by allowing expli
 - Located in 
 - Part of the Import/Export section of large object functionality
 - Useful for scenarios requiring deterministic OID assignment, such as backup restoration or data synchronization
+
+## Simplified Source
+
+```c
+Datum
+be_lo_import_with_oid(PG_FUNCTION_ARGS)
+{
+    // Extract filename and desired OID from function arguments
+    text *filename = PG_GETARG_TEXT_PP(0);
+    Oid oid = PG_GETARG_OID(1);
+
+    // Import file as large object with specified OID
+    return PG_RETURN_OID(lo_import_internal(filename, oid));
+}
+```

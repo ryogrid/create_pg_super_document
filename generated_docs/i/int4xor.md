@@ -33,3 +33,16 @@ The function uses PostgreSQL's function call convention with PG_FUNCTION_ARGS ma
 - Part of PostgreSQL's arithmetic and bitwise operations for the int4 data type
 - The bitwise XOR operation sets each bit to 1 if exactly one of the corresponding bits in the operands is 1
 - [Result](../R/Result.md) follows standard C bitwise XOR semantics for 32-bit signed integers
+
+## Simplified Source
+
+```c
+Datum int4xor(PG_FUNCTION_ARGS) {
+    // Extract two 32-bit integers from function arguments
+    int32 arg1 = PG_GETARG_INT32(0);
+    int32 arg2 = PG_GETARG_INT32(1);
+
+    // Perform bitwise XOR operation and return result
+    PG_RETURN_INT32(arg1 ^ arg2);
+}
+```

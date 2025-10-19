@@ -35,4 +35,30 @@ The  function handles the  backslash command in psql, which displays the current
 - Only executes when  is true, allowing for conditional execution in psql scripts
 - Prioritizes current query buffer over previous buffer when both contain data
 - Respects the quiet mode setting () when displaying empty buffer messages
-- Part of psql's backslash command system located in 
+- Part of psql's backslash command system located in src/bin/psql/command.c
+
+## Simplified Source
+
+```c
+static backslashResult exec_command_print(PsqlScanState scan_state, bool active_branch,
+                                          PQExpBuffer query_buf, PQExpBuffer previous_buf) {
+    if (active_branch) {
+        // Print the same query that \g would execute
+        if (query_buf && query_buf->len > 0) {
+            // Print current query buffer if it has content
+            puts(query_buf->data);
+        }
+        else if (previous_buf && previous_buf->len > 0) {
+            // Fallback to previous query buffer if current is empty
+            puts(previous_buf->data);
+        }
+        else if (!pset.quiet) {
+            // Inform user that query buffer is empty (unless in quiet mode)
+            puts(_("Query buffer is empty."));
+        }
+        fflush(stdout);
+    }
+
+    return PSQL_CMD_SKIP_LINE;
+}
+``` 

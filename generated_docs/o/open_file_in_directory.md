@@ -34,3 +34,25 @@ The function ensures the directory parameter is valid through an assertion and c
 - Uses MAXPGPATH constant to limit the constructed file path length
 - Part of the pg_waldump utility for analyzing PostgreSQL Write-Ahead Log files
 - The function will call pg_fatal() and terminate the program if file opening fails for reasons other than file non-existence
+
+## Simplified Source
+
+```c
+static int
+open_file_in_directory(const char *directory, const char *fname)
+{
+    char fpath[MAXPGPATH];
+
+    // Construct full file path
+    snprintf(fpath, MAXPGPATH, "%s/%s", directory, fname);
+
+    // Open file in read-only binary mode
+    int fd = open(fpath, O_RDONLY | PG_BINARY, 0);
+
+    // Fatal error if open fails (except for file not found)
+    if (fd < 0 && errno != ENOENT)
+        pg_fatal("could not open file \"%s\": %m", fname);
+
+    return fd;
+}
+```

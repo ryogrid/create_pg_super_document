@@ -38,3 +38,27 @@ The function helps PostgreSQL's collation system decide whether to use optimized
 - ICU provider is always trusted because no similar reliability issues have been identified
 - The function is part of PostgreSQL's strategy to provide consistent collation behavior across different platforms
 - Critical for determining whether sort support can use optimized transformation-based comparisons
+
+## Simplified Source
+
+```c
+bool pg_strxfrm_enabled(pg_locale_t locale) {
+    // Check for NULL or LIBC provider
+    if (!locale || locale->provider == COLLPROVIDER_LIBC) {
+#ifdef TRUST_STRXFRM
+        return true;   // Allow if explicitly trusted
+#else
+        return false;  // Conservative default due to glibc issues
+#endif
+    }
+
+    // ICU provider is always reliable
+    if (locale->provider == COLLPROVIDER_ICU) {
+        return true;
+    }
+
+    // Unknown provider - should not happen
+    PGLOCALE_SUPPORT_ERROR(locale->provider);
+    return false;
+}
+```

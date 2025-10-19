@@ -31,3 +31,18 @@ The i2toi4 function is a PostgreSQL type conversion function that promotes a 16-
 - Located in src/backend/utils/adt/int.c:340-347
 - Counterpart conversion function is i4toi2 (narrowing conversion)
 - Used in implicit and explicit casts from smallint to integer
+
+## Simplified Source
+
+```c
+Datum
+i2toi4(PG_FUNCTION_ARGS)
+{
+    // Extract 16-bit integer argument
+    int16 arg1 = PG_GETARG_INT16(0);
+
+    // Convert to 32-bit integer and return
+    // This is a safe widening conversion with no data loss
+    PG_RETURN_INT32((int32) arg1);
+}
+```

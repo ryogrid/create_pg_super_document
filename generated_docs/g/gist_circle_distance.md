@@ -42,3 +42,25 @@ This approach provides efficient pruning during KNN searches while maintaining c
 - Uses the same bounding box distance logic as other geometric types through `gist_bbox_distance`
 - Essential for ORDER BY distance queries on circle data types in GiST indexes
 - The inexact nature allows for efficient pruning while maintaining correctness through rechecking
+
+## Simplified Source
+
+```c
+Datum
+gist_circle_distance(PG_FUNCTION_ARGS)
+{
+    // Extract arguments
+    GISTENTRY *entry = (GISTENTRY *) PG_GETARG_POINTER(0);
+    Datum query = PG_GETARG_DATUM(1);
+    StrategyNumber strategy = (StrategyNumber) PG_GETARG_UINT16(2);
+    bool *recheck = (bool *) PG_GETARG_POINTER(4);
+
+    // Calculate distance using bounding box approximation
+    float8 distance = gist_bbox_distance(entry, query, strategy);
+
+    // Mark for rechecking since bounding box is only an approximation
+    *recheck = true;
+
+    return PG_RETURN_FLOAT8(distance);
+}
+```

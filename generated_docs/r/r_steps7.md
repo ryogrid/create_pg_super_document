@@ -56,3 +56,39 @@ The function serves as the final cleanup step in the Greek stemming process with
 - Includes comprehensive bounds checking to prevent buffer underruns
 - More restrictive than earlier steps, requiring exact character matches at specific positions
 - Performs the final morphological cleanup in the Greek stemming process
+
+## Simplified Source
+
+```c
+static int r_steps7(struct SN_env * z) {
+    // Phase 1: Find and delete patterns requiring specific characters
+    z->ket = z->c;
+
+    // Check bounds and specific characters ± (177) or ¹ (185)
+    if (z->c - 9 <= z->lb) return 0;  // Need at least 9 characters
+    char last_char = z->p[z->c - 1];
+    if (last_char != 177 && last_char != 185) return 0;
+
+    // Find pattern from array a_16 and delete if found
+    if (!(find_among_b(z, a_16, 4))) return 0;
+    z->bra = z->c;
+    slice_del(z);  // Delete matched suffix
+    z->I[0] = 0;   // Reset counter
+
+    // Phase 2: Apply final transformation
+    z->ket = z->c;
+    z->bra = z->c;
+
+    // Check bounds and specific characters ƒ (131) or ‡ (135)
+    if (z->c - 1 <= z->lb) return 0;
+    last_char = z->p[z->c - 1];
+    if (last_char != 131 && last_char != 135) return 0;
+
+    // Find final pattern and replace with s_57
+    if (!(find_among_b(z, a_15, 2))) return 0;
+    if (z->c > z->lb) return 0;  // Final bounds check
+    slice_from_s(z, 8, s_57);   // Replace with 8-character string
+
+    return 1;  // Success
+}
+```

@@ -31,3 +31,30 @@ The function processes each character of the input string sequentially, checking
 - The function is part of the pg_rewind utility, which is used for rewinding a PostgreSQL cluster to an earlier state
 - The escaping follows PostgreSQL's text array literal format where elements are double-quoted and internal quotes/backslashes are escaped with backslashes
 - The function assumes the input string is null-terminated and properly handles empty strings
+
+## Simplified Source
+
+```c
+static void
+appendArrayEscapedString(StringInfo buf, const char *str)
+{
+    // Add opening quote
+    appendStringInfoCharMacro(buf, '"');
+
+    // Process each character, escaping quotes and backslashes
+    while (*str)
+    {
+        char ch = *str;
+
+        // Escape special characters
+        if (ch == '"' || ch == '\\')
+            appendStringInfoCharMacro(buf, '\\');
+
+        appendStringInfoCharMacro(buf, ch);
+        str++;
+    }
+
+    // Add closing quote
+    appendStringInfoCharMacro(buf, '"');
+}
+```

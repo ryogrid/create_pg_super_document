@@ -31,3 +31,14 @@ This function provides a simple wrapper around PostgreSQL's pg_popcount() functi
 
 ## Notes and Other Information
 This is a static helper function that abstracts the bit counting operation, making the code more readable and maintainable. The function leverages PostgreSQL's optimized pg_popcount() implementation which uses hardware instructions when available for efficient bit counting. It's widely used throughout the TSVector GiST implementation wherever bit density measurements are needed.
+
+## Simplified Source
+
+```c
+static int32
+sizebitvec(BITVECP sign, int siglen)
+{
+    // Count the number of set bits (1s) in the signature
+    return pg_popcount(sign, siglen);
+}
+```

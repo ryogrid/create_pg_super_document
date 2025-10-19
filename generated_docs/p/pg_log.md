@@ -40,3 +40,16 @@ pg_log serves as a convenient variadic wrapper around pg_log_v, the core logging
 - The function handles variable argument processing using va_list macros before delegating to pg_log_v
 - Message formatting and output behavior depends on the eLogType parameter, with different types having different formatting rules and verbosity controls
 - Located in src/bin/pg_upgrade/util.c:259-269
+
+## Simplified Source
+
+```c
+void pg_log(eLogType type, const char *fmt, ...) {
+    va_list args;
+
+    // Forward variadic arguments to the main logging function
+    va_start(args, fmt);
+    pg_log_v(type, fmt, args);
+    va_end(args);
+}
+```

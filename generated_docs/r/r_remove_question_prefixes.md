@@ -39,3 +39,32 @@ If all three conditions are met, it removes the matched prefix using  and then a
 - Uses the bra/ket mechanism to mark the boundaries of text to be deleted
 - The function employs cursor position management to ensure  doesn't affect the main processing position
 - The use of  suggests this handles multiple variants of question-forming prefixes in Tamil
+
+## Simplified Source
+
+```c
+static int r_remove_question_prefixes(struct SN_env * z) {
+    // Mark start of potential question prefix
+    z->bra = z->c;
+
+    // Check for specific 3-character pattern (s_12)
+    if (!eq_s(z, 3, s_12)) return 0;
+
+    // Look for one of 10 possible question prefix patterns
+    if (!find_among(z, a_0, 10)) return 0;
+
+    // Verify ending 3-character pattern (s_13)
+    if (!eq_s(z, 3, s_13)) return 0;
+
+    // Mark end of prefix and delete it
+    z->ket = z->c;
+    slice_del(z);
+
+    // Apply character normalization after prefix removal
+    int cursor_backup = z->c;
+    r_fix_va_start(z);
+    z->c = cursor_backup;
+
+    return 1; // Successfully removed question prefix
+}
+```

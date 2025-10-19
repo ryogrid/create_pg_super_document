@@ -39,3 +39,13 @@ The function calls SN_create_env with parameters (0, 2), where:
 - Must be paired with swedish_UTF_8_close_env to properly free allocated resources
 - The environment created by this function should be used with Swedish stemming functions
 - This is an external interface function that can be called from outside the module
+
+## Simplified Source
+
+```c
+extern struct SN_env * swedish_UTF_8_create_env(void) {
+    // Create Snowball environment for Swedish stemming
+    // Parameters: 0 string variables, 2 integer variables needed for Swedish algorithm
+    return SN_create_env(0, 2);
+}
+```

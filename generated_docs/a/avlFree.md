@@ -39,3 +39,28 @@ The sentinel end node (tree->end) is freed only once, when the root node is bein
 - Recursive implementation ensures complete tree cleanup
 - Safe memory management prevents access to freed memory during traversal
 - Part of the minimalistic AVL tree implementation used for crosstab header collection
+
+## Simplified Source
+
+```c
+static void avlFree(avl_tree *tree, avl_node *node) {
+    // Recursively free left subtree
+    if (node->children[0] != tree->end) {
+        avlFree(tree, node->children[0]);
+        pg_free(node->children[0]);
+    }
+
+    // Recursively free right subtree
+    if (node->children[1] != tree->end) {
+        avlFree(tree, node->children[1]);
+        pg_free(node->children[1]);
+    }
+
+    // Free root and sentinel when processing root node
+    if (node == tree->root) {
+        if (node != tree->end)
+            pg_free(node);
+        pg_free(tree->end);  // Free sentinel node
+    }
+}
+```

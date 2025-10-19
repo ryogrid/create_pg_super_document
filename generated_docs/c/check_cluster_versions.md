@@ -50,3 +50,41 @@ The function uses assertions to verify that cluster version information has alre
 - The binary/data directory version matching prevents subtle errors that could occur from version mismatches
 - All version checks use the GET_MAJOR_VERSION macro for consistent version comparison logic
 - Fatal errors from this function will terminate pg_upgrade immediately with descriptive error messages
+
+## Simplified Source
+
+```c
+void check_cluster_versions(void)
+{
+    prep_status("Checking cluster versions");
+
+    // Ensure cluster versions have been obtained
+    Assert(old_cluster.major_version != 0);
+    Assert(new_cluster.major_version != 0);
+
+    // Check minimum supported version (PostgreSQL 9.2+)
+    if (GET_MAJOR_VERSION(old_cluster.major_version) < 902) {
+        pg_fatal("This utility can only upgrade from PostgreSQL version %s and later.", "9.2");
+    }
+
+    // Ensure target is current PostgreSQL version
+    if (GET_MAJOR_VERSION(new_cluster.major_version) != GET_MAJOR_VERSION(PG_VERSION_NUM)) {
+        pg_fatal("This utility can only upgrade to PostgreSQL version %s.", PG_MAJORVERSION);
+    }
+
+    // Prevent downgrades (pg_dump can't handle newer versions)
+    if (old_cluster.major_version > new_cluster.major_version) {
+        pg_fatal("This utility cannot be used to downgrade to older major PostgreSQL versions.");
+    }
+
+    // Ensure binaries match data directories for both clusters
+    if (GET_MAJOR_VERSION(old_cluster.major_version) != GET_MAJOR_VERSION(old_cluster.bin_version)) {
+        pg_fatal("Old cluster data and binary directories are from different major versions.");
+    }
+    if (GET_MAJOR_VERSION(new_cluster.major_version) != GET_MAJOR_VERSION(new_cluster.bin_version)) {
+        pg_fatal("New cluster data and binary directories are from different major versions.");
+    }
+
+    check_ok();
+}
+```

@@ -43,3 +43,40 @@ The function uses cursor position management with save/restore operations (m1, m
 - Part of the automatically generated code from Snowball stemming rules
 - Returns 1 on successful completion, propagates negative error codes from called functions
 - Critical component of PostgreSQL's full-text search capabilities for Nepali language support
+
+## Simplified Source
+
+```c
+extern int nepali_UTF_8_stem(struct SN_env * z) {
+    // Initialize: set processing boundaries
+    z->lb = z->c;
+    z->c = z->l;
+
+    // Phase 1: Remove category 1 suffixes (basic suffixes)
+    r_remove_category_1(z);
+
+    // Phase 2: Iteratively process categories 2 and 3 until no more changes
+    while (1) {
+        bool changed = false;
+
+        // Try category 2: check if patterns exist, then remove them
+        if (r_check_category_2(z)) {
+            if (r_remove_category_2(z)) {
+                changed = true;
+            }
+        }
+
+        // Try category 3: remove any of 91 suffix patterns
+        if (r_remove_category_3(z)) {
+            changed = true;
+        }
+
+        // Stop when no more suffixes can be removed
+        if (!changed) break;
+    }
+
+    // Restore cursor to start position
+    z->c = z->lb;
+    return 1;
+}
+```

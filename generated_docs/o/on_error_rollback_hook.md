@@ -42,3 +42,33 @@ The "interactive" mode is particularly useful as it provides error recovery duri
 - The hook is registered in EstablishVariableSpace() alongside bool_substitute_hook for the ON_ERROR_ROLLBACK variable
 - The automatic rollback feature requires that psql establish savepoints before executing commands when this mode is enabled
 - The "interactive" mode represents a sophisticated balance between user convenience and predictable script behavior
+
+## Simplified Source
+
+```c
+static bool
+on_error_rollback_hook(const char *newval)
+{
+    Assert(newval != NULL);  // Substitute hook ensures non-NULL value
+
+    // Handle special "interactive" mode (rollback only in interactive sessions)
+    if (pg_strcasecmp(newval, "interactive") == 0)
+        pset.on_error_rollback = PSQL_ERROR_ROLLBACK_INTERACTIVE;
+    else
+    {
+        bool on_off;
+
+        // Parse as boolean value (on/off)
+        if (ParseVariableBool(newval, NULL, &on_off))
+            pset.on_error_rollback = on_off ? PSQL_ERROR_ROLLBACK_ON : PSQL_ERROR_ROLLBACK_OFF;
+        else
+        {
+            // Invalid value - show error and fail validation
+            PsqlVarEnumError("ON_ERROR_ROLLBACK", newval, "on, off, interactive");
+            return false;
+        }
+    }
+
+    return true;
+}
+```

@@ -45,3 +45,57 @@ The function includes proper error handling and resource cleanup, ensuring that 
 - Includes translator comments to provide context for proper localization
 - The dual formatting modes (newline vs append) allow for flexible integration with different types of relation descriptions
 - Gracefully handles query failures by simply not adding tablespace information rather than failing the entire describe operation
+
+## Simplified Source
+
+```c
+static void add_tablespace_footer(printTableContent *const cont, char relkind,
+                                 Oid tablespace, const bool newline) {
+    // Only show tablespace info for relation types that support tablespaces
+    if (relkind == RELKIND_RELATION ||
+        relkind == RELKIND_MATVIEW ||
+        relkind == RELKIND_INDEX ||
+        relkind == RELKIND_PARTITIONED_TABLE ||
+        relkind == RELKIND_PARTITIONED_INDEX ||
+        relkind == RELKIND_TOASTVALUE) {
+
+        // Ignore default tablespace to avoid cluttering output
+        if (tablespace != 0) {
+            PGresult *result = NULL;
+            PQExpBufferData buf;
+
+            initPQExpBuffer(&buf);
+
+            // Query to get tablespace name
+            printfPQExpBuffer(&buf,
+                "SELECT spcname FROM pg_catalog.pg_tablespace\n"
+                "WHERE oid = '%u';", tablespace);
+
+            result = PSQLexec(buf.data);
+            if (!result) {
+                termPQExpBuffer(&buf);
+                return;
+            }
+
+            // Add tablespace info if found
+            if (PQntuples(result) > 0) {
+                if (newline) {
+                    // Add as new footer line
+                    printfPQExpBuffer(&buf, "Tablespace: \"%s\"",
+                                     PQgetvalue(result, 0, 0));
+                    printTableAddFooter(cont, buf.data);
+                } else {
+                    // Append to existing footer
+                    printfPQExpBuffer(&buf, "%s", cont->footer->data);
+                    appendPQExpBuffer(&buf, ", tablespace \"%s\"",
+                                     PQgetvalue(result, 0, 0));
+                    printTableSetFooter(cont, buf.data);
+                }
+            }
+
+            PQclear(result);
+            termPQExpBuffer(&buf);
+        }
+    }
+}
+```

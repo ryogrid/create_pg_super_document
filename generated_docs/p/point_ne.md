@@ -31,6 +31,19 @@ The  function is a PostgreSQL geometric operator that determines if two points a
 ## Notes and Other Information
 - This function acts as a PostgreSQL SQL-callable wrapper for point inequality operations
 - Used in SQL inequality operations between point values (e.g., )
-- Implements the logical negation of the equality test performed by 
+- Implements the logical negation of the equality test performed by
 - Returns true if either x or y coordinates differ beyond floating-point tolerance
 - Part of the complete set of comparison operators for the Point geometric type
+
+## Simplified Source
+
+```c
+Datum point_ne(PG_FUNCTION_ARGS) {
+    // Get two points from function arguments
+    Point *pt1 = PG_GETARG_POINT_P(0);
+    Point *pt2 = PG_GETARG_POINT_P(1);
+
+    // Return true if points are NOT equal
+    PG_RETURN_BOOL(!point_eq_point(pt1, pt2));
+}
+```

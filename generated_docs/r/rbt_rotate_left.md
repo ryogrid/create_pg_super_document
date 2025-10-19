@@ -42,3 +42,39 @@ This operation preserves the binary search tree invariant: all nodes in the left
 - The operation is reversible via rbt_rotate_right
 - Critical for maintaining logarithmic height bounds in Red-Black Trees
 - Handles edge cases where x is the root node by updating rbt->root appropriately
+
+## Simplified Source
+
+```c
+static void
+rbt_rotate_left(RBTree *rbt, RBTNode *x)
+{
+    RBTNode *y = x->right;  // y will take x's place
+
+    // Step 1: Move y's left subtree to x's right
+    x->right = y->left;
+    if (y->left != RBTNIL)
+        y->left->parent = x;
+
+    // Step 2: Update y's parent connection
+    if (y != RBTNIL)
+        y->parent = x->parent;
+
+    if (x->parent)
+    {
+        if (x == x->parent->left)
+            x->parent->left = y;
+        else
+            x->parent->right = y;
+    }
+    else
+    {
+        rbt->root = y;  // y becomes new root
+    }
+
+    // Step 3: Make x the left child of y
+    y->left = x;
+    if (x != RBTNIL)
+        x->parent = y;
+}
+```

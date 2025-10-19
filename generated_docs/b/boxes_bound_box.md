@@ -37,3 +37,19 @@ The `boxes_bound_box` function calculates the bounding box (also known as the un
 - Memory for the result is allocated using palloc and will be managed by PostgreSQL's memory context system
 - This operation is commutative: boxes_bound_box(A, B) produces the same result as boxes_bound_box(B, A)
 - Essential for geometric indexing operations and spatial query optimization in PostgreSQL
+
+## Simplified Source
+
+```c
+BOX* boxes_bound_box(BOX *box1, BOX *box2) {
+    BOX *container = (BOX *) palloc(sizeof(BOX));
+
+    // Create bounding box that contains both input boxes
+    container->high.x = float8_max(box1->high.x, box2->high.x);
+    container->low.x = float8_min(box1->low.x, box2->low.x);
+    container->high.y = float8_max(box1->high.y, box2->high.y);
+    container->low.y = float8_min(box1->low.y, box2->low.y);
+
+    return container;
+}
+```

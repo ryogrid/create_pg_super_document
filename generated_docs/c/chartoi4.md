@@ -31,3 +31,14 @@ This function is a PostgreSQL built-in conversion function that takes a "char" d
 - The conversion preserves sign by explicitly casting through int8
 - Used internally by PostgreSQL's type conversion system
 - The function follows PostgreSQL's V1 calling convention using the PG_FUNCTION_ARGS interface
+
+## Simplified Source
+
+```c
+Datum chartoi4(PG_FUNCTION_ARGS) {
+    char arg1 = PG_GETARG_CHAR(0);
+
+    // Convert char to 32-bit integer, preserving sign via int8 cast
+    PG_RETURN_INT32((int32) ((int8) arg1));
+}
+```

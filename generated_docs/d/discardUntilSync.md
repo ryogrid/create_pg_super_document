@@ -39,3 +39,50 @@ The function implements PostgreSQL's pipeline protocol requirements where PGRES_
 - Resets the num_syncs counter in the client state to 0 after successful sync
 - Uses assertions to verify protocol compliance (PGRES_PIPELINE_SYNC followed by NULL)
 - Essential for preventing connection state corruption when transactions fail in pipeline mode
+
+## Simplified Source
+
+```c
+static int discardUntilSync(CState *st)
+{
+    bool received_sync = false;
+
+    // Send a sync command to the server
+    if (!PQpipelineSync(st->con))
+    {
+        pg_log_error("client %d failed to send pipeline sync", st->id);
+        return 0;
+    }
+
+    // Consume all results until sync point is reached
+    for (;;)
+    {
+        PGresult *res = PQgetResult(st->con);
+
+        if (PQresultStatus(res) == PGRES_PIPELINE_SYNC)
+        {
+            received_sync = true;
+        }
+        else if (received_sync)
+        {
+            // PGRES_PIPELINE_SYNC must be followed by NULL
+            Assert(res == NULL);
+
+            // Reset sync counter and exit loop
+            st->num_syncs = 0;
+            PQclear(res);
+            break;
+        }
+        PQclear(res);
+    }
+
+    // Exit pipeline mode
+    if (PQexitPipelineMode(st->con) != 1)
+    {
+        pg_log_error("client %d failed to exit pipeline mode", st->id);
+        return 0;
+    }
+
+    return 1;
+}
+```

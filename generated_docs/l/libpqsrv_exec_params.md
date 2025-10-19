@@ -35,3 +35,25 @@ This function serves as an interrupt-aware wrapper around PostgreSQL's PQexecPar
 - Returns NULL if PQsendQueryParams() fails, otherwise returns the result from libpqsrv_get_result_last()
 - Provides type-safe parameterized query execution with interrupt handling
 - Located in src/include/libpq/libpq-be-fe-helpers.h:269-289
+
+## Simplified Source
+
+```c
+static inline PGresult *libpqsrv_exec_params(PGconn *conn,
+                                            const char *command,
+                                            int nParams,
+                                            const Oid *paramTypes,
+                                            const char *const *paramValues,
+                                            const int *paramLengths,
+                                            const int *paramFormats,
+                                            int resultFormat,
+                                            uint32 wait_event_info) {
+    // Send parameterized query asynchronously
+    if (!PQsendQueryParams(conn, command, nParams, paramTypes, paramValues,
+                          paramLengths, paramFormats, resultFormat))
+        return NULL;
+
+    // Wait for and retrieve the final result with interrupt handling
+    return libpqsrv_get_result_last(conn, wait_event_info);
+}
+```

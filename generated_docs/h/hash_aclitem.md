@@ -36,3 +36,14 @@ The hash function uses a simple additive approach, summing the three numeric fie
 - Required for PostgreSQL's type cache mechanism and array equality operations
 - The function signature follows PostgreSQL's V1 calling convention for system functions
 - [Hash](../H/Hash.md) quality is not optimized since the primary use case is system infrastructure rather than performance-critical hashing
+
+## Simplified Source
+
+```c
+Datum hash_aclitem(PG_FUNCTION_ARGS) {
+    AclItem *a = PG_GETARG_ACLITEM_P(0);
+
+    // Simple hash: sum all fields (avoids struct padding issues)
+    PG_RETURN_UINT32((uint32) (a->ai_privs + a->ai_grantee + a->ai_grantor));
+}
+```

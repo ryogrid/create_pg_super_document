@@ -33,3 +33,19 @@ The  function is a PostgreSQL built-in function that calculates and returns the 
 - The size field represents the total count of both leaf nodes (lexemes) and internal nodes (operators)
 - Memory management is handled automatically through PG_FREE_IF_COPY
 - Returns a simple integer count, making it useful for query optimization decisions
+
+## Simplified Source
+
+```c
+Datum tsquery_numnode(PG_FUNCTION_ARGS) {
+    // Extract TSQuery from arguments
+    TSQuery query = PG_GETARG_TSQUERY(0);
+
+    // Get the node count from the query structure
+    int node_count = query->size;
+
+    // Clean up memory and return count
+    PG_FREE_IF_COPY(query, 0);
+    PG_RETURN_INT32(node_count);
+}
+```

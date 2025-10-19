@@ -31,3 +31,15 @@ This function implements the PostgreSQL bitwise NOT operator (~) for the BIGINT 
 - Implements the PostgreSQL bitwise NOT operator (~) for BIGINT data type
 - This is a unary operator, unlike the other binary bitwise operations in this family
 - Uses standard PostgreSQL V1 function call convention
+
+## Simplified Source
+
+```c
+Datum int8not(PG_FUNCTION_ARGS) {
+    // Extract single 64-bit integer argument
+    int64 arg1 = PG_GETARG_INT64(0);
+
+    // Perform bitwise NOT operation and return result
+    PG_RETURN_INT64(~arg1);
+}
+```

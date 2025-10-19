@@ -61,3 +61,21 @@ Progress reporting is optionally supported, updating PROGRESS_SCAN_BLOCKS_TOTAL 
 - Side effect: Sets `indexInfo->ii_BrokenHotChain` when potentially broken HOT chains are detected
 - Part of the table access method abstraction layer
 - Used by all major index types during their build processes
+
+## Simplified Source
+```c
+static inline double
+table_index_build_scan(Relation table_rel, Relation index_rel,
+                       struct IndexInfo *index_info, bool allow_sync,
+                       bool progress, IndexBuildCallback callback,
+                       void *callback_state, TableScanDesc scan)
+{
+    // Scan entire table by delegating to range scan with full table parameters
+    // Calls callback for each tuple to add to index, returns live tuple count
+    return table_rel->rd_tableam->index_build_range_scan(
+        table_rel, index_rel, index_info, allow_sync,
+        false,  // anyvisible = false (standard visibility)
+        progress, 0, InvalidBlockNumber,  // scan entire table
+        callback, callback_state, scan);
+}
+```

@@ -38,3 +38,21 @@ The function works by:
 - Unlike r_mark_yUm, this function doesn't call r_mark_suffix_with_optional_y_consonant as the 's' is always present
 - The function returns 1 on successful match, 0 on failure, and propagates negative return values from called functions
 - This is part of the Turkish morphological analysis system used for full-text search indexing in PostgreSQL
+
+## Simplified Source
+
+```c
+static int r_mark_sUn(struct SN_env * z) {
+    // Check vowel harmony compliance
+    int ret = r_check_vowel_harmony(z);
+    if (ret <= 0) return ret;
+
+    // Verify position and current character is 'n' (ASCII 110)
+    if (z->c - 2 <= z->lb || z->p[z->c - 1] != 110) return 0;
+
+    // Match against "sUn" suffix patterns (sin, sun, sın, sün)
+    if (!find_among_b(z, a_13, 4)) return 0;
+
+    return 1; // Success
+}
+```

@@ -39,3 +39,20 @@ The connection's parameters (user, host, port, etc.) should match those configur
 - Connection parameters should match the slots array configuration for proper operation
 - If no available slots exist, the connection is automatically closed rather than stored
 - Located in src/fe_utils/parallel_slot.c:460-478
+
+## Simplified Source
+
+```c
+void
+ParallelSlotsAdoptConn(ParallelSlotArray *sa, PGconn *conn)
+{
+    int offset;
+
+    // Find an available slot
+    offset = find_unconnected_slot(sa);
+    if (offset >= 0)
+        sa->slots[offset].connection = conn; // Assign connection to slot
+    else
+        disconnectDatabase(conn); // No slots available, close connection
+}
+```

@@ -36,3 +36,47 @@ The function only copies the value if it's not null, and uses different copying 
 - The function handles a union of different value types (Integer, Float, Boolean, String, BitString)
 - Error handling is included for unrecognized node types, making the function robust against corruption
 - The switch statement approach allows for efficient type-specific handling of the polymorphic value field
+
+## Simplified Source
+
+```c
+static A_Const *
+_copyA_Const(const A_Const *from)
+{
+    A_Const *newnode = makeNode(A_Const);
+
+    // Copy the null flag
+    COPY_SCALAR_FIELD(isnull);
+
+    if (!from->isnull) {
+        // Copy the value based on its type
+        COPY_SCALAR_FIELD(val.node.type);
+
+        switch (nodeTag(&from->val)) {
+            case T_Integer:
+                COPY_SCALAR_FIELD(val.ival.ival);
+                break;
+            case T_Float:
+                COPY_STRING_FIELD(val.fval.fval);
+                break;
+            case T_Boolean:
+                COPY_SCALAR_FIELD(val.boolval.boolval);
+                break;
+            case T_String:
+                COPY_STRING_FIELD(val.sval.sval);
+                break;
+            case T_BitString:
+                COPY_STRING_FIELD(val.bsval.bsval);
+                break;
+            default:
+                elog(ERROR, "unrecognized node type: %d",
+                     (int) nodeTag(&from->val));
+        }
+    }
+
+    // Copy location information
+    COPY_LOCATION_FIELD(location);
+
+    return newnode;
+}
+```

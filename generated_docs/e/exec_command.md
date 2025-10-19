@@ -44,3 +44,47 @@ The function implements special handling for commands that return PSQL_CMD_SEND 
 - Supports over 50 different backslash commands including database operations (\c, \l), formatting (\x, \H), conditionals (\if, \elif), and utilities (\!, \?)
 - Handles both single-character and multi-character command aliases (e.g., \c and \connect)
 - Special case handling for commands returning PSQL_CMD_SEND to automatically copy previous query if current query buffer is empty
+
+## Simplified Source
+
+```c
+static backslashResult exec_command(const char *cmd,
+                                   PsqlScanState scan_state,
+                                   ConditionalStack cstack,
+                                   PQExpBuffer query_buf,
+                                   PQExpBuffer previous_buf) {
+    backslashResult status;
+    bool active_branch = conditional_active(cstack);
+
+    // Warn about commands in false \if-branches (interactive mode only)
+    if (pset.cur_cmd_interactive && !active_branch && !is_branching_command(cmd)) {
+        pg_log_warning("\\%s command ignored; use \\endif or Ctrl-C to exit current \\if block", cmd);
+    }
+
+    // Command dispatch - match command names to handlers
+    if (strcmp(cmd, "a") == 0)
+        status = exec_command_a(scan_state, active_branch);
+    else if (strcmp(cmd, "bind") == 0)
+        status = exec_command_bind(scan_state, active_branch);
+    else if (strcmp(cmd, "C") == 0)
+        status = exec_command_C(scan_state, active_branch);
+    else if (strcmp(cmd, "c") == 0 || strcmp(cmd, "connect") == 0)
+        status = exec_command_connect(scan_state, active_branch);
+    // ... [many more command handlers for cd, conninfo, copy, d, edit, etc.] ...
+    else if (strcmp(cmd, "q") == 0 || strcmp(cmd, "quit") == 0)
+        status = exec_command_quit(scan_state, active_branch);
+    else if (strcmp(cmd, "!") == 0)
+        status = exec_command_shell_escape(scan_state, active_branch);
+    else if (strcmp(cmd, "?") == 0)
+        status = exec_command_slash_command_help(scan_state, active_branch);
+    else
+        status = PSQL_CMD_UNKNOWN;
+
+    // Special handling: copy previous query if current buffer is empty
+    if (status == PSQL_CMD_SEND) {
+        copy_previous_query(query_buf, previous_buf);
+    }
+
+    return status;
+}
+```

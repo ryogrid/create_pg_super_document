@@ -44,3 +44,46 @@ The function builds a connection string by appending the target database name to
 - Relies on global variables like pg_dump_bin, pgdumpopts, filename, and connstr
 - The connection string construction assumes a properly formatted base connection string
 - [Command](../C/Command.md) execution is synchronous - function blocks until pg_dump completes
+
+## Simplified Source
+
+```c
+static int runPgDump(const char *dbname, const char *create_opts)
+{
+    PQExpBufferData connstrbuf;
+    PQExpBufferData cmd;
+    int ret;
+
+    // Initialize buffers for command and connection string
+    initPQExpBuffer(&connstrbuf);
+    initPQExpBuffer(&cmd);
+
+    // Build the basic pg_dump command with options
+    printfPQExpBuffer(&cmd, "\"%s\" %s %s", pg_dump_bin,
+                     pgdumpopts->data, create_opts);
+
+    // Choose output format based on whether writing to file
+    if (filename)
+        appendPQExpBufferStr(&cmd, " -Fa ");  // Plain-append format for files
+    else
+        appendPQExpBufferStr(&cmd, " -Fp ");  // Plain format for stdout
+
+    // Build connection string with database name
+    appendPQExpBuffer(&connstrbuf, "%s dbname=", connstr);
+    appendConnStrVal(&connstrbuf, dbname);
+
+    // Add connection string to command (shell-escaped)
+    appendShellString(&cmd, connstrbuf.data);
+
+    // Log and execute the command
+    pg_log_info("running \"%s\"", cmd.data);
+    fflush(NULL);
+    ret = system(cmd.data);
+
+    // Cleanup buffers
+    termPQExpBuffer(&cmd);
+    termPQExpBuffer(&connstrbuf);
+
+    return ret;
+}
+```

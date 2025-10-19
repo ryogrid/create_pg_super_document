@@ -18,7 +18,40 @@ The  function is part of PostgreSQL's commit timestamp resource manager descript
 The function performs a simple mapping between the commit timestamp operation codes and their corresponding string representations, making WAL record analysis more human-readable. It handles two main commit timestamp operations: ZEROPAGE (for initializing/zeroing commit timestamp pages) and TRUNCATE (for truncating older commit timestamp data).
 
 ## Parameters / Member Variables
-- File: dir,	Node: Top,	This is the top of the INFO tree.
+- `info`: An 8-bit unsigned integer containing the commit timestamp operation code extracted from a WAL record
+
+## Dependencies
+- Functions called/Symbols referenced:
+  - COMMIT_TS_ZEROPAGE (constant: 0x00)
+  - COMMIT_TS_TRUNCATE (constant: 0x10)
+- Called from (representative examples):
+  - Used indirectly through WAL record processing infrastructure
+  - Referenced in commit timestamp resource manager operations
+
+## Notes and Other Information
+- Part of the commit timestamp resource manager descriptor infrastructure
+- Returns NULL for unknown/unsupported info codes
+- Works in conjunction with commit_ts_desc function for complete WAL record description
+- The commit timestamp feature tracks when transactions were committed, useful for logical replication and conflict resolution
+
+## Simplified Source
+
+```c
+const char *
+commit_ts_identify(uint8 info)
+{
+    // Map commit timestamp operation types to string identifiers
+    switch (info)
+    {
+        case COMMIT_TS_ZEROPAGE:
+            return "ZEROPAGE";
+        case COMMIT_TS_TRUNCATE:
+            return "TRUNCATE";
+        default:
+            return NULL;
+    }
+}
+```
 
 This is the Info main menu (aka directory node).
 A few useful Info commands:

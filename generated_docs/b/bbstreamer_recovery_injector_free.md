@@ -34,3 +34,17 @@ The function uses PostgreSQL's memory management functions to safely deallocate 
 - Uses PostgreSQL's pfree function for memory deallocation
 - Part of the standard bbstreamer lifecycle management
 - Located in src/bin/pg_basebackup/bbstreamer_inject.c:209-218
+
+## Simplified Source
+
+```c
+static void
+bbstreamer_recovery_injector_free(bbstreamer *streamer)
+{
+    // Free downstream streamer chain
+    bbstreamer_free(streamer->bbs_next);
+
+    // Free the streamer structure
+    pfree(streamer);
+}
+```

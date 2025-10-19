@@ -32,3 +32,13 @@ This ensures proper cleanup ordering where dependent components are freed before
 - Uses PostgreSQL's pfree() for memory management consistency
 - Part of the bbstreamer operation contract requiring each component to implement proper cleanup
 - Critical for preventing memory leaks in long-running backup operations
+
+## Simplified Source
+
+```c
+static void bbstreamer_tar_archiver_free(bbstreamer *streamer) {
+    // Standard cleanup: free chain then self
+    bbstreamer_free(streamer->bbs_next);
+    pfree(streamer);
+}
+```

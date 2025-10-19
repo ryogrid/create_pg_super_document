@@ -41,3 +41,24 @@ The function uses PostgreSQLs `PG_FUNCTION_ARGS` macro to access arguments:
 - The function follows PostgreSQLs V1 calling convention for user-defined functions
 - Error handling can be controlled via the noError parameter to allow graceful handling of invalid character sequences
 - Located in src/backend/utils/mb/conversion_procs/euc_jp_and_sjis/euc_jp_and_sjis.c at lines 125-140
+
+## Simplified Source
+
+```c
+Datum sjis_to_mic(PG_FUNCTION_ARGS) {
+    // Extract function parameters
+    unsigned char *src = (unsigned char *) PG_GETARG_CSTRING(2);
+    unsigned char *dest = (unsigned char *) PG_GETARG_CSTRING(3);
+    int len = PG_GETARG_INT32(4);
+    bool noError = PG_GETARG_BOOL(5);
+
+    // Validate encoding conversion arguments
+    CHECK_ENCODING_CONVERSION_ARGS(PG_SJIS, PG_MULE_INTERNAL);
+
+    // Perform the actual encoding conversion
+    int converted = sjis2mic(src, dest, len, noError);
+
+    // Return number of bytes converted
+    PG_RETURN_INT32(converted);
+}
+```

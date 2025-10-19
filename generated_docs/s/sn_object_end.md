@@ -42,3 +42,21 @@ The function works in coordination with other semantic action handlers to mainta
 - Always returns JSON_SUCCESS as object end operations cannot fail
 - The actual logic for filtering null fields occurs in other semantic action functions, particularly field and scalar handlers
 - Ensures proper nesting and structure preservation in the filtered JSON output
+
+## Simplified Source
+
+```c
+static JsonParseErrorType sn_object_end(void *state) {
+    StripnullState *_state = (StripnullState *) state;
+
+    // Append closing brace to output string
+    appendStringInfoCharMacro(_state->strval, '}');
+
+    return JSON_SUCCESS;
+}
+```
+
+This function:
+1. Casts the generic state pointer to the specific StripnullState type
+2. Appends the JSON object closing character '}' to the output buffer
+3. Returns success since this operation cannot fail

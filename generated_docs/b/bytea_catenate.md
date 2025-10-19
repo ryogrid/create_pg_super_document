@@ -39,3 +39,34 @@ This function performs the actual concatenation of two bytea values by allocatin
 - Uses standard PostgreSQL memory management (palloc) for result allocation
 - The function is designed to be reusable by other bytea manipulation functions
 - Located in src/backend/utils/adt/varlena.c:2953-2985
+
+## Simplified Source
+
+```c
+// Core function to concatenate two bytea values
+static bytea *bytea_catenate(bytea *first, bytea *second) {
+    // Get data lengths (excluding PostgreSQL headers)
+    int len1 = VARSIZE_ANY_EXHDR(first);
+    int len2 = VARSIZE_ANY_EXHDR(second);
+
+    // Safety check: ensure non-negative lengths
+    if (len1 < 0) len1 = 0;
+    if (len2 < 0) len2 = 0;
+
+    // Calculate total size including PostgreSQL header
+    int total_len = len1 + len2 + VARHDRSZ;
+
+    // Allocate memory for result
+    bytea *result = (bytea *) palloc(total_len);
+    SET_VARSIZE(result, total_len);
+
+    // Copy data from both inputs sequentially
+    char *result_data = VARDATA(result);
+    if (len1 > 0)
+        memcpy(result_data, VARDATA_ANY(first), len1);
+    if (len2 > 0)
+        memcpy(result_data + len1, VARDATA_ANY(second), len2);
+
+    return result;
+}
+```

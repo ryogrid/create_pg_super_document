@@ -50,3 +50,61 @@ Key features:
 - Strips the trailing newline from the returned string
 - Thread safety: uses static buffer, so not thread-safe
 - The function can handle binary data but treats newline as line terminator
+
+## Simplified Source
+
+```c
+char *gets_fromFile(FILE *source) {
+    static PQExpBuffer buffer = NULL;
+    char line[1024];
+
+    // Initialize static buffer on first call
+    if (buffer == NULL) {
+        buffer = createPQExpBuffer();
+    } else {
+        resetPQExpBuffer(buffer);
+    }
+
+    // Read line in chunks until complete
+    for (;;) {
+        char *result;
+
+        // Enable interrupt handling and read chunk
+        sigint_interrupt_enabled = true;
+        result = fgets(line, sizeof(line), source);
+        sigint_interrupt_enabled = false;
+
+        // Handle EOF or read error
+        if (result == NULL) {
+            if (ferror(source)) {
+                pg_log_error("could not read from input file: %m");
+                return NULL;
+            }
+            break; // EOF reached
+        }
+
+        // Append chunk to buffer
+        appendPQExpBufferStr(buffer, line);
+
+        // Check for memory allocation failure
+        if (PQExpBufferBroken(buffer)) {
+            pg_log_error("out of memory");
+            return NULL;
+        }
+
+        // Check if we have complete line (ends with newline)
+        if (buffer->len > 0 && buffer->data[buffer->len - 1] == '\n') {
+            // Remove trailing newline and return copy
+            buffer->data[buffer->len - 1] = '\0';
+            return pg_strdup(buffer->data);
+        }
+    }
+
+    // Handle EOF after partial read
+    if (buffer->len > 0) {
+        return pg_strdup(buffer->data);
+    }
+
+    return NULL; // EOF with no data
+}
+```

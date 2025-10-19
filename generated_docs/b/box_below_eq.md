@@ -34,3 +34,16 @@ According to the source comments, this function probably erroneously accepts the
 - Probably erroneously accepts equal-boundaries case
 - Part of the box positional operators family
 - Returns true if box1.high.y <= box2.low.y
+
+## Simplified Source
+
+```c
+Datum box_below_eq(PG_FUNCTION_ARGS) {
+    BOX *box1 = PG_GETARG_BOX_P(0);
+    BOX *box2 = PG_GETARG_BOX_P(1);
+
+    // Check if box1 is entirely below or touching box2
+    // This is deprecated and accepts equal boundaries (possibly erroneously)
+    PG_RETURN_BOOL(box1->high.y <= box2->low.y);
+}
+```

@@ -36,3 +36,25 @@ The function operates by:
 - Failure results in immediate program termination via pg_fatal
 - This validation is essential for preventing data corruption during cluster upgrades
 - The function assumes that new_cluster global variable is properly initialized
+
+## Simplified Source
+
+```c
+static void check_new_cluster_is_empty(void) {
+    // Check each database in the new cluster
+    for (int dbnum = 0; dbnum < new_cluster.dbarr.ndbs; dbnum++) {
+        RelInfoArr *rel_arr = &new_cluster.dbarr.dbs[dbnum].rel_arr;
+
+        // Check each relation in the database
+        for (int relnum = 0; relnum < rel_arr->nrels; relnum++) {
+            // Only pg_catalog relations are allowed (system catalog)
+            if (strcmp(rel_arr->rels[relnum].nspname, "pg_catalog") != 0) {
+                pg_fatal("New cluster database \"%s\" is not empty: found relation \"%s.%s\"",
+                         new_cluster.dbarr.dbs[dbnum].db_name,
+                         rel_arr->rels[relnum].nspname,
+                         rel_arr->rels[relnum].relname);
+            }
+        }
+    }
+}
+```

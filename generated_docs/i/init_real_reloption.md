@@ -40,3 +40,24 @@ This function serves as an internal constructor for real (floating-point) type r
 - The returned `relopt_real` structure contains both generic reloption fields and real-specific validation bounds
 - Used internally by the public `add_real_reloption` and `add_local_real_reloption` functions
 - Handles double-precision floating-point values, suitable for ratios, percentages, and other fractional parameters
+
+## Simplified Source
+
+```c
+static relopt_real *
+init_real_reloption(bits32 kinds, const char *name, const char *desc,
+                    double default_val, double min_val, double max_val,
+                    LOCKMODE lockmode)
+{
+    // Allocate a new real (floating-point) reloption structure
+    relopt_real *newoption = (relopt_real *) allocate_reloption(kinds, RELOPT_TYPE_REAL,
+                                                                name, desc, lockmode);
+
+    // Set real-specific configuration values and constraints
+    newoption->default_val = default_val;
+    newoption->min = min_val;
+    newoption->max = max_val;
+
+    return newoption;
+}
+```

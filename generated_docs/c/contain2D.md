@@ -34,3 +34,13 @@ This static helper function tests for containment relationship in 2D space withi
 - Returns true if containment exists, false otherwise
 - Serves as a building block for higher-dimensional containment tests like contain4D
 - The containment test is the logical AND of two boundary conditions
+
+## Simplified Source
+
+```c
+static bool contain2D(RangeBox *range_box, Range *query) {
+    // Check if range_box can contain query: right.high >= query.high AND left.low <= query.low
+    return FPge(range_box->right.high, query->high) &&
+           FPle(range_box->left.low, query->low);
+}
+```

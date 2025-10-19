@@ -40,3 +40,15 @@ This function represents a future enhancement opportunity where non-blocking mes
 - The function has void return type unlike mq_putmessage which returns int
 - This is a static function, not directly callable from outside pqmq.c
 - Future implementation would require changes to the underlying shared memory queue system
+
+## Simplified Source
+
+```c
+static void
+mq_putmessage_noblock(char msgtype, const char *s, size_t len)
+{
+    // Non-blocking message sending not yet implemented
+    // shm_mq doesn't support partial message transmission
+    elog(ERROR, "not currently supported");
+}
+```

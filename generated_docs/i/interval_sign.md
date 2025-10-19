@@ -36,3 +36,18 @@ The  function is a static helper function that evaluates the sign of an interval
 - The function returns standard comparison result values: -1 (negative), 0 (zero), or 1 (positive)
 - Used extensively in interval arithmetic operations and range functions
 - Critical for determining the direction of time series generation and interval multiplication operations
+
+## Simplified Source
+
+```c
+static int
+interval_sign(const Interval *interval)
+{
+    // Convert interval to linear representation and compare with zero
+    INT128 span = interval_cmp_value(interval);
+    INT128 zero = int64_to_int128(0);
+
+    // Return -1 for negative, 0 for zero, 1 for positive
+    return int128_compare(span, zero);
+}
+```

@@ -36,3 +36,14 @@ This function should always be called to properly clean up socket set resources 
 - Part of pgbench's cross-platform socket abstraction that hides implementation differences between ppoll() and select()
 - Essential for preventing memory leaks, especially in multi-threaded benchmark scenarios where each thread allocates its own socket set
 - Uses PostgreSQL's standard memory management functions rather than direct malloc()/free() calls
+
+## Simplified Source
+
+```c
+static void
+free_socket_set(socket_set *sa)
+{
+    // Simply deallocate the socket set memory
+    pg_free(sa);
+}
+```

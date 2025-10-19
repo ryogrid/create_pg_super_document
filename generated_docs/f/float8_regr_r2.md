@@ -44,3 +44,33 @@ This function is typically used as a final function in PostgreSQL's aggregate sy
 - The horizontal line case (Syy = 0) returns 1.0 because all y-values are identical, meaning perfect prediction
 - Requires exactly 6 elements in the input transition array
 - Related to correlation coefficient: R² = (correlation coefficient)²
+
+## Simplified Source
+
+```c
+Datum float8_regr_r2(PG_FUNCTION_ARGS) {
+    ArrayType *transarray = PG_GETARG_ARRAYTYPE_P(0);
+
+    // Extract regression values from 6-element array
+    float8 *transvalues = check_float8_array(transarray, "float8_regr_r2", 6);
+    float8 N = transvalues[0];   // Count of data points
+    float8 Sxx = transvalues[2]; // Sum of squares for X
+    float8 Syy = transvalues[4]; // Sum of squares for Y
+    float8 Sxy = transvalues[5]; // Sum of cross-products
+
+    // Return NULL if no data points
+    if (N < 1.0)
+        PG_RETURN_NULL();
+
+    // Return NULL for vertical line (undefined regression)
+    if (Sxx == 0)
+        PG_RETURN_NULL();
+
+    // Return 1.0 for horizontal line (perfect fit)
+    if (Syy == 0)
+        PG_RETURN_FLOAT8(1.0);
+
+    // Return R-squared: (Sxy²) / (Sxx * Syy)
+    PG_RETURN_FLOAT8((Sxy * Sxy) / (Sxx * Syy));
+}
+```

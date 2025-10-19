@@ -31,3 +31,16 @@ This function implements the less-than-or-equal comparison operator between an 8
 - This is one of the relational operators for mixed-precision integer comparisons
 - The comparison is performed directly using C's <= operator after type extraction
 - The 32-bit value is implicitly promoted to 64-bit for comparison
+
+## Simplified Source
+
+```c
+Datum int84le(PG_FUNCTION_ARGS) {
+    // Extract 64-bit and 32-bit integers from function arguments
+    int64 val1 = PG_GETARG_INT64(0);
+    int32 val2 = PG_GETARG_INT32(1);
+
+    // Return boolean result of less-than-or-equal comparison (32-bit is promoted to 64-bit)
+    PG_RETURN_BOOL(val1 <= val2);
+}
+```

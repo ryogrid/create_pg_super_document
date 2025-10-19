@@ -43,3 +43,36 @@ The implementation uses a loop to handle nested domains (domains built on top of
 - Unlike the internal getBaseType() function, this version gracefully handles invalid type OIDs by returning NULL
 - The function handles nested domains correctly by following the domain chain to its end
 - Race condition safety makes it suitable for use in system catalog queries where concurrent DDL operations might occur
+
+## Simplified Source
+
+```c
+Datum
+pg_basetype(PG_FUNCTION_ARGS)
+{
+    Oid typid = PG_GETARG_OID(0);
+
+    // Loop through domain hierarchy to find base type
+    for (;;)
+    {
+        HeapTuple tup = SearchSysCache1(TYPEOID, ObjectIdGetDatum(typid));
+        if (!HeapTupleIsValid(tup))
+            PG_RETURN_NULL();  // Invalid type OID
+
+        Form_pg_type typTup = (Form_pg_type) GETSTRUCT(tup);
+
+        // If not a domain, we've found the base type
+        if (typTup->typtype != TYPTYPE_DOMAIN)
+        {
+            ReleaseSysCache(tup);
+            break;
+        }
+
+        // Move to the domain's base type and continue
+        typid = typTup->typbasetype;
+        ReleaseSysCache(tup);
+    }
+
+    PG_RETURN_OID(typid);
+}
+```

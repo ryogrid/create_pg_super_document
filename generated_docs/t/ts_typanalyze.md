@@ -29,3 +29,22 @@ This function serves as a specialized analysis function for tsvector data types 
 - Configures minrows as 300 * attstattarget following the pattern in commands/analyze.c
 - Returns true to indicate successful configuration
 - Part of PostgreSQL's full-text search statistics collection system
+
+## Simplified Source
+
+```c
+Datum ts_typanalyze(PG_FUNCTION_ARGS) {
+    VacAttrStats *stats = (VacAttrStats *) PG_GETARG_POINTER(0);
+
+    // Use default statistics target if not specified
+    if (stats->attstattarget < 0) {
+        stats->attstattarget = default_statistics_target;
+    }
+
+    // Set up tsvector-specific statistics collection
+    stats->compute_stats = compute_tsvector_stats;
+    stats->minrows = 300 * stats->attstattarget;
+
+    PG_RETURN_BOOL(true);
+}
+```

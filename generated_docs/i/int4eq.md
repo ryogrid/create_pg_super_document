@@ -34,3 +34,18 @@ This function implements the equality comparison operator (=) for PostgreSQL's i
 - Used internally by PostgreSQL when evaluating expressions like `WHERE column = 5` or `SELECT * FROM table WHERE id = 42`
 - Simple implementation using C's native == operator on extracted int32 values
 - Returns boolean true if arguments are equal, false otherwise
+
+## Simplified Source
+
+```c
+Datum
+int4eq(PG_FUNCTION_ARGS)
+{
+    // Extract the two integer arguments
+    int32 arg1 = PG_GETARG_INT32(0);
+    int32 arg2 = PG_GETARG_INT32(1);
+
+    // Return true if equal, false otherwise
+    PG_RETURN_BOOL(arg1 == arg2);
+}
+```

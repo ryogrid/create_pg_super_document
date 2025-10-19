@@ -46,3 +46,64 @@ The function validates each character, ensures proper hexadecimal format, and co
 - Allows optional braces around the entire UUID string
 - Hyphen placement is validated but flexible - allows hyphens after every 2 hex digits if positioned correctly
 - All validation failures jump to a single error handling point for consistent error reporting
+
+## Simplified Source
+
+```c
+static void
+string_to_uuid(const char *source, pg_uuid_t *uuid, Node *escontext)
+{
+    const char *src = source;
+    bool braces = false;
+    int i;
+
+    // Handle optional opening brace
+    if (src[0] == '{') {
+        src++;
+        braces = true;
+    }
+
+    // Parse 16 bytes of UUID data
+    for (i = 0; i < UUID_LEN; i++) {
+        char str_buf[3];
+
+        // Check for sufficient characters
+        if (src[0] == '\0' || src[1] == '\0')
+            goto syntax_error;
+
+        // Extract and validate two hex characters
+        memcpy(str_buf, src, 2);
+        if (!isxdigit((unsigned char) str_buf[0]) ||
+            !isxdigit((unsigned char) str_buf[1]))
+            goto syntax_error;
+
+        // Convert hex pair to byte
+        str_buf[2] = '\0';
+        uuid->data[i] = (unsigned char) strtoul(str_buf, NULL, 16);
+        src += 2;
+
+        // Skip optional hyphens at standard positions
+        if (src[0] == '-' && (i % 2) == 1 && i < UUID_LEN - 1)
+            src++;
+    }
+
+    // Handle optional closing brace
+    if (braces) {
+        if (*src != '}')
+            goto syntax_error;
+        src++;
+    }
+
+    // Ensure no trailing characters
+    if (*src != '\0')
+        goto syntax_error;
+
+    return;
+
+syntax_error:
+    ereturn(escontext,,
+            (errcode(ERRCODE_INVALID_TEXT_REPRESENTATION),
+             errmsg("invalid input syntax for type %s: \"%s\"",
+                    "uuid", source)));
+}
+```

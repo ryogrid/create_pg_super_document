@@ -32,3 +32,18 @@ The gtsvectorin function serves as the input function for the gtsvector data typ
 - The gtsvector type is for internal use only and should not be directly manipulated by users
 - The function follows PostgreSQL's convention of having input/output functions for all data types
 - Located in src/backend/utils/adt/tsgistidx.c which contains GiST support functions for tsvector
+
+## Simplified Source
+
+```c
+Datum
+gtsvectorin(PG_FUNCTION_ARGS)
+{
+    // gtsvector input is not supported - this type is for internal use only
+    ereport(ERROR,
+            (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+             errmsg("cannot accept a value of type %s", "gtsvector")));
+
+    PG_RETURN_VOID();  // Keep compiler quiet
+}
+```

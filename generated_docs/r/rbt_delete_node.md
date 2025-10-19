@@ -38,3 +38,63 @@ The function handles three main cases: deleting a node with no children, one chi
 - Properly handles memory management by calling the tree's freefunc if available
 - This is an internal static function, not exposed in the public API
 - The algorithm ensures that the binary search tree property is maintained throughout the deletion process
+
+## Simplified Source
+
+```c
+static void
+rbt_delete_node(RBTree *rbt, RBTNode *z)
+{
+    RBTNode *x, *y;
+
+    // Paranoia check - only delete valid nodes
+    if (!z || z == RBTNIL)
+        return;
+
+    // Determine which node to actually remove
+    if (z->left == RBTNIL || z->right == RBTNIL)
+    {
+        // z has 0 or 1 child - remove z directly
+        y = z;
+    }
+    else
+    {
+        // z has 2 children - find successor to replace it
+        y = z->right;
+        while (y->left != RBTNIL)
+            y = y->left;  // Find leftmost node in right subtree
+    }
+
+    // x is y's only child (or RBTNIL if no child)
+    if (y->left != RBTNIL)
+        x = y->left;
+    else
+        x = y->right;
+
+    // Remove y from tree by linking its child to its parent
+    x->parent = y->parent;
+    if (y->parent)
+    {
+        if (y == y->parent->left)
+            y->parent->left = x;
+        else
+            y->parent->right = x;
+    }
+    else
+    {
+        rbt->root = x;  // y was root, x becomes new root
+    }
+
+    // If we removed successor instead of z, copy successor's data to z
+    if (y != z)
+        rbt_copy_data(rbt, z, y);
+
+    // If we removed a black node, fix red-black violations
+    if (y->color == RBTBLACK)
+        rbt_delete_fixup(rbt, x);
+
+    // Clean up the removed node
+    if (rbt->freefunc)
+        rbt->freefunc(y, rbt->arg);
+}
+```

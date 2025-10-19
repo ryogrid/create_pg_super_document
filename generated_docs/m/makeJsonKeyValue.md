@@ -29,3 +29,19 @@ The `makeJsonKeyValue` function is a constructor that creates and initializes a 
 
 ## Notes and Other Information
 This function is essential for constructing JSON objects in PostgreSQL's SQL/JSON implementation. The strict typing enforced by casting the value to JsonValueExpr ensures that only properly formatted JSON values can be used in key-value pairs. The function returns a generic Node pointer, which allows it to be used in various contexts where JSON key-value pairs are needed. The use of castNode indicates that runtime type checking is performed to ensure the value parameter is indeed a JsonValueExpr.
+
+## Simplified Source
+
+```c
+Node *
+makeJsonKeyValue(Node *key, Node *value)
+{
+    JsonKeyValue *n = makeNode(JsonKeyValue);
+
+    // Set key and value with appropriate type casting
+    n->key = (Expr *) key;
+    n->value = castNode(JsonValueExpr, value);
+
+    return (Node *) n;
+}
+```

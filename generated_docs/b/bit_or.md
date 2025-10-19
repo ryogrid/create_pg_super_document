@@ -41,3 +41,37 @@ The `bit_or` function implements bitwise logical OR operation between two variab
 - No padding adjustment needed since OR of 0-bits remains 0
 - Error message: "cannot OR bit strings of different sizes"
 - Located in `src/backend/utils/adt/varbit.c:1284-1323`
+
+## Simplified Source
+
+```c
+Datum
+bit_or(PG_FUNCTION_ARGS)
+{
+    VarBit *arg1 = PG_GETARG_VARBIT_P(0);
+    VarBit *arg2 = PG_GETARG_VARBIT_P(1);
+    VarBit *result;
+    int bitlen1, bitlen2, i;
+    bits8 *p1, *p2, *r;
+
+    // Check that both bit strings have the same length
+    bitlen1 = VARBITLEN(arg1);
+    bitlen2 = VARBITLEN(arg2);
+    if (bitlen1 != bitlen2)
+        ereport(ERROR, "cannot OR bit strings of different sizes");
+
+    // Allocate result with same size as input
+    result = (VarBit *) palloc(VARSIZE(arg1));
+    SET_VARSIZE(result, VARSIZE(arg1));
+    VARBITLEN(result) = bitlen1;
+
+    // Perform bitwise OR operation byte by byte
+    p1 = VARBITS(arg1);
+    p2 = VARBITS(arg2);
+    r = VARBITS(result);
+    for (i = 0; i < VARBITBYTES(arg1); i++)
+        *r++ = *p1++ | *p2++;
+
+    return result;
+}
+```

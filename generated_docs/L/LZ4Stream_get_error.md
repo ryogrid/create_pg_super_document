@@ -35,3 +35,19 @@ This static function serves as an error reporting mechanism for LZ4 stream opera
 - The function relies on the errcode field in the LZ4State structure being properly set by other LZ4 operations
 - It provides a unified error reporting interface that abstracts away the distinction between LZ4 library errors and system errors
 - The function is typically called after other LZ4 stream operations fail to provide meaningful error messages to the user
+
+## Simplified Source
+
+```c
+static const char *
+LZ4Stream_get_error(CompressFileHandle *CFH)
+{
+    LZ4State *state = (LZ4State *) CFH->private_data;
+
+    // Return appropriate error message based on error type
+    if (LZ4F_isError(state->errcode))
+        return LZ4F_getErrorName(state->errcode);
+    else
+        return strerror(errno);
+}
+```

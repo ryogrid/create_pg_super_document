@@ -31,3 +31,19 @@ This function serves as a variable substitution hook in psql's variable manageme
 - Used extensively during variable space establishment for various psql boolean configuration options
 - The hook system ensures that special variables controlling psql behavior maintain consistent state management
 - Return value is the normalized string that will be stored as the variable's value
+
+## Simplified Source
+
+```c
+static char *bool_substitute_hook(char *newval) {
+    if (newval == NULL) {
+        // "\unset VAR" becomes "\set VAR off"
+        newval = pg_strdup("off");
+    } else if (newval[0] == '\0') {
+        // "\set VAR" becomes "\set VAR on"
+        pg_free(newval);
+        newval = pg_strdup("on");
+    }
+    return newval;
+}
+```

@@ -44,3 +44,25 @@ The conversion algorithm matches the  function, ensuring consistency across Post
 - Raises  errors for out-of-range values
 - Located in src/backend/utils/adt/date.c:1577-1604
 - Used internally by PostgreSQL for constructing TIME values from components
+
+## Simplified Source
+
+```c
+Datum make_time(PG_FUNCTION_ARGS) {
+    int hour = PG_GETARG_INT32(0);
+    int min = PG_GETARG_INT32(1);
+    double sec = PG_GETARG_FLOAT8(2);
+
+    // Validate time components for overflow
+    if (float_time_overflows(hour, min, sec))
+        ereport(ERROR, (errcode(ERRCODE_DATETIME_FIELD_OVERFLOW),
+                       errmsg("time field value out of range: %d:%02d:%02g",
+                              hour, min, sec)));
+
+    // Convert to microseconds since midnight
+    TimeADT time = (((hour * MINS_PER_HOUR + min) * SECS_PER_MINUTE) * USECS_PER_SEC)
+                   + (int64) rint(sec * USECS_PER_SEC);
+
+    PG_RETURN_TIMEADT(time);
+}
+```

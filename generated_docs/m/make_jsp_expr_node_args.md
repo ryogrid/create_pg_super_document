@@ -35,3 +35,22 @@ The function uses PostgreSQL's List data structure and associated macros (foreac
 
 ## Notes and Other Information
 This function represents a higher-level convenience wrapper that combines node creation with argument initialization, making it easier to create complex expression trees in the JSONB GIN indexing system. The function assumes that all elements in the args List are valid JsonPathGinNode pointers.
+
+## Simplified Source
+
+```c
+static JsonPathGinNode *
+make_jsp_expr_node_args(JsonPathGinNodeType type, List *args)
+{
+    // Create expression node with correct size for arguments
+    JsonPathGinNode *node = make_jsp_expr_node(type, list_length(args));
+
+    // Populate argument array from the list
+    ListCell *lc;
+    int i = 0;
+    foreach(lc, args)
+        node->args[i++] = lfirst(lc);
+
+    return node;
+}
+```

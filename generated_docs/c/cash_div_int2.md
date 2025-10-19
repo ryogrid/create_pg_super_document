@@ -34,3 +34,16 @@ This function implements the division operation between a Cash data type value a
 - This function is part of PostgreSQL's cash data type arithmetic operations
 - Uses safe division through cash_div_int64 which likely includes division-by-zero checks
 - The int2 parameter is automatically promoted to int64 for the underlying division operation
+
+## Simplified Source
+
+```c
+Datum cash_div_int2(PG_FUNCTION_ARGS) {
+    // Extract cash value and int16 divisor
+    Cash c = PG_GETARG_CASH(0);
+    int16 s = PG_GETARG_INT16(1);
+
+    // Promote int16 to int64 and delegate to helper function
+    PG_RETURN_CASH(cash_div_int64(c, (int64) s));
+}
+```

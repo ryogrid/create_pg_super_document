@@ -32,3 +32,27 @@ This function provides a wrapper around zlib's gzgetc() function for reading a s
 - Part of the Compress File API for handling gzip-compressed files in pg_dump/pg_restore
 - Uses CompressFileHandle structure to access the underlying gzFile
 - Terminates program with pg_fatal() on any error condition (including EOF)
+
+## Simplified Source
+
+```c
+static int Gzip_getc(CompressFileHandle *CFH)
+{
+    gzFile gzfp = (gzFile) CFH->private_data;
+    int ret;
+
+    // Read single character from gzip file
+    errno = 0;
+    ret = gzgetc(gzfp);
+
+    // Handle EOF/error conditions
+    if (ret == EOF) {
+        if (!gzeof(gzfp))
+            pg_fatal("could not read from input file: %m");
+        else
+            pg_fatal("could not read from input file: end of file");
+    }
+
+    return ret;
+}
+```

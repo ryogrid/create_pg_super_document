@@ -30,3 +30,13 @@ The function is part of the pg_rewind utility, which synchronizes a PostgreSQL d
 - The function contains only a comment explaining why no operation is needed
 - Part of the strategy pattern implementation where different source types (local vs remote) can have different behaviors
 - The corresponding `local_queue_fetch_range()` function performs the actual copying immediately, eliminating the need for deferred execution
+
+## Simplified Source
+
+```c
+static void
+local_finish_fetch(rewind_source *source)
+{
+    // No operation needed - local_queue_fetch_range() copies immediately
+}
+```

@@ -35,3 +35,16 @@ This function implements the less-than-or-equal-to operator for BOX data types i
 - Uses floating-point arithmetic, so standard floating-point precision considerations apply
 - Returns true if both boxes have equal areas or if the first box's area is smaller
 - Located in src/backend/utils/adt/geo_ops.c:771-779
+
+## Simplified Source
+
+```c
+Datum box_le(PG_FUNCTION_ARGS) {
+    // Extract the two box arguments
+    BOX *box1 = PG_GETARG_BOX_P(0);
+    BOX *box2 = PG_GETARG_BOX_P(1);
+
+    // Return true if box1's area <= box2's area
+    return PG_RETURN_BOOL(FPle(box_ar(box1), box_ar(box2)));
+}
+```

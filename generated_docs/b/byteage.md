@@ -42,3 +42,28 @@ The function extracts the actual data length excluding the varlena header using 
 - Properly handles varlena header management and memory cleanup
 - Returns true for both greater-than and equal-to cases, implementing the >= semantic
 - The comparison is case-sensitive as it operates on raw binary data
+
+## Simplified Source
+
+```c
+Datum byteage(PG_FUNCTION_ARGS) {
+    // Get the two bytea arguments
+    bytea *arg1 = PG_GETARG_BYTEA_PP(0);
+    bytea *arg2 = PG_GETARG_BYTEA_PP(1);
+
+    // Get lengths excluding headers
+    int len1 = VARSIZE_ANY_EXHDR(arg1);
+    int len2 = VARSIZE_ANY_EXHDR(arg2);
+
+    // Compare bytes up to the length of shorter string
+    int cmp = memcmp(VARDATA_ANY(arg1), VARDATA_ANY(arg2), Min(len1, len2));
+
+    // Clean up memory if needed
+    PG_FREE_IF_COPY(arg1, 0);
+    PG_FREE_IF_COPY(arg2, 1);
+
+    // Return true if arg1 >= arg2 lexicographically
+    // Either bytes differ (cmp > 0) or bytes same but arg1 not shorter
+    PG_RETURN_BOOL((cmp > 0) || ((cmp == 0) && (len1 >= len2)));
+}
+```

@@ -41,3 +41,43 @@ Like its counterpart function, it assumes the NFA contains no duplicate arcs and
 - Critical for determining when colors can be merged during NFA optimization from the reverse direction
 - Assumes no duplicate arcs exist in the NFA structure
 - Always resets the  fields to NULL before returning to maintain clean state
+
+## Simplified Source
+
+```c
+static bool
+check_in_colors_match(struct state *s, color co1, color co2)
+{
+    bool result = true;
+    struct arc *a;
+
+    // Pass 1: Mark states that reach s via co1 arcs
+    for (a = s->ins; a != NULL; a = a->inchain) {
+        if (a->co == co1) {
+            a->from->tmp = a->from;
+        }
+    }
+
+    // Pass 2: Check co2 arcs against marked states
+    for (a = s->ins; a != NULL; a = a->inchain) {
+        if (a->co == co2) {
+            if (a->from->tmp != NULL)
+                a->from->tmp = NULL;  // matched
+            else
+                result = false;       // unmatched co2 arc
+        }
+    }
+
+    // Pass 3: Check for unmatched co1 arcs and clean up
+    for (a = s->ins; a != NULL; a = a->inchain) {
+        if (a->co == co1) {
+            if (a->from->tmp != NULL) {
+                result = false;       // unmatched co1 arc
+                a->from->tmp = NULL;
+            }
+        }
+    }
+
+    return result;
+}
+```

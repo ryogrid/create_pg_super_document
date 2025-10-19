@@ -43,3 +43,63 @@ The function detects and reports clock irregularities, specifically when time ap
 - Function is static, indicating it's only used within the same compilation unit
 - Uses PostgreSQL's portable timing infrastructure for cross-platform compatibility
 - Critical for diagnosing timing-related performance issues in PostgreSQL deployments
+
+## Simplified Source
+
+```c
+static uint64 test_timing(unsigned int duration)
+{
+    uint64 total_time, loop_count = 0;
+    int64 time_elapsed = 0;
+    uint64 prev, cur;
+    instr_time start_time, end_time, temp;
+
+    // Convert duration to microseconds
+    total_time = duration > 0 ? duration * INT64CONST(1000000) : 0;
+
+    // Initialize timing
+    INSTR_TIME_SET_CURRENT(start_time);
+    cur = INSTR_TIME_GET_MICROSEC(start_time);
+
+    // Main timing loop
+    while (time_elapsed < total_time) {
+        int32 diff, bits = 0;
+
+        // Get time difference from previous measurement
+        prev = cur;
+        INSTR_TIME_SET_CURRENT(temp);
+        cur = INSTR_TIME_GET_MICROSEC(temp);
+        diff = cur - prev;
+
+        // Check for clock going backwards
+        if (diff < 0) {
+            fprintf(stderr, _("Detected clock going backwards in time.\n"));
+            fprintf(stderr, _("Time warp: %d ms\n"), diff);
+            exit(1);
+        }
+
+        // Calculate highest bit position for histogram
+        while (diff) {
+            diff >>= 1;
+            bits++;
+        }
+
+        // Update timing histogram
+        histogram[bits]++;
+
+        // Update loop tracking
+        loop_count++;
+        INSTR_TIME_SUBTRACT(temp, start_time);
+        time_elapsed = INSTR_TIME_GET_MICROSEC(temp);
+    }
+
+    // Calculate and display overhead
+    INSTR_TIME_SET_CURRENT(end_time);
+    INSTR_TIME_SUBTRACT(end_time, start_time);
+
+    printf(_("Per loop time including overhead: %0.2f ns\n"),
+           INSTR_TIME_GET_DOUBLE(end_time) * 1e9 / loop_count);
+
+    return loop_count;
+}
+```

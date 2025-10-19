@@ -39,3 +39,27 @@ The function is part of PostgreSQL's JSON manifest parsing infrastructure, typic
 - Only supports manifest versions 1 and 2; other versions trigger a parse failure
 - Uses PostgreSQL's internal  function for robust integer parsing with error detection
 - Part of the incremental JSON parsing framework for handling large manifest files efficiently
+
+## Simplified Source
+
+```c
+static void json_manifest_finalize_version(JsonManifestParseState *parse) {
+    JsonManifestParseContext *context = parse->context;
+    int version;
+    char *ep;
+
+    Assert(parse->saw_version_field);
+
+    // Parse version string to integer
+    version = strtoi64(parse->manifest_version, &ep, 10);
+    if (*ep)
+        json_manifest_parse_failure(parse->context, "manifest version not an integer");
+
+    // Validate supported version
+    if (version != 1 && version != 2)
+        json_manifest_parse_failure(parse->context, "unexpected manifest version");
+
+    // Notify caller of the version
+    context->version_cb(context, version);
+}
+```

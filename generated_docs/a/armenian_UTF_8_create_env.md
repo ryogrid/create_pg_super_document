@@ -39,3 +39,14 @@ This is a language-specific wrapper around the generic Snowball environment crea
 - The specific parameter values (0, 2) indicate that Armenian stemming requires 2 integer variables but no additional string variables
 - This is part of the automatically generated Snowball stemming code for Armenian language support
 - Memory allocation is handled by the underlying  function which uses calloc for zero-initialization
+
+## Simplified Source
+
+```c
+extern struct SN_env * armenian_UTF_8_create_env(void) {
+    // Create Snowball environment for Armenian stemming
+    // 0 = no string variables needed
+    // 2 = need 2 integer variables (R1 and R2 region markers)
+    return SN_create_env(0, 2);
+}
+```

@@ -33,3 +33,51 @@ This function sets up the random seed for pgbench's pseudo-random number generat
 - Uses sscanf for parsing numeric seeds with garbage detection
 - Logs the actual seed value used when explicitly specified
 - Part of pgbench's deterministic random number generation system for reproducible benchmarks
+
+## Simplified Source
+
+```c
+static bool
+set_random_seed(const char *seed)
+{
+    uint64 iseed;
+
+    if (seed == NULL || strcmp(seed, "time") == 0)
+    {
+        // Use current time as seed
+        iseed = pg_time_now();
+    }
+    else if (strcmp(seed, "rand") == 0)
+    {
+        // Use strong random source
+        if (!pg_strong_random(&iseed, sizeof(iseed)))
+        {
+            pg_log_error("could not generate random seed");
+            return false;
+        }
+    }
+    else
+    {
+        // Parse numeric seed value
+        unsigned long ulseed;
+        char garbage;
+
+        if (sscanf(seed, "%lu%c", &ulseed, &garbage) != 1)
+        {
+            pg_log_error("unrecognized random seed option \"%s\"", seed);
+            pg_log_error_detail("Expecting an unsigned integer, \"time\" or \"rand\".");
+            return false;
+        }
+        iseed = (uint64) ulseed;
+    }
+
+    if (seed != NULL)
+        pg_log_info("setting random seed to %llu", (unsigned long long) iseed);
+
+    // Store seed and initialize base random sequence
+    random_seed = iseed;
+    pg_prng_seed(&base_random_sequence, (uint64) iseed);
+
+    return true;
+}
+```

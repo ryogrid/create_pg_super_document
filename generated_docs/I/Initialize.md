@@ -35,3 +35,17 @@ This function takes no parameters and operates on the global variable:
 - The function is designed as an extension point where additional initialization logic can be added for different archive storage systems
 - This validation step prevents the program from attempting cleanup operations on invalid or inaccessible locations
 - Located at src/bin/pg_archivecleanup/pg_archivecleanup.c:57-74
+
+## Simplified Source
+
+```c
+static void Initialize(void) {
+    // Verify archive location exists and is a directory
+    struct stat stat_buf;
+
+    if (stat(archiveLocation, &stat_buf) != 0 || !S_ISDIR(stat_buf.st_mode)) {
+        pg_log_error("archive location \"%s\" does not exist", archiveLocation);
+        exit(2);
+    }
+}
+```

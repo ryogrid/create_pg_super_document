@@ -41,3 +41,32 @@ This function serves as a callback during backup manifest parsing. When the JSON
 - The matched and bad flags are initialized to false and will be updated during verification
 - The checksum_payload memory is assumed to be managed by the caller
 - This function is part of the pg_verifybackup utility's manifest processing pipeline
+
+## Simplified Source
+
+```c
+static void
+verifybackup_per_file_cb(JsonManifestParseContext *context,
+                         const char *pathname, size_t size,
+                         pg_checksum_type checksum_type,
+                         int checksum_length, uint8 *checksum_payload)
+{
+    manifest_data *manifest = context->private_data;
+    manifest_files_hash *ht = manifest->files;
+    manifest_file *m;
+    bool found;
+
+    // Create new hash table entry for this file
+    m = manifest_files_insert(ht, pathname, &found);
+    if (found)
+        report_fatal_error("duplicate path name in backup manifest: \"%s\"", pathname);
+
+    // Initialize file metadata
+    m->size = size;
+    m->checksum_type = checksum_type;
+    m->checksum_length = checksum_length;
+    m->checksum_payload = checksum_payload;
+    m->matched = false;
+    m->bad = false;
+}
+```

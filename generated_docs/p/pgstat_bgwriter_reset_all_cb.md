@@ -35,3 +35,27 @@ The  function implements the callback mechanism for resetting background writer 
 - The reset operation preserves historical data by copying current stats to a reset_offset before clearing them
 - The timestamp parameter allows tracking of when statistics were last reset, which is useful for monitoring and administrative purposes
 - This callback is part of PostgreSQL's statistics reset framework and is typically invoked when administrative functions request a statistics reset
+
+## Simplified Source
+
+```c
+void
+pgstat_bgwriter_reset_all_cb(TimestampTz ts)
+{
+    PgStatShared_BgWriter *stats_shmem = &pgStatLocal.shmem->bgwriter;
+
+    // Acquire exclusive lock for atomic reset operation
+    LWLockAcquire(&stats_shmem->lock, LW_EXCLUSIVE);
+
+    // Copy current stats to reset_offset (used for delta calculations)
+    pgstat_copy_changecounted_stats(&stats_shmem->reset_offset,
+                                    &stats_shmem->stats,
+                                    sizeof(stats_shmem->stats),
+                                    &stats_shmem->changecount);
+
+    // Update reset timestamp
+    stats_shmem->stats.stat_reset_timestamp = ts;
+
+    LWLockRelease(&stats_shmem->lock);
+}
+```

@@ -34,3 +34,22 @@ The `bitcmp` function is a PostgreSQL function that provides a three-way compari
 - Returns the same values as the internal bit_cmp function: <0 for less than, 0 for equal, >0 for greater than
 - Memory management is handled through PG_FREE_IF_COPY to prevent leaks in btree operations
 - Located in src/backend/utils/adt/varbit.c:949-967
+
+## Simplified Source
+
+```c
+Datum bitcmp(PG_FUNCTION_ARGS) {
+    // Extract the two bit string arguments
+    VarBit *arg1 = PG_GETARG_VARBIT_P(0);
+    VarBit *arg2 = PG_GETARG_VARBIT_P(1);
+
+    // Perform the comparison using internal helper
+    int32 result = bit_cmp(arg1, arg2);
+
+    // Clean up memory and return result
+    PG_FREE_IF_COPY(arg1, 0);
+    PG_FREE_IF_COPY(arg2, 1);
+
+    PG_RETURN_INT32(result);
+}
+```

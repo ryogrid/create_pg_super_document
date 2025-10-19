@@ -36,3 +36,14 @@ The function extracts both a 16-bit integer argument and a 64-bit integer seed f
 - Returns a Datum containing the computed hash value
 - Part of PostgreSQL's comprehensive extended hash function collection for various data types
 - Designed for advanced hashing scenarios that require seed-based hash computation
+
+## Simplified Source
+
+```c
+Datum
+hashint2extended(PG_FUNCTION_ARGS)
+{
+    // Extract 16-bit integer and seed, promote to 32-bit and hash with extended function
+    return hash_uint32_extended((int32) PG_GETARG_INT16(0), PG_GETARG_INT64(1));
+}
+```

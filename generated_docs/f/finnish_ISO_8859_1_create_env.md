@@ -42,3 +42,14 @@ The function delegates to the generic SN_create_env function with the appropriat
 - The allocated string and integer slots match the exact requirements of the Finnish stemming algorithm
 - Returns NULL on allocation failure, valid SN_env pointer on success
 - This function should be called once per stemming session or thread to create the working environment
+
+## Simplified Source
+
+```c
+extern struct SN_env * finnish_ISO_8859_1_create_env(void) {
+    // Create Snowball environment with Finnish-specific configuration:
+    // - 1 string slot for temporary storage
+    // - 3 integer slots for region boundaries (R1, R2) and flags
+    return SN_create_env(1, 3);
+}
+```

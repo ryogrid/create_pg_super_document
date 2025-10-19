@@ -51,3 +51,63 @@ The function uses specific flags to optimize the recovery process: -F (disable f
 - Will terminate the program (exit(1)) if the postgres execution fails
 - Supports custom configuration files via the global config_file variable
 - Located at src/bin/pg_rewind/pg_rewind.c:1129-1199
+
+## Simplified Source
+
+```c
+static void
+ensureCleanShutdown(const char *argv0)
+{
+    int ret;
+    char exec_path[MAXPGPATH];
+    PQExpBuffer postgres_cmd;
+
+    // Find postgres executable in same directory
+    if ((ret = find_other_exec(argv0, "postgres", PG_BACKEND_VERSIONSTR, exec_path)) < 0)
+    {
+        // Handle executable not found or version mismatch
+        char full_path[MAXPGPATH];
+        if (find_my_exec(argv0, full_path) < 0)
+            strlcpy(full_path, progname, sizeof(full_path));
+
+        if (ret == -1)
+            pg_fatal("postgres executable not found in same directory");
+        else
+            pg_fatal("postgres executable version mismatch");
+    }
+
+    pg_log_info("executing postgres for target server to complete crash recovery");
+
+    // Skip execution if in dry-run mode
+    if (dry_run)
+        return;
+
+    // Build command: postgres --single -F -D datadir [-c config_file=...] template1 < /dev/null
+    postgres_cmd = createPQExpBuffer();
+    appendShellString(postgres_cmd, exec_path);
+    appendPQExpBufferStr(postgres_cmd, " --single -F -D ");
+    appendShellString(postgres_cmd, datadir_target);
+
+    // Add custom config file if specified
+    if (config_file != NULL)
+    {
+        appendPQExpBufferStr(postgres_cmd, " -c config_file=");
+        appendShellString(postgres_cmd, config_file);
+    }
+
+    // Connect to template1 database with input from /dev/null
+    appendPQExpBufferStr(postgres_cmd, " template1 < ");
+    appendShellString(postgres_cmd, DEVNULL);
+
+    // Execute single-user mode postgres for crash recovery
+    fflush(NULL);
+    if (system(postgres_cmd->data) != 0)
+    {
+        pg_log_error("postgres single-user mode in target cluster failed");
+        pg_log_error_detail("Command was: %s", postgres_cmd->data);
+        exit(1);
+    }
+
+    destroyPQExpBuffer(postgres_cmd);
+}
+```

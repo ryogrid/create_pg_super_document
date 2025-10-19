@@ -35,3 +35,26 @@ This callback function is invoked when the JSON parser encounters the end of an 
 - Both expected states (JM_EXPECT_FILES_NEXT and JM_EXPECT_WAL_RANGES_NEXT) transition to JM_EXPECT_TOPLEVEL_FIELD
 - Error handling is provided for unexpected array endings through json_manifest_parse_failure
 - The function always returns JSON_SUCCESS, with errors handled through the parse failure mechanism
+
+## Simplified Source
+
+```c
+static JsonParseErrorType json_manifest_array_end(void *state) {
+    JsonManifestParseState *parse = state;
+
+    switch (parse->state) {
+        case JM_EXPECT_FILES_NEXT:
+        case JM_EXPECT_WAL_RANGES_NEXT:
+            // End of Files or WAL-Ranges array - return to top level
+            parse->state = JM_EXPECT_TOPLEVEL_FIELD;
+            break;
+
+        default:
+            // Unexpected array end
+            json_manifest_parse_failure(parse->context, "unexpected array end");
+            break;
+    }
+
+    return JSON_SUCCESS;
+}
+```

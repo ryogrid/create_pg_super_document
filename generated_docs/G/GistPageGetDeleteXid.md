@@ -41,3 +41,26 @@ The function uses the pd_lower field to determine the page format version - newe
 - Returns FirstNormalTransactionId for pages in the old format without the deleteXid field
 - This is crucial for the page recycling mechanism to determine when deleted pages can be safely reused
 - The function calculates the minimum required pd_lower value to ensure the deleteXid field is present
+
+## Simplified Source
+
+```c
+static inline FullTransactionId GistPageGetDeleteXid(Page page) {
+    // Ensure page is marked as deleted
+    Assert(GistPageIsDeleted(page));
+
+    // Check if deleteXid field is present in this page format
+    // (newer pages have sufficient space allocated for the field)
+    if (((PageHeader) page)->pd_lower >=
+        MAXALIGN(SizeOfPageHeaderData) +
+        offsetof(GISTDeletedPageContents, deleteXid) +
+        sizeof(FullTransactionId)) {
+
+        // Return the stored deletion transaction ID
+        return ((GISTDeletedPageContents *) PageGetContents(page))->deleteXid;
+    } else {
+        // Backward compatibility: return default for older page format
+        return FullTransactionIdFromEpochAndXid(0, FirstNormalTransactionId);
+    }
+}
+```

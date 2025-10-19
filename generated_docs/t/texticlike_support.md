@@ -35,4 +35,16 @@ The function extracts the support request from its arguments and delegates the a
 - It specifically handles case-insensitive LIKE patterns (ILIKE), as opposed to regular LIKE which is case-sensitive
 - The "IC" suffix in  stands for "Ignore Case"
 - The actual logic for selectivity estimation and index optimization is implemented in the shared  function
-- Located in 
+- Located in src/backend/utils/adt/like_support.c
+
+## Simplified Source
+
+```c
+Datum texticlike_support(PG_FUNCTION_ARGS) {
+    // Extract the planner support request
+    Node *rawreq = (Node *) PG_GETARG_POINTER(0);
+
+    // Delegate to common pattern support function for case-insensitive LIKE patterns
+    PG_RETURN_POINTER(like_regex_support(rawreq, Pattern_Type_Like_IC));
+}
+``` 

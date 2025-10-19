@@ -37,3 +37,18 @@ The result represents the time difference in microseconds between the two time v
 - Simpler implementation compared to timezone-aware time functions
 - Part of the BRIN minmax multi access method implementation
 - Located in src/backend/access/brin/brin_minmax_multi.c:2099-2118
+
+## Simplified Source
+
+```c
+Datum brin_minmax_multi_distance_time(PG_FUNCTION_ARGS) {
+    // Extract time arguments (stored as int64 microseconds since midnight)
+    TimeADT ta = PG_GETARG_TIMEADT(0);
+    TimeADT tb = PG_GETARG_TIMEADT(1);
+
+    // Calculate time difference in microseconds
+    float8 delta = (tb - ta);
+
+    PG_RETURN_FLOAT8(delta);
+}
+```

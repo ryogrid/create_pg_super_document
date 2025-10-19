@@ -32,3 +32,12 @@ ResourceOwnerForgetHMAC is a static inline wrapper function that removes an HMAC
 - Paired with ResourceOwnerRememberHMAC for complete resource lifecycle management
 - Must be called before manually freeing HMAC contexts to maintain resource tracking consistency
 - Uses the hmac_resowner_desc descriptor to identify the resource type
+
+## Simplified Source
+
+```c
+static inline void ResourceOwnerForgetHMAC(ResourceOwner owner, pg_hmac_ctx *ctx) {
+    // Unregister HMAC context from resource owner before manual cleanup
+    ResourceOwnerForget(owner, PointerGetDatum(ctx), &hmac_resowner_desc);
+}
+```

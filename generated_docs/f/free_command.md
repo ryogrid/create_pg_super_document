@@ -35,3 +35,29 @@ The function handles the PQExpBuffer for SQL text using the appropriate termPQEx
 - The function does not perform null pointer checks, assuming valid input from calling code
 - Memory deallocation follows the reverse order of allocation to maintain good memory management practices
 - Used primarily during cleanup phases when commands are no longer needed or when errors occur during processing
+
+## Simplified Source
+
+```c
+static void free_command(Command *command)
+{
+    // Free SQL text buffer
+    termPQExpBuffer(&command->lines);
+
+    // Free optional string fields
+    pg_free(command->first_line);
+    pg_free(command->varprefix);
+
+    // Free all parameter argument strings
+    for (int i = 0; i < command->argc; i++)
+        pg_free(command->argv[i]);
+
+    /*
+     * Note: expr field is not freed recursively as it's currently
+     * not needed for commands that typically get freed (gset commands)
+     */
+
+    // Free the command structure itself
+    pg_free(command);
+}
+```

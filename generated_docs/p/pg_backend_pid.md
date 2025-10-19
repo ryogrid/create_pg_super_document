@@ -27,3 +27,13 @@ This function is a simple PostgreSQL system function that returns the process ID
 - The returned value is of type int32, representing the operating system process ID
 - Commonly used in monitoring queries and administrative scripts to track backend processes
 - The function is defined in src/backend/utils/adt/pgstatfuncs.c:661-664
+
+## Simplified Source
+
+```c
+Datum pg_backend_pid(PG_FUNCTION_ARGS)
+{
+    // Return the current backend process ID
+    PG_RETURN_INT32(MyProcPid);
+}
+```

@@ -37,3 +37,23 @@ The `GetRmgrDesc` function serves as the main interface for obtaining resource m
 - Critical function in pg_waldump's resource manager handling system
 - Bridges the gap between built-in and custom resource manager handling
 - The returned descriptor contains name, description function, and identification function pointers
+
+## Simplified Source
+
+```c
+const RmgrDescData *
+GetRmgrDesc(RmgrId rmid)
+{
+    Assert(RmgrIdIsValid(rmid));
+
+    // Handle built-in resource managers
+    if (RmgrIdIsBuiltin(rmid))
+        return &RmgrDescTable[rmid];
+    else {
+        // Handle custom resource managers (lazy initialization)
+        if (!CustomRmgrDescInitialized)
+            initialize_custom_rmgrs();
+        return &CustomRmgrDesc[rmid - RM_MIN_CUSTOM_ID];
+    }
+}
+```

@@ -48,3 +48,52 @@ The algorithm uses backtracking markers (m2-m6) to ensure each phase can be atte
 - Returns 1 on successful completion, negative values indicate errors
 - The stemming preserves the original word boundaries while processing only the stem content
 - Each processing phase is designed to be independent and reversible via cursor position management
+
+## Simplified Source
+
+```c
+extern int romanian_UTF_8_stem(struct SN_env * z) {
+    // Step 1: Preprocess text and mark morphological regions
+    int cursor_backup = z->c;
+    if (r_prelude(z) < 0) return -1;
+    z->c = cursor_backup;
+
+    if (r_mark_regions(z) < 0) return -1;
+
+    // Step 2: Process from end of word backwards
+    z->lb = z->c;
+    z->c = z->l;
+
+    // Step 3: Apply suffix removal in sequence
+    // Initial suffix processing
+    int pos_backup = z->l - z->c;
+    if (r_step_0(z) < 0) return -1;
+    z->c = z->l - pos_backup;
+
+    // Standard morphological suffixes
+    pos_backup = z->l - z->c;
+    if (r_standard_suffix(z) < 0) return -1;
+    z->c = z->l - pos_backup;
+
+    // Verb suffixes (conditional on flag)
+    pos_backup = z->l - z->c;
+    if (!z->I[3]) {
+        // Try verb suffix removal if flag not set
+        if (r_verb_suffix(z) < 0) return -1;
+    }
+    z->c = z->l - pos_backup;
+
+    // Final vowel cleanup
+    pos_backup = z->l - z->c;
+    if (r_vowel_suffix(z) < 0) return -1;
+    z->c = z->l - pos_backup;
+
+    // Step 4: Apply final transformations
+    z->c = z->lb;
+    cursor_backup = z->c;
+    if (r_postlude(z) < 0) return -1;
+    z->c = cursor_backup;
+
+    return 1; // Success
+}
+```

@@ -38,3 +38,14 @@ The returned environment must be properly cleaned up using the corresponding clo
 - Returns NULL if memory allocation fails
 - The created environment is ready for use with porter_ISO_8859_1_stem
 - Used in PostgreSQL's full-text search stemming infrastructure
+
+## Simplified Source
+
+```c
+extern struct SN_env * porter_ISO_8859_1_create_env(void) {
+    // Create Snowball environment with:
+    // - 0 string variables (Porter doesn't use string vars)
+    // - 3 integer variables (for R1, R2 boundaries and Y-flag)
+    return SN_create_env(0, 3);
+}
+```

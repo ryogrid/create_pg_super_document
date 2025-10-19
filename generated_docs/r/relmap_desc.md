@@ -38,3 +38,20 @@ The function examines the WAL record type and, for  records, extracts and displa
 - The output format includes database ID, tablespace ID, and data size for relmap updates
 - Used primarily for debugging, logging, and WAL record analysis tools
 - Part of PostgreSQL's relation mapping system which maintains the mapping between relation OIDs and their physical file locations
+
+## Simplified Source
+
+```c
+void relmap_desc(StringInfo buf, XLogReaderState *record) {
+    // Extract record data and operation type
+    char *rec = XLogRecGetData(record);
+    uint8 info = XLogRecGetInfo(record) & ~XLR_INFO_MASK;
+
+    // Handle relmap update operations
+    if (info == XLOG_RELMAP_UPDATE) {
+        xl_relmap_update *xlrec = (xl_relmap_update *) rec;
+        appendStringInfo(buf, "database %u tablespace %u size %d",
+                        xlrec->dbid, xlrec->tsid, xlrec->nbytes);
+    }
+}
+```

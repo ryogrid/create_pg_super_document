@@ -33,4 +33,18 @@ This function computes the shortest distance between a box and a line segment in
 - Located at src/backend/utils/adt/geo_ops.c:2562-2570
 - Part of PostgreSQL's geometric data type operations
 - Follows PostgreSQL's standard function interface pattern for SQL-callable functions
-- The actual distance computation logic is implemented in 
+- The actual distance computation logic is implemented in box_closept_lseg
+
+## Simplified Source
+
+```c
+Datum dist_bs(PG_FUNCTION_ARGS) {
+    // Extract box and line segment from function arguments
+    BOX *box = PG_GETARG_BOX_P(0);
+    LSEG *lseg = PG_GETARG_LSEG_P(1);
+
+    // Calculate distance between box and line segment
+    // Uses existing utility function for the core computation
+    PG_RETURN_FLOAT8(box_closept_lseg(NULL, box, lseg));
+}
+``` 

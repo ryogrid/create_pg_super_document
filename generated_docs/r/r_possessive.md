@@ -51,3 +51,71 @@ Each case performs pattern matching against different suffix arrays (a_1, a_2, a
 
 ## Notes and Other Information
 This function is highly specific to Finnish morphology, reflecting the complex possessive system of the Finnish language. Finnish possessive suffixes can trigger vowel harmony changes and consonant gradation, which is why the function includes multiple cases with vowel-specific requirements. The function handles both simple removal and morphological transformations (case 2 with replacement). The character codes used (97='a', 228='ä', 101='e') reflect the ISO-8859-1 encoding for Finnish vowels. This function typically runs after particle removal but before case suffix processing in the Finnish stemming pipeline.
+
+## Simplified Source
+
+```c
+static int r_possessive(struct SN_env * z) {
+    int possessive_type;
+
+    // Set boundaries to R1 region for possessive processing
+    if (z->c < z->I[1]) return 0;
+    int saved_boundary = z->lb;
+    z->lb = z->I[1];
+
+    // Find possessive suffix from predefined list
+    z->ket = z->c;
+    possessive_type = find_among_b(z, a_4, 9);
+    if (!possessive_type) {
+        z->lb = saved_boundary;
+        return 0;
+    }
+    z->bra = z->c;
+    z->lb = saved_boundary;
+
+    // Apply removal rules based on possessive type
+    switch (possessive_type) {
+        case 1:
+            // Don't remove if preceded by 'k'
+            if (z->c > z->lb && z->p[z->c - 1] == 'k') {
+                return 0;
+            }
+            slice_del(z);
+            break;
+
+        case 2:
+            // Remove possessive and replace specific pattern
+            slice_del(z);
+            z->ket = z->c;
+            if (eq_s_b(z, 3, s_0)) {
+                z->bra = z->c;
+                slice_from_s(z, 3, s_1);
+            }
+            break;
+
+        case 3:
+            // Simple possessive removal
+            slice_del(z);
+            break;
+
+        case 4:
+            // Requires preceding 'a' vowel
+            if (z->c <= z->lb || z->p[z->c - 1] != 'a') return 0;
+            if (find_among_b(z, a_1, 6)) slice_del(z);
+            break;
+
+        case 5:
+            // Requires preceding 'ä' vowel
+            if (z->c <= z->lb || z->p[z->c - 1] != 228) return 0;
+            if (find_among_b(z, a_2, 6)) slice_del(z);
+            break;
+
+        case 6:
+            // Requires preceding 'e' vowel
+            if (z->c <= z->lb || z->p[z->c - 1] != 'e') return 0;
+            if (find_among_b(z, a_3, 2)) slice_del(z);
+            break;
+    }
+    return 1;
+}
+```

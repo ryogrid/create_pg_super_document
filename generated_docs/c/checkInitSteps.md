@@ -37,7 +37,7 @@ If validation fails, the function logs an error message indicating the invalid c
 ## Notes and Other Information
 - Valid initialization step characters are defined by ALL_INIT_STEPS: "dtgGvpf" where:
   - d = drop existing tables
-  - t = create tables  
+  - t = create tables
   - g = generate data
   - G = generate data with vacuum
   - v = create views
@@ -47,3 +47,22 @@ If validation fails, the function logs an error message indicating the invalid c
 - This function exits the program on validation failure rather than returning an error code
 - Provides user-friendly error messages that show both the invalid character and the list of valid characters
 - Located in src/bin/pgbench/pgbench.c:5239-5258
+
+## Simplified Source
+```c
+static void checkInitSteps(const char *initialize_steps) {
+    // Must specify at least one initialization step
+    if (initialize_steps[0] == '\0')
+        pg_fatal("no initialization steps specified");
+
+    // Validate each character in the steps string
+    for (const char *step = initialize_steps; *step != '\0'; step++) {
+        // Check if character is valid (in ALL_INIT_STEPS or space)
+        if (strchr(ALL_INIT_STEPS " ", *step) == NULL) {
+            pg_log_error("unrecognized initialization step \"%c\"", *step);
+            pg_log_error_detail("Allowed step characters are: \"" ALL_INIT_STEPS "\".");
+            exit(1);
+        }
+    }
+}
+```

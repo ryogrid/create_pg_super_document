@@ -47,3 +47,32 @@ This function is crucial for handling Spanish verb forms like "construy-" (from 
 - Returns 1 on successful removal, 0 if no valid pattern found, and negative values on error
 - The function effectively removes both the 'u' and the 'y' components when a match is found
 - This is a static function used only within the Spanish stemmer implementations
+
+## Simplified Source
+
+```c
+static int r_y_verb_suffix(struct SN_env * z) {
+    // Check if we're within the RV region
+    if (z->c < z->I[2]) return 0;
+
+    // Save current boundary and set to RV region
+    int saved_boundary = z->lb;
+    z->lb = z->I[2];
+
+    // Try to match y-verb suffix patterns (12 patterns in array a_7)
+    z->ket = z->c;
+    if (!find_among_b(z, a_7, 12)) {
+        z->lb = saved_boundary;
+        return 0;
+    }
+    z->bra = z->c;
+    z->lb = saved_boundary;
+
+    // Check if preceded by 'u' (required for uy pattern)
+    if (z->c <= z->lb || z->p[z->c - 1] != 'u') return 0;
+
+    // Remove the 'u' and the matched suffix
+    z->c--;  // Move past the 'u'
+    return slice_del(z);  // Delete the matched region
+}
+```

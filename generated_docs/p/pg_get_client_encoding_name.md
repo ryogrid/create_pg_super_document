@@ -31,3 +31,12 @@ This function provides a clean interface for obtaining the encoding name as a st
 - Relies on the global ClientEncoding variable being properly initialized
 - Common encoding names include "UTF8", "LATIN1", "EUC_JP", "WIN1252", etc.
 - May be exposed through SQL functions or used in logging and error reporting
+
+## Simplified Source
+
+```c
+const char *pg_get_client_encoding_name(void) {
+    // Return the name of the current client encoding
+    return ClientEncoding->name;
+}
+```

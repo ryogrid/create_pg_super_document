@@ -55,3 +55,91 @@ Each RTE type has its own specific fields that need to be deserialized. The func
 - RTE_RESULT entries have no extra fields beyond the common ones
 - Uses PostgreSQL's standard READ_* macro pattern for consistent field deserialization
 - Part of the broader query plan serialization/deserialization system used for prepared statements and parallel query execution
+
+## Simplified Source
+
+```c
+static RangeTblEntry *
+_readRangeTblEntry(void)
+{
+    // Initialize local variables for reading
+    READ_LOCALS(RangeTblEntry);
+
+    // Read common fields for all RTE types
+    READ_NODE_FIELD(alias);
+    READ_NODE_FIELD(eref);
+    READ_ENUM_FIELD(rtekind, RTEKind);
+
+    // Read type-specific fields based on RTE kind
+    switch (local_node->rtekind) {
+        case RTE_RELATION:
+            // Base table/relation fields
+            READ_OID_FIELD(relid);
+            READ_BOOL_FIELD(inh);
+            READ_CHAR_FIELD(relkind);
+            READ_INT_FIELD(rellockmode);
+            READ_UINT_FIELD(perminfoindex);
+            READ_NODE_FIELD(tablesample);
+            break;
+
+        case RTE_SUBQUERY:
+            // Subquery fields (reuses some relation fields)
+            READ_NODE_FIELD(subquery);
+            READ_BOOL_FIELD(security_barrier);
+            READ_OID_FIELD(relid);
+            READ_BOOL_FIELD(inh);
+            // ... other relation fields reused
+            break;
+
+        case RTE_JOIN:
+            // Join-specific fields
+            READ_ENUM_FIELD(jointype, JoinType);
+            READ_INT_FIELD(joinmergedcols);
+            READ_NODE_FIELD(joinaliasvars);
+            READ_NODE_FIELD(joinleftcols);
+            READ_NODE_FIELD(joinrightcols);
+            READ_NODE_FIELD(join_using_alias);
+            break;
+
+        case RTE_TABLEFUNC:
+            // Table function with special column type handling
+            READ_NODE_FIELD(tablefunc);
+            if (local_node->tablefunc) {
+                TableFunc *tf = local_node->tablefunc;
+                // Copy column type info from TableFunc to RTE
+                local_node->coltypes = tf->coltypes;
+                local_node->coltypmods = tf->coltypmods;
+                local_node->colcollations = tf->colcollations;
+            }
+            break;
+
+        case RTE_VALUES:
+        case RTE_CTE:
+            // VALUES and CTE have similar column metadata fields
+            // ... field reading logic
+            break;
+
+        case RTE_RESULT:
+            // No extra fields
+            break;
+
+        default:
+            elog(ERROR, "unrecognized RTE kind: %d", (int) local_node->rtekind);
+    }
+
+    // Read final common fields
+    READ_BOOL_FIELD(lateral);
+    READ_BOOL_FIELD(inFromCl);
+    READ_NODE_FIELD(securityQuals);
+
+    READ_DONE();
+}
+```
+
+**Key Simplifications:**
+- Condensed repetitive cases while showing the pattern
+- Added descriptive comments for each RTE type
+- Highlighted the special TableFunc column type copying logic
+- Grouped logical sections (common fields, type-specific fields, final fields)
+- Preserved the essential switch-based dispatch and error handling
+- Reduced from ~90 lines to ~50 lines while preserving all essential logic

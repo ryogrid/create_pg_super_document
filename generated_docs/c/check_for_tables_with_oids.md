@@ -45,3 +45,68 @@ When tables with OIDs are found, the upgrade process is halted and provides clea
 - The error message provides specific remediation guidance using ALTER TABLE ... SET WITHOUT OIDS
 - This validation ensures that deprecated table features don't cause compatibility issues in newer PostgreSQL versions
 - OIDs were originally intended as unique row identifiers but are now considered obsolete in favor of proper primary keys and sequences
+
+## Simplified Source
+
+```c
+static void check_for_tables_with_oids(ClusterInfo *cluster)
+{
+    FILE *script = NULL;
+    char output_path[MAXPGPATH];
+
+    prep_status("Checking for tables WITH OIDS");
+
+    snprintf(output_path, sizeof(output_path), "%s/%s",
+             log_opts.basedir, "tables_with_oids.txt");
+
+    // Check each database for tables declared WITH OIDS
+    for (int dbnum = 0; dbnum < cluster->dbarr.ndbs; dbnum++)
+    {
+        PGresult *res;
+        bool db_used = false;
+        DbInfo *active_db = &cluster->dbarr.dbs[dbnum];
+        PGconn *conn = connectToServer(cluster, active_db->db_name);
+
+        // Find user tables with OID system columns (excluding pg_catalog)
+        res = executeQueryOrDie(conn,
+                                "SELECT n.nspname, c.relname "
+                                "FROM pg_catalog.pg_class c, "
+                                "     pg_catalog.pg_namespace n "
+                                "WHERE c.relnamespace = n.oid AND "
+                                "      c.relhasoids AND "
+                                "      n.nspname NOT IN ('pg_catalog')");
+
+        int ntups = PQntuples(res);
+        int i_nspname = PQfnumber(res, "nspname");
+        int i_relname = PQfnumber(res, "relname");
+
+        // Log any problematic tables found
+        for (int rowno = 0; rowno < ntups; rowno++)
+        {
+            if (script == NULL)
+                script = fopen_priv(output_path, "w");
+            if (!db_used) {
+                fprintf(script, "In database: %s\n", active_db->db_name);
+                db_used = true;
+            }
+            fprintf(script, "  %s.%s\n",
+                    PQgetvalue(res, rowno, i_nspname),
+                    PQgetvalue(res, rowno, i_relname));
+        }
+
+        PQclear(res);
+        PQfinish(conn);
+    }
+
+    // Handle results: fail if OID tables found, otherwise mark success
+    if (script) {
+        fclose(script);
+        pg_fatal("Your installation contains tables declared WITH OIDS, which is not "
+                 "supported anymore. Consider removing the oid column using "
+                 "ALTER TABLE ... SET WITHOUT OIDS; "
+                 "A list of tables with the problem is in the file: %s", output_path);
+    } else {
+        check_ok();
+    }
+}
+```

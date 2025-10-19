@@ -36,3 +36,16 @@ Although the function is designed primarily for tablespace links, the implementa
 - Error handling uses PostgreSQL's standard error reporting mechanism through 
 - The function provides a simple wrapper around the system  call with appropriate error handling
 - Located in src/bin/pg_basebackup/bbstreamer_file.c:342-354
+
+## Simplified Source
+
+```c
+static void
+extract_link(const char *filename, const char *linktarget)
+{
+    // Create symbolic link
+    if (symlink(linktarget, filename) != 0)
+        pg_fatal("could not create symbolic link from \"%s\" to \"%s\": %m",
+                 filename, linktarget);
+}
+```

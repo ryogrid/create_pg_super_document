@@ -47,3 +47,27 @@ The output is appended to the provided StringInfo buffer, allowing for efficient
 - The function handles only the defined replication origin record types; unknown types are silently ignored
 - The LSN formatting uses the standard PostgreSQL LSN_FORMAT_ARGS macro for consistent output
 - Located in src/backend/access/rmgrdesc/replorigindesc.c:19-50
+
+## Simplified Source
+
+```c
+void replorigin_desc(StringInfo buf, XLogReaderState *record) {
+    // Extract record data and operation type
+    char *rec = XLogRecGetData(record);
+    uint8 info = XLogRecGetInfo(record) & ~XLR_INFO_MASK;
+
+    switch (info) {
+        case XLOG_REPLORIGIN_SET: {
+            xl_replorigin_set *xlrec = (xl_replorigin_set *) rec;
+            appendStringInfo(buf, "set %u; lsn %X/%X; force: %d",
+                           xlrec->node_id, LSN_FORMAT_ARGS(xlrec->remote_lsn), xlrec->force);
+            break;
+        }
+        case XLOG_REPLORIGIN_DROP: {
+            xl_replorigin_drop *xlrec = (xl_replorigin_drop *) rec;
+            appendStringInfo(buf, "drop %u", xlrec->node_id);
+            break;
+        }
+    }
+}
+```

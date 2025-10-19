@@ -31,3 +31,23 @@ The bool_accum_inv function acts as the inverse state transition function for bo
 
 ## Notes and Other Information
 This function is the mathematical inverse of bool_accum and is used exclusively in window function contexts where the aggregation window slides. It decrements both the total count of non-null values and the count of true values when removing a true boolean. The function includes a safety check to prevent calls with NULL state, which would indicate an internal error in the aggregation system. Like bool_accum, it properly handles NULL input values by ignoring them.
+
+## Simplified Source
+```c
+BoolAggState* bool_accum_inv(BoolAggState* state, bool value_to_remove) {
+    // Safety check: state must exist
+    if (state == NULL) {
+        error("bool_accum_inv called with NULL state");
+    }
+
+    // Remove value from aggregation state (inverse of bool_accum)
+    if (value_to_remove is not NULL) {
+        state->aggcount--;           // Decrement total count
+        if (value_to_remove == true) {
+            state->aggtrue--;        // Decrement true count
+        }
+    }
+
+    return state;
+}
+```

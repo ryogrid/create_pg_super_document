@@ -30,3 +30,13 @@ The function creates an environment with 3 string variables (second parameter) a
 - Located in the Snowball libstemmer integration within PostgreSQL's backend
 - The ISO 8859-1 encoding variant specifically handles Western European character sets
 - File location: src/backend/snowball/libstemmer/stem_ISO_8859_1_dutch.c:600
+
+## Simplified Source
+
+```c
+extern struct SN_env * dutch_ISO_8859_1_create_env(void) {
+    // Create Snowball environment for Dutch stemming
+    // Parameters: 0 integer variables, 3 string variables
+    return SN_create_env(0, 3);
+}
+```

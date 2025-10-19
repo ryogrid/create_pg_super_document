@@ -41,3 +41,73 @@ This function extracts and displays block reference information for a specific r
 - Supports both individual block and block range output modes
 - Outputs are formatted with tablespace, database, relation, and fork identifiers for clarity
 - Function is static and only used within the pg_walsummary utility
+
+## Simplified Source
+
+```c
+static void
+dump_one_relation(ws_options *opt, RelFileLocator *rlocator,
+                  ForkNumber forknum, BlockNumber limit_block,
+                  BlockRefTableReader *reader)
+{
+    unsigned i = 0;
+    unsigned nblocks;
+    BlockNumber startblock = InvalidBlockNumber;
+    BlockNumber endblock = InvalidBlockNumber;
+
+    // Print limit block information if specified
+    if (limit_block != InvalidBlockNumber)
+        printf("TS %u, DB %u, REL %u, FORK %s: limit %u\n",
+               rlocator->spcOid, rlocator->dbOid, rlocator->relNumber,
+               forkNames[forknum], limit_block);
+
+    // Allocate block buffer if needed
+    if (block_buffer == NULL)
+        block_buffer = palloc_array(BlockNumber, block_buffer_size);
+
+    // Read block numbers from the table reader
+    nblocks = BlockRefTableReaderGetBlocks(reader, block_buffer, block_buffer_size);
+
+    // Dynamically resize buffer if it's too small
+    while (nblocks >= block_buffer_size) {
+        unsigned new_size = block_buffer_size * 2;
+        if (new_size < block_buffer_size)  // Overflow protection
+            new_size = PG_UINT32_MAX;
+
+        block_buffer = repalloc_array(block_buffer, BlockNumber, new_size);
+        nblocks += BlockRefTableReaderGetBlocks(reader,
+                                               block_buffer + block_buffer_size,
+                                               new_size - block_buffer_size);
+        block_buffer_size = new_size;
+    }
+
+    // Skip output if in quiet mode
+    if (opt->quiet)
+        return;
+
+    // Sort block numbers for proper display
+    qsort(block_buffer, nblocks, sizeof(BlockNumber), compare_block_numbers);
+
+    // Display block information as ranges or individual blocks
+    while (i < nblocks) {
+        // Find next range of consecutive blocks
+        startblock = endblock = block_buffer[i++];
+        if (!opt->individual) {
+            while (i < nblocks && block_buffer[i] == endblock + 1) {
+                endblock++;
+                i++;
+            }
+        }
+
+        // Print block or block range
+        if (startblock == endblock)
+            printf("TS %u, DB %u, REL %u, FORK %s: block %u\n",
+                   rlocator->spcOid, rlocator->dbOid, rlocator->relNumber,
+                   forkNames[forknum], startblock);
+        else
+            printf("TS %u, DB %u, REL %u, FORK %s: blocks %u..%u\n",
+                   rlocator->spcOid, rlocator->dbOid, rlocator->relNumber,
+                   forkNames[forknum], startblock, endblock);
+    }
+}
+```

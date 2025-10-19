@@ -50,3 +50,52 @@ The function processes arguments in two phases: first parsing any pset options e
 - The function can return PSQL_CMD_SEND to trigger query execution, unlike most command functions
 - Pset options are temporarily applied only for the duration of this query execution
 - The gsavepopt mechanism allows restoring previous formatting settings after the query
+
+## Simplified Source
+
+```c
+static backslashResult
+exec_command_g(PsqlScanState scan_state, bool active_branch, const char *cmd)
+{
+    backslashResult status = PSQL_CMD_SKIP_LINE;
+    char *fname;
+
+    // Parse first argument (could be pset options in parentheses or filename)
+    fname = psql_scan_slash_option(scan_state, OT_FILEPIPE, NULL, false);
+
+    // Check if pset options are specified in parentheses
+    if (fname && fname[0] == '(') {
+        // Process pset options through closing ')'
+        status = process_command_g_options(fname + 1, scan_state, active_branch, cmd);
+        free(fname);
+
+        // Parse filename/command after options
+        fname = psql_scan_slash_option(scan_state, OT_FILEPIPE, NULL, false);
+    }
+
+    if (status == PSQL_CMD_SKIP_LINE && active_branch) {
+        // Set output destination
+        if (!fname) {
+            pset.gfname = NULL;  // Output to default stream
+        } else {
+            expand_tilde(&fname);  // Handle ~ in filename
+            pset.gfname = pg_strdup(fname);
+        }
+
+        // Handle \gx variant (expanded output)
+        if (strcmp(cmd, "gx") == 0) {
+            // Save current options if not already saved
+            if (pset.gsavepopt == NULL) {
+                pset.gsavepopt = savePsetInfo(&pset.popt);
+            }
+            // Force expanded output mode
+            pset.popt.topt.expanded = 1;
+        }
+
+        status = PSQL_CMD_SEND;  // Signal to execute query
+    }
+
+    free(fname);
+    return status;
+}
+```

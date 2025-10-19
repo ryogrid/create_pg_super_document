@@ -35,3 +35,16 @@ Transaction IDs in PostgreSQL have a limited range and can wrap around, so this 
 - Uses FullTransactionIdPrecedes which handles transaction ID wraparound correctly
 - Essential for ordering operations and range queries involving transaction IDs
 - Uses PostgreSQL's standard function interface macros for argument handling and return value management
+
+## Simplified Source
+
+```c
+Datum xid8lt(PG_FUNCTION_ARGS) {
+    // Extract the two 64-bit transaction IDs from function arguments
+    FullTransactionId fxid1 = PG_GETARG_FULLTRANSACTIONID(0);
+    FullTransactionId fxid2 = PG_GETARG_FULLTRANSACTIONID(1);
+
+    // Return true if first transaction ID precedes the second
+    PG_RETURN_BOOL(FullTransactionIdPrecedes(fxid1, fxid2));
+}
+```

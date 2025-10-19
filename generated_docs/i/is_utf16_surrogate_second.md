@@ -31,3 +31,14 @@ The low surrogates occupy the range 0xDC00 to 0xDFFF and must always follow a co
 - Used extensively in PostgreSQL's Unicode escape sequence processing and string functions
 - Essential for proper validation and conversion of supplementary Unicode characters
 - Invalid if encountered without a preceding high surrogate
+
+## Simplified Source
+
+```c
+static inline bool is_utf16_surrogate_second(pg_wchar c) {
+    // Check if character is in UTF-16 low surrogate range (0xDC00-0xDFFF)
+    return (c >= 0xDC00 && c <= 0xDFFF);
+}
+```
+
+This function simply checks if a wide character falls within the UTF-16 low surrogate range, which is used to identify the second part of a surrogate pair for encoding Unicode characters above U+FFFF.

@@ -34,3 +34,25 @@ This function extracts the average X value from a 6-element regression transitio
 - Part of PostgreSQL's regression aggregate functions suite
 - The transition array structure: [0]=N, [1]=Sx, [2]=Sxx, [3]=Sy, [4]=Syy, [5]=Sxy
 - Location: src/backend/utils/adt/float.c:3568-3586
+
+## Simplified Source
+
+```c
+Datum
+float8_regr_avgx(PG_FUNCTION_ARGS)
+{
+    ArrayType *transarray = PG_GETARG_ARRAYTYPE_P(0);
+
+    // Extract N (count) and Sx (sum of X values) from 6-element regression state
+    float8 *transvalues = check_float8_array(transarray, "float8_regr_avgx", 6);
+    float8 N = transvalues[0];   // Count of data points
+    float8 Sx = transvalues[1];  // Sum of X values
+
+    // Return NULL for empty datasets
+    if (N < 1.0)
+        PG_RETURN_NULL();
+
+    // Return average of X values: Sx / N
+    PG_RETURN_FLOAT8(Sx / N);
+}
+```

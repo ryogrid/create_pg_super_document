@@ -37,4 +37,20 @@ The contained-by relationship means that every element that belongs to the first
 - The actual containment logic is delegated to  which handles the detailed comparison  
 - Uses PostgreSQL's type cache system for efficient type-specific operations
 - Provides the inverse operation to  - they are complementary functions
-- Located in 
+- Located in src/backend/utils/adt/rangetypes.c:651-663
+
+## Simplified Source
+
+```c
+Datum range_contained_by(PG_FUNCTION_ARGS) {
+    // Extract range arguments: r1 <@ r2 (is r1 contained by r2?)
+    RangeType *r1 = PG_GETARG_RANGE_P(0);
+    RangeType *r2 = PG_GETARG_RANGE_P(1);
+
+    // Get type cache for this range type
+    TypeCacheEntry *typcache = range_get_typcache(fcinfo, RangeTypeGetOid(r1));
+
+    // Delegate to internal contained-by function and return result
+    return PG_RETURN_BOOL(range_contained_by_internal(typcache, r1, r2));
+}
+``` 

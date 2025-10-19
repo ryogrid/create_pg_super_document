@@ -36,3 +36,18 @@ The function follows the standard qsort comparator interface, returning a negati
 - The comparison uses float8 data type for the delta values
 - Used in both general GiST operations (PLACE_RIGHT context) and range type indexing contexts
 - The delta values likely represent cost metrics or distance measures used in splitting decisions
+
+## Simplified Source
+
+```c
+static int common_entry_cmp(const void *i1, const void *i2)
+{
+    // Extract delta values from CommonEntry structures
+    float8 delta1 = ((const CommonEntry *) i1)->delta;
+    float8 delta2 = ((const CommonEntry *) i2)->delta;
+
+    // Compare deltas using PostgreSQL's float8 comparison
+    // Returns: negative if delta1 < delta2, 0 if equal, positive if delta1 > delta2
+    return float8_cmp_internal(delta1, delta2);
+}
+```

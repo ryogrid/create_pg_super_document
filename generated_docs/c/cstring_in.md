@@ -32,4 +32,17 @@ The  function serves as the input conversion function for PostgreSQL's  pseudo-t
 - The  type is specifically marked as a pseudo-type to discourage its use in table definitions
 - Despite being a pseudo-type, it provides full I/O functionality to support manual datatype I/O function invocations
 - The function ensures proper memory management by using  instead of direct string copying
-- Located in 
+- Located in src/backend/utils/adt/pseudotypes.c:107-114
+
+## Simplified Source
+
+```c
+Datum
+cstring_in(PG_FUNCTION_ARGS)
+{
+    char *str = PG_GETARG_CSTRING(0);
+
+    // Duplicate the input string for proper memory management
+    PG_RETURN_CSTRING(pstrdup(str));
+}
+``` 

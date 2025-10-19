@@ -45,3 +45,41 @@ The function uses lookup table a_7 containing 18 different suffix patterns. It i
 - Handles suffixes like '-ment', '-ness', '-ance', '-ence', '-able', '-ible', '-ant', '-ent', etc.
 - Critical for preventing over-stemming of shorter words while effectively reducing longer derivatives
 - Works as the primary suffix removal step for most derivational endings in the Porter algorithm
+
+## Simplified Source
+
+```c
+static int r_Step_4(struct SN_env * z) {
+    // Mark end position for suffix
+    z->ket = z->c;
+
+    // Quick character check for efficiency
+    if (z->c - 1 <= z->lb || z->p[z->c - 1] >> 5 != 3 ||
+        !((1864232 >> (z->p[z->c - 1] & 0x1f)) & 1)) {
+        return 0;
+    }
+
+    // Find matching suffix from predefined list
+    int among_var = find_among_b(z, a_7, 18);
+    if (!among_var) return 0;
+
+    z->bra = z->c;
+
+    // Ensure we're in R2 region (more restrictive than R1)
+    if (r_R2(z) <= 0) return 0;
+
+    switch (among_var) {
+        case 1: // Simple deletion for most suffixes
+            return slice_del(z);
+
+        case 2: // Special case for 'ion' suffixes
+            // Check if preceded by 's' or 't' (for -sion, -tion)
+            if (z->c > z->lb && (z->p[z->c - 1] == 's' || z->p[z->c - 1] == 't')) {
+                z->c--; // Include the s/t in deletion
+                return slice_del(z);
+            }
+            return 0; // Not preceded by s/t, don't delete
+    }
+    return 1;
+}
+```

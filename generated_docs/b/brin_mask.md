@@ -44,3 +44,25 @@ The function is specifically designed to handle both regular BRIN pages and meta
 - The BRIN_EVACUATE_PAGE flag is specifically masked because it's a runtime optimization flag not reflected in WAL
 - Part of PostgreSQL's broader page masking infrastructure for replication consistency
 - The blkno parameter is currently unused but included for consistency with the page masking interface
+
+## Simplified Source
+
+```c
+void brin_mask(char *pagedata, BlockNumber blkno) {
+    Page page = (Page) pagedata;
+    PageHeader pagehdr = (PageHeader) page;
+
+    // Apply standard page masking operations
+    mask_page_lsn_and_checksum(page);
+    mask_page_hint_bits(page);
+
+    // Mask unused space for regular pages and properly initialized meta pages
+    if (BRIN_IS_REGULAR_PAGE(page) ||
+        (BRIN_IS_META_PAGE(page) && pagehdr->pd_lower > SizeOfPageHeaderData)) {
+        mask_unused_space(page);
+    }
+
+    // Remove evacuation flag since it's not WAL-logged
+    BrinPageFlags(page) &= ~BRIN_EVACUATE_PAGE;
+}
+```

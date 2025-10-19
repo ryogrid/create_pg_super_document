@@ -41,3 +41,87 @@ This function performs a critical compatibility check during pg_upgrade by testi
 - Terminates pg_upgrade process immediately upon detecting any missing libraries
 - Sorting ensures reproducible behavior and proper dependency handling between libraries
 - Uses PQescapeStringConn for safe SQL command construction with library paths
+
+## Simplified Source
+
+```c
+void
+check_loadable_libraries(void)
+{
+    PGconn *connection = connectToServer(&new_cluster, "template1");
+    int library_index;
+    bool has_load_failure = false;
+    FILE *error_log = NULL;
+    char log_file_path[MAXPGPATH];
+
+    prep_status("Checking for presence of required libraries");
+
+    // Set up error log file path
+    snprintf(log_file_path, sizeof(log_file_path), "%s/%s",
+             log_opts.basedir, "loadable_libraries.txt");
+
+    // Sort libraries to avoid duplicate tests and ensure consistent ordering
+    qsort(os_info.libraries, os_info.num_libraries,
+          sizeof(LibraryInfo), library_name_compare);
+
+    // Test each unique library by attempting to LOAD it
+    for (library_index = 0; library_index < os_info.num_libraries; library_index++)
+    {
+        char *library_name = os_info.libraries[library_index].name;
+        int name_length = strlen(library_name);
+        char load_command[7 + 2 * MAXPGPATH + 1];
+        PGresult *result;
+
+        // Skip if this is the same library as the previous one (avoid duplicates)
+        if (library_index == 0 ||
+            strcmp(library_name, os_info.libraries[library_index - 1].name) != 0)
+        {
+            // Build and execute LOAD command with proper SQL escaping
+            strcpy(load_command, "LOAD '");
+            PQescapeStringConn(connection, load_command + strlen(load_command),
+                               library_name, name_length, NULL);
+            strcat(load_command, "'");
+
+            result = PQexec(connection, load_command);
+
+            // Check if LOAD command failed
+            if (PQresultStatus(result) != PGRES_COMMAND_OK)
+            {
+                has_load_failure = true;
+
+                // Open error log file if not already open
+                if (error_log == NULL)
+                    error_log = fopen_priv(log_file_path, "w");
+
+                // Log the library load failure
+                fprintf(error_log, _("could not load library \"%s\": %s"),
+                        library_name, PQerrorMessage(connection));
+            }
+            else
+                has_load_failure = false;
+
+            PQclear(result);
+        }
+
+        // Log which database referenced this failed library
+        if (has_load_failure)
+            fprintf(error_log, _("In database: %s\n"),
+                    old_cluster.dbarr.dbs[os_info.libraries[library_index].dbnum].db_name);
+    }
+
+    PQfinish(connection);
+
+    // Handle results: either report success or fatal error
+    if (error_log)
+    {
+        fclose(error_log);
+        pg_log(PG_REPORT, "fatal");
+        pg_fatal("Your installation references loadable libraries that are missing from the\n"
+                 "new installation. You can add these libraries to the new installation,\n"
+                 "or remove the functions using them from the old installation. A list of\n"
+                 "problem libraries is in the file:\n    %s", log_file_path);
+    }
+    else
+        check_ok();
+}
+```

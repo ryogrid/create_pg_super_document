@@ -39,3 +39,47 @@ Unlike uint32in_subr, this function doesn't require additional platform compatib
 - Simpler implementation than uint32in_subr due to consistent strtou64() behavior
 - Allows trailing whitespace when endloc is NULL
 - No additional platform-specific range checking required
+
+## Simplified Source
+
+```c
+uint64 uint64in_subr(const char *s, char **endloc,
+                     const char *typname, Node *escontext) {
+    uint64 result;
+    char *endptr;
+
+    // Parse string using PostgreSQL's strtou64 function
+    errno = 0;
+    result = strtou64(s, &endptr, 0);
+
+    // Check for parsing errors
+    if ((errno && errno != ERANGE) || endptr == s)
+        ereturn(escontext, 0,
+                (errcode(ERRCODE_INVALID_TEXT_REPRESENTATION),
+                 errmsg("invalid input syntax for type %s: \"%s\"",
+                        typname, s)));
+
+    // Check for numeric overflow
+    if (errno == ERANGE)
+        ereturn(escontext, 0,
+                (errcode(ERRCODE_NUMERIC_VALUE_OUT_OF_RANGE),
+                 errmsg("value \"%s\" is out of range for type %s",
+                        s, typname)));
+
+    if (endloc) {
+        // Caller wants to handle remaining string
+        *endloc = endptr;
+    } else {
+        // Skip trailing whitespace and verify string is fully consumed
+        while (*endptr && isspace(*endptr))
+            endptr++;
+        if (*endptr)
+            ereturn(escontext, 0,
+                    (errcode(ERRCODE_INVALID_TEXT_REPRESENTATION),
+                     errmsg("invalid input syntax for type %s: \"%s\"",
+                            typname, s)));
+    }
+
+    return result;
+}
+```

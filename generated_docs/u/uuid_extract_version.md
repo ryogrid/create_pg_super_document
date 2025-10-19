@@ -44,3 +44,22 @@ The function is implemented as a PostgreSQL internal function and is exposed as 
 - Introduced in PostgreSQL 17 as part of enhanced UUID functionality
 - Used in regression tests to validate UUID version extraction for different UUID types
 - The SQL function signature is: uuid_extract_version(uuid) → smallint
+
+## Simplified Source
+
+```c
+// Extract UUID version number (returns null for non-RFC 4122 variant)
+Datum uuid_extract_version(PG_FUNCTION_ARGS) {
+    pg_uuid_t *uuid = PG_GETARG_UUID_P(0);
+
+    // Check if UUID follows RFC 4122 variant (bits 6-7 of byte 8 must be 10)
+    if ((uuid->data[8] & 0xc0) != 0x80) {
+        PG_RETURN_NULL();  // Not RFC 4122 compliant
+    }
+
+    // Extract version from upper 4 bits of byte 6
+    uint16 version = uuid->data[6] >> 4;
+
+    PG_RETURN_UINT16(version);
+}
+```

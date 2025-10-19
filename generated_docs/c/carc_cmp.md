@@ -41,3 +41,29 @@ The comment indicates that returning 0 should be unreachable since duplicate arc
 - The duplicate arc comment suggests this function should never return 0 in normal operation
 - Essential for enabling binary search and other efficient lookup algorithms on sorted arc arrays
 - Part of PostgreSQL's regex engine performance optimization infrastructure
+
+## Simplified Source
+
+```c
+static int
+carc_cmp(const void *a, const void *b)
+{
+    const struct carc *aa = (const struct carc *) a;
+    const struct carc *bb = (const struct carc *) b;
+
+    // Primary sort: by color
+    if (aa->co < bb->co)
+        return -1;
+    if (aa->co > bb->co)
+        return +1;
+
+    // Secondary sort: by destination state
+    if (aa->to < bb->to)
+        return -1;
+    if (aa->to > bb->to)
+        return +1;
+
+    // Should not reach here (no duplicate arcs)
+    return 0;
+}
+```

@@ -38,3 +38,22 @@ The function uses PostgreSQL's safe arithmetic functions (pg_sub_s16_overflow) t
 - Part of PostgreSQL's arithmetic operator family for the int2/smallint data type
 - Uses the unlikely() macro hint to optimize for the common case where overflow does not occur
 - Overflow can occur in subtraction when subtracting a large negative number from a positive number or subtracting a large positive number from a negative number
+
+## Simplified Source
+
+```c
+Datum int2mi(PG_FUNCTION_ARGS) {
+    // Extract arguments
+    int16 arg1 = PG_GETARG_INT16(0);  // minuend
+    int16 arg2 = PG_GETARG_INT16(1);  // subtrahend
+    int16 result;
+
+    // Perform subtraction with overflow checking
+    if (unlikely(pg_sub_s16_overflow(arg1, arg2, &result))) {
+        ereport(ERROR, (errcode(ERRCODE_NUMERIC_VALUE_OUT_OF_RANGE),
+                       errmsg("smallint out of range")));
+    }
+
+    PG_RETURN_INT16(result);
+}
+```

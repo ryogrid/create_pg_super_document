@@ -28,3 +28,18 @@ This is a static utility function used internally within the compression I/O mod
 
 ## Notes and Other Information
 This function is marked as static, making it internal to the compress_io.c module. It follows a pattern of destructively updating the fname parameter, which requires careful memory management by callers. The function uses F_OK with access() to check for file existence without requiring read permissions. The free_keep_errno function is used to preserve errno values during memory deallocation.
+
+## Simplified Source
+
+```c
+static bool
+check_compressed_file(const char *path, char **fname, char *ext)
+{
+    // Free existing filename buffer and create new one
+    free_keep_errno(*fname);
+    *fname = psprintf("%s.%s", path, ext);
+
+    // Check if file exists
+    return (access(*fname, F_OK) == 0);
+}
+```

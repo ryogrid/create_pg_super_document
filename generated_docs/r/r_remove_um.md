@@ -48,3 +48,41 @@ Unlike other suffix functions that may handle multiple patterns, this function t
 - The pattern replacement (9 chars → 3 chars) suggests significant morphological simplification
 - Part of the Tamil stemming pipeline that handles various morphological endings and particles
 - The specific pattern (s_54/s_55) likely represents a common Tamil grammatical construction that needs normalization for search/indexing purposes
+
+## Simplified Source
+
+```c
+static int r_remove_um(struct SN_env * z) {
+    // Initialize state flag
+    z->I[1] = 0;
+
+    // Check minimum word length before processing
+    int ret = r_has_min_length(z);
+    if (ret <= 0) return ret;
+
+    // Set up backward processing boundaries
+    z->lb = z->c;
+    z->c = z->l;
+
+    // Look for specific 9-character "um" pattern
+    z->ket = z->c;
+    if (!eq_s_b(z, 9, s_54)) {
+        return 0; // Pattern not found
+    }
+
+    // Replace 9-character pattern with 3-character standardized form
+    z->bra = z->c;
+    slice_from_s(z, 3, s_55);
+
+    // Mark successful processing
+    z->I[1] = 1;
+
+    // Reset to beginning and apply morphological corrections
+    z->c = z->lb;
+    int saved_position = z->c;
+    r_fix_ending(z);
+    z->c = saved_position; // Restore position after corrections
+
+    return 1; // Success
+}
+```

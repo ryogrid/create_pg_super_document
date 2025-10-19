@@ -36,3 +36,16 @@ The function immediately raises an error with ERRCODE_FEATURE_NOT_SUPPORTED, pre
 - This pattern ensures data type safety by preventing users from creating malformed summary data
 - The function includes a 'keep compiler quiet' comment for the unreachable PG_RETURN_VOID() statement
 - Users cannot directly insert, update, or cast values to this type in SQL statements
+
+## Simplified Source
+
+```c
+Datum brin_minmax_multi_summary_in(PG_FUNCTION_ARGS) {
+    // Reject text input for internal-only brin_minmax_multi_summary type
+    ereport(ERROR,
+            (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+             errmsg("cannot accept a value of type %s", "brin_minmax_multi_summary")));
+
+    PG_RETURN_VOID();  // Keep compiler quiet
+}
+```

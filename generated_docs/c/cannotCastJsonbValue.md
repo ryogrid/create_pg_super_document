@@ -46,3 +46,34 @@ The function covers all possible JSONB value types including null, string, numer
 - Uses PostgreSQL's standard error reporting mechanism with appropriate error codes
 - Located in src/backend/utils/adt/jsonb.c:2008-2037
 - Essential for providing user-friendly error messages during type conversion failures
+
+## Simplified Source
+
+```c
+static void cannotCastJsonbValue(enum jbvType type, const char *sqltype) {
+    // Static lookup table for error messages
+    static const struct {
+        enum jbvType type;
+        const char *msg;
+    } messages[] = {
+        {jbvNull, gettext_noop("cannot cast jsonb null to type %s")},
+        {jbvString, gettext_noop("cannot cast jsonb string to type %s")},
+        {jbvNumeric, gettext_noop("cannot cast jsonb numeric to type %s")},
+        {jbvBool, gettext_noop("cannot cast jsonb boolean to type %s")},
+        {jbvArray, gettext_noop("cannot cast jsonb array to type %s")},
+        {jbvObject, gettext_noop("cannot cast jsonb object to type %s")},
+        {jbvBinary, gettext_noop("cannot cast jsonb array or object to type %s")}
+    };
+
+    // Find matching type and report error
+    for (int i = 0; i < lengthof(messages); i++) {
+        if (messages[i].type == type) {
+            ereport(ERROR, (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                           errmsg(messages[i].msg, sqltype)));
+        }
+    }
+
+    // Fallback for unknown types (should be unreachable)
+    elog(ERROR, "unknown jsonb type: %d", (int) type);
+}
+```

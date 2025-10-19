@@ -39,3 +39,27 @@ This function handles the execution of the \if backslash command in psql, which 
 - Invalid boolean expressions emit warnings and are treated as false
 - Forms the foundation of psql's conditional scripting capabilities along with \elif, \else, and \endif
 - The query buffer state is saved to handle cases where conditional blocks span multiple lines
+
+## Simplified Source
+
+```c
+static backslashResult exec_command_if(PsqlScanState scan_state, ConditionalStack cstack, PQExpBuffer query_buf) {
+    if (conditional_active(cstack)) {
+        // In active branch - evaluate the if expression
+        conditional_stack_push(cstack, IFSTATE_TRUE);
+        save_query_text_state(scan_state, cstack, query_buf);
+
+        // Evaluate expression and set state based on result
+        if (!is_true_boolean_expression(scan_state, "\\if expression")) {
+            conditional_stack_poke(cstack, IFSTATE_FALSE);
+        }
+    } else {
+        // In inactive branch - ignore the entire if block
+        conditional_stack_push(cstack, IFSTATE_IGNORED);
+        save_query_text_state(scan_state, cstack, query_buf);
+        ignore_boolean_expression(scan_state);
+    }
+
+    return PSQL_CMD_SKIP_LINE;
+}
+```

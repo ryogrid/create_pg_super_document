@@ -36,3 +36,26 @@ The function is specifically designed to parse TLI values from backup label file
 - Part of the pg_combinebackup utility, which is used for combining incremental backups
 - Timeline IDs must be non-zero values; zero is considered invalid in the calling context
 - The function handles parsing validation at two levels: successful sscanf conversion and proper newline termination
+
+## Simplified Source
+
+```c
+static bool
+parse_tli(char *s, char *e, TimeLineID *tli)
+{
+    char save = *e;
+    int nchars;
+    bool success;
+
+    // Temporarily null-terminate for safe parsing
+    *e = '\0';
+    success = (sscanf(s, "%u%n", tli, &nchars) == 1);
+    *e = save;
+
+    // Validate that TLI is terminated by newline
+    if (success && s[nchars] != '\n')
+        success = false;
+
+    return success;
+}
+```

@@ -36,3 +36,13 @@ The function abstracts the specific configuration requirements for Russian stemm
 - The parameters (0, 2) indicate this Russian stemmer requires 0 string variables and 2 integer variables for region markers (R1, R2)
 - Part of the standard Snowball stemmer interface pattern where each language provides create/close environment functions
 - Essential for initializing Russian text processing sessions in PostgreSQL's full-text search system
+
+## Simplified Source
+
+```c
+extern struct SN_env * russian_UTF_8_create_env(void) {
+    // Create Snowball environment for Russian stemming
+    // Parameters: 0 string variables, 2 integer variables (for R1, R2 regions)
+    return SN_create_env(0, 2);
+}
+```

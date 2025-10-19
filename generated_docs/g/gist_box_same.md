@@ -43,3 +43,28 @@ The function handles NULL values correctly by considering two NULL boxes as equa
 - Returns a pointer to boolean result rather than the boolean value directly, following PostgreSQL's function call conventions
 - The exact equality semantics differ from the user-facing `box_same()` function which may use different comparison logic
 - Essential for GiST internal operations like determining when index entries are identical during tree maintenance operations
+
+## Simplified Source
+
+```c
+Datum gist_box_same(PG_FUNCTION_ARGS)
+{
+    BOX *b1 = PG_GETARG_BOX_P(0);
+    BOX *b2 = PG_GETARG_BOX_P(1);
+    bool *result = (bool *) PG_GETARG_POINTER(2);
+
+    // Check if both boxes exist
+    if (b1 && b2) {
+        // Compare all four coordinates exactly (no fuzzy comparison)
+        *result = (float8_eq(b1->low.x, b2->low.x) &&
+                   float8_eq(b1->low.y, b2->low.y) &&
+                   float8_eq(b1->high.x, b2->high.x) &&
+                   float8_eq(b1->high.y, b2->high.y));
+    } else {
+        // Handle NULL cases: equal only if both are NULL
+        *result = (b1 == NULL && b2 == NULL);
+    }
+
+    PG_RETURN_POINTER(result);
+}
+```

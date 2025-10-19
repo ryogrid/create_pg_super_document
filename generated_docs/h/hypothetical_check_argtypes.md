@@ -39,3 +39,25 @@ The function validates two key aspects: first, it confirms that the tuple descri
 - Error messages are deliberately terse since these errors should only occur due to system catalog corruption or malicious activity
 - The validation ensures that direct arguments can be safely compared with aggregated values of the same type
 - This function is part of PostgreSQL's defense against type confusion vulnerabilities in aggregate functions
+
+## Simplified Source
+
+```c
+static void hypothetical_check_argtypes(FunctionCallInfo fcinfo, int nargs, TupleDesc tupdesc) {
+    // Validate tuple descriptor exists and has correct structure
+    if (!tupdesc ||
+        (nargs + 1) != tupdesc->natts ||
+        TupleDescAttr(tupdesc, nargs)->atttypid != INT4OID) {
+        elog(ERROR, "type mismatch in hypothetical-set function");
+    }
+
+    // Check each direct argument type matches corresponding aggregated column type
+    for (int i = 0; i < nargs; i++) {
+        Form_pg_attribute attr = TupleDescAttr(tupdesc, i);
+
+        if (get_fn_expr_argtype(fcinfo->flinfo, i + 1) != attr->atttypid) {
+            elog(ERROR, "type mismatch in hypothetical-set function");
+        }
+    }
+}
+```

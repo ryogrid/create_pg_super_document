@@ -34,3 +34,15 @@ The function delegates all the actual parsing work to , providing a simpler inte
 - Part of PostgreSQL's network address handling infrastructure
 - Originally derived from ISC (Internet Systems Consortium) code
 - Used specifically when size constraints don't need to be validated (size parameter is -1 in the caller)
+
+## Simplified Source
+
+```c
+static int
+inet_net_pton_ipv6(const char *src, u_char *dst)
+{
+    // Simple wrapper that delegates to inet_cidr_pton_ipv6
+    // with fixed 16-byte size for IPv6 addresses
+    return inet_cidr_pton_ipv6(src, dst, 16);
+}
+```

@@ -39,3 +39,26 @@ The function copies all bytes from the input address unchanged except for the fi
 - Essential for IPv6 stateless address autoconfiguration (SLAAC) when using MAC-derived interface identifiers
 - Uses palloc0 for memory allocation to ensure clean initialization of the result structure
 - Only the first byte is modified; all other bytes remain identical to the input address
+
+## Simplified Source
+
+```c
+macaddr8* macaddr8_set7bit(macaddr8 *addr) {
+    // Create new MAC address with 7th bit set for modified EUI-64 format
+    macaddr8 *result = allocate_macaddr8();
+
+    // Set Universal/Local bit (0x02) in first byte for IPv6 interface ID
+    result->a = addr->a | 0x02;
+
+    // Copy remaining bytes unchanged
+    result->b = addr->b;
+    result->c = addr->c;
+    result->d = addr->d;
+    result->e = addr->e;
+    result->f = addr->f;
+    result->g = addr->g;
+    result->h = addr->h;
+
+    return result;
+}
+```

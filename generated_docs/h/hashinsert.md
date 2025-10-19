@@ -45,3 +45,34 @@ Unlike unique indexes, hash indexes don't enforce uniqueness constraints, so the
 - Properly manages memory by freeing the temporary IndexTuple after insertion
 - The function signature matches the standard IndexAmRoutine->aminsert interface
 - [Hash](../H/Hash.md) indexes support only single-column keys, reflected in the single-element arrays used internally
+
+## Simplified Source
+
+```c
+bool hashinsert(Relation rel, Datum *values, bool *isnull,
+               ItemPointer ht_ctid, Relation heapRel,
+               IndexUniqueCheck checkUnique,
+               bool indexUnchanged,
+               IndexInfo *indexInfo)
+{
+    Datum index_values[1];
+    bool index_isnull[1];
+    IndexTuple itup;
+
+    // Convert heap tuple values to hash key
+    if (!_hash_convert_tuple(rel, values, isnull, index_values, index_isnull))
+        return false;
+
+    // Create index tuple pointing to heap tuple
+    itup = index_form_tuple(RelationGetDescr(rel), index_values, index_isnull);
+    itup->t_tid = *ht_ctid;
+
+    // Insert into appropriate hash bucket
+    _hash_doinsert(rel, itup, heapRel, false);
+
+    // Clean up memory
+    pfree(itup);
+
+    return false;  // Hash indexes don't support uniqueness
+}
+```

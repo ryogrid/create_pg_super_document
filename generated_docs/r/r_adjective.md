@@ -46,3 +46,21 @@ This function is crucial for Russian text processing because adjectives are high
 - Returns 1 on successful suffix identification and removal, 0 if no pattern matches
 - The function processes text backwards (suffix-stripping approach) which is efficient for agglutinative morphology
 - Critical for handling Russian's complex adjectival agreement system in search applications
+
+## Simplified Source
+
+```c
+static int r_adjective(struct SN_env * z) {
+    // Set boundaries and check for valid adjectival ending character
+    z->ket = z->c;
+    if (z->c - 1 <= z->lb || !valid_adjective_char(z->p[z->c - 1])) return 0;
+
+    // Match against 26 adjectival patterns in a_1 array
+    if (!find_among_b(z, a_1, 26)) return 0;
+
+    // Remove the matched adjectival suffix
+    z->bra = z->c;
+    slice_del(z);
+    return 1;
+}
+```

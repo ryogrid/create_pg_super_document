@@ -39,3 +39,17 @@ The function focuses on collations where the behavior might change over time (he
 - Double newlines (\n\n) provide formatting separation in the generated SQL script
 - The function assumes the existence of  which contains predefined collation definitions
 - System collation import makes PostgreSQL aware of all locale-specific collations available on the host operating system
+
+## Simplified Source
+
+```c
+static void
+setup_collation(FILE *cmdfd)
+{
+    // Set collation version for unicode collation to track library changes
+    PG_CMD_PUTS("UPDATE pg_collation SET collversion = pg_collation_actual_version(oid) WHERE collname = 'unicode';\n\n");
+
+    // Import all available system collations from the operating system
+    PG_CMD_PUTS("SELECT pg_import_system_collations('pg_catalog');\n\n");
+}
+```

@@ -41,3 +41,17 @@ The  parameter controls whether the analysis should consider triggers that might
 - Used by applications and tools that need to determine what operations are possible on a relation
 - The function passes NULL as the fourth parameter to , which means it's not checking specific column updatability
 - The NIL parameter indicates that all columns are being considered rather than a specific subset
+
+## Simplified Source
+
+```c
+Datum
+pg_relation_is_updatable(PG_FUNCTION_ARGS)
+{
+    Oid reloid = PG_GETARG_OID(0);
+    bool include_triggers = PG_GETARG_BOOL(1);
+
+    // Delegate to internal function that performs the actual updatability check
+    PG_RETURN_INT32(relation_is_updatable(reloid, NIL, include_triggers, NULL));
+}
+```

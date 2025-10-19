@@ -61,3 +61,110 @@ The function only shows subscriptions for the current database, filtering by .
 - Uses psql's standard query result formatting with internationalization support
 - Returns boolean indicating success/failure of the operation
 - Part of psql's describe.c module for \d commands
+
+## Simplified Source
+
+```c
+bool describeSubscriptions(const char *pattern, bool verbose) {
+    PQExpBufferData buf;
+    PGresult *res;
+    printQueryOpt myopt = pset.popt;
+
+    // Check server version - subscriptions require PostgreSQL 10+
+    if (pset.sversion < 100000) {
+        pg_log_error("The server does not support subscriptions.");
+        return true;
+    }
+
+    initPQExpBuffer(&buf);
+
+    // Build base query with core subscription information
+    printfPQExpBuffer(&buf,
+        "SELECT subname AS \"Name\", "
+        "pg_catalog.pg_get_userbyid(subowner) AS \"Owner\", "
+        "subenabled AS \"Enabled\", "
+        "subpublications AS \"Publication\"");
+
+    // Add verbose columns based on server version
+    if (verbose) {
+        // Binary mode and streaming (PostgreSQL 14+)
+        if (pset.sversion >= 140000) {
+            appendPQExpBuffer(&buf, ", subbinary AS \"Binary\"");
+
+            if (pset.sversion >= 160000) {
+                // Enhanced streaming modes in PostgreSQL 16+
+                appendPQExpBuffer(&buf,
+                    ", (CASE substream "
+                    "WHEN 'f' THEN 'off' "
+                    "WHEN 't' THEN 'on' "
+                    "WHEN 'p' THEN 'parallel' "
+                    "END) AS \"Streaming\"");
+            } else {
+                appendPQExpBuffer(&buf, ", substream AS \"Streaming\"");
+            }
+        }
+
+        // Two-phase and error handling (PostgreSQL 15+)
+        if (pset.sversion >= 150000) {
+            appendPQExpBuffer(&buf,
+                ", subtwophasestate AS \"Two-phase commit\", "
+                "subdisableonerr AS \"Disable on error\"");
+        }
+
+        // Origin and security settings (PostgreSQL 16+)
+        if (pset.sversion >= 160000) {
+            appendPQExpBuffer(&buf,
+                ", suborigin AS \"Origin\", "
+                "subpasswordrequired AS \"Password required\", "
+                "subrunasowner AS \"Run as owner?\"");
+        }
+
+        // Failover support (PostgreSQL 17+)
+        if (pset.sversion >= 170000) {
+            appendPQExpBuffer(&buf, ", subfailover AS \"Failover\"");
+        }
+
+        // Connection and sync settings
+        appendPQExpBuffer(&buf,
+            ", subsynccommit AS \"Synchronous commit\", "
+            "subconninfo AS \"Conninfo\"");
+
+        // Skip LSN (PostgreSQL 15+)
+        if (pset.sversion >= 150000) {
+            appendPQExpBuffer(&buf, ", subskiplsn AS \"Skip LSN\"");
+        }
+    }
+
+    // Filter to current database only
+    appendPQExpBufferStr(&buf,
+        " FROM pg_catalog.pg_subscription "
+        "WHERE subdbid = (SELECT oid "
+        "FROM pg_catalog.pg_database "
+        "WHERE datname = pg_catalog.current_database())");
+
+    // Apply pattern filter if provided
+    if (!validateSQLNamePattern(&buf, pattern, true, false,
+                                NULL, "subname", NULL, NULL, NULL, 1)) {
+        termPQExpBuffer(&buf);
+        return false;
+    }
+
+    appendPQExpBufferStr(&buf, " ORDER BY 1;");
+
+    // Execute query
+    res = PSQLexec(buf.data);
+    termPQExpBuffer(&buf);
+    if (!res)
+        return false;
+
+    // Set up output formatting
+    myopt.title = "List of subscriptions";
+    myopt.translate_header = true;
+
+    // Display results and cleanup
+    printQuery(res, &myopt, pset.queryFout, false, pset.logfile);
+    PQclear(res);
+
+    return true;
+}
+```

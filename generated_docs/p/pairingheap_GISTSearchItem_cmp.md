@@ -36,3 +36,38 @@ The comparison logic uses inverted float8 comparison (negative result) to create
 - NULL distance values are treated as having highest priority (lowest comparison value)
 - The heap vs. inner page distinction ensures depth-first traversal for better performance
 - Part of PostgreSQL's GiST access method implementation for efficient spatial and custom data type indexing
+
+## Simplified Source
+
+```c
+static int
+pairingheap_GISTSearchItem_cmp(const pairingheap_node *a, const pairingheap_node *b, void *arg)
+{
+    const GISTSearchItem *sa = (const GISTSearchItem *) a;
+    const GISTSearchItem *sb = (const GISTSearchItem *) b;
+    IndexScanDesc scan = (IndexScanDesc) arg;
+
+    // Compare by distance values for each ORDER BY clause
+    for (int i = 0; i < scan->numberOfOrderBys; i++) {
+        if (sa->distances[i].isnull) {
+            if (!sb->distances[i].isnull)
+                return -1;  // NULL sorts first
+        } else if (sb->distances[i].isnull) {
+            return 1;       // Non-NULL sorts after NULL
+        } else {
+            // Compare actual distance values (inverted for min-heap behavior)
+            int cmp = -float8_cmp_internal(sa->distances[i].value, sb->distances[i].value);
+            if (cmp != 0)
+                return cmp;
+        }
+    }
+
+    // Secondary ordering: heap items before inner pages for depth-first search
+    if (GISTSearchItemIsHeap(*sa) && !GISTSearchItemIsHeap(*sb))
+        return 1;
+    if (!GISTSearchItemIsHeap(*sa) && GISTSearchItemIsHeap(*sb))
+        return -1;
+
+    return 0;  // Equal priority
+}
+```

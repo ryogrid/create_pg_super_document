@@ -39,3 +39,64 @@ The parsing stops when a slash is encountered (indicating CIDR notation) or when
 - Used primarily in IPv6 address parsing for handling embedded IPv4 addresses
 - Enforces maximum of 4 octets to prevent buffer overflow
 - The function maintains state tracking to prevent malformed input
+
+## Simplified Source
+
+```c
+static int
+getv4(const char *src, u_char *dst, int *bitsp)
+{
+    u_char *odst = dst;
+    int n = 0;
+    u_int val = 0;
+    char ch;
+
+    // Parse each character in the source string
+    while ((ch = *src++) != '\0')
+    {
+        // Handle digits 0-9
+        if (ch >= '0' && ch <= '9')
+        {
+            // Prevent leading zeros
+            if (n++ != 0 && val == 0)
+                return 0;
+
+            val = val * 10 + (ch - '0');
+
+            // Validate octet range (0-255)
+            if (val > 255)
+                return 0;
+            continue;
+        }
+
+        // Handle dot (next octet) or slash (CIDR notation)
+        if (ch == '.' || ch == '/')
+        {
+            // Prevent too many octets (max 4)
+            if (dst - odst > 3)
+                return 0;
+
+            *dst++ = val;
+
+            // If CIDR notation, parse the prefix bits
+            if (ch == '/')
+                return getbits(src, bitsp);
+
+            // Reset for next octet
+            val = 0;
+            n = 0;
+            continue;
+        }
+
+        // Invalid character
+        return 0;
+    }
+
+    // Handle final octet
+    if (n == 0 || dst - odst > 3)
+        return 0;
+
+    *dst++ = val;
+    return 1;
+}
+```

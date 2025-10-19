@@ -39,3 +39,18 @@ The "1" in the function name indicates it performs a single-index GEP operation,
 - Essential for implementing operations on PostgreSQL's internal data structures that involve indexed access
 - Provides type safety by ensuring the load operation uses the correct element type
 - More specialized than `l_load_struct_gep` which is for struct members, while this is for array-like access patterns
+
+## Simplified Source
+
+```c
+// Convenience function: compute pointer + index, then load value
+static inline LLVMValueRef
+l_load_gep1(LLVMBuilderRef b, LLVMTypeRef t, LLVMValueRef v, LLVMValueRef idx, const char *name)
+{
+    // Step 1: Calculate pointer with single index offset
+    LLVMValueRef ptr = l_gep(b, t, v, &idx, 1, "");
+
+    // Step 2: Load value from calculated pointer
+    return l_load(b, t, ptr, name);
+}
+```

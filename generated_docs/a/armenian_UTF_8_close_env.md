@@ -36,3 +36,13 @@ The function handles the complete cleanup process including:
 - Safe to call with NULL pointer - the underlying  function handles NULL input gracefully
 - This is part of the automatically generated Snowball stemming code for Armenian language support
 - Should be the final operation performed on an Armenian stemming environment
+
+## Simplified Source
+
+```c
+extern void armenian_UTF_8_close_env(struct SN_env * z) {
+    // Clean up Snowball environment for Armenian stemming
+    // 0 = matches S_size used in creation (no string variables to free)
+    SN_close_env(z, 0);
+}
+```

@@ -32,3 +32,19 @@ This function serves as common code for both bpchartypmodout and varchartypmodou
 - Returns an empty string for unconstrained types (when typmod <= VARHDRSZ)
 - The returned string must be freed by the caller since it's allocated with palloc
 - This is a static function, meaning it's only accessible within the varchar.c source file
+
+## Simplified Source
+
+```c
+static char *anychar_typmodout(int32 typmod) {
+    char *res = (char *) palloc(64);
+
+    // If typmod represents a valid length constraint
+    if (typmod > VARHDRSZ)
+        snprintf(res, 64, "(%d)", (int) (typmod - VARHDRSZ));
+    else
+        *res = '\0';  // Return empty string for unconstrained
+
+    return res;
+}
+```

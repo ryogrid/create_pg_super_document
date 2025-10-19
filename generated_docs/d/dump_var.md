@@ -42,3 +42,28 @@ Unlike `dump_numeric` which works with the storage format, `dump_var` operates o
 - Essential for debugging numeric arithmetic operations
 - [NumericVar](../N/NumericVar.md) is the internal working format used during calculations
 - Not part of the public API - intended for internal debugging only
+
+## Simplified Source
+
+```c
+static void dump_var(const char *str, NumericVar *var) {
+    // Print basic variable info: weight and display scale
+    printf("%s: VAR w=%d d=%d ", str, var->weight, var->dscale);
+
+    // Print sign information
+    switch (var->sign) {
+        case NUMERIC_POS:     printf("POS"); break;
+        case NUMERIC_NEG:     printf("NEG"); break;
+        case NUMERIC_NAN:     printf("NaN"); break;
+        case NUMERIC_PINF:    printf("Infinity"); break;
+        case NUMERIC_NINF:    printf("-Infinity"); break;
+        default:              printf("SIGN=0x%x", var->sign); break;
+    }
+
+    // Print all digits with consistent formatting
+    for (int i = 0; i < var->ndigits; i++)
+        printf(" %0*d", DEC_DIGITS, var->digits[i]);
+
+    printf("\n");
+}
+```

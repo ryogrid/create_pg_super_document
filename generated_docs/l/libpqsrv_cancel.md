@@ -56,3 +56,71 @@ This function provides a robust mechanism for canceling ongoing PostgreSQL opera
 - Uses PostgreSQL's polling mechanism to handle both reading and writing socket states
 - Guaranteed resource cleanup through PG_FINALLY block even in error conditions
 - Located in src/include/libpq/libpq-be-fe-helpers.h:386-457
+
+## Simplified Source
+
+```c
+static inline const char *libpqsrv_cancel(PGconn *conn, TimestampTz endtime) {
+    PGcancelConn *cancel_conn;
+    const char *error = NULL;
+
+    // Create cancel connection
+    cancel_conn = PQcancelCreate(conn);
+    if (cancel_conn == NULL)
+        return "out of memory";
+
+    // Ensure cleanup even on exceptions
+    PG_TRY();
+    {
+        // Start the cancel request
+        if (!PQcancelStart(cancel_conn)) {
+            error = pchomp(PQcancelErrorMessage(cancel_conn));
+            goto exit;
+        }
+
+        // Poll until completion or timeout
+        for (;;) {
+            PostgresPollingStatusType pollres = PQcancelPoll(cancel_conn);
+            if (pollres == PGRES_POLLING_OK)
+                break;  // Success!
+
+            // Check for timeout
+            TimestampTz now = GetCurrentTimestamp();
+            long cur_timeout = TimestampDifferenceMilliseconds(now, endtime);
+            if (cur_timeout <= 0) {
+                error = "cancel request timed out";
+                break;
+            }
+
+            // Determine what to wait for
+            int waitEvents = WL_LATCH_SET | WL_TIMEOUT | WL_EXIT_ON_PM_DEATH;
+            switch (pollres) {
+                case PGRES_POLLING_READING:
+                    waitEvents |= WL_SOCKET_READABLE;
+                    break;
+                case PGRES_POLLING_WRITING:
+                    waitEvents |= WL_SOCKET_WRITEABLE;
+                    break;
+                default:
+                    error = pchomp(PQcancelErrorMessage(cancel_conn));
+                    goto exit;
+            }
+
+            // Wait for socket activity or timeout
+            WaitLatchOrSocket(MyLatch, waitEvents, PQcancelSocket(cancel_conn),
+                            cur_timeout, PG_WAIT_CLIENT);
+            ResetLatch(MyLatch);
+            CHECK_FOR_INTERRUPTS();
+        }
+exit:;
+    }
+    PG_FINALLY();
+    {
+        // Always clean up the cancel connection
+        PQcancelFinish(cancel_conn);
+    }
+    PG_END_TRY();
+
+    return error;
+}
+```

@@ -49,3 +49,33 @@ This function is critical for accurate Russian text processing as perfective ger
 - Returns 1 on successful suffix removal, 0 if no pattern matches, and negative values for errors
 - Part of the multi-step Russian stemming process that must handle prefixes, suffixes, and derivational morphology
 - The function processes text backwards from the end (suffix-stripping approach)
+
+## Simplified Source
+
+```c
+static int r_perfective_gerund(struct SN_env * z) {
+    int pattern_match;
+
+    // Set end boundary and check character range for optimization
+    z->ket = z->c;
+    if (z->c <= z->lb || !valid_gerund_char(z->p[z->c - 1])) return 0;
+
+    // Find matching perfective gerund pattern (9 patterns in a_0)
+    pattern_match = find_among_b(z, a_0, 9);
+    if (!pattern_match) return 0;
+
+    z->bra = z->c;
+    switch (pattern_match) {
+        case 1:
+            // Check for required prefix (а or я) before deletion
+            if (!check_prefix_chars(z, 0xC1, 0xD1)) return 0;
+            slice_del(z);
+            break;
+        case 2:
+            // Simple pattern - delete directly
+            slice_del(z);
+            break;
+    }
+    return 1;
+}
+```

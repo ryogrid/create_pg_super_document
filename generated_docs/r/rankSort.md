@@ -37,3 +37,40 @@ The function creates a temporary mapping array (hmap) that stores pairs of [rank
 - The rank field gets updated to reflect the final sorted position (0-based indexing)
 - Memory allocation is performed for the temporary mapping array and properly freed afterward
 - This enables custom column ordering in crosstab output based on user-specified ranking criteria
+
+## Simplified Source
+
+```c
+static void rankSort(int num_columns, pivot_field *piv_columns) {
+    // Create mapping array: [rank_value, original_index, ...]
+    int *rank_map = pg_malloc(sizeof(int) * num_columns * 2);
+
+    // Extract rank values from sort_value fields
+    for (int i = 0; i < num_columns; i++) {
+        char *val = piv_columns[i].sort_value;
+
+        // Check if sort_value is a valid integer (positive or negative)
+        if (val &&
+            ((*val == '-' && strspn(val + 1, "0123456789") == strlen(val + 1)) ||
+             strspn(val, "0123456789") == strlen(val))) {
+            rank_map[i * 2] = atoi(val);      // rank value
+            rank_map[i * 2 + 1] = i;          // original index
+        } else {
+            // Invalid rank treated as 0
+            rank_map[i * 2] = 0;
+            rank_map[i * 2 + 1] = i;
+        }
+    }
+
+    // Sort the mapping by rank values
+    qsort(rank_map, num_columns, sizeof(int) * 2, rankCompare);
+
+    // Update the rank field based on sorted order
+    for (int i = 0; i < num_columns; i++) {
+        int original_index = rank_map[i * 2 + 1];
+        piv_columns[original_index].rank = i;
+    }
+
+    pg_free(rank_map);
+}
+```

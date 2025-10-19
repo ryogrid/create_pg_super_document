@@ -40,3 +40,18 @@ The function follows PostgreSQL's standard function calling convention using PG_
 - Does not need to access type cache or enum metadata unlike other comparison functions
 - Forms an optimized pair with enum_ne for equality/inequality testing
 - Works correctly because each enum value has a unique OID within its type
+
+## Simplified Source
+
+```c
+Datum
+enum_eq(PG_FUNCTION_ARGS)
+{
+    Oid a = PG_GETARG_OID(0);  // First enum value OID
+    Oid b = PG_GETARG_OID(1);  // Second enum value OID
+
+    PG_RETURN_BOOL(a == b);    // Direct OID comparison
+}
+```
+
+**Simplified Logic**: This function performs a simple equality test between two enum values by directly comparing their OID values. Since each enum value has a unique OID, equality is determined by OID equality.

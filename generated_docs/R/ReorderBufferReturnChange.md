@@ -36,3 +36,60 @@ ReorderBufferReturnChange is responsible for properly deallocating a ReorderBuff
 
 ## Notes and Other Information
 The function uses a switch statement to handle different change types (REORDER_BUFFER_CHANGE_*), ensuring proper cleanup of type-specific data. Memory accounting is updated before freeing to maintain accurate statistics. The function sets pointers to NULL after freeing to prevent double-free errors. It's a critical component in the logical replication system's memory management.
+
+## Simplified Source
+```c
+void ReorderBufferReturnChange(ReorderBuffer *rb, ReorderBufferChange *change, bool upd_mem)
+{
+    // Update memory accounting if requested
+    if (upd_mem)
+        ReorderBufferChangeMemoryUpdate(rb, change, NULL, false, ReorderBufferChangeSize(change));
+
+    // Free contained data based on change type
+    switch (change->action) {
+        case REORDER_BUFFER_CHANGE_INSERT:
+        case REORDER_BUFFER_CHANGE_UPDATE:
+        case REORDER_BUFFER_CHANGE_DELETE:
+        case REORDER_BUFFER_CHANGE_INTERNAL_SPEC_INSERT:
+            // Free tuple buffers for DML operations
+            if (change->data.tp.newtuple)
+                ReorderBufferReturnTupleBuf(change->data.tp.newtuple);
+            if (change->data.tp.oldtuple)
+                ReorderBufferReturnTupleBuf(change->data.tp.oldtuple);
+            break;
+
+        case REORDER_BUFFER_CHANGE_MESSAGE:
+            // Free message data
+            if (change->data.msg.prefix)
+                pfree(change->data.msg.prefix);
+            if (change->data.msg.message)
+                pfree(change->data.msg.message);
+            break;
+
+        case REORDER_BUFFER_CHANGE_INVALIDATION:
+            // Free invalidation data
+            if (change->data.inval.invalidations)
+                pfree(change->data.inval.invalidations);
+            break;
+
+        case REORDER_BUFFER_CHANGE_INTERNAL_SNAPSHOT:
+            // Free snapshot data
+            if (change->data.snapshot)
+                ReorderBufferFreeSnap(rb, change->data.snapshot);
+            break;
+
+        case REORDER_BUFFER_CHANGE_TRUNCATE:
+            // Free relation OIDs for truncate
+            if (change->data.truncate.relids)
+                ReorderBufferReturnRelids(rb, change->data.truncate.relids);
+            break;
+
+        // Other change types have no additional data to free
+        default:
+            break;
+    }
+
+    // Free the change object itself
+    pfree(change);
+}
+```

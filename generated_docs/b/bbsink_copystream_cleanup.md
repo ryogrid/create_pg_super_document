@@ -28,3 +28,12 @@ This function serves as the cleanup callback for bbsink copystream implementatio
 - Exists to fulfill the bbsink interface contract for cleanup operations
 - Resources used by copystream sinks are likely managed automatically by PostgreSQL's memory context system
 - Located in src/backend/backup/basebackup_copy.c:308-316
+
+## Simplified Source
+
+```c
+static void bbsink_copystream_cleanup(bbsink *sink) {
+    // No cleanup required for copystream sinks
+    // Resources are managed automatically by PostgreSQL's memory context system
+}
+```

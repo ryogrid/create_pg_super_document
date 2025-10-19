@@ -36,3 +36,45 @@ The function processes the input text line by line, temporarily modifying the in
 - Function body lines are formatted with a 7-character left-aligned line number field
 - The function assumes that pg_get_functiondef() output follows the expected format with recognizable function body start patterns
 - Designed to work with psql's \sf and \sv commands for displaying function and view definitions with line numbers
+
+## Simplified Source
+
+```c
+static void
+print_with_linenumbers(FILE *output, char *lines, bool is_func)
+{
+    bool in_header = is_func;
+    int lineno = 0;
+
+    while (*lines != '\0') {
+        char *eol;
+
+        // Check if we've reached the function body
+        if (in_header &&
+            (strncmp(lines, "AS ", 3) == 0 ||
+             strncmp(lines, "BEGIN ", 6) == 0 ||
+             strncmp(lines, "RETURN ", 7) == 0))
+            in_header = false;
+
+        // Increment line number only for function body
+        if (!in_header)
+            lineno++;
+
+        // Find and temporarily null-terminate current line
+        eol = strchr(lines, '\n');
+        if (eol != NULL)
+            *eol = '\0';
+
+        // Print line with appropriate formatting
+        if (in_header)
+            fprintf(output, "        %s\n", lines);  // Header: 8 spaces
+        else
+            fprintf(output, "%-7d %s\n", lineno, lines);  // Body: line number
+
+        // Advance to next line
+        if (eol == NULL)
+            break;
+        lines = ++eol;
+    }
+}
+```

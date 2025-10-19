@@ -33,3 +33,19 @@ The comparison is performed at the container level, comparing the root container
 - Memory management is handled properly with PG_FREE_IF_COPY calls to prevent memory leaks
 - The actual comparison logic is delegated to compareJsonbContainers, which performs deep structural comparison
 - Returns true (1) when compareJsonbContainers returns 0, indicating the containers are equal
+
+## Simplified Source
+
+```c
+Datum jsonb_eq(PG_FUNCTION_ARGS) {
+    Jsonb *jba = PG_GETARG_JSONB_P(0);
+    Jsonb *jbb = PG_GETARG_JSONB_P(1);
+
+    // Return true if containers are equal
+    bool res = (compareJsonbContainers(&jba->root, &jbb->root) == 0);
+
+    PG_FREE_IF_COPY(jba, 0);
+    PG_FREE_IF_COPY(jbb, 1);
+    PG_RETURN_BOOL(res);
+}
+```

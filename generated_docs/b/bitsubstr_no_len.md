@@ -37,3 +37,16 @@ This function implements a variant of bit string substring extraction where no e
 - Uses 1-based position numbering as per SQL standard
 - Complements the bitsubstr function which requires an explicit length parameter
 - Follows PostgreSQL's V1 calling convention for SQL-callable functions
+
+## Simplified Source
+
+```c
+Datum bitsubstr_no_len(PG_FUNCTION_ARGS) {
+    // Extract arguments: bit string and start position (1-based)
+    VarBit *source = PG_GETARG_VARBIT_P(0);
+    int32 start_pos = PG_GETARG_INT32(1);
+
+    // Extract from start position to end (-1 means "to end", true flag indicates no-length variant)
+    PG_RETURN_VARBIT_P(bitsubstring(source, start_pos, -1, true));
+}
+```

@@ -44,3 +44,64 @@ For records that modify actual data blocks, the function iterates through all bl
 - Critical for building the accurate page map that drives pg_rewind's selective file copying
 - The function's logic determines which blocks need to be copied vs. which can be safely ignored
 - Works in conjunction with process_target_wal_block_change() to maintain the global page map
+
+## Simplified Source
+
+```c
+static void extractPageInfo(XLogReaderState *record)
+{
+    RmgrId rmid = XLogRecGetRmid(record);
+    uint8 info = XLogRecGetInfo(record);
+    uint8 rminfo = info & ~XLR_INFO_MASK;
+
+    // Handle special record types that can be safely ignored
+    if (rmid == RM_DBASE_ID &&
+        (rminfo == XLOG_DBASE_CREATE_FILE_COPY ||
+         rminfo == XLOG_DBASE_CREATE_WAL_LOG ||
+         rminfo == XLOG_DBASE_DROP)) {
+        // Database operations - entire databases are handled separately
+        return;
+    }
+
+    if (rmid == RM_SMGR_ID &&
+        (rminfo == XLOG_SMGR_CREATE || rminfo == XLOG_SMGR_TRUNCATE)) {
+        // Storage manager operations - handled by file comparison
+        return;
+    }
+
+    if (rmid == RM_XACT_ID &&
+        ((rminfo & XLOG_XACT_OPMASK) == XLOG_XACT_COMMIT ||
+         (rminfo & XLOG_XACT_OPMASK) == XLOG_XACT_COMMIT_PREPARED ||
+         (rminfo & XLOG_XACT_OPMASK) == XLOG_XACT_ABORT ||
+         (rminfo & XLOG_XACT_OPMASK) == XLOG_XACT_ABORT_PREPARED)) {
+        // Transaction records with dropped rels - handled by file comparison
+        return;
+    }
+
+    // Check for unrecognized special relation updates
+    if (info & XLR_SPECIAL_REL_UPDATE) {
+        pg_fatal("WAL record modifies a relation, but record type is not recognized: "
+                "lsn: %X/%X, rmid: %d, rmgr: %s, info: %02X",
+                LSN_FORMAT_ARGS(record->ReadRecPtr),
+                rmid, RmgrName(rmid), info);
+    }
+
+    // Process all data blocks modified by this record
+    for (int block_id = 0; block_id <= XLogRecMaxBlockId(record); block_id++) {
+        RelFileLocator rlocator;
+        ForkNumber forknum;
+        BlockNumber blkno;
+
+        // Extract block information from WAL record
+        if (!XLogRecGetBlockTagExtended(record, block_id, &rlocator, &forknum, &blkno, NULL))
+            continue;
+
+        // Only track main fork changes - other forks copied completely
+        if (forknum != MAIN_FORKNUM)
+            continue;
+
+        // Add this block to the page map
+        process_target_wal_block_change(forknum, rlocator, blkno);
+    }
+}
+```

@@ -29,3 +29,13 @@ The void_recv function is responsible for deserializing binary input for the voi
 - Enforces that void type binary input must be empty to maintain type system integrity
 - Works in conjunction with binary protocol serialization/deserialization infrastructure
 - The function's strict validation prevents malformed binary data from being accepted as void values
+
+## Simplified Source
+
+```c
+Datum void_recv(PG_FUNCTION_ARGS) {
+    // Binary input for void type - consumes no bytes
+    // Sending non-empty data will cause "invalid message format" error
+    PG_RETURN_VOID();
+}
+```

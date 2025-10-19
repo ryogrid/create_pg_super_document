@@ -34,3 +34,34 @@ The function implements PostgreSQL's keyword case completion behavior, ensuring 
 
 ## Notes and Other Information
 The case conversion logic examines the first character of the reference text to determine whether to apply lower or upper case transformation. Different completion case modes (LOWER, PRESERVE_LOWER, PRESERVE_UPPER) affect the conversion behavior. The caller is responsible for freeing the returned string.
+
+## Simplified Source
+
+```c
+static char *
+pg_strdup_keyword_case(const char *s, const char *ref)
+{
+    char *ret, *p;
+    unsigned char first = ref[0];
+
+    // Create a duplicate of the source string
+    ret = pg_strdup(s);
+
+    // Determine if we should convert to lowercase
+    if (pset.comp_case == PSQL_COMP_CASE_LOWER ||
+        ((pset.comp_case == PSQL_COMP_CASE_PRESERVE_LOWER ||
+          pset.comp_case == PSQL_COMP_CASE_PRESERVE_UPPER) && islower(first)) ||
+        (pset.comp_case == PSQL_COMP_CASE_PRESERVE_LOWER && !isalpha(first))) {
+
+        // Convert to lowercase
+        for (p = ret; *p; p++)
+            *p = pg_tolower((unsigned char) *p);
+    } else {
+        // Convert to uppercase
+        for (p = ret; *p; p++)
+            *p = pg_toupper((unsigned char) *p);
+    }
+
+    return ret;
+}
+```

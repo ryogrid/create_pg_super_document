@@ -36,3 +36,23 @@ This function rolls back the query buffer and scanner state to values previously
 - Uses Assert to validate that the new length is within valid bounds
 - Properly null-terminates the truncated query buffer
 - The lexer state restoration assumes we're not inside comments, literals, or partial tokens
+
+## Simplified Source
+
+```c
+static void discard_query_text(PsqlScanState scan_state, ConditionalStack cstack,
+                                PQExpBuffer query_buf) {
+    // Restore query buffer to previous length if it exists
+    if (query_buf) {
+        int new_len = conditional_stack_get_query_len(cstack);
+
+        // Truncate buffer and null-terminate
+        query_buf->len = new_len;
+        query_buf->data[new_len] = '\0';
+    }
+
+    // Restore lexer parenthesis depth to previous state
+    psql_scan_set_paren_depth(scan_state,
+                               conditional_stack_get_paren_depth(cstack));
+}
+```

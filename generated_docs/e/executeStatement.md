@@ -44,3 +44,29 @@ The `executeStatement` function is a utility wrapper around PostgreSQL's libpq P
 - Provides comprehensive error reporting with both PostgreSQL error details and the failing SQL
 - Memory management is handled properly with PQclear() for successful results
 - Located in src/bin/pgbench/pgbench.c:1500-1515 and widely used throughout pgbench initialization
+
+## Simplified Source
+
+```c
+static void executeStatement(PGconn *con, const char *sql) {
+    // Execute SQL statement and exit on failure (initialization-phase only)
+
+    PGresult *res = PQexec(con, sql);
+
+    // Check if command completed successfully
+    if (PQresultStatus(res) != PGRES_COMMAND_OK) {
+        // Log error details and terminate program
+        pg_log_error("query failed: %s", PQerrorMessage(con));
+        pg_log_error_detail("Query was: %s", sql);
+        exit(1);
+    }
+
+    PQclear(res);  // Clean up result
+}
+```
+
+**Key Points:**
+- Simple wrapper around PQexec() with strict error handling
+- Designed for initialization phase where failures should be fatal
+- Provides comprehensive error reporting with SQL query context
+- Always calls exit(1) on failure - not suitable for runtime operations

@@ -32,3 +32,17 @@ pg_spinlock_barrier is a fallback implementation of memory barrier functionality
 - Uses kill(0) system call as a memory barrier mechanism, assuming kernels on older systems include appropriate barriers during PID existence checks
 - Defined in src/backend/port/atomics.c under conditional compilation (PG_HAVE_MEMORY_BARRIER_EMULATION)
 - Mapped to pg_memory_barrier_impl via macro in src/include/port/atomics/fallback.h
+
+## Simplified Source
+
+```c
+void pg_spinlock_barrier(void) {
+    /*
+     * Fallback memory barrier using system call.
+     * Must be reentrant for signal handler use.
+     * Uses kill(0) which forces kernel transition
+     * that includes memory ordering on older systems.
+     */
+    (void) kill(PostmasterPid, 0);
+}
+```

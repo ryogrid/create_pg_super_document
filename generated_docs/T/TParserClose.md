@@ -36,3 +36,27 @@ After cleaning up the state stack, the function deallocates any wide character s
 - Uses pfree consistently with PostgreSQL's memory management conventions
 - Includes conditional compilation for WPARSER_TRACE debugging support
 - Safe to call even if wide character buffers were not allocated (checks for NULL pointers)
+
+## Simplified Source
+
+```c
+static void TParserClose(TParser *prs) {
+    // Free entire state stack
+    while (prs->state) {
+        TParserPosition *ptr = prs->state->prev;
+        pfree(prs->state);
+        prs->state = ptr;
+    }
+
+    // Free wide character buffers if allocated
+    if (prs->wstr) {
+        pfree(prs->wstr);
+    }
+    if (prs->pgwstr) {
+        pfree(prs->pgwstr);
+    }
+
+    // Free the parser structure itself
+    pfree(prs);
+}
+```

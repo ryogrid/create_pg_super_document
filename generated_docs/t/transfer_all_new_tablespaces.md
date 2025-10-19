@@ -39,3 +39,49 @@ In single-threaded mode, it processes all tablespaces together by passing NULL a
 - In parallel mode, it processes tablespaces sequentially but allows database transfers within each tablespace to run in parallel
 - The function includes proper cleanup by reaping all child processes after parallel operations complete
 - Error checking is performed via check_ok() to ensure all transfer operations completed successfully
+
+## Simplified Source
+
+```c
+void transfer_all_new_tablespaces(DbInfoArr *old_db_arr, DbInfoArr *new_db_arr,
+                                 char *old_pgdata, char *new_pgdata) {
+    // Display progress message based on transfer mode
+    switch (user_opts.transfer_mode) {
+        case TRANSFER_MODE_CLONE:
+            prep_status_progress("Cloning user relation files");
+            break;
+        case TRANSFER_MODE_COPY:
+            prep_status_progress("Copying user relation files");
+            break;
+        case TRANSFER_MODE_COPY_FILE_RANGE:
+            prep_status_progress("Copying user relation files with copy_file_range");
+            break;
+        case TRANSFER_MODE_LINK:
+            prep_status_progress("Linking user relation files");
+            break;
+    }
+
+    // Choose transfer strategy based on job count
+    if (user_opts.jobs <= 1) {
+        // Single-threaded: process all tablespaces together
+        parallel_transfer_all_new_dbs(old_db_arr, new_db_arr, old_pgdata, new_pgdata, NULL);
+    } else {
+        // Parallel mode: process default tablespace first
+        parallel_transfer_all_new_dbs(old_db_arr, new_db_arr, old_pgdata, new_pgdata, old_pgdata);
+
+        // Then process each user-created tablespace in parallel
+        for (int tblnum = 0; tblnum < os_info.num_old_tablespaces; tblnum++) {
+            parallel_transfer_all_new_dbs(old_db_arr, new_db_arr, old_pgdata, new_pgdata,
+                                        os_info.old_tablespaces[tblnum]);
+        }
+
+        // Wait for all parallel operations to complete
+        while (reap_child(true) == true)
+            ;
+    }
+
+    // Finalize progress reporting and check for errors
+    end_progress_output();
+    check_ok();
+}
+```

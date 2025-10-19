@@ -42,3 +42,28 @@ The function operates by first building a query to retrieve security label infor
 - The function assumes the caller provides consistent object identification between catalog and SQL representations
 - Memory management handled internally - creates and destroys temporary query buffer
 - Output commands are appended to the provided buffer, allowing integration with larger dump output
+
+## Simplified Source
+
+```c
+static void buildShSecLabels(PGconn *conn, const char *catalog_name, Oid objectId,
+                            const char *objtype, const char *objname,
+                            PQExpBuffer buffer)
+{
+    PQExpBuffer sql = createPQExpBuffer();
+    PGresult *res;
+
+    // Build query to retrieve security labels for the object
+    buildShSecLabelQuery(catalog_name, objectId, sql);
+
+    // Execute query to get security label data
+    res = executeQuery(conn, sql->data);
+
+    // Format the results into SECURITY LABEL commands and append to buffer
+    emitShSecLabels(conn, res, buffer, objtype, objname);
+
+    // Cleanup
+    PQclear(res);
+    destroyPQExpBuffer(sql);
+}
+```

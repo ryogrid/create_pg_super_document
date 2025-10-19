@@ -38,3 +38,34 @@ Like `r_step1`, this function resets the state flag `z->I[0] = 0` after the dele
 - State management through `z->I[0]` reset maintains consistency across the multi-step stemming process
 - Returns 1 on successful processing, 0 if no applicable patterns are found
 - Located in src/backend/snowball/libstemmer/stem_UTF_8_greek.c:2541-2569
+
+## Simplified Source
+
+```c
+static int r_steps1(struct SN_env * z) {
+    int pattern_match;
+
+    // Phase 1: Delete suffixes using pattern array a_3 (14 patterns)
+    z->ket = z->c;
+    if (!find_among_b(z, a_3, 14)) return 0;
+    z->bra = z->c;
+    slice_del(z);  // Complete removal of matched suffix
+
+    z->I[0] = 0;   // Reset state flag
+
+    // Phase 2: Restore stem endings using pattern array a_2 (31 patterns)
+    z->ket = z->c;
+    z->bra = z->c;
+    pattern_match = find_among_b(z, a_2, 31);
+    if (!pattern_match) return 0;
+    if (z->c > z->lb) return 0;  // Boundary check
+
+    // Apply restoration based on pattern
+    switch (pattern_match) {
+        case 1: slice_from_s(z, 2, s_35); break;  // 2-byte replacement
+        case 2: slice_from_s(z, 4, s_36); break;  // 4-byte replacement
+    }
+
+    return 1;  // Success
+}
+```

@@ -41,3 +41,27 @@ The function ensures that:
 - The enum ordering in file_action_t is crucial for this function to work correctly
 - Safety is prioritized over disk space efficiency - removals come last even though doing them first would be more space-efficient
 - The reverse ordering for removal paths ensures proper cleanup of nested directory structures
+
+## Simplified Source
+
+```c
+static int
+final_filemap_cmp(const void *a, const void *b)
+{
+    file_entry_t *fa = *((file_entry_t **) a);
+    file_entry_t *fb = *((file_entry_t **) b);
+
+    // Primary sort: by action type (create before remove)
+    if (fa->action > fb->action)
+        return 1;
+    if (fa->action < fb->action)
+        return -1;
+
+    // Secondary sort: by path
+    // For removals, use reverse order (subdirs before parent dirs)
+    if (fa->action == FILE_ACTION_REMOVE)
+        return strcmp(fb->path, fa->path);
+    else
+        return strcmp(fa->path, fb->path);
+}
+```

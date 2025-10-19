@@ -25,3 +25,13 @@ This function ensures proper resource management in the Snowball stemming librar
 
 ## Notes and Other Information
 This function should always be paired with french_UTF_8_create_env to ensure proper resource management. The function is marked as 'extern' making it part of the public API for the French UTF-8 stemmer. The parameter (0) passed to SN_close_env corresponds to the initialization parameter used in french_UTF_8_create_env, ensuring consistent cleanup behavior. After calling this function, the environment pointer should not be used for further operations as the memory will have been freed.
+
+## Simplified Source
+
+```c
+extern void french_UTF_8_close_env(struct SN_env * z) {
+    // Clean up and deallocate Snowball environment
+    // Parameter 0 matches the creation parameter for consistent cleanup
+    SN_close_env(z, 0);
+}
+```

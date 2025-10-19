@@ -36,3 +36,30 @@ This callback function is invoked when the JSON parser encounters the beginning 
 - The function implements strict validation to ensure the manifest structure follows the expected format
 - Error handling is provided for any unexpected array starts through json_manifest_parse_failure
 - The function always returns JSON_SUCCESS, with errors handled through the parse failure mechanism
+
+## Simplified Source
+
+```c
+static JsonParseErrorType json_manifest_array_start(void *state) {
+    JsonManifestParseState *parse = state;
+
+    switch (parse->state) {
+        case JM_EXPECT_FILES_START:
+            // Start of Files array
+            parse->state = JM_EXPECT_FILES_NEXT;
+            break;
+
+        case JM_EXPECT_WAL_RANGES_START:
+            // Start of WAL-Ranges array
+            parse->state = JM_EXPECT_WAL_RANGES_NEXT;
+            break;
+
+        default:
+            // Unexpected array start
+            json_manifest_parse_failure(parse->context, "unexpected array start");
+            break;
+    }
+
+    return JSON_SUCCESS;
+}
+```

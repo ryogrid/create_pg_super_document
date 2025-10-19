@@ -30,3 +30,22 @@ This function performs a case-insensitive lookup of property names in the predef
 - Supports standard properties like 'asc', 'desc', 'nulls_first', 'nulls_last', 'orderable', 'distance_orderable', 'returnable', 'search_array', 'search_nulls', 'clusterable', 'index_scan', 'bitmap_scan', 'backward_scan', 'can_order', 'can_unique', 'can_multi_col', 'can_exclude', and 'can_include'
 - Returns AMPROP_UNKNOWN for unrecognized properties instead of throwing an error, allowing extensibility for custom access methods
 - Uses case-insensitive comparison for property name matching
+
+## Simplified Source
+
+```c
+static IndexAMProperty
+lookup_prop_name(const char *name)
+{
+    // Search through the property names array
+    for (int i = 0; i < lengthof(am_propnames); i++)
+    {
+        // Case-insensitive comparison with property name
+        if (pg_strcasecmp(am_propnames[i].name, name) == 0)
+            return am_propnames[i].prop;
+    }
+
+    // Return unknown if property not found (allows custom AM properties)
+    return AMPROP_UNKNOWN;
+}
+```

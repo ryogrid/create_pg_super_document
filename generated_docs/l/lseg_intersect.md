@@ -37,3 +37,16 @@ The `lseg_intersect` function is a PostgreSQL built-in function that tests wheth
 - Part of PostgreSQL's geometric data type support for spatial queries
 - The intersection test considers both line segments as finite, not as infinite lines
 - Useful for spatial queries and geometric analysis in PostgreSQL databases
+
+## Simplified Source
+
+```c
+Datum lseg_intersect(PG_FUNCTION_ARGS) {
+    // Get two line segments from function arguments
+    LSEG *l1 = PG_GETARG_LSEG_P(0);
+    LSEG *l2 = PG_GETARG_LSEG_P(1);
+
+    // Check if line segments intersect (NULL = don't need intersection point)
+    PG_RETURN_BOOL(lseg_interpt_lseg(NULL, l1, l2));
+}
+```

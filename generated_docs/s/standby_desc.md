@@ -45,3 +45,35 @@ This function is part of PostgreSQL's WAL record description infrastructure, use
 - Handles multiple lock entries within a single XLOG_STANDBY_LOCK record
 - Part of the resource manager description system in PostgreSQL
 - Essential for debugging replication and standby server operations
+
+## Simplified Source
+
+```c
+void
+standby_desc(StringInfo buf, XLogReaderState *record)
+{
+    char *rec = XLogRecGetData(record);
+    uint8 info = XLogRecGetInfo(record) & ~XLR_INFO_MASK;
+
+    if (info == XLOG_STANDBY_LOCK) {
+        // Standby lock records: show transaction and relation info
+        xl_standby_locks *xlrec = (xl_standby_locks *) rec;
+        for (int i = 0; i < xlrec->nlocks; i++)
+            appendStringInfo(buf, "xid %u db %u rel %u ",
+                           xlrec->locks[i].xid, xlrec->locks[i].dbOid,
+                           xlrec->locks[i].relOid);
+    }
+    else if (info == XLOG_RUNNING_XACTS) {
+        // Running transactions: delegate to specialized function
+        xl_running_xacts *xlrec = (xl_running_xacts *) rec;
+        standby_desc_running_xacts(buf, xlrec);
+    }
+    else if (info == XLOG_INVALIDATIONS) {
+        // Cache invalidations: delegate to shared function
+        xl_invalidations *xlrec = (xl_invalidations *) rec;
+        standby_desc_invalidations(buf, xlrec->nmsgs, xlrec->msgs,
+                                  xlrec->dbId, xlrec->tsId,
+                                  xlrec->relcacheInitFileInval);
+    }
+}
+```

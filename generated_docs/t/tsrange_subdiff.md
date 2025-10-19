@@ -34,3 +34,18 @@ The function performs arithmetic subtraction on the timestamp values (which are 
 - Division by USECS_PER_SEC converts from internal microsecond representation to user-friendly seconds
 - Located in src/backend/utils/adt/rangetypes.c:1664-1674
 - Used internally by PostgreSQL's range type system for timestamp range operations requiring time interval calculations
+
+## Simplified Source
+
+```c
+Datum tsrange_subdiff(PG_FUNCTION_ARGS) {
+    // Extract the two timestamp arguments (microseconds since epoch)
+    Timestamp v1 = PG_GETARG_TIMESTAMP(0);
+    Timestamp v2 = PG_GETARG_TIMESTAMP(1);
+
+    // Calculate difference in seconds by converting from microseconds
+    float8 result = ((float8) v1 - (float8) v2) / USECS_PER_SEC;
+
+    PG_RETURN_FLOAT8(result);
+}
+```

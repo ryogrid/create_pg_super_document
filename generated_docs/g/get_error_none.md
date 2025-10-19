@@ -30,3 +30,14 @@ The `get_error_none` function is a static helper function that serves as the err
 - Returns a pointer to a static string provided by strerror(), so the returned string should not be modified or freed
 - The function is static, limiting its scope to the compress_none.c file
 - Part of the modular compression system in pg_dump that allows different compression methods to implement their own error reporting mechanisms
+
+## Simplified Source
+
+```c
+static const char *
+get_error_none(CompressFileHandle *CFH)
+{
+    // Return standard error string for current errno
+    return strerror(errno);
+}
+```

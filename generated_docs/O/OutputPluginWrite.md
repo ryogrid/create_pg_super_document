@@ -42,3 +42,17 @@ The function performs these operations:
 - Used extensively by the pgoutput plugin for executing various types of logical replication message writes
 - The two-phase write protocol (prepare/write) allows output plugins to optimize buffer management and ensure proper sequencing
 - Essential component of the logical replication output protocol flow
+
+## Simplified Source
+
+```c
+void OutputPluginWrite(struct LogicalDecodingContext *ctx, bool last_write) {
+    // Ensure prepare was called first
+    if (!ctx->prepared_write)
+        elog(ERROR, "OutputPluginPrepareWrite needs to be called before OutputPluginWrite");
+
+    // Execute the actual write through the plugin's callback
+    ctx->write(ctx, ctx->write_location, ctx->write_xid, last_write);
+    ctx->prepared_write = false;
+}
+```

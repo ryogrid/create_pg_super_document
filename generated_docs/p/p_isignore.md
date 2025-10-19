@@ -32,3 +32,16 @@ The ignore flag is typically set when the parser encounters specific patterns or
 - Simple predicate function with no side effects
 - Part of PostgreSQL's full-text search token parsing functionality
 - Used as a condition check in the main parsing logic to determine token handling behavior
+
+## Simplified Source
+
+```c
+static int
+p_isignore(TParser *prs)
+{
+    // Return 1 if parser is in ignore mode, 0 otherwise
+    return (prs->ignore) ? 1 : 0;
+}
+```
+
+This simplified version shows the essential logic: a simple predicate that checks the parser's ignore flag and returns the appropriate boolean value for token processing decisions.

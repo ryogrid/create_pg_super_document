@@ -41,3 +41,16 @@ The function uses PostgreSQL's floating-point comparison function FPge() to hand
 - Returns true when box1's left edge does not start before box2's left edge
 - Complementary to the box_overleft function, providing the opposite directional comparison
 - Located in src/backend/utils/adt/geo_ops.c:624-634
+
+## Simplified Source
+
+```c
+Datum box_overright(PG_FUNCTION_ARGS) {
+    BOX *box1 = PG_GETARG_BOX_P(0);
+    BOX *box2 = PG_GETARG_BOX_P(1);
+
+    // Check if box1's left edge is at or right of box2's left edge
+    // This means box1 doesn't start before box2
+    PG_RETURN_BOOL(box1->low.x >= box2->low.x);
+}
+```

@@ -32,3 +32,35 @@ The avlInsertNode function implements the recursive insertion algorithm for AVL 
 
 ## Notes and Other Information
 This function is a core component of PostgreSQL's crosstab view implementation, which uses AVL trees to efficiently store and organize pivot field values for cross-tabulated query results. The recursive nature allows for natural tree traversal while maintaining the call stack for proper balance adjustment on the way back up. The function increments the tree's count only when actually inserting a new node, ensuring accurate tree size tracking. The use of tree->end as a sentinel value simplifies boundary checking and tree structure management.
+
+## Simplified Source
+
+```c
+static void avlInsertNode(avl_tree *tree, avl_node **node, pivot_field field) {
+    avl_node *current = *node;
+
+    if (current == tree->end) {
+        // Create new leaf node
+        avl_node *new_node = pg_malloc(sizeof(avl_node));
+        new_node->height = 1;
+        new_node->field = field;
+        new_node->children[0] = new_node->children[1] = tree->end;
+        tree->count++;
+        *node = new_node;
+    } else {
+        // Compare with current node and recurse
+        int comparison = pivotFieldCompare(&field, &current->field);
+
+        if (comparison != 0) {
+            // Insert into appropriate subtree (left if <0, right if >0)
+            avlInsertNode(tree,
+                         comparison > 0 ? &current->children[1] : &current->children[0],
+                         field);
+
+            // Rebalance tree after insertion
+            avlAdjustBalance(tree, node);
+        }
+        // If comparison == 0, value already exists - do nothing
+    }
+}
+```

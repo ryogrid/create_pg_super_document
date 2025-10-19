@@ -23,3 +23,13 @@ This function serves as a constructor for the Basque stemming environment using 
 
 ## Notes and Other Information
 This is a thin wrapper around the generic Snowball environment creation function. The parameters (0, 3) passed to SN_create_env indicate specific configuration values for the Basque language stemmer. Memory management responsibility transfers to the caller, who must eventually call the corresponding close_env function to prevent memory leaks.
+
+## Simplified Source
+
+```c
+extern struct SN_env * basque_ISO_8859_1_create_env(void) {
+    // Create Snowball environment for Basque stemming
+    // Parameters: 0 (no special options), 3 (language-specific config)
+    return SN_create_env(0, 3);
+}
+```

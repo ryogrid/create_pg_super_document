@@ -29,3 +29,13 @@ The function uses the UTF-8 aware length calculation function  to properly handl
 - This is a static function, meaning it has internal linkage and is only accessible within the same compilation unit
 - The minimum length check is essential for preventing inappropriate stemming of very short words
 - While defined in the Greek stemmer file, the function appears to be used by multiple language stemmers including Tamil
+
+## Simplified Source
+
+```c
+static int r_has_min_length(struct SN_env * z) {
+    // Check if word has minimum length of 3 UTF-8 characters
+    // This prevents over-stemming of very short words
+    return (len_utf8(z->p) >= 3) ? 1 : 0;
+}
+```

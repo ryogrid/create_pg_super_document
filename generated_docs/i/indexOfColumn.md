@@ -38,3 +38,46 @@ The function includes comprehensive error handling for various failure scenarios
 - Validates that numeric column references fall within the valid range [1, PQnfields(res)]
 - Detects and reports ambiguous column names when multiple columns share the same name
 - Uses PostgreSQL's standard identifier case-folding rules for name matching
+
+## Simplified Source
+
+```c
+static int
+indexOfColumn(char *arg, const PGresult *res)
+{
+    int idx;
+
+    // Check if argument is a numeric column number (1-based)
+    if (arg[0] && strspn(arg, "0123456789") == strlen(arg)) {
+        idx = atoi(arg) - 1;  // Convert to 0-based
+        if (idx < 0 || idx >= PQnfields(res)) {
+            pg_log_error("\\crosstabview: column number %d is out of range 1..%d",
+                        idx + 1, PQnfields(res));
+            return -1;
+        }
+    }
+    else {
+        // Handle column name lookup
+        dequote_downcase_identifier(arg, true, pset.encoding);
+
+        idx = -1;
+        for (int i = 0; i < PQnfields(res); i++) {
+            if (strcmp(arg, PQfname(res, i)) == 0) {
+                if (idx >= 0) {
+                    // Found duplicate column name
+                    pg_log_error("\\crosstabview: ambiguous column name: \"%s\"", arg);
+                    return -1;
+                }
+                idx = i;
+            }
+        }
+
+        if (idx == -1) {
+            pg_log_error("\\crosstabview: column name not found: \"%s\"", arg);
+            return -1;
+        }
+    }
+
+    return idx;
+}
+```

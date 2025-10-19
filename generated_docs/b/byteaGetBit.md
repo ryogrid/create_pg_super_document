@@ -37,3 +37,38 @@ This function treats a PostgreSQL bytea value as an array of bits and retrieves 
 - Uses bit masking (1 << bitNo) to extract the specific bit
 - Part of PostgreSQL's bytea data type manipulation functions in varlena.c
 - Located in src/backend/utils/adt/varlena.c:3238-3275
+
+## Simplified Source
+
+```c
+// Extract a specific bit from bytea at given bit index (0-based)
+Datum byteaGetBit(PG_FUNCTION_ARGS) {
+    // Extract arguments: bytea value and bit index position
+    bytea *input_bytea = PG_GETARG_BYTEA_PP(0);
+    int64 bit_index = PG_GETARG_INT64(1);
+
+    // Get the length of the bytea data (excluding header)
+    int length = VARSIZE_ANY_EXHDR(input_bytea);
+
+    // Validate bit index bounds (total bits = length * 8)
+    if (bit_index < 0 || bit_index >= (int64) length * 8) {
+        ereport(ERROR,
+                (errcode(ERRCODE_ARRAY_SUBSCRIPT_ERROR),
+                 errmsg("index %lld out of valid range, 0..%lld",
+                        (long long) bit_index, (long long) length * 8 - 1)));
+    }
+
+    // Calculate byte position and bit position within that byte
+    int byte_pos = (int) (bit_index / 8);
+    int bit_pos = (int) (bit_index % 8);
+
+    // Extract the target byte and check the specific bit
+    int target_byte = ((unsigned char *) VARDATA_ANY(input_bytea))[byte_pos];
+
+    // Return 1 if bit is set, 0 otherwise
+    if (target_byte & (1 << bit_pos))
+        return PG_RETURN_INT32(1);
+    else
+        return PG_RETURN_INT32(0);
+}
+```

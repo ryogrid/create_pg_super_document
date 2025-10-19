@@ -38,3 +38,36 @@ The function manually converts each byte of the UUID data to hexadecimal charact
 - Output format is always lowercase hexadecimal
 - This is a PostgreSQL internal function registered in the type system for UUID output
 - The function is deterministic and produces consistent string representations
+
+## Simplified Source
+
+```c
+Datum
+uuid_out(PG_FUNCTION_ARGS)
+{
+    pg_uuid_t *uuid = PG_GETARG_UUID_P(0);
+    static const char hex_chars[] = "0123456789abcdef";
+    char *buf, *p;
+    int i;
+
+    // Allocate buffer for output string (32 hex chars + 4 hyphens + null terminator)
+    buf = palloc(2 * UUID_LEN + 5);
+    p = buf;
+
+    // Convert each byte to hexadecimal with hyphens at standard positions
+    for (i = 0; i < UUID_LEN; i++) {
+        // Insert hyphens at positions: 4, 6, 8, 10 (standard UUID format)
+        if (i == 4 || i == 6 || i == 8 || i == 10)
+            *p++ = '-';
+
+        // Convert byte to two hex characters
+        int hi = uuid->data[i] >> 4;
+        int lo = uuid->data[i] & 0x0F;
+        *p++ = hex_chars[hi];
+        *p++ = hex_chars[lo];
+    }
+    *p = '\0';
+
+    PG_RETURN_CSTRING(buf);
+}
+```

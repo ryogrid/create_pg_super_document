@@ -43,4 +43,32 @@ When executed in an active branch, the function parses the required key argument
 - The security key is stored globally in  and the restricted state in the  variable
 - Error handling includes validation that a non-empty key argument is provided
 - The function properly handles conditional execution by ignoring options when not in an active branch
-- Returns  if the required key argument is missing or empty, otherwise returns 
+- Returns PSQL_CMD_ERROR if the required key argument is missing or empty, otherwise returns PSQL_CMD_SKIP_LINE
+
+## Simplified Source
+
+```c
+static backslashResult exec_command_restrict(PsqlScanState scan_state, bool active_branch, const char *cmd) {
+    if (!active_branch) {
+        ignore_slash_options(scan_state);
+        return PSQL_CMD_SKIP_LINE;
+    }
+
+    // Ensure we're not already in restricted mode
+    Assert(!restricted);
+
+    // Parse required security key argument
+    char *key = psql_scan_slash_option(scan_state, OT_NORMAL, NULL, true);
+
+    if (!key || key[0] == '\0') {
+        pg_log_error("\\%s: missing required argument", cmd);
+        return PSQL_CMD_ERROR;
+    }
+
+    // Enable restricted mode with the provided key
+    restrict_key = pstrdup(key);
+    restricted = true;
+
+    return PSQL_CMD_SKIP_LINE;
+}
+``` 

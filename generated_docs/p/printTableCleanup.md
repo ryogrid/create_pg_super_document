@@ -38,3 +38,46 @@ The cleanup process traverses the singly-linked list of footers, freeing both th
 - Sets all structure pointers to NULL after cleanup, preventing use-after-free errors
 - The structure can be safely reused after cleanup by passing it to printTableInit()
 - Essential for preventing memory leaks in long-running client applications like psql
+
+## Simplified Source
+
+```c
+void printTableCleanup(printTableContent *content) {
+    // Free individual cells that were marked for cleanup
+    if (content->cellmustfree) {
+        uint64 total_cells = content->ncolumns * content->nrows;
+        for (uint64 i = 0; i < total_cells; i++) {
+            if (content->cellmustfree[i])
+                free(unconstify(char *, content->cells[i]));
+        }
+        free(content->cellmustfree);
+    }
+
+    // Free main data arrays
+    free(content->headers);
+    free(content->cells);
+    free(content->aligns);
+
+    // Clear all pointers to NULL
+    content->opt = NULL;
+    content->title = NULL;
+    content->headers = NULL;
+    content->cells = NULL;
+    content->aligns = NULL;
+    content->header = NULL;
+    content->cell = NULL;
+    content->align = NULL;
+
+    // Free footer linked list
+    if (content->footers) {
+        for (content->footer = content->footers; content->footer;) {
+            printTableFooter *f = content->footer;
+            content->footer = f->next;
+            free(f->data);
+            free(f);
+        }
+    }
+    content->footers = NULL;
+    content->footer = NULL;
+}
+```

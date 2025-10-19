@@ -50,3 +50,37 @@ This is a critical and irreversible operation that permanently removes WAL data,
 - Should only be called as part of a controlled database reset operation
 - Once this function completes successfully, point-in-time recovery to states before the reset becomes impossible
 - Part of the irreversible "point of no return" operations in pg_resetwal
+
+## Simplified Source
+
+```c
+static void KillExistingXLOG(void)
+{
+    DIR *xldir;
+    struct dirent *xlde;
+    char path[MAXPGPATH + sizeof(XLOGDIR)];
+
+    // Open WAL directory
+    xldir = opendir(XLOGDIR);
+    if (xldir == NULL)
+        pg_fatal("could not open directory \"%s\": %m", XLOGDIR);
+
+    // Remove all WAL segment files
+    while (errno = 0, (xlde = readdir(xldir)) != NULL)
+    {
+        if (IsXLogFileName(xlde->d_name) || IsPartialXLogFileName(xlde->d_name))
+        {
+            // Build full path and delete the file
+            snprintf(path, sizeof(path), "%s/%s", XLOGDIR, xlde->d_name);
+            if (unlink(path) < 0)
+                pg_fatal("could not delete file \"%s\": %m", path);
+        }
+    }
+
+    // Check for errors and close directory
+    if (errno)
+        pg_fatal("could not read directory \"%s\": %m", XLOGDIR);
+    if (closedir(xldir))
+        pg_fatal("could not close directory \"%s\": %m", XLOGDIR);
+}
+```

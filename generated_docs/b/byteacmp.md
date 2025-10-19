@@ -43,3 +43,31 @@ The comparison logic follows standard lexicographic ordering:
 - Used internally by other comparison operators like <, <=, >=, >
 - Efficiently handles variable-length binary data with proper varlena management
 - The comparison is case-sensitive as it operates on raw binary data
+
+## Simplified Source
+
+```c
+Datum byteacmp(PG_FUNCTION_ARGS) {
+    // Get the two bytea arguments
+    bytea *arg1 = PG_GETARG_BYTEA_PP(0);
+    bytea *arg2 = PG_GETARG_BYTEA_PP(1);
+
+    // Get lengths excluding headers
+    int len1 = VARSIZE_ANY_EXHDR(arg1);
+    int len2 = VARSIZE_ANY_EXHDR(arg2);
+
+    // Compare bytes up to the length of shorter string
+    int cmp = memcmp(VARDATA_ANY(arg1), VARDATA_ANY(arg2), Min(len1, len2));
+
+    // If overlapping portions are equal, compare lengths
+    if ((cmp == 0) && (len1 != len2))
+        cmp = (len1 < len2) ? -1 : 1;
+
+    // Clean up memory if needed
+    PG_FREE_IF_COPY(arg1, 0);
+    PG_FREE_IF_COPY(arg2, 1);
+
+    // Return three-way comparison result: -1, 0, or 1
+    PG_RETURN_INT32(cmp);
+}
+```

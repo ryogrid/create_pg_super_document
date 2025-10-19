@@ -52,3 +52,72 @@ For include operations, the function sets appropriate selection flags in the Res
 - The function performs comprehensive error checking and exits with error code 1 for invalid filter specifications
 - Memory allocated for object names is properly freed after processing
 - Located in src/bin/pg_dump/pg_restore.c:550-640
+
+## Simplified Source
+
+```c
+static void read_restore_filters(const char *filename, RestoreOptions *opts) {
+    FilterStateData fstate;
+    char *objname;
+    FilterCommandType comtype;
+    FilterObjectType objtype;
+
+    // Initialize filter parsing
+    filter_init(&fstate, filename, exit_nicely);
+
+    // Process each filter item
+    while (filter_read_item(&fstate, &objname, &comtype, &objtype)) {
+        if (comtype == FILTER_COMMAND_TYPE_INCLUDE) {
+            // Handle include filters for supported object types
+            switch (objtype) {
+                case FILTER_OBJECT_TYPE_FUNCTION:
+                    opts->selTypes = 1;
+                    opts->selFunction = 1;
+                    simple_string_list_append(&opts->functionNames, objname);
+                    break;
+                case FILTER_OBJECT_TYPE_INDEX:
+                    opts->selTypes = 1;
+                    opts->selIndex = 1;
+                    simple_string_list_append(&opts->indexNames, objname);
+                    break;
+                case FILTER_OBJECT_TYPE_SCHEMA:
+                    simple_string_list_append(&opts->schemaNames, objname);
+                    break;
+                case FILTER_OBJECT_TYPE_TABLE:
+                    opts->selTypes = 1;
+                    opts->selTable = 1;
+                    simple_string_list_append(&opts->tableNames, objname);
+                    break;
+                case FILTER_OBJECT_TYPE_TRIGGER:
+                    opts->selTypes = 1;
+                    opts->selTrigger = 1;
+                    simple_string_list_append(&opts->triggerNames, objname);
+                    break;
+                default:
+                    // Reject unsupported include filters
+                    pg_log_filter_error(&fstate, "include filter not allowed");
+                    exit_nicely(1);
+            }
+        }
+        else if (comtype == FILTER_COMMAND_TYPE_EXCLUDE) {
+            // Handle exclude filters - only schema exclusion supported
+            switch (objtype) {
+                case FILTER_OBJECT_TYPE_SCHEMA:
+                    simple_string_list_append(&opts->schemaExcludeNames, objname);
+                    break;
+                default:
+                    // Reject unsupported exclude filters
+                    pg_log_filter_error(&fstate, "exclude filter not allowed");
+                    exit_nicely(1);
+            }
+        }
+
+        // Clean up object name
+        if (objname)
+            free(objname);
+    }
+
+    // Clean up filter state
+    filter_free(&fstate);
+}
+```

@@ -44,3 +44,53 @@ The function handles multiple hash index operations including metadata initializ
 - The function extracts operation-specific details from the WAL record and formats them into descriptive text
 - [Boolean](../B/Boolean.md) values are displayed as 'T' (true) or 'F' (false) for readability
 - Part of PostgreSQL's resource manager description framework for hash indexes
+
+## Simplified Source
+
+```c
+void hash_desc(StringInfo buf, XLogReaderState *record) {
+    char *rec = XLogRecGetData(record);
+    uint8 info = XLogRecGetInfo(record) & ~XLR_INFO_MASK;
+
+    // Process different hash index WAL record types
+    switch (info) {
+        case XLOG_HASH_INIT_META_PAGE:
+            {
+                xl_hash_init_meta_page *xlrec = (xl_hash_init_meta_page *) rec;
+                appendStringInfo(buf, "num_tuples %g, fillfactor %d",
+                                xlrec->num_tuples, xlrec->ffactor);
+                break;
+            }
+        case XLOG_HASH_INIT_BITMAP_PAGE:
+            {
+                xl_hash_init_bitmap_page *xlrec = (xl_hash_init_bitmap_page *) rec;
+                appendStringInfo(buf, "bmsize %d", xlrec->bmsize);
+                break;
+            }
+        case XLOG_HASH_INSERT:
+            {
+                xl_hash_insert *xlrec = (xl_hash_insert *) rec;
+                appendStringInfo(buf, "off %u", xlrec->offnum);
+                break;
+            }
+        case XLOG_HASH_ADD_OVFL_PAGE:
+            {
+                xl_hash_add_ovfl_page *xlrec = (xl_hash_add_ovfl_page *) rec;
+                appendStringInfo(buf, "bmsize %d, bmpage_found %c",
+                                xlrec->bmsize, xlrec->bmpage_found ? 'T' : 'F');
+                break;
+            }
+        case XLOG_HASH_SPLIT_ALLOCATE_PAGE:
+            {
+                xl_hash_split_allocate_page *xlrec = (xl_hash_split_allocate_page *) rec;
+                appendStringInfo(buf, "new_bucket %u, meta_page_masks_updated %c, issplitpoint_changed %c",
+                                xlrec->new_bucket,
+                                (xlrec->flags & XLH_SPLIT_META_UPDATE_MASKS) ? 'T' : 'F',
+                                (xlrec->flags & XLH_SPLIT_META_UPDATE_SPLITPOINT) ? 'T' : 'F');
+                break;
+            }
+        // Additional cases for complete, move, squeeze, delete, update, vacuum operations
+        // Each formats specific operation parameters for debugging output
+    }
+}
+```

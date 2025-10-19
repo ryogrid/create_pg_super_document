@@ -50,3 +50,80 @@ The parser is designed for frontend utilities that need to process array values 
 - Worst-case memory allocation accounts for maximum possible items (one per input character)
 - Heavily used by pg_dump utilities for processing various PostgreSQL array types
 - Handles PostgreSQL-specific array literal syntax including proper quote and escape processing
+
+## Simplified Source
+
+```c
+bool parsePGArray(const char *atext, char ***itemarray, int *nitems) {
+    int inputlen;
+    char **items;
+    char *strings;
+    int curitem;
+
+    // Initialize outputs
+    *itemarray = NULL;
+    *nitems = 0;
+
+    // Validate basic array format: {content}
+    inputlen = strlen(atext);
+    if (inputlen < 2 || atext[0] != '{' || atext[inputlen - 1] != '}')
+        return false;
+
+    // Allocate single block: pointer array + string storage
+    items = (char **) malloc(inputlen * (sizeof(char *) + sizeof(char)));
+    if (items == NULL)
+        return false;
+
+    *itemarray = items;
+    strings = (char *) (items + inputlen);  // String storage after pointer array
+
+    atext++;  // Skip opening '{'
+    curitem = 0;
+
+    while (*atext != '}') {
+        if (*atext == '\0')
+            return false;  // Premature end
+
+        items[curitem] = strings;  // Point to current string position
+
+        // Parse one array element
+        while (*atext != '}' && *atext != ',') {
+            if (*atext == '\0')
+                return false;
+
+            if (*atext != '"') {
+                // Copy unquoted character
+                *strings++ = *atext++;
+            } else {
+                // Process quoted string
+                atext++;  // Skip opening quote
+                while (*atext != '"') {
+                    if (*atext == '\0')
+                        return false;
+
+                    // Handle escape sequences
+                    if (*atext == '\\') {
+                        atext++;
+                        if (*atext == '\0')
+                            return false;
+                    }
+                    *strings++ = *atext++;
+                }
+                atext++;  // Skip closing quote
+            }
+        }
+
+        *strings++ = '\0';  // Null-terminate current item
+        if (*atext == ',')
+            atext++;  // Skip comma separator
+        curitem++;
+    }
+
+    // Validate proper array termination
+    if (atext[1] != '\0')
+        return false;
+
+    *nitems = curitem;
+    return true;
+}
+```

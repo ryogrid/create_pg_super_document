@@ -36,3 +36,21 @@ This is a static helper function that manages the addition of custom reloptions 
 - The function performs bounds checking via Assert to ensure the offset is valid
 - Memory for the local_relopt structure is allocated using palloc
 - The function extends the options list in the local_relopts structure using lappend
+
+## Simplified Source
+
+```c
+static void add_local_reloption(local_relopts *relopts, relopt_gen *newoption, int offset) {
+    local_relopt *opt = palloc(sizeof(*opt));
+
+    // Validate offset is within structure bounds
+    Assert(offset < relopts->relopt_struct_size);
+
+    // Initialize the local option
+    opt->option = newoption;
+    opt->offset = offset;
+
+    // Add to the options list
+    relopts->options = lappend(relopts->options, opt);
+}
+```

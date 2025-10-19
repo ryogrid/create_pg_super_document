@@ -36,3 +36,41 @@ The function ensures that no ordering operators are specified (GIN indexes don't
 - Creates two memory contexts: 'Gin scan temporary context' for temporary data and 'Gin scan key context' for scan keys
 - The private workspace (GinScanOpaque) is attached to the scan descriptor's opaque field
 - This function is part of the index access method interface for GIN indexes
+
+## Simplified Source
+
+```c
+IndexScanDesc
+ginbeginscan(Relation rel, int nkeys, int norderbys)
+{
+    IndexScanDesc scan;
+    GinScanOpaque so;
+
+    // GIN indexes don't support ordered scans
+    Assert(norderbys == 0);
+
+    // Create basic index scan descriptor
+    scan = RelationGetIndexScan(rel, nkeys, norderbys);
+
+    // Allocate GIN-specific private workspace
+    so = (GinScanOpaque) palloc(sizeof(GinScanOpaqueData));
+    so->keys = NULL;
+    so->nkeys = 0;
+
+    // Create memory contexts for scan operations
+    so->tempCtx = AllocSetContextCreate(CurrentMemoryContext,
+                                        "Gin scan temporary context",
+                                        ALLOCSET_DEFAULT_SIZES);
+    so->keyCtx = AllocSetContextCreate(CurrentMemoryContext,
+                                       "Gin scan key context",
+                                       ALLOCSET_DEFAULT_SIZES);
+
+    // Initialize GIN state information
+    initGinState(&so->ginstate, scan->indexRelation);
+
+    // Attach private data to scan descriptor
+    scan->opaque = so;
+
+    return scan;
+}
+```

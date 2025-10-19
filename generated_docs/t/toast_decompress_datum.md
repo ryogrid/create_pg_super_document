@@ -44,3 +44,25 @@ The function acts as an abstraction layer that hides the complexity of multiple 
 - Error handling includes a default case that reports invalid compression method IDs
 - The function design allows for future expansion of compression algorithms without breaking existing code
 - Compression method identification is stored in the datum header for efficient dispatch
+
+## Simplified Source
+
+```c
+static struct varlena *toast_decompress_datum(struct varlena *attr) {
+    ToastCompressionId cmid;
+
+    Assert(VARATT_IS_COMPRESSED(attr));
+
+    // Get compression method from the datum header and dispatch to appropriate decompressor
+    cmid = TOAST_COMPRESS_METHOD(attr);
+    switch (cmid) {
+        case TOAST_PGLZ_COMPRESSION_ID:
+            return pglz_decompress_datum(attr);
+        case TOAST_LZ4_COMPRESSION_ID:
+            return lz4_decompress_datum(attr);
+        default:
+            elog(ERROR, "invalid compression method id %d", cmid);
+            return NULL;  // keep compiler quiet
+    }
+}
+```

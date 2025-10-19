@@ -48,3 +48,39 @@ When a line of code is provided, the function displays the problematic line and 
 - The error format follows standard compiler-like error reporting conventions (source:line: message)
 - Memory cleanup is performed via termPQExpBuffer before program termination
 - The function handles various optional parameters gracefully, constructing appropriate error messages based on available information
+
+## Simplified Source
+
+```c
+void syntax_error(const char *source, int lineno,
+                 const char *line, const char *command,
+                 const char *msg, const char *more, int column)
+{
+    PQExpBufferData buf;
+
+    initPQExpBuffer(&buf);
+
+    // Build error message with source:line: format
+    printfPQExpBuffer(&buf, "%s:%d: %s", source, lineno, msg);
+
+    // Add optional context information
+    if (more != NULL)
+        appendPQExpBuffer(&buf, " (%s)", more);
+    if (column >= 0 && line == NULL)
+        appendPQExpBuffer(&buf, " at column %d", column + 1);
+    if (command != NULL)
+        appendPQExpBuffer(&buf, " in command \"%s\"", command);
+
+    pg_log_error("%s", buf.data);
+    termPQExpBuffer(&buf);
+
+    // Show problematic line with error marker if available
+    if (line != NULL) {
+        fprintf(stderr, "%s\n", line);
+        if (column >= 0)
+            fprintf(stderr, "%*c error found here\n", column + 1, '^');
+    }
+
+    exit(1);
+}
+```

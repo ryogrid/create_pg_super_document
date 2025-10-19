@@ -44,3 +44,40 @@ The algorithm iterates through the array, comparing adjacent elements using the 
 - The additional arg parameter allows for more complex comparison logic that depends on external state
 - This is a generic utility that works with any data type through void pointers and element width specification
 - The comparator function signature matches that used by qsort_arg() for consistency
+
+## Simplified Source
+
+```c
+static inline size_t
+qunique_arg(void *array, size_t elements, size_t width,
+           int (*compare)(const void *, const void *, void *),
+           void *arg)
+{
+    char *bytes = (char *) array;
+    size_t i, j;
+
+    // Handle trivial cases
+    if (elements <= 1)
+        return elements;
+
+    // Two-pointer technique: j tracks write position, i reads ahead
+    for (i = 1, j = 0; i < elements; ++i) {
+        // If current element differs from last unique element
+        if (compare(bytes + i * width, bytes + j * width, arg) != 0) {
+            // Move to next write position
+            ++j;
+            // Copy unique element if positions differ
+            if (j != i)
+                memcpy(bytes + j * width, bytes + i * width, width);
+        }
+    }
+
+    return j + 1;
+}
+```
+
+**Key Points:**
+- In-place duplicate removal for pre-sorted arrays using three-argument comparator
+- Two-pointer algorithm: `j` tracks write position, `i` scans for unique elements
+- Compatible with `qsort_arg()` - same comparator signature with extra user data
+- Returns new array size after removing duplicates

@@ -34,3 +34,29 @@ The `tsm_bernoulli_handler` function serves as the entry point for the BERNOULLI
 - NextSampleBlock is set to NULL, indicating this method works at the tuple level rather than block level
 - EndSampleScan is set to NULL, indicating no cleanup is needed when scanning ends
 - This is a PostgreSQL extension function that integrates with the tablesample infrastructure
+
+## Simplified Source
+```c
+Datum tsm_bernoulli_handler(PG_FUNCTION_ARGS)
+{
+    // Create Bernoulli tablesample method descriptor
+    TsmRoutine *tsm = makeNode(TsmRoutine);
+
+    // Configure sampling parameters and behavior
+    tsm->parameterTypes = list_make1_oid(FLOAT4OID);  // Accepts float4 percentage
+    tsm->repeatable_across_queries = true;
+    tsm->repeatable_across_scans = true;
+
+    // Set callback functions for sampling operations
+    tsm->SampleScanGetSampleSize = bernoulli_samplescangetsamplesize;
+    tsm->InitSampleScan = bernoulli_initsamplescan;
+    tsm->BeginSampleScan = bernoulli_beginsamplescan;
+    tsm->NextSampleTuple = bernoulli_nextsampletuple;
+
+    // No block-level or cleanup operations needed
+    tsm->NextSampleBlock = NULL;
+    tsm->EndSampleScan = NULL;
+
+    PG_RETURN_POINTER(tsm);
+}
+```

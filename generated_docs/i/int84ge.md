@@ -33,3 +33,16 @@ The int84ge function is a PostgreSQL built-in function that performs a "greater 
 - This function is part of PostgreSQL's arithmetic and comparison operators for mixed integer types
 - The comparison is performed directly using C's >= operator after extracting the values
 - The int32 value is implicitly promoted to int64 during the comparison
+
+## Simplified Source
+
+```c
+Datum int84ge(PG_FUNCTION_ARGS) {
+    // Extract 64-bit and 32-bit integers from function arguments
+    int64 val1 = PG_GETARG_INT64(0);
+    int32 val2 = PG_GETARG_INT32(1);
+
+    // Return boolean result of greater-than-or-equal comparison (32-bit is promoted to 64-bit)
+    PG_RETURN_BOOL(val1 >= val2);
+}
+```

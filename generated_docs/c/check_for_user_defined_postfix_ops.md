@@ -44,3 +44,89 @@ When postfix operators are found, the upgrade process is halted and detailed inf
 - The SQL query specifically looks for operators where oprright = 0 (no right operand) and oid >= 16384 (user-defined)
 - Users encountering this error must manually convert postfix operators to prefix operators or function calls before upgrading
 - This validation helps ensure that deprecated language features don't cause issues in newer PostgreSQL versions
+
+## Simplified Source
+
+```c
+static void check_for_user_defined_postfix_ops(ClusterInfo *cluster)
+{
+    int dbnum;
+    FILE *script = NULL;
+    char output_path[MAXPGPATH];
+
+    prep_status("Checking for user-defined postfix operators");
+
+    // Setup output file for problematic operators
+    snprintf(output_path, sizeof(output_path), "%s/%s",
+             log_opts.basedir, "postfix_ops.txt");
+
+    // Check each database for user-defined postfix operators
+    for (dbnum = 0; dbnum < cluster->dbarr.ndbs; dbnum++) {
+        PGresult *res;
+        bool db_used = false;
+        int ntups, rowno;
+        int i_oproid, i_oprnsp, i_oprname, i_typnsp, i_typname;
+        DbInfo *active_db = &cluster->dbarr.dbs[dbnum];
+        PGconn *conn = connectToServer(cluster, active_db->db_name);
+
+        // Find user-defined postfix operators (oprright=0, oid>=16384)
+        res = executeQueryOrDie(conn,
+                               "SELECT o.oid AS oproid, "
+                               "       n.nspname AS oprnsp, "
+                               "       o.oprname, "
+                               "       tn.nspname AS typnsp, "
+                               "       t.typname "
+                               "FROM pg_catalog.pg_operator o, "
+                               "     pg_catalog.pg_namespace n, "
+                               "     pg_catalog.pg_type t, "
+                               "     pg_catalog.pg_namespace tn "
+                               "WHERE o.oprnamespace = n.oid AND "
+                               "      o.oprleft = t.oid AND "
+                               "      t.typnamespace = tn.oid AND "
+                               "      o.oprright = 0 AND "
+                               "      o.oid >= 16384");
+
+        ntups = PQntuples(res);
+        i_oproid = PQfnumber(res, "oproid");
+        i_oprnsp = PQfnumber(res, "oprnsp");
+        i_oprname = PQfnumber(res, "oprname");
+        i_typnsp = PQfnumber(res, "typnsp");
+        i_typname = PQfnumber(res, "typname");
+
+        // Log any problematic operators found
+        for (rowno = 0; rowno < ntups; rowno++) {
+            if (script == NULL) {
+                script = fopen_priv(output_path, "w");
+                if (!script) {
+                    pg_fatal("could not open file \"%s\": %m", output_path);
+                }
+            }
+            if (!db_used) {
+                fprintf(script, "In database: %s\n", active_db->db_name);
+                db_used = true;
+            }
+            fprintf(script, "  (oid=%s) %s.%s (%s.%s, NONE)\n",
+                    PQgetvalue(res, rowno, i_oproid),
+                    PQgetvalue(res, rowno, i_oprnsp),
+                    PQgetvalue(res, rowno, i_oprname),
+                    PQgetvalue(res, rowno, i_typnsp),
+                    PQgetvalue(res, rowno, i_typname));
+        }
+
+        PQclear(res);
+        PQfinish(conn);
+    }
+
+    if (script) {
+        fclose(script);
+        pg_log(PG_REPORT, "fatal");
+        pg_fatal("Your installation contains user-defined postfix operators, which are not\n"
+                 "supported anymore. Consider dropping the postfix operators and replacing\n"
+                 "them with prefix operators or function calls.\n"
+                 "A list of user-defined postfix operators is in the file:\n"
+                 "    %s", output_path);
+    } else {
+        check_ok();
+    }
+}
+```

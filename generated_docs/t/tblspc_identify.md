@@ -36,3 +36,19 @@ This function is part of the rmgr (resource manager) descriptor infrastructure t
 - The function is declared in `src/include/commands/tablespace.h:67`
 - Used primarily for WAL analysis, debugging, and logging rather than core database operations
 - The masking operation `info & ~XLR_INFO_MASK` removes auxiliary flags to isolate the core operation type
+
+## Simplified Source
+
+```c
+const char *tblspc_identify(uint8 info) {
+    // Extract operation type by masking out flag bits
+    switch (info & ~XLR_INFO_MASK) {
+        case XLOG_TBLSPC_CREATE:
+            return "CREATE";
+        case XLOG_TBLSPC_DROP:
+            return "DROP";
+        default:
+            return NULL;
+    }
+}
+```

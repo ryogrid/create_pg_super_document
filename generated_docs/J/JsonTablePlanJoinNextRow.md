@@ -29,3 +29,20 @@ This function implements the row iteration logic for JsonTableSiblingJoin plans 
 - The function creates a UNION ALL semantic (no deduplication of rows between siblings)
 - Comment indicates "Right sibling ran out of row, so there are more rows" but the logic correctly returns false when both siblings are exhausted
 - This is one of the simpler plan execution functions, as it delegates all the complex logic to the recursive JsonTablePlanNextRow calls on child plans
+
+## Simplified Source
+
+```c
+static bool JsonTablePlanJoinNextRow(JsonTablePlanState *planstate) {
+    // Try to fetch row from left sibling first
+    if (!JsonTablePlanNextRow(planstate->left)) {
+        // Left exhausted, try right sibling
+        if (!JsonTablePlanNextRow(planstate->right)) {
+            // Both siblings exhausted
+            return false;
+        }
+    }
+
+    return true; // Successfully got a row from either left or right
+}
+```

@@ -47,3 +47,50 @@ For performance reasons, the function includes an early exit for states with one
 - Handles memory allocation failures by setting regex error state
 - Part of PostgreSQL's internal regular expression engine implementation
 - Essential for maintaining canonical state representations during NFA transformations
+
+## Simplified Source
+
+```c
+static void sortins(struct nfa *nfa, struct state *s) {
+    struct arc **sortarray;
+    struct arc *a;
+    int n = s->nins;
+    int i;
+
+    // Skip sorting if 0 or 1 arcs
+    if (n <= 1)
+        return;
+
+    // Create array of arc pointers
+    sortarray = (struct arc **) MALLOC(n * sizeof(struct arc *));
+    if (sortarray == NULL) {
+        NERR(REG_ESPACE);
+        return;
+    }
+
+    // Populate array from incoming arc chain
+    i = 0;
+    for (a = s->ins; a != NULL; a = a->inchain)
+        sortarray[i++] = a;
+
+    // Sort the array by source state, color, and type
+    qsort(sortarray, n, sizeof(struct arc *), sortins_cmp);
+
+    // Rebuild the incoming chain in sorted order
+    s->ins = sortarray[0];
+    sortarray[0]->inchain = (n > 1) ? sortarray[1] : NULL;
+    sortarray[0]->inchainRev = NULL;
+
+    for (i = 1; i < n - 1; i++) {
+        sortarray[i]->inchain = sortarray[i + 1];
+        sortarray[i]->inchainRev = sortarray[i - 1];
+    }
+
+    if (n > 1) {
+        sortarray[n-1]->inchain = NULL;
+        sortarray[n-1]->inchainRev = sortarray[n - 2];
+    }
+
+    FREE(sortarray);
+}
+```

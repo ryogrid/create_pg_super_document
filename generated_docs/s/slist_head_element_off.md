@@ -33,3 +33,23 @@ This function is a low-level utility used internally by the singly-linked list i
 - Uses pointer arithmetic to convert from node address to containing structure address
 - Part of PostgreSQL's intrusive linked list implementation in src/include/lib/ilist.h
 - The offset parameter is typically computed using offsetof() macro in calling functions
+
+## Simplified Source
+
+```c
+static inline void *
+slist_head_element_off(slist_head *head, size_t off)
+{
+    // Ensure list has at least one element
+    Assert(!slist_is_empty(head));
+
+    // Get containing struct address by subtracting offset from head node address
+    return (char *) head->head.next - off;
+}
+```
+
+**Key Points:**
+- Internal utility for intrusive list implementation
+- Uses pointer arithmetic: head_node_address - offset = containing_struct_address
+- The `head.next` points to the first node in the singly-linked list
+- Enables conversion from list node pointer to containing structure pointer

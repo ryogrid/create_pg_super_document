@@ -35,3 +35,20 @@ The function includes an assertion to verify that the NFA is not already empty b
 - The function follows a defensive programming pattern by asserting the NFA is not already empty
 - Memory cleanup follows the proper order: first free the dynamic arrays (stflags, states, arcs), then zero the structure
 - Part of PostgreSQL's regex engine implementation for pattern matching and text processing
+
+## Simplified Source
+
+```c
+static void freecnfa(struct cnfa *cnfa) {
+    // Verify NFA is not already empty
+    assert(!NULLCNFA(*cnfa));
+
+    // Free memory for NFA components
+    FREE(cnfa->stflags);    // State flags array
+    FREE(cnfa->states);     // States array
+    FREE(cnfa->arcs);       // Arcs array
+
+    // Zero out the structure to mark as empty
+    ZAPCNFA(*cnfa);
+}
+```

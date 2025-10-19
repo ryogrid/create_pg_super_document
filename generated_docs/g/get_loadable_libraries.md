@@ -39,3 +39,72 @@ This function systematically collects library names from all databases in the ol
 - Memory allocated for libraries must be freed elsewhere in the program
 - Uses FirstNormalObjectId to exclude built-in system functions
 - Handles invalid replication slots by skipping them during plugin collection
+
+## Simplified Source
+
+```c
+void
+get_loadable_libraries(void)
+{
+    PGresult **query_results;
+    int total_libraries = 0;
+    int db_index;
+
+    // Allocate array to store query results from each database
+    query_results = pg_malloc(old_cluster.dbarr.ndbs * sizeof(PGresult *));
+
+    // Phase 1: Query each database for C function libraries
+    for (db_index = 0; db_index < old_cluster.dbarr.ndbs; db_index++)
+    {
+        DbInfo *current_db = &old_cluster.dbarr.dbs[db_index];
+        PGconn *connection = connectToServer(&old_cluster, current_db->db_name);
+
+        // Get all distinct libraries containing non-built-in C functions
+        query_results[db_index] = executeQueryOrDie(connection,
+            "SELECT DISTINCT probin "
+            "FROM pg_catalog.pg_proc "
+            "WHERE prolang = %u AND probin IS NOT NULL AND oid >= %u;",
+            ClanguageId, FirstNormalObjectId);
+
+        total_libraries += PQntuples(query_results[db_index]);
+        PQfinish(connection);
+    }
+
+    // Allocate space for libraries + logical replication plugins
+    int total_slots = count_old_cluster_logical_slots();
+    os_info.libraries = pg_malloc(sizeof(LibraryInfo) * (total_libraries + total_slots));
+    total_libraries = 0;
+
+    // Phase 2: Collect library names and add logical replication plugins
+    for (db_index = 0; db_index < old_cluster.dbarr.ndbs; db_index++)
+    {
+        PGresult *result = query_results[db_index];
+        int num_rows = PQntuples(result);
+
+        // Add C function libraries to collection
+        for (int row = 0; row < num_rows; row++)
+        {
+            char *library_name = PQgetvalue(result, row, 0);
+            os_info.libraries[total_libraries].name = pg_strdup(library_name);
+            os_info.libraries[total_libraries].dbnum = db_index;
+            total_libraries++;
+        }
+        PQclear(result);
+
+        // Add logical replication output plugins
+        LogicalSlotInfoArr *slots = &old_cluster.dbarr.dbs[db_index].slot_arr;
+        for (int slot_idx = 0; slot_idx < slots->nslots; slot_idx++)
+        {
+            if (!slots->slots[slot_idx].invalid)
+            {
+                os_info.libraries[total_libraries].name = pg_strdup(slots->slots[slot_idx].plugin);
+                os_info.libraries[total_libraries].dbnum = db_index;
+                total_libraries++;
+            }
+        }
+    }
+
+    pg_free(query_results);
+    os_info.num_libraries = total_libraries;
+}
+```

@@ -43,3 +43,44 @@ The function validates escape sequences during decoding and reports errors for m
 - The decoding process is the exact inverse of esc_encode
 - Used primarily for bytea data type processing and other binary data handling
 - Caller must ensure destination buffer is sufficiently sized for decoded output
+
+## Simplified Source
+
+```c
+static uint64 esc_decode(const char *src, size_t srclen, char *dst) {
+    const char *src_end = src + srclen;
+    char *output_ptr = dst;
+    uint64 output_len = 0;
+
+    while (src < src_end) {
+        if (src[0] != '\\') {
+            // Regular character -> copy as-is
+            *output_ptr++ = *src++;
+        }
+        else if (src + 3 < src_end &&
+                 (src[1] >= '0' && src[1] <= '3') &&
+                 (src[2] >= '0' && src[2] <= '7') &&
+                 (src[3] >= '0' && src[3] <= '7')) {
+            // Octal escape sequence \nnn -> convert to byte
+            int byte_val = VAL(src[1]);
+            byte_val = (byte_val << 3) + VAL(src[2]);
+            byte_val = (byte_val << 3) + VAL(src[3]);
+            *output_ptr++ = byte_val;
+            src += 4;
+        }
+        else if (src + 1 < src_end && src[1] == '\\') {
+            // Double backslash -> single backslash
+            *output_ptr++ = '\\';
+            src += 2;
+        }
+        else {
+            // Invalid escape sequence
+            ereport(ERROR, (errcode(ERRCODE_INVALID_TEXT_REPRESENTATION),
+                           errmsg("invalid input syntax for type %s", "bytea")));
+        }
+        output_len++;
+    }
+
+    return output_len;
+}
+```

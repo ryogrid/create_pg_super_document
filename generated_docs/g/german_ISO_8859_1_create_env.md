@@ -40,3 +40,13 @@ The resulting environment contains all necessary state information for processin
 - This function follows the standard Snowball pattern where each language stemmer provides its own create_env variant
 - Memory allocation is handled internally by SN_create_env
 - The returned environment is ready for immediate use with german_ISO_8859_1_stem function
+
+## Simplified Source
+
+```c
+extern struct SN_env * german_ISO_8859_1_create_env(void) {
+    // Create new German stemming environment
+    // Parameters: 0 = default string buffer size, 3 = number of integer variables
+    return SN_create_env(0, 3);
+}
+```

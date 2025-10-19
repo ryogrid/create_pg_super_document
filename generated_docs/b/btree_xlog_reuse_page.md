@@ -42,3 +42,18 @@ This mechanism ensures that Hot Standby maintains consistent snapshots even when
 - This mechanism prevents race conditions where standby queries might access recycled pages
 - The conflict resolution may terminate conflicting transactions or delay the replay until they complete
 - This is part of PostgreSQL's MVCC consistency guarantees during Hot Standby operations
+
+## Simplified Source
+
+```c
+static void btree_xlog_reuse_page(XLogReaderState *record)
+{
+    xl_btree_reuse_page *xlrec = (xl_btree_reuse_page *) XLogRecGetData(record);
+
+    // Only handle conflicts during Hot Standby mode
+    if (InHotStandby)
+        ResolveRecoveryConflictWithSnapshotFullXid(xlrec->snapshotConflictHorizon,
+                                                   xlrec->isCatalogRel,
+                                                   xlrec->locator);
+}
+```

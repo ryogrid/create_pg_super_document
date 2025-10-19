@@ -34,3 +34,22 @@ The print_elapse function performs timing analysis for filesystem synchronizatio
 - Critical component of pg_test_fsync's benchmarking capabilities
 - Provides both throughput (ops/sec) and latency (avg time per op) metrics
 - Handles microsecond precision timing for accurate performance measurement
+
+## Simplified Source
+
+```c
+static void
+print_elapse(struct timeval start_t, struct timeval stop_t, int ops)
+{
+    // Calculate total elapsed time in seconds
+    double total_time = (stop_t.tv_sec - start_t.tv_sec) +
+                       (stop_t.tv_usec - start_t.tv_usec) * 0.000001;
+
+    // Calculate performance metrics
+    double per_second = ops / total_time;
+    double avg_op_time_us = (total_time / ops) * USECS_SEC;
+
+    // Display results
+    printf(_(OPS_FORMAT), per_second, avg_op_time_us);
+}
+```

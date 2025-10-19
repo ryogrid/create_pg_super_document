@@ -33,3 +33,16 @@ This function implements the inequality comparison operator for transaction IDs 
 - It provides the '<>' operator functionality for transaction IDs
 - The function is registered in the system catalogs as a built-in operator function
 - Located in src/backend/utils/adt/xid.c:92-103
+
+## Simplified Source
+
+```c
+Datum xidneq(PG_FUNCTION_ARGS) {
+    // Extract the two transaction IDs from function arguments
+    TransactionId xid1 = PG_GETARG_TRANSACTIONID(0);
+    TransactionId xid2 = PG_GETARG_TRANSACTIONID(1);
+
+    // Return true if the transaction IDs are different
+    PG_RETURN_BOOL(!TransactionIdEquals(xid1, xid2));
+}
+```

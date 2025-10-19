@@ -41,3 +41,22 @@ The function is designed to be callable from both normal B-tree operations and W
 - Can be called during WAL recovery operations, making it important for crash recovery
 - Located in src/backend/access/gin/gindatapage.c at lines 1349-1369
 - The comment indicates it should not rely on the btree parameter since it's called from ginxlog
+
+## Simplified Source
+
+```c
+void ginDataFillRoot(GinBtree btree, Page root, BlockNumber lblkno, Page lpage,
+                     BlockNumber rblkno, Page rpage) {
+    PostingItem leftItem, rightItem;
+
+    // Create PostingItem for left child page
+    leftItem.key = *GinDataPageGetRightBound(lpage);
+    PostingItemSetBlockNumber(&leftItem, lblkno);
+    GinDataPageAddPostingItem(root, &leftItem, InvalidOffsetNumber);
+
+    // Create PostingItem for right child page
+    rightItem.key = *GinDataPageGetRightBound(rpage);
+    PostingItemSetBlockNumber(&rightItem, rblkno);
+    GinDataPageAddPostingItem(root, &rightItem, InvalidOffsetNumber);
+}
+```

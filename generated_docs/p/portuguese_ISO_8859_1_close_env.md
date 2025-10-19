@@ -37,3 +37,12 @@ Since Portuguese stemming was configured with S_size = 0 (no additional string a
 - The S_size parameter (0) must match the value used in the corresponding create function
 - Part of the standard Snowball stemmer API pattern where each language provides matching create/close functions
 - Essential for proper resource management in long-running applications that perform multiple stemming operations
+
+## Simplified Source
+
+```c
+extern void portuguese_ISO_8859_1_close_env(struct SN_env * z) {
+    // Clean up Snowball environment with S_size = 0 (no string arrays)
+    SN_close_env(z, 0);
+}
+```

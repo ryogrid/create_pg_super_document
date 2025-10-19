@@ -32,3 +32,14 @@ The calculation includes:
 - The function performs integer arithmetic to avoid floating point operations
 - Line breaks are inserted every 76 characters to comply with MIME Base64 encoding standards
 - The calculation accounts for partial groups at the end of input data by adding 2 to srclen before division
+
+## Simplified Source
+
+```c
+static uint64 pg_base64_enc_len(const char *src, size_t srclen) {
+    // Base64: 3 bytes input -> 4 bytes output, plus line feeds every 76 chars
+    uint64 base_len = ((uint64) srclen + 2) / 3 * 4;  // Convert 3->4 byte groups
+    uint64 line_feeds = (uint64) srclen / (76 * 3 / 4);  // Line breaks every 76 chars
+    return base_len + line_feeds;
+}
+```

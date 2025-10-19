@@ -39,3 +39,29 @@ This function is a dispatcher that removes different types of target file system
 - Fatal error handling for undefined file types ensures data integrity
 - Critical component of pg_rewind's file management and cleanup operations
 - Works in conjunction with the filemap system to track and process file changes
+
+## Simplified Source
+
+```c
+void remove_target(file_entry_t *entry) {
+    // Validate entry is marked for removal and target exists
+    Assert(entry->action == FILE_ACTION_REMOVE);
+    Assert(entry->target_exists);
+
+    // Dispatch to appropriate removal function based on file type
+    switch (entry->target_type) {
+        case FILE_TYPE_DIRECTORY:
+            remove_target_dir(entry->path);
+            break;
+        case FILE_TYPE_REGULAR:
+            remove_target_file(entry->path, false);
+            break;
+        case FILE_TYPE_SYMLINK:
+            remove_target_symlink(entry->path);
+            break;
+        case FILE_TYPE_UNDEFINED:
+            pg_fatal("undefined file type for \"%s\"", entry->path);
+            break;
+    }
+}
+```

@@ -40,3 +40,33 @@ The function checks each relevant infobits flag and appends corresponding descri
 - Handles comma and space management automatically, removing trailing ", " if present
 - Used exclusively within the heap resource manager description system for WAL debugging
 - The infobits flags represent various states and properties of heap tuple transactions and locking mechanisms
+
+## Simplified Source
+
+```c
+static void infobits_desc(StringInfo buf, uint8 infobits, const char *keyname) {
+    // Start the flag description with "keyname: ["
+    appendStringInfo(buf, "%s: [", keyname);
+
+    // Check each infobits flag and append corresponding description
+    if (infobits & XLHL_XMAX_IS_MULTI)
+        appendStringInfoString(buf, "IS_MULTI, ");
+    if (infobits & XLHL_XMAX_LOCK_ONLY)
+        appendStringInfoString(buf, "LOCK_ONLY, ");
+    if (infobits & XLHL_XMAX_EXCL_LOCK)
+        appendStringInfoString(buf, "EXCL_LOCK, ");
+    if (infobits & XLHL_XMAX_KEYSHR_LOCK)
+        appendStringInfoString(buf, "KEYSHR_LOCK, ");
+    if (infobits & XLHL_KEYS_UPDATED)
+        appendStringInfoString(buf, "KEYS_UPDATED, ");
+
+    // Remove trailing ", " if any flags were added
+    if (buf->data[buf->len - 1] == ' ') {
+        buf->len -= 2;  // Remove ", "
+        buf->data[buf->len] = '\0';
+    }
+
+    // Close the flag description with "]"
+    appendStringInfoChar(buf, ']');
+}
+```

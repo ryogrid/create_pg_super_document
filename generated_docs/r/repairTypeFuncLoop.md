@@ -40,3 +40,24 @@ When a shell type exists, the function ensures that if the I/O function needs to
 - Critical for dumping user-defined types with their I/O functions in correct order
 - Part of pg_dump's comprehensive dependency loop resolution system
 - Handles both regular I/O functions and range type canonicalize functions
+
+## Simplified Source
+
+```c
+static void repairTypeFuncLoop(DumpableObject *typeobj, DumpableObject *funcobj) {
+    TypeInfo *typeInfo = (TypeInfo *) typeobj;
+
+    // Break the circular dependency: remove function's dependency on full type
+    removeObjectDependency(funcobj, typeobj->dumpId);
+
+    // Redirect dependency to shell type instead (if it exists)
+    if (typeInfo->shellType) {
+        addObjectDependency(funcobj, typeInfo->shellType->dobj.dumpId);
+
+        // If function needs dumping, ensure shell type definition is also dumped
+        if (funcobj->dump) {
+            typeInfo->shellType->dobj.dump = funcobj->dump | DUMP_COMPONENT_DEFINITION;
+        }
+    }
+}
+```

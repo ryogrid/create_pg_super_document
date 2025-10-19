@@ -34,3 +34,16 @@ This function implements the division operation between a PostgreSQL Cash value 
 - Part of PostgreSQL's monetary data type arithmetic operations
 - Division by zero and other edge cases are handled by the underlying cash_div_float8 implementation
 - Maintains the same error handling and overflow protection as other Cash division operations
+
+## Simplified Source
+
+```c
+Datum cash_div_flt4(PG_FUNCTION_ARGS) {
+    // Extract cash value and float4 divisor
+    Cash c = PG_GETARG_CASH(0);
+    float4 f = PG_GETARG_FLOAT4(1);
+
+    // Convert float4 to float8 and delegate to helper function
+    PG_RETURN_CASH(cash_div_float8(c, (float8) f));
+}
+```

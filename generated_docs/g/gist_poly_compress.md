@@ -40,3 +40,31 @@ This compression allows the GiST index to perform spatial operations efficiently
 - The compression is lossy in the sense that spatial operations work on bounding boxes rather than exact polygon geometry
 - Memory for the new bounding box and GISTENTRY is allocated in the current memory context
 - Part of PostgreSQL's spatial indexing infrastructure for efficient polygon queries
+
+## Simplified Source
+
+```c
+Datum gist_poly_compress(PG_FUNCTION_ARGS) {
+    GISTENTRY *entry = (GISTENTRY *) PG_GETARG_POINTER(0);
+    GISTENTRY *retval;
+
+    if (entry->leafkey) {
+        // Extract polygon and get its bounding box
+        POLYGON *polygon = DatumGetPolygonP(entry->key);
+        BOX *boundbox = (BOX *) palloc(sizeof(BOX));
+
+        // Copy the pre-computed bounding box from polygon
+        memcpy(boundbox, &(polygon->boundbox), sizeof(BOX));
+
+        // Create new entry with bounding box instead of full polygon
+        retval = (GISTENTRY *) palloc(sizeof(GISTENTRY));
+        gistentryinit(*retval, PointerGetDatum(boundbox),
+                      entry->rel, entry->page, entry->offset, false);
+    } else {
+        // Internal nodes already contain compressed data
+        retval = entry;
+    }
+
+    PG_RETURN_POINTER(retval);
+}
+```

@@ -34,3 +34,43 @@ The function employs a complex control flow with multiple labels and gotos to ef
 - The function processes exactly 4 different 6-character patterns (s_1, s_4, s_7, s_10) and replaces them with corresponding 3-character sequences (s_2, s_5, s_8, s_11)
 - Uses the bra/ket mechanism typical in Snowball stemmers to mark the boundaries of text to be replaced
 - The complex goto-based control flow is characteristic of generated Snowball stemmer code
+
+## Simplified Source
+
+```c
+static int r_fix_va_start(struct SN_env * z) {
+    // Try pattern 1: s_1 -> s_2 replacement
+    if (eq_s(z, 6, s_1)) {
+        z->bra = z->c;
+        z->ket = z->c;
+        slice_from_s(z, 3, s_2);
+        return 1;
+    }
+
+    // Try pattern 2: s_4 -> s_5 replacement
+    if (eq_s(z, 6, s_4)) {
+        z->bra = z->c;
+        z->ket = z->c;
+        slice_from_s(z, 3, s_5);
+        return 1;
+    }
+
+    // Try pattern 3: s_7 -> s_8 replacement
+    if (eq_s(z, 6, s_7)) {
+        z->bra = z->c;
+        z->ket = z->c;
+        slice_from_s(z, 3, s_8);
+        return 1;
+    }
+
+    // Try pattern 4: s_10 -> s_11 replacement
+    if (eq_s(z, 6, s_10)) {
+        z->bra = z->c;
+        z->ket = z->c;
+        slice_from_s(z, 3, s_11);
+        return 1;
+    }
+
+    return 0; // No patterns matched
+}
+```

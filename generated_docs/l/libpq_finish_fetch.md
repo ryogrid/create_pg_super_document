@@ -38,3 +38,14 @@ This function is typically called at the end of a pg_rewind operation to guarant
 - This is a static function used internally within the libpq_source.c module
 - Essential for ensuring data consistency by completing all queued file synchronization operations
 - Part of the cleanup phase in the pg_rewind process
+
+## Simplified Source
+
+```c
+static void
+libpq_finish_fetch(rewind_source *source)
+{
+    // Process all remaining queued fetch requests
+    process_queued_fetch_requests((libpq_source *) source);
+}
+```

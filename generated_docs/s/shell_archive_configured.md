@@ -35,3 +35,18 @@ This function is called by PostgreSQL's archiving infrastructure to validate tha
 - The `state` parameter is currently unused but maintained for interface consistency
 - The `XLogArchiveCommand` variable is defined in xlog.c and corresponds to the `archive_command` GUC parameter
 - Returns true only if archive_command is set to a non-empty string
+
+## Simplified Source
+
+```c
+static bool shell_archive_configured(ArchiveModuleState *state)
+{
+    // Check if archive_command GUC is configured
+    if (XLogArchiveCommand[0] != '\0')
+        return true;
+
+    // Report configuration error and return false
+    arch_module_check_errdetail("%s is not set.", "archive_command");
+    return false;
+}
+```

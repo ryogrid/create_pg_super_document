@@ -43,3 +43,62 @@ The function uses PostgreSQL's latch-based waiting mechanism to efficiently wait
 - Processes interrupts during connection establishment to maintain server responsiveness
 - The polling loop continues until connection succeeds (PGRES_POLLING_OK) or fails (PGRES_POLLING_FAILED)
 - Automatically handles transitions between different polling states (READING/WRITING/CONNECTED)
+
+## Simplified Source
+
+```c
+static inline void libpqsrv_connect_internal(PGconn *conn, uint32 wait_event_info) {
+    // Handle NULL connection by releasing reserved FD
+    if (conn == NULL) {
+        ReleaseExternalFD();
+        return;
+    }
+
+    // Can't wait on bad connections
+    if (PQstatus(conn) == CONNECTION_BAD)
+        return;
+
+    // Use exception handling for resource cleanup
+    PG_TRY();
+    {
+        PostgresPollingStatusType status = PGRES_POLLING_WRITING;
+
+        // Poll until connection succeeds or fails
+        while (status != PGRES_POLLING_OK && status != PGRES_POLLING_FAILED) {
+            // Determine what to wait for
+            int io_flag;
+            if (status == PGRES_POLLING_READING)
+                io_flag = WL_SOCKET_READABLE;
+#ifdef WIN32
+            else if (PQstatus(conn) == CONNECTION_STARTED)
+                io_flag = WL_SOCKET_CONNECTED;  // Windows-specific
+#endif
+            else
+                io_flag = WL_SOCKET_WRITEABLE;
+
+            // Wait for socket activity or interrupts
+            int rc = WaitLatchOrSocket(MyLatch,
+                                     WL_EXIT_ON_PM_DEATH | WL_LATCH_SET | io_flag,
+                                     PQsocket(conn), 0, wait_event_info);
+
+            // Handle interrupts
+            if (rc & WL_LATCH_SET) {
+                ResetLatch(MyLatch);
+                CHECK_FOR_INTERRUPTS();
+            }
+
+            // Advance connection state if socket is ready
+            if (rc & io_flag)
+                status = PQconnectPoll(conn);
+        }
+    }
+    PG_CATCH();
+    {
+        // Clean up resources if exception occurs
+        ReleaseExternalFD();
+        PQfinish(conn);
+        PG_RE_THROW();
+    }
+    PG_END_TRY();
+}
+```

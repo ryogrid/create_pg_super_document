@@ -41,3 +41,63 @@ This function compares two TSVector signatures to determine if they are identica
 
 ## Notes and Other Information
 This is a PostgreSQL extension function following the PG_FUNCTION_ARGS/PG_RETURN_POINTER convention. It's specifically designed to be registered as a GiST index support function for TSVector data types. The function handles special cases efficiently: if one signature is ALLTRUE and the other is not, they are immediately considered different. The comparison is optimized to break early when differences are found, making it efficient for large signatures.
+
+## Simplified Source
+
+```c
+Datum
+gtsvector_same(PG_FUNCTION_ARGS)
+{
+    SignTSVector *a = (SignTSVector *) PG_GETARG_POINTER(0);
+    SignTSVector *b = (SignTSVector *) PG_GETARG_POINTER(1);
+    bool *result = (bool *) PG_GETARG_POINTER(2);
+    int siglen = GET_SIGLEN();
+
+    if (ISSIGNKEY(a)) {
+        // Both are signature keys
+        if (ISALLTRUE(a) && ISALLTRUE(b)) {
+            *result = true;
+        }
+        else if (ISALLTRUE(a) || ISALLTRUE(b)) {
+            *result = false;  // One all-true, one not
+        }
+        else {
+            // Compare bit signatures byte by byte
+            BITVECP sa = GETSIGN(a);
+            BITVECP sb = GETSIGN(b);
+            *result = true;
+
+            for (int i = 0; i < siglen; i++) {
+                if (sa[i] != sb[i]) {
+                    *result = false;
+                    break;
+                }
+            }
+        }
+    }
+    else {
+        // Both are array keys
+        int32 lena = ARRNELEM(a);
+        int32 lenb = ARRNELEM(b);
+
+        if (lena != lenb) {
+            *result = false;
+        }
+        else {
+            // Compare arrays element by element
+            int32 *ptra = GETARR(a);
+            int32 *ptrb = GETARR(b);
+            *result = true;
+
+            for (int i = 0; i < lena; i++) {
+                if (ptra[i] != ptrb[i]) {
+                    *result = false;
+                    break;
+                }
+            }
+        }
+    }
+
+    PG_RETURN_POINTER(result);
+}
+```

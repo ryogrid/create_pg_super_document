@@ -30,3 +30,12 @@ This function compares two time values and returns the one that represents an ea
 - Located in src/backend/utils/adt/date.c at lines 1768-1782
 - Part of PostgreSQL's suite of comparison functions for the time data type
 - Returns the time argument that represents an earlier point in the day
+
+## Simplified Source
+
+```c
+TimeADT time_smaller(TimeADT time1, TimeADT time2) {
+    // Return the earlier of the two times (minimum)
+    return (time1 < time2) ? time1 : time2;
+}
+```

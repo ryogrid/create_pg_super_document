@@ -33,3 +33,15 @@ This function is typically used in scenarios where the system needs to decide wh
 - Simple boolean check that abstracts the fileset state examination
 - Used as part of the message spooling infrastructure for parallel apply workers
 - Return value indicates whether spooled message processing is needed
+
+## Simplified Source
+
+```c
+static bool pa_has_spooled_message_pending() {
+    // Get the current fileset state
+    PartialFileSetState fileset_state = pa_get_fileset_state();
+
+    // Return true if fileset is not empty (has pending messages)
+    return (fileset_state != FS_EMPTY);
+}
+```

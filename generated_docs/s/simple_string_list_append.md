@@ -41,3 +41,26 @@ This function adds a new string value to the end of a SimpleStringList. It alloc
 - The function maintains both head and tail pointers for efficient O(1) append operations
 - This is specifically designed for frontend utilities and is simpler than backend List facilities
 - Widely used across PostgreSQL frontend tools for managing lists of database object names, filter patterns, and command-line arguments
+
+## Simplified Source
+
+```c
+void simple_string_list_append(SimpleStringList *list, const char *val) {
+    // Allocate memory for cell structure plus string data
+    SimpleStringListCell *cell = (SimpleStringListCell *)
+        pg_malloc(offsetof(SimpleStringListCell, val) + strlen(val) + 1);
+
+    // Initialize the new cell
+    cell->next = NULL;
+    cell->touched = false;
+    strcpy(cell->val, val);  // Copy the string into the cell
+
+    // Link the cell to the list
+    if (list->tail) {
+        list->tail->next = cell;  // Add to end of existing list
+    } else {
+        list->head = cell;        // First element in empty list
+    }
+    list->tail = cell;           // Update tail pointer
+}
+```

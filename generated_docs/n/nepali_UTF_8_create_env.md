@@ -31,3 +31,13 @@ The function is part of PostgreSQL's text search infrastructure, specifically th
 - The function passes (0, 0) to SN_create_env, indicating that the Nepali stemmer doesn't require additional string arrays (S_size=0) or integer arrays (I_size=0) beyond the basic environment structure
 - This is an external function that can be called from other modules requiring Nepali text stemming capabilities
 - Part of PostgreSQL's full-text search functionality supporting multiple languages including Nepali
+
+## Simplified Source
+
+```c
+extern struct SN_env * nepali_UTF_8_create_env(void) {
+    // Create Snowball environment for Nepali stemming
+    // Parameters: no additional string arrays (0) or integer arrays (0) needed
+    return SN_create_env(0, 0);
+}
+```

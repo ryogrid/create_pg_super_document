@@ -48,3 +48,58 @@ This step is part of a multi-phase verb stemming process and handles a different
 - Called multiple times in the main stemming function, indicating it handles suffixes that may appear in different contexts
 - Part of the sequential verb stemming process alongside other Step2 functions (Step2b, Step2c)
 - Returns 1 on successful suffix removal and 0 when no applicable suffix is found
+
+## Simplified Source
+
+```c
+static int r_Suffix_Verb_Step2a(struct SN_env * z) {
+    int suffix_category;
+
+    // Mark current position as end boundary for suffix matching
+    z->ket = z->c;
+
+    // Find matching verb suffix from predefined array (11 suffixes)
+    suffix_category = find_among_b(z, a_18, 11);
+    if (!suffix_category) return 0;  // No suffix found
+
+    // Mark start boundary for deletion
+    z->bra = z->c;
+
+    // Apply different minimum length requirements based on suffix type
+    switch (suffix_category) {
+        case 1:  // Category 1: minimum 4 UTF-8 characters
+            if (len_utf8(z->p) >= 4) {
+                slice_del(z);  // Delete the suffix
+            } else {
+                return 0;  // Word too short
+            }
+            break;
+
+        case 2:  // Category 2: minimum 5 UTF-8 characters
+            if (len_utf8(z->p) >= 5) {
+                slice_del(z);
+            } else {
+                return 0;
+            }
+            break;
+
+        case 3:  // Category 3: MORE than 5 UTF-8 characters (strict)
+            if (len_utf8(z->p) > 5) {
+                slice_del(z);
+            } else {
+                return 0;
+            }
+            break;
+
+        case 4:  // Category 4: minimum 6 UTF-8 characters
+            if (len_utf8(z->p) >= 6) {
+                slice_del(z);
+            } else {
+                return 0;
+            }
+            break;
+    }
+
+    return 1;  // Successfully processed suffix
+}
+```

@@ -51,3 +51,96 @@ The function first checks for cancellation and whether output should be suppress
 - The expanded mode (vertical display) is supported across all output formats for better readability of wide tables
 - Error handling includes clearing pre-existing errors on the output stream and reporting invalid format errors to stderr
 - The function exits with EXIT_FAILURE for internal errors related to invalid output formats
+
+## Simplified Source
+
+```c
+void printTable(const printTableContent *cont, FILE *fout, bool is_pager, FILE *flog) {
+    bool is_local_pager = false;
+
+    // Early exits for cancellation or no output
+    if (cancel_pressed || cont->opt->format == PRINT_NOTHING)
+        return;
+
+    // Setup pager for formats that don't handle it internally
+    if (!is_pager && cont->opt->format != PRINT_ALIGNED && cont->opt->format != PRINT_WRAPPED) {
+        IsPagerNeeded(cont, 0, (cont->opt->expanded == 1), &fout, &is_pager);
+        is_local_pager = is_pager;
+    }
+
+    clearerr(fout);
+
+    // Optional log output (always aligned format)
+    if (flog)
+        print_aligned_text(cont, flog, false);
+
+    // Dispatch to format-specific printing function
+    switch (cont->opt->format) {
+        case PRINT_UNALIGNED:
+            if (cont->opt->expanded == 1)
+                print_unaligned_vertical(cont, fout);
+            else
+                print_unaligned_text(cont, fout);
+            break;
+
+        case PRINT_ALIGNED:
+        case PRINT_WRAPPED:
+            // Force vertical if expanded=1 or auto-expanded with pager
+            if (cont->opt->expanded == 1 || (cont->opt->expanded == 2 && is_pager))
+                print_aligned_vertical(cont, fout, is_pager);
+            else
+                print_aligned_text(cont, fout, is_pager);
+            break;
+
+        case PRINT_CSV:
+            if (cont->opt->expanded == 1)
+                print_csv_vertical(cont, fout);
+            else
+                print_csv_text(cont, fout);
+            break;
+
+        case PRINT_HTML:
+            if (cont->opt->expanded == 1)
+                print_html_vertical(cont, fout);
+            else
+                print_html_text(cont, fout);
+            break;
+
+        case PRINT_ASCIIDOC:
+            if (cont->opt->expanded == 1)
+                print_asciidoc_vertical(cont, fout);
+            else
+                print_asciidoc_text(cont, fout);
+            break;
+
+        case PRINT_LATEX:
+            if (cont->opt->expanded == 1)
+                print_latex_vertical(cont, fout);
+            else
+                print_latex_text(cont, fout);
+            break;
+
+        case PRINT_LATEX_LONGTABLE:
+            if (cont->opt->expanded == 1)
+                print_latex_vertical(cont, fout);
+            else
+                print_latex_longtable_text(cont, fout);
+            break;
+
+        case PRINT_TROFF_MS:
+            if (cont->opt->expanded == 1)
+                print_troff_ms_vertical(cont, fout);
+            else
+                print_troff_ms_text(cont, fout);
+            break;
+
+        default:
+            fprintf(stderr, _("invalid output format (internal error): %d"), cont->opt->format);
+            exit(EXIT_FAILURE);
+    }
+
+    // Clean up locally opened pager
+    if (is_local_pager)
+        ClosePager(fout);
+}
+```

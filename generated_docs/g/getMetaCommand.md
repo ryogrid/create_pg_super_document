@@ -47,3 +47,31 @@ The `getMetaCommand` function serves as a command name parser that maps string r
 - Returns META_NONE as a default/fallback value for unrecognized commands or NULL input
 - Comprehensive coverage of all pgbench meta-command types including pipeline operations introduced in newer PostgreSQL versions
 - The function serves as a centralized command recognition point, making it easy to add new meta-commands in the future
+
+## Simplified Source
+
+```c
+static MetaCommand getMetaCommand(const char *cmd) {
+    // Handle null input
+    if (cmd == NULL)
+        return META_NONE;
+
+    // Map command strings to enum values (case-insensitive)
+    if (pg_strcasecmp(cmd, "set") == 0)           return META_SET;
+    if (pg_strcasecmp(cmd, "setshell") == 0)      return META_SETSHELL;
+    if (pg_strcasecmp(cmd, "shell") == 0)         return META_SHELL;
+    if (pg_strcasecmp(cmd, "sleep") == 0)         return META_SLEEP;
+    if (pg_strcasecmp(cmd, "if") == 0)            return META_IF;
+    if (pg_strcasecmp(cmd, "elif") == 0)          return META_ELIF;
+    if (pg_strcasecmp(cmd, "else") == 0)          return META_ELSE;
+    if (pg_strcasecmp(cmd, "endif") == 0)         return META_ENDIF;
+    if (pg_strcasecmp(cmd, "gset") == 0)          return META_GSET;
+    if (pg_strcasecmp(cmd, "aset") == 0)          return META_ASET;
+    if (pg_strcasecmp(cmd, "startpipeline") == 0) return META_STARTPIPELINE;
+    if (pg_strcasecmp(cmd, "syncpipeline") == 0)  return META_SYNCPIPELINE;
+    if (pg_strcasecmp(cmd, "endpipeline") == 0)   return META_ENDPIPELINE;
+
+    // Unknown command
+    return META_NONE;
+}
+```

@@ -42,3 +42,42 @@ This function constructs a new SP-GiST inner tuple that contains all the nodes f
 - Memory for the nodes array is allocated dynamically based on the expanded size
 - The new inner tuple maintains the same prefix as the original but with nNodes + 1 nodes
 - Located in src/backend/access/spgist/spgdoinsert.c:80-111
+
+## Simplified Source
+
+```c
+static SpGistInnerTuple addNode(SpGistState *state, SpGistInnerTuple tuple,
+                               Datum label, int offset) {
+    SpGistNodeTuple node, *nodes;
+    int i;
+
+    // Handle negative offset (insert at end)
+    if (offset < 0) {
+        offset = tuple->nNodes;
+    } else if (offset > tuple->nNodes) {
+        elog(ERROR, "invalid offset for adding node to SPGiST inner tuple");
+    }
+
+    // Allocate space for expanded node array
+    nodes = palloc(sizeof(SpGistNodeTuple) * (tuple->nNodes + 1));
+
+    // Copy existing nodes, making space for new node at offset
+    SGITITERATE(tuple, i, node) {
+        if (i < offset) {
+            nodes[i] = node;
+        } else {
+            nodes[i + 1] = node;
+        }
+    }
+
+    // Create and insert new node at specified offset
+    nodes[offset] = spgFormNodeTuple(state, label, false);
+
+    // Form and return new inner tuple with expanded node array
+    return spgFormInnerTuple(state,
+                           (tuple->prefixSize > 0),
+                           SGITDATUM(tuple, state),
+                           tuple->nNodes + 1,
+                           nodes);
+}
+```

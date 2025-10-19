@@ -44,3 +44,14 @@ Unlike its restriction selectivity counterpart (matchingsel), this function does
 - Part of PostgreSQL's extensible selectivity estimation framework
 - Provides consistent behavior for matching operators in join contexts even without sophisticated estimation
 - The DEFAULT_MATCHING_SEL constant provides a reasonable middle-ground estimate between equality and inequality selectivity
+
+## Simplified Source
+
+```c
+// Placeholder join selectivity estimator for matching-type operators
+Datum matchingjoinsel(PG_FUNCTION_ARGS) {
+    // Temporary implementation - returns constant default value
+    // TODO: Future versions may implement proper analysis
+    PG_RETURN_FLOAT8(DEFAULT_MATCHING_SEL);
+}
+```

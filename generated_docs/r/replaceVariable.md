@@ -37,3 +37,30 @@ This function performs in-place replacement of variable placeholders in SQL stri
 - Part of pgbench's variable substitution system for SQL script processing
 - The sql parameter is passed by reference because the buffer may be reallocated
 - Uses memmove for safe overlapping memory operations when adjusting text length
+
+## Simplified Source
+
+```c
+static char *
+replaceVariable(char **sql, char *param, int len, char *value)
+{
+    int valuelen = strlen(value);
+
+    // Reallocate buffer if replacement value is longer
+    if (valuelen > len)
+    {
+        size_t offset = param - *sql;
+        *sql = pg_realloc(*sql, strlen(*sql) - len + valuelen + 1);
+        param = *sql + offset;  // Update pointer after reallocation
+    }
+
+    // Shift remaining text if lengths differ
+    if (valuelen != len)
+        memmove(param + valuelen, param + len, strlen(param + len) + 1);
+
+    // Copy new value into place
+    memcpy(param, value, valuelen);
+
+    return param + valuelen;
+}
+```

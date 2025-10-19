@@ -28,4 +28,14 @@ The function is part of the Snowball stemming library integration in PostgreSQL,
 - Part of the Snowball stemming library which provides language-specific stemming algorithms for PostgreSQL's full-text search
 - The function passes  as the  parameter to , indicating that no string arrays need special cleanup for the Irish stemmer
 - Memory safety: The function can safely handle NULL pointers as  performs NULL checks
-- Located in the auto-generated stemmer code at 
+- Located in the auto-generated stemmer code at
+
+## Simplified Source
+
+```c
+extern void irish_UTF_8_close_env(struct SN_env * z) {
+    // Clean up Snowball environment for Irish stemming
+    // 0 indicates no special string cleanup needed
+    SN_close_env(z, 0);
+}
+``` 

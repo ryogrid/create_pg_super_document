@@ -37,3 +37,16 @@ Unlike the directional comparison functions (point_left, point_right, point_abov
 - Returns true if pt1->x == pt2->x using floating-point equality comparison
 - Provides vertical alignment detection, complementing point_horiz (horizontal alignment)
 - Forms the basis for coordinate equality concepts referenced in other geometric operators
+
+## Simplified Source
+
+```c
+Datum point_vert(PG_FUNCTION_ARGS) {
+    // Extract two Point objects from function arguments
+    Point *pt1 = PG_GETARG_POINT_P(0);
+    Point *pt2 = PG_GETARG_POINT_P(1);
+
+    // Check if points are vertically aligned (same x-coordinate)
+    PG_RETURN_BOOL(FPeq(pt1->x, pt2->x));
+}
+```

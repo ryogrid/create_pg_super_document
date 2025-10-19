@@ -44,3 +44,31 @@ The function constructs the output string by:
 - Transaction IDs in the xip array are formatted as comma-separated values without spaces
 - All transaction IDs are converted from FullTransactionId format to uint64 for display
 - Located in src/backend/utils/adt/xid8funcs.c:436-467
+
+## Simplified Source
+
+```c
+Datum pg_snapshot_out(PG_FUNCTION_ARGS) {
+    // Get the pg_snapshot structure from function arguments
+    pg_snapshot *snap = (pg_snapshot *) PG_GETARG_VARLENA_P(0);
+    StringInfoData str;
+    uint32 i;
+
+    // Initialize string buffer for building output
+    initStringInfo(&str);
+
+    // Format as "xmin:xmax:" at the beginning
+    appendStringInfo(&str, UINT64_FORMAT ":", U64FromFullTransactionId(snap->xmin));
+    appendStringInfo(&str, UINT64_FORMAT ":", U64FromFullTransactionId(snap->xmax));
+
+    // Append comma-separated list of active transaction IDs
+    for (i = 0; i < snap->nxip; i++) {
+        if (i > 0)
+            appendStringInfoChar(&str, ',');  // Add comma between items
+        appendStringInfo(&str, UINT64_FORMAT, U64FromFullTransactionId(snap->xip[i]));
+    }
+
+    // Return the formatted string
+    PG_RETURN_CSTRING(str.data);
+}
+```

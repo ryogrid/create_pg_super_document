@@ -30,3 +30,13 @@ This function serves as the initialization point for French UTF-8 stemming sessi
 
 ## Notes and Other Information
 This function should be called before any French UTF-8 stemming operations and paired with french_UTF_8_close_env when stemming is complete to properly manage memory. The function is marked as 'extern' indicating it's part of the public API for the French UTF-8 stemmer. The parameters (0, 3) passed to SN_create_env are specific to the French stemming algorithm's requirements and differ from other language stemmers that may need different workspace configurations.
+
+## Simplified Source
+
+```c
+extern struct SN_env * french_UTF_8_create_env(void) {
+    // Create Snowball environment for French UTF-8 stemming
+    // Parameters: 0 = initial buffer size, 3 = workspace size for French
+    return SN_create_env(0, 3);
+}
+```

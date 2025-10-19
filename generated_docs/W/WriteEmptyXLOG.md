@@ -59,3 +59,84 @@ This function takes no parameters and operates on:
 - Part of the final "construction" phase after all destructive operations are complete
 - The fsync call ensures durability and that the database can reliably start after reset
 - The function handles potential disk space issues with appropriate error messages
+
+## Simplified Source
+
+```c
+static void WriteEmptyXLOG(void)
+{
+    PGAlignedXLogBlock buffer;
+    XLogPageHeader page;
+    XLogLongPageHeader longpage;
+    XLogRecord *record;
+    pg_crc32c crc;
+    char path[MAXPGPATH];
+    int fd;
+    int nbytes;
+    char *recptr;
+
+    // Initialize buffer
+    memset(buffer.data, 0, XLOG_BLCKSZ);
+
+    // Set up WAL page header with system info
+    page = (XLogPageHeader) buffer.data;
+    page->xlp_magic = XLOG_PAGE_MAGIC;
+    page->xlp_info = XLP_LONG_HEADER;
+    page->xlp_tli = ControlFile.checkPointCopy.ThisTimeLineID;
+    page->xlp_pageaddr = ControlFile.checkPointCopy.redo - SizeOfXLogLongPHD;
+
+    longpage = (XLogLongPageHeader) page;
+    longpage->xlp_sysid = ControlFile.system_identifier;
+    longpage->xlp_seg_size = WalSegSz;
+    longpage->xlp_xlog_blcksz = XLOG_BLCKSZ;
+
+    // Create initial checkpoint record
+    recptr = (char *) page + SizeOfXLogLongPHD;
+    record = (XLogRecord *) recptr;
+    record->xl_prev = 0;
+    record->xl_xid = InvalidTransactionId;
+    record->xl_tot_len = SizeOfXLogRecord + SizeOfXLogRecordDataHeaderShort + sizeof(CheckPoint);
+    record->xl_info = XLOG_CHECKPOINT_SHUTDOWN;
+    record->xl_rmid = RM_XLOG_ID;
+
+    // Add checkpoint data
+    recptr += SizeOfXLogRecord;
+    *(recptr++) = (char) XLR_BLOCK_ID_DATA_SHORT;
+    *(recptr++) = sizeof(CheckPoint);
+    memcpy(recptr, &ControlFile.checkPointCopy, sizeof(CheckPoint));
+
+    // Calculate and set CRC
+    INIT_CRC32C(crc);
+    COMP_CRC32C(crc, ((char *) record) + SizeOfXLogRecord,
+                record->xl_tot_len - SizeOfXLogRecord);
+    COMP_CRC32C(crc, (char *) record, offsetof(XLogRecord, xl_crc));
+    FIN_CRC32C(crc);
+    record->xl_crc = crc;
+
+    // Create and write new WAL file
+    XLogFilePath(path, ControlFile.checkPointCopy.ThisTimeLineID,
+                 newXlogSegNo, WalSegSz);
+    unlink(path);
+
+    fd = open(path, O_RDWR | O_CREAT | O_EXCL | PG_BINARY, pg_file_create_mode);
+    if (fd < 0)
+        pg_fatal("could not open file \"%s\": %m", path);
+
+    // Write first page with checkpoint
+    if (write(fd, buffer.data, XLOG_BLCKSZ) != XLOG_BLCKSZ)
+        pg_fatal("could not write file \"%s\": %m", path);
+
+    // Fill rest of segment with zeros
+    memset(buffer.data, 0, XLOG_BLCKSZ);
+    for (nbytes = XLOG_BLCKSZ; nbytes < WalSegSz; nbytes += XLOG_BLCKSZ)
+    {
+        if (write(fd, buffer.data, XLOG_BLCKSZ) != XLOG_BLCKSZ)
+            pg_fatal("could not write file \"%s\": %m", path);
+    }
+
+    // Ensure data is written to disk
+    if (fsync(fd) != 0)
+        pg_fatal("fsync error: %m");
+    close(fd);
+}
+```

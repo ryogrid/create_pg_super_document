@@ -52,3 +52,43 @@ The function processes text from right to left (standard Snowball approach) and 
 - Returns 1 on successful completion, negative values indicate errors during processing
 - The order of suffix processing (noun → derivational → verb) reflects linguistic priorities in Irish morphology
 - This implementation follows the Irish stemming rules defined in the Snowball algorithm specification
+
+## Simplified Source
+
+```c
+extern int irish_ISO_8859_1_stem(struct SN_env * z) {
+    // Step 1: Apply initial morphological transformations
+    int cursor_pos = z->c;
+    r_initial_morph(z);  // Handle Irish consonant mutations
+    z->c = cursor_pos;   // Restore position
+
+    // Step 2: Mark linguistic regions (R1, R2, RV)
+    r_mark_regions(z);
+
+    // Step 3: Process from end of string backwards
+    z->lb = z->c;
+    z->c = z->l;
+
+    // Step 4: Remove suffixes in priority order
+    // Save position for each stage to process independently
+
+    // Remove noun suffixes (highest priority)
+    int noun_pos = z->l - z->c;
+    r_noun_sfx(z);
+    z->c = z->l - noun_pos;
+
+    // Remove derivational suffixes
+    int deriv_pos = z->l - z->c;
+    r_deriv(z);
+    z->c = z->l - deriv_pos;
+
+    // Remove verb suffixes (lowest priority)
+    int verb_pos = z->l - z->c;
+    r_verb_sfx(z);
+    z->c = z->l - verb_pos;
+
+    // Reset to beginning and return success
+    z->c = z->lb;
+    return 1;
+}
+```

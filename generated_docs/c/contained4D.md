@@ -32,3 +32,21 @@ This function is part of PostgreSQL's geometric SP-GiST (Space-Partitioned Gener
 - The function is used in SP-GiST index operations for geometric box containment queries
 - It leverages the `contained2D` function to handle each dimensional axis independently
 - The function returns true only if both X and Y dimensional containment conditions are satisfied
+
+## Simplified Source
+
+```c
+/* Check if any rectangle from rect_box can be contained by query */
+static bool
+contained4D(RectBox *rect_box, RangeBox *query)
+{
+    // Check containment in X dimension (using left range of query)
+    bool x_contained = contained2D(&rect_box->range_box_x, &query->left);
+
+    // Check containment in Y dimension (using right range of query)
+    bool y_contained = contained2D(&rect_box->range_box_y, &query->right);
+
+    // Both dimensions must satisfy containment
+    return x_contained && y_contained;
+}
+```

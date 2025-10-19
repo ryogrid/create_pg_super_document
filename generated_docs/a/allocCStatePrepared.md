@@ -38,3 +38,27 @@ The function uses pg_malloc0 to ensure the boolean array is zero-initialized, me
 - Memory allocation follows PostgreSQL conventions using pg_malloc family functions
 - The structure allows efficient tracking of which commands have been prepared across multiple scripts
 - This is essential for pgbench's prepared statement optimization feature
+
+## Simplified Source
+
+```c
+static void allocCStatePrepared(CState *st) {
+    Assert(st->prepared == NULL);
+
+    // Allocate array of pointers, one for each script
+    st->prepared = pg_malloc(sizeof(bool *) * num_scripts);
+
+    // For each script, allocate array to track command preparation status
+    for (int i = 0; i < num_scripts; i++) {
+        ParsedScript *script = &sql_script[i];
+
+        // Count commands in this script
+        int numcmds = 0;
+        while (script->commands[numcmds] != NULL)
+            numcmds++;
+
+        // Allocate zero-initialized boolean array for this script's commands
+        st->prepared[i] = pg_malloc0(sizeof(bool) * numcmds);
+    }
+}
+```

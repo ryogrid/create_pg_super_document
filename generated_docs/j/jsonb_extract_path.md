@@ -28,3 +28,12 @@ The  function serves as a wrapper that extracts values from JSONB data structure
 - This is a thin wrapper function that provides the JSONB-preserving variant of JSONB path extraction
 - The actual path extraction logic is implemented in 
 - Returns JSONB data type, preserving the original structure and type information of the extracted value
+
+## Simplified Source
+```c
+Datum jsonb_extract_path(PG_FUNCTION_ARGS) {
+    // Simple wrapper: extract JSONB value following specified path
+    // Returns result as JSONB (not text)
+    return get_jsonb_path_all(fcinfo, false);
+}
+```

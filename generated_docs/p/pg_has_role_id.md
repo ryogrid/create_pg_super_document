@@ -37,3 +37,25 @@ This function is an OID-based variant of the pg_has_role privilege checking syst
 - Located in src/backend/utils/adt/acl.c:4779-4800
 - Commonly used in internal PostgreSQL code where role OIDs are readily available from system catalogs
 - Part of the pg_has_role function family that provides different parameter combinations for role privilege checking
+
+## Simplified Source
+
+```c
+Datum
+pg_has_role_id(PG_FUNCTION_ARGS)
+{
+    // Extract function arguments
+    Oid roleoid = PG_GETARG_OID(0);
+    text *priv_type_text = PG_GETARG_TEXT_PP(1);
+
+    // Get current user ID and convert privilege string
+    Oid roleid = GetUserId();
+    AclMode mode = convert_role_priv_string(priv_type_text);
+
+    // Check if current user has specified privilege on the role
+    AclResult aclresult = pg_role_aclcheck(roleoid, roleid, mode);
+
+    // Return true if privilege check succeeded
+    PG_RETURN_BOOL(aclresult == ACLCHECK_OK);
+}
+```

@@ -37,3 +37,23 @@ The function operates by:
 - The array a_9 contains 2 different suffix variants to accommodate vowel harmony
 - This function is automatically generated code from snowball stemming algorithms
 - Requires at least 3 characters before left boundary, unlike r_mark_DAn which requires 2
+
+## Simplified Source
+
+```c
+static int r_mark_ndAn(struct SN_env * z) {
+    // Check vowel harmony first
+    int harmony_check = r_check_vowel_harmony(z);
+    if (harmony_check <= 0) return harmony_check;
+
+    // Ensure we have space for 4-char pattern and last character is 'n'
+    if (z->c - 3 <= z->lb || z->p[z->c - 1] != 110)
+        return 0;
+
+    // Match against 2 'ndAn' suffix patterns (ndan, nden)
+    if (!(find_among_b(z, a_9, 2)))
+        return 0;
+
+    return 1;  // Successfully found ndAn suffix pattern
+}
+```

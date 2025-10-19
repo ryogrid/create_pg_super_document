@@ -29,3 +29,14 @@ dshash_memcpy serves as a wrapper function around the standard library's memcpy 
 
 ## Notes and Other Information
 This function is part of the dshash utility functions that provide standardized interfaces for common operations like comparison, hashing, and copying. The unused `arg` parameter maintains compatibility with the expected function signature for dshash copy functions, allowing for potential future extensions or use cases where additional context might be needed. The function explicitly casts the return value of memcpy to void using `(void)` to indicate that the return value is intentionally ignored, as the dshash copy function interface expects a void return type rather than the pointer return of standard memcpy.
+
+## Simplified Source
+
+```c
+void
+dshash_memcpy(void *dest, const void *src, size_t size, void *arg)
+{
+    // Simple wrapper around standard memcpy (void cast ignores return value)
+    (void) memcpy(dest, src, size);
+}
+```

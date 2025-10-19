@@ -37,3 +37,29 @@ The function is designed to handle incremental data writing, where backup conten
 - Assumes ENOSPC (no space left on device) when gzwrite fails without setting errno
 - Uses the pathname from the streamer for error reporting context
 - Part of the static callback interface, not intended for direct external invocation
+
+## Simplified Source
+
+```c
+static void
+bbstreamer_gzip_writer_content(bbstreamer *streamer,
+                               bbstreamer_member *member, const char *data,
+                               int len, bbstreamer_archive_context context)
+{
+    bbstreamer_gzip_writer *writer = (bbstreamer_gzip_writer *) streamer;
+
+    // Skip empty writes
+    if (len == 0)
+        return;
+
+    // Write data to compressed file
+    errno = 0;
+    if (gzwrite(writer->gzfile, data, len) != len) {
+        // Assume disk space issue if errno not set
+        if (errno == 0)
+            errno = ENOSPC;
+        pg_fatal("could not write to compressed file \"%s\": %s",
+                 writer->pathname, get_gz_error(writer->gzfile));
+    }
+}
+```

@@ -41,3 +41,38 @@ The function creates an AllocSetContext for storing radix tree metadata locally,
 - DSA segment sizes are automatically adjusted to be no larger than 1/8 of max_bytes for optimal shared memory usage
 - The tranche_id is used for lock coordination when multiple processes access the shared TidStore
 - Primarily used in parallel vacuum operations where multiple workers need to share TID information
+
+## Simplified Source
+
+```c
+TidStore *
+TidStoreCreateShared(size_t max_bytes, int tranche_id)
+{
+    // Allocate TidStore structure in backend-local memory
+    TidStore *ts = palloc0(sizeof(TidStore));
+    ts->context = CurrentMemoryContext;
+
+    // Create context for radix tree metadata (not TID data)
+    ts->rt_context = AllocSetContextCreate(CurrentMemoryContext,
+                                          "TID storage meta data",
+                                          ALLOCSET_SMALL_SIZES);
+
+    // Calculate optimal DSA segment sizes (no larger than 1/8 of max_bytes)
+    size_t dsa_max_size = DSA_MAX_SEGMENT_SIZE;
+    while (8 * dsa_max_size > max_bytes)
+        dsa_max_size >>= 1;
+
+    if (dsa_max_size < DSA_MIN_SEGMENT_SIZE)
+        dsa_max_size = DSA_MIN_SEGMENT_SIZE;
+
+    size_t dsa_init_size = (DSA_DEFAULT_INIT_SEGMENT_SIZE > dsa_max_size) ?
+                           dsa_max_size : DSA_DEFAULT_INIT_SEGMENT_SIZE;
+
+    // Create DSA area and shared radix tree for TID storage
+    dsa_area *area = dsa_create_ext(tranche_id, dsa_init_size, dsa_max_size);
+    ts->tree.shared = shared_ts_create(ts->rt_context, area, tranche_id);
+    ts->area = area;
+
+    return ts;
+}
+```

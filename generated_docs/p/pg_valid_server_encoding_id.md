@@ -28,3 +28,12 @@ This function provides a simple wrapper around the PG_VALID_BE_ENCODING macro to
 - Used when the encoding ID is already known and only validation is needed
 - More efficient than pg_valid_server_encoding when working with encoding IDs rather than names
 - Located in src/common/encnames.c:513-523
+
+## Simplified Source
+
+```c
+int pg_valid_server_encoding_id(int encoding) {
+    // Validate that the encoding ID is valid for server (backend) use
+    return PG_VALID_BE_ENCODING(encoding);
+}
+```

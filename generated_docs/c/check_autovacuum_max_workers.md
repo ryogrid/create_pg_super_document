@@ -37,3 +37,16 @@ This function serves as a validation hook for the autovacuum_max_workers GUC par
 - Autovacuum workers are essential for automatic maintenance tasks like vacuuming and analyzing tables
 - This validation ensures that setting autovacuum_max_workers too high won't compromise system stability
 - The function is automatically invoked by the GUC system whenever autovacuum_max_workers is being modified
+
+## Simplified Source
+
+```c
+bool check_autovacuum_max_workers(int *newval, void **extra, GucSource source) {
+    // Check if total backend processes would exceed system limit
+    // Includes: max_connections + new autovacuum workers + worker processes + WAL senders + 1 overhead
+    if (MaxConnections + *newval + 1 + max_worker_processes + max_wal_senders > MAX_BACKENDS)
+        return false;
+
+    return true;  // Configuration is valid
+}
+```

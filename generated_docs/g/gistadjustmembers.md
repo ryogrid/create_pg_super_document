@@ -50,3 +50,57 @@ This dependency configuration ensures proper cascading behavior when operator cl
 - The function throws an ERROR for unrecognized support function numbers, ensuring only valid GiST function types are processed
 - Generally called during CREATE OPERATOR CLASS or ALTER OPERATOR FAMILY operations
 - The design assumes that GiST operator classes rarely share operator families, simplifying dependency management
+
+## Simplified Source
+
+```c
+void
+gistadjustmembers(Oid opfamilyoid, Oid opclassoid,
+                  List *operators, List *functions)
+{
+    ListCell *lc;
+
+    // Set all operators to soft dependencies on the operator family
+    foreach(lc, operators) {
+        OpFamilyMember *op = (OpFamilyMember *) lfirst(lc);
+        op->ref_is_hard = false;
+        op->ref_is_family = true;
+        op->refobjid = opfamilyoid;
+    }
+
+    // Configure function dependencies based on whether they're required or optional
+    foreach(lc, functions) {
+        OpFamilyMember *op = (OpFamilyMember *) lfirst(lc);
+
+        switch (op->number) {
+            case GIST_CONSISTENT_PROC:
+            case GIST_UNION_PROC:
+            case GIST_PENALTY_PROC:
+            case GIST_PICKSPLIT_PROC:
+            case GIST_EQUAL_PROC:
+                // Required functions get hard dependencies
+                op->ref_is_hard = true;
+                break;
+
+            case GIST_COMPRESS_PROC:
+            case GIST_DECOMPRESS_PROC:
+            case GIST_DISTANCE_PROC:
+            case GIST_FETCH_PROC:
+            case GIST_OPTIONS_PROC:
+            case GIST_SORTSUPPORT_PROC:
+                // Optional functions get soft family dependencies
+                op->ref_is_hard = false;
+                op->ref_is_family = true;
+                op->refobjid = opfamilyoid;
+                break;
+
+            default:
+                ereport(ERROR,
+                        (errcode(ERRCODE_INVALID_OBJECT_DEFINITION),
+                         errmsg("support function number %d is invalid for access method %s",
+                                op->number, "gist")));
+                break;
+        }
+    }
+}
+```

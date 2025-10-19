@@ -40,3 +40,107 @@ This function handles the execution of the \watch command in psql, which provide
 - Uses errno checking for robust numeric conversion error detection
 - Returns PSQL_CMD_SKIP_LINE on success, PSQL_CMD_ERROR on parsing/validation failures
 - Memory management: Properly frees allocated option strings during parsing
+
+## Simplified Source
+
+```c
+// Simplified version of exec_command_watch
+static backslashResult exec_command_watch(PsqlScanState scan_state, bool active_branch,
+                                         PQExpBuffer query_buf, PQExpBuffer previous_buf) {
+    bool success = true;
+
+    if (active_branch) {
+        // Default values
+        bool have_sleep = false, have_iter = false, have_min_rows = false;
+        double sleep = 2;
+        int iter = 0, min_rows = 0;
+
+        // Parse arguments: name=value or unlabeled interval
+        while (success) {
+            char *opt = psql_scan_slash_option(scan_state, OT_NORMAL, NULL, true);
+            if (!opt) break;  // No more arguments
+
+            char *valptr = strchr(opt, '=');
+            char *opt_end;
+
+            if (valptr) {
+                // Named parameter: name=value
+                valptr++;
+                if (strncmp("i=", opt, 2) == 0 || strncmp("interval=", opt, 9) == 0) {
+                    if (have_sleep) {
+                        pg_log_error("\\watch: interval value is specified more than once");
+                        success = false;
+                    } else {
+                        have_sleep = true;
+                        errno = 0;
+                        sleep = strtod(valptr, &opt_end);
+                        if (sleep < 0 || *opt_end || errno == ERANGE) {
+                            pg_log_error("\\watch: incorrect interval value \"%s\"", valptr);
+                            success = false;
+                        }
+                    }
+                } else if (strncmp("c=", opt, 2) == 0 || strncmp("count=", opt, 6) == 0) {
+                    if (have_iter) {
+                        pg_log_error("\\watch: iteration count is specified more than once");
+                        success = false;
+                    } else {
+                        have_iter = true;
+                        errno = 0;
+                        iter = strtoint(valptr, &opt_end, 10);
+                        if (iter <= 0 || *opt_end || errno == ERANGE) {
+                            pg_log_error("\\watch: incorrect iteration count \"%s\"", valptr);
+                            success = false;
+                        }
+                    }
+                } else if (strncmp("m=", opt, 2) == 0 || strncmp("min_rows=", opt, 9) == 0) {
+                    if (have_min_rows) {
+                        pg_log_error("\\watch: minimum row count specified more than once");
+                        success = false;
+                    } else {
+                        have_min_rows = true;
+                        errno = 0;
+                        min_rows = strtoint(valptr, &opt_end, 10);
+                        if (min_rows <= 0 || *opt_end || errno == ERANGE) {
+                            pg_log_error("\\watch: incorrect minimum row count \"%s\"", valptr);
+                            success = false;
+                        }
+                    }
+                } else {
+                    pg_log_error("\\watch: unrecognized parameter \"%s\"", opt);
+                    success = false;
+                }
+            } else {
+                // Unlabeled parameter: treat as interval
+                if (have_sleep) {
+                    pg_log_error("\\watch: interval value is specified more than once");
+                    success = false;
+                } else {
+                    have_sleep = true;
+                    errno = 0;
+                    sleep = strtod(opt, &opt_end);
+                    if (sleep < 0 || *opt_end || errno == ERANGE) {
+                        pg_log_error("\\watch: incorrect interval value \"%s\"", opt);
+                        success = false;
+                    }
+                }
+            }
+            free(opt);
+        }
+
+        // Execute the watch command
+        if (success) {
+            // Use previous query if current buffer is empty
+            copy_previous_query(query_buf, previous_buf);
+            success = do_watch(query_buf, sleep, iter, min_rows);
+        }
+
+        // Clear query buffer like \r command
+        resetPQExpBuffer(query_buf);
+        psql_scan_reset(scan_state);
+    } else {
+        ignore_slash_options(scan_state);
+    }
+
+    return success ? PSQL_CMD_SKIP_LINE : PSQL_CMD_ERROR;
+}
+```

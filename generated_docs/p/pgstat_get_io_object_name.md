@@ -33,3 +33,24 @@ This function provides a mapping from internal IOObject enumeration values to th
 - Uses pg_unreachable() to handle impossible code paths for defensive programming
 - This function is primarily used for displaying I/O statistics in a user-friendly format
 - Located in src/backend/utils/activity/pgstat_io.c:240-254
+
+## Simplified Source
+
+```c
+const char *
+pgstat_get_io_object_name(IOObject io_object)
+{
+    // Convert IO object enum to human-readable string
+    switch (io_object)
+    {
+        case IOOBJECT_RELATION:
+            return "relation";
+        case IOOBJECT_TEMP_RELATION:
+            return "temp relation";
+    }
+
+    // Should never reach here with valid input
+    elog(ERROR, "unrecognized IOObject value: %d", io_object);
+    pg_unreachable();
+}
+```

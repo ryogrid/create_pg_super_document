@@ -35,3 +35,16 @@ The function extracts the private_data from the parsing context (which contains 
 - The function simply stores the version number without performing any immediate validation
 - Works in conjunction with other callback functions like verifybackup_system_identifier, verifybackup_per_file_cb, and verifybackup_per_wal_range_cb
 - The stored version information is used later in the backup verification process to ensure compatibility
+
+## Simplified Source
+
+```c
+static void verifybackup_version_cb(JsonManifestParseContext *context,
+                                   int manifest_version) {
+    // Extract manifest data from parsing context
+    manifest_data *manifest = context->private_data;
+
+    // Store version number for later validation
+    manifest->version = manifest_version;
+}
+```

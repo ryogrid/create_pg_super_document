@@ -35,3 +35,16 @@ This comparison is fundamental for establishing the chronological order of WAL e
 - Essential for replication monitoring and WAL progress tracking
 - The function follows PostgreSQL's standard function calling convention (PG_FUNCTION_ARGS)
 - Located in src/backend/utils/adt/pg_lsn.c:136-144
+
+## Simplified Source
+
+```c
+Datum pg_lsn_lt(PG_FUNCTION_ARGS) {
+    // Extract both LSN values from function arguments
+    XLogRecPtr lsn1 = PG_GETARG_LSN(0);
+    XLogRecPtr lsn2 = PG_GETARG_LSN(1);
+
+    // Return true if first LSN is less than second (earlier in WAL)
+    PG_RETURN_BOOL(lsn1 < lsn2);
+}
+```

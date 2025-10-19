@@ -31,3 +31,14 @@ This function serves as a wrapper around the hash_uint32_extended function, prov
 - The extended hash variant provides better distribution properties when used with additional seed values
 - Typically used internally by PostgreSQL's hash-based operations rather than being called directly by user code
 - Located in src/backend/access/hash/hashfunc.c:77-82
+
+## Simplified Source
+
+```c
+Datum
+hashint4extended(PG_FUNCTION_ARGS)
+{
+    // Extract 32-bit integer and seed, then hash with extended function
+    return hash_uint32_extended(PG_GETARG_INT32(0), PG_GETARG_INT64(1));
+}
+```

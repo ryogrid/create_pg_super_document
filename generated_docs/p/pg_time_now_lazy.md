@@ -33,3 +33,15 @@ pg_time_now_lazy provides a performance optimization for scenarios where time re
 - Commonly used in error handling and logging contexts where timestamps are conditionally needed
 - The function modifies the value through the pointer, making it suitable for scenarios where multiple functions might need the same timestamp
 - Helps optimize performance by preventing redundant time retrievals when the same timestamp might be used multiple times
+
+## Simplified Source
+
+```c
+static inline void
+pg_time_now_lazy(pg_time_usec_t *now)
+{
+    // Only get time if not already set
+    if ((*now) == 0)
+        (*now) = pg_time_now();
+}
+```

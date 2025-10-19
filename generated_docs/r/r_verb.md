@@ -50,3 +50,33 @@ The bit mask optimization checks if the last character falls within specific ran
 - Returns 1 on successful suffix removal, 0 if no pattern matched
 - The character codes 0xC1 and 0xD1 correspond to 'а' and 'я' respectively in KOI8-R encoding
 - This step occurs after reflexive ending removal and before noun/adjective processing
+
+## Simplified Source
+
+```c
+static int r_verb(struct SN_env * z) {
+    int pattern_match;
+
+    // Set end boundary and check for valid verbal ending character
+    z->ket = z->c;
+    if (z->c <= z->lb || !valid_verb_char(z->p[z->c - 1])) return 0;
+
+    // Match against 46 verbal patterns in a_4 array
+    pattern_match = find_among_b(z, a_4, 46);
+    if (!pattern_match) return 0;
+
+    z->bra = z->c;
+    switch (pattern_match) {
+        case 1:
+            // Check for required prefix vowel (а or я) before deletion
+            if (!check_prefix_chars(z, 0xC1, 0xD1)) return 0;
+            slice_del(z);
+            break;
+        case 2:
+            // Standard verbal ending - delete directly
+            slice_del(z);
+            break;
+    }
+    return 1;
+}
+```

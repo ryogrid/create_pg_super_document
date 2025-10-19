@@ -31,3 +31,16 @@ This function implements the PostgreSQL bitwise XOR operator (#) for the BIGINT 
 - Part of a family of bitwise operations for 64-bit integers including int8and, int8or, int8not, int8shl, and int8shr
 - Implements the PostgreSQL bitwise XOR operator (#) for BIGINT data type
 - Uses standard PostgreSQL V1 function call convention
+
+## Simplified Source
+
+```c
+Datum int8xor(PG_FUNCTION_ARGS) {
+    // Extract two 64-bit integer arguments
+    int64 arg1 = PG_GETARG_INT64(0);
+    int64 arg2 = PG_GETARG_INT64(1);
+
+    // Perform bitwise XOR operation and return result
+    PG_RETURN_INT64(arg1 ^ arg2);
+}
+```

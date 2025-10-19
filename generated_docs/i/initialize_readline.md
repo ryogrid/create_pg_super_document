@@ -36,3 +36,37 @@ The function handles platform-specific features through conditional compilation,
 - The rl_completer_quote_characters is intentionally limited to single quotes only due to inconsistent library support for double quotes
 - Contains workarounds for differences between GNU readline and libedit implementations
 - Uses conditional compilation (#ifdef) to handle features that may not be available in all readline implementations
+
+## Simplified Source
+
+```c
+void initialize_readline(void) {
+    // Set basic readline configuration
+    rl_readline_name = (char *) pset.progname;
+    rl_attempted_completion_function = psql_completion;
+
+    // Configure filename quoting functions if available
+#ifdef USE_FILENAME_QUOTING_FUNCTIONS
+    rl_filename_quoting_function = quote_file_name;
+    rl_filename_dequoting_function = dequote_file_name;
+#endif
+
+    // Set characters that break words during completion
+    rl_basic_word_break_characters = WORD_BREAKS;
+
+    // Configure quote characters (only single quotes due to library limitations)
+    rl_completer_quote_characters = "'";
+
+    // Set up filename quote characters to include all possible chars
+#ifdef HAVE_RL_FILENAME_QUOTE_CHARACTERS
+    unsigned char *fqc = (unsigned char *) pg_malloc(256);
+    for (int i = 0; i < 255; i++)
+        fqc[i] = (unsigned char) (i + 1);
+    fqc[255] = '\0';
+    rl_filename_quote_characters = (const char *) fqc;
+#endif
+
+    // Set completion limit to prevent overwhelming output
+    completion_max_records = 1000;
+}
+```

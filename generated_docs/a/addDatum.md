@@ -34,3 +34,21 @@ This function adds a new datum-category pair to an existing KeyArray structure. 
 - Maintains synchronization between the keys and categories arrays
 - The growth factor of 2x provides a good balance between memory usage and reallocation frequency
 - Increments nvalues after successfully adding the datum to track the current array size
+
+## Simplified Source
+
+```c
+static void addDatum(KeyArray *keys, Datum datum, GinNullCategory category) {
+    // Resize arrays if at capacity (double the size)
+    if (keys->nvalues >= keys->maxvalues) {
+        keys->maxvalues *= 2;
+        keys->keys = repalloc_array(keys->keys, Datum, keys->maxvalues);
+        keys->categories = repalloc_array(keys->categories, GinNullCategory, keys->maxvalues);
+    }
+
+    // Add new datum and category at current position
+    keys->keys[keys->nvalues] = datum;
+    keys->categories[keys->nvalues] = category;
+    keys->nvalues++;
+}
+```

@@ -27,3 +27,13 @@ This function implements the finalization step for the "none" compression method
 - Contains no actual implementation code, just a comment indicating it's a no-op
 - Required to maintain API consistency with other compression implementations
 - Located in src/bin/pg_dump/compress_none.c:56-65
+
+## Simplified Source
+
+```c
+static void
+EndCompressorNone(ArchiveHandle *AH, CompressorState *cs)
+{
+    // No operation - no cleanup needed for uncompressed data
+}
+```

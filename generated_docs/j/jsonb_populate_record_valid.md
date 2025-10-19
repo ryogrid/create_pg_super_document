@@ -43,3 +43,24 @@ This function is particularly useful for data validation scenarios where you nee
 - Part of PostgreSQL's JSONB validation infrastructure
 - Callable from SQL as 
 - Essential for applications requiring pre-validation of JSONB data before processing
+
+## Simplified Source
+
+```c
+/*
+ * SQL function for testing jsonb_populate_record() validity.
+ * Returns true if population would succeed, false if it would error.
+ */
+Datum jsonb_populate_record_valid(PG_FUNCTION_ARGS) {
+    // Create error capture context to catch errors instead of throwing them
+    ErrorSaveContext escontext = {T_ErrorSaveContext};
+
+    // Try to populate record using the same worker function
+    // but with error context to capture any errors
+    (void) populate_record_worker(fcinfo, "jsonb_populate_record",
+                                  false, true, (Node *) &escontext);
+
+    // Return true if no error occurred, false if error was captured
+    return BoolGetDatum(!escontext.error_occurred);
+}
+```

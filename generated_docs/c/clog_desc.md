@@ -42,3 +42,30 @@ The function handles two main types of CLOG operations:
   - ZEROPAGE: "page [page_number]"
   - TRUNCATE: "page [page_number]; oldestXact [xid]"
 - Essential for WAL analysis and debugging tools that need to interpret CLOG-related WAL records
+
+## Simplified Source
+
+```c
+void
+clog_desc(StringInfo buf, XLogReaderState *record)
+{
+    char       *rec = XLogRecGetData(record);
+    uint8       info = XLogRecGetInfo(record) & ~XLR_INFO_MASK;
+
+    if (info == CLOG_ZEROPAGE)
+    {
+        // Extract page number and describe zero page operation
+        int64 pageno;
+        memcpy(&pageno, rec, sizeof(pageno));
+        appendStringInfo(buf, "page %lld", (long long) pageno);
+    }
+    else if (info == CLOG_TRUNCATE)
+    {
+        // Extract truncate info and describe truncate operation
+        xl_clog_truncate xlrec;
+        memcpy(&xlrec, rec, sizeof(xl_clog_truncate));
+        appendStringInfo(buf, "page %lld; oldestXact %u",
+                         (long long) xlrec.pageno, xlrec.oldestXact);
+    }
+}
+```

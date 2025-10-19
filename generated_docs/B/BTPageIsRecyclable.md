@@ -36,3 +36,25 @@ The function performs visibility checks using the global visibility map to deter
 
 ## Notes and Other Information
 This function is critical for B-tree space management and MVCC correctness. It includes detailed comments explaining the tombstone concept - deleted pages must remain as tombstones until no concurrent scans could reference them. The function explicitly excludes new pages (PageIsNew) which must be handled separately by callers. The logic is intentionally duplicated in _bt_pendingfsm_finalize() for performance reasons when working without direct page access. The function serves as the authoritative policy for page recycling decisions throughout the B-tree subsystem.
+
+## Simplified Source
+
+```c
+static inline bool BTPageIsRecyclable(Page page, Relation heaprel) {
+    Assert(!PageIsNew(page));
+    Assert(heaprel != NULL);
+
+    // Check if page is deleted
+    BTPageOpaque opaque = BTPageGetOpaque(page);
+    if (P_ISDELETED(opaque)) {
+        // Get the safe transaction ID from the deleted page
+        FullTransactionId safexid = BTPageGetDeleteXid(page);
+
+        // Page is recyclable if no active transaction can see the deletion
+        // This ensures MVCC correctness - page stays as tombstone until safe
+        return GlobalVisCheckRemovableFullXid(heaprel, safexid);
+    }
+
+    return false;  // Only deleted pages can be recycled
+}
+```

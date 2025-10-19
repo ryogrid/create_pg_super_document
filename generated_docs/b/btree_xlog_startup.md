@@ -40,3 +40,15 @@ The created memory context uses default allocation set sizes and is named for ea
 - The memory context will be reset after each B-tree recovery operation in btree_redo()
 - This is part of PostgreSQL's resource management strategy for WAL recovery operations
 - The function is typically registered as a startup callback in the B-tree access method's resource manager
+
+## Simplified Source
+
+```c
+void btree_xlog_startup(void)
+{
+    // Create memory context for B-tree recovery operations
+    opCtx = AllocSetContextCreate(CurrentMemoryContext,
+                                  "Btree recovery temporary context",
+                                  ALLOCSET_DEFAULT_SIZES);
+}
+```

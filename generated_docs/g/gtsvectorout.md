@@ -38,3 +38,34 @@ The gtsvectorout function serves as the output function for the gtsvector data t
 - The function handles memory management with PG_FREE_IF_COPY for proper cleanup
 - Located in src/backend/utils/adt/tsgistidx.c alongside other GiST support functions for tsvector
 - Primarily used for debugging and diagnostic purposes rather than end-user operations
+
+## Simplified Source
+
+```c
+Datum
+gtsvectorout(PG_FUNCTION_ARGS)
+{
+    SignTSVector *key = (SignTSVector *) PG_DETOAST_DATUM(PG_GETARG_DATUM(0));
+    char *outbuf = palloc(outbuf_maxlen);
+
+    if (ISARRKEY(key)) {
+        // For array keys: show element count
+        sprintf(outbuf, ARROUTSTR, (int) ARRNELEM(key));
+    }
+    else {
+        // For signature keys: show bit statistics
+        if (ISALLTRUE(key)) {
+            sprintf(outbuf, "all true bits");
+        }
+        else {
+            int siglen = GETSIGLEN(key);
+            int true_bits = sizebitvec(GETSIGN(key), siglen);
+            int false_bits = SIGLENBIT(siglen) - true_bits;
+            sprintf(outbuf, SINGOUTSTR, true_bits, false_bits);
+        }
+    }
+
+    PG_FREE_IF_COPY(key, 0);
+    PG_RETURN_POINTER(outbuf);
+}
+```

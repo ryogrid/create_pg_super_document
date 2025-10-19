@@ -37,3 +37,34 @@ The `int4div` function implements the division operation for PostgreSQL 32-bit i
 - Unlike other arithmetic operations, division generally cannot overflow except for the specific `INT_MIN / -1` case
 - The function includes a compiler hint comment to ensure proper optimization and avoid potential gcc bugs related to unreachable code after the division by zero error
 - Demonstrates PostgreSQLs defensive programming practices for handling edge cases in arithmetic operations
+
+## Simplified Source
+
+```c
+Datum int4div(PG_FUNCTION_ARGS) {
+    // Extract arguments
+    int32 arg1 = PG_GETARG_INT32(0);  // dividend
+    int32 arg2 = PG_GETARG_INT32(1);  // divisor
+
+    // Check for division by zero
+    if (arg2 == 0) {
+        ereport(ERROR, (errcode(ERRCODE_DIVISION_BY_ZERO),
+                       errmsg("division by zero")));
+        PG_RETURN_NULL();
+    }
+
+    // Handle special case: INT_MIN / -1 would overflow
+    if (arg2 == -1) {
+        if (unlikely(arg1 == PG_INT32_MIN)) {
+            ereport(ERROR, (errcode(ERRCODE_NUMERIC_VALUE_OUT_OF_RANGE),
+                           errmsg("integer out of range")));
+        }
+        // Division by -1 is just negation
+        PG_RETURN_INT32(-arg1);
+    }
+
+    // Perform the division
+    int32 result = arg1 / arg2;
+    PG_RETURN_INT32(result);
+}
+```

@@ -33,3 +33,24 @@ This function handles the execution of the \H (short form) and \html (long form)
 - Uses pset global variable to access current formatting options and quiet mode setting
 - The scan_state parameter is accepted for consistency with other command handlers but not used
 - Part of psql's output formatting control system for customizing query result display
+
+## Simplified Source
+
+```c
+static backslashResult exec_command_html(PsqlScanState scan_state, bool active_branch) {
+    bool success = true;
+
+    if (active_branch) {
+        // Toggle between HTML and aligned formats
+        if (pset.popt.topt.format != PRINT_HTML) {
+            // Switch to HTML format
+            success = do_pset("format", "html", &pset.popt, pset.quiet);
+        } else {
+            // Switch back to aligned format
+            success = do_pset("format", "aligned", &pset.popt, pset.quiet);
+        }
+    }
+
+    return success ? PSQL_CMD_SKIP_LINE : PSQL_CMD_ERROR;
+}
+```

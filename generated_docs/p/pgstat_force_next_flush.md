@@ -32,3 +32,14 @@ When the flag is set, pgstat_report_stat() will ignore its normal timing constra
 - The function only sets a flag; the actual forced flush occurs on the next pgstat_report_stat() call
 - The flag is automatically reset to false after being consumed, so each call to this function affects only the next single statistics flush
 - Provides a way to bypass the normal timing-based statistics flushing logic for scenarios requiring immediate statistics visibility
+
+## Simplified Source
+
+```c
+void
+pgstat_force_next_flush(void)
+{
+    // Set flag to force next statistics flush (used for testing)
+    pgStatForceNextFlush = true;
+}
+```

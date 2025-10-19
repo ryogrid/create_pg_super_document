@@ -44,3 +44,27 @@ The function is part of the bbstreamer_plain_writer_ops operations table and is 
 - Sets errno to ENOSPC when fwrite fails but errno is not set, assuming disk space problems
 - The member and context parameters are not used by this plain writer implementation
 - Part of the callback-based streaming architecture where different streamers implement different processing strategies
+
+## Simplified Source
+
+```c
+static void bbstreamer_plain_writer_content(bbstreamer *streamer,
+                                           bbstreamer_member *member, const char *data,
+                                           int len, bbstreamer_archive_context context) {
+    // Cast to specific streamer type
+    bbstreamer_plain_writer *mystreamer = (bbstreamer_plain_writer *) streamer;
+
+    // Skip empty writes
+    if (len == 0)
+        return;
+
+    // Write data to file
+    errno = 0;
+    if (fwrite(data, len, 1, mystreamer->file) != 1) {
+        // Assume disk space issue if no errno set
+        if (errno == 0)
+            errno = ENOSPC;
+        pg_fatal("could not write to file \"%s\": %m", mystreamer->pathname);
+    }
+}
+```

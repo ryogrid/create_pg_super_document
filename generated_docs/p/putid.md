@@ -30,3 +30,37 @@ The implementation must stay synchronized with dequoteAclUserName in pg_dump/dum
 
 ## Notes and Other Information
 The function performs a two-pass operation: first scanning to determine if quoting is needed, then formatting the output with appropriate quotes and escaping. The synchronization requirement with pg_dump ensures that ACL strings formatted by the server can be correctly parsed by dump utilities, maintaining consistency across PostgreSQL tools.
+
+## Simplified Source
+
+```c
+static void putid(char *p, const char *s) {
+    const char *src;
+    bool safe = true;
+
+    // Check if identifier needs quoting
+    for (src = s; *src; src++) {
+        if (!is_safe_acl_char(*src, false)) {
+            safe = false;
+            break;
+        }
+    }
+
+    // Add opening quote if needed
+    if (!safe)
+        *p++ = '"';
+
+    // Copy identifier, escaping quotes
+    for (src = s; *src; src++) {
+        if (*src == '"')
+            *p++ = '"';  // Escape quote by doubling
+        *p++ = *src;
+    }
+
+    // Add closing quote if needed
+    if (!safe)
+        *p++ = '"';
+
+    *p = '\0';
+}
+```

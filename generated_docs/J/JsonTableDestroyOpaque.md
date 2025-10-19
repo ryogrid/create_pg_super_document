@@ -37,3 +37,18 @@ This function serves as the counterpart to JsonTableInitOpaque, ensuring proper 
 - Setting the magic number to 0 is a defensive programming practice to detect use-after-free scenarios
 - The function is simple but critical for proper resource management in JSON_TABLE operations
 - After this function is called, any attempt to use the context should result in an error due to the invalidated magic number
+
+## Simplified Source
+
+```c
+static void JsonTableDestroyOpaque(TableFuncScanState *state) {
+    // Get the JSON table execution context
+    JsonTableExecContext *cxt = GetJsonTableExecContext(state, "JsonTableDestroyOpaque");
+
+    // Invalidate the magic number to prevent reuse
+    cxt->magic = 0;
+
+    // Clear the opaque pointer
+    state->opaque = NULL;
+}
+```

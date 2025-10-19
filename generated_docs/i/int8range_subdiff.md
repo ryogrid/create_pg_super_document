@@ -31,3 +31,16 @@ The function performs a simple arithmetic subtraction of the second parameter fr
 - The result is returned as float8 to provide sufficient precision and range for representing the difference
 - Located in src/backend/utils/adt/rangetypes.c:1630-1638
 - Used internally by PostgreSQL's range type system for operations requiring difference calculations between range bounds
+
+## Simplified Source
+
+```c
+Datum int8range_subdiff(PG_FUNCTION_ARGS) {
+    // Extract the two bigint arguments
+    int64 v1 = PG_GETARG_INT64(0);
+    int64 v2 = PG_GETARG_INT64(1);
+
+    // Return the difference as float8 to handle large values
+    PG_RETURN_FLOAT8((float8) v1 - (float8) v2);
+}
+```

@@ -50,3 +50,39 @@ This function is critical for maintaining data integrity in compressed files, as
 - Part of PostgreSQL's modular compression system that supports multiple compression algorithms
 - Critical for data integrity - ensures proper LZ4 stream termination and file closure
 - Logs errors but does not call pg_fatal(), allowing callers to handle failures appropriately
+
+## Simplified Source
+
+```c
+static bool
+LZ4Stream_close(CompressFileHandle *CFH)
+{
+    LZ4State *state = (LZ4State *) CFH->private_data;
+    FILE *fp = state->fp;
+
+    // Finalize compression or decompression if initialized
+    if (state->inited) {
+        if (state->compressing) {
+            // Finish compression: write any remaining data and footer
+            size_t status = LZ4F_compressEnd(state->ctx, state->buffer, state->buflen, NULL);
+            if (!LZ4F_isError(status)) {
+                fwrite(state->buffer, 1, status, fp);
+            }
+            LZ4F_freeCompressionContext(state->ctx);
+        } else {
+            // Clean up decompression context and overflow buffer
+            LZ4F_freeDecompressionContext(state->dtx);
+            pg_free(state->overflowbuf);
+        }
+
+        // Free compression buffer
+        pg_free(state->buffer);
+    }
+
+    // Clean up state and close file
+    pg_free(state);
+    CFH->private_data = NULL;
+
+    return (fclose(fp) == 0);
+}
+```

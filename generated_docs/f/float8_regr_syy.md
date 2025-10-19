@@ -29,3 +29,25 @@ This function serves as a final function for the SQL REGR_SYY aggregate, which c
 - Used in conjunction with float8_regr_accum for the complete REGR_SYY aggregate implementation
 - The transition array index 4 specifically contains the sum of squared deviations of Y values
 - Complementary to float8_regr_sxx which handles the X variable squared deviations
+
+## Simplified Source
+
+```c
+Datum
+float8_regr_syy(PG_FUNCTION_ARGS)
+{
+    ArrayType *transarray = PG_GETARG_ARRAYTYPE_P(0);
+
+    // Extract N (count) and Syy (sum of squared deviations of Y) from 6-element regression state
+    float8 *transvalues = check_float8_array(transarray, "float8_regr_syy", 6);
+    float8 N = transvalues[0];    // Count of data points
+    float8 Syy = transvalues[4];  // Sum of squared deviations of Y: Σ(Y - Ȳ)²
+
+    // Return NULL for empty datasets
+    if (N < 1.0)
+        PG_RETURN_NULL();
+
+    // Return sum of squared deviations of Y (guaranteed non-negative)
+    PG_RETURN_FLOAT8(Syy);
+}
+```

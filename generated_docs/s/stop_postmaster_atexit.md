@@ -29,3 +29,12 @@ This function serves as an atexit handler that ensures proper cleanup of the pos
 - It ensures cleanup happens automatically when the process exits
 - The function calls stop_postmaster with the 'fast' parameter set to true
 - Located in src/bin/pg_upgrade/server.c:191-197
+
+## Simplified Source
+
+```c
+static void stop_postmaster_atexit(void) {
+    // Cleanup function: stop postmaster when pg_upgrade exits
+    stop_postmaster(true);
+}
+```

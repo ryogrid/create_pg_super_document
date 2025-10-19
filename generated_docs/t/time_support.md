@@ -32,3 +32,20 @@ The time_support function serves as a planner support function specifically desi
 - The function only handles SupportRequestSimplify request types, returning NULL for other request types
 - Located in src/backend/utils/adt/date.c:1605-1624
 - Part of PostgreSQL's support function infrastructure for query optimization
+
+## Simplified Source
+
+```c
+Datum time_support(PG_FUNCTION_ARGS) {
+    Node *rawreq = (Node *) PG_GETARG_POINTER(0);
+    Node *ret = NULL;
+
+    // Handle simplification requests for time scaling functions
+    if (IsA(rawreq, SupportRequestSimplify)) {
+        SupportRequestSimplify *req = (SupportRequestSimplify *) rawreq;
+        ret = TemporalSimplify(MAX_TIME_PRECISION, (Node *) req->fcall);
+    }
+
+    PG_RETURN_POINTER(ret);
+}
+```

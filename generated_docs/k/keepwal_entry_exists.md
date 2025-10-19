@@ -29,3 +29,14 @@ The function is part of pg_rewind's file management system that categorizes file
 - Returns true if the file exists in the keepwal table, false otherwise
 - The keepwal hash table uses a simple hash implementation with initial size of KEEPWAL_INITIAL_SIZE (1000)
 - This function is critical for ensuring that essential WAL files are not accidentally removed during the rewind process
+
+## Simplified Source
+
+```c
+static bool
+keepwal_entry_exists(const char *path)
+{
+    // Check if WAL file is marked for preservation
+    return keepwal_lookup(keepwal, path) != NULL;
+}
+```

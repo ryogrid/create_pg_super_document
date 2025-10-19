@@ -35,3 +35,35 @@ The function returns a pointer to static memory that contains the background wor
 - The function acquires a shared lock on BackgroundWorkerLock to ensure thread-safe access to background worker data
 - Used primarily for system monitoring and diagnostic purposes, such as in PostgreSQL's system views that display background worker information
 - The background worker type string helps identify the specific role or purpose of a background worker process (e.g., "logical replication launcher", "parallel worker", etc.)
+
+## Simplified Source
+
+```c
+const char *
+GetBackgroundWorkerTypeByPid(pid_t pid)
+{
+    static char result[BGW_MAXLEN];
+    bool found = false;
+
+    // Lock background worker data for safe access
+    LWLockAcquire(BackgroundWorkerLock, LW_SHARED);
+
+    // Search through all worker slots for matching PID
+    for (int slotno = 0; slotno < BackgroundWorkerData->total_slots; slotno++)
+    {
+        BackgroundWorkerSlot *slot = &BackgroundWorkerData->slot[slotno];
+
+        if (slot->pid > 0 && slot->pid == pid)
+        {
+            // Copy worker type to static buffer
+            strcpy(result, slot->worker.bgw_type);
+            found = true;
+            break;
+        }
+    }
+
+    LWLockRelease(BackgroundWorkerLock);
+
+    return found ? result : NULL;
+}
+```

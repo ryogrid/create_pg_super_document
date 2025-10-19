@@ -44,3 +44,24 @@ The function handles three compression location scenarios:
 - The function supports both legacy integer-only compression specifications (defaulting to gzip) and modern algorithm:detail syntax
 - The parsing is case-sensitive for the "client-" and "server-" prefixes
 - This function works in conjunction with `parse_compress_options` to provide complete compression option parsing
+
+## Simplified Source
+
+```c
+static void backup_parse_compress_options(char *option, char **algorithm,
+                                        char **detail, CompressionLocation *locationres) {
+    // Check for location prefix and strip it off
+    if (strncmp(option, "server-", 7) == 0) {
+        *locationres = COMPRESS_LOCATION_SERVER;
+        option += 7;  // Skip "server-" prefix
+    } else if (strncmp(option, "client-", 7) == 0) {
+        *locationres = COMPRESS_LOCATION_CLIENT;
+        option += 7;  // Skip "client-" prefix
+    } else {
+        *locationres = COMPRESS_LOCATION_UNSPECIFIED;
+    }
+
+    // Parse remaining algorithm and detail using common function
+    parse_compress_options(option, algorithm, detail);
+}
+```

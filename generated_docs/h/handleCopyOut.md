@@ -42,3 +42,52 @@ This function processes the data transfer phase of a COPY TO STDOUT command. Aft
 - Handles libpq memory management properly by calling PQfreemem for each data buffer
 - Provides comprehensive error reporting for network, write, and command execution errors
 - Critical component of psql's COPY TO functionality
+
+## Simplified Source
+
+```c
+bool handleCopyOut(PGconn *conn, FILE *copystream, PGresult **res) {
+    bool success = true;
+    char *data_buffer;
+    int bytes_read;
+
+    // Main data transfer loop: read chunks and write to output
+    for (;;) {
+        bytes_read = PQgetCopyData(conn, &data_buffer, 0);
+
+        if (bytes_read < 0)
+            break;  // Transfer complete or error occurred
+
+        if (data_buffer) {
+            // Write data to output stream (if provided)
+            if (success && copystream &&
+                fwrite(data_buffer, 1, bytes_read, copystream) != bytes_read) {
+                pg_log_error("could not write COPY data: %m");
+                success = false;  // Continue reading to avoid connection issues
+            }
+            PQfreemem(data_buffer);
+        }
+    }
+
+    // Flush output stream
+    if (success && copystream && fflush(copystream)) {
+        pg_log_error("could not write COPY data: %m");
+        success = false;
+    }
+
+    // Check for transfer errors
+    if (bytes_read == -2) {
+        pg_log_error("COPY data transfer failed: %s", PQerrorMessage(conn));
+        success = false;
+    }
+
+    // Get final command status
+    *res = PQgetResult(conn);
+    if (PQresultStatus(*res) != PGRES_COMMAND_OK) {
+        pg_log_info("%s", PQerrorMessage(conn));
+        success = false;
+    }
+
+    return success;
+}
+```

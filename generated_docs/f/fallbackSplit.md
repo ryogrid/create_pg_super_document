@@ -44,3 +44,55 @@ For each group, the function computes the union (minimal bounding box) of all en
 - Used when more sophisticated splitting algorithms (like R-tree quadratic split) are not applicable
 - Ensures roughly balanced splits by dividing entries in half
 - Maintains GiST invariants by computing proper bounding boxes for both resulting groups
+
+## Simplified Source
+
+```c
+static void fallbackSplit(GistEntryVector *entryvec, GIST_SPLITVEC *v)
+{
+    OffsetNumber i, maxoff;
+    BOX *unionL = NULL, *unionR = NULL;
+
+    maxoff = entryvec->n - 1;
+
+    // Allocate arrays for left and right split results
+    v->spl_left = palloc((maxoff + 2) * sizeof(OffsetNumber));
+    v->spl_right = palloc((maxoff + 2) * sizeof(OffsetNumber));
+    v->spl_nleft = v->spl_nright = 0;
+
+    // Split entries in half: first half to left, second half to right
+    for (i = FirstOffsetNumber; i <= maxoff; i = OffsetNumberNext(i))
+    {
+        BOX *cur = DatumGetBoxP(entryvec->vector[i].key);
+
+        if (i <= (maxoff - FirstOffsetNumber + 1) / 2)
+        {
+            // Add to left group
+            v->spl_left[v->spl_nleft] = i;
+            if (unionL == NULL) {
+                unionL = palloc(sizeof(BOX));
+                *unionL = *cur;
+            } else {
+                adjustBox(unionL, cur);  // Expand bounding box
+            }
+            v->spl_nleft++;
+        }
+        else
+        {
+            // Add to right group
+            v->spl_right[v->spl_nright] = i;
+            if (unionR == NULL) {
+                unionR = palloc(sizeof(BOX));
+                *unionR = *cur;
+            } else {
+                adjustBox(unionR, cur);  // Expand bounding box
+            }
+            v->spl_nright++;
+        }
+    }
+
+    // Set union bounding boxes for both groups
+    v->spl_ldatum = BoxPGetDatum(unionL);
+    v->spl_rdatum = BoxPGetDatum(unionR);
+}
+```

@@ -44,3 +44,30 @@ Several assertions ensure data integrity: the attribute count doesn't exceed IND
 - The heaptid parameter enables the special pivot tuple representation that includes heap TID tiebreaker values
 - Used during B-tree construction, page splitting, and tuple truncation operations
 - The function establishes the foundation for pivot tuple functionality in B-tree internal pages
+
+## Simplified Source
+
+```c
+static inline void
+BTreeTupleSetNAtts(IndexTuple itup, uint16 nkeyatts, bool heaptid)
+{
+    // Validate input parameters
+    Assert(nkeyatts <= INDEX_MAX_KEYS);
+    Assert((nkeyatts & BT_STATUS_OFFSET_MASK) == 0);
+    Assert(!heaptid || nkeyatts > 0);
+    Assert(!BTreeTupleIsPivot(itup) || nkeyatts == 0);
+
+    // Mark tuple as pivot tuple
+    itup->t_info |= INDEX_ALT_TID_MASK;
+
+    // Set heap TID tiebreaker bit if requested
+    if (heaptid)
+        nkeyatts |= BT_PIVOT_HEAP_TID_ATTR;
+
+    // Store attribute count in offset number field
+    // BT_IS_POSTING bit is deliberately unset here
+    ItemPointerSetOffsetNumber(&itup->t_tid, nkeyatts);
+
+    Assert(BTreeTupleIsPivot(itup));
+}
+```

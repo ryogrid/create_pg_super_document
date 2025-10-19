@@ -30,3 +30,20 @@ This is a standard comparison function that implements the comparison logic requ
 - The function enables efficient O(log n) searches through sorted arrays of backend status entries
 - Returns the difference between proc_number fields, which naturally provides the correct ordering for bsearch()
 - Part of PostgreSQL's backend status tracking system for monitoring active database connections and processes
+
+## Simplified Source
+
+```c
+static int
+cmp_lbestatus(const void *a, const void *b)
+{
+    // Cast void pointers to specific struct types
+    const LocalPgBackendStatus *lbestatus1 = (const LocalPgBackendStatus *) a;
+    const LocalPgBackendStatus *lbestatus2 = (const LocalPgBackendStatus *) b;
+
+    // Compare by proc_number field for binary search ordering
+    return lbestatus1->proc_number - lbestatus2->proc_number;
+}
+```
+
+This simplified version shows the essential logic: a standard comparison function that compares LocalPgBackendStatus structures by their proc_number field, enabling efficient binary search operations on sorted arrays of backend status entries.

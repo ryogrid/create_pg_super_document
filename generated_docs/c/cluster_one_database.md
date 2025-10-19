@@ -45,3 +45,47 @@ This function connects to a specific PostgreSQL database and executes a CLUSTER 
 - Exits with status 1 if clustering fails
 - Properly handles both single-table and database-wide clustering scenarios
 - Includes qualified relation name handling to support schema-qualified table names
+
+## Simplified Source
+
+```c
+static void cluster_one_database(const ConnParams *cparams, const char *table,
+                                const char *progname, bool verbose, bool echo)
+{
+    PQExpBufferData sql;
+    PGconn *conn;
+
+    // Connect to the target database
+    conn = connectDatabase(cparams, progname, echo, false, true);
+
+    // Build CLUSTER command
+    initPQExpBuffer(&sql);
+    appendPQExpBufferStr(&sql, "CLUSTER");
+    if (verbose)
+        appendPQExpBufferStr(&sql, " VERBOSE");
+    if (table)
+    {
+        appendPQExpBufferChar(&sql, ' ');
+        appendQualifiedRelation(&sql, table, conn, echo);
+    }
+    appendPQExpBufferChar(&sql, ';');
+
+    // Execute the CLUSTER command
+    if (!executeMaintenanceCommand(conn, sql.data, echo))
+    {
+        // Report failure and exit
+        if (table)
+            pg_log_error("clustering of table \"%s\" in database \"%s\" failed: %s",
+                        table, PQdb(conn), PQerrorMessage(conn));
+        else
+            pg_log_error("clustering of database \"%s\" failed: %s",
+                        PQdb(conn), PQerrorMessage(conn));
+        PQfinish(conn);
+        exit(1);
+    }
+
+    // Clean up
+    PQfinish(conn);
+    termPQExpBuffer(&sql);
+}
+```

@@ -37,3 +37,24 @@ This distinction is important for mathematical operations and proper handling of
 - The function handles the platform-specific variations in infinity representation and detection
 - Critical for mathematical correctness when dealing with infinite results from operations like division by zero or overflow
 - The three-way return value (-1, 0, 1) provides complete information about the infinity status and sign
+
+## Simplified Source
+
+```c
+int
+is_infinite(double val)
+{
+    // Check if value is infinite using standard library
+    int inf = isinf(val);
+
+    if (inf == 0) {
+        return 0;          // Not infinite
+    } else if (val > 0) {
+        return 1;          // Positive infinity
+    } else {
+        return -1;         // Negative infinity
+    }
+}
+```
+
+**Simplified Logic**: This function provides portable infinity detection by first checking if a value is infinite using `isinf()`, then determining the sign to distinguish between positive (+∞) and negative (-∞) infinity. Returns -1 for negative infinity, 1 for positive infinity, and 0 for finite values.

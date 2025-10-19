@@ -41,3 +41,59 @@ The is_xlogfilename function performs comprehensive validation of WAL filenames 
 - The function uses output parameters to return multiple pieces of information about the file
 - Critical for pg_receivewal utility's WAL file management and validation
 - Returns false for any filename that doesn't match known WAL file patterns
+
+## Simplified Source
+
+```c
+static bool is_xlogfilename(const char *filename, bool *ispartial,
+                           pg_compress_algorithm *wal_compression_algorithm) {
+    size_t fname_len = strlen(filename);
+    size_t xlog_pattern_len = strspn(filename, "0123456789ABCDEF");
+
+    // Must start with exactly 24 hex characters (standard WAL filename)
+    if (xlog_pattern_len != XLOG_FNAME_LEN) {
+        return false;
+    }
+
+    // Check various WAL file formats
+    if (fname_len == XLOG_FNAME_LEN) {
+        // Uncompressed complete WAL file
+        *ispartial = false;
+        *wal_compression_algorithm = PG_COMPRESSION_NONE;
+        return true;
+    } else if (fname_len == XLOG_FNAME_LEN + strlen(".gz") &&
+               strcmp(filename + XLOG_FNAME_LEN, ".gz") == 0) {
+        // Gzip compressed complete WAL file
+        *ispartial = false;
+        *wal_compression_algorithm = PG_COMPRESSION_GZIP;
+        return true;
+    } else if (fname_len == XLOG_FNAME_LEN + strlen(".lz4") &&
+               strcmp(filename + XLOG_FNAME_LEN, ".lz4") == 0) {
+        // LZ4 compressed complete WAL file
+        *ispartial = false;
+        *wal_compression_algorithm = PG_COMPRESSION_LZ4;
+        return true;
+    } else if (fname_len == XLOG_FNAME_LEN + strlen(".partial") &&
+               strcmp(filename + XLOG_FNAME_LEN, ".partial") == 0) {
+        // Uncompressed partial WAL file
+        *ispartial = true;
+        *wal_compression_algorithm = PG_COMPRESSION_NONE;
+        return true;
+    } else if (fname_len == XLOG_FNAME_LEN + strlen(".gz.partial") &&
+               strcmp(filename + XLOG_FNAME_LEN, ".gz.partial") == 0) {
+        // Gzip compressed partial WAL file
+        *ispartial = true;
+        *wal_compression_algorithm = PG_COMPRESSION_GZIP;
+        return true;
+    } else if (fname_len == XLOG_FNAME_LEN + strlen(".lz4.partial") &&
+               strcmp(filename + XLOG_FNAME_LEN, ".lz4.partial") == 0) {
+        // LZ4 compressed partial WAL file
+        *ispartial = true;
+        *wal_compression_algorithm = PG_COMPRESSION_LZ4;
+        return true;
+    }
+
+    // Filename doesn't match any known WAL pattern
+    return false;
+}
+```

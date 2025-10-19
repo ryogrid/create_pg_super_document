@@ -35,3 +35,22 @@ The `newNode` function allocates zero-initialized memory for a new node structur
 - The function is declared as `static inline` for performance optimization
 - Direct usage is discouraged; the `makeNode(type)` macro should be used instead for type safety and convenience
 - Part of PostgreSQL's node system that provides a uniform interface for parse trees, plan trees, and other tree structures
+
+## Simplified Source
+
+```c
+static inline Node *newNode(size_t size, NodeTag tag) {
+    Node *result;
+
+    // Ensure size is at least large enough for base Node structure
+    Assert(size >= sizeof(Node));
+
+    // Allocate zero-initialized memory and set type tag
+    result = (Node *) palloc0(size);
+    result->type = tag;
+
+    return result;
+}
+```
+
+This function creates a new PostgreSQL node by allocating zero-initialized memory of the specified size and setting the node's type tag. It's the foundation for all node creation in PostgreSQL's parse and execution trees, though the `makeNode` macro is typically used instead for convenience.

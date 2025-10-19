@@ -36,3 +36,23 @@ The function handles the complexity of different readline implementations (libre
 - Some platforms declare HIST_ENTRY.line as const char *, requiring a cast to char * for modification
 - The decoding is the reverse operation of encode_history, which converts '\n' to NL_IN_HISTORY when saving history
 - This mechanism is necessary because readline routines cannot properly handle 0x00 characters, making 0x01 a safer choice for the placeholder
+
+## Simplified Source
+
+```c
+static void decode_history(void) {
+    // Iterate through all history entries
+    BEGIN_ITERATE_HISTORY(cur_hist);
+    {
+        char *cur_ptr;
+
+        // Convert special markers back to newlines
+        for (cur_ptr = (char *) cur_hist->line; *cur_ptr; cur_ptr++) {
+            if (*cur_ptr == NL_IN_HISTORY) {
+                *cur_ptr = '\n';
+            }
+        }
+    }
+    END_ITERATE_HISTORY();
+}
+```

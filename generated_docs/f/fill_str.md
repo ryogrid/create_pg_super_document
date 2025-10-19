@@ -40,3 +40,17 @@ The function uses `memset` to efficiently fill the buffer with the specified cha
 - The null terminator is placed at position (str + max), making the total string length max+1 bytes
 - Used extensively throughout PostgreSQL's numeric formatting functions for creating padded output strings
 - Simple but essential utility that abstracts the common pattern of filling and null-terminating character buffers
+
+## Simplified Source
+
+```c
+static char *fill_str(char *str, int c, int max) {
+    // Fill buffer with specified character
+    memset(str, c, max);
+
+    // Null-terminate the string
+    *(str + max) = '\0';
+
+    return str;
+}
+```

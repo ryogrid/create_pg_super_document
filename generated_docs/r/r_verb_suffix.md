@@ -50,3 +50,38 @@ This function is essential for properly stemming verbs in Romance languages, whe
 - Returns 1 on successful removal, 0 if no verb suffix matched, and negative values on error
 - All matched suffixes are completely removed rather than replaced, indicating that verb suffix removal aims to reach the verb root
 - The large number of patterns (283) reflects the rich verbal morphology characteristic of Romance languages
+
+## Simplified Source
+
+```c
+static int r_verb_suffix(struct SN_env * z) {
+    // Set end boundary and search for verb suffix pattern
+    z->ket = z->c;
+    int verb_category = find_among_b(z, a_3, 283);
+
+    if (!verb_category) {
+        return 0;  // No verb suffix pattern found
+    }
+
+    z->bra = z->c;  // Set start boundary
+
+    // Apply removal based on verb suffix category
+    switch (verb_category) {
+        case 1:
+            // Category 1: Basic verb suffixes (require R1 region)
+            if (r_R1(z)) {
+                return slice_del(z);
+            }
+            break;
+
+        case 2:
+            // Category 2: Complex verb suffixes (require R2 region)
+            if (r_R2(z)) {
+                return slice_del(z);
+            }
+            break;
+    }
+
+    return 1;  // Pattern found but region requirements not met
+}
+```

@@ -36,3 +36,65 @@ dobyteatrim is a helper function that implements the common trimming logic for b
 - Returns the original string unchanged if either string or set is empty
 - Allocates new bytea structure for the result and copies the trimmed portion
 - Part of PostgreSQL's Oracle compatibility layer for binary data operations
+
+## Simplified Source
+
+```c
+bytea *dobyteatrim(bytea *string, bytea *set, bool doltrim, bool dortrim) {
+    // Get string data and lengths
+    char *str_ptr = VARDATA_ANY(string);
+    char *set_ptr = VARDATA_ANY(set);
+    int str_len = VARSIZE_ANY_EXHDR(string);
+    int set_len = VARSIZE_ANY_EXHDR(set);
+
+    // Return original if either string or set is empty
+    if (str_len <= 0 || set_len <= 0)
+        return string;
+
+    // Set up pointers for trimming
+    char *start = str_ptr;
+    char *end = str_ptr + str_len - 1;
+    int remaining_len = str_len;
+
+    // Trim from left if requested
+    if (doltrim) {
+        while (remaining_len > 0) {
+            // Check if current byte is in trim set
+            bool found_in_set = false;
+            for (int i = 0; i < set_len; i++) {
+                if (*start == set_ptr[i]) {
+                    found_in_set = true;
+                    break;
+                }
+            }
+            if (!found_in_set) break;
+            start++;
+            remaining_len--;
+        }
+    }
+
+    // Trim from right if requested
+    if (dortrim) {
+        while (remaining_len > 0) {
+            // Check if current byte is in trim set
+            bool found_in_set = false;
+            for (int i = 0; i < set_len; i++) {
+                if (*end == set_ptr[i]) {
+                    found_in_set = true;
+                    break;
+                }
+            }
+            if (!found_in_set) break;
+            end--;
+            remaining_len--;
+        }
+    }
+
+    // Create result bytea and copy trimmed data
+    bytea *result = (bytea *) palloc(VARHDRSZ + remaining_len);
+    SET_VARSIZE(result, VARHDRSZ + remaining_len);
+    memcpy(VARDATA(result), start, remaining_len);
+
+    return result;
+}
+```

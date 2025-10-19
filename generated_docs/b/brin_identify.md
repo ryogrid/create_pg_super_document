@@ -300,3 +300,34 @@ Text creation and manipulation
 
 ## Notes and Other Information
 The function returns NULL for unrecognized operation types, allowing calling code to handle unknown operations appropriately. The function handles composite operations by using bitwise OR operations to combine base operation types with flags like XLOG_BRIN_INIT_PAGE. This design allows for extensible operation identification while maintaining backward compatibility. The returned strings are static constants, so no memory management is required by the caller.
+
+## Simplified Source
+
+```c
+const char *
+brin_identify(uint8 info)
+{
+    // Remove extra bits to get base operation type
+    switch (info & ~XLR_INFO_MASK)
+    {
+        case XLOG_BRIN_CREATE_INDEX:
+            return "CREATE_INDEX";
+        case XLOG_BRIN_INSERT:
+            return "INSERT";
+        case XLOG_BRIN_INSERT | XLOG_BRIN_INIT_PAGE:
+            return "INSERT+INIT";
+        case XLOG_BRIN_UPDATE:
+            return "UPDATE";
+        case XLOG_BRIN_UPDATE | XLOG_BRIN_INIT_PAGE:
+            return "UPDATE+INIT";
+        case XLOG_BRIN_SAMEPAGE_UPDATE:
+            return "SAMEPAGE_UPDATE";
+        case XLOG_BRIN_REVMAP_EXTEND:
+            return "REVMAP_EXTEND";
+        case XLOG_BRIN_DESUMMARIZE:
+            return "DESUMMARIZE";
+        default:
+            return NULL;
+    }
+}
+```

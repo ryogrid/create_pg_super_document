@@ -40,3 +40,25 @@ The function uses backward matching from the current cursor position and require
 - Verifies the last character is 's̈' (Unicode 159) before attempting pattern matching
 - Part of the Turkish morphological analysis focusing on past participle recognition
 - The suffix variants follow Turkish vowel harmony: front vowels (i, ü) vs back vowels (ı, u)
+
+## Simplified Source
+
+```c
+static int r_mark_ymUs_(struct SN_env * z) {
+    // Check Turkish vowel harmony rules
+    int ret = r_check_vowel_harmony(z);
+    if (ret <= 0) return ret;
+
+    // Check minimum length (3 chars) and ending with 'ş' (char 159)
+    if (z->c - 3 <= z->lb || z->p[z->c - 1] != 159) return 0;
+
+    // Find Turkish past participle patterns (miş, muş, mış, müş)
+    if (!find_among_b(z, a_22, 4)) return 0;
+
+    // Handle optional 'y' consonant processing
+    ret = r_mark_suffix_with_optional_y_consonant(z);
+    if (ret <= 0) return ret;
+
+    return 1;  // Successfully found and processed suffix
+}
+```

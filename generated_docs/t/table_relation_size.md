@@ -31,3 +31,14 @@ The implementation delegates to the underlying table access method, allowing dif
 - The function is part of the table access method abstraction layer, allowing PostgreSQL to support different storage engines
 - Different access methods may calculate size differently, and the overall size may not equal the sum of individual fork sizes
 - Located in src/include/access/tableam.h:1869-1877
+
+## Simplified Source
+```c
+static inline uint64
+table_relation_size(Relation rel, ForkNumber forkNumber)
+{
+    // Return size in bytes for specific fork or overall relation
+    // InvalidForkNumber returns overall size, otherwise specific fork size
+    return rel->rd_tableam->relation_size(rel, forkNumber);
+}
+```

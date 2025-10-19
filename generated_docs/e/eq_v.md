@@ -37,3 +37,13 @@ Like , this function matches text at the current cursor position moving forward,
 - Part of the forward-matching family of functions in Snowball utilities
 - Less commonly used compared to  as most stemming operations work with fixed-size patterns
 - The underlying  function performs the actual matching and cursor advancement
+
+## Simplified Source
+
+```c
+extern int eq_v(struct SN_env * z, const symbol * p) {
+    // Forward string matching for variable-length symbol arrays
+    // Uses SIZE macro to extract length from the symbol array
+    return eq_s(z, SIZE(p), p);
+}
+```

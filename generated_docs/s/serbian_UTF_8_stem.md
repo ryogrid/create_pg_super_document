@@ -55,3 +55,41 @@ The function uses a sophisticated control flow with labels (lab0, lab1, lab2) an
 - Returns 1 on successful processing, or negative value on error
 - The stemming algorithm is specifically designed for Serbian morphology and handles the complex suffix patterns of the Serbian language
 - Supports PostgreSQL's full-text search capabilities for Serbian language documents
+
+## Simplified Source
+
+```c
+extern int serbian_UTF_8_stem(struct SN_env * z) {
+    // Phase 1: Character and text preprocessing
+    if (r_cyr_to_lat(z) < 0) return -1;        // Convert Cyrillic to Latin
+    if (r_prelude(z) < 0) return -1;           // Normalize text
+    if (r_mark_regions(z) < 0) return -1;     // Mark morphological boundaries
+
+    // Phase 2: Set cursor for suffix processing
+    z->lb = z->c;     // Save current position as lower bound
+    z->c = z->l;      // Move cursor to end of string
+
+    // Phase 3: Primary suffix removal (Step 1)
+    int saved_pos = z->l - z->c;
+    if (r_Step_1(z) < 0) return -1;           // Remove primary suffixes
+    z->c = z->l - saved_pos;                  // Restore position
+
+    // Phase 4: Secondary suffix removal (Step 2 OR Step 3)
+    saved_pos = z->l - z->c;
+
+    // Try Step 2 first (common derivational suffixes)
+    int step2_pos = z->l - z->c;
+    if (r_Step_2(z) > 0) {
+        // Step 2 succeeded, skip Step 3
+    } else {
+        // Step 2 failed, try Step 3 instead
+        z->c = z->l - step2_pos;
+        r_Step_3(z);  // Alternative suffix removal
+    }
+
+    z->c = z->l - saved_pos;  // Restore position after Step 2/3
+    z->c = z->lb;             // Return cursor to original position
+
+    return 1;  // Success
+}
+```

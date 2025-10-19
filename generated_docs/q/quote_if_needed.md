@@ -41,3 +41,59 @@ The function implements proper escaping by doubling quote and escape characters 
 - Allocates excess memory (2 * strlen + 3) to accommodate worst-case escaping scenarios
 - Properly handles multi-byte characters through encoding parameter
 - The force_quote parameter allows unconditional quoting even when content analysis suggests it's not needed
+
+## Simplified Source
+
+```c
+char *quote_if_needed(const char *source, const char *entails_quote,
+                     char quote, char escape, bool force_quote,
+                     int encoding) {
+    const char *src;
+    char *ret, *dst;
+    bool need_quotes = force_quote;
+
+    // Allocate buffer for worst-case scenario (every char doubled + quotes)
+    src = source;
+    dst = ret = pg_malloc(2 * strlen(src) + 3);
+
+    // Start with opening quote
+    *dst++ = quote;
+
+    // Process each character in source
+    while (*src) {
+        char c = *src;
+
+        // Double quote characters and mark as needing quotes
+        if (c == quote) {
+            need_quotes = true;
+            *dst++ = quote;
+        }
+        // Double escape characters and mark as needing quotes
+        else if (c == escape) {
+            need_quotes = true;
+            *dst++ = escape;
+        }
+        // Check if character requires quoting
+        else if (strchr(entails_quote, c)) {
+            need_quotes = true;
+        }
+
+        // Copy the actual character(s) handling multi-byte encoding
+        int char_len = PQmblenBounded(src, encoding);
+        while (char_len--)
+            *dst++ = *src++;
+    }
+
+    // Add closing quote and null terminator
+    *dst++ = quote;
+    *dst = '\0';
+
+    // Return quoted string only if quoting was needed
+    if (!need_quotes) {
+        free(ret);
+        ret = NULL;
+    }
+
+    return ret;
+}
+```

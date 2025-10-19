@@ -33,3 +33,16 @@ This function is a PostgreSQL built-in function that implements the '>' operator
 - The comparison is performed as a simple integer comparison since Cash is typedef'd to int64
 - This function is typically invoked through PostgreSQL's operator system rather than direct function calls
 - Part of the standard comparison operators for the money/cash data type
+
+## Simplified Source
+
+```c
+Datum
+cash_gt(PG_FUNCTION_ARGS)
+{
+    Cash c1 = PG_GETARG_CASH(0);
+    Cash c2 = PG_GETARG_CASH(1);
+
+    PG_RETURN_BOOL(c1 > c2);
+}
+```

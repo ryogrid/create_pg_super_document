@@ -33,3 +33,20 @@ The function uses the BBSTREAMER_UNKNOWN context when forwarding final data sinc
 - Must be called exactly once at the end of stream processing to properly clean up the processing pipeline
 - The function assumes that any pending data in the output buffer represents the final portion of decompressed content
 - Forwarded data uses the maximum buffer length rather than tracking partial fills, relying on the next streamer to handle appropriate data boundaries
+
+## Simplified Source
+
+```c
+static void bbstreamer_lz4_decompressor_finalize(bbstreamer *streamer) {
+    bbstreamer_lz4_frame *mystreamer = (bbstreamer_lz4_frame *) streamer;
+
+    // Forward any remaining buffered data to next streamer
+    bbstreamer_content(mystreamer->base.bbs_next, NULL,
+                       mystreamer->base.bbs_buffer.data,
+                       mystreamer->base.bbs_buffer.maxlen,
+                       BBSTREAMER_UNKNOWN);
+
+    // Finalize the processing chain
+    bbstreamer_finalize(mystreamer->base.bbs_next);
+}
+```

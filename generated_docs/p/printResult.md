@@ -38,3 +38,23 @@ The function prints each row of results showing the values from all three arrays
 - The function assumes the global arrays f1, f2, f3 have been populated by previous database operations
 - Located in src/interfaces/ecpg/test/expected/sql-declare.c:607-618
 - Called once for each of the four main test cases in execute_test function
+
+## Simplified Source
+
+```c
+void printResult(char *tc_name, int loop) {
+    int i;
+
+    // Print test case header if name provided
+    if (tc_name)
+        printf("****%s test results:****\n", tc_name);
+
+    // Print all result rows in formatted output
+    for (i = 0; i < loop; i++)
+        printf("f1=%d, f2=%d, f3=%s\n", f1[i], f2[i], f3[i]);
+
+    printf("\n");
+}
+```
+
+This function displays ECPG test results by printing a header with the test case name (if provided) followed by formatted output of result rows from global arrays f1, f2, and f3. It's a simple utility for consistent test output formatting.

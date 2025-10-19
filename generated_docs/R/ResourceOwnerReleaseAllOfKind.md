@@ -37,3 +37,53 @@ To prevent corruption during the scanning process, the function temporarily sets
 - Uses kind-specific ReleaseResource callback to handle the actual resource cleanup
 - Maintains storage structure integrity by properly removing items from both array and hash collections
 - Primarily used by specialized subsystems that need to clean up specific resource types selectively
+
+## Simplified Source
+```c
+void
+ResourceOwnerReleaseAllOfKind(ResourceOwner owner, const ResourceOwnerDesc *kind)
+{
+    // Ensure we haven't already started releasing resources
+    if (owner->releasing)
+        elog(ERROR, "ResourceOwnerForget called for %s after release started", kind->name);
+
+    // Prevent concurrent modifications during scanning
+    owner->releasing = true;
+
+    // Release matching resources from array storage
+    for (int i = 0; i < owner->narr; i++)
+    {
+        if (owner->arr[i].kind == kind)
+        {
+            Datum value = owner->arr[i].item;
+
+            // Remove from array by moving last element to current position
+            owner->arr[i] = owner->arr[owner->narr - 1];
+            owner->narr--;
+            i--; // Check this position again since we moved an element here
+
+            // Release the resource using kind-specific callback
+            kind->ReleaseResource(value);
+        }
+    }
+
+    // Release matching resources from hash table storage
+    for (int i = 0; i < owner->capacity; i++)
+    {
+        if (owner->hash[i].kind == kind)
+        {
+            Datum value = owner->hash[i].item;
+
+            // Clear hash entry
+            owner->hash[i].item = (Datum) 0;
+            owner->hash[i].kind = NULL;
+            owner->nhash--;
+
+            // Release the resource using kind-specific callback
+            kind->ReleaseResource(value);
+        }
+    }
+
+    owner->releasing = false;
+}
+```

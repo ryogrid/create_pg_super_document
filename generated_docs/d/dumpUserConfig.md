@@ -39,3 +39,45 @@ The function includes proper sanitization of the username for safe display in co
 - Part of the comprehensive role restoration process in pg_dumpall
 - Essential for preserving user-specific default settings during cluster migration
 - Coordinates with dumpRoles function to provide complete role restoration
+
+## Simplified Source
+
+```c
+static void dumpUserConfig(PGconn *conn, const char *username)
+{
+    PQExpBuffer buf = createPQExpBuffer();
+    PGresult *res;
+
+    // Build query to find user's role-level configuration settings
+    printfPQExpBuffer(buf, "SELECT unnest(setconfig) FROM pg_db_role_setting "
+                          "WHERE setdatabase = 0 AND setrole = "
+                          "(SELECT oid FROM %s WHERE rolname = ",
+                          role_catalog);
+    appendStringLiteralConn(buf, username, conn);
+    appendPQExpBufferChar(buf, ')');
+
+    // Execute query to get configuration settings
+    res = executeQuery(conn, buf->data);
+
+    // Print header if settings found
+    if (PQntuples(res) > 0)
+    {
+        char *sanitized_name = sanitize_line(username, true);
+        fprintf(OPF, "\n--\n-- User Config \"%s\"\n--\n\n", sanitized_name);
+        free(sanitized_name);
+    }
+
+    // Generate ALTER ROLE SET commands for each configuration setting
+    for (int i = 0; i < PQntuples(res); i++)
+    {
+        resetPQExpBuffer(buf);
+        makeAlterConfigCommand(conn, PQgetvalue(res, i, 0),
+                              "ROLE", username, NULL, NULL, buf);
+        fprintf(OPF, "%s", buf->data);
+    }
+
+    // Cleanup
+    PQclear(res);
+    destroyPQExpBuffer(buf);
+}
+```

@@ -36,3 +36,19 @@ This AVL tree implementation is optimized for the specific use case of collectin
 - This is part of a minimalistic AVL tree implementation focused only on insertion and traversal
 - The tree is used specifically for collecting distinct values during crosstab header generation
 - Memory for the sentinel node is allocated using pg_malloc0 to ensure zero initialization
+
+## Simplified Source
+
+```c
+static void avlInit(avl_tree *tree) {
+    // Create sentinel end node that acts as boundary marker
+    tree->end = pg_malloc0(sizeof(avl_node));
+
+    // Make sentinel self-referential for clean traversal
+    tree->end->children[0] = tree->end->children[1] = tree->end;
+
+    // Initialize empty tree
+    tree->count = 0;
+    tree->root = tree->end;
+}
+```

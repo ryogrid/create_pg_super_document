@@ -38,3 +38,20 @@ This enables aggregation of statistics from multiple threads, time periods, or m
 - Essential for multi-threaded pgbench scenarios where each thread collects separate statistics
 - Does not modify the source SimpleStats structure (`ss`)
 - Located in src/bin/pgbench/pgbench.c:1418-1433
+
+## Simplified Source
+
+```c
+static void mergeSimpleStats(SimpleStats *acc, SimpleStats *ss) {
+    // Update overall min/max from both datasets
+    if (acc->count == 0 || ss->min < acc->min)
+        acc->min = ss->min;
+    if (acc->count == 0 || ss->max > acc->max)
+        acc->max = ss->max;
+
+    // Combine counts, sums, and sum of squares
+    acc->count += ss->count;
+    acc->sum += ss->sum;
+    acc->sum2 += ss->sum2;
+}
+```

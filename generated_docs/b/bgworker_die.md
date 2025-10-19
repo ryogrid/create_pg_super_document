@@ -39,3 +39,20 @@ The function follows PostgreSQL's standard pattern for signal handlers by first 
 - The error message includes the worker's bgw_type for identification
 - Proper signal handling is ensured by masking all signals before proceeding
 - This is the standard way PostgreSQL background workers handle termination requests
+
+## Simplified Source
+
+```c
+static void
+bgworker_die(SIGNAL_ARGS)
+{
+    // Block all signals to prevent race conditions
+    sigprocmask(SIG_SETMASK, &BlockSig, NULL);
+
+    // Terminate worker with FATAL error message including worker type
+    ereport(FATAL,
+            (errcode(ERRCODE_ADMIN_SHUTDOWN),
+             errmsg("terminating background worker \"%s\" due to administrator command",
+                    MyBgworkerEntry->bgw_type)));
+}
+```

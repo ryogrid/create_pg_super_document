@@ -30,3 +30,17 @@ This function traverses a SimpleStringList to find the first list cell that has 
 - Primarily used in pg_dump utilities for strict name checking and validation
 - The 'touched' flag is used to track which entries have been processed or validated
 - Located in src/fe_utils/simple_list.c:144-161
+
+## Simplified Source
+
+```c
+const char *simple_string_list_not_touched(SimpleStringList *list) {
+    // Find first untouched entry in the list
+    for (SimpleStringListCell *cell = list->head; cell; cell = cell->next) {
+        if (!cell->touched)
+            return cell->val;
+    }
+
+    return NULL; // All entries touched or list empty
+}
+```

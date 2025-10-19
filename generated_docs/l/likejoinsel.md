@@ -32,4 +32,14 @@ The function returns a selectivity estimate as a floating-point value between 0 
 - Returns the default selectivity estimate of 0.005 (0.5%) for LIKE pattern joins
 - The current implementation is a placeholder that doesn't perform actual pattern analysis
 - Works in conjunction with PostgreSQL's operator class system for the LIKE operator
-- Used for estimating selectivity of expressions like 
+- Used for estimating selectivity of expressions like
+
+## Simplified Source
+
+```c
+Datum likejoinsel(PG_FUNCTION_ARGS) {
+    // Estimate join selectivity for LIKE pattern matching
+    // Delegates to generic pattern join selectivity function
+    return patternjoinsel(fcinfo, Pattern_Type_Like, false);
+}
+```

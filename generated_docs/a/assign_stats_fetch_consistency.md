@@ -37,5 +37,20 @@ This approach prevents situations where a transaction might see inconsistent sta
 - Setting  ensures that stale snapshot data doesn't persist with the new consistency setting
 - The hook pattern allows for validation and side effects when configuration parameters change
 - Critical for maintaining data consistency in PostgreSQL's statistics subsystem
-- The  parameter follows the standard GUC hook signature but is not used in this implementation
+- The extra parameter follows the standard GUC hook signature but is not used in this implementation
 - Located in src/backend/utils/activity/pgstat.c:1717-1726
+
+## Simplified Source
+
+```c
+void
+assign_stats_fetch_consistency(int newval, void *extra)
+{
+    // Check if the consistency setting is actually changing
+    if (pgstat_fetch_consistency != newval)
+    {
+        // Force clear of current snapshot to prevent inconsistencies
+        force_stats_snapshot_clear = true;
+    }
+}
+```

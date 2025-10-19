@@ -32,3 +32,15 @@ This function is part of pgbench's database initialization process. It formats a
 - Branch assignment uses integer division to distribute accounts evenly across branches
 - The filler column is intentionally left empty and will be padded by PostgreSQL's default behavior
 - This is a static function only used within the pgbench.c module
+
+## Simplified Source
+
+```c
+static void initAccount(PQExpBufferData *sql, int64 curr) {
+    // Generate tab-separated row: account_id, branch_id, balance=0, filler=empty
+    printfPQExpBuffer(sql,
+                     INT64_FORMAT "\t" INT64_FORMAT "\t0\t\n",
+                     curr + 1,            // Account ID (1-based)
+                     curr / naccounts + 1); // Branch ID (distributed evenly)
+}
+```

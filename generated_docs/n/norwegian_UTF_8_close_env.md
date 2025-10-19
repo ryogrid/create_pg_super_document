@@ -33,3 +33,16 @@ The function calls SN_close_env(z, 0), where z is the environment pointer to be 
 - The parameter z should be a valid pointer returned by norwegian_UTF_8_create_env
 - This is likely auto-generated code from the Snowball compiler for the Norwegian stemming algorithm
 - Essential for proper resource management in PostgreSQL's full-text search functionality
+
+## Simplified Source
+
+```c
+extern void norwegian_UTF_8_close_env(struct SN_env * z) {
+    // Clean up and deallocate the Norwegian stemming environment
+    // Parameter 0 matches the string size used during creation
+    SN_close_env(z, 0);
+}
+```
+
+**Simplified Logic:**
+This is a simple wrapper function that properly closes and deallocates a Snowball stemming environment for Norwegian language processing. It calls the generic environment cleanup function with the same string size parameter (0) that was used during creation. Essential for preventing memory leaks when done with Norwegian text stemming operations.

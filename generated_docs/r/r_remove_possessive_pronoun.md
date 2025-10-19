@@ -40,3 +40,28 @@ The function returns 1 on successful removal, 0 if no possessive pronoun suffix 
 - Character codes 97 ('a') and 117 ('u') are checked for optimization - Indonesian possessive pronouns commonly end with these characters
 - The counter z->I[1] appears to track the number of suffix removals performed
 - Possessive pronouns in Indonesian include suffixes like '-ku' (my), '-mu' (your), '-nya' (his/her/its)
+
+## Simplified Source
+
+```c
+static int r_remove_possessive_pronoun(struct SN_env * z) {
+    // Set marker at current position
+    z->ket = z->c;
+
+    // Quick check: word must end with 'a' or 'u' for possessive pronouns
+    if (z->c - 1 <= z->lb || (z->p[z->c - 1] != 97 && z->p[z->c - 1] != 117))
+        return 0;
+
+    // Find possessive pronoun pattern (ku, mu, nya)
+    if (!(find_among_b(z, a_1, 3))) return 0;
+
+    // Mark start position and remove the suffix
+    z->bra = z->c;
+    int ret = slice_del(z);
+    if (ret < 0) return ret;
+
+    // Track removal count
+    z->I[1] -= 1;
+    return 1;
+}
+```

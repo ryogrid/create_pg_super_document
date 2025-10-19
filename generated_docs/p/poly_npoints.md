@@ -30,3 +30,16 @@ The `poly_npoints` function is a simple accessor function that returns the numbe
 - The function directly accesses the `npts` field of the POLYGON structure
 - Part of PostgreSQL's polygon utility functions for geometric operations
 - Located in src/backend/utils/adt/geo_ops.c:4494-4502
+
+## Simplified Source
+
+```c
+Datum
+poly_npoints(PG_FUNCTION_ARGS)
+{
+    POLYGON *poly = PG_GETARG_POLYGON_P(0);
+
+    // Return the number of points (vertices) in the polygon
+    PG_RETURN_INT32(poly->npts);
+}
+```

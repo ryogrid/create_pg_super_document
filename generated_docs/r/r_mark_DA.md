@@ -41,3 +41,23 @@ This function recognizes both 'd' and 't' consonant variations that can precede 
 - Handles both voiced (d) and voiceless (t) consonant variants due to Turkish phonological processes
 - Used in both suffix chain processing and noun suffix processing
 - Simpler structure compared to some other mark functions as it doesn't require additional consonant processing
+
+## Simplified Source
+
+```c
+static int r_mark_DA(struct SN_env * z) {
+    // Check vowel harmony first
+    int harmony_check = r_check_vowel_harmony(z);
+    if (harmony_check <= 0) return harmony_check;
+
+    // Ensure character at c-1 is 'a' or 'e' (vowel harmony A variants)
+    if (z->c - 1 <= z->lb || (z->p[z->c - 1] != 97 && z->p[z->c - 1] != 101))
+        return 0;
+
+    // Match against 4 'DA' suffix patterns (da, ta, de, te)
+    if (!(find_among_b(z, a_6, 4)))
+        return 0;
+
+    return 1;  // Successfully found DA suffix pattern
+}
+```

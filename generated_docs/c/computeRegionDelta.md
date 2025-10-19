@@ -47,3 +47,76 @@ The function handles edge cases where bytes outside the valid region are conside
 - The MATCH_THRESHOLD optimization prevents excessive fragmentation while ensuring minimal logging overhead
 - Part of PostgreSQL's generic WAL mechanism for custom access methods
 - The algorithm handles four distinct cases when processing matched byte sequences to optimize fragment creation
+
+## Simplified Source
+
+```c
+static void
+computeRegionDelta(PageData *pageData,
+                   const char *curpage, const char *targetpage,
+                   int targetStart, int targetEnd,
+                   int validStart, int validEnd)
+{
+    int i, loopEnd;
+    int fragmentBegin = -1, fragmentEnd = -1;
+
+    // Include invalid start region in first fragment
+    if (validStart > targetStart) {
+        fragmentBegin = targetStart;
+        targetStart = validStart;
+    }
+
+    loopEnd = Min(targetEnd, validEnd);
+
+    // Scan for differences between current and target pages
+    i = targetStart;
+    while (i < loopEnd) {
+        if (curpage[i] != targetpage[i]) {
+            // Start new fragment on mismatch
+            if (fragmentBegin < 0)
+                fragmentBegin = i;
+            fragmentEnd = -1;
+
+            // Skip through unmatched bytes
+            i++;
+            while (i < loopEnd && curpage[i] != targetpage[i])
+                i++;
+            if (i >= loopEnd)
+                break;
+        }
+
+        // Found matched byte - mark end of unmatched fragment
+        fragmentEnd = i;
+
+        // Skip through matched bytes
+        i++;
+        while (i < loopEnd && curpage[i] == targetpage[i])
+            i++;
+
+        // Write fragment if we have enough consecutive matches
+        if (fragmentBegin >= 0 && i - fragmentEnd > MATCH_THRESHOLD) {
+            writeFragment(pageData, fragmentBegin,
+                         fragmentEnd - fragmentBegin,
+                         targetpage + fragmentBegin);
+            fragmentBegin = -1;
+            fragmentEnd = -1;
+        }
+    }
+
+    // Include invalid end region in final fragment
+    if (loopEnd < targetEnd) {
+        if (fragmentBegin < 0)
+            fragmentBegin = loopEnd;
+        fragmentEnd = targetEnd;
+    }
+
+    // Write final fragment if needed
+    if (fragmentBegin >= 0) {
+        if (fragmentEnd < 0)
+            fragmentEnd = targetEnd;
+        writeFragment(pageData, fragmentBegin,
+                     fragmentEnd - fragmentBegin,
+                     targetpage + fragmentBegin);
+    }
+}
+```

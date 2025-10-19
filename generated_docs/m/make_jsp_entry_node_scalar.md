@@ -31,3 +31,14 @@ This is commonly used in JSONB GIN index extraction to create indexable nodes fr
 
 ## Notes and Other Information
 The iskey parameter is crucial as it affects how the scalar value is processed by make_scalar_key - keys and values may be indexed differently to support various query patterns in JSONB GIN indexes.
+
+## Simplified Source
+
+```c
+static JsonPathGinNode *
+make_jsp_entry_node_scalar(JsonbValue *scalar, bool iskey)
+{
+    // Convert scalar to indexable key format, then wrap in GIN node
+    return make_jsp_entry_node(make_scalar_key(scalar, iskey));
+}
+```

@@ -45,3 +45,102 @@ The function implements a two-pointer algorithm to traverse through the sorted r
 - Special handling for pg_toast namespace relations, which may exist in the new cluster without corresponding relations in the old cluster
 - The relation arrays are assumed to be pre-sorted by OID for efficient matching
 - Part of the pg_upgrade utility's file transfer mechanism for PostgreSQL major version upgrades
+
+## Simplified Source
+
+```c
+FileNameMap *
+gen_db_file_maps(DbInfo *old_db, DbInfo *new_db,
+                 int *nmaps,
+                 const char *old_pgdata, const char *new_pgdata)
+{
+    FileNameMap *file_maps;
+    int old_rel_index = 0, new_rel_index = 0;
+    int num_mappings = 0;
+    bool all_relations_matched = true;
+
+    // Allocate memory for mappings (max possible = number of old relations)
+    file_maps = pg_malloc(sizeof(FileNameMap) * old_db->rel_arr.nrels);
+
+    // Two-pointer algorithm: match relations by OID between old and new clusters
+    while (old_rel_index < old_db->rel_arr.nrels ||
+           new_rel_index < new_db->rel_arr.nrels)
+    {
+        RelInfo *old_relation = (old_rel_index < old_db->rel_arr.nrels) ?
+            &old_db->rel_arr.rels[old_rel_index] : NULL;
+        RelInfo *new_relation = (new_rel_index < new_db->rel_arr.nrels) ?
+            &new_db->rel_arr.rels[new_rel_index] : NULL;
+
+        // Handle case where one array is exhausted
+        if (!new_relation)
+        {
+            // Old relation has no match in new cluster (should not happen)
+            report_unmatched_relation(old_relation, old_db, false);
+            all_relations_matched = false;
+            old_rel_index++;
+            continue;
+        }
+        if (!old_relation)
+        {
+            // New relation has no match in old cluster (acceptable for TOAST tables)
+            if (strcmp(new_relation->nspname, "pg_toast") != 0)
+            {
+                report_unmatched_relation(new_relation, new_db, true);
+                all_relations_matched = false;
+            }
+            new_rel_index++;
+            continue;
+        }
+
+        // Compare OIDs to determine matching status
+        if (old_relation->reloid < new_relation->reloid)
+        {
+            // Old relation OID is smaller - no match found
+            report_unmatched_relation(old_relation, old_db, false);
+            all_relations_matched = false;
+            old_rel_index++;
+        }
+        else if (old_relation->reloid > new_relation->reloid)
+        {
+            // New relation OID is smaller - acceptable if TOAST table
+            if (strcmp(new_relation->nspname, "pg_toast") != 0)
+            {
+                report_unmatched_relation(new_relation, new_db, true);
+                all_relations_matched = false;
+            }
+            new_rel_index++;
+        }
+        else
+        {
+            // OIDs match - verify relation names are consistent
+            if (strcmp(old_relation->nspname, new_relation->nspname) != 0 ||
+                strcmp(old_relation->relname, new_relation->relname) != 0)
+            {
+                pg_log(PG_WARNING, "Relation names for OID %u in database \"%s\" do not match: "
+                       "old name \"%s.%s\", new name \"%s.%s\"",
+                       old_relation->reloid, old_db->db_name,
+                       old_relation->nspname, old_relation->relname,
+                       new_relation->nspname, new_relation->relname);
+                all_relations_matched = false;
+            }
+            else
+            {
+                // Create file mapping for this matched relation
+                create_rel_filename_map(old_pgdata, new_pgdata, old_db, new_db,
+                                        old_relation, new_relation, file_maps + num_mappings);
+                num_mappings++;
+            }
+            old_rel_index++;
+            new_rel_index++;
+        }
+    }
+
+    // Abort if any relations failed to match properly
+    if (!all_relations_matched)
+        pg_fatal("Failed to match up old and new tables in database \"%s\"",
+                 old_db->db_name);
+
+    *nmaps = num_mappings;
+    return file_maps;
+}
+```

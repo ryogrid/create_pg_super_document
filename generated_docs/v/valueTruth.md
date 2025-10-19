@@ -36,3 +36,20 @@ The `valueTruth` function provides a unified way to evaluate the boolean truthin
 - Essential for pgbench's conditional execution and control flow features
 - Returns false for any unexpected types (with assertion failure in debug builds)
 - Designed to be fast since it's used frequently in expression evaluation
+
+## Simplified Source
+
+```c
+static bool valueTruth(PgBenchValue *pval) {
+    // Evaluate truthiness with C-like semantics: NULL and 0 are false, everything else true
+    switch (pval->type) {
+        case PGBT_NULL:    return false;                // NULL is always false
+        case PGBT_BOOLEAN: return pval->u.bval;         // Use boolean value directly
+        case PGBT_INT:     return pval->u.ival != 0;    // Non-zero integers are true
+        case PGBT_DOUBLE:  return pval->u.dval != 0.0;  // Non-zero doubles are true
+        default:
+            Assert(0);  // Unexpected type - internal error
+            return false;
+    }
+}
+```

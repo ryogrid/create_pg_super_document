@@ -39,3 +39,25 @@ If a previous position is provided, the function copies all fields from the prev
 - Memory is allocated using PostgreSQL's palloc which is automatically freed at end of memory context
 - The pushedAtAction field is always initialized to NULL regardless of previous state
 - Used internally by the text search word parser for position tracking and state management
+
+## Simplified Source
+
+```c
+static TParserPosition *newTParserPosition(TParserPosition *prev) {
+    // Allocate new parser position structure
+    TParserPosition *res = (TParserPosition *) palloc(sizeof(TParserPosition));
+
+    // Copy from previous position or zero-initialize
+    if (prev) {
+        memcpy(res, prev, sizeof(TParserPosition));
+    } else {
+        memset(res, 0, sizeof(TParserPosition));
+    }
+
+    // Set up linked list and initialize fields
+    res->prev = prev;
+    res->pushedAtAction = NULL;
+
+    return res;
+}
+```

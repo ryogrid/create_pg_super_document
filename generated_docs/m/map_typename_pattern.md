@@ -36,3 +36,47 @@ This mapping doesn't completely mask the special nature of these names - for exa
 - Returns the original pattern unchanged if no mapping exists
 - The mapping table is NULL-terminated for easy iteration
 - This is a static helper function local to describe.c and not exposed in any header files
+
+## Simplified Source
+
+```c
+static const char *
+map_typename_pattern(const char *pattern)
+{
+    static const char *const typename_map[] = {
+        // Common type aliases accepted by grammar
+        "decimal", "numeric",
+        "float", "double precision",
+        "int", "integer",
+
+        // Array type mappings
+        "bool[]", "boolean[]",
+        "decimal[]", "numeric[]",
+        "float[]", "double precision[]",
+        "float4[]", "real[]",
+        "float8[]", "double precision[]",
+        "int[]", "integer[]",
+        "int2[]", "smallint[]",
+        "int4[]", "integer[]",
+        "int8[]", "bigint[]",
+        "time[]", "time without time zone[]",
+        "timetz[]", "time with time zone[]",
+        "timestamp[]", "timestamp without time zone[]",
+        "timestamptz[]", "timestamp with time zone[]",
+        "varbit[]", "bit varying[]",
+        "varchar[]", "character varying[]",
+        NULL
+    };
+
+    if (pattern == NULL)
+        return NULL;
+
+    // Search for matching alias and return canonical name
+    for (int i = 0; typename_map[i] != NULL; i += 2) {
+        if (pg_strcasecmp(pattern, typename_map[i]) == 0)
+            return typename_map[i + 1];
+    }
+
+    return pattern;  // Return original if no mapping found
+}
+```

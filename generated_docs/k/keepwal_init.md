@@ -34,3 +34,14 @@ The function uses the same simplehash library infrastructure as the main file ha
 - Essential for ensuring critical WAL files are preserved during rewind operations
 - Must be called before any keepwal operations are performed
 - Works alongside the main file hash table but serves a distinct purpose in WAL file preservation
+
+## Simplified Source
+
+```c
+void
+keepwal_init(void)
+{
+    // Initialize hash table for tracking WAL files to keep
+    keepwal = keepwal_create(KEEPWAL_INITIAL_SIZE, NULL);
+}
+```

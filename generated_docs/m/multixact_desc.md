@@ -48,3 +48,36 @@ This function is essential for WAL analysis, debugging multixact issues, and und
 - Handles variable-length records appropriately for CREATE_ID operations with multiple members
 - Critical for debugging multixact-related issues and understanding transaction concurrency behavior
 - The function provides detailed member information by calling out_member for each transaction in CREATE_ID records
+
+## Simplified Source
+
+```c
+void multixact_desc(StringInfo buf, XLogReaderState *record) {
+    char *rec = XLogRecGetData(record);
+    uint8 info = XLogRecGetInfo(record) & ~XLR_INFO_MASK;
+
+    if (info == XLOG_MULTIXACT_ZERO_OFF_PAGE || info == XLOG_MULTIXACT_ZERO_MEM_PAGE) {
+        // Handle page zeroing operations
+        int64 pageno;
+        memcpy(&pageno, rec, sizeof(pageno));
+        appendStringInfo(buf, "%lld", (long long) pageno);
+    }
+    else if (info == XLOG_MULTIXACT_CREATE_ID) {
+        // Handle multixact creation
+        xl_multixact_create *xlrec = (xl_multixact_create *) rec;
+        appendStringInfo(buf, "%u offset %u nmembers %d: ",
+                         xlrec->mid, xlrec->moff, xlrec->nmembers);
+
+        // Output each member transaction
+        for (int i = 0; i < xlrec->nmembers; i++)
+            out_member(buf, &xlrec->members[i]);
+    }
+    else if (info == XLOG_MULTIXACT_TRUNCATE_ID) {
+        // Handle multixact truncation
+        xl_multixact_truncate *xlrec = (xl_multixact_truncate *) rec;
+        appendStringInfo(buf, "offsets [%u, %u), members [%u, %u)",
+                         xlrec->startTruncOff, xlrec->endTruncOff,
+                         xlrec->startTruncMemb, xlrec->endTruncMemb);
+    }
+}
+```

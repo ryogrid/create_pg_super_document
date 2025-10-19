@@ -33,3 +33,21 @@ The function follows PostgreSQL's exit callback pattern, where cleanup functions
 - Follows PostgreSQL's exit callback convention with (int code, Datum arg) signature
 - The code parameter is provided for consistency with the exit callback interface but is not currently used
 - Essential for proper resource cleanup and connection management in the slot synchronization subsystem
+
+## Simplified Source
+
+```c
+/*
+ * Connection cleanup function for slotsync worker.
+ * Called on slotsync worker exit.
+ */
+static void
+slotsync_worker_disconnect(int code, Datum arg)
+{
+    // Extract WAL receiver connection from the argument
+    WalReceiverConn *wrconn = (WalReceiverConn *) DatumGetPointer(arg);
+
+    // Disconnect the WAL receiver connection
+    walrcv_disconnect(wrconn);
+}
+```

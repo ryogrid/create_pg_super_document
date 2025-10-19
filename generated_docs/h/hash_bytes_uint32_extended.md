@@ -39,3 +39,27 @@ This function is especially valuable for Bloom filters and other probabilistic d
 - Essential for BRIN bloom index operations where multiple hash values are needed for the same key
 - Part of PostgreSQL's optimized hash function family designed for high-performance indexing operations
 - Returns 64-bit values by combining both final state variables (b and c) rather than just c
+
+## Simplified Source
+
+```c
+uint64 hash_bytes_uint32_extended(uint32 k, uint64 seed) {
+    // Initialize hash state with magic constants
+    uint32 a, b, c;
+    a = b = c = 0x9e3779b9 + sizeof(uint32) + 3923095;
+
+    // Mix in seed if provided
+    if (seed != 0) {
+        a += (uint32)(seed >> 32);  // Upper 32 bits of seed
+        b += (uint32)seed;          // Lower 32 bits of seed
+        mix(a, b, c);               // Mix seed into state
+    }
+
+    // Add input value and finalize
+    a += k;
+    final(a, b, c);
+
+    // Return 64-bit result: combine b (upper) and c (lower)
+    return ((uint64)b << 32) | c;
+}
+```

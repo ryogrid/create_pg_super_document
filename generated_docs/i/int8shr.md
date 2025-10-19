@@ -31,3 +31,16 @@ The int8shr function implements the bit-shift right operation for PostgreSQL's 8
 - The right shift is arithmetic, meaning it preserves the sign bit for negative numbers
 - Located in src/backend/utils/adt/int8.c, which contains arithmetic operations for 8-byte integers
 - Part of PostgreSQL's built-in function system for bigint data type operations
+
+## Simplified Source
+
+```c
+Datum int8shr(PG_FUNCTION_ARGS) {
+    // Extract 64-bit integer to shift and 32-bit shift count
+    int64 arg1 = PG_GETARG_INT64(0);
+    int32 arg2 = PG_GETARG_INT32(1);
+
+    // Perform bitwise right shift and return result
+    PG_RETURN_INT64(arg1 >> arg2);
+}
+```

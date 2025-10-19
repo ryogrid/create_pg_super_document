@@ -36,3 +36,12 @@ The function uses PostgreSQL's standard function calling convention (PG_FUNCTION
 - Future enhancements could analyze the structure of TSQuery expressions and TSVector statistics to provide more accurate join selectivity estimates
 - Part of PostgreSQL's text search infrastructure (tsearch module)
 - Registered in PostgreSQL's system catalogs as the join selectivity estimator for the @@ operator
+
+## Simplified Source
+
+```c
+Datum tsmatchjoinsel(PG_FUNCTION_ARGS) {
+    // Return default selectivity estimate for tsvector @@ tsquery joins
+    PG_RETURN_FLOAT8(DEFAULT_TS_MATCH_SEL);
+}
+```

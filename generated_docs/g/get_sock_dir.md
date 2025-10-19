@@ -46,3 +46,52 @@ This function sets the socket directory for a PostgreSQL cluster with different 
 - Issues warnings when port number corrections occur
 - Critical for pg_upgrade's ability to connect to existing running clusters during upgrade checks
 - Socket directory resolution follows precedence: live server location > user specification > current directory
+
+## Simplified Source
+
+```c
+void
+get_sock_dir(ClusterInfo *cluster, bool live_check)
+{
+#if !defined(WIN32)
+    if (!live_check)
+        cluster->sockdir = user_opts.socketdir;
+    else
+    {
+        // Read socket directory from running server's postmaster.pid
+        unsigned short orig_port = cluster->port;
+        char filename[MAXPGPATH], line[MAXPGPATH];
+        FILE *fp;
+        int lineno;
+
+        snprintf(filename, sizeof(filename), "%s/postmaster.pid", cluster->pgdata);
+        if ((fp = fopen(filename, "r")) == NULL)
+            pg_fatal("could not open file \"%s\": %m", filename);
+
+        // Read specific lines containing port and socket directory
+        for (lineno = 1; lineno <= Max(LOCK_FILE_LINE_PORT, LOCK_FILE_LINE_SOCKET_DIR); lineno++)
+        {
+            if (fgets(line, sizeof(line), fp) == NULL)
+                pg_fatal("could not read line %d from file \"%s\": %m", lineno, filename);
+
+            if (lineno == LOCK_FILE_LINE_PORT)
+                sscanf(line, "%hu", &old_cluster.port);
+            if (lineno == LOCK_FILE_LINE_SOCKET_DIR)
+            {
+                cluster->sockdir = pg_strdup(line);
+                pg_strip_crlf(cluster->sockdir);
+            }
+        }
+        fclose(fp);
+
+        // Warn if port was corrected
+        if (orig_port != DEF_PGUPORT && old_cluster.port != orig_port)
+            pg_log(PG_WARNING, "user-supplied old port number %hu corrected to %hu",
+                   orig_port, cluster->port);
+    }
+#else
+    // Windows doesn't use Unix domain sockets
+    cluster->sockdir = NULL;
+#endif
+}
+```

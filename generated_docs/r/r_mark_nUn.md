@@ -38,3 +38,27 @@ The function operates on a Snowball environment structure and follows the typica
 - Returns 0 if any validation step fails, 1 if successful
 - Part of Turkish morphological analysis focusing on possessive and case suffixes
 - The a_3 array contains the actual suffix patterns that this function can match
+
+## Simplified Source
+
+```c
+static int r_mark_nUn(struct SN_env * z) {
+    // Check vowel harmony first
+    int harmony_check = r_check_vowel_harmony(z);
+    if (harmony_check <= 0) return harmony_check;
+
+    // Ensure there's an 'n' character at the expected position
+    if (z->c - 1 <= z->lb || z->p[z->c - 1] != 110)
+        return 0;
+
+    // Match against 4 'nUn' suffix patterns
+    if (!(find_among_b(z, a_3, 4)))
+        return 0;
+
+    // Mark suffix with optional n consonant
+    int suffix_result = r_mark_suffix_with_optional_n_consonant(z);
+    if (suffix_result <= 0) return suffix_result;
+
+    return 1;  // Successfully marked nUn suffix
+}
+```
