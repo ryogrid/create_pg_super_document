@@ -42,3 +42,31 @@ This function is essential for ensuring data integrity when handling Traditional
 - The function is static, meaning it's only accessible within the same compilation unit (wchar.c)
 - Handles both null-terminated strings and fixed-length buffers effectively
 - Big5 characters can be either 1 byte (ASCII-compatible) or 2 bytes (Traditional Chinese characters)
+
+## Simplified Source
+```c
+static int pg_big5_verifystr(const unsigned char *s, int len) {
+    const unsigned char *start = s;
+
+    while (len > 0) {
+        int char_len;
+
+        // Fast path: ASCII characters (high bit not set)
+        if (!IS_HIGHBIT_SET(*s)) {
+            if (*s == '\0')
+                break;  // Stop at null terminator
+            char_len = 1;
+        } else {
+            // Verify multi-byte Big5 character
+            char_len = pg_big5_verifychar(s, len);
+            if (char_len == -1)
+                break;  // Invalid character found
+        }
+
+        s += char_len;
+        len -= char_len;
+    }
+
+    return s - start;  // Return bytes processed
+}
+```

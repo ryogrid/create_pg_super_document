@@ -30,3 +30,15 @@ The pg_euckr_dsplen function calculates how many display columns a character seq
 - Control characters and null bytes may return special values (-1 for control characters, 0 for null)
 - EUC-KR characters with SS2 or SS3 prefixes, as well as high-bit set characters, all display as 2-column width
 - ASCII characters delegate to pg_ascii_dsplen for proper control character handling
+
+## Simplified Source
+
+```c
+static int pg_euckr_dsplen(const unsigned char *s) {
+    // Delegate to generic EUC display length function
+    // Returns visual width in display columns:
+    // - ASCII: 1 column (or -1/0 for control chars)
+    // - Korean chars: 2 columns (double-width)
+    return pg_euc_dsplen(s);
+}
+```

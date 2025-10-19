@@ -35,3 +35,19 @@ This function implements schema-aware tab completion in psql by using a predefin
 - Part of psql's comprehensive tab completion system for database objects
 - The function is static, indicating it's only used within the tab-complete.c file
 - More widely used than complete_from_versioned_query, as evidenced by the number of callers
+
+## Simplified Source
+
+```c
+static char *complete_from_schema_query(const char *text, int state)
+{
+    // Simple wrapper for schema-aware completions
+    // Assumes query works for any server version
+    return _complete_from_query(NULL,                    // No regular query
+                               completion_squery,        // Schema query structure
+                               completion_charpp,        // Result processing
+                               completion_verbatim,      // Verbatim matching flag
+                               text,                     // User's partial input
+                               state);                   // Readline state counter
+}
+```

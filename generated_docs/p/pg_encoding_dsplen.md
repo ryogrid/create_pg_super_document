@@ -37,3 +37,19 @@ The function uses the encoding-specific display length function from the `pg_wch
 - For invalid encodings, it safely falls back to ASCII display length calculation
 - Used extensively in PostgreSQL's client-side result formatting and display functionality
 - Part of the core character encoding infrastructure that supports international text handling
+
+## Simplified Source
+
+```c
+int
+pg_encoding_dsplen(int encoding, const char *mbstr)
+{
+    // Use encoding-specific display length function if valid
+    if (PG_VALID_ENCODING(encoding)) {
+        return pg_wchar_table[encoding].dsplen((const unsigned char *) mbstr);
+    }
+
+    // Fall back to ASCII display length for invalid encodings
+    return pg_wchar_table[PG_SQL_ASCII].dsplen((const unsigned char *) mbstr);
+}
+```

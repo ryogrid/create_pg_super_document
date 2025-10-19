@@ -34,3 +34,14 @@ The function performs a simple cast operation, converting the generic pointer re
 - The CIRCLE struct contains a center point (Point) and radius (float8)
 - Used primarily in GiST indexing operations and function parameter extraction
 - The function assumes the Datum actually contains valid CIRCLE data - no validation is performed
+
+## Simplified Source
+
+```c
+static inline CIRCLE *
+DatumGetCircleP(Datum X)
+{
+    // Convert Datum to CIRCLE pointer
+    return (CIRCLE *) DatumGetPointer(X);
+}
+```

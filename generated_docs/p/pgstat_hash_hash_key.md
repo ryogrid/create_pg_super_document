@@ -36,3 +36,14 @@ This function serves as a hash value generator for dshash and simplehash hashtab
 - Returns a 32-bit unsigned integer hash value
 - Designed as a static inline function for performance optimization in hash table operations
 - Part of the PostgreSQL statistics collection infrastructure for efficient key distribution in shared memory hash tables
+
+## Simplified Source
+
+```c
+static inline uint32
+pgstat_hash_hash_key(const void *d, size_t size, void *arg)
+{
+    // Generate hash value for PgStat_HashKey using fasthash32
+    return fasthash32((const char *) d, size, 0);
+}
+```

@@ -61,3 +61,27 @@ The function uses GCC inline assembly with specific constraints to ensure proper
 - The non-locking test optimization may be better suited for TAS_SPIN() rather than TAS() in modern code
 - Memory barrier ("memory") and condition codes ("cc") are marked as clobbered
 - Part of PostgreSQL's platform-specific spinlock implementation in s_lock.h
+
+## Simplified Source
+
+```c
+static __inline__ int
+tas(volatile slock_t *lock)
+{
+    slock_t result = 1;
+
+    // Performance optimization: check if lock is free before atomic operation
+    // Only attempt atomic exchange if lock appears available
+    __asm__ __volatile__(
+        "    cmpb    $0,%1    \n"     // Compare lock value with 0
+        "    jne     1f       \n"     // Jump if not equal (lock taken)
+        "    lock             \n"     // Memory barrier for atomicity
+        "    xchgb   %0,%1    \n"     // Atomic exchange: swap result with lock
+        "1:                   \n"     // Label for early exit
+        : "+q"(result), "+m"(*lock)   // Input/output constraints
+        :                             // No additional inputs
+        : "memory", "cc");            // Clobbered: memory and condition codes
+
+    return (int) result;  // Returns 1 if lock was taken, 0 if acquired
+}
+```

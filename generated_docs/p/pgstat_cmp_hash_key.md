@@ -35,3 +35,14 @@ This function serves as a key comparison helper for dshash and simplehash hashta
 - Uses memcmp for efficient binary comparison of the entire key structure
 - Designed as a static inline function for performance optimization in hash table operations
 - Part of the PostgreSQL statistics collection infrastructure for managing statistical data in shared memory hash tables
+
+## Simplified Source
+
+```c
+static inline int
+pgstat_cmp_hash_key(const void *a, const void *b, size_t size, void *arg)
+{
+    // Compare two PgStat_HashKey structures for equality
+    return memcmp(a, b, sizeof(PgStat_HashKey));
+}
+```

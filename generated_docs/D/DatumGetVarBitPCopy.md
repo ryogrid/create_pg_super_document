@@ -32,3 +32,13 @@ The function handles TOAST decompression and creates a copy when necessary, maki
 - More expensive than DatumGetVarBitP as it may need to allocate and copy memory
 - Essential for write operations on bit string data to avoid modifying shared or read-only memory
 - Part of PostgreSQL's type-safe Datum conversion system ensuring data integrity during modifications
+
+## Simplified Source
+```c
+static inline VarBit *
+DatumGetVarBitPCopy(Datum X)
+{
+    // Convert Datum to modifiable VarBit copy via TOAST decompression
+    return (VarBit *) PG_DETOAST_DATUM_COPY(X);
+}
+```

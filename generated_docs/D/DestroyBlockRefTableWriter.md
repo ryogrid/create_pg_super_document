@@ -37,3 +37,17 @@ This is typically the final step in the incremental block reference table writin
 - After calling this function, the writer pointer becomes invalid and should not be used
 - This completes the lifecycle of a BlockRefTableWriter: Create → WriteEntry(s) → Destroy
 - Proper resource cleanup is essential to avoid memory leaks and ensure complete file writing
+
+## Simplified Source
+
+```c
+void
+DestroyBlockRefTableWriter(BlockRefTableWriter *writer)
+{
+    // Finalize the output file (flush buffer, write CRC, etc.)
+    BlockRefTableFileTerminate(&writer->buffer);
+
+    // Free the writer structure memory
+    pfree(writer);
+}
+```

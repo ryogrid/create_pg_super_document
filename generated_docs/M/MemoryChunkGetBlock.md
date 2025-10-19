@@ -52,3 +52,21 @@ The function is essential for memory management operations that need to access t
 - Essential for block-level operations like updating free space information and chunk validation
 - The pointer arithmetic must match the original offset calculation from MemoryChunkSetHdrMask
 - Critical for memory context switching and chunk ownership determination
+
+## Simplified Source
+
+```c
+static inline void *MemoryChunkGetBlock(MemoryChunk *chunk) {
+    // Verify this is not an external chunk
+    Assert(!HdrMaskIsExternal(chunk->hdrmask));
+
+    // Calculate block pointer by subtracting offset from chunk address
+    return (void *) ((char *) chunk - HdrMaskBlockOffset(chunk->hdrmask));
+}
+```
+
+**Key Points:**
+- Reverses the offset calculation to find the containing memory block
+- Uses stored block offset from the chunk's header mask
+- Only works with non-external chunks that are part of memory blocks
+- Essential for memory management operations requiring block access

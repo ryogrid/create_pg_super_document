@@ -34,3 +34,30 @@ The function employs a fast-path optimization for ASCII characters and delegates
 - Part of PostgreSQL's character encoding validation system for ensuring data integrity
 - The function is static, indicating it's used internally within the wchar.c module
 - EUC-KR encoding uses the range 0xA1-0xFE for the first byte and 0xA1-0xFE for the second byte of Korean characters
+
+## Simplified Source
+
+```c
+static int pg_euckr_verifystr(const unsigned char *s, int len) {
+    const unsigned char *start = s;
+
+    while (len > 0) {
+        int char_len;
+
+        if (!IS_HIGHBIT_SET(*s)) {
+            // Fast path for ASCII characters
+            if (*s == '\0') break;  // Stop at null byte
+            char_len = 1;
+        } else {
+            // Validate Korean multibyte character
+            char_len = pg_euckr_verifychar(s, len);
+            if (char_len == -1) break;  // Stop at invalid character
+        }
+
+        s += char_len;
+        len -= char_len;
+    }
+
+    return s - start;  // Return number of valid bytes processed
+}
+```

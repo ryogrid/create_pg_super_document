@@ -36,3 +36,19 @@ Being implemented as a static inline function ensures optimal performance with n
 - Part of the standard pattern for PostgreSQL data type implementations
 - Used primarily through the PG_RETURN_MULTIRANGE_P macro in function implementations
 - Essential component of the multirange type system's integration with PostgreSQL's type infrastructure
+
+## Simplified Source
+
+```c
+static inline Datum MultirangeTypePGetDatum(const MultirangeType *X) {
+    // Convert MultirangeType pointer to Datum for function manager system
+    return PointerGetDatum(X);
+}
+```
+
+**Key Points:**
+- Converts MultirangeType pointer to universal Datum format
+- Inverse operation of DatumGetMultirangeTypeP
+- Essential for returning multirange values from PostgreSQL functions
+- Uses const parameter to prevent modification of input data
+- Inline implementation for optimal performance in frequent conversions

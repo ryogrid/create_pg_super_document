@@ -40,3 +40,29 @@ The function returns the number of bytes consumed by the valid character, or -1 
 - GBK is a double-byte character set where characters can be either 1 byte (ASCII-compatible) or 2 bytes (Chinese characters)
 - The invalid byte sequence check prevents specific problematic combinations that could interfere with other encoding systems
 - Essential for maintaining data integrity when handling Chinese text in PostgreSQL databases
+
+## Simplified Source
+```c
+static int pg_gbk_verifychar(const unsigned char *s, int len) {
+    // Get expected character length from GBK encoding rules
+    int expected_len = pg_gbk_mblen(s);
+
+    // Check if buffer has enough bytes
+    if (len < expected_len)
+        return -1;
+
+    // Reject specific invalid byte sequence
+    if (expected_len == 2 &&
+        s[0] == NONUTF8_INVALID_BYTE0 &&
+        s[1] == NONUTF8_INVALID_BYTE1)
+        return -1;
+
+    // Ensure no null bytes within multi-byte character
+    for (int i = 1; i < expected_len; i++) {
+        if (s[i] == '\0')
+            return -1;
+    }
+
+    return expected_len;
+}
+```

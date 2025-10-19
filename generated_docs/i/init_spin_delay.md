@@ -34,3 +34,22 @@ The `init_spin_delay` function initializes a SpinDelayStatus structure by resett
 - Typically used in conjunction with other spinlock delay tracking functions
 - Helps identify hot spots and performance bottlenecks in spinlock usage
 - The debugging information is valuable for troubleshooting high-contention scenarios
+
+## Simplified Source
+
+```c
+static inline void
+init_spin_delay(SpinDelayStatus *status,
+                const char *file, int line, const char *func)
+{
+    // Initialize all counters to zero
+    status->spins = 0;
+    status->delays = 0;
+    status->cur_delay = 0;
+
+    // Store debugging information for contention analysis
+    status->file = file;
+    status->line = line;
+    status->func = func;
+}
+```

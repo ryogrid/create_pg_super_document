@@ -39,3 +39,17 @@ The fasthash algorithm is a modification of the fast-hash implementation origina
 - The magic constant 0x880355f21e6d1965 is part of the fasthash algorithm design and should not be modified
 - After initialization, users typically call `fasthash_combine()` for simple values or `fasthash_accum()` for more complex data, followed by `fasthash_final32()` or `fasthash_final64()` to get the final hash value
 - The seed parameter allows creating different hash functions from the same algorithm, which can be useful for hash tables that need to rehash or for security purposes
+
+## Simplified Source
+
+```c
+static inline void
+fasthash_init(fasthash_state *hs, uint64 seed)
+{
+    // Zero out the entire state structure
+    memset(hs, 0, sizeof(fasthash_state));
+
+    // Initialize hash with seed XORed with magic constant
+    hs->hash = seed ^ 0x880355f21e6d1965;
+}
+```

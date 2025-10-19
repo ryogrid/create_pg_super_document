@@ -40,3 +40,14 @@ The function is part of PostgreSQL's type conversion system that allows differen
 - The function provides type safety by accepting specifically Interval pointers rather than generic void pointers
 - As an inline function, it has minimal runtime overhead while providing better type checking than direct PointerGetDatum calls
 - This follows PostgreSQL's pattern of having type-specific GetDatum functions for major data types
+
+## Simplified Source
+
+```c
+static inline Datum
+IntervalPGetDatum(const Interval *X)
+{
+    // Convert Interval pointer to Datum for function interface
+    return PointerGetDatum(X);
+}
+```

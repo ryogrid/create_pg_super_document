@@ -32,3 +32,13 @@ The `deccopy` function implements decimal value copying for Informix compatibili
 - Does not perform any validation or null checking
 - Essential for decimal variable assignment and value preservation
 - Simple but critical function for Informix decimal compatibility layer
+
+## Simplified Source
+```c
+void
+deccopy(decimal *src, decimal *target)
+{
+    // Copy entire decimal structure from source to target
+    memcpy(target, src, sizeof(decimal));
+}
+```

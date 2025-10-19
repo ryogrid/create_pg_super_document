@@ -38,3 +38,33 @@ pg_popcount implements an efficient bit counting algorithm that adapts its strat
 - The threshold aligns with where special CPU instructions become beneficial in the optimized version
 - Return type is uint64 to handle large bit counts without overflow
 - Used extensively in bloom filters, bit vectors, and various bit manipulation operations throughout PostgreSQL
+
+## Simplified Source
+
+```c
+static inline uint64
+pg_popcount(const char *buf, int bytes)
+{
+    // Choose threshold based on architecture (8 bytes for 64-bit, 4 for 32-bit)
+    int threshold = (SIZEOF_VOID_P >= 8) ? 8 : 4;
+
+    // For small buffers, use simple lookup table approach
+    if (bytes < threshold) {
+        uint64 popcnt = 0;
+        while (bytes--) {
+            popcnt += pg_number_of_ones[(unsigned char) *buf++];
+        }
+        return popcnt;
+    }
+
+    // For larger buffers, use optimized implementation
+    return pg_popcount_optimized(buf, bytes);
+}
+```
+
+**Key Points:**
+- Counts the number of 1-bits (population count) in a byte buffer
+- Uses different strategies based on buffer size for optimal performance
+- Small buffers: simple loop with lookup table for each byte
+- Large buffers: delegates to hardware-accelerated optimized version
+- Threshold chosen to balance function call overhead vs. optimization benefits

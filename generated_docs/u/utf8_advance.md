@@ -37,3 +37,22 @@ The implementation uses a carefully designed state transition table (Utf8Transit
 - Part of PostgreSQL's optimized UTF-8 validation system that supports both byte-wise and vectorized processing
 - The state encoding uses a sophisticated packed representation discovered through SMT solver optimization, allowing 64-bit state transitions to fit in 32-bit integers
 - Final state masking ensures the state remains within valid bounds after processing
+
+## Simplified Source
+
+```c
+static void
+utf8_advance(const unsigned char *s, uint32 *state, int len)
+{
+    // Process each byte in the sequence
+    while (len > 0) {
+        // Update state using transition table lookup
+        // Mask with 31 allows compiler optimization on most architectures
+        *state = Utf8Transition[*s++] >> (*state & 31);
+        len--;
+    }
+
+    // Ensure final state stays within valid bounds
+    *state &= 31;
+}
+```

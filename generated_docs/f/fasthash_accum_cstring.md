@@ -43,3 +43,22 @@ The function includes debugging assertions when `USE_ASSERT_CHECKING` is enabled
 - The aligned version uses the `pg_attribute_no_sanitize_address()` attribute to bypass AddressSanitizer checks for direct memory access optimization
 - Debug builds include verification that aligned and unaligned paths produce identical results
 - Part of PostgreSQL's internal hashing infrastructure for hash tables and indexes
+
+## Simplified Source
+
+```c
+static inline size_t
+fasthash_accum_cstring(fasthash_state *hs, const char *str)
+{
+#if SIZEOF_VOID_P >= 8
+    // On 64-bit platforms, optimize for aligned strings
+    if (PointerIsAligned(str, uint64)) {
+        // Use aligned processing for better performance
+        return fasthash_accum_cstring_aligned(hs, str);
+    }
+#endif
+
+    // Use unaligned processing for 32-bit or unaligned strings
+    return fasthash_accum_cstring_unaligned(hs, str);
+}
+```

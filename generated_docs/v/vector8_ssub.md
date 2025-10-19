@@ -38,3 +38,19 @@ This function is commonly used in comparison operations and range checking where
 - Part of the portable SIMD interface in src/include/port/simd.h
 - Saturated arithmetic prevents wraparound, making it safer for range comparisons
 - Primarily used in building other SIMD comparison functions like vector8_has_le
+
+## Simplified Source
+
+```c
+static inline Vector8
+vector8_ssub(const Vector8 v1, const Vector8 v2)
+{
+    // Saturated subtraction: clamps to zero instead of underflowing
+    #ifdef USE_SSE2
+        return _mm_subs_epu8(v1, v2);
+    #elif defined(USE_NEON)
+        return vqsubq_u8(v1, v2);
+    #endif
+    // Note: No fallback implementation - requires SIMD support
+}
+```

@@ -31,3 +31,16 @@ The function is part of PostgreSQLs character encoding support system, specifica
 - The function uses a simplified approach that assumes all multi-byte GBK characters take exactly 2 display columns, which is generally correct for most Chinese characters
 - GBK encoding uses 1 byte for ASCII characters (0x00-0x7F) and 2 bytes for Chinese characters and other symbols
 - The function is registered as part of PostgreSQLs encoding function dispatch system for the GBK encoding
+
+## Simplified Source
+
+```c
+static int pg_gbk_dsplen(const unsigned char *s) {
+    // Double-byte Chinese characters: 2 columns
+    if (IS_HIGHBIT_SET(*s))
+        return 2;
+
+    // ASCII characters: delegate to ASCII handler
+    return pg_ascii_dsplen(s);
+}
+```

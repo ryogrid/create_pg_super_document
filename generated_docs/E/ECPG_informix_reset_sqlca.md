@@ -39,3 +39,18 @@ This reset functionality is important for applications that need to clear previo
 - Essential for maintaining clean state between SQL operations
 - Enables seamless migration of Informix ESQL/C applications to PostgreSQL
 - The function is defensive, returning early if no SQLCA is available
+
+## Simplified Source
+```c
+void ECPG_informix_reset_sqlca(void) {
+    // Get current SQLCA structure
+    struct sqlca_t *sqlca = ECPGget_sqlca();
+
+    // Safety check - return if no SQLCA available
+    if (sqlca == NULL)
+        return;
+
+    // Reset SQLCA to initial state
+    memcpy(sqlca, &sqlca_init, sizeof(struct sqlca_t));
+}
+```

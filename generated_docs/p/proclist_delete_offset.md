@@ -35,3 +35,32 @@ This function removes a specified process from a doubly-linked process list. It 
 - Resets the removed node's pointers to 0 to indicate it's no longer in any list
 - Uses assertions to verify list consistency during removal
 - This is a low-level function typically used by higher-level list management functions
+
+## Simplified Source
+
+```c
+static inline void
+proclist_delete_offset(proclist_head *list, int procno, size_t node_offset)
+{
+    proclist_node *node = proclist_node_get(procno, node_offset);
+
+    // Update previous node's next pointer (or list head)
+    if (node->prev == INVALID_PROC_NUMBER) {
+        list->head = node->next;  // Removing head node
+    }
+    else {
+        proclist_node_get(node->prev, node_offset)->next = node->next;
+    }
+
+    // Update next node's prev pointer (or list tail)
+    if (node->next == INVALID_PROC_NUMBER) {
+        list->tail = node->prev;  // Removing tail node
+    }
+    else {
+        proclist_node_get(node->next, node_offset)->prev = node->prev;
+    }
+
+    // Clear node pointers to indicate it's no longer in any list
+    node->next = node->prev = 0;
+}
+```

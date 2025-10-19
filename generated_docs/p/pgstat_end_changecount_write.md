@@ -40,3 +40,28 @@ The dual increment approach (begin: even→odd, end: odd→even) allows concurre
 - After this call, the change counter will be even, allowing readers to proceed safely
 - The critical section prevents process interruption during the entire write sequence
 - This completes the lock-free synchronization mechanism that allows statistics collection without blocking
+
+## Simplified Source
+
+```c
+static inline void pgstat_end_changecount_write(uint32 *cc) {
+    // Verify counter is odd (write was in progress)
+    Assert((*cc & 1) == 1);
+
+    // Memory barrier ensures all data writes complete before counter update
+    pg_write_barrier();
+
+    // Increment counter to even value (signals write completion)
+    (*cc)++;
+
+    // End critical section to allow interruptions again
+    END_CRIT_SECTION();
+}
+```
+
+**Key Points:**
+- Completes the change-count protocol for statistics writes
+- Makes counter even to signal write operation is finished
+- Memory barrier ensures all data writes complete before signaling
+- Must be paired with pgstat_begin_changecount_write
+- Ends critical section to restore normal interrupt handling

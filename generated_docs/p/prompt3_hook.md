@@ -28,3 +28,13 @@ This hook function is responsible for updating the psql prompt3 setting when the
 - The function always returns true, indicating successful processing
 - PROMPT3 is specifically used when psql detects an incomplete SQL statement that needs additional input to complete
 - Located in src/bin/psql/startup.c:1112
+
+## Simplified Source
+
+```c
+static bool prompt3_hook(const char *newval) {
+    // Set prompt3 to new value or empty string if NULL
+    pset.prompt3 = newval ? newval : "";
+    return true;  // Always succeeds - no validation needed
+}
+```

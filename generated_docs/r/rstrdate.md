@@ -34,3 +34,15 @@ The `rstrdate` function is part of PostgreSQL's ECPG date handling compatibility
 - Located in src/interfaces/ecpg/compatlib/informix.c:529-534
 - Companion function to `rdatestr` (converts date to string vs. string to date)
 - Assumes US date format (month/day/year) rather than international formats
+
+## Simplified Source
+```c
+// Converts string in mm/dd/yyyy format to date value
+// Any non-numeric character can be used as separator
+int
+rstrdate(const char *str, date *d)
+{
+    // Use standard mm/dd/yyyy format for parsing
+    return rdefmtdate(d, "mm/dd/yyyy", str);
+}
+```

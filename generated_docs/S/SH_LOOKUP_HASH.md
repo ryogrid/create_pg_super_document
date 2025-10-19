@@ -42,3 +42,16 @@ This function is useful for performance-critical scenarios where the hash value 
 - Part of the generic simple hash table implementation that generates type-specific functions
 - The SH_SCOPE macro controls the function's visibility (static, extern, etc.)
 - Useful for scenarios where hash values are cached or computed in batch
+
+## Simplified Source
+
+```c
+SH_SCOPE SH_ELEMENT_TYPE *
+SH_LOOKUP_HASH(SH_TYPE *tb, SH_KEY_TYPE key, uint32 hash)
+{
+    // Directly delegate to internal lookup with pre-computed hash
+    return SH_LOOKUP_HASH_INTERNAL(tb, key, hash);
+}
+```
+
+**What it does:** This function provides an optimized lookup interface when you already have a pre-computed hash value. It's a simple wrapper that directly calls the internal lookup function, avoiding the hash computation overhead that SH_LOOKUP would incur. This is useful for performance-critical scenarios where the hash value is already available from previous operations.

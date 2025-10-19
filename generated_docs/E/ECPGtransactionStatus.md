@@ -30,3 +30,20 @@ ECPGtransactionStatus is a wrapper function that provides access to PostgreSQL t
 - Handles error case gracefully by returning PQTRANS_UNKNOWN for invalid connections
 - Part of the ECPG library interface for embedded SQL functionality
 - Located in src/interfaces/ecpg/ecpglib/misc.c at lines 145-159
+
+## Simplified Source
+
+```c
+PGTransactionStatusType ECPGtransactionStatus(const char *connection_name) {
+    // Get the connection object by name
+    const struct connection *con = ecpg_get_connection(connection_name);
+
+    // Return unknown status if connection not found
+    if (con == NULL) {
+        return PQTRANS_UNKNOWN;
+    }
+
+    // Return the actual transaction status from libpq
+    return PQtransactionStatus(con->connection);
+}
+```

@@ -34,3 +34,76 @@ This function renders tabular data in a simple unaligned text format, primarily 
 - Special handling for zero-byte record separators to maintain compatibility with Unix pipeline tools
 - The last record is always terminated with a newline unless using zero-byte record separator mode
 - Function is static, indicating it's only used within the print.c module as part of the table formatting subsystem
+
+## Simplified Source
+
+```c
+static void print_unaligned_text(const printTableContent *cont, FILE *fout) {
+    bool opt_tuples_only = cont->opt->tuples_only;
+    bool need_recordsep = false;
+
+    if (cancel_pressed) return;
+
+    // Print title and headers if starting table
+    if (cont->opt->start_table) {
+        if (!opt_tuples_only && cont->title) {
+            fputs(cont->title, fout);
+            print_separator(cont->opt->recordSep, fout);
+        }
+
+        // Print column headers with field separators
+        if (!opt_tuples_only) {
+            for (const char *const *ptr = cont->headers; *ptr; ptr++) {
+                if (ptr != cont->headers) {
+                    print_separator(cont->opt->fieldSep, fout);
+                }
+                fputs(*ptr, fout);
+            }
+            need_recordsep = true;
+        }
+    } else {
+        need_recordsep = true;
+    }
+
+    // Print data cells
+    for (unsigned int i = 0; const char *const *ptr = cont->cells; *ptr; i++, ptr++) {
+        if (need_recordsep) {
+            print_separator(cont->opt->recordSep, fout);
+            need_recordsep = false;
+            if (cancel_pressed) break;
+        }
+        fputs(*ptr, fout);
+
+        // Add field separator between columns, record separator at row end
+        if ((i + 1) % cont->ncolumns) {
+            print_separator(cont->opt->fieldSep, fout);
+        } else {
+            need_recordsep = true;
+        }
+    }
+
+    // Print footers if stopping table
+    if (cont->opt->stop_table) {
+        printTableFooter *footers = footers_with_default(cont);
+        if (!opt_tuples_only && footers && !cancel_pressed) {
+            for (printTableFooter *f = footers; f; f = f->next) {
+                if (need_recordsep) {
+                    print_separator(cont->opt->recordSep, fout);
+                    need_recordsep = false;
+                }
+                fputs(f->data, fout);
+                need_recordsep = true;
+            }
+        }
+
+        // Final record termination
+        if (need_recordsep) {
+            if (cont->opt->recordSep.separator_zero) {
+                print_separator(cont->opt->recordSep, fout);
+            } else {
+                fputc('\n', fout);
+            }
+        }
+    }
+}
+```

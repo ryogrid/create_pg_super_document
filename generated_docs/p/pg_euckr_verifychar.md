@@ -37,3 +37,21 @@ The function examines the first byte to determine if it's a single-byte ASCII ch
 - The IS_EUC_RANGE_VALID macro ensures both bytes of Korean characters are in the valid range (0xA1-0xFE)
 - Returns -1 immediately if the required character length exceeds available buffer length
 - More straightforward than EUC-JP validation since there are no shift sequences (SS2/SS3) or three-byte characters
+
+## Simplified Source
+
+```c
+static int pg_euckr_verifychar(const unsigned char *s, int len) {
+    unsigned char c1 = *s;
+
+    if (IS_HIGHBIT_SET(c1)) {
+        // Korean character: 2 bytes, both in EUC range
+        if (len < 2) return -1;
+        if (!IS_EUC_RANGE_VALID(c1) || !IS_EUC_RANGE_VALID(s[1])) return -1;
+        return 2;
+    } else {
+        // ASCII character: 1 byte
+        return 1;
+    }
+}
+```

@@ -50,3 +50,38 @@ The special handling for the root child node ensures that RT_SET can always assu
 - The function demonstrates the bottom-up deletion strategy used in radix trees
 - Part of PostgreSQL's generic radix tree implementation that uses C macros for type polymorphism
 - Located in src/include/lib/radixtree.h at lines 2523-2570
+
+## Simplified Source
+
+```c
+static inline void
+RT_REMOVE_CHILD_4(RT_RADIX_TREE *tree, RT_PTR_ALLOC *parent_slot, RT_CHILD_PTR node, uint8 chunk, RT_PTR_ALLOC *slot)
+{
+    RT_NODE_4 *n4 = (RT_NODE_4 *) node.local;
+
+    if (n4->base.count == 1)
+    {
+        // Last entry removal: handle root vs non-root differently
+        if (parent_slot == &tree->ctl->root)
+        {
+            // Root child node: keep structure but mark empty
+            n4->base.count = 0;
+            tree->ctl->start_shift = 0;
+            tree->ctl->max_val = RT_SHIFT_GET_MAX_VAL(0);
+        }
+        else
+        {
+            // Non-root: free entire node and signal parent for deletion
+            RT_FREE_NODE(tree, node);
+            *parent_slot = RT_INVALID_PTR_ALLOC;  // Signal parent to delete child pointer
+        }
+    }
+    else
+    {
+        // Regular entry removal: shift arrays to remove entry
+        int deletepos = slot - n4->children;
+        RT_SHIFT_ARRAYS_AND_DELETE(n4->chunks, n4->children, n4->base.count, deletepos);
+        n4->base.count--;
+    }
+}
+```

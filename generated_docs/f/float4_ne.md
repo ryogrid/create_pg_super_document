@@ -33,3 +33,14 @@ The implementation uses a conditional expression that first checks if val1 is Na
 - Complementary to float4_eq function but with inverted logic for NaN handling
 - Used primarily in SQL inequality operations for real/float4 data types
 - The function is located at src/include/utils/float.h:274-279
+
+## Simplified Source
+
+```c
+static inline bool
+float4_ne(const float4 val1, const float4 val2)
+{
+    // NaN-aware inequality: NaN != non-NaN is true, NaN != NaN is false
+    return isnan(val1) ? !isnan(val2) : isnan(val2) || val1 != val2;
+}
+```

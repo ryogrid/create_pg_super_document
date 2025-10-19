@@ -36,3 +36,17 @@ Division by 10 is particularly important in decimal number formatting and string
 - The implementation is marked as `static inline` for performance optimization
 - Extensively used in the d2d function for decimal formatting operations
 - Related to other division optimization functions: `div5`, `div100`, and `div1e8`
+
+## Simplified Source
+
+```c
+static inline uint64 div10(const uint64 x) {
+    // Efficient division by 10 using bit manipulation
+    // Magic constant 0xCCCCCCCCCCCCCCCD represents 1/10 in fixed-point arithmetic
+    uint64 high_bits = umulh(x, 0xCCCCCCCCCCCCCCCD);
+
+    // Shift by 3 bits to complete the division
+    // Same magic constant as div5 but different shift (3 vs 2 bits)
+    return high_bits >> 3;
+}
+```

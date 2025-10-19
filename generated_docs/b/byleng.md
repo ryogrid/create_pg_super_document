@@ -34,3 +34,15 @@ This function is commonly used with fixed-length character fields (like CHAR col
 - Specifically designed for Informix compatibility where fixed-length strings are common
 - Handles the case where the entire string might be spaces
 - Located in src/interfaces/ecpg/compatlib/informix.c:970-976
+
+## Simplified Source
+
+```c
+int byleng(char *str, int len) {
+    // Start from end and work backwards, skipping trailing spaces
+    for (len--; str[len] && str[len] == ' '; len--);
+
+    // Return 1-based length (position + 1)
+    return (len + 1);
+}
+```

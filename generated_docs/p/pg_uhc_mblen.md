@@ -32,3 +32,16 @@ This function is essential for PostgreSQLs multi-byte character processing, allo
 - The function assumes all multi-byte characters in UHC are exactly 2 bytes, which is correct for the UHC encoding standard
 - This function is part of the encoding-specific function dispatch system that allows PostgreSQL to handle multiple character encodings uniformly
 - Unlike some other multi-byte encodings, UHC has a relatively simple structure that makes this byte-length detection straightforward
+
+## Simplified Source
+
+```c
+static int pg_uhc_mblen(const unsigned char *s) {
+    // High bit set: 2-byte Korean character
+    if (IS_HIGHBIT_SET(*s))
+        return 2;
+
+    // Low bit: 1-byte ASCII character
+    return 1;
+}
+```

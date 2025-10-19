@@ -33,3 +33,16 @@ The function implements simple GBK character length detection logic:
 - Used as part of the character encoding function table for GBK support
 - The logic is identical to Big5, as both encodings use the same simple high-bit detection scheme
 - GBK is an extension of the GB2312 standard for Simplified Chinese characters
+
+## Simplified Source
+
+```c
+static int pg_gbk_mblen(const unsigned char *s) {
+    // High bit set: 2-byte Chinese character
+    if (IS_HIGHBIT_SET(*s))
+        return 2;
+
+    // Low bit: 1-byte ASCII character
+    return 1;
+}
+```

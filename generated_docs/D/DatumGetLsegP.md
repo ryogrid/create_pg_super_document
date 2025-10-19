@@ -30,3 +30,14 @@ DatumGetLsegP is part of PostgreSQL's function manager (fmgr) interface function
 
 ## Notes and Other Information
 This function is defined as a static inline function in src/include/utils/geo_decls.h:189-193. Unlike some other geometric types, LSEG has relatively limited direct usage in the analyzed codebase, with its primary reference being through the PG_GETARG_LSEG_P macro. LSEG represents a line segment defined by two endpoints and is a fixed-size pass-by-reference type. The function assumes that the Datum contains a valid pointer to an LSEG structure and performs no validation. It is part of the consistent pattern of Datum conversion functions for PostgreSQL's geometric types.
+
+## Simplified Source
+
+```c
+static inline LSEG *
+DatumGetLsegP(Datum X)
+{
+    // Convert Datum to LSEG pointer
+    return (LSEG *) DatumGetPointer(X);
+}
+```

@@ -37,3 +37,13 @@ This implementation is conditionally compiled for GCC and Intel C compilers on x
 - Alternative implementations exist for different compilers and architectures (MSVC uses  intrinsic)
 - The "rep; nop" instruction sequence is equivalent to the PAUSE instruction on x86 processors
 - This function is part of PostgreSQL's atomic operations and spinlock infrastructure, crucial for multi-threaded performance
+
+## Simplified Source
+
+```c
+static __inline__ void pg_spin_delay_impl(void) {
+    // Execute x86 PAUSE instruction to optimize spin-wait loops
+    // Reduces power consumption and prevents pipeline flushes
+    __asm__ __volatile__(" rep; nop\t\t\t\n");
+}
+```

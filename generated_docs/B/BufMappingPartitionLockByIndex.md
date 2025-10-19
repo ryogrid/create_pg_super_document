@@ -55,3 +55,12 @@ This inline function provides efficient access to buffer mapping partition locks
 - The function assumes the caller knows the valid range of partition indices
 - Buffer mapping partitions help distribute lock contention across multiple locks rather than using a single global lock
 - Located in buf_internals.h, indicating it's an internal buffer management utility function
+
+## Simplified Source
+
+```c
+static inline LWLock *BufMappingPartitionLockByIndex(uint32 index) {
+    // Return pointer to lightweight lock for buffer mapping partition
+    return &MainLWLockArray[BUFFER_MAPPING_LWLOCK_OFFSET + index].lock;
+}
+```

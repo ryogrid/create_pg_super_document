@@ -39,3 +39,14 @@ This macro is only available when RT_SHMEM is defined, indicating the radix tree
 - The RT_PREFIX must be defined before including this header to generate proper function names
 - Used in conjunction with dynamic shared area (DSA) memory management
 - Essential for multi-process access to the same radix tree data structure
+
+## Simplified Source
+
+```c
+RT_SCOPE RT_HANDLE
+RT_GET_HANDLE(RT_RADIX_TREE *tree)
+{
+    // Return the handle for shared memory access
+    return tree->ctl->handle;
+}
+```

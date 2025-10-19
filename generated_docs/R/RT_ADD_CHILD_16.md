@@ -34,3 +34,27 @@ This macro expands to a function that typically takes:
 - The actual function implementation is generated through the macro expansion system
 - [Node](../N/Node.md)-16 uses a more compact representation than node-48 or node-256 for space efficiency
 - This macro is used in the main insertion logic within RT_NODE_INSERT to handle the specific case of adding children to 16-capacity nodes
+
+## Simplified Source
+
+```c
+static inline RT_PTR_ALLOC *
+RT_ADD_CHILD_16(RT_RADIX_TREE *tree, RT_CHILD_PTR node, uint8 chunk)
+{
+    RT_NODE_16 *n16 = (RT_NODE_16 *) node.local;
+
+    // Find correct insertion position to maintain sorted order
+    int insertpos = RT_NODE_16_GET_INSERTPOS(n16, chunk);
+
+    // Shift existing chunks and children to make room
+    RT_SHIFT_ARRAYS_FOR_INSERT(n16->chunks, n16->children,
+                               n16->base.count, insertpos);
+
+    // Insert new chunk at the correct position
+    n16->chunks[insertpos] = chunk;
+
+    // Update count and return child slot pointer
+    n16->base.count++;
+    return &n16->children[insertpos];
+}
+```

@@ -42,3 +42,19 @@ The starting position parameter 'at' is masked with the table's sizemask to ensu
 - The 'at' parameter is automatically masked to ensure it's within valid table bounds
 - Commonly used when iteration needs to resume from a specific known position
 - Must be used with the corresponding SH_ITERATE macro to actually traverse the elements
+
+## Simplified Source
+
+```c
+// Macro definition
+#define SH_START_ITERATE_AT SH_MAKE_NAME(start_iterate_at)
+
+// Implementation
+void SH_START_ITERATE_AT(SH_TYPE *tb, SH_ITERATOR *iter, uint32 at) {
+    // Initialize iterator for backward iteration starting at specified position
+    // Mask 'at' to ensure it's within valid table bounds
+    iter->cur = at & tb->sizemask;
+    iter->end = iter->cur;
+    iter->done = false;
+}
+```

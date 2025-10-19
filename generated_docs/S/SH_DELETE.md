@@ -51,3 +51,65 @@ Return value:
 - Part of the generic simple hash table implementation that generates type-specific functions
 - The deletion algorithm ensures the hash table remains compact without gaps
 - More complex than typical hash table deletion due to the sophisticated shifting strategy
+
+## Simplified Source
+
+```c
+SH_SCOPE bool
+SH_DELETE(SH_TYPE *tb, SH_KEY_TYPE key)
+{
+    // Compute hash and find starting position
+    uint32 hash = SH_HASH_KEY(tb, key);
+    uint32 startelem = SH_INITIAL_BUCKET(tb, hash);
+    uint32 curelem = startelem;
+
+    // Search for the key to delete
+    while (true) {
+        SH_ELEMENT_TYPE *entry = &tb->data[curelem];
+
+        // If empty bucket found, key doesn't exist
+        if (entry->status == SH_STATUS_EMPTY) {
+            return false;
+        }
+
+        // If key matches, delete this entry
+        if (entry->status == SH_STATUS_IN_USE &&
+            SH_COMPARE_KEYS(tb, hash, key, entry)) {
+
+            SH_ELEMENT_TYPE *lastentry = entry;
+            tb->members--;
+
+            // Backward shift following elements to eliminate gaps
+            while (true) {
+                curelem = SH_NEXT(tb, curelem, startelem);
+                SH_ELEMENT_TYPE *curentry = &tb->data[curelem];
+
+                // If empty or at optimal position, stop shifting
+                if (curentry->status != SH_STATUS_IN_USE) {
+                    lastentry->status = SH_STATUS_EMPTY;
+                    break;
+                }
+
+                uint32 curhash = SH_ENTRY_HASH(tb, curentry);
+                uint32 curoptimal = SH_INITIAL_BUCKET(tb, curhash);
+
+                if (curoptimal == curelem) {
+                    lastentry->status = SH_STATUS_EMPTY;
+                    break;
+                }
+
+                // Shift entry backward to fill gap
+                memcpy(lastentry, curentry, sizeof(SH_ELEMENT_TYPE));
+                lastentry = curentry;
+            }
+
+            return true;
+        }
+
+        // Continue searching
+        curelem = SH_NEXT(tb, curelem, startelem);
+    }
+}
+```
+
+**What it does:** This function deletes an entry from the hash table by key. It searches for the key using linear probing, and when found, removes it and uses backward shifting to eliminate gaps. Instead of leaving tombstones, it shifts subsequent entries backward until it reaches an empty slot or an entry that's already at its optimal position. This maintains hash table density and performance even after deletions.

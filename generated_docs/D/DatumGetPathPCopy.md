@@ -31,3 +31,14 @@ This function serves as a type-safe wrapper for converting PostgreSQL Datum valu
 - Always creates a copy of the data, ensuring caller owns the memory
 - Used when the PATH object will be modified or needs to persist beyond current context
 - More expensive than DatumGetPathP due to copying, but provides memory safety
+
+## Simplified Source
+
+```c
+static inline PATH *
+DatumGetPathPCopy(Datum X)
+{
+    // Convert Datum to PATH pointer, creating a copy for caller ownership
+    return (PATH *) PG_DETOAST_DATUM_COPY(X);
+}
+```

@@ -33,3 +33,22 @@ This function takes no parameters and returns:
 - QueryPerformanceCounter() provides microsecond-level precision on most modern Windows systems
 - The counter value is stored directly in the ticks field without unit conversion, as the frequency is handled separately by GetTimerFrequency()
 - This is part of PostgreSQL's portable timing infrastructure, ensuring consistent timing behavior across different platforms including Windows
+
+## Simplified Source
+
+```c
+static inline instr_time
+pg_query_performance_counter(void)
+{
+    instr_time now;
+    LARGE_INTEGER tmp;
+
+    // Get Windows high-resolution performance counter
+    QueryPerformanceCounter(&tmp);
+
+    // Store counter value directly (frequency handled separately)
+    now.ticks = tmp.QuadPart;
+
+    return now;
+}
+```

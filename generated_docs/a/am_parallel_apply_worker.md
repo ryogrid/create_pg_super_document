@@ -49,3 +49,13 @@ The function includes an assertion to ensure that the worker is currently in use
 - These workers coordinate with the leader apply worker to process changes concurrently
 - The function is heavily used in parallel apply worker logic to distinguish between different worker types
 - Parallel apply workers handle specific transactions assigned by the leader worker, enabling concurrent processing of the replication stream
+
+## Simplified Source
+
+```c
+static inline bool am_parallel_apply_worker(void) {
+    // Check if current worker is in use and is a parallel apply worker
+    Assert(MyLogicalRepWorker->in_use);
+    return isParallelApplyWorker(MyLogicalRepWorker);
+}
+```

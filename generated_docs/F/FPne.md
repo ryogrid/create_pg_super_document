@@ -30,3 +30,15 @@ FPne implements a fuzzy inequality comparison for double-precision floating-poin
 
 ## Notes and Other Information
 This function is the complement of FPeq and is used less frequently in PostgreSQL's geometric operations. The dual condition (A != B && fabs(A - B) > EPSILON) ensures that both the direct inequality check passes and the difference is meaningful beyond floating-point precision errors. This approach prevents false positives where tiny rounding errors might otherwise be interpreted as significant differences.
+
+## Simplified Source
+
+```c
+static inline bool
+FPne(double A, double B)
+{
+    // Check direct inequality AND ensure difference exceeds epsilon
+    // Both conditions must be true for significant inequality
+    return A != B && fabs(A - B) > EPSILON;
+}
+```

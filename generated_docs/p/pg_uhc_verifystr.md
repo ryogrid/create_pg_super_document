@@ -29,3 +29,31 @@ This function performs string validation for UHC encoding by iterating through e
 - Stops validation at the first null byte encountered, treating it as a string terminator
 - The function is designed to work with null-terminated strings as well as fixed-length buffers
 - Part of PostgreSQL's character encoding validation infrastructure for supporting Korean text
+
+## Simplified Source
+```c
+static int pg_uhc_verifystr(const unsigned char *s, int len) {
+    const unsigned char *start = s;
+
+    while (len > 0) {
+        int char_len;
+
+        // Fast path: ASCII characters (high bit not set)
+        if (!IS_HIGHBIT_SET(*s)) {
+            if (*s == '\0')
+                break;  // Stop at null terminator
+            char_len = 1;
+        } else {
+            // Verify multi-byte UHC character
+            char_len = pg_uhc_verifychar(s, len);
+            if (char_len == -1)
+                break;  // Invalid character found
+        }
+
+        s += char_len;
+        len -= char_len;
+    }
+
+    return s - start;  // Return bytes processed
+}
+```

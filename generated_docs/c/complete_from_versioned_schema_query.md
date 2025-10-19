@@ -33,3 +33,28 @@ This function combines the version-awareness of complete_from_versioned_query wi
 - Part of psql's sophisticated version-aware tab completion system for database schema objects
 - The function is static, indicating it's only used within the tab-complete.c file
 - Less frequently used compared to complete_from_schema_query but important for version-specific schema completions
+
+## Simplified Source
+
+```c
+static char *complete_from_versioned_schema_query(const char *text, int state)
+{
+    const SchemaQuery *squery = completion_squery;
+
+    // Find the first schema query compatible with current server version
+    while (pset.sversion < squery->min_server_version)
+        squery++;
+
+    // If no compatible schema query found, fail completion
+    if (squery->catname == NULL)
+        return NULL;
+
+    // Execute the version-appropriate schema query
+    return _complete_from_query(NULL,                    // No regular query
+                               squery,                   // Version-specific schema query
+                               completion_charpp,        // Result processing
+                               completion_verbatim,      // Verbatim flag
+                               text,                     // User input
+                               state);                   // Readline state
+}
+```

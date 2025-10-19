@@ -38,3 +38,21 @@ The generated function has the signature:
 - The actual median-of-three implementation compares three elements and returns the median value
 - Used internally by PostgreSQL's sorting algorithms to improve quicksort performance by selecting better pivot elements
 - Part of the template-based approach that allows PostgreSQL to generate optimized sorting functions for different data types
+
+## Simplified Source
+
+```c
+// Macro definition
+#define ST_MED3 ST_MAKE_NAME(ST_SORT, med3)
+
+// Implementation
+static pg_noinline ST_ELEMENT_TYPE *
+ST_MED3(ST_ELEMENT_TYPE *a, ST_ELEMENT_TYPE *b, ST_ELEMENT_TYPE *c
+        ST_SORT_PROTO_COMPARE ST_SORT_PROTO_ARG) {
+
+    // Find median of three elements using conditional expressions
+    return DO_COMPARE(a, b) < 0 ?
+        (DO_COMPARE(b, c) < 0 ? b : (DO_COMPARE(a, c) < 0 ? c : a))
+        : (DO_COMPARE(b, c) > 0 ? b : (DO_COMPARE(a, c) < 0 ? a : c));
+}
+```

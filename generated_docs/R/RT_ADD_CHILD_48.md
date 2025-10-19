@@ -33,3 +33,42 @@ This function adds a child to a node48 by finding the first available slot in th
 
 ## Notes and Other Information
 Node48 provides a balance between node16 (which has limited capacity) and node256 (which may waste space). It uses an indirection array to map 256 possible chunk values to 48 actual slots, allowing efficient storage when the key space is sparse. The bitmap `isset` tracks which of the 48 slots are occupied, and the algorithm efficiently finds the first available slot using bit manipulation. The function updates both the slot mapping (`slot_idxs[chunk] = insertpos`) and marks the slot as used in the bitmap.
+
+## Simplified Source
+
+```c
+static inline RT_PTR_ALLOC *
+RT_ADD_CHILD_48(RT_RADIX_TREE *tree, RT_CHILD_PTR node, uint8 chunk)
+{
+    RT_NODE_48 *n48 = (RT_NODE_48 *) node.local;
+    int insertpos;
+    int idx = 0;
+    bitmapword w;
+
+    // Find first bitmap word with available slot
+    for (int i = 0; i < RT_BM_IDX(RT_FANOUT_48_MAX); i++)
+    {
+        w = n48->isset[i];
+        if (w < ~((bitmapword) 0))  // Not all bits set
+        {
+            idx = i;
+            break;
+        }
+    }
+
+    // Find first unset bit position using bit manipulation
+    bitmapword inverse = ~w;
+    insertpos = idx * BITS_PER_BITMAPWORD;
+    insertpos += bmw_rightmost_one_pos(inverse);
+
+    // Mark slot as used
+    n48->isset[idx] |= w + 1;
+
+    // Map chunk to slot position
+    n48->slot_idxs[chunk] = insertpos;
+
+    // Update count and return child slot pointer
+    n48->base.count++;
+    return &n48->children[insertpos];
+}
+```

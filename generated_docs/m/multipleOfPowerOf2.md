@@ -35,3 +35,14 @@ The function includes a commented alternative implementation using  (count trail
 - The mask  creates a value with the lower p bits set to 1
 - This is a core utility function in PostgreSQL's floating-point conversion algorithms
 - Located in src/common/d2s.c:106-161 (though the actual function body is much shorter)
+
+## Simplified Source
+
+```c
+static inline bool multipleOfPowerOf2(const uint64 value, const uint32 p) {
+    // Check if value is divisible by 2^p using bitwise operations
+    // Create mask with lower p bits set, if AND result is 0, it's divisible
+    uint64 mask = (UINT64CONST(1) << p) - 1;
+    return (value & mask) == 0;
+}
+```

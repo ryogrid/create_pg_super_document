@@ -37,3 +37,20 @@ This function is part of PostgreSQL's portable SIMD abstraction layer that provi
 - Conditional compilation ensures the most efficient instruction set is used
 - Part of the portable SIMD interface in src/include/port/simd.h
 - Used primarily for ASCII validation and other byte-level operations requiring bitwise logic
+
+## Simplified Source
+
+```c
+static inline Vector8
+vector8_or(const Vector8 v1, const Vector8 v2)
+{
+    // Perform bitwise OR on two 8-byte vectors
+    #ifdef USE_SSE2
+        return _mm_or_si128(v1, v2);
+    #elif defined(USE_NEON)
+        return vorrq_u8(v1, v2);
+    #else
+        return v1 | v2;  // Fallback for non-SIMD platforms
+    #endif
+}
+```

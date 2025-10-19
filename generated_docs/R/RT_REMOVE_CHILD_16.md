@@ -44,3 +44,26 @@ The function includes an important optimization where the shrinking threshold (4
 - Part of PostgreSQL's generic radix tree implementation that uses C macros for type polymorphism
 - Node16 stores children in sorted arrays, making SIMD-optimized searches possible for larger counts
 - Located in src/include/lib/radixtree.h at lines 2498-2520
+
+## Simplified Source
+
+```c
+static inline void
+RT_REMOVE_CHILD_16(RT_RADIX_TREE *tree, RT_PTR_ALLOC *parent_slot, RT_CHILD_PTR node, uint8 chunk, RT_PTR_ALLOC *slot)
+{
+    RT_NODE_16 *n16 = (RT_NODE_16 *) node.local;
+    int deletepos = slot - n16->children;  // Calculate position from slot pointer
+
+    // Shrink to node4 if sparse enough (linear search faster for ≤3 elements)
+    if (n16->base.count <= 4)
+    {
+        RT_SHRINK_NODE_16(tree, parent_slot, node, deletepos);
+        return;
+    }
+
+    // In-place deletion: shift arrays to remove entry
+    RT_SHIFT_ARRAYS_AND_DELETE(n16->chunks, n16->children,
+                               n16->base.count, deletepos);
+    n16->base.count--;
+}
+```

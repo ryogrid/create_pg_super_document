@@ -47,3 +47,34 @@ This function is particularly useful for processing variable-length data or when
 - The fallthrough switch statement design efficiently handles variable-length inputs without branching overhead
 - This function is used internally by higher-level functions like `fasthash64()` to process input data in chunks
 - For performance-critical code with known fixed-size inputs, direct accumulator assignment followed by `fasthash_combine()` may be preferred
+
+## Simplified Source
+
+```c
+static inline void
+fasthash_accum(fasthash_state *hs, const char *k, size_t len)
+{
+    Assert(len <= FH_SIZEOF_ACCUM);
+
+    // Clear accumulator
+    hs->accum = 0;
+
+    // Handle different input lengths based on endianness
+    switch (len) {
+        case 8:
+            // Copy all 8 bytes directly for best performance
+            memcpy(&hs->accum, k, 8);
+            break;
+        case 7: case 6: case 5: case 4:
+        case 3: case 2: case 1:
+            // Load bytes with proper bit positioning for endianness
+            // [Platform-specific bit shifting logic omitted for brevity]
+            break;
+        case 0:
+            return; // Nothing to process
+    }
+
+    // Combine accumulated data into hash
+    fasthash_combine(hs);
+}
+```

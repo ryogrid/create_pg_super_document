@@ -37,3 +37,14 @@ This behavior is essential for database operations where consistent sorting and 
 - Used as the foundation for SQL equality operations on the  data type (float4)
 - The design ensures that NaN values can be properly indexed and sorted in database operations
 - Follows PostgreSQL's convention that all NaNs are considered equal and greater than any finite value
+
+## Simplified Source
+
+```c
+static inline bool
+float4_eq(const float4 val1, const float4 val2)
+{
+    // NaN-aware equality: NaN equals NaN, non-NaN equals non-NaN if values match
+    return isnan(val1) ? isnan(val2) : !isnan(val2) && val1 == val2;
+}
+```

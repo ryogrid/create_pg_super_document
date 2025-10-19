@@ -59,3 +59,73 @@ Return value: Pointer to the hash table element (either existing or newly insert
 - The function maintains hash table statistics and can be instrumented with SH_STAT for performance analysis
 - Growth thresholds prevent performance degradation from overly imbalanced hash tables
 - Located in src/include/lib/simplehash.h:609-770
+
+## Simplified Source
+
+```c
+static inline SH_ELEMENT_TYPE *
+SH_INSERT_HASH_INTERNAL(SH_TYPE *tb, SH_KEY_TYPE key, uint32 hash, bool *found)
+{
+restart:
+    // Check if table needs to grow before insertion
+    if (unlikely(tb->members >= tb->grow_threshold)) {
+        if (unlikely(tb->size == SH_MAX_SIZE))
+            sh_error("hash table size exceeded");
+        SH_GROW(tb, tb->size * 2);
+    }
+
+    // Start searching from the optimal bucket position
+    uint32 curelem = SH_INITIAL_BUCKET(tb, hash);
+    uint32 insertdist = 0;
+    SH_ELEMENT_TYPE *data = tb->data;
+
+    while (true) {
+        SH_ELEMENT_TYPE *entry = &data[curelem];
+
+        // If bucket is empty, insert here
+        if (entry->status == SH_STATUS_EMPTY) {
+            tb->members++;
+            entry->SH_KEY = key;
+            entry->status = SH_STATUS_IN_USE;
+            *found = false;
+            return entry;
+        }
+
+        // If key already exists, return existing entry
+        if (SH_COMPARE_KEYS(tb, hash, key, entry)) {
+            *found = true;
+            return entry;
+        }
+
+        // Robin Hood hashing: check if current entry should be displaced
+        uint32 curhash = SH_ENTRY_HASH(tb, entry);
+        uint32 curoptimal = SH_INITIAL_BUCKET(tb, curhash);
+        uint32 curdist = SH_DISTANCE_FROM_OPTIMAL(tb, curoptimal, curelem);
+
+        if (insertdist > curdist) {
+            // Displace current entry and shift elements forward
+            // Find next empty bucket and shift all entries between
+            // [simplified: complex element shifting logic]
+
+            // Insert new element in displaced position
+            tb->members++;
+            entry->SH_KEY = key;
+            entry->status = SH_STATUS_IN_USE;
+            *found = false;
+            return entry;
+        }
+
+        // Move to next bucket
+        curelem = SH_NEXT(tb, curelem, startelem);
+        insertdist++;
+
+        // Trigger growth if insertion distance becomes too large
+        if (unlikely(insertdist > SH_GROW_MAX_DIB)) {
+            tb->grow_threshold = 0;
+            goto restart;
+        }
+    }
+}
+```
+
+**What it does:** This is the core hash table insertion function implementing Robin Hood hashing. It first checks if the table needs to grow, then searches for the optimal insertion position starting from the key's ideal bucket. If a bucket is empty, it inserts directly. If the key already exists, it returns the existing entry. Otherwise, it uses Robin Hood hashing logic to minimize variance by displacing entries that are closer to their optimal positions than the new entry would be, ensuring balanced performance.

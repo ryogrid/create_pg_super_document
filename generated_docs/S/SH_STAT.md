@@ -51,3 +51,66 @@ The statistics are reported through logging using either pg_log_info() or elog(L
 - Logs detailed performance metrics in a human-readable format
 - The function provides insights into hash table efficiency and can help identify performance bottlenecks
 - Statistics include both absolute values (max, total) and computed averages for better analysis
+
+## Simplified Source
+
+```c
+// Macro definition
+#define SH_STAT SH_MAKE_NAME(stat)
+
+// Implementation
+void SH_STAT(SH_TYPE *tb) {
+    uint32 max_chain_length = 0;
+    uint32 total_chain_length = 0;
+    double avg_chain_length;
+    double fillfactor;
+
+    // Allocate collision tracking array
+    uint32 *collisions = (uint32 *) palloc0(tb->size * sizeof(uint32));
+    uint32 total_collisions = 0;
+    uint32 max_collisions = 0;
+
+    // Calculate chain lengths and collisions for each element
+    for (uint32 i = 0; i < tb->size; i++) {
+        SH_ELEMENT_TYPE *elem = &tb->data[i];
+
+        if (elem->status != SH_STATUS_IN_USE)
+            continue;
+
+        uint32 hash = SH_ENTRY_HASH(tb, elem);
+        uint32 optimal = SH_INITIAL_BUCKET(tb, hash);
+        uint32 dist = SH_DISTANCE_FROM_OPTIMAL(tb, optimal, i);
+
+        if (dist > max_chain_length)
+            max_chain_length = dist;
+        total_chain_length += dist;
+
+        collisions[optimal]++;
+    }
+
+    // Calculate collision statistics
+    for (uint32 i = 0; i < tb->size; i++) {
+        uint32 curcoll = collisions[i];
+        if (curcoll > 1) {  // More than one element = collision
+            total_collisions += (curcoll - 1);
+            if ((curcoll - 1) > max_collisions)
+                max_collisions = curcoll - 1;
+        }
+    }
+
+    pfree(collisions);
+
+    // Calculate averages and fill factor
+    if (tb->members > 0) {
+        fillfactor = tb->members / ((double) tb->size);
+        avg_chain_length = ((double) total_chain_length) / tb->members;
+    } else {
+        fillfactor = 0;
+        avg_chain_length = 0;
+    }
+
+    // Log comprehensive statistics
+    sh_log("size: %lu, members: %u, filled: %f, max chain: %u, avg chain: %f, max collisions: %u",
+           tb->size, tb->members, fillfactor, max_chain_length, avg_chain_length, max_collisions);
+}
+```

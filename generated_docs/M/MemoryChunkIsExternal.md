@@ -45,3 +45,18 @@ External chunks are typically used for large allocations that exceed the normal 
 - Used extensively throughout PostgreSQL's memory management system to determine the appropriate handling for different chunk types
 - External chunks require different deallocation logic since they're not part of memory blocks
 - The magic number check helps detect memory corruption or invalid chunk access
+
+## Simplified Source
+
+```c
+static inline bool
+MemoryChunkIsExternal(MemoryChunk *chunk)
+{
+    // Verify external chunks have valid magic number (debug builds only)
+    Assert(!HdrMaskIsExternal(chunk->hdrmask) ||
+           HdrMaskCheckMagic(chunk->hdrmask));
+
+    // Check if external flag is set in header mask
+    return HdrMaskIsExternal(chunk->hdrmask);
+}
+```

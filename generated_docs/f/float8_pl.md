@@ -38,3 +38,20 @@ This inline function implements safe double-precision floating-point addition by
 - Extensively used in geometric operations and aggregate functions
 - Implements IEEE 754 compliant arithmetic with PostgreSQL-specific error handling
 - The function allows infinite results when at least one operand is already infinite
+
+## Simplified Source
+
+```c
+static inline float8 float8_pl(const float8 val1, const float8 val2) {
+    float8 result;
+
+    // Perform addition
+    result = val1 + val2;
+
+    // Check for overflow: result is infinite but neither input was infinite
+    if (unlikely(isinf(result)) && !isinf(val1) && !isinf(val2))
+        float_overflow_error();
+
+    return result;
+}
+```

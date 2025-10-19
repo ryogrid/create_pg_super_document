@@ -46,3 +46,36 @@ The function stores the result as an unterminated string to avoid unnecessary nu
 - Implements the Ryu algorithm for efficient double-to-string conversion
 - Handles both normalized and subnormal floating-point numbers uniformly
 - Special cases (±infinity, NaN, ±0) are processed early for performance
+
+## Simplified Source
+
+```c
+int double_to_shortest_decimal_bufn(double f, char *result) {
+    // Step 1: Extract IEEE 754 bit representation
+    const uint64 bits = double_to_bits(f);
+
+    // Decode into sign, mantissa, and exponent components
+    const bool ieeeSign = ((bits >> (DOUBLE_MANTISSA_BITS + DOUBLE_EXPONENT_BITS)) & 1) != 0;
+    const uint64 ieeeMantissa = bits & ((UINT64CONST(1) << DOUBLE_MANTISSA_BITS) - 1);
+    const uint32 ieeeExponent = (uint32)((bits >> DOUBLE_MANTISSA_BITS) & ((1u << DOUBLE_EXPONENT_BITS) - 1));
+
+    // Handle special cases early: infinity, NaN, and zero
+    if (ieeeExponent == ((1u << DOUBLE_EXPONENT_BITS) - 1u) ||
+        (ieeeExponent == 0 && ieeeMantissa == 0)) {
+        return copy_special_str(result, ieeeSign, (ieeeExponent != 0), (ieeeMantissa != 0));
+    }
+
+    floating_decimal_64 v;
+
+    // Try small integer optimization first (common case)
+    const bool isSmallInt = d2d_small_int(ieeeMantissa, ieeeExponent, &v);
+
+    if (!isSmallInt) {
+        // Use general double-to-decimal algorithm for complex cases
+        v = d2d(ieeeMantissa, ieeeExponent);
+    }
+
+    // Convert the decimal representation to character string
+    return to_chars(v, ieeeSign, result);
+}
+```

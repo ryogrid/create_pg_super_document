@@ -41,3 +41,14 @@ The function serves as a convenient wrapper for applications that need 32-bit ha
 - The composition pattern allows for code reuse between 32-bit and 64-bit hash variants
 - Used in PostgreSQL's internal hash table implementations where 32-bit hash values are sufficient
 - The tweak parameter handling is identical to the 64-bit version, maintaining API consistency
+
+## Simplified Source
+
+```c
+static inline uint32
+fasthash_final32(fasthash_state *hs, uint64 tweak)
+{
+    // Finalize to 64-bit hash, then reduce to 32-bit with quality preservation
+    return fasthash_reduce32(fasthash_final64(hs, tweak));
+}
+```

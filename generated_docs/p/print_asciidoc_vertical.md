@@ -35,3 +35,78 @@ This function formats and outputs tabular data in AsciiDoc vertical format, wher
 - Record numbering starts from cont->opt->prior_records + 1 to support pagination
 - Empty or whitespace-only cells are rendered as single space to maintain table structure
 - Footers are displayed in a literal block (....)
+
+## Simplified Source
+```c
+static void print_asciidoc_vertical(const printTableContent *cont, FILE *fout)
+{
+    bool opt_tuples_only = cont->opt->tuples_only;
+    unsigned short opt_border = cont->opt->border;
+    unsigned long record = cont->opt->prior_records + 1;
+    unsigned int i;
+    const char *const *ptr;
+
+    if (cancel_pressed)
+        return;
+
+    if (cont->opt->start_table) {
+        fputs("\n", fout);  // Start new paragraph
+
+        // Print title if present
+        if (!opt_tuples_only && cont->title) {
+            fprintf(fout, ".%s\n", cont->title);
+        }
+
+        // Create vertical table with header/value columns
+        fputs("[cols=\"h,l\"", fout);
+
+        // Add border styling
+        if (opt_border == 0)
+            fputs(",frame=\"none\",grid=\"none\"", fout);
+        else if (opt_border == 1)
+            fputs(",frame=\"none\"", fout);
+        else
+            fputs(",frame=\"all\",grid=\"all\"", fout);
+
+        fputs("]\n|====\n", fout);
+    }
+
+    // Print each record as field-value pairs
+    for (i = 0, ptr = cont->cells; *ptr; i++, ptr++) {
+        // Start new record
+        if (i % cont->ncolumns == 0) {
+            if (cancel_pressed) break;
+
+            if (!opt_tuples_only)
+                fprintf(fout, "2+^|Record %lu\n", record++);
+            else
+                fputs("2+|\n", fout);
+        }
+
+        // Print field name
+        fputs("<l|", fout);
+        asciidoc_escaped_print(cont->headers[i % cont->ncolumns], fout);
+
+        // Print field value with alignment
+        fprintf(fout, " %s|", cont->aligns[i % cont->ncolumns] == 'r' ? ">l" : "<l");
+
+        if ((*ptr)[strspn(*ptr, " \t")] == '\0')
+            fputs(" ", fout);  // Empty cell
+        else
+            asciidoc_escaped_print(*ptr, fout);
+
+        fputs("\n", fout);
+    }
+
+    fputs("|====\n", fout);
+
+    // Print footers in literal block
+    if (cont->opt->stop_table && !opt_tuples_only && cont->footers && !cancel_pressed) {
+        fputs("\n....\n", fout);
+        for (printTableFooter *f = cont->footers; f; f = f->next) {
+            fprintf(fout, "%s\n", f->data);
+        }
+        fputs("....\n", fout);
+    }
+}
+```

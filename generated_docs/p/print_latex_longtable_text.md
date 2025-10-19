@@ -39,3 +39,90 @@ This function generates LaTeX code using the longtable package, which is designe
 - Uses \tabularnewline instead of \\\\ for better longtable compatibility
 - Border level is clamped to maximum of 3 if higher values are provided
 - Processes tableAttr string to extract proportional widths, reusing previous values for subsequent columns
+
+## Simplified Source
+```c
+static void print_latex_longtable_text(const printTableContent *cont, FILE *fout)
+{
+    bool opt_tuples_only = cont->opt->tuples_only;
+    unsigned short opt_border = cont->opt->border;
+    unsigned int i;
+    const char *opt_table_attr = cont->opt->tableAttr;
+    const char *const *ptr;
+
+    if (cancel_pressed)
+        return;
+
+    if (opt_border > 3)
+        opt_border = 3;  // Clamp border level
+
+    if (cont->opt->start_table) {
+        // Begin longtable environment with column specifications
+        fputs("\\begin{longtable}{", fout);
+
+        if (opt_border >= 2) fputs("| ", fout);
+
+        // Process column alignments and widths
+        for (i = 0; i < cont->ncolumns; i++) {
+            // For left-aligned columns with proportional width
+            if (*(cont->aligns + i) == 'l' && opt_table_attr) {
+                // Extract width from tableAttr and use p{width\textwidth}
+                // [Complex width parsing logic omitted for simplicity]
+                fputs("p{0.1\\textwidth}", fout);  // Default proportional width
+            } else {
+                fputc(*(cont->aligns + i), fout);  // Standard alignment
+            }
+
+            if (opt_border != 0 && i < cont->ncolumns - 1)
+                fputs(" | ", fout);
+        }
+
+        if (opt_border >= 2) fputs(" |", fout);
+        fputs("}\n", fout);
+
+        // Set up longtable headers and footers
+        if (!opt_tuples_only) {
+            // First page header
+            for (i = 0, ptr = cont->headers; i < cont->ncolumns; i++, ptr++) {
+                if (i != 0) fputs(" & ", fout);
+                fputs("\\small\\textbf{\\textit{", fout);
+                latex_escaped_print(*ptr, fout);
+                fputs("}}", fout);
+            }
+            fputs(" \\\\\n\\endfirsthead\n", fout);
+
+            // Continuation headers
+            fputs("\\caption{(Continued)} \\\\\n", fout);
+            for (i = 0, ptr = cont->headers; i < cont->ncolumns; i++, ptr++) {
+                if (i != 0) fputs(" & ", fout);
+                fputs("\\small\\textbf{\\textit{", fout);
+                latex_escaped_print(*ptr, fout);
+                fputs("}}", fout);
+            }
+            fputs(" \\\\\n\\endhead\n", fout);
+        }
+    }
+
+    // Print data cells with \raggedright for proportional columns
+    for (i = 0, ptr = cont->cells; *ptr; i++, ptr++) {
+        if (*(cont->aligns + i % cont->ncolumns) == 'l' && opt_table_attr)
+            fputs("\\raggedright{", fout);
+
+        latex_escaped_print(*ptr, fout);
+
+        if (*(cont->aligns + i % cont->ncolumns) == 'l' && opt_table_attr)
+            fputs("}", fout);
+
+        if ((i + 1) % cont->ncolumns == 0) {
+            fputs(" \\tabularnewline\n", fout);
+            if (cancel_pressed) break;
+        } else {
+            fputs(" & ", fout);
+        }
+    }
+
+    if (cont->opt->stop_table) {
+        fputs("\\end{longtable}\n", fout);
+    }
+}
+```

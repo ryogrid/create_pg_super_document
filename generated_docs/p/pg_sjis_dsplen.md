@@ -33,3 +33,20 @@ The function implements SJIS display width logic:
 - Return value can be 1 or 2 for valid characters, or -1 for control characters (via pg_ascii_dsplen)
 - Used as part of the character encoding function table for SJIS support
 - Essential for proper text formatting and cursor positioning in terminals
+
+## Simplified Source
+
+```c
+static int pg_sjis_dsplen(const unsigned char *s) {
+    // Half-width katakana (0xA1-0xDF): 1 column
+    if (*s >= 0xa1 && *s <= 0xdf)
+        return 1;
+
+    // Full-width characters (kanji, hiragana): 2 columns
+    if (IS_HIGHBIT_SET(*s))
+        return 2;
+
+    // ASCII characters: delegate to ASCII handler
+    return pg_ascii_dsplen(s);
+}
+```

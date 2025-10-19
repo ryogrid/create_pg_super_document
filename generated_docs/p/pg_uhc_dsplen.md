@@ -32,3 +32,16 @@ This function is crucial for proper text formatting and alignment in PostgreSQL 
 - UHC encoding uses 1 byte for ASCII characters and 2 bytes for Korean characters
 - This function is part of PostgreSQLs encoding-specific function dispatch system that provides uniform handling of different character encodings
 - Proper display width calculation is essential for features like column alignment in query results and formatting in psql output
+
+## Simplified Source
+
+```c
+static int pg_uhc_dsplen(const unsigned char *s) {
+    // Double-byte Korean characters: 2 columns
+    if (IS_HIGHBIT_SET(*s))
+        return 2;
+
+    // ASCII characters: delegate to ASCII handler
+    return pg_ascii_dsplen(s);
+}
+```

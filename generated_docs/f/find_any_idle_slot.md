@@ -29,3 +29,17 @@ This function performs a linear search through the slots in a ParallelSlotArray 
 - Uses a simple linear search algorithm with O(n) time complexity
 - The function is static, meaning it's only accessible within the parallel_slot.c compilation unit
 - The search is performed from index 0 to numslots-1, so lower-indexed slots are preferred for allocation
+
+## Simplified Source
+
+```c
+static int find_any_idle_slot(const ParallelSlotArray *sa) {
+    // Linear search through all slots to find first idle one
+    for (int i = 0; i < sa->numslots; i++) {
+        if (!sa->slots[i].inUse) {
+            return i;  // Return index of first idle slot
+        }
+    }
+    return -1;  // All slots are busy
+}
+```

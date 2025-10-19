@@ -35,3 +35,24 @@ The function acts as a wrapper around the platform-specific implementation pg_at
 - This is part of PostgreSQLs portable atomic operations interface, providing consistent behavior across different hardware architectures
 - Primarily used in testing scenarios within the current PostgreSQL codebase, indicating its specialized nature for low-level bit manipulation
 - Complementary to pg_atomic_fetch_and_u64, where OR sets bits while AND clears them
+
+## Simplified Source
+
+```c
+static inline uint64
+pg_atomic_fetch_or_u64(volatile pg_atomic_uint64 *ptr, uint64 or_)
+{
+    // Ensure proper memory alignment for atomic operation
+    AssertPointerAlignment(ptr, 8);
+
+    // Atomic fetch-and-OR: return original value before OR operation
+    return pg_atomic_fetch_or_u64_impl(ptr, or_);
+}
+```
+
+**Key Points:**
+- Atomically performs bitwise OR between `*ptr` and `or_` mask
+- Returns the original value before the OR operation
+- Used for atomic bit setting operations
+- Includes alignment checks for performance and correctness
+- Thread-safe with memory ordering guarantees

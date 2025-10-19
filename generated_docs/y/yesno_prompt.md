@@ -44,3 +44,37 @@ The prompt format includes the question followed by the localized yes/no options
 - The question parameter should be marked for translation if used with literal strings
 - Commonly used in PostgreSQL utility programs for confirmation prompts before potentially destructive operations
 - Returns true for "yes" responses and false for "no" responses
+
+## Simplified Source
+
+```c
+bool yesno_prompt(const char *question) {
+    char prompt[256];
+
+    // Build localized prompt: "question (y/n) "
+    snprintf(prompt, sizeof(prompt), _("%s (%s/%s) "),
+             _(question), _(PG_YESLETTER), _(PG_NOLETTER));
+
+    // Loop until valid response
+    for (;;) {
+        char *resp = simple_prompt(prompt, true);
+
+        // Check for yes response
+        if (strcmp(resp, _(PG_YESLETTER)) == 0) {
+            free(resp);
+            return true;
+        }
+
+        // Check for no response
+        if (strcmp(resp, _(PG_NOLETTER)) == 0) {
+            free(resp);
+            return false;
+        }
+
+        // Invalid response - show error and prompt again
+        free(resp);
+        printf(_("Please answer \"%s\" or \"%s\".\n"),
+               _(PG_YESLETTER), _(PG_NOLETTER));
+    }
+}
+```

@@ -28,3 +28,12 @@ PageGetPageLayoutVersion extracts the page layout version from a formatted page 
 - The version information helps PostgreSQL understand how to interpret the page structure
 - Part of the core page layout infrastructure but appears to be unused in current codebase
 - Provides forward compatibility for potential future page format changes
+
+## Simplified Source
+
+```c
+static inline uint8 PageGetPageLayoutVersion(Page page) {
+    // Extract page layout version from lower 8 bits of pd_pagesize_version
+    return (((PageHeader) page)->pd_pagesize_version & 0x00FF);
+}
+```

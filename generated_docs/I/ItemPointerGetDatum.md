@@ -31,3 +31,12 @@ This function provides a type-safe conversion from an ItemPointer to a Datum (Po
 - The conversion creates a Datum that contains a pointer to the ItemPointerData structure
 - Counterpart to DatumGetItemPointer which performs the reverse conversion
 - Essential for functions that need to return ItemPointer values through PostgreSQL's generic function interface
+
+## Simplified Source
+
+```c
+static inline Datum ItemPointerGetDatum(const ItemPointerData *X) {
+    // Convert ItemPointer to Datum by creating pointer reference
+    return PointerGetDatum(X);
+}
+```

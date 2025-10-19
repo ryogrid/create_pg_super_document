@@ -32,3 +32,11 @@ The function is part of PostgreSQL's ECPG (Embedded SQL in C) library and is use
 - This is a utility function imported from the backend to maintain consistency in encoding behavior between the server and ECPG client library
 - The function assumes that no null terminator or other overhead is included in the calculation - callers must account for additional space if needed
 - Part of the broader ECPG infrastructure for handling PostgreSQL data types in embedded C applications
+
+## Simplified Source
+```c
+unsigned ecpg_hex_enc_len(unsigned srclen) {
+    // Each byte requires 2 hex characters - use bit shift for efficiency
+    return srclen << 1;  // equivalent to srclen * 2
+}
+```

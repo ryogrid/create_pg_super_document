@@ -32,3 +32,16 @@ This function is designed to provide compatibility with Informix database applic
 - Uses proper unsigned char casting to handle extended ASCII characters correctly
 - Part of the ECPG (Embedded SQL in C for PostgreSQL) Informix compatibility layer
 - Located in src/interfaces/ecpg/compatlib/informix.c:962-969
+
+## Simplified Source
+
+```c
+void rupshift(char *str) {
+    // Convert each lowercase character to uppercase in-place
+    for (; *str != '\0'; str++) {
+        if (islower((unsigned char) *str)) {
+            *str = toupper((unsigned char) *str);
+        }
+    }
+}
+```

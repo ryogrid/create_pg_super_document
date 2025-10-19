@@ -26,3 +26,14 @@ This function serves as a specialized type conversion utility for PostgreSQL's p
 
 ## Notes and Other Information
 This function is crucial for handling polygon data in PostgreSQL's geometric subsystem, particularly in indexing operations where polygon data needs to be accessed efficiently. It's defined in src/include/utils/geo_decls.h:247-251. The automatic TOAST handling makes it suitable for working with large polygon datasets that exceed PostgreSQL's inline storage limits.
+
+## Simplified Source
+
+```c
+static inline POLYGON *
+DatumGetPolygonP(Datum X)
+{
+    // Convert Datum to POLYGON pointer, handling TOAST decompression
+    return (POLYGON *) PG_DETOAST_DATUM(X);
+}
+```

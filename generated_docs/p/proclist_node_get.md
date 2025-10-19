@@ -39,3 +39,13 @@ Being defined as static inline, this function is optimized for performance since
 - It's a fundamental building block used by higher-level proclist operations like push, delete, and iteration
 - The offset-based approach allows the same proclist code to work with different proclist_node fields in PGPROC
 - The function assumes the procno parameter refers to a valid, active process
+
+## Simplified Source
+
+```c
+static inline proclist_node *proclist_node_get(int procno, size_t node_offset) {
+    // Get PGPROC entry and calculate node address using offset
+    char *entry = (char *) GetPGProcByNumber(procno);
+    return (proclist_node *) (entry + node_offset);
+}
+```

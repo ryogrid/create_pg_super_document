@@ -46,3 +46,28 @@ The function includes an optimization where if the node becomes too sparse (coun
 - The shrink_threshold is set to 3/4 of RT_FANOUT_16_LO to prevent excessive oscillation between node types
 - The function is marked as static and uses the pg_noinline attribute for the actual implementation
 - Located in src/include/lib/radixtree.h at lines 2440-2465
+
+## Simplified Source
+
+```c
+static inline void
+RT_REMOVE_CHILD_48(RT_RADIX_TREE *tree, RT_PTR_ALLOC *parent_slot, RT_CHILD_PTR node, uint8 chunk)
+{
+    RT_NODE_48 *n48 = (RT_NODE_48 *) node.local;
+    int deletepos = n48->slot_idxs[chunk];    // Get slot position for this chunk
+    int shrink_threshold = RT_FANOUT_16_LO / 4 * 3;  // 3/4 of node16 capacity
+
+    // Clear the slot bit in the bitmap
+    int idx = RT_BM_IDX(deletepos);
+    int bitnum = RT_BM_BIT(deletepos);
+    n48->isset[idx] &= ~((bitmapword) 1 << bitnum);
+
+    // Invalidate the slot mapping and decrement count
+    n48->slot_idxs[chunk] = RT_INVALID_SLOT_IDX;
+    n48->base.count--;
+
+    // Shrink to node16 if sparse enough
+    if (n48->base.count <= shrink_threshold)
+        RT_SHRINK_NODE_48(tree, parent_slot, node, chunk);
+}
+```

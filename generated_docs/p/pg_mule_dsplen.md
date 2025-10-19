@@ -29,3 +29,17 @@ This function determines the display width of a character in the MULE (Multi-Lin
 - Returns 2 for double-byte characters (LC2, LCPRV2)
 - The approximation of all multibyte charsets being double-wide is acknowledged as not entirely accurate but acceptable for MULE charsets
 - This is a static function internal to the character conversion system
+
+## Simplified Source
+
+```c
+static int pg_mule_dsplen(const unsigned char *s) {
+    // Determine display width based on MULE character type
+    if (IS_LC1(*s) || IS_LCPRV1(*s))
+        return 1;  // Single-byte display width
+    else if (IS_LC2(*s) || IS_LCPRV2(*s))
+        return 2;  // Double-byte display width
+    else
+        return 1;  // Assume ASCII
+}
+```

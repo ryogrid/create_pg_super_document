@@ -40,3 +40,23 @@ The function creates a string attribute using LLVM's attribute system and attach
 - The "readonly" attribute is particularly valuable for database operations where many functions are pure or only read from their parameters
 - Used sparingly but strategically in places where the readonly semantic is certain and beneficial for optimization
 - The attribute helps LLVM's alias analysis and enables more aggressive optimizations in tight loops and frequently called code paths
+
+## Simplified Source
+
+```c
+static inline void
+l_callsite_ro(LLVMValueRef f) {
+    // Define the "readonly" attribute name
+    const char argname[] = "readonly";
+    LLVMAttributeRef ref;
+
+    // Create string attribute for "readonly" optimization hint
+    ref = LLVMCreateStringAttribute(LLVMGetTypeContext(LLVMTypeOf(f)),
+                                    argname,
+                                    sizeof(argname) - 1,
+                                    NULL, 0);
+
+    // Attach readonly attribute to the function call site
+    LLVMAddCallSiteAttribute(f, LLVMAttributeFunctionIndex, ref);
+}
+```

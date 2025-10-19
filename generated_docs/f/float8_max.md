@@ -38,3 +38,15 @@ The function performs a simple conditional selection: if val1 is greater than va
 - Part of the float8 family of utility functions for double-precision arithmetic
 - Complement to the float8_min function for maximum value selection
 - The NaN behavior is consistent with PostgreSQL's floating-point semantics
+
+## Simplified Source
+
+```c
+static inline float8
+float8_max(const float8 val1, const float8 val2)
+{
+    // Return the larger value using float8_gt comparison
+    // Inherits NaN handling from float8_gt function
+    return float8_gt(val1, val2) ? val1 : val2;
+}
+```

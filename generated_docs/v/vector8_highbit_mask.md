@@ -38,3 +38,32 @@ This function is particularly useful for radix tree operations and other data st
 - Critical for radix tree node operations in PostgreSQL
 - Only available on SIMD-capable platforms (no scalar fallback)
 - Part of PostgreSQLs SIMD abstraction layer for efficient bit manipulation operations
+
+## Simplified Source
+
+```c
+static inline uint32
+vector8_highbit_mask(const Vector8 v)
+{
+    // Extract high bit from each byte in the vector
+    // SSE2: Direct extraction using movemask instruction
+    #ifdef USE_SSE2
+        return (uint32) _mm_movemask_epi8(v);
+
+    // NEON: Complex bit manipulation due to lack of direct equivalent
+    #elif defined(USE_NEON)
+        // Create bit position mask for each byte
+        static const uint8 mask[16] = {
+            1<<0, 1<<1, 1<<2, 1<<3, 1<<4, 1<<5, 1<<6, 1<<7,
+            1<<0, 1<<1, 1<<2, 1<<3, 1<<4, 1<<5, 1<<6, 1<<7
+        };
+
+        // Apply mask to shifted high bits and combine results
+        uint8x16_t masked = vandq_u8(vld1q_u8(mask),
+                                    (uint8x16_t) vshrq_n_s8((int8x16_t) v, 7));
+        uint8x16_t maskedhi = vextq_u8(masked, masked, 8);
+
+        return (uint32) vaddvq_u16((uint16x8_t) vzip1q_u8(masked, maskedhi));
+    #endif
+}
+```

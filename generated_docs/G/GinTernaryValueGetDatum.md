@@ -33,3 +33,19 @@ The conversion is a simple cast operation since both types have the same underly
 - The function is part of a pair with , which performs the reverse conversion
 - It's primarily used through the  macro rather than called directly
 - The  type is specifically designed to be the same size as a  to allow safe pointer casting in some contexts
+
+## Simplified Source
+
+```c
+static inline Datum GinTernaryValueGetDatum(GinTernaryValue ternary_value) {
+    // Simple cast conversion from GinTernaryValue to Datum
+    return (Datum) ternary_value;
+}
+```
+
+This simplified version preserves the core functionality:
+- Direct cast conversion from GinTernaryValue to Datum
+- Inline function for performance optimization
+- Used in GIN index ternary logic operations
+- Enables return of ternary values (TRUE/FALSE/MAYBE) through PostgreSQL's function calling convention
+- Simple type conversion with no additional processing required

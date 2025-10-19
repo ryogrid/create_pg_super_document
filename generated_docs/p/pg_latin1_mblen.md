@@ -26,3 +26,12 @@ This function determines the byte length of a character in the ISO8859-1 (Latin-
 - The parameter `s` is not used in the function implementation
 - Part of PostgreSQL's character encoding system function pointer interface
 - Provides consistency with other encoding-specific mblen functions that may have variable character lengths
+
+## Simplified Source
+
+```c
+static int pg_latin1_mblen(const unsigned char *s) {
+    // Latin-1 is always single-byte encoding
+    return 1;
+}
+```

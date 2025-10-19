@@ -33,3 +33,15 @@ This function provides the 64-bit signed integer variant of PostgreSQL's standar
 - Part of a family of comparison functions for different integer types (pg_cmp_s32, pg_cmp_u32, pg_cmp_u64, pg_cmp_size)
 - Provides consistent three-way comparison semantics for 64-bit signed integers
 - Currently appears to be unused in the analyzed codebase but available for future use or external extensions
+
+## Simplified Source
+
+```c
+static inline int pg_cmp_s64(int64 a, int64 b) {
+    // Branchless three-way comparison: returns -1, 0, or 1
+    // (a > b) evaluates to 1 if true, 0 if false
+    // (a < b) evaluates to 1 if true, 0 if false
+    // The subtraction gives us the correct comparison result
+    return (a > b) - (a < b);
+}
+```

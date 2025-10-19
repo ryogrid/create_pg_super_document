@@ -35,3 +35,28 @@ The function is part of PostgreSQL's safe arithmetic API, designed to prevent si
 - Part of PostgreSQL's comprehensive safe integer arithmetic API
 - Designed as an inline function for performance in multiplication-heavy code paths
 - The fallback implementation widens the operands to uint32 before multiplication to prevent intermediate overflow
+
+## Simplified Source
+
+```c
+static inline bool
+pg_mul_u16_overflow(uint16 a, uint16 b, uint16 *result)
+{
+#if defined(HAVE__BUILTIN_OP_OVERFLOW)
+    // Use compiler built-in for optimal performance
+    return __builtin_mul_overflow(a, b, result);
+#else
+    // Manual overflow detection using 32-bit arithmetic
+    uint32 res = (uint32) a * (uint32) b;
+
+    // Check if result exceeds 16-bit range
+    if (res > PG_UINT16_MAX) {
+        *result = 0x5EED;  // Dummy value to avoid warnings
+        return true;  // Overflow occurred
+    }
+
+    *result = (uint16) res;
+    return false;  // No overflow
+#endif
+}
+```

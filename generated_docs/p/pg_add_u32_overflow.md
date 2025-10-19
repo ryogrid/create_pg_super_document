@@ -34,3 +34,28 @@ The function is part of PostgreSQL's safe arithmetic API, providing explicit ove
 - Part of PostgreSQL's comprehensive safe integer arithmetic API covering INT32 operations
 - Designed as an inline function for optimal performance in arithmetic-heavy code paths
 - The overflow detection logic relies on the mathematical property that a + b >= a when no overflow occurs in unsigned arithmetic
+
+## Simplified Source
+
+```c
+static inline bool
+pg_add_u32_overflow(uint32 a, uint32 b, uint32 *result)
+{
+#if defined(HAVE__BUILTIN_OP_OVERFLOW)
+    // Use compiler built-in for optimal performance
+    return __builtin_add_overflow(a, b, result);
+#else
+    // Manual overflow detection for unsigned integers
+    uint32 res = a + b;
+
+    // Check for wraparound overflow (result smaller than operands)
+    if (res < a) {
+        *result = 0x5EED;  // Dummy value to avoid warnings
+        return true;  // Overflow occurred
+    }
+
+    *result = res;
+    return false;  // No overflow
+#endif
+}
+```

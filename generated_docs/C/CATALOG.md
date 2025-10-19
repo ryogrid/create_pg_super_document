@@ -40,3 +40,30 @@ The CATALOG macro typically appears at the beginning of system catalog header fi
 - The macro is defined with empty implementations of various BKI directives to prevent C compiler errors while allowing the genbki.pl script to parse the special directives
 - Catalogs marked with BKI_BOOTSTRAP are created during the initial bootstrap phase, while others are created later in the initialization process
 - The macro system enables a single source of truth for catalog definitions that serves both runtime code generation and bootstrap data generation needs
+
+## Simplified Source
+
+```c
+// Macro to introduce a catalog's structure definition
+#define CATALOG(catalog_name, catalog_oid, oid_macro_name) \
+    typedef struct CppConcat(FormData_, catalog_name)
+
+// Usage example:
+// CATALOG(pg_class, 1259, RelationRelationId) {
+//     Oid         oid;            /* object identifier */
+//     NameData    relname;        /* class name */
+//     Oid         relnamespace;   /* namespace OID */
+//     // ... other catalog fields
+// };
+//
+// This expands to:
+// typedef struct FormData_pg_class { ... };
+```
+
+This simplified version preserves the core functionality:
+- Defines a preprocessor macro for catalog table structure declarations
+- Uses token concatenation to create FormData_[name] structure types
+- Takes catalog name, OID, and OID macro name as parameters
+- Essential for PostgreSQL's system catalog definition system
+- Processed by both C compiler and BKI generation scripts
+- Provides single source of truth for catalog schemas

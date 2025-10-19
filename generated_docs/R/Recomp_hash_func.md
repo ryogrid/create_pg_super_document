@@ -37,3 +37,31 @@ The hash function uses a dual-hashing approach with two hash calculations based 
 - The perfect hash property eliminates collision resolution overhead, ensuring consistent O(1) performance
 - This function is part of PostgreSQL's internal Unicode handling infrastructure and is not exposed to user applications
 - The dual-hash approach helps distribute Unicode character sequences more evenly across the hash space
+
+## Simplified Source
+
+```c
+static int
+Recomp_hash_func(const void *key) {
+    // Pre-computed hash table with 1,883 entries for recomposition
+    static const int16 h[1883] = { /* ... lookup table ... */ };
+
+    // Convert input key to bytes for processing
+    const unsigned char *k = (const unsigned char *) key;
+    size_t keylen = 8;  // Process 8 bytes (character sequence)
+
+    // Dual hash computation with different multipliers
+    uint32 a = 0;       // First hash accumulator (multiplier: 257)
+    uint32 b = 0;       // Second hash accumulator (multiplier: 17)
+
+    // Process each byte of the character sequence
+    while (keylen--) {
+        unsigned char c = *k++;
+        a = a * 257 + c;   // First hash calculation
+        b = b * 17 + c;    // Second hash calculation
+    }
+
+    // Combine results from both hash table lookups
+    return h[a % 1883] + h[b % 1883];
+}
+```

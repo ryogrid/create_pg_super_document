@@ -33,3 +33,15 @@ FPeq implements a fuzzy equality comparison for double-precision floating-point 
 
 ## Notes and Other Information
 This function is part of PostgreSQL's geometric data type infrastructure and is extensively used throughout the geometric operations module. The epsilon-based comparison is crucial for reliable geometric computations where floating-point precision limitations could otherwise cause incorrect results. The function is defined as static inline in the header file for optimal performance in frequently called geometric operations.
+
+## Simplified Source
+
+```c
+static inline bool
+FPeq(double A, double B)
+{
+    // Check exact equality first (handles special values like infinity/NaN)
+    // If not exactly equal, check if difference is within epsilon tolerance
+    return A == B || fabs(A - B) <= EPSILON;
+}
+```

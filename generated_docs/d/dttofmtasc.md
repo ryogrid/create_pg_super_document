@@ -42,3 +42,12 @@ The function simply delegates to `PGTYPEStimestamp_fmt_asc`, which handles the a
 - Returns an integer status code (likely 0 for success, non-zero for error)
 - The actual formatting work is delegated to the PostgreSQL types library implementation
 - Maintains compatibility with existing Informix datetime formatting applications
+
+## Simplified Source
+
+```c
+int dttofmtasc(timestamp *ts, char *output, int str_len, char *fmtstr) {
+    // Simple wrapper: delegate to PostgreSQL types library function
+    return PGTYPEStimestamp_fmt_asc(ts, output, str_len, fmtstr);
+}
+```

@@ -33,3 +33,19 @@ This function serves as a conversion utility in PostgreSQL's function manager (f
 - Essential when functions need to modify numeric values rather than just read them
 - The copy operation ensures memory safety and prevents modification of shared or read-only data
 - More expensive than DatumGetNumeric due to the copying overhead, so should only be used when modification is required
+
+## Simplified Source
+
+```c
+static inline Numeric DatumGetNumericCopy(Datum X) {
+    // Convert Datum to writable Numeric pointer with TOAST decompression and copying
+    return (Numeric) PG_DETOAST_DATUM_COPY(X);
+}
+```
+
+**Key Points:**
+- Creates a writable copy of numeric data from Datum
+- Uses PG_DETOAST_DATUM_COPY to ensure result is modifiable
+- Essential when functions need to modify numeric values
+- Handles TOAST decompression automatically
+- More expensive than DatumGetNumeric due to copying, but ensures memory safety

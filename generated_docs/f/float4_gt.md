@@ -37,3 +37,14 @@ The implementation uses short-circuit evaluation: first check that val2 is not N
 - Implements PostgreSQL's specific NaN ordering semantics which treat NaN as the largest value
 - The NaN handling is consistent with PostgreSQL's overall approach to floating-point comparisons
 - Critical for proper functioning of indexes, sorting, and aggregate operations involving float4 data
+
+## Simplified Source
+
+```c
+static inline bool
+float4_gt(const float4 val1, const float4 val2)
+{
+    // NaN-aware greater-than: NaN > non-NaN is true, anything > NaN is false
+    return !isnan(val2) && (isnan(val1) || val1 > val2);
+}
+```

@@ -36,3 +36,28 @@ The function follows PostgreSQL's overflow checking guidelines: if overflow occu
 - The fallback implementation uses 32-bit arithmetic to safely detect 16-bit overflow
 - Returns implementation-defined result content on overflow (0x5EED) to suppress compiler warnings
 - Multiplication overflow is more likely to occur than addition/subtraction overflow due to the nature of multiplication expanding the result range
+
+## Simplified Source
+
+```c
+static inline bool
+pg_mul_s16_overflow(int16 a, int16 b, int16 *result)
+{
+#if defined(HAVE__BUILTIN_OP_OVERFLOW)
+    // Use compiler built-in for optimal performance
+    return __builtin_mul_overflow(a, b, result);
+#else
+    // Manual overflow detection using 32-bit arithmetic
+    int32 res = (int32) a * (int32) b;
+
+    // Check if result exceeds 16-bit range
+    if (res > PG_INT16_MAX || res < PG_INT16_MIN) {
+        *result = 0x5EED;  // Dummy value to avoid warnings
+        return true;  // Overflow occurred
+    }
+
+    *result = (int16) res;
+    return false;  // No overflow
+#endif
+}
+```

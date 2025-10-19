@@ -35,3 +35,34 @@ The function performs bit manipulation to determine if the fractional part is ze
 - When successful, it sets v->mantissa to the integer value and v->exponent to 0
 - The algorithm avoids multiple return points to prevent compiler from creating multiple inlined copies
 - Only handles cases where the exponent allows for exact integer representation (e2 >= -FLOAT_MANTISSA_BITS && e2 <= 0)
+
+## Simplified Source
+
+```c
+static inline bool
+f2d_small_int(const uint32 ieeeMantissa, const uint32 ieeeExponent, floating_decimal_32 *v)
+{
+    // Calculate binary exponent
+    const int32 e2 = (int32)ieeeExponent - FLOAT_BIAS - FLOAT_MANTISSA_BITS;
+
+    // Check if this could be a small integer (exponent in valid range)
+    if (e2 >= -FLOAT_MANTISSA_BITS && e2 <= 0) {
+        // Check if fractional part is zero (all lower bits are 0)
+        const uint32 mask = (1U << -e2) - 1;  // Mask for fractional bits
+        const uint32 fraction = ieeeMantissa & mask;
+
+        if (fraction == 0) {
+            // No fractional part - this is an exact integer
+            // Add back the implicit leading 1 bit
+            const uint32 m2 = (1U << FLOAT_MANTISSA_BITS) | ieeeMantissa;
+
+            // Calculate the integer value by right-shifting
+            v->mantissa = m2 >> -e2;
+            v->exponent = 0;  // Integer has zero decimal exponent
+            return true;
+        }
+    }
+
+    return false;  // Not a small integer
+}
+```

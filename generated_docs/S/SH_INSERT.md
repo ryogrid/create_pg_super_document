@@ -49,3 +49,19 @@ Return value: Pointer to the hash table element containing the key
 - The found parameter allows callers to distinguish between insertions of new keys and lookups of existing keys
 - The function scope (SH_SCOPE) can be configured to control visibility (static, extern, etc.)
 - Located in src/include/lib/simplehash.h:777-782
+
+## Simplified Source
+
+```c
+SH_SCOPE SH_ELEMENT_TYPE *
+SH_INSERT(SH_TYPE *tb, SH_KEY_TYPE key, bool *found)
+{
+    // Compute hash value for the key
+    uint32 hash = SH_HASH_KEY(tb, key);
+
+    // Delegate to internal insertion function
+    return SH_INSERT_HASH_INTERNAL(tb, key, hash, found);
+}
+```
+
+**What it does:** This function provides a convenient wrapper for inserting elements into a hash table. It automatically computes the hash value for the given key using SH_HASH_KEY, then calls the internal insertion function to perform the actual insertion. The function returns a pointer to the hash table element and sets the found parameter to indicate whether the key was newly inserted or already existed.

@@ -31,3 +31,14 @@ LsegPGetDatum is part of PostgreSQL's function manager (fmgr) interface function
 
 ## Notes and Other Information
 This function is defined as a static inline function in src/include/utils/geo_decls.h:194-197. It is primarily used through the PG_RETURN_LSEG_P macro and in some regression test functions. The function takes a const pointer, indicating that it does not modify the LSEG data. Like other geometric conversion functions, it assumes the input pointer is valid and points to a properly initialized LSEG structure. LSEG represents a line segment with two endpoints and is used in various geometric operations and spatial queries in PostgreSQL.
+
+## Simplified Source
+
+```c
+static inline Datum
+LsegPGetDatum(const LSEG *X)
+{
+    // Convert LSEG pointer to Datum
+    return PointerGetDatum(X);
+}
+```

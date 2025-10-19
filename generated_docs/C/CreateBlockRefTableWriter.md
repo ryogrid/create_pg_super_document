@@ -38,3 +38,25 @@ The writer is designed to work with sorted BlockRefTableEntry objects, and the c
 - Memory is allocated using palloc0, so the structure is zero-initialized
 - The CRC32C checksum is initialized for data integrity verification
 - This is part of PostgreSQL's block reference table system used for tracking modified blocks within LSN ranges
+
+## Simplified Source
+
+```c
+BlockRefTableWriter *
+CreateBlockRefTableWriter(io_callback_fn write_callback, void *write_callback_arg)
+{
+    BlockRefTableWriter *writer;
+    uint32 magic = BLOCKREFTABLE_MAGIC;
+
+    // Allocate and initialize writer structure
+    writer = palloc0(sizeof(BlockRefTableWriter));
+    writer->buffer.io_callback = write_callback;
+    writer->buffer.io_callback_arg = write_callback_arg;
+    INIT_CRC32C(writer->buffer.crc);
+
+    // Write magic number header to identify file format
+    BlockRefTableWrite(&writer->buffer, &magic, sizeof(uint32));
+
+    return writer;
+}
+```

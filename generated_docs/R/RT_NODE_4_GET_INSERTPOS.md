@@ -38,3 +38,22 @@ The function performs a simple linear scan comparing the new chunk value against
 - The returned index can equal count if the new chunk should be appended at the end
 - Part of the node-4 specific operations within the radixtree template system
 - Critical for maintaining the sorted invariant required for efficient node-4 operations
+
+## Simplified Source
+
+```c
+static inline int
+RT_NODE_4_GET_INSERTPOS(RT_NODE_4 * node, uint8 chunk, int count)
+{
+    // Linear search through sorted chunk array
+    for (int idx = 0; idx < count; idx++)
+    {
+        // Find first position where existing chunk >= new chunk
+        if (node->chunks[idx] >= chunk)
+            return idx;
+    }
+
+    // New chunk is larger than all existing chunks - append at end
+    return count;
+}
+```

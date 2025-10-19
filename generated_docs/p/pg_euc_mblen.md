@@ -41,3 +41,19 @@ This function is critical for proper character boundary detection when processin
 - Essential for text processing operations that need to advance character-by-character through EUC text
 - The inline qualifier suggests this function is called frequently and benefits from compiler optimization
 - Part of PostgreSQL's encoding abstraction that provides uniform interfaces across different multi-byte encodings
+
+## Simplified Source
+
+```c
+static inline int pg_euc_mblen(const unsigned char *s) {
+    // Determine EUC character length from first byte
+    if (*s == SS2)                    // Single Shift 2: 2 bytes
+        return 2;
+    else if (*s == SS3)               // Single Shift 3: 3 bytes
+        return 3;
+    else if (IS_HIGHBIT_SET(*s))      // High-bit set: 2 bytes
+        return 2;
+    else                              // ASCII: 1 byte
+        return 1;
+}
+```

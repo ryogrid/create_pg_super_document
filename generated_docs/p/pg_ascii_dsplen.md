@@ -46,3 +46,17 @@ The function is crucial for PostgreSQL's psql client and other display component
 - Critical for proper psql output formatting and terminal display consistency  
 - Control characters (values < 0x20 and 0x7F) return -1 to indicate they should typically not advance cursor position
 - The implementation ensures non-ASCII encodings can defer to ASCII rules for their ASCII-compatible characters, maintaining consistency across different encodings
+
+## Simplified Source
+
+```c
+static int pg_ascii_dsplen(const unsigned char *s) {
+    // Handle special display cases for ASCII characters
+    if (*s == '\0')
+        return 0;        // Null character has zero width
+    if (*s < 0x20 || *s == 0x7f)
+        return -1;       // Control characters are non-printable
+
+    return 1;            // Printable ASCII characters are 1 column wide
+}
+```

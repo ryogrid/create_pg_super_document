@@ -34,3 +34,12 @@ This function is part of PostgreSQL's text search functionality infrastructure, 
 - It's commonly used through the PG_RETURN_TSQUERY macro for returning TSQuery values from PostgreSQL functions
 - The TSQueryData structure contains a varlena header, size information, and flexible array member for query data
 - This function is critical for PostgreSQL's text search functionality, allowing TSQuery objects to be properly handled by the database's type system
+
+## Simplified Source
+
+```c
+static inline Datum TSQueryGetDatum(const TSQueryData *X) {
+    // Convert TSQuery pointer to Datum for function interface
+    return PointerGetDatum(X);
+}
+```

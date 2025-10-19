@@ -36,3 +36,13 @@ The subtraction operation computes ts1 - ts2, meaning ts2 is subtracted from ts1
 - Handles special timestamp values like positive and negative infinity
 - The operation is equivalent to the SQL expression `ts1 - ts2`
 - Provides date/time arithmetic capabilities for embedded SQL applications
+
+## Simplified Source
+```c
+int
+dtsub(timestamp *ts1, timestamp *ts2, interval *iv)
+{
+    // Calculate ts1 - ts2 and store in interval
+    return PGTYPEStimestamp_sub(ts1, ts2, iv);
+}
+```

@@ -30,3 +30,12 @@ Int32GetDatum is a static inline function that provides type-safe conversion fro
 - Part of PostgreSQL's type system infrastructure that enables uniform handling of different data types
 - Though no direct references were found in this analysis, this function is likely used extensively through macro expansions and in code paths that handle 32-bit integer values
 - Critical for functions that need to return int32 values as Datum results in PostgreSQL's function call interface
+
+## Simplified Source
+
+```c
+static inline Datum Int32GetDatum(int32 X) {
+    // Simple cast: convert 32-bit integer to Datum format
+    return (Datum) X;
+}
+```

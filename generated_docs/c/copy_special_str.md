@@ -39,3 +39,30 @@ The logic follows IEEE 754 special value encoding:
 - The sign parameter affects the starting position for string placement when handling infinity/zero
 - Returns the total length of the string written, including sign character if present
 - Located in src/common/ryu_common.h:95-115
+
+## Simplified Source
+
+```c
+static inline int copy_special_str(char *const result, const bool sign, const bool exponent, const bool mantissa) {
+    // Handle NaN case
+    if (mantissa) {
+        memcpy(result, "NaN", 3);
+        return 3;
+    }
+
+    // Add negative sign if needed
+    if (sign) {
+        result[0] = '-';
+    }
+
+    // Handle Infinity case
+    if (exponent) {
+        memcpy(result + sign, "Infinity", 8);
+        return sign + 8;  // Include sign in length
+    }
+
+    // Handle zero case
+    result[sign] = '0';
+    return sign + 1;  // Include sign in length
+}
+```

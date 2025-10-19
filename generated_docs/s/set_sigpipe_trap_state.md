@@ -28,3 +28,18 @@ This function configures the global state for SIGPIPE signal handling by setting
 - It works in conjunction with signal trapping mechanisms to control SIGPIPE behavior
 - The function modifies the global variable  to store the desired state
 - Used primarily in psql and other frontend tools where pipe handling is critical
+
+## Simplified Source
+
+```c
+void set_sigpipe_trap_state(bool should_ignore_sigpipe) {
+    // Set global flag to control SIGPIPE signal handling
+    always_ignore_sigpipe = should_ignore_sigpipe;
+}
+```
+
+This simplified version preserves the core functionality:
+- Sets the global state variable for SIGPIPE handling
+- Takes a boolean parameter to determine ignore behavior
+- Simple assignment operation with descriptive parameter name
+- Essential for controlling pipe signal handling in frontend utilities

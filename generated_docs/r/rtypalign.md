@@ -34,3 +34,16 @@ In a full implementation, this function would determine the proper memory alignm
 - In a real implementation, would handle architecture-specific alignment requirements
 - Located in src/interfaces/ecpg/compatlib/informix.c:995-1002
 - May require actual implementation for applications that depend on proper type alignment
+
+## Simplified Source
+
+```c
+int rtypalign(int offset, int type) {
+    // Stub implementation: ignore parameters to suppress compiler warnings
+    (void) offset;
+    (void) type;
+
+    // Always return 0 (no alignment adjustment)
+    return 0;
+}
+```

@@ -41,3 +41,19 @@ The function contains a GCC-specific workaround (inline assembly with empty stri
 - Contains a compiler-specific workaround for GCC optimization bug
 - Designed for small array sizes where simple loops outperform memmove
 - Both chunk and children arrays are modified simultaneously to maintain correspondence
+
+## Simplified Source
+
+```c
+static inline void
+RT_SHIFT_ARRAYS_AND_DELETE(uint8 *chunks, RT_PTR_ALLOC *children, int count, int deletepos)
+{
+    // Shift all elements after deletepos one position left to fill the gap
+    // Uses simple loop for optimal performance on small radix tree arrays
+    for (int i = deletepos; i < count - 1; i++)
+    {
+        chunks[i] = chunks[i + 1];      // Shift key array
+        children[i] = children[i + 1];  // Shift pointer array
+    }
+}
+```

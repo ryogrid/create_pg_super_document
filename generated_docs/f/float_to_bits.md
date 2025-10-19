@@ -34,3 +34,15 @@ The function is essential for floating-point algorithms that need to examine or 
 - Provides a portable way to access float bit patterns across different architectures and compilers
 - Complements similar double-precision conversion functions in the same codebase
 - Located in src/common/ryu_common.h:116-124
+
+## Simplified Source
+
+```c
+static inline uint32 float_to_bits(const float f) {
+    uint32 bits = 0;
+
+    // Safe type-punning: copy float bytes to uint32
+    memcpy(&bits, &f, sizeof(float));
+    return bits;
+}
+```

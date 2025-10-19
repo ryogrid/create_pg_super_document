@@ -36,3 +36,25 @@ For ASCII characters (high bit not set), the function accepts them immediately. 
 - Validates that all non-first bytes in multi-byte sequences conform to EUC range requirements
 - Part of PostgreSQL's character encoding validation system ensuring data integrity for Korean text
 - The function is static, indicating it's used internally within the wchar.c module
+
+## Simplified Source
+
+```c
+static int pg_johab_verifychar(const unsigned char *s, int len) {
+    // Get expected character length
+    int char_len = pg_johab_mblen(s);
+
+    // Check if enough bytes available
+    if (len < char_len) return -1;
+
+    // ASCII characters are always valid
+    if (!IS_HIGHBIT_SET(*s)) return char_len;
+
+    // For multibyte characters, validate all subsequent bytes
+    for (int i = 1; i < char_len; i++) {
+        if (!IS_EUC_RANGE_VALID(s[i])) return -1;
+    }
+
+    return char_len;
+}
+```

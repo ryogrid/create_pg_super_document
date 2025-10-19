@@ -36,3 +36,30 @@ The function processes the string character by character:
 - The function processes variable-width characters correctly by advancing the pointer by the validated character length
 - Returns the total number of valid bytes processed, making it easy to identify where validation failed
 - Essential for ensuring data integrity in EUC-JP encoded text stored in PostgreSQL databases
+
+## Simplified Source
+
+```c
+static int pg_eucjp_verifystr(const unsigned char *s, int len) {
+    const unsigned char *start = s;
+
+    while (len > 0) {
+        int char_len;
+
+        if (!IS_HIGHBIT_SET(*s)) {
+            // Fast path for ASCII characters
+            if (*s == '\0') break;  // Stop at null byte
+            char_len = 1;
+        } else {
+            // Validate multibyte character
+            char_len = pg_eucjp_verifychar(s, len);
+            if (char_len == -1) break;  // Stop at invalid character
+        }
+
+        s += char_len;
+        len -= char_len;
+    }
+
+    return s - start;  // Return number of valid bytes processed
+}
+```

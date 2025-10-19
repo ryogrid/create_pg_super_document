@@ -38,3 +38,31 @@ The function operates on 4-byte Unicode code point keys and returns an integer h
 - Part of PostgreSQL's comprehensive Unicode normalization support infrastructure
 - Generated automatically from Unicode data, not hand-written
 - Used specifically for NFC (Normalization Form Composed) operations, complementing similar functions for other normalization forms
+
+## Simplified Source
+
+```c
+static int
+NFC_QC_hash_func(const void *key) {
+    // Pre-computed hash table with 2,463 entries for NFC quick check
+    static const int16 h[2463] = { /* ... lookup table ... */ };
+
+    // Convert input key to bytes for processing
+    const unsigned char *k = (const unsigned char *) key;
+    size_t keylen = 4;  // Process 4 bytes (Unicode code point)
+
+    // Dual hash computation for perfect hashing
+    uint32 a = 0;       // First hash accumulator (multiplier: 257)
+    uint32 b = 0;       // Second hash accumulator (multiplier: 17)
+
+    // Process each byte of the Unicode code point
+    while (keylen--) {
+        unsigned char c = *k++;
+        a = a * 257 + c;   // First hash calculation
+        b = b * 17 + c;    // Second hash calculation
+    }
+
+    // Combine results from both hash table lookups
+    return h[a % 2463] + h[b % 2463];
+}
+```

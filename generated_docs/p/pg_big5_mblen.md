@@ -32,3 +32,16 @@ The function implements simple Big5 character length detection logic:
 - Return value is always 1 or 2, representing the character length in bytes
 - Used as part of the character encoding function table for Big5 support
 - The logic is simpler than SJIS as Big5 doesn't have single-byte extended characters
+
+## Simplified Source
+
+```c
+static int pg_big5_mblen(const unsigned char *s) {
+    // High bit set: 2-byte Chinese character
+    if (IS_HIGHBIT_SET(*s))
+        return 2;
+
+    // Low bit: 1-byte ASCII character
+    return 1;
+}
+```

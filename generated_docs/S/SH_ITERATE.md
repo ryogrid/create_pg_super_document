@@ -45,3 +45,31 @@ This backward iteration strategy ensures that the current element can be safely 
 - Uses backward iteration for deletion safety during traversal
 - Typically used in while loops to process all elements in the hash table
 - The iteration supports deletion of the current element without affecting the traversal
+
+## Simplified Source
+
+```c
+// Macro definition
+#define SH_ITERATE SH_MAKE_NAME(iterate)
+
+// Implementation
+SH_ELEMENT_TYPE *SH_ITERATE(SH_TYPE *tb, SH_ITERATOR *iter) {
+    while (!iter->done) {
+        SH_ELEMENT_TYPE *elem = &tb->data[iter->cur];
+
+        // Move to next element in backward direction
+        iter->cur = (iter->cur - 1) & tb->sizemask;
+
+        // Check if we've completed the iteration
+        if ((iter->cur & tb->sizemask) == (iter->end & tb->sizemask))
+            iter->done = true;
+
+        // Return element if it's in use
+        if (elem->status == SH_STATUS_IN_USE) {
+            return elem;
+        }
+    }
+
+    return NULL;  // Iteration complete
+}
+```

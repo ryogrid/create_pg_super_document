@@ -40,3 +40,19 @@ This function should be called when the hash table is no longer needed to preven
 - Complements SH_CREATE in the hash table lifecycle
 - The scope (SH_SCOPE) is configurable and can be static, extern, or static inline
 - Part of the public API for the generated hash table implementation
+
+## Simplified Source
+
+```c
+SH_SCOPE void
+SH_DESTROY(SH_TYPE *tb)
+{
+    // Free the data array containing all hash buckets
+    SH_FREE(tb, tb->data);
+
+    // Free the hash table structure itself
+    pfree(tb);
+}
+```
+
+**What it does:** This function completely destroys a hash table by performing two cleanup steps: first it frees the data array that contains all the hash buckets using SH_FREE, then it frees the hash table structure itself using pfree. This ensures all memory allocated for the hash table is properly deallocated.

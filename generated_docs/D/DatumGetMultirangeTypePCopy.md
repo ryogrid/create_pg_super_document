@@ -33,3 +33,19 @@ This is crucial when the caller needs to modify the multirange data, as the orig
 - Automatically handles TOAST decompression and ensures the result is always in regular memory
 - Part of PostgreSQL's memory management strategy for preventing unintended modifications to shared data
 - Used primarily through the PG_GETARG_MULTIRANGE_P_COPY macro in function implementations
+
+## Simplified Source
+
+```c
+static inline MultirangeType *DatumGetMultirangeTypePCopy(Datum X) {
+    // Convert Datum to writable MultirangeType pointer with TOAST decompression and copying
+    return (MultirangeType *) PG_DETOAST_DATUM_COPY(X);
+}
+```
+
+**Key Points:**
+- Creates a writable copy of the multirange data from Datum
+- Uses PG_DETOAST_DATUM_COPY to ensure result is modifiable
+- Essential for operations that need to modify multirange values
+- Slightly more expensive than DatumGetMultirangeTypeP due to copying
+- Prevents unintended modifications to shared/read-only data

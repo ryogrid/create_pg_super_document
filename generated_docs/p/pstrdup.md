@@ -33,3 +33,15 @@ The function relies on MemoryContextStrdup to perform the actual work, passing t
 - Located in src/backend/utils/mmgr/mcxt.c at lines 1695-1705
 - Part of PostgreSQL's memory management subsystem
 - Should be used instead of standard C library strdup() to ensure proper memory context management
+
+## Simplified Source
+
+```c
+char *
+pstrdup(const char *in)
+{
+    // Duplicate string in current memory context
+    // Memory will be automatically freed when context is reset/deleted
+    return MemoryContextStrdup(CurrentMemoryContext, in);
+}
+```

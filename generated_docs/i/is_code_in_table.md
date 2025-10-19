@@ -37,3 +37,21 @@ This is a core component of Unicode character classification in SASL string prep
 - Uses an optimization to quickly reject codepoints outside the table bounds
 - Critical for SASL string preparation Unicode processing performance
 - The map parameter must be sorted for binary search to work correctly
+
+## Simplified Source
+
+```c
+static bool is_code_in_table(pg_wchar code, const pg_wchar *map, int mapsize) {
+    Assert(mapsize % 2 == 0);  // Map must contain pairs of ranges
+
+    // Quick bounds check: code must be within table's overall range
+    if (code < map[0] || code > map[mapsize - 1])
+        return false;
+
+    // Binary search for the code within the range pairs
+    if (bsearch(&code, map, mapsize / 2, sizeof(pg_wchar) * 2, codepoint_range_cmp))
+        return true;
+    else
+        return false;
+}
+```

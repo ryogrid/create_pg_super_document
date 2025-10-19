@@ -42,3 +42,14 @@ This macro is only available when RT_SHMEM is defined, indicating the radix tree
 - Multiple shared locks can be held concurrently by different processes
 - Shared locks block exclusive lock requests until all shared locks are released
 - Ideal for read-heavy workloads where concurrent access improves performance
+
+## Simplified Source
+
+```c
+RT_SCOPE void
+RT_LOCK_SHARE(RT_RADIX_TREE *tree)
+{
+    // Acquire shared lock for read operations
+    LWLockAcquire(&tree->ctl->lock, LW_SHARED);
+}
+```

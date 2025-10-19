@@ -26,3 +26,13 @@ This function determines the display width of a character in the ISO8859-1 (Lati
 - Leverages the fact that Latin-1 display characteristics match ASCII for control and printable character determination
 - Part of PostgreSQL's character encoding system function pointer interface
 - Provides consistent display length calculation across different single-byte encodings
+
+## Simplified Source
+
+```c
+static int pg_latin1_dsplen(const unsigned char *s) {
+    // Latin-1 display length matches ASCII display length
+    // since Latin-1 is ASCII-compatible for control/printable chars
+    return pg_ascii_dsplen(s);
+}
+```

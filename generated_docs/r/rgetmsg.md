@@ -34,3 +34,17 @@ The function parameters are explicitly cast to void to prevent compiler warnings
 - Provides API compatibility with Informix applications that use rgetmsg()
 - Located in src/interfaces/ecpg/compatlib/informix.c:986-994
 - May require actual implementation in the future if full Informix message compatibility is needed
+
+## Simplified Source
+
+```c
+int rgetmsg(int msgnum, char *s, int maxsize) {
+    // Stub implementation: ignore all parameters to suppress compiler warnings
+    (void) msgnum;
+    (void) s;
+    (void) maxsize;
+
+    // Always return 0 (no message retrieved)
+    return 0;
+}
+```

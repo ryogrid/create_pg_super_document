@@ -43,3 +43,41 @@ Each character type is packed differently into the pg_wchar format using bit shi
 - The caller is responsible for allocating sufficient space in the destination array
 - Used internally when PostgreSQL needs to work with MULE-encoded text data
 - Stops processing when input length is exhausted or null character is encountered
+
+## Simplified Source
+
+```c
+static int pg_mule2wchar_with_len(const unsigned char *from, pg_wchar *to, int len) {
+    int count = 0;
+
+    while (len > 0 && *from) {
+        if (IS_LC1(*from) && len >= 2) {
+            // 2-byte LC1 character
+            *to = (*from++ << 16) | *from++;
+            len -= 2;
+        } else if (IS_LCPRV1(*from) && len >= 3) {
+            // 3-byte LCPRV1 character (skip first byte)
+            from++;
+            *to = (*from++ << 16) | *from++;
+            len -= 3;
+        } else if (IS_LC2(*from) && len >= 3) {
+            // 3-byte LC2 character
+            *to = (*from++ << 16) | (*from++ << 8) | *from++;
+            len -= 3;
+        } else if (IS_LCPRV2(*from) && len >= 4) {
+            // 4-byte LCPRV2 character (skip first byte)
+            from++;
+            *to = (*from++ << 16) | (*from++ << 8) | *from++;
+            len -= 4;
+        } else {
+            // Assume ASCII
+            *to = *from++;
+            len--;
+        }
+        to++;
+        count++;
+    }
+    *to = 0;
+    return count;
+}
+```

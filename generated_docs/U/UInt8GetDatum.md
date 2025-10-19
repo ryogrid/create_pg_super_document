@@ -30,3 +30,12 @@ The function is declared as static inline for performance optimization, allowing
 - The function is defined in src/include/postgres.h:152-161
 - Part of the family of *GetDatum conversion functions in PostgreSQL
 - Complementary to DatumGetUInt8 function
+
+## Simplified Source
+
+```c
+static inline Datum UInt8GetDatum(uint8 X) {
+    // Simple cast: convert uint8 to Datum format
+    return (Datum) X;
+}
+```

@@ -31,3 +31,30 @@ This is a complementary function to CreateBlockRefTableEntry and should be calle
 - Safe to call even if some internal arrays are NULL
 - Part of the standard create/destroy pattern for BlockRefTableEntry lifecycle management
 - Should be called before the containing structure is freed or goes out of scope
+
+## Simplified Source
+
+```c
+void
+BlockRefTableFreeEntry(BlockRefTableEntry *entry)
+{
+    // Free chunk arrays if allocated
+    if (entry->chunk_size != NULL) {
+        pfree(entry->chunk_size);
+        entry->chunk_size = NULL;
+    }
+
+    if (entry->chunk_usage != NULL) {
+        pfree(entry->chunk_usage);
+        entry->chunk_usage = NULL;
+    }
+
+    if (entry->chunk_data != NULL) {
+        pfree(entry->chunk_data);
+        entry->chunk_data = NULL;
+    }
+
+    // Free the entry structure itself
+    pfree(entry);
+}
+```

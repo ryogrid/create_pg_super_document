@@ -34,3 +34,29 @@ This function validates and applies the show_context configuration parameter in 
 - Automatically applies the setting to the active database connection via PQsetErrorContextVisibility
 - Part of psql's configuration variable system that manages display behavior for error contexts
 - The three valid values control when PostgreSQL error context is shown: never, only on errors, or always
+
+## Simplified Source
+
+```c
+static bool show_context_hook(const char *newval) {
+    Assert(newval != NULL);  // Guaranteed by substitute hook
+
+    // Map string values to show context constants
+    if (pg_strcasecmp(newval, "never") == 0)
+        pset.show_context = PQSHOW_CONTEXT_NEVER;
+    else if (pg_strcasecmp(newval, "errors") == 0)
+        pset.show_context = PQSHOW_CONTEXT_ERRORS;
+    else if (pg_strcasecmp(newval, "always") == 0)
+        pset.show_context = PQSHOW_CONTEXT_ALWAYS;
+    else {
+        // Invalid value - show error and fail
+        PsqlVarEnumError("SHOW_CONTEXT", newval, "never, errors, always");
+        return false;
+    }
+
+    // Apply setting to current database connection
+    if (pset.db)
+        PQsetErrorContextVisibility(pset.db, pset.show_context);
+    return true;
+}
+```

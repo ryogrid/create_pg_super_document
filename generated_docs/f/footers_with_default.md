@@ -45,3 +45,25 @@ The  function determines what footer text should be displayed for a table output
 - Total record count includes both current table rows and any prior records
 - Vertical format tables don't typically call this function since they number rows individually
 - The function respects user preferences for footer display through the options structure
+
+## Simplified Source
+
+```c
+static printTableFooter *footers_with_default(const printTableContent *cont) {
+    // If no explicit footers and default footer is enabled
+    if (cont->footers == NULL && cont->opt->default_footer) {
+        // Calculate total records including prior records
+        unsigned long total_records = cont->opt->prior_records + cont->nrows;
+
+        // Create localized default footer with proper pluralization
+        snprintf(default_footer, sizeof(default_footer),
+                 ngettext("(%lu row)", "(%lu rows)", total_records),
+                 total_records);
+
+        return &default_footer_cell;
+    }
+
+    // Return explicit footers if available
+    return cont->footers;
+}
+```

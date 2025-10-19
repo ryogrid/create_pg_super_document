@@ -33,3 +33,14 @@ This function performs a widening conversion from a signed 64-bit integer to a 1
 - Used primarily in PostgreSQL's timestamp and interval arithmetic where precision beyond 64 bits is required
 - Companion function to int128_to_int64 which performs the reverse conversion
 - Part of PostgreSQL's 128-bit integer arithmetic library for handling large numeric calculations
+
+## Simplified Source
+
+```c
+static inline INT128 int64_to_int128(int64 v) {
+    // Simple widening cast from 64-bit to 128-bit integer
+    // Preserves sign: positive values get zero-extended high bits,
+    // negative values get sign-extended (all ones) high bits
+    return (INT128) v;
+}
+```

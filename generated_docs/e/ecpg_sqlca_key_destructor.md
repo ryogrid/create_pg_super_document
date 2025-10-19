@@ -33,3 +33,12 @@ The function is designed to work with the pthread key-value system, where each t
 - The SQLCA structures are allocated in ECPGget_sqlca() function
 - Part of the thread-safe SQLCA management system in ECPG
 - Automatically invoked by pthread library cleanup mechanism
+
+## Simplified Source
+
+```c
+static void ecpg_sqlca_key_destructor(void *arg) {
+    // Free the SQLCA structure when thread terminates
+    free(arg);
+}
+```

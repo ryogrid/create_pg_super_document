@@ -32,3 +32,13 @@ This function provides the reverse conversion from DatumGetXmlP, converting an x
 - Essential for PostgreSQL's function call interface when returning XML values
 - The function accepts a const pointer, indicating it does not modify the XML data
 - Part of the standard pattern for PostgreSQL data type conversion functions
+
+## Simplified Source
+```c
+static inline Datum
+XmlPGetDatum(const xmltype *X)
+{
+    // Convert xmltype pointer to Datum for function returns
+    return PointerGetDatum(X);
+}
+```

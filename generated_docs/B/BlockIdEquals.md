@@ -30,3 +30,13 @@ BlockIdEquals performs a bitwise comparison of two BlockIdData structures to det
 - The function uses const-qualified parameters indicating it does not modify the input structures
 - Part of PostgreSQL's block management API for efficient block identifier operations
 - Provides a clean abstraction for block identifier comparison without exposing internal bit manipulation details
+
+## Simplified Source
+
+```c
+static inline bool BlockIdEquals(const BlockIdData *blockId1, const BlockIdData *blockId2) {
+    // Compare both high and low 16-bit components for equality
+    return (blockId1->bi_hi == blockId2->bi_hi &&
+            blockId1->bi_lo == blockId2->bi_lo);
+}
+```

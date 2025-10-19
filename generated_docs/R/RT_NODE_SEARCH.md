@@ -40,3 +40,52 @@ For RT_NODE_KIND_4 nodes, it performs a linear search through the chunks array. 
 - Returns a pointer to the child slot (RT_PTR_ALLOC *) if the chunk is found
 - Uses different search strategies optimized for each node type's internal structure
 - Part of the generic radixtree template system, where RT_MAKE_NAME generates type-specific function names
+
+## Simplified Source
+
+```c
+static inline RT_PTR_ALLOC *
+RT_NODE_SEARCH(RT_NODE * node, uint8 chunk)
+{
+    // Verify node is a local pointer
+    Assert(node != NULL);
+
+    // Search using node-type-specific strategy
+    switch (node->kind)
+    {
+        case RT_NODE_KIND_4:
+            {
+                // Linear search through chunks array
+                RT_NODE_4 *n4 = (RT_NODE_4 *) node;
+                for (int i = 0; i < n4->base.count; i++)
+                {
+                    if (n4->chunks[i] == chunk)
+                        return &n4->children[i];
+                }
+                return NULL;
+            }
+        case RT_NODE_KIND_16:
+            // Delegate to optimized 16-node search
+            return RT_NODE_16_SEARCH_EQ((RT_NODE_16 *) node, chunk);
+
+        case RT_NODE_KIND_48:
+            {
+                // Use slot index for direct lookup
+                RT_NODE_48 *n48 = (RT_NODE_48 *) node;
+                if (n48->slot_idxs[chunk] == RT_INVALID_SLOT_IDX)
+                    return NULL;
+                return RT_NODE_48_GET_CHILD(n48, chunk);
+            }
+        case RT_NODE_KIND_256:
+            {
+                // Direct array access with bitmap check
+                RT_NODE_256 *n256 = (RT_NODE_256 *) node;
+                if (!RT_NODE_256_IS_CHUNK_USED(n256, chunk))
+                    return NULL;
+                return RT_NODE_256_GET_CHILD(n256, chunk);
+            }
+        default:
+            pg_unreachable();
+    }
+}
+```

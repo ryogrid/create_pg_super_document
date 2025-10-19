@@ -34,3 +34,27 @@ The function is part of PostgreSQL's frontend utilities printing subsystem, spec
 - Only backslash characters require special escaping; all other characters pass through unchanged
 - The escape sequence `\\(rs` is the proper troff way to represent a literal backslash character
 - This function is essential for preventing troff interpretation errors when PostgreSQL query results contain backslash characters
+
+## Simplified Source
+
+```c
+static void troff_ms_escaped_print(const char *input_string, FILE *output_file) {
+    // Iterate through each character in the input string
+    for (const char *current_char = input_string; *current_char; current_char++) {
+
+        // Special case: escape backslashes for troff format
+        if (*current_char == '\\') {
+            fputs("\\\\(rs", output_file);  // troff escape sequence for backslash
+        } else {
+            // Output all other characters unchanged
+            fputc(*current_char, output_file);
+        }
+    }
+}
+```
+
+This simplified version preserves the core functionality:
+- Iterates through input string character by character
+- Escapes backslash characters using troff-specific sequence `\\(rs`
+- Outputs all other characters unchanged
+- Maintains the essential algorithm while using more descriptive variable names

@@ -44,3 +44,52 @@ When the traversal reaches the bottom level (shift < 0), the function checks whe
 - Uses RT_SPAN to determine how many bits to process at each level
 - The function assumes the tree has a valid root node (asserted at runtime)
 - Part of the generic radixtree template system where different key/value types generate type-specific variants
+
+## Simplified Source
+
+```c
+RT_VALUE_TYPE *
+RT_FIND(RT_RADIX_TREE * tree, uint64 key)
+{
+    RT_CHILD_PTR node;
+    RT_PTR_ALLOC *slot = NULL;
+    int shift;
+
+    // Validate tree state and key bounds
+    #ifdef RT_SHMEM
+        Assert(tree->ctl->magic == RT_RADIX_TREE_MAGIC);
+    #endif
+
+    if (key > tree->ctl->max_val)
+        return NULL;
+
+    // Initialize traversal from root
+    Assert(RT_PTR_ALLOC_IS_VALID(tree->ctl->root));
+    node.alloc = tree->ctl->root;
+    shift = tree->ctl->start_shift;
+
+    // Descend tree level by level
+    while (shift >= 0)
+    {
+        // Convert node pointer to local and search for key chunk
+        RT_PTR_SET_LOCAL(tree, &node);
+        slot = RT_NODE_SEARCH(node.local, RT_GET_KEY_CHUNK(key, shift));
+
+        if (slot == NULL)
+            return NULL;  // Path not found
+
+        // Move to next level
+        node.alloc = *slot;
+        shift -= RT_SPAN;
+    }
+
+    // Return value based on storage type
+    if (RT_CHILDPTR_IS_VALUE(*slot))
+        return (RT_VALUE_TYPE *) slot;     // Embedded value
+    else
+    {
+        RT_PTR_SET_LOCAL(tree, &node);
+        return (RT_VALUE_TYPE *) node.local;  // Separate value node
+    }
+}
+```

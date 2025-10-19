@@ -27,3 +27,12 @@ The `descriptor_destructor` function acts as a destructor callback that is invok
 - This function is declared as static, meaning it has internal linkage and is only accessible within the descriptor.c compilation unit
 - The function serves as an adapter to provide a callback interface for the descriptor cleanup mechanism
 - It follows the common pattern of destructor callbacks that take a void pointer argument for maximum flexibility in cleanup operations
+
+## Simplified Source
+
+```c
+static void descriptor_destructor(void *arg) {
+    // Clean up all descriptor resources
+    descriptor_deallocate_all(arg);
+}
+```

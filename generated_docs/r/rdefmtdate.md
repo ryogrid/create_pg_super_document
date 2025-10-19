@@ -45,3 +45,33 @@ The function includes a TODO comment indicating that it should handle the DBCENT
 - Contains a TODO to handle the DBCENTURY environment variable for century handling
 - Provides comprehensive error mapping between PostgreSQL and Informix error codes
 - Part of the ECPG embedded SQL interface for maintaining Informix application compatibility
+
+## Simplified Source
+```c
+int
+rdefmtdate(date *d, const char *fmt, const char *str)
+{
+    // TODO: take care of DBCENTURY environment variable
+    // PGSQL functions allow all centuries
+
+    // Parse date string with PostgreSQL function
+    errno = 0;
+    if (PGTYPESdate_defmt_asc(d, fmt, str) == 0)
+        return 0;
+
+    // Map PostgreSQL errors to Informix-compatible codes
+    switch (errno) {
+        case PGTYPES_DATE_ERR_ENOSHORTDATE:
+            return ECPG_INFORMIX_ENOSHORTDATE;
+        case PGTYPES_DATE_ERR_EARGS:
+        case PGTYPES_DATE_ERR_ENOTDMY:
+            return ECPG_INFORMIX_ENOTDMY;
+        case PGTYPES_DATE_BAD_DAY:
+            return ECPG_INFORMIX_BAD_DAY;
+        case PGTYPES_DATE_BAD_MONTH:
+            return ECPG_INFORMIX_BAD_MONTH;
+        default:
+            return ECPG_INFORMIX_BAD_YEAR;
+    }
+}
+```

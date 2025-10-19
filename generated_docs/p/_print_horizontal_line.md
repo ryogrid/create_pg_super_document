@@ -45,3 +45,47 @@ This utility function generates horizontal lines used to create borders and sepa
 - Always terminates the line with a newline character
 - Function is static, indicating it's only used within the print.c module as part of the table formatting subsystem
 - Essential for creating properly formatted aligned text tables with consistent borders and separators
+
+## Simplified Source
+
+```c
+static void _print_horizontal_line(const unsigned int ncolumns, const unsigned int *widths,
+                                   unsigned short border, printTextRule pos,
+                                   const printTextFormat *format, FILE *fout) {
+    const printTextLineFormat *lformat = &format->lrule[pos];
+
+    // Print left border based on border style
+    if (border == 1) {
+        fputs(lformat->hrule, fout);
+    } else if (border == 2) {
+        fprintf(fout, "%s%s", lformat->leftvrule, lformat->hrule);
+    }
+
+    // Print horizontal line for each column
+    for (unsigned int i = 0; i < ncolumns; i++) {
+        // Fill column width with horizontal rule chars
+        for (unsigned int j = 0; j < widths[i]; j++) {
+            fputs(lformat->hrule, fout);
+        }
+
+        // Print junction between columns (except after last column)
+        if (i < ncolumns - 1) {
+            if (border == 0) {
+                fputc(' ', fout);
+            } else {
+                fprintf(fout, "%s%s%s", lformat->hrule,
+                        lformat->midvrule, lformat->hrule);
+            }
+        }
+    }
+
+    // Print right border based on border style
+    if (border == 2) {
+        fprintf(fout, "%s%s", lformat->hrule, lformat->rightvrule);
+    } else if (border == 1) {
+        fputs(lformat->hrule, fout);
+    }
+
+    fputc('\n', fout);
+}
+```

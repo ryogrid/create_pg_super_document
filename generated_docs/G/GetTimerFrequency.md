@@ -33,3 +33,18 @@ This function takes no parameters and returns:
 - QueryPerformanceFrequency() typically returns frequencies in the range of 1MHz to several GHz depending on the system hardware
 - This function is part of PostgreSQL's portable timing infrastructure, providing the necessary conversion factor for Windows systems
 - The return type is double to handle potential precision requirements in the conversion calculations
+
+## Simplified Source
+
+```c
+static inline double
+GetTimerFrequency(void)
+{
+    LARGE_INTEGER frequency;
+
+    // Get Windows performance counter frequency (ticks per second)
+    QueryPerformanceFrequency(&frequency);
+
+    return (double) frequency.QuadPart;
+}
+```

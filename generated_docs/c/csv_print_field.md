@@ -42,3 +42,24 @@ When any of these conditions are met, the function calls csv_escaped_print() to 
 
 ## Notes and Other Information
 This function is specifically designed to work with PostgreSQL's CSV output format and includes special handling for COPY command compatibility. The "\." pattern matching prevents generation of CSV content that would be interpreted as an end-of-data marker by PostgreSQL's COPY command. The function balances correctness with efficiency by only applying escaping when necessary, keeping simple field content unquoted for better readability and smaller output size.
+
+## Simplified Source
+```c
+static void csv_print_field(const char *str, FILE *fout, char sep)
+{
+    // Check if field needs escaping:
+    // - Contains separator character
+    // - Contains CR/LF or quote characters
+    // - Matches COPY end marker "\."
+    // - Separator is backslash or period
+    bool needs_escaping = (strchr(str, sep) != NULL ||
+                          strcspn(str, "\r\n\"") != strlen(str) ||
+                          strcmp(str, "\\.") == 0 ||
+                          sep == '\\' || sep == '.');
+
+    if (needs_escaping)
+        csv_escaped_print(str, fout);  // Apply CSV quoting/escaping
+    else
+        fputs(str, fout);              // Output field directly
+}
+```

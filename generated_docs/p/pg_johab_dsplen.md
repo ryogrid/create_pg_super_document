@@ -30,3 +30,12 @@ The function returns the number of display columns that would be occupied by the
 - JOHAB encoding shares display length characteristics with EUC encodings, hence the delegation to pg_euc_dsplen
 - The function is part of PostgreSQL's character encoding support infrastructure
 - JOHAB is primarily used for Korean text representation and is one of the legacy Korean encodings supported by PostgreSQL
+
+## Simplified Source
+
+```c
+static int pg_johab_dsplen(const unsigned char *s) {
+    // JOHAB shares display length characteristics with EUC encoding
+    return pg_euc_dsplen(s);
+}
+```

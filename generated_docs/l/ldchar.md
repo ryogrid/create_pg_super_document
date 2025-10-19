@@ -35,3 +35,16 @@ This function is essential for working with fixed-length database fields in Info
 - Does not validate buffer sizes - caller must ensure destination is adequately sized
 - Part of the ECPG Informix compatibility layer for handling fixed-length character data
 - Located in src/interfaces/ecpg/compatlib/informix.c:977-985
+
+## Simplified Source
+
+```c
+void ldchar(char *src, int len, char *dest) {
+    // Get effective length without trailing spaces
+    int dlen = byleng(src, len);
+
+    // Copy the meaningful content and null-terminate
+    memmove(dest, src, dlen);
+    dest[dlen] = '\0';
+}
+```

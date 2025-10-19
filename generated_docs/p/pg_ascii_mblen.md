@@ -31,3 +31,12 @@ The function is part of PostgreSQL's multi-byte encoding support framework, wher
 - The parameter is not actually examined since ASCII characters are always 1 byte
 - Used as a function pointer in encoding tables to provide consistent interface across different encodings
 - According to the file comments, mblen() functions generally only need to examine the first byte to determine length, and ASCII is the simplest case where this is always 1
+
+## Simplified Source
+
+```c
+static int pg_ascii_mblen(const unsigned char *s) {
+    // ASCII characters are always 1 byte
+    return 1;
+}
+```

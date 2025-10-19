@@ -41,3 +41,40 @@ This function recursively traverses the radix tree to locate the appropriate slo
 - Uses tail recursion for efficient traversal down the tree levels
 - The found parameter allows callers to distinguish between insertions and updates
 - Critical for maintaining radix tree structure integrity during modifications
+
+## Simplified Source
+
+```c
+static RT_PTR_ALLOC *
+RT_GET_SLOT_RECURSIVE(RT_RADIX_TREE *tree, RT_PTR_ALLOC *parent_slot, uint64 key, int shift, bool *found)
+{
+    RT_PTR_ALLOC *slot;
+    RT_CHILD_PTR node;
+    uint8 chunk = RT_GET_KEY_CHUNK(key, shift);
+
+    // Get the current node and search for the key chunk
+    node.alloc = *parent_slot;
+    RT_PTR_SET_LOCAL(tree, &node);
+    slot = RT_NODE_SEARCH(node.local, chunk);
+
+    if (slot == NULL) {
+        // Chunk not found - create new slot
+        *found = false;
+        slot = RT_NODE_INSERT(tree, parent_slot, node, chunk);
+
+        if (shift == 0)
+            return slot;  // At leaf level
+        else
+            return RT_EXTEND_DOWN(tree, slot, key, shift);  // Need more levels
+    } else {
+        // Chunk found - check if we're at leaf level
+        if (shift == 0) {
+            *found = true;
+            return slot;  // Found existing entry
+        } else {
+            // Continue recursively to next level
+            return RT_GET_SLOT_RECURSIVE(tree, slot, key, shift - RT_SPAN, found);
+        }
+    }
+}
+```

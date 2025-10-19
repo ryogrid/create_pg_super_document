@@ -34,3 +34,32 @@ This function serves as a validation hook for the HISTCONTROL psql variable. It 
 - Updates the global pset.histcontrol field which is used by the command history system
 - The ignoreboth option combines both ignorespace and ignoredups behaviors using bitwise OR
 - Located in src/bin/psql/startup.c:1077-1097
+
+## Simplified Source
+
+```c
+static bool
+histcontrol_hook(const char *newval)
+{
+    Assert(newval != NULL);  // Substitute hook ensures non-NULL value
+
+    // Set history control mode based on string value (case-insensitive)
+    if (pg_strcasecmp(newval, "ignorespace") == 0)
+        pset.histcontrol = hctl_ignorespace;
+    else if (pg_strcasecmp(newval, "ignoredups") == 0)
+        pset.histcontrol = hctl_ignoredups;
+    else if (pg_strcasecmp(newval, "ignoreboth") == 0)
+        pset.histcontrol = hctl_ignoreboth;
+    else if (pg_strcasecmp(newval, "none") == 0)
+        pset.histcontrol = hctl_none;
+    else
+    {
+        // Invalid value - show error and fail validation
+        PsqlVarEnumError("HISTCONTROL", newval,
+                         "none, ignorespace, ignoredups, ignoreboth");
+        return false;
+    }
+
+    return true;
+}
+```

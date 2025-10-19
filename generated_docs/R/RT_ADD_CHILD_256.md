@@ -35,3 +35,26 @@ This function adds a child to a node256 (256-way node) in the radix tree by mark
 
 ## Notes and Other Information
 Node256 is the largest node type in the radix tree, supporting up to 256 children with direct indexing by chunk value. The bitmap array `isset` tracks which slots are occupied, allowing efficient space usage even when the node is sparsely populated. This is the most straightforward add operation since no array shifting or searching is required - the chunk value directly determines the storage location.
+
+## Simplified Source
+
+```c
+static inline RT_PTR_ALLOC *
+RT_ADD_CHILD_256(RT_RADIX_TREE *tree, RT_CHILD_PTR node, uint8 chunk)
+{
+    RT_NODE_256 *n256 = (RT_NODE_256 *) node.local;
+
+    // Calculate bitmap position for this chunk
+    int idx = RT_BM_IDX(chunk);
+    int bitnum = RT_BM_BIT(chunk);
+
+    // Mark slot as occupied in bitmap
+    n256->isset[idx] |= ((bitmapword) 1 << bitnum);
+
+    // Update node count
+    n256->base.count++;
+
+    // Return pointer to the child slot for this chunk
+    return RT_NODE_256_GET_CHILD(n256, chunk);
+}
+```

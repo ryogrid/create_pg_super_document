@@ -37,3 +37,16 @@ The implementation uses `rep; nop` which is equivalent to the PAUSE instruction 
 - Based on Intel IA-32 Architecture Software Developer's Manual recommendations
 - Particularly important for multi-core and hyper-threaded systems where spinlock contention is common
 - Used within spin-wait loops throughout PostgreSQL's synchronization primitives
+
+## Simplified Source
+
+```c
+static __inline__ void
+spin_delay(void)
+{
+    // Use PAUSE instruction to optimize spinlock performance
+    // Prevents pipeline flushes and reduces resource consumption in spin loops
+    __asm__ __volatile__(
+        " rep; nop\t\t\t\n");  // Equivalent to PAUSE instruction
+}
+```

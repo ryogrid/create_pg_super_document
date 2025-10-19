@@ -43,3 +43,86 @@ The function respects various formatting options including borders (0-2 levels),
 - Headers are formatted in italics using troff font commands (\\fI for italic, \\fP for previous font)
 - Tab characters are used as column separators in troff table format
 - Part of PostgreSQL's frontend printing subsystem for generating formatted output
+
+## Simplified Source
+
+```c
+static void print_troff_ms_text(const printTableContent *table_content, FILE *output_file) {
+    bool tuples_only = table_content->opt->tuples_only;
+    unsigned short border_level = table_content->opt->border;
+
+    // Limit border level to maximum of 2
+    if (border_level > 2) border_level = 2;
+
+    if (table_content->opt->start_table) {
+        // Print table title if present
+        if (!tuples_only && table_content->title) {
+            fputs(".LP\\n.DS C\\n", output_file);
+            troff_ms_escaped_print(table_content->title, output_file);
+            fputs("\\n.DE\\n", output_file);
+        }
+
+        // Start table with borders based on border level
+        fputs(".LP\\n.TS\\n", output_file);
+        if (border_level == 2) {
+            fputs("center box;\\n", output_file);  // full borders
+        } else {
+            fputs("center;\\n", output_file);      // no borders
+        }
+
+        // Set column alignments and separators
+        for (unsigned int i = 0; i < table_content->ncolumns; i++) {
+            fputc(*(table_content->aligns + i), output_file);
+            if (border_level > 0 && i < table_content->ncolumns - 1) {
+                fputs(" | ", output_file);  // column separators
+            }
+        }
+        fputs(".\\n", output_file);
+
+        // Print column headers in italics
+        if (!tuples_only) {
+            for (unsigned int i = 0; i < table_content->ncolumns; i++) {
+                if (i != 0) fputc('\\t', output_file);
+                fputs("\\\\fI", output_file);  // italic formatting
+                troff_ms_escaped_print(table_content->headers[i], output_file);
+                fputs("\\\\fP", output_file);  // end italic
+            }
+            fputs("\\n_\\n", output_file);  // header separator line
+        }
+    }
+
+    // Print table data cells
+    for (unsigned int i = 0; table_content->cells[i]; i++) {
+        troff_ms_escaped_print(table_content->cells[i], output_file);
+
+        // End of row: newline, otherwise tab separator
+        if ((i + 1) % table_content->ncolumns == 0) {
+            fputc('\\n', output_file);
+        } else {
+            fputc('\\t', output_file);
+        }
+    }
+
+    // Print table footers if requested
+    if (table_content->opt->stop_table) {
+        fputs(".TE\\n.DS L\\n", output_file);  // end table, start left-aligned display
+
+        if (!tuples_only) {
+            printTableFooter *footers = footers_with_default(table_content);
+            for (printTableFooter *footer = footers; footer; footer = footer->next) {
+                troff_ms_escaped_print(footer->data, output_file);
+                fputc('\\n', output_file);
+            }
+        }
+
+        fputs(".DE\\n", output_file);  // end display
+    }
+}
+```
+
+This simplified version preserves the core functionality:
+- Sets up troff table structure with proper borders and alignment
+- Handles table title, headers (with italic formatting), and footers
+- Processes data cells with proper tab/newline separation
+- Uses troff_ms_escaped_print for proper text escaping
+- Maintains essential table formatting logic while removing cancellation checks for clarity

@@ -41,3 +41,43 @@ The function gracefully handles incomplete sequences at the end of input by drop
 - Does not perform UTF-8 validation beyond basic structural checks - malformed sequences are handled by treating invalid bytes as single characters
 - The caller is responsible for ensuring the output buffer is large enough to hold the converted characters plus a null terminator
 - Part of PostgreSQL's character encoding conversion infrastructure
+
+## Simplified Source
+
+```c
+static int pg_utf2wchar_with_len(const unsigned char *from, pg_wchar *to, int len) {
+    int count = 0;
+
+    while (len > 0 && *from) {
+        if ((*from & 0x80) == 0) {
+            // 1-byte ASCII character
+            *to = *from++;
+            len--;
+        } else if ((*from & 0xe0) == 0xc0) {
+            // 2-byte UTF-8 sequence
+            if (len < 2) break;
+            *to = ((*from++ & 0x1f) << 6) | (*from++ & 0x3f);
+            len -= 2;
+        } else if ((*from & 0xf0) == 0xe0) {
+            // 3-byte UTF-8 sequence
+            if (len < 3) break;
+            *to = ((*from++ & 0x0f) << 12) | ((*from++ & 0x3f) << 6) | (*from++ & 0x3f);
+            len -= 3;
+        } else if ((*from & 0xf8) == 0xf0) {
+            // 4-byte UTF-8 sequence
+            if (len < 4) break;
+            *to = ((*from++ & 0x07) << 18) | ((*from++ & 0x3f) << 12) |
+                  ((*from++ & 0x3f) << 6) | (*from++ & 0x3f);
+            len -= 4;
+        } else {
+            // Invalid byte - treat as single character
+            *to = *from++;
+            len--;
+        }
+        to++;
+        count++;
+    }
+    *to = 0;
+    return count;
+}
+```

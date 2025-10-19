@@ -37,4 +37,11 @@ This design ensures compatibility across different compiler versions while provi
 - Primarily intended for low-level memory manipulation code where sanitizer checks would be counterproductive
 - Part of PostgreSQL's compiler compatibility abstraction layer in 
 - Should only be used when the developer is confident the code is memory-safe despite triggering sanitizer warnings
-- Related to other sanitizer control macros like 
+- Related to other sanitizer control macros like
+
+## Simplified Source
+
+```c
+// Macro to disable AddressSanitizer for specific functions
+#define pg_attribute_no_sanitize_address() __attribute__((no_sanitize("address")))
+``` 

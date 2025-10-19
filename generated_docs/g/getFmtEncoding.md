@@ -37,3 +37,27 @@ This dual behavior ensures robust error detection during development while maint
 - The function is static (internal to string_utils.c) and not part of the public API
 - Used internally by identifier formatting functions to ensure encoding-appropriate character escaping
 - The fallback to UTF-8 provides reasonable behavior for most use cases since UTF-8 is widely supported
+
+## Simplified Source
+
+```c
+static int getFmtEncoding(void) {
+    // Return previously set encoding if available
+    if (fmtIdEncoding != -1) {
+        return fmtIdEncoding;
+    }
+
+    // In debug builds, assert that encoding was properly set
+    // In production builds, gracefully default to UTF-8
+    Assert(fmtIdEncoding != -1);  // Debug check for proper initialization
+
+    return PG_UTF8;  // Safe fallback encoding
+}
+```
+
+This simplified version preserves the core functionality:
+- Returns the configured encoding if it has been set
+- Provides defensive programming with assertion for development builds
+- Falls back to UTF-8 encoding for production safety
+- Maintains the essential dual-behavior pattern for debug vs production
+- Used by identifier formatting functions to ensure proper character encoding

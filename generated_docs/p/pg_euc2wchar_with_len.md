@@ -43,3 +43,43 @@ The function processes input character by character, detecting the encoding type
 - Returns count of logical characters converted (not bytes processed)
 - Always null-terminates the output for safety
 - Part of PostgreSQL's comprehensive multi-byte character encoding support infrastructure
+
+## Simplified Source
+
+```c
+static int pg_euc2wchar_with_len(const unsigned char *from, pg_wchar *to, int len) {
+    int count = 0;
+
+    while (len > 0 && *from) {
+        if (*from == SS2 && len >= 2) {
+            // JIS X 0201 (2-byte sequence): SS2 + character
+            from++;
+            *to = (SS2 << 8) | *from++;
+            len -= 2;
+        }
+        else if (*from == SS3 && len >= 3) {
+            // JIS X 0212 (3-byte sequence): SS3 + 2 characters
+            from++;
+            *to = (SS3 << 16) | (*from++ << 8);
+            *to |= *from++;
+            len -= 3;
+        }
+        else if (IS_HIGHBIT_SET(*from) && len >= 2) {
+            // JIS X 0208 (2-byte sequence): high-bit characters
+            *to = *from++ << 8;
+            *to |= *from++;
+            len -= 2;
+        }
+        else {
+            // ASCII (1-byte): direct mapping
+            *to = *from++;
+            len--;
+        }
+        to++;
+        count++;
+    }
+
+    *to = 0;  // Null terminate
+    return count;
+}
+```

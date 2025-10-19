@@ -36,3 +36,19 @@ The function operates in-place, modifying the input string to remove invalid seq
 - The function always returns the input pointer, making it suitable for use in expression contexts
 - Additional encoding validation routines should be added to the else branch as needed
 - This is part of PostgreSQL's frontend utilities for ensuring safe text display across different character encodings
+
+## Simplified Source
+
+```c
+unsigned char *
+mbvalidate(unsigned char *pwcs, int encoding)
+{
+    // Currently only UTF-8 validation is implemented
+    if (encoding == PG_UTF8) {
+        mb_utf_validate(pwcs);
+    }
+    // Other encodings can be added here as needed
+
+    return pwcs;  // Always return the (possibly modified) input string
+}
+```

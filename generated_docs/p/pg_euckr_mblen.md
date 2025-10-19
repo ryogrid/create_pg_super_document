@@ -28,3 +28,15 @@ The pg_euckr_mblen function is a wrapper around the generic EUC (Extended Unix C
 - EUC-KR is a Korean character encoding that extends ASCII with Korean characters
 - The function relies on the generic EUC implementation since EUC-KR follows the same byte-length determination rules as other EUC variants
 - Returns 1 for ASCII characters, 2 for characters with SS2 prefix or high-bit set characters, and 3 for characters with SS3 prefix
+
+## Simplified Source
+
+```c
+static int pg_euckr_mblen(const unsigned char *s) {
+    // Delegate to generic EUC multibyte length function
+    // EUC-KR follows standard EUC encoding rules:
+    // - 1 byte for ASCII (0x00-0x7F)
+    // - 2-3 bytes for Korean characters
+    return pg_euc_mblen(s);
+}
+```

@@ -39,3 +39,28 @@ The function includes several assertion checks to ensure list integrity and that
 - The function assumes the process being inserted is not already in any proclist (asserted by checking next and prev are 0)
 - The offset-based approach allows the same function to work with different proclist_node fields within PGPROC structures
 - After insertion, the new process becomes the first process that will be accessed when iterating from the head
+
+## Simplified Source
+
+```c
+static inline void proclist_push_head_offset(proclist_head *list, int procno, size_t node_offset) {
+    // Get the node to insert
+    proclist_node *node = proclist_node_get(procno, node_offset);
+
+    Assert(node->next == 0 && node->prev == 0);
+
+    if (list->head == INVALID_PROC_NUMBER) {
+        // Empty list: set both head and tail to new process
+        Assert(list->tail == INVALID_PROC_NUMBER);
+        node->next = node->prev = INVALID_PROC_NUMBER;
+        list->head = list->tail = procno;
+    } else {
+        // Non-empty list: insert at head
+        Assert(list->tail != INVALID_PROC_NUMBER);
+        node->next = list->head;
+        proclist_node_get(node->next, node_offset)->prev = procno;
+        node->prev = INVALID_PROC_NUMBER;
+        list->head = procno;
+    }
+}
+```

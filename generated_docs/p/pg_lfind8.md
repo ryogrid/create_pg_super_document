@@ -36,3 +36,38 @@ The implementation first processes elements in chunks using vectorized operation
 - Part of PostgreSQL's optimized linear find utilities located in pg_lfind.h
 - Primarily used in performance-critical scenarios where fast linear search is needed
 - The tail_idx calculation ensures proper vector alignment by rounding down to vector boundary
+
+## Simplified Source
+
+```c
+static inline bool
+pg_lfind8(uint8 key, uint8 *base, uint32 nelem)
+{
+    uint32 i;
+
+    // Process elements in vectorized chunks for performance
+    uint32 tail_idx = nelem & ~(sizeof(Vector8) - 1);
+    Vector8 chunk;
+
+    for (i = 0; i < tail_idx; i += sizeof(Vector8)) {
+        vector8_load(&chunk, &base[i]);
+        if (vector8_has(chunk, key))
+            return true;
+    }
+
+    // Process remaining elements individually
+    for (; i < nelem; i++) {
+        if (key == base[i])
+            return true;
+    }
+
+    return false;
+}
+```
+
+**Key Points:**
+- Linear search for an 8-bit value in an array of 8-bit integers
+- Uses SIMD vectorized operations for bulk processing when possible
+- Falls back to individual element comparison for remainder elements
+- Returns true if key is found, false otherwise
+- Optimized for performance-critical scenarios

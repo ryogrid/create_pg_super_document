@@ -37,3 +37,14 @@ Unlike DatumGetJsonPathP, this function guarantees that the returned JsonPath st
 - Use this function when you need to modify the JsonPath structure or when the returned pointer needs to outlive the original datum
 - The PG_GETARG_JSONPATH_P_COPY macro is the typical way this function is used in PostgreSQL function implementations
 - More expensive than DatumGetJsonPathP due to the copy operation, so only use when modification is required
+
+## Simplified Source
+
+```c
+static inline JsonPath *
+DatumGetJsonPathPCopy(Datum d)
+{
+    // Extract JsonPath pointer from Datum, creating a modifiable copy
+    return (JsonPath *) PG_DETOAST_DATUM_COPY(d);
+}
+```

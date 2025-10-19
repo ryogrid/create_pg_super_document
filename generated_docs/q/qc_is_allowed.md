@@ -48,3 +48,30 @@ The Quick Check properties can return:
 - Critical for performance optimization in normalization validation
 - Part of Unicode Standard Annex #15 Quick Check algorithm
 - Enables early termination of normalization checks when possible
+
+## Simplified Source
+
+```c
+static UnicodeNormalizationQC qc_is_allowed(UnicodeNormalizationForm form, pg_wchar ch) {
+    const pg_unicode_normprops *found = NULL;
+
+    // Look up Quick Check properties based on normalization form
+    switch (form) {
+        case UNICODE_NFC:
+            found = qc_hash_lookup(ch, &UnicodeNormInfo_NFC_QC);
+            break;
+        case UNICODE_NFKC:
+            found = qc_hash_lookup(ch, &UnicodeNormInfo_NFKC_QC);
+            break;
+        default:
+            Assert(false);
+            break;
+    }
+
+    // Return found Quick Check property or default to YES
+    if (found)
+        return found->quickcheck;
+    else
+        return UNICODE_NORM_QC_YES;
+}
+```

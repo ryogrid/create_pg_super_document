@@ -34,3 +34,12 @@ This function is used when the calling function needs to modify the TSQuery data
 - Part of the fmgr (function manager) interface functions for text search operations
 - TSQuery types are stored as plain storage and cannot be compressed or stored out-of-line
 - Used primarily through the PG_GETARG_TSQUERY_COPY macro interface
+
+## Simplified Source
+
+```c
+static inline TSQuery DatumGetTSQueryCopy(Datum X) {
+    // Get a modifiable copy of TSQuery from Datum (for API consistency)
+    return (TSQuery) PG_DETOAST_DATUM_COPY(X);
+}
+```

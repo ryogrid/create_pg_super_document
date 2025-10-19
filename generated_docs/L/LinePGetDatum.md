@@ -32,3 +32,14 @@ This function serves as a type-safe wrapper for converting LINE geometry pointer
 - Essential for the PostgreSQL function call interface when returning LINE values
 - Complementary function to DatumGetLineP, providing bidirectional conversion
 - Used with LINE objects representing infinite lines in 2D coordinate space
+
+## Simplified Source
+
+```c
+static inline Datum
+LinePGetDatum(const LINE *X)
+{
+    // Convert LINE pointer to Datum
+    return PointerGetDatum(X);
+}
+```

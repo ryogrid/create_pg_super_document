@@ -30,3 +30,12 @@ The function follows the general contract for verifychar functions: given a poin
 - The function doesn't actually examine the input bytes since ASCII is single-byte and all byte values are valid
 - This is a static function used internally by PostgreSQL's encoding validation system
 - ASCII verification is trivial compared to multibyte encodings like UTF-8, EUC-JP, or EUC-KR where actual byte sequence validation is required
+
+## Simplified Source
+
+```c
+static int pg_ascii_verifychar(const unsigned char *s, int len) {
+    // ASCII is single-byte encoding - every byte is valid
+    return 1;
+}
+```

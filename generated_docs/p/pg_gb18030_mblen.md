@@ -33,3 +33,20 @@ The function implements a sophisticated detection algorithm: ASCII characters (h
 - The function gracefully handles incomplete input: if only the first byte is provided, 4-byte characters are reported as two 2-byte characters, which works for current usage patterns
 - GB18030 encoding structure: 1 byte (ASCII), 2 bytes (most Chinese characters), 4 bytes (extended Unicode characters)
 - The detection logic for 4-byte sequences relies on the second byte being a digit (0x30-0x39), which is part of the GB18030 encoding specification
+
+## Simplified Source
+
+```c
+static int pg_gb18030_mblen(const unsigned char *s) {
+    // ASCII characters: 1 byte
+    if (!IS_HIGHBIT_SET(*s))
+        return 1;
+
+    // Check second byte for 4-byte sequence (digit 0x30-0x39)
+    if (*(s + 1) >= 0x30 && *(s + 1) <= 0x39)
+        return 4;
+
+    // Default: 2-byte Chinese character
+    return 2;
+}
+```

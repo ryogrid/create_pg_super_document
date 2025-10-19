@@ -53,3 +53,16 @@ Return value: Pointer to the hash table element containing the key
 - Useful for performance-critical code paths where hash computation overhead matters
 - The function scope (SH_SCOPE) can be configured to control visibility (static, extern, etc.)
 - Located in src/include/lib/simplehash.h:790-793
+
+## Simplified Source
+
+```c
+SH_SCOPE SH_ELEMENT_TYPE *
+SH_INSERT_HASH(SH_TYPE *tb, SH_KEY_TYPE key, uint32 hash, bool *found)
+{
+    // Directly delegate to internal insertion with pre-computed hash
+    return SH_INSERT_HASH_INTERNAL(tb, key, hash, found);
+}
+```
+
+**What it does:** This function provides an optimized insertion interface when you already have a pre-computed hash value. It's a simple wrapper that directly calls the internal insertion function, skipping the hash computation step that SH_INSERT would perform. This is useful for performance-critical scenarios where the hash value is already available from previous operations.

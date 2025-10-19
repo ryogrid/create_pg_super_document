@@ -34,3 +34,30 @@ The function employs a fast-path optimization for ASCII characters (bytes withou
 - The function is static, indicating it's used internally within the wchar.c module
 - JOHAB encoding uses the same multi-byte length determination as EUC encodings but with different character validation rules
 - Handles the complexity of JOHAB's variable-width encoding through delegation to the character-level validation function
+
+## Simplified Source
+
+```c
+static int pg_johab_verifystr(const unsigned char *s, int len) {
+    const unsigned char *start = s;
+
+    while (len > 0) {
+        int char_len;
+
+        if (!IS_HIGHBIT_SET(*s)) {
+            // Fast path for ASCII characters
+            if (*s == '\0') break;  // Stop at null byte
+            char_len = 1;
+        } else {
+            // Validate Korean multibyte character
+            char_len = pg_johab_verifychar(s, len);
+            if (char_len == -1) break;  // Stop at invalid character
+        }
+
+        s += char_len;
+        len -= char_len;
+    }
+
+    return s - start;  // Return number of valid bytes processed
+}
+```

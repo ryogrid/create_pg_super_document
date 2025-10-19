@@ -39,3 +39,14 @@ RT_COPY_COMMON is part of PostgreSQL's templated radix tree implementation. This
 - Essential for maintaining data integrity during node growth and shrinking operations in the radix tree
 - The function operates on RT_CHILD_PTR structures, which contain both allocation pointers and local pointers to the actual node data
 - Part of the templated implementation, so the actual function name varies based on the RT_PREFIX used
+
+## Simplified Source
+
+```c
+static inline void
+RT_COPY_COMMON(RT_CHILD_PTR newnode, RT_CHILD_PTR oldnode)
+{
+    // Copy the count field from old node to new node
+    (newnode.local)->count = (oldnode.local)->count;
+}
+```

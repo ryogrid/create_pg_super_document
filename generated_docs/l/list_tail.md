@@ -28,3 +28,14 @@ The function operates on PostgreSQL's internal List data structure, which stores
 - Assumes that if the list is not NULL, it has a valid length field and elements array
 - Less commonly used compared to list_head, as many list operations focus on the beginning of lists
 - The function performs bounds checking implicitly through the length field
+
+## Simplified Source
+
+```c
+/* Fetch address of list's last cell; NULL if empty list */
+static inline ListCell *
+list_tail(const List *l) {
+    // Return last element if list exists, otherwise NULL
+    return l ? &l->elements[l->length - 1] : NULL;
+}
+```

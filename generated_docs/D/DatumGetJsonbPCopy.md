@@ -31,3 +31,14 @@ This inline function provides a way to extract a writable Jsonb pointer from a D
 - Used less frequently than DatumGetJsonbP due to the performance overhead of copying
 - The copy operation ensures memory safety when modifying JSONB data
 - Part of the convenience macro family for JSONB type conversion
+
+## Simplified Source
+
+```c
+static inline Jsonb *
+DatumGetJsonbPCopy(Datum d)
+{
+    // Extract Jsonb pointer from Datum, creating a modifiable copy
+    return (Jsonb *) PG_DETOAST_DATUM_COPY(d);
+}
+```

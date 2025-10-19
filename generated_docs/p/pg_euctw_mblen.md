@@ -38,3 +38,19 @@ The function serves as a utility for parsing EUC-TW streams by providing the cha
 - Essential for character boundary detection in EUC-TW text processing
 - Used in conjunction with other EUC-TW conversion functions for complete encoding support
 - Part of PostgreSQL's multibyte character length determination system
+
+## Simplified Source
+
+```c
+static int pg_euctw_mblen(const unsigned char *s) {
+    // Determine EUC-TW character byte length based on first byte:
+    if (*s == SS2)
+        return 4;       // 4-byte plane characters
+    else if (*s == SS3)
+        return 3;       // 3-byte sequences (unused)
+    else if (IS_HIGHBIT_SET(*s))
+        return 2;       // 2-byte Chinese characters
+    else
+        return 1;       // ASCII characters
+}
+```

@@ -38,3 +38,14 @@ This technique provides better hash distribution compared to simple truncation, 
 - Used as an optional step in the hash pipeline when 32-bit hash values are needed
 - Provides "additional mixing" beyond what would be achieved by just taking the lower 32 bits
 - Part of PostgreSQL's strategy to provide both 32-bit and 64-bit hash variants while maintaining good statistical properties
+
+## Simplified Source
+
+```c
+static inline uint32
+fasthash_reduce32(uint64 h)
+{
+    // Convert to Fermat residue: preserve info from both high and low bits
+    return h - (h >> 32);
+}
+```

@@ -43,3 +43,14 @@ This macro is only available when RT_SHMEM is defined, indicating the radix tree
 - Failure to call RT_UNLOCK can lead to deadlocks and hung processes
 - Should be called in exception handlers to ensure locks are released even on errors
 - The function automatically determines the type of lock to release (exclusive or shared)
+
+## Simplified Source
+
+```c
+RT_SCOPE void
+RT_UNLOCK(RT_RADIX_TREE *tree)
+{
+    // Release any type of lock (shared or exclusive)
+    LWLockRelease(&tree->ctl->lock);
+}
+```

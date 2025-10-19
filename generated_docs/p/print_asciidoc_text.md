@@ -39,3 +39,86 @@ This function generates AsciiDoc table output from PostgreSQL query results stor
 - Includes cancellation support during processing
 - Enforces proper AsciiDoc spacing and formatting conventions
 - Table definition includes header option when headers are present
+
+## Simplified Source
+```c
+static void print_asciidoc_text(const printTableContent *cont, FILE *fout)
+{
+    bool opt_tuples_only = cont->opt->tuples_only;
+    unsigned short opt_border = cont->opt->border;
+    unsigned int i;
+    const char *const *ptr;
+
+    if (cancel_pressed)
+        return;
+
+    if (cont->opt->start_table) {
+        fputs("\n", fout);  // Start new paragraph
+
+        // Print title if present
+        if (!opt_tuples_only && cont->title) {
+            fprintf(fout, ".%s\n", cont->title);
+        }
+
+        // Generate table definition with column specs
+        fprintf(fout, "[%scols=\"", !opt_tuples_only ? "options=\"header\"," : "");
+        for (i = 0; i < cont->ncolumns; i++) {
+            if (i != 0) fputs(",", fout);
+            fputs(cont->aligns[i % cont->ncolumns] == 'r' ? ">l" : "<l", fout);
+        }
+        fputs("\"", fout);
+
+        // Add border styling based on border option
+        if (opt_border == 0)
+            fputs(",frame=\"none\",grid=\"none\"", fout);
+        else if (opt_border == 1)
+            fputs(",frame=\"none\"", fout);
+        else
+            fputs(",frame=\"all\",grid=\"all\"", fout);
+
+        fputs("]\n|====\n", fout);
+
+        // Print headers
+        if (!opt_tuples_only) {
+            for (ptr = cont->headers; *ptr; ptr++) {
+                if (ptr != cont->headers) fputs(" ", fout);
+                fputs("^l|", fout);
+                asciidoc_escaped_print(*ptr, fout);
+            }
+            fputs("\n", fout);
+        }
+    }
+
+    // Print data cells
+    for (i = 0, ptr = cont->cells; *ptr; i++, ptr++) {
+        if (i % cont->ncolumns == 0 && cancel_pressed)
+            break;
+
+        if (i % cont->ncolumns != 0) fputs(" ", fout);
+        fputs("|", fout);
+
+        // Handle empty cells vs content
+        if ((*ptr)[strspn(*ptr, " \t")] == '\0') {
+            if ((i + 1) % cont->ncolumns != 0) fputs(" ", fout);
+        } else {
+            asciidoc_escaped_print(*ptr, fout);
+        }
+
+        if ((i + 1) % cont->ncolumns == 0) fputs("\n", fout);
+    }
+
+    fputs("|====\n", fout);
+
+    // Print footers in literal block
+    if (cont->opt->stop_table && !opt_tuples_only && !cancel_pressed) {
+        printTableFooter *footers = footers_with_default(cont);
+        if (footers) {
+            fputs("\n....\n", fout);
+            for (printTableFooter *f = footers; f; f = f->next) {
+                fprintf(fout, "%s\n", f->data);
+            }
+            fputs("....\n", fout);
+        }
+    }
+}
+```

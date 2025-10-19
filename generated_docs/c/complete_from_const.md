@@ -36,3 +36,24 @@ This function is designed to return exactly one fixed string during tab completi
 - The documentation suggests using complete_from_list with a single-element list instead for most use cases
 - Supports case adjustment based on psql's case sensitivity settings
 - The behavior of overwriting user input makes this function suitable only when there's high certainty about what should appear
+
+## Simplified Source
+
+```c
+static char *complete_from_const(const char *text, int state)
+{
+    Assert(completion_charp != NULL);
+
+    // Only return something on the first call
+    if (state == 0)
+    {
+        if (completion_case_sensitive)
+            return pg_strdup(completion_charp);
+        else
+            // Adjust case according to psql settings for case-insensitive mode
+            return pg_strdup_keyword_case(completion_charp, text);
+    }
+    else
+        return NULL;  // No more completions available
+}
+```

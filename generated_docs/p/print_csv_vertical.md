@@ -37,3 +37,30 @@ The function uses csv_print_field() to ensure both column names and values are p
 
 ## Notes and Other Information
 This function is part of PostgreSQL's frontend utilities and provides an alternative CSV output format that complements the standard horizontal CSV format. The vertical format is especially valuable for tables with numerous columns or when examining individual records in detail. Like other PostgreSQL printing functions, it respects the cancel_pressed flag for responsive interruption during processing. The output format produces exactly two columns (column_name, column_value) regardless of the input table structure, making it suitable for further processing by tools that expect consistent CSV structure.
+
+## Simplified Source
+```c
+static void print_csv_vertical(const printTableContent *cont, FILE *fout)
+{
+    const char *const *ptr;
+    int i;
+
+    // Output each cell as column_name,column_value pair
+    for (i = 0, ptr = cont->cells; *ptr; i++, ptr++) {
+        if (cancel_pressed)
+            return;
+
+        // Print column name
+        csv_print_field(cont->headers[i % cont->ncolumns], fout,
+                        cont->opt->csvFieldSep[0]);
+
+        // Print separator
+        fputc(cont->opt->csvFieldSep[0], fout);
+
+        // Print field value
+        csv_print_field(*ptr, fout, cont->opt->csvFieldSep[0]);
+
+        fputc('\n', fout);  // End this name-value pair
+    }
+}
+```

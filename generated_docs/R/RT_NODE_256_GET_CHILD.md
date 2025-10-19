@@ -44,3 +44,17 @@ The function includes an assertion that verifies the requested chunk actually ha
 - This function assumes the caller has already verified the child exists using RT_NODE_256_IS_CHUNK_USED or similar checks
 - Part of PostgreSQL's generic radix tree implementation for high-performance key-value storage
 - The 256-way node is the largest and most direct node type in the radix tree hierarchy
+
+## Simplified Source
+
+```c
+static inline RT_PTR_ALLOC *
+RT_NODE_256_GET_CHILD(RT_NODE_256 * node, uint8 chunk)
+{
+    // Verify chunk exists (debug builds only)
+    Assert(RT_NODE_256_IS_CHUNK_USED(node, chunk));
+
+    // Direct array access using chunk as index
+    return &node->children[chunk];
+}
+```

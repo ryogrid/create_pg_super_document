@@ -44,3 +44,35 @@ The function handles the edge case properly by using the IEEE mantissa directly 
 - Uses careful bit manipulation to avoid multiple return paths, which helps prevent compiler from creating multiple inline copies of the general d2d function
 - The optimization is mathematically sound: for exponents in the valid range, if the fractional bits are zero, the value is guaranteed to be an exact integer
 - No decimal length adjustment is needed since 2^53 < 10^16, ensuring the result fits within expected decimal digit limits
+
+## Simplified Source
+
+```c
+static inline bool d2d_small_int(const uint64 ieeeMantissa,
+                                const uint32 ieeeExponent,
+                                floating_decimal_64 *v) {
+    // Calculate the actual binary exponent (remove IEEE bias and mantissa bits)
+    const int32 e2 = (int32)ieeeExponent - DOUBLE_BIAS - DOUBLE_MANTISSA_BITS;
+
+    // Check if exponent is in range where small integer optimization applies
+    if (e2 >= -DOUBLE_MANTISSA_BITS && e2 <= 0) {
+        // Create mask to check if fractional part is zero
+        // For e2 = -5, mask = 0x1F (checks bottom 5 bits)
+        const uint64 mask = (UINT64CONST(1) << -e2) - 1;
+        const uint64 fraction = ieeeMantissa & mask;
+
+        // If no fractional bits set, this is an exact integer
+        if (fraction == 0) {
+            // Reconstruct the full mantissa (add implicit leading 1)
+            const uint64 m2 = (UINT64CONST(1) << DOUBLE_MANTISSA_BITS) | ieeeMantissa;
+
+            // Convert to integer by right-shifting to remove fractional bits
+            v->mantissa = m2 >> -e2;
+            v->exponent = 0;  // Integer has zero decimal exponent
+            return true;
+        }
+    }
+
+    return false;  // Not a small integer, use general algorithm
+}
+```

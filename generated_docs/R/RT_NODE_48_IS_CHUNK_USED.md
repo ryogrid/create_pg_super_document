@@ -54,3 +54,14 @@ The function is essential for tree traversal, iteration, and maintenance operati
 - Debugging and diagnostic output
 
 The node48 structure uses this function as part of its sparse child management strategy, allowing it to efficiently skip over unused chunk values during iteration and other operations.
+
+## Simplified Source
+
+```c
+static inline bool
+RT_NODE_48_IS_CHUNK_USED(RT_NODE_48 * node, uint8 chunk)
+{
+    // Check if chunk has valid child by testing slot index
+    return node->slot_idxs[chunk] != RT_INVALID_SLOT_IDX;
+}
+```

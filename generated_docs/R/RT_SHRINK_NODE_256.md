@@ -45,3 +45,39 @@ The function uses an efficient bitmap initialization technique, filling the isse
 - Uses efficient bitmap initialization: `((uint64) 1 << count) - 1` to set the first `count` bits
 - Updates parent reference and frees the old node atomically
 - Only triggers when node256 becomes sufficiently sparse to justify the conversion overhead
+
+## Simplified Source
+
+```c
+static void pg_noinline
+RT_SHRINK_NODE_256(RT_RADIX_TREE *tree, RT_PTR_ALLOC *parent_slot, RT_CHILD_PTR node, uint8 chunk)
+{
+    RT_NODE_256 *n256 = (RT_NODE_256 *) node.local;
+    RT_CHILD_PTR newnode;
+    RT_NODE_48 *new48;
+    int slot_idx = 0;
+
+    // Allocate new smaller node
+    newnode = RT_ALLOC_NODE(tree, RT_NODE_KIND_48, RT_CLASS_48);
+    new48 = (RT_NODE_48 *) newnode.local;
+
+    // Copy common metadata and compress children array
+    RT_COPY_COMMON(newnode, node);
+    for (int i = 0; i < RT_NODE_MAX_SLOTS; i++)
+    {
+        if (RT_NODE_256_IS_CHUNK_USED(n256, i))
+        {
+            new48->slot_idxs[i] = slot_idx;         // Map chunk to slot index
+            new48->children[slot_idx] = n256->children[i];  // Copy child pointer
+            slot_idx++;
+        }
+    }
+
+    // Set all bits for existing children in one operation
+    new48->isset[0] = ((uint64) 1 << n256->base.count) - 1;
+
+    // Replace old node with new one
+    *parent_slot = newnode.alloc;
+    RT_FREE_NODE(tree, node);
+}
+```

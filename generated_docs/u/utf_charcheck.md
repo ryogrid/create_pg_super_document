@@ -40,3 +40,56 @@ The function returns the number of bytes in the valid UTF-8 sequence (1-4) or -1
 - Critical for ensuring data integrity in PostgreSQL's UTF-8 text handling
 - The validation includes checks for overlong encodings and reserved code points
 - Assumes the input buffer contains enough bytes for the complete sequence
+
+## Simplified Source
+
+```c
+static int
+utf_charcheck(const unsigned char *c)
+{
+    // Single-byte ASCII character (0xxxxxxx)
+    if ((*c & 0x80) == 0)
+        return 1;
+
+    // Two-byte character (110xxxxx 10xxxxxx)
+    if ((*c & 0xe0) == 0xc0) {
+        if ((c[1] & 0xc0) == 0x80 && (c[0] & 0x1f) > 0x01)
+            return 2;
+        return -1;
+    }
+
+    // Three-byte character (1110xxxx 10xxxxxx 10xxxxxx)
+    if ((*c & 0xf0) == 0xe0) {
+        if ((c[1] & 0xc0) == 0x80 && (c[2] & 0xc0) == 0x80) {
+            // Check for valid range and non-characters
+            int z = c[0] & 0x0f;
+            int yx = ((c[1] & 0x3f) << 6) | (c[2] & 0x3f);
+
+            // Reject surrogates and non-characters
+            if ((z == 0x0d && (yx & 0xb00) == 0x800) ||  // surrogates
+                (z == 0x0f && ((yx & 0xffe) == 0xffe ||
+                              ((yx & 0xf80) == 0xd80))))  // non-characters
+                return -1;
+            return 3;
+        }
+        return -1;
+    }
+
+    // Four-byte character (11110xxx 10xxxxxx 10xxxxxx 10xxxxxx)
+    if ((*c & 0xf8) == 0xf0) {
+        int u = ((c[0] & 0x07) << 2) | ((c[1] & 0x30) >> 4);
+
+        if ((c[1] & 0xc0) == 0x80 && (c[2] & 0xc0) == 0x80 &&
+            (c[3] & 0xc0) == 0x80 && u > 0 && u <= 0x10) {
+            // Check for non-characters ending in FFFE/FFFF
+            if ((c[1] & 0x0f) == 0x0f && (c[2] & 0x3f) == 0x3f &&
+                (c[3] & 0x3e) == 0x3e)
+                return -1;
+            return 4;
+        }
+        return -1;
+    }
+
+    return -1;  // Invalid UTF-8 start byte
+}
+```

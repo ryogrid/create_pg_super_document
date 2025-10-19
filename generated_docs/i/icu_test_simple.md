@@ -37,3 +37,30 @@ The function is part of PostgreSQL's Unicode case conversion testing infrastruct
 - The function performs strict comparison and will terminate the program immediately upon finding any mismatch
 - Used as part of PostgreSQL's Unicode compliance testing to ensure alignment with ICU standards
 - The function outputs detailed diagnostic information when failures occur, showing both PostgreSQL and ICU results for debugging purposes
+
+## Simplified Source
+
+```c
+static void icu_test_simple(pg_wchar code) {
+    // Test PostgreSQL's case conversions
+    pg_wchar lower = unicode_lowercase_simple(code);
+    pg_wchar title = unicode_titlecase_simple(code);
+    pg_wchar upper = unicode_uppercase_simple(code);
+
+    // Test ICU's case conversions
+    pg_wchar iculower = u_tolower(code);
+    pg_wchar icutitle = u_totitle(code);
+    pg_wchar icuupper = u_toupper(code);
+
+    // Compare results and fail if any mismatch
+    if (lower != iculower || title != icutitle || upper != icuupper) {
+        printf("case_test: FAILURE for codepoint 0x%06x\n", code);
+        printf("case_test: Postgres lower/title/upper:\t0x%06x/0x%06x/0x%06x\n",
+               lower, title, upper);
+        printf("case_test: ICU lower/title/upper:\t\t0x%06x/0x%06x/0x%06x\n",
+               iculower, icutitle, icuupper);
+        printf("\n");
+        exit(1);
+    }
+}
+```

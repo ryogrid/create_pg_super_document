@@ -33,3 +33,24 @@ This function copies arrays from source to destination while leaving a gap at th
 
 ## Notes and Other Information
 The function uses a clever branch-free computation  to skip the insertion position without conditional branching, improving performance. This is a key utility function for radix tree node growth operations when transitioning from smaller to larger node types (e.g., node4 to node16, node16 to node48).
+
+## Simplified Source
+
+```c
+static inline void
+RT_COPY_ARRAYS_FOR_INSERT(uint8 *dst_chunks, RT_PTR_ALLOC *dst_children,
+                          uint8 *src_chunks, RT_PTR_ALLOC *src_children,
+                          int count, int insertpos)
+{
+    // Copy arrays while leaving gap at insertion position
+    for (int i = 0; i < count; i++)
+    {
+        // Branch-free computation: skip insertion index without conditional
+        int dest_idx = i + (i >= insertpos);
+
+        // Copy both chunk and child pointer
+        dst_chunks[dest_idx] = src_chunks[i];
+        dst_children[dest_idx] = src_children[i];
+    }
+}
+```

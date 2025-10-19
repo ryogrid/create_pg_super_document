@@ -30,3 +30,15 @@ The function uses memchr() to efficiently locate the first null byte in the stri
 - This is a static function used internally by PostgreSQL's encoding validation system
 - For ASCII, the main validation concern is null byte detection rather than character encoding validity
 - Returns the number of valid input bytes, which equals len when the whole string is valid
+
+## Simplified Source
+
+```c
+static int pg_ascii_verifystr(const unsigned char *s, int len) {
+    // Find first null byte in the string
+    const unsigned char *null_pos = memchr(s, 0, len);
+
+    // Return position of null byte or full length if no nulls found
+    return (null_pos == NULL) ? len : null_pos - s;
+}
+```

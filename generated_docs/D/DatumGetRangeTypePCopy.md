@@ -31,3 +31,14 @@ This function is particularly important when the range type data needs to be mod
 - Uses PostgreSQL's copy-on-demand strategy for memory efficiency
 - Being defined as static inline, it provides zero-overhead abstraction while ensuring data safety
 - Less frequently used than DatumGetRangeTypeP, primarily through the PG_GETARG_RANGE_P_COPY macro
+
+## Simplified Source
+
+```c
+static inline RangeType *
+DatumGetRangeTypePCopy(Datum X)
+{
+    // Convert Datum to writable RangeType pointer copy
+    return (RangeType *) PG_DETOAST_DATUM_COPY(X);
+}
+```

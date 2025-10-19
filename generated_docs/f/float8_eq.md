@@ -36,3 +36,14 @@ The implementation uses a conditional expression that first checks if val1 is Na
 - Handles the PostgreSQL-specific NaN semantics where NaN == NaN is true
 - Used extensively in geometric operations and numeric comparisons throughout the system
 - The function is located at src/include/utils/float.h:268-273
+
+## Simplified Source
+
+```c
+static inline bool
+float8_eq(const float8 val1, const float8 val2)
+{
+    // NaN-aware equality: NaN equals NaN, non-NaN equals non-NaN if values match
+    return isnan(val1) ? isnan(val2) : !isnan(val2) && val1 == val2;
+}
+```

@@ -35,3 +35,12 @@ The function is essential for properly parsing EUC-JP text streams by identifyin
 - Essential for text processing operations that need to iterate through EUC-JP character sequences
 - Returns the number of bytes in the character, or potentially an error indication for invalid sequences
 - Part of PostgreSQL's character encoding infrastructure that supports multiple Asian character sets
+
+## Simplified Source
+
+```c
+static int pg_eucjp_mblen(const unsigned char *s) {
+    // EUC-JP uses the same byte length rules as generic EUC
+    return pg_euc_mblen(s);
+}
+```

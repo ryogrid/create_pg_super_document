@@ -36,3 +36,15 @@ This is part of PostgreSQL's JIT compilation infrastructure and is specifically 
 - Primarily used in tuple deformation code where specific 8-bit values need to be embedded
 - Used specifically in slot_compile_deform function for various deformation scenarios
 - Essential for generating efficient JIT code that manipulates PostgreSQL's internal data representations
+
+## Simplified Source
+
+```c
+static inline LLVMValueRef
+l_int8_const(LLVMContextRef lc, int8 i) {
+    // Create LLVM 8-bit integer type in the given context
+    // Create constant value from the input integer
+    // The 'false' parameter means treat as signed integer
+    return LLVMConstInt(LLVMInt8TypeInContext(lc), i, false);
+}
+```

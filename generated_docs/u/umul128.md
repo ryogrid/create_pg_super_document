@@ -37,3 +37,12 @@ The function is critical for the Ryu algorithm's precision requirements, as it n
 - The manual implementation uses careful casting to help MSVC avoid calls to the  library function
 - The function is declared as  for performance optimization
 - Used primarily in 32-bit platform builds where efficient 64-bit arithmetic operations are crucial for performance
+
+## Simplified Source
+
+```c
+static inline uint64 umul128(const uint64 a, const uint64 b, uint64 *const productHi) {
+    // Use compiler intrinsic for 64-bit × 64-bit → 128-bit multiplication
+    return _umul128(a, b, productHi);
+}
+```

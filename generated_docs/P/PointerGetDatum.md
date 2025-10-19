@@ -29,3 +29,12 @@ PointerGetDatum is a static inline function that performs a simple type cast fro
 - Takes a const void pointer parameter, allowing conversion of any pointer type without requiring explicit casting
 - Part of PostgreSQL's broader Datum conversion API that provides type-safe conversion methods between specific types and the generic Datum representation
 - While no direct references were found in the current analysis, this function is fundamental for the PostgreSQL type system and likely used extensively through macros or indirect calls
+
+## Simplified Source
+
+```c
+static inline Datum PointerGetDatum(const void *X) {
+    // Simple cast: convert pointer to Datum format
+    return (Datum) X;
+}
+```

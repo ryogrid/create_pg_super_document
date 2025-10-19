@@ -40,3 +40,37 @@ This macro expands to a function that typically takes:
 - After growth, the original insertion operation continues with the new larger node
 - Critical for maintaining tree balance and preventing unnecessary depth increases
 - The actual function implementation handles memory management and pointer updates during the node type transition
+
+## Simplified Source
+
+```c
+static pg_noinline RT_PTR_ALLOC *
+RT_GROW_NODE_4(RT_RADIX_TREE *tree, RT_PTR_ALLOC *parent_slot,
+               RT_CHILD_PTR node, uint8 chunk)
+{
+    RT_NODE_4 *n4 = (RT_NODE_4 *) node.local;
+    RT_CHILD_PTR newnode;
+    RT_NODE_16 *new16;
+
+    // Allocate new node-16
+    newnode = RT_ALLOC_NODE(tree, RT_NODE_KIND_16, RT_CLASS_16_LO);
+    new16 = (RT_NODE_16 *) newnode.local;
+
+    // Copy common fields and existing children with gap for new chunk
+    RT_COPY_COMMON(newnode, node);
+    int insertpos = RT_NODE_4_GET_INSERTPOS(n4, chunk, RT_FANOUT_4);
+    RT_COPY_ARRAYS_FOR_INSERT(new16->chunks, new16->children,
+                              n4->chunks, n4->children,
+                              RT_FANOUT_4, insertpos);
+
+    // Insert new chunk and update count
+    new16->chunks[insertpos] = chunk;
+    new16->base.count++;
+
+    // Replace old node with new one
+    *parent_slot = newnode.alloc;
+    RT_FREE_NODE(tree, node);
+
+    return &new16->children[insertpos];
+}
+```

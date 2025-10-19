@@ -40,3 +40,36 @@ The function deliberately excludes table titles and footers from CSV output to m
 
 ## Notes and Other Information
 This function is part of PostgreSQL's frontend utilities and is used by psql when outputting results in CSV format. The implementation prioritizes compatibility with standard CSV parsers while accommodating PostgreSQL-specific requirements. Line termination uses \n which gets converted to the appropriate system line ending in text mode, ensuring cross-platform compatibility. The function respects the global cancel_pressed flag for responsive interruption during large result set processing.
+
+## Simplified Source
+```c
+static void print_csv_text(const printTableContent *cont, FILE *fout)
+{
+    const char *const *ptr;
+    int i;
+
+    if (cancel_pressed)
+        return;
+
+    // Print headers if not in tuples-only mode
+    if (cont->opt->start_table && !cont->opt->tuples_only) {
+        for (ptr = cont->headers; *ptr; ptr++) {
+            if (ptr != cont->headers)
+                fputc(cont->opt->csvFieldSep[0], fout);  // Add separator
+            csv_print_field(*ptr, fout, cont->opt->csvFieldSep[0]);
+        }
+        fputc('\n', fout);  // End header row
+    }
+
+    // Print data cells row by row
+    for (i = 0, ptr = cont->cells; *ptr; i++, ptr++) {
+        csv_print_field(*ptr, fout, cont->opt->csvFieldSep[0]);
+
+        // Add separator between columns, newline at end of row
+        if ((i + 1) % cont->ncolumns)
+            fputc(cont->opt->csvFieldSep[0], fout);
+        else
+            fputc('\n', fout);
+    }
+}
+```

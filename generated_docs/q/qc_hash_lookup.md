@@ -39,4 +39,28 @@ The perfect hash guarantee means that for any codepoint that has normalization p
 - Network byte order ensures consistent hashing across different architectures
 - Part of the Unicode Quick Check optimization system for normalization
 - Critical for efficient normalization form validation without full normalization
-- [Hash](../H/Hash.md) collision handling is unnecessary due to perfect hash properties
+- Hash collision handling is unnecessary due to perfect hash properties
+
+## Simplified Source
+
+```c
+static const pg_unicode_normprops *qc_hash_lookup(pg_wchar ch, const pg_unicode_norminfo *norminfo) {
+    int h;
+    uint32 hashkey;
+
+    // Create hash key from codepoint in network byte order
+    hashkey = pg_hton32(ch);
+    h = norminfo->hash(&hashkey);
+
+    // Check if hash result is valid
+    if (h < 0 || h >= norminfo->num_normprops)
+        return NULL;
+
+    // Perfect hash: verify this slot matches our codepoint
+    if (ch != norminfo->normprops[h].codepoint)
+        return NULL;
+
+    // Return the normalization properties
+    return &norminfo->normprops[h];
+}
+```

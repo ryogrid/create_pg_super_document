@@ -40,3 +40,19 @@ This function is the primary lookup interface that most clients of the hash tabl
 - Returns NULL if the key is not found in the hash table
 - Part of the generic simple hash table implementation that generates type-specific functions
 - The SH_SCOPE macro controls the function's visibility (static, extern, etc.)
+
+## Simplified Source
+
+```c
+SH_SCOPE SH_ELEMENT_TYPE *
+SH_LOOKUP(SH_TYPE *tb, SH_KEY_TYPE key)
+{
+    // Compute hash value for the key
+    uint32 hash = SH_HASH_KEY(tb, key);
+
+    // Delegate to internal lookup function
+    return SH_LOOKUP_HASH_INTERNAL(tb, key, hash);
+}
+```
+
+**What it does:** This function provides the standard interface for looking up entries in a hash table. It automatically computes the hash value for the given key using SH_HASH_KEY, then calls the internal lookup function to search for the entry. Returns a pointer to the found entry or NULL if the key doesn't exist in the table.

@@ -40,3 +40,28 @@ The `decdiv` function divides two decimal numbers (`n1` / `n2`) and stores the r
   - ECPG_INFORMIX_NUM_UNDERFLOW for other numeric errors
 - Sets errno internally to communicate error conditions to the caller
 - Located in src/interfaces/ecpg/compatlib/informix.c:312-336
+
+## Simplified Source
+```c
+int
+decdiv(decimal *n1, decimal *n2, decimal *result)
+{
+    // Reset error state and perform division
+    errno = 0;
+    int i = deccall3(n1, n2, result, PGTYPESnumeric_div);
+
+    // Handle error conditions
+    if (i != 0) {
+        switch (errno) {
+            case PGTYPES_NUM_DIVIDE_ZERO:
+                return ECPG_INFORMIX_DIVIDE_ZERO;
+            case PGTYPES_NUM_OVERFLOW:
+                return ECPG_INFORMIX_NUM_OVERFLOW;
+            default:
+                return ECPG_INFORMIX_NUM_UNDERFLOW;
+        }
+    }
+
+    return 0; // Success
+}
+```

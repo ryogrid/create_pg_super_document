@@ -28,3 +28,12 @@ The function is declared as static inline, meaning it will be inlined by the com
 - No bounds checking is performed - the caller is responsible for ensuring the Datum contains a valid uint8 value
 - The function is defined in src/include/postgres.h:142-151
 - Part of the family of DatumGet* conversion functions in PostgreSQL
+
+## Simplified Source
+
+```c
+static inline uint8 DatumGetUInt8(Datum X) {
+    // Simple cast: extract uint8 value from Datum
+    return (uint8) X;
+}
+```

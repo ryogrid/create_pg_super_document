@@ -38,3 +38,42 @@ This function creates a chain of new nodes extending downward from a given paren
 - The function uses open-coded insertion for speed optimization
 - Returns a pointer to the slot where the actual value should be stored
 - Critical for radix tree expansion when new keys require deeper tree structures
+
+## Simplified Source
+
+```c
+static pg_noinline RT_PTR_ALLOC *
+RT_EXTEND_DOWN(RT_RADIX_TREE *tree, RT_PTR_ALLOC *parent_slot, uint64 key, int shift)
+{
+    RT_CHILD_PTR node, child;
+    RT_NODE_4 *n4;
+
+    // Create first node and link it to parent slot
+    child = RT_ALLOC_NODE(tree, RT_NODE_KIND_4, RT_CLASS_4);
+    *parent_slot = child.alloc;
+
+    node = child;
+    shift -= RT_SPAN;
+
+    // Create chain of intermediate nodes
+    while (shift > 0) {
+        child = RT_ALLOC_NODE(tree, RT_NODE_KIND_4, RT_CLASS_4);
+
+        // Set up current node with one child
+        n4 = (RT_NODE_4 *) node.local;
+        n4->base.count = 1;
+        n4->chunks[0] = RT_GET_KEY_CHUNK(key, shift);
+        n4->children[0] = child.alloc;
+
+        node = child;
+        shift -= RT_SPAN;
+    }
+
+    // Set up leaf node for value slot
+    n4 = (RT_NODE_4 *) node.local;
+    n4->chunks[0] = RT_GET_KEY_CHUNK(key, 0);
+    n4->base.count = 1;
+
+    return &n4->children[0];
+}
+```

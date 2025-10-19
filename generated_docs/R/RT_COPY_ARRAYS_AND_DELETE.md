@@ -44,3 +44,23 @@ The implementation uses a branch-free computation technique to efficiently skip 
 - Copies count-1 elements total (excluding the deleted one)
 - Both chunk and children arrays are copied simultaneously to maintain correspondence
 - Typically used during node shrinking operations when converting from larger to smaller node types
+
+## Simplified Source
+
+```c
+static inline void
+RT_COPY_ARRAYS_AND_DELETE(uint8 *dst_chunks, RT_PTR_ALLOC *dst_children,
+                          uint8 *src_chunks, RT_PTR_ALLOC *src_children,
+                          int count, int deletepos)
+{
+    // Copy count-1 elements from source to destination, skipping deletepos
+    for (int i = 0; i < count - 1; i++)
+    {
+        // Branch-free computation: skip deleted element index efficiently
+        int sourceidx = i + (i >= deletepos);  // Maps dest[0..n-2] to src[0..n-1] skipping deletepos
+
+        dst_chunks[i] = src_chunks[sourceidx];      // Copy key array
+        dst_children[i] = src_children[sourceidx];  // Copy pointer array
+    }
+}
+```

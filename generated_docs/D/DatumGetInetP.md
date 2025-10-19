@@ -34,3 +34,14 @@ The function is marked as "obsolescent" in the source code comments, indicating 
 - Returns a modifiable pointer, unlike the read-only pointer from DatumGetInetPP
 - The PG_GETARG_INET_P macro provides the only remaining usage of this function
 - Should only be used when modification of the inet data is required
+
+## Simplified Source
+
+```c
+static inline inet *
+DatumGetInetP(Datum X)
+{
+    // Extract inet pointer from Datum, creating a modifiable copy if needed
+    return (inet *) PG_DETOAST_DATUM(X);
+}
+```

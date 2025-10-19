@@ -32,3 +32,14 @@ The implementation uses short-circuit evaluation: if val2 is NaN, it immediately
 - Implements PostgreSQL's specific NaN handling semantics which may differ from standard C comparisons
 - Part of PostgreSQL's comprehensive floating-point arithmetic infrastructure
 - The NaN handling ensures consistent behavior across different platforms and compilers
+
+## Simplified Source
+
+```c
+static inline bool
+float4_le(const float4 val1, const float4 val2)
+{
+    // NaN-aware less-than-or-equal: anything <= NaN is true, NaN <= non-NaN is false
+    return isnan(val2) || (!isnan(val1) && val1 <= val2);
+}
+```

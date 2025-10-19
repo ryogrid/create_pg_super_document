@@ -42,3 +42,30 @@ The function delegates to the underlying table access method's relation_fetch_to
 - Only required for access methods that can be used to implement TOAST tables
 - The result parameter must be pre-allocated by the caller with sufficient space
 - Located in src/include/access/tableam.h:1917-1937
+
+## Simplified Source
+
+```c
+static inline void table_relation_fetch_toast_slice(Relation toast_relation,
+                                                     Oid value_id,
+                                                     int32 total_attribute_size,
+                                                     int32 slice_start_offset,
+                                                     int32 slice_length,
+                                                     struct varlena *output_buffer) {
+    // Delegate to the table access method's specific TOAST slice implementation
+    toast_relation->rd_tableam->relation_fetch_toast_slice(toast_relation,
+                                                          value_id,
+                                                          total_attribute_size,
+                                                          slice_start_offset,
+                                                          slice_length,
+                                                          output_buffer);
+}
+```
+
+This simplified version preserves the core functionality:
+- Provides table access method abstraction for TOAST slice retrieval
+- Delegates to the underlying storage engine's specific implementation
+- Supports partial data fetching from large stored attributes
+- Takes parameters defining which TOAST value, slice position, and output buffer
+- Essential interface for efficient handling of oversized attribute data
+- Inline function for performance optimization

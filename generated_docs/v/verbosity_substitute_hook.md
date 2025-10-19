@@ -28,3 +28,14 @@ This substitute hook function is called before the main verbosity_hook when the 
 - The function ensures that verbosity_hook never receives NULL by substituting "default" as the fallback value
 - Located in src/bin/psql/startup.c:1119
 - The returned string is dynamically allocated and should be freed appropriately by the calling context
+
+## Simplified Source
+
+```c
+static char *verbosity_substitute_hook(char *newval) {
+    // Provide "default" value if NULL is passed
+    if (newval == NULL)
+        newval = pg_strdup("default");
+    return newval;
+}
+```

@@ -32,3 +32,22 @@ This function is responsible for processing a query result through a slot's regi
 - Memory management responsibility: if the handler returns false, it should free the result itself; otherwise this function frees it
 - The handler function determines what constitutes success or failure for the specific use case
 - Part of PostgreSQL's frontend utility library for managing parallel query execution
+
+## Simplified Source
+
+```c
+static bool
+processQueryResult(ParallelSlot *slot, PGresult *result)
+{
+    Assert(slot->handler != NULL);
+
+    // Call the slot's handler to process the result
+    // Handler returns false on failure and should free result itself
+    if (!slot->handler(result, slot->connection, slot->handler_context))
+        return false;
+
+    // Handler succeeded - we need to free the result
+    PQclear(result);
+    return true;
+}
+```

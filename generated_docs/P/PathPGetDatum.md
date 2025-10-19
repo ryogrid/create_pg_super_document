@@ -31,3 +31,14 @@ This function serves as a type-safe wrapper for converting PATH geometry pointer
 - Takes a const pointer, indicating the PATH object is not modified during conversion
 - Essential for the PostgreSQL function call interface when returning PATH values
 - Complementary function to DatumGetPathP, providing bidirectional conversion
+
+## Simplified Source
+
+```c
+static inline Datum
+PathPGetDatum(const PATH *X)
+{
+    // Convert PATH pointer to Datum
+    return PointerGetDatum(X);
+}
+```

@@ -35,3 +35,15 @@ The use of precomputed inverse values avoids expensive division operations at ru
 - The  table contains precomputed values optimized for single-precision floats
 - Critical component in PostgreSQL's float-to-decimal string conversion implementation
 - Located in src/common/f2s.c:162-167
+
+## Simplified Source
+
+```c
+static inline uint32
+mulPow5InvDivPow2(const uint32 m, const uint32 q, const int32 j)
+{
+    // Multiply m by inverse of 5^q, then divide by 2^j
+    // Uses precomputed lookup table for efficiency
+    return mulShift(m, FLOAT_POW5_INV_SPLIT[q], j);
+}
+```

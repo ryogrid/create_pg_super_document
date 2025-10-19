@@ -47,3 +47,109 @@ The thresholds for format selection (-4 to +6) are chosen to match standard prin
 - For scientific notation, always places the decimal point after the first digit (normalized form)
 - The function handles the boundary between fixed-point and scientific notation seamlessly
 - Part of the complete float-to-string conversion pipeline in PostgreSQL's Ryu implementation
+
+## Simplified Source
+
+```c
+static inline int to_chars(floating_decimal_64 v, const bool sign, char *const result) {
+    int index = 0;
+    uint64 output = v.mantissa;
+    uint32 olength = decimalLength(output);
+    int32 exp = v.exponent + olength - 1;
+
+    // Add minus sign if negative
+    if (sign) {
+        result[index++] = '-';
+    }
+
+    // Use fixed-point notation for reasonable range (-4 <= exp < 15)
+    if (exp >= -4 && exp < 15) {
+        return to_chars_df(v, olength, result + index) + sign;
+    }
+
+    // Remove trailing zeros from small integer fast path
+    if (v.exponent == 0) {
+        while ((output & 1) == 0) {
+            const uint64 q = div10(output);
+            const uint32 r = (uint32)(output - 10 * q);
+            if (r != 0) break;
+            output = q;
+            --olength;
+        }
+    }
+
+    // Convert mantissa digits to string (optimized bulk processing)
+    uint32 i = 0;
+
+    // Handle large numbers (>32-bit) with 64-bit division
+    if ((output >> 32) != 0) {
+        const uint64 q = div1e8(output);
+        uint32 output2 = (uint32)(output - 100000000 * q);
+        output = q;
+
+        // Process 8 digits using digit table lookup
+        const uint32 c = output2 % 10000;
+        output2 /= 10000;
+        const uint32 d = output2 % 10000;
+
+        // Copy digit pairs efficiently
+        memcpy(result + index + olength - i - 1, DIGIT_TABLE + (c % 100) * 2, 2);
+        memcpy(result + index + olength - i - 3, DIGIT_TABLE + (c / 100) * 2, 2);
+        memcpy(result + index + olength - i - 5, DIGIT_TABLE + (d % 100) * 2, 2);
+        memcpy(result + index + olength - i - 7, DIGIT_TABLE + (d / 100) * 2, 2);
+        i += 8;
+    }
+
+    // Process remaining digits in 32-bit chunks
+    uint32 output2 = (uint32)output;
+    while (output2 >= 10000) {
+        const uint32 c = output2 % 10000;
+        output2 /= 10000;
+        memcpy(result + index + olength - i - 1, DIGIT_TABLE + (c % 100) * 2, 2);
+        memcpy(result + index + olength - i - 3, DIGIT_TABLE + (c / 100) * 2, 2);
+        i += 4;
+    }
+
+    // Handle final 1-3 digits
+    if (output2 >= 100) {
+        memcpy(result + index + olength - i - 1, DIGIT_TABLE + (output2 % 100) * 2, 2);
+        output2 /= 100;
+        i += 2;
+    }
+    if (output2 >= 10) {
+        result[index + olength - i] = DIGIT_TABLE[output2 * 2 + 1];
+        result[index] = DIGIT_TABLE[output2 * 2];
+    } else {
+        result[index] = (char)('0' + output2);
+    }
+
+    // Add decimal point for scientific notation
+    if (olength > 1) {
+        result[index + 1] = '.';
+        index += olength + 1;
+    } else {
+        ++index;
+    }
+
+    // Add exponent (e+XX or e-XX)
+    result[index++] = 'e';
+    if (exp < 0) {
+        result[index++] = '-';
+        exp = -exp;
+    } else {
+        result[index++] = '+';
+    }
+
+    // Format exponent (2 or 3 digits)
+    if (exp >= 100) {
+        memcpy(result + index, DIGIT_TABLE + 2 * (exp / 10), 2);
+        result[index + 2] = (char)('0' + exp % 10);
+        index += 3;
+    } else {
+        memcpy(result + index, DIGIT_TABLE + 2 * exp, 2);
+        index += 2;
+    }
+
+    return index;
+}
+```

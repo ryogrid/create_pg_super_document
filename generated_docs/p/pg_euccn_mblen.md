@@ -29,3 +29,14 @@ The pg_euccn_mblen function calculates how many bytes are needed to represent a 
 - Returns 1 for ASCII characters (0x00-0x7F) and 2 for Chinese characters (0x80-0xFF)
 - The simplified logic reflects that EUC-CN primarily uses 1-2 byte sequences, unlike other EUC variants that commonly use 3-byte sequences
 - This function is more efficient than the generic EUC handler since it avoids checking for SS2/SS3 prefixes that are rarely used in EUC-CN
+
+## Simplified Source
+
+```c
+static int pg_euccn_mblen(const unsigned char *s) {
+    // Simple EUC-CN byte length determination:
+    // - High bit set = 2-byte Chinese character
+    // - High bit clear = 1-byte ASCII character
+    return IS_HIGHBIT_SET(*s) ? 2 : 1;
+}
+```

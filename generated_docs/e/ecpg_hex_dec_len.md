@@ -31,3 +31,11 @@ Like its encoding counterpart, this function is part of PostgreSQL's ECPG (Embed
 - No validation is performed on the input length - callers are responsible for ensuring the source data is properly formatted
 - The function is imported from backend encoding utilities to maintain consistency between server and client-side encoding/decoding operations
 - Part of the broader ECPG infrastructure for handling PostgreSQL bytea data types in embedded C applications
+
+## Simplified Source
+```c
+unsigned ecpg_hex_dec_len(unsigned srclen) {
+    // Each pair of hex characters becomes 1 byte - use bit shift for efficiency
+    return srclen >> 1;  // equivalent to srclen / 2
+}
+```

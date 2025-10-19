@@ -46,3 +46,62 @@ The conversion uses bit shifting and masking operations to extract the original 
 - The caller is responsible for allocating sufficient space in the destination array
 - Used internally when PostgreSQL needs to output text in MULE encoding
 - Processes input until the specified length is reached or a null character is encountered
+
+## Simplified Source
+
+```c
+static int pg_wchar2mule_with_len(const pg_wchar *from, unsigned char *to, int len) {
+    int count = 0;
+
+    while (len > 0 && *from) {
+        unsigned char leading_byte = (*from >> 16) & 0xff;
+
+        if (IS_LC1(leading_byte)) {
+            // 2-byte LC1 character
+            *to++ = leading_byte;
+            *to++ = *from & 0xff;
+            count += 2;
+        } else if (IS_LC2(leading_byte)) {
+            // 3-byte LC2 character
+            *to++ = leading_byte;
+            *to++ = (*from >> 8) & 0xff;
+            *to++ = *from & 0xff;
+            count += 3;
+        } else if (IS_LCPRV1_A_RANGE(leading_byte)) {
+            // 3-byte LCPRV1_A character
+            *to++ = LCPRV1_A;
+            *to++ = leading_byte;
+            *to++ = *from & 0xff;
+            count += 3;
+        } else if (IS_LCPRV1_B_RANGE(leading_byte)) {
+            // 3-byte LCPRV1_B character
+            *to++ = LCPRV1_B;
+            *to++ = leading_byte;
+            *to++ = *from & 0xff;
+            count += 3;
+        } else if (IS_LCPRV2_A_RANGE(leading_byte)) {
+            // 4-byte LCPRV2_A character
+            *to++ = LCPRV2_A;
+            *to++ = leading_byte;
+            *to++ = (*from >> 8) & 0xff;
+            *to++ = *from & 0xff;
+            count += 4;
+        } else if (IS_LCPRV2_B_RANGE(leading_byte)) {
+            // 4-byte LCPRV2_B character
+            *to++ = LCPRV2_B;
+            *to++ = leading_byte;
+            *to++ = (*from >> 8) & 0xff;
+            *to++ = *from & 0xff;
+            count += 4;
+        } else {
+            // ASCII character
+            *to++ = *from & 0xff;
+            count += 1;
+        }
+        from++;
+        len--;
+    }
+    *to = 0;
+    return count;
+}
+```

@@ -28,3 +28,24 @@ The function processes the input string character by character, writing each cha
 
 ## Notes and Other Information
 This is a utility function used internally by PostgreSQL's CSV output formatting system. The function assumes the input string is null-terminated and handles empty strings correctly by outputting just the wrapping double quotes. The escaping follows the standard CSV convention where double quotes within field values are escaped by doubling them, making the output compatible with standard CSV parsers and spreadsheet applications.
+
+## Simplified Source
+
+```c
+static void csv_escaped_print(const char *str, FILE *fout) {
+    // Start with opening quote
+    fputc('"', fout);
+
+    // Process each character in the string
+    for (const char *p = str; *p; p++) {
+        // Escape double quotes by doubling them
+        if (*p == '"') {
+            fputc('"', fout);  // Add extra quote for escaping
+        }
+        fputc(*p, fout);       // Output the character
+    }
+
+    // End with closing quote
+    fputc('"', fout);
+}
+```

@@ -31,3 +31,14 @@ The pg_euccn_dsplen function calculates how many display columns a character seq
 - Uses simplified logic compared to the generic EUC display length function since EUC-CN primarily uses 1-2 byte characters
 - The function design reflects the visual properties of Chinese characters, which typically require double the horizontal space of ASCII characters when displayed
 - More efficient than the generic EUC handler by avoiding checks for SS2/SS3 prefixes that are uncommon in EUC-CN
+
+## Simplified Source
+
+```c
+static int pg_euccn_dsplen(const unsigned char *s) {
+    // EUC-CN display width calculation:
+    // - Chinese chars (high bit set): 2 columns (double-width)
+    // - ASCII chars: delegate for proper control char handling
+    return IS_HIGHBIT_SET(*s) ? 2 : pg_ascii_dsplen(s);
+}
+```

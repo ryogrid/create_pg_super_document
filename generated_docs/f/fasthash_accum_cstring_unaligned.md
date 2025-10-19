@@ -50,3 +50,29 @@ The function is marked as "unaligned" because it can handle strings at any memor
 - This function is typically used by higher-level string hashing functions that need both the hash computation and length information
 - The returned length value is often passed to finalizer functions like `fasthash_final32()` as a tweak parameter to improve hash quality
 - Handles empty strings correctly by returning 0 without processing any data
+
+## Simplified Source
+
+```c
+static inline size_t
+fasthash_accum_cstring_unaligned(fasthash_state *hs, const char *str)
+{
+    const char *const start = str;
+
+    // Process string in chunks until null terminator
+    while (*str) {
+        size_t chunk_len = 0;
+
+        // Find chunk size up to accumulator size or null terminator
+        while (chunk_len < FH_SIZEOF_ACCUM && str[chunk_len] != '\0')
+            chunk_len++;
+
+        // Process this chunk into the hash
+        fasthash_accum(hs, str, chunk_len);
+        str += chunk_len;
+    }
+
+    // Return total string length processed
+    return str - start;
+}
+```

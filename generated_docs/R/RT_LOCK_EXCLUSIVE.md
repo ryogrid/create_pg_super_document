@@ -41,3 +41,14 @@ This macro is only available when RT_SHMEM is defined, indicating the radix tree
 - Uses PostgreSQL's LWLock mechanism internally for synchronization
 - Exclusive locks are blocking - the calling process will wait if another process holds a lock
 - Essential for maintaining data integrity in concurrent shared memory access scenarios
+
+## Simplified Source
+
+```c
+RT_SCOPE void
+RT_LOCK_EXCLUSIVE(RT_RADIX_TREE *tree)
+{
+    // Acquire exclusive lock for write operations
+    LWLockAcquire(&tree->ctl->lock, LW_EXCLUSIVE);
+}
+```

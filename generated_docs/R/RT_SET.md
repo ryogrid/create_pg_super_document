@@ -45,3 +45,81 @@ This function sets a key to the value pointed to by value_p. If an entry already
 - Updates tree statistics (num_keys) for new insertions
 - Returns boolean indicating whether the entry previously existed (true) or was newly created (false)
 - Critical entry point for all radix tree modifications
+
+## Simplified Source
+
+```c
+RT_SCOPE bool
+RT_SET(RT_RADIX_TREE *tree, uint64 key, RT_VALUE_TYPE *value_p)
+{
+    bool found;
+    RT_PTR_ALLOC *slot;
+    size_t value_sz = RT_GET_VALUE_SIZE(value_p);
+
+    // Extend tree if key exceeds current maximum
+    if (unlikely(key > tree->ctl->max_val)) {
+        if (tree->ctl->num_keys == 0) {
+            // Handle empty tree - initialize root and extend down
+            RT_CHILD_PTR node;
+            RT_NODE_4 *n4;
+            int start_shift = RT_KEY_GET_SHIFT(key);
+
+            node.alloc = tree->ctl->root;
+            RT_PTR_SET_LOCAL(tree, &node);
+            n4 = (RT_NODE_4 *) node.local;
+            n4->base.count = 1;
+            n4->chunks[0] = RT_GET_KEY_CHUNK(key, start_shift);
+
+            slot = RT_EXTEND_DOWN(tree, &n4->children[0], key, start_shift);
+            found = false;
+            tree->ctl->start_shift = start_shift;
+            tree->ctl->max_val = RT_SHIFT_GET_MAX_VAL(start_shift);
+            goto have_slot;
+        } else {
+            // Extend tree upward for larger key
+            RT_EXTEND_UP(tree, key);
+        }
+    }
+
+    // Find or create slot for the key
+    slot = RT_GET_SLOT_RECURSIVE(tree, &tree->ctl->root, key, tree->ctl->start_shift, &found);
+
+have_slot:
+    // Store value either embedded or in separate leaf
+    if (RT_VALUE_IS_EMBEDDABLE(value_p)) {
+        // Free existing leaf if converting to embedded
+        if (found && !RT_CHILDPTR_IS_VALUE(*slot))
+            RT_FREE_LEAF(tree, *slot);
+
+        // Store value directly in child pointer slot
+        memcpy(slot, value_p, value_sz);
+    } else {
+        // Handle larger values with separate leaf allocation
+        RT_CHILD_PTR leaf;
+
+        if (found && !RT_CHILDPTR_IS_VALUE(*slot)) {
+            // Update existing leaf, reallocate if size changed
+            leaf.alloc = *slot;
+            RT_PTR_SET_LOCAL(tree, &leaf);
+
+            if (RT_GET_VALUE_SIZE((RT_VALUE_TYPE *) leaf.local) != value_sz) {
+                RT_FREE_LEAF(tree, *slot);
+                leaf = RT_ALLOC_LEAF(tree, value_sz);
+                *slot = leaf.alloc;
+            }
+        } else {
+            // Allocate new leaf
+            leaf = RT_ALLOC_LEAF(tree, value_sz);
+            *slot = leaf.alloc;
+        }
+
+        memcpy(leaf.local, value_p, value_sz);
+    }
+
+    // Update statistics for new entries
+    if (!found)
+        tree->ctl->num_keys++;
+
+    return found;
+}
+```

@@ -40,3 +40,31 @@ This hook function is responsible for parsing and setting the error message verb
 - Returns false only when an invalid verbosity level is specified
 - Immediately applies the new setting to the current database connection if available
 - Located in src/bin/psql/startup.c:1127
+
+## Simplified Source
+
+```c
+static bool verbosity_hook(const char *newval) {
+    Assert(newval != NULL);  // Guaranteed by substitute hook
+
+    // Map string values to verbosity constants
+    if (pg_strcasecmp(newval, "default") == 0)
+        pset.verbosity = PQERRORS_DEFAULT;
+    else if (pg_strcasecmp(newval, "verbose") == 0)
+        pset.verbosity = PQERRORS_VERBOSE;
+    else if (pg_strcasecmp(newval, "terse") == 0)
+        pset.verbosity = PQERRORS_TERSE;
+    else if (pg_strcasecmp(newval, "sqlstate") == 0)
+        pset.verbosity = PQERRORS_SQLSTATE;
+    else {
+        // Invalid value - show error and fail
+        PsqlVarEnumError("VERBOSITY", newval, "default, verbose, terse, sqlstate");
+        return false;
+    }
+
+    // Apply setting to current database connection
+    if (pset.db)
+        PQsetErrorVerbosity(pset.db, pset.verbosity);
+    return true;
+}
+```

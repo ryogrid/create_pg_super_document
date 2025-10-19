@@ -38,3 +38,22 @@ This mixing function serves dual purposes in the fasthash algorithm: it's used d
 - The magic constant 0x2127599bf4325c37 is specifically chosen for its mathematical properties to ensure good hash distribution
 - The right shift amounts (23 and 47) are carefully selected to provide good avalanche characteristics across different bit positions
 - This function is central to the fasthash algorithm's performance and quality characteristics - modifications to the constants or operations could significantly impact hash quality
+
+## Simplified Source
+
+```c
+static inline uint64
+fasthash_mix(uint64 h, uint64 tweak)
+{
+    // Mix hash with shifted bits and tweak value
+    h ^= (h >> 23) + tweak;
+
+    // Multiply by magic constant for avalanche effect
+    h *= 0x2127599bf4325c37;
+
+    // Final mixing with right shift
+    h ^= h >> 47;
+
+    return h;
+}
+```

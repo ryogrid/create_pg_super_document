@@ -49,3 +49,29 @@ This ensures that the copied data represents a consistent snapshot of the statis
 - The retry loop will continue until a consistent read is achieved, which could potentially be indefinite if writes are very frequent
 - This function provides the standard way to safely read change-counted statistics data in PostgreSQL
 - Essential for maintaining data consistency in PostgreSQL's lock-free statistics collection system
+
+## Simplified Source
+
+```c
+static inline void pgstat_copy_changecounted_stats(void *dst, void *src, size_t len, uint32 *cc) {
+    uint32 cc_before;
+
+    // Retry loop until consistent read is achieved
+    do {
+        // Begin read sequence and capture counter state
+        cc_before = pgstat_begin_changecount_read(cc);
+
+        // Copy the statistics data
+        memcpy(dst, src, len);
+
+        // Check if read was consistent, retry if not
+    } while (!pgstat_end_changecount_read(cc, cc_before));
+}
+```
+
+**Key Points:**
+- Safely copies statistics data using change-count protocol
+- Automatically retries copy operation until consistent read achieved
+- Encapsulates complete reader-side protocol with retry logic
+- Ensures copied data represents consistent snapshot without partial updates
+- Higher-level convenience function for PostgreSQL's lock-free statistics system

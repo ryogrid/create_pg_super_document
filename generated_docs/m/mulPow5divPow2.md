@@ -33,3 +33,15 @@ This is part of the Ryu algorithm implementation for fast and accurate floating-
 - The FLOAT_POW5_SPLIT table contains 47 precomputed 64-bit values representing powers of 5 in a format suitable for the mulShift operation
 - Part of the Ryu algorithm, which provides exact and fast conversion of binary floating-point numbers to decimal strings
 - The function is specifically designed for 32-bit float (single precision) conversion as indicated by the file name f2s.c (float-to-string)
+
+## Simplified Source
+
+```c
+static inline uint32
+mulPow5divPow2(const uint32 m, const uint32 i, const int32 j)
+{
+    // Multiply m by 5^i, then divide by 2^j
+    // Uses precomputed powers of 5 lookup table
+    return mulShift(m, FLOAT_POW5_SPLIT[i], j);
+}
+```

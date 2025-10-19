@@ -39,3 +39,26 @@ The function uses binary search through precompiled Unicode tables to efficientl
 - Non-spacing property takes precedence over wide character property
 - Based on Unicode Technical Report #11 for East Asian width determination
 - Used internally for calculating proper string display lengths in PostgreSQL's multi-byte character handling
+
+## Simplified Source
+
+```c
+static int ucs_wcwidth(pg_wchar ucs) {
+    // Control characters and invalid range
+    if (ucs == 0)
+        return 0;
+    if (ucs < 0x20 || (ucs >= 0x7f && ucs < 0xa0) || ucs > 0x0010ffff)
+        return -1;
+
+    // Check if character is non-spacing (priority over wide)
+    if (mbbisearch(ucs, nonspacing, sizeof(nonspacing) / sizeof(struct mbinterval) - 1))
+        return 0;
+
+    // Check if character is wide (East Asian)
+    if (mbbisearch(ucs, east_asian_fw, sizeof(east_asian_fw) / sizeof(struct mbinterval) - 1))
+        return 2;
+
+    // Default: normal width character
+    return 1;
+}
+```

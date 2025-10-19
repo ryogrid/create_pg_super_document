@@ -30,3 +30,12 @@ This hook function is responsible for parsing and setting the show_all_results o
 - When enabled, SHOW_ALL_RESULTS affects how psql handles queries containing multiple statements separated by semicolons
 - Paired with bool_substitute_hook which provides default value handling for boolean variables
 - Located in src/bin/psql/startup.c:1150
+
+## Simplified Source
+
+```c
+static bool show_all_results_hook(const char *newval) {
+    // Parse boolean value and store in pset.show_all_results
+    return ParseVariableBool(newval, "SHOW_ALL_RESULTS", &pset.show_all_results);
+}
+```

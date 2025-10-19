@@ -34,3 +34,14 @@ The implementation uses a conditional expression that first checks if val1 is Na
 - Complementary to float8_eq function but with inverted logic for NaN handling
 - Used extensively in SQL inequality operations for double precision/float8 data types
 - The function is located at src/include/utils/float.h:280-285
+
+## Simplified Source
+
+```c
+static inline bool
+float8_ne(const float8 val1, const float8 val2)
+{
+    // NaN-aware inequality: NaN != non-NaN is true, NaN != NaN is false
+    return isnan(val1) ? !isnan(val2) : isnan(val2) || val1 != val2;
+}
+```

@@ -35,3 +35,16 @@ The implementation uses short-circuit evaluation: first check if val1 is NaN (im
 - Less frequently used than other comparison operators but essential for completeness
 - Follows the same logical pattern as other PostgreSQL floating-point comparison functions
 - Used primarily through the wrapper function float4ge in SQL contexts
+
+## Simplified Source
+
+```c
+static inline bool
+float4_ge(const float4 val1, const float4 val2)
+{
+    // NaN is treated as greater than any value
+    // If val1 is NaN, return true immediately
+    // Otherwise, ensure val2 is not NaN and perform standard comparison
+    return isnan(val1) || (!isnan(val2) && val1 >= val2);
+}
+```

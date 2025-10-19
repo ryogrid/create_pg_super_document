@@ -35,3 +35,13 @@ The function simply wraps the pointer in a Datum type, allowing bit string resul
 - Part of the standard fmgr interface pattern for varlena types
 - The const qualifier on the parameter emphasizes that this is for output/return purposes only
 - Essential for completing the round-trip conversion between VarBit pointers and Datum values
+
+## Simplified Source
+```c
+static inline Datum
+VarBitPGetDatum(const VarBit *X)
+{
+    // Convert VarBit pointer to Datum for function returns
+    return PointerGetDatum(X);
+}
+```

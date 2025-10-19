@@ -32,3 +32,12 @@ The `descriptor_key_init` function initializes a pthread-specific key (`descript
 - The pthread key creation enables each thread to maintain its own set of descriptors without interference from other threads
 - The destructor callback ensures automatic cleanup when threads terminate, preventing memory leaks
 - This follows the POSIX threads model for thread-specific data management
+
+## Simplified Source
+
+```c
+static void descriptor_key_init(void) {
+    // Create thread-local storage key with destructor for cleanup
+    pthread_key_create(&descriptor_key, descriptor_destructor);
+}
+```

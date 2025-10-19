@@ -33,3 +33,19 @@ This function processes an input string and escapes characters that have special
 - Essential for preventing AsciiDoc table formatting issues when displaying user data
 - Used exclusively by PostgreSQL's AsciiDoc output formatting functions
 - The escaped pipe prevents the character from being interpreted as a cell delimiter
+
+## Simplified Source
+```c
+static void asciidoc_escaped_print(const char *in, FILE *fout)
+{
+    const char *p;
+
+    // Process each character in the input string
+    for (p = in; *p; p++) {
+        if (*p == '|')
+            fputs("\\|", fout);  // Escape pipe character for AsciiDoc tables
+        else
+            fputc(*p, fout);     // Output other characters unchanged
+    }
+}
+```

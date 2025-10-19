@@ -33,3 +33,13 @@ This function is commonly used in floating-point to decimal string conversion al
 - This is a utility function in PostgreSQL's decimal conversion implementation
 - Returns a boolean result making it suitable for conditional logic in conversion algorithms
 - Located in src/common/d2s.c:95-105
+
+## Simplified Source
+
+```c
+static inline bool multipleOfPowerOf5(const uint64 value, const uint32 p) {
+    // Check if value is divisible by 5^p
+    // by comparing with the actual power of 5 factor
+    return pow5Factor(value) >= p;
+}
+```

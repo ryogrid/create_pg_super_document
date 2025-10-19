@@ -34,3 +34,31 @@ The hash function contains a large static lookup table (array  with 13,551 int16
 - The hash function uses int16 values to keep memory usage reasonable while providing adequate range for hash distribution
 - This function is part of PostgreSQL's internal Unicode handling infrastructure and is not exposed to user applications
 - The perfect hash property eliminates the need for collision resolution mechanisms, making lookups extremely fast
+
+## Simplified Source
+
+```c
+static int
+Decomp_hash_func(const void *key) {
+    // Large pre-computed hash table with 13,551 entries
+    static const int16 h[13551] = { /* ... large lookup table ... */ };
+
+    // Convert input key to bytes for processing
+    const unsigned char *k = (const unsigned char *) key;
+    size_t keylen = 4;  // Process 4 bytes (Unicode character)
+
+    // Dual hash computation for perfect hashing
+    uint32 a = 0;       // First hash accumulator
+    uint32 b = 1;       // Second hash accumulator
+
+    // Process each byte of the key
+    while (keylen--) {
+        unsigned char c = *k++;
+        a = a * 257 + c;   // First hash: multiply by 257 and add byte
+        b = b * 8191 + c;  // Second hash: multiply by 8191 and add byte
+    }
+
+    // Combine hash table lookups to produce final hash value
+    return h[a % 13551] + h[b % 13551];
+}
+```

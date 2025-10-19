@@ -29,3 +29,25 @@ The pg_wcscmp function performs a lexicographic comparison of two wide character
 - The comparison is performed at the Unicode code point level, not considering any locale-specific collation rules
 - Used specifically for testing Unicode normalization functionality in PostgreSQL
 - Returns -1, 0, or 1 following standard C library comparison function conventions
+
+## Simplified Source
+
+```c
+static int pg_wcscmp(const pg_wchar *s1, const pg_wchar *s2) {
+    for (;;) {
+        // Compare current characters
+        if (*s1 < *s2)
+            return -1;    // s1 is lexicographically smaller
+        if (*s1 > *s2)
+            return 1;     // s1 is lexicographically larger
+
+        // If we hit null terminator, strings are equal
+        if (*s1 == 0)
+            return 0;
+
+        // Move to next characters
+        s1++;
+        s2++;
+    }
+}
+```

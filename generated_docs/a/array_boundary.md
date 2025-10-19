@@ -38,3 +38,18 @@ The function returns `true` if the character matches the expected boundary marke
 - The function works in conjunction with `array_delimiter` to provide complete array parsing logic
 - The boundary detection is critical for correctly terminating array element collection during parsing
 - The two array types represent different formatting conventions with different termination conditions
+
+## Simplified Source
+```c
+static bool array_boundary(enum ARRAY_TYPE isarray, char c) {
+    // Check for closing brace boundary in standard arrays
+    if (isarray == ECPG_ARRAY_ARRAY && c == '}')
+        return true;
+
+    // Check for null terminator boundary in vector arrays
+    if (isarray == ECPG_ARRAY_VECTOR && c == '\0')
+        return true;
+
+    return false;
+}
+```

@@ -39,3 +39,21 @@ This function is typically used in lock release scenarios where a thread has fin
 - The function is implemented as a static inline wrapper for performance optimization
 - Complementary to `pg_atomic_test_set_flag` - together they form a complete atomic lock implementation
 - Improper use (clearing a flag not owned by the current thread) can lead to race conditions and data corruption
+
+## Simplified Source
+
+```c
+static inline void
+pg_atomic_clear_flag(volatile pg_atomic_flag *ptr)
+{
+    // Clear flag with release semantics - releases lock
+    pg_atomic_clear_flag_impl(ptr);
+}
+```
+
+**Key Points:**
+- Atomically clears (releases) an atomic flag to false
+- Provides release memory barrier semantics
+- Counterpart to `pg_atomic_test_set_flag` for lock release
+- Ensures all previous operations complete before flag is cleared
+- Must only be called by the thread that owns the lock

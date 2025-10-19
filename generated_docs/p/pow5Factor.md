@@ -33,3 +33,25 @@ The function uses an infinite loop with explicit break condition to count consec
 - The algorithm terminates as soon as a remainder is found when dividing by 5
 - This is a core utility function in PostgreSQL's decimal-to-string conversion implementation
 - Located in src/common/d2s.c:74-94
+
+## Simplified Source
+
+```c
+static inline uint32 pow5Factor(uint64 value) {
+    uint32 count = 0;
+
+    // Count how many times value is divisible by 5
+    while (true) {
+        uint64 quotient = div5(value);
+        uint32 remainder = (uint32)(value - 5 * quotient);
+
+        if (remainder != 0)
+            break;  // No longer divisible by 5
+
+        value = quotient;
+        count++;
+    }
+
+    return count;
+}
+```

@@ -37,3 +37,12 @@ The function provides a simple type-safe conversion from the generic Datum type 
 - Essential for text search query processing and matching operations
 - Part of the fmgr (function manager) interface functions for text search operations
 - Used in query rewriting, GiST indexing, and query execution contexts
+
+## Simplified Source
+
+```c
+static inline TSQuery DatumGetTSQuery(Datum X) {
+    // Convert Datum to TSQuery pointer (no detoasting needed - plain storage)
+    return (TSQuery) DatumGetPointer(X);
+}
+```

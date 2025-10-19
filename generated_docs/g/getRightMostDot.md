@@ -35,3 +35,22 @@ The position calculation uses the formula: `len - j - 1`, where `len` is the str
 - Part of the Informix compatibility layer for handling format strings
 - The function searches only for the '.' character, not other potential decimal separators
 - Efficient reverse search algorithm that stops at the first (rightmost) dot found
+
+## Simplified Source
+
+```c
+static int getRightMostDot(const char *str) {
+    size_t len = strlen(str);
+
+    // Search backwards from end of string
+    for (int i = len - 1; i >= 0; i--) {
+        if (str[i] == '.') {
+            // Return position from beginning of string
+            return len - (len - 1 - i) - 1;
+        }
+    }
+
+    // No dot found
+    return -1;
+}
+```

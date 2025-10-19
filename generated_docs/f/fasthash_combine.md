@@ -41,3 +41,17 @@ This two-step process ensures that each chunk of input thoroughly influences the
 - Users typically load data into `hs->accum` before calling this function, often using direct assignment for simple types or `fasthash_accum()` for more complex data
 - This function should be called once for each chunk of input data during incremental hashing, with the final hash obtained through `fasthash_final32()` or `fasthash_final64()`
 - The function modifies the hash state in place, so the same state structure accumulates the effects of all combined inputs
+
+## Simplified Source
+
+```c
+static inline void
+fasthash_combine(fasthash_state *hs)
+{
+    // Mix accumulated data and XOR with current hash
+    hs->hash ^= fasthash_mix(hs->accum, 0);
+
+    // Multiply by fasthash signature constant
+    hs->hash *= 0x880355f21e6d1965;
+}
+```

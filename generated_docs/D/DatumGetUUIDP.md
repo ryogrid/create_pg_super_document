@@ -34,3 +34,14 @@ The function wraps the generic DatumGetPointer() function and casts the result t
 - Extensively used in UUID comparison functions and BRIN index operations
 - The function assumes the Datum contains a valid pointer to UUID data; no validation is performed
 - Critical for UUID processing in sorting, indexing, and comparison operations
+
+## Simplified Source
+
+```c
+static inline pg_uuid_t *
+DatumGetUUIDP(Datum X)
+{
+    // Extract UUID pointer from Datum
+    return (pg_uuid_t *) DatumGetPointer(X);
+}
+```

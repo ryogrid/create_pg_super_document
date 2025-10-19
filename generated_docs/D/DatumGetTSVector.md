@@ -36,3 +36,15 @@ The function provides a type-safe conversion from the generic Datum type to the 
 - Essential for handling PostgreSQL's TOAST mechanism for variable-length TSVector data
 - Used extensively throughout the text search subsystem for type-safe Datum to TSVector conversions
 - Part of the fmgr (function manager) interface functions for text search operations
+
+## Simplified Source
+
+```c
+static inline TSVector
+DatumGetTSVector(Datum X)
+{
+    // Convert Datum to TSVector, detoasting if necessary
+    // Handles compressed or externally stored TSVector data
+    return (TSVector) PG_DETOAST_DATUM(X);
+}
+```

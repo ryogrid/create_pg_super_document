@@ -41,3 +41,29 @@ This implementation is particularly useful for character classification tasks, s
 - Part of the Unicode character width determination infrastructure
 - The intervals in the table represent contiguous ranges of Unicode characters that share common properties
 - Critical for proper terminal display width calculations and text formatting in PostgreSQL
+
+## Simplified Source
+
+```c
+static int mbbisearch(pg_wchar ucs, const struct mbinterval *table, int max) {
+    int min = 0;
+    int mid;
+
+    // Quick bounds check
+    if (ucs < table[0].first || ucs > table[max].last)
+        return 0;
+
+    // Binary search for character in interval table
+    while (max >= min) {
+        mid = (min + max) / 2;
+        if (ucs > table[mid].last)
+            min = mid + 1;
+        else if (ucs < table[mid].first)
+            max = mid - 1;
+        else
+            return 1;  // Found in interval
+    }
+
+    return 0;  // Not found
+}
+```

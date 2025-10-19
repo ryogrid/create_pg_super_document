@@ -35,3 +35,14 @@ This function is particularly useful in scenarios where memory constraints or ha
 - Part of PostgreSQL's unstable hash function family, meaning hash values may change between versions
 - Provides a convenient interface for code that needs 32-bit hashes while leveraging the full quality of the 64-bit algorithm
 - Commonly used in PostgreSQL's internal hash tables and statistics systems where 32-bit hashes are sufficient
+
+## Simplified Source
+
+```c
+static inline uint32
+fasthash32(const char *k, size_t len, uint64 seed)
+{
+    // Compute 64-bit hash and reduce to 32-bit
+    return fasthash_reduce32(fasthash64(k, len, seed));
+}
+```

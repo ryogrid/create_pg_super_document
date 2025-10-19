@@ -46,3 +46,34 @@ The function produces an unterminated string (no null character) in the provided
 - Returns the actual number of characters written, allowing for proper string handling
 - Handles all IEEE 754 single-precision values including special cases (±0, ±∞, NaN)
 - Uses optimizations for common cases like small integers to improve performance
+
+## Simplified Source
+
+```c
+int
+float_to_shortest_decimal_bufn(float f, char *result)
+{
+    // Step 1: Extract IEEE 754 components
+    const uint32 bits = float_to_bits(f);
+    const bool ieeeSign = ((bits >> (FLOAT_MANTISSA_BITS + FLOAT_EXPONENT_BITS)) & 1) != 0;
+    const uint32 ieeeMantissa = bits & ((1u << FLOAT_MANTISSA_BITS) - 1);
+    const uint32 ieeeExponent = (bits >> FLOAT_MANTISSA_BITS) & ((1u << FLOAT_EXPONENT_BITS) - 1);
+
+    // Step 2: Handle special cases (infinity, NaN, zero)
+    if (ieeeExponent == ((1u << FLOAT_EXPONENT_BITS) - 1u) || (ieeeExponent == 0 && ieeeMantissa == 0)) {
+        return copy_special_str(result, ieeeSign, (ieeeExponent != 0), (ieeeMantissa != 0));
+    }
+
+    // Step 3: Try optimized small integer conversion first
+    floating_decimal_32 v;
+    const bool isSmallInt = f2d_small_int(ieeeMantissa, ieeeExponent, &v);
+
+    // Step 4: Use full Ryu algorithm if not a small integer
+    if (!isSmallInt) {
+        v = f2d(ieeeMantissa, ieeeExponent);
+    }
+
+    // Step 5: Convert decimal representation to string
+    return to_chars(v, ieeeSign, result);
+}
+```

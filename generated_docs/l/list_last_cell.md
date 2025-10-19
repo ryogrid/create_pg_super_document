@@ -36,3 +36,14 @@ The function includes an assertion to ensure the list is not NIL (empty), making
 - Directly accesses the internal array structure of PostgreSQL's List implementation
 - Part of the core list manipulation API used throughout the PostgreSQL codebase
 - The function provides O(1) access time to the last element, unlike traditional linked list implementations
+
+## Simplified Source
+
+```c
+static inline ListCell *list_last_cell(const List *list) {
+    // Assert list is not empty
+    Assert(list != NIL);
+    // Return last element using direct array access
+    return &list->elements[list->length - 1];
+}
+```

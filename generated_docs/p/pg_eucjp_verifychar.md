@@ -41,3 +41,38 @@ The function examines the first byte to determine the character type and validat
 - Characters with high bit set but not SS2/SS3 are treated as JIS X 0208 (2 bytes)
 - The function properly validates byte ranges for each character set to prevent invalid sequences
 - Returns -1 immediately if the required character length exceeds available buffer length
+
+## Simplified Source
+
+```c
+static int pg_eucjp_verifychar(const unsigned char *s, int len) {
+    int char_len;
+    unsigned char c1 = *s++;
+
+    if (c1 == SS2) {
+        // JIS X 0201: 2 bytes, second byte 0xA1-0xDF
+        char_len = 2;
+        if (char_len > len) return -1;
+        unsigned char c2 = *s;
+        if (c2 < 0xa1 || c2 > 0xdf) return -1;
+    }
+    else if (c1 == SS3) {
+        // JIS X 0212: 3 bytes, both following bytes in EUC range
+        char_len = 3;
+        if (char_len > len) return -1;
+        if (!IS_EUC_RANGE_VALID(s[0]) || !IS_EUC_RANGE_VALID(s[1])) return -1;
+    }
+    else if (IS_HIGHBIT_SET(c1)) {
+        // JIS X 0208: 2 bytes, both in EUC range
+        char_len = 2;
+        if (char_len > len) return -1;
+        if (!IS_EUC_RANGE_VALID(c1) || !IS_EUC_RANGE_VALID(*s)) return -1;
+    }
+    else {
+        // ASCII: 1 byte
+        char_len = 1;
+    }
+
+    return char_len;
+}
+```

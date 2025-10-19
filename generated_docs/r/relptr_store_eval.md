@@ -35,3 +35,17 @@ The function includes an assertion to ensure that the value pointer is not befor
 - The +1 offset design allows 0 to represent NULL while still enabling storage of pointers at the base address
 - Used internally by the relptr_store macro to avoid double evaluation of the 'val' parameter
 - The function assumes that val >= base when val is not NULL (enforced by Assert)
+
+## Simplified Source
+
+```c
+static inline Size
+relptr_store_eval(char *base, char *val)
+{
+    // Calculate relative offset for storing pointer
+    if (val == NULL)
+        return 0;
+    else
+        return val - base + 1;  // +1 because 0 represents NULL
+}
+```

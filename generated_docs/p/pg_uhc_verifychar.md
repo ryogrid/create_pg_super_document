@@ -30,3 +30,29 @@ This function performs character validation for UHC encoding, which is a Korean 
 - Specifically rejects the byte sequence 0x8d + space (0x20), which is a historically problematic sequence that could bypass validation in some contexts
 - The function ensures that multibyte characters don't contain embedded null bytes, which would indicate corruption or improper character boundaries
 - UHC is primarily used for Korean text encoding and supports both ASCII characters (1 byte) and Korean characters (2 bytes)
+
+## Simplified Source
+```c
+static int pg_uhc_verifychar(const unsigned char *s, int len) {
+    // Get expected character length from UHC encoding rules
+    int expected_len = pg_uhc_mblen(s);
+
+    // Check if buffer has enough bytes
+    if (len < expected_len)
+        return -1;
+
+    // Reject specific invalid byte sequence
+    if (expected_len == 2 &&
+        s[0] == NONUTF8_INVALID_BYTE0 &&
+        s[1] == NONUTF8_INVALID_BYTE1)
+        return -1;
+
+    // Ensure no null bytes within multi-byte character
+    for (int i = 1; i < expected_len; i++) {
+        if (s[i] == '\0')
+            return -1;
+    }
+
+    return expected_len;
+}
+```

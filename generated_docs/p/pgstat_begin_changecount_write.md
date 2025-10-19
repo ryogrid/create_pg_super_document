@@ -40,3 +40,28 @@ This follows a standard reader-writer synchronization pattern where odd counter 
 - The write barrier ensures that the counter increment is visible before any subsequent writes to the protected data
 - The Assert ensures the protocol is being followed correctly (counter should be even before write begins)
 - This is part of PostgreSQL's lock-free statistics collection system that allows reading statistics without blocking writers
+
+## Simplified Source
+
+```c
+static inline void pgstat_begin_changecount_write(uint32 *cc) {
+    // Verify counter is even (no write in progress)
+    Assert((*cc & 1) == 0);
+
+    // Start critical section to prevent interruptions
+    START_CRIT_SECTION();
+
+    // Increment counter to odd value (indicates write in progress)
+    (*cc)++;
+
+    // Memory barrier ensures counter increment is visible before data writes
+    pg_write_barrier();
+}
+```
+
+**Key Points:**
+- Implements beginning of change-count protocol for statistics
+- Makes counter odd to signal write operation in progress
+- Critical section prevents process interruption during write sequence
+- Memory barrier ensures proper ordering of counter and data writes
+- Must be paired with pgstat_end_changecount_write

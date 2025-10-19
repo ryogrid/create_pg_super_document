@@ -39,3 +39,29 @@ The function's behavior depends on compile-time configuration:
 This function is essential for the radix tree's optimization strategy of embedding small values directly in pointer slots. When RT_RUNTIME_EMBEDDABLE_VALUE is enabled, the lowest bit of the pointer is used as a tag to indicate whether the pointer contains an embedded value or points to a separate leaf node.
 
 The function is used throughout the radix tree operations to determine how to interpret child pointers - whether to treat them as embedded values or dereference them as pointers to leaf nodes. This distinction is crucial for proper memory management and value retrieval in the radix tree implementation.
+
+## Simplified Source
+
+```c
+static inline bool
+RT_CHILDPTR_IS_VALUE(RT_PTR_ALLOC child)
+{
+    // Check if child pointer contains embedded value vs pointer to leaf
+    #ifdef RT_VARLEN_VALUE_SIZE
+        #ifdef RT_RUNTIME_EMBEDDABLE_VALUE
+            // Check pointer tag bit to distinguish embedded value from pointer
+            #ifdef RT_SHMEM
+                return child & 1;  // Check bit 0 in shared memory mode
+            #else
+                return ((uintptr_t) child) & 1;  // Check bit 0 in local memory
+            #endif
+        #else
+            // No runtime embedding - always return false
+            return false;
+        #endif
+    #else
+        // Compile-time check: if value fits in pointer slot, it's embedded
+        return sizeof(RT_VALUE_TYPE) <= sizeof(RT_PTR_ALLOC);
+    #endif
+}
+```

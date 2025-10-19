@@ -36,3 +36,67 @@ This function renders tabular data in a vertical (record-oriented) format where 
 - The last record is terminated with a newline unless using zero-byte record separator mode
 - Function is static, indicating it's only used within the print.c module as part of the table formatting subsystem
 - Particularly useful for displaying results with many columns or when each record needs detailed inspection
+
+## Simplified Source
+
+```c
+static void print_unaligned_vertical(const printTableContent *cont, FILE *fout) {
+    bool opt_tuples_only = cont->opt->tuples_only;
+    bool need_recordsep = false;
+
+    if (cancel_pressed) return;
+
+    // Print title if starting table
+    if (cont->opt->start_table) {
+        if (!opt_tuples_only && cont->title) {
+            fputs(cont->title, fout);
+            need_recordsep = true;
+        }
+    } else {
+        need_recordsep = true;
+    }
+
+    // Print records in vertical format (header: value per line)
+    for (unsigned int i = 0; const char *const *ptr = cont->cells; *ptr; i++, ptr++) {
+        if (need_recordsep) {
+            // Double record separator to separate records
+            print_separator(cont->opt->recordSep, fout);
+            print_separator(cont->opt->recordSep, fout);
+            need_recordsep = false;
+            if (cancel_pressed) break;
+        }
+
+        // Print "header: value" format
+        fputs(cont->headers[i % cont->ncolumns], fout);
+        print_separator(cont->opt->fieldSep, fout);
+        fputs(*ptr, fout);
+
+        // Single record separator between fields, double for next record
+        if ((i + 1) % cont->ncolumns) {
+            print_separator(cont->opt->recordSep, fout);
+        } else {
+            need_recordsep = true;
+        }
+    }
+
+    // Print footers if stopping table
+    if (cont->opt->stop_table) {
+        if (!opt_tuples_only && cont->footers && !cancel_pressed) {
+            print_separator(cont->opt->recordSep, fout);
+            for (printTableFooter *f = cont->footers; f; f = f->next) {
+                print_separator(cont->opt->recordSep, fout);
+                fputs(f->data, fout);
+            }
+        }
+
+        // Final record termination
+        if (need_recordsep) {
+            if (cont->opt->recordSep.separator_zero) {
+                print_separator(cont->opt->recordSep, fout);
+            } else {
+                fputc('\n', fout);
+            }
+        }
+    }
+}
+```

@@ -30,3 +30,17 @@ The  function is a utility function that counts the number of consecutive digits
 - Uses strspn() for efficient counting of consecutive digit characters
 - Returns the count as an integer value
 - Does not validate that the input string is a properly formatted number
+
+## Simplified Source
+
+```c
+static int integer_digits(const char *my_str) {
+    // Skip leading sign character if present
+    if (my_str[0] == '-' || my_str[0] == '+') {
+        my_str++;
+    }
+
+    // Count consecutive digits from start
+    return strspn(my_str, "0123456789");
+}
+```

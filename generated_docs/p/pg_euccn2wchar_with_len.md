@@ -36,3 +36,39 @@ The pg_euccn2wchar_with_len function converts a buffer of EUC-CN encoded bytes i
   - Code sets 2 and 3 (3 bytes, SS2/SS3 prefixed): stores prefix in upper bits, marked as unused
 - The function stops processing when it reaches the length limit, encounters a null byte, or runs out of input
 - This is a length-safe conversion function that prevents buffer overruns by respecting the input length constraint
+
+## Simplified Source
+
+```c
+static int pg_euccn2wchar_with_len(const unsigned char *from, pg_wchar *to, int len) {
+    int cnt = 0;
+
+    // Process each character in the input buffer
+    while (len > 0 && *from) {
+        if (*from == SS2 && len >= 3) {
+            // Code set 2: 3-byte sequence (unused in practice)
+            from++;
+            *to = (SS2 << 16) | (*from++ << 8) | *from++;
+            len -= 3;
+        } else if (*from == SS3 && len >= 3) {
+            // Code set 3: 3-byte sequence (unused in practice)
+            from++;
+            *to = (SS3 << 16) | (*from++ << 8) | *from++;
+            len -= 3;
+        } else if (IS_HIGHBIT_SET(*from) && len >= 2) {
+            // Code set 1: 2-byte Chinese characters
+            *to = (*from++ << 8) | *from++;
+            len -= 2;
+        } else {
+            // ASCII: 1-byte characters
+            *to = *from++;
+            len--;
+        }
+        to++;
+        cnt++;
+    }
+
+    *to = 0;  // Null terminate
+    return cnt;  // Return number of wide chars produced
+}
+```

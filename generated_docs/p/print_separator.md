@@ -49,3 +49,18 @@ The  function is a utility that outputs separator characters or strings to a spe
 - The null byte separator option is useful for creating output that can be processed by tools expecting null-delimited data
 - The function does not perform any validation on the separator structure or file stream
 - Used extensively in unaligned printing functions for formatting tabular output
+
+## Simplified Source
+
+```c
+static void print_separator(struct separator sep, FILE *fout) {
+    // Output null byte separator if requested
+    if (sep.separator_zero) {
+        fputc('\000', fout);
+    }
+    // Otherwise output string separator if available
+    else if (sep.separator) {
+        fputs(sep.separator, fout);
+    }
+}
+```

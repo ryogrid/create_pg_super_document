@@ -38,3 +38,21 @@ The function returns true if the flag was successfully set (meaning it was previ
 - The function is implemented as a static inline wrapper for performance optimization
 - Commonly used in implementing spinlocks, mutexes, and other synchronization mechanisms
 - The underlying implementation uses platform-specific atomic operations or spinlock protection depending on hardware capabilities
+
+## Simplified Source
+
+```c
+static inline bool
+pg_atomic_test_set_flag(volatile pg_atomic_flag *ptr)
+{
+    // Test-And-Set atomic operation with acquire semantics
+    return pg_atomic_test_set_flag_impl(ptr);
+}
+```
+
+**Key Points:**
+- Implements classic Test-And-Set (TAS) atomic primitive
+- Returns true if flag was successfully acquired (was previously false)
+- Returns false if flag was already set by another thread
+- Provides acquire memory barrier semantics for synchronization
+- Core building block for locks and synchronization primitives

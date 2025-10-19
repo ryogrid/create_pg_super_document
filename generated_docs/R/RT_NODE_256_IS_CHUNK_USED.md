@@ -48,3 +48,18 @@ The implementation uses two helper macros:
 - The 256-way node is the largest node type in the radix tree, providing direct indexing for all possible byte values
 - The bitmap approach allows efficient memory usage - only checking a few bits rather than scanning the entire 256-element array
 - This function is typically used as a guard before accessing child nodes to ensure they exist
+
+## Simplified Source
+
+```c
+static inline bool
+RT_NODE_256_IS_CHUNK_USED(RT_NODE_256 * node, uint8 chunk)
+{
+    // Calculate bitmap word index and bit position for chunk
+    int idx = RT_BM_IDX(chunk);
+    int bitnum = RT_BM_BIT(chunk);
+
+    // Check if bit is set in the bitmap array
+    return (node->isset[idx] & ((bitmapword) 1 << bitnum)) != 0;
+}
+```

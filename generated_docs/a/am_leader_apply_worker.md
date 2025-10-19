@@ -46,3 +46,15 @@ The function includes an assertion to ensure that the worker is currently in use
 - Leader apply workers are the primary workers in logical replication and are responsible for coordinating with parallel apply workers
 - The function is commonly used in parallel apply worker logic to distinguish between leader and parallel workers
 - Unlike the other worker type checking functions, this one includes an assertion for additional safety
+
+## Simplified Source
+
+```c
+static inline bool am_leader_apply_worker(void) {
+    // Verify worker is in use (debug assertion)
+    Assert(MyLogicalRepWorker->in_use);
+
+    // Check if worker type is APPLY (leader apply worker)
+    return (MyLogicalRepWorker->type == WORKERTYPE_APPLY);
+}
+```

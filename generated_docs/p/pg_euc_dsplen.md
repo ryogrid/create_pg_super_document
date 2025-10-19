@@ -39,3 +39,19 @@ The function is designed to work with EUC character encoding schemes where multi
 - Returns 2 columns for most EUC multi-byte characters, which is typical for full-width Asian characters
 - Falls back to ASCII display length calculation for standard ASCII characters
 - Part of PostgreSQL's character encoding support infrastructure
+
+## Simplified Source
+
+```c
+static inline int pg_euc_dsplen(const unsigned char *s) {
+    // Determine EUC character display width
+    if (*s == SS2)                    // Single Shift 2: 2 columns
+        return 2;
+    else if (*s == SS3)               // Single Shift 3: 2 columns
+        return 2;
+    else if (IS_HIGHBIT_SET(*s))      // High-bit set: 2 columns
+        return 2;
+    else                              // ASCII: use ASCII rules
+        return pg_ascii_dsplen(s);
+}
+```

@@ -44,3 +44,34 @@ This is an internal static inline function designed to be called by the public S
 - Uses linear probing for collision resolution
 - Contains a TODO comment about potential optimization using distance-from-optimal to stop searches early
 - The function is designed to be highly optimized for performance-critical PostgreSQL operations
+
+## Simplified Source
+
+```c
+static inline SH_ELEMENT_TYPE *
+SH_LOOKUP_HASH_INTERNAL(SH_TYPE *tb, SH_KEY_TYPE key, uint32 hash)
+{
+    // Start searching from the optimal bucket position
+    const uint32 startelem = SH_INITIAL_BUCKET(tb, hash);
+    uint32 curelem = startelem;
+
+    while (true) {
+        SH_ELEMENT_TYPE *entry = &tb->data[curelem];
+
+        // If bucket is empty, key not found
+        if (entry->status == SH_STATUS_EMPTY) {
+            return NULL;
+        }
+
+        // Check if this entry matches our key
+        if (SH_COMPARE_KEYS(tb, hash, key, entry)) {
+            return entry;
+        }
+
+        // Move to next bucket in linear probe sequence
+        curelem = SH_NEXT(tb, curelem, startelem);
+    }
+}
+```
+
+**What it does:** This is the core hash table lookup function that implements linear probing. It starts from the key's optimal bucket position and searches forward until it either finds a matching key (returns the entry) or encounters an empty bucket (returns NULL indicating key not found). The function handles hash collisions by continuing the linear probe sequence.

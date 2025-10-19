@@ -34,3 +34,20 @@ This inline function implements safe single-precision floating-point addition by
 - Uses unlikely() macro for branch prediction optimization on overflow check
 - Implements IEEE 754 compliant arithmetic with PostgreSQL-specific error handling
 - The function allows infinite results when at least one operand is already infinite
+
+## Simplified Source
+
+```c
+static inline float4 float4_pl(const float4 val1, const float4 val2) {
+    float4 result;
+
+    // Perform addition
+    result = val1 + val2;
+
+    // Check for overflow: result is infinite but neither input was infinite
+    if (unlikely(isinf(result)) && !isinf(val1) && !isinf(val2))
+        float_overflow_error();
+
+    return result;
+}
+```

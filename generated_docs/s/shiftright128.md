@@ -40,3 +40,17 @@ The function includes assertions to ensure the shift distance is less than 64 bi
 - Contains platform-specific optimizations for both 32-bit and 64-bit architectures
 - The assertion validates that shift distances stay within expected bounds, protecting against future algorithm changes that might require larger shifts
 - On 32-bit platforms, the implementation takes advantage of the known shift range to avoid expensive 64-bit shift operations
+
+## Simplified Source
+
+```c
+static inline uint64 shiftright128(const uint64 lo, const uint64 hi, const uint32 dist) {
+    // Validate shift distance is within expected range for Ryu algorithm
+    // Current implementation guarantees dist is in range [2, 58]
+    Assert(dist < 64);
+
+    // Use compiler intrinsic for efficient 128-bit right shift
+    // Returns the low 64 bits of the shifted 128-bit result
+    return __shiftright128(lo, hi, (unsigned char)dist);
+}
+```

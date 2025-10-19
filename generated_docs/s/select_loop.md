@@ -33,3 +33,32 @@ This function implements a robust wrapper around the system `select()` call that
 - Returns -1 on error, or the number of readable descriptors on success
 - Used primarily in pg_dump's parallel processing infrastructure for coordinating worker communication
 - Essential for reliable I/O multiplexing in multi-process database dump operations
+
+## Simplified Source
+
+```c
+static int
+select_loop(int maxFd, fd_set *workerset)
+{
+    int i;
+    fd_set saveSet = *workerset;  // Preserve original set
+
+    for (;;) {
+        // Restore the file descriptor set (select modifies it)
+        *workerset = saveSet;
+        i = select(maxFd + 1, workerset, NULL, NULL, NULL);
+
+        // Handle platform-specific interrupts
+#ifndef WIN32
+        if (i < 0 && errno == EINTR)
+            continue;  // Retry on Unix/Linux interrupt
+#else
+        if (i == SOCKET_ERROR && WSAGetLastError() == WSAEINTR)
+            continue;  // Retry on Windows interrupt
+#endif
+        break;  // Success or non-interrupt error
+    }
+
+    return i;  // Number of readable descriptors or -1 on error
+}
+```

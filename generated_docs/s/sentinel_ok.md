@@ -43,3 +43,25 @@ If the sentinel byte has been corrupted, it indicates that code has written beyo
 - Primarily used by PostgreSQL's memory context system during memory operations like freeing, reallocation, and consistency checking
 - Corruption of sentinel bytes typically indicates serious memory safety bugs that need immediate attention
 - The function is designed to have minimal performance impact when memory debugging is disabled
+
+## Simplified Source
+
+```c
+static inline bool
+sentinel_ok(const void *base, Size offset)
+{
+    const char *ptr = (const char *) base + offset;
+    bool ret;
+
+    // Temporarily make memory accessible for Valgrind
+    VALGRIND_MAKE_MEM_DEFINED(ptr, 1);
+
+    // Check if sentinel byte contains expected value (0x7E)
+    ret = *ptr == 0x7E;
+
+    // Mark memory as inaccessible again for Valgrind
+    VALGRIND_MAKE_MEM_NOACCESS(ptr, 1);
+
+    return ret;
+}
+```

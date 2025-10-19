@@ -37,3 +37,23 @@ This three-way comparison enables efficient binary search through sorted arrays 
 - Works with pg_wchar type which represents Unicode codepoints
 - Critical component of SASL string preparation Unicode processing
 - The range comparison is inclusive on both bounds
+
+## Simplified Source
+
+```c
+static int codepoint_range_cmp(const void *a, const void *b) {
+    const pg_wchar *key = (const pg_wchar *) a;
+    const pg_wchar *range = (const pg_wchar *) b;
+
+    // Check if codepoint is below range
+    if (*key < range[0])
+        return -1;
+
+    // Check if codepoint is above range
+    if (*key > range[1])
+        return 1;
+
+    // Codepoint is within range
+    return 0;
+}
+```

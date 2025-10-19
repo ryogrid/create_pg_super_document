@@ -37,3 +37,14 @@ The function serves as a specialized interface for JOHAB encoding while leveragi
 - JOHAB is one of the Korean encoding standards supported by PostgreSQL
 - Essential for proper parsing and processing of Korean text in JOHAB encoding
 - Part of PostgreSQL's comprehensive Asian character encoding support system
+
+## Simplified Source
+
+```c
+static int pg_johab_mblen(const unsigned char *s) {
+    // JOHAB uses same length rules as EUC encodings
+    // - ASCII (0x00-0x7F): 1 byte
+    // - Korean characters: 2 bytes (similar to EUC structure)
+    return pg_euc_mblen(s);
+}
+```

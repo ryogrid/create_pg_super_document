@@ -51,3 +51,32 @@ This combined approach is more efficient than separate delete and shrink operati
 - The function combines deletion and shrinking in one operation for efficiency
 - Located in src/include/lib/radixtree.h at lines 2472-2495
 - Part of PostgreSQL's generic radix tree implementation that uses C macros for type polymorphism
+
+## Simplified Source
+
+```c
+static void pg_noinline
+RT_SHRINK_NODE_16(RT_RADIX_TREE *tree, RT_PTR_ALLOC *parent_slot, RT_CHILD_PTR node, uint8 deletepos)
+{
+    RT_NODE_16 *n16 = (RT_NODE_16 *) node.local;
+    RT_CHILD_PTR newnode;
+    RT_NODE_4 *new4;
+
+    // Allocate new smaller node
+    newnode = RT_ALLOC_NODE(tree, RT_NODE_KIND_4, RT_CLASS_4);
+    new4 = (RT_NODE_4 *) newnode.local;
+
+    // Copy entries excluding the one at deletepos (combined delete+shrink operation)
+    RT_COPY_COMMON(newnode, node);
+    RT_COPY_ARRAYS_AND_DELETE(new4->chunks, new4->children,
+                              n16->chunks, n16->children,
+                              n16->base.count, deletepos);
+
+    new4->base.count--;  // Account for the deleted entry
+    RT_VERIFY_NODE((RT_NODE *) new4);
+
+    // Replace old node with new one
+    *parent_slot = newnode.alloc;
+    RT_FREE_NODE(tree, node);
+}
+```

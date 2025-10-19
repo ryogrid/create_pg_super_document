@@ -45,3 +45,26 @@ The function handles the special case where a full node256 has a count of zero d
 - Shrink threshold prevents ping-ponging between node types by using 3/4 occupancy rule
 - The BITS_PER_BITMAPWORD limit ensures compatibility with RT_SHRINK_NODE_256's bitmap initialization
 - Automatically triggers node shrinking when the node becomes sufficiently sparse
+
+## Simplified Source
+
+```c
+static inline void
+RT_REMOVE_CHILD_256(RT_RADIX_TREE *tree, RT_PTR_ALLOC *parent_slot, RT_CHILD_PTR node, uint8 chunk)
+{
+    RT_NODE_256 *n256 = (RT_NODE_256 *) node.local;
+    int idx = RT_BM_IDX(chunk);         // Get bitmap word index
+    int bitnum = RT_BM_BIT(chunk);      // Get bit position within word
+
+    // Mark the slot as free by clearing the bit
+    n256->isset[idx] &= ~((bitmapword) 1 << bitnum);
+    n256->base.count--;
+
+    // Calculate shrink threshold (3/4 of node48 capacity, limited by bitmap size)
+    int shrink_threshold = Min(RT_FANOUT_48 / 4 * 3, BITS_PER_BITMAPWORD);
+
+    // Shrink to node48 if sparse enough
+    if (n256->base.count <= shrink_threshold)
+        RT_SHRINK_NODE_256(tree, parent_slot, node, chunk);
+}
+```

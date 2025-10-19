@@ -35,3 +35,13 @@ This function is designed to be called exactly once using  to ensure thread-safe
 - Works in conjunction with ECPGget_sqlca() to provide per-thread SQLCA instances
 - Part of POSIX threads-based thread safety implementation in ECPG
 - Failure of pthread_key_create() would indicate serious system resource issues
+
+## Simplified Source
+
+```c
+static void ecpg_sqlca_key_init(void) {
+    // Create pthread key for thread-local SQLCA storage
+    // Register destructor for cleanup when threads exit
+    pthread_key_create(&sqlca_key, ecpg_sqlca_key_destructor);
+}
+```

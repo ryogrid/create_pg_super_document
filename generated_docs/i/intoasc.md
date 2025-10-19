@@ -43,3 +43,23 @@ The function allocates temporary memory for the conversion, copies the result to
 - Handles memory management automatically - the caller only needs to provide the output buffer
 - The function clears errno before operation and uses it for error reporting
 - Assumes the output buffer `str` is large enough to hold the converted interval string
+
+## Simplified Source
+
+```c
+int intoasc(interval *i, char *str) {
+    errno = 0;
+
+    // Convert interval to string using PostgreSQL types library
+    char *tmp = PGTYPESinterval_to_asc(i);
+
+    // Check for conversion error
+    if (!tmp)
+        return -errno;
+
+    // Copy result to output buffer and clean up
+    strcpy(str, tmp);
+    free(tmp);
+    return 0;
+}
+```

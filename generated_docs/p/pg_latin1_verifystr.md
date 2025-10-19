@@ -37,3 +37,14 @@ The behavior is:
 - Used as the string verification function for multiple single-byte Latin-based encodings
 - The function is static, indicating it's only used within the wchar.c compilation unit
 - Does not perform any actual character validation since all non-null bytes are valid in Latin-1
+
+## Simplified Source
+```c
+static int pg_latin1_verifystr(const unsigned char *s, int len) {
+    // Find first null byte - all other bytes are valid in Latin-1
+    const unsigned char *nullpos = memchr(s, 0, len);
+
+    // Return bytes before null, or entire length if no null found
+    return nullpos ? (nullpos - s) : len;
+}
+```

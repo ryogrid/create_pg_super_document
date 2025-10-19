@@ -34,3 +34,15 @@ This function is a custom implementation of the standard POSIX pthread_mutex_ini
 - Sets the mutex initstate to 0, which represents an initialized but unlocked state
 - This function is only compiled and used when building PostgreSQL on Windows systems
 - Part of the broader Windows pthread emulation used throughout PostgreSQL's Windows port
+
+## Simplified Source
+
+```c
+int pthread_mutex_init(pthread_mutex_t *mp, void *attr) {
+    // Initialize mutex state to 0 (unlocked)
+    mp->initstate = 0;
+
+    // Always return success
+    return 0;
+}
+```

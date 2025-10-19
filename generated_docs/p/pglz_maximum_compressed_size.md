@@ -40,3 +40,23 @@ This function is essential for safe partial decompression operations where only 
 - Critical for safe partial decompression in TOAST system
 - Prevents buffer overruns when extracting slices from compressed TOAST data
 - Formula: ((rawsize * 9 + 7) / 8) + 2, capped at total_compressed_size
+
+## Simplified Source
+
+```c
+int32 pglz_maximum_compressed_size(int32 rawsize, int32 total_compressed_size) {
+    int64 compressed_size;
+
+    // Calculate worst-case: 9 bits per byte (8 data + 1 control bit)
+    // Round up to whole bytes
+    compressed_size = ((int64) rawsize * 9 + 7) / 8;
+
+    // Add buffer for potential partial match tags at end
+    compressed_size += 2;
+
+    // Cap at total compressed size to prevent overflow
+    compressed_size = Min(compressed_size, total_compressed_size);
+
+    return (int32) compressed_size;
+}
+```

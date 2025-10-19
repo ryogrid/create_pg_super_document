@@ -44,3 +44,41 @@ This is a critical function in the radix tree's insertion path, called when a sl
 - Critical for maintaining the adaptive nature of the tree by triggering growth when needed
 - Uses `unlikely()` hint for growth conditions since most insertions don't require growth
 - Part of the inline fast path for radix tree operations
+
+## Simplified Source
+
+```c
+static inline RT_PTR_ALLOC *
+RT_NODE_INSERT(RT_RADIX_TREE *tree, RT_PTR_ALLOC *parent_slot,
+               RT_CHILD_PTR node, uint8 chunk)
+{
+    RT_NODE *n = node.local;
+
+    // Dispatch based on node type
+    switch (n->kind)
+    {
+        case RT_NODE_KIND_4:
+            // Check if node needs to grow before adding child
+            if (unlikely(RT_NODE_MUST_GROW(n)))
+                return RT_GROW_NODE_4(tree, parent_slot, node, chunk);
+            return RT_ADD_CHILD_4(tree, node, chunk);
+
+        case RT_NODE_KIND_16:
+            if (unlikely(RT_NODE_MUST_GROW(n)))
+                return RT_GROW_NODE_16(tree, parent_slot, node, chunk);
+            return RT_ADD_CHILD_16(tree, node, chunk);
+
+        case RT_NODE_KIND_48:
+            if (unlikely(RT_NODE_MUST_GROW(n)))
+                return RT_GROW_NODE_48(tree, parent_slot, node, chunk);
+            return RT_ADD_CHILD_48(tree, node, chunk);
+
+        case RT_NODE_KIND_256:
+            // Node-256 never needs to grow (can hold all 256 possible chunks)
+            return RT_ADD_CHILD_256(tree, node, chunk);
+
+        default:
+            pg_unreachable();
+    }
+}
+```

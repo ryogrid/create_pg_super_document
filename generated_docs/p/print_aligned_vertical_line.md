@@ -47,3 +47,97 @@ This utility function generates horizontal separator lines specifically for vert
 - Function is static, indicating it's only used within the print.c module as part of the table formatting subsystem
 - Essential for creating properly formatted record separators in PostgreSQL's expanded (vertical) display mode
 - Provides visual separation between records when displaying wide tables in vertical format
+
+## Simplified Source
+
+```c
+static void print_aligned_vertical_line(const printTableOpt *topt,
+                                        unsigned long record,
+                                        unsigned int hwidth,
+                                        unsigned int dwidth,
+                                        int output_columns,
+                                        printTextRule pos,
+                                        FILE *fout) {
+    const printTextLineFormat *lformat = &get_line_style(topt)->lrule[pos];
+    const unsigned short opt_border = topt->border;
+    int reclen = 0;
+
+    // Print left border
+    if (opt_border == 2) {
+        fprintf(fout, "%s%s", lformat->leftvrule, lformat->hrule);
+    } else if (opt_border == 1) {
+        fputs(lformat->hrule, fout);
+    }
+
+    // Print record number if provided
+    if (record) {
+        if (opt_border == 0) {
+            reclen = fprintf(fout, "* Record %lu", record);
+        } else {
+            reclen = fprintf(fout, "[ RECORD %lu ]", record);
+        }
+    }
+    if (opt_border != 2) reclen++;
+    if (reclen < 0) reclen = 0;
+
+    // Fill header width with appropriate characters
+    for (unsigned int i = reclen; i < hwidth; i++) {
+        fputs(opt_border > 0 ? lformat->hrule : " ", fout);
+    }
+    reclen -= hwidth;
+
+    // Handle middle section based on border style
+    if (opt_border > 0) {
+        if (reclen-- <= 0) fputs(lformat->hrule, fout);
+        if (reclen-- <= 0) {
+            if (topt->expanded_header_width_type == PRINT_XHEADER_COLUMN) {
+                fputs(lformat->rightvrule, fout);
+            } else {
+                fputs(lformat->midvrule, fout);
+            }
+        }
+        if (reclen-- <= 0 && topt->expanded_header_width_type != PRINT_XHEADER_COLUMN) {
+            fputs(lformat->hrule, fout);
+        }
+    } else {
+        if (reclen-- <= 0) fputc(' ', fout);
+    }
+
+    // Handle data width section for non-column header types
+    if (topt->expanded_header_width_type != PRINT_XHEADER_COLUMN) {
+        // Apply width constraints based on header width type
+        if (topt->expanded_header_width_type == PRINT_XHEADER_PAGE ||
+            topt->expanded_header_width_type == PRINT_XHEADER_EXACT_WIDTH) {
+
+            if (topt->expanded_header_width_type == PRINT_XHEADER_EXACT_WIDTH) {
+                output_columns = topt->expanded_header_exact_width;
+            }
+
+            if (output_columns > 0) {
+                // Calculate maximum data width based on border style
+                if (opt_border == 0) {
+                    dwidth = Min(dwidth, Max(0, (int)(output_columns - hwidth)));
+                } else if (opt_border == 1) {
+                    dwidth = Min(dwidth, Max(0, (int)(output_columns - hwidth - 3)));
+                } else if (opt_border == 2) {
+                    dwidth = Min(dwidth, Max(0, (int)(output_columns - hwidth - 7)));
+                }
+            }
+        }
+
+        // Fill data width
+        if (reclen < 0) reclen = 0;
+        if (dwidth < reclen) dwidth = reclen;
+
+        for (unsigned int i = reclen; i < dwidth; i++) {
+            fputs(opt_border > 0 ? lformat->hrule : " ", fout);
+        }
+
+        if (opt_border == 2) {
+            fprintf(fout, "%s%s", lformat->hrule, lformat->rightvrule);
+        }
+    }
+
+    fputc('\n', fout);
+}
+```

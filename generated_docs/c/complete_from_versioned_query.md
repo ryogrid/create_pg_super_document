@@ -31,3 +31,28 @@ This function implements version-aware tab completion in psql by selecting the a
 - Relies on global variables: completion_vquery, completion_charpp, completion_verbatim, and pset.sversion
 - This is part of psql's sophisticated tab completion system that adapts to different PostgreSQL server versions
 - The function is static, indicating it's only used within the tab-complete.c file
+
+## Simplified Source
+
+```c
+static char *complete_from_versioned_query(const char *text, int state)
+{
+    const VersionedQuery *vquery = completion_vquery;
+
+    // Find the first query compatible with current server version
+    while (pset.sversion < vquery->min_server_version)
+        vquery++;
+
+    // If no compatible query found, fail completion
+    if (vquery->query == NULL)
+        return NULL;
+
+    // Execute the version-appropriate query
+    return _complete_from_query(vquery->query,        // Version-specific SQL
+                               NULL,                   // No additional version check
+                               completion_charpp,      // Result processing
+                               completion_verbatim,    // Verbatim flag
+                               text,                   // User input
+                               state);                 // Readline state
+}
+```

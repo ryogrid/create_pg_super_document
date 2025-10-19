@@ -33,3 +33,17 @@ The function includes safety assertions to ensure the input parameter e is withi
 - The mathematical basis relies on log_10(5) ≈ 0.69897, and the constant 732923/1048576 ≈ 0.69897
 - Complements log10Pow2 as both functions are used together in floating-point conversion algorithms
 - Located in src/common/ryu_common.h:83-94
+
+## Simplified Source
+
+```c
+static inline int32 log10Pow5(const int32 e) {
+    // Validate input range for accurate approximation
+    Assert(e >= 0);
+    Assert(e <= 2620);
+
+    // Fast approximation of floor(log_10(5^e))
+    // Magic constant 732923 represents e * log_10(5) scaled by 2^20
+    return (int32) ((((uint32) e) * 732923) >> 20);
+}
+```

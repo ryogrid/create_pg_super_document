@@ -33,3 +33,27 @@ This optimization is valuable in performance-critical code paths where the calle
 - More efficient than TransactionIdOlder when dealing with guaranteed normal transaction IDs
 - Currently appears to be unused in the codebase, possibly reserved for future optimizations
 - The function complements the general TransactionIdOlder by providing a performance-optimized version for specific use cases
+
+## Simplified Source
+
+```c
+static inline TransactionId NormalTransactionIdOlder(TransactionId xid_a, TransactionId xid_b) {
+    // Debug assertions: ensure both inputs are normal transaction IDs
+    Assert(TransactionIdIsNormal(xid_a));
+    Assert(TransactionIdIsNormal(xid_b));
+
+    // Return the older transaction ID using optimized normal comparison
+    if (NormalTransactionIdPrecedes(xid_a, xid_b)) {
+        return xid_a;  // xid_a is older
+    }
+    return xid_b;      // xid_b is older or equal
+}
+```
+
+This simplified version preserves the core functionality:
+- Compares two transaction IDs and returns the chronologically older one
+- Optimized for normal transaction IDs (excludes special values)
+- Uses assertions for debug validation of input parameters
+- Leverages NormalTransactionIdPrecedes for efficient comparison
+- Inline function for performance optimization
+- Provides specialized alternative to general TransactionIdOlder function

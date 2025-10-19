@@ -58,3 +58,15 @@ The function is used in various tree operations:
 - Tree verification and debugging
 
 The returned pointer can be used to read the current child pointer value or to update it with a new child pointer, making this function essential for both read and write operations on the tree structure.
+
+## Simplified Source
+
+```c
+static inline RT_PTR_ALLOC *
+RT_NODE_48_GET_CHILD(RT_NODE_48 * node, uint8 chunk)
+{
+    // Get pointer to child slot using two-level indexing
+    // chunk -> slot_idxs[chunk] -> &children[slot_index]
+    return &node->children[node->slot_idxs[chunk]];
+}
+```

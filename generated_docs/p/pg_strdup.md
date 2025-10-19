@@ -36,3 +36,28 @@ This function is part of PostgreSQL's frontend memory utilities, designed to pro
 - Unlike palloc family functions used in the backend, this function uses standard malloc-based allocation via strdup()
 - The function is located in src/common/fe_memutils.c, indicating it's part of the frontend (client-side) memory utilities
 - Error handling is aggressive - any failure results in immediate program termination rather than returning error codes
+
+## Simplified Source
+
+```c
+char *
+pg_strdup(const char *in)
+{
+    // Validate input - terminate program if null
+    if (!in) {
+        fprintf(stderr, _("cannot duplicate null pointer (internal error)\n"));
+        exit(EXIT_FAILURE);
+    }
+
+    // Duplicate the string using standard library function
+    char *tmp = strdup(in);
+
+    // Check for memory allocation failure
+    if (!tmp) {
+        fprintf(stderr, _("out of memory\n"));
+        exit(EXIT_FAILURE);
+    }
+
+    return tmp;  // Return duplicated string
+}
+```

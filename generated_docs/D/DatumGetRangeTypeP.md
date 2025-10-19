@@ -35,3 +35,14 @@ The function is defined as a static inline function in the header file, meaning 
 - The function handles PostgreSQL's TOAST (The Oversized-Attribute Storage Technique) mechanism automatically
 - Being defined as static inline, it provides zero-overhead abstraction for Datum-to-RangeType conversion
 - Essential for all range type operations that receive range data through the function manager interface
+
+## Simplified Source
+
+```c
+static inline RangeType *
+DatumGetRangeTypeP(Datum X)
+{
+    // Convert Datum to RangeType pointer, handling detoasting
+    return (RangeType *) PG_DETOAST_DATUM(X);
+}
+```

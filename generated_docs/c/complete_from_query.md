@@ -31,3 +31,19 @@ The function assumes the query will work for any server version and uses global 
 
 ## Notes and Other Information
 This function is part of psql's dynamic completion system that queries the database server to provide accurate, up-to-date completion suggestions. It uses global completion variables (, , ) that are set by various completion macros before calling this function. This design allows the same core query mechanism to be used for different types of completions while maintaining different query parameters and result processing options.
+
+## Simplified Source
+
+```c
+static char *complete_from_query(const char *text, int state)
+{
+    // Simple wrapper that assumes query works for any server version
+    // Uses global completion variables set by calling macros
+    return _complete_from_query(completion_charp,    // SQL query string
+                               NULL,                 // No version requirement
+                               completion_charpp,    // Result processing info
+                               completion_verbatim,  // Verbatim matching flag
+                               text,                 // User's partial input
+                               state);               // Readline state counter
+}
+```

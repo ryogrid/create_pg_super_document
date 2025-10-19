@@ -34,3 +34,11 @@ This function is the counterpart to ECPG_informix_set_var, providing the getter 
 - Enables seamless migration of Informix ESQL/C applications to PostgreSQL
 - Maintains the same function signature and behavior as the corresponding Informix function
 - Works in conjunction with ECPG_informix_set_var for complete variable management compatibility
+
+## Simplified Source
+```c
+void *ECPG_informix_get_var(int number) {
+    // Informix compatibility wrapper - delegates to core ECPG function
+    return ECPGget_var(number);
+}
+```

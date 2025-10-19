@@ -24,3 +24,14 @@ This function provides a copy-safe variant of DatumGetPolygonP, specifically des
 
 ## Notes and Other Information
 This function is essential for operations that need to modify polygon data safely without affecting the original stored values. It's defined in src/include/utils/geo_decls.h:252-256. The copy semantics ensure memory safety and data integrity when performing in-place modifications on polygon structures, particularly important in geometric computation functions and data transformation operations.
+
+## Simplified Source
+
+```c
+static inline POLYGON *
+DatumGetPolygonPCopy(Datum X)
+{
+    // Convert Datum to POLYGON pointer, creating a copy for safe modification
+    return (POLYGON *) PG_DETOAST_DATUM_COPY(X);
+}
+```

@@ -33,3 +33,22 @@ This function takes no parameters and returns:
 - The use of CLOCK_MONOTONIC_RAW ensures consistent timing measurements unaffected by system clock adjustments
 - The conversion formula combines seconds and nanoseconds: `tmp.tv_sec * NS_PER_S + tmp.tv_nsec`
 - This is part of PostgreSQL's portable timing infrastructure, allowing consistent time measurements across different platforms
+
+## Simplified Source
+
+```c
+static inline instr_time
+pg_clock_gettime_ns(void)
+{
+    instr_time now;
+    struct timespec tmp;
+
+    // Get current time using monotonic clock
+    clock_gettime(PG_INSTR_CLOCK, &tmp);
+
+    // Convert to nanoseconds: seconds * 1e9 + nanoseconds
+    now.ticks = tmp.tv_sec * NS_PER_S + tmp.tv_nsec;
+
+    return now;
+}
+```

@@ -38,3 +38,25 @@ The function includes safety assertions to ensure proper alignment (8-byte align
 - Input validation prevents subtraction of `PG_INT64_MIN` to avoid potential overflow scenarios
 - This is part of PostgreSQL's atomic operations abstraction layer that provides consistent interfaces across different platforms
 - The subtract operation is implemented atomically, making it safe for concurrent access in multi-threaded environments
+
+## Simplified Source
+
+```c
+static inline uint64
+pg_atomic_sub_fetch_u64(volatile pg_atomic_uint64 *ptr, int64 sub_)
+{
+    // Safety checks: alignment and overflow protection
+    AssertPointerAlignment(ptr, 8);
+    Assert(sub_ != PG_INT64_MIN);
+
+    // Atomic subtract-and-fetch: return new value after subtraction
+    return pg_atomic_sub_fetch_u64_impl(ptr, sub_);
+}
+```
+
+**Key Points:**
+- Atomically subtracts `sub_` from the value at `ptr`
+- Returns the new value after subtraction (not the original value)
+- Includes alignment checks and overflow protection
+- Thread-safe atomic operation with memory ordering guarantees
+- Complementary to `pg_atomic_fetch_sub_u64` (which returns original value)

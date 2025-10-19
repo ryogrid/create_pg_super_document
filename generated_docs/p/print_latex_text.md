@@ -38,3 +38,88 @@ This function generates LaTeX code for displaying tabular data using the standar
 - Uses \hline for horizontal rules and | for vertical borders in column specification
 - Handles cancellation via cancel_pressed global variable for responsive interruption
 - Footers are printed with line breaks and no indentation after the table ends
+
+## Simplified Source
+```c
+static void print_latex_text(const printTableContent *cont, FILE *fout)
+{
+    bool opt_tuples_only = cont->opt->tuples_only;
+    unsigned short opt_border = cont->opt->border;
+    unsigned int i;
+    const char *const *ptr;
+
+    if (cancel_pressed)
+        return;
+
+    if (opt_border > 3)
+        opt_border = 3;  // Clamp border level
+
+    if (cont->opt->start_table) {
+        // Print centered title
+        if (!opt_tuples_only && cont->title) {
+            fputs("\\begin{center}\n", fout);
+            latex_escaped_print(cont->title, fout);
+            fputs("\n\\end{center}\n\n", fout);
+        }
+
+        // Begin tabular environment with column specs
+        fputs("\\begin{tabular}{", fout);
+
+        if (opt_border >= 2) fputs("| ", fout);  // Left border
+
+        for (i = 0; i < cont->ncolumns; i++) {
+            fputc(*(cont->aligns + i), fout);     // Column alignment
+            if (opt_border != 0 && i < cont->ncolumns - 1)
+                fputs(" | ", fout);              // Column separators
+        }
+
+        if (opt_border >= 2) fputs(" |", fout);  // Right border
+        fputs("}\n", fout);
+
+        if (!opt_tuples_only && opt_border >= 2)
+            fputs("\\hline\n", fout);            // Top border
+
+        // Print headers in italics
+        if (!opt_tuples_only) {
+            for (i = 0, ptr = cont->headers; i < cont->ncolumns; i++, ptr++) {
+                if (i != 0) fputs(" & ", fout);
+                fputs("\\textit{", fout);
+                latex_escaped_print(*ptr, fout);
+                fputc('}', fout);
+            }
+            fputs(" \\\\\n\\hline\n", fout);
+        }
+    }
+
+    // Print data cells
+    for (i = 0, ptr = cont->cells; *ptr; i++, ptr++) {
+        latex_escaped_print(*ptr, fout);
+
+        if ((i + 1) % cont->ncolumns == 0) {
+            fputs(" \\\\\n", fout);               // End row
+            if (opt_border == 3)
+                fputs("\\hline\n", fout);         // Row separators
+            if (cancel_pressed) break;
+        } else {
+            fputs(" & ", fout);                   // Column separator
+        }
+    }
+
+    if (cont->opt->stop_table) {
+        if (opt_border == 2)
+            fputs("\\hline\n", fout);             // Bottom border
+
+        fputs("\\end{tabular}\n\n\\noindent ", fout);
+
+        // Print footers
+        printTableFooter *footers = footers_with_default(cont);
+        if (footers && !opt_tuples_only && !cancel_pressed) {
+            for (printTableFooter *f = footers; f; f = f->next) {
+                latex_escaped_print(f->data, fout);
+                fputs(" \\\\\n", fout);
+            }
+        }
+        fputc('\n', fout);
+    }
+}
+```

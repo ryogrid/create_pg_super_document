@@ -46,3 +46,30 @@ Special INFORMIX compatibility features:
 - Returns `true` if garbage characters are found, `false` if the remaining string is valid
 - Critical for ensuring data integrity and proper error reporting in ECPG applications
 - The INFORMIX compatibility feature allows for legacy application behavior where numeric truncation is expected rather than treated as an error
+
+## Simplified Source
+```c
+static bool garbage_left(enum ARRAY_TYPE isarray, char **scan_length, enum COMPAT_MODE compat) {
+    // Handle non-array data
+    if (isarray == ECPG_ARRAY_NONE) {
+        // INFORMIX compatibility: skip decimal portion for numeric truncation
+        if (INFORMIX_MODE(compat) && **scan_length == '.') {
+            do {
+                (*scan_length)++;
+            } while (isdigit(**scan_length));
+        }
+
+        // Check for garbage characters (not space or null terminator)
+        if (**scan_length != ' ' && **scan_length != '\0')
+            return true;
+    }
+    // Handle array data - check if character is valid delimiter or boundary
+    else if (ECPG_IS_ARRAY(isarray) &&
+             !array_delimiter(isarray, **scan_length) &&
+             !array_boundary(isarray, **scan_length)) {
+        return true;
+    }
+
+    return false;
+}
+```

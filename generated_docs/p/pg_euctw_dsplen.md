@@ -39,3 +39,19 @@ The function is essential for text layout operations such as column alignment, t
 - Used for proper text formatting and alignment in database output
 - ASCII control characters may have display width of 0 (handled by pg_ascii_dsplen)
 - Essential for consistent text rendering across different character sets in PostgreSQL's output formatting system
+
+## Simplified Source
+
+```c
+static int pg_euctw_dsplen(const unsigned char *s) {
+    // EUC-TW display width calculation:
+    if (*s == SS2)
+        return 2;       // 4-byte chars: 2 columns
+    else if (*s == SS3)
+        return 2;       // 3-byte chars: 2 columns
+    else if (IS_HIGHBIT_SET(*s))
+        return 2;       // 2-byte Chinese chars: 2 columns
+    else
+        return pg_ascii_dsplen(s);  // ASCII: delegate for control chars
+}
+```

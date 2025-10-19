@@ -38,3 +38,23 @@ The function uses the fasthash_accum_cstring function which is specifically desi
 - Part of PostgreSQL's unstable hash function family, meaning hash values may change between versions
 - More convenient than fasthash32 for string hashing as it doesn't require explicit length calculation
 - The length mixing in fasthash_final32 helps avoid hash collisions between strings with common prefixes
+
+## Simplified Source
+
+```c
+static inline uint32
+hash_string(const char *s)
+{
+    fasthash_state hs;
+    size_t s_len;
+
+    // Initialize hash state
+    fasthash_init(&hs, 0);
+
+    // Hash the string and capture its length
+    s_len = fasthash_accum_cstring(&hs, s);
+
+    // Finalize with length mixing for better distribution
+    return fasthash_final32(&hs, s_len);
+}
+```

@@ -48,3 +48,38 @@ The function uses the RT_CLASS_16_LO size class for simplicity, skipping the lar
 - Maintains the destidx counter to track the number of copied entries
 - Includes assertion to verify the destination index is within the new node's fanout limit
 - Updates parent reference and frees the old node atomically
+
+## Simplified Source
+
+```c
+static void pg_noinline
+RT_SHRINK_NODE_48(RT_RADIX_TREE *tree, RT_PTR_ALLOC *parent_slot, RT_CHILD_PTR node, uint8 chunk)
+{
+    RT_NODE_48 *n48 = (RT_NODE_48 *) node.local;
+    RT_CHILD_PTR newnode;
+    RT_NODE_16 *new16;
+    int destidx = 0;
+
+    // Allocate new smaller node (using basic size class for simplicity)
+    newnode = RT_ALLOC_NODE(tree, RT_NODE_KIND_16, RT_CLASS_16_LO);
+    new16 = (RT_NODE_16 *) newnode.local;
+
+    // Copy common metadata and compress to dense arrays
+    RT_COPY_COMMON(newnode, node);
+    for (int chunk = 0; chunk < RT_NODE_MAX_SLOTS; chunk++)
+    {
+        if (n48->slot_idxs[chunk] != RT_INVALID_SLOT_IDX)
+        {
+            new16->chunks[destidx] = chunk;                              // Store chunk value
+            new16->children[destidx] = n48->children[n48->slot_idxs[chunk]];  // Copy child pointer
+            destidx++;
+        }
+    }
+
+    RT_VERIFY_NODE((RT_NODE *) new16);
+
+    // Replace old node with new one
+    *parent_slot = newnode.alloc;
+    RT_FREE_NODE(tree, node);
+}
+```

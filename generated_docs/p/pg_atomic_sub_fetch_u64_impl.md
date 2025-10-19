@@ -37,3 +37,20 @@ The implementation follows the pattern: new_value = fetch_sub(ptr, sub_) - sub_,
 - The implementation ensures that the subtraction and result calculation appear atomic to other threads
 - Part of PostgreSQL's portable atomic operations framework for cross-platform compatibility
 - Complementary to , providing the subtract equivalent functionality
+
+## Simplified Source
+
+```c
+static inline uint64
+pg_atomic_sub_fetch_u64_impl(volatile pg_atomic_uint64 *ptr, int64 sub_)
+{
+    // Atomic subtract-and-fetch: get new value after subtraction
+    return pg_atomic_fetch_sub_u64_impl(ptr, sub_) - sub_;
+}
+```
+
+**Key Points:**
+- Atomically subtracts `sub_` from the value at `ptr`
+- Returns the new value after subtraction (not the original value)
+- Built on top of fetch-sub operation for portability
+- Thread-safe atomic operation

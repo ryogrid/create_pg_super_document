@@ -35,3 +35,24 @@ The  function computes how much extra space is needed to format a numeric string
 - The calculation for thousands separators uses the formula: 
 - For decimal points, it subtracts 1 because it's replacing the existing '.' character with the locale-specific decimal point
 - Returns 0 if no additional length is needed
+
+## Simplified Source
+
+```c
+static int additional_numeric_locale_len(const char *my_str) {
+    int int_len = integer_digits(my_str);
+    int len = 0;
+
+    // Add space for thousands separators
+    if (int_len > groupdigits) {
+        len += ((int_len - 1) / groupdigits) * strlen(thousands_sep);
+    }
+
+    // Add space for locale decimal point (replacing '.')
+    if (strchr(my_str, '.') != NULL) {
+        len += strlen(decimal_point) - 1;
+    }
+
+    return len;
+}
+```

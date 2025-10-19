@@ -51,3 +51,64 @@ The function is marked as static inline for performance, as it's called frequent
 - Returns NULL when no more children are available at the current level
 - Part of PostgreSQL's generic radix tree implementation located in src/include/lib/radixtree.h:241
 - Performance-critical function that should remain inlined for efficiency
+
+## Simplified Source
+
+```c
+static inline RT_PTR_ALLOC *
+RT_NODE_ITERATE_NEXT(RT_ITER *iter, int level)
+{
+    uint8 key_chunk = 0;
+    RT_NODE_ITER *node_iter;
+    RT_CHILD_PTR node;
+    RT_PTR_ALLOC *slot = NULL;
+
+    node_iter = &(iter->node_iters[level]);
+    node = node_iter->node;
+
+    // Handle different node types
+    switch ((node.local)->kind) {
+        case RT_NODE_KIND_4:
+        case RT_NODE_KIND_16:
+            {
+                // Direct array iteration for smaller nodes
+                RT_NODE_4 *n4 = (RT_NODE_4 *) (node.local);
+
+                if (node_iter->idx >= n4->base.count)
+                    return NULL;
+
+                slot = &n4->children[node_iter->idx];
+                key_chunk = n4->chunks[node_iter->idx];
+                node_iter->idx++;
+                break;
+            }
+        case RT_NODE_KIND_48:
+        case RT_NODE_KIND_256:
+            {
+                // Sparse array iteration for larger nodes
+                RT_NODE_48 *n48 = (RT_NODE_48 *) (node.local);
+                int chunk;
+
+                // Find next used chunk starting from current index
+                for (chunk = node_iter->idx; chunk < RT_NODE_MAX_SLOTS; chunk++) {
+                    if (RT_NODE_48_IS_CHUNK_USED(n48, chunk))
+                        break;
+                }
+
+                if (chunk >= RT_NODE_MAX_SLOTS)
+                    return NULL;
+
+                slot = RT_NODE_48_GET_CHILD(n48, chunk);
+                key_chunk = chunk;
+                node_iter->idx = chunk + 1;
+                break;
+            }
+    }
+
+    // Update iterator's key with current chunk
+    iter->key &= ~(((uint64) RT_CHUNK_MASK) << (level * RT_SPAN));
+    iter->key |= (((uint64) key_chunk) << (level * RT_SPAN));
+
+    return slot;
+}
+```

@@ -31,3 +31,14 @@ The function is defined as a static inline function in the header file, making i
 - The const qualifier on the parameter indicates that the UUID data will not be modified during conversion
 - Being an inline function, it provides type safety without runtime overhead
 - Used primarily in function return paths where UUID values need to be wrapped as Datums
+
+## Simplified Source
+
+```c
+static inline Datum
+UUIDPGetDatum(const pg_uuid_t *X)
+{
+    // Convert UUID pointer to Datum for function interface
+    return PointerGetDatum(X);
+}
+```

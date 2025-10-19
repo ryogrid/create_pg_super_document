@@ -30,3 +30,12 @@ This function provides a type-safe conversion from a Datum (PostgreSQL's generic
 - Used primarily in conjunction with PG_GETARG_ITEMPOINTER macro to extract ItemPointer arguments from PostgreSQL function calls
 - The conversion assumes that the Datum actually contains a valid ItemPointer - no type checking is performed
 - Counterpart to ItemPointerGetDatum which performs the reverse conversion
+
+## Simplified Source
+
+```c
+static inline ItemPointer DatumGetItemPointer(Datum X) {
+    // Convert Datum to ItemPointer by extracting pointer value
+    return (ItemPointer) DatumGetPointer(X);
+}
+```

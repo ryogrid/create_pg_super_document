@@ -36,3 +36,14 @@ The implementation first checks that val1 is not NaN (since NaN cannot be less t
 - Used in SQL comparison operations and aggregate functions like MIN/MAX
 - Part of the consistent family of float4 comparison functions
 - The function is located at src/include/utils/float.h:286-291
+
+## Simplified Source
+
+```c
+static inline bool
+float4_lt(const float4 val1, const float4 val2)
+{
+    // NaN-aware less-than: non-NaN < NaN is true, NaN < anything is false
+    return !isnan(val1) && (isnan(val2) || val1 < val2);
+}
+```

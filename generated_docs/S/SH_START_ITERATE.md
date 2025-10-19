@@ -38,3 +38,30 @@ The implementation searches for the first empty element in the hash table to use
 - Uses backward iteration strategy to handle hash table shifts during deletion
 - Must be used with the corresponding SH_ITERATE macro to actually traverse the elements
 - The iterator initialization finds an empty slot to ensure iteration boundaries are stable
+
+## Simplified Source
+
+```c
+// Macro definition
+#define SH_START_ITERATE SH_MAKE_NAME(start_iterate)
+
+// Implementation
+void SH_START_ITERATE(SH_TYPE *tb, SH_ITERATOR *iter) {
+    uint64 startelem = PG_UINT64_MAX;
+
+    // Find first empty element to use as start/end point
+    for (uint32 i = 0; i < tb->size; i++) {
+        SH_ELEMENT_TYPE *entry = &tb->data[i];
+
+        if (entry->status != SH_STATUS_IN_USE) {
+            startelem = i;
+            break;
+        }
+    }
+
+    // Initialize iterator for backward iteration (safe for deletions)
+    iter->cur = startelem;
+    iter->end = iter->cur;
+    iter->done = false;
+}
+```

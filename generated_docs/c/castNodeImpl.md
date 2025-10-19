@@ -35,3 +35,14 @@ The function uses an assertion to verify type correctness at runtime (in debug b
 - Part of PostgreSQL's type safety infrastructure for the node system
 - Helps prevent runtime errors that could occur from incorrect node type assumptions
 - Returns the input pointer cast to Node* type, allowing it to be further cast to the specific node type by the calling macro
+
+## Simplified Source
+
+```c
+static inline Node *
+castNodeImpl(NodeTag type, void *ptr) {
+    // Allow NULL pointers and verify type matches for non-NULL pointers
+    Assert(ptr == NULL || nodeTag(ptr) == type);
+    return (Node *) ptr;
+}
+```

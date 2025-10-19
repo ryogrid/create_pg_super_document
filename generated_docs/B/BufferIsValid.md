@@ -35,3 +35,16 @@ The actual validity check simply compares the buffer number against InvalidBuffe
 - [Range](../R/Range.md) checks were moved to assertions to reduce overhead in production builds
 - The function supports both positive buffer numbers (shared buffers) and negative buffer numbers (local buffers)
 - InvalidBuffer is used as the sentinel value to indicate an invalid buffer
+
+## Simplified Source
+
+```c
+static inline bool BufferIsValid(Buffer bufnum) {
+    // Validate buffer number is within range (assertions)
+    Assert(bufnum <= NBuffers);
+    Assert(bufnum >= -NLocBuffer);
+
+    // Check if buffer is not the invalid buffer sentinel
+    return bufnum != InvalidBuffer;
+}
+```

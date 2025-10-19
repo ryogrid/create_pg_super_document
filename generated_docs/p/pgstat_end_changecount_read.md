@@ -39,3 +39,29 @@ The function returns true only if the read was consistent (no concurrent writes)
 - This implements a classic optimistic concurrency control mechanism
 - Readers must retry their entire read operation when this function returns false
 - The protocol ensures readers never see partially written or inconsistent data
+
+## Simplified Source
+
+```c
+static inline bool pgstat_end_changecount_read(uint32 *cc, uint32 before_cc) {
+    // Memory barrier ensures all data reads complete before counter check
+    pg_read_barrier();
+
+    // Capture change counter value after reading data
+    uint32 after_cc = *cc;
+
+    // Check if write was in progress when read started (odd counter)
+    if (before_cc & 1)
+        return false;
+
+    // Check if counter changed during read (writes occurred)
+    return before_cc == after_cc;
+}
+```
+
+**Key Points:**
+- Validates consistency of statistics read operation
+- Returns false if write was in progress when read started
+- Returns false if any writes occurred during the read
+- Must be paired with pgstat_begin_changecount_read
+- Implements optimistic concurrency control for lock-free reading

@@ -30,3 +30,31 @@ This function performs string validation for GB18030 encoding by iterating throu
 - Handles the complete GB18030 character set including 1-byte ASCII, 2-byte characters, and 4-byte Unicode-compatible sequences
 - Part of PostgreSQL's character encoding validation infrastructure for supporting Chinese text in database applications
 - Critical for ensuring data integrity when storing Chinese text in PostgreSQL databases
+
+## Simplified Source
+```c
+static int pg_gb18030_verifystr(const unsigned char *s, int len) {
+    const unsigned char *start = s;
+
+    while (len > 0) {
+        int char_len;
+
+        // Fast path: ASCII characters (high bit not set)
+        if (!IS_HIGHBIT_SET(*s)) {
+            if (*s == '\0')
+                break;  // Stop at null terminator
+            char_len = 1;
+        } else {
+            // Verify multi-byte GB18030 character (2 or 4 bytes)
+            char_len = pg_gb18030_verifychar(s, len);
+            if (char_len == -1)
+                break;  // Invalid character found
+        }
+
+        s += char_len;
+        len -= char_len;
+    }
+
+    return s - start;  // Return bytes processed
+}
+```

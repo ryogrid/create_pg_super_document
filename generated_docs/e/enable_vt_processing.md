@@ -36,3 +36,29 @@ This function takes no parameters and returns a boolean value indicating success
 - Returns true if VT100 processing is successfully enabled or was already enabled
 - Returns false if the operation fails at any step (invalid handle, unable to get/set console mode)
 - Essential for enabling colored log output on modern Windows terminals that support ANSI escape sequences
+
+## Simplified Source
+
+```c
+static bool enable_vt_processing(void) {
+    // Get stderr handle for console operations
+    HANDLE hOut = GetStdHandle(STD_ERROR_HANDLE);
+    DWORD dwMode = 0;
+
+    // Basic validation - ensure stderr handle is valid
+    if (hOut == INVALID_HANDLE_VALUE)
+        return false;
+
+    // Get current console mode settings
+    if (!GetConsoleMode(hOut, &dwMode))
+        return false;
+
+    // Check if VT100 processing already enabled
+    if ((dwMode & ENABLE_VIRTUAL_TERMINAL_PROCESSING) != 0)
+        return true;
+
+    // Enable VT100 processing for color support
+    dwMode |= ENABLE_VIRTUAL_TERMINAL_PROCESSING;
+    return SetConsoleMode(hOut, dwMode);
+}
+```

@@ -34,3 +34,16 @@ This simplified approach works well for most practical cases, as both 2-byte and
 - The function is part of PostgreSQLs encoding-specific function dispatch system for uniform character encoding handling
 - Proper display width calculation is crucial for features like column alignment in query results and text formatting in psql output
 - Unlike pg_gb18030_mblen which distinguishes between 2-byte and 4-byte sequences, this display length function treats them uniformly for simplicity
+
+## Simplified Source
+
+```c
+static int pg_gb18030_dsplen(const unsigned char *s) {
+    // Multi-byte Chinese characters: 2 columns (both 2-byte and 4-byte)
+    if (IS_HIGHBIT_SET(*s))
+        return 2;
+
+    // ASCII characters: delegate to ASCII handler
+    return pg_ascii_dsplen(s);
+}
+```

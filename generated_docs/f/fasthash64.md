@@ -37,3 +37,30 @@ The function modifies the internal seed based on the input length using the magi
 - Processes data in chunks for efficiency, with special handling for remaining bytes
 - Part of PostgreSQL's unstable hash function family, indicating the hash values may change between PostgreSQL versions
 - Returns full 64-bit hash value, unlike fasthash32 which truncates the result
+
+## Simplified Source
+
+```c
+static inline uint64
+fasthash64(const char *k, size_t len, uint64 seed)
+{
+    fasthash_state hs;
+
+    // Initialize hash state
+    fasthash_init(&hs, 0);
+
+    // Mix length into seed for better distribution
+    hs.hash = seed ^ (len * 0x880355f21e6d1965);
+
+    // Process data in optimal chunks
+    while (len >= FH_SIZEOF_ACCUM) {
+        fasthash_accum(&hs, k, FH_SIZEOF_ACCUM);
+        k += FH_SIZEOF_ACCUM;
+        len -= FH_SIZEOF_ACCUM;
+    }
+
+    // Process remaining bytes and finalize
+    fasthash_accum(&hs, k, len);
+    return fasthash_final64(&hs, 0);
+}
+```

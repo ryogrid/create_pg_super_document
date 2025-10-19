@@ -30,3 +30,34 @@ This function performs character validation for GB18030 encoding, the official C
 - 4-byte sequences: first byte 0x81-0xFE, second byte 0x30-0x39, third byte 0x81-0xFE, fourth byte 0x30-0x39
 - The 4-byte format is used for characters outside the basic multilingual plane and provides full Unicode compatibility
 - GB18030 is mandatory for software products sold in China and is backward compatible with GB2312 and GBK encodings
+
+## Simplified Source
+```c
+static int pg_gb18030_verifychar(const unsigned char *s, int len) {
+    // Handle ASCII characters (1 byte)
+    if (!IS_HIGHBIT_SET(*s))
+        return 1;
+
+    // Check for 4-byte sequence: first byte + digit indicates 4-byte char
+    if (len >= 4 && s[1] >= 0x30 && s[1] <= 0x39) {
+        // Validate 4-byte pattern: 0x81-0xFE, 0x30-0x39, 0x81-0xFE, 0x30-0x39
+        if (s[0] >= 0x81 && s[0] <= 0xfe &&
+            s[2] >= 0x81 && s[2] <= 0xfe &&
+            s[3] >= 0x30 && s[3] <= 0x39)
+            return 4;
+        else
+            return -1;
+    }
+    // Check for 2-byte sequence
+    else if (len >= 2 && s[0] >= 0x81 && s[0] <= 0xfe) {
+        // Validate 2-byte pattern: second byte 0x40-0x7E or 0x80-0xFE
+        if ((s[1] >= 0x40 && s[1] <= 0x7e) ||
+            (s[1] >= 0x80 && s[1] <= 0xfe))
+            return 2;
+        else
+            return -1;
+    }
+
+    return -1;  // Invalid sequence
+}
+```

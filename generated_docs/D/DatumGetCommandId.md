@@ -28,3 +28,12 @@ DatumGetCommandId is a static inline function that performs a simple type cast f
 - The function performs a simple cast with no validation, assuming the input Datum actually contains a CommandId value
 - CommandId is typically used for tracking command execution within transactions
 - Part of PostgreSQL's broader Datum conversion API that provides type-safe extraction methods
+
+## Simplified Source
+
+```c
+static inline CommandId DatumGetCommandId(Datum X) {
+    // Simple cast: extract CommandId from Datum
+    return (CommandId) X;
+}
+```

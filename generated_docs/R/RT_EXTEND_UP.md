@@ -42,3 +42,41 @@ The function is marked as `pg_noinline` since tree extension is a relatively rar
 - Maintains tree integrity by properly linking the existing tree as the first child of new root levels
 - Relatively infrequent operation that enables the radix tree to handle arbitrary 64-bit key ranges
 - Part of the adaptive radix tree's ability to handle sparse key distributions efficiently
+
+## Simplified Source
+
+```c
+static pg_noinline void
+RT_EXTEND_UP(RT_RADIX_TREE *tree, uint64 key)
+{
+    // Calculate how many tree levels we need for this key
+    int target_shift = RT_KEY_GET_SHIFT(key);
+    int shift = tree->ctl->start_shift;
+
+    // Add new root levels until tree can accommodate the key
+    while (shift < target_shift)
+    {
+        RT_CHILD_PTR node;
+        RT_NODE_4 *n4;
+
+        // Create new node-4 as root (most memory efficient)
+        node = RT_ALLOC_NODE(tree, RT_NODE_KIND_4, RT_CLASS_4);
+        n4 = (RT_NODE_4 *) node.local;
+
+        // Make old root the first child of new root
+        n4->base.count = 1;
+        n4->chunks[0] = 0;
+        n4->children[0] = tree->ctl->root;
+
+        // Update root to point to new node
+        tree->ctl->root = node.alloc;
+
+        // Each level adds 8 bits of capacity
+        shift += RT_SPAN;
+    }
+
+    // Update tree metadata
+    tree->ctl->max_val = RT_SHIFT_GET_MAX_VAL(target_shift);
+    tree->ctl->start_shift = target_shift;
+}
+```

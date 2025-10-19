@@ -29,3 +29,14 @@ BoolGetDatum is the complement to DatumGetBool, providing conversion from C bool
 - Uses the standard PostgreSQL convention of representing true as 1 and false as 0
 - Part of the fundamental datum conversion system that enables type-safe value handling
 - The implementation ensures consistent boolean representation across the PostgreSQL system
+
+## Simplified Source
+
+```c
+static inline Datum
+BoolGetDatum(bool X)
+{
+    // Convert boolean to Datum: true becomes 1, false becomes 0
+    return (Datum) (X ? 1 : 0);
+}
+```

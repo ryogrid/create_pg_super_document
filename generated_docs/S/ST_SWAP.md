@@ -40,3 +40,18 @@ The function implementation performs a classic three-step swap using a temporary
 - Used extensively throughout PostgreSQL's sorting algorithms for element rearrangement
 - The function is declared as static inline for optimal performance
 - Part of the template-based approach that generates optimized swap functions for different data types and pointer types
+
+## Simplified Source
+
+```c
+// Macro definition
+#define ST_SWAP ST_MAKE_NAME(ST_SORT, swap)
+
+// Implementation
+static inline void
+ST_SWAP(ST_POINTER_TYPE *a, ST_POINTER_TYPE *b) {
+    ST_POINTER_TYPE tmp = *a;
+    *a = *b;
+    *b = tmp;
+}
+```

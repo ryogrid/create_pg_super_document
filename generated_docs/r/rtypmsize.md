@@ -33,3 +33,16 @@ This stub implementation suggests that either:
 - Part of the ECPG Informix compatibility library
 - Parameters are explicitly unused to avoid compiler warnings
 - May be intended for future implementation or provided for API compatibility
+
+## Simplified Source
+
+```c
+int rtypmsize(int type, int len) {
+    // Stub implementation: ignore parameters to suppress compiler warnings
+    (void) type;
+    (void) len;
+
+    // Always return 0 (no size calculation implemented)
+    return 0;
+}
+```

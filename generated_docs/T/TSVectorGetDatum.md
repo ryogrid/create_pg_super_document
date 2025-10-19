@@ -36,3 +36,12 @@ The function uses PointerGetDatum to perform the conversion, treating the TSVect
 - Essential for returning TSVector values from PostgreSQL functions
 - Part of the fmgr (function manager) interface functions for text search operations
 - Used in conjunction with PG_RETURN_TSVECTOR macro for function return values
+
+## Simplified Source
+
+```c
+static inline Datum TSVectorGetDatum(const TSVectorData *X) {
+    // Convert TSVector pointer to Datum for function interface
+    return PointerGetDatum(X);
+}
+```

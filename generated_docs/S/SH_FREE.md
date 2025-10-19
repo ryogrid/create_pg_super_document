@@ -37,3 +37,16 @@ The function is critical for preventing memory leaks during hash table destructi
 - Users can define SH_USE_NONDEFAULT_ALLOCATOR to provide custom deallocation logic
 - Critical for proper memory management during hash table lifecycle operations
 - The type parameter allows custom allocators to maintain allocation context or statistics
+
+## Simplified Source
+
+```c
+static inline void
+SH_FREE(SH_TYPE *type, void *pointer)
+{
+    // Simple wrapper around PostgreSQL's standard memory deallocation
+    pfree(pointer);
+}
+```
+
+**What it does:** This function provides a simple interface for deallocating memory in the simplehash system. It takes a hash table type pointer (for potential custom allocator context) and the memory pointer to free, then calls PostgreSQL's standard `pfree()` function to actually deallocate the memory.

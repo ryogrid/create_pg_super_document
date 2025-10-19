@@ -29,3 +29,14 @@ This function serves as a type-safe wrapper for converting PostgreSQL Datum valu
 - Part of PostgreSQL's geometric data type conversion utilities
 - Handles TOAST decompression transparently, which is crucial for large geometric objects
 - Used primarily in geometric functions that need to extract PATH arguments from function calls
+
+## Simplified Source
+
+```c
+static inline PATH *
+DatumGetPathP(Datum X)
+{
+    // Convert Datum to PATH pointer, handling TOAST decompression
+    return (PATH *) PG_DETOAST_DATUM(X);
+}
+```

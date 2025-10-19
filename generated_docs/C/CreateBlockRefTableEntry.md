@@ -42,3 +42,23 @@ The function initializes the entry with the provided relation file locator and f
 - Designed for scenarios where memory efficiency is important and the full table doesn't need to be in memory
 - Part of the incremental writing workflow: Create → Set/Mark → Write → Free
 - The RelFileLocator is copied by value to ensure the entry owns its key data
+
+## Simplified Source
+
+```c
+BlockRefTableEntry *
+CreateBlockRefTableEntry(RelFileLocator rlocator, ForkNumber forknum)
+{
+    // Allocate and zero-initialize the entry structure
+    BlockRefTableEntry *entry = palloc0(sizeof(BlockRefTableEntry));
+
+    // Set the key fields for this relation fork
+    memcpy(&entry->key.rlocator, &rlocator, sizeof(RelFileLocator));
+    entry->key.forknum = forknum;
+
+    // Initialize limit block to invalid (no limit set)
+    entry->limit_block = InvalidBlockNumber;
+
+    return entry;
+}
+```

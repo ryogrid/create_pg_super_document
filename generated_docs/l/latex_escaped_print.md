@@ -34,3 +34,32 @@ This function processes input text character by character and converts special L
 - Newline characters are converted to LaTeX line breaks (\\\\), though the comment notes this approach is imperfect
 - Non-ASCII characters pass through unchanged - users must handle Unicode separately
 - Based on widely-used LaTeX symbol reference documentation for compatibility
+
+## Simplified Source
+```c
+static void latex_escaped_print(const char *in, FILE *fout)
+{
+    const char *p;
+
+    // Escape special LaTeX characters per Scott Pakin's recommendations
+    for (p = in; *p; p++) {
+        switch (*p) {
+            case '#': fputs("\\#", fout); break;
+            case '$': fputs("\\$", fout); break;
+            case '%': fputs("\\%", fout); break;
+            case '&': fputs("\\&", fout); break;
+            case '<': fputs("\\textless{}", fout); break;
+            case '>': fputs("\\textgreater{}", fout); break;
+            case '\\': fputs("\\textbackslash{}", fout); break;
+            case '^': fputs("\\^{}", fout); break;
+            case '_': fputs("\\_", fout); break;
+            case '{': fputs("\\{", fout); break;
+            case '|': fputs("\\textbar{}", fout); break;
+            case '}': fputs("\\}", fout); break;
+            case '~': fputs("\\~{}", fout); break;
+            case '\n': fputs("\\\\", fout); break;  // Line break
+            default: fputc(*p, fout); break;        // Regular character
+        }
+    }
+}
+```

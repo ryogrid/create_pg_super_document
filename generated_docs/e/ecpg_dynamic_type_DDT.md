@@ -35,3 +35,25 @@ The function performs a straightforward mapping using a switch statement, handli
 - Handles only date/time types; other PostgreSQL types return SQL3_DDT_ILLEGAL
 - Part of ECPG's SQL3 compliance layer for dynamic descriptor management
 - Used specifically in descriptor header retrieval operations
+
+## Simplified Source
+
+```c
+static unsigned int ecpg_dynamic_type_DDT(Oid type) {
+    // Map PostgreSQL date/time OIDs to SQL3 descriptor types
+    switch (type) {
+        case DATEOID:
+            return SQL3_DDT_DATE;
+        case TIMEOID:
+            return SQL3_DDT_TIME;
+        case TIMESTAMPOID:
+            return SQL3_DDT_TIMESTAMP;
+        case TIMESTAMPTZOID:
+            return SQL3_DDT_TIMESTAMP_WITH_TIME_ZONE;
+        case TIMETZOID:
+            return SQL3_DDT_TIME_WITH_TIME_ZONE;
+        default:
+            return SQL3_DDT_ILLEGAL;  // Unrecognized type
+    }
+}
+```

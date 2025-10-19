@@ -42,3 +42,24 @@ This is particularly valuable in PostgreSQL's JIT compilation for critical perfo
 - Can potentially increase code size significantly if used on large functions or in many locations
 - Used very selectively in PostgreSQL's JIT infrastructure where the performance benefit clearly outweighs the code size cost
 - The forced inlining can help with subsequent optimization passes by exposing more optimization opportunities across the inlined boundary
+
+## Simplified Source
+
+```c
+static inline void
+l_callsite_alwaysinline(LLVMValueRef f) {
+    // Define the "alwaysinline" attribute name
+    const char argname[] = "alwaysinline";
+    int id;
+    LLVMAttributeRef attr;
+
+    // Get numeric ID for the standard alwaysinline attribute
+    id = LLVMGetEnumAttributeKindForName(argname, sizeof(argname) - 1);
+
+    // Create enumerated attribute (more efficient than string attribute)
+    attr = LLVMCreateEnumAttribute(LLVMGetTypeContext(LLVMTypeOf(f)), id, 0);
+
+    // Force inlining by attaching attribute to function call site
+    LLVMAddCallSiteAttribute(f, LLVMAttributeFunctionIndex, attr);
+}
+```

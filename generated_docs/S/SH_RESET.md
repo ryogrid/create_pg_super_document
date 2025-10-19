@@ -43,3 +43,19 @@ When the macro expands to the actual function:
 - Unlike SH_DESTROY, this preserves the allocated memory and table structure
 - The reset function is automatically generated when simplehash.h is included with appropriate prefix definitions
 - Located in src/include/lib/simplehash.h:115
+
+## Simplified Source
+
+```c
+SH_SCOPE void
+SH_RESET(SH_TYPE *tb)
+{
+    // Clear all hash table data to zero
+    memset(tb->data, 0, sizeof(SH_ELEMENT_TYPE) * tb->size);
+
+    // Reset member count to zero
+    tb->members = 0;
+}
+```
+
+**What it does:** This function clears all entries from a hash table without deallocating memory. It zeros out the entire data array using memset and resets the member count to zero, effectively giving you an empty hash table that retains its allocated size and can be immediately reused.

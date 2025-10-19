@@ -32,3 +32,17 @@ The function includes safety assertions to ensure the input parameter e is withi
 - This function is part of the Ryu algorithm implementation for floating-point to string conversion
 - The magic constant 1217359 and right shift by 19 bits represent an optimized way to compute ceil(e * log_2(5))
 - Located in src/common/ryu_common.h:54-69
+
+## Simplified Source
+
+```c
+static inline uint32 pow5bits(const int32 e) {
+    // Validate input range to prevent overflow
+    Assert(e >= 0);
+    Assert(e <= 3528);
+
+    // Fast approximation of ceil(log_2(5^e))
+    // Magic constant 1217359 and >>19 avoid expensive log operations
+    return ((((uint32) e) * 1217359) >> 19) + 1;
+}
+```

@@ -33,3 +33,12 @@ The function is part of PostgreSQL's character encoding conversion infrastructur
 - Part of PostgreSQL's comprehensive character encoding support system for Asian languages
 - Returns the result from the underlying pg_euc2wchar_with_len function, typically indicating the number of bytes consumed or an error code
 - Enables PostgreSQL to properly handle Korean text data in databases and applications
+
+## Simplified Source
+
+```c
+static int pg_euckr2wchar_with_len(const unsigned char *from, pg_wchar *to, int len) {
+    // EUC-KR uses the same conversion as generic EUC
+    return pg_euc2wchar_with_len(from, to, len);
+}
+```

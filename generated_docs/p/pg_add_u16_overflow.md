@@ -38,3 +38,28 @@ The manual detection method leverages the property of unsigned arithmetic where 
 - Unsigned overflow detection is generally simpler than signed overflow detection
 - This is the smallest integer size with dedicated overflow checking functions in PostgreSQL
 - Demonstrates PostgreSQL's comprehensive approach to safe arithmetic across all integer types
+
+## Simplified Source
+
+```c
+static inline bool
+pg_add_u16_overflow(uint16 a, uint16 b, uint16 *result)
+{
+#if defined(HAVE__BUILTIN_OP_OVERFLOW)
+    // Use compiler built-in for optimal performance
+    return __builtin_add_overflow(a, b, result);
+#else
+    // Manual overflow detection for unsigned integers
+    uint16 res = a + b;
+
+    // Check for wraparound overflow (result smaller than operands)
+    if (res < a) {
+        *result = 0x5EED;  // Dummy value to avoid warnings
+        return true;  // Overflow occurred
+    }
+
+    *result = res;
+    return false;  // No overflow
+#endif
+}
+```

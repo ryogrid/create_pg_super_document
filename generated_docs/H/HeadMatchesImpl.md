@@ -40,3 +40,37 @@ The function accounts for the reverse storage order in the previous_words array,
 - This is a static function, only accessible within the tab-complete.c file  
 - Essential for context-aware completion when the command structure needs to be identified from the start
 - Proper variadic argument handling with va_start/va_end cleanup
+
+## Simplified Source
+
+```c
+static bool HeadMatchesImpl(bool case_sensitive,
+                           int previous_words_count, char **previous_words,
+                           int narg, ...)
+{
+    va_list args;
+
+    // Check if we have enough words to match from the beginning
+    if (previous_words_count < narg)
+        return false;
+
+    va_start(args, narg);
+
+    // Compare each pattern argument with corresponding head word
+    for (int argno = 0; argno < narg; argno++)
+    {
+        const char *pattern = va_arg(args, const char *);
+
+        // Check if pattern matches the corresponding word from the beginning
+        // previous_words stores in reverse, so first word is at [count-1]
+        if (!word_matches(pattern, previous_words[previous_words_count - argno - 1], case_sensitive))
+        {
+            va_end(args);
+            return false;
+        }
+    }
+
+    va_end(args);
+    return true;
+}
+```

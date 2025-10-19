@@ -42,3 +42,14 @@ The implementation mirrors float4_gt with the same logical structure: first veri
 - Implements consistent NaN ordering semantics across the PostgreSQL system
 - Used in both pure double-precision comparisons and mixed-precision scenarios
 - Essential for proper functioning of spatial indexes, sorting operations, and MAX aggregates
+
+## Simplified Source
+
+```c
+static inline bool
+float8_gt(const float8 val1, const float8 val2)
+{
+    // NaN-aware greater-than: NaN > non-NaN is true, anything > NaN is false
+    return !isnan(val2) && (isnan(val1) || val1 > val2);
+}
+```

@@ -42,3 +42,17 @@ The function implementation iterates through n elements and swaps each pair usin
 - The function is declared as static inline for optimal performance
 - More efficient than multiple individual swaps when dealing with multi-element records
 - Part of the template-based approach that generates optimized functions for different data types
+
+## Simplified Source
+
+```c
+// Macro definition
+#define ST_SWAPN ST_MAKE_NAME(ST_SORT, swapn)
+
+// Implementation
+static inline void
+ST_SWAPN(ST_POINTER_TYPE *a, ST_POINTER_TYPE *b, size_t n) {
+    for (size_t i = 0; i < n; ++i)
+        ST_SWAP(&a[i], &b[i]);
+}
+```

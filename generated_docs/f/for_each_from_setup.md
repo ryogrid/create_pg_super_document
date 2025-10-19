@@ -35,3 +35,16 @@ The function performs a basic validation check to ensure the starting index is n
 - Part of PostgreSQL's list iteration infrastructure
 - Returns a ForEachState struct by value, containing the list pointer and starting index
 - The Assert ensures N is non-negative, preventing invalid negative indexing
+
+## Simplified Source
+
+```c
+static inline ForEachState for_each_from_setup(const List *lst, int N) {
+    // Create iteration state with list and starting index
+    ForEachState r = {lst, N};
+
+    // Ensure starting index is non-negative
+    Assert(N >= 0);
+    return r;
+}
+```

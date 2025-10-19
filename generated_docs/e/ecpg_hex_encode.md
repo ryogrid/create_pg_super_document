@@ -33,3 +33,22 @@ The encoding process iterates through the source data, extracting the upper nibb
 - Uses lowercase hexadecimal characters (a-f) rather than uppercase
 - This is a utility function specifically designed for ECPG's needs in handling binary data conversion for SQL operations
 - The function does not null-terminate the output string - the caller is responsible for this if needed
+
+## Simplified Source
+
+```c
+unsigned ecpg_hex_encode(const char *src, unsigned len, char *dst) {
+    // Hexadecimal lookup table for efficient conversion
+    static const char hextbl[] = "0123456789abcdef";
+    const char *end = src + len;
+
+    // Convert each byte to two hex characters
+    while (src < end) {
+        *dst++ = hextbl[(*src >> 4) & 0xF];  // High nibble
+        *dst++ = hextbl[*src & 0xF];         // Low nibble
+        src++;
+    }
+
+    return len * 2;  // Return length of hex string
+}
+```

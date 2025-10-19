@@ -40,3 +40,48 @@ The bit pattern analysis allows the function to reconstruct the exact original E
 - Reconstructs variable-length multibyte sequences (1-4 bytes per character)
 - The bit extraction pattern corresponds to how the original EUC-to-wchar functions encoded the sequences
 - Essential component of PostgreSQL's bidirectional character encoding conversion system
+
+## Simplified Source
+
+```c
+static int pg_wchar2euc_with_len(const pg_wchar *from, unsigned char *to, int len) {
+    int cnt = 0;
+
+    // Convert each wide character back to EUC multibyte format
+    while (len > 0 && *from) {
+        unsigned char c;
+
+        // Check for 4-byte sequence (bits 31-24 set)
+        if ((c = (*from >> 24))) {
+            *to++ = c;
+            *to++ = (*from >> 16) & 0xff;
+            *to++ = (*from >> 8) & 0xff;
+            *to++ = *from & 0xff;
+            cnt += 4;
+        }
+        // Check for 3-byte sequence (bits 23-16 set)
+        else if ((c = (*from >> 16))) {
+            *to++ = c;
+            *to++ = (*from >> 8) & 0xff;
+            *to++ = *from & 0xff;
+            cnt += 3;
+        }
+        // Check for 2-byte sequence (bits 15-8 set)
+        else if ((c = (*from >> 8))) {
+            *to++ = c;
+            *to++ = *from & 0xff;
+            cnt += 2;
+        }
+        // Single-byte ASCII character
+        else {
+            *to++ = *from;
+            cnt++;
+        }
+        from++;
+        len--;
+    }
+
+    *to = 0;  // Null terminate
+    return cnt;  // Return number of bytes written
+}
+```

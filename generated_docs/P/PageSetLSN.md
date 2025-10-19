@@ -38,3 +38,12 @@ This function is typically called after making modifications to a page and befor
 - The function provides atomic updates to the LSN field in the page header
 - Essential component of PostgreSQL's durability and consistency guarantees
 - Typically used in conjunction with WAL record generation and buffer management operations
+
+## Simplified Source
+
+```c
+static inline void PageSetLSN(Page page, XLogRecPtr lsn) {
+    // Set the WAL Log Sequence Number in the page header
+    PageXLogRecPtrSet(((PageHeader) page)->pd_lsn, lsn);
+}
+```

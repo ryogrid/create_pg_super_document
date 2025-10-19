@@ -32,3 +32,17 @@ The `ecpg_result_by_descriptor` function provides a convenient way to access the
 - The function is marked as a legacy convenience function that may be removed in future versions
 - Provides a simplified interface for accessing result sets without requiring direct descriptor manipulation
 - The line parameter follows the ECPG convention of tracking source code locations for debugging and error reporting
+
+## Simplified Source
+
+```c
+static PGresult *ecpg_result_by_descriptor(int line, const char *name) {
+    // Find the descriptor by name
+    struct descriptor *desc = ecpg_find_desc(line, name);
+
+    // Return result or NULL if not found
+    if (desc == NULL)
+        return NULL;
+    return desc->result;
+}
+```

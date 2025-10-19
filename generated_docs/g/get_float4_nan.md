@@ -33,3 +33,16 @@ This inline function provides a portable way to obtain a float4 (single-precisio
 - The fallback method (0.0/0.0) relies on IEEE 754 floating-point arithmetic standards
 - Part of PostgreSQL's internal floating-point utility functions
 - Primarily used in numeric conversion routines and input parsing functions
+
+## Simplified Source
+
+```c
+static inline float4 get_float4_nan(void) {
+    // Return NaN using C99 standard if available, otherwise use division by zero
+#ifdef NAN
+    return (float4) NAN;  // C99 standard way
+#else
+    return (float4) (0.0 / 0.0);  // IEEE 754 fallback
+#endif
+}
+```

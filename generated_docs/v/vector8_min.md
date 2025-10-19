@@ -43,3 +43,19 @@ The function operates on 16 bytes simultaneously, comparing each corresponding b
 - The function assumes both input vectors contain unsigned 8-bit values (0-255 range)
 - Return value is a Vector8 containing the element-wise minimum values
 - Part of PostgreSQL's SIMD abstraction layer located in src/include/port/simd.h:412-422
+
+## Simplified Source
+
+```c
+static inline Vector8
+vector8_min(const Vector8 v1, const Vector8 v2)
+{
+    // Element-wise minimum: returns smaller value at each byte position
+    #ifdef USE_SSE2
+        return _mm_min_epu8(v1, v2);
+    #elif defined(USE_NEON)
+        return vminq_u8(v1, v2);
+    #endif
+    // Note: No fallback implementation - requires SIMD support
+}
+```

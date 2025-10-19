@@ -31,3 +31,15 @@ This utility function creates LLVM constant boolean values specifically designed
 - Uses TypeParamBool which must match the target platform's parameter passing convention for booleans
 - The third parameter  in LLVMConstInt indicates the value is not sign-extended
 - Part of the comprehensive boolean handling system in PostgreSQL's JIT infrastructure
+
+## Simplified Source
+
+```c
+static inline LLVMValueRef
+l_pbool_const(bool i) {
+    // Convert C boolean to integer and create LLVM constant
+    // Uses TypeParamBool for function parameter context
+    // The 'false' parameter means no sign extension
+    return LLVMConstInt(TypeParamBool, (int) i, false);
+}
+```

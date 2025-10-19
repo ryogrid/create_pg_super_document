@@ -31,3 +31,14 @@ This function serves as a type-safe wrapper for converting PostgreSQL Datum valu
 - Uses DatumGetPointer instead of PG_DETOAST_DATUM since LINE objects are not TOASTed
 - LINE represents an infinite line in 2D space, different from PATH which represents a series of connected points
 - Simpler than PATH conversion functions due to fixed size of LINE structures
+
+## Simplified Source
+
+```c
+static inline LINE *
+DatumGetLineP(Datum X)
+{
+    // Convert Datum to LINE pointer
+    return (LINE *) DatumGetPointer(X);
+}
+```

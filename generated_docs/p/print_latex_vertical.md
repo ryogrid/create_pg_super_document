@@ -38,3 +38,83 @@ This function formats tabular data in a vertical LaTeX layout using a two-column
 - Titles are centered above the table using \begin{center}...\end{center}
 - Footers are printed with line breaks and no indentation after table completion
 - Handles cancellation via cancel_pressed global variable for responsive interruption
+
+## Simplified Source
+```c
+static void print_latex_vertical(const printTableContent *cont, FILE *fout)
+{
+    bool opt_tuples_only = cont->opt->tuples_only;
+    unsigned short opt_border = cont->opt->border;
+    unsigned long record = cont->opt->prior_records + 1;
+    unsigned int i;
+    const char *const *ptr;
+
+    if (cancel_pressed)
+        return;
+
+    if (opt_border > 2)
+        opt_border = 2;  // Clamp border level (max 2 for vertical)
+
+    if (cont->opt->start_table) {
+        // Print centered title
+        if (!opt_tuples_only && cont->title) {
+            fputs("\\begin{center}\n", fout);
+            latex_escaped_print(cont->title, fout);
+            fputs("\n\\end{center}\n\n", fout);
+        }
+
+        // Create two-column table with appropriate borders
+        fputs("\\begin{tabular}{", fout);
+        if (opt_border == 0)
+            fputs("cl", fout);           // No borders
+        else if (opt_border == 1)
+            fputs("c|l", fout);          // Center divider only
+        else
+            fputs("|c|l|", fout);        // Full borders
+        fputs("}\n", fout);
+    }
+
+    // Print records as field-value pairs
+    for (i = 0, ptr = cont->cells; *ptr; i++, ptr++) {
+        // Start new record
+        if (i % cont->ncolumns == 0) {
+            if (cancel_pressed) break;
+
+            if (!opt_tuples_only) {
+                // Record header spanning both columns
+                if (opt_border == 2) {
+                    fputs("\\hline\n", fout);
+                    fprintf(fout, "\\multicolumn{2}{|c|}{\\textit{Record %lu}} \\\\\n", record++);
+                } else {
+                    fprintf(fout, "\\multicolumn{2}{c}{\\textit{Record %lu}} \\\\\n", record++);
+                }
+            }
+
+            if (opt_border >= 1)
+                fputs("\\hline\n", fout);
+        }
+
+        // Print field name and value
+        latex_escaped_print(cont->headers[i % cont->ncolumns], fout);
+        fputs(" & ", fout);
+        latex_escaped_print(*ptr, fout);
+        fputs(" \\\\\n", fout);
+    }
+
+    if (cont->opt->stop_table) {
+        if (opt_border == 2)
+            fputs("\\hline\n", fout);     // Bottom border
+
+        fputs("\\end{tabular}\n\n\\noindent ", fout);
+
+        // Print footers
+        if (cont->footers && !opt_tuples_only && !cancel_pressed) {
+            for (printTableFooter *f = cont->footers; f; f = f->next) {
+                latex_escaped_print(f->data, fout);
+                fputs(" \\\\\n", fout);
+            }
+        }
+        fputc('\n', fout);
+    }
+}
+```

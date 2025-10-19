@@ -49,3 +49,70 @@ The function determines the appropriate format based on `nexp = exp + olength` a
 - The function assumes the caller has already handled the sign of the number
 - Contains extensive comments explaining the formatting logic for different exponent ranges
 - Uses bit manipulation tricks (nexp & 1, nexp & 2, nexp & 4) for efficient conditional operations during decimal point insertion
+
+## Simplified Source
+
+```c
+static inline int
+to_chars_f(const floating_decimal_32 v, const uint32 olength, char *const result)
+{
+    int index = 0;
+    uint32 output = v.mantissa;
+    int32 exp = v.exponent;
+    int32 nexp = exp + olength;  // Net exponent (digits before decimal point)
+
+    // Determine decimal point placement based on exponent
+    if (nexp <= 0) {
+        // 0.000ddddd format - leading zeros after decimal point
+        index = 2 - nexp;
+        memcpy(result, "0.000000", 8);
+    } else if (exp < 0) {
+        // dddd.dddd format - decimal point within digits
+        index = 1;  // Leave space for digits to be moved
+    } else {
+        // ddddd000 format - trailing zeros
+        memset(result, '0', 8);
+    }
+
+    // Convert digits using optimized digit table lookup
+    uint32 i = 0;
+    while (output >= 10000) {
+        // Process 4 digits at once
+        const uint32 c = output % 10000;
+        output /= 10000;
+        // Copy digit pairs from lookup table
+        memcpy(result + index + olength - i - 2, DIGIT_TABLE + ((c % 100) << 1), 2);
+        memcpy(result + index + olength - i - 4, DIGIT_TABLE + ((c / 100) << 1), 2);
+        i += 4;
+    }
+
+    // Handle remaining digits (2 digits, then 1 digit)
+    if (output >= 100) {
+        const uint32 c = (output % 100) << 1;
+        output /= 100;
+        memcpy(result + index + olength - i - 2, DIGIT_TABLE + c, 2);
+        i += 2;
+    }
+    if (output >= 10) {
+        memcpy(result + index + olength - i - 2, DIGIT_TABLE + (output << 1), 2);
+    } else {
+        result[index] = (char)('0' + output);
+    }
+
+    // Place decimal point if needed
+    if (index == 1) {
+        // Move digits and insert decimal point
+        memmove(result + index - 1, result + index, nexp);
+        result[nexp] = '.';
+        index = olength + 1;
+    } else if (exp >= 0) {
+        // Trailing zeros case
+        index = olength + exp;
+    } else {
+        // Leading zeros case
+        index = olength + (2 - nexp);
+    }
+
+    return index;  // Return total string length
+}
+```

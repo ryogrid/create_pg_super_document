@@ -39,3 +39,19 @@ This function is crucial for proper text layout and formatting when working with
 - Different from generic EUC display length calculation which treats SS2 as 2 columns
 - Essential for proper Japanese text display formatting in terminal and GUI applications
 - Returns 1 for half-width characters, 2 for full-width characters, enabling proper text alignment
+
+## Simplified Source
+
+```c
+static int pg_eucjp_dsplen(const unsigned char *s) {
+    // EUC-JP specific display width rules
+    if (*s == SS2)                    // Half-width katakana: 1 column
+        return 1;
+    else if (*s == SS3)               // Supplementary kanji: 2 columns
+        return 2;
+    else if (IS_HIGHBIT_SET(*s))      // Full-width characters: 2 columns
+        return 2;
+    else                              // ASCII: use ASCII rules
+        return pg_ascii_dsplen(s);
+}
+```

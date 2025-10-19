@@ -45,3 +45,17 @@ The function uses the HdrMaskGetValue helper to extract the value from the speci
 - Used extensively throughout PostgreSQL's memory management implementations for chunk size tracking
 - Essential for operations like reallocation, deallocation, and memory usage statistics
 - The debug assertion helps prevent incorrect usage on external chunks
+
+## Simplified Source
+
+```c
+static inline Size
+MemoryChunkGetValue(MemoryChunk *chunk)
+{
+    // Ensure this is not called on external chunks
+    Assert(!HdrMaskIsExternal(chunk->hdrmask));
+
+    // Extract value field from header mask
+    return HdrMaskGetValue(chunk->hdrmask);
+}
+```

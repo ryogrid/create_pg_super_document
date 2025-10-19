@@ -32,3 +32,18 @@ ECPGget_PGconn is a utility function that provides access to the raw PostgreSQL 
 - Useful for accessing libpq functions not available through ECPG embedded SQL
 - Simple wrapper function with minimal overhead
 - Thread-safe as it only performs read operations on the connection structure
+
+## Simplified Source
+```c
+PGconn *ECPGget_PGconn(const char *connection_name) {
+    // Look up the named ECPG connection
+    struct connection *con = ecpg_get_connection(connection_name);
+
+    // Return NULL if connection not found
+    if (con == NULL)
+        return NULL;
+
+    // Return the underlying PGconn handle
+    return con->connection;
+}
+```

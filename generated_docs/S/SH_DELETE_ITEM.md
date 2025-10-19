@@ -48,3 +48,22 @@ Return value: void (no return value, assumes entry is valid)
 - Part of the generic simple hash table implementation that generates type-specific functions
 - The function directly modifies the hash table structure and decrements member count
 - No return value since it assumes the entry is valid and present
+
+## Simplified Source
+
+```c
+// Macro definition
+#define SH_DELETE_ITEM SH_MAKE_NAME(delete_item)
+
+// Example implementation (from dshash.c)
+static void delete_item(dshash_table *hash_table, dshash_table_item *item) {
+    size_t hash = item->hash;
+    size_t partition = PARTITION_FOR_HASH(hash);
+
+    // Delete item from its bucket
+    if (delete_item_from_bucket(hash_table, item, &BUCKET_FOR_HASH(hash_table, hash))) {
+        // Decrement partition count on successful deletion
+        --hash_table->control->partitions[partition].count;
+    }
+}
+```

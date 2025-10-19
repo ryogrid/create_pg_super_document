@@ -46,3 +46,20 @@ After this function completes, the caller can safely insert the new chunk and ch
 - The function does not actually insert the new element - it only creates space for it
 - Part of the array manipulation utilities within the radixtree template system
 - Critical for maintaining sorted order when adding elements to node arrays
+
+## Simplified Source
+
+```c
+static inline void
+RT_SHIFT_ARRAYS_FOR_INSERT(uint8 *chunks, RT_PTR_ALLOC *children, int count, int insertpos)
+{
+    // Shift elements right to make room for new element at insertpos
+    // Work backwards to avoid overwriting data
+    for (int i = count - 1; i >= insertpos; i--)
+    {
+        // Move both chunk and child pointer one position right
+        chunks[i + 1] = chunks[i];
+        children[i + 1] = children[i];
+    }
+}
+```

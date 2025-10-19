@@ -29,3 +29,15 @@ The function performs a safe bit-level copy of the double's memory representatio
 - This is a companion function to float_to_bits() which performs the same operation for single-precision floats
 - The returned uint64 value preserves the exact IEEE 754 bit layout: 1 sign bit, 11 exponent bits, and 52 mantissa bits
 - Located in src/common/ryu_common.h:125-130
+
+## Simplified Source
+
+```c
+static inline uint64 double_to_bits(const double d) {
+    uint64 bits = 0;
+
+    // Safe type-punning: copy double bytes to uint64
+    memcpy(&bits, &d, sizeof(double));
+    return bits;
+}
+```

@@ -35,3 +35,14 @@ InetPGetDatum is an inline function that converts a pointer to an inet structure
 - Primarily used in indexing operations (GiST, SP-GiST) for network addresses
 - Part of the PostgreSQL function manager interface for type conversion
 - The PG_RETURN_INET_P macro provides a convenient wrapper for function return statements
+
+## Simplified Source
+
+```c
+static inline Datum
+InetPGetDatum(const inet *X)
+{
+    // Convert inet pointer to generic Datum value
+    return PointerGetDatum(X);
+}
+```

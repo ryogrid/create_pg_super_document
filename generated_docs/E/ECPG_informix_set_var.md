@@ -33,3 +33,11 @@ The function simply forwards all its parameters to ECPGset_var, which handles th
 - Enables seamless migration of Informix ESQL/C applications to PostgreSQL
 - Maintains the same function signature and behavior as the corresponding Informix function
 - The lineno parameter is typically used for error reporting and debugging purposes
+
+## Simplified Source
+```c
+void ECPG_informix_set_var(int number, void *pointer, int lineno) {
+    // Informix compatibility wrapper - delegates to core ECPG function
+    ECPGset_var(number, pointer, lineno);
+}
+```

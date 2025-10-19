@@ -34,3 +34,21 @@ The function follows PostgreSQL's safe arithmetic philosophy by providing explic
 - Designed as an inline function for optimal performance in arithmetic-heavy code paths
 - The manual implementation specifically checks if b > a, which would cause underflow in unsigned arithmetic
 - Uses the same overflow detection strategy as the 16-bit version but operates on 32-bit integers
+
+## Simplified Source
+
+```c
+static inline bool pg_sub_u32_overflow(uint32 a, uint32 b, uint32 *result) {
+    // Use compiler built-in if available for optimal performance
+    #if defined(HAVE__BUILTIN_OP_OVERFLOW)
+        return __builtin_sub_overflow(a, b, result);
+    #else
+        // Manual overflow check: subtraction would underflow if b > a
+        if (b > a) {
+            return true;  // Overflow detected
+        }
+        *result = a - b;
+        return false;     // Safe subtraction completed
+    #endif
+}
+```

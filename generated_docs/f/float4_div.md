@@ -42,3 +42,28 @@ The function performs the division operation but includes checks for division by
 - This function is part of PostgreSQL's type system implementation for the  SQL data type (float4)
 - The function follows PostgreSQL's convention of throwing errors rather than returning special values for exceptional conditions
 - More complex error handling than multiplication due to the additional division-by-zero case
+
+## Simplified Source
+
+```c
+static inline float4 float4_div(const float4 val1, const float4 val2) {
+    float4 result;
+
+    // Check for division by zero (but allow NaN/0 per IEEE 754)
+    if (unlikely(val2 == 0.0f) && !isnan(val1))
+        float_zero_divide_error();
+
+    // Perform division
+    result = val1 / val2;
+
+    // Check for overflow: result is infinite but dividend was not infinite
+    if (unlikely(isinf(result)) && !isinf(val1))
+        float_overflow_error();
+
+    // Check for underflow: result is zero but dividend is non-zero and divisor is not infinite
+    if (unlikely(result == 0.0f) && val1 != 0.0f && !isinf(val2))
+        float_underflow_error();
+
+    return result;
+}
+```

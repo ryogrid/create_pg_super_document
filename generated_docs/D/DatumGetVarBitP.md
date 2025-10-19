@@ -33,3 +33,14 @@ The function serves as part of the fmgr (function manager) interface macros, pro
 - The function automatically handles TOAST decompression, making it safe to use with potentially compressed bit string data
 - The returned VarBit pointer should not be modified directly as it may point to shared or read-only memory
 - Part of PostgreSQL's type-safe Datum conversion system for bit string operations
+
+## Simplified Source
+
+```c
+static inline VarBit *
+DatumGetVarBitP(Datum X)
+{
+    // Convert Datum to VarBit pointer, handling TOAST decompression
+    return (VarBit *) PG_DETOAST_DATUM(X);
+}
+```

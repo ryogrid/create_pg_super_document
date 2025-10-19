@@ -30,3 +30,14 @@ Macaddr8PGetDatum is a type conversion utility function that wraps a macaddr8 po
 - Used in conjunction with PostgreSQL's function call interface macros
 - Takes a const pointer parameter indicating the macaddr8 data should not be modified
 - Returns a Datum value containing the pointer for use in PostgreSQL's internal systems
+
+## Simplified Source
+
+```c
+static inline Datum
+Macaddr8PGetDatum(const macaddr8 *X)
+{
+    // Convert macaddr8 pointer to generic Datum value
+    return PointerGetDatum(X);
+}
+```

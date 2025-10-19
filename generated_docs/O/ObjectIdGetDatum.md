@@ -28,3 +28,12 @@ ObjectIdGetDatum performs a simple type cast from an Oid to a Datum. This functi
 - The function assumes the input Oid is valid - no validation is performed
 - May be used in contexts where OID values need to be passed through the PostgreSQL function call interface
 - Currently appears to have limited usage in the analyzed codebase, possibly indicating it's provided for API completeness or used in extensions
+
+## Simplified Source
+
+```c
+static inline Datum ObjectIdGetDatum(Oid X) {
+    // Simple cast: convert Object ID to Datum format
+    return (Datum) X;
+}
+```

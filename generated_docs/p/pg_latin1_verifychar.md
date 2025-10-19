@@ -35,3 +35,12 @@ This implementation reflects the nature of Latin-1 encoding where:
 - Used as the verification function for multiple single-byte Latin-based encodings including ISO-8859-1, ISO-8859-2, ISO-8859-3, etc.
 - The function parameters are not actually used in the implementation but maintain consistency with the character verification function interface
 - The function is static, indicating it's only used within the wchar.c compilation unit
+
+## Simplified Source
+```c
+static int pg_latin1_verifychar(const unsigned char *s, int len) {
+    // Latin-1 encoding: all 256 byte values are valid characters
+    // No validation needed - always succeeds
+    return 1;
+}
+```

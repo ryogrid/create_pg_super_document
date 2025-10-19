@@ -49,3 +49,30 @@ The function abstracts away the specific implementation details of each node typ
 - Provides the abstraction layer that enables PostgreSQL's generic radix tree to work with different node sizes efficiently
 - Called in two contexts: direct leaf deletion (shift == 0) and cascade deletion when child nodes are freed
 - Located in src/include/lib/radixtree.h at lines 2575-2603
+
+## Simplified Source
+
+```c
+static inline void
+RT_NODE_DELETE(RT_RADIX_TREE *tree, RT_PTR_ALLOC *parent_slot, RT_CHILD_PTR node, uint8 chunk, RT_PTR_ALLOC *slot)
+{
+    // Dispatch to appropriate node-type-specific removal function
+    switch ((node.local)->kind)
+    {
+        case RT_NODE_KIND_4:
+            RT_REMOVE_CHILD_4(tree, parent_slot, node, chunk, slot);
+            return;
+        case RT_NODE_KIND_16:
+            RT_REMOVE_CHILD_16(tree, parent_slot, node, chunk, slot);
+            return;
+        case RT_NODE_KIND_48:
+            RT_REMOVE_CHILD_48(tree, parent_slot, node, chunk);  // No slot param
+            return;
+        case RT_NODE_KIND_256:
+            RT_REMOVE_CHILD_256(tree, parent_slot, node, chunk);  // No slot param
+            return;
+        default:
+            pg_unreachable();  // All node types must be handled
+    }
+}
+```

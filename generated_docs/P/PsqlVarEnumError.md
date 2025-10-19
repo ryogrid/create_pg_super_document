@@ -37,3 +37,14 @@ The `PsqlVarEnumError` function serves as a centralized error reporting mechanis
 - The suggestions parameter should be formatted as a comma-separated list
 - Used extensively by variable validation hooks in psql startup and command processing
 - Located in src/bin/psql/variables.c:416-421
+
+## Simplified Source
+
+```c
+void PsqlVarEnumError(const char *name, const char *value, const char *suggestions) {
+    // Emit standardized error message for invalid enum values
+    pg_log_error("unrecognized value \"%s\" for \"%s\"\n"
+                 "Available values are: %s.",
+                 value, name, suggestions);
+}
+```

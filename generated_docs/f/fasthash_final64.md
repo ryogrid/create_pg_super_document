@@ -40,3 +40,14 @@ The finalizer ensures good hash distribution by applying bit manipulation operat
 - Used as the basis for the 32-bit finalizer (`fasthash_final32`) which reduces the 64-bit result
 - Part of a two-stage design where accumulation and finalization are separated for flexibility
 - The underlying `fasthash_mix` function uses bit shifts and multiplication for avalanche effect
+
+## Simplified Source
+
+```c
+static inline uint64
+fasthash_final64(fasthash_state *hs, uint64 tweak)
+{
+    // Apply final mixing to accumulated hash with optional tweak
+    return fasthash_mix(hs->hash, tweak);
+}
+```

@@ -31,3 +31,12 @@ This function validates and applies the hide_tableam configuration parameter in 
 - Part of psql's configuration variable system for customizing output formatting
 - When enabled (true), table access method details are hidden from describe command output
 - Table access methods (tableam) are PostgreSQL's pluggable storage interface system
+
+## Simplified Source
+
+```c
+static bool hide_tableam_hook(const char *newval) {
+    // Parse boolean value and store in pset.hide_tableam
+    return ParseVariableBool(newval, "HIDE_TABLEAM", &pset.hide_tableam);
+}
+```

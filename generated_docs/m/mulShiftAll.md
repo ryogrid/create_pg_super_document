@@ -44,3 +44,21 @@ The scaling by 4 and the additions/subtractions (±2, -1-mmShift) are part of th
 - Used in the main d2d (double-to-decimal) conversion function
 - The mmShift parameter handles special cases in floating-point boundary calculations
 - Returns the main conversion value while storing the boundaries in the provided output parameters
+
+## Simplified Source
+
+```c
+static inline uint64 mulShiftAll(const uint64 m, const uint64 *const mul, const int32 j,
+                                 uint64 *const vp, uint64 *const vm, const uint32 mmShift) {
+    // Compute three boundary values for Ryu algorithm floating-point conversion
+
+    // Upper boundary: 4*m + 2
+    *vp = mulShift(4 * m + 2, mul, j);
+
+    // Lower boundary: 4*m - 1 - mmShift
+    *vm = mulShift(4 * m - 1 - mmShift, mul, j);
+
+    // Main value: 4*m
+    return mulShift(4 * m, mul, j);
+}
+```

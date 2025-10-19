@@ -35,3 +35,17 @@ The magic constant 0xCCCCCCCCCCCCCCCD and the right shift by 2 bits are specific
 - Addresses known compiler limitations on 32-bit platforms where 64-bit divisions generate library calls
 - The implementation is marked as `static inline` for performance optimization
 - Related functions `div10`, `div100`, and `div1e8` follow the same optimization pattern for different divisors
+
+## Simplified Source
+
+```c
+static inline uint64 div5(const uint64 x) {
+    // Efficient division by 5 using bit manipulation
+    // Magic constant 0xCCCCCCCCCCCCCCCD represents 1/5 in fixed-point arithmetic
+    uint64 high_bits = umulh(x, 0xCCCCCCCCCCCCCCCD);
+
+    // Shift by 2 bits to complete the division
+    // This replaces expensive division with fast multiplication and shift
+    return high_bits >> 2;
+}
+```

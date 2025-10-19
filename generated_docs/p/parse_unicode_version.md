@@ -33,4 +33,23 @@ The function is specifically designed for use in PostgreSQL's Unicode category t
 - Uses assertions to validate that exactly 2 values are parsed and that the minor version is less than 100
 - The encoding scheme allows for major versions up to 2147483647 and minor versions up to 99
 - This function is part of PostgreSQL's Unicode testing infrastructure and is not intended for general-purpose use
-- The  attribute on variable  prevents compiler warnings about unused variables in release builds where assertions are disabled
+- The PG_USED_FOR_ASSERTS_ONLY attribute on variable n prevents compiler warnings about unused variables in release builds where assertions are disabled
+
+## Simplified Source
+
+```c
+static int parse_unicode_version(const char *version) {
+    int n PG_USED_FOR_ASSERTS_ONLY;
+    int major;
+    int minor;
+
+    // Parse version string "major.minor" format
+    n = sscanf(version, "%d.%d", &major, &minor);
+
+    Assert(n == 2);        // Must parse exactly 2 numbers
+    Assert(minor < 100);   // Minor version must be < 100
+
+    // Encode as single integer: major * 100 + minor
+    return major * 100 + minor;
+}
+```

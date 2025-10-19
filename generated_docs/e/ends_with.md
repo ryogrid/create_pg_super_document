@@ -33,3 +33,15 @@ This utility is commonly used in psql's tab completion logic to determine comman
 - Simple but essential utility for parsing SQL command syntax during tab completion
 - Used primarily in conditional logic to determine appropriate completion contexts
 - Performs bounds checking by verifying string length before array access
+
+## Simplified Source
+
+```c
+static bool ends_with(const char *s, char c)
+{
+    size_t length = strlen(s);
+
+    // Check if string is non-empty and last character matches
+    return (length > 0 && s[length - 1] == c);
+}
+```

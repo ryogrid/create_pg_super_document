@@ -35,3 +35,25 @@ The function acts as a wrapper around the platform-specific implementation pg_at
 - On GCC-compatible platforms, the implementation uses __sync_fetch_and_sub builtin for optimal performance
 - This is part of PostgreSQLs portable atomic operations interface, providing consistent behavior across different hardware architectures
 - Less commonly used than pg_atomic_fetch_add_u64, as subtraction can often be achieved by adding a negative value
+
+## Simplified Source
+
+```c
+static inline uint64
+pg_atomic_fetch_sub_u64(volatile pg_atomic_uint64 *ptr, int64 sub_)
+{
+    // Safety check: ensure pointer is aligned and value is valid
+    AssertPointerAlignment(ptr, 8);
+    Assert(sub_ != PG_INT64_MIN);
+
+    // Atomic fetch-and-subtract: return original value before subtraction
+    return pg_atomic_fetch_sub_u64_impl(ptr, sub_);
+}
+```
+
+**Key Points:**
+- Atomically subtracts `sub_` from the value at `ptr`
+- Returns the original value before subtraction (not the new value)
+- Includes alignment checks and overflow protection
+- Thread-safe atomic operation with memory ordering guarantees
+- Prevents integer overflow by rejecting PG_INT64_MIN input

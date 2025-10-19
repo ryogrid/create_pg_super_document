@@ -44,3 +44,15 @@ The FPge function implements a floating-point comparison that accounts for numer
 
 ## Notes and Other Information
 This function is defined as a static inline function in src/include/utils/geo_decls.h:77-81, making it available for efficient inlining throughout the codebase. It is extensively used in geometric comparison operations, spatial indexing (GiST and SP-GiST), and various geometric predicates. The epsilon-based comparison is crucial for the reliability of PostgreSQL's geometric data types including points, boxes, line segments, and circles.
+
+## Simplified Source
+
+```c
+static inline bool
+FPge(double A, double B)
+{
+    // Add epsilon tolerance to A before comparing
+    // Allows values within epsilon of A to satisfy greater-than-or-equal
+    return A + EPSILON >= B;
+}
+```

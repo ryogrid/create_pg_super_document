@@ -35,3 +35,27 @@ This function is part of the Informix compatibility layer in ECPG, providing saf
 - Part of the ECPG Informix compatibility library located in src/interfaces/ecpg/compatlib/informix.c
 - Static function, only accessible within the same compilation unit
 - Handles edge cases where the specified length exceeds the actual string length
+
+## Simplified Source
+```c
+static char *
+ecpg_strndup(const char *str, size_t len)
+{
+    // Determine actual copy length (minimum of string length and limit)
+    size_t real_len = strlen(str);
+    int use_len = (real_len > len) ? len : real_len;
+
+    // Allocate memory for new string
+    char *new = malloc(use_len + 1);
+
+    if (new) {
+        // Copy data and null-terminate
+        memcpy(new, str, use_len);
+        new[use_len] = '\0';
+    } else {
+        errno = ENOMEM;
+    }
+
+    return new;
+}
+```

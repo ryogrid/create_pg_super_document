@@ -35,3 +35,19 @@ The function handles the memory management by obtaining a dynamically allocated 
 - Uses strcpy() to copy the result, which assumes the output buffer has sufficient space
 - The resulting string format follows PostgreSQL's default timestamp representation
 - No bounds checking is performed on the output buffer
+
+## Simplified Source
+```c
+int
+dttoasc(timestamp *ts, char *output)
+{
+    // Convert timestamp to ASCII string
+    char *asctime = PGTYPEStimestamp_to_asc(*ts);
+
+    // Copy to output buffer and clean up
+    strcpy(output, asctime);
+    free(asctime);
+
+    return 0;
+}
+```

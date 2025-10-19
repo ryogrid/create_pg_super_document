@@ -37,3 +37,38 @@ The implementation uses a hybrid approach: first processing elements in vectoriz
 - Useful in scenarios requiring threshold-based filtering or range queries
 - The tail_idx calculation ensures proper vector alignment by rounding down to vector boundary
 - Returns true as soon as the first matching element is found (short-circuit evaluation)
+
+## Simplified Source
+
+```c
+static inline bool
+pg_lfind8_le(uint8 key, uint8 *base, uint32 nelem)
+{
+    uint32 i;
+
+    // Process elements in vectorized chunks for performance
+    uint32 tail_idx = nelem & ~(sizeof(Vector8) - 1);
+    Vector8 chunk;
+
+    for (i = 0; i < tail_idx; i += sizeof(Vector8)) {
+        vector8_load(&chunk, &base[i]);
+        if (vector8_has_le(chunk, key))
+            return true;
+    }
+
+    // Process remaining elements individually
+    for (; i < nelem; i++) {
+        if (base[i] <= key)
+            return true;
+    }
+
+    return false;
+}
+```
+
+**Key Points:**
+- Linear search for any 8-bit value less than or equal to the key
+- Uses SIMD vectorized operations for bulk less-than-or-equal comparisons
+- Falls back to individual element comparison for remainder elements
+- Returns true if any matching element is found, false otherwise
+- Useful for threshold-based filtering and range queries

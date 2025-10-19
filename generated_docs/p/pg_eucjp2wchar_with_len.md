@@ -32,3 +32,12 @@ The function is part of PostgreSQL's character encoding conversion infrastructur
 - Acts as a thin wrapper around the generic EUC conversion function, allowing for EUC-JP specific handling if needed in the future
 - Part of PostgreSQL's comprehensive character encoding support system
 - Returns the result from the underlying pg_euc2wchar_with_len function, typically indicating the number of bytes consumed or an error code
+
+## Simplified Source
+
+```c
+static int pg_eucjp2wchar_with_len(const unsigned char *from, pg_wchar *to, int len) {
+    // EUC-JP uses the same conversion as generic EUC
+    return pg_euc2wchar_with_len(from, to, len);
+}
+```

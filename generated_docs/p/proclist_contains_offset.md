@@ -35,3 +35,22 @@ This function determines if a given process is currently a member of a specific 
 - Uses O(1) assertions to verify head/tail consistency without full list traversal
 - Designed for use in performance-critical code paths, including spinlock-protected sections
 - The function prioritizes speed over comprehensive validation due to typical usage patterns
+
+## Simplified Source
+
+```c
+static inline bool
+proclist_contains_offset(const proclist_head *list, int procno, size_t node_offset)
+{
+    const proclist_node *node = proclist_node_get(procno, node_offset);
+
+    // Quick check: if node has null pointers, it's not in any list
+    if (node->prev == 0 && node->next == 0) {
+        return false;
+    }
+
+    // If node has pointers, it must be in this list
+    // (Function assumes node isn't in any other list using same node structure)
+    return true;
+}
+```

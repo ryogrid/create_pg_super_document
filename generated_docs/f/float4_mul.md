@@ -36,3 +36,24 @@ The function uses the  macro to optimize branch prediction, as overflow and unde
 - The  macro is used to hint to the compiler that error conditions are rare
 - This function is part of PostgreSQL's type system implementation for the  SQL data type (float4)
 - The function follows PostgreSQL's convention of throwing errors rather than returning special values for exceptional conditions
+
+## Simplified Source
+
+```c
+static inline float4 float4_mul(const float4 val1, const float4 val2) {
+    float4 result;
+
+    // Perform multiplication
+    result = val1 * val2;
+
+    // Check for overflow: result is infinite but neither input was infinite
+    if (unlikely(isinf(result)) && !isinf(val1) && !isinf(val2))
+        float_overflow_error();
+
+    // Check for underflow: result is zero but both inputs are non-zero
+    if (unlikely(result == 0.0f) && val1 != 0.0f && val2 != 0.0f)
+        float_underflow_error();
+
+    return result;
+}
+```

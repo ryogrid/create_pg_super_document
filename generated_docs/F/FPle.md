@@ -36,3 +36,15 @@ FPle implements a fuzzy less-than-or-equal comparison for double-precision float
 
 ## Notes and Other Information
 This function is extensively used in PostgreSQL's geometric operations, particularly for containment and overlap checks. The epsilon-adjusted comparison (A <= B + EPSILON) allows for inclusive relationships that account for floating-point precision errors. This is especially important in spatial indexing and geometric containment operations where boundary conditions must be handled reliably. The function ensures that values that are effectively equal (within EPSILON tolerance) are treated as satisfying the less-than-or-equal condition.
+
+## Simplified Source
+
+```c
+static inline bool
+FPle(double A, double B)
+{
+    // Compare A against B plus epsilon tolerance
+    // Allows values within epsilon of B to satisfy less-than-or-equal
+    return A <= B + EPSILON;
+}
+```

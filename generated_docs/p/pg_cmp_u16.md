@@ -36,3 +36,13 @@ This function is part of PostgreSQL's family of safe comparison routines designe
 - This approach ensures comparator transitivity, which is essential for stable and correct sorting algorithms
 - The implementation handles the full range of 16-bit unsigned values (0 to 65535) correctly
 - Part of PostgreSQL's comprehensive suite of safe comparison utilities used throughout the database engine
+
+## Simplified Source
+
+```c
+static inline int pg_cmp_u16(uint16 a, uint16 b) {
+    // Cast to int32 to prevent overflow and ensure correct comparison semantics
+    // Returns: positive if a > b, zero if a == b, negative if a < b
+    return (int32) a - (int32) b;
+}
+```

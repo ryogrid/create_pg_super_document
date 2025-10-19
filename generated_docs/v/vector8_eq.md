@@ -42,3 +42,19 @@ This function is fundamental for vectorized search operations, pattern matching,
 - Returns a mask vector with 0xFF for equal elements, 0x00 for unequal elements
 - Widely used in radix tree operations and character validation functions
 - Essential building block for other comparison and search operations
+
+## Simplified Source
+
+```c
+static inline Vector8
+vector8_eq(const Vector8 v1, const Vector8 v2)
+{
+    // Element-wise equality: returns 0xFF for equal, 0x00 for different
+    #ifdef USE_SSE2
+        return _mm_cmpeq_epi8(v1, v2);
+    #elif defined(USE_NEON)
+        return vceqq_u8(v1, v2);
+    #endif
+    // Note: No fallback implementation - requires SIMD support
+}
+```

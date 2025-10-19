@@ -34,3 +34,15 @@ The function performs a simple conditional selection: if val1 is greater than va
 - May be used internally by other mathematical or statistical functions
 - The NaN behavior is consistent with PostgreSQL's floating-point semantics
 - Complement to the float4_min function for maximum value selection
+
+## Simplified Source
+
+```c
+static inline float4
+float4_max(const float4 val1, const float4 val2)
+{
+    // Return the larger value using float4_gt comparison
+    // Inherits NaN handling from float4_gt function
+    return float4_gt(val1, val2) ? val1 : val2;
+}
+```

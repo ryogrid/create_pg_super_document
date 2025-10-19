@@ -34,3 +34,21 @@ As part of PostgreSQL's multi-byte encoding support framework, this function spe
 - Returns the count of characters actually converted, which may be less than the input length
 - Always null-terminates the output buffer for safety
 - Used specifically for SQL/ASCII encoding handling within PostgreSQL's broader multi-byte character support system
+
+## Simplified Source
+
+```c
+static int pg_ascii2wchar_with_len(const unsigned char *from, pg_wchar *to, int len) {
+    int count = 0;
+
+    // Convert ASCII bytes to wide chars until limit or null terminator
+    while (len > 0 && *from) {
+        *to++ = *from++;  // Direct 1:1 mapping for ASCII
+        len--;
+        count++;
+    }
+
+    *to = 0;  // Null terminate output
+    return count;  // Return number of characters converted
+}
+```

@@ -40,3 +40,27 @@ The function includes several assertion checks to ensure list integrity and that
 - The offset-based approach allows the same function to work with different proclist_node fields within PGPROC structures
 - After insertion, the new process becomes the last process that will be accessed when iterating from the head
 - This function is commonly used for FIFO (first-in-first-out) queuing behavior when combined with head removal operations
+
+## Simplified Source
+
+```c
+static inline void
+proclist_push_tail_offset(proclist_head *list, int procno, size_t node_offset)
+{
+    proclist_node *node = proclist_node_get(procno, node_offset);
+
+    // Handle empty list case
+    if (list->tail == INVALID_PROC_NUMBER) {
+        // First node in empty list
+        node->next = node->prev = INVALID_PROC_NUMBER;
+        list->head = list->tail = procno;
+    }
+    else {
+        // Add to end of non-empty list
+        node->prev = list->tail;
+        proclist_node_get(node->prev, node_offset)->next = procno;
+        node->next = INVALID_PROC_NUMBER;
+        list->tail = procno;
+    }
+}
+```

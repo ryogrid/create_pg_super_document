@@ -31,3 +31,28 @@ The function ensures that the returned transaction ID respects PostgreSQL's tran
 - The function handles wraparound by continuing to decrement when the result falls below FirstNormalTransactionId
 - Currently appears to be unused in the codebase, possibly reserved for future use or specific edge cases
 - The function complements other transaction ID comparison and manipulation utilities in PostgreSQL's transaction management system
+
+## Simplified Source
+
+```c
+static inline TransactionId TransactionIdRetreatedBy(TransactionId current_xid, uint32 backup_amount) {
+    // Move backward by the specified amount
+    current_xid -= backup_amount;
+
+    // Handle wraparound: if we go below FirstNormalTransactionId,
+    // continue decrementing to maintain proper circular arithmetic
+    while (current_xid < FirstNormalTransactionId) {
+        current_xid--;
+    }
+
+    return current_xid;
+}
+```
+
+This simplified version preserves the core functionality:
+- Subtracts the specified amount from the transaction ID
+- Handles PostgreSQL's circular transaction ID wraparound correctly
+- Continues decrementing when result falls below FirstNormalTransactionId
+- Maintains proper modular arithmetic for transaction ID space
+- Inline function for performance optimization
+- Essential for transaction ID manipulation in wraparound scenarios

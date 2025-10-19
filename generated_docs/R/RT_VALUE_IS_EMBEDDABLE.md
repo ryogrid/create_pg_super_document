@@ -35,3 +35,25 @@ The function checks if the size of the value is less than or equal to the size o
 This function is part of PostgreSQL's generic radix tree implementation template. The RT_ prefix and function name are generated based on the specific instantiation parameters. This optimization allows small values to be stored directly in pointer slots rather than requiring separate memory allocations, which can significantly improve memory efficiency and cache performance for radix trees storing small values.
 
 The embeddability check is crucial for determining the storage strategy in the RT_SET function, where values are either embedded directly in the child pointer slot or allocated as separate leaf nodes.
+
+## Simplified Source
+
+```c
+static inline bool
+RT_VALUE_IS_EMBEDDABLE(RT_VALUE_TYPE * value_p)
+{
+    // Check if value size fits within pointer allocation slot
+    #ifdef RT_VARLEN_VALUE_SIZE
+        #ifdef RT_RUNTIME_EMBEDDABLE_VALUE
+            // Runtime check: compare actual value size to pointer size
+            return RT_GET_VALUE_SIZE(value_p) <= sizeof(RT_PTR_ALLOC);
+        #else
+            // No runtime embedding allowed for variable-length values
+            return false;
+        #endif
+    #else
+        // Compile-time check: fixed-size values
+        return RT_GET_VALUE_SIZE(value_p) <= sizeof(RT_PTR_ALLOC);
+    #endif
+}
+```

@@ -32,3 +32,23 @@ This function performs a linear search through all slots in a parallel slot arra
 - Part of PostgreSQL's frontend utility library for managing parallel database connections
 - Complementary to find_matching_idle_slot - this finds slots for new connections while the other finds slots with existing connections
 - Used for connection establishment in parallel processing workflows
+
+## Simplified Source
+
+```c
+static int
+find_unconnected_slot(const ParallelSlotArray *sa)
+{
+    for (int i = 0; i < sa->numslots; i++) {
+        // Skip slots that are currently in use
+        if (sa->slots[i].inUse)
+            continue;
+
+        // Found an available slot without a connection
+        if (sa->slots[i].connection == NULL)
+            return i;
+    }
+
+    return -1;  // No unconnected slot found
+}
+```

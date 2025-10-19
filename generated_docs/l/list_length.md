@@ -29,3 +29,12 @@ The function operates on PostgreSQL's internal List data structure, which mainta
 - The List structure maintains its length field automatically as elements are added or removed
 - Essential for bounds checking and memory allocation decisions in list operations
 - May be used implicitly by other list functions or through macro expansions not captured in direct references
+
+## Simplified Source
+
+```c
+static inline int list_length(const List *l) {
+    // Return list length or 0 if NULL
+    return l ? l->length : 0;
+}
+```

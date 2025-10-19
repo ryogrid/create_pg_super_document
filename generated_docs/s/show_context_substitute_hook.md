@@ -28,3 +28,14 @@ This function serves as a substitute hook for the show_context parameter in psql
 - The default value "errors" is the standard setting for show_context in psql
 - The function uses pg_strdup to create a copy of the default string to ensure proper memory management
 - This hook is part of psql's variable system that manages configuration parameters
+
+## Simplified Source
+
+```c
+static char *show_context_substitute_hook(char *newval) {
+    // Provide "errors" as default value if NULL is passed
+    if (newval == NULL)
+        newval = pg_strdup("errors");
+    return newval;
+}
+```

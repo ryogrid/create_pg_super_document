@@ -34,3 +34,16 @@ The function operates in O(1) constant time and is implemented as an inline func
 - This operation does not require access to the list head, making it efficient for mid-list insertions
 - The function assumes that neither node is NULL and that the 'after' node is properly initialized
 - Part of PostgreSQL's intrusive list implementation that embeds list nodes within data structures
+
+## Simplified Source
+
+```c
+static inline void
+slist_insert_after(slist_node *after, slist_node *node) {
+    // Link new node to point to whatever 'after' was pointing to
+    node->next = after->next;
+
+    // Update 'after' to point to the new node
+    after->next = node;
+}
+```

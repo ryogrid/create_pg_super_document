@@ -29,3 +29,12 @@ DatumGetPointer is a static inline function that performs a simple type cast fro
 - Pointer is typically used for variable-length data that cannot fit directly in a Datum
 - Part of PostgreSQL's broader Datum conversion API that provides type-safe extraction methods
 - While no direct references were found in the current analysis, this function is likely used indirectly through macros or in specialized contexts for handling complex data types
+
+## Simplified Source
+
+```c
+static inline Pointer DatumGetPointer(Datum X) {
+    // Simple cast: extract pointer from Datum
+    return (Pointer) X;
+}
+```

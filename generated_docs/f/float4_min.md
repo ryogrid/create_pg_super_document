@@ -33,3 +33,15 @@ The function performs a simple conditional selection: if val1 is less than val2 
 - Part of the float4 family of utility functions for single-precision arithmetic
 - May be used internally by other mathematical or statistical functions
 - The NaN behavior is consistent with PostgreSQL's floating-point semantics
+
+## Simplified Source
+
+```c
+static inline float4
+float4_min(const float4 val1, const float4 val2)
+{
+    // Return the smaller value using float4_lt comparison
+    // Inherits NaN handling from float4_lt function
+    return float4_lt(val1, val2) ? val1 : val2;
+}
+```

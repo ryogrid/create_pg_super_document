@@ -52,3 +52,18 @@ The result defines the upper bound of keys that the tree can store without needi
 - Used in PostgreSQL's radix tree implementation to maintain optimal tree height
 - The calculation accounts for the tree's byte-oriented chunking (RT_SPAN = 8 bits)
 - Tree capacity grows exponentially with each level: each RT_SPAN increase multiplies capacity by 256
+
+## Simplified Source
+
+```c
+static uint64
+RT_SHIFT_GET_MAX_VAL(int shift)
+{
+    // Special case: maximum shift can handle any 64-bit key
+    if (shift == RT_MAX_SHIFT)
+        return UINT64_MAX;
+    else
+        // Calculate max key for given shift: 2^(shift + RT_SPAN) - 1
+        return (UINT64CONST(1) << (shift + RT_SPAN)) - 1;
+}
+```

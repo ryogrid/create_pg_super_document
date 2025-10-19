@@ -41,3 +41,20 @@ Unlike MemoryChunkSetHdrMask, this function doesn't encode block offset or value
 - The MEMORYCHUNK_MAGIC value helps identify valid memory chunks and detect corruption
 - This is an inline function for performance efficiency
 - External chunks require different handling during deallocation since they're not part of a memory block
+
+## Simplified Source
+
+```c
+static inline void
+MemoryChunkSetHdrMaskExternal(MemoryChunk *chunk,
+                              MemoryContextMethodID methodid)
+{
+    // Validate method ID fits in allocated bits
+    Assert((int) methodid <= MEMORY_CONTEXT_METHODID_MASK);
+
+    // Set header mask with magic number, external flag, and method ID
+    chunk->hdrmask = MEMORYCHUNK_MAGIC |
+                     (((uint64) 1) << MEMORYCHUNK_EXTERNAL_BASEBIT) |
+                     methodid;
+}
+```

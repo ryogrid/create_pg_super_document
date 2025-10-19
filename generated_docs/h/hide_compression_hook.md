@@ -30,3 +30,12 @@ This function validates and applies the hide_compression configuration parameter
 - The setting controls display of TOAST compression information in psql query results
 - Part of psql's configuration variable system for customizing output formatting
 - When enabled (true), compression details for TOAST values are hidden from display
+
+## Simplified Source
+
+```c
+static bool hide_compression_hook(const char *newval) {
+    // Parse boolean value and store in pset.hide_compression
+    return ParseVariableBool(newval, "HIDE_TOAST_COMPRESSION", &pset.hide_compression);
+}
+```

@@ -29,3 +29,20 @@ This function performs a trivial conversion from PostgreSQL's internal wide char
 - The conversion ignores high bits, which may result in data loss for characters outside the single-byte range
 - Caller is responsible for ensuring the destination buffer has adequate space
 - Used in PostgreSQL's character encoding conversion system for encodings that can be represented in single bytes
+
+## Simplified Source
+
+```c
+static int pg_wchar2single_with_len(const pg_wchar *from, unsigned char *to, int len) {
+    int count = 0;
+
+    // Convert wide characters to single bytes by truncating high bits
+    while (len > 0 && *from) {
+        *to++ = *from++;  // Keep only low byte, ignore high bits
+        len--;
+        count++;
+    }
+    *to = 0;
+    return count;
+}
+```

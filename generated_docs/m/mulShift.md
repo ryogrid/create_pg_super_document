@@ -37,3 +37,30 @@ The function includes overflow detection and handling when summing the high part
 - The comments (128, 64, 0) appear to indicate bit positions or significance levels
 - Critical component in PostgreSQL's high-precision floating-point to decimal conversion
 - Located in src/common/d2s.c:182-207
+
+## Simplified Source
+
+```c
+static inline uint64 mulShift(const uint64 m, const uint64 *const mul, const int32 j) {
+    // Perform high-precision multiplication with 128-bit intermediate arithmetic
+
+    // First multiplication: m * mul[1]
+    uint64 high1;
+    const uint64 low1 = umul128(m, mul[1], &high1);
+
+    // Second multiplication: m * mul[0]
+    uint64 high0;
+    umul128(m, mul[0], &high0);
+
+    // Combine results: high0 + low1
+    uint64 sum = high0 + low1;
+
+    // Handle overflow in the sum
+    if (sum < high0) {
+        high1++;  // Carry overflow to high1
+    }
+
+    // Right shift the 128-bit result by (j-64) bits
+    return shiftright128(sum, high1, j - 64);
+}
+```

@@ -29,3 +29,20 @@ This function performs character conversion from ISO8859-1 (Latin-1) encoding to
 - Direct byte-to-wide-character mapping works for ISO8859-1 since it's compatible with Unicode for values 0-255
 - The function assumes the caller has allocated sufficient space in the destination buffer
 - Part of PostgreSQL's character encoding conversion system
+
+## Simplified Source
+
+```c
+static int pg_latin12wchar_with_len(const unsigned char *from, pg_wchar *to, int len) {
+    int count = 0;
+
+    // Simple byte-to-wide character conversion for ISO8859-1
+    while (len > 0 && *from) {
+        *to++ = *from++;  // Direct mapping works for Latin-1
+        len--;
+        count++;
+    }
+    *to = 0;
+    return count;
+}
+```

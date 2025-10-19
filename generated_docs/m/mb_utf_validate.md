@@ -37,3 +37,37 @@ The function operates efficiently by:
 - Efficient implementation that minimizes memory copying when the string is already valid
 - The function assumes the input buffer is writable and properly null-terminated
 - Essential for ensuring data integrity when processing potentially malformed UTF-8 input
+
+## Simplified Source
+
+```c
+static void
+mb_utf_validate(unsigned char *pwcs)
+{
+    unsigned char *p = pwcs;  // Write pointer
+
+    while (*pwcs) {
+        int len = utf_charcheck(pwcs);
+
+        if (len > 0) {
+            // Valid UTF-8 character - copy it
+            if (p != pwcs) {
+                // Copy bytes only if we've skipped invalid chars
+                for (int i = 0; i < len; i++)
+                    *p++ = *pwcs++;
+            } else {
+                // No invalid chars yet - advance both pointers
+                pwcs += len;
+                p += len;
+            }
+        } else {
+            // Invalid character - skip it
+            pwcs++;
+        }
+    }
+
+    // Null-terminate if we made any changes
+    if (p != pwcs)
+        *p = '\0';
+}
+```

@@ -40,3 +40,17 @@ This function is particularly important for implementing fast division by consta
 - Relies on compiler optimization to eliminate computation of the unused low 64 bits of the multiplication
 - Part of the Ryu floating-point formatting library's platform abstraction layer
 - The function is declared as  for performance optimization
+
+## Simplified Source
+
+```c
+// Returns the high 64 bits of the 128-bit product of a and b
+static inline uint64 umulh(const uint64 a, const uint64 b) {
+    uint64 hi;
+
+    // Reuse umul128 implementation and discard the low part
+    // Optimizers will eliminate instructions for the unused low part
+    umul128(a, b, &hi);
+    return hi;
+}
+```

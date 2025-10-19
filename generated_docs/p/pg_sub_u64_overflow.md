@@ -33,3 +33,21 @@ When underflow is detected in the fallback implementation, the function sets a d
 - The dummy value 0x5EED is used to prevent compiler warnings about uninitialized memory when underflow occurs
 - This function is part of PostgreSQL's safe arithmetic operations suite for preventing integer overflow/underflow vulnerabilities
 - For unsigned integers, underflow occurs when subtracting a larger value from a smaller one, which would normally wrap around to a very large positive value
+
+## Simplified Source
+
+```c
+static inline bool pg_sub_u64_overflow(uint64 a, uint64 b, uint64 *result) {
+    // Use compiler built-in if available for optimal performance
+    #if defined(HAVE__BUILTIN_OP_OVERFLOW)
+        return __builtin_sub_overflow(a, b, result);
+    #else
+        // Manual underflow check: subtraction would underflow if b > a
+        if (b > a) {
+            return true;  // Underflow detected
+        }
+        *result = a - b;
+        return false;     // Safe subtraction completed
+    #endif
+}
+```

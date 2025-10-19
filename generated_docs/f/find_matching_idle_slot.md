@@ -32,3 +32,29 @@ This function iterates through all slots in a parallel slot array to locate an a
 - The function checks three conditions: slot not in use, connection exists, and database name matches (if specified)
 - Part of PostgreSQL's frontend utility library for managing parallel database connections
 - Used primarily for connection reuse optimization in parallel processing scenarios
+
+## Simplified Source
+
+```c
+static int
+find_matching_idle_slot(const ParallelSlotArray *sa, const char *dbname)
+{
+    for (int i = 0; i < sa->numslots; i++) {
+        // Skip slots that are currently in use
+        if (sa->slots[i].inUse)
+            continue;
+
+        // Skip slots without active connections
+        if (sa->slots[i].connection == NULL)
+            continue;
+
+        // Check if database matches (or accept any database if dbname is NULL)
+        if (dbname == NULL ||
+            strcmp(PQdb(sa->slots[i].connection), dbname) == 0) {
+            return i;  // Found a suitable slot
+        }
+    }
+
+    return -1;  // No suitable slot found
+}
+```

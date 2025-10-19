@@ -32,3 +32,17 @@ The function includes safety assertions to ensure the input parameter e is withi
 - This function is part of the Ryu algorithm for fast floating-point to string conversion
 - The mathematical basis relies on log_10(2) ≈ 0.30103, and the constant 78913/262144 ≈ 0.30103
 - Located in src/common/ryu_common.h:70-82
+
+## Simplified Source
+
+```c
+static inline int32 log10Pow2(const int32 e) {
+    // Validate input range for accurate approximation
+    Assert(e >= 0);
+    Assert(e <= 1650);
+
+    // Fast approximation of floor(log_10(2^e))
+    // Magic constant 78913 represents e * log_10(2) scaled by 2^18
+    return (int32) ((((uint32) e) * 78913) >> 18);
+}
+```

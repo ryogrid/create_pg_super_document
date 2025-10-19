@@ -34,3 +34,25 @@ The function follows PostgreSQL's safe arithmetic philosophy by providing explic
 - Part of PostgreSQL's comprehensive safe integer arithmetic API
 - Designed as an inline function for optimal performance in arithmetic-heavy code paths
 - The manual implementation specifically checks if b > a, which would cause underflow in unsigned arithmetic
+
+## Simplified Source
+
+```c
+static inline bool
+pg_sub_u16_overflow(uint16 a, uint16 b, uint16 *result)
+{
+#if defined(HAVE__BUILTIN_OP_OVERFLOW)
+    // Use compiler built-in for optimal performance
+    return __builtin_sub_overflow(a, b, result);
+#else
+    // Check for underflow: subtracting larger from smaller number
+    if (b > a) {
+        *result = 0x5EED;  // Dummy value to avoid warnings
+        return true;  // Overflow occurred
+    }
+
+    *result = a - b;
+    return false;  // No overflow
+#endif
+}
+```

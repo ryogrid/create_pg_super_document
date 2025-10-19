@@ -36,3 +36,14 @@ This function is essential for returning range type values from PostgreSQL funct
 - Being defined as static inline, it provides zero-overhead abstraction for RangeType-to-Datum conversion
 - Widely used across range type implementation, especially in output and index operations
 - Critical component of PostgreSQL's type system interface for range types
+
+## Simplified Source
+
+```c
+static inline Datum
+RangeTypePGetDatum(const RangeType *X)
+{
+    // Convert RangeType pointer to Datum for function returns
+    return PointerGetDatum(X);
+}
+```

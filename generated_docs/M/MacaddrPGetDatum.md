@@ -34,3 +34,14 @@ This function is part of PostgreSQL's fmgr (function manager) interface macros f
 - Part of the PostgreSQL function manager interface for type conversion
 - The PG_RETURN_MACADDR_P macro provides a convenient wrapper for function return statements
 - No detoasting or special memory management required due to fixed-length datatype
+
+## Simplified Source
+
+```c
+static inline Datum
+MacaddrPGetDatum(const macaddr *X)
+{
+    // Convert macaddr pointer to generic Datum value
+    return PointerGetDatum(X);
+}
+```

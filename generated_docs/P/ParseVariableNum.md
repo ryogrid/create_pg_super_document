@@ -40,3 +40,33 @@ The function treats NULL input as an empty string, which results in a parsing er
 - Preserves original *result value when parsing fails
 - Used for parsing various numeric configuration variables in psql
 - Comprehensive error checking prevents integer overflow and invalid input acceptance
+
+## Simplified Source
+
+```c
+bool ParseVariableNum(const char *value, const char *name, int *result) {
+    char *end;
+    long numval;
+
+    // Treat NULL as empty string
+    if (value == NULL)
+        value = "";
+
+    // Parse string to long integer
+    errno = 0;
+    numval = strtol(value, &end, 0);
+
+    // Check for successful parsing: no errors, entire string consumed,
+    // at least one digit processed, and value fits in int range
+    if (errno == 0 && *end == '\0' && end != value && numval == (int) numval) {
+        *result = (int) numval;
+        return true;
+    } else {
+        // Log error if name provided, don't modify result
+        if (name)
+            pg_log_error("invalid value \"%s\" for \"%s\": integer expected",
+                         value, name);
+        return false;
+    }
+}
+```

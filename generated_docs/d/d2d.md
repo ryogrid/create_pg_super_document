@@ -53,3 +53,132 @@ The implementation includes sophisticated optimizations such as:
 - The algorithm guarantees the shortest decimal representation that round-trips correctly
 - Performance is optimized for common cases, with the general case handling rare scenarios (~0.7%)
 - Contains detailed comments explaining the mathematical reasoning behind various optimizations
+
+## Simplified Source
+
+```c
+static inline floating_decimal_64 d2d(const uint64 ieeeMantissa, const uint32 ieeeExponent) {
+    // Step 1: Normalize mantissa and exponent
+    int32 e2;
+    uint64 m2;
+
+    if (ieeeExponent == 0) {
+        // Subnormal number
+        e2 = 1 - DOUBLE_BIAS - DOUBLE_MANTISSA_BITS - 2;
+        m2 = ieeeMantissa;
+    } else {
+        // Normal number - add implicit leading 1
+        e2 = ieeeExponent - DOUBLE_BIAS - DOUBLE_MANTISSA_BITS - 2;
+        m2 = (UINT64CONST(1) << DOUBLE_MANTISSA_BITS) | ieeeMantissa;
+    }
+
+    // Step 2: Determine bounds for legal decimal representations
+    const uint64 mv = 4 * m2;
+    const uint32 mmShift = ieeeMantissa != 0 || ieeeExponent <= 1;
+
+    // Step 3: Convert to decimal using 128-bit arithmetic
+    uint64 vr, vp, vm;
+    int32 e10;
+    bool vmIsTrailingZeros = false;
+    bool vrIsTrailingZeros = false;
+
+    if (e2 >= 0) {
+        // Positive exponent path
+        const uint32 q = log10Pow2(e2) - (e2 > 3);
+        const int32 k = DOUBLE_POW5_INV_BITCOUNT + pow5bits(q) - 1;
+        const int32 i = -e2 + q + k;
+        e10 = q;
+
+        vr = mulShiftAll(m2, DOUBLE_POW5_INV_SPLIT[q], i, &vp, &vm, mmShift);
+
+        // Check for trailing zeros if q <= 21
+        if (q <= 21) {
+            const uint32 mvMod5 = (uint32)(mv - 5 * div5(mv));
+            if (mvMod5 == 0) {
+                vrIsTrailingZeros = multipleOfPowerOf5(mv, q);
+            }
+        }
+    } else {
+        // Negative exponent path
+        const uint32 q = log10Pow5(-e2) - (-e2 > 1);
+        const int32 i = -e2 - q;
+        const int32 k = pow5bits(i) - DOUBLE_POW5_BITCOUNT;
+        const int32 j = q - k;
+        e10 = q + e2;
+
+        vr = mulShiftAll(m2, DOUBLE_POW5_SPLIT[i], j, &vp, &vm, mmShift);
+
+        // Handle trailing zeros for small q
+        if (q <= 1) {
+            vrIsTrailingZeros = true;
+        } else if (q < 63) {
+            vrIsTrailingZeros = multipleOfPowerOf2(mv, q - 1);
+        }
+    }
+
+    // Step 4: Find shortest representation by removing digits
+    uint32 removed = 0;
+    uint8 lastRemovedDigit = 0;
+    uint64 output;
+
+    if (vmIsTrailingZeros || vrIsTrailingZeros) {
+        // General case with trailing zero handling
+        while (true) {
+            const uint64 vpDiv10 = div10(vp);
+            const uint64 vmDiv10 = div10(vm);
+            if (vpDiv10 <= vmDiv10) break;
+
+            const uint64 vrDiv10 = div10(vr);
+            lastRemovedDigit = (uint8)(vr - 10 * vrDiv10);
+
+            vr = vrDiv10;
+            vp = vpDiv10;
+            vm = vmDiv10;
+            removed++;
+        }
+
+        // Rounding logic for trailing zeros
+        output = vr + ((vr == vm) || lastRemovedDigit >= 5);
+    } else {
+        // Common case optimization (~99.3%)
+        bool roundUp = false;
+
+        // Try removing two digits at once
+        const uint64 vpDiv100 = div100(vp);
+        const uint64 vmDiv100 = div100(vm);
+        if (vpDiv100 > vmDiv100) {
+            const uint64 vrDiv100 = div100(vr);
+            const uint32 vrMod100 = (uint32)(vr - 100 * vrDiv100);
+            roundUp = vrMod100 >= 50;
+            vr = vrDiv100;
+            vp = vpDiv100;
+            vm = vmDiv100;
+            removed += 2;
+        }
+
+        // Remove remaining digits one by one
+        while (true) {
+            const uint64 vpDiv10 = div10(vp);
+            const uint64 vmDiv10 = div10(vm);
+            if (vpDiv10 <= vmDiv10) break;
+
+            const uint64 vrDiv10 = div10(vr);
+            const uint32 vrMod10 = (uint32)(vr - 10 * vrDiv10);
+            roundUp = vrMod10 >= 5;
+
+            vr = vrDiv10;
+            vp = vpDiv10;
+            vm = vmDiv10;
+            removed++;
+        }
+
+        output = vr + (vr == vm || roundUp);
+    }
+
+    // Return result
+    floating_decimal_64 fd;
+    fd.exponent = e10 + removed;
+    fd.mantissa = output;
+    return fd;
+}
+```

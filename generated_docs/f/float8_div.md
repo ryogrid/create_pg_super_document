@@ -47,3 +47,28 @@ The function performs the division operation but includes checks for division by
 - The function follows PostgreSQL's convention of throwing errors rather than returning special values for exceptional conditions
 - More complex error handling than multiplication due to the additional division-by-zero case
 - Critical for financial calculations where precision and error handling are essential
+
+## Simplified Source
+
+```c
+static inline float8
+float8_div(const float8 val1, const float8 val2)
+{
+    // Check for division by zero (except when dividend is NaN)
+    if (unlikely(val2 == 0.0) && !isnan(val1))
+        float_zero_divide_error();
+
+    // Perform the division
+    float8 result = val1 / val2;
+
+    // Check for overflow (result infinite but dividend wasn't)
+    if (unlikely(isinf(result)) && !isinf(val1))
+        float_overflow_error();
+
+    // Check for underflow (result zero but dividend non-zero and divisor finite)
+    if (unlikely(result == 0.0) && val1 != 0.0 && !isinf(val2))
+        float_underflow_error();
+
+    return result;
+}
+```

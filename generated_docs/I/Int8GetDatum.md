@@ -30,3 +30,12 @@ Int8GetDatum provides type conversion from PostgreSQL int8 (8-bit signed integer
 - Used for efficient storage and manipulation of small integer values
 - Complements the broader family of datum conversion functions for different integer sizes
 - The int8 type represents a signed 8-bit integer with range -128 to 127
+
+## Simplified Source
+
+```c
+static inline Datum Int8GetDatum(int8 X) {
+    // Simple cast: convert 8-bit integer to Datum format
+    return (Datum) X;
+}
+```

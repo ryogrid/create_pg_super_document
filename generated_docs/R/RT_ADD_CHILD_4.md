@@ -39,3 +39,27 @@ This macro expands to a function that typically takes:
 - Automatically promotes to node-16 when capacity is exceeded
 - Critical for the adaptive nature of the radix tree, starting small and growing as needed
 - The actual function implementation handles the insertion logic specific to the 4-child node layout
+
+## Simplified Source
+
+```c
+static inline RT_PTR_ALLOC *
+RT_ADD_CHILD_4(RT_RADIX_TREE *tree, RT_CHILD_PTR node, uint8 chunk)
+{
+    RT_NODE_4 *n4 = (RT_NODE_4 *) node.local;
+    int count = n4->base.count;
+
+    // Find correct insertion position to maintain sorted order
+    int insertpos = RT_NODE_4_GET_INSERTPOS(n4, chunk, count);
+
+    // Shift existing chunks and children to make room
+    RT_SHIFT_ARRAYS_FOR_INSERT(n4->chunks, n4->children, count, insertpos);
+
+    // Insert new chunk at the correct position
+    n4->chunks[insertpos] = chunk;
+
+    // Update count and return child slot pointer
+    n4->base.count++;
+    return &n4->children[insertpos];
+}
+```

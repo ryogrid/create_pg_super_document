@@ -38,3 +38,15 @@ The function performs a simple conditional selection: if val1 is less than val2 
 - Relies on float8_lt for the actual comparison logic and NaN handling
 - Part of the float8 family of utility functions for double-precision arithmetic
 - The NaN behavior is consistent with PostgreSQL's floating-point semantics
+
+## Simplified Source
+
+```c
+static inline float8
+float8_min(const float8 val1, const float8 val2)
+{
+    // Return the smaller value using float8_lt comparison
+    // Inherits NaN handling from float8_lt function
+    return float8_lt(val1, val2) ? val1 : val2;
+}
+```

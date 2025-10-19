@@ -36,3 +36,18 @@ The function is implemented as a static inline function in the header file, maki
 - The inline implementation ensures optimal performance for frequent conversions
 - Automatically handles TOAST decompression, making it safe to use with potentially compressed multirange data
 - Part of PostgreSQL's type system infrastructure for multirange types introduced in PostgreSQL 14
+
+## Simplified Source
+
+```c
+static inline MultirangeType *DatumGetMultirangeTypeP(Datum X) {
+    // Convert Datum to MultirangeType pointer with automatic TOAST decompression
+    return (MultirangeType *) PG_DETOAST_DATUM(X);
+}
+```
+
+**Key Points:**
+- Simple type conversion from Datum to MultirangeType pointer
+- Automatically handles TOAST decompression for large/compressed values
+- Inline function for optimal performance in frequent conversions
+- Essential utility for multirange type operations throughout PostgreSQL

@@ -44,3 +44,12 @@ The function internally calls the  macro, which checks both that the worker is i
 - The function serves as a type safety wrapper around the  macro
 - Table synchronization workers are distinct from apply workers and parallel apply workers in PostgreSQL's logical replication architecture
 - The function is used throughout the logical replication codebase to branch logic based on worker type
+
+## Simplified Source
+
+```c
+static inline bool am_tablesync_worker(void) {
+    // Check if current worker is a table sync worker
+    return isTablesyncWorker(MyLogicalRepWorker);
+}
+```

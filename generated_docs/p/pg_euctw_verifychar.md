@@ -42,3 +42,33 @@ The function uses a switch statement to handle different cases based on the firs
 - CNS 11643 Plane 1 characters use 2-byte sequences without SS2/SS3 prefixes  
 - The function performs range validation on plane numbers for SS2 sequences (must be 0xA1-0xA7)
 - Part of PostgreSQL's character encoding validation system ensuring data integrity for Traditional Chinese text
+
+## Simplified Source
+
+```c
+static int pg_euctw_verifychar(const unsigned char *s, int len) {
+    unsigned char c1 = *s;
+
+    if (c1 == SS2) {
+        // CNS 11643 Planes 1-7: 4 bytes
+        if (len < 4) return -1;
+        if (s[1] < 0xa1 || s[1] > 0xa7) return -1;  // Plane number
+        if (!IS_EUC_RANGE_VALID(s[2]) || !IS_EUC_RANGE_VALID(s[3])) return -1;
+        return 4;
+    }
+    else if (c1 == SS3) {
+        // SS3 is unused in EUC-TW
+        return -1;
+    }
+    else if (IS_HIGHBIT_SET(c1)) {
+        // CNS 11643 Plane 1: 2 bytes
+        if (len < 2) return -1;
+        if (!IS_EUC_RANGE_VALID(s[1])) return -1;
+        return 2;
+    }
+    else {
+        // ASCII: 1 byte
+        return 1;
+    }
+}
+```

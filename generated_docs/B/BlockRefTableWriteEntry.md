@@ -39,3 +39,38 @@ The function is critical for incremental writing of block reference tables and r
 - Only non-zero chunks are written to minimize file size
 - The caller is responsible for ensuring proper sort order - incorrect ordering will produce invalid output
 - This is a void function that performs incremental writing as part of the larger block reference table generation process
+
+## Simplified Source
+
+```c
+void
+BlockRefTableWriteEntry(BlockRefTableWriter *writer, BlockRefTableEntry *entry)
+{
+    BlockRefTableSerializedEntry sentry;
+
+    // Convert to serialized format
+    sentry.rlocator = entry->key.rlocator;
+    sentry.forknum = entry->key.forknum;
+    sentry.limit_block = entry->limit_block;
+    sentry.nchunks = entry->nchunks;
+
+    // Optimize by trimming trailing zero chunks
+    while (sentry.nchunks > 0 && entry->chunk_usage[sentry.nchunks - 1] == 0)
+        sentry.nchunks--;
+
+    // Write entry metadata
+    BlockRefTableWrite(&writer->buffer, &sentry, sizeof(BlockRefTableSerializedEntry));
+
+    // Write chunk usage array if present
+    if (sentry.nchunks != 0)
+        BlockRefTableWrite(&writer->buffer, entry->chunk_usage, sentry.nchunks * sizeof(uint16));
+
+    // Write actual chunk data for non-zero chunks
+    for (unsigned j = 0; j < entry->nchunks; ++j) {
+        if (entry->chunk_usage[j] == 0)
+            continue;
+        BlockRefTableWrite(&writer->buffer, entry->chunk_data[j],
+                          entry->chunk_usage[j] * sizeof(uint16));
+    }
+}
+```

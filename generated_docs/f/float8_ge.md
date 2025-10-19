@@ -37,3 +37,16 @@ The function returns true if val1 is NaN, or if val2 is not NaN and val1 is arit
 - Part of the float8 family of comparison functions
 - Used extensively in geometric indexing operations and SQL comparison functions
 - The NaN handling ensures consistent behavior across PostgreSQL's floating-point operations
+
+## Simplified Source
+
+```c
+static inline bool
+float8_ge(const float8 val1, const float8 val2)
+{
+    // NaN is treated as greater than any value
+    // If val1 is NaN, return true immediately
+    // Otherwise, ensure val2 is not NaN and perform standard comparison
+    return isnan(val1) || (!isnan(val2) && val1 >= val2);
+}
+```

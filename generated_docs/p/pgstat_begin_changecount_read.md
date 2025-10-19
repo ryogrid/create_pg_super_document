@@ -40,3 +40,28 @@ The returned value is used with pgstat_end_changecount_read to determine if the 
 - CHECK_FOR_INTERRUPTS allows the process to handle signals before starting the read
 - If the counter is odd when this function reads it, it indicates a write is in progress
 - This is part of a lock-free protocol that allows reading statistics without blocking writers
+
+## Simplified Source
+
+```c
+static inline uint32 pgstat_begin_changecount_read(uint32 *cc) {
+    // Capture change counter value before reading data
+    uint32 before_cc = *cc;
+
+    // Handle any pending interrupts
+    CHECK_FOR_INTERRUPTS();
+
+    // Memory barrier ensures counter read happens before data reads
+    pg_read_barrier();
+
+    // Return captured counter for later verification
+    return before_cc;
+}
+```
+
+**Key Points:**
+- Captures change counter state before reading statistics data
+- Allows later detection of concurrent writes during read operation
+- Memory barrier ensures proper ordering of counter and data reads
+- Must be paired with pgstat_end_changecount_read for consistency check
+- Part of lock-free protocol for reading statistics without blocking writers

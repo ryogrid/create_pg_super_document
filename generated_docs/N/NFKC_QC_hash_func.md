@@ -39,3 +39,31 @@ Like its NFC counterpart, this function provides constant-time O(1) lookups with
 - Generated automatically from Unicode compatibility data
 - NFKC normalization is more aggressive than NFC, handling both canonical and compatibility equivalences
 - Essential for applications requiring robust Unicode text matching and searching capabilities
+
+## Simplified Source
+
+```c
+static int
+NFKC_QC_hash_func(const void *key) {
+    // Large pre-computed hash table with 10,079 entries for NFKC quick check
+    static const int16 h[10079] = { /* ... lookup table ... */ };
+
+    // Convert input key to bytes for processing
+    const unsigned char *k = (const unsigned char *) key;
+    size_t keylen = 4;  // Process 4 bytes (Unicode code point)
+
+    // Dual hash computation with different multipliers
+    uint32 a = 0;       // First hash accumulator (multiplier: 257)
+    uint32 b = 1;       // Second hash accumulator (multiplier: 8191)
+
+    // Process each byte of the Unicode code point
+    while (keylen--) {
+        unsigned char c = *k++;
+        a = a * 257 + c;    // First hash calculation
+        b = b * 8191 + c;   // Second hash calculation (larger multiplier)
+    }
+
+    // Combine results from both hash table lookups
+    return h[a % 10079] + h[b % 10079];
+}
+```

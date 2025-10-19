@@ -32,3 +32,15 @@ This is crucial when the calling function needs to modify the TSVector data, as 
 - Essential when functions need to modify TSVector data in-place
 - More expensive than DatumGetTSVector due to the copy operation, so should only be used when modification is necessary
 - Part of the fmgr (function manager) interface functions for text search operations
+
+## Simplified Source
+
+```c
+static inline TSVector
+DatumGetTSVectorCopy(Datum X)
+{
+    // Convert Datum to TSVector, creating a modifiable copy
+    // Essential when the function needs to modify the TSVector data
+    return (TSVector) PG_DETOAST_DATUM_COPY(X);
+}
+```

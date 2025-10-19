@@ -29,3 +29,26 @@ This function traverses a conditional stack (implemented as a linked list) and c
 - The function performs a simple linear traversal, so time complexity is O(n) where n is the stack depth
 - This is a utility function mainly intended for debugging rather than production logic
 - The stack is implemented as a singly-linked list with head pointer access
+
+## Simplified Source
+
+```c
+int
+conditional_stack_depth(ConditionalStack cstack)
+{
+    // Handle NULL stack
+    if (cstack == NULL)
+        return -1;
+
+    // Count elements by traversing the linked list
+    IfStackElem *p = cstack->head;
+    int depth = 0;
+
+    while (p != NULL) {
+        depth++;
+        p = p->next;
+    }
+
+    return depth;
+}
+```
