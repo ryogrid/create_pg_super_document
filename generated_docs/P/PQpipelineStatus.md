@@ -34,3 +34,16 @@ The function performs a simple null check on the connection pointer and returns 
 - This function is extensively used in PostgreSQL's testing infrastructure, particularly in libpq_pipeline tests and pgbench
 - Pipeline mode is a performance optimization feature that allows sending multiple queries without waiting for individual results
 - The function is declared in libpq-fe.h and implemented in fe-connect.c at lines 7201-7209
+
+## Simplified Source
+
+```c
+PGpipelineStatus PQpipelineStatus(const PGconn *conn) {
+    // Safety check for null connection
+    if (!conn)
+        return PQ_PIPELINE_OFF;
+
+    // Return current pipeline status
+    return conn->pipelineStatus;
+}
+```

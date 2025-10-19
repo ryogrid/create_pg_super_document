@@ -32,3 +32,16 @@ The function provides access to the pgoptions field of the PGconn structure, whi
 - The options string reflects the state at connection time and may include various PostgreSQL server options
 - This is part of the standard libpq connection information API
 - The returned pointer remains valid as long as the PGconn object exists
+
+## Simplified Source
+
+```c
+char *PQoptions(const PGconn *conn) {
+    // Safety check for null connection
+    if (!conn)
+        return NULL;
+
+    // Return the PostgreSQL options string
+    return conn->pgoptions;
+}
+```

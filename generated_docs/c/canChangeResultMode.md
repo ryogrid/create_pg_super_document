@@ -40,3 +40,29 @@ This validation prevents mode changes that could corrupt the result stream or ca
 - Returns true only when all safety conditions are met, false otherwise
 - The function checks the command queue to ensure there's an active query of the appropriate type
 - Part of the result mode management system that allows clients to control how results are delivered
+
+## Simplified Source
+
+```c
+static bool canChangeResultMode(PGconn *conn) {
+    // Must have valid connection
+    if (!conn)
+        return false;
+
+    // Connection must be busy processing a query
+    if (conn->asyncStatus != PGASYNC_BUSY)
+        return false;
+
+    // Must have valid queued command of appropriate type
+    if (!conn->cmd_queue_head ||
+        (conn->cmd_queue_head->queryclass != PGQUERY_SIMPLE &&
+         conn->cmd_queue_head->queryclass != PGQUERY_EXTENDED))
+        return false;
+
+    // No results should be pending
+    if (pgHavePendingResult(conn))
+        return false;
+
+    return true;
+}
+```

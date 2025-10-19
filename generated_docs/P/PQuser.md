@@ -31,3 +31,16 @@ PQuser is a libpq client library function that retrieves the user name associate
 - Returns NULL if the connection handle is NULL
 - The returned string is valid for the lifetime of the connection object
 - This function is part of the libpq public API for PostgreSQL client applications
+
+## Simplified Source
+
+```c
+char *PQuser(const PGconn *conn) {
+    // Return NULL if connection is invalid
+    if (!conn)
+        return NULL;
+
+    // Return username from connection
+    return conn->pguser;
+}
+```

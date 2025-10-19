@@ -29,3 +29,16 @@ PQresultMemorySize is a simple utility function that provides access to the tota
 - Memory size is tracked incrementally as allocations are made
 - This is a read-only operation that does not modify the PGresult
 - Located at src/interfaces/libpq/fe-exec.c:663-674
+
+## Simplified Source
+
+```c
+size_t PQresultMemorySize(const PGresult *res) {
+    // Return 0 if no result object
+    if (!res)
+        return 0;
+
+    // Return total memory size tracked for this result
+    return res->memorySize;
+}
+```

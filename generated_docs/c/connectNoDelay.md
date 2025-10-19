@@ -36,3 +36,24 @@ The function uses the setsockopt() system call to set the TCP_NODELAY option on 
 - The TCP_NODELAY option is applied at the IPPROTO_TCP level
 - Error messages include system-specific socket error descriptions
 - This optimization is particularly important for interactive database sessions where query response time matters more than network efficiency
+
+## Simplified Source
+
+```c
+static int connectNoDelay(PGconn *conn) {
+    // Enable TCP_NODELAY to disable Nagle's algorithm for low latency
+    #ifdef TCP_NODELAY
+        int on = 1;
+
+        // Set socket option for immediate packet transmission
+        if (setsockopt(conn->sock, IPPROTO_TCP, TCP_NODELAY, &on, sizeof(on)) < 0) {
+            // Log error if setting TCP_NODELAY fails
+            libpq_append_conn_error(conn, "could not set socket to TCP no delay mode: %s",
+                                   SOCK_STRERROR(SOCK_ERRNO, sebuf, sizeof(sebuf)));
+            return 0; // Failure
+        }
+    #endif
+
+    return 1; // Success
+}
+```

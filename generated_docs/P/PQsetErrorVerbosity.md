@@ -38,3 +38,22 @@ PQsetErrorVerbosity allows applications to control the amount of detail included
 - This setting affects all subsequent error messages from the connection
 - Commonly used by command-line tools to adjust error reporting based on user preferences
 - The verbosity setting is stored in the connection structure and persists until changed
+
+## Simplified Source
+
+```c
+PGVerbosity PQsetErrorVerbosity(PGconn *conn, PGVerbosity verbosity) {
+    // Return default if no connection
+    if (!conn)
+        return PQERRORS_DEFAULT;
+
+    // Save current verbosity level
+    PGVerbosity old = conn->verbosity;
+
+    // Set new verbosity level
+    conn->verbosity = verbosity;
+
+    // Return previous setting
+    return old;
+}
+```

@@ -32,3 +32,16 @@ This function is useful for client applications that want to understand what aut
 - Used primarily by replication components and backup utilities to verify authentication methods
 - The function safely handles NULL connection pointers by returning false
 - Part of the libpq client interface for connection introspection and security verification
+
+## Simplified Source
+
+```c
+int PQconnectionUsedPassword(const PGconn *conn) {
+    // Return false if no connection object
+    if (!conn)
+        return false;
+
+    // Return true if password authentication was needed during connection
+    return conn->password_needed;
+}
+```

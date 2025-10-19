@@ -36,3 +36,21 @@ PQport is a libpq client library function that retrieves the port number associa
 - The returned string is valid for the lifetime of the connection object
 - Part of the libpq public API for PostgreSQL client applications
 - Commonly used in connection information display and logging
+
+## Simplified Source
+
+```c
+char *PQport(const PGconn *conn) {
+    // Safety check for null connection
+    if (!conn)
+        return NULL;
+
+    // Return port from current active host if available
+    if (conn->connhost != NULL &&
+        conn->connhost[conn->whichhost].port != NULL &&
+        conn->connhost[conn->whichhost].port[0] != '\0')
+        return conn->connhost[conn->whichhost].port;
+
+    return "";
+}
+```

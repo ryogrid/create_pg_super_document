@@ -32,3 +32,16 @@ This function is valuable for client applications that need to understand the au
 - The function safely handles NULL connection pointers by returning false
 - Part of the libpq client interface for connection introspection and security verification
 - GSSAPI support in PostgreSQL enables integration with Kerberos and other enterprise authentication systems
+
+## Simplified Source
+
+```c
+int PQconnectionUsedGSSAPI(const PGconn *conn) {
+    // Return false if no connection object
+    if (!conn)
+        return false;
+
+    // Return true if GSSAPI authentication was used during connection
+    return conn->gssapi_used;
+}
+```

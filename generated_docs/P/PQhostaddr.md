@@ -33,3 +33,19 @@ PQhostaddr is a libpq client library function that retrieves the parsed IP addre
 - The returned string is valid for the lifetime of the connection object
 - Part of the libpq public API for PostgreSQL client applications
 - Useful for applications that need to know the actual network endpoint used for the connection
+
+## Simplified Source
+
+```c
+char *PQhostaddr(const PGconn *conn) {
+    // Safety check for null connection
+    if (!conn)
+        return NULL;
+
+    // Return the parsed/resolved IP address if available
+    if (conn->connhost != NULL && conn->connip != NULL)
+        return conn->connip;
+
+    return "";
+}
+```

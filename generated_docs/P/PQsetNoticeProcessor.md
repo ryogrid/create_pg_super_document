@@ -40,3 +40,25 @@ PQsetNoticeProcessor installs a callback function that receives notice messages 
 - Commonly used by command-line tools like pg_dump and psql for notice logging
 - The message string should not be modified or freed by the application
 - Notice processing is synchronous and occurs when notices are received from the server
+
+## Simplified Source
+
+```c
+PQnoticeProcessor PQsetNoticeProcessor(PGconn *conn, PQnoticeProcessor proc, void *arg) {
+    // Return NULL if no connection
+    if (conn == NULL)
+        return NULL;
+
+    // Save current notice processor
+    PQnoticeProcessor old = conn->noticeHooks.noticeProc;
+
+    // Set new notice processor if provided
+    if (proc) {
+        conn->noticeHooks.noticeProc = proc;
+        conn->noticeHooks.noticeProcArg = arg;
+    }
+
+    // Return previous processor
+    return old;
+}
+```

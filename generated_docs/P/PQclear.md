@@ -43,3 +43,45 @@ The function is designed to be safe to call multiple times and handles edge case
 - **OOM handling**: Special handling for the singleton OOM_result prevents attempting to free static memory
 - **Null safety**: Designed as a convenience function that safely handles NULL input
 - **Resource management**: This is the primary cleanup function for PGresult objects and should be called for every result obtained from libpq functions
+
+## Simplified Source
+
+```c
+void PQclear(PGresult *res) {
+    // Safety check: do nothing for NULL or special OOM_result
+    if (!res || res == &OOM_result)
+        return;
+
+    // Clean up event handlers
+    for (int i = 0; i < res->nEvents; i++) {
+        if (res->events[i].resultInitialized) {
+            // Call destroy callback for initialized events
+            PGEventResultDestroy evt = {.result = res};
+            res->events[i].proc(PGEVT_RESULTDESTROY, &evt, res->events[i].passThrough);
+        }
+        free(res->events[i].name);
+    }
+    free(res->events);
+
+    // Free all memory blocks
+    PGresult_data *block;
+    while ((block = res->curBlock) != NULL) {
+        res->curBlock = block->next;
+        free(block);
+    }
+
+    // Free tuple data
+    free(res->tuples);
+
+    // Zero out pointers to catch programming errors
+    res->attDescs = NULL;
+    res->tuples = NULL;
+    res->paramDescs = NULL;
+    res->errFields = NULL;
+    res->events = NULL;
+    res->nEvents = 0;
+
+    // Free the main structure
+    free(res);
+}
+```

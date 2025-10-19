@@ -30,3 +30,50 @@ This function sets up the encryption negotiation state machine by analyzing the 
 
 ## Notes and Other Information
 This function is part of the PostgreSQL libpq encryption negotiation mechanism introduced to support multiple encryption methods. It handles the initialization phase where the client determines which encryption methods are available and permitted based on configuration. The function includes special handling for Unix domain sockets where encryption is not meaningful. The actual selection and negotiation of encryption methods is delegated to `select_next_encryption_method()`. The function returns false only when GSSAPI encryption is required but the connection is over a Unix socket, which is an invalid configuration.
+
+## Simplified Source
+
+```c
+static bool init_allowed_encryption_methods(PGconn *conn) {
+    // Unix domain sockets: disable SSL/GSSAPI encryption
+    if (conn->raddr.addr.ss_family == AF_UNIX) {
+        conn->allowed_enc_methods &= ~(ENC_SSL | ENC_GSSAPI);
+
+        // Error if GSSAPI is required over Unix socket
+        if (conn->gssencmode[0] == 'r') {
+            libpq_append_conn_error(conn,
+                "GSSAPI encryption required but it is not supported over a local socket");
+            conn->allowed_enc_methods = 0;
+            conn->current_enc_method = ENC_ERROR;
+            return false;
+        }
+
+        // Use plaintext for Unix sockets
+        conn->allowed_enc_methods = ENC_PLAINTEXT;
+        conn->current_enc_method = ENC_PLAINTEXT;
+        return true;
+    }
+
+    // Network connections: initialize based on sslmode and gssencmode
+    conn->allowed_enc_methods = 0;
+
+    // Enable SSL if available and not disabled
+    #ifdef USE_SSL
+    if (conn->sslmode[0] != 'd' && conn->gssencmode[0] != 'r')
+        conn->allowed_enc_methods |= ENC_SSL;
+    #endif
+
+    // Enable GSSAPI if available and not disabled
+    #ifdef ENABLE_GSS
+    if (conn->gssencmode[0] != 'd')
+        conn->allowed_enc_methods |= ENC_GSSAPI;
+    #endif
+
+    // Allow plaintext if both SSL and GSSAPI permit it
+    if ((conn->sslmode[0] == 'd' || conn->sslmode[0] == 'p' || conn->sslmode[0] == 'a') &&
+        (conn->gssencmode[0] == 'd' || conn->gssencmode[0] == 'p'))
+        conn->allowed_enc_methods |= ENC_PLAINTEXT;
+
+    return select_next_encryption_method(conn, false);
+}
+```

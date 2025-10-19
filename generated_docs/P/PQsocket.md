@@ -40,3 +40,17 @@ The socket descriptor allows applications to integrate PostgreSQL connections in
 - The socket remains valid for the lifetime of the connection
 - Commonly used in high-performance applications that need to handle multiple database connections efficiently
 - Applications should not directly read from or write to this socket - use libpq functions for data transfer
+
+## Simplified Source
+
+```c
+int PQsocket(const PGconn *conn) {
+    // Safety check for null connection
+    if (!conn)
+        return -1;
+
+    // Return socket descriptor or -1 if invalid
+    // (Cross-platform: Windows uses unsigned sockets, but we return -1 for consistency)
+    return (conn->sock != PGINVALID_SOCKET) ? conn->sock : -1;
+}
+```

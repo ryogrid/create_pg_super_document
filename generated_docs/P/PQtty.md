@@ -30,3 +30,16 @@ The function remains in the libpq API purely for backwards compatibility to avoi
 - Maintained only for API backwards compatibility
 - The original TTY-related functionality has been completely removed from PostgreSQL
 - Applications should not rely on this function for any meaningful information
+
+## Simplified Source
+
+```c
+char *PQtty(const PGconn *conn) {
+    // Deprecated function - kept for API backwards compatibility
+    if (!conn)
+        return NULL;
+
+    // Always return empty string (no longer provides TTY functionality)
+    return "";
+}
+```

@@ -32,3 +32,18 @@ The function uses the PG_PROTOCOL_MAJOR macro to extract the major version numbe
 - The protocol version is established during connection setup and remains constant for the lifetime of the connection
 - Higher protocol versions typically support more advanced features and optimizations
 - This function is part of the libpq public API and is commonly used by applications to check protocol compatibility before using version-specific features
+
+## Simplified Source
+
+```c
+int PQprotocolVersion(const PGconn *conn) {
+    // Safety checks for null connection and bad status
+    if (!conn)
+        return 0;
+    if (conn->status == CONNECTION_BAD)
+        return 0;
+
+    // Extract and return major protocol version
+    return PG_PROTOCOL_MAJOR(conn->pversion);
+}
+```

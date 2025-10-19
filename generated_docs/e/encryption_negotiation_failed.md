@@ -29,3 +29,27 @@ This function is called when an encryption method (SSL, GSSAPI, or plaintext) fa
 
 ## Notes and Other Information
 This function is part of the encryption negotiation state machine in PostgreSQL libpq. It implements a fallback mechanism where if one encryption method fails (e.g., SSL handshake failure), the client can automatically try other configured methods (e.g., GSSAPI or plaintext) without requiring the application to handle the retry logic. The return value of 2 for direct SSL indicates that the connection socket must be closed and a new one established, as direct SSL negotiation cannot fallback on the same socket connection. The assertion ensures that the failed method is properly tracked and not mistakenly marked as both failed and current simultaneously.
+
+## Simplified Source
+
+```c
+static int encryption_negotiation_failed(PGconn *conn) {
+    // Verify current method isn't already marked as failed
+    Assert((conn->failed_enc_methods & conn->current_enc_method) == 0);
+
+    // Mark current encryption method as failed
+    conn->failed_enc_methods |= conn->current_enc_method;
+
+    // Try to select next available encryption method
+    if (select_next_encryption_method(conn, true)) {
+        // Direct SSL requires new connection socket
+        if (conn->current_enc_method == ENC_SSL && conn->sslnegotiation[0] == 'd')
+            return 2; // Need new connection
+        else
+            return 1; // Continue with existing connection
+    }
+    else {
+        return 0; // No more methods available, connection fails
+    }
+}
+```

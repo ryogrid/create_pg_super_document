@@ -35,3 +35,18 @@ The function accesses the sversion field from the connection structure, which is
 - Commonly used by client applications to determine which SQL features and protocol capabilities are available
 - Essential for tools like pg_dump, pg_basebackup, and psql to adapt their behavior based on server capabilities
 - The server version is established during connection setup and remains constant for the connection lifetime
+
+## Simplified Source
+
+```c
+int PQserverVersion(const PGconn *conn) {
+    // Safety checks for null connection and bad status
+    if (!conn)
+        return 0;
+    if (conn->status == CONNECTION_BAD)
+        return 0;
+
+    // Return the server version number
+    return conn->sversion;
+}
+```

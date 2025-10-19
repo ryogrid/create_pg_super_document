@@ -42,3 +42,16 @@ The function performs a simple validation check and returns a pointer to the int
 - Part of the family of PGconn accessor functions (PQuser, PQhost, PQport, etc.)
 - Essential for applications that work with multiple databases or need to display connection information
 - Simple and efficient - direct field access with null pointer protection
+
+## Simplified Source
+
+```c
+char *PQdb(const PGconn *conn) {
+    // Return NULL if connection is invalid
+    if (!conn)
+        return NULL;
+
+    // Return database name from connection
+    return conn->dbName;
+}
+```

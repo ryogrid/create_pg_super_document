@@ -41,3 +41,16 @@ The function only returns a valid PID when the connection is in CONNECTION_OK st
 - Useful for monitoring and debugging, especially in multi-connection scenarios
 - The PID can be used to identify the corresponding backend process in system process lists and PostgreSQL's pg_stat_activity view
 - Should not be used directly for process management - use appropriate libpq functions instead
+
+## Simplified Source
+
+```c
+int PQbackendPID(const PGconn *conn) {
+    // Safety check: must have valid connection in OK status
+    if (!conn || conn->status != CONNECTION_OK)
+        return 0;
+
+    // Return the backend process ID
+    return conn->be_pid;
+}
+```

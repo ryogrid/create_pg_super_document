@@ -35,3 +35,22 @@ The function returns true (non-zero) only when two conditions are met: the serve
 - The function safely handles NULL connection pointers by returning false
 - Used in connection retry logic where applications attempt to reconnect with user-provided credentials
 - Part of the libpq client interface for managing PostgreSQL connections
+
+## Simplified Source
+
+```c
+int PQconnectionNeedsPassword(const PGconn *conn) {
+    // Return false if no connection object
+    if (!conn)
+        return false;
+
+    // Get current password from connection
+    char *password = PQpass(conn);
+
+    // Check if server needs password AND no valid password provided
+    if (conn->password_needed && (password == NULL || password[0] == '\0'))
+        return true;
+    else
+        return false;
+}
+```

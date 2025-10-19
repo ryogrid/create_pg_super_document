@@ -37,3 +37,16 @@ The function first validates that the connection is not null and that the connec
 - Used by psql for proper character display and by dump utilities for correct data export
 - Part of the core libpq interface for character encoding management
 - The actual encoding names can be retrieved using pg_encoding_to_char() with the returned identifier
+
+## Simplified Source
+
+```c
+int PQclientEncoding(const PGconn *conn) {
+    // Return -1 if no connection or connection not properly established
+    if (!conn || conn->status != CONNECTION_OK)
+        return -1;
+
+    // Return the client encoding identifier
+    return conn->client_encoding;
+}
+```

@@ -28,3 +28,18 @@ This function implements the core logic for handling connection failures in the 
 
 ## Notes and Other Information
 This function is part of the encryption method fallback mechanism in PostgreSQL libpq. It provides a simplified interface compared to `encryption_negotiation_failed()` by always returning a boolean indicating whether to retry with a different encryption method, rather than the more complex return codes. The function is implemented as a separate function rather than inline in the macro to reduce code duplication throughout the connection state machine. The assertion ensures proper state management by verifying that a method is not simultaneously marked as both current and failed. This function enables automatic retry with different encryption methods when connection attempts fail, improving connection reliability in environments with mixed encryption support.
+
+## Simplified Source
+
+```c
+static bool connection_failed(PGconn *conn) {
+    // Verify current method isn't already marked as failed
+    Assert((conn->failed_enc_methods & conn->current_enc_method) == 0);
+
+    // Mark current encryption method as failed
+    conn->failed_enc_methods |= conn->current_enc_method;
+
+    // Try to select next available encryption method
+    return select_next_encryption_method(conn, false);
+}
+```

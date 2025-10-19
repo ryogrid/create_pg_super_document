@@ -31,3 +31,29 @@ PQpass is a libpq client library function that retrieves the password associated
 - Supports multi-host configurations by checking host-specific passwords first
 - The returned string is valid for the lifetime of the connection object
 - Part of the libpq public API for PostgreSQL client applications
+
+## Simplified Source
+
+```c
+char *PQpass(const PGconn *conn) {
+    char *password = NULL;
+
+    // Return NULL if connection is invalid
+    if (!conn)
+        return NULL;
+
+    // Check host-specific password first
+    if (conn->connhost != NULL)
+        password = conn->connhost[conn->whichhost].password;
+
+    // Fall back to global password
+    if (password == NULL)
+        password = conn->pgpass;
+
+    // Return empty string if no password (historical compatibility)
+    if (password == NULL)
+        password = "";
+
+    return password;
+}
+```

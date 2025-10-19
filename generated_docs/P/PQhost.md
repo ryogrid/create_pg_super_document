@@ -35,3 +35,29 @@ PQhost is a libpq client library function that retrieves the host identifier ass
 - Supports multi-host connection configurations by checking the current active host (whichhost)
 - The returned string is valid for the lifetime of the connection object
 - Part of the libpq public API for PostgreSQL client applications
+
+## Simplified Source
+
+```c
+char *PQhost(const PGconn *conn) {
+    // Safety check for null connection
+    if (!conn)
+        return NULL;
+
+    // Get host info from current active host
+    if (conn->connhost != NULL) {
+        // Return user-provided hostname if available
+        if (conn->connhost[conn->whichhost].host != NULL &&
+            conn->connhost[conn->whichhost].host[0] != '\0')
+            return conn->connhost[conn->whichhost].host;
+
+        // Fall back to host address if hostname is empty
+        if (conn->connhost[conn->whichhost].hostaddr != NULL &&
+            conn->connhost[conn->whichhost].hostaddr[0] != '\0')
+            return conn->connhost[conn->whichhost].hostaddr;
+    }
+
+    // Return empty string if no host info available
+    return "";
+}
+```

@@ -37,3 +37,22 @@ PQsetErrorContextVisibility configures whether and when context information is d
 - The setting affects all subsequent error messages from the connection
 - Commonly used by interactive tools like psql to provide user-configurable error detail levels
 - Context information is particularly useful for debugging PL/pgSQL functions and complex SQL statements
+
+## Simplified Source
+
+```c
+PGContextVisibility PQsetErrorContextVisibility(PGconn *conn, PGContextVisibility show_context) {
+    // Return default if no connection
+    if (!conn)
+        return PQSHOW_CONTEXT_ERRORS;
+
+    // Save current context visibility setting
+    PGContextVisibility old = conn->show_context;
+
+    // Set new context visibility level
+    conn->show_context = show_context;
+
+    // Return previous setting
+    return old;
+}
+```

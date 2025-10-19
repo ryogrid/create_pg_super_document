@@ -37,3 +37,21 @@ The function appends both the error description and diagnostic hint to the conne
 - Provides different diagnostic messages based on connection family (Unix socket vs TCP/IP)
 - Uses thread-safe error string conversion via SOCK_STRERROR macro
 - Part of libpq's user-friendly error reporting system
+
+## Simplified Source
+
+```c
+static void connectFailureMessage(PGconn *conn, int errorno) {
+    char sebuf[PG_STRERROR_R_BUFLEN];
+
+    // Add system error message to error buffer
+    appendPQExpBuffer(&conn->errorMessage, "%s\n",
+                     SOCK_STRERROR(errorno, sebuf, sizeof(sebuf)));
+
+    // Add context-specific diagnostic suggestion
+    if (conn->raddr.addr.ss_family == AF_UNIX)
+        libpq_append_conn_error(conn, "\tIs the server running locally and accepting connections on that socket?");
+    else
+        libpq_append_conn_error(conn, "\tIs the server running on that host and accepting TCP/IP connections?");
+}
+```
