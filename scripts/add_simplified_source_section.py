@@ -241,37 +241,36 @@ Begin by creating your processing plan, then proceed with the batch processing. 
         """
         while True:
             try:
-                # 1. Get a batch of functions from the queue
-                function_batch = []
-                try:
-                    while len(function_batch) < self.functions_per_command:
+                # 1. Get a batch of functions from the queue, filtering and refilling to maintain batch size
+                unprocessed_batch = []
+                
+                # Keep fetching until we have functions_per_command unprocessed items or queue is empty
+                while len(unprocessed_batch) < self.functions_per_command:
+                    try:
                         func_info = self.work_queue.get_nowait()
-                        function_batch.append(func_info)
-                except queue.Empty:
-                    pass
+                        
+                        # Check if already processed
+                        if self._check_simplified_source_exists(func_info['path']):
+                            with self.lock:
+                                self.skipped.append(func_info['name'])
+                                self.stats['skipped'] += 1
+                            logging.info(f"[Worker {worker_id}] ⊘ Already processed: {func_info['name']}")
+                            self.work_queue.task_done()
+                            # Continue to fetch more items to fill the batch
+                        else:
+                            # Add to unprocessed batch
+                            unprocessed_batch.append(func_info)
+                    except queue.Empty:
+                        # No more items in queue, break and process what we have
+                        break
 
-                if not function_batch:
+                if not unprocessed_batch:
                     if self.work_queue.empty() and not self.in_progress:
                         break
                     time.sleep(1)
                     continue
 
-                # 2. Filter out functions that are already processed
-                unprocessed_batch = []
-                for func_info in function_batch:
-                    if self._check_simplified_source_exists(func_info['path']):
-                        with self.lock:
-                            self.skipped.append(func_info['name'])
-                            self.stats['skipped'] += 1
-                        logging.info(f"[Worker {worker_id}] ⊘ Already processed: {func_info['name']}")
-                        self.work_queue.task_done()
-                    else:
-                        unprocessed_batch.append(func_info)
-                
-                if not unprocessed_batch:
-                    continue
-
-                # 3. Process the remaining batch
+                # 2. Process the batch
                 with self.lock:
                     self.in_progress[worker_id] = [f['name'] for f in unprocessed_batch]
                     self.stats['in_progress'] += len(unprocessed_batch)
