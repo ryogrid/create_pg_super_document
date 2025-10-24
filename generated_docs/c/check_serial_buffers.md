@@ -34,3 +34,18 @@ The function is called automatically by PostgreSQL's GUC system whenever the ser
 - The actual validation logic is handled by the generic `check_slru_buffers()` function with the parameter name "serializable_buffers"
 - This function is registered with the GUC system and called automatically during configuration parameter validation
 - Part of the broader configuration management system for SLRU buffer pools in PostgreSQL
+
+## Simplified Source
+
+```c
+bool check_serial_buffers(int *newval, void **extra, GucSource source)
+{
+    // Validate serializable_buffers parameter using generic SLRU buffer validation
+    return check_slru_buffers("serializable_buffers", newval);
+}
+```
+
+**Key Points:**
+- Simple GUC validation hook for serializable_buffers parameter
+- Delegates validation to generic `check_slru_buffers()` function
+- Returns true if the proposed value is valid, false otherwise

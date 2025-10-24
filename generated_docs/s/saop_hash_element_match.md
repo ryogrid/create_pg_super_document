@@ -38,3 +38,23 @@ The function retrieves the comparison function information from the hash table's
 - Returns true if the elements are equal according to the operator, false otherwise
 - Used in conjunction with saop_element_hash to implement efficient hash-based scalar array operations
 - Essential for resolving hash collisions and ensuring correct equality semantics in hash table operations
+
+## Simplified Source
+
+```c
+static bool saop_hash_element_match(struct saophash_hash *tb, Datum key1, Datum key2) {
+    // Get the hash table containing operation context
+    ScalarArrayOpExprHashTable *elements_tab = (ScalarArrayOpExprHashTable *) tb->private_data;
+    FunctionCallInfo fcinfo = elements_tab->op->d.hashedscalararrayop.fcinfo_data;
+
+    // Set up arguments for comparison function call
+    fcinfo->args[0].value = key1;
+    fcinfo->args[0].isnull = false;
+    fcinfo->args[1].value = key2;
+    fcinfo->args[1].isnull = false;
+
+    // Call the comparison operator function and return boolean result
+    Datum result = elements_tab->op->d.hashedscalararrayop.finfo->fn_addr(fcinfo);
+    return DatumGetBool(result);
+}
+```

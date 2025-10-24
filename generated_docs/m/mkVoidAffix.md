@@ -45,3 +45,50 @@ This design allows the spell checker to efficiently handle deletion patterns alo
 - If no empty-replacement affixes exist, the function returns early after creating the basic structure
 - The void node structure allows handling of deletion-only transformations efficiently
 - Uses separate processing ranges for prefixes [0, startsuffix) and suffixes [startsuffix, naffixes)
+
+## Simplified Source
+
+```c
+static void
+mkVoidAffix(IspellDict *Conf, bool issuffix, int startsuffix)
+{
+    int cnt = 0;
+    int start = issuffix ? startsuffix : 0;
+    int end = issuffix ? Conf->naffixes : startsuffix;
+
+    // Create void node for empty replacement affixes
+    AffixNode *Affix = palloc0(ANHRDSZ + sizeof(AffixNodeData));
+    Affix->length = 1;
+    Affix->isvoid = 1;
+
+    // Link the void node to the appropriate tree
+    if (issuffix)
+    {
+        Affix->data->node = Conf->Suffix;
+        Conf->Suffix = Affix;
+    }
+    else
+    {
+        Affix->data->node = Conf->Prefix;
+        Conf->Prefix = Affix;
+    }
+
+    // Count affixes with empty replacement strings
+    for (int i = start; i < end; i++)
+        if (Conf->Affix[i].replen == 0)
+            cnt++;
+
+    // Early return if no empty-replacement affixes exist
+    if (cnt == 0)
+        return;
+
+    // Allocate and populate array of empty-replacement affixes
+    Affix->data->aff = cpalloc(sizeof(AFFIX *) * cnt);
+    Affix->data->naff = cnt;
+
+    cnt = 0;
+    for (int i = start; i < end; i++)
+        if (Conf->Affix[i].replen == 0)
+            Affix->data->aff[cnt++] = Conf->Affix + i;
+}
+```

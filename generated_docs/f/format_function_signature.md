@@ -41,3 +41,34 @@ The function uses PostgreSQL's PQExpBuffer system for efficient string building 
 - When honor_quotes is false, the function name is never quoted, making it suitable for TOC tags but not SQL commands
 - The function handles variable argument counts through the FuncInfo structure's nargs field and argtypes array
 - Memory management is handled by the PQExpBuffer system, with the caller responsible for freeing the returned string data
+
+## Simplified Source
+
+```c
+static char *
+format_function_signature(Archive *fout, const FuncInfo *finfo, bool honor_quotes)
+{
+    PQExpBufferData fn;
+    int j;
+
+    initPQExpBuffer(&fn);
+
+    // Add function name with optional quoting
+    if (honor_quotes)
+        appendPQExpBuffer(&fn, "%s(", fmtId(finfo->dobj.name));
+    else
+        appendPQExpBuffer(&fn, "%s(", finfo->dobj.name);
+
+    // Add argument types
+    for (j = 0; j < finfo->nargs; j++) {
+        if (j > 0)
+            appendPQExpBufferStr(&fn, ", ");
+
+        appendPQExpBufferStr(&fn,
+                             getFormattedTypeName(fout, finfo->argtypes[j], zeroIsError));
+    }
+
+    appendPQExpBufferChar(&fn, ')');
+    return fn.data;
+}
+```

@@ -34,3 +34,20 @@ When Bonjour support is not compiled in (USE_BONJOUR is not defined), the functi
 - Returns true to accept the new value, false to reject it
 - Uses the GUC_check_errmsg macro to provide user-friendly error messages
 - Bonjour is Apple's implementation of zero-configuration networking (Zeroconf)
+
+## Simplified Source
+
+```c
+bool
+check_bonjour(bool *newval, void **extra, GucSource source)
+{
+#ifndef USE_BONJOUR
+    // Reject attempts to enable Bonjour if not compiled with support
+    if (*newval) {
+        GUC_check_errmsg("Bonjour is not supported by this build");
+        return false;
+    }
+#endif
+    return true;
+}
+```

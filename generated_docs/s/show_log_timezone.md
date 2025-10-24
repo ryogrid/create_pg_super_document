@@ -32,3 +32,17 @@ The function always returns the canonical name of the timezone zone rather than 
 - Returns "unknown" if the timezone name cannot be determined
 - Part of the standard GUC show hook pattern in PostgreSQL
 - Used when users query the current log_timezone setting (e.g., SHOW log_timezone)
+
+## Simplified Source
+
+```c
+const char *
+show_log_timezone(void)
+{
+    // Get canonical timezone name from log timezone
+    const char *tzn = pg_get_timezone_name(log_timezone);
+
+    // Return timezone name or "unknown" fallback
+    return (tzn != NULL) ? tzn : "unknown";
+}
+```

@@ -34,3 +34,28 @@ This function performs a linear search through the  array to find a matching for
 - Valid fork names are "main", "fsm", "vm", and "init"
 - Uses linear search which is acceptable given the small number of fork types
 - Part of PostgreSQL's relation file path management system
+
+## Simplified Source
+
+```c
+ForkNumber forkname_to_number(const char *forkName) {
+    // Search through all valid fork names
+    for (ForkNumber forkNum = 0; forkNum <= MAX_FORKNUM; forkNum++) {
+        if (strcmp(forkNames[forkNum], forkName) == 0) {
+            return forkNum;
+        }
+    }
+
+    // Handle not found case differently for backend vs frontend
+#ifndef FRONTEND
+    // Backend: throw error with helpful message
+    ereport(ERROR,
+            (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+             errmsg("invalid fork name"),
+             errhint("Valid fork names are \"main\", \"fsm\", \"vm\", and \"init\".")));
+#endif
+
+    // Frontend: return invalid marker
+    return InvalidForkNumber;
+}
+```

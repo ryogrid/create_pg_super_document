@@ -36,3 +36,16 @@ The function immediately raises an error indicating that the pg_mcv_list type ca
 - This design pattern is common for binary-only PostgreSQL data types
 - Ensures data integrity by preventing manual construction of complex statistical structures
 - The pg_mcv_list type can only be populated through internal statistics collection mechanisms
+
+## Simplified Source
+
+```c
+Datum pg_mcv_list_in(PG_FUNCTION_ARGS) {
+    // Reject text input for pg_mcv_list type
+    ereport(ERROR,
+            (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+             errmsg("cannot accept a value of type %s", "pg_mcv_list")));
+
+    PG_RETURN_VOID();  // Never reached
+}
+```

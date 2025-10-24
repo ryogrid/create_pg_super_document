@@ -28,6 +28,19 @@ The  function is a PostgreSQL type output function that converts a CIDR network 
 
 ## Notes and Other Information
 - This function is part of PostgreSQL's type system infrastructure for the CIDR data type
-- The actual formatting logic is handled by  with the  parameter set to 
+- The actual formatting logic is handled by network_out with the is_cidr parameter set to true
 - CIDR format includes the subnet mask (e.g., "192.168.1.0/24") unlike inet format
 - Located in src/backend/utils/adt/network.c:173-191
+
+## Simplified Source
+
+```c
+Datum
+cidr_out(PG_FUNCTION_ARGS)
+{
+    inet *src = PG_GETARG_INET_PP(0);
+
+    // Delegate to common network output function with is_cidr=true
+    PG_RETURN_CSTRING(network_out(src, true));
+}
+```

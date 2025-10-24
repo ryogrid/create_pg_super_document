@@ -46,3 +46,24 @@ This process is necessary when abbreviated keys (which are optimized short repre
 - The function assumes all input tuples are valid IndexTuple structures
 - The extracted `datum1` values will be used by subsequent comparison functions for sorting decisions
 - This is part of PostgreSQL's adaptive sorting system that can dynamically switch between different optimization strategies
+
+## Simplified Source
+
+```c
+static void
+removeabbrev_index(Tuplesortstate *state, SortTuple *stups, int count)
+{
+    TuplesortPublic *base = TuplesortstateGetPublic(state);
+    TuplesortIndexArg *arg = (TuplesortIndexArg *) base->arg;
+
+    // Extract first column value from each index tuple for comparison
+    for (int i = 0; i < count; i++) {
+        IndexTuple tuple = stups[i].tuple;
+
+        // Cache the first attribute value for efficient comparisons
+        stups[i].datum1 = index_getattr(tuple, 1,
+                                        RelationGetDescr(arg->indexRel),
+                                        &stups[i].isnull1);
+    }
+}
+```

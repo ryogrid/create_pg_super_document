@@ -55,3 +55,102 @@ The function performs two main database queries: first to get the parser informa
 - Part of PostgreSQL's text search infrastructure dumping functionality
 - Configurations define how different token types are processed by mapping them to appropriate dictionaries
 - Uses qualified names to handle schema-qualified configuration and parser names properly
+
+## Simplified Source
+
+```c
+static void
+dumpTSConfig(Archive *fout, const TSConfigInfo *cfginfo)
+{
+    DumpOptions *dopt = fout->dopt;
+    PQExpBuffer q, delq, query;
+    char *qcfgname;
+    PGresult *res;
+
+    // Skip if data-only dump
+    if (dopt->dataOnly)
+        return;
+
+    // Initialize buffers
+    q = createPQExpBuffer();
+    delq = createPQExpBuffer();
+    query = createPQExpBuffer();
+    qcfgname = pg_strdup(fmtId(cfginfo->dobj.name));
+
+    // Get parser namespace and name
+    appendPQExpBuffer(query, "SELECT nspname, prsname "
+                      "FROM pg_ts_parser p, pg_namespace n "
+                      "WHERE p.oid = '%u' AND n.oid = prsnamespace",
+                      cfginfo->cfgparser);
+    res = ExecuteSqlQueryForSingleRow(fout, query->data);
+    char *nspname = PQgetvalue(res, 0, 0);
+    char *prsname = PQgetvalue(res, 0, 1);
+
+    // Generate CREATE statement
+    appendPQExpBuffer(q, "CREATE TEXT SEARCH CONFIGURATION %s (\n",
+                      fmtQualifiedDumpable(cfginfo));
+    appendPQExpBuffer(q, "    PARSER = %s.%s );\n",
+                      fmtId(nspname), fmtId(prsname));
+    PQclear(res);
+
+    // Get token-to-dictionary mappings
+    resetPQExpBuffer(query);
+    appendPQExpBuffer(query,
+                      "SELECT tokenname, dictname FROM token_mappings "
+                      "WHERE mapcfg = '%u' ORDER BY maptokentype, mapseqno",
+                      cfginfo->dobj.catId.oid);
+
+    res = ExecuteSqlQuery(fout, query->data, PGRES_TUPLES_OK);
+    int ntups = PQntuples(res);
+
+    // Generate ALTER statements for each token type
+    for (int i = 0; i < ntups; i++) {
+        char *tokenname = PQgetvalue(res, i, 0);
+        char *dictname = PQgetvalue(res, i, 1);
+
+        // Start new command for each new token type
+        if (i == 0 || strcmp(tokenname, prev_tokenname) != 0) {
+            if (i > 0) appendPQExpBufferStr(q, ";\n");
+            appendPQExpBuffer(q, "\nALTER TEXT SEARCH CONFIGURATION %s\n"
+                              "    ADD MAPPING FOR %s WITH %s",
+                              fmtQualifiedDumpable(cfginfo),
+                              fmtId(tokenname), dictname);
+        } else {
+            appendPQExpBuffer(q, ", %s", dictname);
+        }
+    }
+
+    if (ntups > 0)
+        appendPQExpBufferStr(q, ";\n");
+
+    // Generate DROP statement
+    appendPQExpBuffer(delq, "DROP TEXT SEARCH CONFIGURATION %s;\n",
+                      fmtQualifiedDumpable(cfginfo));
+
+    // Handle binary upgrade and archive entry
+    if (dopt->binary_upgrade)
+        binary_upgrade_extension_member(q, &cfginfo->dobj,
+                                        "TEXT SEARCH CONFIGURATION", qcfgname,
+                                        cfginfo->dobj.namespace->dobj.name);
+
+    // Create archive entry for the configuration
+    if (cfginfo->dobj.dump & DUMP_COMPONENT_DEFINITION)
+        ArchiveEntry(fout, cfginfo->dobj.catId, cfginfo->dobj.dumpId,
+                     ARCHIVE_OPTS(.tag = cfginfo->dobj.name,
+                                  .description = "TEXT SEARCH CONFIGURATION",
+                                  .createStmt = q->data,
+                                  .dropStmt = delq->data));
+
+    // Dump comments if needed
+    if (cfginfo->dobj.dump & DUMP_COMPONENT_COMMENT)
+        dumpComment(fout, "TEXT SEARCH CONFIGURATION", qcfgname,
+                    cfginfo->dobj.namespace->dobj.name, cfginfo->rolname,
+                    cfginfo->dobj.catId, 0, cfginfo->dobj.dumpId);
+
+    // Cleanup
+    destroyPQExpBuffer(q);
+    destroyPQExpBuffer(delq);
+    destroyPQExpBuffer(query);
+    free(qcfgname);
+}
+```

@@ -51,3 +51,46 @@ This function creates a specialized tuplesort state for hash index creation oper
 - Used specifically during CREATE INDEX operations for hash indexes
 - Does not require complex sort support setup since comparison is based on simple hash code values
 - The sorting organizes tuples for efficient insertion into hash buckets during index build
+
+## Simplified Source
+
+```c
+Tuplesortstate *
+tuplesort_begin_index_hash(Relation heapRel, Relation indexRel,
+                          uint32 high_mask, uint32 low_mask, uint32 max_buckets,
+                          int workMem, SortCoordinate coordinate, int sortopt)
+{
+    // Initialize common tuplesort state
+    Tuplesortstate *state = tuplesort_begin_common(workMem, coordinate, sortopt);
+    TuplesortPublic *base = TuplesortstateGetPublic(state);
+
+    // Switch to sort context and allocate hash-specific args
+    MemoryContext oldcontext = MemoryContextSwitchTo(base->maincontext);
+    TuplesortIndexHashArg *arg = palloc(sizeof(TuplesortIndexHashArg));
+
+    // Hash indexes sort by hash code only (single key)
+    base->nKeys = 1;
+
+    // Configure hash-specific function pointers
+    base->removeabbrev = removeabbrev_index;
+    base->comparetup = comparetup_index_hash;
+    base->comparetup_tiebreak = comparetup_index_hash_tiebreak;
+    base->writetup = writetup_index;
+    base->readtup = readtup_index;
+    base->haveDatum1 = true;
+    base->arg = arg;
+
+    // Store index relations
+    arg->index.heapRel = heapRel;
+    arg->index.indexRel = indexRel;
+
+    // Store hash bucket configuration
+    arg->high_mask = high_mask;
+    arg->low_mask = low_mask;
+    arg->max_buckets = max_buckets;
+
+    MemoryContextSwitchTo(oldcontext);
+
+    return state;
+}
+```

@@ -39,3 +39,19 @@ The function extracts encoding and standard strings settings from the Archive st
 - Error handling is limited to logging warnings; the function continues execution even if parsing fails
 - The prefix parameter is typically empty string for regular table options or "toast." for TOAST-specific options
 - Used extensively in schema dumping operations to preserve table and constraint storage parameters
+
+## Simplified Source
+
+```c
+static void appendReloptionsArrayAH(PQExpBuffer buffer, const char *reloptions,
+                                   const char *prefix, Archive *fout)
+{
+    // Format reloptions using archive settings for encoding and strings
+    bool success = appendReloptionsArray(buffer, reloptions, prefix,
+                                        fout->encoding, fout->std_strings);
+
+    // Log warning if parsing failed
+    if (!success)
+        pg_log_warning("could not parse %s array", "reloptions");
+}
+```

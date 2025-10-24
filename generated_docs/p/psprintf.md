@@ -46,3 +46,33 @@ The function implements a robust allocation strategy that prevents buffer overfl
 - **Performance**: May require multiple allocation attempts for very large formatted strings
 - **Thread Safety**: Preserves errno across operations to maintain thread safety for format strings containing '%m'
 - **Buffer Strategy**: Starts with 128-byte assumption and grows as needed based on actual requirements
+
+## Simplified Source
+
+```c
+char *psprintf(const char *fmt, ...) {
+    int saved_errno = errno;
+    size_t buffer_size = 128;  // Start with 128 bytes
+
+    while (true) {
+        // Allocate buffer
+        char *result = palloc(buffer_size);
+
+        // Try to format the string
+        errno = saved_errno;
+        va_list args;
+        va_start(args, fmt);
+        size_t needed_size = pvsnprintf(result, buffer_size, fmt, args);
+        va_end(args);
+
+        // Check if it fit
+        if (needed_size < buffer_size) {
+            return result;  // Success!
+        }
+
+        // Buffer too small, try again with larger size
+        pfree(result);
+        buffer_size = needed_size;
+    }
+}
+```

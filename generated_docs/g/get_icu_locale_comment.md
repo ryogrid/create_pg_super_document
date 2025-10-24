@@ -34,3 +34,35 @@ This function obtains a localized display name for a given ICU locale identifier
 - The ASCII-only restriction is critical for template0 compatibility across different database encodings
 - Returns NULL on any error condition rather than raising exceptions, allowing the caller to handle missing comments gracefully
 - Part of PostgreSQL's collation import system for creating user-friendly collation descriptions
+
+## Simplified Source
+
+```c
+static char *get_icu_locale_comment(const char *localename) {
+    UErrorCode status;
+    UChar displayname[128];
+    int32 len_uchar;
+    char *result;
+
+    // Get display name from ICU library
+    status = U_ZERO_ERROR;
+    len_uchar = uloc_getDisplayName(localename, "en", displayname,
+                                    lengthof(displayname), &status);
+    if (U_FAILURE(status))
+        return NULL;
+
+    // Verify all characters are ASCII (required for template0)
+    for (int i = 0; i < len_uchar; i++) {
+        if (displayname[i] > 127)
+            return NULL;
+    }
+
+    // Convert UChar array to C string
+    result = palloc(len_uchar + 1);
+    for (int i = 0; i < len_uchar; i++)
+        result[i] = displayname[i];
+    result[len_uchar] = '\0';
+
+    return result;
+}
+```

@@ -30,3 +30,19 @@ This function implements single-character reading from Zstd-compressed files by 
 - The function assumes that reaching end-of-file is an error condition in the context where it's used
 - Relies on the CompressFileHandle's read_func to handle the actual decompression and data reading
 - Simple implementation that delegates the complex decompression logic to the underlying read function
+
+## Simplified Source
+
+```c
+static int
+Zstd_getc(CompressFileHandle *CFH)
+{
+    unsigned char c;
+
+    // Read one byte using the file handle's read function
+    if (CFH->read_func(&c, 1, CFH) != 1)
+        pg_fatal("could not read from input file: end of file");
+
+    return c;
+}
+```

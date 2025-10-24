@@ -43,3 +43,23 @@ The serialization format is designed to be efficiently readable by the correspon
 - The trailing length word is written conditionally based on the TUPLESORT_RANDOMACCESS flag, which enables backward reading of the tape
 - The function assumes the input tuple is a valid HeapTuple and does not perform validation
 - Memory layout written: [length][t_self][tuple_data][optional_trailing_length]
+
+## Simplified Source
+
+```c
+static void writetup_cluster(Tuplesortstate *state, LogicalTape *tape, SortTuple *stup)
+{
+    TuplesortPublic *base = TuplesortstateGetPublic(state);
+    HeapTuple tuple = (HeapTuple) stup->tuple;
+    unsigned int tuplen = tuple->t_len + sizeof(ItemPointerData) + sizeof(int);
+
+    // Write tuple with physical location information
+    LogicalTapeWrite(tape, &tuplen, sizeof(tuplen));
+    LogicalTapeWrite(tape, &tuple->t_self, sizeof(ItemPointerData));
+    LogicalTapeWrite(tape, tuple->t_data, tuple->t_len);
+
+    // Optional trailing length for random access
+    if (base->sortopt & TUPLESORT_RANDOMACCESS)
+        LogicalTapeWrite(tape, &tuplen, sizeof(tuplen));
+}
+```

@@ -34,3 +34,13 @@ This approach is computationally efficient as it requires only one call to the u
 - The underlying xoroshiro128ss generator ensures high-quality randomness properties
 - Commonly used in algorithms that require random binary decisions
 - Located in src/common/pg_prng.c at lines 313-318
+
+## Simplified Source
+
+```c
+bool pg_prng_bool(pg_prng_state *state) {
+    // Generate 64-bit random number and extract the highest bit
+    uint64 random_value = xoroshiro128ss(state);
+    return (bool)(random_value >> 63);
+}
+```

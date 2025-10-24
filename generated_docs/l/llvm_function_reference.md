@@ -59,3 +59,54 @@ The function implements caching by checking if the function already exists in th
 - Uses private linkage and unnamed addresses for global constants to optimize generated code
 - Essential for PostgreSQL's function call compilation in the LLVM JIT system
 - Bridges the gap between PostgreSQL's function management and LLVM's function representation
+
+## Simplified Source
+
+```c
+LLVMValueRef
+llvm_function_reference(LLVMJitContext *context,
+                        LLVMBuilderRef builder,
+                        LLVMModuleRef mod,
+                        FunctionCallInfo fcinfo)
+{
+    char *modname, *basename, *funcname;
+
+    // Get function symbol information
+    fmgr_symbol(fcinfo->flinfo->fn_oid, &modname, &basename);
+
+    if (modname != NULL && basename != NULL) {
+        // External function in loadable library
+        funcname = psprintf("pgextern.%s.%s", modname, basename);
+    }
+    else if (basename != NULL) {
+        // Internal PostgreSQL function
+        funcname = pstrdup(basename);
+    }
+    else {
+        // Unknown function - create global constant with function pointer
+        funcname = psprintf("pgoidextern.%u", fcinfo->flinfo->fn_oid);
+
+        LLVMValueRef v_fn = LLVMGetNamedGlobal(mod, funcname);
+        if (v_fn != 0)
+            return l_load(builder, TypePGFunction, v_fn, "");
+
+        // Create global constant containing function pointer
+        LLVMValueRef v_fn_addr = l_ptr_const(fcinfo->flinfo->fn_addr, TypePGFunction);
+        v_fn = LLVMAddGlobal(mod, TypePGFunction, funcname);
+        LLVMSetInitializer(v_fn, v_fn_addr);
+        LLVMSetGlobalConstant(v_fn, true);
+        LLVMSetLinkage(v_fn, LLVMPrivateLinkage);
+        LLVMSetUnnamedAddr(v_fn, true);
+
+        return l_load(builder, TypePGFunction, v_fn, "");
+    }
+
+    // Check if function already exists
+    LLVMValueRef v_fn = LLVMGetNamedFunction(mod, funcname);
+    if (v_fn != 0)
+        return v_fn;
+
+    // Add new function declaration
+    return LLVMAddFunction(mod, funcname, LLVMGetFunctionType(AttributeTemplate));
+}
+```

@@ -37,3 +37,22 @@ This is part of PostgreSQL's legacy callback system for resource management. Whi
 - This is a legacy interface; new code should prefer defining ResourceOwnerDesc with custom callbacks
 - The callback will receive phase information (RESOURCE_RELEASE_BEFORE_LOCKS, RESOURCE_RELEASE_LOCKS, RESOURCE_RELEASE_AFTER_LOCKS), commit status, and top-level transaction status
 - Extensions using this function should also implement UnregisterResourceReleaseCallback for proper cleanup
+
+## Simplified Source
+
+```c
+void RegisterResourceReleaseCallback(ResourceReleaseCallback callback, void *arg)
+{
+    // Allocate memory for callback item in TopMemoryContext
+    ResourceReleaseCallbackItem *item = (ResourceReleaseCallbackItem *)
+        MemoryContextAlloc(TopMemoryContext, sizeof(ResourceReleaseCallbackItem));
+
+    // Initialize callback item
+    item->callback = callback;
+    item->arg = arg;
+
+    // Add to front of global callback list
+    item->next = ResourceRelease_callbacks;
+    ResourceRelease_callbacks = item;
+}
+```

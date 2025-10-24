@@ -38,3 +38,39 @@ The function returns a pointer to either a system-managed buffer (Unix) or a sta
 - On Windows systems, the returned pointer points to a static buffer with a maximum size of 257 characters (UNLEN+1)
 - Error handling follows PostgreSQL conventions by setting an error string that can be displayed to users
 - The function sets errno to 0 before system calls to ensure clean error detection
+
+## Simplified Source
+
+```c
+const char *
+get_user_name(char **errstr)
+{
+#ifndef WIN32
+    // Unix/Linux: Get effective user ID and look up username
+    uid_t user_id = geteuid();
+    *errstr = NULL;
+
+    struct passwd *pw = getpwuid(user_id);
+    if (!pw) {
+        *errstr = psprintf("could not look up effective user ID %ld",
+                          (long) user_id);
+        return NULL;
+    }
+
+    return pw->pw_name;
+#else
+    // Windows: Use Windows API to get username
+    static char username[257];  // UNLEN+1 buffer
+    DWORD len = sizeof(username);
+    *errstr = NULL;
+
+    if (!GetUserName(username, &len)) {
+        *errstr = psprintf("user name lookup failure: error code %lu",
+                          GetLastError());
+        return NULL;
+    }
+
+    return username;
+#endif
+}
+```

@@ -36,3 +36,51 @@ The  function generates SQL statements to restore the current state of a sequenc
 - Creates a separate archive entry in the SECTION_DATA section, ensuring sequence data is restored after sequence definitions
 - Uses proper SQL literal escaping through appendStringLiteralAH for sequence names
 - Depends on the sequence definition being restored first (handled via dependency tracking)
+
+## Simplified Source
+
+```c
+static void
+dumpSequenceData(Archive *fout, const TableDataInfo *tdinfo)
+{
+    TableInfo *tbinfo = tdinfo->tdtable;
+    PGresult *res;
+    char *last;
+    bool called;
+    PQExpBuffer query = createPQExpBuffer();
+
+    // Query sequence current state
+    appendPQExpBuffer(query, "SELECT last_value, is_called FROM %s", fmtQualifiedDumpable(tbinfo));
+
+    res = ExecuteSqlQuery(fout, query->data, PGRES_TUPLES_OK);
+
+    if (PQntuples(res) != 1)
+        pg_fatal("query to get data of sequence \"%s\" returned %d rows (expected 1)",
+                tbinfo->dobj.name, PQntuples(res));
+
+    // Extract current sequence values
+    last = PQgetvalue(res, 0, 0);
+    called = (strcmp(PQgetvalue(res, 0, 1), "t") == 0);
+
+    // Generate setval() call to restore sequence state
+    resetPQExpBuffer(query);
+    appendPQExpBufferStr(query, "SELECT pg_catalog.setval(");
+    appendStringLiteralAH(query, fmtQualifiedDumpable(tbinfo), fout);
+    appendPQExpBuffer(query, ", %s, %s);\n", last, (called ? "true" : "false"));
+
+    // Create archive entry for sequence data
+    if (tdinfo->dobj.dump & DUMP_COMPONENT_DATA)
+        ArchiveEntry(fout, nilCatalogId, createDumpId(),
+                   ARCHIVE_OPTS(.tag = tbinfo->dobj.name,
+                               .namespace = tbinfo->dobj.namespace->dobj.name,
+                               .owner = tbinfo->rolname,
+                               .description = "SEQUENCE SET",
+                               .section = SECTION_DATA,
+                               .createStmt = query->data,
+                               .deps = &(tbinfo->dobj.dumpId),
+                               .nDeps = 1));
+
+    PQclear(res);
+    destroyPQExpBuffer(query);
+}
+```

@@ -54,3 +54,87 @@ The function dynamically builds the publish parameter list based on the boolean 
 - Part of PostgreSQL's logical replication infrastructure backup and restore system
 - Publications are a PostgreSQL 10+ feature for defining logical replication scope and behavior
 - The generated SQL includes proper parameter formatting and escaping for safe restoration
+
+## Simplified Source
+
+```c
+static void
+dumpPublication(Archive *fout, const PublicationInfo *pubinfo)
+{
+    DumpOptions *dopt = fout->dopt;
+    PQExpBuffer delq, query;
+    char *qpubname;
+    bool first = true;
+
+    // Skip in data-only dumps
+    if (dopt->dataOnly)
+        return;
+
+    // Initialize buffers and format publication name
+    delq = createPQExpBuffer();
+    query = createPQExpBuffer();
+    qpubname = pg_strdup(fmtId(pubinfo->dobj.name));
+
+    // Build DROP statement
+    appendPQExpBuffer(delq, "DROP PUBLICATION %s;\n", qpubname);
+
+    // Start CREATE PUBLICATION statement
+    appendPQExpBuffer(query, "CREATE PUBLICATION %s", qpubname);
+
+    // Add FOR ALL TABLES if applicable
+    if (pubinfo->puballtables)
+        appendPQExpBufferStr(query, " FOR ALL TABLES");
+
+    // Build publish operations list
+    appendPQExpBufferStr(query, " WITH (publish = '");
+    if (pubinfo->pubinsert) {
+        appendPQExpBufferStr(query, "insert");
+        first = false;
+    }
+    if (pubinfo->pubupdate) {
+        if (!first) appendPQExpBufferStr(query, ", ");
+        appendPQExpBufferStr(query, "update");
+        first = false;
+    }
+    if (pubinfo->pubdelete) {
+        if (!first) appendPQExpBufferStr(query, ", ");
+        appendPQExpBufferStr(query, "delete");
+        first = false;
+    }
+    if (pubinfo->pubtruncate) {
+        if (!first) appendPQExpBufferStr(query, ", ");
+        appendPQExpBufferStr(query, "truncate");
+        first = false;
+    }
+    appendPQExpBufferChar(query, '\'');
+
+    // Add partition root option if enabled
+    if (pubinfo->pubviaroot)
+        appendPQExpBufferStr(query, ", publish_via_partition_root = true");
+
+    appendPQExpBufferStr(query, ");\n");
+
+    // Create archive entry and dump associated objects
+    if (pubinfo->dobj.dump & DUMP_COMPONENT_DEFINITION)
+        ArchiveEntry(fout, pubinfo->dobj.catId, pubinfo->dobj.dumpId,
+                     ARCHIVE_OPTS(.tag = pubinfo->dobj.name,
+                                  .owner = pubinfo->rolname,
+                                  .description = "PUBLICATION",
+                                  .section = SECTION_POST_DATA,
+                                  .createStmt = query->data,
+                                  .dropStmt = delq->data));
+
+    if (pubinfo->dobj.dump & DUMP_COMPONENT_COMMENT)
+        dumpComment(fout, "PUBLICATION", qpubname, NULL, pubinfo->rolname,
+                    pubinfo->dobj.catId, 0, pubinfo->dobj.dumpId);
+
+    if (pubinfo->dobj.dump & DUMP_COMPONENT_SECLABEL)
+        dumpSecLabel(fout, "PUBLICATION", qpubname, NULL, pubinfo->rolname,
+                     pubinfo->dobj.catId, 0, pubinfo->dobj.dumpId);
+
+    // Cleanup
+    destroyPQExpBuffer(delq);
+    destroyPQExpBuffer(query);
+    free(qpubname);
+}
+```

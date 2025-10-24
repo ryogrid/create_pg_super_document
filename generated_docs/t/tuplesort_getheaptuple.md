@@ -33,3 +33,22 @@ This function retrieves the next HeapTuple from a completed sorting operation, p
 - Primarily used in specialized contexts like table clustering operations
 - No abbreviation support since it returns the raw tuple pointer
 - Part of the low-level tuplesort interface for direct heap tuple access
+
+## Simplified Source
+
+```c
+HeapTuple tuplesort_getheaptuple(Tuplesortstate *state, bool forward)
+{
+    TuplesortPublic *base = TuplesortstateGetPublic(state);
+    MemoryContext oldcontext = MemoryContextSwitchTo(base->sortcontext);
+    SortTuple stup;
+
+    // Get next tuple from sort operation
+    if (!tuplesort_gettuple_common(state, forward, &stup))
+        stup.tuple = NULL;
+
+    MemoryContextSwitchTo(oldcontext);
+
+    return stup.tuple;
+}
+```

@@ -37,3 +37,14 @@ This function is commonly used in procedural language implementations and trigge
 - Provides a safe way to obtain a relation name that persists beyond the Relation structure's lifetime
 - No error handling - assumes valid Relation input
 - Does not set any global SPI_result status
+
+## Simplified Source
+
+```c
+char *
+SPI_getrelname(Relation rel)
+{
+    // Return a copy of the relation name that caller can safely use
+    return pstrdup(RelationGetRelationName(rel));
+}
+```

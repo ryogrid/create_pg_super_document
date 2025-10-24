@@ -33,3 +33,34 @@ The function returns a dynamically allocated string containing only the function
 - The returned string must be freed by the caller
 - Used specifically in the context of pg_dump for formatting operator function references
 - Part of PostgreSQL's database dumping functionality in pg_dump utility
+
+## Simplified Source
+
+```c
+static char *
+convertRegProcReference(const char *proc)
+{
+    char *name;
+    char *paren;
+    bool inquote;
+
+    // Handle invalid OID references
+    if (strcmp(proc, "-") == 0)
+        return NULL;
+
+    name = pg_strdup(proc);
+
+    // Find non-quoted left parenthesis to strip argument types
+    inquote = false;
+    for (paren = name; *paren; paren++) {
+        if (*paren == '(' && !inquote) {
+            *paren = '\0';  // Truncate at first non-quoted opening paren
+            break;
+        }
+        if (*paren == '"')
+            inquote = !inquote;  // Track quote state
+    }
+
+    return name;
+}
+```

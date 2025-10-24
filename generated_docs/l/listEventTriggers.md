@@ -42,3 +42,82 @@ The listEventTriggers function generates and executes a SQL query to retrieve in
 - Returns false on query validation or execution failure, true on success
 - Output is ordered by event trigger name for consistent presentation
 - Uses obj_description() in verbose mode to retrieve descriptions from pg_event_trigger catalog
+
+## Simplified Source
+
+```c
+bool listEventTriggers(const char *pattern, bool verbose) {
+    PQExpBufferData buf;
+    PGresult *res;
+    printQueryOpt myopt = pset.popt;
+    static const bool translate_columns[] =
+        {false, false, false, true, false, false, false};
+
+    // Check if server supports event triggers (PostgreSQL 9.3+)
+    if (pset.sversion < 90300) {
+        char sverbuf[32];
+        pg_log_error("The server (version %s) does not support event triggers.",
+                    formatPGVersionNumber(pset.sversion, false, sverbuf, sizeof(sverbuf)));
+        return true;
+    }
+
+    initPQExpBuffer(&buf);
+
+    // Build query for event trigger information
+    printfPQExpBuffer(&buf,
+        "SELECT evtname as \"%s\", "
+        "evtevent as \"%s\", "
+        "pg_catalog.pg_get_userbyid(e.evtowner) as \"%s\",\n"
+        " case evtenabled when 'O' then '%s'"
+        "  when 'R' then '%s'"
+        "  when 'A' then '%s'"
+        "  when 'D' then '%s' end as \"%s\",\n"
+        " e.evtfoid::pg_catalog.regproc as \"%s\", "
+        "pg_catalog.array_to_string(array(select x"
+        " from pg_catalog.unnest(evttags) as t(x)), ', ') as \"%s\"",
+        gettext_noop("Name"),
+        gettext_noop("Event"),
+        gettext_noop("Owner"),
+        gettext_noop("enabled"),
+        gettext_noop("replica"),
+        gettext_noop("always"),
+        gettext_noop("disabled"),
+        gettext_noop("Enabled"),
+        gettext_noop("Function"),
+        gettext_noop("Tags"));
+
+    // Add description column if verbose mode requested
+    if (verbose)
+        appendPQExpBuffer(&buf,
+            ",\npg_catalog.obj_description(e.oid, 'pg_event_trigger') as \"%s\"",
+            gettext_noop("Description"));
+
+    appendPQExpBufferStr(&buf, "\nFROM pg_catalog.pg_event_trigger e ");
+
+    // Add pattern filtering if specified
+    if (!validateSQLNamePattern(&buf, pattern, false, false,
+                               NULL, "evtname", NULL, NULL, NULL, 1)) {
+        termPQExpBuffer(&buf);
+        return false;
+    }
+
+    appendPQExpBufferStr(&buf, "ORDER BY 1");
+
+    // Execute query and display results
+    res = PSQLexec(buf.data);
+    termPQExpBuffer(&buf);
+    if (!res)
+        return false;
+
+    // Configure output formatting
+    myopt.title = _("List of event triggers");
+    myopt.translate_header = true;
+    myopt.translate_columns = translate_columns;
+    myopt.n_translate_columns = lengthof(translate_columns);
+
+    printQuery(res, &myopt, pset.queryFout, false, pset.logfile);
+
+    PQclear(res);
+    return true;
+}
+```

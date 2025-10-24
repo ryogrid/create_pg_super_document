@@ -46,3 +46,25 @@ This approach ensures compatibility across different PostgreSQL installations wh
 - The function handles the common pattern where maintenance operations need a database connection but don't target a specific user database
 - Located in src/fe_utils/connect_utils.c:134-157
 - Part of the frontend utilities library shared across PostgreSQL client tools
+
+## Simplified Source
+
+```c
+PGconn *connectMaintenanceDatabase(ConnParams *cparams, const char *progname, bool echo) {
+    // If specific database specified, connect directly to it
+    if (cparams->dbname)
+        return connectDatabase(cparams, progname, echo, false, false);
+
+    // Try "postgres" database first
+    cparams->dbname = "postgres";
+    PGconn *conn = connectDatabase(cparams, progname, echo, true, false);
+
+    // Fall back to "template1" if postgres fails
+    if (!conn) {
+        cparams->dbname = "template1";
+        conn = connectDatabase(cparams, progname, echo, false, false);
+    }
+
+    return conn;
+}
+```

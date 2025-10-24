@@ -45,8 +45,38 @@ The function performs several key operations:
   - 
 
 ## Notes and Other Information
-- The function assumes the input  parameter is valid for the address family (verified by assertion)
-- Uses bit manipulation to clear unwanted bits in the last partial byte: 
-- Memory is zero-initialized with , ensuring clean state for unused portions
+- The function assumes the input bits parameter is valid for the address family (verified by assertion)
+- Uses bit manipulation to clear unwanted bits in the last partial byte
+- Memory is zero-initialized with palloc0, ensuring clean state for unused portions
 - Essential for CIDR block operations where precise bit masking is required
-- Located in 
+- Located in src/backend/utils/adt/network.c:368-404
+
+## Simplified Source
+
+```c
+inet *
+cidr_set_masklen_internal(const inet *src, int bits)
+{
+    inet *dst = (inet *) palloc0(sizeof(inet));
+
+    // Copy basic properties from source
+    ip_family(dst) = ip_family(src);
+    ip_bits(dst) = bits;
+
+    if (bits > 0) {
+        Assert(bits <= ip_maxbits(dst));
+
+        // Copy the relevant address bytes based on mask length
+        memcpy(ip_addr(dst), ip_addr(src), (bits + 7) / 8);
+
+        // Clear unwanted bits in the last partial byte
+        if (bits % 8)
+            ip_addr(dst)[bits / 8] &= ~(0xFF >> (bits % 8));
+    }
+
+    // Set proper variable-length header
+    SET_INET_VARSIZE(dst);
+
+    return dst;
+}
+``` 

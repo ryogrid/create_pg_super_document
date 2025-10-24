@@ -36,3 +36,15 @@ Since virtual slots store their data directly as Datum arrays, all attributes ar
 - This design reflects the fundamental difference between virtual slots and storage-based slots
 - Virtual slots trade memory usage (storing all attributes) for access speed (no deformation required)
 - The function is part of the tuple table slot interface but is intentionally unimplemented for virtual slots
+
+## Simplified Source
+
+```c
+static void
+tts_virtual_getsomeattrs(TupleTableSlot *slot, int natts)
+{
+    // This function should never be called for virtual slots
+    // Virtual slots always have fully populated attribute arrays
+    elog(ERROR, "getsomeattrs is not required to be called on a virtual tuple table slot");
+}
+```

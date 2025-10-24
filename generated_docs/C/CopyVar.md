@@ -31,3 +31,36 @@ CopyVar creates a new SplitVar structure and optionally copies the contents from
 - The function always sets the next pointer to NULL, indicating this creates a standalone node
 - Memory management is handled through PostgreSQL's palloc system
 - Used specifically in text search spell checking to manage word stem variants during dictionary lookups
+
+## Simplified Source
+
+```c
+static SplitVar *
+CopyVar(SplitVar *s, int makedup)
+{
+    // Allocate new SplitVar structure
+    SplitVar *v = palloc(sizeof(SplitVar));
+    v->next = NULL;
+
+    if (s)
+    {
+        // Copy from existing SplitVar
+        v->lenstem = s->lenstem;
+        v->nstem = s->nstem;
+        v->stem = palloc(sizeof(char *) * v->lenstem);
+
+        // Copy stem pointers, duplicating strings if requested
+        for (int i = 0; i < s->nstem; i++)
+            v->stem[i] = makedup ? pstrdup(s->stem[i]) : s->stem[i];
+    }
+    else
+    {
+        // Create empty SplitVar with default capacity
+        v->lenstem = 16;
+        v->nstem = 0;
+        v->stem = palloc(sizeof(char *) * v->lenstem);
+    }
+
+    return v;
+}
+```

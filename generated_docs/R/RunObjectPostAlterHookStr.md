@@ -41,3 +41,19 @@ The function differs from its OID-based counterpart by using object names (strin
 - The is_internal flag helps extensions distinguish between user-initiated alterations and internal PostgreSQL operations
 - This hook is commonly used by logical replication systems, auditing extensions, schema change tracking tools, and cache invalidation mechanisms
 - Extensions can use this hook to update external metadata, invalidate cached information, or trigger related operations after schema changes
+
+## Simplified Source
+
+```c
+void RunObjectPostAlterHookStr(Oid classId, const char *objectName, int subId,
+                               Oid auxiliaryId, bool is_internal) {
+    // Initialize post-alter argument structure
+    ObjectAccessPostAlter pa_arg;
+    memset(&pa_arg, 0, sizeof(ObjectAccessPostAlter));
+    pa_arg.auxiliary_id = auxiliaryId;
+    pa_arg.is_internal = is_internal;
+
+    // Call the registered string-based object access hook
+    (*object_access_hook_str)(OAT_POST_ALTER, classId, objectName, subId, &pa_arg);
+}
+```

@@ -36,3 +36,27 @@ The function is marked with  to ensure the compiler inlines it, eliminating func
 - Returns 0 for equal tuples, negative for a < b, positive for a > b
 - The inline attribute ensures maximum performance by eliminating function call overhead
 - Part of PostgreSQL's broader optimization strategy for tuple sorting performance
+
+## Simplified Source
+
+```c
+static pg_attribute_always_inline int
+qsort_tuple_unsigned_compare(SortTuple *a, SortTuple *b, Tuplesortstate *state)
+{
+    // Compare the first datum using unsigned comparator
+    int compare = ApplyUnsignedSortComparator(a->datum1, a->isnull1,
+                                             b->datum1, b->isnull1,
+                                             &state->base.sortKeys[0]);
+
+    // If first key differs, return the result
+    if (compare != 0)
+        return compare;
+
+    // If only one sort key, tuples are equal
+    if (state->base.onlyKey != NULL)
+        return 0;
+
+    // Use tiebreak function for additional sort keys
+    return state->base.comparetup_tiebreak(a, b, state);
+}
+```

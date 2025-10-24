@@ -37,3 +37,71 @@ The function constructs a SQL query to select all relevant fields from pg_ts_dic
 - Memory is allocated for the entire array of dictionaries at once using pg_malloc
 - Each dictionary references a template via the dicttemplate OID field
 - The TSDictInfo structure contains both dump object metadata and dictionary-specific configuration information
+
+## Simplified Source
+
+```c
+TSDictInfo *
+getTSDictionaries(Archive *fout, int *numTSDicts)
+{
+    PGresult *res;
+    int ntups, i;
+    PQExpBuffer query;
+    TSDictInfo *dictinfo;
+
+    query = createPQExpBuffer();
+
+    // Query all text search dictionaries from system catalog
+    appendPQExpBufferStr(query, "SELECT tableoid, oid, dictname, "
+                                "dictnamespace, dictowner, "
+                                "dicttemplate, dictinitoption "
+                                "FROM pg_ts_dict");
+
+    res = ExecuteSqlQuery(fout, query->data, PGRES_TUPLES_OK);
+    ntups = PQntuples(res);
+    *numTSDicts = ntups;
+
+    // Allocate array for dictionary info
+    dictinfo = (TSDictInfo *) pg_malloc(ntups * sizeof(TSDictInfo));
+
+    // Get column indices
+    int i_tableoid = PQfnumber(res, "tableoid");
+    int i_oid = PQfnumber(res, "oid");
+    int i_dictname = PQfnumber(res, "dictname");
+    int i_dictnamespace = PQfnumber(res, "dictnamespace");
+    int i_dictowner = PQfnumber(res, "dictowner");
+    int i_dicttemplate = PQfnumber(res, "dicttemplate");
+    int i_dictinitoption = PQfnumber(res, "dictinitoption");
+
+    // Process each dictionary
+    for (i = 0; i < ntups; i++) {
+        // Set object type and catalog info
+        dictinfo[i].dobj.objType = DO_TSDICT;
+        dictinfo[i].dobj.catId.tableoid = atooid(PQgetvalue(res, i, i_tableoid));
+        dictinfo[i].dobj.catId.oid = atooid(PQgetvalue(res, i, i_oid));
+        AssignDumpId(&dictinfo[i].dobj);
+
+        // Set dictionary name and namespace
+        dictinfo[i].dobj.name = pg_strdup(PQgetvalue(res, i, i_dictname));
+        dictinfo[i].dobj.namespace = findNamespace(atooid(PQgetvalue(res, i, i_dictnamespace)));
+
+        // Set owner and template
+        dictinfo[i].rolname = getRoleName(PQgetvalue(res, i, i_dictowner));
+        dictinfo[i].dicttemplate = atooid(PQgetvalue(res, i, i_dicttemplate));
+
+        // Handle optional initialization options
+        if (PQgetisnull(res, i, i_dictinitoption))
+            dictinfo[i].dictinitoption = NULL;
+        else
+            dictinfo[i].dictinitoption = pg_strdup(PQgetvalue(res, i, i_dictinitoption));
+
+        // Determine if dictionary should be dumped
+        selectDumpableObject(&(dictinfo[i].dobj), fout);
+    }
+
+    // Cleanup and return
+    PQclear(res);
+    destroyPQExpBuffer(query);
+    return dictinfo;
+}
+```

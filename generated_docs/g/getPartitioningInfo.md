@@ -48,3 +48,52 @@ The getPartitioningInfo function analyzes all partitioned tables in the database
 - Sets the unsafe_partitions flag on affected TableInfo structures to influence later dump behavior
 - The safety check is specifically for hash partitioning with enum_ops operator class in the pg_catalog namespace
 - Handles tables that may not have locks since it only queries catalog information without invoking server-side functions
+
+## Simplified Source
+
+```c
+void getPartitioningInfo(Archive *fout)
+{
+    PQExpBuffer query;
+    PGresult   *res;
+    int         ntups;
+
+    // Skip if hash partitioning not available (pre-v11)
+    if (fout->remoteVersion < 110000)
+        return;
+
+    // Skip for schema-only dumps
+    if (fout->dopt->schemaOnly)
+        return;
+
+    query = createPQExpBuffer();
+
+    // Find tables with unsafe hash partitioning on enum columns
+    // Hash codes depend on enum OIDs which aren't preserved across dump/reload
+    appendPQExpBufferStr(query,
+        "SELECT partrelid FROM pg_partitioned_table WHERE "
+        "(SELECT c.oid FROM pg_opclass c JOIN pg_am a "
+        "ON c.opcmethod = a.oid "
+        "WHERE opcname = 'enum_ops' "
+        "AND opcnamespace = 'pg_catalog'::regnamespace "
+        "AND amname = 'hash') = ANY(partclass)");
+
+    res = ExecuteSqlQuery(fout, query->data, PGRES_TUPLES_OK);
+    ntups = PQntuples(res);
+
+    // Mark each unsafe table for special handling during dump
+    for (int i = 0; i < ntups; i++)
+    {
+        Oid         tabrelid = atooid(PQgetvalue(res, i, 0));
+        TableInfo  *tbinfo = findTableByOid(tabrelid);
+
+        if (tbinfo == NULL)
+            pg_fatal("table OID %u not found", tabrelid);
+
+        tbinfo->unsafe_partitions = true;
+    }
+
+    PQclear(res);
+    destroyPQExpBuffer(query);
+}
+```

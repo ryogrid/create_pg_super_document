@@ -43,3 +43,22 @@ The function first asserts that the slot is not empty, then reports a user-frien
 - This design reflects the fundamental difference between virtual slots and storage-based slots
 - The function returns 0 to silence compiler warnings, but this value is never used due to the error
 - Virtual slots are commonly used for result tuples, intermediate computations, and projections where system attributes are not relevant
+
+## Simplified Source
+
+```c
+static Datum
+tts_virtual_getsysattr(TupleTableSlot *slot, int attnum, bool *isnull)
+{
+    // Verify slot is not empty
+    Assert(!TTS_EMPTY(slot));
+
+    // Virtual slots don't support system attributes (ctid, xmin, etc.)
+    // Report user-friendly error
+    ereport(ERROR,
+            (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+             errmsg("cannot retrieve a system column in this context")));
+
+    return 0;  // Never reached, silences compiler warnings
+}
+```

@@ -35,3 +35,15 @@ These operations ensure that when comparing pages for consistency, differences i
 - Essential for reliable page comparison operations in backup tools, replication verification, and debugging utilities
 - Modifies the page data in-place, so the original page content is lost after calling this function
 - Part of a broader set of page masking functions that exist for different page types in PostgreSQL
+
+## Simplified Source
+
+```c
+void seq_mask(char *page, BlockNumber blkno) {
+    // Mask LSN and checksum fields that vary between identical pages
+    mask_page_lsn_and_checksum(page);
+
+    // Mask uninitialized space to avoid false differences
+    mask_unused_space(page);
+}
+```

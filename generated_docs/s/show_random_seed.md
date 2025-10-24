@@ -30,3 +30,14 @@ The function is called whenever a user executes `SHOW random_seed` or queries th
 - The "unavailable" return value is a deliberate security measure to prevent information leakage
 - Located in src/backend/commands/variable.c alongside other GUC show functions
 - Declared in src/include/utils/guc_hooks.h as part of the GUC hook interface
+
+## Simplified Source
+
+```c
+const char *
+show_random_seed(void)
+{
+    // Always return "unavailable" for security (never expose actual seed)
+    return "unavailable";
+}
+```

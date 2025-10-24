@@ -32,3 +32,13 @@ This hook works in conjunction with check_max_stack_depth to ensure that stack d
 - The function performs a simple unit conversion from kilobytes to bytes
 - The resulting value is stored in max_stack_depth_bytes for use in stack depth monitoring
 - This is a void function as it always succeeds (validation occurs in the check hook)
+
+## Simplified Source
+
+```c
+void assign_max_stack_depth(int newval, void *extra) {
+    // Convert kilobytes to bytes and store in global variable
+    // Called by GUC system when max_stack_depth is updated
+    max_stack_depth_bytes = newval * 1024L;
+}
+```

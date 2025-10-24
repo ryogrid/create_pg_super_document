@@ -39,3 +39,28 @@ The function operates by walking through the partition attachment list of a refe
 - The recursive nature handles arbitrarily deep partitioning hierarchies
 - This dependency management is crucial for maintaining referential integrity during database restoration
 - The function works specifically with partitioned indexes and their attachment objects, which are part of PostgreSQL's declarative partitioning feature
+
+## Simplified Source
+
+```c
+static void addConstrChildIdxDeps(DumpableObject *dobj, const IndxInfo *refidx)
+{
+    SimplePtrListCell *cell;
+
+    Assert(dobj->objType == DO_FK_CONSTRAINT);
+
+    // Walk through all partition attachments of the referenced index
+    for (cell = refidx->partattaches.head; cell; cell = cell->next)
+    {
+        IndexAttachInfo *attach = (IndexAttachInfo *) cell->ptr;
+
+        // Add dependency from FK constraint to this partition's index attachment
+        // This ensures FK won't be restored until index is fully validated
+        addObjectDependency(dobj, attach->dobj.dumpId);
+
+        // Recursively handle sub-partitions if they exist
+        if (attach->partitionIdx->partattaches.head != NULL)
+            addConstrChildIdxDeps(dobj, attach->partitionIdx);
+    }
+}
+```

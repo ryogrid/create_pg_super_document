@@ -39,3 +39,17 @@ This function is called by the GUC system when users query the current timezone 
 - The returned string is managed by the timezone system and should not be freed by the caller
 - This is part of PostgreSQL's GUC (Grand Unified Configuration) system architecture where show hooks provide user-friendly display of configuration values
 - The function provides read-only access to the current timezone setting without modifying any state
+
+## Simplified Source
+
+```c
+const char *
+show_timezone(void)
+{
+    // Get canonical timezone name from session timezone
+    const char *tzn = pg_get_timezone_name(session_timezone);
+
+    // Return timezone name or "unknown" fallback
+    return (tzn != NULL) ? tzn : "unknown";
+}
+```

@@ -44,3 +44,53 @@ The implementation carefully manages the backend's state tracking, including mes
 - Part of PostgreSQL's distributed cache invalidation mechanism ensuring data consistency across processes
 - Can safely run in parallel with other SIGetDataEntries instances and SIInsertDataEntries
 - Handles message overflow conditions gracefully through the reset mechanism
+
+## Simplified Source
+
+```c
+int SIGetDataEntries(SharedInvalidationMessage *data, int datasize)
+{
+    SISeg *segP = shmInvalBuffer;
+    ProcState *stateP = &segP->procState[MyProcNumber];
+
+    // Quick unlocked check - if no messages, return immediately
+    if (!stateP->hasMessages)
+        return 0;
+
+    // Lock for safe message reading
+    LWLockAcquire(SInvalReadLock, LW_SHARED);
+
+    // Reset flag before reading to catch new messages
+    stateP->hasMessages = false;
+
+    // Get current maximum message number
+    SpinLockAcquire(&segP->msgnumLock);
+    int max = segP->maxMsgNum;
+    SpinLockRelease(&segP->msgnumLock);
+
+    // Handle reset condition
+    if (stateP->resetState) {
+        stateP->nextMsgNum = max;
+        stateP->resetState = false;
+        stateP->signaled = false;
+        LWLockRelease(SInvalReadLock);
+        return -1;  // Reset signal
+    }
+
+    // Copy available messages to data array
+    int n = 0;
+    while (n < datasize && stateP->nextMsgNum < max) {
+        data[n++] = segP->buffer[stateP->nextMsgNum % MAXNUMMESSAGES];
+        stateP->nextMsgNum++;
+    }
+
+    // Update state flags based on whether we caught up
+    if (stateP->nextMsgNum >= max)
+        stateP->signaled = false;        // Caught up completely
+    else
+        stateP->hasMessages = true;      // More messages remain
+
+    LWLockRelease(SInvalReadLock);
+    return n;  // Number of messages retrieved
+}
+```

@@ -41,3 +41,24 @@ The function follows PostgreSQL's convention of including the program name in er
 - Error messages are written to stderr to follow Unix conventions for error reporting
 - The program exits with status code 1 to indicate failure to the parent process or shell
 - This function is not suitable for library code or server processes where graceful error handling is required
+
+## Simplified Source
+
+```c
+const char *
+get_user_name_or_exit(const char *progname)
+{
+    char *errstr;
+
+    // Try to get user name
+    const char *user_name = get_user_name(&errstr);
+
+    // If it failed, print error and exit
+    if (!user_name) {
+        fprintf(stderr, "%s: %s\n", progname, errstr);
+        exit(1);
+    }
+
+    return user_name;
+}
+```

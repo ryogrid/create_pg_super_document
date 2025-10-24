@@ -36,3 +36,34 @@ The function returns the number of bytes successfully validated, which may be le
 - Part of PostgreSQL's character encoding validation infrastructure for MULE encoding
 - The function is static, indicating it's only used within the wchar.c compilation unit
 - Stops validation at the first null byte encountered, making it suitable for null-terminated strings
+
+## Simplified Source
+
+```c
+static int
+pg_mule_verifystr(const unsigned char *s, int len)
+{
+    const unsigned char *start = s;
+
+    while (len > 0) {
+        int char_len;
+
+        // Fast path for ASCII characters (high bit not set)
+        if (!IS_HIGHBIT_SET(*s)) {
+            if (*s == '\0')
+                break;  // Found null terminator
+            char_len = 1;
+        } else {
+            // Validate multi-byte MULE character
+            char_len = pg_mule_verifychar(s, len);
+            if (char_len == -1)
+                break;  // Invalid character found
+        }
+
+        s += char_len;
+        len -= char_len;
+    }
+
+    return s - start;  // Return number of validated bytes
+}
+```

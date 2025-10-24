@@ -46,3 +46,19 @@ This function uses PostgreSQL's function call convention :
 - Network family (IPv4 vs IPv6) is considered in the comparison logic  
 - Complementary function to  for aggregate operations
 - Part of PostgreSQL's internal infrastructure for aggregate functions on network types
+
+## Simplified Source
+
+```c
+Datum network_larger(PG_FUNCTION_ARGS) {
+    // Extract two inet/cidr network addresses from function arguments
+    inet *a1 = PG_GETARG_INET_PP(0);
+    inet *a2 = PG_GETARG_INET_PP(1);
+
+    // Return the larger network address (for MIN/MAX aggregates)
+    if (network_cmp_internal(a1, a2) > 0)
+        return PG_RETURN_INET_P(a1);
+    else
+        return PG_RETURN_INET_P(a2);
+}
+```

@@ -34,3 +34,14 @@ This is a simple utility function that outputs a standardized help message to st
 - This function is typically called when pg_ctl encounters invalid command-line arguments or usage errors
 - Provides a consistent user experience by always directing users to the same help mechanism
 - The function serves as a centralized way to provide usage guidance across different error conditions in pg_ctl
+
+## Simplified Source
+
+```c
+static void
+do_advice(void)
+{
+    // Display standard help message directing user to --help option
+    write_stderr(_("Try \"%s --help\" for more information.\n"), progname);
+}
+```

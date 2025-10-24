@@ -33,3 +33,26 @@ The  function creates a complete deep copy of a  array stored within a  structur
 - The resulting array is null-terminated following PostgreSQL TSLexeme array conventions
 - This is a static function, only used internally within the thesaurus dictionary module
 - Used in the thesaurus matching process to create independent copies of substitution results
+
+## Simplified Source
+
+```c
+static TSLexeme *
+copyTSLexeme(TheSubstitute *ts)
+{
+    // Allocate array with space for results plus NULL terminator
+    TSLexeme *res = (TSLexeme *) palloc(sizeof(TSLexeme) * (ts->reslen + 1));
+
+    // Copy each lexeme structure and duplicate its string
+    for (uint16 i = 0; i < ts->reslen; i++)
+    {
+        res[i] = ts->res[i];                    // Copy structure
+        res[i].lexeme = pstrdup(ts->res[i].lexeme);  // Duplicate string
+    }
+
+    // NULL-terminate the array
+    res[ts->reslen].lexeme = NULL;
+
+    return res;
+}
+```

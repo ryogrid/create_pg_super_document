@@ -42,3 +42,36 @@ This function is primarily used for diagnostic purposes during development and d
 - Uses Assert() to verify that each PROCLOCK's myProc field matches the input proc parameter, ensuring data structure consistency.
 - The function first checks if the process is waiting on any lock (proc->waitLock) and prints that information before dumping held locks.
 - This is a debugging function and the output is only visible when appropriate debug flags are enabled in the build.
+
+## Simplified Source
+
+```c
+void DumpLocks(PGPROC *proc)
+{
+    if (proc == NULL)
+        return;
+
+    // Print information about any lock the process is waiting for
+    if (proc->waitLock)
+        LOCK_PRINT("DumpLocks: waiting on", proc->waitLock, 0);
+
+    // Iterate through all lock partitions
+    for (int i = 0; i < NUM_LOCK_PARTITIONS; i++) {
+        dlist_head *procLocks = &proc->myProcLocks[i];
+        dlist_iter iter;
+
+        // Walk through all locks held by this process in this partition
+        dlist_foreach(iter, procLocks) {
+            PROCLOCK *proclock = dlist_container(PROCLOCK, procLink, iter.cur);
+            LOCK *lock = proclock->tag.myLock;
+
+            // Verify data structure consistency
+            Assert(proclock->tag.myProc == proc);
+
+            // Print debug information for this lock
+            PROCLOCK_PRINT("DumpLocks", proclock);
+            LOCK_PRINT("DumpLocks", lock, 0);
+        }
+    }
+}
+```

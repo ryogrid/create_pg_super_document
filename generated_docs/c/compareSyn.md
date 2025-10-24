@@ -36,3 +36,12 @@ The function follows the standard C library comparison contract:
 - Essential for maintaining the sorted order required for binary search efficiency
 - Follows standard C library comparison function conventions
 - The comparison is based solely on the input word (in field) of the synonym entries
+
+## Simplified Source
+
+```c
+static int compareSyn(const void *a, const void *b) {
+    // Compare synonym entries by their input word strings
+    return strcmp(((const Syn *) a)->in, ((const Syn *) b)->in);
+}
+```

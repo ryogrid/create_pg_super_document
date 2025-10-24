@@ -40,3 +40,88 @@ The  function performs a complete file copy operation using PostgreSQL's transie
 - Implements interrupt checking for cancellation support
 - Part of PostgreSQL's core storage file management infrastructure
 - Location: src/backend/storage/file/copydir.c:117-216
+
+## Simplified Source
+
+```c
+void
+copy_file(const char *fromfile, const char *tofile)
+{
+    char *buffer;
+    int srcfd, dstfd;
+    int nbytes;
+    off_t offset, flush_offset;
+
+    /* Platform-specific flush distances for optimal performance */
+#define COPY_BUF_SIZE (8 * BLCKSZ)
+#if defined(__darwin__)
+#define FLUSH_DISTANCE (32 * 1024 * 1024)  // 32MB for macOS/APFS
+#else
+#define FLUSH_DISTANCE (1024 * 1024)       // 1MB for other platforms
+#endif
+
+    // Allocate aligned buffer for I/O operations
+    buffer = palloc(COPY_BUF_SIZE);
+
+    // Open source file for reading
+    srcfd = OpenTransientFile(fromfile, O_RDONLY | PG_BINARY);
+    if (srcfd < 0)
+        ereport(ERROR, (errcode_for_file_access(),
+                       errmsg("could not open file \"%s\": %m", fromfile)));
+
+    // Create destination file
+    dstfd = OpenTransientFile(tofile, O_RDWR | O_CREAT | O_EXCL | PG_BINARY);
+    if (dstfd < 0)
+        ereport(ERROR, (errcode_for_file_access(),
+                       errmsg("could not create file \"%s\": %m", tofile)));
+
+    // Copy data in chunks with periodic flushing
+    flush_offset = 0;
+    for (offset = 0;; offset += nbytes) {
+        // Check for cancellation signals
+        CHECK_FOR_INTERRUPTS();
+
+        // Flush data periodically to avoid cache pressure
+        if (offset - flush_offset >= FLUSH_DISTANCE) {
+            pg_flush_data(dstfd, flush_offset, offset - flush_offset);
+            flush_offset = offset;
+        }
+
+        // Read chunk from source
+        pgstat_report_wait_start(WAIT_EVENT_COPY_FILE_READ);
+        nbytes = read(srcfd, buffer, COPY_BUF_SIZE);
+        pgstat_report_wait_end();
+
+        if (nbytes < 0)
+            ereport(ERROR, (errcode_for_file_access(),
+                           errmsg("could not read file \"%s\": %m", fromfile)));
+        if (nbytes == 0)
+            break;  // End of file
+
+        // Write chunk to destination
+        errno = 0;
+        pgstat_report_wait_start(WAIT_EVENT_COPY_FILE_WRITE);
+        if ((int) write(dstfd, buffer, nbytes) != nbytes) {
+            if (errno == 0) errno = ENOSPC;  // Assume disk full
+            ereport(ERROR, (errcode_for_file_access(),
+                           errmsg("could not write to file \"%s\": %m", tofile)));
+        }
+        pgstat_report_wait_end();
+    }
+
+    // Final flush of remaining data
+    if (offset > flush_offset)
+        pg_flush_data(dstfd, flush_offset, offset - flush_offset);
+
+    // Close files and cleanup
+    if (CloseTransientFile(dstfd) != 0)
+        ereport(ERROR, (errcode_for_file_access(),
+                       errmsg("could not close file \"%s\": %m", tofile)));
+
+    if (CloseTransientFile(srcfd) != 0)
+        ereport(ERROR, (errcode_for_file_access(),
+                       errmsg("could not close file \"%s\": %m", fromfile)));
+
+    pfree(buffer);
+}
+```

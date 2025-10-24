@@ -30,3 +30,14 @@ The type/name ordering ensures that objects of the same type are grouped togethe
 - This sorting is typically the first step in pg_dump's multi-phase object ordering process
 - The resulting order provides a stable baseline that helps ensure consistent dump output across different runs
 - Located in src/bin/pg_dump/pg_dump_sort.c:191-198
+
+## Simplified Source
+
+```c
+void sortDumpableObjectsByTypeName(DumpableObject **objs, int numObjs)
+{
+    // Sort objects by type and name using qsort if there's more than one
+    if (numObjs > 1)
+        qsort(objs, numObjs, sizeof(DumpableObject *), DOTypeNameCompare);
+}
+```

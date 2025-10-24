@@ -40,3 +40,24 @@ This operation is useful when you need to preserve the complete state of the wor
 - Part of the external API for Snowball stemmer implementations
 - More straightforward than slice_to as it doesn't need boundary checking - always copies the full valid string
 - Commonly used for preserving intermediate results or copying final stemming outputs
+
+## Simplified Source
+
+```c
+extern symbol * assign_to(struct SN_env * z, symbol * p) {
+    // Get full length of working buffer
+    int len = z->l;
+
+    // Ensure destination buffer has enough capacity
+    if (CAPACITY(p) < len) {
+        p = increase_size(p, len);
+        if (p == NULL) return NULL;
+    }
+
+    // Copy entire working buffer to destination
+    memmove(p, z->p, len * sizeof(symbol));
+    SET_SIZE(p, len);
+
+    return p;
+}
+```

@@ -29,3 +29,13 @@ The pg_ndistinct_send function serves as the binary output routine for the pg_nd
 - The pg_ndistinct type is internally represented as bytea, making this delegation natural and efficient
 - Used for binary protocol operations such as network transmission between client and server
 - Located in src/backend/statistics/mvdistinct.c:408-424
+
+## Simplified Source
+
+```c
+Datum pg_ndistinct_send(PG_FUNCTION_ARGS)
+{
+    // N-distinct stats stored as bytea internally, delegate to byteasend
+    return byteasend(fcinfo);
+}
+```

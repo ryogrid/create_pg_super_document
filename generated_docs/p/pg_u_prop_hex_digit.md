@@ -37,3 +37,18 @@ The function follows the same efficient implementation pattern as other Unicode 
 - Covers standard ASCII hex digits (0-9, A-F, a-f) and Unicode variants
 - Important for parsing hexadecimal literals in SQL and other contexts
 - Ensures consistent hex digit recognition across different Unicode encodings and character sets
+
+## Simplified Source
+
+```c
+bool pg_u_prop_hex_digit(pg_wchar code) {
+    // Fast path for ASCII characters (0-9, A-F, a-f)
+    if (code < 0x80)
+        return unicode_opt_ascii[code].properties & PG_U_PROP_HEX_DIGIT;
+
+    // Search in pre-computed hex digit ranges for non-ASCII
+    return range_search(unicode_hex_digit,
+                       lengthof(unicode_hex_digit),
+                       code);
+}
+```

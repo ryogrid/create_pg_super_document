@@ -48,3 +48,33 @@ Key behaviors:
 - Provides comprehensive NULL argument handling with appropriate error messages
 - Uses standard PostgreSQL function argument macros (PG_GETARG_*, PG_RETURN_*)
 - Enables dynamic configuration changes from within SQL queries and stored procedures
+
+## Simplified Source
+
+```c
+Datum set_config_by_name(PG_FUNCTION_ARGS) {
+    // Validate parameter name (required)
+    if (PG_ARGISNULL(0))
+        ereport(ERROR, (errcode(ERRCODE_NULL_VALUE_NOT_ALLOWED),
+                        errmsg("SET requires parameter name")));
+
+    // Extract arguments
+    char *name = TextDatumGetCString(PG_GETARG_DATUM(0));
+    char *value = PG_ARGISNULL(1) ? NULL : TextDatumGetCString(PG_GETARG_DATUM(1));
+    bool is_local = PG_ARGISNULL(2) ? false : PG_GETARG_BOOL(2);
+
+    // Set the configuration option
+    // NULL value means RESET to default
+    set_config_option(name, value,
+                     superuser() ? PGC_SUSET : PGC_USERSET,  // permission level
+                     PGC_S_SESSION,                          // context
+                     is_local ? GUC_ACTION_LOCAL : GUC_ACTION_SET,  // action
+                     true, 0, false);
+
+    // Get the new value after setting
+    char *new_value = GetConfigOptionByName(name, NULL, false);
+
+    // Return the new value as text
+    PG_RETURN_TEXT_P(cstring_to_text(new_value));
+}
+```

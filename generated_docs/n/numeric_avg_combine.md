@@ -52,3 +52,72 @@ The combining process involves adding counts, merging scale tracking data, and u
 - Proper memory context management ensures combined state data persists appropriately
 - The function validates it's called in an appropriate aggregate context using AggCheckCallContext
 - Complements numeric_combine by providing an optimized path for simpler aggregates
+
+## Simplified Source
+
+```c
+Datum
+numeric_avg_combine(PG_FUNCTION_ARGS)
+{
+    NumericAggState *state1;
+    NumericAggState *state2;
+    MemoryContext agg_context;
+    MemoryContext old_context;
+
+    // Validate aggregate context
+    if (!AggCheckCallContext(fcinfo, &agg_context))
+        elog(ERROR, "aggregate function called in non-aggregate context");
+
+    // Get the two input states
+    state1 = PG_ARGISNULL(0) ? NULL : (NumericAggState *) PG_GETARG_POINTER(0);
+    state2 = PG_ARGISNULL(1) ? NULL : (NumericAggState *) PG_GETARG_POINTER(1);
+
+    // If state2 is NULL, just return state1
+    if (state2 == NULL)
+        PG_RETURN_POINTER(state1);
+
+    // If state1 is NULL, create new state and copy all data from state2
+    if (state1 == NULL)
+    {
+        old_context = MemoryContextSwitchTo(agg_context);
+
+        state1 = makeNumericAggStateCurrentContext(false);
+        state1->N = state2->N;
+        state1->NaNcount = state2->NaNcount;
+        state1->pInfcount = state2->pInfcount;
+        state1->nInfcount = state2->nInfcount;
+        state1->maxScale = state2->maxScale;
+        state1->maxScaleCount = state2->maxScaleCount;
+
+        accum_sum_copy(&state1->sumX, &state2->sumX);
+
+        MemoryContextSwitchTo(old_context);
+        PG_RETURN_POINTER(state1);
+    }
+
+    // Combine the two states
+    state1->N += state2->N;
+    state1->NaNcount += state2->NaNcount;
+    state1->pInfcount += state2->pInfcount;
+    state1->nInfcount += state2->nInfcount;
+
+    if (state2->N > 0)
+    {
+        // Update scale tracking
+        if (state2->maxScale > state1->maxScale)
+        {
+            state1->maxScale = state2->maxScale;
+            state1->maxScaleCount = state2->maxScaleCount;
+        }
+        else if (state2->maxScale == state1->maxScale)
+            state1->maxScaleCount += state2->maxScaleCount;
+
+        // Combine the accumulated sums
+        old_context = MemoryContextSwitchTo(agg_context);
+        accum_sum_combine(&state1->sumX, &state2->sumX);
+        MemoryContextSwitchTo(old_context);
+    }
+
+    PG_RETURN_POINTER(state1);
+}
+```

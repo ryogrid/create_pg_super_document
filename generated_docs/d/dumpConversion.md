@@ -40,3 +40,94 @@ The function handles both regular and default conversions - default conversions 
 - Generates proper DROP statements for clean restoration
 - Includes comment dumping if enabled in dump options
 - Supports binary upgrade scenarios
+
+## Simplified Source
+
+```c
+static void
+dumpConversion(Archive *fout, const ConvInfo *convinfo)
+{
+    DumpOptions *dopt = fout->dopt;
+    PQExpBuffer query, q, delq;
+    char *qconvname;
+    PGresult *res;
+    const char *conforencoding, *contoencoding, *conproc;
+    bool condefault;
+
+    // Skip in data-only mode
+    if (dopt->dataOnly)
+        return;
+
+    // Initialize buffers and format conversion name
+    query = createPQExpBuffer();
+    q = createPQExpBuffer();
+    delq = createPQExpBuffer();
+    qconvname = pg_strdup(fmtId(convinfo->dobj.name));
+
+    // Query conversion properties
+    appendPQExpBuffer(query, "SELECT "
+                      "pg_catalog.pg_encoding_to_char(conforencoding) AS conforencoding, "
+                      "pg_catalog.pg_encoding_to_char(contoencoding) AS contoencoding, "
+                      "conproc, condefault "
+                      "FROM pg_catalog.pg_conversion c "
+                      "WHERE c.oid = '%u'::pg_catalog.oid",
+                      convinfo->dobj.catId.oid);
+
+    res = ExecuteSqlQueryForSingleRow(fout, query->data);
+
+    // Extract conversion properties
+    conforencoding = PQgetvalue(res, 0, PQfnumber(res, "conforencoding"));
+    contoencoding = PQgetvalue(res, 0, PQfnumber(res, "contoencoding"));
+    conproc = PQgetvalue(res, 0, PQfnumber(res, "conproc"));
+    condefault = (PQgetvalue(res, 0, PQfnumber(res, "condefault"))[0] == 't');
+
+    // Build DROP statement
+    appendPQExpBuffer(delq, "DROP CONVERSION %s;\n",
+                      fmtQualifiedDumpable(convinfo));
+
+    // Build CREATE statement
+    appendPQExpBuffer(q, "CREATE %sCONVERSION %s FOR ",
+                      condefault ? "DEFAULT " : "",
+                      fmtQualifiedDumpable(convinfo));
+
+    // Add source encoding
+    appendStringLiteralAH(q, conforencoding, fout);
+    appendPQExpBufferStr(q, " TO ");
+
+    // Add target encoding
+    appendStringLiteralAH(q, contoencoding, fout);
+
+    // Add conversion function (regproc output is already quoted)
+    appendPQExpBuffer(q, " FROM %s;\n", conproc);
+
+    // Handle binary upgrade
+    if (dopt->binary_upgrade)
+        binary_upgrade_extension_member(q, &convinfo->dobj,
+                                       "CONVERSION", qconvname,
+                                       convinfo->dobj.namespace->dobj.name);
+
+    // Register with archive
+    if (convinfo->dobj.dump & DUMP_COMPONENT_DEFINITION)
+        ArchiveEntry(fout, convinfo->dobj.catId, convinfo->dobj.dumpId,
+                    ARCHIVE_OPTS(.tag = convinfo->dobj.name,
+                                .namespace = convinfo->dobj.namespace->dobj.name,
+                                .owner = convinfo->rolname,
+                                .description = "CONVERSION",
+                                .section = SECTION_PRE_DATA,
+                                .createStmt = q->data,
+                                .dropStmt = delq->data));
+
+    // Dump comments
+    if (convinfo->dobj.dump & DUMP_COMPONENT_COMMENT)
+        dumpComment(fout, "CONVERSION", qconvname,
+                   convinfo->dobj.namespace->dobj.name, convinfo->rolname,
+                   convinfo->dobj.catId, 0, convinfo->dobj.dumpId);
+
+    // Cleanup
+    PQclear(res);
+    destroyPQExpBuffer(query);
+    destroyPQExpBuffer(q);
+    destroyPQExpBuffer(delq);
+    free(qconvname);
+}
+```

@@ -40,3 +40,66 @@ The function creates a simple  statement without any implementation details, eff
 - Undefined types should not have dependencies, making them safe to dump as simple shell types
 - Includes full dump component handling for comments, security labels, and ACLs despite the type being undefined
 - The distinction from dependency-breaking shell types is important for understanding PostgreSQL's type system architecture
+
+## Simplified Source
+
+```c
+static void
+dumpUndefinedType(Archive *fout, const TypeInfo *tyinfo)
+{
+    DumpOptions *dopt = fout->dopt;
+    PQExpBuffer q = createPQExpBuffer();
+    PQExpBuffer delq = createPQExpBuffer();
+    char *qtypname, *qualtypname;
+
+    // Format type names
+    qtypname = pg_strdup(fmtId(tyinfo->dobj.name));
+    qualtypname = pg_strdup(fmtQualifiedDumpable(tyinfo));
+
+    // Create DROP statement
+    appendPQExpBuffer(delq, "DROP TYPE %s;\n", qualtypname);
+
+    // Handle binary upgrade OID preservation
+    if (dopt->binary_upgrade)
+        binary_upgrade_set_type_oids_by_type_oid(fout, q, tyinfo->dobj.catId.oid,
+                                                false, false);
+
+    // Create simple shell type (undefined type)
+    appendPQExpBuffer(q, "CREATE TYPE %s;\n", qualtypname);
+
+    // Handle extension membership for binary upgrade
+    if (dopt->binary_upgrade)
+        binary_upgrade_extension_member(q, &tyinfo->dobj, "TYPE", qtypname,
+                                      tyinfo->dobj.namespace->dobj.name);
+
+    // Archive the type definition
+    if (tyinfo->dobj.dump & DUMP_COMPONENT_DEFINITION)
+        ArchiveEntry(fout, tyinfo->dobj.catId, tyinfo->dobj.dumpId,
+                    ARCHIVE_OPTS(.tag = tyinfo->dobj.name,
+                                .namespace = tyinfo->dobj.namespace->dobj.name,
+                                .owner = tyinfo->rolname,
+                                .description = "TYPE",
+                                .section = SECTION_PRE_DATA,
+                                .createStmt = q->data,
+                                .dropStmt = delq->data));
+
+    // Dump metadata components
+    if (tyinfo->dobj.dump & DUMP_COMPONENT_COMMENT)
+        dumpComment(fout, "TYPE", qtypname, tyinfo->dobj.namespace->dobj.name,
+                   tyinfo->rolname, tyinfo->dobj.catId, 0, tyinfo->dobj.dumpId);
+
+    if (tyinfo->dobj.dump & DUMP_COMPONENT_SECLABEL)
+        dumpSecLabel(fout, "TYPE", qtypname, tyinfo->dobj.namespace->dobj.name,
+                    tyinfo->rolname, tyinfo->dobj.catId, 0, tyinfo->dobj.dumpId);
+
+    if (tyinfo->dobj.dump & DUMP_COMPONENT_ACL)
+        dumpACL(fout, tyinfo->dobj.dumpId, InvalidDumpId, "TYPE", qtypname, NULL,
+               tyinfo->dobj.namespace->dobj.name, NULL, tyinfo->rolname, &tyinfo->dacl);
+
+    // Cleanup
+    destroyPQExpBuffer(q);
+    destroyPQExpBuffer(delq);
+    free(qtypname);
+    free(qualtypname);
+}
+```

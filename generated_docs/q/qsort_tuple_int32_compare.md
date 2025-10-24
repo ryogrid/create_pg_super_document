@@ -39,3 +39,27 @@ The function is marked with `pg_attribute_always_inline` to ensure compiler inli
 - The inline attribute ensures maximum performance by eliminating function call overhead
 - Complements other specialized comparators to handle different numeric data types efficiently
 - Common use case for sorting by integer primary keys, counts, and other int4 columns
+
+## Simplified Source
+
+```c
+static pg_attribute_always_inline int
+qsort_tuple_int32_compare(SortTuple *a, SortTuple *b, Tuplesortstate *state)
+{
+    // Compare the first datum using int32 comparator
+    int compare = ApplyInt32SortComparator(a->datum1, a->isnull1,
+                                          b->datum1, b->isnull1,
+                                          &state->base.sortKeys[0]);
+
+    // If first key differs, return the result
+    if (compare != 0)
+        return compare;
+
+    // If only one sort key, tuples are equal
+    if (state->base.onlyKey != NULL)
+        return 0;
+
+    // Use tiebreak function for additional sort keys
+    return state->base.comparetup_tiebreak(a, b, state);
+}
+```

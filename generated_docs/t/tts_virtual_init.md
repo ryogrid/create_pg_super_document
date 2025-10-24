@@ -31,3 +31,12 @@ This function has an empty implementation because virtual tuple table slots requ
 - The empty implementation indicates that virtual slots are simple enough to not require custom initialization
 - Part of PostgreSQL's tuple table slot abstraction that allows different storage implementations behind a common interface
 - Virtual slots are commonly used for result tuples in various executor nodes like ProjectSet, NestLoop, HashJoin, etc.
+
+## Simplified Source
+
+```c
+static void tts_virtual_init(TupleTableSlot *slot) {
+    // Virtual tuple slots require no special initialization
+    // Base TupleTableSlot initialization is sufficient
+}
+```

@@ -37,3 +37,32 @@ The output format shows the debug number and line count, followed by the string 
 - Part of the Snowball stemming library integrated into PostgreSQL's full-text search functionality
 - The commented line suggests an alternative output format that excludes the string length display
 - Widely referenced across the PostgreSQL codebase for debugging purposes in regex, initdb, backup tools, and testing utilities
+
+## Simplified Source
+
+```c
+extern void debug(struct SN_env * z, int number, int line_count) {
+    int limit = SIZE(z->p);
+
+    // Print debug header with number, line, and string length
+    if (number >= 0)
+        printf("%3d (line %4d): [%d]'", number, line_count, limit);
+
+    // Print string with position markers
+    for (int i = 0; i <= limit; i++) {
+        // Insert position markers at cursor locations
+        if (z->lb == i) printf("{");   // Left boundary
+        if (z->bra == i) printf("[");  // Bracket start
+        if (z->c == i) printf("|");    // Current position
+        if (z->ket == i) printf("]");  // Bracket end
+        if (z->l == i) printf("}");    // Limit
+
+        // Print character (replace null with '#')
+        if (i < limit) {
+            int ch = z->p[i];
+            printf("%c", ch == 0 ? '#' : ch);
+        }
+    }
+    printf("'\\n");
+}
+```

@@ -60,3 +60,101 @@ The function uses  to perform the complex logic of comparing ACL states and gene
 - The function handles the case where a NULL/empty ACL string represents the object-type-specific default
 - ACL entries are created in SECTION_NONE, allowing them to be applied at the appropriate time during restoration
 - Proper dependency tracking ensures ACLs are applied after the underlying objects exist
+
+## Simplified Source
+
+```c
+static DumpId
+dumpACL(Archive *fout, DumpId objDumpId, DumpId altDumpId,
+        const char *type, const char *name, const char *subname,
+        const char *nspname, const char *tag, const char *owner,
+        const DumpableAcl *dacl)
+{
+    DumpId aclDumpId = InvalidDumpId;
+    DumpOptions *dopt = fout->dopt;
+    const char *acls = dacl->acl;
+    const char *acldefault = dacl->acldefault;
+    char privtype = dacl->privtype;
+    const char *initprivs = dacl->initprivs;
+    const char *baseacls;
+    PQExpBuffer sql;
+
+    // Skip if ACLs are disabled or data-only mode (except large objects)
+    if (dopt->aclsSkip)
+        return InvalidDumpId;
+
+    if (dopt->dataOnly && strcmp(type, "LARGE OBJECT") != 0)
+        return InvalidDumpId;
+
+    sql = createPQExpBuffer();
+
+    // Handle binary upgrade: preserve initial privileges for extension objects
+    if (dopt->binary_upgrade && privtype == 'e' &&
+        initprivs && *initprivs != '\0') {
+        appendPQExpBufferStr(sql, "SELECT pg_catalog.binary_upgrade_set_record_init_privs(true);\n");
+
+        if (!buildACLCommands(name, subname, nspname, type,
+                              initprivs, acldefault, owner,
+                              "", fout->remoteVersion, sql))
+            pg_fatal("could not parse initial ACL list (%s) or default (%s) for object \"%s\" (%s)",
+                     initprivs, acldefault, name, type);
+
+        appendPQExpBufferStr(sql, "SELECT pg_catalog.binary_upgrade_set_record_init_privs(false);\n");
+    }
+
+    // Determine base privileges for comparison
+    if (initprivs && *initprivs != '\0') {
+        baseacls = initprivs;
+        // Handle NULL/empty ACL as default ACL
+        if (acls == NULL || *acls == '\0')
+            acls = acldefault;
+    } else {
+        baseacls = acldefault;
+    }
+
+    // Generate GRANT/REVOKE commands for current ACL
+    if (!buildACLCommands(name, subname, nspname, type,
+                          acls, baseacls, owner,
+                          "", fout->remoteVersion, sql))
+        pg_fatal("could not parse ACL list (%s) or default (%s) for object \"%s\" (%s)",
+                 acls, baseacls, name, type);
+
+    // Create archive entry if SQL commands were generated
+    if (sql->len > 0) {
+        PQExpBuffer tagbuf = createPQExpBuffer();
+        DumpId aclDeps[2];
+        int nDeps = 0;
+
+        // Create appropriate tag for the ACL entry
+        if (tag)
+            appendPQExpBufferStr(tagbuf, tag);
+        else if (subname)
+            appendPQExpBuffer(tagbuf, "COLUMN %s.%s", name, subname);
+        else
+            appendPQExpBuffer(tagbuf, "%s %s", type, name);
+
+        // Set up dependencies
+        aclDeps[nDeps++] = objDumpId;
+        if (altDumpId != InvalidDumpId)
+            aclDeps[nDeps++] = altDumpId;
+
+        aclDumpId = createDumpId();
+
+        // Create archive entry for the ACL
+        ArchiveEntry(fout, nilCatalogId, aclDumpId,
+                     ARCHIVE_OPTS(.tag = tagbuf->data,
+                                  .namespace = nspname,
+                                  .owner = owner,
+                                  .description = "ACL",
+                                  .section = SECTION_NONE,
+                                  .createStmt = sql->data,
+                                  .deps = aclDeps,
+                                  .nDeps = nDeps));
+
+        destroyPQExpBuffer(tagbuf);
+    }
+
+    destroyPQExpBuffer(sql);
+    return aclDumpId;
+}
+```

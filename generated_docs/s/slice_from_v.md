@@ -35,3 +35,12 @@ The `slice_from_v` function is a convenience wrapper that replaces the current s
 - Provides a more convenient interface than slice_from_s when working with sized buffers
 - Used in pattern matching operations like the `among` function
 - Part of the public API for Snowball stemming operations in PostgreSQL
+
+## Simplified Source
+
+```c
+extern int slice_from_v(struct SN_env * z, const symbol * p) {
+    // Extract size from variable-length buffer and call slice_from_s
+    return slice_from_s(z, SIZE(p), p);
+}
+```

@@ -43,3 +43,78 @@ The function also handles binary upgrade scenarios and dumps associated metadata
 - Conditionally dumps definition, comments, security labels, and ACLs based on dump component flags
 - Uses formatted identifiers to handle schemas with special characters or reserved words
 - Memory management includes proper cleanup of allocated PQExpBuffer and string resources
+
+## Simplified Source
+
+```c
+static void dumpNamespace(Archive *fout, const NamespaceInfo *nspinfo) {
+    DumpOptions *dopt = fout->dopt;
+    PQExpBuffer q;
+    PQExpBuffer delq;
+    char *qnspname;
+
+    // Skip in data-only mode
+    if (dopt->dataOnly)
+        return;
+
+    q = createPQExpBuffer();
+    delq = createPQExpBuffer();
+
+    qnspname = pg_strdup(fmtId(nspinfo->dobj.name));
+
+    // Generate CREATE/DROP statements
+    if (nspinfo->create) {
+        appendPQExpBuffer(delq, "DROP SCHEMA %s;\n", qnspname);
+        appendPQExpBuffer(q, "CREATE SCHEMA %s;\n", qnspname);
+    } else {
+        // Schema created by initdb - add comments explaining why not creating
+        appendPQExpBufferStr(delq,
+                             "-- *not* dropping schema, since initdb creates it\n");
+        appendPQExpBufferStr(q,
+                             "-- *not* creating schema, since initdb creates it\n");
+    }
+
+    // Handle binary upgrade mode
+    if (dopt->binary_upgrade)
+        binary_upgrade_extension_member(q, &nspinfo->dobj,
+                                        "SCHEMA", qnspname, NULL);
+
+    // Create archive entry for schema definition
+    if (nspinfo->dobj.dump & DUMP_COMPONENT_DEFINITION)
+        ArchiveEntry(fout, nspinfo->dobj.catId, nspinfo->dobj.dumpId,
+                     ARCHIVE_OPTS(.tag = nspinfo->dobj.name,
+                                  .owner = nspinfo->rolname,
+                                  .description = "SCHEMA",
+                                  .section = SECTION_PRE_DATA,
+                                  .createStmt = q->data,
+                                  .dropStmt = delq->data));
+
+    // Dump schema comments
+    if (nspinfo->dobj.dump & DUMP_COMPONENT_COMMENT) {
+        const char *initdb_comment = NULL;
+
+        if (!nspinfo->create && strcmp(qnspname, "public") == 0)
+            initdb_comment = "standard public schema";
+        dumpCommentExtended(fout, "SCHEMA", qnspname,
+                            NULL, nspinfo->rolname,
+                            nspinfo->dobj.catId, 0, nspinfo->dobj.dumpId,
+                            initdb_comment);
+    }
+
+    // Dump security labels
+    if (nspinfo->dobj.dump & DUMP_COMPONENT_SECLABEL)
+        dumpSecLabel(fout, "SCHEMA", qnspname,
+                     NULL, nspinfo->rolname,
+                     nspinfo->dobj.catId, 0, nspinfo->dobj.dumpId);
+
+    // Dump ACLs
+    if (nspinfo->dobj.dump & DUMP_COMPONENT_ACL)
+        dumpACL(fout, nspinfo->dobj.dumpId, InvalidDumpId, "SCHEMA",
+                qnspname, NULL, NULL,
+                NULL, nspinfo->rolname, &nspinfo->dacl);
+
+    free(qnspname);
+    destroyPQExpBuffer(q);
+    destroyPQExpBuffer(delq);
+}
+```

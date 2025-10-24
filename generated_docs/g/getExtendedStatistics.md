@@ -44,3 +44,75 @@ The getExtendedStatistics function queries the pg_statistic_ext system catalog t
 - The selectDumpableStatisticsObject function determines dump eligibility based on table and schema inclusion rules
 - Memory allocation is handled automatically based on the number of statistics objects found
 - Statistics objects are associated with specific tables through the stxrelid foreign key relationship
+
+## Simplified Source
+
+```c
+void getExtendedStatistics(Archive *fout)
+{
+    PQExpBuffer query;
+    PGresult   *res;
+    StatsExtInfo *statsextinfo;
+    int         ntups;
+
+    // Extended statistics only exist in PostgreSQL 10+
+    if (fout->remoteVersion < 100000)
+        return;
+
+    query = createPQExpBuffer();
+
+    // Build version-appropriate query
+    if (fout->remoteVersion < 130000)
+        appendPQExpBufferStr(query,
+            "SELECT tableoid, oid, stxname, stxnamespace, stxowner, "
+            "stxrelid, NULL AS stxstattarget "
+            "FROM pg_catalog.pg_statistic_ext");
+    else
+        appendPQExpBufferStr(query,
+            "SELECT tableoid, oid, stxname, stxnamespace, stxowner, "
+            "stxrelid, stxstattarget "
+            "FROM pg_catalog.pg_statistic_ext");
+
+    res = ExecuteSqlQuery(fout, query->data, PGRES_TUPLES_OK);
+    ntups = PQntuples(res);
+
+    // Extract column indices
+    int i_tableoid = PQfnumber(res, "tableoid");
+    int i_oid = PQfnumber(res, "oid");
+    int i_stxname = PQfnumber(res, "stxname");
+    int i_stxnamespace = PQfnumber(res, "stxnamespace");
+    int i_stxowner = PQfnumber(res, "stxowner");
+    int i_stxrelid = PQfnumber(res, "stxrelid");
+    int i_stattarget = PQfnumber(res, "stxstattarget");
+
+    statsextinfo = (StatsExtInfo *) pg_malloc(ntups * sizeof(StatsExtInfo));
+
+    // Process each extended statistics object
+    for (int i = 0; i < ntups; i++)
+    {
+        // Initialize object metadata
+        statsextinfo[i].dobj.objType = DO_STATSEXT;
+        statsextinfo[i].dobj.catId.tableoid = atooid(PQgetvalue(res, i, i_tableoid));
+        statsextinfo[i].dobj.catId.oid = atooid(PQgetvalue(res, i, i_oid));
+        AssignDumpId(&statsextinfo[i].dobj);
+
+        // Set names and relationships
+        statsextinfo[i].dobj.name = pg_strdup(PQgetvalue(res, i, i_stxname));
+        statsextinfo[i].dobj.namespace = findNamespace(atooid(PQgetvalue(res, i, i_stxnamespace)));
+        statsextinfo[i].rolname = getRoleName(PQgetvalue(res, i, i_stxowner));
+        statsextinfo[i].stattable = findTableByOid(atooid(PQgetvalue(res, i, i_stxrelid)));
+
+        // Handle statistics target (available in v13+)
+        if (PQgetisnull(res, i, i_stattarget))
+            statsextinfo[i].stattarget = -1;  // Default
+        else
+            statsextinfo[i].stattarget = atoi(PQgetvalue(res, i, i_stattarget));
+
+        // Determine if this statistics object should be dumped
+        selectDumpableStatisticsObject(&statsextinfo[i], fout);
+    }
+
+    PQclear(res);
+    destroyPQExpBuffer(query);
+}
+```

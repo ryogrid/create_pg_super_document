@@ -44,3 +44,66 @@ The function creates a block sized exactly for the requested chunk plus necessar
 - The chunk is marked as externally managed with MCTX_GENERATION_ID
 - Block size calculation includes chunk data, chunk header, and block header
 - Memory allocation failure is handled through MemoryContextAllocationFailure
+
+## Simplified Source
+
+```c
+static void *GenerationAllocLarge(MemoryContext context, Size size, int flags) {
+    GenerationContext *set = (GenerationContext *) context;
+    GenerationBlock *block;
+    MemoryChunk *chunk;
+    Size chunk_size;
+    Size required_size;
+    Size blksize;
+
+    // Validate size is within limits
+    MemoryContextCheckSize(context, size, flags);
+
+    // Calculate chunk and block sizes
+    #ifdef MEMORY_CONTEXT_CHECKING
+    chunk_size = MAXALIGN(size + 1);  // Add space for sentinel byte
+    #else
+    chunk_size = MAXALIGN(size);
+    #endif
+    required_size = chunk_size + Generation_CHUNKHDRSZ;
+    blksize = required_size + Generation_BLOCKHDRSZ;
+
+    // Allocate the block
+    block = (GenerationBlock *) malloc(blksize);
+    if (block == NULL)
+        return MemoryContextAllocationFailure(context, size, flags);
+
+    context->mem_allocated += blksize;
+
+    // Initialize block for single chunk usage
+    block->context = set;
+    block->blksize = blksize;
+    block->nchunks = 1;
+    block->nfree = 0;
+    block->freeptr = block->endptr = ((char *) block) + blksize;
+
+    // Set up chunk header
+    chunk = (MemoryChunk *) (((char *) block) + Generation_BLOCKHDRSZ);
+    MemoryChunkSetHdrMaskExternal(chunk, MCTX_GENERATION_ID);
+
+    // Optional debugging support
+    #ifdef MEMORY_CONTEXT_CHECKING
+    chunk->requested_size = size;
+    set_sentinel(MemoryChunkGetPointer(chunk), size);
+    #endif
+
+    #ifdef RANDOMIZE_ALLOCATED_MEMORY
+    randomize_mem((char *) MemoryChunkGetPointer(chunk), size);
+    #endif
+
+    // Add block to context's block list
+    dlist_push_head(&set->blocks, &block->node);
+
+    // Set up Valgrind annotations for memory debugging
+    VALGRIND_MAKE_MEM_NOACCESS((char *) MemoryChunkGetPointer(chunk) + size,
+                               chunk_size - size);
+    VALGRIND_MAKE_MEM_NOACCESS(chunk, Generation_CHUNKHDRSZ);
+
+    return MemoryChunkGetPointer(chunk);
+}
+```

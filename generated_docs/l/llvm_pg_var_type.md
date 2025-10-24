@@ -35,3 +35,20 @@ The function works by finding a named global variable in the types module and ex
 - Errors if the requested variable name doesn't exist in llvmjit_types.c
 - Part of the broader system that keeps C and LLVM type definitions synchronized
 - The returned type is the value type of the global variable (not pointer type)
+
+## Simplified Source
+
+```c
+LLVMTypeRef
+llvm_pg_var_type(const char *varname)
+{
+    // Look up global variable by name in types module
+    LLVMValueRef v_srcvar = LLVMGetNamedGlobal(llvm_types_module, varname);
+    if (!v_srcvar) {
+        elog(ERROR, "variable %s not in llvmjit_types.c", varname);
+    }
+
+    // Extract and return the value type (not pointer type)
+    return LLVMGlobalGetValueType(v_srcvar);
+}
+```

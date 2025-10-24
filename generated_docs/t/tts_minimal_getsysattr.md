@@ -37,3 +37,21 @@ The function serves as a safeguard in the slot operations vtable, ensuring that 
 - System attributes in PostgreSQL include ctid, tableoid, xmin, xmax, cmin, cmax, which are not stored in minimal tuples
 - This design choice reflects the trade-off between space efficiency and functionality in minimal tuples
 - The error code ERRCODE_FEATURE_NOT_SUPPORTED clearly indicates this is an intentional limitation rather than a bug
+
+## Simplified Source
+
+```c
+static Datum
+tts_minimal_getsysattr(TupleTableSlot *slot, int attnum, bool *isnull)
+{
+    // Verify slot is not empty
+    Assert(!TTS_EMPTY(slot));
+
+    // Minimal tuples don't support system attributes for space efficiency
+    ereport(ERROR,
+            (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+             errmsg("cannot retrieve a system column in this context")));
+
+    return 0;  // Never reached, silences compiler warnings
+}
+```

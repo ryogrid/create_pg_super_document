@@ -33,3 +33,15 @@ This function provides complete cleanup of a conditional stack by first clearing
 - After calling this function, the cstack pointer becomes invalid and should not be used
 - This is the complement function to conditional_stack_create, completing the stack lifecycle
 - Used typically during cleanup phases of frontend utilities like psql and pgbench
+
+## Simplified Source
+
+```c
+void conditional_stack_destroy(ConditionalStack cstack) {
+    // Clear all stack elements first
+    conditional_stack_reset(cstack);
+
+    // Free the stack structure itself
+    free(cstack);
+}
+```

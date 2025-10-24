@@ -48,3 +48,153 @@ The getIndexes function performs a sophisticated query against PostgreSQL system
 - The function assumes tblinfo array is sorted by OID for efficient table lookup
 - Index data is stored in TableInfo structures rather than returned directly
 - Memory management includes proper allocation for IndxInfo arrays and string fields
+
+## Simplified Source
+
+```c
+void getIndexes(Archive *fout, TableInfo tblinfo[], int numTables)
+{
+    PQExpBuffer query = createPQExpBuffer();
+    PQExpBuffer tbloids = createPQExpBuffer();
+    PGresult   *res;
+    int         ntups;
+    IndxInfo   *indxinfo;
+
+    // Build array of table OIDs that have indexes and are interesting
+    appendPQExpBufferChar(tbloids, '{');
+    for (int i = 0; i < numTables; i++)
+    {
+        TableInfo *tbinfo = &tblinfo[i];
+
+        if (!tbinfo->hasindex || !tbinfo->interesting)
+            continue;
+
+        if (tbloids->len > 1)
+            appendPQExpBufferChar(tbloids, ',');
+        appendPQExpBuffer(tbloids, "%u", tbinfo->dobj.catId.oid);
+    }
+    appendPQExpBufferChar(tbloids, '}');
+
+    // Build comprehensive query for index information
+    appendPQExpBufferStr(query,
+        "SELECT t.tableoid, t.oid, i.indrelid, "
+        "t.relname AS indexname, "
+        "pg_catalog.pg_get_indexdef(i.indexrelid) AS indexdef, "
+        "i.indkey, i.indisclustered, "
+        "c.contype, c.conname, c.condeferrable, c.condeferred, "
+        "c.tableoid AS contableoid, c.oid AS conoid, "
+        "pg_catalog.pg_get_constraintdef(c.oid, false) AS condef, "
+        "t.reltablespace, t.reloptions AS indreloptions, ");
+
+    // Add version-specific fields
+    if (fout->remoteVersion >= 90400)
+        appendPQExpBufferStr(query, "i.indisreplident, ");
+    else
+        appendPQExpBufferStr(query, "false AS indisreplident, ");
+
+    // Add partitioning and statistics fields for v11+
+    if (fout->remoteVersion >= 110000)
+        appendPQExpBufferStr(query,
+            "inh.inhparent AS parentidx, "
+            "i.indnkeyatts, i.indnatts, "
+            "index_statistics_columns, index_statistics_values, ");
+    else
+        appendPQExpBufferStr(query,
+            "0 AS parentidx, i.indnatts AS indnkeyatts, "
+            "i.indnatts, '' AS indstatcols, '' AS indstatvals, ");
+
+    // Add NULLS NOT DISTINCT support for v15+
+    if (fout->remoteVersion >= 150000)
+        appendPQExpBufferStr(query, "i.indnullsnotdistinct ");
+    else
+        appendPQExpBufferStr(query, "false AS indnullsnotdistinct ");
+
+    // Join with pg_index, pg_class, pg_constraint tables
+    appendPQExpBuffer(query,
+        "FROM unnest('%s'::pg_catalog.oid[]) AS src(tbloid) "
+        "JOIN pg_catalog.pg_index i ON (src.tbloid = i.indrelid) "
+        "JOIN pg_catalog.pg_class t ON (t.oid = i.indexrelid) "
+        "LEFT JOIN pg_catalog.pg_constraint c ON (...) "
+        "WHERE i.indisvalid AND i.indisready "
+        "ORDER BY i.indrelid, indexname",
+        tbloids->data);
+
+    res = ExecuteSqlQuery(fout, query->data, PGRES_TUPLES_OK);
+    ntups = PQntuples(res);
+
+    // Extract column indices from result
+    int i_tableoid = PQfnumber(res, "tableoid");
+    int i_oid = PQfnumber(res, "oid");
+    int i_indexname = PQfnumber(res, "indexname");
+    // ... more column indices
+
+    indxinfo = (IndxInfo *) pg_malloc(ntups * sizeof(IndxInfo));
+
+    // Process results grouped by table
+    int curtblindx = -1;
+    for (int j = 0; j < ntups;)
+    {
+        Oid indrelid = atooid(PQgetvalue(res, j, i_indrelid));
+        TableInfo *tbinfo = NULL;
+        int numinds;
+
+        // Count indexes for this table
+        for (numinds = 1; numinds < ntups - j; numinds++)
+            if (atooid(PQgetvalue(res, j + numinds, i_indrelid)) != indrelid)
+                break;
+
+        // Find corresponding TableInfo
+        while (++curtblindx < numTables)
+        {
+            tbinfo = &tblinfo[curtblindx];
+            if (tbinfo->dobj.catId.oid == indrelid)
+                break;
+        }
+
+        // Store index array reference in table
+        tbinfo->indexes = indxinfo + j;
+        tbinfo->numIndexes = numinds;
+
+        // Process each index for this table
+        for (int c = 0; c < numinds; c++, j++)
+        {
+            // Initialize index object
+            indxinfo[j].dobj.objType = DO_INDEX;
+            indxinfo[j].dobj.catId.oid = atooid(PQgetvalue(res, j, i_oid));
+            AssignDumpId(&indxinfo[j].dobj);
+            indxinfo[j].dobj.name = pg_strdup(PQgetvalue(res, j, i_indexname));
+            indxinfo[j].indextable = tbinfo;
+            indxinfo[j].indexdef = pg_strdup(PQgetvalue(res, j, i_indexdef));
+
+            // Parse index keys and attributes
+            parseOidArray(PQgetvalue(res, j, i_indkey),
+                         indxinfo[j].indkeys, indxinfo[j].indnattrs);
+
+            char contype = *(PQgetvalue(res, j, i_contype));
+
+            // Create constraint entry for PK/unique/exclusion indexes
+            if (contype == 'p' || contype == 'u' || contype == 'x')
+            {
+                ConstraintInfo *constrinfo = (ConstraintInfo *) pg_malloc(sizeof(ConstraintInfo));
+                constrinfo->dobj.objType = DO_CONSTRAINT;
+                constrinfo->dobj.catId.oid = atooid(PQgetvalue(res, j, i_conoid));
+                AssignDumpId(&constrinfo->dobj);
+                constrinfo->dobj.name = pg_strdup(PQgetvalue(res, j, i_conname));
+                constrinfo->contable = tbinfo;
+                constrinfo->contype = contype;
+                constrinfo->conindex = indxinfo[j].dobj.dumpId;
+
+                indxinfo[j].indexconstraint = constrinfo->dobj.dumpId;
+            }
+            else
+            {
+                indxinfo[j].indexconstraint = 0;
+            }
+        }
+    }
+
+    PQclear(res);
+    destroyPQExpBuffer(query);
+    destroyPQExpBuffer(tbloids);
+}
+```

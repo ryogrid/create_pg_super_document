@@ -39,3 +39,55 @@ The addtype function is a core component of PostgreSQL's timezone compiler that 
 - Exits with failure if UTC offset is out of range or if TZ_MAX_TYPES limit is exceeded
 - Uses global arrays: utoffs, isdsts, ttisstds, ttisuts, desigidx for storing timezone type data
 - The want_bloat() check can disable ttisstd and ttisut flags for minimal builds
+
+## Simplified Source
+
+```c
+static int addtype(zic_t utoff, char const *abbr, bool isdst, bool ttisstd, bool ttisut) {
+    int i, j;
+
+    // Validate UTC offset range
+    if (!(-1L - 2147483647L <= utoff && utoff <= 2147483647L)) {
+        error(_("UT offset out of range"));
+        exit(EXIT_FAILURE);
+    }
+
+    // Disable flags for minimal builds
+    if (!want_bloat())
+        ttisstd = ttisut = false;
+
+    // Find or add the abbreviation string
+    for (j = 0; j < charcnt; ++j)
+        if (strcmp(&chars[j], abbr) == 0)
+            break;
+
+    if (j == charcnt) {
+        newabbr(abbr);  // Add new abbreviation
+    } else {
+        // Check if identical type already exists
+        for (i = 0; i < typecnt; i++) {
+            if (utoff == utoffs[i] && isdst == isdsts[i] &&
+                j == desigidx[i] && ttisstd == ttisstds[i] &&
+                ttisut == ttisuts[i]) {
+                return i;  // Return existing type index
+            }
+        }
+    }
+
+    // Check if we can add a new type
+    if (typecnt >= TZ_MAX_TYPES) {
+        error(_("too many local time types"));
+        exit(EXIT_FAILURE);
+    }
+
+    // Add new timezone type
+    i = typecnt++;
+    utoffs[i] = utoff;
+    isdsts[i] = isdst;
+    ttisstds[i] = ttisstd;
+    ttisuts[i] = ttisut;
+    desigidx[i] = j;
+
+    return i;
+}
+```

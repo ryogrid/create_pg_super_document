@@ -36,3 +36,35 @@ This function compares a text value with a name (fixed-length string) and return
 - Properly handles variable-length text data with detoasting
 - Returns the negation of equality comparison (not-equal operation)
 - Frees copied text argument to prevent memory leaks
+
+## Simplified Source
+
+```c
+Datum
+textnename(PG_FUNCTION_ARGS)
+{
+    text *arg1 = PG_GETARG_TEXT_PP(0);
+    Name arg2 = PG_GETARG_NAME(1);
+    size_t len1 = VARSIZE_ANY_EXHDR(arg1);
+    size_t len2 = strlen(NameStr(*arg2));
+    Oid collid = PG_GET_COLLATION();
+    bool result;
+
+    check_collation_set(collid);
+
+    // Compare using appropriate method based on collation
+    if (collid == C_COLLATION_OID) {
+        // Simple byte comparison for C collation
+        result = !(len1 == len2 &&
+                   memcmp(VARDATA_ANY(arg1), NameStr(*arg2), len1) == 0);
+    } else {
+        // Locale-aware comparison for other collations
+        result = !(varstr_cmp(VARDATA_ANY(arg1), len1,
+                              NameStr(*arg2), len2,
+                              collid) == 0);
+    }
+
+    PG_FREE_IF_COPY(arg1, 0);
+    PG_RETURN_BOOL(result);
+}
+```

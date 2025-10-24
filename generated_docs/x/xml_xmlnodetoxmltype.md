@@ -37,3 +37,71 @@ This function converts libxml2 xmlNodePtr objects to PostgreSQL's internal xmlty
 - Preserves namespace definitions when dumping complex node structures
 - Relies on the assumption that XML and TEXT have the same internal representation in PostgreSQL
 - Part of the infrastructure supporting XPath operations and XML table functions
+
+## Simplified Source
+
+```c
+static text *
+xml_xmlnodetoxmltype(xmlNodePtr cur, PgXmlErrorContext *xmlerrcxt)
+{
+    xmltype *result = NULL;
+
+    // Handle attribute and text nodes: extract escaped text content
+    if (cur->type == XML_ATTRIBUTE_NODE || cur->type == XML_TEXT_NODE) {
+        xmlChar *str = xmlXPathCastNodeToString(cur);
+        PG_TRY();
+        {
+            char *escaped = escape_xml((char *) str);
+            result = (xmltype *) cstring_to_text(escaped);
+            pfree(escaped);
+        }
+        PG_FINALLY();
+        {
+            xmlFree(str);
+        }
+        PG_END_TRY();
+    }
+    else {
+        // Handle other node types: dump entire subtree
+        xmlBufferPtr buf = NULL;
+        xmlNodePtr cur_copy = NULL;
+        void (*nodefree)(xmlNodePtr) = NULL;
+
+        PG_TRY();
+        {
+            // Create buffer and copy node with namespace definitions
+            buf = xmlBufferCreate();
+            if (buf == NULL || xmlerrcxt->err_occurred)
+                xml_ereport(xmlerrcxt, ERROR, ERRCODE_OUT_OF_MEMORY,
+                           "could not allocate xmlBuffer");
+
+            cur_copy = xmlCopyNode(cur, 1);
+            if (cur_copy == NULL || xmlerrcxt->err_occurred)
+                xml_ereport(xmlerrcxt, ERROR, ERRCODE_OUT_OF_MEMORY,
+                           "could not copy node");
+
+            // Choose appropriate cleanup function for node type
+            nodefree = (cur_copy->type == XML_DOCUMENT_NODE) ?
+                       (void (*)(xmlNodePtr)) xmlFreeDoc : xmlFreeNode;
+
+            // Dump node to buffer and convert to xmltype
+            int bytes = xmlNodeDump(buf, NULL, cur_copy, 0, 0);
+            if (bytes == -1 || xmlerrcxt->err_occurred)
+                xml_ereport(xmlerrcxt, ERROR, ERRCODE_OUT_OF_MEMORY,
+                           "could not dump node");
+
+            result = xmlBuffer_to_xmltype(buf);
+        }
+        PG_FINALLY();
+        {
+            if (nodefree && cur_copy)
+                nodefree(cur_copy);
+            if (buf)
+                xmlBufferFree(buf);
+        }
+        PG_END_TRY();
+    }
+
+    return result;
+}
+```

@@ -37,3 +37,13 @@ The function follows the standard PostgreSQL object access hook pattern where ex
 - This is the string-based variant; there's also RunFunctionExecuteHook() that works with OIDs
 - Commonly used for security auditing, query logging, or implementing custom monitoring solutions
 - The hook is called with ProcedureRelationId to indicate that the object being referenced is from the pg_proc system catalog
+
+## Simplified Source
+
+```c
+void RunFunctionExecuteHookStr(const char *objectName) {
+    // Call the registered string-based object access hook for function execution
+    (*object_access_hook_str)(OAT_FUNCTION_EXECUTE, ProcedureRelationId,
+                              objectName, 0, NULL);
+}
+```

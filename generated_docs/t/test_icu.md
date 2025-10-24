@@ -40,3 +40,37 @@ The function tracks statistics including successful tests and skipped mismatches
 - The function will terminate the program if any case conversion discrepancies are found via 
 - Performance note: This is an exhaustive test that may take significant time to complete
 - Used as part of PostgreSQL's Unicode compliance testing to ensure comprehensive alignment with ICU standards
+
+## Simplified Source
+
+```c
+static void test_icu(void) {
+    int successful = 0;
+    int skipped_mismatch = 0;
+
+    // Test all Unicode codepoints from 0 to 0x10FFFF
+    for (pg_wchar code = 0; code <= 0x10ffff; code++) {
+        pg_unicode_category category = unicode_category(code);
+
+        if (category != PG_U_UNASSIGNED) {
+            uint8_t icu_category = u_charType(code);
+
+            // Skip if ICU considers it unassigned (version mismatch)
+            if (icu_category == PG_U_UNASSIGNED) {
+                skipped_mismatch++;
+                continue;
+            }
+
+            // Test case mappings against ICU
+            icu_test_simple(code);
+            successful++;
+        }
+    }
+
+    // Report results
+    if (skipped_mismatch > 0)
+        printf("case_test: skipped %d codepoints unassigned in ICU due to Unicode version mismatch\n", skipped_mismatch);
+
+    printf("case_test: ICU simple mapping test: %d codepoints successful\n", successful);
+}
+```

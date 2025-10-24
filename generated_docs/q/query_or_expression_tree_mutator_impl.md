@@ -40,3 +40,16 @@ This hybrid approach mirrors the walker counterpart and is particularly useful w
 - Part of PostgreSQL's comprehensive node transformation infrastructure
 - Complements the walker version by providing mutation capabilities with the same hybrid interface design
 - Located in src/backend/nodes/nodeFuncs.c:3933-3963
+
+## Simplified Source
+
+```c
+Node *query_or_expression_tree_mutator_impl(Node *node, tree_mutator_callback mutator,
+                                            void *context, int flags) {
+    // Choose appropriate mutator based on node type
+    if (node && IsA(node, Query))
+        return (Node *) query_tree_mutator((Query *) node, mutator, context, flags);
+    else
+        return mutator(node, context);
+}
+```

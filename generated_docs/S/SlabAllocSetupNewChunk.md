@@ -45,3 +45,45 @@ SlabAllocSetupNewChunk is a small helper function designed to avoid code duplica
 - Uses Valgrind annotations to help detect memory access violations during debugging
 - The function sets up the chunk header with MCTX_SLAB_ID to identify it as belonging to a slab memory context
 - Located in src/backend/utils/mmgr/slab.c:498-538
+
+## Simplified Source
+
+```c
+static inline void *
+SlabAllocSetupNewChunk(MemoryContext context, SlabBlock *block,
+                       MemoryChunk *chunk, Size size)
+{
+    SlabContext *slab = (SlabContext *) context;
+
+    // Verify chunk is properly positioned and aligned within the block
+    Assert(chunk >= SlabBlockGetChunk(slab, block, 0));
+    Assert(chunk <= SlabBlockGetChunk(slab, block, slab->chunksPerBlock - 1));
+    Assert(SlabChunkMod(slab, block, chunk) == 0);
+
+    // Initialize chunk header for debugging
+    VALGRIND_MAKE_MEM_UNDEFINED(chunk, Slab_CHUNKHDRSZ);
+
+    // Set up chunk header with proper mask and context ID
+    MemoryChunkSetHdrMask(chunk, block, MAXALIGN(slab->chunkSize), MCTX_SLAB_ID);
+
+#ifdef MEMORY_CONTEXT_CHECKING
+    // Add sentinel values to detect buffer overruns
+    Assert(slab->chunkSize < (slab->fullChunkSize - Slab_CHUNKHDRSZ));
+    set_sentinel(MemoryChunkGetPointer(chunk), size);
+    VALGRIND_MAKE_MEM_NOACCESS(((char *) chunk) + Slab_CHUNKHDRSZ +
+                               slab->chunkSize,
+                               slab->fullChunkSize -
+                               (slab->chunkSize + Slab_CHUNKHDRSZ));
+#endif
+
+#ifdef RANDOMIZE_ALLOCATED_MEMORY
+    // Fill allocated space with random data for testing
+    randomize_mem((char *) MemoryChunkGetPointer(chunk), size);
+#endif
+
+    // Protect chunk header from accidental access
+    VALGRIND_MAKE_MEM_NOACCESS(chunk, Slab_CHUNKHDRSZ);
+
+    return MemoryChunkGetPointer(chunk);
+}
+```

@@ -31,3 +31,21 @@ The function always throws an error with code `ERRCODE_FEATURE_NOT_SUPPORTED` an
 - The return statement `return false` is included only to silence compiler warnings, as the function will always throw an error before reaching that point
 - This is a static function, meaning it's only accessible within the execTuples.c file
 - VirtualTupleTableSlots are designed for efficiency when dealing with computed values that don't need persistent storage
+
+## Simplified Source
+
+```c
+static bool
+tts_virtual_is_current_xact_tuple(TupleTableSlot *slot)
+{
+    // Verify slot is not empty
+    Assert(!TTS_EMPTY(slot));
+
+    // Virtual slots have no storage tuples, so no transaction info
+    ereport(ERROR,
+            (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+             errmsg("don't have transaction information for this type of tuple")));
+
+    return false;  // Never reached, silences compiler warnings
+}
+```

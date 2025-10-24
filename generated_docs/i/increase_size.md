@@ -36,3 +36,26 @@ The  function is a memory management utility in PostgreSQL's Snowball stemming l
 - Memory layout includes a header section before the actual symbol data
 - On allocation failure, the original buffer is automatically freed to prevent memory leaks
 - Part of PostgreSQL's Snowball stemming algorithm implementation for text processing
+
+## Simplified Source
+
+```c
+static symbol * increase_size(symbol * p, int n) {
+    // Calculate new size with 20-symbol padding for efficiency
+    int new_size = n + 20;
+
+    // Reallocate memory including header space
+    void * mem = realloc((char *) p - HEAD, HEAD + (new_size + 1) * sizeof(symbol));
+
+    // Handle allocation failure
+    if (mem == NULL) {
+        lose_s(p);  // Free original buffer
+        return NULL;
+    }
+
+    // Setup new buffer pointer and update capacity
+    symbol * q = (symbol *) (HEAD + (char *)mem);
+    CAPACITY(q) = new_size;
+    return q;
+}
+```

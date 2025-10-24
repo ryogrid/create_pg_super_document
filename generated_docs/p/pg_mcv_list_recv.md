@@ -40,3 +40,16 @@ The function follows the same pattern as  but handles the binary input path of P
 - This pattern is used for PostgreSQL data types that should only be created internally
 - Prevents accidental corruption of statistical data through external manipulation
 - Essential for maintaining the integrity of extended statistics in PostgreSQL's query planner
+
+## Simplified Source
+
+```c
+Datum pg_mcv_list_recv(PG_FUNCTION_ARGS) {
+    // Reject binary input for pg_mcv_list type
+    ereport(ERROR,
+            (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+             errmsg("cannot accept a value of type %s", "pg_mcv_list")));
+
+    PG_RETURN_VOID();  // Never reached
+}
+```

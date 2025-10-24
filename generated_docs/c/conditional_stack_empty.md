@@ -38,3 +38,12 @@ This function provides a simple boolean test to determine if the conditional sta
 - Used as a guard condition in many other conditional stack operations
 - The function assumes the cstack parameter is not NULL - calling with NULL would cause undefined behavior
 - Widely used across PostgreSQL frontend utilities for conditional command processing logic
+
+## Simplified Source
+
+```c
+bool conditional_stack_empty(ConditionalStack cstack) {
+    // Simply check if head pointer is NULL
+    return cstack->head == NULL;
+}
+```

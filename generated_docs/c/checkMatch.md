@@ -573,3 +573,33 @@ Text creation and manipulation
 - The  flag is crucial for the backtracking algorithm in the thesaurus matching process
 - Returns NULL when no match is found at the current position
 - The returned TSLexeme is a copy created by copyTSLexeme, ensuring proper memory management
+
+## Simplified Source
+
+```c
+static TSLexeme *
+checkMatch(DictThesaurus *d, LexemeInfo *info, uint16 curpos, bool *moreres)
+{
+    *moreres = false;
+
+    // Check all available variants for a match
+    while (info)
+    {
+        // Validate substitution index is within bounds
+        Assert(info->idsubst < d->nsubst);
+
+        // Mark if more variants exist for backtracking
+        if (info->nextvariant)
+            *moreres = true;
+
+        // Check if this substitution pattern ends at current position
+        if (d->subst[info->idsubst].lastlexeme == curpos)
+            return copyTSLexeme(d->subst + info->idsubst);
+
+        // Move to next variant
+        info = info->nextvariant;
+    }
+
+    return NULL;  // No match found
+}
+```

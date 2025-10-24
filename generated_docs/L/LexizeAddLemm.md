@@ -38,3 +38,23 @@ After creating the new ParsedLex element and adding it to the tail of the work q
 - Updates both the work queue and current processing pointer
 - Essential for building the lexeme processing pipeline
 - Memory allocation follows PostgreSQL memory context patterns
+
+## Simplified Source
+
+```c
+static void
+LexizeAddLemm(LexizeData *ld, int type, char *lemm, int lenlemm)
+{
+    // Allocate new ParsedLex structure
+    ParsedLex *newpl = palloc(sizeof(ParsedLex));
+
+    // Initialize lexeme data
+    newpl->type = type;
+    newpl->lemm = lemm;
+    newpl->lenlemm = lenlemm;
+
+    // Add to work queue and update current processing pointer
+    LPLAddTail(&ld->towork, newpl);
+    ld->curSub = ld->towork.tail;
+}
+```

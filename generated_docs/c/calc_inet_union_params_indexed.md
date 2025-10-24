@@ -52,3 +52,57 @@ Like its sibling function, it enforces the constraint that mixed address familie
 - Primarily used during GiST page splitting operations to analyze candidate key groupings
 - The indexed approach allows flexible key set analysis without requiring data reorganization
 - Maintains the same mixed-family constraint as the contiguous version
+
+## Simplified Source
+
+```c
+static void
+calc_inet_union_params_indexed(GISTENTRY *ent,
+                                OffsetNumber *offsets, int noffsets,
+                                int *minfamily_p, int *maxfamily_p,
+                                int *minbits_p, int *commonbits_p)
+{
+    int minfamily, maxfamily, minbits, commonbits;
+    unsigned char *addr;
+    GistInetKey *tmp;
+
+    // Initialize with first indexed key's values
+    tmp = DatumGetInetKeyP(ent[offsets[0]].key);
+    minfamily = maxfamily = gk_ip_family(tmp);
+    minbits = gk_ip_minbits(tmp);
+    commonbits = gk_ip_commonbits(tmp);
+    addr = gk_ip_addr(tmp);
+
+    // Scan remaining indexed keys to find ranges and commonality
+    for (int i = 1; i < noffsets; i++)
+    {
+        tmp = DatumGetInetKeyP(ent[offsets[i]].key);
+
+        // Track family range (IPv4/IPv6)
+        if (minfamily > gk_ip_family(tmp))
+            minfamily = gk_ip_family(tmp);
+        if (maxfamily < gk_ip_family(tmp))
+            maxfamily = gk_ip_family(tmp);
+
+        // Find minimum netmask bits
+        if (minbits > gk_ip_minbits(tmp))
+            minbits = gk_ip_minbits(tmp);
+
+        // Calculate common address bits
+        if (commonbits > gk_ip_commonbits(tmp))
+            commonbits = gk_ip_commonbits(tmp);
+        if (commonbits > 0)
+            commonbits = bitncommon(addr, gk_ip_addr(tmp), commonbits);
+    }
+
+    // Mixed families can't have meaningful bit commonality
+    if (minfamily != maxfamily)
+        minbits = commonbits = 0;
+
+    // Return calculated parameters
+    *minfamily_p = minfamily;
+    *maxfamily_p = maxfamily;
+    *minbits_p = minbits;
+    *commonbits_p = commonbits;
+}
+```

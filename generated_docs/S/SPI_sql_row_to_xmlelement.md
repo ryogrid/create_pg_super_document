@@ -44,3 +44,53 @@ This function converts a single row from an SPI result set into XML format. It h
 - Handles XML namespace declarations when in tableforest mode and top_level is true
 - Column names are automatically mapped to XML-compliant identifiers
 - Part of PostgreSQL's SQL/XML standard implementation
+
+## Simplified Source
+
+```c
+static void SPI_sql_row_to_xmlelement(uint64 rownum, StringInfo result, char *tablename,
+                                     bool nulls, bool tableforest,
+                                     const char *targetns, bool top_level) {
+    // Determine XML element name
+    char *xmltn;
+    if (tablename)
+        xmltn = map_sql_identifier_to_xml_name(tablename, true, false);
+    else
+        xmltn = tableforest ? "row" : "table";
+
+    // Start the XML element
+    if (tableforest)
+        xmldata_root_element_start(result, xmltn, NULL, targetns, top_level);
+    else
+        appendStringInfoString(result, "<row>\n");
+
+    // Process each column in the row
+    for (int i = 1; i <= SPI_tuptable->tupdesc->natts; i++) {
+        // Get column info
+        char *colname = map_sql_identifier_to_xml_name(SPI_fname(SPI_tuptable->tupdesc, i),
+                                                       true, false);
+        bool isnull;
+        Datum colval = SPI_getbinval(SPI_tuptable->vals[rownum],
+                                     SPI_tuptable->tupdesc, i, &isnull);
+
+        // Generate XML for this column
+        if (isnull) {
+            if (nulls)
+                appendStringInfo(result, "  <%s xsi:nil=\"true\"/>\n", colname);
+        } else {
+            appendStringInfo(result, "  <%s>%s</%s>\n", colname,
+                           map_sql_value_to_xml_value(colval,
+                                                     SPI_gettypeid(SPI_tuptable->tupdesc, i), true),
+                           colname);
+        }
+    }
+
+    // Close the XML element
+    if (tableforest) {
+        xmldata_root_element_end(result, xmltn);
+        appendStringInfoChar(result, '\n');
+    } else {
+        appendStringInfoString(result, "</row>\n\n");
+    }
+}
+```

@@ -48,3 +48,109 @@ The function follows PostgreSQL's dump architecture by creating both creation an
 - Binary upgrade mode requires special handling for object OID preservation
 - Index statistics are parsed from PostgreSQL array format and converted to individual ALTER INDEX commands
 - The function maintains synchronization with similar code in dumpConstraint for consistency
+
+## Simplified Source
+
+```c
+static void
+dumpIndex(Archive *fout, const IndxInfo *indxinfo)
+{
+    DumpOptions *dopt = fout->dopt;
+    TableInfo *tbinfo = indxinfo->indextable;
+    bool is_constraint = (indxinfo->indexconstraint != 0);
+    PQExpBuffer q, delq;
+    char *qindxname, *qqindxname;
+
+    // Skip if data-only dump
+    if (dopt->dataOnly)
+        return;
+
+    q = createPQExpBuffer();
+    delq = createPQExpBuffer();
+
+    qindxname = pg_strdup(fmtId(indxinfo->dobj.name));
+    qqindxname = pg_strdup(fmtQualifiedDumpable(indxinfo));
+
+    // Only dump standalone indexes (not constraint-backed ones)
+    if (!is_constraint)
+    {
+        // Binary upgrade OID handling
+        if (dopt->binary_upgrade)
+            binary_upgrade_set_pg_class_oids(fout, q, indxinfo->dobj.catId.oid, true);
+
+        // Basic index creation
+        appendPQExpBuffer(q, "%s;\n", indxinfo->indexdef);
+
+        // Handle clustering
+        if (indxinfo->indisclustered)
+        {
+            appendPQExpBuffer(q, "\nALTER TABLE %s CLUSTER ON %s;\n",
+                            fmtQualifiedDumpable(tbinfo), qindxname);
+        }
+
+        // Handle index statistics
+        if (strlen(indxinfo->indstatcols) != 0 || strlen(indxinfo->indstatvals) != 0)
+        {
+            char **indstatcolsarray = NULL;
+            char **indstatvalsarray = NULL;
+            int nstatcols = 0, nstatvals = 0;
+
+            // Parse statistics arrays
+            if (!parsePGArray(indxinfo->indstatcols, &indstatcolsarray, &nstatcols))
+                pg_fatal("could not parse index statistic columns");
+            if (!parsePGArray(indxinfo->indstatvals, &indstatvalsarray, &nstatvals))
+                pg_fatal("could not parse index statistic values");
+
+            // Generate ALTER INDEX SET STATISTICS commands
+            for (int j = 0; j < nstatcols; j++)
+            {
+                appendPQExpBuffer(q, "ALTER INDEX %s ALTER COLUMN %s SET STATISTICS %s;\n",
+                                qqindxname, indstatcolsarray[j], indstatvalsarray[j]);
+            }
+
+            free(indstatcolsarray);
+            free(indstatvalsarray);
+        }
+
+        // Handle extension dependencies
+        append_depends_on_extension(fout, q, &indxinfo->dobj,
+                                   "pg_catalog.pg_class", "INDEX", qqindxname);
+
+        // Handle replica identity
+        if (indxinfo->indisreplident)
+        {
+            appendPQExpBuffer(q, "\nALTER TABLE ONLY %s REPLICA IDENTITY USING INDEX %s;\n",
+                            fmtQualifiedDumpable(tbinfo), qindxname);
+        }
+
+        // Generate DROP statement (only for non-partitioned index members)
+        if (indxinfo->parentidx == 0)
+            appendPQExpBuffer(delq, "DROP INDEX %s;\n", qqindxname);
+
+        // Create archive entry
+        if (indxinfo->dobj.dump & DUMP_COMPONENT_DEFINITION)
+            ArchiveEntry(fout, indxinfo->dobj.catId, indxinfo->dobj.dumpId,
+                        ARCHIVE_OPTS(.tag = indxinfo->dobj.name,
+                                    .namespace = tbinfo->dobj.namespace->dobj.name,
+                                    .tablespace = indxinfo->tablespace,
+                                    .owner = tbinfo->rolname,
+                                    .description = "INDEX",
+                                    .section = SECTION_POST_DATA,
+                                    .createStmt = q->data,
+                                    .dropStmt = delq->data));
+    }
+
+    // Dump index comments
+    if (indxinfo->dobj.dump & DUMP_COMPONENT_COMMENT)
+        dumpComment(fout, "INDEX", qindxname,
+                   tbinfo->dobj.namespace->dobj.name,
+                   tbinfo->rolname,
+                   indxinfo->dobj.catId, 0,
+                   is_constraint ? indxinfo->indexconstraint : indxinfo->dobj.dumpId);
+
+    destroyPQExpBuffer(q);
+    destroyPQExpBuffer(delq);
+    free(qindxname);
+    free(qqindxname);
+}
+```

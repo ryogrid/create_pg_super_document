@@ -40,3 +40,68 @@ This function provides functionality for the psql \\drds metacommand, which disp
 - The query output includes role name, database name, and settings formatted as newline-separated configuration parameters
 - Located in src/bin/psql/describe.c:3761-3829
 - Uses LEFT JOINs to handle cases where role or database might be NULL (indicating global settings)
+
+## Simplified Source
+
+```c
+bool listDbRoleSettings(const char *pattern, const char *pattern2) {
+    PQExpBufferData buf;
+    PGresult *res;
+    printQueryOpt myopt = pset.popt;
+    bool havewhere;
+
+    initPQExpBuffer(&buf);
+
+    // Build SQL query to retrieve role/database settings
+    printfPQExpBuffer(&buf,
+        "SELECT rolname AS \"%s\", datname AS \"%s\", "
+        "pg_catalog.array_to_string(setconfig, E'\\n') AS \"%s\"\n"
+        "FROM pg_catalog.pg_db_role_setting s\n"
+        "LEFT JOIN pg_catalog.pg_database d ON d.oid = setdatabase\n"
+        "LEFT JOIN pg_catalog.pg_roles r ON r.oid = setrole\n",
+        gettext_noop("Role"),
+        gettext_noop("Database"),
+        gettext_noop("Settings"));
+
+    // Add WHERE clauses for pattern matching
+    if (!validateSQLNamePattern(&buf, pattern, false, false,
+                                NULL, "r.rolname", NULL, NULL, &havewhere, 1))
+        goto error_return;
+
+    if (!validateSQLNamePattern(&buf, pattern2, havewhere, false,
+                                NULL, "d.datname", NULL, NULL, NULL, 1))
+        goto error_return;
+
+    appendPQExpBufferStr(&buf, "ORDER BY 1, 2;");
+
+    // Execute the query
+    res = PSQLexec(buf.data);
+    termPQExpBuffer(&buf);
+    if (!res)
+        return false;
+
+    // Display results or helpful error messages
+    if (PQntuples(res) == 0 && !pset.quiet) {
+        // Provide contextual error messages for no results
+        if (pattern && pattern2)
+            pg_log_error("Did not find any settings for role \"%s\" and database \"%s\".",
+                        pattern, pattern2);
+        else if (pattern)
+            pg_log_error("Did not find any settings for role \"%s\".", pattern);
+        else
+            pg_log_error("Did not find any settings.");
+    } else {
+        // Display the results table
+        myopt.title = _("List of settings");
+        myopt.translate_header = true;
+        printQuery(res, &myopt, pset.queryFout, false, pset.logfile);
+    }
+
+    PQclear(res);
+    return true;
+
+error_return:
+    termPQExpBuffer(&buf);
+    return false;
+}
+```

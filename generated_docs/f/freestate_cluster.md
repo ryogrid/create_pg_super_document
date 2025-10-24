@@ -42,3 +42,23 @@ This function is called as part of the tuplesort cleanup process to ensure that 
 - Proper cleanup is essential to prevent memory leaks during large CLUSTER operations
 - The function is part of the tuplesort variant system that provides operation-specific resource management
 - Works in conjunction with the previously processed symbols `ExecDropSingleTupleTableSlot` and `FreeExecutorState` to ensure complete cleanup
+
+## Simplified Source
+
+```c
+static void
+freestate_cluster(Tuplesortstate *state)
+{
+    TuplesortPublic *base = TuplesortstateGetPublic(state);
+    TuplesortClusterArg *arg = (TuplesortClusterArg *) base->arg;
+
+    // Clean up executor state if it was created for CLUSTER operations
+    if (arg->estate != NULL) {
+        ExprContext *econtext = GetPerTupleExprContext(arg->estate);
+
+        // Drop the scan tuple slot and free executor state
+        ExecDropSingleTupleTableSlot(econtext->ecxt_scantuple);
+        FreeExecutorState(arg->estate);
+    }
+}
+```

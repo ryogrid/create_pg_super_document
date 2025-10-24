@@ -40,3 +40,23 @@ This function is particularly useful for processing text data where trailing new
 - The name 'pchomp' follows the PostgreSQL naming convention (p-prefix) and references Perl's chomp function
 - Located in src/backend/utils/mmgr/mcxt.c at lines 1723-1731
 - Primarily used in PostgreSQL's replication subsystem for processing libpq command responses
+
+## Simplified Source
+
+```c
+char *
+pchomp(const char *in)
+{
+    size_t n;
+
+    // Find string length
+    n = strlen(in);
+
+    // Skip back over all trailing newlines
+    while (n > 0 && in[n - 1] == '\n')
+        n--;
+
+    // Return copy of string without trailing newlines
+    return pnstrdup(in, n);
+}
+```

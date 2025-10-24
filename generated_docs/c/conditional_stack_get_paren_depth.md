@@ -31,3 +31,14 @@ This function fetches the last-recorded parenthesis nesting depth from the topmo
 - The returned depth helps ensure proper command parsing and termination within conditional blocks
 - Part of the conditional execution framework primarily used in psql
 - Located in src/fe_utils/conditional.c:184-189
+
+## Simplified Source
+
+```c
+int conditional_stack_get_paren_depth(ConditionalStack cstack) {
+    // Return -1 if stack is empty, otherwise return stored depth
+    if (conditional_stack_empty(cstack))
+        return -1;
+    return cstack->head->paren_depth;
+}
+```

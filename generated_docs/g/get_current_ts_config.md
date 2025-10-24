@@ -35,3 +35,14 @@ This function follows the PostgreSQL function calling convention:
 - The function will error if no default text search configuration has been set
 - Located in  at lines 48-56
 - This is likely registered as a built-in SQL function accessible from user queries
+
+## Simplified Source
+
+```c
+Datum
+get_current_ts_config(PG_FUNCTION_ARGS)
+{
+    // Return OID of current text search configuration
+    PG_RETURN_OID(getTSCurrentConfig(true));
+}
+```

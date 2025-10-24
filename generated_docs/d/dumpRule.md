@@ -42,3 +42,131 @@ The  function generates SQL statements for PostgreSQL rules, with sophisticated 
 - Creates archive entries in SECTION_POST_DATA to ensure rules are created after their dependent tables
 - For view rules, DROP statements use CREATE OR REPLACE VIEW with dummy content instead of DROP RULE
 - Preserves view reloptions and check options when dumping view-defining rules
+
+## Simplified Source
+
+```c
+static void
+dumpRule(Archive *fout, const RuleInfo *rinfo)
+{
+    DumpOptions *dopt = fout->dopt;
+    TableInfo *tbinfo = rinfo->ruletable;
+    bool is_view;
+    PQExpBuffer query, cmd, delcmd, ruleprefix;
+    char *qtabname;
+    PGresult *res;
+    char *tag;
+
+    // Skip in data-only mode or non-separate rules
+    if (dopt->dataOnly || !rinfo->separate)
+        return;
+
+    // Determine if this is a view-defining rule
+    is_view = (rinfo->ev_type == '1' && rinfo->is_instead);
+
+    query = createPQExpBuffer();
+    cmd = createPQExpBuffer();
+    delcmd = createPQExpBuffer();
+    ruleprefix = createPQExpBuffer();
+
+    qtabname = pg_strdup(fmtId(tbinfo->dobj.name));
+
+    if (is_view) {
+        // Handle view-defining rules: CREATE OR REPLACE VIEW
+        PQExpBuffer result;
+
+        appendPQExpBuffer(cmd, "CREATE OR REPLACE VIEW %s", fmtQualifiedDumpable(tbinfo));
+
+        // Add view options if present
+        if (nonemptyReloptions(tbinfo->reloptions)) {
+            appendPQExpBufferStr(cmd, " WITH (");
+            appendReloptionsArrayAH(cmd, tbinfo->reloptions, "", fout);
+            appendPQExpBufferChar(cmd, ')');
+        }
+
+        // Add view definition
+        result = createViewAsClause(fout, tbinfo);
+        appendPQExpBuffer(cmd, " AS\n%s", result->data);
+        destroyPQExpBuffer(result);
+
+        // Add check option if present
+        if (tbinfo->checkoption != NULL)
+            appendPQExpBuffer(cmd, "\n  WITH %s CHECK OPTION", tbinfo->checkoption);
+
+        appendPQExpBufferStr(cmd, ";\n");
+    } else {
+        // Handle regular rules: use pg_get_ruledef
+        appendPQExpBuffer(query, "SELECT pg_catalog.pg_get_ruledef('%u'::pg_catalog.oid)",
+                         rinfo->dobj.catId.oid);
+
+        res = ExecuteSqlQuery(fout, query->data, PGRES_TUPLES_OK);
+
+        if (PQntuples(res) != 1)
+            pg_fatal("query to get rule \"%s\" for table \"%s\" failed: wrong number of rows returned",
+                    rinfo->dobj.name, tbinfo->dobj.name);
+
+        printfPQExpBuffer(cmd, "%s\n", PQgetvalue(res, 0, 0));
+        PQclear(res);
+    }
+
+    // Handle non-default rule enabled states
+    if (rinfo->ev_enabled != 'O') {
+        appendPQExpBuffer(cmd, "ALTER TABLE %s ", fmtQualifiedDumpable(tbinfo));
+        switch (rinfo->ev_enabled) {
+            case 'A':
+                appendPQExpBuffer(cmd, "ENABLE ALWAYS RULE %s;\n", fmtId(rinfo->dobj.name));
+                break;
+            case 'R':
+                appendPQExpBuffer(cmd, "ENABLE REPLICA RULE %s;\n", fmtId(rinfo->dobj.name));
+                break;
+            case 'D':
+                appendPQExpBuffer(cmd, "DISABLE RULE %s;\n", fmtId(rinfo->dobj.name));
+                break;
+        }
+    }
+
+    // Create DROP statement
+    if (is_view) {
+        // For views, create dummy view for DROP
+        PQExpBuffer result;
+        appendPQExpBuffer(delcmd, "CREATE OR REPLACE VIEW %s", fmtQualifiedDumpable(tbinfo));
+        result = createDummyViewAsClause(fout, tbinfo);
+        appendPQExpBuffer(delcmd, " AS\n%s;\n", result->data);
+        destroyPQExpBuffer(result);
+    } else {
+        // Regular rule DROP
+        appendPQExpBuffer(delcmd, "DROP RULE %s ", fmtId(rinfo->dobj.name));
+        appendPQExpBuffer(delcmd, "ON %s;\n", fmtQualifiedDumpable(tbinfo));
+    }
+
+    // Build comment prefix
+    appendPQExpBuffer(ruleprefix, "RULE %s ON", fmtId(rinfo->dobj.name));
+
+    tag = psprintf("%s %s", tbinfo->dobj.name, rinfo->dobj.name);
+
+    // Create archive entry
+    if (rinfo->dobj.dump & DUMP_COMPONENT_DEFINITION)
+        ArchiveEntry(fout, rinfo->dobj.catId, rinfo->dobj.dumpId,
+                   ARCHIVE_OPTS(.tag = tag,
+                               .namespace = tbinfo->dobj.namespace->dobj.name,
+                               .owner = tbinfo->rolname,
+                               .description = "RULE",
+                               .section = SECTION_POST_DATA,
+                               .createStmt = cmd->data,
+                               .dropStmt = delcmd->data));
+
+    // Dump rule comments
+    if (rinfo->dobj.dump & DUMP_COMPONENT_COMMENT)
+        dumpComment(fout, ruleprefix->data, qtabname,
+                   tbinfo->dobj.namespace->dobj.name,
+                   tbinfo->rolname,
+                   rinfo->dobj.catId, 0, rinfo->dobj.dumpId);
+
+    free(tag);
+    destroyPQExpBuffer(query);
+    destroyPQExpBuffer(cmd);
+    destroyPQExpBuffer(delcmd);
+    destroyPQExpBuffer(ruleprefix);
+    free(qtabname);
+}
+```

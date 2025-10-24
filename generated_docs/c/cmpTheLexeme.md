@@ -36,3 +36,21 @@ The function follows a hierarchical comparison strategy: primary sorting by lexe
 - Used during thesaurus compilation to maintain proper ordering of lexeme entries
 - Essential for ensuring consistent and predictable ordering when multiple entries share the same lexeme string but differ in their associated metadata
 - This comprehensive comparison enables efficient searching and prevents duplicate entries during thesaurus dictionary construction
+
+## Simplified Source
+
+```c
+static int cmpTheLexeme(const void *a, const void *b) {
+    // Cast void pointers to TheLexeme structures
+    const TheLexeme *la = (const TheLexeme *) a;
+    const TheLexeme *lb = (const TheLexeme *) b;
+
+    // First compare by lexeme strings
+    int res = cmpLexeme(la, lb);
+    if (res != 0)
+        return res;
+
+    // If lexemes are equal, compare by LexemeInfo (reversed order)
+    return -cmpLexemeInfo(la->entries, lb->entries);
+}
+```

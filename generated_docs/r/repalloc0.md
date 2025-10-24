@@ -34,3 +34,24 @@ This function extends the functionality of standard realloc by ensuring that any
 - Only zeros the newly added space, not the entire allocated area
 - Commonly used for dynamic arrays and structures where clean initialization is required
 - Located in src/backend/utils/mmgr/mcxt.c:1618-1638
+
+## Simplified Source
+
+```c
+void *repalloc0(void *pointer, Size oldsize, Size size) {
+    void *ret;
+
+    // Validate that new size is not smaller than old size
+    if (unlikely(oldsize > size))
+        elog(ERROR, "invalid repalloc0 call: oldsize %zu, new size %zu",
+             oldsize, size);
+
+    // Reallocate memory
+    ret = repalloc(pointer, size);
+
+    // Zero out the newly added space
+    memset((char *) ret + oldsize, 0, (size - oldsize));
+
+    return ret;
+}
+```

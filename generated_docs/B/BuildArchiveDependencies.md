@@ -36,3 +36,45 @@ This function processes TOC entries in an archive dump to build correct dependen
 - Uses a work array that starts at 64 elements and grows as needed
 - Preserves special dependencies created during ArchiveEntry calls
 - Critical for ensuring proper restore order in pg_restore operations
+
+## Simplified Source
+
+```c
+static void BuildArchiveDependencies(Archive *fout)
+{
+    ArchiveHandle *AH = (ArchiveHandle *) fout;
+
+    // Process each TOC entry in the archive
+    for (TocEntry *te = AH->toc->next; te != AH->toc; te = te->next) {
+        // Skip entries that won't be dumped
+        if (te->reqs == 0)
+            continue;
+
+        // Skip entries with existing "special" dependencies
+        if (te->nDeps > 0)
+            continue;
+
+        // Find the original DumpableObject for this entry
+        DumpableObject *dobj = findObjectByDumpId(te->dumpId);
+        if (dobj == NULL || dobj->nDeps <= 0)
+            continue;
+
+        // Allocate dependency tracking array
+        int allocDeps = 64;
+        DumpId *dependencies = pg_malloc(allocDeps * sizeof(DumpId));
+        int nDeps = 0;
+
+        // Recursively find all dumpable dependencies
+        findDumpableDependencies(AH, dobj, &dependencies, &nDeps, &allocDeps);
+
+        // Save dependencies to TOC entry
+        if (nDeps > 0) {
+            dependencies = pg_realloc(dependencies, nDeps * sizeof(DumpId));
+            te->dependencies = dependencies;
+            te->nDeps = nDeps;
+        } else {
+            free(dependencies);
+        }
+    }
+}
+```

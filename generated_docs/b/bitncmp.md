@@ -41,3 +41,38 @@ This function performs bit-level comparison between two byte arrays (bit masks) 
 - Example: comparing 192.5.5.240/28 involves comparing 0x11110000 in the fourth octet
 - Located in src/backend/utils/adt/network.c:1569-1602
 - Used extensively throughout PostgreSQL's network indexing and comparison functions
+
+## Simplified Source
+
+```c
+int bitncmp(const unsigned char *left_mask, const unsigned char *right_mask, int num_bits) {
+    // Compare complete bytes first using standard library
+    int complete_bytes = num_bits / 8;
+    int byte_comparison = memcmp(left_mask, right_mask, complete_bytes);
+
+    // If bytes differ or no remaining bits, return result
+    if (byte_comparison != 0 || (num_bits % 8) == 0) {
+        return byte_comparison;
+    }
+
+    // Compare remaining bits individually from most significant bit
+    unsigned char left_byte = left_mask[complete_bytes];
+    unsigned char right_byte = right_mask[complete_bytes];
+
+    for (int remaining_bits = num_bits % 8; remaining_bits > 0; remaining_bits--) {
+        // Check if high bits differ
+        bool left_has_high_bit = IS_HIGHBIT_SET(left_byte);
+        bool right_has_high_bit = IS_HIGHBIT_SET(right_byte);
+
+        if (left_has_high_bit != right_has_high_bit) {
+            return left_has_high_bit ? 1 : -1;
+        }
+
+        // Shift both bytes left to check next bit
+        left_byte <<= 1;
+        right_byte <<= 1;
+    }
+
+    return 0; // All compared bits are equal
+}
+```

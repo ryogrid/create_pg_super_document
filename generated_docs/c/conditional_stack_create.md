@@ -34,3 +34,17 @@ This function allocates and initializes a new conditional stack structure used b
 - The newly created stack is empty (head = NULL), ready to accept conditional states via conditional_stack_push
 - This is part of the frontend utilities conditional processing system that supports nested \if...\elif...\else...\endif constructs
 - The stack manages ifState values along with query buffer lengths and parenthesis depth for proper conditional handling
+
+## Simplified Source
+
+```c
+ConditionalStack conditional_stack_create(void) {
+    // Allocate memory for new conditional stack
+    ConditionalStack cstack = pg_malloc(sizeof(ConditionalStackData));
+
+    // Initialize with empty stack
+    cstack->head = NULL;
+
+    return cstack;
+}
+```

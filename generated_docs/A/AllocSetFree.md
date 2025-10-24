@@ -65,3 +65,84 @@ The function includes extensive error checking and debugging support, including 
 - Updates memory accounting to track the context's total allocated memory
 - Maintains Valgrind memory access tracking to help detect invalid memory access
 - The freelist is managed as a simple LIFO (stack) structure for performance
+
+## Simplified Source
+
+```c
+void AllocSetFree(void *pointer) {
+    AllocSet set;
+    MemoryChunk *chunk = PointerGetMemoryChunk(pointer);
+
+    // Make chunk header accessible for memory validation tools
+    VALGRIND_MAKE_MEM_DEFINED(chunk, ALLOC_CHUNKHDRSZ);
+
+    if (MemoryChunkIsExternal(chunk)) {
+        // Handle large allocations (single-chunk blocks)
+        AllocBlock block = ExternalChunkGetBlock(chunk);
+
+        // Validate block structure
+        if (!AllocBlockIsValid(block) || block->freeptr != block->endptr)
+            elog(ERROR, "could not find block containing chunk %p", chunk);
+
+        set = block->aset;
+
+        // Optional: Check for buffer overruns in debug builds
+        #ifdef MEMORY_CONTEXT_CHECKING
+        if (!sentinel_ok(pointer, chunk->requested_size))
+            elog(WARNING, "detected write past chunk end in %s %p",
+                 set->header.name, chunk);
+        #endif
+
+        // Remove block from linked list
+        if (block->prev)
+            block->prev->next = block->next;
+        else
+            set->blocks = block->next;
+        if (block->next)
+            block->next->prev = block->prev;
+
+        // Update memory accounting and free the block
+        set->header.mem_allocated -= block->endptr - ((char *) block);
+
+        #ifdef CLOBBER_FREED_MEMORY
+        wipe_mem(block, block->freeptr - ((char *) block));
+        #endif
+        free(block);
+    }
+    else {
+        // Handle regular chunks from multi-chunk blocks
+        AllocBlock block = MemoryChunkGetBlock(chunk);
+        int fidx;
+        AllocFreeListLink *link;
+
+        // Validate block and get freelist index
+        Assert(AllocBlockIsValid(block));
+        set = block->aset;
+        fidx = MemoryChunkGetValue(chunk);
+        Assert(FreeListIdxIsValid(fidx));
+        link = GetFreeListLink(chunk);
+
+        // Optional: Check for buffer overruns and clobber memory
+        #ifdef MEMORY_CONTEXT_CHECKING
+        if (chunk->requested_size < GetChunkSizeFromFreeListIdx(fidx))
+            if (!sentinel_ok(pointer, chunk->requested_size))
+                elog(WARNING, "detected write past chunk end in %s %p",
+                     set->header.name, chunk);
+        #endif
+
+        #ifdef CLOBBER_FREED_MEMORY
+        wipe_mem(pointer, GetChunkSizeFromFreeListIdx(fidx));
+        #endif
+
+        // Add chunk to front of appropriate freelist
+        VALGRIND_MAKE_MEM_DEFINED(link, sizeof(AllocFreeListLink));
+        link->next = set->freelist[fidx];
+        VALGRIND_MAKE_MEM_NOACCESS(link, sizeof(AllocFreeListLink));
+        set->freelist[fidx] = chunk;
+
+        #ifdef MEMORY_CONTEXT_CHECKING
+        chunk->requested_size = InvalidAllocSize;
+        #endif
+    }
+}
+```

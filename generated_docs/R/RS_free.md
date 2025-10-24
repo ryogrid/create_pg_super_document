@@ -33,3 +33,24 @@ RS_free performs cleanup for a compiled regular expression by traversing the lin
 - Part of the complete lifecycle management for compiled regex patterns
 - Should be called when a compiled regex pattern is no longer needed
 - Follows PostgreSQL's memory management conventions
+
+## Simplified Source
+
+```c
+void
+RS_free(Regis *r)
+{
+    RegisNode *ptr = r->node;
+
+    // Free all nodes in the linked list
+    while (ptr)
+    {
+        RegisNode *tmp = ptr->next;
+        pfree(ptr);
+        ptr = tmp;
+    }
+
+    // Clear the pointer to prevent dangling references
+    r->node = NULL;
+}
+```

@@ -38,3 +38,15 @@ The function is typically used in scenarios where multiple database sessions nee
 - The returned snapshot identifier can be used with SET TRANSACTION SNAPSHOT command
 - Inherits all restrictions from ExportSnapshot (e.g., cannot be called from subtransactions)
 - The function follows PostgreSQLs standard function calling convention using PG_FUNCTION_ARGS
+
+## Simplified Source
+
+```c
+Datum pg_export_snapshot(PG_FUNCTION_ARGS) {
+    // Export the current transaction's active snapshot
+    char *snapshotName = ExportSnapshot(GetActiveSnapshot());
+
+    // Convert the snapshot filename to PostgreSQL text type and return
+    PG_RETURN_TEXT_P(cstring_to_text(snapshotName));
+}
+```

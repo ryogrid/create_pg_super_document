@@ -38,3 +38,30 @@ The conversion handles the full Unicode range that can be represented in UTF-8, 
 - Designed for bounded input processing where the number of source characters is explicitly specified
 - Part of PostgreSQL's character encoding conversion infrastructure, working as the inverse of pg_utf2wchar_with_len
 - The comment describes the conversion as "trivial" because it leverages existing helper functions for the actual Unicode-to-UTF8 transformation
+
+## Simplified Source
+
+```c
+static int
+pg_wchar2utf_with_len(const pg_wchar *from, unsigned char *to, int len)
+{
+    int byte_count = 0;
+
+    // Convert each wide character to UTF-8
+    while (len > 0 && *from) {
+        // Convert one wide char to UTF-8 bytes
+        unicode_to_utf8(*from, to);
+
+        // Get UTF-8 byte length and advance pointers
+        int char_len = pg_utf_mblen(to);
+        byte_count += char_len;
+        to += char_len;
+        from++;
+        len--;
+    }
+
+    // Null-terminate the output string
+    *to = 0;
+    return byte_count;
+}
+```

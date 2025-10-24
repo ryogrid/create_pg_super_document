@@ -41,3 +41,26 @@ This conversion is essential for maintaining compatibility with shell scripting 
 - The function includes a fallback return of -1 for unrecognized status values, though this is typically unreachable on most systems
 - Part of PostgreSQL's common utility library for process management and shell integration
 - Primarily used in psql for setting shell result variables that scripts can access
+
+## Simplified Source
+
+```c
+int
+wait_result_to_exit_code(int exit_status)
+{
+    // Handle system() or pclose() failure
+    if (exit_status == -1)
+        return -1;
+
+    // Normal process termination - return the exit code
+    if (WIFEXITED(exit_status))
+        return WEXITSTATUS(exit_status);
+
+    // Process killed by signal - use shell convention (128 + signal)
+    if (WIFSIGNALED(exit_status))
+        return 128 + WTERMSIG(exit_status);
+
+    // Fallback for unknown status (rarely reached)
+    return -1;
+}
+```

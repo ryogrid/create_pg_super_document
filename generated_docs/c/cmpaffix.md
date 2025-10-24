@@ -37,3 +37,27 @@ For prefixes, it uses standard string comparison (`strcmp`) since prefix matchin
 - Used as a comparison function for qsort to organize affixes in the spell-checking module
 - The function ensures prefixes are processed before suffixes in affix application
 - Located in src/backend/tsearch/spell.c:311-348
+
+## Simplified Source
+
+```c
+static int
+cmpaffix(const void *s1, const void *s2)
+{
+    const AFFIX *a1 = (const AFFIX *) s1;
+    const AFFIX *a2 = (const AFFIX *) s2;
+
+    // First, sort by affix type (prefixes before suffixes)
+    if (a1->type < a2->type)
+        return -1;
+    if (a1->type > a2->type)
+        return 1;
+
+    // Within same type, sort by replacement string
+    if (a1->type == FF_PREFIX)
+        return strcmp(a1->repl, a2->repl);  // Forward comparison for prefixes
+    else
+        return strbcmp((const unsigned char *) a1->repl,
+                       (const unsigned char *) a2->repl);  // Backward comparison for suffixes
+}
+```

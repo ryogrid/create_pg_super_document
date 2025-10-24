@@ -51,3 +51,45 @@ This function is primarily used for monitoring and debugging serializable isolat
 - Part of PostgreSQL's diagnostic and monitoring infrastructure for SSI
 - Primarily used by system functions and isolation testing frameworks
 - Located in src/backend/storage/lmgr/predicate.c:1618-1671
+
+## Simplified Source
+
+```c
+int GetSafeSnapshotBlockingPids(int blocked_pid, int *output, int output_size)
+{
+    int num_written = 0;
+    SERIALIZABLEXACT *blocking_sxact = NULL;
+
+    // Lock to access serializable transaction data
+    LWLockAcquire(SerializableXactHashLock, LW_SHARED);
+
+    // Find the transaction for the blocked process
+    dlist_foreach(iter, &PredXact->activeList) {
+        SERIALIZABLEXACT *sxact = dlist_container(SERIALIZABLEXACT, xactLink, iter.cur);
+        if (sxact->pid == blocked_pid) {
+            blocking_sxact = sxact;
+            break;
+        }
+    }
+
+    // If found and waiting in GetSafeSnapshot, collect blocking PIDs
+    if (blocking_sxact != NULL && SxactIsDeferrableWaiting(blocking_sxact)) {
+        dlist_foreach(iter, &blocking_sxact->possibleUnsafeConflicts) {
+            RWConflict conflict = dlist_container(RWConflictData, inLink, iter.cur);
+            output[num_written++] = conflict->sxactOut->pid;
+
+            if (num_written >= output_size)
+                break;
+        }
+    }
+
+    LWLockRelease(SerializableXactHashLock);
+    return num_written;
+}
+```
+
+**Key Points:**
+- Finds which processes are blocking a deferrable transaction waiting for a safe snapshot
+- Returns array of blocking process IDs up to the specified buffer size
+- Returns 0 if the process is not currently blocked in GetSafeSnapshot
+- Used for monitoring and debugging serializable isolation issues

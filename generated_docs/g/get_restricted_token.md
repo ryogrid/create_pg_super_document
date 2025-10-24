@@ -44,3 +44,44 @@ The function uses an environment variable flag to prevent infinite recursion dur
 - **Utility Integration**: Commonly called early in main() functions of PostgreSQL command-line utilities
 - **Security Model**: Part of PostgreSQL's defense-in-depth strategy for Windows privilege management
 - **Process Lifecycle**: Parent process terminates after child completion, making the restriction transparent to callers
+
+## Simplified Source
+
+```c
+void get_restricted_token(void) {
+#ifdef WIN32
+    // Check if we're already running with restrictions
+    char *restrict_env = getenv("PG_RESTRICT_EXEC");
+    if (restrict_env == NULL || strcmp(restrict_env, "1") != 0) {
+        // Not restricted yet - re-execute with restricted token
+        PROCESS_INFORMATION pi;
+        char *cmdline = pg_strdup(GetCommandLine());
+
+        // Mark that we're about to restrict
+        setenv("PG_RESTRICT_EXEC", "1", 1);
+
+        // Create restricted process
+        HANDLE restrictedToken = CreateRestrictedProcess(cmdline, &pi);
+        if (restrictedToken == 0) {
+            pg_log_error("could not re-execute with restricted token: error code %lu",
+                        GetLastError());
+        } else {
+            // Wait for restricted child and exit with its code
+            CloseHandle(restrictedToken);
+            CloseHandle(pi.hThread);
+            WaitForSingleObject(pi.hProcess, INFINITE);
+
+            DWORD exit_code;
+            if (!GetExitCodeProcess(pi.hProcess, &exit_code)) {
+                pg_fatal("could not get exit code from subprocess: error code %lu",
+                        GetLastError());
+            }
+            exit(exit_code);
+        }
+        pg_free(cmdline);
+    }
+    // If we reach here, we're already running restricted
+#endif
+    // Non-Windows platforms: do nothing
+}
+```

@@ -45,3 +45,34 @@ This backward comparison is particularly useful for suffix-based affix operation
 - Essential for proper suffix tree construction and affix matching in Ispell/Hunspell dictionaries
 - Works with byte-level comparison using unsigned char pointers for consistent ordering
 - Part of PostgreSQL's text search infrastructure for efficient affix processing
+
+## Simplified Source
+
+```c
+static int
+strbcmp(const unsigned char *s1, const unsigned char *s2)
+{
+    // Start from the end of both strings
+    int l1 = strlen((const char *) s1) - 1;
+    int l2 = strlen((const char *) s2) - 1;
+
+    // Compare characters from right to left
+    while (l1 >= 0 && l2 >= 0)
+    {
+        if (s1[l1] < s2[l2])
+            return -1;
+        if (s1[l1] > s2[l2])
+            return 1;
+        l1--;
+        l2--;
+    }
+
+    // Handle different string lengths
+    if (l1 < l2)
+        return -1;  // s1 is shorter
+    if (l1 > l2)
+        return 1;   // s2 is shorter
+
+    return 0;  // strings are equal
+}
+```

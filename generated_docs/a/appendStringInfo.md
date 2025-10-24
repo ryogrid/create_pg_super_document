@@ -35,3 +35,28 @@ The  function provides printf-style formatted text appending to a StringInfo str
 - The actual formatting work is delegated to 
 - Part of PostgreSQL's dynamic string building infrastructure, commonly used for constructing SQL queries, error messages, and formatted output
 - Automatically manages memory allocation, making it safer than manual string manipulation
+
+## Simplified Source
+
+```c
+void appendStringInfo(StringInfo str, const char *fmt, ...) {
+    int saved_errno = errno;
+
+    while (true) {
+        // Try to format the data into the current buffer
+        errno = saved_errno;
+        va_list args;
+        va_start(args, fmt);
+        int needed = appendStringInfoVA(str, fmt, args);
+        va_end(args);
+
+        // Check if formatting succeeded
+        if (needed == 0) {
+            break;  // Success!
+        }
+
+        // Buffer too small, enlarge it and try again
+        enlargeStringInfo(str, needed);
+    }
+}
+```

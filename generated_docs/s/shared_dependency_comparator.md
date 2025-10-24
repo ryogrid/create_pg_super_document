@@ -31,3 +31,31 @@ This static function serves as a comparison function for qsort when sorting arra
 - SubId is cast to unsigned int to ensure that 0 (whole object) appears before positive subIds (object parts)
 - Final sort on deptype ensures consistent ordering when the same object has multiple dependency relationships
 - Used specifically in shared dependency analysis to maintain deterministic output ordering
+
+## Simplified Source
+
+```c
+static int shared_dependency_comparator(const void *a, const void *b) {
+    const ShDependObjectInfo *obja = (const ShDependObjectInfo *) a;
+    const ShDependObjectInfo *objb = (const ShDependObjectInfo *) b;
+
+    // Primary sort: object OID ascending
+    if (obja->object.objectId != objb->object.objectId)
+        return (obja->object.objectId < objb->object.objectId) ? -1 : 1;
+
+    // Secondary sort: catalog ID
+    if (obja->object.classId != objb->object.classId)
+        return (obja->object.classId < objb->object.classId) ? -1 : 1;
+
+    // Tertiary sort: subId as unsigned (0 comes first)
+    if (obja->object.objectSubId != objb->object.objectSubId)
+        return ((unsigned int)obja->object.objectSubId <
+                (unsigned int)objb->object.objectSubId) ? -1 : 1;
+
+    // Final sort: dependency type
+    if (obja->deptype != objb->deptype)
+        return (obja->deptype < objb->deptype) ? -1 : 1;
+
+    return 0;  // Objects are equal
+}
+```

@@ -42,3 +42,23 @@ The serialization format consists of: a length word (tuple length + sizeof(lengt
 - The tuplen field includes the size of the length word itself in the total length calculation
 - External sorting is used when the dataset is too large to fit entirely in memory
 - The logical tape abstraction allows PostgreSQL to handle very large sorts efficiently
+
+## Simplified Source
+
+```c
+static void writetup_index_brin(Tuplesortstate *state, LogicalTape *tape, SortTuple *stup) {
+    // Get BRIN tuple and calculate total length (data + length word)
+    BrinSortTuple *tuple = (BrinSortTuple *) stup->tuple;
+    unsigned int tuplen = tuple->tuplen + sizeof(tuple->tuplen);
+
+    // Write length prefix, then tuple data
+    LogicalTapeWrite(tape, &tuplen, sizeof(tuplen));
+    LogicalTapeWrite(tape, &tuple->tuple, tuple->tuplen);
+
+    // Write trailing length for random access if needed
+    TuplesortPublic *base = TuplesortstateGetPublic(state);
+    if (base->sortopt & TUPLESORT_RANDOMACCESS) {
+        LogicalTapeWrite(tape, &tuplen, sizeof(tuplen));
+    }
+}
+```

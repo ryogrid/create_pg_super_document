@@ -26,3 +26,13 @@ tts_buffer_heap_release is a specialized cleanup function designed for buffer-ba
 - The empty implementation suggests that buffer-backed heap slots are managed through PostgreSQL's buffer pool system
 - Part of the tuple table slot operations vtable pattern used throughout the executor
 - The function exists to maintain the interface contract for slot operations, even when no specific cleanup is needed
+
+## Simplified Source
+
+```c
+static void tts_buffer_heap_release(TupleTableSlot *slot)
+{
+    // No cleanup needed - buffer management handled by PostgreSQL's
+    // buffer pool system, not at the slot level
+}
+```

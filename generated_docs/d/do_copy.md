@@ -43,3 +43,100 @@ This is the main execution function for psql's \copy command (frontend copy). It
 - Constructs SQL COPY commands with STDIN/STDOUT redirection for frontend processing
 - Essential component of psql's data import/export functionality
 - Properly handles cleanup of resources in all code paths including error conditions
+
+## Simplified Source
+
+```c
+bool do_copy(const char *args) {
+    PQExpBufferData query;
+    FILE *copystream;
+    struct copy_options *options;
+    bool success;
+
+    // Parse the \copy command arguments
+    options = parse_slash_copy(args);
+    if (!options)
+        return false;
+
+    // Canonicalize file path if needed
+    if (options->file && !options->program)
+        canonicalize_path_enc(options->file, pset.encoding);
+
+    // Open input/output stream based on operation type
+    if (options->from) {
+        // COPY FROM operation - open input stream
+        if (options->file) {
+            copystream = options->program ?
+                popen(options->file, PG_BINARY_R) :
+                fopen(options->file, PG_BINARY_R);
+        } else {
+            copystream = options->psql_inout ? stdin : pset.cur_cmd_source;
+        }
+    } else {
+        // COPY TO operation - open output stream
+        if (options->file) {
+            if (options->program) {
+                disable_sigpipe_trap();
+                copystream = popen(options->file, PG_BINARY_W);
+            } else {
+                copystream = fopen(options->file, PG_BINARY_W);
+            }
+        } else {
+            copystream = options->psql_inout ? stdout : pset.queryFout;
+        }
+    }
+
+    // Validate stream was opened successfully
+    if (!copystream) {
+        pg_log_error("could not open file/command: %s", options->file);
+        free_copy_options(options);
+        return false;
+    }
+
+    // Ensure file is not a directory (for non-program operations)
+    if (!options->program) {
+        struct stat st;
+        if (fstat(fileno(copystream), &st) == 0 && S_ISDIR(st.st_mode)) {
+            pg_log_error("cannot copy from/to a directory");
+            fclose(copystream);
+            free_copy_options(options);
+            return false;
+        }
+    }
+
+    // Build SQL COPY command
+    initPQExpBuffer(&query);
+    printfPQExpBuffer(&query, "COPY ");
+    appendPQExpBufferStr(&query, options->before_tofrom);
+    appendPQExpBufferStr(&query, options->from ? " FROM STDIN " : " TO STDOUT ");
+    if (options->after_tofrom)
+        appendPQExpBufferStr(&query, options->after_tofrom);
+
+    // Execute the COPY command with the stream
+    pset.copyStream = copystream;
+    success = SendQuery(query.data);
+    pset.copyStream = NULL;
+    termPQExpBuffer(&query);
+
+    // Close stream and handle cleanup
+    if (options->file) {
+        if (options->program) {
+            int pclose_rc = pclose(copystream);
+            if (pclose_rc != 0) {
+                pg_log_error("command failed with exit code %d", pclose_rc);
+                success = false;
+            }
+            SetShellResultVariables(pclose_rc);
+            restore_sigpipe_trap();
+        } else {
+            if (fclose(copystream) != 0) {
+                pg_log_error("could not close file");
+                success = false;
+            }
+        }
+    }
+
+    free_copy_options(options);
+    return success;
+}
+```

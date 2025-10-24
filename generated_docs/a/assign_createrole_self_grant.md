@@ -41,3 +41,27 @@ The function specifically handles three role grant options:
 - The function always marks all three grant specifications (ADMIN, INHERIT, SET) as explicitly specified, but only INHERIT and SET are conditionally enabled based on the configuration
 - The ADMIN option is explicitly set to false, indicating that administrative privileges are never automatically granted through this mechanism
 - The function updates global state variables ( and ) that are used elsewhere in the role management system
+
+## Simplified Source
+
+```c
+void assign_createrole_self_grant(const char *newval, void *extra) {
+    // Extract parsed options from GUC system
+    unsigned options = *(unsigned *) extra;
+
+    // Enable feature if any options are specified
+    createrole_self_grant_enabled = (options != 0);
+
+    // Configure grant options structure
+    createrole_self_grant_options.specified = GRANT_ROLE_SPECIFIED_ADMIN
+        | GRANT_ROLE_SPECIFIED_INHERIT
+        | GRANT_ROLE_SPECIFIED_SET;
+
+    // Set specific grant permissions
+    createrole_self_grant_options.admin = false;  // Never grant admin
+    createrole_self_grant_options.inherit =
+        (options & GRANT_ROLE_SPECIFIED_INHERIT) != 0;
+    createrole_self_grant_options.set =
+        (options & GRANT_ROLE_SPECIFIED_SET) != 0;
+}
+```

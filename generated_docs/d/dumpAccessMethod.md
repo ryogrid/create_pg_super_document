@@ -44,3 +44,73 @@ The function validates the access method type and logs warnings for invalid type
 - Uses proper SQL identifier formatting for access method names
 - Part of PostgreSQL's pg_dump utility for database schema export
 - Respects component-level dump flags for selective dumping
+
+## Simplified Source
+
+```c
+static void
+dumpAccessMethod(Archive *fout, const AccessMethodInfo *aminfo)
+{
+    DumpOptions *dopt = fout->dopt;
+    PQExpBuffer q, delq;
+    char *qamname;
+
+    // Skip in data-only mode
+    if (dopt->dataOnly)
+        return;
+
+    // Initialize buffers and format access method name
+    q = createPQExpBuffer();
+    delq = createPQExpBuffer();
+    qamname = pg_strdup(fmtId(aminfo->dobj.name));
+
+    // Build CREATE ACCESS METHOD statement
+    appendPQExpBuffer(q, "CREATE ACCESS METHOD %s ", qamname);
+
+    // Add type specification (INDEX or TABLE)
+    switch (aminfo->amtype) {
+        case AMTYPE_INDEX:
+            appendPQExpBufferStr(q, "TYPE INDEX ");
+            break;
+        case AMTYPE_TABLE:
+            appendPQExpBufferStr(q, "TYPE TABLE ");
+            break;
+        default:
+            // Handle invalid type and cleanup
+            pg_log_warning("invalid type \"%c\" of access method \"%s\"",
+                          aminfo->amtype, qamname);
+            goto cleanup;
+    }
+
+    // Complete CREATE statement with handler
+    appendPQExpBuffer(q, "HANDLER %s;\n", aminfo->amhandler);
+
+    // Build corresponding DROP statement
+    appendPQExpBuffer(delq, "DROP ACCESS METHOD %s;\n", qamname);
+
+    // Handle binary upgrade if needed
+    if (dopt->binary_upgrade)
+        binary_upgrade_extension_member(q, &aminfo->dobj,
+                                       "ACCESS METHOD", qamname, NULL);
+
+    // Register with archive for dump output
+    if (aminfo->dobj.dump & DUMP_COMPONENT_DEFINITION)
+        ArchiveEntry(fout, aminfo->dobj.catId, aminfo->dobj.dumpId,
+                    ARCHIVE_OPTS(.tag = aminfo->dobj.name,
+                                .description = "ACCESS METHOD",
+                                .section = SECTION_PRE_DATA,
+                                .createStmt = q->data,
+                                .dropStmt = delq->data));
+
+    // Dump associated comments
+    if (aminfo->dobj.dump & DUMP_COMPONENT_COMMENT)
+        dumpComment(fout, "ACCESS METHOD", qamname,
+                   NULL, "", aminfo->dobj.catId, 0, aminfo->dobj.dumpId);
+
+cleanup:
+    // Clean up resources
+    destroyPQExpBuffer(q);
+    destroyPQExpBuffer(delq);
+    free(qamname);
+}
+```

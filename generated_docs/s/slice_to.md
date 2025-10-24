@@ -44,3 +44,30 @@ This function is essential for extracting parts of words during stemming operati
 - Part of the external API for Snowball stemmer implementations
 - The destination buffer uses the Snowball variable-length string format with embedded size and capacity
 - On error, cleans up the destination buffer to prevent memory leaks
+
+## Simplified Source
+
+```c
+extern symbol * slice_to(struct SN_env * z, symbol * p) {
+    // Check if slice boundaries are valid
+    if (slice_check(z)) {
+        lose_s(p);  // Clean up buffer on error
+        return NULL;
+    }
+
+    // Calculate slice length (ket - bra positions)
+    int len = z->ket - z->bra;
+
+    // Ensure destination buffer has enough capacity
+    if (CAPACITY(p) < len) {
+        p = increase_size(p, len);
+        if (p == NULL) return NULL;
+    }
+
+    // Copy slice data to destination buffer
+    memmove(p, z->p + z->bra, len * sizeof(symbol));
+    SET_SIZE(p, len);
+
+    return p;
+}
+```

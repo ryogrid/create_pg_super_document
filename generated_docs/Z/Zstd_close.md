@@ -52,3 +52,64 @@ The function ensures proper resource cleanup by freeing all allocated memory and
 - Frees all allocated resources including streams, buffers, and the state structure
 - The function uses unconstify() to safely free const input buffer data
 - Part of the compression abstraction layer ensuring consistent cleanup across different compression formats
+
+## Simplified Source
+
+```c
+static bool
+Zstd_close(CompressFileHandle *CFH)
+{
+    ZstdCompressorState *state = (ZstdCompressorState *) CFH->private_data;
+    bool success = true;
+
+    // Finalize compression stream if it exists
+    if (state->cstream) {
+        ZSTD_inBuffer *input = &state->input;
+        ZSTD_outBuffer *output = &state->output;
+
+        // Flush remaining compressed data
+        for (;;) {
+            output->pos = 0;
+            size_t result = ZSTD_compressStream2(state->cstream, output, input, ZSTD_e_end);
+
+            if (ZSTD_isError(result)) {
+                state->zstderror = ZSTD_getErrorName(result);
+                success = false;
+                break;
+            }
+
+            // Write final compressed data
+            size_t bytes_written = fwrite(output->dst, 1, output->pos, state->fp);
+            if (bytes_written != output->pos) {
+                errno = (errno) ? errno : ENOSPC;
+                state->zstderror = strerror(errno);
+                success = false;
+                break;
+            }
+
+            if (result == 0)
+                break; // Compression complete
+        }
+
+        // Cleanup compression resources
+        ZSTD_freeCStream(state->cstream);
+        pg_free(state->output.dst);
+    }
+
+    // Cleanup decompression resources if they exist
+    if (state->dstream) {
+        ZSTD_freeDStream(state->dstream);
+        pg_free(unconstify(void *, state->input.src));
+    }
+
+    // Close file and cleanup state
+    if (fclose(state->fp) != 0) {
+        state->zstderror = strerror(errno);
+        success = false;
+    }
+
+    pg_free(state);
+    CFH->private_data = NULL;
+    return success;
+}
+```

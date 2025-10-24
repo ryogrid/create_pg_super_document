@@ -37,3 +37,24 @@ This function provides access to a mutable LLVM module that can be modified by a
 - Each new module gets a unique generation number for tracking
 - Module name is hardcoded as "pg" (PostgreSQL)
 - Resets the compiled flag when creating a new module, indicating fresh compilation state
+
+## Simplified Source
+
+```c
+LLVMModuleRef
+llvm_mutable_module(LLVMJitContext *context)
+{
+    llvm_assert_in_fatal_section();
+
+    // Create new module if none exists
+    if (!context->module) {
+        context->compiled = false;
+        context->module_generation = llvm_generation++;
+        context->module = LLVMModuleCreateWithNameInContext("pg", llvm_context);
+        LLVMSetTarget(context->module, llvm_triple);
+        LLVMSetDataLayout(context->module, llvm_layout);
+    }
+
+    return context->module;
+}
+```

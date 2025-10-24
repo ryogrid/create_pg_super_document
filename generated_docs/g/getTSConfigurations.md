@@ -37,3 +37,63 @@ The function constructs a SQL query to select all relevant fields from pg_ts_con
 - The actual mapping of token types to dictionaries is stored separately in pg_ts_config_map
 - Memory is allocated for the entire array of configurations at once using pg_malloc
 - The TSConfigInfo structure contains both dump object metadata and configuration-specific parser reference
+
+## Simplified Source
+
+```c
+TSConfigInfo *
+getTSConfigurations(Archive *fout, int *numTSConfigs)
+{
+    PGresult *res;
+    int ntups, i;
+    PQExpBuffer query;
+    TSConfigInfo *cfginfo;
+
+    query = createPQExpBuffer();
+
+    // Query all text search configurations from system catalog
+    appendPQExpBufferStr(query, "SELECT tableoid, oid, cfgname, "
+                                "cfgnamespace, cfgowner, cfgparser "
+                                "FROM pg_ts_config");
+
+    res = ExecuteSqlQuery(fout, query->data, PGRES_TUPLES_OK);
+    ntups = PQntuples(res);
+    *numTSConfigs = ntups;
+
+    // Allocate array for configuration info
+    cfginfo = (TSConfigInfo *) pg_malloc(ntups * sizeof(TSConfigInfo));
+
+    // Get column indices
+    int i_tableoid = PQfnumber(res, "tableoid");
+    int i_oid = PQfnumber(res, "oid");
+    int i_cfgname = PQfnumber(res, "cfgname");
+    int i_cfgnamespace = PQfnumber(res, "cfgnamespace");
+    int i_cfgowner = PQfnumber(res, "cfgowner");
+    int i_cfgparser = PQfnumber(res, "cfgparser");
+
+    // Process each configuration
+    for (i = 0; i < ntups; i++) {
+        // Set object type and catalog info
+        cfginfo[i].dobj.objType = DO_TSCONFIG;
+        cfginfo[i].dobj.catId.tableoid = atooid(PQgetvalue(res, i, i_tableoid));
+        cfginfo[i].dobj.catId.oid = atooid(PQgetvalue(res, i, i_oid));
+        AssignDumpId(&cfginfo[i].dobj);
+
+        // Set configuration name and namespace
+        cfginfo[i].dobj.name = pg_strdup(PQgetvalue(res, i, i_cfgname));
+        cfginfo[i].dobj.namespace = findNamespace(atooid(PQgetvalue(res, i, i_cfgnamespace)));
+
+        // Set owner and parser reference
+        cfginfo[i].rolname = getRoleName(PQgetvalue(res, i, i_cfgowner));
+        cfginfo[i].cfgparser = atooid(PQgetvalue(res, i, i_cfgparser));
+
+        // Determine if configuration should be dumped
+        selectDumpableObject(&(cfginfo[i].dobj), fout);
+    }
+
+    // Cleanup and return
+    PQclear(res);
+    destroyPQExpBuffer(query);
+    return cfginfo;
+}
+```

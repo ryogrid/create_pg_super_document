@@ -31,3 +31,12 @@ This function has an empty implementation because virtual tuple table slots do n
 - The empty implementation reflects the design principle that virtual slots don't acquire resources that need explicit release
 - This is in contrast to other slot types like heap tuple slots or buffer tuple slots that may need to release buffer pins or tuple references
 - Part of the tuple table slot abstraction that provides a consistent interface across different slot implementations
+
+## Simplified Source
+
+```c
+static void tts_virtual_release(TupleTableSlot *slot) {
+    // Virtual tuple slots don't hold external resources requiring cleanup
+    // Memory is managed by PostgreSQL's memory context system
+}
+```

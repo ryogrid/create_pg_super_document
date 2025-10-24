@@ -48,3 +48,68 @@ The function returns the  field of the matched pattern, or 0 if no match is foun
 - Advances cursor position only on successful matches with proper pattern length
 - Part of the forward-matching family of functions in Snowball utilities
 - The algorithm handles edge cases like single-element arrays and boundary conditions efficiently
+
+## Simplified Source
+
+```c
+extern int find_among(struct SN_env * z, const struct among * v, int v_size) {
+    int i = 0, j = v_size;
+    int c = z->c, l = z->l;
+    const symbol * q = z->p + c;
+
+    int common_i = 0, common_j = 0;
+    int first_key_inspected = 0;
+
+    // Binary search for matching pattern
+    while (1) {
+        int k = i + ((j - i) >> 1);
+        int diff = 0;
+        int common = common_i < common_j ? common_i : common_j;
+        const struct among * w = v + k;
+
+        // Compare characters with current pattern
+        for (int i2 = common; i2 < w->s_size; i2++) {
+            if (c + common == l) { diff = -1; break; }
+            diff = q[common] - w->s[i2];
+            if (diff != 0) break;
+            common++;
+        }
+
+        // Adjust search bounds based on comparison
+        if (diff < 0) {
+            j = k;
+            common_j = common;
+        } else {
+            i = k;
+            common_i = common;
+        }
+
+        // Check if search should continue
+        if (j - i <= 1) {
+            if (i > 0) break;
+            if (j == i) break;
+            if (first_key_inspected) break;
+            first_key_inspected = 1;
+        }
+    }
+
+    // Process matched pattern and handle substrings
+    while (1) {
+        const struct among * w = v + i;
+        if (common_i >= w->s_size) {
+            z->c = c + w->s_size;
+
+            // Execute callback function if present
+            if (w->function == 0) return w->result;
+
+            int res = w->function(z);
+            z->c = c + w->s_size;
+            if (res) return w->result;
+        }
+
+        // Handle substring relationships
+        i = w->substring_i;
+        if (i < 0) return 0;
+    }
+}
+```

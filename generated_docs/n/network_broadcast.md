@@ -37,3 +37,41 @@ This function calculates the broadcast address for a given inet or cidr network 
 - The function preserves the original address family and prefix length in the result
 - Essential for network range operations and subnet calculations
 - Located in src/backend/utils/adt/network.c:1285-1329
+
+## Simplified Source
+
+```c
+Datum network_broadcast(PG_FUNCTION_ARGS) {
+    inet *ip = PG_GETARG_INET_PP(0);  // Input network address
+    inet *dst = (inet *) palloc0(sizeof(inet));  // Result broadcast address
+
+    int maxbytes = ip_addrsize(ip);  // Address size in bytes
+    int bits = ip_bits(ip);          // Network prefix length
+    unsigned char *a = ip_addr(ip);  // Source address bytes
+    unsigned char *b = ip_addr(dst); // Destination address bytes
+
+    // Process each byte to set host bits to 1
+    for (int byte = 0; byte < maxbytes; byte++) {
+        unsigned char mask;
+
+        if (bits >= 8) {
+            mask = 0x00;    // All network bits in this byte
+            bits -= 8;
+        } else if (bits == 0) {
+            mask = 0xff;    // All host bits in this byte
+        } else {
+            mask = 0xff >> bits;  // Mixed network/host bits
+            bits = 0;
+        }
+
+        b[byte] = a[byte] | mask;  // Set host bits to 1
+    }
+
+    // Copy metadata and return result
+    ip_family(dst) = ip_family(ip);
+    ip_bits(dst) = ip_bits(ip);
+    SET_INET_VARSIZE(dst);
+
+    PG_RETURN_INET_P(dst);
+}
+```

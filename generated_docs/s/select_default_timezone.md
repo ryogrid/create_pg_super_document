@@ -42,4 +42,31 @@ The function also initializes the timezone directory path when  is not defined, 
 - Returns NULL as a signal for GMT fallback, not as an error condition
 - Critical for ensuring databases have reasonable default timezone settings
 - Part of the defensive approach ensuring timezone settings are always valid before use
-- Platform-agnostic interface that delegates platform-specific detection to 
+- Platform-agnostic interface that delegates platform-specific detection to identify_system_timezone()
+
+## Simplified Source
+
+```c
+const char *select_default_timezone(const char *share_path)
+{
+    const char *tzname;
+
+    // Initialize timezone directory path if needed
+#ifndef SYSTEMTZDIR
+    snprintf(tzdirpath, sizeof(tzdirpath), "%s/timezone", share_path);
+#endif
+
+    // First priority: Check TZ environment variable
+    tzname = getenv("TZ");
+    if (validate_zone(tzname))
+        return tzname;  // Use TZ if valid
+
+    // Second priority: Try to detect system timezone
+    tzname = identify_system_timezone();
+    if (validate_zone(tzname))
+        return tzname;  // Use detected timezone if valid
+
+    // Fallback: Return NULL to signal GMT default
+    return NULL;
+}
+```

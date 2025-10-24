@@ -38,3 +38,16 @@ This setup ensures that when catalog tables are accessed during logical decoding
 - Must be paired with TeardownHistoricSnapshot to clean up the historical snapshot setup
 - The historic_snapshot parameter is validated with an Assert to ensure it's not NULL
 - Located in src/backend/utils/time/snapmgr.c at lines 1649-1664
+
+## Simplified Source
+
+```c
+void SetupHistoricSnapshot(Snapshot historic_snapshot, HTAB *tuplecids) {
+    // Validate input snapshot is not null
+    Assert(historic_snapshot != NULL);
+
+    // Configure global variables for historical catalog access
+    HistoricSnapshot = historic_snapshot;  // timetravel snapshot
+    tuplecid_data = tuplecids;             // (cmin, cmax) lookup hash
+}
+```

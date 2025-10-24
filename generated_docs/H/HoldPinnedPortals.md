@@ -43,3 +43,40 @@ The function includes safety checks to ensure that only read-only cursors (SELEC
 - The function validates that portals are in PORTAL_READY state before attempting to hold them
 - Auto-held portals require explicit cleanup by the procedural language in normal execution paths
 - Exception handling will automatically clean up auto-held portals when exceptions occur
+
+## Simplified Source
+
+```c
+void
+HoldPinnedPortals(void)
+{
+    HASH_SEQ_STATUS status;
+    PortalHashEnt *hentry;
+
+    // Iterate through all portals in the hash table
+    hash_seq_init(&status, PortalHashTable);
+
+    while ((hentry = (PortalHashEnt *) hash_seq_search(&status)) != NULL)
+    {
+        Portal portal = hentry->portal;
+
+        // Process pinned portals that aren't already auto-held
+        if (portal->portalPinned && !portal->autoHeld)
+        {
+            // Only read-only SELECT cursors can be held during transaction control
+            if (portal->strategy != PORTAL_ONE_SELECT)
+                ereport(ERROR,
+                    (errcode(ERRCODE_OBJECT_NOT_IN_PREREQUISITE_STATE),
+                     errmsg("cannot perform transaction commands inside a cursor loop that is not read-only")));
+
+            // Ensure portal is ready to be held
+            if (portal->status != PORTAL_READY)
+                elog(ERROR, "pinned portal is not ready to be auto-held");
+
+            // Convert to held cursor and mark as auto-held
+            HoldPortal(portal);
+            portal->autoHeld = true;
+        }
+    }
+}
+```

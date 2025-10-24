@@ -49,3 +49,37 @@ This function is essential for the CLUSTER operation as it maintains the relatio
 - The first-column key value extraction (`datum1`) is performed for optimization, allowing faster comparisons during sorting
 - The trailing length word is read conditionally based on the TUPLESORT_RANDOMACCESS flag for backward tape navigation
 - The function assumes the tape data is valid and in the expected format written by `writetup_cluster`
+
+## Simplified Source
+
+```c
+static void readtup_cluster(Tuplesortstate *state, SortTuple *stup, LogicalTape *tape, unsigned int tuplen)
+{
+    TuplesortPublic *base = TuplesortstateGetPublic(state);
+    TuplesortClusterArg *arg = (TuplesortClusterArg *) base->arg;
+    unsigned int t_len = tuplen - sizeof(ItemPointerData) - sizeof(int);
+
+    // Allocate and reconstruct HeapTuple
+    HeapTuple tuple = (HeapTuple) tuplesort_readtup_alloc(state, t_len + HEAPTUPLESIZE);
+    tuple->t_data = (HeapTupleHeader) ((char *) tuple + HEAPTUPLESIZE);
+    tuple->t_len = t_len;
+
+    // Read tuple data from tape
+    LogicalTapeReadExact(tape, &tuple->t_self, sizeof(ItemPointerData));
+    tuple->t_tableOid = InvalidOid;  // Not reconstructed
+    LogicalTapeReadExact(tape, tuple->t_data, tuple->t_len);
+
+    // Handle optional trailing length for random access
+    if (base->sortopt & TUPLESORT_RANDOMACCESS)
+        LogicalTapeReadExact(tape, &tuplen, sizeof(tuplen));
+
+    stup->tuple = (void *) tuple;
+
+    // Extract first column for sorting optimization
+    if (base->haveDatum1)
+        stup->datum1 = heap_getattr(tuple,
+                                   arg->indexInfo->ii_IndexAttrNumbers[0],
+                                   arg->tupDesc,
+                                   &stup->isnull1);
+}
+```

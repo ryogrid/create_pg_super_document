@@ -47,3 +47,32 @@ The pseudo-random pattern uses a static counter that cycles from 1 to 251, ensur
 - Used exclusively for debugging purposes to catch uninitialized memory bugs
 - Performance impact is significant and should not be used in production builds
 - The function is called by all major memory allocators in PostgreSQL's memory management system
+
+## Simplified Source
+
+```c
+void
+randomize_mem(char *ptr, size_t size)
+{
+    static int save_ctr = 1;
+    size_t remaining = size;
+    int ctr;
+
+    ctr = save_ctr;
+
+    // Mark memory for Valgrind debugging
+    VALGRIND_MAKE_MEM_UNDEFINED(ptr, size);
+
+    // Fill memory with pseudo-random pattern
+    while (remaining-- > 0)
+    {
+        *ptr++ = ctr;
+        if (++ctr > 251)  // Use prime number for better distribution
+            ctr = 1;
+    }
+
+    // Mark memory as undefined for Valgrind
+    VALGRIND_MAKE_MEM_UNDEFINED(ptr - size, size);
+    save_ctr = ctr;
+}
+```

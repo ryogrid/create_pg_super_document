@@ -49,3 +49,107 @@ Swap:        8388608           0     8388608 (standard library function)
 - Uses case-insensitive matching for parameter names but preserves original casing
 - Part of initdb's configuration file processing system
 - Critical for setting up proper PostgreSQL server configuration during initialization
+
+## Simplified Source
+
+```c
+static char **replace_guc_value(char **lines, const char *guc_name, const char *guc_value,
+                               bool mark_as_comment)
+{
+    int namelen = strlen(guc_name);
+    PQExpBuffer newline = createPQExpBuffer();
+    int i;
+
+    // Build replacement line: [#]guc_name = [']guc_value[']
+    if (mark_as_comment)
+        appendPQExpBufferChar(newline, '#');
+    appendPQExpBuffer(newline, "%s = ", guc_name);
+
+    if (guc_value_requires_quotes(guc_value))
+        appendPQExpBuffer(newline, "'%s'", escape_quotes(guc_value));
+    else
+        appendPQExpBufferStr(newline, guc_value);
+
+    // Search for existing assignment
+    for (i = 0; lines[i]; i++)
+    {
+        const char *where;
+        const char *namestart;
+
+        // Skip leading whitespace and comments
+        where = lines[i];
+        while (*where == '#' || isspace((unsigned char) *where))
+            where++;
+
+        // Check if this line assigns to our GUC parameter
+        if (pg_strncasecmp(where, guc_name, namelen) != 0)
+            continue;
+        namestart = where;
+        where += namelen;
+
+        // Ensure it's followed by whitespace and '='
+        while (isspace((unsigned char) *where))
+            where++;
+        if (*where != '=')
+            continue;
+
+        // Found matching assignment - preserve original casing
+        memcpy(&newline->data[mark_as_comment ? 1 : 0], namestart, namelen);
+
+        // Preserve any trailing comment with proper indentation
+        where = strrchr(where, '#');
+        if (where)
+        {
+            // Calculate original comment indentation
+            const char *ptr;
+            int oldindent = 0, newindent;
+
+            for (ptr = lines[i]; ptr < where; ptr++)
+            {
+                if (*ptr == '\t')
+                    oldindent += 8 - (oldindent % 8);
+                else
+                    oldindent++;
+            }
+
+            // Add spacing to match original indentation
+            newindent = newline->len;
+            oldindent = Max(oldindent, newindent + 1);
+            while (newindent < oldindent)
+            {
+                int newindent_if_tab = newindent + 8 - (newindent % 8);
+                if (newindent_if_tab <= oldindent)
+                {
+                    appendPQExpBufferChar(newline, '\t');
+                    newindent = newindent_if_tab;
+                }
+                else
+                {
+                    appendPQExpBufferChar(newline, ' ');
+                    newindent++;
+                }
+            }
+            appendPQExpBufferStr(newline, where);
+        }
+        else
+            appendPQExpBufferChar(newline, '\n');
+
+        // Replace the line
+        free(lines[i]);
+        lines[i] = newline->data;
+        break;  // Only replace first match
+    }
+
+    // If no match found, append new assignment
+    if (lines[i] == NULL)
+    {
+        appendPQExpBufferChar(newline, '\n');
+        lines = pg_realloc_array(lines, char *, i + 2);
+        lines[i++] = newline->data;
+        lines[i] = NULL;
+    }
+
+    free(newline);  // Don't free newline->data (now in array)
+    return lines;
+}
+```

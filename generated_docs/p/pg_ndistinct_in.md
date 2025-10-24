@@ -37,3 +37,17 @@ The function immediately raises a FEATURE_NOT_SUPPORTED error with a clear messa
 - Users cannot create pg_ndistinct values directly - they are only created by internal statistics functions
 - The error message provides clear feedback about the restriction
 - This restriction helps maintain data integrity by ensuring only valid statistics data exists
+
+## Simplified Source
+
+```c
+Datum pg_ndistinct_in(PG_FUNCTION_ARGS)
+{
+    // Explicitly prevent user input of pg_ndistinct values
+    ereport(ERROR,
+            (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+             errmsg("cannot accept a value of type %s", "pg_ndistinct")));
+
+    PG_RETURN_VOID(); // Never reached, keeps compiler quiet
+}
+```

@@ -38,3 +38,30 @@ Examples of transformations:
 - Used during system collation import to ensure consistent locale naming
 - Handles various encoding tag formats commonly found in libc locale names
 - Critical for creating canonical locale names that can be reliably matched and compared
+
+## Simplified Source
+
+```c
+static bool normalize_libc_locale_name(char *new, const char *old) {
+    char *n = new;
+    const char *o = old;
+    bool changed = false;
+
+    while (*o) {
+        if (*o == '.') {
+            // Skip encoding tag (e.g., ".utf8", ".UTF-8")
+            o++;
+            while ((*o >= 'A' && *o <= 'Z') || (*o >= 'a' && *o <= 'z') ||
+                   (*o >= '0' && *o <= '9') || (*o == '-'))
+                o++;
+            changed = true;
+        } else {
+            // Copy regular character
+            *n++ = *o++;
+        }
+    }
+    *n = '\0';
+
+    return changed;  // True if encoding tag was removed
+}
+```

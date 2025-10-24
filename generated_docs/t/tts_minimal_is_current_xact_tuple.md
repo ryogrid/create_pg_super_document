@@ -36,3 +36,20 @@ The function is designed to fail gracefully when transaction information is requ
 - Minimal tuples are often used in contexts where transaction information is not needed, such as temporary results during query execution
 - The error code ERRCODE_FEATURE_NOT_SUPPORTED clearly indicates this is an intentional design limitation
 - This function would typically be called indirectly through the slot operations vtable when code attempts transaction-related operations on minimal tuple slots
+
+## Simplified Source
+
+```c
+static bool tts_minimal_is_current_xact_tuple(TupleTableSlot *slot)
+{
+    // Verify slot is not empty
+    Assert(!TTS_EMPTY(slot));
+
+    // Minimal tuples don't contain transaction info - report error
+    ereport(ERROR,
+            (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+             errmsg("don't have transaction information for this type of tuple")));
+
+    return false; // Never reached - silences compiler warnings
+}
+```

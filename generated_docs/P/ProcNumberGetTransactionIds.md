@@ -40,3 +40,33 @@ All output parameters are initialized to safe default values (InvalidTransaction
 - The transaction information may become stale immediately after function return
 - Critical for transaction visibility determination and statistics collection
 - The function is declared in src/include/storage/procarray.h
+
+## Simplified Source
+
+```c
+void ProcNumberGetTransactionIds(ProcNumber procNumber, TransactionId *xid,
+                                TransactionId *xmin, int *nsubxid, bool *overflowed) {
+    // Initialize outputs to safe defaults
+    *xid = InvalidTransactionId;
+    *xmin = InvalidTransactionId;
+    *nsubxid = 0;
+    *overflowed = false;
+
+    // Validate process number and get PGPROC entry
+    if (procNumber < 0 || procNumber >= ProcGlobal->allProcCount)
+        return;
+    PGPROC *proc = GetPGProcByNumber(procNumber);
+
+    // Lock and read transaction state if process is active
+    LWLockAcquire(ProcArrayLock, LW_SHARED);
+
+    if (proc->pid != 0) {
+        *xid = proc->xid;
+        *xmin = proc->xmin;
+        *nsubxid = proc->subxidStatus.count;
+        *overflowed = proc->subxidStatus.overflowed;
+    }
+
+    LWLockRelease(ProcArrayLock);
+}
+```

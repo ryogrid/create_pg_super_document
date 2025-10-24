@@ -41,3 +41,25 @@ The function accepts a CIDR address and an integer specifying the desired netmas
 - Example: `set_masklen(192.168.1.100/16, 24)` results in 192.168.1.0/24 (note the host bits are zeroed)
 - This function ensures CIDR semantic correctness by maintaining the network-only representation
 - Located in src/backend/utils/adt/network.c:348-367
+
+## Simplified Source
+
+```c
+Datum
+cidr_set_masklen(PG_FUNCTION_ARGS)
+{
+    inet *src = PG_GETARG_INET_PP(0);
+    int bits = PG_GETARG_INT32(1);
+
+    // Handle special case: -1 means maximum possible netmask
+    if (bits == -1)
+        bits = ip_maxbits(src);
+
+    // Validate netmask length is within bounds
+    if ((bits < 0) || (bits > ip_maxbits(src)))
+        ereport(ERROR, /* invalid mask length error */);
+
+    // Create CIDR with proper network masking
+    PG_RETURN_INET_P(cidr_set_masklen_internal(src, bits));
+}
+```

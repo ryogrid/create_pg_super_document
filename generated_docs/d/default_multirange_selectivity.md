@@ -34,3 +34,57 @@ The function categorizes operators into several groups:
 
 ## Notes and Other Information
 The function serves as a safety net in the PostgreSQL query planner's selectivity estimation system. The specific probability values are based on empirical observations of typical data patterns and operator behavior. Overlap operations are considered relatively rare (1%), while containment operations are even rarer (0.5%). Element containment operations are treated similarly to scalar range comparisons since they represent point-in-range queries.
+
+## Simplified Source
+
+```c
+static double
+default_multirange_selectivity(Oid operator)
+{
+    switch (operator)
+    {
+        // Overlap operators - moderately selective
+        case OID_MULTIRANGE_OVERLAPS_MULTIRANGE_OP:
+        case OID_MULTIRANGE_OVERLAPS_RANGE_OP:
+        case OID_RANGE_OVERLAPS_MULTIRANGE_OP:
+            return 0.01;
+
+        // Containment operators - highly selective
+        case OID_RANGE_CONTAINS_MULTIRANGE_OP:
+        case OID_RANGE_MULTIRANGE_CONTAINED_OP:
+        case OID_MULTIRANGE_CONTAINS_RANGE_OP:
+        case OID_MULTIRANGE_CONTAINS_MULTIRANGE_OP:
+        case OID_MULTIRANGE_RANGE_CONTAINED_OP:
+        case OID_MULTIRANGE_MULTIRANGE_CONTAINED_OP:
+            return 0.005;
+
+        // Element containment - similar to scalar inequality
+        case OID_MULTIRANGE_CONTAINS_ELEM_OP:
+        case OID_MULTIRANGE_ELEM_CONTAINED_OP:
+            return DEFAULT_MULTIRANGE_INEQ_SEL;
+
+        // Positional and comparison operators
+        case OID_MULTIRANGE_LESS_OP:
+        case OID_MULTIRANGE_LESS_EQUAL_OP:
+        case OID_MULTIRANGE_GREATER_OP:
+        case OID_MULTIRANGE_GREATER_EQUAL_OP:
+        case OID_MULTIRANGE_LEFT_RANGE_OP:
+        case OID_MULTIRANGE_LEFT_MULTIRANGE_OP:
+        case OID_RANGE_LEFT_MULTIRANGE_OP:
+        case OID_MULTIRANGE_RIGHT_RANGE_OP:
+        case OID_MULTIRANGE_RIGHT_MULTIRANGE_OP:
+        case OID_RANGE_RIGHT_MULTIRANGE_OP:
+        case OID_MULTIRANGE_OVERLAPS_LEFT_RANGE_OP:
+        case OID_RANGE_OVERLAPS_LEFT_MULTIRANGE_OP:
+        case OID_MULTIRANGE_OVERLAPS_LEFT_MULTIRANGE_OP:
+        case OID_MULTIRANGE_OVERLAPS_RIGHT_RANGE_OP:
+        case OID_RANGE_OVERLAPS_RIGHT_MULTIRANGE_OP:
+        case OID_MULTIRANGE_OVERLAPS_RIGHT_MULTIRANGE_OP:
+            return DEFAULT_INEQ_SEL;
+
+        // Fallback for unknown operators
+        default:
+            return 0.01;
+    }
+}
+```

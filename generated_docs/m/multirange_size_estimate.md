@@ -47,3 +47,29 @@ All components are properly aligned according to the element type's alignment re
 - [Range](../R/Range.md) header overhead (sizeof(RangeType) + sizeof(char)) is excluded from each range's contribution since only the bound data is stored
 - The estimate is used by make_multirange to allocate the appropriate amount of memory before serialization
 - Proper size estimation is critical for avoiding buffer overruns during multirange construction
+
+## Simplified Source
+
+```c
+static Size
+multirange_size_estimate(TypeCacheEntry *rangetyp, int32 range_count,
+                         RangeType **ranges)
+{
+    char    elemalign = rangetyp->rngelemtype->typalign;
+    Size    size;
+    int32   i;
+
+    // Calculate space for multirange structure + items + flags
+    size = att_align_nominal(sizeof(MultirangeType) +
+                            Max(range_count - 1, 0) * sizeof(uint32) +
+                            range_count * sizeof(uint8), elemalign);
+
+    // Add space for each range's boundary data
+    for (i = 0; i < range_count; i++)
+        size += att_align_nominal(VARSIZE(ranges[i]) -
+                                 sizeof(RangeType) -
+                                 sizeof(char), elemalign);
+
+    return size;
+}
+```

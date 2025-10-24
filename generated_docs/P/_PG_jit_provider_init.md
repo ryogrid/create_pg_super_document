@@ -36,3 +36,15 @@ This follows PostgreSQL's plugin architecture pattern where providers implement 
 - Part of the JIT provider plugin interface defined in src/include/jit/jit.h
 - Must be present and properly named for the LLVM JIT provider to be recognized by PostgreSQL
 - Located in src/backend/jit/llvm/llvmjit.c:164-185
+
+## Simplified Source
+
+```c
+void _PG_jit_provider_init(JitProviderCallbacks *cb)
+{
+    // Set up LLVM-specific callback functions for JIT operations
+    cb->reset_after_error = llvm_reset_after_error;
+    cb->release_context = llvm_release_context;
+    cb->compile_expr = llvm_compile_expr;
+}
+```

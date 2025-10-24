@@ -54,3 +54,79 @@ The function includes special handling for Windows console code page issues and 
 - Restores original terminal settings after input completion
 - Echoes a newline after password input or cancellation to maintain proper terminal formatting
 - Used as the underlying implementation for all interactive prompts in PostgreSQL client tools
+
+## Simplified Source
+
+```c
+char *simple_prompt_extended(const char *prompt, bool echo,
+                           PromptInterruptContext *prompt_ctx) {
+    FILE *termin, *termout;
+
+    // Open terminal I/O handles (platform-specific)
+#ifdef WIN32
+    termin = fopen("CONIN$", "w+");
+    termout = fopen("CONOUT$", "w+");
+#else
+    termin = fopen("/dev/tty", "r");
+    termout = fopen("/dev/tty", "w");
+#endif
+
+    // Fall back to stdin/stderr if direct terminal access fails
+    if (!termin || !termout) {
+        if (termin) fclose(termin);
+        if (termout) fclose(termout);
+        termin = stdin;
+        termout = stderr;
+    }
+
+    // Disable echo for password input
+    if (!echo) {
+#if defined(HAVE_TERMIOS_H)
+        struct termios t_orig, t;
+        tcgetattr(fileno(termin), &t);
+        t_orig = t;
+        t.c_lflag &= ~ECHO;
+        tcsetattr(fileno(termin), TCSAFLUSH, &t);
+#elif defined(WIN32)
+        HANDLE handle = (HANDLE)_get_osfhandle(_fileno(termin));
+        DWORD t_orig;
+        GetConsoleMode(handle, &t_orig);
+        SetConsoleMode(handle, ENABLE_LINE_INPUT | ENABLE_PROCESSED_INPUT);
+#endif
+    }
+
+    // Display prompt and read input
+    if (prompt) {
+        fputs(_(prompt), termout);
+        fflush(termout);
+    }
+
+    char *result = pg_get_line(termin, prompt_ctx);
+    if (result == NULL) {
+        result = pg_strdup("");
+    }
+
+    // Strip trailing newlines
+    pg_strip_crlf(result);
+
+    // Restore echo and clean up
+    if (!echo) {
+#if defined(HAVE_TERMIOS_H)
+        tcsetattr(fileno(termin), TCSAFLUSH, &t_orig);
+        fputs("\n", termout);
+        fflush(termout);
+#elif defined(WIN32)
+        SetConsoleMode(handle, t_orig);
+        fputs("\n", termout);
+        fflush(termout);
+#endif
+    }
+
+    if (termin != stdin) {
+        fclose(termin);
+        fclose(termout);
+    }
+
+    return result;
+}
+```

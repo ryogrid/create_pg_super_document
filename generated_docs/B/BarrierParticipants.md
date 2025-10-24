@@ -33,3 +33,16 @@ The function takes a snapshot of the participant count at the moment the mutex i
 - The returned value represents an instantaneous snapshot and may be outdated immediately after the function returns
 - Currently unused in the main PostgreSQL codebase, suggesting it's primarily for development and debugging scenarios
 - Located in src/backend/storage/ipc/barrier.c:281-299
+
+## Simplified Source
+
+```c
+int BarrierParticipants(Barrier *barrier) {
+    // Thread-safe read of current participant count for debugging
+    SpinLockAcquire(&barrier->mutex);
+    int participants = barrier->participants;
+    SpinLockRelease(&barrier->mutex);
+
+    return participants;
+}
+```

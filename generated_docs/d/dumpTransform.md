@@ -50,3 +50,119 @@ Key responsibilities include:
 - Memory management uses PostgreSQL's PQExpBuffer system with proper cleanup
 - Binary upgrade scenarios are supported through extension member handling
 - The function handles the comma separation logic when both FROM SQL and TO SQL functions are present
+
+## Simplified Source
+
+```c
+static void
+dumpTransform(Archive *fout, const TransformInfo *transform)
+{
+    DumpOptions *dopt = fout->dopt;
+    PQExpBuffer defqry, delqry, labelq, transformargs;
+    FuncInfo *fromsqlFuncInfo = NULL, *tosqlFuncInfo = NULL;
+    char *lanname;
+    const char *transformType;
+
+    // Skip in data-only dumps
+    if (dopt->dataOnly)
+        return;
+
+    // Find transform functions if they exist
+    if (OidIsValid(transform->trffromsql)) {
+        fromsqlFuncInfo = findFuncByOid(transform->trffromsql);
+        if (fromsqlFuncInfo == NULL)
+            pg_fatal("could not find function definition for function with OID %u",
+                     transform->trffromsql);
+    }
+
+    if (OidIsValid(transform->trftosql)) {
+        tosqlFuncInfo = findFuncByOid(transform->trftosql);
+        if (tosqlFuncInfo == NULL)
+            pg_fatal("could not find function definition for function with OID %u",
+                     transform->trftosql);
+    }
+
+    // Initialize buffers
+    defqry = createPQExpBuffer();
+    delqry = createPQExpBuffer();
+    labelq = createPQExpBuffer();
+    transformargs = createPQExpBuffer();
+
+    // Get language and type names
+    lanname = get_language_name(fout, transform->trflang);
+    transformType = getFormattedTypeName(fout, transform->trftype, zeroAsNone);
+
+    // Build DROP statement
+    appendPQExpBuffer(delqry, "DROP TRANSFORM FOR %s LANGUAGE %s;\n",
+                      transformType, lanname);
+
+    // Build CREATE TRANSFORM statement
+    appendPQExpBuffer(defqry, "CREATE TRANSFORM FOR %s LANGUAGE %s (",
+                      transformType, lanname);
+
+    // Validate at least one function exists
+    if (!transform->trffromsql && !transform->trftosql)
+        pg_log_warning("bogus transform definition, at least one of trffromsql and trftosql should be nonzero");
+
+    // Add FROM SQL function
+    if (transform->trffromsql) {
+        if (fromsqlFuncInfo) {
+            char *fsig = format_function_signature(fout, fromsqlFuncInfo, true);
+            appendPQExpBuffer(defqry, "FROM SQL WITH FUNCTION %s.%s",
+                              fmtId(fromsqlFuncInfo->dobj.namespace->dobj.name), fsig);
+            free(fsig);
+        } else {
+            pg_log_warning("bogus value in pg_transform.trffromsql field");
+        }
+    }
+
+    // Add TO SQL function
+    if (transform->trftosql) {
+        if (transform->trffromsql)
+            appendPQExpBufferStr(defqry, ", ");
+
+        if (tosqlFuncInfo) {
+            char *fsig = format_function_signature(fout, tosqlFuncInfo, true);
+            appendPQExpBuffer(defqry, "TO SQL WITH FUNCTION %s.%s",
+                              fmtId(tosqlFuncInfo->dobj.namespace->dobj.name), fsig);
+            free(fsig);
+        } else {
+            pg_log_warning("bogus value in pg_transform.trftosql field");
+        }
+    }
+
+    appendPQExpBufferStr(defqry, ");\n");
+
+    // Prepare label and arguments for archiving
+    appendPQExpBuffer(labelq, "TRANSFORM FOR %s LANGUAGE %s", transformType, lanname);
+    appendPQExpBuffer(transformargs, "FOR %s LANGUAGE %s", transformType, lanname);
+
+    // Handle binary upgrade
+    if (dopt->binary_upgrade)
+        binary_upgrade_extension_member(defqry, &transform->dobj, "TRANSFORM",
+                                        transformargs->data, NULL);
+
+    // Archive the transform
+    if (transform->dobj.dump & DUMP_COMPONENT_DEFINITION)
+        ArchiveEntry(fout, transform->dobj.catId, transform->dobj.dumpId,
+                     ARCHIVE_OPTS(.tag = labelq->data,
+                                  .description = "TRANSFORM",
+                                  .section = SECTION_PRE_DATA,
+                                  .createStmt = defqry->data,
+                                  .dropStmt = delqry->data,
+                                  .deps = transform->dobj.dependencies,
+                                  .nDeps = transform->dobj.nDeps));
+
+    // Dump transform comments
+    if (transform->dobj.dump & DUMP_COMPONENT_COMMENT)
+        dumpComment(fout, "TRANSFORM", transformargs->data, NULL, "",
+                    transform->dobj.catId, 0, transform->dobj.dumpId);
+
+    // Cleanup
+    free(lanname);
+    destroyPQExpBuffer(defqry);
+    destroyPQExpBuffer(delqry);
+    destroyPQExpBuffer(labelq);
+    destroyPQExpBuffer(transformargs);
+}
+```

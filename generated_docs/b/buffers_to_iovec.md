@@ -44,3 +44,35 @@ The function includes debug assertions to verify that when direct I/O is enabled
 - Each buffer is assumed to be BLCKSZ bytes in size
 - The function handles the common case where all buffers are contiguous by returning a single iovec entry
 - Part of PostgreSQL's vectored I/O optimization strategy to reduce system call overhead
+
+## Simplified Source
+
+```c
+static int buffers_to_iovec(struct iovec *iov, void **buffers, int nblocks) {
+    Assert(nblocks >= 1);
+
+    // Initialize first iovec entry with first buffer
+    iov[0].iov_base = buffers[0];
+    iov[0].iov_len = BLCKSZ;
+    int iovcnt = 1;
+
+    // Try to merge contiguous buffers into existing iovec entries
+    for (int i = 1; i < nblocks; i++) {
+        void *current_buffer = buffers[i];
+        struct iovec *last_iov = &iov[iovcnt - 1];
+
+        // Check if current buffer is contiguous with previous
+        if (((char *)last_iov->iov_base + last_iov->iov_len) == current_buffer) {
+            // Extend existing iovec entry
+            last_iov->iov_len += BLCKSZ;
+        } else {
+            // Create new iovec entry
+            iov[iovcnt].iov_base = current_buffer;
+            iov[iovcnt].iov_len = BLCKSZ;
+            iovcnt++;
+        }
+    }
+
+    return iovcnt;
+}
+```

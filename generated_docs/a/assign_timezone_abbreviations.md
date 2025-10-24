@@ -35,3 +35,18 @@ This function is part of the GUC (Grand Unified Configuration) system's hook mec
 - The actual timezone abbreviation table is passed via the extra parameter
 - Makes the new timezone abbreviation table active for datetime parsing
 - Part of the standard GUC assign hook pattern in PostgreSQL
+
+## Simplified Source
+
+```c
+void
+assign_timezone_abbreviations(const char *newval, void *extra)
+{
+    // Skip if no timezone abbreviation table (boot default case)
+    if (!extra)
+        return;
+
+    // Install the pre-loaded timezone abbreviation table
+    InstallTimeZoneAbbrevs((TimeZoneAbbrevTable *) extra);
+}
+```

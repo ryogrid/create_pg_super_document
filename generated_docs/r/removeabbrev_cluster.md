@@ -39,3 +39,25 @@ The function is specifically designed for CLUSTER operations, which sort table d
 - The extracted attribute values are stored in `datum1` and null status in `isnull1` for efficient access during comparisons
 - CLUSTER operations use btree index definitions to determine the sort order for physically reorganizing table data
 - This fallback mechanism ensures correct sorting behavior even when abbreviation optimization fails to provide performance benefits
+
+## Simplified Source
+
+```c
+static void removeabbrev_cluster(Tuplesortstate *state, SortTuple *stups, int count)
+{
+    TuplesortPublic *base = TuplesortstateGetPublic(state);
+    TuplesortClusterArg *arg = (TuplesortClusterArg *) base->arg;
+
+    // Extract first sort key from each tuple for direct comparison
+    for (int i = 0; i < count; i++)
+    {
+        HeapTuple tup = (HeapTuple) stups[i].tuple;
+
+        // Cache the primary sort attribute value
+        stups[i].datum1 = heap_getattr(tup,
+                                      arg->indexInfo->ii_IndexAttrNumbers[0],
+                                      arg->tupDesc,
+                                      &stups[i].isnull1);
+    }
+}
+```

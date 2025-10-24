@@ -41,3 +41,23 @@ The function includes an assertion that the target encoding supports multibyte c
 - This function is essential for security testing and ensuring robust handling of invalid character sequences
 - The assertion prevents use with single-byte encodings where the concept of invalid multibyte sequences doesn't apply
 - Used extensively in PostgreSQL's string processing and escaping functions to handle encoding validation
+
+## Simplified Source
+
+```c
+void pg_encoding_set_invalid(int encoding, char *dst) {
+    // Ensure encoding supports multibyte characters
+    Assert(pg_encoding_max_length(encoding) > 1);
+
+    // Create 2-byte invalid sequence based on encoding type
+    if (encoding == PG_UTF8) {
+        // UTF-8: Use overlong encoding [0xC0, 0x20]
+        dst[0] = 0xc0;
+    } else {
+        // Other encodings: Use standardized invalid byte
+        dst[0] = NONUTF8_INVALID_BYTE0;  // 0x8D
+    }
+
+    dst[1] = NONUTF8_INVALID_BYTE1;      // 0x20 (space)
+}
+```

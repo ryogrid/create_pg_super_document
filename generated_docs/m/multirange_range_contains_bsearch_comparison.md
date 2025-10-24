@@ -37,3 +37,27 @@ This function serves as a specialized comparison function for binary search oper
 - The function exploits the property that multiranges contain only non-overlapping ranges to optimize the search
 - Returns -1 if key is to the left, 1 if key is to the right, and 0 if there is overlap
 - When returning 0 (overlap found), the search stops and the `match` parameter indicates actual containment
+
+## Simplified Source
+
+```c
+static int
+multirange_range_contains_bsearch_comparison(TypeCacheEntry *typcache,
+                                            RangeBound *lower, RangeBound *upper,
+                                            void *key, bool *match)
+{
+    RangeBound *keyLower = (RangeBound *) key;
+    RangeBound *keyUpper = (RangeBound *) key + 1;
+
+    // Check if key range is entirely to left or right
+    if (range_cmp_bounds(typcache, keyUpper, lower) < 0)
+        return -1;  // Key is to the left
+    if (range_cmp_bounds(typcache, keyLower, upper) > 0)
+        return 1;   // Key is to the right
+
+    // Found overlap - check if it's actual containment
+    *match = range_bounds_contains(typcache, lower, upper, keyLower, keyUpper);
+
+    return 0;  // Stop search
+}
+```

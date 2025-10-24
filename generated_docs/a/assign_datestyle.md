@@ -34,3 +34,16 @@ This function is called by the GUC system after successful validation to make th
 - No error checking is performed since validation was done in the check hook
 - The function directly modifies global state variables that affect date formatting system-wide
 - This is part of PostgreSQL's GUC (Grand Unified Configuration) system architecture where check and assign hooks are paired
+
+## Simplified Source
+
+```c
+void assign_datestyle(const char *newval, void *extra) {
+    // Extract validated values from extra data
+    int *myextra = (int *) extra;
+
+    // Apply the validated date style and order settings
+    DateStyle = myextra[0];
+    DateOrder = myextra[1];
+}
+```

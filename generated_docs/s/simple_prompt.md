@@ -40,3 +40,12 @@ The function automatically handles platform-specific terminal control to show or
 - This is a simplified interface that internally calls simple_prompt_extended with NULL for the interrupt context
 - Used extensively throughout PostgreSQL client tools for interactive authentication and user prompts
 - The function handles cross-platform differences in terminal I/O automatically
+
+## Simplified Source
+
+```c
+char *simple_prompt(const char *prompt, bool echo) {
+    // Delegate to the extended version with no interrupt context
+    return simple_prompt_extended(prompt, echo, NULL);
+}
+```

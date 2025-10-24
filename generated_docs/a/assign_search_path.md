@@ -29,3 +29,18 @@ This function serves as the assign hook for the search_path GUC (Grand Unified C
 - The function uses lazy evaluation to avoid database access during inappropriate times
 - Does not invalidate the search path cache, allowing for optimization when no syscache invalidations have occurred
 - Part of the PostgreSQL GUC (Grand Unified Configuration) system hook mechanism
+
+## Simplified Source
+
+```c
+void
+assign_search_path(const char *newval, void *extra)
+{
+    // Ensure we're not in bootstrap mode
+    Assert(!IsBootstrapProcessingMode());
+
+    // Mark search path as needing recomputation (lazy evaluation)
+    // Actual recomputation is deferred until the path is accessed
+    baseSearchPathValid = false;
+}
+```

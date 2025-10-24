@@ -50,3 +50,88 @@ The function also handles abbreviation comparators for the leading sort key when
 - Uses INDEX_MAX_KEYS arrays to store computed index values for expression-based comparisons
 - Part of PostgreSQL's CLUSTER implementation that physically reorganizes table data according to index ordering
 - The tiebreak mechanism ensures stable and complete ordering even for complex multi-column indexes with expressions
+
+## Simplified Source
+
+```c
+static int comparetup_cluster_tiebreak(const SortTuple *a, const SortTuple *b, Tuplesortstate *state)
+{
+    TuplesortPublic *base = TuplesortstateGetPublic(state);
+    TuplesortClusterArg *arg = (TuplesortClusterArg *) base->arg;
+    SortSupport sortKey = base->sortKeys;
+    HeapTuple ltup = (HeapTuple) a->tuple;
+    HeapTuple rtup = (HeapTuple) b->tuple;
+    int nkey = 0;
+    int32 compare = 0;
+
+    // Handle first column with abbreviation if available
+    if (base->haveDatum1)
+    {
+        if (sortKey->abbrev_converter)
+        {
+            AttrNumber leading = arg->indexInfo->ii_IndexAttrNumbers[0];
+            Datum datum1, datum2;
+            bool isnull1, isnull2;
+
+            datum1 = heap_getattr(ltup, leading, arg->tupDesc, &isnull1);
+            datum2 = heap_getattr(rtup, leading, arg->tupDesc, &isnull2);
+
+            compare = ApplySortAbbrevFullComparator(datum1, isnull1, datum2, isnull2, sortKey);
+        }
+        if (compare != 0 || base->nKeys == 1)
+            return compare;
+
+        sortKey++;
+        nkey = 1;
+    }
+
+    if (arg->indexInfo->ii_Expressions == NULL)
+    {
+        // Simple attribute comparison
+        for (; nkey < base->nKeys; nkey++, sortKey++)
+        {
+            AttrNumber attno = arg->indexInfo->ii_IndexAttrNumbers[nkey];
+            Datum datum1, datum2;
+            bool isnull1, isnull2;
+
+            datum1 = heap_getattr(ltup, attno, arg->tupDesc, &isnull1);
+            datum2 = heap_getattr(rtup, attno, arg->tupDesc, &isnull2);
+
+            compare = ApplySortComparator(datum1, isnull1, datum2, isnull2, sortKey);
+            if (compare != 0)
+                return compare;
+        }
+    }
+    else
+    {
+        // Expression index comparison - compute index values
+        Datum l_index_values[INDEX_MAX_KEYS];
+        bool l_index_isnull[INDEX_MAX_KEYS];
+        Datum r_index_values[INDEX_MAX_KEYS];
+        bool r_index_isnull[INDEX_MAX_KEYS];
+
+        ResetPerTupleExprContext(arg->estate);
+        TupleTableSlot *ecxt_scantuple = GetPerTupleExprContext(arg->estate)->ecxt_scantuple;
+
+        // Compute left tuple index values
+        ExecStoreHeapTuple(ltup, ecxt_scantuple, false);
+        FormIndexDatum(arg->indexInfo, ecxt_scantuple, arg->estate, l_index_values, l_index_isnull);
+
+        // Compute right tuple index values
+        ExecStoreHeapTuple(rtup, ecxt_scantuple, false);
+        FormIndexDatum(arg->indexInfo, ecxt_scantuple, arg->estate, r_index_values, r_index_isnull);
+
+        // Compare computed values
+        for (; nkey < base->nKeys; nkey++, sortKey++)
+        {
+            compare = ApplySortComparator(l_index_values[nkey], l_index_isnull[nkey],
+                                         r_index_values[nkey], r_index_isnull[nkey],
+                                         sortKey);
+            if (compare != 0)
+                return compare;
+        }
+    }
+
+    return 0;
+}
+```

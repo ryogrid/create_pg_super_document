@@ -35,3 +35,21 @@ The function configures the index to use CIDR (Classless Inter-Domain Routing) f
 - Long values are disabled (longValuesOK = false) because network addresses have bounded size
 - The function uses CIDROID as the prefix type, allowing hierarchical network organization
 - No custom labeling is used (labelType = VOIDOID) since network addresses can be compared directly
+
+## Simplified Source
+
+```c
+Datum
+inet_spg_config(PG_FUNCTION_ARGS)
+{
+    spgConfigOut *cfg = (spgConfigOut *) PG_GETARG_POINTER(1);
+
+    // Configure SP-GiST for network address indexing
+    cfg->prefixType = CIDROID;      // Use CIDR format for hierarchical organization
+    cfg->labelType = VOIDOID;       // No additional labeling needed
+    cfg->canReturnData = true;      // Index can return data from leaf nodes
+    cfg->longValuesOK = false;      // Network addresses have bounded size
+
+    PG_RETURN_VOID();
+}
+```

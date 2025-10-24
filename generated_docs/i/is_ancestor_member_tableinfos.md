@@ -28,3 +28,22 @@ This function iterates through a list of  structures to determine if a specified
 
 ## Notes and Other Information
 This is a static function used internally within pg_publication.c for publication management. It's specifically designed to support the partition filtering logic where it's necessary to check if ancestor tables are explicitly included in a publication before making decisions about partition inclusion. The function uses PostgreSQL's standard List iteration patterns and returns immediately upon finding a match for efficiency.
+
+## Simplified Source
+
+```c
+static bool is_ancestor_member_tableinfos(Oid ancestor, List *table_infos) {
+    ListCell *lc;
+
+    // Iterate through all published relation entries
+    foreach(lc, table_infos) {
+        Oid relid = ((published_rel *) lfirst(lc))->relid;
+
+        // Return true if ancestor OID matches any published relation
+        if (relid == ancestor)
+            return true;
+    }
+
+    return false;  // Ancestor not found in publication list
+}
+```

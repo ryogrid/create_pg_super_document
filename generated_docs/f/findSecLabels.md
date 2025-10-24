@@ -39,3 +39,71 @@ The search works in two phases: first, it performs a standard binary search to f
 - Sets *items to NULL and returns 0 if no security labels are loaded or no matches found
 - Part of pg_dump's security label handling infrastructure
 - The found items remain valid as long as the global seclabels array is not modified
+
+## Simplified Source
+
+```c
+static int
+findSecLabels(Oid classoid, Oid objoid, SecLabelItem **items)
+{
+    SecLabelItem *middle = NULL;
+    SecLabelItem *low, *high;
+    int nmatch;
+
+    // Return 0 if no labels are loaded
+    if (nseclabels <= 0) {
+        *items = NULL;
+        return 0;
+    }
+
+    // Binary search to find a matching item
+    low = &seclabels[0];
+    high = &seclabels[nseclabels - 1];
+    while (low <= high) {
+        middle = low + (high - low) / 2;
+
+        if (classoid < middle->classoid)
+            high = middle - 1;
+        else if (classoid > middle->classoid)
+            low = middle + 1;
+        else if (objoid < middle->objoid)
+            high = middle - 1;
+        else if (objoid > middle->objoid)
+            low = middle + 1;
+        else
+            break;  // Found a match
+    }
+
+    // No matches found
+    if (low > high) {
+        *items = NULL;
+        return 0;
+    }
+
+    // Count all matching items by expanding search in both directions
+    nmatch = 1;
+
+    // Expand backward to find start of matching range
+    while (middle > low) {
+        if (classoid != middle[-1].classoid ||
+            objoid != middle[-1].objoid)
+            break;
+        middle--;
+        nmatch++;
+    }
+
+    *items = middle;
+
+    // Expand forward to count remaining matches
+    middle += nmatch;
+    while (middle <= high) {
+        if (classoid != middle->classoid ||
+            objoid != middle->objoid)
+            break;
+        middle++;
+        nmatch++;
+    }
+
+    return nmatch;
+}
+```

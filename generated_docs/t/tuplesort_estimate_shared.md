@@ -38,3 +38,21 @@ This function is essential for parallel query planning, allowing PostgreSQL to d
 - Part of PostgreSQL's parallel sorting infrastructure introduced for parallel index builds
 - The returned size represents the total shared memory segment size needed, not per-worker memory requirements
 - Used primarily during the planning phase of parallel operations to ensure resource availability
+
+## Simplified Source
+
+```c
+Size
+tuplesort_estimate_shared(int nWorkers)
+{
+    Assert(nWorkers > 0);
+
+    // Calculate memory needed for TapeShare structures (one per worker)
+    Size tapesSize = mul_size(sizeof(TapeShare), nWorkers);
+
+    // Add base Sharedsort structure size and ensure proper alignment
+    tapesSize = MAXALIGN(add_size(tapesSize, offsetof(Sharedsort, tapes)));
+
+    return tapesSize;
+}
+```

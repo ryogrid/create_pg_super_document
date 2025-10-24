@@ -36,3 +36,28 @@ The function follows the standard C comparison convention, returning negative, z
 - Used as a comparison function for sorting algorithms during dictionary compilation
 - Ensures consistent ordering of lexemes for predictable and efficient dictionary operations
 - The comparison hierarchy supports grouping related lexemes together in the compiled dictionary structure
+
+## Simplified Source
+
+```c
+static int cmpLexemeInfo(LexemeInfo *a, LexemeInfo *b) {
+    // Handle null pointers
+    if (a == NULL || b == NULL)
+        return 0;
+
+    // Compare by substitution rule ID first
+    if (a->idsubst != b->idsubst)
+        return (a->idsubst > b->idsubst) ? 1 : -1;
+
+    // If same substitution rule, compare by position
+    if (a->posinsubst != b->posinsubst)
+        return (a->posinsubst > b->posinsubst) ? 1 : -1;
+
+    // If same position, compare by variant count
+    if (a->tnvariant != b->tnvariant)
+        return (a->tnvariant > b->tnvariant) ? 1 : -1;
+
+    // All fields equal
+    return 0;
+}
+```

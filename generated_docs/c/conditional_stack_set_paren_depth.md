@@ -32,3 +32,15 @@ This function saves the current parenthesis nesting depth in the topmost entry o
 - Includes defensive assertion to prevent operation on empty stacks
 - Part of the conditional execution framework used primarily in psql
 - Located in src/fe_utils/conditional.c:173-183
+
+## Simplified Source
+
+```c
+void conditional_stack_set_paren_depth(ConditionalStack cstack, int depth) {
+    // Ensure stack is not empty (debug assertion)
+    Assert(!conditional_stack_empty(cstack));
+
+    // Store parenthesis depth in top element
+    cstack->head->paren_depth = depth;
+}
+```

@@ -42,3 +42,97 @@ The function includes version-specific logic to handle differences in PostgreSQL
 - Uses internationalization (gettext) for column headers
 - Respects object visibility rules through 
 - Results are ordered by schema name and object name
+
+## Simplified Source
+
+```c
+bool listExtendedStats(const char *pattern) {
+    PQExpBufferData buf;
+    PGresult *res;
+    printQueryOpt myopt = pset.popt;
+
+    // Check if server supports extended statistics (PostgreSQL 10+)
+    if (pset.sversion < 100000) {
+        char sverbuf[32];
+        pg_log_error("The server (version %s) does not support extended statistics.",
+                    formatPGVersionNumber(pset.sversion, false, sverbuf, sizeof(sverbuf)));
+        return true;
+    }
+
+    initPQExpBuffer(&buf);
+
+    // Build base query for schema and name
+    printfPQExpBuffer(&buf,
+        "SELECT \n"
+        "es.stxnamespace::pg_catalog.regnamespace::pg_catalog.text AS \"%s\", \n"
+        "es.stxname AS \"%s\", \n",
+        gettext_noop("Schema"),
+        gettext_noop("Name"));
+
+    // Add definition column with version-specific logic
+    if (pset.sversion >= 140000) {
+        // PostgreSQL 14+ uses pg_get_statisticsobjdef_columns
+        appendPQExpBuffer(&buf,
+            "pg_catalog.format('%%s FROM %%s', \n"
+            "  pg_catalog.pg_get_statisticsobjdef_columns(es.oid), \n"
+            "  es.stxrelid::pg_catalog.regclass) AS \"%s\"",
+            gettext_noop("Definition"));
+    } else {
+        // Earlier versions build column list manually
+        appendPQExpBuffer(&buf,
+            "pg_catalog.format('%%s FROM %%s', \n"
+            "  (SELECT pg_catalog.string_agg(pg_catalog.quote_ident(a.attname),', ') \n"
+            "   FROM pg_catalog.unnest(es.stxkeys) s(attnum) \n"
+            "   JOIN pg_catalog.pg_attribute a \n"
+            "   ON (es.stxrelid = a.attrelid \n"
+            "   AND a.attnum = s.attnum \n"
+            "   AND NOT a.attisdropped)), \n"
+            "es.stxrelid::pg_catalog.regclass) AS \"%s\"",
+            gettext_noop("Definition"));
+    }
+
+    // Add statistic type columns
+    appendPQExpBuffer(&buf,
+        ",\nCASE WHEN 'd' = any(es.stxkind) THEN 'defined' \n"
+        "END AS \"%s\", \n"
+        "CASE WHEN 'f' = any(es.stxkind) THEN 'defined' \n"
+        "END AS \"%s\"",
+        gettext_noop("Ndistinct"),
+        gettext_noop("Dependencies"));
+
+    // Add MCV column for PostgreSQL 12+
+    if (pset.sversion >= 120000) {
+        appendPQExpBuffer(&buf,
+            ",\nCASE WHEN 'm' = any(es.stxkind) THEN 'defined' \n"
+            "END AS \"%s\" ",
+            gettext_noop("MCV"));
+    }
+
+    appendPQExpBufferStr(&buf, " \nFROM pg_catalog.pg_statistic_ext es \n");
+
+    // Add pattern filtering
+    if (!validateSQLNamePattern(&buf, pattern, false, false,
+                               "es.stxnamespace::pg_catalog.regnamespace::pg_catalog.text",
+                               "es.stxname", NULL,
+                               "pg_catalog.pg_statistics_obj_is_visible(es.oid)",
+                               NULL, 3)) {
+        termPQExpBuffer(&buf);
+        return false;
+    }
+
+    appendPQExpBufferStr(&buf, "ORDER BY 1, 2;");
+
+    // Execute query and display results
+    res = PSQLexec(buf.data);
+    termPQExpBuffer(&buf);
+    if (!res)
+        return false;
+
+    myopt.title = _("List of extended statistics");
+    myopt.translate_header = true;
+    printQuery(res, &myopt, pset.queryFout, false, pset.logfile);
+
+    PQclear(res);
+    return true;
+}
+```

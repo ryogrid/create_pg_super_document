@@ -45,3 +45,37 @@ If an invalid attribute number is provided, the function terminates the program 
 - Returns string literals for system attributes, ensuring consistent naming
 - Fatal error handling ensures invalid attribute numbers are caught immediately
 - Essential for constraint and security label dumping that may reference system columns
+
+## Simplified Source
+
+```c
+static const char *
+getAttrName(int attrnum, const TableInfo *tblInfo)
+{
+    // Handle user-defined attributes (positive numbers)
+    if (attrnum > 0 && attrnum <= tblInfo->numatts)
+        return tblInfo->attnames[attrnum - 1];
+
+    // Handle system attributes (negative/zero numbers)
+    switch (attrnum)
+    {
+        case SelfItemPointerAttributeNumber:
+            return "ctid";
+        case MinTransactionIdAttributeNumber:
+            return "xmin";
+        case MinCommandIdAttributeNumber:
+            return "cmin";
+        case MaxTransactionIdAttributeNumber:
+            return "xmax";
+        case MaxCommandIdAttributeNumber:
+            return "cmax";
+        case TableOidAttributeNumber:
+            return "tableoid";
+    }
+
+    // Invalid attribute number
+    pg_fatal("invalid column number %d for table \"%s\"",
+             attrnum, tblInfo->dobj.name);
+    return NULL;  // Keep compiler quiet
+}
+```

@@ -44,3 +44,48 @@ The  function performs runtime detection to select the optimal dynamic shared me
 - Critical for PostgreSQL's shared memory subsystem configuration during cluster initialization
 - The chosen implementation affects how PostgreSQL allocates and manages shared memory throughout its runtime
 - Test segment uses 0600 permissions (read/write for owner only) for security
+
+## Simplified Source
+
+```c
+static const char *
+choose_dsm_implementation(void)
+{
+#if defined(HAVE_SHM_OPEN) && !defined(__sun__)
+    // Try POSIX shared memory first (up to 10 attempts)
+    int ntries = 10;
+    pg_prng_state prng_state;
+
+    // Seed random generator with PID and time
+    pg_prng_seed(&prng_state, (uint64) (getpid() ^ time(NULL)));
+
+    while (ntries > 0) {
+        // Generate unique shared memory name
+        uint32 handle = pg_prng_uint32(&prng_state);
+        char name[64];
+        snprintf(name, 64, "/PostgreSQL.%u", handle);
+
+        // Test if we can create POSIX shared memory
+        int fd = shm_open(name, O_CREAT | O_RDWR | O_EXCL, 0600);
+        if (fd != -1) {
+            // Success - clean up test segment and use POSIX
+            close(fd);
+            shm_unlink(name);
+            return "posix";
+        }
+
+        // If not name collision, POSIX doesn't work
+        if (errno != EEXIST)
+            break;
+        --ntries;
+    }
+#endif
+
+    // Fall back to platform default
+#ifdef WIN32
+    return "windows";
+#else
+    return "sysv";
+#endif
+}
+```

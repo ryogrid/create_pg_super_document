@@ -35,3 +35,18 @@ If the specified callback is not the latest entry or doesn't exist, the function
 - Commonly used in error cleanup scenarios where temporary callbacks need to be removed when operations complete successfully
 - Part of PostgreSQL's error-safe resource management system, often used within PG_ENSURE_ERROR_CLEANUP blocks
 - The LIFO restriction prevents complex callback management issues that could arise from arbitrary removal of callbacks
+
+## Simplified Source
+
+```c
+void cancel_before_shmem_exit(pg_on_exit_callback function, Datum arg) {
+    // Remove the most recently registered callback (LIFO order only)
+    if (before_shmem_exit_index > 0 &&
+        before_shmem_exit_list[before_shmem_exit_index - 1].function == function &&
+        before_shmem_exit_list[before_shmem_exit_index - 1].arg == arg) {
+        --before_shmem_exit_index;
+    } else {
+        elog(ERROR, "before_shmem_exit callback is not the latest entry");
+    }
+}
+```

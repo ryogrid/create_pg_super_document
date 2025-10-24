@@ -37,3 +37,13 @@ The comments indicate this is a temporary solution, with plans for a more meanin
 - The output format may change in future PostgreSQL versions to provide better usability
 - For actual analysis of MCV list contents, use the  function instead
 - Part of PostgreSQL's type system infrastructure for extended statistics
+
+## Simplified Source
+
+```c
+Datum pg_mcv_list_out(PG_FUNCTION_ARGS) {
+    // Convert MCV list to hex text using bytea output function
+    // TODO: Implement human-readable format in future versions
+    return byteaout(fcinfo);
+}
+```

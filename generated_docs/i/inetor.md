@@ -47,3 +47,40 @@ The operation iterates through each byte of the IP addresses and applies the bit
 - Part of PostgreSQL's network address manipulation functions
 - Useful for network address calculations and bitwise operations
 - Complementary to the inetand function for complete bitwise operations
+
+## Simplified Source
+
+```c
+Datum inetor(PG_FUNCTION_ARGS) {
+    inet *address1 = PG_GETARG_INET_PP(0);
+    inet *address2 = PG_GETARG_INET_PP(1);
+
+    // Allocate memory for result
+    inet *result_address = (inet *) palloc0(sizeof(inet));
+
+    // Check that both addresses are the same family (IPv4 or IPv6)
+    if (ip_family(address1) != ip_family(address2)) {
+        ereport(ERROR,
+                (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                 errmsg("cannot OR inet values of different sizes")));
+    }
+
+    // Get address size and pointers to address bytes
+    int address_size = ip_addrsize(address1);
+    unsigned char *bytes1 = ip_addr(address1);
+    unsigned char *bytes2 = ip_addr(address2);
+    unsigned char *result_bytes = ip_addr(result_address);
+
+    // Apply bitwise OR to each address byte
+    for (int i = 0; i < address_size; i++) {
+        result_bytes[i] = bytes1[i] | bytes2[i];
+    }
+
+    // Set result metadata
+    ip_bits(result_address) = Max(ip_bits(address1), ip_bits(address2));
+    ip_family(result_address) = ip_family(address1);
+    SET_INET_VARSIZE(result_address);
+
+    PG_RETURN_INET_P(result_address);
+}
+```

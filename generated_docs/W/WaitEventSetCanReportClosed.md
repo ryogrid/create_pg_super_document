@@ -40,3 +40,18 @@ The function uses preprocessor conditionals to check for the following condition
 - Used by connection management code to determine if client disconnect detection is available
 - Essential for enabling features like client_connection_check_interval which rely on socket closure detection
 - The function helps maintain portability across different Unix-like systems with varying I/O multiplexing capabilities
+
+## Simplified Source
+
+```c
+bool WaitEventSetCanReportClosed(void) {
+    // Check if platform supports socket closure detection
+#if (defined(WAIT_USE_POLL) && defined(POLLRDHUP)) || \
+    defined(WAIT_USE_EPOLL) || \
+    defined(WAIT_USE_KQUEUE)
+    return true;
+#else
+    return false;
+#endif
+}
+```

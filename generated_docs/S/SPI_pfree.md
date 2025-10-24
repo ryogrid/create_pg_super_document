@@ -30,3 +30,14 @@ The function simplifies memory management for SPI clients by eliminating the nee
 - Attempting to free a NULL pointer is typically safe (depends on pfree implementation)
 - Part of PostgreSQL's SPI memory management system, completing the allocation-reallocation-deallocation cycle
 - Essential for preventing memory leaks in SPI-based stored procedures and functions
+
+## Simplified Source
+
+```c
+void
+SPI_pfree(void *pointer)
+{
+    // Free memory - context is determined automatically from pointer
+    pfree(pointer);
+}
+```

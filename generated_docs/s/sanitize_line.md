@@ -39,3 +39,29 @@ The function allocates a new string using pg_strdup and modifies it in place, en
 - Future enhancements might include better quoting mechanisms for improved parseability
 - The function always returns a newly allocated string that must be freed by the caller
 - Location: src/bin/pg_dump/dumputils.c:50-101
+
+## Simplified Source
+
+```c
+char *
+sanitize_line(const char *str, bool want_hyphen)
+{
+    char *result;
+    char *s;
+
+    // Handle NULL input
+    if (!str)
+        return pg_strdup(want_hyphen ? "-" : "");
+
+    // Create a copy of the input string
+    result = pg_strdup(str);
+
+    // Replace newlines and carriage returns with spaces
+    for (s = result; *s != '\0'; s++) {
+        if (*s == '\n' || *s == '\r')
+            *s = ' ';
+    }
+
+    return result;
+}
+```

@@ -30,3 +30,17 @@ SlabDelete is responsible for completely destroying a slab memory context. It pe
 - The function is part of the slab memory allocator implementation in PostgreSQL
 - After calling this function, the context pointer becomes invalid and should not be used
 - Located in src/backend/utils/mmgr/slab.c:485-497
+
+## Simplified Source
+
+```c
+void
+SlabDelete(MemoryContext context)
+{
+    // First free all allocated blocks
+    SlabReset(context);
+
+    // Then free the context header itself
+    free(context);
+}
+```

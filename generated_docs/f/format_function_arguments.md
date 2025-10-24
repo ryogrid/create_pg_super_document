@@ -41,3 +41,25 @@ The function returns a dynamically allocated string that the caller is responsib
 - The function name is properly quoted using fmtId for SQL safety
 - Designed to work with pg_get_function_arguments output for consistent formatting
 - Used primarily in function and aggregate dumping contexts
+
+## Simplified Source
+
+```c
+static char *
+format_function_arguments(const FuncInfo *finfo, const char *funcargs, bool is_agg)
+{
+    PQExpBufferData fn;
+
+    // Build function name with argument list
+    initPQExpBuffer(&fn);
+    appendPQExpBufferStr(&fn, fmtId(finfo->dobj.name));
+
+    // Special case: zero-argument aggregates use (*) format
+    if (is_agg && finfo->nargs == 0)
+        appendPQExpBufferStr(&fn, "(*)");
+    else
+        appendPQExpBuffer(&fn, "(%s)", funcargs);
+
+    return fn.data;
+}
+```

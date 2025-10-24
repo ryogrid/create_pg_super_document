@@ -47,3 +47,41 @@ This approach ensures that IPv4 and IPv6 addresses are kept separate, networks w
 - The inverse relationship with common bits means addresses with more shared prefix bits are cheaper to group
 - This function directly impacts index build time and query performance for network operations
 - File location: src/backend/utils/adt/network_gist.c:620-662
+
+## Simplified Source
+
+```c
+Datum
+inet_gist_penalty(PG_FUNCTION_ARGS)
+{
+    GISTENTRY *origent = (GISTENTRY *) PG_GETARG_POINTER(0);
+    GISTENTRY *newent = (GISTENTRY *) PG_GETARG_POINTER(1);
+    float *penalty = (float *) PG_GETARG_POINTER(2);
+    GistInetKey *orig = DatumGetInetKeyP(origent->key);
+    GistInetKey *new = DatumGetInetKeyP(newent->key);
+    int commonbits;
+
+    // Check if IP families match (IPv4 vs IPv6)
+    if (gk_ip_family(orig) == gk_ip_family(new))
+    {
+        // Check if adding new entry degrades minimum network bits
+        if (gk_ip_minbits(orig) <= gk_ip_minbits(new))
+        {
+            // Calculate common address bits for clustering penalty
+            commonbits = bitncommon(gk_ip_addr(orig), gk_ip_addr(new),
+                                    Min(gk_ip_commonbits(orig),
+                                        gk_ip_commonbits(new)));
+            if (commonbits > 0)
+                *penalty = 1.0f / commonbits;  // Lower penalty for more common bits
+            else
+                *penalty = 2;  // No common bits
+        }
+        else
+            *penalty = 3;  // Network mask degradation
+    }
+    else
+        *penalty = 4;  // Address family mismatch - highest penalty
+
+    PG_RETURN_POINTER(penalty);
+}
+```

@@ -32,3 +32,19 @@ This function compares two inet addresses to determine if they belong to the sam
 - Returns true if both addresses are from the same family (IPv4 or IPv6), false otherwise
 - Essential for network operations that require address family compatibility
 - Located in src/backend/utils/adt/network.c:1464-1475
+
+## Simplified Source
+
+```c
+/*
+ * Returns true if the addresses are from the same family, or false. Used to
+ * check that we can create a network which contains both of the networks.
+ */
+Datum inet_same_family(PG_FUNCTION_ARGS) {
+    inet *a1 = PG_GETARG_INET_PP(0);  // First inet address
+    inet *a2 = PG_GETARG_INET_PP(1);  // Second inet address
+
+    // Compare address families (IPv4 or IPv6)
+    PG_RETURN_BOOL(ip_family(a1) == ip_family(a2));
+}
+```

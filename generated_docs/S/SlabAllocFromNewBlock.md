@@ -46,3 +46,61 @@ SlabAllocFromNewBlock is called when the slab allocator needs to obtain memory f
 - Includes assertions to verify block state consistency, particularly for reused empty blocks
 - Updates the context's mem_allocated counter when allocating new blocks
 - Located in src/backend/utils/mmgr/slab.c:539-604
+
+## Simplified Source
+
+```c
+pg_noinline
+static void *
+SlabAllocFromNewBlock(MemoryContext context, Size size, int flags)
+{
+    SlabContext *slab = (SlabContext *) context;
+    SlabBlock *block;
+    MemoryChunk *chunk;
+    dlist_head *blocklist;
+    int blocklist_idx;
+
+    // First try to reuse an empty block if available
+    if (dclist_count(&slab->emptyblocks) > 0)
+    {
+        dlist_node *node = dclist_pop_head_node(&slab->emptyblocks);
+        block = dlist_container(SlabBlock, node, node);
+
+        // Verify the empty block is in expected state
+        Assert(block->nfree == slab->chunksPerBlock);
+
+        // Get the next free chunk from this reused block
+        chunk = SlabGetNextFreeChunk(slab, block);
+    }
+    else
+    {
+        // Allocate a completely new block
+        block = (SlabBlock *) malloc(slab->blockSize);
+
+        if (unlikely(block == NULL))
+            return MemoryContextAllocationFailure(context, size, flags);
+
+        // Initialize new block
+        block->slab = slab;
+        context->mem_allocated += slab->blockSize;
+
+        // Use first chunk and set up block tracking
+        chunk = SlabBlockGetChunk(slab, block, 0);
+        block->nfree = slab->chunksPerBlock - 1;
+        block->unused = SlabBlockGetChunk(slab, block, 1);
+        block->freehead = NULL;
+        block->nunused = slab->chunksPerBlock - 1;
+    }
+
+    // Place block in appropriate blocklist and update current index
+    blocklist_idx = SlabBlocklistIndex(slab, block->nfree);
+    blocklist = &slab->blocklist[blocklist_idx];
+
+    Assert(dlist_is_empty(blocklist));
+
+    dlist_push_head(blocklist, &block->node);
+    slab->curBlocklistIndex = blocklist_idx;
+
+    return SlabAllocSetupNewChunk(context, block, chunk, size);
+}
+```

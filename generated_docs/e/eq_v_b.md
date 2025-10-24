@@ -40,3 +40,12 @@ The function checks if the pattern matches the text immediately before the curre
 - Used in suffix removal and cleanup operations in various language stemmers
 - The underlying  function performs the actual backward matching and cursor movement
 - Part of the backward-matching family of functions in Snowball utilities
+
+## Simplified Source
+
+```c
+extern int eq_v_b(struct SN_env * z, const symbol * p) {
+    // Get length from variable-length symbol array and call eq_s_b
+    return eq_s_b(z, SIZE(p), p);
+}
+```

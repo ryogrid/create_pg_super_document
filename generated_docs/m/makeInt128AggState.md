@@ -33,3 +33,31 @@ This function prepares state data for 128-bit aggregate functions by allocating 
 - There's a related function  that allocates in the current context instead
 - The function is aliased as  through a macro definition
 - Proper error handling ensures the function can only be called in aggregate contexts
+
+## Simplified Source
+
+```c
+static Int128AggState *
+makeInt128AggState(FunctionCallInfo fcinfo, bool calcSumX2)
+{
+    Int128AggState *state;
+    MemoryContext agg_context;
+    MemoryContext old_context;
+
+    // Validate we're in an aggregate context
+    if (!AggCheckCallContext(fcinfo, &agg_context))
+        elog(ERROR, "aggregate function called in non-aggregate context");
+
+    // Switch to aggregate memory context for allocation
+    old_context = MemoryContextSwitchTo(agg_context);
+
+    // Allocate and initialize the state structure
+    state = (Int128AggState *) palloc0(sizeof(Int128AggState));
+    state->calcSumX2 = calcSumX2;
+
+    // Restore previous memory context
+    MemoryContextSwitchTo(old_context);
+
+    return state;
+}
+```

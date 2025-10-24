@@ -37,3 +37,16 @@ This restriction ensures that pg_dependencies values can only be created through
 - Registered in PostgreSQL's type system but blocks actual usage
 - Essential for maintaining data integrity of functional dependency statistics
 - The error helps identify incorrect attempts to input dependency data manually
+
+## Simplified Source
+
+```c
+Datum pg_dependencies_recv(PG_FUNCTION_ARGS) {
+    // Reject binary input for pg_dependencies type
+    ereport(ERROR,
+            (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+             errmsg("cannot accept a value of type %s", "pg_dependencies")));
+
+    PG_RETURN_VOID();  // Never reached
+}
+```

@@ -35,3 +35,31 @@ The function performs a linear search through all auxiliary process slots, compa
 - Used primarily for system monitoring and debugging functions
 - The search is performed without locking, assuming the auxiliary process array is relatively stable
 - Located in src/backend/storage/lmgr/proc.c:1023-1070
+
+## Simplified Source
+
+```c
+PGPROC *AuxiliaryPidGetProc(int pid)
+{
+    // Don't match dummy PGPROCs (PID 0)
+    if (pid == 0)
+        return NULL;
+
+    // Search through all auxiliary process slots
+    for (int index = 0; index < NUM_AUXILIARY_PROCS; index++) {
+        PGPROC *proc = &AuxiliaryProcs[index];
+
+        if (proc->pid == pid) {
+            return proc;  // Found matching process
+        }
+    }
+
+    return NULL;  // Not found
+}
+```
+
+**Key Points:**
+- Searches auxiliary processes array for a matching process ID
+- Returns the PGPROC structure if found, NULL otherwise
+- Handles special case of PID 0 (dummy processes) by returning NULL immediately
+- Used for system monitoring and debugging auxiliary processes like WAL writers, checkpointer, etc.

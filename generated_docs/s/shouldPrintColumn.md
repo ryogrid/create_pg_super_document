@@ -39,3 +39,22 @@ This centralized decision function ensures consistency across various parts of p
 - In binary upgrade mode, all columns are printed regardless of other conditions to preserve physical column ordering
 - The logic carefully balances correctness of pg_attribute flags with the needs of different dump scenarios
 - Column numbering is zero-based, consistent with PostgreSQL's internal column numbering
+
+## Simplified Source
+
+```c
+bool
+shouldPrintColumn(const DumpOptions *dopt, const TableInfo *tbinfo, int colno)
+{
+    // In binary upgrade mode, print all columns to preserve physical order
+    if (dopt->binary_upgrade)
+        return true;
+
+    // Don't print dropped columns
+    if (tbinfo->attisdropped[colno])
+        return false;
+
+    // Print column if it's locally defined or table is a partition
+    return (tbinfo->attislocal[colno] || tbinfo->ispartition);
+}
+```

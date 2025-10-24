@@ -30,3 +30,13 @@ This function determines if a reloptions (relation options) string contains actu
 - Simple length-based check: returns false for NULL or strings with 2 or fewer characters
 - Used throughout pg_dump to determine whether WITH options clauses should be included in output
 - Critical for generating clean SQL output that omits unnecessary empty option specifications
+
+## Simplified Source
+
+```c
+static bool nonemptyReloptions(const char *reloptions)
+{
+    // Return true if reloptions has content beyond empty "{}" array
+    return (reloptions != NULL && strlen(reloptions) > 2);
+}
+```

@@ -36,3 +36,63 @@ The function constructs a SQL query to select all relevant fields from pg_ts_tem
 - Memory is allocated for the entire array of templates at once using pg_malloc
 - The TSTemplateInfo structure contains both dump object metadata and template-specific function references
 - Templates serve as the foundation for creating custom text search dictionaries with specific linguistic processing capabilities
+
+## Simplified Source
+
+```c
+TSTemplateInfo *
+getTSTemplates(Archive *fout, int *numTSTemplates)
+{
+    PGresult *res;
+    int ntups, i;
+    PQExpBuffer query;
+    TSTemplateInfo *tmplinfo;
+
+    query = createPQExpBuffer();
+
+    // Query all text search templates from system catalog
+    appendPQExpBufferStr(query, "SELECT tableoid, oid, tmplname, "
+                                "tmplnamespace, tmplinit::oid, tmpllexize::oid "
+                                "FROM pg_ts_template");
+
+    res = ExecuteSqlQuery(fout, query->data, PGRES_TUPLES_OK);
+    ntups = PQntuples(res);
+    *numTSTemplates = ntups;
+
+    // Allocate array for template info
+    tmplinfo = (TSTemplateInfo *) pg_malloc(ntups * sizeof(TSTemplateInfo));
+
+    // Get column indices
+    int i_tableoid = PQfnumber(res, "tableoid");
+    int i_oid = PQfnumber(res, "oid");
+    int i_tmplname = PQfnumber(res, "tmplname");
+    int i_tmplnamespace = PQfnumber(res, "tmplnamespace");
+    int i_tmplinit = PQfnumber(res, "tmplinit");
+    int i_tmpllexize = PQfnumber(res, "tmpllexize");
+
+    // Process each template
+    for (i = 0; i < ntups; i++) {
+        // Set object type and catalog info
+        tmplinfo[i].dobj.objType = DO_TSTEMPLATE;
+        tmplinfo[i].dobj.catId.tableoid = atooid(PQgetvalue(res, i, i_tableoid));
+        tmplinfo[i].dobj.catId.oid = atooid(PQgetvalue(res, i, i_oid));
+        AssignDumpId(&tmplinfo[i].dobj);
+
+        // Set template name and namespace
+        tmplinfo[i].dobj.name = pg_strdup(PQgetvalue(res, i, i_tmplname));
+        tmplinfo[i].dobj.namespace = findNamespace(atooid(PQgetvalue(res, i, i_tmplnamespace)));
+
+        // Store template function OIDs
+        tmplinfo[i].tmplinit = atooid(PQgetvalue(res, i, i_tmplinit));
+        tmplinfo[i].tmpllexize = atooid(PQgetvalue(res, i, i_tmpllexize));
+
+        // Determine if template should be dumped
+        selectDumpableObject(&(tmplinfo[i].dobj), fout);
+    }
+
+    // Cleanup and return
+    PQclear(res);
+    destroyPQExpBuffer(query);
+    return tmplinfo;
+}
+```

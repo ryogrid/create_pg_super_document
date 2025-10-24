@@ -40,3 +40,23 @@ The function constructs an ObjectAccessPostCreate structure with the provided pa
 - The ObjectAccessPostCreate structure is zero-initialized before setting the is_internal flag
 - This is part of PostgreSQL's extensibility framework, allowing external modules to integrate with core database operations
 - The hook system is designed to be lightweight when no extensions are loaded, with minimal overhead for core operations
+
+## Simplified Source
+
+```c
+void
+RunObjectPostCreateHook(Oid classId, Oid objectId, int subId, bool is_internal)
+{
+    ObjectAccessPostCreate pc_arg;
+
+    // Ensure hook is registered (caller should check this)
+    Assert(object_access_hook != NULL);
+
+    // Initialize hook argument structure
+    memset(&pc_arg, 0, sizeof(ObjectAccessPostCreate));
+    pc_arg.is_internal = is_internal;
+
+    // Call the registered object access hook for post-create event
+    (*object_access_hook)(OAT_POST_CREATE, classId, objectId, subId, (void *) &pc_arg);
+}
+```

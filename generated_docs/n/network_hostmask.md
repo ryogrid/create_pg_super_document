@@ -40,3 +40,40 @@ This function creates the hostmask corresponding to a given inet or cidr network
 - Useful for network analysis and understanding address space allocation within subnets
 - Complements the functionality provided by network_netmask function
 - Located in src/backend/utils/adt/network.c:1416-1463
+
+## Simplified Source
+
+```c
+Datum network_hostmask(PG_FUNCTION_ARGS) {
+    inet *ip = PG_GETARG_INET_PP(0);  // Input network address
+    inet *dst = (inet *) palloc0(sizeof(inet));  // Result hostmask
+
+    int maxbytes = ip_addrsize(ip);   // Address size in bytes
+    int bits = ip_maxbits(ip) - ip_bits(ip);  // Number of host bits
+    unsigned char *b = ip_addr(dst);  // Destination address bytes
+    int byte = maxbytes - 1;          // Start from least significant byte
+
+    // Build hostmask by setting host bits to 1 (working backwards)
+    while (bits > 0) {
+        unsigned char mask;
+
+        if (bits >= 8) {
+            mask = 0xff;        // Set all 8 bits in this byte
+            bits -= 8;
+        } else {
+            mask = 0xff >> (8 - bits);  // Set only remaining host bits
+            bits = 0;
+        }
+
+        b[byte] = mask;  // Set the mask byte
+        byte--;
+    }
+
+    // Set metadata for hostmask result
+    ip_family(dst) = ip_family(ip);
+    ip_bits(dst) = ip_maxbits(ip);  // Full address length (32 or 128)
+    SET_INET_VARSIZE(dst);
+
+    PG_RETURN_INET_P(dst);
+}
+```

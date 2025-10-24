@@ -35,3 +35,23 @@ The function examines the inner tuple slot in the merge join state and prints ei
 - Used primarily during PostgreSQL development and debugging rather than in production environments
 - The function assumes the mergestate parameter is valid and contains a properly initialized inner tuple slot
 - Provides crucial visibility into inner relation tuple processing during complex merge join operations
+
+## Simplified Source
+
+```c
+static void
+ExecMergeTupleDumpInner(MergeJoinState *mergestate)
+{
+    // Get the inner tuple slot from merge join state
+    TupleTableSlot *innerSlot = mergestate->mj_InnerTupleSlot;
+
+    // Print debug header for inner tuple
+    printf("==== inner tuple ====\n");
+
+    // Print tuple contents or "(nil)" if empty
+    if (TupIsNull(innerSlot))
+        printf("(nil)\n");
+    else
+        MJ_debugtup(innerSlot);
+}
+```

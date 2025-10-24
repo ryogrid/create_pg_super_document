@@ -30,3 +30,16 @@ This function constructs a SQL query that retrieves security labels (provider an
 - Part of PostgreSQLs security label infrastructure for mandatory access control systems
 - The constructed query uses regclass casting for type safety when referencing catalog names
 - Essential for preserving security labels during database dump and restore operations
+
+## Simplified Source
+
+```c
+void buildShSecLabelQuery(const char *catalog_name, Oid objectId, PQExpBuffer sql)
+{
+    // Build query to retrieve security labels for shared objects
+    appendPQExpBuffer(sql,
+                      "SELECT provider, label FROM pg_catalog.pg_shseclabel "
+                      "WHERE classoid = 'pg_catalog.%s'::pg_catalog.regclass "
+                      "AND objoid = '%u'", catalog_name, objectId);
+}
+```

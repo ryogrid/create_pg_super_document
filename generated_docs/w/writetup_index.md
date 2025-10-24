@@ -44,3 +44,23 @@ The function is essential for external sorting when memory is insufficient to ho
 - The serialization format must be compatible with the corresponding readtup_index function
 - [LogicalTape](../L/LogicalTape.md) provides an abstraction over temporary file I/O with buffering and compression support
 - [IndexTuple](../I/IndexTuple.md) is a specialized tuple format used for index entries, distinct from heap tuples
+
+## Simplified Source
+
+```c
+static void
+writetup_index(Tuplesortstate *state, LogicalTape *tape, SortTuple *stup)
+{
+    TuplesortPublic *base = TuplesortstateGetPublic(state);
+    IndexTuple tuple = (IndexTuple) stup->tuple;
+
+    // Write tuple with length prefix
+    unsigned int tuplen = IndexTupleSize(tuple) + sizeof(tuplen);
+    LogicalTapeWrite(tape, &tuplen, sizeof(tuplen));
+    LogicalTapeWrite(tape, tuple, IndexTupleSize(tuple));
+
+    // Write trailing length for random access support
+    if (base->sortopt & TUPLESORT_RANDOMACCESS)
+        LogicalTapeWrite(tape, &tuplen, sizeof(tuplen));
+}
+```

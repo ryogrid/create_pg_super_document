@@ -29,3 +29,22 @@ The  function searches through a linked list of lexeme variants to determine if 
 - Traverses the  linked list to check all available variants
 - This is a static function, only used internally within the thesaurus dictionary module
 - Used as part of the thesaurus matching algorithm to find appropriate lexeme variants for substitution
+
+## Simplified Source
+
+```c
+static bool matchIdSubst(LexemeInfo *stored, uint32 idsubst) {
+    // If no stored lexeme info, consider it a match
+    if (!stored)
+        return true;
+
+    // Search through variant chain for matching substitution ID
+    for (LexemeInfo *current = stored; current; current = current->nextvariant) {
+        if (current->idsubst == idsubst)
+            return true;
+    }
+
+    // No matching substitution ID found
+    return false;
+}
+```

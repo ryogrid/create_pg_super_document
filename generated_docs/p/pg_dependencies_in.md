@@ -36,3 +36,16 @@ When called, the function immediately raises an error with ERRCODE_FEATURE_NOT_S
 - Follows PostgreSQL convention for internal-only data types
 - The error message specifically mentions the type name to aid debugging
 - Returns void to satisfy compiler requirements despite throwing an error
+
+## Simplified Source
+
+```c
+Datum pg_dependencies_in(PG_FUNCTION_ARGS) {
+    // Reject text input for pg_dependencies type
+    ereport(ERROR,
+            (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+             errmsg("cannot accept a value of type %s", "pg_dependencies")));
+
+    PG_RETURN_VOID();  // Never reached
+}
+```

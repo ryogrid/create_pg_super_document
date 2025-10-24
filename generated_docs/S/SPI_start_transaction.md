@@ -36,3 +36,14 @@ This design reflects PostgreSQL's evolution toward better transaction management
 - **Safe to Call**: While deprecated, calling this function is safe as it does nothing
 - **Legacy Code**: Existing code using this function will continue to work but should be updated to remove the call
 - Located in src/backend/executor/spi.c:222-226
+
+## Simplified Source
+
+```c
+void
+SPI_start_transaction(void)
+{
+    // No-op function for backwards compatibility
+    // SPI callers are always inside a transaction
+}
+```

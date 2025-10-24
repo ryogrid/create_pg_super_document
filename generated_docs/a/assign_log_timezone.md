@@ -31,3 +31,14 @@ This function is part of the GUC (Grand Unified Configuration) system's hook mec
 - The actual timezone object is passed via the extra parameter, not derived from newval
 - The function directly assigns to the global log_timezone variable
 - Part of the standard GUC assign hook pattern in PostgreSQL
+
+## Simplified Source
+
+```c
+void
+assign_log_timezone(const char *newval, void *extra)
+{
+    // Assign the pre-validated timezone to global log_timezone variable
+    log_timezone = *((pg_tz **) extra);
+}
+```

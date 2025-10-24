@@ -49,3 +49,64 @@ SlabAlloc is the primary allocation function for PostgreSQL's slab memory alloca
 - Returns NULL instead of raising ERROR when MCXT_ALLOC_NO_OOM flag is set
 - Part of PostgreSQL's specialized memory context system for high-frequency, same-size allocations
 - Located in src/backend/utils/mmgr/slab.c:630-700
+
+## Simplified Source
+
+```c
+void *
+SlabAlloc(MemoryContext context, Size size, int flags)
+{
+    SlabContext *slab = (SlabContext *) context;
+    SlabBlock *block;
+    MemoryChunk *chunk;
+
+    Assert(SlabIsValid(slab));
+
+    // Validate blocklist index
+    Assert(slab->curBlocklistIndex >= 0);
+    Assert(slab->curBlocklistIndex <= SlabBlocklistIndex(slab, slab->chunksPerBlock));
+
+    // Ensure requested size matches fixed chunk size
+    if (unlikely(size != slab->chunkSize))
+        SlabAllocInvalidSize(context, size);
+
+    // Handle case when no partially filled blocks are available
+    if (unlikely(slab->curBlocklistIndex == 0))
+    {
+        return SlabAllocFromNewBlock(context, size, flags);
+    }
+    else
+    {
+        dlist_head *blocklist = &slab->blocklist[slab->curBlocklistIndex];
+        int new_blocklist_idx;
+
+        Assert(!dlist_is_empty(blocklist));
+
+        // Get block from current blocklist
+        block = dlist_head_element(SlabBlock, node, blocklist);
+
+        Assert(block != NULL);
+        Assert(slab->curBlocklistIndex == SlabBlocklistIndex(slab, block->nfree));
+        Assert(block->nfree > 0);
+
+        // Get next free chunk from this block
+        chunk = SlabGetNextFreeChunk(slab, block);
+
+        // Calculate new blocklist index based on updated free chunk count
+        new_blocklist_idx = SlabBlocklistIndex(slab, block->nfree);
+
+        // Move block to new list if its free count category changed
+        if (unlikely(slab->curBlocklistIndex != new_blocklist_idx))
+        {
+            dlist_delete_from(blocklist, &block->node);
+            dlist_push_head(&slab->blocklist[new_blocklist_idx], &block->node);
+
+            // Update current index if current blocklist became empty
+            if (dlist_is_empty(blocklist))
+                slab->curBlocklistIndex = SlabFindNextBlockListIndex(slab);
+        }
+    }
+
+    return SlabAllocSetupNewChunk(context, block, chunk, size);
+}
+```

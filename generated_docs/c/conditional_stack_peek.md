@@ -36,3 +36,16 @@ This function provides a safe way to examine the current conditional state at th
 - This is a non-destructive operation that does not modify the stack
 - Widely used across PostgreSQL frontend tools (pgbench, psql) for conditional command processing
 - The function assumes the stack structure is properly maintained with valid head pointers when not empty
+
+## Simplified Source
+
+```c
+ifState conditional_stack_peek(ConditionalStack cstack) {
+    // Return safe default if stack is empty
+    if (conditional_stack_empty(cstack))
+        return IFSTATE_NONE;
+
+    // Return the state of the top element
+    return cstack->head->if_state;
+}
+```

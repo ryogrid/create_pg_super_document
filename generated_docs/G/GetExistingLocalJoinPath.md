@@ -41,3 +41,80 @@ The primary use case is for EPQ checks, where PostgreSQL needs a local execution
 - The function relies on the pathlist being sorted by total cost, naturally selecting more efficient paths
 - Handles three specific join types: T_HashJoin, T_NestLoop, and T_MergeJoin
 - Automatically replaces foreign subpaths with their local equivalents to maintain purely local execution strategies
+
+## Simplified Source
+
+```c
+Path *GetExistingLocalJoinPath(RelOptInfo *joinrel)
+{
+    ListCell *lc;
+
+    Assert(IS_JOIN_REL(joinrel));
+
+    // Search through all paths in the join relation
+    foreach(lc, joinrel->pathlist)
+    {
+        Path *path = (Path *) lfirst(lc);
+        JoinPath *joinpath = NULL;
+
+        // Skip parameterized paths - only handle unparameterized joins
+        if (path->param_info != NULL)
+            continue;
+
+        // Create shallow copy based on join type
+        switch (path->pathtype)
+        {
+            case T_HashJoin:
+                {
+                    HashPath *hash_path = makeNode(HashPath);
+                    memcpy(hash_path, path, sizeof(HashPath));
+                    joinpath = (JoinPath *) hash_path;
+                }
+                break;
+
+            case T_NestLoop:
+                {
+                    NestPath *nest_path = makeNode(NestPath);
+                    memcpy(nest_path, path, sizeof(NestPath));
+                    joinpath = (JoinPath *) nest_path;
+                }
+                break;
+
+            case T_MergeJoin:
+                {
+                    MergePath *merge_path = makeNode(MergePath);
+                    memcpy(merge_path, path, sizeof(MergePath));
+                    joinpath = (JoinPath *) merge_path;
+                }
+                break;
+
+            default:
+                // Skip unsupported path types
+                break;
+        }
+
+        if (!joinpath)
+            continue;
+
+        // Replace foreign subpaths with local equivalents for EPQ compatibility
+        if (IsA(joinpath->outerjoinpath, ForeignPath))
+        {
+            ForeignPath *foreign_path = (ForeignPath *) joinpath->outerjoinpath;
+            if (IS_JOIN_REL(foreign_path->path.parent))
+                joinpath->outerjoinpath = foreign_path->fdw_outerpath;
+        }
+
+        if (IsA(joinpath->innerjoinpath, ForeignPath))
+        {
+            ForeignPath *foreign_path = (ForeignPath *) joinpath->innerjoinpath;
+            if (IS_JOIN_REL(foreign_path->path.parent))
+                joinpath->innerjoinpath = foreign_path->fdw_outerpath;
+        }
+
+        return (Path *) joinpath;
+    }
+
+    // No suitable local join path found
+    return NULL;
+}
+```

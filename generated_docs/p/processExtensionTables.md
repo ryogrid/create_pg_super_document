@@ -53,3 +53,138 @@ The function handles extension include/exclude lists, table-specific include/exc
 - FK dependency management ensures data can be restored without constraint violations
 - Supports complex filtering via extension include/exclude lists and table/schema-specific exclusions
 - Extension condition strings can be used to filter specific rows from configuration tables during dump
+
+## Simplified Source
+
+```c
+void
+processExtensionTables(Archive *fout, ExtensionInfo extinfo[], int numExtensions)
+{
+    DumpOptions *dopt = fout->dopt;
+    PQExpBuffer query;
+    PGresult *res;
+    int ntups, i;
+    int i_conrelid, i_confrelid;
+
+    // Early return if no extensions
+    if (numExtensions == 0)
+        return;
+
+    // Phase 1: Create TableDataInfo objects for extension configuration tables
+    for (i = 0; i < numExtensions; i++) {
+        ExtensionInfo *curext = &(extinfo[i]);
+        char *extconfig = curext->extconfig;
+        char *extcondition = curext->extcondition;
+        char **extconfigarray = NULL;
+        char **extconditionarray = NULL;
+        int nconfigitems = 0;
+        int nconditionitems = 0;
+
+        // Check extension include/exclude lists
+        if (extension_include_oids.head != NULL &&
+            !simple_oid_list_member(&extension_include_oids, curext->dobj.catId.oid))
+            continue;
+
+        if (extension_exclude_oids.head != NULL &&
+            simple_oid_list_member(&extension_exclude_oids, curext->dobj.catId.oid))
+            continue;
+
+        // Process configuration tables if present
+        if (strlen(extconfig) != 0 || strlen(extcondition) != 0) {
+            int j;
+
+            // Parse configuration and condition arrays
+            if (!parsePGArray(extconfig, &extconfigarray, &nconfigitems))
+                pg_fatal("could not parse %s array", "extconfig");
+            if (!parsePGArray(extcondition, &extconditionarray, &nconditionitems))
+                pg_fatal("could not parse %s array", "extcondition");
+            if (nconfigitems != nconditionitems)
+                pg_fatal("mismatched number of configurations and conditions for extension");
+
+            // Process each configuration table
+            for (j = 0; j < nconfigitems; j++) {
+                TableInfo *configtbl;
+                Oid configtbloid = atooid(extconfigarray[j]);
+                bool dumpobj = curext->dobj.dump & DUMP_COMPONENT_DEFINITION;
+
+                configtbl = findTableByOid(configtbloid);
+                if (configtbl == NULL)
+                    continue;
+
+                // Apply various include/exclude filters
+                if (!(curext->dobj.dump & DUMP_COMPONENT_DEFINITION)) {
+                    // Check table explicitly requested
+                    if (table_include_oids.head != NULL &&
+                        simple_oid_list_member(&table_include_oids, configtbloid))
+                        dumpobj = true;
+
+                    // Check table's schema explicitly requested
+                    if (configtbl->dobj.namespace->dobj.dump & DUMP_COMPONENT_DATA)
+                        dumpobj = true;
+                }
+
+                // Check exclusions
+                if (table_exclude_oids.head != NULL &&
+                    simple_oid_list_member(&table_exclude_oids, configtbloid))
+                    dumpobj = false;
+
+                if (simple_oid_list_member(&schema_exclude_oids,
+                                          configtbl->dobj.namespace->dobj.catId.oid))
+                    dumpobj = false;
+
+                // Create TableDataInfo if approved for dumping
+                if (dumpobj) {
+                    makeTableDataInfo(dopt, configtbl);
+                    if (configtbl->dataObj != NULL) {
+                        if (strlen(extconditionarray[j]) > 0)
+                            configtbl->dataObj->filtercond = pg_strdup(extconditionarray[j]);
+                    }
+                }
+            }
+        }
+
+        if (extconfigarray)
+            free(extconfigarray);
+        if (extconditionarray)
+            free(extconditionarray);
+    }
+
+    // Phase 2: Register FK dependencies between configuration tables
+    query = createPQExpBuffer();
+
+    printfPQExpBuffer(query,
+                     "SELECT conrelid, confrelid "
+                     "FROM pg_constraint "
+                     "JOIN pg_depend ON (objid = confrelid) "
+                     "WHERE contype = 'f' "
+                     "AND refclassid = 'pg_extension'::regclass "
+                     "AND classid = 'pg_class'::regclass;");
+
+    res = ExecuteSqlQuery(fout, query->data, PGRES_TUPLES_OK);
+    ntups = PQntuples(res);
+
+    i_conrelid = PQfnumber(res, "conrelid");
+    i_confrelid = PQfnumber(res, "confrelid");
+
+    // Register FK dependencies
+    for (i = 0; i < ntups; i++) {
+        Oid conrelid, confrelid;
+        TableInfo *reftable, *contable;
+
+        conrelid = atooid(PQgetvalue(res, i, i_conrelid));
+        confrelid = atooid(PQgetvalue(res, i, i_confrelid));
+        contable = findTableByOid(conrelid);
+        reftable = findTableByOid(confrelid);
+
+        if (reftable == NULL || reftable->dataObj == NULL ||
+            contable == NULL || contable->dataObj == NULL)
+            continue;
+
+        // Make referencing table depend on referenced table's data
+        addObjectDependency(&contable->dataObj->dobj, reftable->dataObj->dobj.dumpId);
+    }
+
+    PQclear(res);
+    destroyPQExpBuffer(query);
+}
+```

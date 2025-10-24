@@ -48,3 +48,97 @@ The function operates as part of pg_dump's comprehensive database export process
 - The function automatically handles dumping of associated objects (comments, ACLs, user mappings) based on the dump component flags
 - Binary upgrade scenarios receive special handling to maintain system catalog consistency
 - Memory management is properly handled with PQExpBuffer creation and destruction
+
+## Simplified Source
+
+```c
+static void
+dumpForeignServer(Archive *fout, const ForeignServerInfo *srvinfo)
+{
+    DumpOptions *dopt = fout->dopt;
+    PQExpBuffer q, delq, query;
+    PGresult *res;
+    char *qsrvname;
+    char *fdwname;
+
+    // Skip if data-only dump
+    if (dopt->dataOnly)
+        return;
+
+    // Initialize buffers and format server name
+    q = createPQExpBuffer();
+    delq = createPQExpBuffer();
+    query = createPQExpBuffer();
+    qsrvname = pg_strdup(fmtId(srvinfo->dobj.name));
+
+    // Look up the foreign-data wrapper name
+    appendPQExpBuffer(query, "SELECT fdwname "
+                      "FROM pg_foreign_data_wrapper w "
+                      "WHERE w.oid = '%u'", srvinfo->srvfdw);
+    res = ExecuteSqlQueryForSingleRow(fout, query->data);
+    fdwname = PQgetvalue(res, 0, 0);
+
+    // Build CREATE SERVER statement
+    appendPQExpBuffer(q, "CREATE SERVER %s", qsrvname);
+
+    // Add optional TYPE clause
+    if (srvinfo->srvtype && strlen(srvinfo->srvtype) > 0) {
+        appendPQExpBufferStr(q, " TYPE ");
+        appendStringLiteralAH(q, srvinfo->srvtype, fout);
+    }
+
+    // Add optional VERSION clause
+    if (srvinfo->srvversion && strlen(srvinfo->srvversion) > 0) {
+        appendPQExpBufferStr(q, " VERSION ");
+        appendStringLiteralAH(q, srvinfo->srvversion, fout);
+    }
+
+    // Add foreign data wrapper reference
+    appendPQExpBufferStr(q, " FOREIGN DATA WRAPPER ");
+    appendPQExpBufferStr(q, fmtId(fdwname));
+
+    // Add server options if present
+    if (srvinfo->srvoptions && strlen(srvinfo->srvoptions) > 0)
+        appendPQExpBuffer(q, " OPTIONS (\n    %s\n)", srvinfo->srvoptions);
+
+    appendPQExpBufferStr(q, ";\n");
+
+    // Generate DROP statement
+    appendPQExpBuffer(delq, "DROP SERVER %s;\n", qsrvname);
+
+    // Handle binary upgrade
+    if (dopt->binary_upgrade)
+        binary_upgrade_extension_member(q, &srvinfo->dobj,
+                                        "SERVER", qsrvname, NULL);
+
+    // Create archive entry
+    if (srvinfo->dobj.dump & DUMP_COMPONENT_DEFINITION)
+        ArchiveEntry(fout, srvinfo->dobj.catId, srvinfo->dobj.dumpId,
+                     ARCHIVE_OPTS(.tag = srvinfo->dobj.name,
+                                  .owner = srvinfo->rolname,
+                                  .description = "SERVER",
+                                  .createStmt = q->data,
+                                  .dropStmt = delq->data));
+
+    // Dump associated objects
+    if (srvinfo->dobj.dump & DUMP_COMPONENT_COMMENT)
+        dumpComment(fout, "SERVER", qsrvname, NULL, srvinfo->rolname,
+                    srvinfo->dobj.catId, 0, srvinfo->dobj.dumpId);
+
+    if (srvinfo->dobj.dump & DUMP_COMPONENT_ACL)
+        dumpACL(fout, srvinfo->dobj.dumpId, InvalidDumpId,
+                "FOREIGN SERVER", qsrvname, NULL, NULL,
+                NULL, srvinfo->rolname, &srvinfo->dacl);
+
+    if (srvinfo->dobj.dump & DUMP_COMPONENT_USERMAP)
+        dumpUserMappings(fout, srvinfo->dobj.name, NULL,
+                         srvinfo->rolname, srvinfo->dobj.catId, srvinfo->dobj.dumpId);
+
+    // Cleanup
+    PQclear(res);
+    free(qsrvname);
+    destroyPQExpBuffer(q);
+    destroyPQExpBuffer(delq);
+    destroyPQExpBuffer(query);
+}
+```

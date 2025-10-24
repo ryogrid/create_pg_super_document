@@ -43,3 +43,31 @@ The function includes important safeguards and design considerations:
 - The 8KB minimum for ErrorContext ensures error reporting works even under severe memory pressure
 - TopMemoryContext serves as the ultimate parent for PostgreSQL's memory context hierarchy
 - CurrentMemoryContext assignment is temporary - callers should update it appropriately for their needs
+
+## Simplified Source
+
+```c
+void
+MemoryContextInit(void)
+{
+    Assert(TopMemoryContext == NULL);
+
+    // Create the root memory context
+    TopMemoryContext = AllocSetContextCreate((MemoryContext) NULL,
+                                             "TopMemoryContext",
+                                             ALLOCSET_DEFAULT_SIZES);
+
+    // Set current context to top context (temporary)
+    CurrentMemoryContext = TopMemoryContext;
+
+    // Create error context with guaranteed 8KB minimum and slow growth
+    ErrorContext = AllocSetContextCreate(TopMemoryContext,
+                                        "ErrorContext",
+                                        8 * 1024,    // initBlockSize
+                                        8 * 1024,    // minContextSize
+                                        8 * 1024);   // maxBlockSize
+
+    // Allow ErrorContext to allocate during critical sections
+    MemoryContextAllowInCriticalSection(ErrorContext, true);
+}
+```

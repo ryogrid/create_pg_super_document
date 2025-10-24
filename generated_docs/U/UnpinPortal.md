@@ -38,3 +38,18 @@ Once unpinned, the portal becomes eligible for normal cleanup operations and can
 - Used in cursor cleanup operations in both PL/Perl and PL/Python
 - Critical for preventing portal resource leaks in procedural language contexts
 - Does not actually drop the portal - only removes the protection against dropping
+
+## Simplified Source
+
+```c
+void
+UnpinPortal(Portal portal)
+{
+    // Verify portal is currently pinned
+    if (!portal->portalPinned)
+        elog(ERROR, "portal not pinned");
+
+    // Remove pinned protection
+    portal->portalPinned = false;
+}
+```

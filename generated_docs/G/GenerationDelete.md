@@ -35,3 +35,16 @@ The implementation leverages GenerationReset to handle the complex logic of free
 - This function should only be called when the context is no longer needed
 - The pg_noinline attribute suggests this function should not be inlined for performance or debugging reasons
 - After calling this function, the context pointer becomes invalid and should not be used
+
+## Simplified Source
+
+```c
+void GenerationDelete(MemoryContext context)
+{
+    // Reset context to free all releasable blocks
+    GenerationReset(context);
+
+    // Free the context header and keeper block
+    free(context);
+}
+```

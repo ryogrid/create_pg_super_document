@@ -38,3 +38,62 @@ The function handles various edge cases including NULL states and ensures proper
 - Implements proper memory context switching to ensure aggregate state persists correctly
 - Returns the first state with combined values, or creates new state if first is NULL
 - Part of PostgreSQL's polymorphic numeric aggregation framework
+
+## Simplified Source
+
+```c
+Datum
+int8_avg_combine(PG_FUNCTION_ARGS)
+{
+    PolyNumAggState *state1;
+    PolyNumAggState *state2;
+    MemoryContext agg_context;
+    MemoryContext old_context;
+
+    // Validate aggregate context
+    if (!AggCheckCallContext(fcinfo, &agg_context))
+        elog(ERROR, "aggregate function called in non-aggregate context");
+
+    // Get the two input states
+    state1 = PG_ARGISNULL(0) ? NULL : (PolyNumAggState *) PG_GETARG_POINTER(0);
+    state2 = PG_ARGISNULL(1) ? NULL : (PolyNumAggState *) PG_GETARG_POINTER(1);
+
+    // If state2 is NULL, just return state1
+    if (state2 == NULL)
+        PG_RETURN_POINTER(state1);
+
+    // If state1 is NULL, create new state and copy data from state2
+    if (state1 == NULL)
+    {
+        old_context = MemoryContextSwitchTo(agg_context);
+
+        state1 = makePolyNumAggState(fcinfo, false);  // No sumX2 needed
+        state1->N = state2->N;
+
+#ifdef HAVE_INT128
+        state1->sumX = state2->sumX;
+#else
+        accum_sum_copy(&state1->sumX, &state2->sumX);
+#endif
+        MemoryContextSwitchTo(old_context);
+        PG_RETURN_POINTER(state1);
+    }
+
+    // Combine the two states
+    if (state2->N > 0)
+    {
+        state1->N += state2->N;
+
+#ifdef HAVE_INT128
+        state1->sumX += state2->sumX;
+#else
+        // Use numeric arithmetic for platforms without 128-bit support
+        old_context = MemoryContextSwitchTo(agg_context);
+        accum_sum_combine(&state1->sumX, &state2->sumX);
+        MemoryContextSwitchTo(old_context);
+#endif
+    }
+
+    PG_RETURN_POINTER(state1);
+}
+```

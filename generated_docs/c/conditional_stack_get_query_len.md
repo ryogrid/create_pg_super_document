@@ -30,3 +30,16 @@ This function fetches the last-recorded query buffer length from the topmost ent
 - Works as a getter function paired with conditional_stack_set_query_len
 - The returned length can be used to restore query buffer state after conditional block processing
 - Located in src/fe_utils/conditional.c:162-172
+
+## Simplified Source
+
+```c
+int conditional_stack_get_query_len(ConditionalStack cstack) {
+    // Return -1 if stack is empty
+    if (conditional_stack_empty(cstack))
+        return -1;
+
+    // Return stored query length from top element
+    return cstack->head->query_len;
+}
+```

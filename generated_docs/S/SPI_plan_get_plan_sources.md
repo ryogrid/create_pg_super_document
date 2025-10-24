@@ -34,3 +34,17 @@ The function performs minimal validation, only checking the plan's magic number 
 - Returns the raw plancache_list from the plan structure
 - Should be used only when the caller understands the plan cache lifecycle
 - Part of the internal SPI interface rather than the public API
+
+## Simplified Source
+
+```c
+List *SPI_plan_get_plan_sources(SPIPlanPtr plan)
+{
+    // Verify plan structure integrity
+    Assert(plan->magic == _SPI_PLAN_MAGIC);
+
+    // Return the list of cached plan sources directly
+    // CAUTION: No validation of plan source currency
+    return plan->plancache_list;
+}
+```

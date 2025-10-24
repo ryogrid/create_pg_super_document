@@ -41,3 +41,78 @@ The collected comments are stored in a global array  sorted by  for fast lookup 
 - Special handling for composite type column comments that need flag propagation to the parent type
 - Memory allocation is done upfront for the entire comments array based on query result count
 - Only comments for dumpable objects are retained in the final comments array
+
+## Simplified Source
+
+```c
+static void collectComments(Archive *fout) {
+    PGresult *res;
+    PQExpBuffer query;
+    int i_description, i_classoid, i_objoid, i_objsubid;
+    int ntups, i;
+    DumpableObject *dobj;
+
+    query = createPQExpBuffer();
+
+    // Query all comments ordered for binary search
+    appendPQExpBufferStr(query, "SELECT description, classoid, objoid, objsubid "
+                                "FROM pg_catalog.pg_description "
+                                "ORDER BY classoid, objoid, objsubid");
+
+    res = ExecuteSqlQuery(fout, query->data, PGRES_TUPLES_OK);
+
+    // Get column indices
+    i_description = PQfnumber(res, "description");
+    i_classoid = PQfnumber(res, "classoid");
+    i_objoid = PQfnumber(res, "objoid");
+    i_objsubid = PQfnumber(res, "objsubid");
+
+    ntups = PQntuples(res);
+
+    // Allocate global comments array
+    comments = (CommentItem *) pg_malloc(ntups * sizeof(CommentItem));
+    ncomments = 0;
+    dobj = NULL;
+
+    // Process each comment entry
+    for (i = 0; i < ntups; i++) {
+        CatalogId objId;
+        int subid;
+
+        objId.tableoid = atooid(PQgetvalue(res, i, i_classoid));
+        objId.oid = atooid(PQgetvalue(res, i, i_objoid));
+        subid = atoi(PQgetvalue(res, i, i_objsubid));
+
+        // Find the dumpable object for this comment
+        if (dobj == NULL ||
+            dobj->catId.tableoid != objId.tableoid ||
+            dobj->catId.oid != objId.oid)
+            dobj = findObjectByCatalogId(objId);
+
+        if (dobj == NULL)
+            continue; // Skip comments for non-dumpable objects
+
+        // Handle special case for composite type column comments
+        if (subid != 0 && dobj->objType == DO_TABLE &&
+            ((TableInfo *) dobj)->relkind == RELKIND_COMPOSITE_TYPE) {
+            TypeInfo *cTypeInfo;
+
+            cTypeInfo = findTypeByOid(((TableInfo *) dobj)->reltype);
+            if (cTypeInfo)
+                cTypeInfo->dobj.components |= DUMP_COMPONENT_COMMENT;
+        } else {
+            dobj->components |= DUMP_COMPONENT_COMMENT;
+        }
+
+        // Store comment in global array
+        comments[ncomments].descr = pg_strdup(PQgetvalue(res, i, i_description));
+        comments[ncomments].classoid = objId.tableoid;
+        comments[ncomments].objoid = objId.oid;
+        comments[ncomments].objsubid = subid;
+        ncomments++;
+    }
+
+    PQclear(res);
+    destroyPQExpBuffer(query);
+}
+```

@@ -44,3 +44,41 @@ The function expects pre-allocated arrays of correct size and uses a state struc
 - Essential component of QTNode to TSQuery conversion process
 - Part of PostgreSQL's text search query processing utilities
 - Located in src/backend/utils/adt/tsquery_util.c:323-362
+
+## Simplified Source
+
+```c
+static void fillQT(QTN2QTState *state, QTNode *in) {
+    // Prevent stack overflow on deep recursion
+    check_stack_depth();
+
+    if (in->valnode->type == QI_VAL) {
+        // Handle value nodes (leaf nodes with operands)
+        memcpy(state->curitem, in->valnode, sizeof(QueryOperand));
+
+        // Copy operand string and set up distance offset
+        memcpy(state->curoperand, in->word, in->valnode->qoperand.length);
+        state->curitem->qoperand.distance = state->curoperand - state->operand;
+        state->curoperand[in->valnode->qoperand.length] = '\0';
+
+        // Advance pointers for next item
+        state->curoperand += in->valnode->qoperand.length + 1;
+        state->curitem++;
+    } else {
+        // Handle operator nodes (internal nodes)
+        QueryItem *curitem = state->curitem;
+
+        memcpy(state->curitem, in->valnode, sizeof(QueryOperator));
+        state->curitem++;
+
+        // Process first child
+        fillQT(state, in->child[0]);
+
+        // Process second child for binary operators
+        if (in->nchild == 2) {
+            curitem->qoperator.left = state->curitem - curitem;
+            fillQT(state, in->child[1]);
+        }
+    }
+}
+```

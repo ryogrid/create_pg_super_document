@@ -36,3 +36,19 @@ The function first verifies that there are enough characters between the current
 - Returns 1 for successful match (with cursor moved), 0 for no match
 - Part of the backward-matching family of functions in the Snowball utilities
 - Used in suffix removal operations where patterns are matched from right to left
+
+## Simplified Source
+
+```c
+extern int eq_s_b(struct SN_env * z, int s_size, const symbol * s) {
+    // Check if enough characters exist before current position
+    if (z->c - z->lb < s_size) return 0;
+
+    // Compare string pattern backward from current position
+    if (memcmp(z->p + z->c - s_size, s, s_size * sizeof(symbol)) != 0) return 0;
+
+    // Match successful, move cursor backward
+    z->c -= s_size;
+    return 1;
+}
+```

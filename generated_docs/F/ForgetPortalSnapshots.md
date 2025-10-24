@@ -47,3 +47,43 @@ This function takes no parameters but uses local variables:
 - The validation check ensures snapshot stack consistency and prevents snapshot leaks
 - Active snapshots are popped in reverse order, but the portal scan cannot guarantee the correct order for direct snapshot management
 - This separation from PreCommit_Portals avoids the need to clean up snapshot management in VACUUM and other complex areas
+
+## Simplified Source
+
+```c
+void
+ForgetPortalSnapshots(void)
+{
+    HASH_SEQ_STATUS status;
+    PortalHashEnt *hentry;
+    int numPortalSnaps = 0;
+    int numActiveSnaps = 0;
+
+    // First phase: Clear portal snapshots and count them
+    hash_seq_init(&status, PortalHashTable);
+
+    while ((hentry = (PortalHashEnt *) hash_seq_search(&status)) != NULL)
+    {
+        Portal portal = hentry->portal;
+
+        if (portal->portalSnapshot != NULL)
+        {
+            portal->portalSnapshot = NULL;
+            numPortalSnaps++;
+        }
+        // holdSnapshot is cleaned up later in PreCommit_Portals
+    }
+
+    // Second phase: Pop all active snapshots (should match portal snapshots)
+    while (ActiveSnapshotSet())
+    {
+        PopActiveSnapshot();
+        numActiveSnaps++;
+    }
+
+    // Validate that snapshot counts match to ensure consistency
+    if (numPortalSnaps != numActiveSnaps)
+        elog(ERROR, "portal snapshots (%d) did not account for all active snapshots (%d)",
+             numPortalSnaps, numActiveSnaps);
+}
+```

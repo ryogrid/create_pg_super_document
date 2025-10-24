@@ -53,3 +53,68 @@ This function creates a specialized tuplesort state for B-tree index creation op
 - Respects index-specific properties like DESC ordering and NULLS FIRST/LAST from scan keys
 - Used primarily during CREATE INDEX operations and parallel index building
 - The function handles both regular and parallel index creation scenarios through the coordinate parameter
+
+## Simplified Source
+
+```c
+Tuplesortstate *
+tuplesort_begin_index_btree(Relation heapRel, Relation indexRel,
+                           bool enforceUnique, bool uniqueNullsNotDistinct,
+                           int workMem, SortCoordinate coordinate, int sortopt)
+{
+    // Initialize common tuplesort state
+    Tuplesortstate *state = tuplesort_begin_common(workMem, coordinate, sortopt);
+    TuplesortPublic *base = TuplesortstateGetPublic(state);
+
+    // Switch to sort context and allocate index-specific args
+    MemoryContext oldcontext = MemoryContextSwitchTo(base->maincontext);
+    TuplesortIndexBTreeArg *arg = palloc(sizeof(TuplesortIndexBTreeArg));
+
+    // Set up basic properties
+    base->nKeys = IndexRelationGetNumberOfKeyAttributes(indexRel);
+
+    // Configure index-specific function pointers
+    base->removeabbrev = removeabbrev_index;
+    base->comparetup = comparetup_index_btree;
+    base->comparetup_tiebreak = comparetup_index_btree_tiebreak;
+    base->writetup = writetup_index;
+    base->readtup = readtup_index;
+    base->haveDatum1 = true;
+    base->arg = arg;
+
+    // Store index parameters
+    arg->index.heapRel = heapRel;
+    arg->index.indexRel = indexRel;
+    arg->enforceUnique = enforceUnique;
+    arg->uniqueNullsNotDistinct = uniqueNullsNotDistinct;
+
+    // Get index scan key for sort configuration
+    BTScanInsert indexScanKey = _bt_mkscankey(indexRel, NULL);
+
+    // Configure sort support for each key
+    base->sortKeys = palloc0(base->nKeys * sizeof(SortSupportData));
+    for (int i = 0; i < base->nKeys; i++)
+    {
+        SortSupport sortKey = base->sortKeys + i;
+        ScanKey scanKey = indexScanKey->scankeys + i;
+
+        // Set basic sort key properties
+        sortKey->ssup_cxt = CurrentMemoryContext;
+        sortKey->ssup_collation = scanKey->sk_collation;
+        sortKey->ssup_nulls_first = (scanKey->sk_flags & SK_BT_NULLS_FIRST) != 0;
+        sortKey->ssup_attno = scanKey->sk_attno;
+        sortKey->abbreviate = (i == 0 && base->haveDatum1);
+
+        // Determine sort strategy (ASC/DESC)
+        int16 strategy = (scanKey->sk_flags & SK_BT_DESC) != 0 ?
+            BTGreaterStrategyNumber : BTLessStrategyNumber;
+
+        PrepareSortSupportFromIndexRel(indexRel, strategy, sortKey);
+    }
+
+    pfree(indexScanKey);
+    MemoryContextSwitchTo(oldcontext);
+
+    return state;
+}
+```

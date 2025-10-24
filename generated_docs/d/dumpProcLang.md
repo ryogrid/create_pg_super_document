@@ -47,3 +47,99 @@ The function also handles dumping of associated comments, security labels, and a
 - Archived in SECTION_PRE_DATA to ensure proper dependency ordering
 - In binary upgrade mode, handles extension membership properly
 - Modern servers interpret parameterless commands as extension creation
+
+## Simplified Source
+
+```c
+static void
+dumpProcLang(Archive *fout, const ProcLangInfo *plang)
+{
+    DumpOptions *dopt = fout->dopt;
+    PQExpBuffer defqry, delqry;
+    bool useParams;
+    char *qlanname;
+    FuncInfo *funcInfo, *inlineInfo = NULL, *validatorInfo = NULL;
+
+    // Skip in data-only dumps
+    if (dopt->dataOnly)
+        return;
+
+    // Find support functions for the language
+    funcInfo = findFuncByOid(plang->lanplcallfoid);
+    if (funcInfo != NULL && !funcInfo->dobj.dump)
+        funcInfo = NULL;
+
+    if (OidIsValid(plang->laninline)) {
+        inlineInfo = findFuncByOid(plang->laninline);
+        if (inlineInfo != NULL && !inlineInfo->dobj.dump)
+            inlineInfo = NULL;
+    }
+
+    if (OidIsValid(plang->lanvalidator)) {
+        validatorInfo = findFuncByOid(plang->lanvalidator);
+        if (validatorInfo != NULL && !validatorInfo->dobj.dump)
+            validatorInfo = NULL;
+    }
+
+    // Determine if we can create complete definition with parameters
+    useParams = (funcInfo != NULL &&
+                 (inlineInfo != NULL || !OidIsValid(plang->laninline)) &&
+                 (validatorInfo != NULL || !OidIsValid(plang->lanvalidator)));
+
+    defqry = createPQExpBuffer();
+    delqry = createPQExpBuffer();
+    qlanname = pg_strdup(fmtId(plang->dobj.name));
+
+    // Build DROP statement
+    appendPQExpBuffer(delqry, "DROP PROCEDURAL LANGUAGE %s;\n", qlanname);
+
+    // Build CREATE statement - with or without parameters
+    if (useParams) {
+        // Complete definition with handler, inline, and validator functions
+        appendPQExpBuffer(defqry, "CREATE %sPROCEDURAL LANGUAGE %s",
+                          plang->lanpltrusted ? "TRUSTED " : "", qlanname);
+        appendPQExpBuffer(defqry, " HANDLER %s", fmtQualifiedDumpable(funcInfo));
+
+        if (OidIsValid(plang->laninline))
+            appendPQExpBuffer(defqry, " INLINE %s", fmtQualifiedDumpable(inlineInfo));
+        if (OidIsValid(plang->lanvalidator))
+            appendPQExpBuffer(defqry, " VALIDATOR %s", fmtQualifiedDumpable(validatorInfo));
+    } else {
+        // Parameterless definition - relies on extension template
+        appendPQExpBuffer(defqry, "CREATE OR REPLACE PROCEDURAL LANGUAGE %s", qlanname);
+    }
+    appendPQExpBufferStr(defqry, ";\n");
+
+    // Handle binary upgrade extension membership
+    if (dopt->binary_upgrade)
+        binary_upgrade_extension_member(defqry, &plang->dobj, "LANGUAGE", qlanname, NULL);
+
+    // Archive the language definition
+    if (plang->dobj.dump & DUMP_COMPONENT_DEFINITION)
+        ArchiveEntry(fout, plang->dobj.catId, plang->dobj.dumpId,
+                     ARCHIVE_OPTS(.tag = plang->dobj.name,
+                                  .owner = plang->lanowner,
+                                  .description = "PROCEDURAL LANGUAGE",
+                                  .section = SECTION_PRE_DATA,
+                                  .createStmt = defqry->data,
+                                  .dropStmt = delqry->data));
+
+    // Dump associated metadata
+    if (plang->dobj.dump & DUMP_COMPONENT_COMMENT)
+        dumpComment(fout, "LANGUAGE", qlanname, NULL, plang->lanowner,
+                    plang->dobj.catId, 0, plang->dobj.dumpId);
+
+    if (plang->dobj.dump & DUMP_COMPONENT_SECLABEL)
+        dumpSecLabel(fout, "LANGUAGE", qlanname, NULL, plang->lanowner,
+                     plang->dobj.catId, 0, plang->dobj.dumpId);
+
+    if (plang->lanpltrusted && plang->dobj.dump & DUMP_COMPONENT_ACL)
+        dumpACL(fout, plang->dobj.dumpId, InvalidDumpId, "LANGUAGE",
+                qlanname, NULL, NULL, NULL, plang->lanowner, &plang->dacl);
+
+    // Cleanup
+    free(qlanname);
+    destroyPQExpBuffer(defqry);
+    destroyPQExpBuffer(delqry);
+}
+```

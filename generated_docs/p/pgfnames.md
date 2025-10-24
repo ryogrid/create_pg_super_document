@@ -37,3 +37,39 @@ The  function reads a directory specified by the  parameter and returns an array
 - Returns NULL on directory open failure
 - Memory allocation uses PostgreSQL's palloc/repalloc memory management
 - All filenames are duplicated using pstrdup for independent memory management
+
+## Simplified Source
+
+```c
+char **pgfnames(const char *path) {
+    DIR *dir = opendir(path);
+    if (!dir) {
+        pg_log_warning("could not open directory \"%s\": %m", path);
+        return NULL;
+    }
+
+    // Start with space for 200 filenames, expand as needed
+    int capacity = 200;
+    int count = 0;
+    char **filenames = palloc(capacity * sizeof(char *));
+
+    struct dirent *entry;
+    while ((entry = readdir(dir)) != NULL) {
+        // Skip current and parent directory entries
+        if (strcmp(entry->d_name, ".") == 0 || strcmp(entry->d_name, "..") == 0)
+            continue;
+
+        // Expand array if needed
+        if (count + 1 >= capacity) {
+            capacity *= 2;
+            filenames = repalloc(filenames, capacity * sizeof(char *));
+        }
+
+        filenames[count++] = pstrdup(entry->d_name);
+    }
+
+    filenames[count] = NULL;  // NULL-terminate the array
+    closedir(dir);
+    return filenames;
+}
+```

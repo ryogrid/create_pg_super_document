@@ -44,3 +44,22 @@ If the networks belong to different IP families, the function returns false as c
 - Uses the minimum prefix length of both networks to determine the comparison scope
 - Two networks overlap if they share the same network address up to the shorter prefix length
 - Used internally by PostgreSQL's network operator system for INET overlap operations
+
+## Simplified Source
+
+```c
+Datum network_overlap(PG_FUNCTION_ARGS) {
+    inet *a1 = PG_GETARG_INET_PP(0);  // First network
+    inet *a2 = PG_GETARG_INET_PP(1);  // Second network
+
+    // Check if both networks are same IP family (IPv4 or IPv6)
+    if (ip_family(a1) == ip_family(a2)) {
+        // Compare addresses using the shorter prefix length
+        int min_bits = Min(ip_bits(a1), ip_bits(a2));
+        PG_RETURN_BOOL(bitncmp(ip_addr(a1), ip_addr(a2), min_bits) == 0);
+    }
+
+    // Different IP families cannot overlap
+    PG_RETURN_BOOL(false);
+}
+```

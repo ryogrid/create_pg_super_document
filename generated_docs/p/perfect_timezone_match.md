@@ -31,3 +31,13 @@ This function serves as a wrapper around score_timezone() to determine if a time
 - This is a stricter check than score_timezone() which returns partial match scores
 - Used during timezone detection to identify exact matches before considering partial matches
 - Part of initdb's strategy to find the most accurate timezone representation for the system
+
+## Simplified Source
+
+```c
+static bool perfect_timezone_match(const char *tzname, struct tztry *tt)
+{
+    // Check if timezone scores perfectly against all test times
+    return (score_timezone(tzname, tt) == tt->n_test_times);
+}
+```

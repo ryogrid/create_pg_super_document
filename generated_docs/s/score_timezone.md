@@ -43,3 +43,59 @@ This function assesses the compatibility of a given timezone with the system's l
 - Includes debug output when DEBUG_IDENTIFY_TIMEZONE is defined
 - Validates both time values and timezone abbreviations for comprehensive matching
 - Part of initdb's timezone detection mechanism to find the best system timezone match
+
+## Simplified Source
+
+```c
+static int score_timezone(const char *tzname, struct tztry *tt)
+{
+    int i;
+    pg_time_t pgtt;
+    struct tm *systm;
+    struct pg_tm *pgtm;
+    char cbuf[TZ_STRLEN_MAX + 1];
+    pg_tz *tz;
+
+    // Load and validate timezone definition
+    tz = pg_load_tz(tzname);
+    if (!tz)
+        return -1;  // Unrecognized timezone name
+
+    // Reject timezones that use leap seconds
+    if (!pg_tz_acceptable(tz))
+        return -1;
+
+    // Test timezone against all reference times
+    for (i = 0; i < tt->n_test_times; i++)
+    {
+        pgtt = (pg_time_t)(tt->test_times[i]);
+
+        // Get PostgreSQL's time conversion
+        pgtm = pg_localtime(&pgtt, tz);
+        if (!pgtm)
+            return -1;
+
+        // Get system's time conversion
+        systm = localtime(&(tt->test_times[i]));
+        if (!systm)
+            return i;  // System has no data for this time
+
+        // Compare time components (year, month, day, hour, min, sec, dst)
+        if (!compare_tm(systm, pgtm))
+            return i;  // Time mismatch found
+
+        // Compare timezone abbreviations if available
+        if (systm->tm_isdst >= 0)
+        {
+            if (pgtm->tm_zone == NULL)
+                return -1;
+
+            strftime(cbuf, sizeof(cbuf) - 1, "%Z", systm);
+            if (strcmp(cbuf, pgtm->tm_zone) != 0)
+                return i;  // Zone abbreviation mismatch
+        }
+    }
+
+    return i;  // All test times matched successfully
+}
+```

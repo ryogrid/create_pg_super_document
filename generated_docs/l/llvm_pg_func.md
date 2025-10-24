@@ -41,3 +41,30 @@ When adding a function to the module, it copies both the function type and attri
 - Copies function attributes to maintain behavioral consistency
 - Throws ERROR if the requested function is not found in llvmjit_types.c
 - Used extensively throughout the JIT compilation infrastructure for accessing PostgreSQL runtime functions
+
+## Simplified Source
+
+```c
+LLVMValueRef
+llvm_pg_func(LLVMModuleRef mod, const char *funcname)
+{
+    // Check if function already exists in target module
+    LLVMValueRef v_fn = LLVMGetNamedFunction(mod, funcname);
+    if (v_fn)
+        return v_fn;
+
+    // Look up source function in types module
+    LLVMValueRef v_srcfn = LLVMGetNamedFunction(llvm_types_module, funcname);
+    if (!v_srcfn) {
+        elog(ERROR, "function %s not in llvmjit_types.c", funcname);
+    }
+
+    // Add function declaration to target module with same type
+    v_fn = LLVMAddFunction(mod, funcname, LLVMGetFunctionType(v_srcfn));
+
+    // Copy attributes from source to maintain consistency
+    llvm_copy_attributes(v_srcfn, v_fn);
+
+    return v_fn;
+}
+```

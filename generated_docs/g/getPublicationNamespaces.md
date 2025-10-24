@@ -36,3 +36,79 @@ The function filters results based on dump options and only processes relationsh
 - Creates  type dumpable objects
 - Skips relationships where either the publication or namespace is not being dumped
 - Memory allocation may be more than needed as it allocates for all tuples before filtering
+
+## Simplified Source
+
+```c
+void
+getPublicationNamespaces(Archive *fout)
+{
+    PQExpBuffer query;
+    PGresult *res;
+    PublicationSchemaInfo *pubsinfo;
+    DumpOptions *dopt = fout->dopt;
+    int i_tableoid, i_oid, i_pnpubid, i_pnnspid;
+    int i, j, ntups;
+
+    // Skip if publications disabled or version < 15.0 (when feature was added)
+    if (dopt->no_publications || fout->remoteVersion < 150000)
+        return;
+
+    query = createPQExpBuffer();
+
+    // Query all publication-namespace relationships
+    appendPQExpBufferStr(query,
+                         "SELECT tableoid, oid, pnpubid, pnnspid "
+                         "FROM pg_catalog.pg_publication_namespace");
+    res = ExecuteSqlQuery(fout, query->data, PGRES_TUPLES_OK);
+
+    ntups = PQntuples(res);
+
+    // Get column indices
+    i_tableoid = PQfnumber(res, "tableoid");
+    i_oid = PQfnumber(res, "oid");
+    i_pnpubid = PQfnumber(res, "pnpubid");
+    i_pnnspid = PQfnumber(res, "pnnspid");
+
+    // Allocate array for publication schema info
+    pubsinfo = pg_malloc(ntups * sizeof(PublicationSchemaInfo));
+    j = 0;
+
+    // Process each publication-namespace relationship
+    for (i = 0; i < ntups; i++) {
+        Oid pnpubid = atooid(PQgetvalue(res, i, i_pnpubid));
+        Oid pnnspid = atooid(PQgetvalue(res, i, i_pnnspid));
+        PublicationInfo *pubinfo;
+        NamespaceInfo *nspinfo;
+
+        // Find publication and namespace objects
+        pubinfo = findPublicationByOid(pnpubid);
+        if (pubinfo == NULL) continue;
+
+        nspinfo = findNamespaceByOid(pnnspid);
+        if (nspinfo == NULL) continue;
+
+        // Skip if namespace is excluded from dump
+        if (nspinfo->dobj.dump == DUMP_COMPONENT_NONE)
+            continue;
+
+        // Create dumpable object for publication-namespace relationship
+        pubsinfo[j].dobj.objType = DO_PUBLICATION_TABLE_IN_SCHEMA;
+        pubsinfo[j].dobj.catId.tableoid = atooid(PQgetvalue(res, i, i_tableoid));
+        pubsinfo[j].dobj.catId.oid = atooid(PQgetvalue(res, i, i_oid));
+        AssignDumpId(&pubsinfo[j].dobj);
+        pubsinfo[j].dobj.namespace = nspinfo->dobj.namespace;
+        pubsinfo[j].dobj.name = nspinfo->dobj.name;
+        pubsinfo[j].publication = pubinfo;
+        pubsinfo[j].pubschema = nspinfo;
+
+        // Determine if this object should be dumped
+        selectDumpablePublicationObject(&(pubsinfo[j].dobj), fout);
+
+        j++;
+    }
+
+    PQclear(res);
+    destroyPQExpBuffer(query);
+}
+```

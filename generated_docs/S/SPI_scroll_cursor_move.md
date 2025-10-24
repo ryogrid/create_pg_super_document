@@ -37,3 +37,15 @@ The function works with Portal objects, which represent prepared statements or c
 - The function requires an active SPI connection to work
 - Unlike SPI_cursor_fetch, this function does not populate SPI_processed or SPI_tuptable
 - Commonly used in conjunction with SPI_cursor_fetch to position and then retrieve data
+
+## Simplified Source
+
+```c
+void SPI_scroll_cursor_move(Portal portal, FetchDirection direction, long count)
+{
+    // Move scrollable cursor position without fetching data
+    // Direction controls movement type (forward/backward/absolute/relative)
+    // None_Receiver ensures no data is retrieved, only position changes
+    _SPI_cursor_operation(portal, direction, count, None_Receiver);
+}
+```

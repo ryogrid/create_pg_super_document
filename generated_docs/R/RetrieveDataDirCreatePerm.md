@@ -42,3 +42,51 @@ RetrieveDataDirCreatePerm determines the permission mode of the PostgreSQL data 
 - Critical for ensuring that backup files and directories are created with appropriate permissions matching the source server
 - The retrieved permissions are applied globally via SetDataDirectoryCreatePerm for subsequent file/directory creation operations
 - Part of the security model ensuring proper access control for backup operations
+
+## Simplified Source
+
+```c
+static bool
+RetrieveDataDirCreatePerm(PGconn *conn)
+{
+    PGresult *res;
+    int data_directory_mode;
+
+    Assert(conn != NULL);
+
+    // For older PostgreSQL versions, use default permissions
+    if (PQserverVersion(conn) < MINIMUM_VERSION_FOR_GROUP_ACCESS)
+        return true;
+
+    // Query the server for data directory permissions
+    res = PQexec(conn, "SHOW data_directory_mode");
+    if (PQresultStatus(res) != PGRES_TUPLES_OK) {
+        pg_log_error("could not send replication command \"%s\": %s",
+                     "SHOW data_directory_mode", PQerrorMessage(conn));
+        PQclear(res);
+        return false;
+    }
+
+    // Validate query result
+    if (PQntuples(res) != 1 || PQnfields(res) < 1) {
+        pg_log_error("could not fetch group access flag: got %d rows and %d fields, expected %d rows and %d or more fields",
+                     PQntuples(res), PQnfields(res), 1, 1);
+        PQclear(res);
+        return false;
+    }
+
+    // Parse octal permission value
+    if (sscanf(PQgetvalue(res, 0, 0), "%o", &data_directory_mode) != 1) {
+        pg_log_error("group access flag could not be parsed: %s",
+                     PQgetvalue(res, 0, 0));
+        PQclear(res);
+        return false;
+    }
+
+    // Apply the retrieved permissions globally
+    SetDataDirectoryCreatePerm(data_directory_mode);
+
+    PQclear(res);
+    return true;
+}
+```

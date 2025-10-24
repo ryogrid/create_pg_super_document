@@ -31,3 +31,21 @@ This initialization function creates a dedicated memory context called "MdSmgr" 
 - Uses AllocSet algorithm which provides efficient allocation and deallocation for variable-sized chunks
 - The memory context name "MdSmgr" helps with debugging and memory usage tracking
 - Part of the storage manager initialization sequence in PostgreSQL
+
+## Simplified Source
+
+```c
+void mdinit(void)
+{
+    // Create dedicated memory context for magnetic disk storage manager
+    MdCxt = AllocSetContextCreate(TopMemoryContext,
+                                  "MdSmgr",
+                                  ALLOCSET_DEFAULT_SIZES);
+}
+```
+
+**Key Points:**
+- Initializes the magnetic disk storage manager's private memory context
+- Creates "MdSmgr" memory context as child of TopMemoryContext
+- Must be called before any other MD operations
+- Provides memory isolation for all magnetic disk storage operations

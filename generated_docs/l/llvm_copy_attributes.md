@@ -45,3 +45,25 @@ This comprehensive attribute copying ensures that function declarations maintain
 - Essential for maintaining function semantics across module boundaries
 - Critical component of PostgreSQL's LLVM JIT function declaration system
 - Ensures optimization attributes are preserved during cross-module function copying
+
+## Simplified Source
+
+```c
+void
+llvm_copy_attributes(LLVMValueRef v_from, LLVMValueRef v_to)
+{
+    // Copy function-level attributes
+    llvm_copy_attributes_at_index(v_from, v_to, LLVMAttributeFunctionIndex);
+
+    // Copy return value attributes (if function has non-void return)
+    if (LLVMGetTypeKind(LLVMGetFunctionReturnType(v_to)) != LLVMVoidTypeKind) {
+        llvm_copy_attributes_at_index(v_from, v_to, LLVMAttributeReturnIndex);
+    }
+
+    // Copy attributes for each parameter
+    uint32 param_count = LLVMCountParams(v_from);
+    for (int paramidx = 1; paramidx <= param_count; paramidx++) {
+        llvm_copy_attributes_at_index(v_from, v_to, paramidx);
+    }
+}
+```

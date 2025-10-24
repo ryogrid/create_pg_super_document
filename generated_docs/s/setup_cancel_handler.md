@@ -38,3 +38,22 @@ The function initializes global variables used by the cancel handling system, in
 - Must be called before using other cancel handling functions like SetCancelConn
 - Part of the frontend utilities cancel mechanism used by various PostgreSQL client tools
 - Registers consoleHandler to process CTRL_C_EVENT and CTRL_BREAK_EVENT signals
+
+## Simplified Source
+
+```c
+void setup_cancel_handler(void (*callback) (void)) {
+    // Set user callback function
+    cancel_callback = callback;
+
+    // Initialize localized messages
+    cancel_sent_msg = _("Cancel request sent\n");
+    cancel_not_sent_msg = _("Could not send cancel request: ");
+
+    // Initialize thread synchronization
+    InitializeCriticalSection(&cancelConnLock);
+
+    // Register Windows console control handler
+    SetConsoleCtrlHandler(consoleHandler, TRUE);
+}
+```

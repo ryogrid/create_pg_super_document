@@ -37,3 +37,20 @@ This static function is a simpler variant of  that creates a NumericAggState str
 - Uses  to ensure all fields are properly initialized to zero
 - More lightweight than  due to lack of context validation
 - Located in src/backend/utils/adt/numeric.c:4858-4872
+
+## Simplified Source
+
+```c
+static NumericAggState *
+makeNumericAggStateCurrentContext(bool calcSumX2)
+{
+    NumericAggState *state;
+
+    // Allocate and initialize state in current memory context
+    state = (NumericAggState *) palloc0(sizeof(NumericAggState));
+    state->calcSumX2 = calcSumX2;
+    state->agg_context = CurrentMemoryContext;
+
+    return state;
+}
+```

@@ -39,3 +39,48 @@ The function preserves the original address family and netmask bits while creati
 - Preserves the original inet structure's family and netmask while computing new address
 - Memory allocation uses palloc0 to ensure proper PostgreSQL memory management
 - Part of PostgreSQL's network data type arithmetic operations infrastructure
+
+## Simplified Source
+
+```c
+static inet *internal_inetpl(inet *input_address, int64 addend) {
+    // Allocate memory for result
+    inet *result_address = (inet *) palloc0(sizeof(inet));
+
+    // Get address size and pointers to address bytes
+    int address_size = ip_addrsize(input_address);
+    unsigned char *input_bytes = ip_addr(input_address);
+    unsigned char *result_bytes = ip_addr(result_address);
+    int carry = 0;
+
+    // Process bytes from least significant to most significant
+    for (int byte_index = address_size - 1; byte_index >= 0; byte_index--) {
+        // Add current byte + addend's low byte + carry from previous byte
+        carry = input_bytes[byte_index] + (int)(addend & 0xFF) + carry;
+        result_bytes[byte_index] = (unsigned char)(carry & 0xFF);
+        carry >>= 8;
+
+        // Shift addend right by one byte (avoiding negative right-shift issues)
+        addend &= ~((int64) 0xFF);  // Clear low byte
+        addend /= 0x100;            // Divide by 256 instead of right-shift
+    }
+
+    // Check for arithmetic overflow
+    // Valid end states: (addend=0, carry=0) or (addend=-1, carry=1)
+    bool valid_positive_result = (addend == 0 && carry == 0);
+    bool valid_negative_result = (addend == -1 && carry == 1);
+
+    if (!valid_positive_result && !valid_negative_result) {
+        ereport(ERROR,
+                (errcode(ERRCODE_NUMERIC_VALUE_OUT_OF_RANGE),
+                 errmsg("result is out of range")));
+    }
+
+    // Copy metadata from input to result
+    ip_bits(result_address) = ip_bits(input_address);
+    ip_family(result_address) = ip_family(input_address);
+    SET_INET_VARSIZE(result_address);
+
+    return result_address;
+}
+```

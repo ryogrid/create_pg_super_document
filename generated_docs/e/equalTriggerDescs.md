@@ -53,3 +53,74 @@ The function is designed for exact equality detection, such as checking cache en
 - Does not compare hint flags as they should be derivable from trigger properties
 - The comparison is very strict - any difference in any field results in false
 - Useful for determining if a cached trigger descriptor needs to be rebuilt
+
+## Simplified Source
+
+```c
+bool equalTriggerDescs(TriggerDesc *trigdesc1, TriggerDesc *trigdesc2) {
+    // Handle NULL cases
+    if (trigdesc1 == NULL && trigdesc2 == NULL)
+        return true;
+    if (trigdesc1 == NULL || trigdesc2 == NULL)
+        return false;
+
+    // Check trigger count
+    if (trigdesc1->numtriggers != trigdesc2->numtriggers)
+        return false;
+
+    // Compare each trigger in order (ordering is significant)
+    for (int i = 0; i < trigdesc1->numtriggers; i++) {
+        Trigger *trig1 = trigdesc1->triggers + i;
+        Trigger *trig2 = trigdesc2->triggers + i;
+
+        // Compare basic properties
+        if (trig1->tgoid != trig2->tgoid ||
+            strcmp(trig1->tgname, trig2->tgname) != 0 ||
+            trig1->tgfoid != trig2->tgfoid ||
+            trig1->tgtype != trig2->tgtype ||
+            trig1->tgenabled != trig2->tgenabled)
+            return false;
+
+        // Compare internal and constraint properties
+        if (trig1->tgisinternal != trig2->tgisinternal ||
+            trig1->tgisclone != trig2->tgisclone ||
+            trig1->tgconstrrelid != trig2->tgconstrrelid ||
+            trig1->tgconstrindid != trig2->tgconstrindid ||
+            trig1->tgconstraint != trig2->tgconstraint ||
+            trig1->tgdeferrable != trig2->tgdeferrable ||
+            trig1->tginitdeferred != trig2->tginitdeferred)
+            return false;
+
+        // Compare argument properties
+        if (trig1->tgnargs != trig2->tgnargs ||
+            trig1->tgnattr != trig2->tgnattr)
+            return false;
+
+        // Compare attribute array if present
+        if (trig1->tgnattr > 0 &&
+            memcmp(trig1->tgattr, trig2->tgattr, trig1->tgnattr * sizeof(int16)) != 0)
+            return false;
+
+        // Compare trigger arguments
+        for (int j = 0; j < trig1->tgnargs; j++) {
+            if (strcmp(trig1->tgargs[j], trig2->tgargs[j]) != 0)
+                return false;
+        }
+
+        // Compare optional string fields (NULL-safe)
+        if (!strings_equal_null_safe(trig1->tgqual, trig2->tgqual) ||
+            !strings_equal_null_safe(trig1->tgoldtable, trig2->tgoldtable) ||
+            !strings_equal_null_safe(trig1->tgnewtable, trig2->tgnewtable))
+            return false;
+    }
+
+    return true;
+}
+
+// Helper for NULL-safe string comparison
+static bool strings_equal_null_safe(const char *str1, const char *str2) {
+    if (str1 == NULL && str2 == NULL) return true;
+    if (str1 == NULL || str2 == NULL) return false;
+    return strcmp(str1, str2) == 0;
+}
+```

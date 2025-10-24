@@ -58,3 +58,76 @@ The function supports all PostgreSQL object types including tables, sequences, f
 - The function calls abort() for unknown object types, indicating a programming error
 - Location: src/bin/pg_dump/dumputils.c:421-575
 - This is a static function, only used within dumputils.c
+
+## Simplified Source
+
+```c
+static bool
+parseAclItem(const char *item, const char *type,
+             const char *name, const char *subname, int remoteVersion,
+             PQExpBuffer grantee, PQExpBuffer grantor,
+             PQExpBuffer privs, PQExpBuffer privswgo)
+{
+    char *buf = pg_strdup(item);
+    char *eqpos, *slpos, *pos;
+    bool all_with_go = true, all_without_go = true;
+
+    // Parse grantee name (before '=')
+    eqpos = dequoteAclUserName(grantee, buf);
+    if (*eqpos != '=') {
+        pg_free(buf);
+        return false;
+    }
+
+    // Parse grantor name (after '/')
+    slpos = strchr(eqpos + 1, '/');
+    if (!slpos) {
+        pg_free(buf);
+        return false;
+    }
+    *slpos++ = '\0';
+    slpos = dequoteAclUserName(grantor, slpos);
+    if (*slpos != '\0') {
+        pg_free(buf);
+        return false;
+    }
+
+    // Reset output buffers
+    resetPQExpBuffer(privs);
+    if (privswgo) resetPQExpBuffer(privswgo);
+
+    // Parse privilege codes between '=' and '/'
+    for (pos = eqpos + 1; *pos && *pos != '/'; pos++) {
+        char priv_code = *pos;
+        bool has_grant_option = (pos[1] == '*');
+
+        if (has_grant_option) pos++; // Skip '*'
+
+        // Convert privilege code to SQL privilege name based on object type
+        const char *priv_name = convert_privilege_code(priv_code, type);
+        if (!priv_name) continue; // Skip unknown privileges
+
+        // Add to appropriate privilege list
+        if (has_grant_option && privswgo) {
+            AddAcl(privswgo, priv_name, NULL);
+            all_without_go = false;
+        } else {
+            AddAcl(privs, priv_name, NULL);
+            all_with_go = false;
+        }
+    }
+
+    // Optimize output: use "ALL" if all standard privileges are present
+    if (all_with_go && privswgo && privswgo->len > 0) {
+        resetPQExpBuffer(privswgo);
+        printfPQExpBuffer(privswgo, "ALL");
+    }
+    if (all_without_go && privs->len > 0) {
+        resetPQExpBuffer(privs);
+        printfPQExpBuffer(privs, "ALL");
+    }
+
+    pg_free(buf);
+    return true;
+}
+```

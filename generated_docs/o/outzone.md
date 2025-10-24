@@ -49,3 +49,93 @@ The function handles complex scenarios like:
 - Implements the 400-year repetition cycle for timezone rules per POSIX standards
 - Generates warnings for zones that cannot be represented as POSIX timezone strings
 - Critical component of PostgreSQL's timezone data compilation system
+
+## Simplified Source
+
+```c
+static void
+outzone(const struct zone *zpfirst, ptrdiff_t zonecount)
+{
+    const struct zone *zp;
+    struct rule *rp;
+    ptrdiff_t i, j;
+    zic_t starttime, untiltime;
+    zic_t stdoff, save, year;
+    char *startbuf, *ab, *envvar;
+    int max_abbr_len, max_envvar_len;
+    bool prodstic, do_extend;
+    char version;
+    int defaulttype = -1;
+
+    // Calculate buffer sizes and allocate memory
+    max_abbr_len = 2 + max_format_len + max_abbrvar_len;
+    max_envvar_len = 2 * max_abbr_len + 5 * 9;
+    startbuf = emalloc(max_abbr_len + 1);
+    ab = emalloc(max_abbr_len + 1);
+    envvar = emalloc(max_envvar_len + 1);
+
+    // Initialize global counters and determine year range
+    timecnt = typecnt = charcnt = 0;
+    prodstic = (zonecount == 1);
+    min_year = max_year = EPOCH_YEAR;
+
+    // Process leap seconds if present
+    if (leapseen) {
+        updateminmax(leapminyear);
+        updateminmax(leapmaxyear + (leapmaxyear < ZIC_MAX));
+    }
+
+    // Scan all zones to determine complete year range
+    for (i = 0; i < zonecount; ++i) {
+        zp = &zpfirst[i];
+        if (i < zonecount - 1)
+            updateminmax(zp->z_untilrule.r_loyear);
+
+        for (j = 0; j < zp->z_nrules; ++j) {
+            rp = &zp->z_rules[j];
+            if (rp->r_lowasnum)
+                updateminmax(rp->r_loyear);
+            if (rp->r_hiwasnum)
+                updateminmax(rp->r_hiyear);
+            if (rp->r_lowasnum || rp->r_hiwasnum)
+                prodstic = false;
+        }
+    }
+
+    // Generate POSIX timezone string and determine compatibility
+    compat = stringzone(envvar, zpfirst, zonecount);
+    version = (compat < 2013) ? ZIC_VERSION_PRE_2013 : ZIC_VERSION;
+    do_extend = (compat < 0);
+
+    // Extend year range if needed for comprehensive timezone data
+    if (do_extend) {
+        // Add extra years to handle edge cases in 400-year cycles
+        // [Additional logic for year range extension]
+    }
+
+    // Main zone processing loop
+    for (i = 0; i < zonecount; ++i) {
+        zp = &zpfirst[i];
+        stdoff = zp->z_stdoff;
+
+        if (zp->z_nrules == 0) {
+            // Simple zone without DST rules
+            save = zp->z_save;
+            doabbr(startbuf, zp, NULL, zp->z_isdst, save, false);
+            type = addtype(oadd(zp->z_stdoff, save), startbuf,
+                          zp->z_isdst, startttisstd, startttisut);
+        } else {
+            // Complex zone with DST rules - process year by year
+            for (year = min_year; year <= max_year; ++year) {
+                // [Process all rules for this year and zone]
+                // [Generate transition times and types]
+            }
+        }
+    }
+
+    // Clean up allocated memory
+    free(startbuf);
+    free(ab);
+    free(envvar);
+}
+```

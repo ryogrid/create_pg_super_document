@@ -31,3 +31,18 @@ The function performs manual buffer management by checking if there's sufficient
 - Maintains null-termination by explicitly setting str->data[str->len] = '\0' after appending
 - Much faster than the general-purpose appendStringInfo for single character operations
 - Directly manipulates StringInfo internal fields (len, maxlen, data) for maximum efficiency
+
+## Simplified Source
+
+```c
+void appendStringInfoChar(StringInfo str, char ch) {
+    // Ensure there's space for the new character plus null terminator
+    if (str->len + 1 >= str->maxlen)
+        enlargeStringInfo(str, 1);
+
+    // Append character and maintain null termination
+    str->data[str->len] = ch;
+    str->len++;
+    str->data[str->len] = '\0';
+}
+```

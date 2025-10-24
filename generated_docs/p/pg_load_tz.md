@@ -47,3 +47,31 @@ The function performs basic validation on the timezone name length but does not 
 - Names starting with ':' are treated as file references and will not be parsed as POSIX strings
 - This is a static function, only accessible within the findtimezone.c file
 - The loaded timezone information includes both the timezone state data and the original timezone name
+
+## Simplified Source
+
+```c
+static pg_tz *pg_load_tz(const char *name) {
+    static pg_tz tz;  // Only one timezone supported at a time
+
+    // Check name length limit
+    if (strlen(name) > TZ_STRLEN_MAX)
+        return NULL;
+
+    // Handle GMT as special case (always use tzparse)
+    if (strcmp(name, "GMT") == 0) {
+        if (!tzparse(name, &tz.state, true))
+            return NULL;
+    }
+    // Try loading from timezone files first
+    else if (tzload(name, NULL, &tz.state, true) != 0) {
+        // Fall back to POSIX timezone string parsing
+        if (name[0] == ':' || !tzparse(name, &tz.state, false))
+            return NULL;
+    }
+
+    // Store timezone name and return loaded timezone
+    strcpy(tz.TZname, name);
+    return &tz;
+}
+```

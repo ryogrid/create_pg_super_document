@@ -41,3 +41,55 @@ The function currently only supports forward skipping, though the API is designe
 - Used primarily by ordered-set aggregate functions like percentile calculations
 - Includes bounds checking for bounded sorts to prevent over-fetching beyond the specified limit
 - The tape-based implementation switches memory context to ensure proper cleanup of any temporary allocations
+
+## Simplified Source
+
+```c
+bool
+tuplesort_skiptuples(Tuplesortstate *state, int64 ntuples, bool forward)
+{
+    // Only forward skipping is currently supported
+    Assert(forward && ntuples >= 0 && !WORKER(state));
+
+    switch (state->status)
+    {
+        case TSS_SORTEDINMEM:
+            // Fast path: in-memory sort, just advance pointer
+            if (state->memtupcount - state->current >= ntuples)
+            {
+                state->current += ntuples;
+                return true;
+            }
+            // Hit end of tuples
+            state->current = state->memtupcount;
+            state->eof_reached = true;
+
+            // Error check for bounded sorts
+            if (state->bounded && state->current >= state->bound)
+                elog(ERROR, "retrieved too many tuples in a bounded sort");
+
+            return false;
+
+        case TSS_SORTEDONTAPE:
+        case TSS_FINALMERGE:
+            // Slower path: tape-based sort, skip by reading and discarding
+            MemoryContext oldcontext = MemoryContextSwitchTo(state->base.sortcontext);
+            while (ntuples-- > 0)
+            {
+                SortTuple stup;
+                if (!tuplesort_gettuple_common(state, forward, &stup))
+                {
+                    MemoryContextSwitchTo(oldcontext);
+                    return false;
+                }
+                CHECK_FOR_INTERRUPTS();
+            }
+            MemoryContextSwitchTo(oldcontext);
+            return true;
+
+        default:
+            elog(ERROR, "invalid tuplesort state");
+            return false;
+    }
+}
+```

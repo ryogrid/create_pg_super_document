@@ -37,3 +37,32 @@ This function is particularly important in standby servers during recovery, wher
 - The function supports counting all backends by passing an invalid database OID
 - Primarily used in standby server scenarios for managing recovery conflicts
 - The lock acquisition ensures atomicity and consistency of the count, unlike the heuristic MinimumActiveBackends function
+
+## Simplified Source
+
+```c
+int CountDBBackends(Oid databaseid) {
+    // Count active backends using specified database
+    ProcArrayStruct *arrayP = procArray;
+    int count = 0;
+
+    LWLockAcquire(ProcArrayLock, LW_SHARED);
+
+    for (int index = 0; index < arrayP->numProcs; index++) {
+        int pgprocno = arrayP->pgprocnos[index];
+        PGPROC *proc = &allProcs[pgprocno];
+
+        // Skip prepared transactions (pid == 0)
+        if (proc->pid == 0)
+            continue;
+
+        // Count if database matches or counting all databases
+        if (!OidIsValid(databaseid) || proc->databaseId == databaseid)
+            count++;
+    }
+
+    LWLockRelease(ProcArrayLock);
+
+    return count;
+}
+```

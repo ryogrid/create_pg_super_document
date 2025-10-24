@@ -48,3 +48,33 @@ The iterator uses a stack-based approach to track the current position at each l
 - The iterator maintains a stack of RT_NODE_ITER structures for each tree level
 - Part of PostgreSQL's generic radix tree implementation located in src/include/lib/radixtree.h:187
 - Should be paired with RT_ITERATE_NEXT and RT_END_ITERATE for complete iteration
+
+## Simplified Source
+
+```c
+// Macro that expands to: RT_PREFIX_begin_iterate
+#define RT_BEGIN_ITERATE RT_MAKE_NAME(begin_iterate)
+
+// Generated function (simplified logic):
+RT_SCOPE RT_ITER *RT_BEGIN_ITERATE(RT_RADIX_TREE *tree) {
+    // Allocate iterator in tree's iteration context
+    RT_ITER *iter = MemoryContextAllocZero(tree->iter_context, sizeof(RT_ITER));
+
+    // Initialize iterator with tree reference
+    iter->tree = tree;
+
+    // Set up root node as starting point
+    if (tree->ctl->root != RT_INVALID_PTR_ALLOC) {
+        iter->top_level = tree->ctl->start_shift / RT_SPAN;
+        iter->node_iters[iter->top_level].node =
+            RT_PTR_SET_LOCAL(tree, tree->ctl->root);
+        iter->node_iters[iter->top_level].idx = 0;
+        iter->cur_level = iter->top_level;
+    } else {
+        // Empty tree - set invalid state
+        iter->cur_level = -1;
+    }
+
+    return iter;
+}
+```

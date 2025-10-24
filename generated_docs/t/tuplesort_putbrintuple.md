@@ -37,3 +37,39 @@ This function is a specialized variant of tuple insertion for BRIN (Block Range 
 - Handles memory allocation differently for bump contexts vs regular contexts
 - Part of the specialized tuple sorting infrastructure for BRIN indexes
 - Switches memory contexts to ensure proper allocation in the tuple context
+
+## Simplified Source
+
+```c
+void tuplesort_putbrintuple(Tuplesortstate *state, BrinTuple *tuple, Size size)
+{
+    SortTuple stup;
+    BrinSortTuple *bstup;
+    TuplesortPublic *base = TuplesortstateGetPublic(state);
+    MemoryContext oldcontext = MemoryContextSwitchTo(base->tuplecontext);
+
+    // Allocate and copy BRIN tuple
+    bstup = palloc(BRINSORTTUPLE_SIZE(size));
+    bstup->tuplen = size;
+    memcpy(&bstup->tuple, tuple, size);
+
+    // Set up sort tuple with block number as primary sort key
+    stup.tuple = bstup;
+    stup.datum1 = tuple->bt_blkno;
+    stup.isnull1 = false;
+
+    // Calculate tuple size for memory management
+    Size tuplen;
+    if (TupleSortUseBumpTupleCxt(base->sortopt))
+        tuplen = MAXALIGN(BRINSORTTUPLE_SIZE(size));
+    else
+        tuplen = GetMemoryChunkSpace(bstup);
+
+    // Add to sort with abbreviation support
+    tuplesort_puttuple_common(state, &stup,
+                             base->sortKeys && base->sortKeys->abbrev_converter && !stup.isnull1,
+                             tuplen);
+
+    MemoryContextSwitchTo(oldcontext);
+}
+```

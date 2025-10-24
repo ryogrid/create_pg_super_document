@@ -38,3 +38,18 @@ The function implements the standard two-tier lookup strategy:
 - Essential for correct text processing in Arabic, Persian, Urdu, and similar scripts
 - These characters have special significance in text segmentation and word identification
 - No ASCII characters have the Join_Control property (all are in the higher Unicode ranges)
+
+## Simplified Source
+
+```c
+bool pg_u_prop_join_control(pg_wchar code) {
+    // Fast path for ASCII characters (no ASCII chars have Join_Control property)
+    if (code < 0x80)
+        return unicode_opt_ascii[code].properties & PG_U_PROP_JOIN_CONTROL;
+
+    // Search in pre-computed join control ranges for non-ASCII
+    return range_search(unicode_join_control,
+                       lengthof(unicode_join_control),
+                       code);
+}
+```

@@ -36,3 +36,12 @@ The function is automatically invoked when pg_dependencies values need to be sen
 - Unlike the input functions, this allows output since reading existing data is safe
 - Enables pg_dependencies values to be transmitted via binary protocol connections
 - Essential for client applications using prepared statements or binary result formats
+
+## Simplified Source
+
+```c
+Datum pg_dependencies_send(PG_FUNCTION_ARGS) {
+    // Delegate to bytea send function since dependencies are stored as bytea
+    return byteasend(fcinfo);
+}
+```

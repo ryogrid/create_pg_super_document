@@ -41,3 +41,26 @@ The function returns true as a conservative default when not called as an aggreg
 - Used by aggregate functions to determine if they can safely modify their inputs or transition state
 - The behavior for window functions might be refined in future PostgreSQL versions
 - Provides a defensive approach by defaulting to "shared" when in doubt
+
+## Simplified Source
+
+```c
+bool AggStateIsShared(FunctionCallInfo fcinfo)
+{
+    if (fcinfo->context && IsA(fcinfo->context, AggState))
+    {
+        AggState *aggstate = (AggState *) fcinfo->context;
+
+        // Check if called from final function
+        if (aggstate->curperagg)
+            return aggstate->pertrans[aggstate->curperagg->transno].aggshared;
+
+        // Check if called from transition function
+        if (aggstate->curpertrans)
+            return aggstate->curpertrans->aggshared;
+    }
+
+    // Conservative default: assume shared when not in aggregate context
+    return true;
+}
+```

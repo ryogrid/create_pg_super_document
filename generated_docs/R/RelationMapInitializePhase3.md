@@ -30,3 +30,16 @@ This function represents the final phase of relation mapper initialization durin
 - Uses load_relmap_file with parameters (false, false) indicating shared=false, fatal_on_error=false  
 - Completes the multi-phase initialization sequence started by RelationMapInitialize and RelationMapInitializePhase2
 - Essential for accessing database-specific system catalogs and user relations that have OID-to-filenode mappings
+
+## Simplified Source
+
+```c
+void RelationMapInitializePhase3(void) {
+    // Skip initialization during bootstrap - map files don't exist yet
+    if (IsBootstrapProcessingMode())
+        return;
+
+    // Load database-specific relation mappings
+    load_relmap_file(false, false);
+}
+```

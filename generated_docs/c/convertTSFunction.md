@@ -39,3 +39,25 @@ The function executes a SQL query to perform the conversion and returns the resu
 - Specifically designed for text search parser and template function OID conversion
 - Part of PostgreSQL's pg_dump utility for handling text search configuration dumps
 - Executes a live SQL query against the database to perform the OID-to-name conversion
+
+## Simplified Source
+
+```c
+static char *
+convertTSFunction(Archive *fout, Oid funcOid)
+{
+    char *result;
+    char query[128];
+    PGresult *res;
+
+    // Build query to convert OID to function name using REGPROC
+    snprintf(query, sizeof(query), "SELECT '%u'::pg_catalog.regproc", funcOid);
+
+    // Execute query and get result
+    res = ExecuteSqlQueryForSingleRow(fout, query);
+    result = pg_strdup(PQgetvalue(res, 0, 0));
+
+    PQclear(res);
+    return result;
+}
+```

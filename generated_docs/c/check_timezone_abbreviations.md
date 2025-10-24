@@ -37,3 +37,23 @@ For non-NULL values, it loads the specified timezone abbreviation file using  an
 - The loaded timezone abbreviation table is passed to assign_timezone_abbreviations via the extra parameter
 - Prevents issues in EXEC_BACKEND subprocesses by deferring loading when my_exec_path is not yet available
 - Part of the standard GUC check hook pattern in PostgreSQL
+
+## Simplified Source
+
+```c
+bool
+check_timezone_abbreviations(char **newval, void **extra, GucSource source)
+{
+    // Handle NULL boot value - defer loading until pg_timezone_abbrev_initialize()
+    if (*newval == NULL) {
+        Assert(source == PGC_S_DEFAULT);
+        return true;
+    }
+
+    // Load timezone abbreviation file and store result for assign hook
+    *extra = load_tzoffsets(*newval);
+
+    // Return success/failure based on load result
+    return (*extra != NULL);
+}
+```

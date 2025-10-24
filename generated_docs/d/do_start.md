@@ -62,3 +62,84 @@ This function takes no parameters but operates on several global variables:
 - Core file limits are conditionally removed based on HAVE_GETRLIMIT compile-time flag
 - The function uses different executable version strings for location verification (PG_BACKEND_VERSIONSTR vs PG_VERSION)
 - Memory and resource cleanup is minimal since the function often leads to process termination
+
+## Simplified Source
+
+```c
+static void
+do_start(void)
+{
+    pid_t old_pid = 0;
+    pid_t pm_pid;
+
+    // Check for existing server (except during restart)
+    if (ctl_command != RESTART_COMMAND) {
+        old_pid = get_pgpid(false);
+        if (old_pid != 0)
+            write_stderr(_("%s: another server might be running; "
+                          "trying to start server anyway\n"), progname);
+    }
+
+    // Load startup configuration
+    read_post_opts();
+
+    // Set data directory options
+    if (ctl_command == RESTART_COMMAND || pgdata_opt == NULL)
+        pgdata_opt = "";
+
+    // Locate postgres executable if not specified
+    if (exec_path == NULL)
+        exec_path = find_other_exec_or_die(argv0, "postgres", PG_BACKEND_VERSIONSTR);
+
+    // Allow core file generation if requested
+#if defined(HAVE_GETRLIMIT)
+    if (allow_core_files)
+        unlimit_core_size();
+#endif
+
+    // Set grandparent PID for postmaster (Unix only)
+#ifndef WIN32
+    char env_var[32];
+    snprintf(env_var, sizeof(env_var), "%d", (int) getppid());
+    setenv("PG_GRANDPARENT_PID", env_var, 1);
+#endif
+
+    // Launch the postmaster process
+    pm_pid = start_postmaster();
+
+    if (do_wait) {
+        // Set up signal handling for startup interruption
+        postmasterPID = pm_pid;
+        pqsignal(SIGINT, trap_sigint_during_startup);
+
+        print_msg(_("waiting for server to start..."));
+
+        // Monitor startup progress
+        switch (wait_for_postmaster_start(pm_pid, false)) {
+            case POSTMASTER_READY:
+                print_msg(_(" done\n"));
+                print_msg(_("server started\n"));
+                break;
+            case POSTMASTER_STILL_STARTING:
+                print_msg(_(" stopped waiting\n"));
+                write_stderr(_("%s: server did not start in time\n"), progname);
+                exit(1);
+                break;
+            case POSTMASTER_FAILED:
+                print_msg(_(" stopped waiting\n"));
+                write_stderr(_("%s: could not start server\n"
+                              "Examine the log output.\n"), progname);
+                exit(1);
+                break;
+        }
+    } else {
+        print_msg(_("server starting\n"));
+    }
+
+    // Windows-specific cleanup
+#ifdef WIN32
+    CloseHandle(postmasterProcess);
+    postmasterProcess = INVALID_HANDLE_VALUE;
+#endif
+}
+```

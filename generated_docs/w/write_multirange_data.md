@@ -50,3 +50,48 @@ The function implements an optimization where the first range doesn't need an it
 - Boundary data is copied without the RangeType header and flags byte, storing only the essential bound information
 - Proper alignment is maintained throughout the serialization process to ensure efficient memory access
 - The optimization of not storing an item for the first range reduces overhead for small multiranges
+
+## Simplified Source
+
+```c
+static void
+write_multirange_data(MultirangeType *multirange, TypeCacheEntry *rangetyp,
+                      int32 range_count, RangeType **ranges)
+{
+    uint32     *items;
+    uint32      prev_offset = 0;
+    uint8      *flags;
+    int32       i;
+    Pointer     begin, ptr;
+    char        elemalign = rangetyp->rngelemtype->typalign;
+
+    // Get pointers to multirange components
+    items = MultirangeGetItemsPtr(multirange);
+    flags = MultirangeGetFlagsPtr(multirange);
+    ptr = begin = MultirangeGetBoundariesPtr(multirange, elemalign);
+
+    // Process each range
+    for (i = 0; i < range_count; i++)
+    {
+        uint32 len;
+
+        // Store offset/length info (skip first range)
+        if (i > 0)
+        {
+            items[i - 1] = ptr - begin;
+            // Use stride-based compression
+            if ((i % MULTIRANGE_ITEM_OFFSET_STRIDE) != 0)
+                items[i - 1] -= prev_offset;
+            else
+                items[i - 1] |= MULTIRANGE_ITEM_OFF_BIT;
+            prev_offset = ptr - begin;
+        }
+
+        // Copy range flags and boundary data
+        flags[i] = *((Pointer) ranges[i] + VARSIZE(ranges[i]) - sizeof(char));
+        len = VARSIZE(ranges[i]) - sizeof(RangeType) - sizeof(char);
+        memcpy(ptr, (Pointer) (ranges[i] + 1), len);
+        ptr += att_align_nominal(len, elemalign);
+    }
+}
+```

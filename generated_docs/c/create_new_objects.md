@@ -62,3 +62,92 @@ This function is responsible for restoring all database schemas and objects from
 - Error handling ensures that if any database restoration fails, the entire upgrade process is aborted
 - The function updates the new cluster's metadata after successful restoration to reflect the newly created objects
 - Progress reporting keeps users informed during the potentially lengthy restoration process
+
+## Simplified Source
+
+```c
+static void create_new_objects(void) {
+    int dbnum;
+
+    prep_status_progress("Restoring database schemas in the new cluster");
+
+    // Phase 1: Process template1 database separately (not parallelized)
+    // template1 cannot be processed concurrently because connection attempts
+    // would fail when it's transiently dropped
+    for (dbnum = 0; dbnum < old_cluster.dbarr.ndbs; dbnum++) {
+        char sql_file_name[MAXPGPATH], log_file_name[MAXPGPATH];
+        DbInfo *old_db = &old_cluster.dbarr.dbs[dbnum];
+
+        if (strcmp(old_db->db_name, "template1") != 0)
+            continue;
+
+        pg_log(PG_STATUS, "%s", old_db->db_name);
+        snprintf(sql_file_name, sizeof(sql_file_name), DB_DUMP_FILE_MASK, old_db->db_oid);
+        snprintf(log_file_name, sizeof(log_file_name), DB_DUMP_LOG_FILE_MASK, old_db->db_oid);
+
+        // template1 already exists in target, so use --clean --create
+        exec_prog(log_file_name, NULL, true, true,
+                 "\"%s/pg_restore\" %s --clean --create --exit-on-error --verbose "
+                 "--transaction-size=%d --dbname postgres \"%s/%s\"",
+                 new_cluster.bindir,
+                 cluster_conn_opts(&new_cluster),
+                 RESTORE_TRANSACTION_SIZE,
+                 log_opts.dumpdir,
+                 sql_file_name);
+        break; // Done once we've processed template1
+    }
+
+    // Phase 2: Process all other databases in parallel
+    for (dbnum = 0; dbnum < old_cluster.dbarr.ndbs; dbnum++) {
+        char sql_file_name[MAXPGPATH], log_file_name[MAXPGPATH];
+        DbInfo *old_db = &old_cluster.dbarr.dbs[dbnum];
+        const char *create_opts;
+        int txn_size;
+
+        if (strcmp(old_db->db_name, "template1") == 0)
+            continue; // Skip template1 in this pass
+
+        pg_log(PG_STATUS, "%s", old_db->db_name);
+        snprintf(sql_file_name, sizeof(sql_file_name), DB_DUMP_FILE_MASK, old_db->db_oid);
+        snprintf(log_file_name, sizeof(log_file_name), DB_DUMP_LOG_FILE_MASK, old_db->db_oid);
+
+        // Special handling for postgres database
+        if (strcmp(old_db->db_name, "postgres") == 0)
+            create_opts = "--clean --create";  // postgres already exists
+        else
+            create_opts = "--create";          // new database
+
+        // Adjust transaction size for parallel execution
+        txn_size = RESTORE_TRANSACTION_SIZE;
+        if (user_opts.jobs > 1) {
+            txn_size /= user_opts.jobs;
+            txn_size = Max(txn_size, 10);  // Maintain minimum sanity
+        }
+
+        // Execute pg_restore in parallel
+        parallel_exec_prog(log_file_name, NULL,
+                          "\"%s/pg_restore\" %s %s --exit-on-error --verbose "
+                          "--transaction-size=%d --dbname template1 \"%s/%s\"",
+                          new_cluster.bindir,
+                          cluster_conn_opts(&new_cluster),
+                          create_opts,
+                          txn_size,
+                          log_opts.dumpdir,
+                          sql_file_name);
+    }
+
+    // Wait for all parallel jobs to complete
+    while (reap_child(true) == true)
+        ;
+
+    end_progress_output();
+    check_ok();
+
+    // Handle pre-9.3 cluster compatibility: set frozen XIDs
+    if (GET_MAJOR_VERSION(old_cluster.major_version) <= 902)
+        set_frozenxids(true);
+
+    // Update cluster information now that we have objects in databases
+    get_db_rel_and_slot_infos(&new_cluster, false);
+}
+```

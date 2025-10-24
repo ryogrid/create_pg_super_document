@@ -39,3 +39,29 @@ The function performs OID validation and operator lookup, returning NULL for inv
 - Produces format suitable for SQL commands where operator argument types can be inferred from context
 - Part of PostgreSQL's pg_dump utility for generating proper operator references in dump output
 - Handles error cases by logging warnings and returning NULL
+
+## Simplified Source
+
+```c
+static char *
+getFormattedOperatorName(const char *oproid)
+{
+    OprInfo *oprInfo;
+
+    // Handle invalid OID references
+    if (strcmp(oproid, "0") == 0)
+        return NULL;
+
+    // Look up operator by OID
+    oprInfo = findOprByOid(atooid(oproid));
+    if (oprInfo == NULL) {
+        pg_log_warning("could not find operator with OID %s", oproid);
+        return NULL;
+    }
+
+    // Return formatted operator name with schema qualification
+    return psprintf("OPERATOR(%s.%s)",
+                    fmtId(oprInfo->dobj.namespace->dobj.name),
+                    oprInfo->dobj.name);
+}
+```

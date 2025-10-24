@@ -43,3 +43,19 @@ The function performs a bounds check to ensure there are sufficient characters r
 - Works with both UTF-8 and ISO-8859 encoded text through the symbol abstraction
 - The symbol type allows the function to work with different character encodings transparently
 - Often used in sequence with other matching functions to implement complex stemming rules
+
+## Simplified Source
+
+```c
+extern int eq_s(struct SN_env * z, int s_size, const symbol * s) {
+    // Check if enough characters remain in buffer
+    if (z->l - z->c < s_size) return 0;
+
+    // Compare strings at current position
+    if (memcmp(z->p + z->c, s, s_size * sizeof(symbol)) != 0) return 0;
+
+    // Match successful, advance position
+    z->c += s_size;
+    return 1;
+}
+```

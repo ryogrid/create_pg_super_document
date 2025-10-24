@@ -41,3 +41,31 @@ The operation iterates through each byte of the IP address and applies the bitwi
 - Accessible from SQL as the ~ operator (e.g., ~'192.168.1.1'::inet)
 - Part of PostgreSQL's network address manipulation functions
 - Useful for network address calculations and bitwise operations
+
+## Simplified Source
+
+```c
+Datum inetnot(PG_FUNCTION_ARGS) {
+    inet *input_address = PG_GETARG_INET_PP(0);
+
+    // Allocate memory for result
+    inet *result_address = (inet *) palloc0(sizeof(inet));
+
+    // Get address size and pointers to address bytes
+    int address_size = ip_addrsize(input_address);
+    unsigned char *input_bytes = ip_addr(input_address);
+    unsigned char *result_bytes = ip_addr(result_address);
+
+    // Apply bitwise NOT to each address byte
+    for (int i = 0; i < address_size; i++) {
+        result_bytes[i] = ~input_bytes[i];
+    }
+
+    // Copy metadata from input to result
+    ip_bits(result_address) = ip_bits(input_address);      // subnet mask bits
+    ip_family(result_address) = ip_family(input_address);  // IPv4/IPv6 family
+    SET_INET_VARSIZE(result_address);                      // set variable size
+
+    PG_RETURN_INET_P(result_address);
+}
+```

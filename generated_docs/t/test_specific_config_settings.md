@@ -32,3 +32,45 @@ The function builds a command string that includes the backend executable path, 
 - Output is redirected to DEVNULL to suppress noise during testing
 - Returns true if the configuration test succeeds (system command returns 0), false otherwise
 - Part of the configuration auto-tuning mechanism in initdb to find suitable default values
+
+## Simplified Source
+
+```c
+static bool
+test_specific_config_settings(int test_conns, int test_buffs)
+{
+    PQExpBufferData cmd;
+    int status;
+
+    // Build command to test configuration settings
+    initPQExpBuffer(&cmd);
+
+    // Create test command with backend executable and settings
+    printfPQExpBuffer(&cmd,
+                      "\"%s\" --check %s %s "
+                      "-c max_connections=%d "
+                      "-c shared_buffers=%d "
+                      "-c dynamic_shared_memory_type=%s",
+                      backend_exec, boot_options, extra_options,
+                      test_conns, test_buffs,
+                      dynamic_shared_memory_type);
+
+    // Add any additional GUC overrides from user
+    for (_stringlist *gnames = extra_guc_names, *gvalues = extra_guc_values;
+         gnames != NULL;
+         gnames = gnames->next, gvalues = gvalues->next) {
+        appendPQExpBuffer(&cmd, " -c %s=", gnames->str);
+        appendShellString(&cmd, gvalues->str);
+    }
+
+    // Redirect output to suppress noise during testing
+    appendPQExpBuffer(&cmd, " < \"%s\" > \"%s\" 2>&1", DEVNULL, DEVNULL);
+
+    // Execute test command and check if configuration is valid
+    fflush(NULL);
+    status = system(cmd.data);
+    termPQExpBuffer(&cmd);
+
+    return (status == 0);
+}
+```

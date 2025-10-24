@@ -46,3 +46,26 @@ The function includes an assertion to ensure it's only called in a backend that 
 - Essential for maintaining consistent visibility semantics across parallel workers
 - Works in conjunction with SerializeComboCIDState to enable combo CID state sharing
 - The function assumes the input buffer was created by SerializeComboCIDState with the same format
+
+## Simplified Source
+
+```c
+void RestoreComboCIDState(char *comboCIDstate) {
+    // Ensure this backend has no existing combo CIDs
+    Assert(!comboCids && !comboHash);
+
+    // Extract count and data from serialized buffer
+    int num_elements = *(int *) comboCIDstate;
+    ComboCidKeyData *keydata = (ComboCidKeyData *) (comboCIDstate + sizeof(int));
+
+    // Recreate each combo CID from serialized cmin/cmax pairs
+    for (int i = 0; i < num_elements; i++) {
+        CommandId cid = GetComboCommandId(keydata[i].cmin, keydata[i].cmax);
+
+        // Verify combo CIDs are recreated in correct order
+        if (cid != i) {
+            elog(ERROR, "unexpected command ID while restoring combo CIDs");
+        }
+    }
+}
+```

@@ -40,3 +40,34 @@ The function includes validation logic that logs a warning if it encounters an i
 - Includes error logging for invalid or unrecognized type classifications
 - Each type category has its own specialized dump function for handling type-specific SQL generation
 - Part of the broader PostgreSQL pg_dump type system that ensures proper recreation of custom data types
+
+## Simplified Source
+
+```c
+static void
+dumpType(Archive *fout, const TypeInfo *tyinfo)
+{
+    DumpOptions *dopt = fout->dopt;
+
+    // Skip data-only dumps
+    if (dopt->dataOnly)
+        return;
+
+    // Route to appropriate type-specific dump function
+    if (tyinfo->typtype == TYPTYPE_BASE)
+        dumpBaseType(fout, tyinfo);
+    else if (tyinfo->typtype == TYPTYPE_DOMAIN)
+        dumpDomain(fout, tyinfo);
+    else if (tyinfo->typtype == TYPTYPE_COMPOSITE)
+        dumpCompositeType(fout, tyinfo);
+    else if (tyinfo->typtype == TYPTYPE_ENUM)
+        dumpEnumType(fout, tyinfo);
+    else if (tyinfo->typtype == TYPTYPE_RANGE)
+        dumpRangeType(fout, tyinfo);
+    else if (tyinfo->typtype == TYPTYPE_PSEUDO && !tyinfo->isDefined)
+        dumpUndefinedType(fout, tyinfo);
+    else
+        pg_log_warning("typtype of data type \"%s\" appears to be invalid",
+                      tyinfo->dobj.name);
+}
+```

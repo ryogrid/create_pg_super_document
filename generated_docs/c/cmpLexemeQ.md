@@ -34,3 +34,12 @@ This design pattern is commonly used in C to make type-specific comparison funct
 - Returns the same comparison results as cmpLexeme: negative, zero, or positive values indicating relative ordering
 - Used specifically for binary search operations in thesaurus dictionary lookups via findTheLexeme
 - The 'Q' suffix typically indicates compatibility with qsort-style comparison functions
+
+## Simplified Source
+
+```c
+static int cmpLexemeQ(const void *a, const void *b) {
+    // Cast void pointers to TheLexeme and delegate to typed comparison
+    return cmpLexeme((const TheLexeme *) a, (const TheLexeme *) b);
+}
+```

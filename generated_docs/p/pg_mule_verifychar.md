@@ -35,3 +35,27 @@ The function ensures that multi-byte MULE characters follow the proper encoding 
 - Part of PostgreSQL's character encoding validation infrastructure for MULE encoding
 - The function is static, indicating it's only used within the wchar.c compilation unit
 - MULE encoding was historically used by Emacs for multi-lingual text support
+
+## Simplified Source
+
+```c
+static int
+pg_mule_verifychar(const unsigned char *s, int len)
+{
+    // Get expected character length using MULE byte length function
+    int char_len = pg_mule_mblen(s);
+
+    // Check if we have enough bytes available
+    if (len < char_len)
+        return -1;
+
+    // Verify all continuation bytes have high bit set
+    for (int i = 1; i < char_len; i++) {
+        unsigned char c = s[i];
+        if (!IS_HIGHBIT_SET(c))
+            return -1;  // Invalid continuation byte
+    }
+
+    return char_len;  // Valid character
+}
+```

@@ -30,3 +30,14 @@ This function is part of PostgreSQL's character encoding infrastructure, providi
 - Part of the encoding-specific function dispatch mechanism in PostgreSQL
 - The input pointer should point to a valid UTF-8 character sequence
 - Used when PostgreSQL needs to calculate display widths for UTF-8 encoded text
+
+## Simplified Source
+
+```c
+static int
+pg_utf_dsplen(const unsigned char *s)
+{
+    // Convert UTF-8 bytes to Unicode code point, then get display width
+    return ucs_wcwidth(utf8_to_unicode(s));
+}
+```

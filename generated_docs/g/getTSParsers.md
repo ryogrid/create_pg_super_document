@@ -35,3 +35,70 @@ The function constructs a SQL query to select all relevant fields from pg_ts_par
 - Memory is allocated for the entire array of parsers at once using pg_malloc
 - Each parser is processed to extract its component function OIDs and namespace information
 - The TSParserInfo structure contains both dump object metadata and parser-specific function references
+
+## Simplified Source
+
+```c
+TSParserInfo *
+getTSParsers(Archive *fout, int *numTSParsers)
+{
+    PGresult *res;
+    int ntups, i;
+    PQExpBuffer query;
+    TSParserInfo *prsinfo;
+
+    query = createPQExpBuffer();
+
+    // Query all text search parsers from system catalog
+    appendPQExpBufferStr(query, "SELECT tableoid, oid, prsname, prsnamespace, "
+                                "prsstart::oid, prstoken::oid, "
+                                "prsend::oid, prsheadline::oid, prslextype::oid "
+                                "FROM pg_ts_parser");
+
+    res = ExecuteSqlQuery(fout, query->data, PGRES_TUPLES_OK);
+    ntups = PQntuples(res);
+    *numTSParsers = ntups;
+
+    // Allocate array for parser info
+    prsinfo = (TSParserInfo *) pg_malloc(ntups * sizeof(TSParserInfo));
+
+    // Get column indices
+    int i_tableoid = PQfnumber(res, "tableoid");
+    int i_oid = PQfnumber(res, "oid");
+    int i_prsname = PQfnumber(res, "prsname");
+    int i_prsnamespace = PQfnumber(res, "prsnamespace");
+    int i_prsstart = PQfnumber(res, "prsstart");
+    int i_prstoken = PQfnumber(res, "prstoken");
+    int i_prsend = PQfnumber(res, "prsend");
+    int i_prsheadline = PQfnumber(res, "prsheadline");
+    int i_prslextype = PQfnumber(res, "prslextype");
+
+    // Process each parser
+    for (i = 0; i < ntups; i++) {
+        // Set object type and catalog info
+        prsinfo[i].dobj.objType = DO_TSPARSER;
+        prsinfo[i].dobj.catId.tableoid = atooid(PQgetvalue(res, i, i_tableoid));
+        prsinfo[i].dobj.catId.oid = atooid(PQgetvalue(res, i, i_oid));
+        AssignDumpId(&prsinfo[i].dobj);
+
+        // Set parser name and namespace
+        prsinfo[i].dobj.name = pg_strdup(PQgetvalue(res, i, i_prsname));
+        prsinfo[i].dobj.namespace = findNamespace(atooid(PQgetvalue(res, i, i_prsnamespace)));
+
+        // Store parser function OIDs
+        prsinfo[i].prsstart = atooid(PQgetvalue(res, i, i_prsstart));
+        prsinfo[i].prstoken = atooid(PQgetvalue(res, i, i_prstoken));
+        prsinfo[i].prsend = atooid(PQgetvalue(res, i, i_prsend));
+        prsinfo[i].prsheadline = atooid(PQgetvalue(res, i, i_prsheadline));
+        prsinfo[i].prslextype = atooid(PQgetvalue(res, i, i_prslextype));
+
+        // Determine if parser should be dumped
+        selectDumpableObject(&(prsinfo[i].dobj), fout);
+    }
+
+    // Cleanup and return
+    PQclear(res);
+    destroyPQExpBuffer(query);
+    return prsinfo;
+}
+```

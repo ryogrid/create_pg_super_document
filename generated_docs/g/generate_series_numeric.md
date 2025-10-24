@@ -32,3 +32,14 @@ This design pattern allows for a unified implementation where the two-parameter 
 - Part of PostgreSQL's set-returning function family for numeric types
 - The actual series generation logic is implemented in 
 - Follows PostgreSQL's pattern of providing both two-parameter and three-parameter versions of generate_series
+
+## Simplified Source
+
+```c
+Datum
+generate_series_numeric(PG_FUNCTION_ARGS)
+{
+    // Delegate to the step-based implementation with default step of 1
+    return generate_series_step_numeric(fcinfo);
+}
+```

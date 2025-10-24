@@ -59,3 +59,84 @@ The function includes extensive error checking and user status updates throughou
 - The commit timestamp limits are set to prevent issues with commit timestamp tracking
 - Multixact ID handling prevents the new cluster from attempting to read obsolete multixact data
 - The function is critical for maintaining ACID properties across the upgrade process
+
+## Simplified Source
+
+```c
+static void copy_xact_xlog_xid(void) {
+    // Step 1: Copy transaction commit logs (handle version naming differences)
+    copy_subdir_files(GET_MAJOR_VERSION(old_cluster.major_version) <= 906 ?
+                      "pg_clog" : "pg_xact",
+                      GET_MAJOR_VERSION(new_cluster.major_version) <= 906 ?
+                      "pg_clog" : "pg_xact");
+
+    // Step 2: Set oldest XID for new cluster
+    prep_status("Setting oldest XID for new cluster");
+    exec_prog(UTILITY_LOG_FILE, NULL, true, true,
+              "\"%s/pg_resetwal\" -f -u %u \"%s\"",
+              new_cluster.bindir, old_cluster.controldata.chkpnt_oldstxid,
+              new_cluster.pgdata);
+    check_ok();
+
+    // Step 3: Set next transaction ID and epoch
+    prep_status("Setting next transaction ID and epoch for new cluster");
+    exec_prog(UTILITY_LOG_FILE, NULL, true, true,
+              "\"%s/pg_resetwal\" -f -x %u \"%s\"",
+              new_cluster.bindir, old_cluster.controldata.chkpnt_nxtxid,
+              new_cluster.pgdata);
+    exec_prog(UTILITY_LOG_FILE, NULL, true, true,
+              "\"%s/pg_resetwal\" -f -e %u \"%s\"",
+              new_cluster.bindir, old_cluster.controldata.chkpnt_nxtepoch,
+              new_cluster.pgdata);
+
+    // Step 4: Reset commit timestamp limits
+    exec_prog(UTILITY_LOG_FILE, NULL, true, true,
+              "\"%s/pg_resetwal\" -f -c %u,%u \"%s\"",
+              new_cluster.bindir,
+              old_cluster.controldata.chkpnt_nxtxid,
+              old_cluster.controldata.chkpnt_nxtxid,
+              new_cluster.pgdata);
+    check_ok();
+
+    // Step 5: Handle multixact data based on version compatibility
+    if (old_cluster.controldata.cat_ver >= MULTIXACT_FORMATCHANGE_CAT_VER &&
+        new_cluster.controldata.cat_ver >= MULTIXACT_FORMATCHANGE_CAT_VER) {
+
+        // Compatible versions: copy multixact directories
+        copy_subdir_files("pg_multixact/offsets", "pg_multixact/offsets");
+        copy_subdir_files("pg_multixact/members", "pg_multixact/members");
+
+        prep_status("Setting next multixact ID and offset for new cluster");
+        exec_prog(UTILITY_LOG_FILE, NULL, true, true,
+                  "\"%s/pg_resetwal\" -O %u -m %u,%u \"%s\"",
+                  new_cluster.bindir,
+                  old_cluster.controldata.chkpnt_nxtmxoff,
+                  old_cluster.controldata.chkpnt_nxtmulti,
+                  old_cluster.controldata.chkpnt_oldstMulti,
+                  new_cluster.pgdata);
+        check_ok();
+    } else if (new_cluster.controldata.cat_ver >= MULTIXACT_FORMATCHANGE_CAT_VER) {
+
+        // Incompatible versions: clean up and set boundaries
+        remove_new_subdir("pg_multixact/offsets", false);
+
+        prep_status("Setting oldest multixact ID in new cluster");
+        exec_prog(UTILITY_LOG_FILE, NULL, true, true,
+                  "\"%s/pg_resetwal\" -m %u,%u \"%s\"",
+                  new_cluster.bindir,
+                  old_cluster.controldata.chkpnt_nxtmulti + 1,
+                  old_cluster.controldata.chkpnt_nxtmulti,
+                  new_cluster.pgdata);
+        check_ok();
+    }
+
+    // Step 6: Reset WAL archives
+    prep_status("Resetting WAL archives");
+    exec_prog(UTILITY_LOG_FILE, NULL, true, true,
+              "\"%s/pg_resetwal\" -l 00000001%s \"%s\"",
+              new_cluster.bindir,
+              old_cluster.controldata.nextxlogfile + 8,  // Skip timeline prefix
+              new_cluster.pgdata);
+    check_ok();
+}
+```

@@ -34,3 +34,16 @@ The function provides access to the cached mode without requiring additional sys
 - This function is part of PostgreSQL's file descriptor introspection capabilities
 - The mode remains constant for the lifetime of the file descriptor
 - Used primarily for auditing file permissions and ensuring proper access controls
+
+## Simplified Source
+
+```c
+mode_t FileGetRawMode(File file)
+{
+    // Validate the file handle
+    Assert(FileIsValid(file));
+
+    // Return the cached mode from open(2) call
+    return VfdCache[file].fileMode;
+}
+```

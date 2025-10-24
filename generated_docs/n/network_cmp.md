@@ -36,7 +36,21 @@ This function is typically used internally by PostgreSQL's query processing syst
 ## Notes and Other Information
 - Returns a Datum containing an int32 value: negative if first argument is less, zero if equal, positive if greater
 - Part of PostgreSQL's built-in function system for network data types
-- The function follows PostgreSQL's standard built-in function signature pattern using 
+- The function follows PostgreSQL's standard built-in function signature pattern using PG_FUNCTION_ARGS
 - Registered in PostgreSQL's system catalogs for use in SQL queries
 - Essential for sorting, indexing, and comparison operations on inet/cidr columns in SQL
-- Located in 
+- Located in src/backend/utils/adt/network.c:425-436
+
+## Simplified Source
+
+```c
+Datum
+network_cmp(PG_FUNCTION_ARGS)
+{
+    inet *a1 = PG_GETARG_INET_PP(0);
+    inet *a2 = PG_GETARG_INET_PP(1);
+
+    // Delegate to internal comparison function
+    PG_RETURN_INT32(network_cmp_internal(a1, a2));
+}
+``` 

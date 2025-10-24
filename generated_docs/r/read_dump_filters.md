@@ -55,3 +55,86 @@ When include filters are applied for schemas or tables, the  flag in DumpOptions
 - Invalid filter combinations result in immediate program termination via exit_nicely(1)
 - Memory management is handled properly with objname being freed after processing each item
 - The function enforces pg_dump's filtering policy where certain object types can only use specific filter commands (include vs exclude)
+
+## Simplified Source
+
+```c
+static void read_dump_filters(const char *filename, DumpOptions *dopt)
+{
+    FilterStateData fstate;
+    char *objname;
+    FilterCommandType comtype;
+    FilterObjectType objtype;
+
+    // Initialize filter reading from file or STDIN
+    filter_init(&fstate, filename, exit_nicely);
+
+    // Process each filter item from the file
+    while (filter_read_item(&fstate, &objname, &comtype, &objtype)) {
+
+        if (comtype == FILTER_COMMAND_TYPE_INCLUDE) {
+            // Handle include filters for allowed object types
+            switch (objtype) {
+                case FILTER_OBJECT_TYPE_EXTENSION:
+                    simple_string_list_append(&extension_include_patterns, objname);
+                    break;
+                case FILTER_OBJECT_TYPE_FOREIGN_DATA:
+                    simple_string_list_append(&foreign_servers_include_patterns, objname);
+                    break;
+                case FILTER_OBJECT_TYPE_SCHEMA:
+                    simple_string_list_append(&schema_include_patterns, objname);
+                    dopt->include_everything = false;
+                    break;
+                case FILTER_OBJECT_TYPE_TABLE:
+                    simple_string_list_append(&table_include_patterns, objname);
+                    dopt->include_everything = false;
+                    break;
+                case FILTER_OBJECT_TYPE_TABLE_AND_CHILDREN:
+                    simple_string_list_append(&table_include_patterns_and_children, objname);
+                    dopt->include_everything = false;
+                    break;
+                default:
+                    // Invalid include filter types
+                    pg_log_filter_error(&fstate, "include filter for \"%s\" is not allowed",
+                                      filter_object_type_name(objtype));
+                    exit_nicely(1);
+            }
+        }
+        else if (comtype == FILTER_COMMAND_TYPE_EXCLUDE) {
+            // Handle exclude filters for allowed object types
+            switch (objtype) {
+                case FILTER_OBJECT_TYPE_EXTENSION:
+                    simple_string_list_append(&extension_exclude_patterns, objname);
+                    break;
+                case FILTER_OBJECT_TYPE_TABLE_DATA:
+                    simple_string_list_append(&tabledata_exclude_patterns, objname);
+                    break;
+                case FILTER_OBJECT_TYPE_TABLE_DATA_AND_CHILDREN:
+                    simple_string_list_append(&tabledata_exclude_patterns_and_children, objname);
+                    break;
+                case FILTER_OBJECT_TYPE_SCHEMA:
+                    simple_string_list_append(&schema_exclude_patterns, objname);
+                    break;
+                case FILTER_OBJECT_TYPE_TABLE:
+                    simple_string_list_append(&table_exclude_patterns, objname);
+                    break;
+                case FILTER_OBJECT_TYPE_TABLE_AND_CHILDREN:
+                    simple_string_list_append(&table_exclude_patterns_and_children, objname);
+                    break;
+                default:
+                    // Invalid exclude filter types
+                    pg_log_filter_error(&fstate, "exclude filter for \"%s\" is not allowed",
+                                      filter_object_type_name(objtype));
+                    exit_nicely(1);
+            }
+        }
+
+        // Clean up memory for this item
+        if (objname)
+            free(objname);
+    }
+
+    // Clean up filter state
+    filter_free(&fstate);
+}
+```

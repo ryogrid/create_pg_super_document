@@ -38,3 +38,50 @@ This function provides access to JIT-compiled functions by looking up their symb
 - Includes timing instrumentation for emission tracking in LLVM 12+
 - Returns NULL and throws ERROR if function cannot be found
 - In LLVM 12+, first symbol lookup triggers actual code emission (lazy evaluation)
+
+## Simplified Source
+
+```c
+void *
+llvm_get_function(LLVMJitContext *context, const char *funcname)
+{
+    llvm_assert_in_fatal_section();
+
+    // Compile pending modules if needed
+    if (!context->compiled) {
+        llvm_compile_module(context);
+    }
+
+    // Search through all JIT handles for the function
+    foreach(lc, context->handles) {
+        LLVMJitHandle *handle = (LLVMJitHandle *) lfirst(lc);
+
+#if LLVM_VERSION_MAJOR > 11
+        // LLVM 12+ using LLJIT
+        LLVMOrcJITTargetAddress addr = 0;
+        LLVMErrorRef error = LLVMOrcLLJITLookup(handle->lljit, &addr, funcname);
+        if (error) {
+            elog(ERROR, "failed to look up symbol \"%s\": %s",
+                 funcname, llvm_error_message(error));
+        }
+
+        // Track emission timing for lazy compilation
+        INSTR_TIME_ACCUM_DIFF(context->base.instr.emission_counter, endtime, starttime);
+
+        if (addr)
+            return (void *) (uintptr_t) addr;
+#else
+        // LLVM 11 and older using OrcStack
+        LLVMOrcTargetAddress addr = 0;
+        if (LLVMOrcGetSymbolAddressIn(handle->stack, &addr, handle->orc_handle, funcname)) {
+            elog(ERROR, "failed to look up symbol \"%s\"", funcname);
+        }
+        if (addr)
+            return (void *) (uintptr_t) addr;
+#endif
+    }
+
+    elog(ERROR, "failed to JIT: %s", funcname);
+    return NULL;
+}
+```

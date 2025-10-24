@@ -37,3 +37,13 @@ The primary use case is during database drop operations, where PostgreSQL needs 
 - Could potentially be extended in the future to support more sophisticated filtering criteria
 - Critical for maintaining system performance during database drop operations by avoiding unnecessary sync operations on soon-to-be-deleted files
 - The comment indicates this is the current implementation and may evolve to support additional filtering patterns
+
+## Simplified Source
+
+```c
+bool mdfiletagmatches(const FileTag *ftag, const FileTag *candidate) {
+    // Match if both file tags belong to the same database
+    // Used during database drops to cancel pending sync operations
+    return ftag->rlocator.dbOid == candidate->rlocator.dbOid;
+}
+```

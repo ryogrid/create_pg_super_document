@@ -48,3 +48,102 @@ Key responsibilities include:
 - Error handling includes warnings for invalid cast method values or missing function definitions
 - Memory management uses PostgreSQL's PQExpBuffer system with proper cleanup
 - Binary upgrade scenarios are supported through extension member handling
+
+## Simplified Source
+
+```c
+static void
+dumpCast(Archive *fout, const CastInfo *cast)
+{
+    DumpOptions *dopt = fout->dopt;
+    PQExpBuffer defqry, delqry, labelq, castargs;
+    FuncInfo *funcInfo = NULL;
+    const char *sourceType, *targetType;
+
+    // Skip in data-only dumps
+    if (dopt->dataOnly)
+        return;
+
+    // Find cast function if one exists
+    if (OidIsValid(cast->castfunc)) {
+        funcInfo = findFuncByOid(cast->castfunc);
+        if (funcInfo == NULL)
+            pg_fatal("could not find function definition for function with OID %u",
+                     cast->castfunc);
+    }
+
+    // Initialize buffers
+    defqry = createPQExpBuffer();
+    delqry = createPQExpBuffer();
+    labelq = createPQExpBuffer();
+    castargs = createPQExpBuffer();
+
+    // Get formatted type names
+    sourceType = getFormattedTypeName(fout, cast->castsource, zeroAsNone);
+    targetType = getFormattedTypeName(fout, cast->casttarget, zeroAsNone);
+
+    // Build DROP statement
+    appendPQExpBuffer(delqry, "DROP CAST (%s AS %s);\n", sourceType, targetType);
+
+    // Build CREATE CAST statement
+    appendPQExpBuffer(defqry, "CREATE CAST (%s AS %s) ", sourceType, targetType);
+
+    // Add cast method
+    switch (cast->castmethod) {
+        case COERCION_METHOD_BINARY:
+            appendPQExpBufferStr(defqry, "WITHOUT FUNCTION");
+            break;
+        case COERCION_METHOD_INOUT:
+            appendPQExpBufferStr(defqry, "WITH INOUT");
+            break;
+        case COERCION_METHOD_FUNCTION:
+            if (funcInfo) {
+                char *fsig = format_function_signature(fout, funcInfo, true);
+                appendPQExpBuffer(defqry, "WITH FUNCTION %s.%s",
+                                  fmtId(funcInfo->dobj.namespace->dobj.name), fsig);
+                free(fsig);
+            } else {
+                pg_log_warning("bogus value in pg_cast.castfunc or pg_cast.castmethod field");
+            }
+            break;
+        default:
+            pg_log_warning("bogus value in pg_cast.castmethod field");
+    }
+
+    // Add cast context
+    if (cast->castcontext == 'a')
+        appendPQExpBufferStr(defqry, " AS ASSIGNMENT");
+    else if (cast->castcontext == 'i')
+        appendPQExpBufferStr(defqry, " AS IMPLICIT");
+
+    appendPQExpBufferStr(defqry, ";\n");
+
+    // Prepare label and arguments for archiving
+    appendPQExpBuffer(labelq, "CAST (%s AS %s)", sourceType, targetType);
+    appendPQExpBuffer(castargs, "(%s AS %s)", sourceType, targetType);
+
+    // Handle binary upgrade
+    if (dopt->binary_upgrade)
+        binary_upgrade_extension_member(defqry, &cast->dobj, "CAST", castargs->data, NULL);
+
+    // Archive the cast
+    if (cast->dobj.dump & DUMP_COMPONENT_DEFINITION)
+        ArchiveEntry(fout, cast->dobj.catId, cast->dobj.dumpId,
+                     ARCHIVE_OPTS(.tag = labelq->data,
+                                  .description = "CAST",
+                                  .section = SECTION_PRE_DATA,
+                                  .createStmt = defqry->data,
+                                  .dropStmt = delqry->data));
+
+    // Dump cast comments
+    if (cast->dobj.dump & DUMP_COMPONENT_COMMENT)
+        dumpComment(fout, "CAST", castargs->data, NULL, "",
+                    cast->dobj.catId, 0, cast->dobj.dumpId);
+
+    // Cleanup
+    destroyPQExpBuffer(defqry);
+    destroyPQExpBuffer(delqry);
+    destroyPQExpBuffer(labelq);
+    destroyPQExpBuffer(castargs);
+}
+```

@@ -32,3 +32,19 @@ This function performs the core accumulation operation for 128-bit aggregate fun
 - Sum of squares calculation is conditional based on the `calcSumX2` flag set during state initialization
 - Used by various integer accumulation functions across different integer types (int2, int4, int8)
 - The 128-bit arithmetic ensures no overflow for reasonable aggregate operations
+
+## Simplified Source
+
+```c
+static void
+do_int128_accum(Int128AggState *state, int128 newval)
+{
+    // Optionally calculate sum of squares
+    if (state->calcSumX2)
+        state->sumX2 += newval * newval;
+
+    // Always update sum and count
+    state->sumX += newval;
+    state->N++;
+}
+```

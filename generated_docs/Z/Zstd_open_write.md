@@ -33,3 +33,19 @@ This function is a wrapper for opening zstd-compressed files in write mode withi
 - The function assumes MAXPGPATH is sufficient for the path with ".zst" extension
 - Returns the result of the underlying open_func call (boolean success/failure)
 - Part of the modular compression system in pg_dump that supports multiple compression formats
+
+## Simplified Source
+
+```c
+static bool
+Zstd_open_write(const char *path, const char *mode, CompressFileHandle *CFH)
+{
+    char filename[MAXPGPATH];
+
+    // Append .zst extension to the path
+    sprintf(filename, "%s.zst", path);
+
+    // Delegate to the underlying file opening function
+    return CFH->open_func(filename, -1, mode, CFH);
+}
+```

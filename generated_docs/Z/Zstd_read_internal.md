@@ -42,3 +42,73 @@ This function implements the internal reading mechanism for Zstd-compressed file
 - Handles end-of-frame detection (res == 0) and end-of-file conditions gracefully
 - Uses assertions to validate buffer state consistency throughout the decompression process
 - The function is designed to work with standard file I/O operations and integrates with PostgreSQL's memory management
+
+## Simplified Source
+
+```c
+static size_t
+Zstd_read_internal(void *ptr, size_t size, CompressFileHandle *CFH, bool exit_on_error)
+{
+    ZstdCompressorState *state = (ZstdCompressorState *) CFH->private_data;
+    ZSTD_inBuffer *input = &state->input;
+    ZSTD_outBuffer *output = &state->output;
+
+    // Initialize decompression stream on first call
+    if (state->dstream == NULL) {
+        state->input.src = pg_malloc0(ZSTD_DStreamInSize());
+        state->dstream = ZSTD_createDStream();
+        if (state->dstream == NULL) {
+            if (exit_on_error)
+                pg_fatal("could not initialize compression library");
+            return -1;
+        }
+    }
+
+    // Setup output buffer
+    output->size = size;
+    output->dst = ptr;
+    output->pos = 0;
+
+    // Main decompression loop
+    for (;;) {
+        // Reset input buffer when consumed
+        if (input->pos == input->size) {
+            input->size = 0;
+            input->pos = 0;
+        }
+
+        // Read more compressed data if needed
+        if (input->pos == input->size) {
+            size_t bytes_read = fread(unconstify(void *, input->src), 1,
+                                     ZSTD_DStreamInSize(), state->fp);
+            if (ferror(state->fp)) {
+                if (exit_on_error)
+                    pg_fatal("could not read from input file: %m");
+                return -1;
+            }
+            input->size = bytes_read;
+            if (bytes_read == 0)
+                break; // End of file
+        }
+
+        // Decompress available data
+        while (input->pos < input->size) {
+            size_t result = ZSTD_decompressStream(state->dstream, output, input);
+            if (ZSTD_isError(result)) {
+                if (exit_on_error)
+                    pg_fatal("could not decompress data: %s", ZSTD_getErrorName(result));
+                return -1;
+            }
+
+            // Check if output buffer is full or frame is complete
+            if (output->pos == output->size || result == 0)
+                break;
+        }
+
+        if (output->pos == output->size)
+            break; // Output buffer is full
+    }
+
+    return output->pos;
+}
+```

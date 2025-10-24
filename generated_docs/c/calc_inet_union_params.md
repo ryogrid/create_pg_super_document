@@ -52,3 +52,56 @@ The algorithm initializes using the first key's values, then iterates through re
 - The mixed-family constraint ensures that union keys represent valid inet ranges
 - Used during GiST index construction and maintenance operations
 - Essential for maintaining index structure integrity in inet GiST indexes
+
+## Simplified Source
+
+```c
+static void
+calc_inet_union_params(GISTENTRY *ent, int m, int n,
+                       int *minfamily_p, int *maxfamily_p,
+                       int *minbits_p, int *commonbits_p)
+{
+    int minfamily, maxfamily, minbits, commonbits;
+    unsigned char *addr;
+    GistInetKey *tmp;
+
+    // Initialize with first key's values
+    tmp = DatumGetInetKeyP(ent[m].key);
+    minfamily = maxfamily = gk_ip_family(tmp);
+    minbits = gk_ip_minbits(tmp);
+    commonbits = gk_ip_commonbits(tmp);
+    addr = gk_ip_addr(tmp);
+
+    // Scan remaining keys to find ranges and commonality
+    for (int i = m + 1; i <= n; i++)
+    {
+        tmp = DatumGetInetKeyP(ent[i].key);
+
+        // Track family range (IPv4/IPv6)
+        if (minfamily > gk_ip_family(tmp))
+            minfamily = gk_ip_family(tmp);
+        if (maxfamily < gk_ip_family(tmp))
+            maxfamily = gk_ip_family(tmp);
+
+        // Find minimum netmask bits
+        if (minbits > gk_ip_minbits(tmp))
+            minbits = gk_ip_minbits(tmp);
+
+        // Calculate common address bits
+        if (commonbits > gk_ip_commonbits(tmp))
+            commonbits = gk_ip_commonbits(tmp);
+        if (commonbits > 0)
+            commonbits = bitncommon(addr, gk_ip_addr(tmp), commonbits);
+    }
+
+    // Mixed families can't have meaningful bit commonality
+    if (minfamily != maxfamily)
+        minbits = commonbits = 0;
+
+    // Return calculated parameters
+    *minfamily_p = minfamily;
+    *maxfamily_p = maxfamily;
+    *minbits_p = minbits;
+    *commonbits_p = commonbits;
+}
+```

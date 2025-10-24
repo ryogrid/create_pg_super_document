@@ -30,3 +30,14 @@ This function implements the release callback for heap tuple table slots within 
 - The empty implementation indicates heap slots rely on PostgreSQL's memory context system for cleanup
 - This function is called through the TupleTableSlotOps function pointer structure during slot destruction
 - Contrasts with other slot types that might need explicit resource deallocation
+
+## Simplified Source
+
+```c
+static void
+tts_heap_release(TupleTableSlot *slot)
+{
+    // No special cleanup required for heap tuple slots
+    // Memory context system handles resource deallocation
+}
+```

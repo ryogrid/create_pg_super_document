@@ -48,3 +48,66 @@ Results are ordered by referenced object ID to optimize processing when multiple
 - Handles cases where referenced extensions cannot be found with warning messages
 - Critical for proper extension handling in both normal and binary upgrade dump modes
 - The query uses a redundant refclassid constraint that may improve search performance
+
+## Simplified Source
+
+```c
+void
+getExtensionMembership(Archive *fout, ExtensionInfo extinfo[], int numExtensions)
+{
+    PQExpBuffer query;
+    PGresult *res;
+    int ntups, i;
+    int i_classid, i_objid, i_refobjid;
+    ExtensionInfo *ext;
+
+    // Early return if no extensions
+    if (numExtensions == 0)
+        return;
+
+    query = createPQExpBuffer();
+
+    // Query extension dependencies from pg_depend
+    appendPQExpBufferStr(query, "SELECT "
+                               "classid, objid, refobjid "
+                               "FROM pg_depend "
+                               "WHERE refclassid = 'pg_extension'::regclass "
+                               "AND deptype = 'e' "
+                               "ORDER BY 3");
+
+    res = ExecuteSqlQuery(fout, query->data, PGRES_TUPLES_OK);
+    ntups = PQntuples(res);
+
+    i_classid = PQfnumber(res, "classid");
+    i_objid = PQfnumber(res, "objid");
+    i_refobjid = PQfnumber(res, "refobjid");
+
+    // Process dependencies, ordered by extension for efficiency
+    ext = NULL;
+
+    for (i = 0; i < ntups; i++) {
+        CatalogId objId;
+        Oid extId;
+
+        objId.tableoid = atooid(PQgetvalue(res, i, i_classid));
+        objId.oid = atooid(PQgetvalue(res, i, i_objid));
+        extId = atooid(PQgetvalue(res, i, i_refobjid));
+
+        // Find extension (cache for efficiency)
+        if (ext == NULL || ext->dobj.catId.oid != extId)
+            ext = findExtensionByOid(extId);
+
+        if (ext == NULL) {
+            // Extension not found - log warning and continue
+            pg_log_warning("could not find referenced extension %u", extId);
+            continue;
+        }
+
+        // Record this object as a member of the extension
+        recordExtensionMembership(objId, ext);
+    }
+
+    PQclear(res);
+    destroyPQExpBuffer(query);
+}
+```

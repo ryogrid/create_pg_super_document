@@ -33,3 +33,16 @@ The function performs no permission checks since both read and write permissions
 - The function includes an assertion to ensure the object descriptor pointer is valid
 - This is a low-level function typically called through higher-level backend interfaces
 - The returned offset can be used with `inv_seek` to restore a position later
+
+## Simplified Source
+
+```c
+int64 inv_tell(LargeObjectDesc *obj_desc)
+{
+    Assert(PointerIsValid(obj_desc));
+
+    // Return current position in large object
+    // No permission check needed - both read/write allow position queries
+    return obj_desc->offset;
+}
+```

@@ -38,3 +38,20 @@ This function implements a typical stack pop operation by removing the head elem
 - The complementary operation to conditional_stack_push, maintaining proper stack discipline
 - Essential for preventing memory leaks as it properly deallocates stack elements created by push operations
 - Used by conditional_stack_reset to iteratively empty the entire stack
+
+## Simplified Source
+
+```c
+bool conditional_stack_pop(ConditionalStack cstack) {
+    IfStackElem *elem = cstack->head;
+
+    // Check if stack is empty
+    if (!elem)
+        return false;
+
+    // Remove head element and free memory
+    cstack->head = elem->next;
+    free(elem);
+    return true;
+}
+```

@@ -46,3 +46,53 @@ The function iterates through all DumpableObjects and classifies them by type, t
 - The post-data boundary depends on the pre-data boundary to maintain proper ordering
 - Critical for ensuring dump output can be restored correctly without dependency violations
 - Handles special cases where the same object type may belong to different phases depending on context
+
+## Simplified Source
+
+```c
+static void addBoundaryDependencies(DumpableObject **dobjs, int numObjs,
+                                   DumpableObject *boundaryObjs)
+{
+    DumpableObject *preDataBound = &boundaryObjs[0];
+    DumpableObject *postDataBound = &boundaryObjs[1];
+
+    for (int i = 0; i < numObjs; i++) {
+        DumpableObject *obj = dobjs[i];
+
+        switch (obj->objType) {
+            // Pre-data objects: schema definitions first
+            case DO_NAMESPACE: case DO_TYPE: case DO_FUNC: case DO_TABLE:
+            case DO_EXTENSION: case DO_OPERATOR: case DO_COLLATION:
+                addObjectDependency(preDataBound, obj->dumpId);
+                break;
+
+            // Data objects: between boundaries
+            case DO_TABLE_DATA: case DO_SEQUENCE_SET: case DO_LARGE_OBJECT:
+                addObjectDependency(obj, preDataBound->dumpId);
+                addObjectDependency(postDataBound, obj->dumpId);
+                break;
+
+            // Post-data objects: after data is loaded
+            case DO_INDEX: case DO_TRIGGER: case DO_POLICY:
+            case DO_PUBLICATION: case DO_SUBSCRIPTION:
+                addObjectDependency(obj, postDataBound->dumpId);
+                break;
+
+            // Special cases: conditionally post-data
+            case DO_RULE:
+                if (((RuleInfo *) obj)->separate)
+                    addObjectDependency(obj, postDataBound->dumpId);
+                break;
+            case DO_CONSTRAINT:
+                if (((ConstraintInfo *) obj)->separate)
+                    addObjectDependency(obj, postDataBound->dumpId);
+                break;
+
+            // Boundary maintenance
+            case DO_POST_DATA_BOUNDARY:
+                addObjectDependency(obj, preDataBound->dumpId);
+                break;
+        }
+    }
+}
+```

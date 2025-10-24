@@ -55,3 +55,91 @@ Key features include:
 - Rules for views may be merged into CREATE VIEW statements rather than dumped separately (separate = false)
 - The function processes rules in OID order to ensure consistent dump output
 - Fatal errors occur if referenced tables cannot be found, indicating catalog corruption
+
+## Simplified Source
+
+```c
+RuleInfo *getRules(Archive *fout, int *numRules)
+{
+    PGresult   *res;
+    int         ntups;
+    PQExpBuffer query = createPQExpBuffer();
+    RuleInfo   *ruleinfo;
+
+    // Query all rules from pg_rewrite catalog
+    appendPQExpBufferStr(query,
+        "SELECT tableoid, oid, rulename, "
+        "ev_class AS ruletable, ev_type, is_instead, ev_enabled "
+        "FROM pg_rewrite ORDER BY oid");
+
+    res = ExecuteSqlQuery(fout, query->data, PGRES_TUPLES_OK);
+    ntups = PQntuples(res);
+    *numRules = ntups;
+
+    ruleinfo = (RuleInfo *) pg_malloc(ntups * sizeof(RuleInfo));
+
+    // Extract column indices
+    int i_tableoid = PQfnumber(res, "tableoid");
+    int i_oid = PQfnumber(res, "oid");
+    int i_rulename = PQfnumber(res, "rulename");
+    int i_ruletable = PQfnumber(res, "ruletable");
+    int i_ev_type = PQfnumber(res, "ev_type");
+    int i_is_instead = PQfnumber(res, "is_instead");
+    int i_ev_enabled = PQfnumber(res, "ev_enabled");
+
+    // Process each rule
+    for (int i = 0; i < ntups; i++)
+    {
+        Oid ruletableoid;
+
+        // Initialize rule object
+        ruleinfo[i].dobj.objType = DO_RULE;
+        ruleinfo[i].dobj.catId.tableoid = atooid(PQgetvalue(res, i, i_tableoid));
+        ruleinfo[i].dobj.catId.oid = atooid(PQgetvalue(res, i, i_oid));
+        AssignDumpId(&ruleinfo[i].dobj);
+        ruleinfo[i].dobj.name = pg_strdup(PQgetvalue(res, i, i_rulename));
+
+        // Find and link to the rule's table
+        ruletableoid = atooid(PQgetvalue(res, i, i_ruletable));
+        ruleinfo[i].ruletable = findTableByOid(ruletableoid);
+
+        if (ruleinfo[i].ruletable == NULL)
+            pg_fatal("parent table with OID %u not found", ruletableoid);
+
+        // Set namespace and dump flags from table
+        ruleinfo[i].dobj.namespace = ruleinfo[i].ruletable->dobj.namespace;
+        ruleinfo[i].dobj.dump = ruleinfo[i].ruletable->dobj.dump;
+
+        // Extract rule properties
+        ruleinfo[i].ev_type = *(PQgetvalue(res, i, i_ev_type));
+        ruleinfo[i].is_instead = *(PQgetvalue(res, i, i_is_instead)) == 't';
+        ruleinfo[i].ev_enabled = *(PQgetvalue(res, i, i_ev_enabled));
+
+        // Handle dependency ordering for view rules
+        if (ruleinfo[i].ruletable)
+        {
+            // ON SELECT INSTEAD rules for views/materialized views are dumped before table
+            if ((ruleinfo[i].ruletable->relkind == RELKIND_VIEW ||
+                 ruleinfo[i].ruletable->relkind == RELKIND_MATVIEW) &&
+                ruleinfo[i].ev_type == '1' && ruleinfo[i].is_instead)
+            {
+                addObjectDependency(&ruleinfo[i].ruletable->dobj, ruleinfo[i].dobj.dumpId);
+                ruleinfo[i].separate = false;  // Merge into CREATE VIEW
+            }
+            else
+            {
+                addObjectDependency(&ruleinfo[i].dobj, ruleinfo[i].ruletable->dobj.dumpId);
+                ruleinfo[i].separate = true;
+            }
+        }
+        else
+        {
+            ruleinfo[i].separate = true;
+        }
+    }
+
+    PQclear(res);
+    destroyPQExpBuffer(query);
+    return ruleinfo;
+}
+```

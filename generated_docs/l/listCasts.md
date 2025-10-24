@@ -51,3 +51,112 @@ The query supports pattern matching on both source and target type names and inc
 - Function names like '(binary coercible)' and '(with inout)' are not localized to avoid translation conflicts
 - Results are ordered by source type and target type names
 - Uses error handling with goto for cleanup on validation failures
+
+## Simplified Source
+
+```c
+bool listCasts(const char *pattern, bool verbose) {
+    PQExpBufferData buf;
+    PGresult *res;
+    printQueryOpt myopt = pset.popt;
+    static const bool translate_columns[] = {false, false, false, true, false};
+
+    initPQExpBuffer(&buf);
+
+    // Build query for source and target types
+    printfPQExpBuffer(&buf,
+        "SELECT pg_catalog.format_type(castsource, NULL) AS \"%s\",\n"
+        "       pg_catalog.format_type(casttarget, NULL) AS \"%s\",\n",
+        gettext_noop("Source type"),
+        gettext_noop("Target type"));
+
+    // Add function/method column
+    appendPQExpBuffer(&buf,
+        "       CASE WHEN c.castmethod = '%c' THEN '(binary coercible)'\n"
+        "            WHEN c.castmethod = '%c' THEN '(with inout)'\n"
+        "            ELSE p.proname\n"
+        "       END AS \"%s\",\n",
+        COERCION_METHOD_BINARY,
+        COERCION_METHOD_INOUT,
+        gettext_noop("Function"));
+
+    // Add implicit cast column
+    appendPQExpBuffer(&buf,
+        "       CASE WHEN c.castcontext = '%c' THEN '%s'\n"
+        "            WHEN c.castcontext = '%c' THEN '%s'\n"
+        "            ELSE '%s'\n"
+        "       END AS \"%s\"",
+        COERCION_CODE_EXPLICIT,
+        gettext_noop("no"),
+        COERCION_CODE_ASSIGNMENT,
+        gettext_noop("in assignment"),
+        gettext_noop("yes"),
+        gettext_noop("Implicit?"));
+
+    // Add description column if verbose
+    if (verbose)
+        appendPQExpBuffer(&buf,
+            ",\n       d.description AS \"%s\"",
+            gettext_noop("Description"));
+
+    // Add FROM clause with necessary joins
+    appendPQExpBufferStr(&buf,
+        "\nFROM pg_catalog.pg_cast c LEFT JOIN pg_catalog.pg_proc p\n"
+        "     ON c.castfunc = p.oid\n"
+        "     LEFT JOIN pg_catalog.pg_type ts\n"
+        "     ON c.castsource = ts.oid\n"
+        "     LEFT JOIN pg_catalog.pg_namespace ns\n"
+        "     ON ns.oid = ts.typnamespace\n"
+        "     LEFT JOIN pg_catalog.pg_type tt\n"
+        "     ON c.casttarget = tt.oid\n"
+        "     LEFT JOIN pg_catalog.pg_namespace nt\n"
+        "     ON nt.oid = tt.typnamespace\n");
+
+    // Add description join if verbose
+    if (verbose)
+        appendPQExpBufferStr(&buf,
+            "     LEFT JOIN pg_catalog.pg_description d\n"
+            "     ON d.classoid = c.tableoid AND d.objoid = "
+            "c.oid AND d.objsubid = 0\n");
+
+    // Add pattern matching for source type
+    appendPQExpBufferStr(&buf, "WHERE ( (true");
+    if (!validateSQLNamePattern(&buf, pattern, true, false,
+                               "ns.nspname", "ts.typname",
+                               "pg_catalog.format_type(ts.oid, NULL)",
+                               "pg_catalog.pg_type_is_visible(ts.oid)",
+                               NULL, 3))
+        goto error_return;
+
+    // Add pattern matching for target type
+    appendPQExpBufferStr(&buf, ") OR (true");
+    if (!validateSQLNamePattern(&buf, pattern, true, false,
+                               "nt.nspname", "tt.typname",
+                               "pg_catalog.format_type(tt.oid, NULL)",
+                               "pg_catalog.pg_type_is_visible(tt.oid)",
+                               NULL, 3))
+        goto error_return;
+
+    appendPQExpBufferStr(&buf, ") )\nORDER BY 1, 2;");
+
+    // Execute query and display results
+    res = PSQLexec(buf.data);
+    termPQExpBuffer(&buf);
+    if (!res)
+        return false;
+
+    myopt.title = _("List of casts");
+    myopt.translate_header = true;
+    myopt.translate_columns = translate_columns;
+    myopt.n_translate_columns = lengthof(translate_columns);
+
+    printQuery(res, &myopt, pset.queryFout, false, pset.logfile);
+
+    PQclear(res);
+    return true;
+
+error_return:
+    termPQExpBuffer(&buf);
+    return false;
+}
+```

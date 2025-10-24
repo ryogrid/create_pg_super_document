@@ -46,3 +46,76 @@ This function performs code optimization on an LLVM module using either the lega
 - Function-level optimization is performed before module-level optimization
 - Pass managers are properly disposed of to prevent memory leaks
 - Error handling is implemented for the new pass manager with descriptive error messages
+
+## Simplified Source
+
+```c
+static void
+llvm_optimize_module(LLVMJitContext *context, LLVMModuleRef module)
+{
+#if LLVM_VERSION_MAJOR < 17
+    // Legacy pass manager for LLVM < 17
+    LLVMPassManagerBuilderRef llvm_pmb;
+    LLVMPassManagerRef llvm_mpm, llvm_fpm;
+
+    // Determine optimization level
+    int compile_optlevel = (context->base.flags & PGJIT_OPT3) ? 3 : 0;
+
+    // Create new pass manager builder (required for inliner state)
+    llvm_pmb = LLVMPassManagerBuilderCreate();
+    LLVMPassManagerBuilderSetOptLevel(llvm_pmb, compile_optlevel);
+    llvm_fpm = LLVMCreateFunctionPassManagerForModule(module);
+
+    // Configure inlining and optimization passes
+    if (context->base.flags & PGJIT_OPT3) {
+        LLVMPassManagerBuilderUseInlinerWithThreshold(llvm_pmb, 512);
+    } else {
+        // Always include mem2reg pass even at O0
+        LLVMAddPromoteMemoryToRegisterPass(llvm_fpm);
+    }
+
+    LLVMPassManagerBuilderPopulateFunctionPassManager(llvm_pmb, llvm_fpm);
+
+    // Run function-level optimization
+    LLVMInitializeFunctionPassManager(llvm_fpm);
+    for (LLVMValueRef func = LLVMGetFirstFunction(context->module);
+         func != NULL;
+         func = LLVMGetNextFunction(func)) {
+        LLVMRunFunctionPassManager(llvm_fpm, func);
+    }
+    LLVMFinalizeFunctionPassManager(llvm_fpm);
+    LLVMDisposePassManager(llvm_fpm);
+
+    // Run module-level optimization
+    llvm_mpm = LLVMCreatePassManager();
+    LLVMPassManagerBuilderPopulateModulePassManager(llvm_pmb, llvm_mpm);
+
+    // Add additional passes based on flags
+    if (!(context->base.flags & PGJIT_OPT3)) {
+        LLVMAddAlwaysInlinerPass(llvm_mpm);
+    }
+    if ((context->base.flags & PGJIT_INLINE) && !(context->base.flags & PGJIT_OPT3)) {
+        LLVMAddFunctionInliningPass(llvm_mpm);
+    }
+
+    LLVMRunPassManager(llvm_mpm, context->module);
+    LLVMDisposePassManager(llvm_mpm);
+    LLVMPassManagerBuilderDispose(llvm_pmb);
+
+#else
+    // New pass manager for LLVM >= 17
+    const char *passes = (context->base.flags & PGJIT_OPT3) ?
+                         "default<O3>" : "default<O0>,mem2reg";
+
+    LLVMPassBuilderOptionsRef options = LLVMCreatePassBuilderOptions();
+    LLVMPassBuilderOptionsSetInlinerThreshold(options, 512);
+
+    LLVMErrorRef err = LLVMRunPasses(module, passes, NULL, options);
+    if (err) {
+        elog(ERROR, "failed to JIT module: %s", llvm_error_message(err));
+    }
+
+    LLVMDisposePassBuilderOptions(options);
+#endif
+}
+```

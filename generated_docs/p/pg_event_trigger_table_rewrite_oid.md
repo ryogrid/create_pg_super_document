@@ -41,3 +41,18 @@ Table rewrites occur during various DDL operations such as ALTER TABLE commands 
 - The OID returned corresponds to the pg_class entry for the table being rewritten
 - Located in src/backend/commands/event_trigger.c:1493-1513
 - Simple function with focused responsibility - just validates context and returns the stored OID
+
+## Simplified Source
+
+```c
+Datum pg_event_trigger_table_rewrite_oid(PG_FUNCTION_ARGS) {
+    // Validate we're in a table rewrite event trigger context
+    if (!currentEventTriggerState ||
+        currentEventTriggerState->table_rewrite_oid == InvalidOid) {
+        ereport(ERROR, "Function can only be called in table_rewrite event trigger");
+    }
+
+    // Return the OID of the table being rewritten
+    PG_RETURN_OID(currentEventTriggerState->table_rewrite_oid);
+}
+```

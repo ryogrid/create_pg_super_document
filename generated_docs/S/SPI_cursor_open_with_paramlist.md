@@ -41,3 +41,16 @@ The function is essentially a thin wrapper around SPI_cursor_open_internal, maki
 - Particularly useful for extensions and internal PostgreSQL code that work directly with ParamListInfo structures.
 - Provides the foundation for more sophisticated parameter handling scenarios that the simpler array-based interfaces cannot support.
 - The ParamListInfo structure can represent complex parameter scenarios including optional parameters and parameter-dependent queries.
+
+## Simplified Source
+
+```c
+Portal
+SPI_cursor_open_with_paramlist(const char *name, SPIPlanPtr plan,
+                               ParamListInfo params, bool read_only)
+{
+    // Direct wrapper around internal cursor opening function
+    // Provides efficient parameter passing using PostgreSQL's native ParamListInfo
+    return SPI_cursor_open_internal(name, plan, params, read_only);
+}
+```

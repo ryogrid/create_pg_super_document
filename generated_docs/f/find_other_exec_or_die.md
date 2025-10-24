@@ -47,3 +47,41 @@ The error handling differentiates between two failure scenarios:
 - The function ensures that PostgreSQL tools work as a cohesive suite by enforcing co-location and version compatibility
 - Return value should be freed by the caller when no longer needed
 - Process termination with exit(1) makes this function unsuitable for library use - it's specifically designed for command-line tools
+
+## Simplified Source
+
+```c
+static char *
+find_other_exec_or_die(const char *argv0, const char *target, const char *versionstr)
+{
+    int ret;
+    char *found_path;
+
+    // Allocate memory for the result path
+    found_path = pg_malloc(MAXPGPATH);
+
+    // Attempt to locate the target executable
+    ret = find_other_exec(argv0, target, versionstr, found_path);
+    if (ret < 0) {
+        char full_path[MAXPGPATH];
+
+        // Get current executable path for error message
+        if (find_my_exec(argv0, full_path) < 0)
+            strlcpy(full_path, progname, sizeof(full_path));
+
+        // Provide specific error message based on failure type
+        if (ret == -1) {
+            // Program not found in directory
+            write_stderr(_("program \"%s\" is needed by %s but was not found in the same directory as \"%s\"\n"),
+                        target, progname, full_path);
+        } else {
+            // Program found but wrong version
+            write_stderr(_("program \"%s\" was found by \"%s\" but was not the same version as %s\n"),
+                        target, full_path, progname);
+        }
+        exit(1);  // Terminate process on failure
+    }
+
+    return found_path;
+}
+```

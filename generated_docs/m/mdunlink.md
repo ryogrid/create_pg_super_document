@@ -35,3 +35,28 @@ This function provides a sophisticated file deletion mechanism that goes beyond 
 - Warnings are reported instead of errors since function is typically called outside transactions
 - The extensive comments in source code detail the intricate reasoning behind the deletion strategy
 - Critical component of PostgreSQL's crash-safe storage management system
+
+## Simplified Source
+
+```c
+void mdunlink(RelFileLocatorBackend rlocator, ForkNumber forknum, bool isRedo)
+{
+    // Determine which forks to process
+    if (forknum == InvalidForkNumber) {
+        // Delete all forks
+        for (forknum = 0; forknum <= MAX_FORKNUM; forknum++)
+            mdunlinkfork(rlocator, forknum, isRedo);
+    } else {
+        // Delete specific fork
+        mdunlinkfork(rlocator, forknum, isRedo);
+    }
+}
+```
+
+**Key Points:**
+- Safely removes relation files with complex crash-recovery logic
+- Can delete a specific fork or all forks (when forknum is InvalidForkNumber)
+- Delegates actual deletion work to mdunlinkfork for each fork
+- Main fork uses truncate-then-defer-unlink strategy to prevent relfilenumber reuse
+- Additional segments are truncated and unlinked immediately to reclaim disk space
+- Special handling for temp relations, binary upgrades, and WAL redo scenarios

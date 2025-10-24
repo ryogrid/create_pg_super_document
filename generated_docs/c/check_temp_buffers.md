@@ -40,3 +40,17 @@ When an invalid change attempt is detected, the function uses GUC_check_errdetai
 - Once temporary tables are accessed in a session, the local buffer pool is initialized and cannot be resized
 - Test calls (PGC_S_TEST) are allowed to bypass the restriction for validation purposes
 - The function follows the standard GUC check hook pattern, returning true for valid values and false for invalid ones
+
+## Simplified Source
+
+```c
+bool check_temp_buffers(int *newval, void **extra, GucSource source)
+{
+    // Prevent changes after local buffers are initialized (except for tests)
+    if (source != PGC_S_TEST && NLocBuffer && NLocBuffer != *newval) {
+        GUC_check_errdetail("\"temp_buffers\" cannot be changed after any temporary tables have been accessed in the session.");
+        return false;
+    }
+    return true;
+}
+```

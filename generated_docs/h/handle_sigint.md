@@ -36,3 +36,30 @@ The function first sets the CancelRequested flag to true, then calls a user-defi
 - Provides user feedback through predefined messages (cancel_sent_msg, cancel_not_sent_msg)
 - Must be registered as a signal handler using platform-specific signal handling functions
 - Safe to call even when cancelConn is NULL - includes null check before attempting cancellation
+
+## Simplified Source
+
+```c
+static void handle_sigint(SIGNAL_ARGS) {
+    char errbuf[256];
+
+    // Mark that cancellation was requested
+    CancelRequested = true;
+
+    // Call user-defined callback if registered
+    if (cancel_callback != NULL)
+        cancel_callback();
+
+    // Send cancellation request if we have an active connection
+    if (cancelConn != NULL) {
+        if (PQcancel(cancelConn, errbuf, sizeof(errbuf))) {
+            // Cancellation sent successfully
+            write_stderr(cancel_sent_msg);
+        } else {
+            // Cancellation failed - report error
+            write_stderr(cancel_not_sent_msg);
+            write_stderr(errbuf);
+        }
+    }
+}
+```

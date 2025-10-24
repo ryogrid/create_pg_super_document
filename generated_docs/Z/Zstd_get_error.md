@@ -31,3 +31,16 @@ This function provides access to error information for zstd compression operatio
 - The returned string is typically a static string from error reporting functions
 - Part of the unified error handling interface for compression backends in pg_dump
 - The error string persists until the next operation that might update it
+
+## Simplified Source
+
+```c
+static const char *
+Zstd_get_error(CompressFileHandle *CFH)
+{
+    ZstdCompressorState *state = (ZstdCompressorState *) CFH->private_data;
+
+    // Return the stored error message
+    return state->zstderror;
+}
+```

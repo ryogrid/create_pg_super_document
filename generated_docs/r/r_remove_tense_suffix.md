@@ -48,3 +48,65 @@ The function uses complex branching logic to handle the diverse morphological va
 - Part of an iterative process managed by  for complete tense suffix removal
 - Essential for Tamil verb stemming in PostgreSQL's full-text search capabilities
 - Contains extensive pattern arrays covering the full range of Tamil tense morphology
+
+## Simplified Source
+
+```c
+static int r_remove_tense_suffix(struct SN_env * z) {
+    z->I[1] = 0;  // Reset modification flag
+
+    // Check minimum length requirement
+    if (r_has_min_length(z) <= 0) return 0;
+
+    z->lb = z->c; z->c = z->l;  // Position at end of word
+
+    // Stage 1: Remove specific tense patterns from array a_22
+    z->ket = z->c;
+    if (find_among_b(z, a_22, 2)) {
+        z->bra = z->c;
+        slice_del(z);
+        z->I[1] = 1;
+    }
+
+    // Stage 2: Try multiple tense suffix patterns (s_104 through s_132)
+    // Delete matched patterns completely
+    z->ket = z->c;
+    if (eq_s_b(z, 12, s_104) || eq_s_b(z, 12, s_105) || /* ... many more patterns ... */ ||
+        eq_s_b(z, 6, s_132)) {
+        z->bra = z->c;
+        slice_del(z);
+        z->I[1] = 1;
+    }
+
+    // Stage 3: Replace specific patterns (s_133 through s_151) with "அம்"
+    z->ket = z->c;
+    if (eq_s_b(z, 9, s_133) || eq_s_b(z, 9, s_135) || /* ... more patterns ... */ ||
+        eq_s_b(z, 12, s_151)) {
+        z->bra = z->c;
+        slice_from_s(z, 3, s_152);  // Replace with "அம்"
+        z->I[1] = 1;
+    }
+
+    // Stage 4: Conditional removal for specific patterns
+    z->ket = z->c;
+    if ((eq_s_b(z, 6, s_153) || eq_s_b(z, 6, s_154)) && eq_s_b(z, 3, s_155)) {
+        z->bra = z->c;
+        slice_del(z);
+        z->I[1] = 1;
+    }
+
+    // Final pass: Remove patterns from array a_25
+    z->ket = z->c;
+    if (find_among_b(z, a_25, 6)) {
+        z->bra = z->c;
+        slice_del(z);
+        z->I[1] = 1;
+    }
+
+    z->c = z->lb;  // Return to start position
+
+    // Apply final character corrections
+    r_fix_endings(z);
+    return 1;
+}
+```

@@ -33,3 +33,12 @@ The function provides PostgreSQL's internal implementation for Unicode control c
 - Located in src/common/unicode_category.c:262-267
 - Control characters are typically non-printable and used for text processing control
 - Provides platform-independent Unicode character classification for PostgreSQL internals
+
+## Simplified Source
+
+```c
+bool pg_u_iscntrl(pg_wchar code) {
+    // Check if character belongs to Unicode control category
+    return unicode_category(code) == PG_U_CONTROL;
+}
+```

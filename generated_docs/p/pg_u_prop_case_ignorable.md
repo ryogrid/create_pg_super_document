@@ -36,3 +36,18 @@ The function uses a two-tier approach for efficiency:
 - Falls back to binary search for full Unicode range coverage
 - Case_Ignorable characters include combining marks, certain modifiers, and format characters
 - Essential for proper Unicode case handling in text processing operations
+
+## Simplified Source
+
+```c
+bool pg_u_prop_case_ignorable(pg_wchar code) {
+    // Fast path for ASCII characters
+    if (code < 0x80)
+        return unicode_opt_ascii[code].properties & PG_U_PROP_CASE_IGNORABLE;
+
+    // Search in pre-computed case ignorable ranges for non-ASCII
+    return range_search(unicode_case_ignorable,
+                       lengthof(unicode_case_ignorable),
+                       code);
+}
+```

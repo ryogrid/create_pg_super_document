@@ -43,3 +43,23 @@ This function is essential for properly parsing MULE-encoded text, allowing othe
 - Critical for text processing functions that need to iterate through MULE-encoded strings
 - Part of PostgreSQL's multi-byte character support infrastructure
 - Used extensively in character encoding conversion routines
+
+## Simplified Source
+
+```c
+int
+pg_mule_mblen(const unsigned char *s)
+{
+    // Check MULE character type markers to determine byte length
+    if (IS_LC1(*s))         // Single-byte charset in MULE
+        return 2;
+    else if (IS_LCPRV1(*s)) // Private single-byte charset
+        return 3;
+    else if (IS_LC2(*s))    // Double-byte charset in MULE
+        return 3;
+    else if (IS_LCPRV2(*s)) // Private double-byte charset
+        return 4;
+    else
+        return 1;           // ASCII character
+}
+```

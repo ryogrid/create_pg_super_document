@@ -44,3 +44,75 @@ Default privileges are particularly important in multi-user environments where c
 - The function respects both  and  dump options, allowing users to exclude default privileges from dumps when needed
 - Default privileges can be scoped to specific schemas or apply database-wide (when namespace is NULL)
 - The actual SQL command construction is delegated to , which handles the complex logic of comparing current vs. default privileges
+
+## Simplified Source
+
+```c
+static void
+dumpDefaultACL(Archive *fout, const DefaultACLInfo *daclinfo)
+{
+    DumpOptions *dopt = fout->dopt;
+    PQExpBuffer q, tag;
+    const char *type;
+
+    // Skip if data-only dump or ACLs are being skipped
+    if (dopt->dataOnly || dopt->aclsSkip)
+        return;
+
+    // Initialize buffers
+    q = createPQExpBuffer();
+    tag = createPQExpBuffer();
+
+    // Map object type to readable string
+    switch (daclinfo->defaclobjtype) {
+        case DEFACLOBJ_RELATION:
+            type = "TABLES";
+            break;
+        case DEFACLOBJ_SEQUENCE:
+            type = "SEQUENCES";
+            break;
+        case DEFACLOBJ_FUNCTION:
+            type = "FUNCTIONS";
+            break;
+        case DEFACLOBJ_TYPE:
+            type = "TYPES";
+            break;
+        case DEFACLOBJ_NAMESPACE:
+            type = "SCHEMAS";
+            break;
+        default:
+            pg_fatal("unrecognized object type in default privileges: %d",
+                     (int) daclinfo->defaclobjtype);
+            type = "";  // keep compiler quiet
+    }
+
+    // Create descriptive tag
+    appendPQExpBuffer(tag, "DEFAULT PRIVILEGES FOR %s", type);
+
+    // Build the ALTER DEFAULT PRIVILEGES commands
+    if (!buildDefaultACLCommands(type,
+                                 daclinfo->dobj.namespace != NULL ?
+                                 daclinfo->dobj.namespace->dobj.name : NULL,
+                                 daclinfo->dacl.acl,
+                                 daclinfo->dacl.acldefault,
+                                 daclinfo->defaclrole,
+                                 fout->remoteVersion,
+                                 q))
+        pg_fatal("could not parse default ACL list (%s)", daclinfo->dacl.acl);
+
+    // Create archive entry in POST_DATA section
+    if (daclinfo->dobj.dump & DUMP_COMPONENT_ACL)
+        ArchiveEntry(fout, daclinfo->dobj.catId, daclinfo->dobj.dumpId,
+                     ARCHIVE_OPTS(.tag = tag->data,
+                                  .namespace = daclinfo->dobj.namespace ?
+                                  daclinfo->dobj.namespace->dobj.name : NULL,
+                                  .owner = daclinfo->defaclrole,
+                                  .description = "DEFAULT ACL",
+                                  .section = SECTION_POST_DATA,
+                                  .createStmt = q->data));
+
+    // Cleanup
+    destroyPQExpBuffer(tag);
+    destroyPQExpBuffer(q);
+}
+```

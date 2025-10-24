@@ -37,3 +37,15 @@ This initialization enables subsequent calls to ExecScanHashTableForUnmatched to
 - Must be called before any calls to ExecScanHashTableForUnmatched
 - The function is very lightweight, only performing state initialization with no complex logic
 - Works in conjunction with the hash table's match flags that track which tuples have been joined during the main phase
+
+## Simplified Source
+
+```c
+void ExecPrepHashTableForUnmatched(HashJoinState *hjstate)
+{
+    // Initialize scan state for finding unmatched inner tuples
+    hjstate->hj_CurBucketNo = 0;      // Start from first regular bucket
+    hjstate->hj_CurSkewBucketNo = 0;  // Start from first skew bucket
+    hjstate->hj_CurTuple = NULL;      // Start fresh scan
+}
+```

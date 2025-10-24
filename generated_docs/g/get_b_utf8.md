@@ -38,3 +38,42 @@ The function implements the standard UTF-8 decoding algorithm but in reverse ord
 - Uses bitwise operations to extract and combine UTF-8 byte sequences
 - The function assumes well-formed UTF-8 input and may not handle all edge cases of malformed sequences
 - Part of PostgreSQL's text search functionality for stemming non-ASCII text
+
+## Simplified Source
+
+```c
+static int get_b_utf8(const symbol * p, int c, int lb, int * slot) {
+    int a, b;
+
+    if (c <= lb) return 0;  // Check bounds
+
+    // Read first byte (moving backward)
+    b = p[--c];
+
+    // 1-byte UTF-8 character (ASCII)
+    if (b < 0x80 || c == lb) {
+        *slot = b;
+        return 1;
+    }
+
+    // 2-byte UTF-8 character
+    a = b & 0x3F;  // Extract lower 6 bits
+    b = p[--c];
+    if (b >= 0xC0 || c == lb) {
+        *slot = (b & 0x1F) << 6 | a;  // Combine bytes
+        return 2;
+    }
+
+    // 3-byte UTF-8 character
+    a |= (b & 0x3F) << 6;
+    b = p[--c];
+    if (b >= 0xE0 || c == lb) {
+        *slot = (b & 0xF) << 12 | a;
+        return 3;
+    }
+
+    // 4-byte UTF-8 character
+    *slot = (p[--c] & 0x7) << 18 | (b & 0x3F) << 12 | a;
+    return 4;
+}
+```

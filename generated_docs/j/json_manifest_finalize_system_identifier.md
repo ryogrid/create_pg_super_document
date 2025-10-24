@@ -41,3 +41,26 @@ This is part of PostgreSQL's backup and restore infrastructure, where system ide
 - The system identifier is crucial for ensuring data integrity in backup and restore operations
 - Any parsing errors result in a failure callback being invoked to handle the error appropriately
 - Part of the incremental JSON parsing framework for handling large manifest files efficiently
+
+## Simplified Source
+
+```c
+static void json_manifest_finalize_system_identifier(JsonManifestParseState *parse) {
+    JsonManifestParseContext *context = parse->context;
+    uint64 system_identifier;
+    char *ep;
+
+    Assert(parse->manifest_system_identifier != NULL);
+
+    // Parse system identifier from string to 64-bit integer
+    system_identifier = strtou64(parse->manifest_system_identifier, &ep, 10);
+
+    // Validate that entire string was parsed (no trailing characters)
+    if (*ep)
+        json_manifest_parse_failure(parse->context,
+                                   "system identifier in manifest not an integer");
+
+    // Notify caller via callback with the parsed system identifier
+    context->system_identifier_cb(context, system_identifier);
+}
+```

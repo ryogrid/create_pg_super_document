@@ -34,3 +34,16 @@ This function provides a simple boolean test to determine if a multirange is emp
 - This function is part of the multirange -> bool family of functions as noted in the source comments
 - Essential for conditional logic and filtering operations on multirange data in SQL queries
 - The emptiness test is fundamental to many multirange operations and validations
+
+## Simplified Source
+
+```c
+Datum
+multirange_empty(PG_FUNCTION_ARGS)
+{
+    MultirangeType *mr = PG_GETARG_MULTIRANGE_P(0);
+
+    // Simple wrapper around the multirange emptiness check
+    PG_RETURN_BOOL(MultirangeIsEmpty(mr));
+}
+```

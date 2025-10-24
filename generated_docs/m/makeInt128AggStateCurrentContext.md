@@ -30,3 +30,19 @@ This function provides a simplified version of `makeInt128AggState()` that alloc
 - The function is aliased as `makePolyNumAggStateCurrentContext` through a macro definition
 - Simpler than its counterpart as it assumes the caller has already set up the appropriate memory context
 - Primarily used in scenarios where more granular control over memory management is required
+
+## Simplified Source
+
+```c
+static Int128AggState *
+makeInt128AggStateCurrentContext(bool calcSumX2)
+{
+    Int128AggState *state;
+
+    // Allocate and initialize state in current memory context
+    state = (Int128AggState *) palloc0(sizeof(Int128AggState));
+    state->calcSumX2 = calcSumX2;
+
+    return state;
+}
+```

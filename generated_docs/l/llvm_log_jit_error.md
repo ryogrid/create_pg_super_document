@@ -36,3 +36,13 @@ The function is typically used during symbol resolution breakage and other JIT-r
 - Multiple error invocations may occur with detailed information
 - Essential for graceful handling of JIT compilation failures without crashing PostgreSQL
 - Part of PostgreSQL's LLVM JIT infrastructure error handling strategy
+
+## Simplified Source
+
+```c
+static void llvm_log_jit_error(void *ctx, LLVMErrorRef error) {
+    // Log JIT errors as warnings instead of throwing exceptions
+    // to avoid fatal errors in PostgreSQL process
+    elog(WARNING, "error during JITing: %s", llvm_error_message(error));
+}
+```

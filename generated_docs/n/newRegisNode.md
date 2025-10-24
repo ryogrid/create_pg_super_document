@@ -32,3 +32,20 @@ newRegisNode is a utility function that allocates memory for a new RegisNode str
 - Automatically maintains linked list integrity by linking to previous node
 - Memory allocation size is RNHDRSZ + len + 1 to accommodate header, data, and null terminator
 - Part of the regex compilation infrastructure for text search
+
+## Simplified Source
+
+```c
+static RegisNode *
+newRegisNode(RegisNode *prev, int len)
+{
+    // Allocate zero-initialized memory for node header plus data
+    RegisNode *ptr = (RegisNode *) palloc0(RNHDRSZ + len + 1);
+
+    // Link to previous node if provided
+    if (prev)
+        prev->next = ptr;
+
+    return ptr;
+}
+```

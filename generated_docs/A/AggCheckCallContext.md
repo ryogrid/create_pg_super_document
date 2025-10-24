@@ -37,3 +37,34 @@ This function provides a way for aggregate transition and final functions to ver
 - The aggcontext parameter enables proper memory management by providing the correct memory context for transition values
 - Used extensively throughout PostgreSQL's built-in aggregate functions for validation and memory management
 - The memory context returned should not be cached in fn_extra due to potential interleaving of calls with different contexts
+
+## Simplified Source
+
+```c
+int AggCheckCallContext(FunctionCallInfo fcinfo, MemoryContext *aggcontext)
+{
+    // Check if called within regular aggregate context
+    if (fcinfo->context && IsA(fcinfo->context, AggState))
+    {
+        if (aggcontext)
+        {
+            AggState *aggstate = (AggState *) fcinfo->context;
+            *aggcontext = aggstate->curaggcontext->ecxt_per_tuple_memory;
+        }
+        return AGG_CONTEXT_AGGREGATE;
+    }
+
+    // Check if called within window function context
+    if (fcinfo->context && IsA(fcinfo->context, WindowAggState))
+    {
+        if (aggcontext)
+            *aggcontext = ((WindowAggState *) fcinfo->context)->curaggcontext;
+        return AGG_CONTEXT_WINDOW;
+    }
+
+    // Not called in aggregate context
+    if (aggcontext)
+        *aggcontext = NULL;
+    return 0;
+}
+```

@@ -41,3 +41,40 @@ The function requires that both input states are valid Int8TransTypeData arrays 
 - Modifies the first transition state in-place and returns it as the combined result
 - Part of PostgreSQL's parallel aggregation framework introduced for performance optimization
 - Works by simply adding counts and sums from both partial states
+
+## Simplified Source
+
+```c
+Datum int4_avg_combine(PG_FUNCTION_ARGS) {
+    ArrayType *transarray1;
+    ArrayType *transarray2;
+    Int8TransTypeData *state1;
+    Int8TransTypeData *state2;
+
+    // Must be called in aggregate context
+    if (!AggCheckCallContext(fcinfo, NULL))
+        elog(ERROR, "aggregate function called in non-aggregate context");
+
+    // Get both transition state arrays
+    transarray1 = PG_GETARG_ARRAYTYPE_P(0);
+    transarray2 = PG_GETARG_ARRAYTYPE_P(1);
+
+    // Validate both arrays structure
+    if (ARR_HASNULL(transarray1) ||
+        ARR_SIZE(transarray1) != ARR_OVERHEAD_NONULLS(1) + sizeof(Int8TransTypeData))
+        elog(ERROR, "expected 2-element int8 array");
+
+    if (ARR_HASNULL(transarray2) ||
+        ARR_SIZE(transarray2) != ARR_OVERHEAD_NONULLS(1) + sizeof(Int8TransTypeData))
+        elog(ERROR, "expected 2-element int8 array");
+
+    // Combine partial states: add counts and sums
+    state1 = (Int8TransTypeData *) ARR_DATA_PTR(transarray1);
+    state2 = (Int8TransTypeData *) ARR_DATA_PTR(transarray2);
+
+    state1->count += state2->count;
+    state1->sum += state2->sum;
+
+    PG_RETURN_ARRAYTYPE_P(transarray1);
+}
+```

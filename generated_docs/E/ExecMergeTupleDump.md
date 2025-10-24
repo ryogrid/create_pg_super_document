@@ -35,3 +35,22 @@ The function operates by sequentially calling three specialized dump functions, 
 - Output includes clear formatting with headers like "==== outer tuple ====" for easy identification
 - Each helper function handles null tuple checking and appropriate display formatting
 - The MJ_dump macro in execdebug.h provides a convenient interface to call this function
+
+## Simplified Source
+
+```c
+static void
+ExecMergeTupleDump(MergeJoinState *mergestate)
+{
+    // Print main debug header
+    printf("******** ExecMergeTupleDump ********\n");
+
+    // Dump all three tuple types for complete state visibility
+    ExecMergeTupleDumpOuter(mergestate);   // Outer relation tuple
+    ExecMergeTupleDumpInner(mergestate);   // Inner relation tuple
+    ExecMergeTupleDumpMarked(mergestate);  // Marked position for backtracking
+
+    // Print footer delimiter
+    printf("********\n");
+}
+```

@@ -55,3 +55,150 @@ The function also ensures that partition triggers are included when their enable
 - The function assumes tblinfo array is sorted by OID for efficient table lookup
 - Partition triggers are included even if marked as internal when their enabled state differs from the parent
 - Memory allocation creates a single array for all triggers, with per-table pointers into this array
+
+## Simplified Source
+
+```c
+void getTriggers(Archive *fout, TableInfo tblinfo[], int numTables)
+{
+    PQExpBuffer query = createPQExpBuffer();
+    PQExpBuffer tbloids = createPQExpBuffer();
+    PGresult   *res;
+    int         ntups;
+    TriggerInfo *tginfo;
+
+    // Build array of table OIDs that have triggers and need dumping
+    appendPQExpBufferChar(tbloids, '{');
+    for (int i = 0; i < numTables; i++)
+    {
+        TableInfo *tbinfo = &tblinfo[i];
+
+        if (!tbinfo->hastriggers ||
+            !(tbinfo->dobj.dump & DUMP_COMPONENT_DEFINITION))
+            continue;
+
+        if (tbloids->len > 1)
+            appendPQExpBufferChar(tbloids, ',');
+        appendPQExpBuffer(tbloids, "%u", tbinfo->dobj.catId.oid);
+    }
+    appendPQExpBufferChar(tbloids, '}');
+
+    // Build version-specific query for trigger information
+    if (fout->remoteVersion >= 150000)
+    {
+        // v15+: Use tgparentid for partition trigger detection
+        appendPQExpBuffer(query,
+            "SELECT t.tgrelid, t.tgname, "
+            "pg_catalog.pg_get_triggerdef(t.oid, false) AS tgdef, "
+            "t.tgenabled, t.tableoid, t.oid, "
+            "t.tgparentid <> 0 AS tgispartition "
+            "FROM unnest('%s'::pg_catalog.oid[]) AS src(tbloid) "
+            "JOIN pg_catalog.pg_trigger t ON (src.tbloid = t.tgrelid) "
+            "LEFT JOIN pg_catalog.pg_trigger u ON (u.oid = t.tgparentid) "
+            "WHERE ((NOT t.tgisinternal AND t.tgparentid = 0) "
+            "OR t.tgenabled != u.tgenabled) "
+            "ORDER BY t.tgrelid, t.tgname",
+            tbloids->data);
+    }
+    else if (fout->remoteVersion >= 130000)
+    {
+        // v13-14: Use tgisinternal and tgparentid
+        appendPQExpBuffer(query,
+            "SELECT t.tgrelid, t.tgname, "
+            "pg_catalog.pg_get_triggerdef(t.oid, false) AS tgdef, "
+            "t.tgenabled, t.tableoid, t.oid, t.tgisinternal as tgispartition "
+            "FROM unnest('%s'::pg_catalog.oid[]) AS src(tbloid) "
+            "JOIN pg_catalog.pg_trigger t ON (src.tbloid = t.tgrelid) "
+            "LEFT JOIN pg_catalog.pg_trigger u ON (u.oid = t.tgparentid) "
+            "WHERE (NOT t.tgisinternal OR t.tgenabled != u.tgenabled) "
+            "ORDER BY t.tgrelid, t.tgname",
+            tbloids->data);
+    }
+    else if (fout->remoteVersion >= 110000)
+    {
+        // v11-12: Use pg_depend to match partition triggers
+        appendPQExpBuffer(query,
+            "SELECT t.tgrelid, t.tgname, "
+            "pg_catalog.pg_get_triggerdef(t.oid, false) AS tgdef, "
+            "t.tgenabled, t.tableoid, t.oid, t.tgisinternal as tgispartition "
+            "FROM unnest('%s'::pg_catalog.oid[]) AS src(tbloid) "
+            "JOIN pg_catalog.pg_trigger t ON (src.tbloid = t.tgrelid) "
+            "LEFT JOIN pg_catalog.pg_depend AS d ON (...) "
+            "LEFT JOIN pg_catalog.pg_trigger AS pt ON pt.oid = refobjid "
+            "WHERE (NOT t.tgisinternal OR t.tgenabled != pt.tgenabled) "
+            "ORDER BY t.tgrelid, t.tgname",
+            tbloids->data);
+    }
+    else
+    {
+        // Earlier versions: Simple trigger collection
+        appendPQExpBuffer(query,
+            "SELECT t.tgrelid, t.tgname, "
+            "pg_catalog.pg_get_triggerdef(t.oid, false) AS tgdef, "
+            "t.tgenabled, false as tgispartition, t.tableoid, t.oid "
+            "FROM unnest('%s'::pg_catalog.oid[]) AS src(tbloid) "
+            "JOIN pg_catalog.pg_trigger t ON (src.tbloid = t.tgrelid) "
+            "WHERE NOT tgisinternal ORDER BY t.tgrelid, t.tgname",
+            tbloids->data);
+    }
+
+    res = ExecuteSqlQuery(fout, query->data, PGRES_TUPLES_OK);
+    ntups = PQntuples(res);
+
+    // Extract column indices
+    int i_tableoid = PQfnumber(res, "tableoid");
+    int i_oid = PQfnumber(res, "oid");
+    int i_tgrelid = PQfnumber(res, "tgrelid");
+    int i_tgname = PQfnumber(res, "tgname");
+    int i_tgenabled = PQfnumber(res, "tgenabled");
+    int i_tgispartition = PQfnumber(res, "tgispartition");
+    int i_tgdef = PQfnumber(res, "tgdef");
+
+    tginfo = (TriggerInfo *) pg_malloc(ntups * sizeof(TriggerInfo));
+
+    // Process results grouped by table
+    int curtblindx = -1;
+    for (int j = 0; j < ntups;)
+    {
+        Oid tgrelid = atooid(PQgetvalue(res, j, i_tgrelid));
+        TableInfo *tbinfo = NULL;
+        int numtrigs;
+
+        // Count triggers for this table
+        for (numtrigs = 1; numtrigs < ntups - j; numtrigs++)
+            if (atooid(PQgetvalue(res, j + numtrigs, i_tgrelid)) != tgrelid)
+                break;
+
+        // Find corresponding TableInfo
+        while (++curtblindx < numTables)
+        {
+            tbinfo = &tblinfo[curtblindx];
+            if (tbinfo->dobj.catId.oid == tgrelid)
+                break;
+        }
+
+        // Store trigger array reference in table
+        tbinfo->triggers = tginfo + j;
+        tbinfo->numTriggers = numtrigs;
+
+        // Process each trigger for this table
+        for (int c = 0; c < numtrigs; c++, j++)
+        {
+            tginfo[j].dobj.objType = DO_TRIGGER;
+            tginfo[j].dobj.catId.tableoid = atooid(PQgetvalue(res, j, i_tableoid));
+            tginfo[j].dobj.catId.oid = atooid(PQgetvalue(res, j, i_oid));
+            AssignDumpId(&tginfo[j].dobj);
+            tginfo[j].dobj.name = pg_strdup(PQgetvalue(res, j, i_tgname));
+            tginfo[j].dobj.namespace = tbinfo->dobj.namespace;
+            tginfo[j].tgtable = tbinfo;
+            tginfo[j].tgenabled = *(PQgetvalue(res, j, i_tgenabled));
+            tginfo[j].tgispartition = *(PQgetvalue(res, j, i_tgispartition)) == 't';
+            tginfo[j].tgdef = pg_strdup(PQgetvalue(res, j, i_tgdef));
+        }
+    }
+
+    PQclear(res);
+    destroyPQExpBuffer(query);
+    destroyPQExpBuffer(tbloids);
+}
+```

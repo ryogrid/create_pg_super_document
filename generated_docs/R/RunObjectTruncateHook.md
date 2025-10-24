@@ -38,3 +38,18 @@ The function directly invokes any registered object access hooks through the glo
 - The function includes an assertion to ensure object_access_hook is not NULL
 - Part of PostgreSQL's extensibility framework, allowing extensions to implement audit logging or security policies for truncate operations
 - Unlike DROP operations, TRUNCATE operations are typically faster and don't trigger referential integrity checks
+
+## Simplified Source
+
+```c
+void
+RunObjectTruncateHook(Oid objectId)
+{
+    // Ensure hook is registered (caller should check this)
+    Assert(object_access_hook != NULL);
+
+    // Call the registered object access hook for truncate event
+    // Uses RelationRelationId as classId, 0 as subId, NULL as auxiliary data
+    (*object_access_hook)(OAT_TRUNCATE, RelationRelationId, objectId, 0, NULL);
+}
+```

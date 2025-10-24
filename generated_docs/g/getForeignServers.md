@@ -43,3 +43,91 @@ This function is part of the pg_dump utility and extracts complete information a
 - The `srvfdw` field links the server to its associated foreign data wrapper via OID
 - Server type and version are optional fields that may be null
 - The returned `ForeignServerInfo` array must be freed by the caller
+
+## Simplified Source
+
+```c
+ForeignServerInfo *
+getForeignServers(Archive *fout, int *numForeignServers)
+{
+    PGresult *res;
+    int ntups, i;
+    PQExpBuffer query;
+    ForeignServerInfo *srvinfo;
+
+    query = createPQExpBuffer();
+
+    // Query all foreign servers from system catalog
+    appendPQExpBufferStr(query, "SELECT tableoid, oid, srvname, "
+                                "srvowner, "
+                                "srvfdw, srvtype, srvversion, srvacl, "
+                                "acldefault('S', srvowner) AS acldefault, "
+                                "array_to_string(ARRAY("
+                                "SELECT quote_ident(option_name) || ' ' || "
+                                "quote_literal(option_value) "
+                                "FROM pg_options_to_table(srvoptions) "
+                                "ORDER BY option_name"
+                                "), E',\\n    ') AS srvoptions "
+                                "FROM pg_foreign_server");
+
+    res = ExecuteSqlQuery(fout, query->data, PGRES_TUPLES_OK);
+    ntups = PQntuples(res);
+    *numForeignServers = ntups;
+
+    // Allocate array for server info
+    srvinfo = (ForeignServerInfo *) pg_malloc(ntups * sizeof(ForeignServerInfo));
+
+    // Get column indices
+    int i_tableoid = PQfnumber(res, "tableoid");
+    int i_oid = PQfnumber(res, "oid");
+    int i_srvname = PQfnumber(res, "srvname");
+    int i_srvowner = PQfnumber(res, "srvowner");
+    int i_srvfdw = PQfnumber(res, "srvfdw");
+    int i_srvtype = PQfnumber(res, "srvtype");
+    int i_srvversion = PQfnumber(res, "srvversion");
+    int i_srvacl = PQfnumber(res, "srvacl");
+    int i_acldefault = PQfnumber(res, "acldefault");
+    int i_srvoptions = PQfnumber(res, "srvoptions");
+
+    // Process each foreign server
+    for (i = 0; i < ntups; i++) {
+        // Set object type and catalog info
+        srvinfo[i].dobj.objType = DO_FOREIGN_SERVER;
+        srvinfo[i].dobj.catId.tableoid = atooid(PQgetvalue(res, i, i_tableoid));
+        srvinfo[i].dobj.catId.oid = atooid(PQgetvalue(res, i, i_oid));
+        AssignDumpId(&srvinfo[i].dobj);
+
+        // Set server name and namespace (always NULL for servers)
+        srvinfo[i].dobj.name = pg_strdup(PQgetvalue(res, i, i_srvname));
+        srvinfo[i].dobj.namespace = NULL;
+
+        // Set ACL information
+        srvinfo[i].dacl.acl = pg_strdup(PQgetvalue(res, i, i_srvacl));
+        srvinfo[i].dacl.acldefault = pg_strdup(PQgetvalue(res, i, i_acldefault));
+        srvinfo[i].dacl.privtype = 0;
+        srvinfo[i].dacl.initprivs = NULL;
+
+        // Set server properties
+        srvinfo[i].rolname = getRoleName(PQgetvalue(res, i, i_srvowner));
+        srvinfo[i].srvfdw = atooid(PQgetvalue(res, i, i_srvfdw));
+        srvinfo[i].srvtype = pg_strdup(PQgetvalue(res, i, i_srvtype));
+        srvinfo[i].srvversion = pg_strdup(PQgetvalue(res, i, i_srvversion));
+        srvinfo[i].srvoptions = pg_strdup(PQgetvalue(res, i, i_srvoptions));
+
+        // Determine if server should be dumped
+        selectDumpableObject(&(srvinfo[i].dobj), fout);
+
+        // Servers have user mappings by default
+        srvinfo[i].dobj.components |= DUMP_COMPONENT_USERMAP;
+
+        // Mark whether server has an ACL
+        if (!PQgetisnull(res, i, i_srvacl))
+            srvinfo[i].dobj.components |= DUMP_COMPONENT_ACL;
+    }
+
+    // Cleanup and return
+    PQclear(res);
+    destroyPQExpBuffer(query);
+    return srvinfo;
+}
+```

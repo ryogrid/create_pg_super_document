@@ -42,3 +42,27 @@ Each boundary object is assigned a unique dump ID and given a descriptive name f
 - Memory allocation uses pg_malloc, which provides error handling for allocation failures
 - These objects are crucial for the three-phase dump structure: pre-data, data, and post-data
 - The boundary objects participate in dependency sorting to ensure proper dump section organization
+
+## Simplified Source
+
+```c
+static DumpableObject *createBoundaryObjects(void)
+{
+    // Allocate space for two boundary objects
+    DumpableObject *boundaries = pg_malloc(2 * sizeof(DumpableObject));
+
+    // Create PRE-DATA boundary marker
+    boundaries[0].objType = DO_PRE_DATA_BOUNDARY;
+    boundaries[0].catId = nilCatalogId;
+    AssignDumpId(&boundaries[0]);
+    boundaries[0].name = pg_strdup("PRE-DATA BOUNDARY");
+
+    // Create POST-DATA boundary marker
+    boundaries[1].objType = DO_POST_DATA_BOUNDARY;
+    boundaries[1].catId = nilCatalogId;
+    AssignDumpId(&boundaries[1]);
+    boundaries[1].name = pg_strdup("POST-DATA BOUNDARY");
+
+    return boundaries;
+}
+```

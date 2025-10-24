@@ -32,3 +32,21 @@ This function is a PostgreSQL built-in function that determines the IP version o
 - Returns 0 for any address family that is not IPv4 or IPv6, providing a safe fallback
 - Part of PostgreSQL's network address and manipulation functions
 - Located in src/backend/utils/adt/network.c:1266-1284
+
+## Simplified Source
+
+```c
+Datum network_family(PG_FUNCTION_ARGS) {
+    inet *ip = PG_GETARG_INET_PP(0);  // Extract inet/cidr value
+
+    // Determine IP version based on address family
+    switch (ip_family(ip)) {
+        case PGSQL_AF_INET:
+            PG_RETURN_INT32(4);  // IPv4
+        case PGSQL_AF_INET6:
+            PG_RETURN_INT32(6);  // IPv6
+        default:
+            PG_RETURN_INT32(0);  // Unknown/unsupported family
+    }
+}
+```

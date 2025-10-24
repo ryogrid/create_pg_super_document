@@ -46,3 +46,54 @@ This function takes no parameters and operates on several global variables:
 - The function terminates the program with exit code 2 if the provided filename does not match any of the expected formats
 - This normalization prevents issues where partial/backup files would create incorrect cleanup boundaries due to their extended naming convention
 - Located at src/bin/pg_archivecleanup/pg_archivecleanup.c:183-256
+
+## Simplified Source
+
+```c
+static void
+SetWALFileNameForCleanup(void)
+{
+    bool fnameOK = false;
+
+    // Remove any additional extension first
+    TrimExtension(restartWALFileName, additional_ext);
+
+    // Handle regular WAL files directly
+    if (IsXLogFileName(restartWALFileName)) {
+        strcpy(exclusiveCleanupFileName, restartWALFileName);
+        fnameOK = true;
+    }
+    // Handle partial WAL files (.partial)
+    else if (IsPartialXLogFileName(restartWALFileName)) {
+        uint32 tli = 1, log = 0, seg = 0;
+
+        // Parse timeline, log, and segment from partial filename
+        int args = sscanf(restartWALFileName, "%08X%08X%08X.partial", &tli, &log, &seg);
+        if (args == 3) {
+            fnameOK = true;
+            // Create base WAL filename without .partial extension
+            XLogFileNameById(exclusiveCleanupFileName, tli, log, seg);
+        }
+    }
+    // Handle backup history files (.backup)
+    else if (IsBackupHistoryFileName(restartWALFileName)) {
+        uint32 tli = 1, log = 0, seg = 0, offset = 0;
+
+        // Parse all components from backup filename
+        int args = sscanf(restartWALFileName, "%08X%08X%08X.%08X.backup",
+                         &tli, &log, &seg, &offset);
+        if (args == 4) {
+            fnameOK = true;
+            // Create base WAL filename without .backup extension
+            XLogFileNameById(exclusiveCleanupFileName, tli, log, seg);
+        }
+    }
+
+    // Exit with error if filename format not recognized
+    if (!fnameOK) {
+        pg_log_error("invalid file name argument");
+        pg_log_error_hint("Try \"%s --help\" for more information.", progname);
+        exit(2);
+    }
+}
+```

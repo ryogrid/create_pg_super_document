@@ -41,3 +41,32 @@ This function performs efficient role name lookup by converting a string OID to 
 - The returned string pointer points to memory owned by the rolenames array
 - Role names are cached to avoid repeated database queries during dump operations
 - The function is critical for resolving role ownership information throughout the dump process
+
+## Simplified Source
+
+```c
+static const char *getRoleName(const char *roleoid_str) {
+    Oid roleoid = atooid(roleoid_str);
+
+    // Binary search through pre-loaded role names array
+    if (nrolenames > 0) {
+        RoleNameItem *low = &rolenames[0];
+        RoleNameItem *high = &rolenames[nrolenames - 1];
+
+        while (low <= high) {
+            RoleNameItem *middle = low + (high - low) / 2;
+
+            if (roleoid < middle->roleoid)
+                high = middle - 1;
+            else if (roleoid > middle->roleoid)
+                low = middle + 1;
+            else
+                return middle->rolename; // Found match
+        }
+    }
+
+    // Role not found - this should not happen in normal operation
+    pg_fatal("role with OID %u does not exist", roleoid);
+    return NULL;
+}
+```

@@ -34,3 +34,26 @@ This function is essential for building ordered sequences of parsed lexemes duri
 - Properly handles empty list initialization
 - Essential for lexeme queue management in text search processing
 - Ensures null termination of the newly added element
+
+## Simplified Source
+
+```c
+static void
+LPLAddTail(ListParsedLex *list, ParsedLex *newpl)
+{
+    // Add to end of non-empty list
+    if (list->tail)
+    {
+        list->tail->next = newpl;
+        list->tail = newpl;
+    }
+    else
+    {
+        // Initialize empty list
+        list->head = list->tail = newpl;
+    }
+
+    // Ensure new element terminates the list
+    newpl->next = NULL;
+}
+```

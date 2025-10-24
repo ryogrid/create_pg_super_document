@@ -33,3 +33,46 @@ This function is responsible for correctly positioning and formatting variable d
 - Uses a hybrid approach of tabs and spaces for optimal formatting
 - Ensures proper alignment even when indentation levels don't match tab boundaries
 - Part of the pg_bsd_indent tool's declaration formatting subsystem
+
+## Simplified Source
+
+```c
+static void indent_declaration(int cur_dec_ind, int tabs_to_var)
+{
+    int pos = e_code - s_code;
+    char *startpos = e_code;
+
+    // Adjust for indentation that doesn't align with tab boundaries
+    if ((ps.ind_level * ps.ind_size) % tabsize != 0) {
+        pos += (ps.ind_level * ps.ind_size) % tabsize;
+        cur_dec_ind += (ps.ind_level * ps.ind_size) % tabsize;
+    }
+
+    // Use tabs when requested and beneficial
+    if (tabs_to_var) {
+        int tpos;
+        CHECK_SIZE_CODE(cur_dec_ind / tabsize);
+
+        while ((tpos = tabsize * (1 + pos / tabsize)) <= cur_dec_ind) {
+            // Apply PostgreSQL tab rules or use standard tabbing
+            *e_code++ = (!postgres_tab_rules ||
+                        tpos != pos + 1 ||
+                        cur_dec_ind >= tpos + tabsize) ? '\t' : ' ';
+            pos = tpos;
+        }
+    }
+
+    // Fill remaining space with spaces to reach target position
+    CHECK_SIZE_CODE(cur_dec_ind - pos + 1);
+    while (pos < cur_dec_ind) {
+        *e_code++ = ' ';
+        pos++;
+    }
+
+    // Add a space if needed and no indentation was added
+    if (e_code == startpos && ps.want_blank) {
+        *e_code++ = ' ';
+        ps.want_blank = false;
+    }
+}
+```

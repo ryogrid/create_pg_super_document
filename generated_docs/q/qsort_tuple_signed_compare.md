@@ -37,3 +37,27 @@ The function is marked with `pg_attribute_always_inline` to ensure compiler inli
 - Returns standard comparison result: 0 for equal tuples, negative for a < b, positive for a > b
 - The inline attribute ensures maximum performance by eliminating function call overhead
 - Complements `qsort_tuple_unsigned_compare` to handle different numeric data types efficiently
+
+## Simplified Source
+
+```c
+static pg_attribute_always_inline int
+qsort_tuple_signed_compare(SortTuple *a, SortTuple *b, Tuplesortstate *state)
+{
+    // Compare the first datum using signed comparator
+    int compare = ApplySignedSortComparator(a->datum1, a->isnull1,
+                                           b->datum1, b->isnull1,
+                                           &state->base.sortKeys[0]);
+
+    // If first key differs, return the result
+    if (compare != 0)
+        return compare;
+
+    // If only one sort key, tuples are equal
+    if (state->base.onlyKey != NULL)
+        return 0;
+
+    // Use tiebreak function for additional sort keys
+    return state->base.comparetup_tiebreak(a, b, state);
+}
+```

@@ -42,3 +42,15 @@ This function is designed to be called from within the asynchronous node's callb
 - The completion flag allows the async framework to determine when operations have finished without polling
 - This function complements the other async execution functions by providing the completion mechanism
 - Essential for implementing foreign data wrappers and other async-capable executor nodes in PostgreSQL
+
+## Simplified Source
+
+```c
+void ExecAsyncRequestDone(AsyncRequest *areq, TupleTableSlot *result) {
+    // Mark the async request as completed
+    areq->request_complete = true;
+
+    // Store the result tuple for the requestor to retrieve
+    areq->result = result;
+}
+```

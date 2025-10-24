@@ -43,3 +43,76 @@ The function skips execution during data-only dumps and constructs both creation
 - Generates both CREATE and DROP statements for complete dump/restore capability
 - Part of PostgreSQL's text search infrastructure dumping functionality
 - Uses qualified names to handle schema-qualified parser names properly
+
+## Simplified Source
+
+```c
+static void
+dumpTSParser(Archive *fout, const TSParserInfo *prsinfo)
+{
+    DumpOptions *dopt = fout->dopt;
+    PQExpBuffer q, delq;
+    char *qprsname;
+
+    // Skip in data-only mode
+    if (dopt->dataOnly)
+        return;
+
+    // Initialize buffers and format parser name
+    q = createPQExpBuffer();
+    delq = createPQExpBuffer();
+    qprsname = pg_strdup(fmtId(prsinfo->dobj.name));
+
+    // Build CREATE TEXT SEARCH PARSER statement
+    appendPQExpBuffer(q, "CREATE TEXT SEARCH PARSER %s (\n",
+                      fmtQualifiedDumpable(prsinfo));
+
+    // Add required functions
+    appendPQExpBuffer(q, "    START = %s,\n",
+                      convertTSFunction(fout, prsinfo->prsstart));
+    appendPQExpBuffer(q, "    GETTOKEN = %s,\n",
+                      convertTSFunction(fout, prsinfo->prstoken));
+    appendPQExpBuffer(q, "    END = %s,\n",
+                      convertTSFunction(fout, prsinfo->prsend));
+
+    // Add optional HEADLINE function
+    if (prsinfo->prsheadline != InvalidOid)
+        appendPQExpBuffer(q, "    HEADLINE = %s,\n",
+                         convertTSFunction(fout, prsinfo->prsheadline));
+
+    // Add required LEXTYPES function
+    appendPQExpBuffer(q, "    LEXTYPES = %s );\n",
+                      convertTSFunction(fout, prsinfo->prslextype));
+
+    // Build DROP statement
+    appendPQExpBuffer(delq, "DROP TEXT SEARCH PARSER %s;\n",
+                      fmtQualifiedDumpable(prsinfo));
+
+    // Handle binary upgrade
+    if (dopt->binary_upgrade)
+        binary_upgrade_extension_member(q, &prsinfo->dobj,
+                                       "TEXT SEARCH PARSER", qprsname,
+                                       prsinfo->dobj.namespace->dobj.name);
+
+    // Register with archive
+    if (prsinfo->dobj.dump & DUMP_COMPONENT_DEFINITION)
+        ArchiveEntry(fout, prsinfo->dobj.catId, prsinfo->dobj.dumpId,
+                    ARCHIVE_OPTS(.tag = prsinfo->dobj.name,
+                                .namespace = prsinfo->dobj.namespace->dobj.name,
+                                .description = "TEXT SEARCH PARSER",
+                                .section = SECTION_PRE_DATA,
+                                .createStmt = q->data,
+                                .dropStmt = delq->data));
+
+    // Dump comments
+    if (prsinfo->dobj.dump & DUMP_COMPONENT_COMMENT)
+        dumpComment(fout, "TEXT SEARCH PARSER", qprsname,
+                   prsinfo->dobj.namespace->dobj.name, "",
+                   prsinfo->dobj.catId, 0, prsinfo->dobj.dumpId);
+
+    // Cleanup
+    destroyPQExpBuffer(q);
+    destroyPQExpBuffer(delq);
+    free(qprsname);
+}
+```

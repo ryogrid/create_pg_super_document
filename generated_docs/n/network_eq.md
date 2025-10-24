@@ -46,3 +46,16 @@ For cidr types, subnet bits are always zero, so equality depends primarily on th
 - The function is typically not called directly but invoked through SQL operators
 - Implements the symmetric property: if A = B, then B = A
 - Used by PostgreSQL's hash-based operations when inet/cidr values serve as hash keys
+
+## Simplified Source
+
+```c
+Datum network_eq(PG_FUNCTION_ARGS) {
+    // Extract two inet/cidr network addresses from function arguments
+    inet *a1 = PG_GETARG_INET_PP(0);
+    inet *a2 = PG_GETARG_INET_PP(1);
+
+    // Compare networks and return true if they are equal
+    return PG_RETURN_BOOL(network_cmp_internal(a1, a2) == 0);
+}
+```

@@ -41,3 +41,27 @@ Like SetCancelConn, this function uses critical sections on Windows platforms to
 - Commonly called in cleanup scenarios, connection failures, or when switching database connections
 - Safe to call even when cancelConn is already NULL - includes null check before freeing
 - Part of the frontend utilities cancel mechanism used by PostgreSQL client tools
+
+## Simplified Source
+
+```c
+void ResetCancelConn(void) {
+    PGcancel *oldCancelConn;
+
+#ifdef WIN32
+    EnterCriticalSection(&cancelConnLock);
+#endif
+
+    // Save old connection and set to NULL for thread safety
+    oldCancelConn = cancelConn;
+    cancelConn = NULL;
+
+    // Free old cancel connection if it exists
+    if (oldCancelConn != NULL)
+        PQfreeCancel(oldCancelConn);
+
+#ifdef WIN32
+    LeaveCriticalSection(&cancelConnLock);
+#endif
+}
+```

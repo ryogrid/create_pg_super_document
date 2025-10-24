@@ -35,3 +35,51 @@ This function is part of the pg_bsd_indent tool and implements in-place file edi
 - Removes backup file if output file creation fails
 - Buffer size for file copying is set to 8KB
 - The function assumes global variables in_name, input, output, and bakfile are properly initialized
+
+## Simplified Source
+
+```c
+static void bakcopy(void)
+{
+    int n, bakchn;
+    char buff[8 * 1024];
+    const char *p;
+
+    // Find the base filename by looking for last '/'
+    for (p = in_name; *p; p++);  // Go to end of string
+    while (p > in_name && *p != '/')  // Find last '/'
+        p--;
+    if (*p == '/')
+        p++;
+
+    // Create backup filename: basename + ".BAK"
+    sprintf(bakfile, "%s.BAK", p);
+
+    // Create backup file and copy input contents
+    bakchn = creat(bakfile, 0600);
+    if (bakchn < 0)
+        err(1, "%s", bakfile);
+
+    // Copy file contents in chunks
+    while ((n = read(fileno(input), buff, sizeof(buff))) > 0) {
+        if (write(bakchn, buff, n) != n)
+            err(1, "%s", bakfile);
+    }
+    if (n < 0)
+        err(1, "%s", in_name);
+
+    close(bakchn);
+    fclose(input);
+
+    // Reopen backup as input and original as output
+    input = fopen(bakfile, "r");
+    if (input == NULL)
+        err(1, "%s", bakfile);
+
+    output = fopen(in_name, "wb");
+    if (output == NULL) {
+        unlink(bakfile);  // Clean up on failure
+        err(1, "%s", in_name);
+    }
+}
+```

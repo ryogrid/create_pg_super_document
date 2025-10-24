@@ -35,3 +35,20 @@ This function follows the standard GUC check hook pattern, where it receives the
 - The function is part of PostgreSQL's configuration validation system, ensuring that users cannot enable features that aren't supported by their build
 - Located in src/backend/commands/variable.c at lines 1249-1259
 - Returns false only when SSL is requested but not supported by the build, otherwise returns true to allow the configuration change
+
+## Simplified Source
+
+```c
+bool check_ssl(bool *newval, void **extra, GucSource source) {
+    // On builds without SSL support, SSL cannot be enabled
+    #ifndef USE_SSL
+    if (*newval) {
+        GUC_check_errmsg("SSL is not supported by this build");
+        return false;
+    }
+    #endif
+
+    // Accept the SSL setting if SSL is supported or being disabled
+    return true;
+}
+```

@@ -37,3 +37,30 @@ The function operates by calling the common tuple retrieval mechanism and then u
 - Returns NULL when no more tuples are available in the specified direction
 - The function temporarily switches to the sort context for memory operations and restores the previous context before returning
 - This is part of the tuplesortvariants.c file which contains specialized tuple sort implementations for different data types
+
+## Simplified Source
+
+```c
+BrinTuple *tuplesort_getbrintuple(Tuplesortstate *state, Size *len, bool forward)
+{
+    TuplesortPublic *base = TuplesortstateGetPublic(state);
+    MemoryContext oldcontext = MemoryContextSwitchTo(base->sortcontext);
+    SortTuple stup;
+    BrinSortTuple *btup;
+
+    // Get next tuple from sort operation
+    if (!tuplesort_gettuple_common(state, forward, &stup))
+        stup.tuple = NULL;
+
+    MemoryContextSwitchTo(oldcontext);
+
+    if (!stup.tuple)
+        return NULL;
+
+    // Extract BRIN tuple from sort tuple wrapper
+    btup = (BrinSortTuple *) stup.tuple;
+    *len = btup->tuplen;
+
+    return &btup->tuple;
+}
+```

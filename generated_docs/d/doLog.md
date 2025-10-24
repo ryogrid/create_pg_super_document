@@ -43,3 +43,84 @@ This function handles transaction logging in pgbench, supporting both aggregated
 - Includes conditional logging of throttle delay, retry information, and detailed failure types
 - Automatically handles empty intervals in aggregated logging mode for low TPS scenarios
 - The function contains a performance optimization note about potentially avoiding extra pg_time_now() calls
+
+## Simplified Source
+
+```c
+static void doLog(TState *thread, CState *st, StatsData *agg, bool skipped, double latency, double lag) {
+    FILE *logfile = thread->logfile;
+    pg_time_usec_t now = pg_time_now() + epoch_shift;
+
+    Assert(use_log);
+
+    // Skip log entry if sampling is enabled and this row doesn't belong to sample
+    if (sample_rate != 0.0 && pg_prng_double(&thread->ts_sample_rs) > sample_rate)
+        return;
+
+    // Handle aggregated logging (interval-based)
+    if (agg_interval > 0) {
+        pg_time_usec_t next;
+
+        // Process all completed intervals
+        while ((next = agg->start_time + agg_interval * INT64CONST(1000000)) <= now) {
+            // Print aggregated statistics for this interval
+            fprintf(logfile, INT64_FORMAT " " INT64_FORMAT " %.0f %.0f %.0f %.0f",
+                   agg->start_time / 1000000,    // Unix epoch seconds
+                   agg->cnt,                     // transaction count
+                   agg->latency.sum,            // latency statistics
+                   agg->latency.sum2,
+                   agg->latency.min,
+                   agg->latency.max);
+
+            // Add lag statistics if throttling is enabled
+            if (throttle_delay) {
+                fprintf(logfile, " %.0f %.0f %.0f %.0f",
+                       agg->lag.sum, agg->lag.sum2, agg->lag.min, agg->lag.max);
+            }
+
+            // Add skipped count if latency limit is set
+            if (latency_limit)
+                fprintf(logfile, " " INT64_FORMAT, agg->skipped);
+
+            // Add retry statistics if retries are enabled
+            if (max_tries != 1)
+                fprintf(logfile, " " INT64_FORMAT " " INT64_FORMAT, agg->retried, agg->retries);
+
+            // Add detailed failure statistics if enabled
+            if (failures_detailed) {
+                fprintf(logfile, " " INT64_FORMAT " " INT64_FORMAT,
+                       agg->serialization_failures, agg->deadlock_failures);
+            }
+
+            fputc('\n', logfile);
+
+            // Move to next interval
+            initStats(agg, next);
+        }
+
+        // Accumulate current transaction into aggregated stats
+        accumStats(agg, skipped, latency, lag, st->estatus, st->tries);
+    } else {
+        // Handle raw transaction logging
+        if (!skipped && st->estatus == ESTATUS_NO_ERROR) {
+            // Log successful transaction
+            fprintf(logfile, "%d " INT64_FORMAT " %.0f %d " INT64_FORMAT " " INT64_FORMAT,
+                   st->id, st->cnt, latency, st->use_file,
+                   now / 1000000, now % 1000000);
+        } else {
+            // Log failed/skipped transaction
+            fprintf(logfile, "%d " INT64_FORMAT " %s %d " INT64_FORMAT " " INT64_FORMAT,
+                   st->id, st->cnt, getResultString(skipped, st->estatus),
+                   st->use_file, now / 1000000, now % 1000000);
+        }
+
+        // Add optional fields
+        if (throttle_delay)
+            fprintf(logfile, " %.0f", lag);
+        if (max_tries != 1)
+            fprintf(logfile, " %u", st->tries - 1);
+
+        fputc('\n', logfile);
+    }
+}
+```

@@ -40,3 +40,17 @@ This function is particularly useful when setting up PostgreSQL's internal LLVM 
 -  is implemented in llvmjit_wrap.cpp, suggesting it may be a C++ wrapper around LLVM's C++ API
 - The function is simple but essential for PostgreSQL's LLVM JIT type system setup
 - Return type information is crucial for generating correct LLVM IR that matches PostgreSQL's internal type system
+
+## Simplified Source
+
+```c
+static LLVMTypeRef load_return_type(LLVMModuleRef mod, const char *name) {
+    // Get function from module by name
+    LLVMValueRef function = LLVMGetNamedFunction(mod, name);
+    if (!function)
+        elog(ERROR, "function %s is unknown", name);
+
+    // Extract and return the function's return type
+    return LLVMGetFunctionReturnType(function);
+}
+```

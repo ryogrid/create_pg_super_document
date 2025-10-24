@@ -30,3 +30,14 @@ This function is part of the TupleTableSlotOps implementation for MinimalTupleTa
 - Satisfies the function pointer interface requirement for slot operations
 - Located in src/backend/executor/execTuples.c:520-524
 - Demonstrates the lightweight nature of minimal tuple memory management
+
+## Simplified Source
+
+```c
+static void
+tts_minimal_release(TupleTableSlot *slot)
+{
+    // No special cleanup required for minimal tuple slots
+    // Memory management is handled elsewhere in the system
+}
+```

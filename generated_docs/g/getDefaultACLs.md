@@ -46,3 +46,89 @@ This function is part of the pg_dump utility and extracts default access control
 - Namespace resolution uses `findNamespace()` for non-global ACLs
 - The returned `DefaultACLInfo` array must be freed by the caller
 - Uses `selectDumpableDefaultACL()` which may have different criteria than regular `selectDumpableObject()`
+
+## Simplified Source
+
+```c
+DefaultACLInfo *
+getDefaultACLs(Archive *fout, int *numDefaultACLs)
+{
+    DumpOptions *dopt = fout->dopt;
+    DefaultACLInfo *daclinfo;
+    PQExpBuffer query;
+    PGresult *res;
+    int i, ntups;
+
+    query = createPQExpBuffer();
+
+    // Query default ACLs with special handling for global vs namespace-specific
+    appendPQExpBufferStr(query,
+        "SELECT oid, tableoid, "
+        "defaclrole, "
+        "defaclnamespace, "
+        "defaclobjtype, "
+        "defaclacl, "
+        "CASE WHEN defaclnamespace = 0 THEN "
+        "acldefault(CASE WHEN defaclobjtype = 'S' "
+        "THEN 's'::\"char\" ELSE defaclobjtype END, "
+        "defaclrole) ELSE '{}' END AS acldefault "
+        "FROM pg_default_acl");
+
+    res = ExecuteSqlQuery(fout, query->data, PGRES_TUPLES_OK);
+    ntups = PQntuples(res);
+    *numDefaultACLs = ntups;
+
+    // Allocate array for default ACL info
+    daclinfo = (DefaultACLInfo *) pg_malloc(ntups * sizeof(DefaultACLInfo));
+
+    // Get column indices
+    int i_oid = PQfnumber(res, "oid");
+    int i_tableoid = PQfnumber(res, "tableoid");
+    int i_defaclrole = PQfnumber(res, "defaclrole");
+    int i_defaclnamespace = PQfnumber(res, "defaclnamespace");
+    int i_defaclobjtype = PQfnumber(res, "defaclobjtype");
+    int i_defaclacl = PQfnumber(res, "defaclacl");
+    int i_acldefault = PQfnumber(res, "acldefault");
+
+    // Process each default ACL
+    for (i = 0; i < ntups; i++) {
+        Oid nspid = atooid(PQgetvalue(res, i, i_defaclnamespace));
+
+        // Set object type and catalog info
+        daclinfo[i].dobj.objType = DO_DEFAULT_ACL;
+        daclinfo[i].dobj.catId.tableoid = atooid(PQgetvalue(res, i, i_tableoid));
+        daclinfo[i].dobj.catId.oid = atooid(PQgetvalue(res, i, i_oid));
+        AssignDumpId(&daclinfo[i].dobj);
+
+        // Use object type character as name
+        daclinfo[i].dobj.name = pg_strdup(PQgetvalue(res, i, i_defaclobjtype));
+
+        // Set namespace (NULL for global ACLs)
+        if (nspid != InvalidOid)
+            daclinfo[i].dobj.namespace = findNamespace(nspid);
+        else
+            daclinfo[i].dobj.namespace = NULL;
+
+        // Set ACL information
+        daclinfo[i].dacl.acl = pg_strdup(PQgetvalue(res, i, i_defaclacl));
+        daclinfo[i].dacl.acldefault = pg_strdup(PQgetvalue(res, i, i_acldefault));
+        daclinfo[i].dacl.privtype = 0;
+        daclinfo[i].dacl.initprivs = NULL;
+
+        // Set role and object type
+        daclinfo[i].defaclrole = getRoleName(PQgetvalue(res, i, i_defaclrole));
+        daclinfo[i].defaclobjtype = *(PQgetvalue(res, i, i_defaclobjtype));
+
+        // Default ACLs are ACL objects by definition
+        daclinfo[i].dobj.components |= DUMP_COMPONENT_ACL;
+
+        // Determine if default ACL should be dumped
+        selectDumpableDefaultACL(&(daclinfo[i]), dopt);
+    }
+
+    // Cleanup and return
+    PQclear(res);
+    destroyPQExpBuffer(query);
+    return daclinfo;
+}
+```

@@ -31,3 +31,13 @@ This function serves as a PostgreSQL GUC assign hook for the debug_io_direct con
 - The debug_io_direct parameter controls direct I/O usage for different file types (data, wal, wal_init)
 - On platforms where PG_O_DIRECT is 0, direct I/O is not supported
 - The function is declared extern and defined in src/backend/storage/file/fd.c:4021-4026
+
+## Simplified Source
+
+```c
+void assign_debug_io_direct(const char *newval, void *extra) {
+    // Apply validated I/O direct flags from configuration
+    int *flags = (int *) extra;
+    io_direct_flags = *flags;
+}
+```

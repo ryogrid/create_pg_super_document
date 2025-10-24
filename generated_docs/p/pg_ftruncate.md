@@ -33,3 +33,21 @@ The pg_ftruncate function provides a reliable interface to truncate an open file
 - Does not perform additional error checking beyond the system call
 - Part of PostgreSQL's internal file management utilities
 - Used as a building block for higher-level file truncation operations
+
+## Simplified Source
+
+```c
+static int pg_ftruncate(int fd, off_t length)
+{
+    int ret;
+
+retry:
+    ret = ftruncate(fd, length);
+
+    // Retry if interrupted by signal
+    if (ret == -1 && errno == EINTR)
+        goto retry;
+
+    return ret;
+}
+```

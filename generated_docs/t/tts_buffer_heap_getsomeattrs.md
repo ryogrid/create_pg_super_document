@@ -31,3 +31,18 @@ tts_buffer_heap_getsomeattrs is responsible for extracting (deforming) a specifi
 - Delegates the actual deformation work to the generic slot_deform_heap_tuple function
 - The function maintains the buffer slot's offset state through the deformation process
 - Used for lazy attribute extraction - only deforms the requested number of attributes rather than all attributes
+
+## Simplified Source
+
+```c
+static void tts_buffer_heap_getsomeattrs(TupleTableSlot *slot, int natts)
+{
+    BufferHeapTupleTableSlot *buffer_slot = (BufferHeapTupleTableSlot *) slot;
+
+    // Ensure slot contains a tuple
+    Assert(!TTS_EMPTY(slot));
+
+    // Extract the requested attributes from the heap tuple
+    slot_deform_heap_tuple(slot, buffer_slot->base.tuple, &buffer_slot->base.off, natts);
+}
+```

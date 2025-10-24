@@ -42,3 +42,40 @@ This function recursively traverses the dependency tree of a DumpableObject to i
 - Doubles the allocation size when the dependencies array needs to grow
 - Relies on sortDumpableObjects having broken dependency cycles to prevent infinite recursion
 - Critical helper function for BuildArchiveDependencies in resolving transitive dependencies
+
+## Simplified Source
+
+```c
+static void findDumpableDependencies(ArchiveHandle *AH, const DumpableObject *dobj,
+                                    DumpId **dependencies, int *nDeps, int *allocDeps)
+{
+    // Skip boundary objects to avoid bogus dependencies
+    if (dobj->objType == DO_PRE_DATA_BOUNDARY ||
+        dobj->objType == DO_POST_DATA_BOUNDARY)
+        return;
+
+    for (int i = 0; i < dobj->nDeps; i++) {
+        DumpId depid = dobj->dependencies[i];
+
+        if (TocIDRequired(AH, depid) != 0) {
+            // Object will be dumped - add it as a direct dependency
+
+            // Grow array if needed
+            if (*nDeps >= *allocDeps) {
+                *allocDeps *= 2;
+                *dependencies = pg_realloc(*dependencies,
+                                         *allocDeps * sizeof(DumpId));
+            }
+
+            (*dependencies)[*nDeps] = depid;
+            (*nDeps)++;
+        } else {
+            // Object won't be dumped - recurse into its dependencies
+            DumpableObject *otherdobj = findObjectByDumpId(depid);
+            if (otherdobj)
+                findDumpableDependencies(AH, otherdobj,
+                                       dependencies, nDeps, allocDeps);
+        }
+    }
+}
+```

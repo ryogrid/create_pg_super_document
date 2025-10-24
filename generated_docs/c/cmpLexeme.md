@@ -36,3 +36,23 @@ The comparison logic prioritizes NULL lexemes as "greater than" non-NULL lexemes
 - Returns -1 if the second lexeme is NULL and the first is not (non-NULL < NULL)
 - For non-NULL lexemes, delegates to strcmp for standard string comparison
 - This function is used internally within the thesaurus dictionary implementation for maintaining sorted lexeme lists and performing efficient lookups
+
+## Simplified Source
+
+```c
+static int cmpLexeme(const TheLexeme *a, const TheLexeme *b) {
+    // Handle null lexeme cases
+    if (a->lexeme == NULL) {
+        if (b->lexeme == NULL)
+            return 0;    // Both null - equal
+        else
+            return 1;    // a is null, b is not - a > b
+    }
+    else if (b->lexeme == NULL) {
+        return -1;       // b is null, a is not - a < b
+    }
+
+    // Both have lexemes - compare strings
+    return strcmp(a->lexeme, b->lexeme);
+}
+```

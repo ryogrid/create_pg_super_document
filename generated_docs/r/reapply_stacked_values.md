@@ -52,3 +52,69 @@ This recursive function is used during custom variable definition to restore the
 - At the stack bottom, handles session values that differ from reset values
 - May leak some stack entries in edge cases, but this is acceptable given the rarity of the scenario
 - Maintains proper transaction and session semantics during value migration
+
+## Simplified Source
+
+```c
+static void reapply_stacked_values(struct config_generic *variable,
+                                   struct config_string *pHolder,
+                                   GucStack *stack,
+                                   const char *curvalue,
+                                   GucContext curscontext,
+                                   GucSource cursource,
+                                   Oid cursrole) {
+    const char *name = variable->name;
+    GucStack *oldvarstack = variable->stack;
+
+    if (stack != NULL) {
+        // Recurse to process stack from bottom to top
+        reapply_stacked_values(variable, pHolder, stack->prev,
+                               stack->prior.val.stringval,
+                               stack->scontext, stack->source, stack->srole);
+
+        // Apply current value based on stack state
+        switch (stack->state) {
+            case GUC_SAVE:
+            case GUC_SET:
+            case GUC_LOCAL:
+                set_config_option_ext(name, curvalue, curscontext,
+                                      cursource, cursrole, stack->state,
+                                      true, WARNING, false);
+                break;
+
+            case GUC_SET_LOCAL:
+                // First apply masked value as SET
+                set_config_option_ext(name, stack->masked.val.stringval,
+                                      stack->masked_scontext, PGC_S_SESSION,
+                                      stack->masked_srole, GUC_ACTION_SET,
+                                      true, WARNING, false);
+                // Then apply current value as LOCAL
+                set_config_option_ext(name, curvalue, curscontext,
+                                      cursource, cursrole, GUC_ACTION_LOCAL,
+                                      true, WARNING, false);
+                break;
+        }
+
+        // Adjust nest level if stack entry was created
+        if (variable->stack != oldvarstack)
+            variable->stack->nest_level = stack->nest_level;
+    }
+    else {
+        // At end of stack - apply session value if different from reset
+        if (curvalue != pHolder->reset_val ||
+            curscontext != pHolder->gen.reset_scontext ||
+            cursource != pHolder->gen.reset_source ||
+            cursrole != pHolder->gen.reset_srole) {
+
+            set_config_option_ext(name, curvalue, curscontext, cursource,
+                                  cursrole, GUC_ACTION_SET, true, WARNING, false);
+
+            // Clean up temporary stack entry
+            if (variable->stack != NULL) {
+                slist_delete(&guc_stack_list, &variable->stack_link);
+                variable->stack = NULL;
+            }
+        }
+    }
+}
+```

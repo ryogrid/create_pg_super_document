@@ -35,3 +35,16 @@ This function enables SQL expressions like `inet_address - integer_value` to per
 - Part of PostgreSQL's network data type operator implementations
 - Function follows PostgreSQL's V1 calling convention using standard macros
 - More efficient than implementing separate subtraction logic due to code reuse
+
+## Simplified Source
+
+```c
+Datum inetmi_int8(PG_FUNCTION_ARGS) {
+    // Extract arguments from PostgreSQL function call
+    inet *input_address = PG_GETARG_INET_PP(0);
+    int64 subtrahend = PG_GETARG_INT64(1);
+
+    // Implement subtraction as addition with negated value
+    PG_RETURN_INET_P(internal_inetpl(input_address, -subtrahend));
+}
+```

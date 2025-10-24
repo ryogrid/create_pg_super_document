@@ -37,3 +37,23 @@ The function first asserts that the sort state has valid datum1 values available
 - Returns standard comparison values: -1 (a < b), 0 (a == b), 1 (a > b)
 - This comparison function is critical for maintaining the sorted order of BRIN index entries by block number
 - The comment 'silence compilers' indicates defensive programming to ensure all code paths return a value
+
+## Simplified Source
+
+```c
+static int
+comparetup_index_brin(const SortTuple *a, const SortTuple *b,
+                      Tuplesortstate *state)
+{
+    // Compare BRIN tuples by their block numbers
+    uint32 blkno_a = DatumGetUInt32(a->datum1);
+    uint32 blkno_b = DatumGetUInt32(b->datum1);
+
+    if (blkno_a > blkno_b)
+        return 1;
+    if (blkno_a < blkno_b)
+        return -1;
+
+    return 0;  // Equal block numbers
+}
+```

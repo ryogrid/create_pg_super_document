@@ -38,3 +38,42 @@ The function formats the signature as  or  for aggregates that accept any argume
 - Uses  to ensure proper type qualification
 - The  parameter allows control over identifier quoting in different contexts
 - Essential for generating syntactically correct aggregate function references in dump output
+
+## Simplified Source
+
+```c
+static char *
+format_aggregate_signature(const AggInfo *agginfo, Archive *fout, bool honor_quotes)
+{
+    PQExpBufferData buf;
+    int j;
+
+    // Initialize buffer for signature
+    initPQExpBuffer(&buf);
+
+    // Add aggregate name with optional quoting
+    if (honor_quotes)
+        appendPQExpBufferStr(&buf, fmtId(agginfo->aggfn.dobj.name));
+    else
+        appendPQExpBufferStr(&buf, agginfo->aggfn.dobj.name);
+
+    // Add argument list
+    if (agginfo->aggfn.nargs == 0) {
+        // Zero-argument aggregate uses (*) syntax
+        appendPQExpBufferStr(&buf, "(*)");
+    } else {
+        // Build argument type list
+        appendPQExpBufferChar(&buf, '(');
+        for (j = 0; j < agginfo->aggfn.nargs; j++) {
+            appendPQExpBuffer(&buf, "%s%s",
+                             (j > 0) ? ", " : "",
+                             getFormattedTypeName(fout,
+                                                  agginfo->aggfn.argtypes[j],
+                                                  zeroIsError));
+        }
+        appendPQExpBufferChar(&buf, ')');
+    }
+
+    return buf.data;  // Caller must free this
+}
+```

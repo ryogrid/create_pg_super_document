@@ -39,3 +39,20 @@ This information is valuable for monitoring system performance and understanding
 - Commonly used in heap extension logic to determine optimal buffer extension strategies
 - Does not include the current lock holder in the count, only waiting processes
 - The underlying LockWaiterCount function uses exclusive lightweight locks to ensure consistent results
+
+## Simplified Source
+
+```c
+int RelationExtensionLockWaiterCount(Relation relation)
+{
+    LOCKTAG tag;
+
+    // Create lock tag for relation extension
+    SET_LOCKTAG_RELATION_EXTEND(tag,
+                                relation->rd_lockInfo.lockRelId.dbId,
+                                relation->rd_lockInfo.lockRelId.relId);
+
+    // Count processes waiting for this lock
+    return LockWaiterCount(&tag);
+}
+```

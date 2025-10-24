@@ -36,3 +36,18 @@ The function is specifically designed for table truncation operations and uses R
 - This hook is commonly used by auditing extensions, replication systems, and monitoring tools to track when tables are truncated
 - Extensions can use this hook to perform cleanup of associated indexes, triggers, or external data structures before or after truncation
 - The string-based approach allows extensions to work with table names directly without needing to resolve OIDs
+
+## Simplified Source
+
+```c
+void
+RunObjectTruncateHookStr(const char *objectName)
+{
+    // Ensure string-based hook is registered (caller should check this)
+    Assert(object_access_hook_str != NULL);
+
+    // Call the registered string-based object access hook for truncate event
+    // Uses RelationRelationId as classId, 0 as subId, NULL as auxiliary data
+    (*object_access_hook_str)(OAT_TRUNCATE, RelationRelationId, objectName, 0, NULL);
+}
+```

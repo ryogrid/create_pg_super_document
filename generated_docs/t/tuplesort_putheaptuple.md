@@ -37,3 +37,44 @@ This function takes a HeapTuple and prepares it for sorting by creating a comple
 - Supports abbreviation optimization when conditions are met (haveDatum1, abbrev_converter available, and key is not null)
 - Primarily used in table clustering operations where heap tuples need to be sorted by index key values
 - Memory context management ensures proper allocation in sort-specific contexts
+
+## Simplified Source
+
+```c
+void
+tuplesort_putheaptuple(Tuplesortstate *state, HeapTuple tup)
+{
+    TuplesortPublic *base = TuplesortstateGetPublic(state);
+    MemoryContext oldcontext = MemoryContextSwitchTo(base->tuplecontext);
+    TuplesortClusterArg *arg = (TuplesortClusterArg *) base->arg;
+
+    // Copy the tuple into sort storage
+    HeapTuple tup_copy = heap_copytuple(tup);
+    SortTuple stup;
+    stup.tuple = (void *) tup_copy;
+
+    // Extract first sort key value if available for optimization
+    if (base->haveDatum1)
+    {
+        stup.datum1 = heap_getattr(tup_copy,
+                                  arg->indexInfo->ii_IndexAttrNumbers[0],
+                                  arg->tupDesc,
+                                  &stup.isnull1);
+    }
+
+    // Calculate memory usage based on allocation context
+    Size tuplen;
+    if (TupleSortUseBumpTupleCxt(base->sortopt))
+        tuplen = MAXALIGN(HEAPTUPLESIZE + tup_copy->t_len);
+    else
+        tuplen = GetMemoryChunkSpace(tup_copy);
+
+    // Add tuple to sort with abbreviation support if available
+    tuplesort_puttuple_common(state, &stup,
+                             base->haveDatum1 &&
+                             base->sortKeys->abbrev_converter &&
+                             !stup.isnull1, tuplen);
+
+    MemoryContextSwitchTo(oldcontext);
+}
+```

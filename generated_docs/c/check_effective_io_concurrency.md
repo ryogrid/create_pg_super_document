@@ -36,3 +36,20 @@ On platforms where USE_PREFETCH is not defined (indicating lack of posix_fadvise
 - Returns true to accept the new value, false to reject it
 - Uses GUC_check_errdetail to provide specific error information about platform limitations
 - On platforms with prefetch support, the actual validation of reasonable ranges is handled elsewhere in the GUC system
+
+## Simplified Source
+
+```c
+bool check_effective_io_concurrency(int *newval, void **extra, GucSource source) {
+    // On platforms without posix_fadvise(), effective_io_concurrency must be 0
+    #ifndef USE_PREFETCH
+    if (*newval != 0) {
+        GUC_check_errdetail("\"effective_io_concurrency\" must be set to 0 on platforms that lack posix_fadvise().");
+        return false;
+    }
+    #endif
+
+    // Accept the value if prefetch is supported or value is 0
+    return true;
+}
+```

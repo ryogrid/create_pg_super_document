@@ -38,4 +38,21 @@ This function implements containment detection logic for range intervals using d
 - Uses range_cmp_bounds for proper boundary comparison that handles inclusive/exclusive bounds
 - The containment logic properly handles all boundary inclusion/exclusion combinations
 - Widely used in multirange containment operations and binary search comparisons
-- Located in 
+- Located in multirangetypes.c
+
+## Simplified Source
+
+```c
+static bool
+range_bounds_contains(TypeCacheEntry *typcache,
+                      RangeBound *lower1, RangeBound *upper1,
+                      RangeBound *lower2, RangeBound *upper2)
+{
+    // Range1 contains range2 if range1's bounds encompass range2's bounds
+    if (range_cmp_bounds(typcache, lower1, lower2) <= 0 &&
+        range_cmp_bounds(typcache, upper1, upper2) >= 0)
+        return true;
+
+    return false;
+}
+```

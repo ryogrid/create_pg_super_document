@@ -40,3 +40,23 @@ The function constructs an ObjectAccessDrop structure with the provided drop fla
 - The dropflags parameter provides important context about the type of deletion being performed (cascade, restrict, etc.)
 - This hook is called before the actual deletion occurs, allowing extensions to potentially prevent or modify the operation
 - Part of PostgreSQL's extensibility framework for implementing custom security policies and audit systems
+
+## Simplified Source
+
+```c
+void
+RunObjectDropHook(Oid classId, Oid objectId, int subId, int dropflags)
+{
+    ObjectAccessDrop drop_arg;
+
+    // Ensure hook is registered (caller should check this)
+    Assert(object_access_hook != NULL);
+
+    // Initialize hook argument structure
+    memset(&drop_arg, 0, sizeof(ObjectAccessDrop));
+    drop_arg.dropflags = dropflags;
+
+    // Call the registered object access hook for drop event
+    (*object_access_hook)(OAT_DROP, classId, objectId, subId, (void *) &drop_arg);
+}
+```

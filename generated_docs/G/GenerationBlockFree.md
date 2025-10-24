@@ -44,3 +44,29 @@ The function is marked as static inline, indicating it's an internal utility fun
 - The function supports debugging through optional memory wiping
 - Being static inline, this function is only accessible within the generation.c file and is optimized for performance
 - The keeper block mechanism ensures that there's always at least one block available for allocations
+
+## Simplified Source
+
+```c
+static inline void
+GenerationBlockFree(GenerationContext *set, GenerationBlock *block)
+{
+    // Safety checks - don't free critical blocks
+    Assert(!IsKeeperBlock(set, block));
+    Assert(block != set->freeblock);
+
+    // Remove block from the linked list
+    dlist_delete(&block->node);
+
+    // Update memory accounting
+    ((MemoryContext) set)->mem_allocated -= block->blksize;
+
+    // Clear memory if debugging enabled
+#ifdef CLOBBER_FREED_MEMORY
+    wipe_mem(block, block->blksize);
+#endif
+
+    // Free the block memory
+    free(block);
+}
+```

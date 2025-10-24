@@ -36,3 +36,22 @@ This function retrieves the next IndexTuple from a completed sorting operation, 
 - Similar to tuplesort_getheaptuple but specifically typed for IndexTuple usage
 - Part of the specialized tuplesort interface for index building operations
 - No copying overhead makes it suitable for high-performance index construction
+
+## Simplified Source
+
+```c
+IndexTuple tuplesort_getindextuple(Tuplesortstate *state, bool forward)
+{
+    TuplesortPublic *base = TuplesortstateGetPublic(state);
+    MemoryContext oldcontext = MemoryContextSwitchTo(base->sortcontext);
+    SortTuple stup;
+
+    // Get next tuple from sort operation
+    if (!tuplesort_gettuple_common(state, forward, &stup))
+        stup.tuple = NULL;
+
+    MemoryContextSwitchTo(oldcontext);
+
+    return (IndexTuple) stup.tuple;
+}
+```

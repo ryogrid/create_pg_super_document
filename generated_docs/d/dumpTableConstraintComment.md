@@ -46,3 +46,31 @@ Key aspects:
 - Essential for maintaining complete schema documentation during database restoration
 - Part of pg_dump's comprehensive comment preservation system
 - Works in coordination with the general comment dumping infrastructure
+
+## Simplified Source
+
+```c
+static void
+dumpTableConstraintComment(Archive *fout, const ConstraintInfo *coninfo)
+{
+    TableInfo *tbinfo = coninfo->contable;
+    PQExpBuffer conprefix = createPQExpBuffer();
+    char *qtabname;
+
+    qtabname = pg_strdup(fmtId(tbinfo->dobj.name));
+
+    // Build comment identifier: "CONSTRAINT constraint_name ON"
+    appendPQExpBuffer(conprefix, "CONSTRAINT %s ON", fmtId(coninfo->dobj.name));
+
+    // Dump the comment if enabled
+    if (coninfo->dobj.dump & DUMP_COMPONENT_COMMENT)
+        dumpComment(fout, conprefix->data, qtabname,
+                   tbinfo->dobj.namespace->dobj.name,
+                   tbinfo->rolname,
+                   coninfo->dobj.catId, 0,
+                   coninfo->separate ? coninfo->dobj.dumpId : tbinfo->dobj.dumpId);
+
+    destroyPQExpBuffer(conprefix);
+    free(qtabname);
+}
+```

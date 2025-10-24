@@ -39,3 +39,32 @@ This static function creates a properly initialized NumericAggState structure wi
 - The state structure includes a reference to the aggregate memory context for later use
 - Essential for PostgreSQL's aggregate function infrastructure
 - Located in src/backend/utils/adt/numeric.c:4833-4857
+
+## Simplified Source
+
+```c
+static NumericAggState *
+makeNumericAggState(FunctionCallInfo fcinfo, bool calcSumX2)
+{
+    NumericAggState *state;
+    MemoryContext agg_context;
+    MemoryContext old_context;
+
+    // Validate we're in an aggregate context
+    if (!AggCheckCallContext(fcinfo, &agg_context))
+        elog(ERROR, "aggregate function called in non-aggregate context");
+
+    // Switch to aggregate memory context for allocation
+    old_context = MemoryContextSwitchTo(agg_context);
+
+    // Allocate and initialize the state structure
+    state = (NumericAggState *) palloc0(sizeof(NumericAggState));
+    state->calcSumX2 = calcSumX2;
+    state->agg_context = agg_context;
+
+    // Restore previous memory context
+    MemoryContextSwitchTo(old_context);
+
+    return state;
+}
+```

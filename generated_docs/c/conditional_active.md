@@ -40,3 +40,17 @@ This function is the primary decision point for whether commands should be execu
 - Handles the case where no conditional blocks are active (always execute)
 - Critical for implementing proper \if/\elif/\else/\endif behavior in PostgreSQL frontend tools
 - Used extensively throughout psql and pgbench for conditional command execution
+
+## Simplified Source
+
+```c
+bool conditional_active(ConditionalStack cstack) {
+    // Get current conditional state
+    ifState state = conditional_stack_peek(cstack);
+
+    // Execute commands if: no conditionals, true branch, or else-true branch
+    return state == IFSTATE_NONE ||
+           state == IFSTATE_TRUE ||
+           state == IFSTATE_ELSE_TRUE;
+}
+```

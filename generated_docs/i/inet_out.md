@@ -35,3 +35,16 @@ This function serves as the standard output conversion function for PostgreSQL's
 - Handles both IPv4 and IPv6 address formats through the underlying network_out function
 - The output format may or may not include mask notation depending on how the inet value was originally created
 - More flexible than cidr_out as it doesn't enforce mandatory mask notation in the output
+
+## Simplified Source
+
+```c
+Datum
+inet_out(PG_FUNCTION_ARGS)
+{
+    inet *src = PG_GETARG_INET_PP(0);
+
+    // Delegate to common network output function with is_cidr=false
+    PG_RETURN_CSTRING(network_out(src, false));
+}
+```

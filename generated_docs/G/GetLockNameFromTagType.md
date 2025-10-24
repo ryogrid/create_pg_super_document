@@ -30,3 +30,17 @@ This function provides a simple mapping from numeric lock tag types to their cor
 - Includes bounds checking to prevent array access violations
 - The "???" return value for invalid types helps with debugging when unexpected lock tag types are encountered
 - Used in PostgreSQL's monitoring infrastructure to provide meaningful names in views like pg_locks and wait event reporting
+
+## Simplified Source
+
+```c
+const char *GetLockNameFromTagType(uint16 locktag_type)
+{
+    // Validate lock tag type is within known range
+    if (locktag_type > LOCKTAG_LAST_TYPE)
+        return "???";
+
+    // Return human-readable name from lookup table
+    return LockTagTypeNames[locktag_type];
+}
+```

@@ -41,3 +41,59 @@ The function handles different types of range table entries (relations, subqueri
 - Security qualifiers () are always mutated regardless of RTE type
 - Control flags allow callers to skip mutation of specific substructures (useful for optimization or when certain parts should remain unchanged)
 - Located in src/backend/nodes/nodeFuncs.c:3841-3909
+
+## Simplified Source
+
+```c
+List *range_table_mutator_impl(List *rtable, tree_mutator_callback mutator,
+                               void *context, int flags) {
+    List *newrt = NIL;
+    ListCell *rt;
+
+    // Process each range table entry
+    foreach(rt, rtable) {
+        RangeTblEntry *rte = (RangeTblEntry *) lfirst(rt);
+        RangeTblEntry *newrte;
+
+        // Make shallow copy and mutate based on RTE type
+        FLATCOPY(newrte, rte, RangeTblEntry);
+
+        switch (rte->rtekind) {
+            case RTE_RELATION:
+                MUTATE(newrte->tablesample, rte->tablesample, TableSampleClause *);
+                break;
+            case RTE_SUBQUERY:
+                if (!(flags & QTW_IGNORE_RT_SUBQUERIES))
+                    MUTATE(newrte->subquery, rte->subquery, Query *);
+                else
+                    newrte->subquery = copyObject(rte->subquery);
+                break;
+            case RTE_JOIN:
+                if (!(flags & QTW_IGNORE_JOINALIASES))
+                    MUTATE(newrte->joinaliasvars, rte->joinaliasvars, List *);
+                else
+                    newrte->joinaliasvars = copyObject(rte->joinaliasvars);
+                break;
+            case RTE_FUNCTION:
+                MUTATE(newrte->functions, rte->functions, List *);
+                break;
+            case RTE_TABLEFUNC:
+                MUTATE(newrte->tablefunc, rte->tablefunc, TableFunc *);
+                break;
+            case RTE_VALUES:
+                MUTATE(newrte->values_lists, rte->values_lists, List *);
+                break;
+            case RTE_CTE:
+            case RTE_NAMEDTUPLESTORE:
+            case RTE_RESULT:
+                // No mutation needed for these types
+                break;
+        }
+
+        // Always mutate security qualifiers
+        MUTATE(newrte->securityQuals, rte->securityQuals, List *);
+        newrt = lappend(newrt, newrte);
+    }
+    return newrt;
+}
+```

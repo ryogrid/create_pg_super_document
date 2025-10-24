@@ -35,3 +35,20 @@ The function signature suggests it would return a boolean indicating whether the
 - Calling this function will result in a PostgreSQL ERROR being raised, potentially terminating the current transaction
 - The return type is bool, but the function never actually returns due to the elog(ERROR) call
 - This represents a limitation of the semaphore-based fallback implementation compared to hardware-based spinlocks
+
+## Simplified Source
+
+```c
+bool s_lock_free_sema(volatile slock_t *lock)
+{
+    // This functionality is not implemented for semaphore-based spinlocks
+    elog(ERROR, "spin.c does not support S_LOCK_FREE()");
+    return false;  // Never reached
+}
+```
+
+**Key Points:**
+- Placeholder function that always throws an error when called
+- S_LOCK_FREE functionality is not implemented for semaphore-based spinlocks
+- Part of the spinlock interface for API consistency
+- PostgreSQL currently doesn't use S_LOCK_FREE functionality anyway

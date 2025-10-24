@@ -34,3 +34,20 @@ The function is specifically designed for minimal tuple table slots, which store
 - The function modifies the slot's state by updating the  field in the MinimalTupleTableSlot structure
 - This function is typically called as part of the slot operations vtable for minimal tuple slots
 - The deformation process converts the compact binary tuple format into accessible attribute values stored in the slot's arrays
+
+## Simplified Source
+
+```c
+static void
+tts_minimal_getsomeattrs(TupleTableSlot *slot, int natts)
+{
+    // Cast to minimal tuple slot type
+    MinimalTupleTableSlot *mslot = (MinimalTupleTableSlot *) slot;
+
+    // Ensure slot contains valid data
+    Assert(!TTS_EMPTY(slot));
+
+    // Extract the requested number of attributes from minimal tuple
+    slot_deform_heap_tuple(slot, mslot->tuple, &mslot->off, natts);
+}
+```

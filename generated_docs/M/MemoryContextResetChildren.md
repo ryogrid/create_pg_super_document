@@ -32,3 +32,21 @@ The function uses a depth-first traversal approach, visiting each descendant con
 - This operation is non-destructive to the context hierarchy structure - only the allocated memory within child contexts is freed
 - The traversal uses MemoryContextTraverseNext() which ensures proper depth-first iteration through the context tree
 - This function is particularly useful in scenarios where you need to clear temporary allocations in child contexts while preserving the context structure for reuse
+
+## Simplified Source
+
+```c
+void
+MemoryContextResetChildren(MemoryContext context)
+{
+    Assert(MemoryContextIsValid(context));
+
+    // Traverse all child contexts and reset each one
+    for (MemoryContext curr = context->firstchild;
+         curr != NULL;
+         curr = MemoryContextTraverseNext(curr, context))
+    {
+        MemoryContextResetOnly(curr);
+    }
+}
+```

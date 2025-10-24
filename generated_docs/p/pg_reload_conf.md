@@ -46,3 +46,20 @@ The function is commonly used by database administrators to apply configuration 
 - Some configuration parameters require a full restart and cannot be reloaded via SIGHUP
 - The function returns immediately after signaling - it doesn't wait for configuration reload to complete
 - Commonly used after editing postgresql.conf, pg_hba.conf, or other configuration files
+
+## Simplified Source
+
+```c
+Datum pg_reload_conf(PG_FUNCTION_ARGS)
+{
+    // Send SIGHUP signal to postmaster to reload configuration
+    if (kill(PostmasterPid, SIGHUP)) {
+        // Signal failed - log warning and return false
+        ereport(WARNING, (errmsg("failed to send signal to postmaster: %m")));
+        PG_RETURN_BOOL(false);
+    }
+
+    // Signal sent successfully
+    PG_RETURN_BOOL(true);
+}
+```

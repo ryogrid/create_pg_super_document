@@ -31,3 +31,47 @@ This function provides a string description for Unicode general category values 
 - The string names use underscore separations (e.g., "Uppercase_Letter") following Unicode conventions
 - Covers all major Unicode general categories as defined in the Unicode standard
 - Used primarily for testing, debugging, and user interface display purposes
+
+## Simplified Source
+
+```c
+const char *unicode_category_string(pg_unicode_category category) {
+    // Map Unicode category enum to human-readable string
+    switch (category) {
+        case PG_U_UNASSIGNED:            return "Unassigned";
+        case PG_U_UPPERCASE_LETTER:      return "Uppercase_Letter";
+        case PG_U_LOWERCASE_LETTER:      return "Lowercase_Letter";
+        case PG_U_TITLECASE_LETTER:      return "Titlecase_Letter";
+        case PG_U_MODIFIER_LETTER:       return "Modifier_Letter";
+        case PG_U_OTHER_LETTER:          return "Other_Letter";
+        case PG_U_NONSPACING_MARK:       return "Nonspacing_Mark";
+        case PG_U_ENCLOSING_MARK:        return "Enclosing_Mark";
+        case PG_U_SPACING_MARK:          return "Spacing_Mark";
+        case PG_U_DECIMAL_NUMBER:        return "Decimal_Number";
+        case PG_U_LETTER_NUMBER:         return "Letter_Number";
+        case PG_U_OTHER_NUMBER:          return "Other_Number";
+        case PG_U_SPACE_SEPARATOR:       return "Space_Separator";
+        case PG_U_LINE_SEPARATOR:        return "Line_Separator";
+        case PG_U_PARAGRAPH_SEPARATOR:   return "Paragraph_Separator";
+        case PG_U_CONTROL:               return "Control";
+        case PG_U_FORMAT:                return "Format";
+        case PG_U_PRIVATE_USE:           return "Private_Use";
+        case PG_U_SURROGATE:             return "Surrogate";
+        case PG_U_DASH_PUNCTUATION:      return "Dash_Punctuation";
+        case PG_U_OPEN_PUNCTUATION:      return "Open_Punctuation";
+        case PG_U_CLOSE_PUNCTUATION:     return "Close_Punctuation";
+        case PG_U_CONNECTOR_PUNCTUATION: return "Connector_Punctuation";
+        case PG_U_OTHER_PUNCTUATION:     return "Other_Punctuation";
+        case PG_U_MATH_SYMBOL:           return "Math_Symbol";
+        case PG_U_CURRENCY_SYMBOL:       return "Currency_Symbol";
+        case PG_U_MODIFIER_SYMBOL:       return "Modifier_Symbol";
+        case PG_U_OTHER_SYMBOL:          return "Other_Symbol";
+        case PG_U_INITIAL_PUNCTUATION:   return "Initial_Punctuation";
+        case PG_U_FINAL_PUNCTUATION:     return "Final_Punctuation";
+    }
+
+    // Should never reach here with valid input
+    Assert(false);
+    return "Unrecognized";
+}
+```

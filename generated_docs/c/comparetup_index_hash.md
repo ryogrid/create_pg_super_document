@@ -46,3 +46,49 @@ The function assumes the first column of the index tuple contains the hash key a
 - ItemPointer comparison provides deterministic ordering and may improve physical scan locality
 - This comparison function is specifically optimized for hash index building and does not apply to other index types
 - The final Assert(false) indicates that valid tuples should never have identical ItemPointers
+
+## Simplified Source
+
+```c
+static int
+comparetup_index_hash(const SortTuple *a, const SortTuple *b,
+                      Tuplesortstate *state)
+{
+    TuplesortPublic *base = TuplesortstateGetPublic(state);
+    TuplesortIndexHashArg *arg = (TuplesortIndexHashArg *) base->arg;
+
+    // First compare by bucket number
+    Bucket bucket1 = _hash_hashkey2bucket(DatumGetUInt32(a->datum1),
+                                          arg->max_buckets, arg->high_mask,
+                                          arg->low_mask);
+    Bucket bucket2 = _hash_hashkey2bucket(DatumGetUInt32(b->datum1),
+                                          arg->max_buckets, arg->high_mask,
+                                          arg->low_mask);
+
+    if (bucket1 != bucket2)
+        return (bucket1 < bucket2) ? -1 : 1;
+
+    // If buckets are equal, compare by hash value
+    uint32 hash1 = DatumGetUInt32(a->datum1);
+    uint32 hash2 = DatumGetUInt32(b->datum1);
+
+    if (hash1 != hash2)
+        return (hash1 < hash2) ? -1 : 1;
+
+    // Final tiebreaker: compare ItemPointers
+    IndexTuple tuple1 = (IndexTuple) a->tuple;
+    IndexTuple tuple2 = (IndexTuple) b->tuple;
+
+    BlockNumber blk1 = ItemPointerGetBlockNumber(&tuple1->t_tid);
+    BlockNumber blk2 = ItemPointerGetBlockNumber(&tuple2->t_tid);
+    if (blk1 != blk2)
+        return (blk1 < blk2) ? -1 : 1;
+
+    OffsetNumber pos1 = ItemPointerGetOffsetNumber(&tuple1->t_tid);
+    OffsetNumber pos2 = ItemPointerGetOffsetNumber(&tuple2->t_tid);
+    if (pos1 != pos2)
+        return (pos1 < pos2) ? -1 : 1;
+
+    return 0;  // Should never reach here
+}
+```

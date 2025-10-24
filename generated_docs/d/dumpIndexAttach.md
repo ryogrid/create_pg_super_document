@@ -40,3 +40,37 @@ Key aspects:
 - Uses SECTION_POST_DATA section to ensure proper restoration order
 - The attachment object inherits the owner from the parent index's table for security purposes
 - Part of PostgreSQL's declarative partitioning feature introduced for better partitioned index management
+
+## Simplified Source
+
+```c
+static void
+dumpIndexAttach(Archive *fout, const IndexAttachInfo *attachinfo)
+{
+    // Skip if data-only dump
+    if (fout->dopt->dataOnly)
+        return;
+
+    // Only process if partition index should be dumped
+    if (attachinfo->partitionIdx->dobj.dump & DUMP_COMPONENT_DEFINITION)
+    {
+        PQExpBuffer q = createPQExpBuffer();
+
+        // Generate ALTER INDEX ATTACH PARTITION command
+        appendPQExpBuffer(q, "ALTER INDEX %s ATTACH PARTITION %s;\n",
+                         fmtQualifiedDumpable(attachinfo->parentIdx),
+                         fmtQualifiedDumpable(attachinfo->partitionIdx));
+
+        // Create archive entry
+        ArchiveEntry(fout, attachinfo->dobj.catId, attachinfo->dobj.dumpId,
+                    ARCHIVE_OPTS(.tag = attachinfo->dobj.name,
+                                .namespace = attachinfo->dobj.namespace->dobj.name,
+                                .owner = attachinfo->parentIdx->indextable->rolname,
+                                .description = "INDEX ATTACH",
+                                .section = SECTION_POST_DATA,
+                                .createStmt = q->data));
+
+        destroyPQExpBuffer(q);
+    }
+}
+```

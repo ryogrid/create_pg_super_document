@@ -42,3 +42,43 @@ This function serves as the core parsing routine for both INET and CIDR data typ
 - For CIDR types, additional validation ensures the address portion doesn't have bits set beyond the network mask
 - Uses PostgreSQL's error context system for proper error handling and reporting
 - The function allocates memory using palloc0 to ensure the inet structure is zero-initialized
+
+## Simplified Source
+
+```c
+static inet *
+network_in(char *src, bool is_cidr, Node *escontext)
+{
+    int bits;
+    inet *dst;
+
+    // Allocate and initialize inet structure
+    dst = (inet *) palloc0(sizeof(inet));
+
+    // Detect IP version: IPv6 has colons, IPv4 doesn't
+    if (strchr(src, ':') != NULL)
+        ip_family(dst) = PGSQL_AF_INET6;
+    else
+        ip_family(dst) = PGSQL_AF_INET;
+
+    // Parse the network address string
+    bits = pg_inet_net_pton(ip_family(dst), src, ip_addr(dst),
+                            is_cidr ? ip_addrsize(dst) : -1);
+
+    // Validate parsing result
+    if ((bits < 0) || (bits > ip_maxbits(dst)))
+        ereturn(escontext, NULL, /* invalid input syntax error */);
+
+    // CIDR validation: ensure no bits set beyond mask
+    if (is_cidr) {
+        if (!addressOK(ip_addr(dst), bits, ip_family(dst)))
+            ereturn(escontext, NULL, /* invalid CIDR value error */);
+    }
+
+    // Set final properties
+    ip_bits(dst) = bits;
+    SET_INET_VARSIZE(dst);
+
+    return dst;
+}
+```

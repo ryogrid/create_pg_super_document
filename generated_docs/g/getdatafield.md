@@ -41,3 +41,39 @@ This utility function safely extracts the data field from a large object page tu
 - Uses Form_pg_largeobject which provides typed access to tuple fields
 - Error handling includes OID and page number in corruption messages for debugging
 - Critical for ensuring data integrity in large object operations
+
+## Simplified Source
+
+```c
+static void getdatafield(Form_pg_largeobject tuple,
+                        bytea **pdatafield,
+                        int *plen,
+                        bool *pfreeit)
+{
+    // Get data field from tuple
+    bytea *datafield = &(tuple->data);
+    bool freeit = false;
+
+    // Handle TOAST decompression if needed
+    if (VARATT_IS_EXTENDED(datafield)) {
+        datafield = (bytea *) detoast_attr((struct varlena *) datafield);
+        freeit = true;  // Caller must free detoasted data
+    }
+
+    // Calculate actual data length (excluding header)
+    int len = VARSIZE(datafield) - VARHDRSZ;
+
+    // Validate data size is within bounds
+    if (len < 0 || len > LOBLKSIZE) {
+        ereport(ERROR,
+                (errcode(ERRCODE_DATA_CORRUPTED),
+                 errmsg("pg_largeobject entry for OID %u, page %d has invalid data field size %d",
+                        tuple->loid, tuple->pageno, len)));
+    }
+
+    // Return results via output parameters
+    *pdatafield = datafield;
+    *plen = len;
+    *pfreeit = freeit;
+}
+```

@@ -51,3 +51,52 @@ The  function extracts and returns fundamental configuration parameters that wer
 - Used for compatibility checking between different PostgreSQL installations
 - Part of the administrative interface for cluster configuration inspection
 - Located in src/backend/utils/misc/pg_controldata.c:204-260
+
+## Simplified Source
+
+```c
+Datum
+pg_control_init(PG_FUNCTION_ARGS)
+{
+    Datum values[11];
+    bool nulls[11];
+    TupleDesc tupdesc;
+    HeapTuple htup;
+    ControlFileData *ControlFile;
+    bool crc_ok;
+
+    // Validate return type is composite
+    if (get_call_result_type(fcinfo, NULL, &tupdesc) != TYPEFUNC_COMPOSITE)
+        elog(ERROR, "return type must be a row type");
+
+    // Read control file with proper locking
+    LWLockAcquire(ControlFileLock, LW_SHARED);
+    ControlFile = get_controlfile(DataDir, &crc_ok);
+    LWLockRelease(ControlFileLock);
+
+    // Validate control file integrity
+    if (!crc_ok)
+        ereport(ERROR, (errmsg("calculated CRC checksum does not match value stored in file")));
+
+    // Extract configuration values from control file
+    values[0] = Int32GetDatum(ControlFile->maxAlign);
+    values[1] = Int32GetDatum(ControlFile->blcksz);
+    values[2] = Int32GetDatum(ControlFile->relseg_size);
+    values[3] = Int32GetDatum(ControlFile->xlog_blcksz);
+    values[4] = Int32GetDatum(ControlFile->xlog_seg_size);
+    values[5] = Int32GetDatum(ControlFile->nameDataLen);
+    values[6] = Int32GetDatum(ControlFile->indexMaxKeys);
+    values[7] = Int32GetDatum(ControlFile->toast_max_chunk_size);
+    values[8] = Int32GetDatum(ControlFile->loblksize);
+    values[9] = BoolGetDatum(ControlFile->float8ByVal);
+    values[10] = Int32GetDatum(ControlFile->data_checksum_version);
+
+    // Mark all values as non-null
+    for (int i = 0; i < 11; i++)
+        nulls[i] = false;
+
+    // Create and return the tuple
+    htup = heap_form_tuple(tupdesc, values, nulls);
+    PG_RETURN_DATUM(HeapTupleGetDatum(htup));
+}
+```

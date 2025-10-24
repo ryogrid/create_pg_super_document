@@ -41,3 +41,22 @@ The function takes a portion of the input data (specified by nbytes), appends it
 - Modifies the input parameters by reference, making it easy to process data in chunks
 - Common pattern in streaming parsers where headers or partial data must be accumulated before processing
 - The function safely handles binary data through appendBinaryStringInfo rather than string operations
+
+## Simplified Source
+
+```c
+static inline void
+bbstreamer_buffer_bytes(bbstreamer *streamer, const char **data, int *len,
+                        int nbytes)
+{
+    // Ensure we don't try to consume more data than available
+    Assert(nbytes <= *len);
+
+    // Append the requested bytes to the streamer's buffer
+    appendBinaryStringInfo(&streamer->bbs_buffer, *data, nbytes);
+
+    // Update input parameters to reflect consumed data
+    *len -= nbytes;    // Reduce remaining length
+    *data += nbytes;   // Advance data pointer
+}
+```

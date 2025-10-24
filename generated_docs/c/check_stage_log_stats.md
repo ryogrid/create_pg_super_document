@@ -37,3 +37,17 @@ The function includes a note acknowledging that this is a "hack" implementation 
 - Works in conjunction with check_log_stats to maintain consistent logging parameter states
 - Returns true if validation passes, false if the configuration conflicts with log_statement_stats
 - May fail in complex configuration scenarios but is acceptable due to limited production usage
+
+## Simplified Source
+
+```c
+bool check_stage_log_stats(bool *newval, void **extra, GucSource source) {
+    // Prevent enabling stage-specific stats when statement stats are already enabled
+    if (*newval && log_statement_stats) {
+        GUC_check_errdetail("Cannot enable parameter when \"log_statement_stats\" is true.");
+        return false;
+    }
+
+    return true;
+}
+```

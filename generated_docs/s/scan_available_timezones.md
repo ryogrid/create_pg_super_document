@@ -953,3 +953,78 @@ The function modifies the  buffer during traversal but restores it to its origin
 - Includes debug output capability when DEBUG_IDENTIFY_TIMEZONE is defined
 - Handles file system errors gracefully by continuing to process remaining entries
 - Critical component of PostgreSQL's timezone auto-detection system during database initialization
+
+## Simplified Source
+
+```c
+static void scan_available_timezones(char *tzdir, char *tzdirsub, struct tztry *tt,
+                                    int *bestscore, char *bestzonename)
+{
+    int tzdir_orig_len = strlen(tzdir);
+    char **names;
+    char **namep;
+
+    // Get list of files/directories in current timezone directory
+    names = pgfnames(tzdir);
+    if (!names)
+        return;
+
+    // Process each entry in the directory
+    for (namep = names; *namep; namep++)
+    {
+        char *name = *namep;
+        struct stat statbuf;
+
+        // Skip hidden files (starting with '.')
+        if (name[0] == '.')
+            continue;
+
+        // Build full path to current entry
+        snprintf(tzdir + tzdir_orig_len, MAXPGPATH - tzdir_orig_len, "/%s", name);
+
+        // Check if entry exists and get its type
+        if (stat(tzdir, &statbuf) != 0)
+        {
+            tzdir[tzdir_orig_len] = '\0';  // Restore path
+            continue;
+        }
+
+        if (S_ISDIR(statbuf.st_mode))
+        {
+            // Recursively scan subdirectory
+            scan_available_timezones(tzdir, tzdirsub, tt, bestscore, bestzonename);
+        }
+        else
+        {
+            // Test this timezone file against system behavior
+            int score = score_timezone(tzdirsub, tt);
+
+            if (score > *bestscore)
+            {
+                // Found a better match
+                *bestscore = score;
+                strlcpy(bestzonename, tzdirsub, TZ_STRLEN_MAX + 1);
+            }
+            else if (score == *bestscore)
+            {
+                // Break ties using name preferences and length
+                int namepref = zone_name_pref(tzdirsub) - zone_name_pref(bestzonename);
+
+                if (namepref > 0 ||
+                    (namepref == 0 &&
+                     (strlen(tzdirsub) < strlen(bestzonename) ||
+                      (strlen(tzdirsub) == strlen(bestzonename) &&
+                       strcmp(tzdirsub, bestzonename) < 0))))
+                {
+                    strlcpy(bestzonename, tzdirsub, TZ_STRLEN_MAX + 1);
+                }
+            }
+        }
+
+        // Restore original path for next iteration
+        tzdir[tzdir_orig_len] = '\0';
+    }
+
+    pgfnames_cleanup(names);
+}
+```

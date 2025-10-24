@@ -34,3 +34,23 @@ The function checks if the outer tuple slot contains a valid tuple and prints ei
 - The output format includes a header "==== outer tuple ====" for clear identification in debug logs
 - Used primarily during PostgreSQL development and debugging rather than in production environments
 - The function assumes the mergestate parameter is valid and contains a properly initialized outer tuple slot
+
+## Simplified Source
+
+```c
+static void
+ExecMergeTupleDumpOuter(MergeJoinState *mergestate)
+{
+    // Get the outer tuple slot from merge join state
+    TupleTableSlot *outerSlot = mergestate->mj_OuterTupleSlot;
+
+    // Print debug header for outer tuple
+    printf("==== outer tuple ====\n");
+
+    // Print tuple contents or "(nil)" if empty
+    if (TupIsNull(outerSlot))
+        printf("(nil)\n");
+    else
+        MJ_debugtup(outerSlot);
+}
+```

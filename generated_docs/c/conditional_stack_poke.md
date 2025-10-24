@@ -37,3 +37,17 @@ This function provides a way to update the conditional state at the top of the s
 - Heavily used in PostgreSQL frontend tools for implementing conditional command execution
 - The function assumes the caller provides a valid ifState value
 - State changes are immediate and affect subsequent conditional processing logic
+
+## Simplified Source
+
+```c
+bool conditional_stack_poke(ConditionalStack cstack, ifState new_state) {
+    // Check if stack is empty
+    if (conditional_stack_empty(cstack))
+        return false;
+
+    // Update the state of the top element
+    cstack->head->if_state = new_state;
+    return true;
+}
+```

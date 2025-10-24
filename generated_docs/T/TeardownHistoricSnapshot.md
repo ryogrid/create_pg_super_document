@@ -34,3 +34,15 @@ The function is designed to be called when logical decoding operations are compl
 - The function resets global variables HistoricSnapshot and tuplecid_data to NULL
 - Located in src/backend/utils/time/snapmgr.c at lines 1665-1671
 - Essential for preventing memory leaks and ensuring proper state management in logical decoding operations
+
+## Simplified Source
+
+```c
+void TeardownHistoricSnapshot(bool is_error) {
+    // Reset global variables to restore normal catalog behavior
+    HistoricSnapshot = NULL;
+    tuplecid_data = NULL;
+
+    // Note: is_error parameter currently unused but reserved for future use
+}
+```

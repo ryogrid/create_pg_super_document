@@ -36,3 +36,12 @@ The function operates on the Snowball environment structure which maintains the 
 - The actual deletion is performed by the underlying  and  functions
 - Used extensively in generated stemming code for different languages
 - Part of the external API for Snowball stemmer implementations
+
+## Simplified Source
+
+```c
+extern int slice_del(struct SN_env * z) {
+    // Delete current slice by replacing it with empty string (0 chars, NULL pointer)
+    return slice_from_s(z, 0, 0);
+}
+```

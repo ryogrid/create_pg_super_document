@@ -33,3 +33,16 @@ The function provides access to the cached flags without requiring additional sy
 - This function is part of PostgreSQL's file descriptor introspection capabilities
 - Used primarily for checking file access modes and special I/O attributes
 - The flags remain constant for the lifetime of the file descriptor
+
+## Simplified Source
+
+```c
+int FileGetRawFlags(File file)
+{
+    // Validate the file handle
+    Assert(FileIsValid(file));
+
+    // Return the cached open(2) flags from VFD cache
+    return VfdCache[file].fileFlags;
+}
+```

@@ -41,3 +41,46 @@ The function uses a doubling strategy for block sizes, starting with initBlockSi
 - Updates context's total allocated memory tracking
 - Makes the newly created block the current active block
 - Block size calculation ensures sufficient space for chunk header, block header, and actual data
+
+## Simplified Source
+
+```c
+static void *
+GenerationAllocFromNewBlock(MemoryContext context, Size size, int flags,
+                           Size chunk_size)
+{
+    GenerationContext *set = (GenerationContext *) context;
+    GenerationBlock *block;
+    Size blksize;
+    Size required_size;
+
+    // Double block size for next allocation, up to maximum
+    blksize = set->nextBlockSize;
+    set->nextBlockSize <<= 1;
+    if (set->nextBlockSize > set->maxBlockSize)
+        set->nextBlockSize = set->maxBlockSize;
+
+    // Calculate total space needed (chunk + headers)
+    required_size = chunk_size + Generation_CHUNKHDRSZ + Generation_BLOCKHDRSZ;
+
+    // Ensure block is large enough, round up to power of 2
+    if (blksize < required_size)
+        blksize = pg_nextpower2_size_t(required_size);
+
+    // Allocate system memory for new block
+    block = (GenerationBlock *) malloc(blksize);
+    if (block == NULL)
+        return MemoryContextAllocationFailure(context, size, flags);
+
+    // Track total allocated memory
+    context->mem_allocated += blksize;
+
+    // Initialize and link the new block
+    GenerationBlockInit(set, block, blksize);
+    dlist_push_head(&set->blocks, &block->node);
+    set->block = block;
+
+    // Allocate the requested chunk from new block
+    return GenerationAllocChunkFromBlock(context, block, size, chunk_size);
+}
+```

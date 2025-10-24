@@ -62,3 +62,85 @@ The function is designed to be safe for use during error conditions and reports 
 - Final assertion verifies total allocated memory matches context-level accounting
 - Essential for debugging generation memory context issues and detecting memory corruption
 - Part of PostgreSQL's generation memory context system designed for specific allocation patterns
+
+## Simplified Source
+
+```c
+void
+GenerationCheck(MemoryContext context)
+{
+    GenerationContext *gen = (GenerationContext *) context;
+    const char *name = context->name;
+    dlist_iter iter;
+    Size total_allocated = 0;
+
+    // Walk through all blocks in this context
+    dlist_foreach(iter, &gen->blocks)
+    {
+        GenerationBlock *block = dlist_container(GenerationBlock, node, iter.cur);
+        int nfree, nchunks;
+        char *ptr;
+        bool has_external_chunk = false;
+
+        total_allocated += block->blksize;
+
+        // Validate block-level consistency
+        if (block->nfree > block->nchunks)
+            elog(WARNING, "problem in Generation %s: free chunks %d exceeds allocated %d",
+                 name, block->nfree, block->nchunks);
+
+        if (block->context != gen)
+            elog(WARNING, "problem in Generation %s: bogus context link", name);
+
+        // Walk through chunks and validate each one
+        nfree = nchunks = 0;
+        ptr = ((char *) block) + Generation_BLOCKHDRSZ;
+
+        while (ptr < block->freeptr)
+        {
+            MemoryChunk *chunk = (MemoryChunk *) ptr;
+            Size chunksize;
+
+            VALGRIND_MAKE_MEM_DEFINED(chunk, Generation_CHUNKHDRSZ);
+
+            // Handle external vs normal chunks
+            if (MemoryChunkIsExternal(chunk))
+            {
+                chunksize = block->endptr - (char *) MemoryChunkGetPointer(chunk);
+                has_external_chunk = true;
+            }
+            else
+            {
+                chunksize = MemoryChunkGetValue(chunk);
+            }
+
+            ptr += (chunksize + Generation_CHUNKHDRSZ);
+            nchunks++;
+
+            // Validate chunk if allocated
+            if (chunk->requested_size != InvalidAllocSize)
+            {
+                // Check size consistency and sentinels
+                if (chunksize < chunk->requested_size || chunksize != MAXALIGN(chunksize))
+                    elog(WARNING, "problem in Generation %s: bogus chunk size", name);
+
+                if (!sentinel_ok(chunk, Generation_CHUNKHDRSZ + chunk->requested_size))
+                    elog(WARNING, "problem in Generation %s: detected write past chunk end", name);
+            }
+            else
+                nfree++;
+
+            VALGRIND_MAKE_MEM_NOACCESS(chunk, Generation_CHUNKHDRSZ);
+        }
+
+        // Verify chunk counts match block headers
+        if (nchunks != block->nchunks || nfree != block->nfree)
+            elog(WARNING, "problem in Generation %s: chunk count mismatch", name);
+
+        if (has_external_chunk && nchunks > 1)
+            elog(WARNING, "problem in Generation %s: external chunk on non-dedicated block", name);
+    }
+
+    Assert(total_allocated == context->mem_allocated);
+}
+```

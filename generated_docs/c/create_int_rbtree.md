@@ -43,3 +43,17 @@ The function creates a tree configured with specialized functions for comparing,
 - Encapsulates all the callback function setup required for integer tree operations
 - Used extensively by various test functions to create consistent tree configurations
 - Returns a fully initialized RBTree ready for integer key operations
+
+## Simplified Source
+
+```c
+static RBTree *create_int_rbtree(void) {
+    // Create Red-Black Tree configured for integer nodes
+    return rbt_create(sizeof(IntRBTreeNode),
+                      irbt_cmp,      // Comparison function
+                      irbt_combine,  // Combination function
+                      irbt_alloc,    // Allocation function
+                      irbt_free,     // Deallocation function
+                      NULL);         // No additional context
+}
+```

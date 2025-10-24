@@ -39,3 +39,13 @@ This ensures that PostgreSQL's stack depth checking mechanism works correctly re
 - Ensures stack overflow protection works correctly in multi-threaded environments
 - Simple assignment operation that updates the global stack_base_ptr variable
 - Critical for maintaining stack safety when PostgreSQL backend functions are called from different thread contexts
+
+## Simplified Source
+
+```c
+void restore_stack_base(pg_stack_base_t base) {
+    // Restore the stack depth checking reference point
+    // Used by multi-threaded extensions like PL/Java
+    stack_base_ptr = base;
+}
+```

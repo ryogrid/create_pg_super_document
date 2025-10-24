@@ -43,3 +43,78 @@ The function respects dump options, skipping execution if --no-security-labels i
 - Uses proper SQL escaping and identifier formatting to handle special characters in names
 - Memory management is handled through PQExpBuffer creation and destruction
 - Part of PostgreSQL's pg_dump utility for database backup and restoration
+
+## Simplified Source
+
+```c
+static void
+dumpTableSecLabel(Archive *fout, const TableInfo *tbinfo, const char *reltypename)
+{
+    DumpOptions *dopt = fout->dopt;
+    SecLabelItem *labels;
+    int nlabels, i;
+    PQExpBuffer query, target;
+
+    // Skip if --no-security-labels is specified or data-only mode
+    if (dopt->no_security_labels || dopt->dataOnly)
+        return;
+
+    // Find security labels for this table
+    nlabels = findSecLabels(tbinfo->dobj.catId.tableoid,
+                            tbinfo->dobj.catId.oid, &labels);
+
+    if (nlabels <= 0)
+        return;
+
+    query = createPQExpBuffer();
+    target = createPQExpBuffer();
+
+    // Generate SECURITY LABEL statements for table and columns
+    for (i = 0; i < nlabels; i++) {
+        const char *colname;
+        const char *provider = labels[i].provider;
+        const char *label = labels[i].label;
+        int objsubid = labels[i].objsubid;
+
+        // Build target object reference
+        resetPQExpBuffer(target);
+        if (objsubid == 0) {
+            // Table-level label
+            appendPQExpBuffer(target, "%s %s", reltypename,
+                              fmtQualifiedDumpable(tbinfo));
+        } else {
+            // Column-level label
+            colname = getAttrName(objsubid, tbinfo);
+            appendPQExpBuffer(target, "COLUMN %s",
+                              fmtQualifiedDumpable(tbinfo));
+            appendPQExpBuffer(target, ".%s", fmtId(colname));
+        }
+
+        // Generate SECURITY LABEL statement
+        appendPQExpBuffer(query, "SECURITY LABEL FOR %s ON %s IS ",
+                          fmtId(provider), target->data);
+        appendStringLiteralAH(query, label, fout);
+        appendPQExpBufferStr(query, ";\n");
+    }
+
+    // Create archive entry if labels were found
+    if (query->len > 0) {
+        resetPQExpBuffer(target);
+        appendPQExpBuffer(target, "%s %s", reltypename,
+                          fmtId(tbinfo->dobj.name));
+        ArchiveEntry(fout, nilCatalogId, createDumpId(),
+                     ARCHIVE_OPTS(.tag = target->data,
+                                  .namespace = tbinfo->dobj.namespace->dobj.name,
+                                  .owner = tbinfo->rolname,
+                                  .description = "SECURITY LABEL",
+                                  .section = SECTION_NONE,
+                                  .createStmt = query->data,
+                                  .deps = &(tbinfo->dobj.dumpId),
+                                  .nDeps = 1));
+    }
+
+    // Cleanup
+    destroyPQExpBuffer(query);
+    destroyPQExpBuffer(target);
+}
+```

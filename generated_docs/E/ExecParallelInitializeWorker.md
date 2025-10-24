@@ -52,3 +52,48 @@ The function uses a switch statement based on the nodeTag to identify the specif
 - Uses planstate_tree_walker for recursive traversal to ensure all nodes in the plan tree are properly initialized
 - Part of the parallel query infrastructure that enables workers to properly execute their assigned portions of the query plan
 - The recursive nature ensures that complex nested plans are fully initialized across all worker processes
+
+## Simplified Source
+
+```c
+static bool ExecParallelInitializeWorker(PlanState *planstate, ParallelWorkerContext *pwcxt) {
+    if (planstate == NULL)
+        return false;
+
+    // Initialize specific node types based on their type tag
+    switch (nodeTag(planstate)) {
+        // Parallel-aware scan nodes
+        case T_SeqScanState:
+        case T_IndexScanState:
+        case T_IndexOnlyScanState:
+        case T_ForeignScanState:
+        case T_BitmapHeapScanState:
+            if (planstate->plan->parallel_aware)
+                call_specific_scan_initializer(planstate, pwcxt);
+            break;
+
+        // Parallel-aware join and utility nodes
+        case T_AppendState:
+        case T_CustomScanState:
+        case T_HashJoinState:
+            if (planstate->plan->parallel_aware)
+                call_specific_join_initializer(planstate, pwcxt);
+            break;
+
+        // Always initialize for instrumentation (EXPLAIN ANALYZE)
+        case T_HashState:
+        case T_SortState:
+        case T_IncrementalSortState:
+        case T_AggState:
+        case T_MemoizeState:
+            call_specific_utility_initializer(planstate, pwcxt);
+            break;
+
+        default:
+            break;
+    }
+
+    // Recursively initialize child nodes
+    return planstate_tree_walker(planstate, ExecParallelInitializeWorker, pwcxt);
+}
+```

@@ -34,3 +34,14 @@ This is the standard read interface for Zstd-compressed files in PostgreSQL's du
 - Returns the number of bytes successfully read and decompressed
 - Part of the compression abstraction layer that allows pg_dump to work with different compression formats uniformly
 - The function signature matches the standard read interface pattern used across compression implementations
+
+## Simplified Source
+
+```c
+static size_t
+Zstd_read(void *ptr, size_t size, CompressFileHandle *CFH)
+{
+    // Wrapper around internal read function with fatal error handling
+    return Zstd_read_internal(ptr, size, CFH, true);
+}
+```

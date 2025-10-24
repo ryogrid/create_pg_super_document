@@ -46,3 +46,46 @@ This is an internal helper function (note the static modifier) that performs a d
 - Essential for preventing memory leaks when freeing shared memory radix trees
 - Only frees non-value child pointers to avoid freeing embedded values
 - Used during tree destruction and cleanup operations
+
+## Simplified Source
+
+```c
+// Macro that expands to: RT_PREFIX_free_recurse
+#define RT_FREE_RECURSE RT_MAKE_NAME(free_recurse)
+
+// Generated function (simplified logic):
+static void RT_FREE_RECURSE(RT_RADIX_TREE *tree, RT_PTR_ALLOC ptr, int shift) {
+    // Prevent stack overflow in deep trees
+    check_stack_depth();
+
+    // Get local pointer from potentially shared memory pointer
+    RT_NODE *node = RT_PTR_SET_LOCAL(tree, ptr);
+
+    // Recursively free child nodes based on node type
+    switch (node->kind) {
+        case RT_NODE_KIND_4:
+            for (int i = 0; i < node->fanout; i++) {
+                RT_CHILD_PTR child = node->children[i];
+                if (!RT_CHILDPTR_IS_VALUE(child)) {
+                    RT_FREE_RECURSE(tree, child, shift + RT_SPAN);
+                }
+            }
+            break;
+
+        case RT_NODE_KIND_16:
+            // Similar logic for node16
+            break;
+
+        case RT_NODE_KIND_48:
+            // Similar logic for node48
+            break;
+
+        case RT_NODE_KIND_256:
+            // Similar logic for node256
+            break;
+    }
+
+    // Free the current node after freeing all children
+    dsa_free(tree->dsa, ptr);
+}
+```

@@ -45,3 +45,33 @@ The function positions the new chunk at the current freeptr location, advances t
 - The function assumes the caller has already validated the allocation parameters
 - Padding bytes between the requested size and chunk_size are marked as NOACCESS for error detection
 - The chunk header itself is marked as NOACCESS after initialization to prevent accidental modification
+
+## Simplified Source
+
+```c
+static inline void *
+GenerationAllocChunkFromBlock(MemoryContext context, GenerationBlock *block,
+                              Size size, Size chunk_size)
+{
+    MemoryChunk *chunk = (MemoryChunk *) (block->freeptr);
+
+    // Validate block has enough space
+    Assert(block != NULL);
+    Assert((block->endptr - block->freeptr) >= Generation_CHUNKHDRSZ + chunk_size);
+
+    // Update block metadata
+    block->nchunks += 1;
+    block->freeptr += (Generation_CHUNKHDRSZ + chunk_size);
+
+    // Initialize chunk header
+    MemoryChunkSetHdrMask(chunk, block, chunk_size, MCTX_GENERATION_ID);
+
+    // Set up debugging features (if enabled)
+    #ifdef MEMORY_CONTEXT_CHECKING
+        chunk->requested_size = size;
+        set_sentinel(MemoryChunkGetPointer(chunk), size);
+    #endif
+
+    return MemoryChunkGetPointer(chunk);
+}
+```

@@ -42,3 +42,28 @@ Like `in_grouping`, it uses a bitmask approach where each bit in the array `s` r
 - Character position (z->c) is decremented for each matching character when repeat is enabled
 - Used extensively for backward pattern matching in suffix removal and vowel/consonant detection
 - Essential for stemming algorithms that need to analyze word endings by moving backward from the current position
+
+## Simplified Source
+
+```c
+extern int in_grouping_b(struct SN_env * z, const unsigned char * s, int min, int max, int repeat) {
+    do {
+        int ch;
+
+        // Check if we've reached the left boundary
+        if (z->c <= z->lb) return -1;
+
+        // Get character at position before current (moving backward)
+        ch = z->p[z->c - 1];
+
+        // Check if character is in the specified grouping using bitmask
+        if (ch > max || (ch -= min) < 0 || (s[ch >> 3] & (0X1 << (ch & 0X7))) == 0)
+            return 1;  // Character not in grouping
+
+        // Move backward in string
+        z->c--;
+    } while (repeat);  // Continue if repeat is enabled
+
+    return 0;  // All characters matched grouping
+}
+```

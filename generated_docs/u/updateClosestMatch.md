@@ -41,3 +41,33 @@ The function includes several safety checks and optimizations:
 - A candidate is only considered a better match if its distance is both ≤ `max_d` and ≤ half the length of the source string
 - The distance calculation uses unit costs (1,1,1) for insertions, deletions, and substitutions
 - This function is primarily used in PostgreSQL for providing helpful suggestions when users make typos in configuration parameters or SQL identifiers
+
+## Simplified Source
+
+```c
+void updateClosestMatch(ClosestMatchState *state, const char *candidate) {
+    // Skip if source or candidate is null/empty
+    if (state->source == NULL || state->source[0] == '\0' ||
+        candidate == NULL || candidate[0] == '\0')
+        return;
+
+    // Skip if strings are too long for efficient processing
+    if (strlen(state->source) > MAX_LEVENSHTEIN_STRLEN ||
+        strlen(candidate) > MAX_LEVENSHTEIN_STRLEN)
+        return;
+
+    // Calculate Levenshtein distance between source and candidate
+    int dist = varstr_levenshtein_less_equal(state->source, strlen(state->source),
+                                           candidate, strlen(candidate),
+                                           1, 1, 1,  // costs: insert, delete, substitute
+                                           state->max_d, true);
+
+    // Update if this is a better match
+    if (dist <= state->max_d &&
+        dist <= strlen(state->source) / 2 &&
+        (state->min_d == -1 || dist < state->min_d)) {
+        state->min_d = dist;
+        state->match = candidate;
+    }
+}
+```

@@ -47,3 +47,35 @@ The function ensures data integrity by masking unused bits in partial bytes and 
 - Bit masking in partial bytes ensures deterministic key comparison behavior
 - Essential for GiST index structure maintenance and page splitting operations
 - The returned key represents the tightest possible bounding box for the input inet values
+
+## Simplified Source
+
+```c
+static GistInetKey *
+build_inet_union_key(int family, int minbits, int commonbits,
+                     unsigned char *addr)
+{
+    GistInetKey *result;
+
+    // Allocate and zero-initialize the key structure
+    result = (GistInetKey *) palloc0(sizeof(GistInetKey));
+
+    // Set the union parameters
+    gk_ip_family(result) = family;
+    gk_ip_minbits(result) = minbits;
+    gk_ip_commonbits(result) = commonbits;
+
+    // Copy common address bits if any exist
+    if (commonbits > 0)
+        memcpy(gk_ip_addr(result), addr, (commonbits + 7) / 8);
+
+    // Clean unwanted bits in the last partial byte
+    if (commonbits % 8 != 0)
+        gk_ip_addr(result)[commonbits / 8] &= ~(0xFF >> (commonbits % 8));
+
+    // Set proper varlena header
+    SET_GK_VARSIZE(result);
+
+    return result;
+}
+```

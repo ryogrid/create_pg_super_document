@@ -34,3 +34,22 @@ This function detaches a backend process from a shared memory radix tree by prop
 - Does not affect the actual shared tree data, only the local attachment
 - Essential for preventing memory leaks in multi-process radix tree usage
 - Part of the shared memory radix tree lifecycle management
+
+## Simplified Source
+
+```c
+// Macro that expands to: RT_PREFIX_detach
+#define RT_DETACH RT_MAKE_NAME(detach)
+
+// Generated function (simplified logic):
+RT_SCOPE void RT_DETACH(RT_RADIX_TREE *tree) {
+    // Verify tree validity before cleanup
+    Assert(tree->ctl->magic == RT_RADIX_TREE_MAGIC);
+
+    // Delete the iteration context created during attach
+    MemoryContextDelete(tree->iter_context);
+
+    // Free the local tree structure
+    pfree(tree);
+}
+```

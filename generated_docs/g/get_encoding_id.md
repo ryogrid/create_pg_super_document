@@ -36,3 +36,25 @@ The  function validates a server encoding name and returns its corresponding int
 - Critical for database initialization to ensure encoding consistency
 - Uses  which means this function will not return if the encoding is invalid
 - Part of the encoding validation infrastructure in initdb
+
+## Simplified Source
+
+```c
+static int get_encoding_id(const char *encoding_name)
+{
+    int enc;
+
+    // Check if encoding name is provided and non-empty
+    if (encoding_name && *encoding_name)
+    {
+        // Validate encoding and get its ID
+        enc = pg_valid_server_encoding(encoding_name);
+        if (enc >= 0)
+            return enc;  // Valid encoding found
+    }
+
+    // Invalid, null, or empty encoding name - terminate with error
+    pg_fatal("\"%s\" is not a valid server encoding name",
+             encoding_name ? encoding_name : "(null)");
+}
+```

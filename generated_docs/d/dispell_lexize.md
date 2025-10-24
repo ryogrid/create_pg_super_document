@@ -48,3 +48,44 @@ The function returns an array of `TSLexeme` structures containing the normalized
 - The returned `TSLexeme` array is null-terminated (final entry has `lexeme = NULL`)
 - Input text is processed in a case-insensitive manner through lowercase conversion
 - The function integrates with PostgreSQL's text search framework for full-text indexing and querying
+
+## Simplified Source
+
+```c
+Datum dispell_lexize(PG_FUNCTION_ARGS) {
+    // Extract arguments
+    DictISpell *d = (DictISpell *) PG_GETARG_POINTER(0);
+    char *in = (char *) PG_GETARG_POINTER(1);
+    int32 len = PG_GETARG_INT32(2);
+
+    // Validate input length
+    if (len <= 0)
+        PG_RETURN_POINTER(NULL);
+
+    // Normalize input to lowercase
+    char *txt = lowerstr_with_len(in, len);
+
+    // Get normalized word forms from dictionary
+    TSLexeme *res = NINormalizeWord(&(d->obj), txt);
+    if (res == NULL)
+        PG_RETURN_POINTER(NULL);
+
+    // Filter out stopwords and compact result array
+    TSLexeme *cptr = res;
+    for (TSLexeme *ptr = cptr; ptr->lexeme; ptr++) {
+        if (searchstoplist(&(d->stoplist), ptr->lexeme)) {
+            // Remove stopword
+            pfree(ptr->lexeme);
+            ptr->lexeme = NULL;
+        } else {
+            // Keep non-stopword
+            if (cptr != ptr)
+                memcpy(cptr, ptr, sizeof(TSLexeme));
+            cptr++;
+        }
+    }
+    cptr->lexeme = NULL;  // Null-terminate result array
+
+    PG_RETURN_POINTER(res);
+}
+```

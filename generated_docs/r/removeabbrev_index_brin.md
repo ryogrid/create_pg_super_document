@@ -35,3 +35,19 @@ The function iterates through each SortTuple in the provided array, extracts the
 - The bt_blkno field represents the block number associated with the BRIN tuple, which is the primary sort key for BRIN index operations
 - This function is typically called when the sort algorithm determines that abbreviated keys are not providing sufficient performance benefits
 - The function modifies the SortTuple structures in-place, updating their datum1 fields with the original comparison values
+
+## Simplified Source
+
+```c
+static void
+removeabbrev_index_brin(Tuplesortstate *state, SortTuple *stups, int count)
+{
+    // Extract block numbers from BRIN tuples for comparison
+    for (int i = 0; i < count; i++) {
+        BrinSortTuple *tuple = stups[i].tuple;
+
+        // Cache the block number as the comparison key
+        stups[i].datum1 = tuple->tuple.bt_blkno;
+    }
+}
+```

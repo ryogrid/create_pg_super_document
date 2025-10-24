@@ -40,3 +40,21 @@ Parameters are indexed starting from 0, so the first parameter is at index 0, th
 - This function is read-only and does not modify the plan
 - Commonly used in conjunction with SPI_getargcount to iterate through all plan parameters
 - The plan must have been successfully prepared before calling this function
+
+## Simplified Source
+
+```c
+Oid SPI_getargtypeid(SPIPlanPtr plan, int argIndex)
+{
+    // Validate plan and argument index
+    if (plan == NULL || plan->magic != _SPI_PLAN_MAGIC ||
+        argIndex < 0 || argIndex >= plan->nargs)
+    {
+        SPI_result = SPI_ERROR_ARGUMENT;
+        return InvalidOid;
+    }
+
+    // Return the type Oid for the specified parameter
+    return plan->argtypes[argIndex];
+}
+```

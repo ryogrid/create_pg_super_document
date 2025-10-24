@@ -34,3 +34,15 @@ The function uses PostgreSQL's optimized case mapping table which provides dense
 - Uses PostgreSQL's internal Unicode case mapping table for conversion
 - Part of PostgreSQL's Unicode handling infrastructure
 - Located in src/common/unicode_case.c:29-36
+
+## Simplified Source
+
+```c
+pg_wchar unicode_lowercase_simple(pg_wchar code) {
+    // Find the case mapping for this codepoint
+    const pg_case_map *map = find_case_map(code);
+
+    // Return lowercase mapping if found, otherwise return original code
+    return map ? map->simplemap[CaseLower] : code;
+}
+```

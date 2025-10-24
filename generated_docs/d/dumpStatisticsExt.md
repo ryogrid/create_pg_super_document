@@ -46,3 +46,75 @@ The function ensures that extended statistics objects are properly recreated dur
 - Extended statistics objects are dumped in SECTION_POST_DATA to ensure tables and columns exist first
 - Part of PostgreSQL's advanced query optimization features for multi-column statistics
 - Supports dumping comments associated with the statistics object if DUMP_COMPONENT_COMMENT flag is set
+
+## Simplified Source
+
+```c
+static void
+dumpStatisticsExt(Archive *fout, const StatsExtInfo *statsextinfo)
+{
+    DumpOptions *dopt = fout->dopt;
+    PQExpBuffer q, delq, query;
+    char *qstatsextname;
+    PGresult *res;
+    char *stxdef;
+
+    // Skip if data-only dump
+    if (dopt->dataOnly)
+        return;
+
+    q = createPQExpBuffer();
+    delq = createPQExpBuffer();
+    query = createPQExpBuffer();
+
+    qstatsextname = pg_strdup(fmtId(statsextinfo->dobj.name));
+
+    // Get the statistics definition using pg_get_statisticsobjdef
+    appendPQExpBuffer(query,
+                     "SELECT pg_catalog.pg_get_statisticsobjdef('%u'::pg_catalog.oid)",
+                     statsextinfo->dobj.catId.oid);
+
+    res = ExecuteSqlQueryForSingleRow(fout, query->data);
+    stxdef = PQgetvalue(res, 0, 0);
+
+    // Create the CREATE STATISTICS statement (add semicolon)
+    appendPQExpBuffer(q, "%s;\n", stxdef);
+
+    // Add ALTER STATISTICS SET STATISTICS if custom target is set
+    if (statsextinfo->stattarget >= 0)
+    {
+        appendPQExpBuffer(q, "ALTER STATISTICS %s SET STATISTICS %d;\n",
+                         fmtQualifiedDumpable(statsextinfo),
+                         statsextinfo->stattarget);
+    }
+
+    // Generate DROP statement
+    appendPQExpBuffer(delq, "DROP STATISTICS %s;\n",
+                     fmtQualifiedDumpable(statsextinfo));
+
+    // Create archive entry
+    if (statsextinfo->dobj.dump & DUMP_COMPONENT_DEFINITION)
+        ArchiveEntry(fout, statsextinfo->dobj.catId, statsextinfo->dobj.dumpId,
+                    ARCHIVE_OPTS(.tag = statsextinfo->dobj.name,
+                                .namespace = statsextinfo->dobj.namespace->dobj.name,
+                                .owner = statsextinfo->rolname,
+                                .description = "STATISTICS",
+                                .section = SECTION_POST_DATA,
+                                .createStmt = q->data,
+                                .dropStmt = delq->data));
+
+    // Dump statistics comments
+    if (statsextinfo->dobj.dump & DUMP_COMPONENT_COMMENT)
+        dumpComment(fout, "STATISTICS", qstatsextname,
+                   statsextinfo->dobj.namespace->dobj.name,
+                   statsextinfo->rolname,
+                   statsextinfo->dobj.catId, 0,
+                   statsextinfo->dobj.dumpId);
+
+    PQclear(res);
+    destroyPQExpBuffer(q);
+    destroyPQExpBuffer(delq);
+    destroyPQExpBuffer(query);
+    free(qstatsextname);
+}
+```

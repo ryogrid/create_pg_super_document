@@ -45,3 +45,25 @@ This design provides optimal performance for the common case where tuples differ
 - The function properly handles NULL values according to the sort configuration specified in the sort keys
 - The tiebreaking function handles additional sort keys, tuple identification for uniqueness, and other btree-specific comparison requirements
 - This function is part of PostgreSQL's modular tuplesort system that provides type-specific optimization for different sorting scenarios
+
+## Simplified Source
+
+```c
+static int
+comparetup_index_btree(const SortTuple *a, const SortTuple *b,
+                       Tuplesortstate *state)
+{
+    TuplesortPublic *base = TuplesortstateGetPublic(state);
+    SortSupport sortKey = base->sortKeys;
+
+    // Compare the leading sort key first
+    int32 compare = ApplySortComparator(a->datum1, a->isnull1,
+                                        b->datum1, b->isnull1,
+                                        sortKey);
+    if (compare != 0)
+        return compare;
+
+    // If primary keys are equal, use tiebreaker for additional sort keys
+    return comparetup_index_btree_tiebreak(a, b, state);
+}
+```

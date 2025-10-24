@@ -33,3 +33,17 @@ The function uses a static buffer to store the formatted string, which is safe b
 - The %04o format specifier ensures 4-digit octal output with leading zeros
 - This is part of PostgreSQL's GUC (Grand Unified Configuration) system infrastructure
 - The unix_socket_permissions parameter controls the file permissions for Unix domain sockets created by PostgreSQL
+
+## Simplified Source
+
+```c
+const char *
+show_unix_socket_permissions(void)
+{
+    static char buf[12];
+
+    // Format Unix socket permission mode as 4-digit octal (e.g., "0777")
+    snprintf(buf, sizeof(buf), "%04o", Unix_socket_permissions);
+    return buf;
+}
+```

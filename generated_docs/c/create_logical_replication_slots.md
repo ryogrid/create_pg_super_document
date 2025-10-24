@@ -56,3 +56,55 @@ The function uses a PQExpBuffer to construct dynamic SQL queries for each slot c
 - Provides database-level progress feedback during the restoration process
 - Essential for maintaining logical replication configurations across major version upgrades
 - Does not restore the actual slot position/LSN - slots will need to catch up from the current position after upgrade
+
+## Simplified Source
+
+```c
+static void create_logical_replication_slots(void) {
+    prep_status_progress("Restoring logical replication slots in the new cluster");
+
+    // Process each database
+    for (int dbnum = 0; dbnum < old_cluster.dbarr.ndbs; dbnum++) {
+        DbInfo *old_db = &old_cluster.dbarr.dbs[dbnum];
+        LogicalSlotInfoArr *slot_arr = &old_db->slot_arr;
+        PGconn *conn;
+        PQExpBuffer query;
+
+        // Skip databases with no logical replication slots
+        if (slot_arr->nslots == 0)
+            continue;
+
+        conn = connectToServer(&new_cluster, old_db->db_name);
+        query = createPQExpBuffer();
+
+        pg_log(PG_STATUS, "%s", old_db->db_name);
+
+        // Create each logical replication slot
+        for (int slotnum = 0; slotnum < slot_arr->nslots; slotnum++) {
+            LogicalSlotInfo *slot_info = &slot_arr->slots[slotnum];
+
+            // Build pg_create_logical_replication_slot query
+            appendPQExpBuffer(query,
+                             "SELECT * FROM "
+                             "pg_catalog.pg_create_logical_replication_slot(");
+            appendStringLiteralConn(query, slot_info->slotname, conn);
+            appendPQExpBuffer(query, ", ");
+            appendStringLiteralConn(query, slot_info->plugin, conn);
+            appendPQExpBuffer(query, ", false, %s, %s);",
+                             slot_info->two_phase ? "true" : "false",
+                             slot_info->failover ? "true" : "false");
+
+            // Execute slot creation
+            PQclear(executeQueryOrDie(conn, "%s", query->data));
+
+            resetPQExpBuffer(query);
+        }
+
+        PQfinish(conn);
+        destroyPQExpBuffer(query);
+    }
+
+    end_progress_output();
+    check_ok();
+}
+```

@@ -40,3 +40,16 @@ This hybrid approach is particularly useful when the caller needs to start recur
 - Particularly useful when the walker's normal state change behavior is not appropriate for the outermost Query node
 - Part of PostgreSQL's comprehensive node traversal infrastructure
 - Located in src/backend/nodes/nodeFuncs.c:3910-3932
+
+## Simplified Source
+
+```c
+bool query_or_expression_tree_walker_impl(Node *node, tree_walker_callback walker,
+                                          void *context, int flags) {
+    // Choose appropriate walker based on node type
+    if (node && IsA(node, Query))
+        return query_tree_walker((Query *) node, walker, context, flags);
+    else
+        return WALK(node);
+}
+```

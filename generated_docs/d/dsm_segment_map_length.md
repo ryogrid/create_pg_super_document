@@ -33,3 +33,13 @@ The function serves as a simple accessor to the mapped_size field of the dsm_seg
 - This is a lightweight accessor function with minimal overhead
 - Used to determine the valid memory range for accessing shared memory segments
 - Essential for bounds checking when reading from or writing to shared memory regions
+
+## Simplified Source
+
+```c
+Size dsm_segment_map_length(dsm_segment *seg) {
+    // Return size of mapped shared memory segment
+    Assert(seg->mapped_address != NULL);
+    return seg->mapped_size;
+}
+```

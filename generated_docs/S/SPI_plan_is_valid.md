@@ -35,3 +35,28 @@ The function performs a magic number check to ensure the plan structure integrit
 - Returns true only if ALL cached plan sources in the plan are valid
 - Used primarily in referential integrity triggers and other prepared statement scenarios
 - Part of the SPI (Server Programming Interface) which allows C functions to execute SQL commands
+
+## Simplified Source
+
+```c
+bool SPI_plan_is_valid(SPIPlanPtr plan)
+{
+    ListCell *lc;
+
+    // Verify plan structure integrity
+    Assert(plan->magic == _SPI_PLAN_MAGIC);
+
+    // Check validity of each cached plan source
+    foreach(lc, plan->plancache_list)
+    {
+        CachedPlanSource *plansource = (CachedPlanSource *) lfirst(lc);
+
+        // Return false if any plan source is invalid
+        if (!CachedPlanIsValid(plansource))
+            return false;
+    }
+
+    // All plan sources are valid
+    return true;
+}
+```

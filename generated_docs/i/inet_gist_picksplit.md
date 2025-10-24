@@ -55,3 +55,104 @@ After determining the split, the function computes optimized union keys for both
 - Union key optimization after splitting ensures minimal index key coverage and efficient query processing
 - The algorithm doesn't currently consider netmask widths in address-based splitting, which is noted as a potential enhancement
 - File location: src/backend/utils/adt/network_gist.c:663-796
+
+## Simplified Source
+
+```c
+Datum
+inet_gist_picksplit(PG_FUNCTION_ARGS)
+{
+    GistEntryVector *entryvec = (GistEntryVector *) PG_GETARG_POINTER(0);
+    GIST_SPLITVEC *splitvec = (GIST_SPLITVEC *) PG_GETARG_POINTER(1);
+    GISTENTRY *ent = entryvec->vector;
+    int minfamily, maxfamily, minbits, commonbits;
+    int maxoff = entryvec->n - 1;
+    OffsetNumber *left, *right;
+    GistInetKey *tmp, *left_union, *right_union;
+    unsigned char *addr;
+
+    // Allocate arrays for left and right page entries
+    left = (OffsetNumber *) palloc((maxoff + 1) * sizeof(OffsetNumber));
+    right = (OffsetNumber *) palloc((maxoff + 1) * sizeof(OffsetNumber));
+
+    splitvec->spl_left = left;
+    splitvec->spl_right = right;
+    splitvec->spl_nleft = splitvec->spl_nright = 0;
+
+    // Analyze all entries to determine split strategy
+    calc_inet_union_params(ent, FirstOffsetNumber, maxoff,
+                           &minfamily, &maxfamily, &minbits, &commonbits);
+
+    // Strategy 1: Split by IP family if multiple families present
+    if (minfamily != maxfamily)
+    {
+        for (OffsetNumber i = FirstOffsetNumber; i <= maxoff; i = OffsetNumberNext(i))
+        {
+            tmp = DatumGetInetKeyP(ent[i].key);
+            if (gk_ip_family(tmp) != maxfamily)
+                left[splitvec->spl_nleft++] = i;
+            else
+                right[splitvec->spl_nright++] = i;
+        }
+    }
+    else
+    {
+        // Strategy 2: Split by address bits after common prefix
+        int maxbits = ip_family_maxbits(minfamily);
+
+        // Try each bit position after common prefix
+        while (commonbits < maxbits)
+        {
+            int bitbyte = commonbits / 8;
+            int bitmask = 0x80 >> (commonbits % 8);
+
+            splitvec->spl_nleft = splitvec->spl_nright = 0;
+
+            // Distribute entries based on bit value
+            for (OffsetNumber i = FirstOffsetNumber; i <= maxoff; i = OffsetNumberNext(i))
+            {
+                tmp = DatumGetInetKeyP(ent[i].key);
+                addr = gk_ip_addr(tmp);
+                if ((addr[bitbyte] & bitmask) == 0)
+                    left[splitvec->spl_nleft++] = i;
+                else
+                    right[splitvec->spl_nright++] = i;
+            }
+
+            // Check if split is balanced
+            if (splitvec->spl_nleft > 0 && splitvec->spl_nright > 0)
+                break;
+            commonbits++;
+        }
+
+        // Fallback: 50-50 split if no good bit position found
+        if (commonbits >= maxbits)
+        {
+            splitvec->spl_nleft = splitvec->spl_nright = 0;
+            for (OffsetNumber i = FirstOffsetNumber; i <= maxoff / 2; i = OffsetNumberNext(i))
+                left[splitvec->spl_nleft++] = i;
+            for (; i <= maxoff; i = OffsetNumberNext(i))
+                right[splitvec->spl_nright++] = i;
+        }
+    }
+
+    // Build optimized union keys for left and right pages
+    calc_inet_union_params_indexed(ent, left, splitvec->spl_nleft,
+                                   &minfamily, &maxfamily, &minbits, &commonbits);
+    if (minfamily != maxfamily) minfamily = 0;
+    tmp = DatumGetInetKeyP(ent[left[0]].key);
+    addr = gk_ip_addr(tmp);
+    left_union = build_inet_union_key(minfamily, minbits, commonbits, addr);
+    splitvec->spl_ldatum = PointerGetDatum(left_union);
+
+    calc_inet_union_params_indexed(ent, right, splitvec->spl_nright,
+                                   &minfamily, &maxfamily, &minbits, &commonbits);
+    if (minfamily != maxfamily) minfamily = 0;
+    tmp = DatumGetInetKeyP(ent[right[0]].key);
+    addr = gk_ip_addr(tmp);
+    right_union = build_inet_union_key(minfamily, minbits, commonbits, addr);
+    splitvec->spl_rdatum = PointerGetDatum(right_union);
+
+    PG_RETURN_POINTER(splitvec);
+}
+```

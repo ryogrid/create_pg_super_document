@@ -40,3 +40,44 @@ This approach handles complex scenarios where a table might be part of an extens
 - Marks both sequence and owning table as "interesting" when dump components are present
 - Performs sanity checking to ensure owning table exists for every owned sequence
 - Critical for proper dependency handling in dump/restore operations
+
+## Simplified Source
+
+```c
+void
+getOwnedSeqs(Archive *fout, TableInfo tblinfo[], int numTables)
+{
+    int i;
+
+    // Process all tables looking for owned sequences
+    for (i = 0; i < numTables; i++) {
+        TableInfo *seqinfo = &tblinfo[i];
+        TableInfo *owning_tab;
+
+        // Skip if not an owned sequence
+        if (!OidIsValid(seqinfo->owning_tab))
+            continue;
+
+        // Find the owning table
+        owning_tab = findTableByOid(seqinfo->owning_tab);
+        if (owning_tab == NULL)
+            pg_fatal("failed sanity check, parent table with OID %u of sequence with OID %u not found",
+                     seqinfo->owning_tab, seqinfo->dobj.catId.oid);
+
+        // Handle dump component inheritance based on sequence type
+        if (seqinfo->is_identity_sequence) {
+            // Identity sequences are integral to their table - copy exact dump components
+            seqinfo->dobj.dump = owning_tab->dobj.dump;
+        } else {
+            // Regular owned sequences (like serial) - combine table and sequence components
+            seqinfo->dobj.dump |= owning_tab->dobj.dump;
+        }
+
+        // Mark both sequence and owning table as interesting if dumping any components
+        if (seqinfo->dobj.dump != DUMP_COMPONENT_NONE) {
+            seqinfo->interesting = true;
+            owning_tab->interesting = true;
+        }
+    }
+}
+```

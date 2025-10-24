@@ -36,3 +36,21 @@ The ordering ensures that snapshots with older (smaller) xmin values are priorit
 - Returns 0 if both snapshots have equal xmin values
 - Used exclusively as a callback function for the RegisteredSnapshots pairing heap
 - Critical for maintaining proper snapshot ordering for visibility and cleanup operations
+
+## Simplified Source
+
+```c
+static int xmin_cmp(const pairingheap_node *a, const pairingheap_node *b, void *arg) {
+    // Extract SnapshotData structures from heap nodes
+    const SnapshotData *asnap = pairingheap_const_container(SnapshotData, ph_node, a);
+    const SnapshotData *bsnap = pairingheap_const_container(SnapshotData, ph_node, b);
+
+    // Compare xmin values (smaller xmin gets higher priority)
+    if (TransactionIdPrecedes(asnap->xmin, bsnap->xmin))
+        return 1;     // a has smaller xmin, a > b
+    else if (TransactionIdFollows(asnap->xmin, bsnap->xmin))
+        return -1;    // a has larger xmin, a < b
+    else
+        return 0;     // equal xmin values
+}
+```

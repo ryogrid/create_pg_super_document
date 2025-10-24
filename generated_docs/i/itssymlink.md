@@ -39,3 +39,19 @@ The function uses a minimal approach by only attempting to read one character ra
 - Efficiently tests symbolic link status by reading only one character with 
 - The function relies on the fact that  returns -1 (negative) for non-symbolic links and non-negative values for actual symbolic links
 - Provides a clean abstraction that allows calling code to work regardless of the underlying system's symbolic link support
+
+## Simplified Source
+
+```c
+static bool itssymlink(char const *name) {
+#ifdef HAVE_SYMLINK
+    char c;
+    // Try to read one character from symbolic link
+    // Returns non-negative value if path is a symlink
+    return 0 <= readlink(name, &c, 1);
+#else
+    // No symbolic link support on this system
+    return false;
+#endif
+}
+```

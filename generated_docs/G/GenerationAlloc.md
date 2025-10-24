@@ -44,3 +44,53 @@ The function handles allocation requests up to a configurable chunk limit, deleg
 - Falls back to freeblock reuse before allocating new blocks
 - Compatible with valgrind memory checking tools
 - Critical performance path - any changes should consider allocation overhead impact
+
+## Simplified Source
+
+```c
+void *
+GenerationAlloc(MemoryContext context, Size size, int flags)
+{
+    GenerationContext *set = (GenerationContext *) context;
+    GenerationBlock *block;
+    Size chunk_size;
+    Size required_size;
+
+    // Align size for platform requirements and add sentinel space if debugging
+    #ifdef MEMORY_CONTEXT_CHECKING
+        chunk_size = MAXALIGN(size + 1);
+    #else
+        chunk_size = MAXALIGN(size);
+    #endif
+
+    // Handle oversized chunks with special allocator
+    if (chunk_size > set->allocChunkLimit)
+        return GenerationAllocLarge(context, size, flags);
+
+    required_size = chunk_size + Generation_CHUNKHDRSZ;
+    block = set->block;
+
+    // Check if current block has enough space
+    if (unlikely(GenerationBlockFreeBytes(block) < required_size))
+    {
+        GenerationBlock *freeblock = set->freeblock;
+
+        // Try to reuse empty freeblock if available and large enough
+        if (freeblock != NULL &&
+            GenerationBlockFreeBytes(freeblock) >= required_size)
+        {
+            set->freeblock = NULL;
+            set->block = freeblock;
+            return GenerationAllocChunkFromBlock(context, freeblock, size, chunk_size);
+        }
+        else
+        {
+            // Allocate from new block
+            return GenerationAllocFromNewBlock(context, size, flags, chunk_size);
+        }
+    }
+
+    // Current block has space - allocate chunk there
+    return GenerationAllocChunkFromBlock(context, block, size, chunk_size);
+}
+```

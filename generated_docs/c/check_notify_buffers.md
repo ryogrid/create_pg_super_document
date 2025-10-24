@@ -36,3 +36,12 @@ The notify_buffers parameter controls the size of the buffer pool used by the no
 - Returns true if the proposed value is valid, false otherwise
 - Delegates validation logic to the standard SLRU buffer validation to maintain consistency
 - The notify_buffers parameter affects the performance of the notification SLRU cache
+
+## Simplified Source
+
+```c
+bool check_notify_buffers(int *newval, void **extra, GucSource source) {
+    // Delegate to standard SLRU buffer validation
+    return check_slru_buffers("notify_buffers", newval);
+}
+```

@@ -37,3 +37,20 @@ The function is commonly used in generic SPI utility functions that need to hand
 - The plan must have been successfully prepared before calling this function
 - Useful for bounds checking before calling SPI_getargtypeid with specific indices
 - The returned value corresponds to the plan->nargs field in the internal _SPI_plan structure
+
+## Simplified Source
+
+```c
+int SPI_getargcount(SPIPlanPtr plan)
+{
+    // Validate plan pointer and magic number
+    if (plan == NULL || plan->magic != _SPI_PLAN_MAGIC)
+    {
+        SPI_result = SPI_ERROR_ARGUMENT;
+        return -1;
+    }
+
+    // Return the number of arguments the plan expects
+    return plan->nargs;
+}
+```

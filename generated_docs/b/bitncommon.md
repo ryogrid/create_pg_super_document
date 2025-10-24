@@ -38,3 +38,35 @@ This function compares two bit masks byte by byte and bit by bit to determine ho
 - The algorithm stops at the first differing bit to return the exact common prefix length
 - Located in src/backend/utils/adt/network.c:1603-1640
 - Widely used in PostgreSQL's network indexing infrastructure (GiST, SP-GiST) and query planning
+
+## Simplified Source
+
+```c
+int bitncommon(const unsigned char *left_mask, const unsigned char *right_mask, int max_bits) {
+    int current_byte = 0;
+    int bits_to_check_in_last_byte = max_bits % 8;
+
+    // Compare complete bytes until we find a difference
+    for (current_byte = 0; current_byte < max_bits / 8; current_byte++) {
+        if (left_mask[current_byte] != right_mask[current_byte]) {
+            // Found differing byte - need to check individual bits
+            bits_to_check_in_last_byte = 7; // Check all 8 bits in this byte
+            break;
+        }
+    }
+
+    // Check individual bits in the last byte (if needed)
+    if (bits_to_check_in_last_byte != 0) {
+        // XOR to find which bits differ
+        unsigned int different_bits = left_mask[current_byte] ^ right_mask[current_byte];
+
+        // Count matching bits from most significant down
+        while ((different_bits >> (8 - bits_to_check_in_last_byte)) != 0) {
+            bits_to_check_in_last_byte--;
+        }
+    }
+
+    // Return total common bits: complete bytes + bits in partial byte
+    return (8 * current_byte) + bits_to_check_in_last_byte;
+}
+```

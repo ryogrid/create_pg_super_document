@@ -33,3 +33,15 @@ Titlecase is used in certain writing systems where the first letter of a word sh
 - Titlecase is distinct from uppercase for certain Unicode characters
 - Part of PostgreSQL's Unicode handling infrastructure
 - Located in src/common/unicode_case.c:37-44
+
+## Simplified Source
+
+```c
+pg_wchar unicode_titlecase_simple(pg_wchar code) {
+    // Find the case mapping for this codepoint
+    const pg_case_map *map = find_case_map(code);
+
+    // Return titlecase mapping if found, otherwise return original code
+    return map ? map->simplemap[CaseTitle] : code;
+}
+```

@@ -39,3 +39,28 @@ This function creates and configures a tuplesort state specifically optimized fo
 - Uses specialized BRIN-specific tuple handling functions for optimal performance
 - Part of the tuplesort framework's extensible design for different index types
 - Enables trace logging when TRACE_SORT is defined for debugging purposes
+
+## Simplified Source
+
+```c
+Tuplesortstate *
+tuplesort_begin_index_brin(int workMem, SortCoordinate coordinate, int sortopt)
+{
+    // Initialize common tuplesort state
+    Tuplesortstate *state = tuplesort_begin_common(workMem, coordinate, sortopt);
+    TuplesortPublic *base = TuplesortstateGetPublic(state);
+
+    // BRIN indexes sort by block number only (single key)
+    base->nKeys = 1;
+
+    // Configure BRIN-specific function pointers
+    base->removeabbrev = removeabbrev_index_brin;
+    base->comparetup = comparetup_index_brin;
+    base->writetup = writetup_index_brin;
+    base->readtup = readtup_index_brin;
+    base->haveDatum1 = true;
+    base->arg = NULL;  // No additional arguments needed
+
+    return state;
+}
+```

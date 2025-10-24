@@ -36,3 +36,35 @@ This function constructs a properly formatted column list for use in COPY statem
 - Returns empty string "" if no valid columns exist (avoids invalid "()" syntax)
 - [Result](../R/Result.md) is stored in the provided buffer and returned as buffer->data
 - Essential for generating correct COPY statements during pg_dump operations
+
+## Simplified Source
+
+```c
+static const char *fmtCopyColumnList(const TableInfo *ti, PQExpBuffer buffer)
+{
+    appendPQExpBufferChar(buffer, '(');
+    bool needComma = false;
+
+    // Add each valid column to the list
+    for (int i = 0; i < ti->numatts; i++) {
+        // Skip dropped and generated columns
+        if (ti->attisdropped[i] || ti->attgenerated[i])
+            continue;
+
+        // Add comma separator if needed
+        if (needComma)
+            appendPQExpBufferStr(buffer, ", ");
+
+        // Add properly quoted column name
+        appendPQExpBufferStr(buffer, fmtId(ti->attnames[i]));
+        needComma = true;
+    }
+
+    // Handle case with no valid columns
+    if (!needComma)
+        return "";  // Empty string instead of "()"
+
+    appendPQExpBufferChar(buffer, ')');
+    return buffer->data;
+}
+```

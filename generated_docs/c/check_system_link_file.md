@@ -44,3 +44,52 @@ This function probes a symbolic link file (commonly used by Unix systems to indi
 - Part of initdb's timezone detection strategy before falling back to brute-force search
 - Includes debug output when DEBUG_IDENTIFY_TIMEZONE is defined
 - Provides a fast path for timezone detection on systems that use standard symlink conventions
+
+## Simplified Source
+
+```c
+static bool check_system_link_file(const char *linkname, struct tztry *tt, char *bestzonename)
+{
+#ifdef HAVE_READLINK
+    char link_target[MAXPGPATH];
+    int len;
+    const char *cur_name;
+
+    // Read the symbolic link target
+    len = readlink(linkname, link_target, sizeof(link_target));
+    if (len < 0 || len >= sizeof(link_target))
+        return false;
+    link_target[len] = '\0';
+
+    // Parse path components to find timezone name
+    // Format is usually "/path/to/zones/zone/name"
+    cur_name = link_target;
+    while (*cur_name)
+    {
+        // Move to next path segment
+        cur_name = strchr(cur_name + 1, '/');
+        if (cur_name == NULL)
+            break;
+
+        // Skip consecutive slashes
+        do {
+            cur_name++;
+        } while (*cur_name == '/');
+
+        // Test if this path component is a valid timezone name
+        if (*cur_name && *cur_name != '.' &&
+            strlen(cur_name) <= TZ_STRLEN_MAX &&
+            perfect_timezone_match(cur_name, tt))
+        {
+            // Found a matching timezone
+            strcpy(bestzonename, cur_name);
+            return true;
+        }
+    }
+
+    return false;  // No matching timezone found
+#else
+    return false;  // Symlinks not supported
+#endif
+}
+```

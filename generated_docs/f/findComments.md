@@ -41,3 +41,62 @@ The function ensures that all sub-object comments (different objsubid values) ar
 - The range expansion phase runs in O(k) time where k is the number of matching items
 - All matching entries are guaranteed to be contiguous in the sorted array
 - Does not perform any memory allocation; returns pointers to existing data structures
+
+## Simplified Source
+
+```c
+static int findComments(Oid classoid, Oid objoid, CommentItem **items) {
+    CommentItem *middle = NULL;
+    CommentItem *low;
+    CommentItem *high;
+    int nmatch;
+
+    // Binary search to find any matching item
+    low = &comments[0];
+    high = &comments[ncomments - 1];
+    while (low <= high) {
+        middle = low + (high - low) / 2;
+
+        if (classoid < middle->classoid)
+            high = middle - 1;
+        else if (classoid > middle->classoid)
+            low = middle + 1;
+        else if (objoid < middle->objoid)
+            high = middle - 1;
+        else if (objoid > middle->objoid)
+            low = middle + 1;
+        else
+            break; // Found a match
+    }
+
+    if (low > high) {
+        // No matches found
+        *items = NULL;
+        return 0;
+    }
+
+    // Find the start of the matching range
+    nmatch = 1;
+    while (middle > low) {
+        if (classoid != middle[-1].classoid ||
+            objoid != middle[-1].objoid)
+            break;
+        middle--;
+        nmatch++;
+    }
+
+    *items = middle;
+
+    // Find the end of the matching range
+    middle += nmatch;
+    while (middle <= high) {
+        if (classoid != middle->classoid ||
+            objoid != middle->objoid)
+            break;
+        middle++;
+        nmatch++;
+    }
+
+    return nmatch;
+}
+```

@@ -37,3 +37,18 @@ However, pinning is not absolute protection - pinned portals are still automatic
 - The pinned status is stored in the portal's portalPinned boolean field
 - Must be paired with UnpinPortal() calls to avoid resource leaks in normal execution paths
 - Part of the portal reference management system alongside the portal hash table
+
+## Simplified Source
+
+```c
+void
+PinPortal(Portal portal)
+{
+    // Check for double-pinning error
+    if (portal->portalPinned)
+        elog(ERROR, "portal already pinned");
+
+    // Mark portal as pinned to prevent dropping
+    portal->portalPinned = true;
+}
+```

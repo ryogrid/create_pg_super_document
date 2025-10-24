@@ -42,3 +42,26 @@ This approach provides optimal performance for datasets where the first sort col
 - This function is specifically designed for CLUSTER operations which sort table data according to btree index definitions
 - The two-stage comparison design balances performance with correctness - fast for simple cases, comprehensive for complex ones
 - Part of PostgreSQL's pluggable tuple sorting architecture that provides specialized comparison functions for different tuple types
+
+## Simplified Source
+
+```c
+static int comparetup_cluster(const SortTuple *a, const SortTuple *b, Tuplesortstate *state)
+{
+    TuplesortPublic *base = TuplesortstateGetPublic(state);
+    SortSupport sortKey = base->sortKeys;
+
+    // Fast path: compare cached first column if available
+    if (base->haveDatum1)
+    {
+        int32 compare = ApplySortComparator(a->datum1, a->isnull1,
+                                           b->datum1, b->isnull1,
+                                           sortKey);
+        if (compare != 0)
+            return compare;
+    }
+
+    // Full comparison for ties or when no cached datum
+    return comparetup_cluster_tiebreak(a, b, state);
+}
+```

@@ -44,3 +44,25 @@ The registered provider becomes available for use with SECURITY LABEL SQL comman
 - Multiple providers can be registered, and the system will validate operations against the appropriate provider based on the SECURITY LABEL command syntax
 - The LabelProvider structure contains: provider_name (const char *) and hook (check_object_relabel_type)
 - Once registered, providers cannot be unregistered during the current backend session
+
+## Simplified Source
+
+```c
+void register_label_provider(const char *provider_name, check_object_relabel_type hook) {
+    LabelProvider *provider;
+
+    // Switch to persistent memory context
+    MemoryContext oldcxt = MemoryContextSwitchTo(TopMemoryContext);
+
+    // Create and initialize provider structure
+    provider = palloc(sizeof(LabelProvider));
+    provider->provider_name = pstrdup(provider_name);
+    provider->hook = hook;
+
+    // Add to global provider list
+    label_provider_list = lappend(label_provider_list, provider);
+
+    // Restore previous memory context
+    MemoryContextSwitchTo(oldcxt);
+}
+```

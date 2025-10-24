@@ -42,3 +42,16 @@ This function uses PostgreSQL's function call convention :
 - The comparison logic handles both inet and cidr types uniformly
 - Network family (IPv4 vs IPv6) is considered in comparisons, with different families compared by their family identifiers
 - The function uses PostgreSQL's standard function calling convention with  and  return type
+
+## Simplified Source
+
+```c
+Datum network_ge(PG_FUNCTION_ARGS) {
+    // Extract two inet/cidr network addresses from function arguments
+    inet *a1 = PG_GETARG_INET_PP(0);
+    inet *a2 = PG_GETARG_INET_PP(1);
+
+    // Compare networks and return true if first >= second
+    return PG_RETURN_BOOL(network_cmp_internal(a1, a2) >= 0);
+}
+```

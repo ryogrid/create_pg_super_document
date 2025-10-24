@@ -37,3 +37,29 @@ This function takes two inet addresses and returns the smallest CIDR (Classless 
 - Essential for network aggregation and supernet calculation operations
 - Located in src/backend/utils/adt/network.c:1476-1501
 - Uses the Min() macro to ensure the comparison doesn't exceed the smaller of the two input mask lengths
+
+## Simplified Source
+
+```c
+/*
+ * Returns the smallest CIDR which contains both of the inputs.
+ */
+Datum inet_merge(PG_FUNCTION_ARGS) {
+    inet *a1 = PG_GETARG_INET_PP(0);  // First inet address
+    inet *a2 = PG_GETARG_INET_PP(1);  // Second inet address
+
+    // Ensure both addresses are from same family (IPv4 or IPv6)
+    if (ip_family(a1) != ip_family(a2)) {
+        ereport(ERROR,
+                (errcode(ERRCODE_INVALID_PARAMETER_VALUE),
+                 errmsg("cannot merge addresses from different families")));
+    }
+
+    // Calculate number of common leading bits between addresses
+    int commonbits = bitncommon(ip_addr(a1), ip_addr(a2),
+                                Min(ip_bits(a1), ip_bits(a2)));
+
+    // Return CIDR with mask length set to common bits
+    PG_RETURN_INET_P(cidr_set_masklen_internal(a1, commonbits));
+}
+```

@@ -52,5 +52,34 @@ For different address families (IPv4 vs IPv6), the function simply compares the 
 - The comparison algorithm is specifically designed for CIDR operations where logical equality requires proper bit masking
 - Critical for sort support operations and B-tree indexing of network types
 - The function assumes that CIDR addresses have properly zeroed bits beyond their mask length for consistent comparison results
-- Located in 
-- Marked as  - internal function not exposed outside the network.c compilation unit
+- Located in src/backend/utils/adt/network.c:405-424
+- Marked as static - internal function not exposed outside the network.c compilation unit
+
+## Simplified Source
+
+```c
+static int32
+network_cmp_internal(inet *a1, inet *a2)
+{
+    // Different address families: compare by family type
+    if (ip_family(a1) != ip_family(a2))
+        return ip_family(a1) - ip_family(a2);
+
+    // Same address family: hierarchical comparison
+    int order;
+
+    // 1. Compare common network bits (using shorter mask)
+    order = bitncmp(ip_addr(a1), ip_addr(a2),
+                    Min(ip_bits(a1), ip_bits(a2)));
+    if (order != 0)
+        return order;
+
+    // 2. Compare mask lengths
+    order = ((int) ip_bits(a1)) - ((int) ip_bits(a2));
+    if (order != 0)
+        return order;
+
+    // 3. Compare full addresses as tiebreaker
+    return bitncmp(ip_addr(a1), ip_addr(a2), ip_maxbits(a1));
+}
+```

@@ -46,3 +46,91 @@ The function generates appropriate COMMENT ON TABLE/VIEW or COMMENT ON COLUMN st
 - Uses fmtQualifiedDumpable for properly formatted qualified table names
 - Column numbers in objsubid are 1-based, requiring adjustment for 0-based array access to attnames
 - Handles multiple comments per table by iterating through all found comment entries
+
+## Simplified Source
+
+```c
+static void dumpTableComment(Archive *fout, const TableInfo *tbinfo,
+                             const char *reltypename) {
+    DumpOptions *dopt = fout->dopt;
+    CommentItem *comments;
+    int ncomments;
+    PQExpBuffer query;
+    PQExpBuffer tag;
+
+    // Skip if comments are disabled or data-only mode
+    if (dopt->no_comments || dopt->dataOnly)
+        return;
+
+    // Find all comments associated with this table
+    ncomments = findComments(tbinfo->dobj.catId.tableoid,
+                             tbinfo->dobj.catId.oid,
+                             &comments);
+
+    if (ncomments <= 0)
+        return;
+
+    query = createPQExpBuffer();
+    tag = createPQExpBuffer();
+
+    // Process each comment (table or column)
+    while (ncomments > 0) {
+        const char *descr = comments->descr;
+        int objsubid = comments->objsubid;
+
+        if (objsubid == 0) {
+            // Comment on the table itself
+            resetPQExpBuffer(tag);
+            appendPQExpBuffer(tag, "%s %s", reltypename,
+                              fmtId(tbinfo->dobj.name));
+
+            resetPQExpBuffer(query);
+            appendPQExpBuffer(query, "COMMENT ON %s %s IS ", reltypename,
+                              fmtQualifiedDumpable(tbinfo));
+            appendStringLiteralAH(query, descr, fout);
+            appendPQExpBufferStr(query, ";\n");
+
+            ArchiveEntry(fout, nilCatalogId, createDumpId(),
+                         ARCHIVE_OPTS(.tag = tag->data,
+                                      .namespace = tbinfo->dobj.namespace->dobj.name,
+                                      .owner = tbinfo->rolname,
+                                      .description = "COMMENT",
+                                      .section = SECTION_NONE,
+                                      .createStmt = query->data,
+                                      .deps = &(tbinfo->dobj.dumpId),
+                                      .nDeps = 1));
+        }
+        else if (objsubid > 0 && objsubid <= tbinfo->numatts) {
+            // Comment on a column
+            resetPQExpBuffer(tag);
+            appendPQExpBuffer(tag, "COLUMN %s.",
+                              fmtId(tbinfo->dobj.name));
+            appendPQExpBufferStr(tag, fmtId(tbinfo->attnames[objsubid - 1]));
+
+            resetPQExpBuffer(query);
+            appendPQExpBuffer(query, "COMMENT ON COLUMN %s.",
+                              fmtQualifiedDumpable(tbinfo));
+            appendPQExpBuffer(query, "%s IS ",
+                              fmtId(tbinfo->attnames[objsubid - 1]));
+            appendStringLiteralAH(query, descr, fout);
+            appendPQExpBufferStr(query, ";\n");
+
+            ArchiveEntry(fout, nilCatalogId, createDumpId(),
+                         ARCHIVE_OPTS(.tag = tag->data,
+                                      .namespace = tbinfo->dobj.namespace->dobj.name,
+                                      .owner = tbinfo->rolname,
+                                      .description = "COMMENT",
+                                      .section = SECTION_NONE,
+                                      .createStmt = query->data,
+                                      .deps = &(tbinfo->dobj.dumpId),
+                                      .nDeps = 1));
+        }
+
+        comments++;
+        ncomments--;
+    }
+
+    destroyPQExpBuffer(query);
+    destroyPQExpBuffer(tag);
+}
+```

@@ -47,3 +47,18 @@ The reason code returned is an integer that corresponds to specific table rewrit
 - Complements pg_event_trigger_table_rewrite_oid by providing the 'why' while that function provides the 'what'
 - Located in src/backend/commands/event_trigger.c:1514-1553
 - Simple validation and accessor function with focused responsibility
+
+## Simplified Source
+
+```c
+Datum pg_event_trigger_table_rewrite_reason(PG_FUNCTION_ARGS) {
+    // Validate we're in a table rewrite event trigger context
+    if (!currentEventTriggerState ||
+        currentEventTriggerState->table_rewrite_reason == 0) {
+        ereport(ERROR, "Function can only be called in table_rewrite event trigger");
+    }
+
+    // Return the reason code for the table rewrite
+    PG_RETURN_INT32(currentEventTriggerState->table_rewrite_reason);
+}
+```

@@ -34,3 +34,23 @@ The `slice_check` function is a validation utility that verifies the integrity o
 - Contains conditional debugging code that can be enabled with compile-time flags
 - The comment indicates that one of the size checks could potentially be removed for optimization
 - Essential safety function preventing crashes from invalid slice operations in stemming algorithms
+
+## Simplified Source
+
+```c
+static int slice_check(struct SN_env * z) {
+    // Validate slice boundaries and buffer integrity
+    if (z->bra < 0 ||           // Start position must be non-negative
+        z->bra > z->ket ||      // Start must be before or at end position
+        z->ket > z->l ||        // End position must not exceed string length
+        z->p == NULL ||         // Buffer must exist
+        z->l > SIZE(z->p))      // String length must not exceed buffer size
+    {
+        // Optional debugging output (conditionally compiled)
+        // fprintf(stderr, "faulty slice operation:\n");
+        // debug(z, -1, 0);
+        return -1;  // Invalid slice parameters
+    }
+    return 0;  // Valid slice parameters
+}
+```

@@ -37,3 +37,19 @@ This function is useful when you have a LOCKTAG but not necessarily a full LOCK 
 - The locktag_lockmethodid field is explicitly cast to LOCKMETHODID type for type safety
 - Invalid lock method IDs will cause assertion failures in debug builds
 - Unlike GetLocksMethodTable which works with full LOCK structures, this function can work with just the lock identification information
+
+## Simplified Source
+
+```c
+LockMethod GetLockTagsMethodTable(const LOCKTAG *locktag)
+{
+    // Extract lock method ID from tag
+    LOCKMETHODID lockmethodid = (LOCKMETHODID) locktag->locktag_lockmethodid;
+
+    // Validate method ID is within bounds
+    Assert(0 < lockmethodid && lockmethodid < lengthof(LockMethods));
+
+    // Return corresponding lock method table
+    return LockMethods[lockmethodid];
+}
+```

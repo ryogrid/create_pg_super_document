@@ -48,3 +48,28 @@ The calculation considers that space is consumed from both ends of the segment -
 - The assertion check ensures internal consistency between allocated bytes and total bytes, helping detect corruption
 - Since TOC entries cannot be freed, the free space can only decrease over time as more entries are added and more memory is allocated
 - The function is read-only and does not modify the TOC state, making it safe to call for monitoring purposes
+
+## Simplified Source
+
+```c
+Size shm_toc_freespace(shm_toc *toc) {
+    // Calculate remaining free space in shared memory segment
+    volatile shm_toc *vtoc = toc;
+    Size total_bytes, allocated_bytes, nentry, toc_bytes;
+
+    // Thread-safe read of TOC metadata
+    SpinLockAcquire(&toc->toc_mutex);
+    total_bytes = vtoc->toc_total_bytes;
+    allocated_bytes = vtoc->toc_allocated_bytes;
+    nentry = vtoc->toc_nentry;
+    SpinLockRelease(&toc->toc_mutex);
+
+    // Calculate space used by TOC structure and entries
+    toc_bytes = offsetof(shm_toc, toc_entry) + nentry * sizeof(shm_toc_entry);
+
+    Assert(allocated_bytes + BUFFERALIGN(toc_bytes) <= total_bytes);
+
+    // Return remaining free space
+    return total_bytes - (allocated_bytes + BUFFERALIGN(toc_bytes));
+}
+```

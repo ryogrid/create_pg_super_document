@@ -40,3 +40,28 @@ This is particularly useful for debugging scenarios where you need to ensure tha
 - More efficient than calling LWLockHeldByMe multiple times for each lock in an array
 - Essential for debugging lock contention and ensuring proper lock release in subsystems that use arrays of locks
 - Located in src/backend/storage/lmgr/lwlock.c:1913-1938
+
+## Simplified Source
+
+```c
+bool LWLockAnyHeldByMe(LWLock *lock, int nlocks, size_t stride)
+{
+    // Calculate memory range for the lock array
+    char *begin = (char *) lock;
+    char *end = begin + nlocks * stride;
+
+    // Check each currently held lock
+    for (int i = 0; i < num_held_lwlocks; i++) {
+        char *held_lock_addr = (char *) held_lwlocks[i].lock;
+
+        // Check if held lock falls within the specified array range
+        if (held_lock_addr >= begin &&
+            held_lock_addr < end &&
+            (held_lock_addr - begin) % stride == 0) {
+            return true;  // Found a lock from this array
+        }
+    }
+
+    return false;  // No locks from this array are held
+}
+```

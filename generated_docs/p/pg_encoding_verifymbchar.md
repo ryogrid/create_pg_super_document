@@ -49,3 +49,18 @@ The verification follows these rules:
 - The verification is encoding-specific and handles various complex multibyte encoding rules
 - For single-byte encodings, verification typically just returns 1 (always valid)
 - Critical for security as it prevents malformed input from causing buffer overruns or data corruption
+
+## Simplified Source
+
+```c
+int pg_encoding_verifymbchar(int encoding, const char *mbstr, int len) {
+    // Use encoding-specific verification function
+    if (PG_VALID_ENCODING(encoding)) {
+        // Valid encoding: use its specific verifier
+        return pg_wchar_table[encoding].mbverifychar((const unsigned char *) mbstr, len);
+    } else {
+        // Invalid encoding: fall back to ASCII verification
+        return pg_wchar_table[PG_SQL_ASCII].mbverifychar((const unsigned char *) mbstr, len);
+    }
+}
+```

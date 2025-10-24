@@ -54,3 +54,107 @@ Key optimizations include:
 - Handles leap second corrections when writing transition times
 - Creates necessary directories if they don't exist
 - The output format follows the standard tzfile specification used by Unix systems
+
+## Simplified Source
+
+```c
+static void writezone(const char *const name, const char *const string,
+                      char version, int defaulttype) {
+    FILE *fp;
+    ptrdiff_t i, j;
+    int pass;
+    static struct tzhead tzh;
+    bool dir_checked = false;
+
+    // Allocate arrays for transition times and types
+    zic_t *ats = emalloc(MAXALIGN(size_product(nats, sizeof *ats + 1)));
+    unsigned char *types = (unsigned char *)(ats + nats);
+    struct timerange rangeall, range32, range64;
+
+    // Sort transitions by time
+    if (timecnt > 1)
+        qsort(attypes, timecnt, sizeof *attypes, atcomp);
+
+    // Optimize: remove redundant transitions
+    ptrdiff_t toi = 0;
+    for (ptrdiff_t fromi = 0; fromi < timecnt; ++fromi) {
+        // Skip transitions that don't change effective local time
+        if (should_merge_transition(fromi, toi)) {
+            attypes[toi - 1].type = attypes[fromi].type;
+            continue;
+        }
+
+        // Keep transition if it changes timezone properties
+        if (transition_changes_properties(fromi, toi))
+            attypes[toi++] = attypes[fromi];
+    }
+    timecnt = toi;
+
+    // Transfer optimized data to output arrays
+    for (i = 0; i < timecnt; ++i) {
+        ats[i] = attypes[i].at;
+        types[i] = attypes[i].type;
+    }
+
+    // Correct transition times for leap seconds
+    for (i = 0; i < timecnt; ++i) {
+        j = leapcnt;
+        while (--j >= 0)
+            if (ats[i] > trans[j] - corr[j]) {
+                ats[i] = tadd(ats[i], corr[j]);
+                break;
+            }
+    }
+
+    // Work around Qt bug for 32-bit systems
+    if (WORK_AROUND_QTBUG_53071 && timecnt != 0 &&
+        ats[timecnt - 1] < y2038_boundary - 1) {
+        ats[timecnt] = y2038_boundary - 1;
+        types[timecnt] = types[timecnt - 1];
+        timecnt++;
+    }
+
+    // Calculate data ranges for 32-bit and 64-bit formats
+    rangeall.defaulttype = defaulttype;
+    rangeall.base = rangeall.leapbase = 0;
+    rangeall.count = timecnt;
+    rangeall.leapcount = leapcnt;
+    range64 = limitrange(rangeall, lo_time, hi_time, ats, types);
+    range32 = limitrange(range64, PG_INT32_MIN, PG_INT32_MAX, ats, types);
+
+    // Create output file
+    if (remove(name) == 0)
+        dir_checked = true;
+
+    fp = fopen(name, "wb");
+    if (!fp) {
+        if (errno == ENOENT && !dir_checked) {
+            mkdirs(name, true);
+            fp = fopen(name, "wb");
+        }
+        if (!fp) {
+            fprintf(stderr, "Cannot create %s/%s: %s\n",
+                    progname, directory, name, strerror(errno));
+            exit(EXIT_FAILURE);
+        }
+    }
+
+    // Write data in two passes: 32-bit then 64-bit
+    for (pass = 1; pass <= 2; ++pass) {
+        struct timerange *range = (pass == 1) ? &range32 : &range64;
+
+        // Set up type mappings and character strings
+        setup_output_types(range, pass);
+
+        // Write timezone header and data
+        write_timezone_header(fp, range, pass);
+        write_transition_data(fp, ats, types, range);
+        write_timezone_types(fp, range);
+        write_leap_seconds(fp, range);
+        write_standard_indicators(fp, range);
+        write_ut_indicators(fp, range);
+    }
+
+    fclose(fp);
+}
+```

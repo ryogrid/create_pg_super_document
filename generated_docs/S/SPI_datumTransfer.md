@@ -35,3 +35,26 @@ The function temporarily switches to the SPI saved memory context, performs the 
 - Essential for preserving query results and other data structures that need to survive beyond individual SPI operations
 - The transferred datum becomes the caller's responsibility to manage within the SPI context
 - Part of PostgreSQL's SPI data management system, complementing the memory management functions
+
+## Simplified Source
+
+```c
+Datum
+SPI_datumTransfer(Datum value, bool typByVal, int typLen)
+{
+    // Check that we're connected to SPI
+    if (_SPI_current == NULL)
+        elog(ERROR, "SPI_datumTransfer called while not connected to SPI");
+
+    // Switch to SPI's saved context for copying
+    MemoryContext oldcxt = MemoryContextSwitchTo(_SPI_current->savedcxt);
+
+    // Transfer the datum to the persistent context
+    Datum result = datumTransfer(value, typByVal, typLen);
+
+    // Restore original context
+    MemoryContextSwitchTo(oldcxt);
+
+    return result;
+}
+```

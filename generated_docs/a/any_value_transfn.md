@@ -36,3 +36,14 @@ The implementation is intentionally simple - it just returns the first argument 
 - Located in src/backend/utils/adt/misc.c:1121-1124
 - Used internally by the aggregate execution system, not typically called directly by user code
 - The actual ANY_VALUE aggregate behavior depends on this transition function combined with the aggregate definition in the system catalogs
+
+## Simplified Source
+
+```c
+Datum
+any_value_transfn(PG_FUNCTION_ARGS)
+{
+    // Return the current state unchanged (keeps first non-null value)
+    PG_RETURN_DATUM(PG_GETARG_DATUM(0));
+}
+```

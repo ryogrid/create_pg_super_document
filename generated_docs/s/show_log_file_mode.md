@@ -37,3 +37,17 @@ The function follows the same pattern as other permission display hooks in Postg
 - The octal display format aligns with standard Unix/Linux file permission conventions, making it familiar to system administrators
 - This function is part of a set of show hooks that format permission values in user-friendly octal notation
 - The `log_file_mode` setting only applies when PostgreSQL's logging collector is enabled and writing to files
+
+## Simplified Source
+
+```c
+const char *
+show_log_file_mode(void)
+{
+    static char buf[12];
+
+    // Format log file permission mode as 4-digit octal (e.g., "0600")
+    snprintf(buf, sizeof(buf), "%04o", Log_file_mode);
+    return buf;
+}
+```

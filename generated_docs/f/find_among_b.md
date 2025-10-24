@@ -50,3 +50,68 @@ The function moves the cursor backward by the length of the matched pattern and 
 - Part of the backward-matching family of functions in Snowball utilities
 - Shares the same algorithmic complexity and optimization strategies as  but adapted for reverse processing
 - Essential for languages with complex suffix morphology where multiple suffix patterns may overlap
+
+## Simplified Source
+
+```c
+extern int find_among_b(struct SN_env * z, const struct among * v, int v_size) {
+    int i = 0, j = v_size;
+    int c = z->c, lb = z->lb;
+    const symbol * q = z->p + c - 1;
+
+    int common_i = 0, common_j = 0;
+    int first_key_inspected = 0;
+
+    // Binary search for matching pattern (backward)
+    while (1) {
+        int k = i + ((j - i) >> 1);
+        int diff = 0;
+        int common = common_i < common_j ? common_i : common_j;
+        const struct among * w = v + k;
+
+        // Compare characters backward from pattern end
+        for (int i2 = w->s_size - 1 - common; i2 >= 0; i2--) {
+            if (c - common == lb) { diff = -1; break; }
+            diff = q[-common] - w->s[i2];
+            if (diff != 0) break;
+            common++;
+        }
+
+        // Adjust search bounds
+        if (diff < 0) {
+            j = k;
+            common_j = common;
+        } else {
+            i = k;
+            common_i = common;
+        }
+
+        // Check if search should continue
+        if (j - i <= 1) {
+            if (i > 0) break;
+            if (j == i) break;
+            if (first_key_inspected) break;
+            first_key_inspected = 1;
+        }
+    }
+
+    // Process matched pattern and handle substrings
+    while (1) {
+        const struct among * w = v + i;
+        if (common_i >= w->s_size) {
+            z->c = c - w->s_size;
+
+            // Execute callback function if present
+            if (w->function == 0) return w->result;
+
+            int res = w->function(z);
+            z->c = c - w->s_size;
+            if (res) return w->result;
+        }
+
+        // Handle substring relationships
+        i = w->substring_i;
+        if (i < 0) return 0;
+    }
+}
+```

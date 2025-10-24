@@ -54,3 +54,81 @@ The function respects dump options like --no-comments, --data-only, and --schema
 - Large Object comments are treated as data, not schema, for dump filtering purposes
 - Special handling for initdb comments prevents dumping system-provided comments that would complicate non-superuser usage
 - The function handles cases where initdb comments have been removed by the DBA
+
+## Simplified Source
+
+```c
+static void dumpCommentExtended(Archive *fout, const char *type,
+                                const char *name, const char *namespace,
+                                const char *owner, CatalogId catalogId,
+                                int subid, DumpId dumpId,
+                                const char *initdb_comment) {
+    DumpOptions *dopt = fout->dopt;
+    CommentItem *comments;
+    int ncomments;
+
+    // Skip if comments are disabled
+    if (dopt->no_comments)
+        return;
+
+    // Handle data-only vs schema-only modes
+    if (strcmp(type, "LARGE OBJECT") != 0) {
+        if (dopt->dataOnly)
+            return;
+    } else {
+        if (dopt->schemaOnly && !dopt->binary_upgrade)
+            return;
+    }
+
+    // Find comments for this object
+    ncomments = findComments(catalogId.tableoid, catalogId.oid, &comments);
+
+    // Search for comment matching the subid
+    while (ncomments > 0) {
+        if (comments->objsubid == subid)
+            break;
+        comments++;
+        ncomments--;
+    }
+
+    // Handle initdb comment special cases
+    if (initdb_comment != NULL) {
+        static CommentItem empty_comment = {.descr = ""};
+
+        if (ncomments == 0) {
+            comments = &empty_comment;
+            ncomments = 1;
+        } else if (strcmp(comments->descr, initdb_comment) == 0) {
+            ncomments = 0;
+        }
+    }
+
+    // Generate COMMENT ON statement if comment exists
+    if (ncomments > 0) {
+        PQExpBuffer query = createPQExpBuffer();
+        PQExpBuffer tag = createPQExpBuffer();
+
+        appendPQExpBuffer(query, "COMMENT ON %s ", type);
+        if (namespace && *namespace)
+            appendPQExpBuffer(query, "%s.", fmtId(namespace));
+        appendPQExpBuffer(query, "%s IS ", name);
+        appendStringLiteralAH(query, comments->descr, fout);
+        appendPQExpBufferStr(query, ";\n");
+
+        appendPQExpBuffer(tag, "%s %s", type, name);
+
+        ArchiveEntry(fout, nilCatalogId, createDumpId(),
+                     ARCHIVE_OPTS(.tag = tag->data,
+                                  .namespace = namespace,
+                                  .owner = owner,
+                                  .description = "COMMENT",
+                                  .section = SECTION_NONE,
+                                  .createStmt = query->data,
+                                  .deps = &dumpId,
+                                  .nDeps = 1));
+
+        destroyPQExpBuffer(query);
+        destroyPQExpBuffer(tag);
+    }
+}
+```

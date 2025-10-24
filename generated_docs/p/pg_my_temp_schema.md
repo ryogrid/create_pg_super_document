@@ -33,3 +33,15 @@ The function directly returns the value of the global variable , which tracks th
 - Located in 
 - This is one of the simplest namespace-related system functions, directly exposing an internal state variable
 - The  variable is initialized to InvalidOid and remains so until a temporary schema is actually needed
+
+## Simplified Source
+
+```c
+Datum
+pg_my_temp_schema(PG_FUNCTION_ARGS)
+{
+    // Return the OID of the current session's temporary namespace
+    // Returns InvalidOid if no temp schema exists yet
+    PG_RETURN_OID(myTempNamespace);
+}
+```

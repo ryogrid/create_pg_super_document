@@ -38,3 +38,24 @@ The function extracts the netmask length from the source INET address and uses i
 - The result is semantically a CIDR block but uses the same internal `inet` structure as INET types
 - Example: converting 192.168.1.100/24 would result in 192.168.1.0/24
 - Located in src/backend/utils/adt/network.c:309-323
+
+## Simplified Source
+
+```c
+Datum
+inet_to_cidr(PG_FUNCTION_ARGS)
+{
+    inet *src = PG_GETARG_INET_PP(0);
+    int bits;
+
+    // Extract the netmask length from the source inet
+    bits = ip_bits(src);
+
+    // Validate netmask length is within bounds
+    if ((bits < 0) || (bits > ip_maxbits(src)))
+        elog(ERROR, "invalid inet bit length: %d", bits);
+
+    // Convert to CIDR by masking host bits
+    PG_RETURN_INET_P(cidr_set_masklen_internal(src, bits));
+}
+```

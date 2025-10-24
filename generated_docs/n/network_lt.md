@@ -43,3 +43,17 @@ This function is typically registered in PostgreSQL's system catalogs as the imp
 - The actual comparison logic is delegated to network_cmp_internal() for consistency
 - Supports both inet and cidr data types transparently
 - The function is typically not called directly but invoked through SQL operators
+
+## Simplified Source
+
+```c
+Datum
+network_lt(PG_FUNCTION_ARGS)
+{
+    inet *a1 = PG_GETARG_INET_PP(0);
+    inet *a2 = PG_GETARG_INET_PP(1);
+
+    // Return true if first address is less than second
+    PG_RETURN_BOOL(network_cmp_internal(a1, a2) < 0);
+}
+```

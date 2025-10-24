@@ -29,3 +29,14 @@ This function is part of the TupleTableSlotOps interface for heap tuple table sl
 - Part of the TupleTableSlotOps callback interface defined in src/include/executor/tuptable.h
 - The empty implementation suggests that heap tuple slots require no special initialization beyond default slot setup
 - This function is referenced through the TupleTableSlotOps function pointer structure rather than called directly
+
+## Simplified Source
+
+```c
+static void
+tts_heap_init(TupleTableSlot *slot)
+{
+    // No special initialization required for heap tuple slots
+    // Default slot setup is sufficient
+}
+```

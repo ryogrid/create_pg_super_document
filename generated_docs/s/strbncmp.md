@@ -32,3 +32,40 @@ The function starts from the last character of both strings and moves backwards,
 - The comparison is done in reverse order (from end to beginning)
 - This function is specifically designed for affix sorting in the spell-checking module
 - Located in src/backend/tsearch/spell.c:280-310
+
+## Simplified Source
+
+```c
+static int
+strbncmp(const unsigned char *s1, const unsigned char *s2, size_t count)
+{
+    // Start from the end of both strings
+    int l1 = strlen((const char *) s1) - 1;
+    int l2 = strlen((const char *) s2) - 1;
+    int l = count;
+
+    // Compare characters from right to left for up to 'count' characters
+    while (l1 >= 0 && l2 >= 0 && l > 0)
+    {
+        if (s1[l1] < s2[l2])
+            return -1;
+        if (s1[l1] > s2[l2])
+            return 1;
+        l1--;
+        l2--;
+        l--;
+    }
+
+    // If we've compared exactly 'count' characters, they're equal
+    if (l == 0)
+        return 0;
+
+    // Handle different string lengths
+    if (l1 < l2)
+        return -1;  // s1 is shorter
+    if (l1 > l2)
+        return 1;   // s2 is shorter
+
+    return 0;  // strings are equal
+}
+```

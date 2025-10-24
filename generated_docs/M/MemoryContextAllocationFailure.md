@@ -44,3 +44,28 @@ This design allows PostgreSQL to support both error-on-failure (default) and ret
 - When raising errors, it includes helpful context like the requested size and context name for debugging
 - [MemoryContextStats](MemoryContextStats.md) output helps diagnose memory usage patterns leading to allocation failures
 - The MCXT_ALLOC_NO_OOM flag enables 'try-allocate' semantics similar to C++'s nothrow new operator
+
+## Simplified Source
+
+```c
+void *
+MemoryContextAllocationFailure(MemoryContext context, Size size, int flags)
+{
+    // Check if caller wants graceful failure handling
+    if ((flags & MCXT_ALLOC_NO_OOM) == 0)
+    {
+        // Report memory stats for debugging
+        MemoryContextStats(TopMemoryContext);
+
+        // Raise error with allocation details
+        ereport(ERROR,
+                (errcode(ERRCODE_OUT_OF_MEMORY),
+                 errmsg("out of memory"),
+                 errdetail("Failed on request of size %zu in memory context \"%s\".",
+                          size, context->name)));
+    }
+
+    // Return NULL for graceful failure handling
+    return NULL;
+}
+```

@@ -48,3 +48,59 @@ This function creates a specialized tuplesort state for GiST index creation oper
 - Enables datum1 optimization for improved performance with the first sort key
 - The function sets ssup_attno to i+1 to avoid zero-based indexing issues
 - Used during CREATE INDEX operations for GiST indexes to enable efficient bulk loading
+
+## Simplified Source
+
+```c
+Tuplesortstate *
+tuplesort_begin_index_gist(Relation heapRel, Relation indexRel,
+                          int workMem, SortCoordinate coordinate, int sortopt)
+{
+    // Initialize common tuplesort state
+    Tuplesortstate *state = tuplesort_begin_common(workMem, coordinate, sortopt);
+    TuplesortPublic *base = TuplesortstateGetPublic(state);
+
+    // Switch to sort context and allocate args (reusing B-tree arg structure)
+    MemoryContext oldcontext = MemoryContextSwitchTo(base->maincontext);
+    TuplesortIndexBTreeArg *arg = palloc(sizeof(TuplesortIndexBTreeArg));
+
+    // Set up basic properties
+    base->nKeys = IndexRelationGetNumberOfKeyAttributes(indexRel);
+
+    // Configure function pointers (reuse B-tree comparison functions)
+    base->removeabbrev = removeabbrev_index;
+    base->comparetup = comparetup_index_btree;
+    base->comparetup_tiebreak = comparetup_index_btree_tiebreak;
+    base->writetup = writetup_index;
+    base->readtup = readtup_index;
+    base->haveDatum1 = true;
+    base->arg = arg;
+
+    // Store index relations and disable uniqueness (GiST doesn't support unique)
+    arg->index.heapRel = heapRel;
+    arg->index.indexRel = indexRel;
+    arg->enforceUnique = false;
+    arg->uniqueNullsNotDistinct = false;
+
+    // Configure sort support for each key
+    base->sortKeys = palloc0(base->nKeys * sizeof(SortSupportData));
+    for (int i = 0; i < base->nKeys; i++)
+    {
+        SortSupport sortKey = base->sortKeys + i;
+
+        // Set basic sort key properties for GiST
+        sortKey->ssup_cxt = CurrentMemoryContext;
+        sortKey->ssup_collation = indexRel->rd_indcollation[i];
+        sortKey->ssup_nulls_first = false;  // GiST convention
+        sortKey->ssup_attno = i + 1;        // 1-based indexing
+        sortKey->abbreviate = (i == 0 && base->haveDatum1);
+
+        // Use GiST-specific sort support preparation
+        PrepareSortSupportFromGistIndexRel(indexRel, sortKey);
+    }
+
+    MemoryContextSwitchTo(oldcontext);
+
+    return state;
+}
+```

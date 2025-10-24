@@ -46,3 +46,31 @@ Shift JIS uses a complex encoding scheme where:
 - The function is static, indicating it's only used within the wchar.c compilation unit
 - Used for both Shift JIS and EUC_JIS_2004 encodings in PostgreSQL
 - SJIS encoding is widely used in Japan for legacy systems and Windows environments
+
+## Simplified Source
+
+```c
+static int
+pg_sjis_verifychar(const unsigned char *s, int len)
+{
+    // Get expected character length
+    int char_len = pg_sjis_mblen(s);
+
+    // Check if we have enough bytes
+    if (len < char_len)
+        return -1;
+
+    // Single-byte character - already validated by pg_sjis_mblen
+    if (char_len == 1)
+        return char_len;
+
+    // Multi-byte character - validate lead and trail bytes
+    unsigned char lead_byte = s[0];
+    unsigned char trail_byte = s[1];
+
+    if (!ISSJISHEAD(lead_byte) || !ISSJISTAIL(trail_byte))
+        return -1;  // Invalid SJIS byte sequence
+
+    return char_len;
+}
+```

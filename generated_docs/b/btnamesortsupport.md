@@ -40,4 +40,27 @@ The SortSupport interface allows PostgreSQL to use optimized comparison function
 - Properly manages memory contexts to ensure sort support data is allocated in the appropriate context
 - The SortSupport interface can provide significant performance improvements for large sorting operations
 - Located in  at lines 211-232
-- Part of the B-tree operator class infrastructure that enables optimized sorting for  columns
+- Part of the B-tree operator class infrastructure that enables optimized sorting for name columns
+
+## Simplified Source
+
+```c
+Datum
+btnamesortsupport(PG_FUNCTION_ARGS)
+{
+    SortSupport ssup = (SortSupport) PG_GETARG_POINTER(0);
+    Oid         collid = ssup->ssup_collation;
+    MemoryContext oldcontext;
+
+    // Switch to sort support memory context
+    oldcontext = MemoryContextSwitchTo(ssup->ssup_cxt);
+
+    // Use generic string sorting support for name type
+    varstr_sortsupport(ssup, NAMEOID, collid);
+
+    // Restore previous memory context
+    MemoryContextSwitchTo(oldcontext);
+
+    PG_RETURN_VOID();
+}
+```

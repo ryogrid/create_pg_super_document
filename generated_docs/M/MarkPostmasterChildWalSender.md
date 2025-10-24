@@ -42,3 +42,20 @@ This function takes no parameters but operates on:
 - This is part of the postmaster-child communication mechanism used for process lifecycle tracking
 - Must be called from WAL sender child processes only, after they have already been marked as active
 - WAL senders never transition back to ACTIVE state once they become WALSENDER
+
+## Simplified Source
+
+```c
+void MarkPostmasterChildWalSender(void) {
+    // Mark this child process as a WAL sender in shared memory
+    int slot = MyPMChildSlot;
+
+    Assert(am_walsender);
+    Assert(slot > 0 && slot <= PMSignalState->num_child_flags);
+
+    // Convert to 0-based index and update status
+    slot--;
+    Assert(PMSignalState->PMChildFlags[slot] == PM_CHILD_ACTIVE);
+    PMSignalState->PMChildFlags[slot] = PM_CHILD_WALSENDER;
+}
+```

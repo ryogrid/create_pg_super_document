@@ -45,3 +45,38 @@ The algorithm processes each character in the input string and maintains the can
 - Performance is optimized for the common case where strings are already normalized (returns UNICODE_NORM_QC_YES)
 - This is a read-only operation that does not modify the input string
 - The function is available in both frontend and backend code contexts
+
+## Simplified Source
+
+```c
+UnicodeNormalizationQC unicode_is_normalized_quickcheck(UnicodeNormalizationForm form, const pg_wchar *input) {
+    uint8 lastCanonicalClass = 0;
+    UnicodeNormalizationQC result = UNICODE_NORM_QC_YES;
+
+    // Skip quickcheck for decomposed forms (NFD/NFKD) - use full normalization instead
+    // (avoids large lookup tables and decomposition is fast without recomposition)
+    if (form == UNICODE_NFD || form == UNICODE_NFKD)
+        return UNICODE_NORM_QC_MAYBE;
+
+    // Check each character in the string
+    for (const pg_wchar *p = input; *p; p++) {
+        pg_wchar ch = *p;
+        uint8 canonicalClass = get_canonical_class(ch);
+
+        // Check canonical combining class ordering (required for normalized text)
+        if (lastCanonicalClass > canonicalClass && canonicalClass != 0)
+            return UNICODE_NORM_QC_NO;
+
+        // Check if character needs normalization processing
+        UnicodeNormalizationQC check = qc_is_allowed(form, ch);
+        if (check == UNICODE_NORM_QC_NO)
+            return UNICODE_NORM_QC_NO;
+        else if (check == UNICODE_NORM_QC_MAYBE)
+            result = UNICODE_NORM_QC_MAYBE;
+
+        lastCanonicalClass = canonicalClass;
+    }
+
+    return result;
+}
+```

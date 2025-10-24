@@ -50,3 +50,59 @@ The function constructs human-readable tags combining table and column names for
 - Creates both creation and deletion statements for complete restoration control
 - Generates descriptive tags for better dump file organization and debugging
 - Places commands in SECTION_PRE_DATA for proper restoration ordering
+
+## Simplified Source
+
+```c
+static void
+dumpAttrDef(Archive *fout, const AttrDefInfo *adinfo)
+{
+    DumpOptions *dopt = fout->dopt;
+    TableInfo *tbinfo = adinfo->adtable;
+    int adnum = adinfo->adnum;
+    PQExpBuffer q, delq;
+    char *qualrelname, *tag, *foreign;
+
+    // Skip if data-only dump or not separate
+    if (dopt->dataOnly || !adinfo->separate)
+        return;
+
+    q = createPQExpBuffer();
+    delq = createPQExpBuffer();
+
+    qualrelname = pg_strdup(fmtQualifiedDumpable(tbinfo));
+    foreign = tbinfo->relkind == RELKIND_FOREIGN_TABLE ? "FOREIGN " : "";
+
+    // Generate ALTER TABLE SET DEFAULT command
+    appendPQExpBuffer(q,
+                     "ALTER %sTABLE ONLY %s ALTER COLUMN %s SET DEFAULT %s;\n",
+                     foreign, qualrelname,
+                     fmtId(tbinfo->attnames[adnum - 1]),
+                     adinfo->adef_expr);
+
+    // Generate corresponding DROP DEFAULT command
+    appendPQExpBuffer(delq,
+                     "ALTER %sTABLE %s ALTER COLUMN %s DROP DEFAULT;\n",
+                     foreign, qualrelname,
+                     fmtId(tbinfo->attnames[adnum - 1]));
+
+    // Create descriptive tag combining table and column names
+    tag = psprintf("%s %s", tbinfo->dobj.name, tbinfo->attnames[adnum - 1]);
+
+    // Create archive entry
+    if (adinfo->dobj.dump & DUMP_COMPONENT_DEFINITION)
+        ArchiveEntry(fout, adinfo->dobj.catId, adinfo->dobj.dumpId,
+                    ARCHIVE_OPTS(.tag = tag,
+                                .namespace = tbinfo->dobj.namespace->dobj.name,
+                                .owner = tbinfo->rolname,
+                                .description = "DEFAULT",
+                                .section = SECTION_PRE_DATA,
+                                .createStmt = q->data,
+                                .dropStmt = delq->data));
+
+    free(tag);
+    destroyPQExpBuffer(q);
+    destroyPQExpBuffer(delq);
+    free(qualrelname);
+}
+```

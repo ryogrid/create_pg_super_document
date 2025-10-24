@@ -43,3 +43,39 @@ This function constructs an IndexTuple from arrays of attribute values and null 
 - Supports abbreviation optimization when sort keys and converter are available
 - Primarily used in index build operations for B-tree, hash, and GiST indexes
 - Part of the standard interface for adding constructed index tuples to sorts during index creation
+
+## Simplified Source
+
+```c
+void tuplesort_putindextuplevalues(Tuplesortstate *state, Relation rel,
+                                   ItemPointer self, const Datum *values,
+                                   const bool *isnull)
+{
+    SortTuple stup;
+    IndexTuple tuple;
+    TuplesortPublic *base = TuplesortstateGetPublic(state);
+
+    // Create index tuple from provided values
+    stup.tuple = index_form_tuple_context(RelationGetDescr(rel), values,
+                                         isnull, base->tuplecontext);
+    tuple = (IndexTuple) stup.tuple;
+
+    // Set the tuple identifier
+    tuple->t_tid = *self;
+
+    // Extract first column for sorting optimization
+    stup.datum1 = index_getattr(tuple, 1, RelationGetDescr(rel), &stup.isnull1);
+
+    // Calculate tuple size for memory management
+    Size tuplen;
+    if (TupleSortUseBumpTupleCxt(base->sortopt))
+        tuplen = MAXALIGN(tuple->t_info & INDEX_SIZE_MASK);
+    else
+        tuplen = GetMemoryChunkSpace(tuple);
+
+    // Add tuple to sort with abbreviation support if available
+    tuplesort_puttuple_common(state, &stup,
+                             base->sortKeys && base->sortKeys->abbrev_converter && !stup.isnull1,
+                             tuplen);
+}
+```

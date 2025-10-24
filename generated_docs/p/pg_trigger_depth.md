@@ -41,3 +41,12 @@ This function takes no parameters (uses  macro for PostgreSQL function interface
 - This function is particularly useful for preventing infinite trigger recursion by allowing triggers to check their execution depth
 - The function is defined in the system catalog () and is available as a built-in SQL function
 - Comprehensive test cases exist in the regression test suite () demonstrating various trigger depth scenarios
+
+## Simplified Source
+
+```c
+Datum pg_trigger_depth(PG_FUNCTION_ARGS) {
+    // Return the current trigger nesting depth
+    PG_RETURN_INT32(MyTriggerDepth);
+}
+```

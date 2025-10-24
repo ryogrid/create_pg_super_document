@@ -37,3 +37,30 @@ The function is essential for proper cleanup when dynamically loaded modules are
 - If no matching callback is found, the function returns without error
 - Essential for preventing memory leaks and dangling pointers when modules are unloaded
 - Should be called in module cleanup routines or when callback behavior needs to be changed
+
+## Simplified Source
+
+```c
+void UnregisterResourceReleaseCallback(ResourceReleaseCallback callback, void *arg)
+{
+    ResourceReleaseCallbackItem *item;
+    ResourceReleaseCallbackItem *prev = NULL;
+
+    // Search through the callback list
+    for (item = ResourceRelease_callbacks; item; prev = item, item = item->next) {
+        // Check if this item matches the callback and argument
+        if (item->callback == callback && item->arg == arg) {
+            // Remove item from linked list
+            if (prev) {
+                prev->next = item->next;  // Remove from middle/end
+            } else {
+                ResourceRelease_callbacks = item->next;  // Remove from head
+            }
+
+            // Free the memory and exit
+            pfree(item);
+            break;
+        }
+    }
+}
+```

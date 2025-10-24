@@ -41,3 +41,29 @@ This function initializes the global role name cache used by `getRoleName()` for
 - The cached role information includes both login and non-login roles
 - Memory allocated by this function is not explicitly freed (relies on process termination cleanup)
 - Must be called before any functions that use `getRoleName()`
+
+## Simplified Source
+
+```c
+static void collectRoleNames(Archive *fout) {
+    PGresult *res;
+    const char *query;
+    int i;
+
+    // Query all roles ordered by OID for binary search
+    query = "SELECT oid, rolname FROM pg_catalog.pg_roles ORDER BY 1";
+    res = ExecuteSqlQuery(fout, query, PGRES_TUPLES_OK);
+
+    // Allocate global array for role cache
+    nrolenames = PQntuples(res);
+    rolenames = (RoleNameItem *) pg_malloc(nrolenames * sizeof(RoleNameItem));
+
+    // Populate the role cache
+    for (i = 0; i < nrolenames; i++) {
+        rolenames[i].roleoid = atooid(PQgetvalue(res, i, 0));
+        rolenames[i].rolename = pg_strdup(PQgetvalue(res, i, 1));
+    }
+
+    PQclear(res);
+}
+```

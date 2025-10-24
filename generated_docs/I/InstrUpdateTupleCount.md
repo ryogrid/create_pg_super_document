@@ -24,3 +24,13 @@ InstrUpdateTupleCount is a simple utility function that updates only the tuple c
 
 ## Notes and Other Information
 This function provides the most basic instrumentation operation, focusing solely on tuple counting. It may be used in specialized execution paths where full instrumentation overhead is not desired but tuple counting is still needed for statistics or monitoring purposes. The function's simplicity makes it suitable for performance-critical code paths where minimal overhead is essential.
+
+## Simplified Source
+
+```c
+void InstrUpdateTupleCount(Instrumentation *instr, double nTuples)
+{
+    // Add the new tuple count to the running total
+    instr->tuplecount += nTuples;
+}
+```

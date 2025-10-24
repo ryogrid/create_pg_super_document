@@ -37,3 +37,19 @@ This function creates a duplicate copy of a null-terminated C string using the c
 - Essential for string duplication operations during dictionary building and processing
 - The function follows the standard strdup pattern but uses custom memory allocation
 - Memory allocated by this function will be managed by the ISpell dictionary's memory context system
+
+## Simplified Source
+
+```c
+static char *
+cpstrdup(IspellDict *Conf, const char *str)
+{
+    // Allocate memory for string plus null terminator
+    char *res = cpalloc(strlen(str) + 1);
+
+    // Copy the string to new memory
+    strcpy(res, str);
+
+    return res;
+}
+```

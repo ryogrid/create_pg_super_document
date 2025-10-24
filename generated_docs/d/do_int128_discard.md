@@ -33,3 +33,19 @@ This function performs the inverse accumulation operation for 128-bit aggregate 
 - Used by inverse aggregate functions for different integer types (int2, int4, int8)
 - Essential for sliding window aggregates and moving average calculations
 - Assumes the value being discarded was previously accumulated in the state
+
+## Simplified Source
+
+```c
+static void
+do_int128_discard(Int128AggState *state, int128 newval)
+{
+    // Optionally remove from sum of squares
+    if (state->calcSumX2)
+        state->sumX2 -= newval * newval;
+
+    // Always update sum and count
+    state->sumX -= newval;
+    state->N--;
+}
+```

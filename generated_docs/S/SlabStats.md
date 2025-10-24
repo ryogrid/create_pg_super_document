@@ -40,3 +40,57 @@ The function examines both empty blocks (stored in the emptyblocks list) and act
 
 ## Notes and Other Information
 The function includes context header size in total space calculations and provides detailed breakdown including empty blocks count. The formatted output string includes total space, number of blocks, empty blocks count, free space with chunk count, and used space. This function is part of PostgreSQL's memory management debugging and monitoring infrastructure, allowing administrators and developers to understand Slab allocator behavior and memory consumption patterns.
+
+## Simplified Source
+
+```c
+void SlabStats(MemoryContext context,
+               MemoryStatsPrintFunc printfunc, void *passthru,
+               MemoryContextCounters *totals,
+               bool print_to_stderr)
+{
+    SlabContext *slab = (SlabContext *) context;
+    Size nblocks = 0;
+    Size freechunks = 0;
+    Size totalspace;
+    Size freespace = 0;
+
+    // Calculate total space including context header
+    totalspace = Slab_CONTEXT_HDRSZ(slab->chunksPerBlock);
+
+    // Add space from empty blocks
+    totalspace += dclist_count(&slab->emptyblocks) * slab->blockSize;
+
+    // Iterate through all active block lists
+    for (int i = 0; i < SLAB_BLOCKLIST_COUNT; i++) {
+        dlist_iter iter;
+        dlist_foreach(iter, &slab->blocklist[i]) {
+            SlabBlock *block = dlist_container(SlabBlock, node, iter.cur);
+
+            // Accumulate block statistics
+            nblocks++;
+            totalspace += slab->blockSize;
+            freespace += slab->fullChunkSize * block->nfree;
+            freechunks += block->nfree;
+        }
+    }
+
+    // Print formatted statistics if callback provided
+    if (printfunc) {
+        char stats_string[200];
+        snprintf(stats_string, sizeof(stats_string),
+                 "%zu total in %zu blocks; %u empty blocks; %zu free (%zu chunks); %zu used",
+                 totalspace, nblocks, dclist_count(&slab->emptyblocks),
+                 freespace, freechunks, totalspace - freespace);
+        printfunc(context, passthru, stats_string, print_to_stderr);
+    }
+
+    // Accumulate into totals if provided
+    if (totals) {
+        totals->nblocks += nblocks;
+        totals->freechunks += freechunks;
+        totals->totalspace += totalspace;
+        totals->freespace += freespace;
+    }
+}
+```

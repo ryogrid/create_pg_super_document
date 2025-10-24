@@ -34,3 +34,28 @@ This function sets up the shared memory structures required for parallel tuple s
 - The nWorkers parameter should match the argument passed to tuplesort_estimate_shared()
 - Initializes the shared mutex, worker counters, and tape structures for parallel coordination
 - Sets up one tape per worker process for result management
+
+## Simplified Source
+
+```c
+void
+tuplesort_initialize_shared(Sharedsort *shared, int nWorkers, dsm_segment *seg)
+{
+    Assert(nWorkers > 0);
+
+    // Initialize synchronization and worker tracking
+    SpinLockInit(&shared->mutex);
+    shared->currentWorker = 0;
+    shared->workersFinished = 0;
+
+    // Set up shared file system for worker coordination
+    SharedFileSetInit(&shared->fileset, seg);
+
+    // Initialize tape structures (one per worker)
+    shared->nTapes = nWorkers;
+    for (int i = 0; i < nWorkers; i++)
+    {
+        shared->tapes[i].firstblocknumber = 0L;
+    }
+}
+```

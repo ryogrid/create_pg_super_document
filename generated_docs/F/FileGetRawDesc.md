@@ -33,3 +33,16 @@ The function includes important caveats: the returned file descriptor is valid o
 - The raw descriptor can become invalid due to VFD cache management operations
 - This function breaks the abstraction provided by PostgreSQL's VFD system and should be used sparingly
 - Primarily used for operations requiring direct system calls or special file attributes like O_DIRECT
+
+## Simplified Source
+
+```c
+int FileGetRawDesc(File file)
+{
+    // Validate the file handle
+    Assert(FileIsValid(file));
+
+    // Return the raw OS file descriptor from VFD cache
+    return VfdCache[file].fd;
+}
+```

@@ -39,3 +39,29 @@ The function handles memory management by allocating temporary storage for the a
 - Implements efficient early return when no attributes exist at the index
 - Uses PostgreSQL's memory management (palloc/pfree) for temporary storage
 - Essential building block for complete function attribute copying operations
+
+## Simplified Source
+
+```c
+static void
+llvm_copy_attributes_at_index(LLVMValueRef v_from, LLVMValueRef v_to, uint32 index)
+{
+    // Get count of attributes at this index
+    int num_attributes = LLVMGetAttributeCountAtIndex(v_from, index);
+
+    // Early return if no attributes to copy
+    if (num_attributes == 0)
+        return;
+
+    // Allocate temporary storage for attributes
+    LLVMAttributeRef *attrs = palloc(sizeof(LLVMAttributeRef) * num_attributes);
+    LLVMGetAttributesAtIndex(v_from, index, attrs);
+
+    // Copy each attribute to target function
+    for (int attno = 0; attno < num_attributes; attno++) {
+        LLVMAddAttributeAtIndex(v_to, index, attrs[attno]);
+    }
+
+    pfree(attrs);
+}
+```

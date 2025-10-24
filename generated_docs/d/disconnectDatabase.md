@@ -54,3 +54,21 @@ This approach ensures that database resources are properly released and that no 
 - The function uses blocking cancellation, which waits for the cancel request to complete
 - Located in src/fe_utils/connect_utils.c:158-171
 - Critical for proper resource management in PostgreSQL client tools
+
+## Simplified Source
+
+```c
+void disconnectDatabase(PGconn *conn) {
+    Assert(conn != NULL);
+
+    // Cancel any active transaction before closing
+    if (PQtransactionStatus(conn) == PQTRANS_ACTIVE) {
+        PGcancelConn *cancelConn = PQcancelCreate(conn);
+        PQcancelBlocking(cancelConn);
+        PQcancelFinish(cancelConn);
+    }
+
+    // Close the database connection
+    PQfinish(conn);
+}
+```

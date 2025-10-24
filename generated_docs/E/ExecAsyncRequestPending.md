@@ -39,3 +39,18 @@ The asynchronous execution framework allows nodes to request tuples from other n
 - Alternative to ExecAsyncRequestDone, which is used when a result is immediately available
 - The callback_pending flag set by this function indicates to the executor that the node will need another callback (ExecAsyncNotify) when the underlying asynchronous operation completes
 - Typically used in conjunction with file descriptor event handling for I/O operations
+
+## Simplified Source
+
+```c
+void ExecAsyncRequestPending(AsyncRequest *areq) {
+    // Mark that we're waiting for a callback
+    areq->callback_pending = true;
+
+    // Reset completion status - request is not done yet
+    areq->request_complete = false;
+
+    // Clear any previous result
+    areq->result = NULL;
+}
+```

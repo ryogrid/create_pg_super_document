@@ -41,3 +41,39 @@ The function follows a careful sequence: reset inline caches → dispose old con
 - Alternative improvement: use LLVM context size rather than usage count heuristic
 - Critical for long-running PostgreSQL instances that perform many JIT compilations
 - Located in src/backend/jit/llvm/llvmjit.c:186-235
+
+## Simplified Source
+
+```c
+static void llvm_recreate_llvm_context(void)
+{
+    // Validate context exists
+    if (!llvm_context)
+        elog(ERROR, "Trying to recreate a non-existing context");
+
+    // Don't recreate if other JIT operations are in progress
+    if (llvm_jit_context_in_use_count > 0)
+    {
+        llvm_llvm_context_reuse_count++;
+        return;
+    }
+
+    // Check if we've reached the reuse limit
+    if (llvm_llvm_context_reuse_count <= LLVMJIT_LLVM_CONTEXT_REUSE_MAX)
+    {
+        llvm_llvm_context_reuse_count++;
+        return;
+    }
+
+    // Reset cached modules before disposing context to avoid dangling pointers
+    llvm_inline_reset_caches();
+
+    // Dispose old context and create new one
+    LLVMContextDispose(llvm_context);
+    llvm_context = LLVMContextCreate();
+    llvm_llvm_context_reuse_count = 0;
+
+    // Rebuild type information for the new context
+    llvm_create_types();
+}
+```

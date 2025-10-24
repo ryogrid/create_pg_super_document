@@ -35,3 +35,16 @@ The function immediately asserts false if called, indicating a programming error
 - The function exists for interface consistency with other index types that do require tiebreaking
 - If this function is ever called, it indicates a bug in the hash index sorting logic
 - The presence of this function helps maintain a uniform API across different index sorting variants
+
+## Simplified Source
+
+```c
+static int
+comparetup_index_hash_tiebreak(const SortTuple *a, const SortTuple *b,
+                               Tuplesortstate *state)
+{
+    // This should never be called for hash indexes
+    Assert(false);
+    return 0;
+}
+```

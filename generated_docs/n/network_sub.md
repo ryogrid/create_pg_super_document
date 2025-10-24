@@ -37,3 +37,25 @@ This function performs a boolean network inclusion test to determine if the firs
 - Uses bitncmp to compare only the relevant bits according to the containing network's netmask
 - This is a strict containment test - [equal](../e/equal.md) networks will return false
 - For non-strict containment (<=), use network_subeq instead
+
+## Simplified Source
+
+```c
+Datum network_sub(PG_FUNCTION_ARGS) {
+    // Extract two inet/cidr network addresses from function arguments
+    inet *a1 = PG_GETARG_INET_PP(0);
+    inet *a2 = PG_GETARG_INET_PP(1);
+
+    // Only compare networks of the same IP family (IPv4 or IPv6)
+    if (ip_family(a1) == ip_family(a2)) {
+        // Check if a1 is a strict subnet of a2:
+        // - a1 must have more network bits than a2 (more specific)
+        // - a1's network portion must match a2's when masked by a2's netmask
+        return PG_RETURN_BOOL(ip_bits(a1) > ip_bits(a2) &&
+                              bitncmp(ip_addr(a1), ip_addr(a2), ip_bits(a2)) == 0);
+    }
+
+    // Different IP families - no containment possible
+    return PG_RETURN_BOOL(false);
+}
+```

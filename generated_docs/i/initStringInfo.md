@@ -31,3 +31,17 @@ The  function initializes a StringInfoData structure that has previously undefin
 - After initialization, the StringInfo is ready to accept string data through append operations
 - The buffer will be automatically resized if more space is needed during string operations
 - Part of PostgreSQL's dynamic string manipulation infrastructure
+
+## Simplified Source
+
+```c
+void initStringInfo(StringInfo str) {
+    // Allocate initial buffer (1024 bytes default)
+    int size = 1024;
+    str->data = palloc(size);
+    str->maxlen = size;
+
+    // Reset to empty string state
+    resetStringInfo(str);
+}
+```

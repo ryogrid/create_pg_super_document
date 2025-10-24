@@ -41,3 +41,41 @@ The function is designed to be non-strict, meaning it must handle null inputs ex
 - Handles the first non-null input specially since the initial state is NULL
 - Only used in plain aggregation mode; moving-aggregate mode uses different functions (intX_avg_accum and intX_avg_accum_inv)
 - Located in src/backend/utils/adt/numeric.c:6524-6572
+
+## Simplified Source
+
+```c
+Datum int2_sum(PG_FUNCTION_ARGS) {
+    int64 newval;
+
+    // Handle first non-null input (initial state is NULL)
+    if (PG_ARGISNULL(0)) {
+        if (PG_ARGISNULL(1))
+            PG_RETURN_NULL();  // No non-null values yet
+
+        // First non-null input becomes initial accumulator value
+        newval = (int64) PG_GETARG_INT16(1);
+        PG_RETURN_INT64(newval);
+    }
+
+    // Optimize for aggregate context: modify accumulator in-place
+    if (AggCheckCallContext(fcinfo, NULL)) {
+        int64 *oldsum = (int64 *) PG_GETARG_POINTER(0);
+
+        // Add new value to running sum (skip if null)
+        if (!PG_ARGISNULL(1))
+            *oldsum = *oldsum + (int64) PG_GETARG_INT16(1);
+
+        PG_RETURN_POINTER(oldsum);
+    }
+
+    // Non-aggregate context: return new sum value
+    int64 oldsum = PG_GETARG_INT64(0);
+
+    if (PG_ARGISNULL(1))
+        PG_RETURN_INT64(oldsum);  // Skip null inputs
+
+    newval = oldsum + (int64) PG_GETARG_INT16(1);
+    PG_RETURN_INT64(newval);
+}
+```

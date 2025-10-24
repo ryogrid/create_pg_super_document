@@ -51,3 +51,119 @@ For column ACLs, the function uses prepared statements that adapt to different P
 - Memory management includes proper cleanup of duplicated strings
 - Part of the schema dumping infrastructure, focusing solely on structure and permissions, not data
 - Supports parallel dumping by properly establishing dependencies between related ACL objects
+
+## Simplified Source
+
+```c
+static void
+dumpTable(Archive *fout, const TableInfo *tbinfo)
+{
+    DumpOptions *dopt = fout->dopt;
+    DumpId tableAclDumpId = InvalidDumpId;
+    char *namecopy;
+
+    // Skip if data-only dump
+    if (dopt->dataOnly)
+        return;
+
+    // Dump table definition
+    if (tbinfo->dobj.dump & DUMP_COMPONENT_DEFINITION)
+    {
+        if (tbinfo->relkind == RELKIND_SEQUENCE)
+            dumpSequence(fout, tbinfo);
+        else
+            dumpTableSchema(fout, tbinfo);
+    }
+
+    // Handle table-level ACL
+    namecopy = pg_strdup(fmtId(tbinfo->dobj.name));
+    if (tbinfo->dobj.dump & DUMP_COMPONENT_ACL)
+    {
+        const char *objtype =
+            (tbinfo->relkind == RELKIND_SEQUENCE) ? "SEQUENCE" : "TABLE";
+
+        tableAclDumpId = dumpACL(fout, tbinfo->dobj.dumpId, InvalidDumpId,
+                                objtype, namecopy, NULL,
+                                tbinfo->dobj.namespace->dobj.name,
+                                NULL, tbinfo->rolname, &tbinfo->dacl);
+    }
+
+    // Handle column ACLs if present
+    if ((tbinfo->dobj.dump & DUMP_COMPONENT_ACL) && tbinfo->hascolumnACLs)
+    {
+        PQExpBuffer query = createPQExpBuffer();
+        PGresult *res;
+
+        // Set up prepared statement for column ACLs
+        if (!fout->is_prepared[PREPQUERY_GETCOLUMNACLS])
+        {
+            // Build version-specific query for column ACLs
+            appendPQExpBufferStr(query, "PREPARE getColumnACLs(pg_catalog.oid) AS\n");
+
+            if (fout->remoteVersion >= 90600)
+            {
+                // Query with initial privileges support (9.6+)
+                appendPQExpBufferStr(query,
+                    "SELECT at.attname, at.attacl, '{}' AS acldefault, "
+                    "pip.privtype, pip.initprivs FROM pg_catalog.pg_attribute at "
+                    "LEFT JOIN pg_catalog.pg_init_privs pip ON "
+                    "(at.attrelid = pip.objoid AND pip.classoid = 'pg_catalog.pg_class'::pg_catalog.regclass "
+                    "AND at.attnum = pip.objsubid) "
+                    "WHERE at.attrelid = $1 AND NOT at.attisdropped "
+                    "AND (at.attacl IS NOT NULL OR pip.initprivs IS NOT NULL) "
+                    "ORDER BY at.attnum");
+            }
+            else
+            {
+                // Legacy query for older versions
+                appendPQExpBufferStr(query,
+                    "SELECT attname, attacl, '{}' AS acldefault, "
+                    "NULL AS privtype, NULL AS initprivs "
+                    "FROM pg_catalog.pg_attribute "
+                    "WHERE attrelid = $1 AND NOT attisdropped "
+                    "AND attacl IS NOT NULL ORDER BY attnum");
+            }
+
+            ExecuteSqlStatement(fout, query->data);
+            fout->is_prepared[PREPQUERY_GETCOLUMNACLS] = true;
+        }
+
+        // Execute query for this table's column ACLs
+        printfPQExpBuffer(query, "EXECUTE getColumnACLs('%u')",
+                         tbinfo->dobj.catId.oid);
+        res = ExecuteSqlQuery(fout, query->data, PGRES_TUPLES_OK);
+
+        // Process each column ACL
+        for (int i = 0; i < PQntuples(res); i++)
+        {
+            char *attname = PQgetvalue(res, i, 0);
+            char *attacl = PQgetvalue(res, i, 1);
+            char *acldefault = PQgetvalue(res, i, 2);
+            char privtype = *(PQgetvalue(res, i, 3));
+            char *initprivs = PQgetvalue(res, i, 4);
+            DumpableAcl coldacl;
+            char *attnamecopy;
+
+            // Set up column ACL structure
+            coldacl.acl = attacl;
+            coldacl.acldefault = acldefault;
+            coldacl.privtype = privtype;
+            coldacl.initprivs = initprivs;
+            attnamecopy = pg_strdup(fmtId(attname));
+
+            // Dump column ACL with dependency on table ACL
+            dumpACL(fout, tbinfo->dobj.dumpId, tableAclDumpId,
+                   "TABLE", namecopy, attnamecopy,
+                   tbinfo->dobj.namespace->dobj.name,
+                   NULL, tbinfo->rolname, &coldacl);
+
+            free(attnamecopy);
+        }
+
+        PQclear(res);
+        destroyPQExpBuffer(query);
+    }
+
+    free(namecopy);
+}
+```

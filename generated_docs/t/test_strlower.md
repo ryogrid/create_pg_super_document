@@ -49,3 +49,56 @@ For each test scenario, the function verifies both the returned length value and
 - The function validates both functional correctness (proper case conversion) and API contract compliance (correct length reporting)
 - Critical for ensuring  handles various real-world string handling scenarios correctly
 - Part of PostgreSQL's Unicode case conversion testing suite
+
+## Simplified Source
+
+```c
+static void test_strlower(const char *test_string, const char *expected) {
+    size_t src_len = strlen(test_string);
+    size_t expected_len = strlen(expected);
+    char *src_buffer = malloc(src_len);
+    char *dst_buffer = malloc(expected_len);
+    char *src_null_term = strdup(test_string);
+    char *dst_null_term = malloc(expected_len + 1);
+
+    memcpy(src_buffer, test_string, src_len);
+
+    // Test 1: Neither source nor destination NUL-terminated
+    memset(dst_buffer, 0x7F, expected_len);
+    size_t result_len = unicode_strlower(dst_buffer, expected_len, src_buffer, src_len);
+    if (result_len != expected_len || memcmp(dst_buffer, expected, expected_len) != 0) {
+        printf("case_test: test1 FAILURE\n");
+        exit(1);
+    }
+
+    // Test 2: Destination NUL-terminated, source not
+    memset(dst_null_term, 0x7F, expected_len + 1);
+    result_len = unicode_strlower(dst_null_term, expected_len + 1, src_buffer, src_len);
+    if (result_len != expected_len || strcmp(dst_null_term, expected) != 0) {
+        printf("case_test: test2 FAILURE\n");
+        exit(1);
+    }
+
+    // Test 3: Source NUL-terminated, destination not
+    memset(dst_buffer, 0x7F, expected_len);
+    result_len = unicode_strlower(dst_buffer, expected_len, src_null_term, -1);
+    if (result_len != expected_len || memcmp(dst_buffer, expected, expected_len) != 0) {
+        printf("case_test: test3 FAILURE\n");
+        exit(1);
+    }
+
+    // Test 4: Both source and destination NUL-terminated
+    memset(dst_null_term, 0x7F, expected_len + 1);
+    result_len = unicode_strlower(dst_null_term, expected_len + 1, src_null_term, -1);
+    if (result_len != expected_len || strcmp(dst_null_term, expected) != 0) {
+        printf("case_test: test4 FAILURE\n");
+        exit(1);
+    }
+
+    // Clean up allocated memory
+    free(src_buffer);
+    free(dst_buffer);
+    free(src_null_term);
+    free(dst_null_term);
+}
+```

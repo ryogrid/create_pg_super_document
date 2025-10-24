@@ -33,3 +33,24 @@ This function determines if a physical file exists for a given relation fork by 
 - The close-then-open sequence ensures that cached file descriptors don't mask deleted files
 - Uses EXTENSION_RETURN_NULL flag to prevent mdopenfork from creating files if they don't exist
 - Part of the magnetic disk storage manager's file existence checking mechanism
+
+## Simplified Source
+
+```c
+bool mdexists(SMgrRelation reln, ForkNumber forknum)
+{
+    // Close the fork first to detect any pending unlinks (except during recovery)
+    if (!InRecovery)
+        mdclose(reln, forknum);
+
+    // Try to open the fork - if successful, the file exists
+    return (mdopenfork(reln, forknum, EXTENSION_RETURN_NULL) != NULL);
+}
+```
+
+**Key Points:**
+- Checks if a physical file exists for a specific relation fork
+- Closes the fork first (unless in recovery) to ensure fresh state detection
+- Returns true even for lingering files with pending deletions
+- Uses mdopenfork with EXTENSION_RETURN_NULL to avoid creating files
+- Optimization: skips close during recovery since relations are already cleaned up

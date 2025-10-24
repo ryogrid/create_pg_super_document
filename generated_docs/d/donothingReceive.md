@@ -27,3 +27,12 @@ This function is part of PostgreSQL's destination receiver infrastructure and se
 - Part of the dummy DestReceiver functions suite alongside donothingStartup and donothingCleanup
 - Returns true unconditionally, indicating successful tuple handling to the caller
 - Commonly used in testing scenarios or when tuple output needs to be discarded
+
+## Simplified Source
+
+```c
+static bool donothingReceive(TupleTableSlot *slot, DestReceiver *self) {
+    // No-operation tuple receiver - simply return success
+    return true;
+}
+```

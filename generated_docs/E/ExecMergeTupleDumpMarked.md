@@ -36,3 +36,23 @@ The function examines the marked tuple slot in the merge join state and prints e
 - Used primarily during PostgreSQL development and debugging rather than in production environments
 - The function assumes the mergestate parameter is valid and contains a properly initialized marked tuple slot
 - Particularly useful when debugging complex merge join scenarios involving duplicate join keys or outer join processing
+
+## Simplified Source
+
+```c
+static void
+ExecMergeTupleDumpMarked(MergeJoinState *mergestate)
+{
+    // Get the marked tuple slot from merge join state
+    TupleTableSlot *markedSlot = mergestate->mj_MarkedTupleSlot;
+
+    // Print debug header for marked tuple
+    printf("==== marked tuple ====\n");
+
+    // Print tuple contents or "(nil)" if empty
+    if (TupIsNull(markedSlot))
+        printf("(nil)\n");
+    else
+        MJ_debugtup(markedSlot);
+}
+```

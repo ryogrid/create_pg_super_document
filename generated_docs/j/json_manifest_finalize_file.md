@@ -54,3 +54,88 @@ The function is designed to handle both regular pathnames and hex-encoded pathna
 - Checksum validation includes both algorithm validation and payload hex-decoding
 - Part of PostgreSQL's backup manifest infrastructure for ensuring backup integrity
 - Uses PostgreSQL's internal memory management functions (palloc/pfree) for consistent memory handling
+
+## Simplified Source
+
+```c
+static void json_manifest_finalize_file(JsonManifestParseState *parse) {
+    JsonManifestParseContext *context = parse->context;
+    size_t size;
+    char *ep;
+    int checksum_string_length;
+    pg_checksum_type checksum_type;
+    int checksum_length;
+    uint8 *checksum_payload;
+
+    // Validate required fields
+    if (parse->pathname == NULL && parse->encoded_pathname == NULL)
+        json_manifest_parse_failure(parse->context, "missing path name");
+    if (parse->pathname != NULL && parse->encoded_pathname != NULL)
+        json_manifest_parse_failure(parse->context, "both path name and encoded path name");
+    if (parse->size == NULL)
+        json_manifest_parse_failure(parse->context, "missing size");
+    if (parse->algorithm == NULL && parse->checksum != NULL)
+        json_manifest_parse_failure(parse->context, "checksum without algorithm");
+
+    // Decode hex-encoded pathname if needed
+    if (parse->encoded_pathname != NULL) {
+        int encoded_length = strlen(parse->encoded_pathname);
+        int raw_length = encoded_length / 2;
+
+        parse->pathname = palloc(raw_length + 1);
+        if (encoded_length % 2 != 0 ||
+            !hexdecode_string((uint8 *) parse->pathname,
+                             parse->encoded_pathname, raw_length))
+            json_manifest_parse_failure(parse->context, "could not decode file name");
+
+        parse->pathname[raw_length] = '\0';
+        pfree(parse->encoded_pathname);
+        parse->encoded_pathname = NULL;
+    }
+
+    // Parse file size
+    size = strtoul(parse->size, &ep, 10);
+    if (*ep)
+        json_manifest_parse_failure(parse->context, "file size is not an integer");
+
+    // Parse checksum algorithm
+    if (parse->algorithm == NULL)
+        checksum_type = CHECKSUM_TYPE_NONE;
+    else if (!pg_checksum_parse_type(parse->algorithm, &checksum_type))
+        context->error_cb(context, "unrecognized checksum algorithm: \"%s\"",
+                         parse->algorithm);
+
+    // Parse checksum payload
+    checksum_string_length = parse->checksum == NULL ? 0 : strlen(parse->checksum);
+    if (checksum_string_length == 0) {
+        checksum_length = 0;
+        checksum_payload = NULL;
+    } else {
+        checksum_length = checksum_string_length / 2;
+        checksum_payload = palloc(checksum_length);
+        if (checksum_string_length % 2 != 0 ||
+            !hexdecode_string(checksum_payload, parse->checksum, checksum_length))
+            context->error_cb(context,
+                             "invalid checksum for file \"%s\": \"%s\"",
+                             parse->pathname, parse->checksum);
+    }
+
+    // Invoke callback with processed file information
+    context->per_file_cb(context, parse->pathname, size,
+                        checksum_type, checksum_length, checksum_payload);
+
+    // Clean up allocated memory
+    if (parse->size != NULL) {
+        pfree(parse->size);
+        parse->size = NULL;
+    }
+    if (parse->algorithm != NULL) {
+        pfree(parse->algorithm);
+        parse->algorithm = NULL;
+    }
+    if (parse->checksum != NULL) {
+        pfree(parse->checksum);
+        parse->checksum = NULL;
+    }
+}
+```

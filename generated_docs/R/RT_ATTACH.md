@@ -38,3 +38,33 @@ This function attaches a backend process to an existing radix tree stored in sha
 - Requires the shared tree control structure to have valid magic number
 - Essential for multi-process access to shared radix tree data structures
 - Must be paired with RT_DETACH when the attachment is no longer needed
+
+## Simplified Source
+
+```c
+// Macro that expands to: RT_PREFIX_attach
+#define RT_ATTACH RT_MAKE_NAME(attach)
+
+// Generated function (simplified logic):
+RT_SCOPE RT_RADIX_TREE *RT_ATTACH(dsa_area *dsa, RT_HANDLE handle) {
+    // Allocate local tree structure
+    RT_RADIX_TREE *tree = palloc0(sizeof(RT_RADIX_TREE));
+
+    // Set up context and DSA reference
+    tree->context = CurrentMemoryContext;
+    tree->dsa = dsa;
+
+    // Get shared control structure from DSA handle
+    tree->ctl = dsa_get_address(dsa, handle);
+
+    // Verify magic number for validity
+    Assert(tree->ctl->magic == RT_RADIX_TREE_MAGIC);
+
+    // Create iteration context for this backend
+    tree->iter_context = AllocSetContextCreate(CurrentMemoryContext,
+                                               RT_STR(RT_PREFIX) " iteration context",
+                                               ALLOCSET_SMALL_SIZES);
+
+    return tree;
+}
+```

@@ -56,3 +56,85 @@ The function is typically called after a foreign server has been archived to ens
 - User mappings are sorted by username for consistent output
 - Each user mapping gets its own archive entry with proper tagging and dependency relationships
 - The function handles proper memory management with multiple PQExpBuffer objects for different purposes (query, create statement, drop statement, tag)
+
+## Simplified Source
+
+```c
+static void
+dumpUserMappings(Archive *fout,
+                 const char *servername, const char *namespace,
+                 const char *owner,
+                 CatalogId catalogId, DumpId dumpId)
+{
+    PQExpBuffer q, delq, query, tag;
+    PGresult *res;
+    int ntups, i;
+
+    // Initialize buffers
+    q = createPQExpBuffer();
+    tag = createPQExpBuffer();
+    delq = createPQExpBuffer();
+    query = createPQExpBuffer();
+
+    // Query user mappings from public view for non-superuser compatibility
+    appendPQExpBuffer(query,
+                      "SELECT usename, "
+                      "array_to_string(ARRAY("
+                      "SELECT quote_ident(option_name) || ' ' || "
+                      "quote_literal(option_value) "
+                      "FROM pg_options_to_table(umoptions) "
+                      "ORDER BY option_name"
+                      "), E',\\n    ') AS umoptions "
+                      "FROM pg_user_mappings "
+                      "WHERE srvid = '%u' "
+                      "ORDER BY usename",
+                      catalogId.oid);
+
+    res = ExecuteSqlQuery(fout, query->data, PGRES_TUPLES_OK);
+    ntups = PQntuples(res);
+    int i_usename = PQfnumber(res, "usename");
+    int i_umoptions = PQfnumber(res, "umoptions");
+
+    // Generate CREATE USER MAPPING statements for each mapping
+    for (i = 0; i < ntups; i++) {
+        char *usename = PQgetvalue(res, i, i_usename);
+        char *umoptions = PQgetvalue(res, i, i_umoptions);
+
+        // Build CREATE statement
+        resetPQExpBuffer(q);
+        appendPQExpBuffer(q, "CREATE USER MAPPING FOR %s", fmtId(usename));
+        appendPQExpBuffer(q, " SERVER %s", fmtId(servername));
+
+        // Add options if present
+        if (umoptions && strlen(umoptions) > 0)
+            appendPQExpBuffer(q, " OPTIONS (\n    %s\n)", umoptions);
+
+        appendPQExpBufferStr(q, ";\n");
+
+        // Build DROP statement
+        resetPQExpBuffer(delq);
+        appendPQExpBuffer(delq, "DROP USER MAPPING FOR %s", fmtId(usename));
+        appendPQExpBuffer(delq, " SERVER %s;\n", fmtId(servername));
+
+        // Create tag for archive entry
+        resetPQExpBuffer(tag);
+        appendPQExpBuffer(tag, "USER MAPPING %s SERVER %s", usename, servername);
+
+        // Create archive entry for this user mapping
+        ArchiveEntry(fout, nilCatalogId, createDumpId(),
+                     ARCHIVE_OPTS(.tag = tag->data,
+                                  .namespace = namespace,
+                                  .owner = owner,
+                                  .description = "USER MAPPING",
+                                  .createStmt = q->data,
+                                  .dropStmt = delq->data));
+    }
+
+    // Cleanup
+    PQclear(res);
+    destroyPQExpBuffer(query);
+    destroyPQExpBuffer(delq);
+    destroyPQExpBuffer(tag);
+    destroyPQExpBuffer(q);
+}
+```

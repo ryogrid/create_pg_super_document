@@ -53,3 +53,43 @@ The function uses PostgreSQL's set-returning function (SRF) infrastructure to re
 - The function returns 6 columns: name, statement, is_holdable, is_binary, is_scrollable, creation_time
 - Portals without source text are excluded, which filters out incomplete or internal portals
 - The function is defined in src/backend/utils/mmgr/portalmem.c:1131-1170
+
+## Simplified Source
+
+```c
+Datum
+pg_cursor(PG_FUNCTION_ARGS)
+{
+    ReturnSetInfo *rsinfo = (ReturnSetInfo *) fcinfo->resultinfo;
+    HASH_SEQ_STATUS hash_seq;
+    PortalHashEnt *hentry;
+
+    // Initialize result set for returning multiple rows
+    InitMaterializedSRF(fcinfo, 0);
+
+    // Scan through all portals in the hash table
+    hash_seq_init(&hash_seq, PortalHashTable);
+    while ((hentry = hash_seq_search(&hash_seq)) != NULL)
+    {
+        Portal portal = hentry->portal;
+        Datum values[6];
+        bool nulls[6] = {0};
+
+        // Skip invisible portals and those without source text
+        if (!portal->visible || !portal->sourceText)
+            continue;
+
+        // Build result tuple with cursor information
+        values[0] = CStringGetTextDatum(portal->name);
+        values[1] = CStringGetTextDatum(portal->sourceText);
+        values[2] = BoolGetDatum(portal->cursorOptions & CURSOR_OPT_HOLD);
+        values[3] = BoolGetDatum(portal->cursorOptions & CURSOR_OPT_BINARY);
+        values[4] = BoolGetDatum(portal->cursorOptions & CURSOR_OPT_SCROLL);
+        values[5] = TimestampTzGetDatum(portal->creation_time);
+
+        tuplestore_putvalues(rsinfo->setResult, rsinfo->setDesc, values, nulls);
+    }
+
+    return (Datum) 0;
+}
+```

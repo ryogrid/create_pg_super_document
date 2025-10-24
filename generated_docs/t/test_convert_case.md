@@ -41,3 +41,20 @@ The function delegates the actual testing to , which performs comprehensive vali
 - The third test case (ȺȺȺ → ⱥⱥⱥ) is particularly important as it tests Unicode characters where the lowercase form has different UTF-8 byte representation
 - Part of PostgreSQL's comprehensive Unicode case conversion testing infrastructure
 - Success message indicates all underlying  validations passed without errors
+
+## Simplified Source
+
+```c
+static void test_convert_case() {
+    // Test string with no case changes (mathematical symbols)
+    test_strlower("√∞", "√∞");
+
+    // Test string with basic ASCII case changes
+    test_strlower("ABC", "abc");
+
+    // Test string with Unicode case changes affecting byte length
+    test_strlower("ȺȺȺ", "ⱥⱥⱥ");
+
+    printf("case_test: convert_case: success\n");
+}
+```

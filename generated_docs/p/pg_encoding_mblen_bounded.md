@@ -34,3 +34,13 @@ The function is particularly useful when dealing with multibyte character encodi
 - The function effectively implements: `strnlen(mbstr, pg_encoding_mblen(encoding, mbstr))`
 - For non-zero-terminated input, consider using `pg_encoding_mblen_or_incomplete()` with explicit length limits
 - Part of PostgreSQL's character encoding handling infrastructure in the common utilities
+
+## Simplified Source
+
+```c
+int pg_encoding_mblen_bounded(int encoding, const char *mbstr) {
+    // Get theoretical character length, but limit to actual string length
+    // This prevents reading beyond the null terminator
+    return strnlen(mbstr, pg_encoding_mblen(encoding, mbstr));
+}
+```

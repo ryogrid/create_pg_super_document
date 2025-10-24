@@ -29,3 +29,11 @@ This function is part of PostgreSQL's destination receiver infrastructure and se
 - Part of the dummy DestReceiver functions suite alongside donothingReceive and donothingCleanup
 - Has an empty function body, performing no actual startup operations
 - Commonly used in testing scenarios or when destination receiver startup is not needed
+
+## Simplified Source
+
+```c
+static void donothingStartup(DestReceiver *self, int operation, TupleDesc typeinfo) {
+    // No-operation startup function - empty implementation
+}
+```

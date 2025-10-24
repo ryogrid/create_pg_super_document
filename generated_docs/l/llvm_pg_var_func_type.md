@@ -37,3 +37,20 @@ The function ensures type safety by verifying that the requested function exists
 - Throws ERROR if the requested function is not found in llvmjit_types.c
 - Used extensively in expression compilation and tuple deformation JIT code
 - Part of PostgreSQL's LLVM JIT compilation infrastructure
+
+## Simplified Source
+
+```c
+LLVMTypeRef
+llvm_pg_var_func_type(const char *varname)
+{
+    // Look up function by name in types module
+    LLVMValueRef v_srcvar = LLVMGetNamedFunction(llvm_types_module, varname);
+    if (!v_srcvar) {
+        elog(ERROR, "function %s not in llvmjit_types.c", varname);
+    }
+
+    // Extract and return the function type
+    return LLVMGetFunctionType(v_srcvar);
+}
+```

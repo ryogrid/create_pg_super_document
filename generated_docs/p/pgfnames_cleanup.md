@@ -29,3 +29,17 @@ The  function is a companion to  that properly deallocates all memory allocated 
 - Uses PostgreSQL's pfree memory management function
 - Safe to call even if some strings in the array are NULL
 - The function handles the complete cleanup of both individual strings and the array structure
+
+## Simplified Source
+
+```c
+void pgfnames_cleanup(char **filenames) {
+    // Free each filename string
+    for (char **fn = filenames; *fn; fn++) {
+        pfree(*fn);
+    }
+
+    // Free the array itself
+    pfree(filenames);
+}
+```

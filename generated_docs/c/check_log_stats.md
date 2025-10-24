@@ -39,3 +39,19 @@ This works in conjunction with check_stage_log_stats to ensure that statement-le
 - Returns true if validation passes, false if the configuration conflicts with existing stage-specific logging
 - Part of the legacy logging statistics system with limited production usage
 - Provides detailed error messages listing all conflicting parameters when validation fails
+
+## Simplified Source
+
+```c
+bool check_log_stats(bool *newval, void **extra, GucSource source) {
+    // Prevent enabling statement stats when stage-specific stats are already enabled
+    if (*newval && (log_parser_stats || log_planner_stats || log_executor_stats)) {
+        GUC_check_errdetail("Cannot enable \"log_statement_stats\" when "
+                           "\"log_parser_stats\", \"log_planner_stats\", "
+                           "or \"log_executor_stats\" is true.");
+        return false;
+    }
+
+    return true;
+}
+```

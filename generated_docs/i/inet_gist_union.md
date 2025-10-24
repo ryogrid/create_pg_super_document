@@ -42,3 +42,35 @@ The resulting union key maintains GiST's requirement that all child values must 
 - Mixed address families result in a family-neutral union key (family = 0)
 - The function ensures the containment property required by GiST: union(A,B) contains both A and B
 - Used during internal index node construction and page splitting operations
+
+## Simplified Source
+
+```c
+Datum
+inet_gist_union(PG_FUNCTION_ARGS)
+{
+    GistEntryVector *entryvec = (GistEntryVector *) PG_GETARG_POINTER(0);
+    GISTENTRY *ent = entryvec->vector;
+    int minfamily, maxfamily, minbits, commonbits;
+    unsigned char *addr;
+    GistInetKey *tmp, *result;
+
+    // Calculate union parameters from all input keys
+    calc_inet_union_params(ent, 0, entryvec->n - 1,
+                           &minfamily, &maxfamily,
+                           &minbits, &commonbits);
+
+    // Mixed families use family number 0
+    if (minfamily != maxfamily)
+        minfamily = 0;
+
+    // Get address from first key for bit copying
+    tmp = DatumGetInetKeyP(ent[0].key);
+    addr = gk_ip_addr(tmp);
+
+    // Build the union key
+    result = build_inet_union_key(minfamily, minbits, commonbits, addr);
+
+    PG_RETURN_POINTER(result);
+}
+```

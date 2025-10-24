@@ -45,3 +45,22 @@ This comprehensive approach ensures proper word boundary detection across all Un
 - Includes connector punctuation like underscore (_) which is traditionally considered part of word characters
 - [Join](../J/Join.md) control characters are included for proper handling of complex scripts
 - Used for regex word boundary detection and text processing operations
+
+## Simplified Source
+
+```c
+bool pg_u_isword(pg_wchar code) {
+    // Get the character's general category mask
+    uint32 category_mask = PG_U_CATEGORY_MASK(unicode_category(code));
+
+    // Word character includes:
+    // - Mark characters (combining marks, spacing marks, enclosing marks)
+    // - Decimal numbers
+    // - Connector punctuation (like underscore)
+    // - Alphabetic characters
+    // - Join control characters (for complex scripts)
+    return category_mask & (PG_U_M_MASK | PG_U_ND_MASK | PG_U_PC_MASK) ||
+           pg_u_isalpha(code) ||
+           pg_u_prop_join_control(code);
+}
+```

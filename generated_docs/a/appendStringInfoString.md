@@ -31,3 +31,12 @@ The function internally delegates to appendBinaryStringInfo, first calculating t
 - Automatically handles buffer expansion if the current buffer is too small
 - The input string must be null-terminated for strlen() to work correctly
 - More efficient than appendStringInfo when no format specifiers are needed
+
+## Simplified Source
+
+```c
+void appendStringInfoString(StringInfo str, const char *s) {
+    // Append the string by calculating its length and delegating to binary append
+    appendBinaryStringInfo(str, s, strlen(s));
+}
+```

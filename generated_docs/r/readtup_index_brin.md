@@ -47,3 +47,31 @@ The deserialized tuple is integrated into the sorting framework by setting the S
 - The datum1 field is set to the block number (bt_blkno) for efficient tuple comparison
 - The function integrates seamlessly with PostgreSQL's external sorting infrastructure
 - Proper error handling is implicit through LogicalTapeReadExact which will error on insufficient data
+
+## Simplified Source
+
+```c
+static void readtup_index_brin(Tuplesortstate *state, SortTuple *stup,
+                              LogicalTape *tape, unsigned int len) {
+    // Calculate actual tuple length (excluding length field)
+    unsigned int tuplen = len - sizeof(unsigned int);
+
+    // Allocate memory for BRIN tuple structure
+    BrinSortTuple *tuple = (BrinSortTuple *) tuplesort_readtup_alloc(state,
+                                                BRINSORTTUPLE_SIZE(tuplen));
+    tuple->tuplen = tuplen;
+
+    // Read tuple data from tape
+    LogicalTapeReadExact(tape, &tuple->tuple, tuplen);
+
+    // Read trailing length if random access enabled
+    TuplesortPublic *base = TuplesortstateGetPublic(state);
+    if (base->sortopt & TUPLESORT_RANDOMACCESS) {
+        LogicalTapeReadExact(tape, &tuplen, sizeof(tuplen));
+    }
+
+    // Set up tuple for sorting (block number as primary key)
+    stup->tuple = (void *) tuple;
+    stup->datum1 = tuple->tuple.bt_blkno;
+}
+```

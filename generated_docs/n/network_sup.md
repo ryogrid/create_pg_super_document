@@ -39,3 +39,25 @@ This function performs a boolean network containment test to determine if the fi
 - This is the logical inverse of network_sub: A >> B is equivalent to B << A
 - For example: '192.168.0.0/16' >> '192.168.1.0/24' returns true
 - Used to test if a broader network contains a more specific subnet
+
+## Simplified Source
+
+```c
+Datum network_sup(PG_FUNCTION_ARGS) {
+    // Extract two inet/cidr network addresses from function arguments
+    inet *a1 = PG_GETARG_INET_PP(0);
+    inet *a2 = PG_GETARG_INET_PP(1);
+
+    // Only compare networks of the same IP family (IPv4 or IPv6)
+    if (ip_family(a1) == ip_family(a2)) {
+        // Check if a1 is a strict supernet of a2:
+        // - a1 must have fewer network bits than a2 (less specific)
+        // - a2's network portion must match a1's when masked by a1's netmask
+        return PG_RETURN_BOOL(ip_bits(a1) < ip_bits(a2) &&
+                              bitncmp(ip_addr(a1), ip_addr(a2), ip_bits(a1)) == 0);
+    }
+
+    // Different IP families - no containment possible
+    return PG_RETURN_BOOL(false);
+}
+```

@@ -39,3 +39,27 @@ The function resets all allocation tracking counters and repositions the free po
 - Essential for block reuse strategy in generation memory contexts
 - Conditional compilation supports different debugging and security modes
 - Enables efficient memory recycling without system malloc/free overhead
+
+## Simplified Source
+
+```c
+static inline void
+GenerationBlockMarkEmpty(GenerationBlock *block)
+{
+#if defined(USE_VALGRIND) || defined(CLOBBER_FREED_MEMORY)
+    char *datastart = ((char *) block) + Generation_BLOCKHDRSZ;
+#endif
+
+    // Clear/mark memory for debugging tools
+#ifdef CLOBBER_FREED_MEMORY
+    wipe_mem(datastart, block->freeptr - datastart);
+#else
+    VALGRIND_MAKE_MEM_NOACCESS(datastart, block->freeptr - datastart);
+#endif
+
+    // Reset block to empty state without freeing memory
+    block->nchunks = 0;
+    block->nfree = 0;
+    block->freeptr = ((char *) block) + Generation_BLOCKHDRSZ;
+}
+```

@@ -30,3 +30,15 @@ This function saves the current query buffer length in the topmost entry of a co
 - The function includes an assertion that prevents operation on empty stacks
 - [Query](../Q/Query.md) length tracking is essential for proper state restoration during conditional command processing
 - Located in src/fe_utils/conditional.c:151-161
+
+## Simplified Source
+
+```c
+void conditional_stack_set_query_len(ConditionalStack cstack, int len) {
+    // Ensure stack is not empty (debug assertion)
+    Assert(!conditional_stack_empty(cstack));
+
+    // Store query length in top element
+    cstack->head->query_len = len;
+}
+```

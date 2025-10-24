@@ -35,3 +35,17 @@ If validation fails on an unsupported platform, the function provides an error m
 - Returns true if validation passes, false if the configuration is invalid for the current platform
 - The function prevents configuration of connection checking on platforms without proper support
 - Related to PostgreSQL's ability to detect disconnected clients during long-running operations
+
+## Simplified Source
+
+```c
+bool check_client_connection_check_interval(int *newval, void **extra, GucSource source) {
+    // Validate that connection checking is only enabled on supported platforms
+    if (!WaitEventSetCanReportClosed() && *newval != 0) {
+        GUC_check_errdetail("\"client_connection_check_interval\" must be set to 0 on this platform.");
+        return false;
+    }
+
+    return true;
+}
+```

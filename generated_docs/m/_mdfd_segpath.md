@@ -38,3 +38,22 @@ The function first obtains the base path using relpath() and then appends the se
 - Segment files are numbered starting from 1 (.1, .2, .3, etc.)
 - This function is essential for the MD storage manager's file segmentation scheme
 - The segmentation helps work around filesystem size limitations and improves performance
+
+## Simplified Source
+
+```c
+static char *_mdfd_segpath(SMgrRelation reln, ForkNumber forknum, BlockNumber segno) {
+    // Get base path for the relation fork
+    char *path = relpath(reln->smgr_rlocator, forknum);
+
+    // Add segment number suffix if not the primary segment
+    if (segno > 0) {
+        char *fullpath = psprintf("%s.%u", path, segno);
+        pfree(path);
+        return fullpath;
+    }
+
+    // Return base path for primary segment (no suffix)
+    return path;
+}
+```

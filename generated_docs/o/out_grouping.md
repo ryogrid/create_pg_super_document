@@ -41,3 +41,28 @@ The function uses the same bitmask approach as `in_grouping` but with inverted l
 - Character position (z->c) is incremented for each non-matching character when repeat is enabled
 - Commonly used for skipping over consonants to find vowels, or vice versa, in region marking algorithms
 - Essential for identifying syllable and morphological boundaries in various languages
+
+## Simplified Source
+
+```c
+extern int out_grouping(struct SN_env * z, const unsigned char * s, int min, int max, int repeat) {
+    do {
+        int ch;
+
+        // Check if we've reached the end of string
+        if (z->c >= z->l) return -1;
+
+        // Get character at current position
+        ch = z->p[z->c];
+
+        // Check if character is IN the grouping (opposite of in_grouping)
+        if (!(ch > max || (ch -= min) < 0 || (s[ch >> 3] & (0X1 << (ch & 0X7))) == 0))
+            return 1;  // Character is in grouping (fail condition)
+
+        // Move forward in string
+        z->c++;
+    } while (repeat);  // Continue if repeat is enabled
+
+    return 0;  // All characters were outside grouping
+}
+```

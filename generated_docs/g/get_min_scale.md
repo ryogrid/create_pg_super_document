@@ -36,3 +36,42 @@ The `get_min_scale` function determines the minimum number of decimal places nee
 - Uses modulo arithmetic to detect trailing zeros within individual NumericDigit groups
 - Essential for implementing scale trimming and minimum scale detection operations
 - Located in src/backend/utils/adt/numeric.c:4152-4202
+
+## Simplified Source
+
+```c
+static int
+get_min_scale(NumericVar *var)
+{
+    int min_scale;
+    int last_digit_pos;
+
+    // Find the last non-zero digit position
+    last_digit_pos = var->ndigits - 1;
+    while (last_digit_pos >= 0 && var->digits[last_digit_pos] == 0)
+        last_digit_pos--;
+
+    if (last_digit_pos >= 0)
+    {
+        // Calculate minimum scale based on position after decimal point
+        min_scale = (last_digit_pos - var->weight) * DEC_DIGITS;
+
+        if (min_scale > 0)
+        {
+            // Remove trailing zeros from the last digit
+            NumericDigit last_digit = var->digits[last_digit_pos];
+            while (last_digit % 10 == 0)
+            {
+                min_scale--;
+                last_digit /= 10;
+            }
+        }
+        else
+            min_scale = 0;  // No digits after decimal point
+    }
+    else
+        min_scale = 0;      // Input is zero
+
+    return min_scale;
+}
+```

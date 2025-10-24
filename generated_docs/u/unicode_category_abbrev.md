@@ -32,3 +32,47 @@ This function provides the official Unicode two-character abbreviation for Unico
 - Falls back to "??" for invalid inputs in non-debug builds
 - Used in text processing, regular expressions, and Unicode compliance operations
 - Provides a compact representation suitable for logging, debugging, and algorithmic processing
+
+## Simplified Source
+
+```c
+const char *unicode_category_abbrev(pg_unicode_category category) {
+    // Map Unicode category enum to two-character abbreviation
+    switch (category) {
+        case PG_U_UNASSIGNED:            return "Cn";
+        case PG_U_UPPERCASE_LETTER:      return "Lu";
+        case PG_U_LOWERCASE_LETTER:      return "Ll";
+        case PG_U_TITLECASE_LETTER:      return "Lt";
+        case PG_U_MODIFIER_LETTER:       return "Lm";
+        case PG_U_OTHER_LETTER:          return "Lo";
+        case PG_U_NONSPACING_MARK:       return "Mn";
+        case PG_U_ENCLOSING_MARK:        return "Me";
+        case PG_U_SPACING_MARK:          return "Mc";
+        case PG_U_DECIMAL_NUMBER:        return "Nd";
+        case PG_U_LETTER_NUMBER:         return "Nl";
+        case PG_U_OTHER_NUMBER:          return "No";
+        case PG_U_SPACE_SEPARATOR:       return "Zs";
+        case PG_U_LINE_SEPARATOR:        return "Zl";
+        case PG_U_PARAGRAPH_SEPARATOR:   return "Zp";
+        case PG_U_CONTROL:               return "Cc";
+        case PG_U_FORMAT:                return "Cf";
+        case PG_U_PRIVATE_USE:           return "Co";
+        case PG_U_SURROGATE:             return "Cs";
+        case PG_U_DASH_PUNCTUATION:      return "Pd";
+        case PG_U_OPEN_PUNCTUATION:      return "Ps";
+        case PG_U_CLOSE_PUNCTUATION:     return "Pe";
+        case PG_U_CONNECTOR_PUNCTUATION: return "Pc";
+        case PG_U_OTHER_PUNCTUATION:     return "Po";
+        case PG_U_MATH_SYMBOL:           return "Sm";
+        case PG_U_CURRENCY_SYMBOL:       return "Sc";
+        case PG_U_MODIFIER_SYMBOL:       return "Sk";
+        case PG_U_OTHER_SYMBOL:          return "So";
+        case PG_U_INITIAL_PUNCTUATION:   return "Pi";
+        case PG_U_FINAL_PUNCTUATION:     return "Pf";
+    }
+
+    // Should never reach here with valid input
+    Assert(false);
+    return "??";
+}
+```

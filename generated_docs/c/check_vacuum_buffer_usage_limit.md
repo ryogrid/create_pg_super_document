@@ -37,3 +37,22 @@ The function implements a dual validation logic: it accepts a value of 0 (which 
 - Uses GUC_check_errdetail to provide user-friendly error messages when validation fails
 - This is part of PostgreSQL's configuration validation infrastructure, ensuring system stability by preventing invalid buffer size configurations
 - The function follows the standard GUC check function signature pattern used throughout PostgreSQL
+
+## Simplified Source
+
+```c
+bool check_vacuum_buffer_usage_limit(int *newval, void **extra, GucSource source) {
+    // Accept 0 (unlimited) or values within valid ring size range
+    if (*newval == 0 ||
+        (*newval >= MIN_BAS_VAC_RING_SIZE_KB &&
+         *newval <= MAX_BAS_VAC_RING_SIZE_KB)) {
+        return true;
+    }
+
+    // Provide helpful error message for invalid values
+    GUC_check_errdetail("\"vacuum_buffer_usage_limit\" must be 0 or between %d kB and %d kB",
+                        MIN_BAS_VAC_RING_SIZE_KB, MAX_BAS_VAC_RING_SIZE_KB);
+
+    return false;
+}
+```

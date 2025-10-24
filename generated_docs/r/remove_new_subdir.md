@@ -37,3 +37,22 @@ The function provides user feedback through prep_status() and includes error han
 - Error handling ensures that pg_upgrade fails cleanly if directory deletion is unsuccessful
 - The function is typically called as a preparation step before copying replacement data from the old cluster
 - Common subdirectories that might be removed include pg_xact, pg_multixact, and other transaction-related directories
+
+## Simplified Source
+
+```c
+static void remove_new_subdir(const char *subdir, bool rmtopdir) {
+    char new_path[MAXPGPATH];
+
+    prep_status("Deleting files from new %s", subdir);
+
+    // Build full path to target directory
+    snprintf(new_path, sizeof(new_path), "%s/%s", new_cluster.pgdata, subdir);
+
+    // Remove directory and its contents
+    if (!rmtree(new_path, rmtopdir))
+        pg_fatal("could not delete directory \"%s\"", new_path);
+
+    check_ok();
+}
+```

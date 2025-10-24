@@ -60,3 +60,58 @@ Key design considerations:
 - Memory corruption detection through sentinels helps identify buffer overruns
 - Different validation approaches for external vs internal chunks balance safety with performance
 - The allocate-copy-free approach ensures proper integration with the Generation allocator's block management strategy
+
+## Simplified Source
+
+```c
+void *GenerationRealloc(void *pointer, Size size, int flags) {
+    MemoryChunk *chunk = PointerGetMemoryChunk(pointer);
+    GenerationContext *set;
+    GenerationBlock *block;
+    Size oldsize;
+
+    // Get the block containing this chunk
+    if (MemoryChunkIsExternal(chunk)) {
+        block = ExternalChunkGetBlock(chunk);
+        if (!GenerationBlockIsValid(block))
+            elog(ERROR, "could not find block containing chunk %p", chunk);
+        oldsize = block->endptr - (char *) pointer;
+    } else {
+        block = MemoryChunkGetBlock(chunk);
+        Assert(GenerationBlockIsValid(block));
+        oldsize = MemoryChunkGetValue(chunk);
+    }
+
+    set = block->context;
+
+    // Check for memory corruption in debug builds
+    #ifdef MEMORY_CONTEXT_CHECKING
+    if (!sentinel_ok(pointer, chunk->requested_size))
+        elog(WARNING, "detected write past chunk end in %s %p",
+             ((MemoryContext) set)->name, chunk);
+    #endif
+
+    // If existing chunk is big enough, reuse it
+    if (oldsize >= size) {
+        #ifdef MEMORY_CONTEXT_CHECKING
+        chunk->requested_size = size;
+        set_sentinel(pointer, size);
+        #endif
+        return pointer;
+    }
+
+    // Allocate new chunk and copy data
+    void *newPointer = GenerationAlloc((MemoryContext) set, size, flags);
+    if (newPointer == NULL)
+        return MemoryContextAllocationFailure((MemoryContext) set, size, flags);
+
+    // Copy old data and free old chunk
+    #ifdef MEMORY_CONTEXT_CHECKING
+    oldsize = chunk->requested_size;
+    #endif
+    memcpy(newPointer, pointer, oldsize);
+    GenerationFree(pointer);
+
+    return newPointer;
+}
+```

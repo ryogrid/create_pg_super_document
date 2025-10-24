@@ -32,3 +32,12 @@ This mechanism prevents snapshot reference leaks by ensuring that all registered
 - Registered with RESOURCE_RELEASE_AFTER_LOCKS phase and RELEASE_PRIO_SNAPSHOT_REFS priority
 - Ensures snapshot references are properly cleaned up during transaction abort or other error conditions
 - Uses the standard resource owner callback interface with Datum parameter for type-safe resource tracking
+
+## Simplified Source
+
+```c
+static void ResOwnerReleaseSnapshot(Datum res) {
+    // Extract snapshot pointer from Datum and unregister it
+    UnregisterSnapshotNoOwner((Snapshot) DatumGetPointer(res));
+}
+```

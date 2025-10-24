@@ -39,3 +39,23 @@ This function is used internally by the larger planstate tree walker to handle b
 - Part of PostgreSQL's execution plan traversal infrastructure used for plan tree analysis and transformation
 - The function terminates early if any subplan walk returns true, following the standard early termination pattern
 - Located in src/backend/nodes/nodeFuncs.c:4760-4781
+
+## Simplified Source
+
+```c
+static bool planstate_walk_subplans(List *plans, planstate_tree_walker_callback walker,
+                                    void *context) {
+    ListCell *lc;
+
+    // Walk each SubPlanState in the list
+    foreach(lc, plans) {
+        SubPlanState *sps = lfirst_node(SubPlanState, lc);
+
+        // Recursively walk the subplan's planstate
+        if (PSWALK(sps->planstate))
+            return true;  // Early termination if walker returns true
+    }
+
+    return false;  // Continue walking
+}
+```

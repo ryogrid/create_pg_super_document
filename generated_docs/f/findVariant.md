@@ -37,3 +37,60 @@ The  function implements a complex algorithm to find lexeme variants that match 
 - Validates substitution compatibility using  for both stored and input lexemes
 - This is a static function, only used internally within the thesaurus dictionary module
 - The algorithm ensures that all input words participate in the same substitution rule
+
+## Simplified Source
+
+```c
+static LexemeInfo *
+findVariant(LexemeInfo *in, LexemeInfo *stored, uint16 curpos, LexemeInfo **newin, int newn)
+{
+    for (;;)
+    {
+        // Find minimum substitution ID across all input arrays
+        LexemeInfo *ptr = newin[0];
+
+        for (int i = 0; i < newn; i++)
+        {
+            // Advance each array to find matching substitution IDs
+            while (newin[i] && newin[i]->idsubst < ptr->idsubst)
+                newin[i] = newin[i]->nextentry;
+
+            if (newin[i] == NULL)
+                return in;  // End of any array means we're done
+
+            // Update pointer to minimum ID found so far
+            if (newin[i]->idsubst > ptr->idsubst)
+            {
+                ptr = newin[i];
+                i = -1;  // Restart comparison
+                continue;
+            }
+
+            // Look for exact match with current position and variant count
+            while (newin[i]->idsubst == ptr->idsubst)
+            {
+                if (newin[i]->posinsubst == curpos && newin[i]->tnvariant == newn)
+                {
+                    ptr = newin[i];
+                    break;
+                }
+                newin[i] = newin[i]->nextentry;
+                if (newin[i] == NULL)
+                    return in;
+            }
+        }
+
+        // If we found a valid variant, add it to result list
+        if (matchIdSubst(stored, ptr->idsubst) &&
+            (in == NULL || !matchIdSubst(in, ptr->idsubst)))
+        {
+            ptr->nextvariant = in;
+            in = ptr;
+        }
+
+        // Advance all arrays to continue search
+        for (int i = 0; i < newn; i++)
+            newin[i] = newin[i]->nextentry;
+    }
+}
+```

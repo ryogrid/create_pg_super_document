@@ -48,3 +48,24 @@ This equality test is crucial for GiST operations such as detecting duplicate ke
 - All fields must match exactly for the keys to be considered identical - partial matches return false
 - Used internally by GiST algorithms for tree balancing, deduplication, and consistency checks
 - File location: src/backend/utils/adt/network_gist.c:797-810
+
+## Simplified Source
+
+```c
+Datum
+inet_gist_same(PG_FUNCTION_ARGS)
+{
+    GistInetKey *left = DatumGetInetKeyP(PG_GETARG_DATUM(0));
+    GistInetKey *right = DatumGetInetKeyP(PG_GETARG_DATUM(1));
+    bool *result = (bool *) PG_GETARG_POINTER(2);
+
+    // Compare all components for exact equality
+    *result = (gk_ip_family(left) == gk_ip_family(right) &&
+               gk_ip_minbits(left) == gk_ip_minbits(right) &&
+               gk_ip_commonbits(left) == gk_ip_commonbits(right) &&
+               memcmp(gk_ip_addr(left), gk_ip_addr(right),
+                      gk_ip_addrsize(left)) == 0);
+
+    PG_RETURN_POINTER(result);
+}
+```

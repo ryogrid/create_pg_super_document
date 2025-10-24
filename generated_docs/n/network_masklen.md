@@ -34,3 +34,14 @@ The network_masklen function is a simple utility that extracts the netmask lengt
 - Works with both inet and cidr data types since they share the same internal structure
 - Useful for network operations that need to know the subnet size or perform CIDR calculations
 - The returned value represents the number of '1' bits in the netmask (e.g., 255.255.255.0 = /24)
+
+## Simplified Source
+
+```c
+Datum network_masklen(PG_FUNCTION_ARGS) {
+    inet *ip = PG_GETARG_INET_PP(0);  // Extract inet/cidr value
+
+    // Return the netmask length (number of network bits)
+    PG_RETURN_INT32(ip_bits(ip));
+}
+```

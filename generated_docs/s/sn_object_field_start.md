@@ -33,3 +33,29 @@ This function is a critical component of the JSON null-stripping functionality i
 
 ## Notes and Other Information
 This function implements a sophisticated null-handling strategy by setting the `skip_next_null` flag when a field value is null, allowing the subsequent scalar handler to skip null values. The function must re-escape field names because the original quoted and escaped form is not available at this stage. The comma insertion logic ensures proper JSON object syntax by checking if the previous character is an opening brace `{` to determine if this is the first field.
+
+## Simplified Source
+
+```c
+static JsonParseErrorType
+sn_object_field_start(void *state, char *fname, bool isnull)
+{
+    StripnullState *_state = (StripnullState *) state;
+
+    // Handle null field values - mark to skip the next null
+    if (isnull) {
+        _state->skip_next_null = true;
+        return JSON_SUCCESS;
+    }
+
+    // Add comma separator if not the first field
+    if (_state->strval->data[_state->strval->len - 1] != '{')
+        appendStringInfoCharMacro(_state->strval, ',');
+
+    // Add escaped field name and colon separator
+    escape_json(_state->strval, fname);
+    appendStringInfoCharMacro(_state->strval, ':');
+
+    return JSON_SUCCESS;
+}
+```

@@ -43,3 +43,28 @@ Like its forward counterpart, it uses inverted logic - returning 1 when a charac
 - Uses the same inverted condition as `out_grouping`: `!(ch > max || (ch -= min) < 0 || (s[ch >> 3] & (0X1 << (ch & 0X7))) == 0)`
 - Essential for backward pattern matching in suffix analysis, particularly for identifying vowel/consonant boundaries when processing word endings
 - Commonly used in stemming rules that need to move backward from suffixes to find appropriate stem boundaries
+
+## Simplified Source
+
+```c
+extern int out_grouping_b(struct SN_env * z, const unsigned char * s, int min, int max, int repeat) {
+    do {
+        // Check if we've reached the left boundary
+        if (z->c <= z->lb) return -1;
+
+        // Get character at current position - 1 (moving backward)
+        int ch = z->p[z->c - 1];
+
+        // Check if character is in the grouping (using bitmask)
+        // If character is in grouping, return 1 (found match)
+        if (!(ch > max || (ch -= min) < 0 || (s[ch >> 3] & (0X1 << (ch & 0X7))) == 0))
+            return 1;
+
+        // Move backward one position
+        z->c--;
+    } while (repeat);
+
+    // Successfully stayed outside grouping
+    return 0;
+}
+```

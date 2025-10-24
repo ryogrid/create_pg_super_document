@@ -30,3 +30,15 @@ The cmpaliases function serves as a comparison callback for the qsort() library 
 - The function follows the standard qsort comparator contract: returns negative if a < b, zero if a == b, positive if a > b
 - Only compares the localename field as the comment indicates other fields are derived from it
 - Part of PostgreSQL's collation management system for importing system locale information
+
+## Simplified Source
+
+```c
+static int cmpaliases(const void *a, const void *b) {
+    const CollAliasData *ca = (const CollAliasData *) a;
+    const CollAliasData *cb = (const CollAliasData *) b;
+
+    // Compare locale names (other fields are derived from this)
+    return strcmp(ca->localename, cb->localename);
+}
+```

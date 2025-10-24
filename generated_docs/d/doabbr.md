@@ -50,3 +50,58 @@ The function intelligently handles the daylight saving time context, selecting a
 - Supports the '%z' format specifier for generating offset-based abbreviations
 - Used extensively in timezone processing to generate human-readable timezone names
 - The function ensures proper null termination of all generated strings
+
+## Simplified Source
+
+```c
+static size_t doabbr(char *abbr, struct zone const *zp, char const *letters,
+                     bool isdst, zic_t save, bool doquotes) {
+    char *slashp;
+    size_t len;
+    char const *format = zp->z_format;
+
+    // Check if format contains slash (e.g., "EST/EDT")
+    slashp = strchr(format, '/');
+
+    if (slashp == NULL) {
+        // Simple format - substitute letters
+        if (zp->z_format_specifier == 'z') {
+            // Generate numeric offset abbreviation
+            char letterbuf[PERCENT_Z_LEN_BOUND + 1];
+            letters = abbroffset(letterbuf, zp->z_stdoff + save);
+        } else if (!letters) {
+            letters = "%s";
+        }
+        sprintf(abbr, format, letters);
+    } else {
+        // Slash-separated format - choose part based on DST
+        if (isdst) {
+            strcpy(abbr, slashp + 1);  // Use part after slash for DST
+        } else {
+            // Use part before slash for standard time
+            memcpy(abbr, format, slashp - format);
+            abbr[slashp - format] = '\0';
+        }
+    }
+
+    len = strlen(abbr);
+
+    // Add angle brackets if needed for non-alphabetic abbreviations
+    if (doquotes) {
+        char *cp;
+        for (cp = abbr; is_alpha(*cp); cp++)
+            continue;
+
+        if (len > 0 && *cp != '\0') {
+            // Non-alphabetic content found, add quotes
+            memmove(abbr + 1, abbr, len);
+            abbr[0] = '<';
+            abbr[len + 1] = '>';
+            abbr[len + 2] = '\0';
+            return len + 2;
+        }
+    }
+
+    return len;
+}
+```

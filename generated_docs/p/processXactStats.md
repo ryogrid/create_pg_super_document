@@ -41,3 +41,44 @@ This function is responsible for collecting and processing transaction statistic
 - Updates multiple statistics levels: thread-level, client-level, and optionally per-script level
 - Contains a note about potential mutex usage for per-script stats but chooses not to use one
 - The function comment notes that even skipped and failed transactions are counted in the client's transaction count
+
+## Simplified Source
+
+```c
+static void processXactStats(TState *thread, CState *st, pg_time_usec_t *now,
+                            bool skipped, StatsData *agg) {
+    double latency = 0.0, lag = 0.0;
+    bool detailed = progress || throttle_delay || latency_limit ||
+                   use_log || per_script_stats;
+
+    // Calculate latency and lag for successful, non-skipped transactions
+    if (detailed && !skipped && st->estatus == ESTATUS_NO_ERROR) {
+        pg_time_now_lazy(now);
+
+        // Latency: time from scheduled start to completion
+        latency = (*now) - st->txn_scheduled;
+
+        // Lag: delay between intended and actual start time
+        lag = st->txn_begin - st->txn_scheduled;
+    }
+
+    // Accumulate statistics at thread level
+    accumStats(&thread->stats, skipped, latency, lag, st->estatus, st->tries);
+
+    // Track transactions exceeding latency limit
+    if (latency_limit && latency > latency_limit)
+        thread->latency_late++;
+
+    // Increment client transaction counter
+    st->cnt++;
+
+    // Trigger logging if enabled
+    if (use_log)
+        doLog(thread, st, agg, skipped, latency, lag);
+
+    // Accumulate per-script statistics if enabled
+    if (per_script_stats)
+        accumStats(&sql_script[st->use_file].stats, skipped, latency, lag,
+                  st->estatus, st->tries);
+}
+```

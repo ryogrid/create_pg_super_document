@@ -53,3 +53,60 @@ The function is designed to optimize memory usage patterns commonly found in Pos
 - Block validation differs between external and internal chunks for performance reasons
 - Memory corruption detection through sentinel values helps identify buffer overruns in debug builds
 - The function never actually frees keeper blocks, which are allocated as part of the context structure
+
+## Simplified Source
+
+```c
+void
+GenerationFree(void *pointer)
+{
+    MemoryChunk *chunk = PointerGetMemoryChunk(pointer);
+    GenerationBlock *block;
+    GenerationContext *set;
+
+    // Determine if chunk is external or internal and get block
+    if (MemoryChunkIsExternal(chunk))
+    {
+        block = ExternalChunkGetBlock(chunk);
+        if (!GenerationBlockIsValid(block))
+            elog(ERROR, "could not find block containing chunk %p", chunk);
+    }
+    else
+    {
+        block = MemoryChunkGetBlock(chunk);
+        Assert(GenerationBlockIsValid(block));
+    }
+
+    // Perform memory safety checks (if debugging enabled)
+    #ifdef MEMORY_CONTEXT_CHECKING
+        // Check for corruption and reset chunk metadata
+        if (!sentinel_ok(pointer, chunk->requested_size))
+            elog(WARNING, "detected write past chunk end in %s %p",
+                 ((MemoryContext) block->context)->name, chunk);
+        chunk->requested_size = InvalidAllocSize;
+    #endif
+
+    // Update block's free chunk counter
+    block->nfree += 1;
+
+    // If block still has allocated chunks, we're done
+    if (likely(block->nfree < block->nchunks))
+        return;
+
+    // Block is now empty - decide what to do with it
+    set = block->context;
+
+    if (IsKeeperBlock(set, block) || set->block == block)
+        // Case 1 & 2: Keeper or current block - just mark empty
+        GenerationBlockMarkEmpty(block);
+    else if (set->freeblock == NULL)
+    {
+        // Case 3: Keep as freeblock to avoid malloc/free cycles
+        GenerationBlockMarkEmpty(block);
+        set->freeblock = block;
+    }
+    else
+        // Otherwise, actually free the block
+        GenerationBlockFree(set, block);
+}
+```

@@ -37,3 +37,30 @@ The function uses critical sections on Windows to ensure thread safety during th
 - Carefully sets cancelConn to NULL before freeing the old connection to prevent race conditions with signal handlers
 - Part of the frontend utilities cancel mechanism, typically used by PostgreSQL client tools to enable query cancellation via Ctrl+C
 - The global cancelConn variable is used by signal handlers like handle_sigint to cancel running queries
+
+## Simplified Source
+
+```c
+void SetCancelConn(PGconn *conn) {
+    PGcancel *oldCancelConn;
+
+#ifdef WIN32
+    EnterCriticalSection(&cancelConnLock);
+#endif
+
+    // Save old connection and temporarily set to NULL for thread safety
+    oldCancelConn = cancelConn;
+    cancelConn = NULL;
+
+    // Free old cancel connection if it exists
+    if (oldCancelConn != NULL)
+        PQfreeCancel(oldCancelConn);
+
+    // Set new cancel connection
+    cancelConn = PQgetCancel(conn);
+
+#ifdef WIN32
+    LeaveCriticalSection(&cancelConnLock);
+#endif
+}
+```

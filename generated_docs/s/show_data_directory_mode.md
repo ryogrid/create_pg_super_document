@@ -36,3 +36,17 @@ The function uses a static buffer to store the formatted string, which is safe i
 - File permissions in PostgreSQL typically use values like 0700 (owner read/write/execute only) for security
 - The octal display format aligns with standard Unix/Linux file permission conventions
 - This is one of several show hooks that exist specifically to format numeric values in more user-friendly ways
+
+## Simplified Source
+
+```c
+const char *
+show_data_directory_mode(void)
+{
+    static char buf[12];
+
+    // Format permission mode as 4-digit octal (e.g., "0700")
+    snprintf(buf, sizeof(buf), "%04o", data_directory_mode);
+    return buf;
+}
+```

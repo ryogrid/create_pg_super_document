@@ -34,3 +34,20 @@ This function implements the getsomeattrs callback for heap tuple table slots wi
 - Only extracts attributes up to the requested count, allowing for efficient partial tuple access
 - The actual deforming logic is handled by slot_deform_heap_tuple for code reuse
 - Critical for query execution performance when only subset of attributes are needed
+
+## Simplified Source
+
+```c
+static void
+tts_heap_getsomeattrs(TupleTableSlot *slot, int natts)
+{
+    // Cast to specific heap slot type
+    HeapTupleTableSlot *hslot = (HeapTupleTableSlot *) slot;
+
+    // Ensure slot contains valid data
+    Assert(!TTS_EMPTY(slot));
+
+    // Extract the requested number of attributes from heap tuple
+    slot_deform_heap_tuple(slot, hslot->tuple, &hslot->off, natts);
+}
+```

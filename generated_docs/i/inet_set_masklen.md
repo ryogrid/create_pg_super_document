@@ -43,3 +43,32 @@ The function accepts an INET address and an integer specifying the desired netma
 - Creates a full copy of the input INET structure to avoid modifying the original data
 - Example: `set_masklen(192.168.1.100/16, 24)` results in 192.168.1.100/24
 - Located in src/backend/utils/adt/network.c:324-347
+
+## Simplified Source
+
+```c
+Datum
+inet_set_masklen(PG_FUNCTION_ARGS)
+{
+    inet *src = PG_GETARG_INET_PP(0);
+    int bits = PG_GETARG_INT32(1);
+    inet *dst;
+
+    // Handle special case: -1 means maximum possible netmask
+    if (bits == -1)
+        bits = ip_maxbits(src);
+
+    // Validate netmask length is within bounds
+    if ((bits < 0) || (bits > ip_maxbits(src)))
+        ereport(ERROR, /* invalid mask length error */);
+
+    // Create a copy of the original inet structure
+    dst = (inet *) palloc(VARSIZE_ANY(src));
+    memcpy(dst, src, VARSIZE_ANY(src));
+
+    // Update only the netmask length field
+    ip_bits(dst) = bits;
+
+    PG_RETURN_INET_P(dst);
+}
+```

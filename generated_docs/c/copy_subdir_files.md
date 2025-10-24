@@ -45,3 +45,32 @@ The copy operation preserves the directory structure and file permissions from t
 - Commonly used to copy critical directories like pg_xact, pg_multixact, and other transaction state directories
 - The function assumes both source and destination parent directories already exist
 - File permissions and timestamps are typically preserved by the underlying copy commands
+
+## Simplified Source
+
+```c
+static void copy_subdir_files(const char *old_subdir, const char *new_subdir) {
+    char old_path[MAXPGPATH];
+    char new_path[MAXPGPATH];
+
+    // Clean target directory first
+    remove_new_subdir(new_subdir, true);
+
+    // Build source and destination paths
+    snprintf(old_path, sizeof(old_path), "%s/%s", old_cluster.pgdata, old_subdir);
+    snprintf(new_path, sizeof(new_path), "%s/%s", new_cluster.pgdata, new_subdir);
+
+    prep_status("Copying old %s to new server", old_subdir);
+
+    // Execute platform-specific copy command
+    exec_prog(UTILITY_LOG_FILE, NULL, true, true,
+#ifndef WIN32
+              "cp -Rf \"%s\" \"%s\"",        // Unix/Linux recursive copy
+#else
+              "xcopy /e /y /q /r \"%s\" \"%s\\\"",  // Windows copy
+#endif
+              old_path, new_path);
+
+    check_ok();
+}
+```

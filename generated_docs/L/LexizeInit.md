@@ -34,3 +34,26 @@ The function ensures that all pointer fields are properly nullified and counters
 - Critical initialization step before any text parsing operations
 - Ensures clean state by zeroing all tracking variables and pointers
 - Part of PostgreSQL's full-text search subsystem infrastructure
+
+## Simplified Source
+
+```c
+static void
+LexizeInit(LexizeData *ld, TSConfigCacheEntry *cfg)
+{
+    // Set configuration reference
+    ld->cfg = cfg;
+
+    // Initialize dictionary tracking
+    ld->curDictId = InvalidOid;
+    ld->posDict = 0;
+
+    // Clear work queues and processing state
+    ld->towork.head = ld->towork.tail = ld->curSub = NULL;
+    ld->waste.head = ld->waste.tail = NULL;
+
+    // Clear result tracking
+    ld->lastRes = NULL;
+    ld->tmpRes = NULL;
+}
+```

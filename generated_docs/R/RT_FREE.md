@@ -45,3 +45,34 @@ The function ensures complete memory cleanup and helps prevent memory leaks by p
 - After calling RT_FREE, the tree pointer should not be used again
 - The function is designed to be safe even if called multiple times (though not recommended)
 - Part of PostgreSQL's generic radix tree implementation located in src/include/lib/radixtree.h:176
+
+## Simplified Source
+
+```c
+// Macro that expands to: RT_PREFIX_free
+#define RT_FREE RT_MAKE_NAME(free)
+
+// Generated function (simplified logic):
+RT_SCOPE void RT_FREE(RT_RADIX_TREE *tree) {
+#ifdef RT_SHMEM
+    // Shared memory mode: free all nodes recursively
+    Assert(tree->ctl->magic == RT_RADIX_TREE_MAGIC);
+
+    // Recursively free all nodes in the tree
+    if (tree->ctl->root != RT_INVALID_PTR_ALLOC) {
+        RT_FREE_RECURSE(tree, tree->ctl->root, 0);
+    }
+
+    // Vandalize control block and free DSA handle
+    tree->ctl->magic = 0;
+    dsa_free(tree->dsa, tree->ctl_handle);
+
+    // Clean up iteration context and tree structure
+    MemoryContextDelete(tree->iter_context);
+    pfree(tree);
+#else
+    // Regular mode: reset memory context to free all allocations
+    MemoryContextReset(tree->context);
+#endif
+}
+```

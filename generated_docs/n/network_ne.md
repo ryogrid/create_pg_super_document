@@ -44,3 +44,16 @@ This function uses PostgreSQL's function call convention :
 - Network family differences (IPv4 vs IPv6) will result in inequality
 - Uses PostgreSQL's standard function calling convention with  and  return type
 - This is the logical opposite of the network equality operator
+
+## Simplified Source
+
+```c
+Datum network_ne(PG_FUNCTION_ARGS) {
+    // Extract two inet/cidr network addresses from function arguments
+    inet *a1 = PG_GETARG_INET_PP(0);
+    inet *a2 = PG_GETARG_INET_PP(1);
+
+    // Compare networks and return true if they are not equal
+    return PG_RETURN_BOOL(network_cmp_internal(a1, a2) != 0);
+}
+```

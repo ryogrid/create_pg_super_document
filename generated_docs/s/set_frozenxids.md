@@ -47,3 +47,90 @@ The function connects to each database in the cluster and updates the system cat
 - Temporarily modifies datallowconn for databases that normally don't allow connections (like template0) to perform necessary updates
 - Uses the old cluster's checkpoint next XID and multixact ID values as the baseline for the new cluster
 - Critical for preventing transaction ID wraparound issues in the upgraded cluster
+
+## Simplified Source
+
+```c
+static void set_frozenxids(bool minmxid_only) {
+    int dbnum;
+    PGconn *conn, *conn_template1;
+    PGresult *dbres;
+    int ntups, i_datname, i_datallowconn;
+
+    if (!minmxid_only)
+        prep_status("Setting frozenxid and minmxid counters in new cluster");
+    else
+        prep_status("Setting minmxid counter in new cluster");
+
+    // Connect to template1 database
+    conn_template1 = connectToServer(&new_cluster, "template1");
+
+    if (!minmxid_only) {
+        // Set pg_database.datfrozenxid for all databases
+        PQclear(executeQueryOrDie(conn_template1,
+                                 "UPDATE pg_catalog.pg_database "
+                                 "SET datfrozenxid = '%u'",
+                                 old_cluster.controldata.chkpnt_nxtxid));
+    }
+
+    // Set pg_database.datminmxid for all databases
+    PQclear(executeQueryOrDie(conn_template1,
+                             "UPDATE pg_catalog.pg_database "
+                             "SET datminmxid = '%u'",
+                             old_cluster.controldata.chkpnt_nxtmulti));
+
+    // Get list of all databases
+    dbres = executeQueryOrDie(conn_template1,
+                             "SELECT datname, datallowconn "
+                             "FROM pg_catalog.pg_database");
+
+    i_datname = PQfnumber(dbres, "datname");
+    i_datallowconn = PQfnumber(dbres, "datallowconn");
+
+    // Process each database
+    ntups = PQntuples(dbres);
+    for (dbnum = 0; dbnum < ntups; dbnum++) {
+        char *datname = PQgetvalue(dbres, dbnum, i_datname);
+        char *datallowconn = PQgetvalue(dbres, dbnum, i_datallowconn);
+
+        // Temporarily enable connections for databases that don't allow them
+        if (strcmp(datallowconn, "f") == 0) {
+            PQclear(executeQueryOrDie(conn_template1,
+                                     "ALTER DATABASE %s ALLOW_CONNECTIONS = true",
+                                     quote_identifier(datname)));
+        }
+
+        // Connect to the database
+        conn = connectToServer(&new_cluster, datname);
+
+        if (!minmxid_only) {
+            // Update relfrozenxid for vacuumable relation types
+            PQclear(executeQueryOrDie(conn,
+                                     "UPDATE pg_catalog.pg_class "
+                                     "SET relfrozenxid = '%u' "
+                                     "WHERE relkind IN ('r', 'm', 't')",  // heap, matview, toast
+                                     old_cluster.controldata.chkpnt_nxtxid));
+        }
+
+        // Update relminmxid for vacuumable relation types
+        PQclear(executeQueryOrDie(conn,
+                                 "UPDATE pg_catalog.pg_class "
+                                 "SET relminmxid = '%u' "
+                                 "WHERE relkind IN ('r', 'm', 't')",  // heap, matview, toast
+                                 old_cluster.controldata.chkpnt_nxtmulti));
+
+        PQfinish(conn);
+
+        // Restore original datallowconn setting
+        if (strcmp(datallowconn, "f") == 0) {
+            PQclear(executeQueryOrDie(conn_template1,
+                                     "ALTER DATABASE %s ALLOW_CONNECTIONS = false",
+                                     quote_identifier(datname)));
+        }
+    }
+
+    PQclear(dbres);
+    PQfinish(conn_template1);
+    check_ok();
+}
+```

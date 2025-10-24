@@ -41,3 +41,29 @@ This ordering strategy optimizes I/O performance by:
 - The hierarchical ordering ensures predictable and efficient write patterns during checkpoints
 - Equal page IDs are rare but possible, handled by returning 0
 - Used primarily in qsort operations to organize the checkpoint write order
+
+## Simplified Source
+
+```c
+static inline int ckpt_buforder_comparator(const CkptSortItem *a, const CkptSortItem *b)
+{
+    // Compare tablespace ID first (for load balancing)
+    if (a->tsId != b->tsId)
+        return (a->tsId < b->tsId) ? -1 : 1;
+
+    // Compare relation number
+    if (a->relNumber != b->relNumber)
+        return (a->relNumber < b->relNumber) ? -1 : 1;
+
+    // Compare fork number
+    if (a->forkNum != b->forkNum)
+        return (a->forkNum < b->forkNum) ? -1 : 1;
+
+    // Compare block number
+    if (a->blockNum != b->blockNum)
+        return (a->blockNum < b->blockNum) ? -1 : 1;
+
+    // Equal page IDs
+    return 0;
+}
+```

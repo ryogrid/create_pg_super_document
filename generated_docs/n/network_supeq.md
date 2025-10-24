@@ -42,3 +42,22 @@ If the networks belong to different IP families, the function returns false as c
 - Cross-family comparisons (IPv4 vs IPv6) always return false
 - The containment logic requires the supernet to have a prefix length less than or equal to the subnet
 - Used internally by PostgreSQL's network operator system for INET comparisons
+
+## Simplified Source
+
+```c
+Datum network_supeq(PG_FUNCTION_ARGS) {
+    inet *a1 = PG_GETARG_INET_PP(0);  // First network (potential supernet)
+    inet *a2 = PG_GETARG_INET_PP(1);  // Second network (potential subnet)
+
+    // Check if both networks are same IP family (IPv4 or IPv6)
+    if (ip_family(a1) == ip_family(a2)) {
+        // Supernet check: first prefix <= second prefix AND addresses match
+        PG_RETURN_BOOL(ip_bits(a1) <= ip_bits(a2) &&
+                       bitncmp(ip_addr(a1), ip_addr(a2), ip_bits(a1)) == 0);
+    }
+
+    // Different IP families cannot have containment relationship
+    PG_RETURN_BOOL(false);
+}
+```

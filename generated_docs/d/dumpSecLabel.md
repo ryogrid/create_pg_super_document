@@ -59,3 +59,76 @@ The function queries the internal security label storage using  and generates SE
 - Multiple security label providers can label the same object, each generating separate SECURITY LABEL statements
 - The subid parameter allows fine-grained labeling of object components (though this is primarily used for future extensibility)
 - Labels are properly escaped and quoted using  to handle special characters safely
+
+## Simplified Source
+
+```c
+static void
+dumpSecLabel(Archive *fout, const char *type, const char *name,
+             const char *namespace, const char *owner,
+             CatalogId catalogId, int subid, DumpId dumpId)
+{
+    DumpOptions *dopt = fout->dopt;
+    SecLabelItem *labels;
+    int nlabels, i;
+    PQExpBuffer query;
+
+    // Skip if --no-security-labels is specified
+    if (dopt->no_security_labels)
+        return;
+
+    // Handle schema vs data classification for different object types
+    if (strcmp(type, "LARGE OBJECT") != 0) {
+        if (dopt->dataOnly)
+            return;
+    } else {
+        // Large object labels are data, skip in schema-only mode
+        if (dopt->schemaOnly && !dopt->binary_upgrade)
+            return;
+    }
+
+    // Find all security labels for this object
+    nlabels = findSecLabels(catalogId.tableoid, catalogId.oid, &labels);
+
+    query = createPQExpBuffer();
+
+    // Generate SECURITY LABEL statements for each matching label
+    for (i = 0; i < nlabels; i++) {
+        // Skip labels that don't match the subid
+        if (labels[i].objsubid != subid)
+            continue;
+
+        // Build SECURITY LABEL FOR statement
+        appendPQExpBuffer(query,
+                          "SECURITY LABEL FOR %s ON %s ",
+                          fmtId(labels[i].provider), type);
+
+        // Add namespace qualification if present
+        if (namespace && *namespace)
+            appendPQExpBuffer(query, "%s.", fmtId(namespace));
+
+        appendPQExpBuffer(query, "%s IS ", name);
+        appendStringLiteralAH(query, labels[i].label, fout);
+        appendPQExpBufferStr(query, ";\n");
+    }
+
+    // Create archive entry if any labels were found
+    if (query->len > 0) {
+        PQExpBuffer tag = createPQExpBuffer();
+
+        appendPQExpBuffer(tag, "%s %s", type, name);
+        ArchiveEntry(fout, nilCatalogId, createDumpId(),
+                     ARCHIVE_OPTS(.tag = tag->data,
+                                  .namespace = namespace,
+                                  .owner = owner,
+                                  .description = "SECURITY LABEL",
+                                  .section = SECTION_NONE,
+                                  .createStmt = query->data,
+                                  .deps = &dumpId,
+                                  .nDeps = 1));
+        destroyPQExpBuffer(tag);
+    }
+
+    destroyPQExpBuffer(query);
+}
+```

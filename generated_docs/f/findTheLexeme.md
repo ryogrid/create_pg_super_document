@@ -33,3 +33,27 @@ The  function performs a binary search lookup on the thesaurus dictionary's sort
 - The function assumes that  array is properly sorted for binary search to work correctly
 - This is a static function, only used internally within the thesaurus dictionary module
 - The returned  pointer provides access to the lexeme's substitution patterns and variants
+
+## Simplified Source
+
+```c
+static LexemeInfo *findTheLexeme(DictThesaurus *d, char *lexeme) {
+    // Check if dictionary has words
+    if (d->nwrds == 0)
+        return NULL;
+
+    // Create search key with target lexeme
+    TheLexeme key;
+    key.lexeme = lexeme;
+    key.entries = NULL;
+
+    // Binary search in sorted lexeme array
+    TheLexeme *res = bsearch(&key, d->wrds, d->nwrds,
+                            sizeof(TheLexeme), cmpLexemeQ);
+
+    // Return lexeme info if found, NULL otherwise
+    if (res == NULL)
+        return NULL;
+    return res->entries;
+}
+```

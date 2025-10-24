@@ -51,3 +51,15 @@ This function serves as a streamlined interface to dumpCommentExtended for cases
 - Marked as inline for performance optimization since it's just a simple wrapper
 - Does not handle initdb comments, making it suitable for user-created objects
 - Widely used throughout pg_dump for consistent comment dumping across different object types
+
+## Simplified Source
+
+```c
+static inline void dumpComment(Archive *fout, const char *type,
+                               const char *name, const char *namespace,
+                               const char *owner, CatalogId catalogId,
+                               int subid, DumpId dumpId) {
+    dumpCommentExtended(fout, type, name, namespace, owner,
+                        catalogId, subid, dumpId, NULL);
+}
+```

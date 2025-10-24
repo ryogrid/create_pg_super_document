@@ -48,3 +48,50 @@ This function is essential for generating syntactically correct view creation st
 - The Assert() statement ensures the assumption about semicolon presence is verified in debug builds
 - Part of the view dumping infrastructure that enables proper restoration of complex view definitions
 - Works across different PostgreSQL versions as pg_get_viewdef() is a stable system function
+
+## Simplified Source
+
+```c
+static PQExpBuffer
+createViewAsClause(Archive *fout, const TableInfo *tbinfo)
+{
+    PQExpBuffer query = createPQExpBuffer();
+    PQExpBuffer result = createPQExpBuffer();
+    PGresult *res;
+    int len;
+
+    // Fetch the view definition using pg_get_viewdef
+    appendPQExpBuffer(query,
+                      "SELECT pg_catalog.pg_get_viewdef('%u'::pg_catalog.oid) AS viewdef",
+                      tbinfo->dobj.catId.oid);
+
+    res = ExecuteSqlQuery(fout, query->data, PGRES_TUPLES_OK);
+
+    // Validate we got exactly one result
+    if (PQntuples(res) != 1)
+    {
+        if (PQntuples(res) < 1)
+            pg_fatal("query to obtain definition of view \"%s\" returned no data",
+                     tbinfo->dobj.name);
+        else
+            pg_fatal("query to obtain definition of view \"%s\" returned more than one definition",
+                     tbinfo->dobj.name);
+    }
+
+    len = PQgetlength(res, 0, 0);
+
+    // Validate view definition is not empty
+    if (len == 0)
+        pg_fatal("definition of view \"%s\" appears to be empty (length zero)",
+                 tbinfo->dobj.name);
+
+    // Strip off the trailing semicolon for additional clauses
+    Assert(PQgetvalue(res, 0, 0)[len - 1] == ';');
+    appendBinaryPQExpBuffer(result, PQgetvalue(res, 0, 0), len - 1);
+
+    PQclear(res);
+    destroyPQExpBuffer(query);
+
+    return result;
+}
+```

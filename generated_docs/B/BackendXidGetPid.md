@@ -39,3 +39,33 @@ Important limitations include that not every transaction has an assigned XID (re
 - Safe to use with XIDs found on disk, but caller must ensure query remains meaningful
 - The returned PID may become invalid if the transaction completes or process terminates
 - The function is declared in src/include/storage/procarray.h
+
+## Simplified Source
+
+```c
+int BackendXidGetPid(TransactionId xid) {
+    // Find PID of backend running transaction with given XID
+    int result = 0;
+    ProcArrayStruct *arrayP = procArray;
+    TransactionId *other_xids = ProcGlobal->xids;
+
+    if (xid == InvalidTransactionId)
+        return 0;
+
+    LWLockAcquire(ProcArrayLock, LW_SHARED);
+
+    // Search through active processes for matching XID
+    for (int index = 0; index < arrayP->numProcs; index++) {
+        if (other_xids[index] == xid) {
+            int pgprocno = arrayP->pgprocnos[index];
+            PGPROC *proc = &allProcs[pgprocno];
+            result = proc->pid;
+            break;
+        }
+    }
+
+    LWLockRelease(ProcArrayLock);
+
+    return result;
+}
+```

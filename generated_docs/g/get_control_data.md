@@ -157,3 +157,137 @@ Key validation includes:
 - Critical for upgrade compatibility checking as it provides the foundation data for comparing old and new clusters
 - The function includes extensive error checking and detailed reporting of missing control information
 - WAL filename construction differs between PostgreSQL versions, requiring version-specific logic
+
+## Simplified Source
+
+```c
+void get_control_data(ClusterInfo *cluster, bool live_check) {
+    char cmd[MAXPGPATH];
+    char bufin[MAX_STRING];
+    FILE *output;
+    char *p;
+
+    // Tracking variables for parsed control data
+    bool got_xid = false, got_oid = false, got_multi = false;
+    bool got_oldestxid = false, got_nextxlogfile = false;
+    bool got_float8_pass_by_value = false, got_align = false;
+    bool got_blocksz = false, got_walsz = false, got_walseg = false;
+    // ... additional tracking variables for other fields
+
+    // Set environment to English for reliable parsing
+    char *saved_locale_vars[8];  // Save current locale settings
+    // Save current locale environment variables
+    // Set LC_MESSAGES=C and unset other locale variables
+
+    // Check cluster shutdown state (for non-live checks)
+    if (!live_check || cluster == &new_cluster) {
+        snprintf(cmd, sizeof(cmd), "\"%s/pg_controldata\" \"%s\"",
+                cluster->bindir, cluster->pgdata);
+
+        output = popen(cmd, "r");
+        if (!output)
+            pg_fatal("could not get control data using %s", cmd);
+
+        // Parse output for database cluster state
+        while (fgets(bufin, sizeof(bufin), output)) {
+            if (strstr(bufin, "Database cluster state:")) {
+                // Extract and validate cluster state
+                // Must be "shut down", not "shut down in recovery"
+                // ... state validation logic
+            }
+        }
+        pclose(output);
+    }
+
+    // Main control data extraction
+    char *resetwal_bin = (GET_MAJOR_VERSION(cluster->bin_version) <= 906)
+                        ? "pg_resetxlog\" -n" : "pg_resetwal\" -n";
+
+    snprintf(cmd, sizeof(cmd), "\"%s/%s \"%s\"",
+            cluster->bindir,
+            live_check ? "pg_controldata\"" : resetwal_bin,
+            cluster->pgdata);
+
+    output = popen(cmd, "r");
+    if (!output)
+        pg_fatal("could not get control data using %s", cmd);
+
+    // Parse output line by line
+    while (fgets(bufin, sizeof(bufin), output)) {
+        pg_strip_crlf(bufin);
+
+        // Extract pg_control version
+        if ((p = strstr(bufin, "pg_control version number:")) != NULL) {
+            p = strchr(p, ':') + 1;
+            cluster->controldata.ctrl_ver = str2uint(p);
+        }
+        // Extract catalog version
+        else if ((p = strstr(bufin, "Catalog version number:")) != NULL) {
+            p = strchr(p, ':') + 1;
+            cluster->controldata.cat_ver = str2uint(p);
+        }
+        // Extract NextXID with version-specific delimiter handling
+        else if ((p = strstr(bufin, "Latest checkpoint's NextXID:")) != NULL) {
+            p = strchr(p, ':') + 1;
+            cluster->controldata.chkpnt_nxtepoch = str2uint(p);
+
+            // Handle version differences in delimiter ('/' vs ':')
+            p = (strchr(p, '/') != NULL) ? strchr(p, '/') : strchr(p, ':');
+            if (p) {
+                p++;
+                cluster->controldata.chkpnt_nxtxid = str2uint(p);
+                got_xid = true;
+            }
+        }
+        // Extract other checkpoint values (OID, MultiXact, etc.)
+        else if ((p = strstr(bufin, "Latest checkpoint's NextOID:")) != NULL) {
+            p = strchr(p, ':') + 1;
+            cluster->controldata.chkpnt_nxtoid = str2uint(p);
+            got_oid = true;
+        }
+        // ... similar parsing for other control data fields
+
+        // Extract configuration parameters
+        else if ((p = strstr(bufin, "Float8 argument passing:")) != NULL) {
+            p = strchr(p, ':') + 1;
+            cluster->controldata.float8_pass_by_value = (strstr(p, "by value") != NULL);
+            got_float8_pass_by_value = true;
+        }
+        else if ((p = strstr(bufin, "Database block size:")) != NULL) {
+            p = strchr(p, ':') + 1;
+            cluster->controldata.blocksz = str2uint(p);
+            got_blocksz = true;
+        }
+        // ... additional configuration parameter parsing
+    }
+
+    pclose(output);
+
+    // Restore environment variables
+    // ... restore saved locale settings
+
+    // Handle version differences for WAL filename construction
+    if (GET_MAJOR_VERSION(cluster->major_version) <= 902) {
+        // Older versions: construct WAL filename from separate components
+        if (got_tli && got_log_id && got_log_seg) {
+            snprintf(cluster->controldata.nextxlogfile, 25, "%08X%08X%08X",
+                    tli, logid, segno);
+            got_nextxlogfile = true;
+        }
+    }
+
+    // Verify all mandatory fields were found
+    if (!got_xid || !got_oid || !got_multi || !got_oldestxid ||
+        !got_float8_pass_by_value || !got_align || !got_blocksz ||
+        !got_walsz || !got_walseg || (!live_check && !got_nextxlogfile)) {
+
+        // Report missing fields in detail
+        pg_log(PG_REPORT, "Required control information missing:");
+        if (!got_xid) pg_log(PG_REPORT, "  checkpoint next XID");
+        if (!got_oid) pg_log(PG_REPORT, "  latest checkpoint next OID");
+        // ... report all missing fields
+
+        pg_fatal("Cannot continue without required control information");
+    }
+}
+```

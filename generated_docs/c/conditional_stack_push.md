@@ -37,3 +37,21 @@ This function creates a new conditional branch by pushing a new IfStackElem onto
 - Used when entering \if, \elif, or \else blocks in psql and pgbench scripts
 - The new state determines whether the current conditional block should execute or be ignored
 - Part of the nested conditional handling system that allows for complex conditional logic in frontend scripts
+
+## Simplified Source
+
+```c
+void conditional_stack_push(ConditionalStack cstack, ifState new_state) {
+    // Allocate new stack element
+    IfStackElem *elem = pg_malloc(sizeof(IfStackElem));
+
+    // Initialize the element
+    elem->if_state = new_state;
+    elem->query_len = -1;        // To be set later
+    elem->paren_depth = -1;      // To be set later
+
+    // Add to stack head (push operation)
+    elem->next = cstack->head;
+    cstack->head = elem;
+}
+```

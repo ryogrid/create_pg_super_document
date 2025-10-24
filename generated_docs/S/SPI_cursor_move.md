@@ -36,3 +36,18 @@ Like SPI_cursor_fetch, it wraps the internal _SPI_cursor_operation function but 
 - More efficient than fetching and discarding rows when you only need to change cursor position
 - Useful for implementing cursor navigation operations in procedural languages
 - The function will move fewer rows than requested if the cursor reaches the beginning or end
+
+## Simplified Source
+
+```c
+void SPI_cursor_move(Portal portal, bool forward, long count)
+{
+    // Move cursor position without retrieving data
+    // Forward movement uses FETCH_FORWARD, backward uses FETCH_BACKWARD
+    // None_Receiver discards any rows encountered during movement
+    _SPI_cursor_operation(portal,
+                          forward ? FETCH_FORWARD : FETCH_BACKWARD,
+                          count,
+                          None_Receiver);
+}
+```

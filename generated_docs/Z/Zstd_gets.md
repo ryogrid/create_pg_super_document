@@ -34,3 +34,31 @@ The function ensures proper null-termination of the resulting string and returns
 - Returns the original buffer pointer on success, NULL on failure/EOF
 - The function includes an Assert to ensure len > 0 for safety
 - Part of the compression abstraction layer in pg_dump utility
+
+## Simplified Source
+
+```c
+static char *
+Zstd_gets(char *buf, int len, CompressFileHandle *CFH)
+{
+    int i;
+
+    Assert(len > 0);
+
+    // Read byte-by-byte until newline or EOF
+    for (i = 0; i < len - 1; ++i) {
+        // Read one character (non-fatal mode)
+        if (Zstd_read_internal(&buf[i], 1, CFH, false) != 1)
+            break; // End of file
+
+        // Stop at newline
+        if (buf[i] == '\n') {
+            ++i;
+            break;
+        }
+    }
+
+    buf[i] = '\0';
+    return i > 0 ? buf : NULL;
+}
+```

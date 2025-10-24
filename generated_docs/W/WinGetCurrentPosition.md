@@ -34,3 +34,17 @@ This function provides a simple interface for window functions to determine the 
 - Essential for implementing ranking and numbering window functions
 - Validates WindowObject before accessing position information
 - Position starts at 0 for the first row in each partition
+
+## Simplified Source
+
+```c
+int64
+WinGetCurrentPosition(WindowObject winobj)
+{
+    // Ensure the window object is valid
+    Assert(WindowObjectIsValid(winobj));
+
+    // Return the current row position (0-based) within the partition
+    return winobj->winstate->currentpos;
+}
+```

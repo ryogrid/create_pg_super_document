@@ -41,3 +41,21 @@ The function is primarily useful for cases where you need basic type information
 - Primarily used in catalog validation and scenarios where limited type information is acceptable
 - Located in src/backend/utils/fmgr/funcapi.c at lines 410-429
 - Part of PostgreSQL's function manager API for basic function type introspection
+
+## Simplified Source
+
+```c
+TypeFuncClass
+get_func_result_type(Oid functionId,
+                     Oid *resultTypeId,
+                     TupleDesc *resultTupleDesc)
+{
+    // Simple wrapper that delegates to the main implementation
+    // with NULL context (no expression node or ReturnSetInfo)
+    return internal_get_result_type(functionId,
+                                    NULL,  // No expression context
+                                    NULL,  // No ReturnSetInfo
+                                    resultTypeId,
+                                    resultTupleDesc);
+}
+```

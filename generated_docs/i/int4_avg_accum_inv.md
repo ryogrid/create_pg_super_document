@@ -44,3 +44,31 @@ The function expects the same transition state format as int4_avg_accum - a 2-el
 - Validates transition array structure to ensure it contains expected Int8TransTypeData
 - Part of PostgreSQL's windowing aggregate framework for maintaining running averages in sliding windows
 - Allows removal of values from the aggregate state without recalculating from scratch
+
+## Simplified Source
+
+```c
+Datum int4_avg_accum_inv(PG_FUNCTION_ARGS) {
+    ArrayType *transarray;
+    int32 newval = PG_GETARG_INT32(1);
+    Int8TransTypeData *transdata;
+
+    // Optimize: modify in-place for aggregate context, copy otherwise
+    if (AggCheckCallContext(fcinfo, NULL))
+        transarray = PG_GETARG_ARRAYTYPE_P(0);
+    else
+        transarray = PG_GETARG_ARRAYTYPE_P_COPY(0);
+
+    // Validate transition array structure
+    if (ARR_HASNULL(transarray) ||
+        ARR_SIZE(transarray) != ARR_OVERHEAD_NONULLS(1) + sizeof(Int8TransTypeData))
+        elog(ERROR, "expected 2-element int8 array");
+
+    // Inverse operation: decrement count and subtract value from sum
+    transdata = (Int8TransTypeData *) ARR_DATA_PTR(transarray);
+    transdata->count--;
+    transdata->sum -= newval;
+
+    PG_RETURN_ARRAYTYPE_P(transarray);
+}
+```

@@ -36,3 +36,23 @@ The function uses the  macro to determine the byte length of the symbol string, 
 - Symbol strings in the Snowball library store their size as metadata accessible via the SIZE macro
 - Used extensively in UTF-8 language stemmers to ensure minimum word lengths before applying stemming rules
 - The function assumes the input string contains valid UTF-8 encoded data
+
+## Simplified Source
+
+```c
+extern int len_utf8(const symbol * p) {
+    int size = SIZE(p);  // Get byte length of string
+    int len = 0;         // Character count
+
+    // Count UTF-8 character start bytes
+    while (size--) {
+        symbol b = *p++;
+        // Count bytes that start UTF-8 characters
+        // (ASCII < 0x80 or start bytes >= 0xC0)
+        if (b >= 0xC0 || b < 0x80)
+            ++len;
+    }
+
+    return len;
+}
+```

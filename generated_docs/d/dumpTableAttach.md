@@ -55,3 +55,59 @@ The function handles the complete workflow: preparing the query (if not already 
 - Sets owner field to ensure commands run with correct privileges during restore
 - Creates separate ArchiveEntry for independent restoration control
 - Uses pg_get_expr() to retrieve the exact partition boundary expression from system catalogs
+
+## Simplified Source
+
+```c
+static void
+dumpTableAttach(Archive *fout, const TableAttachInfo *attachinfo)
+{
+    DumpOptions *dopt = fout->dopt;
+    PQExpBuffer q;
+    PGresult *res;
+    char *partbound;
+
+    // Skip if data-only dump
+    if (dopt->dataOnly)
+        return;
+
+    q = createPQExpBuffer();
+
+    // Set up prepared statement for partition bounds if not already done
+    if (!fout->is_prepared[PREPQUERY_DUMPTABLEATTACH])
+    {
+        appendPQExpBufferStr(q,
+                            "PREPARE dumpTableAttach(pg_catalog.oid) AS\n"
+                            "SELECT pg_get_expr(c.relpartbound, c.oid) "
+                            "FROM pg_class c WHERE c.oid = $1");
+
+        ExecuteSqlStatement(fout, q->data);
+        fout->is_prepared[PREPQUERY_DUMPTABLEATTACH] = true;
+    }
+
+    // Execute query to get partition boundary expression
+    printfPQExpBuffer(q, "EXECUTE dumpTableAttach('%u')",
+                     attachinfo->partitionTbl->dobj.catId.oid);
+
+    res = ExecuteSqlQueryForSingleRow(fout, q->data);
+    partbound = PQgetvalue(res, 0, 0);
+
+    // Generate ALTER TABLE ATTACH PARTITION command
+    printfPQExpBuffer(q, "ALTER TABLE ONLY %s ATTACH PARTITION %s %s;\n",
+                     fmtQualifiedDumpable(attachinfo->parentTbl),
+                     fmtQualifiedDumpable(attachinfo->partitionTbl),
+                     partbound);
+
+    // Create archive entry
+    ArchiveEntry(fout, attachinfo->dobj.catId, attachinfo->dobj.dumpId,
+                ARCHIVE_OPTS(.tag = attachinfo->dobj.name,
+                            .namespace = attachinfo->dobj.namespace->dobj.name,
+                            .owner = attachinfo->partitionTbl->rolname,
+                            .description = "TABLE ATTACH",
+                            .section = SECTION_PRE_DATA,
+                            .createStmt = q->data));
+
+    PQclear(res);
+    destroyPQExpBuffer(q);
+}
+```

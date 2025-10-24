@@ -34,3 +34,16 @@ The function serves as part of the compression abstraction layer, providing a un
 - Part of the compression abstraction layer that allows uniform EOF checking
 - The function signature matches the EOF interface pattern used across compression implementations
 - Does not perform any decompression or buffer management - purely checks the underlying file stream status
+
+## Simplified Source
+
+```c
+static bool
+Zstd_eof(CompressFileHandle *CFH)
+{
+    ZstdCompressorState *state = (ZstdCompressorState *) CFH->private_data;
+
+    // Check EOF status of underlying file stream
+    return feof(state->fp);
+}
+```

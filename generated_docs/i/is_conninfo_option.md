@@ -35,3 +35,23 @@ The function iterates through the `libpq_conninfo_options` array, which contains
 - The `libpq_conninfo_options` array is expected to be null-terminated (checked via `opt->optname`)
 - Returns false immediately if no matching option is found after checking all entries
 - Located in src/backend/foreign/foreign.c:601-624
+
+## Simplified Source
+
+```c
+static bool is_conninfo_option(const char *option, Oid context)
+{
+    const struct ConnectionOption *opt;
+
+    // Search through all libpq connection options
+    for (opt = libpq_conninfo_options; opt->optname; opt++)
+    {
+        // Check if both context and option name match
+        if (context == opt->optcontext && strcmp(opt->optname, option) == 0)
+            return true;
+    }
+
+    // Option not found
+    return false;
+}
+```

@@ -38,3 +38,36 @@ The  function is the core lexical analysis routine for PostgreSQL's simple dicti
 - Memory management includes proper cleanup with pfree() for rejected words
 - Part of PostgreSQL's text search dictionary framework
 - Located in src/backend/tsearch/dict_simple.c:75-105
+
+## Simplified Source
+
+```c
+Datum dsimple_lexize(PG_FUNCTION_ARGS) {
+    // Extract arguments
+    DictSimple *d = (DictSimple *) PG_GETARG_POINTER(0);
+    char *in = (char *) PG_GETARG_POINTER(1);
+    int32 len = PG_GETARG_INT32(2);
+
+    // Convert input to lowercase
+    char *txt = lowerstr_with_len(in, len);
+
+    // Check if empty or stopword
+    if (*txt == '\0' || searchstoplist(&(d->stoplist), txt)) {
+        // Reject as stopword - return empty lexeme array
+        pfree(txt);
+        TSLexeme *res = palloc0(sizeof(TSLexeme) * 2);
+        PG_RETURN_POINTER(res);
+    }
+    else if (d->accept) {
+        // Accept word - return it as lexeme
+        TSLexeme *res = palloc0(sizeof(TSLexeme) * 2);
+        res[0].lexeme = txt;
+        PG_RETURN_POINTER(res);
+    }
+    else {
+        // Dictionary doesn't accept - report as unrecognized
+        pfree(txt);
+        PG_RETURN_POINTER(NULL);
+    }
+}
+```

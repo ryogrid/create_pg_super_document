@@ -28,3 +28,13 @@ This function serves as the binary output routine for the pg_mcv_list data type 
 - MCV lists are stored internally as bytea values, making the delegation to byteasend appropriate
 - The function follows the standard PostgreSQL convention for type send functions
 - Located in src/backend/statistics/mcv.c:1523-1534
+
+## Simplified Source
+
+```c
+Datum pg_mcv_list_send(PG_FUNCTION_ARGS)
+{
+    // MCV lists are stored as bytea internally, so delegate to byteasend
+    return byteasend(fcinfo);
+}
+```

@@ -37,3 +37,22 @@ The function also increments the instrumentation counter for tracking the number
 - Previously used dots as separators but changed to underscores for better tool compatibility
 - Requires that context->module is not NULL (asserted)
 - Increments both the function counter and instrumentation tracking
+
+## Simplified Source
+
+```c
+char *
+llvm_expand_funcname(struct LLVMJitContext *context, const char *basename)
+{
+    Assert(context->module != NULL);
+
+    context->base.instr.created_functions++;
+
+    // Create unique name: basename_generation_counter
+    // Uses underscores instead of dots for debugger compatibility
+    return psprintf("%s_%zu_%d",
+                    basename,
+                    context->module_generation,
+                    context->counter++);
+}
+```

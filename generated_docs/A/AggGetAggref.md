@@ -33,3 +33,25 @@ This function provides a way for aggregate support functions (both transition an
 - Critical for ordered-set aggregates and other aggregate functions that need access to their Aggref configuration
 - The returned Aggref contains information about the aggregate's arguments, sorting requirements, and other execution parameters
 - Should not be used to access final-function-specific fields when called from transition functions due to aggregate merging
+
+## Simplified Source
+
+```c
+Aggref *AggGetAggref(FunctionCallInfo fcinfo)
+{
+    if (fcinfo->context && IsA(fcinfo->context, AggState))
+    {
+        AggState *aggstate = (AggState *) fcinfo->context;
+
+        // Check if called from final function
+        if (aggstate->curperagg)
+            return aggstate->curperagg->aggref;
+
+        // Check if called from transition function
+        if (aggstate->curpertrans)
+            return aggstate->curpertrans->aggref;
+    }
+
+    return NULL; // Not in aggregate context or no current aggregate
+}
+```

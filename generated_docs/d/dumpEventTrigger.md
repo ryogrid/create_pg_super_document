@@ -37,3 +37,90 @@ The  function generates SQL CREATE EVENT TRIGGER statements to restore PostgreSQ
 - Event triggers are database-wide objects (no namespace) but have owners
 - Supports binary upgrade mode for preserving extension membership
 - Uses NULL namespace in dumpComment call since event triggers are not schema-scoped objects
+
+## Simplified Source
+
+```c
+static void
+dumpEventTrigger(Archive *fout, const EventTriggerInfo *evtinfo)
+{
+    DumpOptions *dopt = fout->dopt;
+    PQExpBuffer query, delqry;
+    char *qevtname;
+
+    // Skip in data-only mode
+    if (dopt->dataOnly)
+        return;
+
+    query = createPQExpBuffer();
+    delqry = createPQExpBuffer();
+
+    qevtname = pg_strdup(fmtId(evtinfo->dobj.name));
+
+    // Build CREATE EVENT TRIGGER statement
+    appendPQExpBufferStr(query, "CREATE EVENT TRIGGER ");
+    appendPQExpBufferStr(query, qevtname);
+    appendPQExpBufferStr(query, " ON ");
+    appendPQExpBufferStr(query, fmtId(evtinfo->evtevent));
+
+    // Add optional WHEN TAG IN clause
+    if (strcmp("", evtinfo->evttags) != 0) {
+        appendPQExpBufferStr(query, "\n         WHEN TAG IN (");
+        appendPQExpBufferStr(query, evtinfo->evttags);
+        appendPQExpBufferChar(query, ')');
+    }
+
+    // Add EXECUTE FUNCTION clause
+    appendPQExpBufferStr(query, "\n   EXECUTE FUNCTION ");
+    appendPQExpBufferStr(query, evtinfo->evtfname);
+    appendPQExpBufferStr(query, "();\n");
+
+    // Handle non-default enabled states
+    if (evtinfo->evtenabled != 'O') {
+        appendPQExpBuffer(query, "\nALTER EVENT TRIGGER %s ", qevtname);
+        switch (evtinfo->evtenabled) {
+            case 'D':
+                appendPQExpBufferStr(query, "DISABLE");
+                break;
+            case 'A':
+                appendPQExpBufferStr(query, "ENABLE ALWAYS");
+                break;
+            case 'R':
+                appendPQExpBufferStr(query, "ENABLE REPLICA");
+                break;
+            default:
+                appendPQExpBufferStr(query, "ENABLE");
+                break;
+        }
+        appendPQExpBufferStr(query, ";\n");
+    }
+
+    // Build DROP statement
+    appendPQExpBuffer(delqry, "DROP EVENT TRIGGER %s;\n", qevtname);
+
+    // Handle binary upgrade extensions
+    if (dopt->binary_upgrade)
+        binary_upgrade_extension_member(query, &evtinfo->dobj,
+                                       "EVENT TRIGGER", qevtname, NULL);
+
+    // Create archive entry
+    if (evtinfo->dobj.dump & DUMP_COMPONENT_DEFINITION)
+        ArchiveEntry(fout, evtinfo->dobj.catId, evtinfo->dobj.dumpId,
+                   ARCHIVE_OPTS(.tag = evtinfo->dobj.name,
+                               .owner = evtinfo->evtowner,
+                               .description = "EVENT TRIGGER",
+                               .section = SECTION_POST_DATA,
+                               .createStmt = query->data,
+                               .dropStmt = delqry->data));
+
+    // Dump comments (no namespace for event triggers)
+    if (evtinfo->dobj.dump & DUMP_COMPONENT_COMMENT)
+        dumpComment(fout, "EVENT TRIGGER", qevtname,
+                   NULL, evtinfo->evtowner,
+                   evtinfo->dobj.catId, 0, evtinfo->dobj.dumpId);
+
+    destroyPQExpBuffer(query);
+    destroyPQExpBuffer(delqry);
+    free(qevtname);
+}
+```

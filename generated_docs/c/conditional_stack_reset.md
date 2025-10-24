@@ -30,3 +30,17 @@ This function removes and deallocates all elements from the conditional stack wi
 - After reset, the stack is empty but still valid and can be used for new conditional operations
 - More efficient than destroying and recreating the stack when you need to clear all conditionals
 - Commonly used when resetting the state between different script executions or after encountering errors
+
+## Simplified Source
+
+```c
+void conditional_stack_reset(ConditionalStack cstack) {
+    // Handle NULL pointer gracefully
+    if (!cstack)
+        return;
+
+    // Pop all elements until stack is empty
+    while (conditional_stack_pop(cstack))
+        continue;
+}
+```

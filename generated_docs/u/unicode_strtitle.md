@@ -44,3 +44,13 @@ The function uses a callback mechanism (wbnext) to identify word boundaries, whi
 - Uses PostgreSQL's internal Unicode case mapping table
 - Located in src/common/unicode_case.c:100-123
 - More complex than simple case conversion due to word boundary requirements
+
+## Simplified Source
+
+```c
+size_t unicode_strtitle(char *dst, size_t dstsize, const char *src, ssize_t srclen,
+                       WordBoundaryNext wbnext, void *wbstate) {
+    // Delegate to the general case conversion function with titlecase mode
+    return convert_case(dst, dstsize, src, srclen, CaseTitle, wbnext, wbstate);
+}
+```

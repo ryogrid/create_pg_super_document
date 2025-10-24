@@ -48,3 +48,84 @@ The resulting tree structure allows efficient traversal during affix matching, w
 - The ANHRDSZ constant defines the header size for AffixNode structures
 - Temporary affix array is allocated with tmpalloc and freed after use
 - Returns NULL if no characters are found at the current level, indicating end of tree branch
+
+## Simplified Source
+
+```c
+static AffixNode *
+mkANode(IspellDict *Conf, int low, int high, int level, int type)
+{
+    int nchar = 0;
+    uint8 lastchar = '\0';
+
+    // Count unique characters at current level
+    for (int i = low; i < high; i++)
+        if (Conf->Affix[i].replen > level &&
+            lastchar != GETCHAR(Conf->Affix + i, level, type))
+        {
+            nchar++;
+            lastchar = GETCHAR(Conf->Affix + i, level, type);
+        }
+
+    if (!nchar)
+        return NULL;
+
+    // Allocate node and initialize
+    AffixNode *rs = cpalloc0(ANHRDSZ + nchar * sizeof(AffixNodeData));
+    rs->length = nchar;
+    AffixNodeData *data = rs->data;
+
+    AFFIX **aff = tmpalloc(sizeof(AFFIX *) * (high - low + 1));
+    int naff = 0;
+    int lownew = low;
+
+    lastchar = '\0';
+
+    // Build tree structure level by level
+    for (int i = low; i < high; i++)
+        if (Conf->Affix[i].replen > level)
+        {
+            uint8 currentchar = GETCHAR(Conf->Affix + i, level, type);
+
+            // New character - create branch
+            if (lastchar != currentchar)
+            {
+                if (lastchar)
+                {
+                    // Recursively build next level
+                    data->node = mkANode(Conf, lownew, i, level + 1, type);
+
+                    // Store collected affixes for this branch
+                    if (naff)
+                    {
+                        data->naff = naff;
+                        data->aff = cpalloc(sizeof(AFFIX *) * naff);
+                        memcpy(data->aff, aff, sizeof(AFFIX *) * naff);
+                        naff = 0;
+                    }
+                    data++;
+                    lownew = i;
+                }
+                lastchar = currentchar;
+            }
+
+            data->val = currentchar;
+
+            // Affix ends at this level - collect it
+            if (Conf->Affix[i].replen == level + 1)
+                aff[naff++] = Conf->Affix + i;
+        }
+
+    // Handle final branch
+    data->node = mkANode(Conf, lownew, high, level + 1, type);
+    if (naff)
+    {
+        data->naff = naff;
+        data->aff = cpalloc(sizeof(AFFIX *) * naff);
+        memcpy(data->aff, aff, sizeof(AFFIX *) * naff);
+    }
+
+    pfree(aff);
+    return rs;
+}
+```

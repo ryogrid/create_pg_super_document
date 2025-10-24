@@ -30,3 +30,18 @@ This function is part of the TupleTableSlotOps implementation for MinimalTupleTa
 - The minhdr member serves as a HeapTuple header that points to the minimal tuple data
 - Located in src/backend/executor/execTuples.c:508-519
 - Essential for the abstraction that allows minimal tuples to be treated like heap tuples for attribute access
+
+## Simplified Source
+
+```c
+static void
+tts_minimal_init(TupleTableSlot *slot)
+{
+    // Cast to minimal tuple slot type
+    MinimalTupleTableSlot *mslot = (MinimalTupleTableSlot *) slot;
+
+    // Set up heap tuple pointer to access minimal tuple as heap tuple
+    // This enables unified attribute access methods
+    mslot->tuple = &mslot->minhdr;
+}
+```

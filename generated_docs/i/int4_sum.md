@@ -42,3 +42,41 @@ The function is non-strict and must handle null inputs explicitly. When called i
 - Only used in plain aggregation mode; moving-aggregate mode uses different functions
 - Despite being for integer types, it's located in numeric.c alongside other aggregation functions
 - Located in src/backend/utils/adt/numeric.c:6573-6624
+
+## Simplified Source
+
+```c
+Datum int4_sum(PG_FUNCTION_ARGS) {
+    int64 newval;
+
+    // Handle first non-null input (initial state is NULL)
+    if (PG_ARGISNULL(0)) {
+        if (PG_ARGISNULL(1))
+            PG_RETURN_NULL();  // No non-null values yet
+
+        // First non-null input becomes initial accumulator value
+        newval = (int64) PG_GETARG_INT32(1);
+        PG_RETURN_INT64(newval);
+    }
+
+    // Optimize for aggregate context: modify accumulator in-place
+    if (AggCheckCallContext(fcinfo, NULL)) {
+        int64 *oldsum = (int64 *) PG_GETARG_POINTER(0);
+
+        // Add new value to running sum (skip if null)
+        if (!PG_ARGISNULL(1))
+            *oldsum = *oldsum + (int64) PG_GETARG_INT32(1);
+
+        PG_RETURN_POINTER(oldsum);
+    }
+
+    // Non-aggregate context: return new sum value
+    int64 oldsum = PG_GETARG_INT64(0);
+
+    if (PG_ARGISNULL(1))
+        PG_RETURN_INT64(oldsum);  // Skip null inputs
+
+    newval = oldsum + (int64) PG_GETARG_INT32(1);
+    PG_RETURN_INT64(newval);
+}
+```

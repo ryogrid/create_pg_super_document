@@ -39,3 +39,46 @@ This function implements the writing mechanism for Zstd-compressed files by comp
 - Ensures all input data is consumed before returning, maintaining data integrity
 - The function integrates with PostgreSQL's error reporting system using pg_fatal()
 - Output buffer is allocated based on Zstd's recommended output size for optimal performance
+
+## Simplified Source
+
+```c
+static void
+Zstd_write(const void *ptr, size_t size, CompressFileHandle *CFH)
+{
+    ZstdCompressorState *state = (ZstdCompressorState *) CFH->private_data;
+    ZSTD_inBuffer *input = &state->input;
+    ZSTD_outBuffer *output = &state->output;
+
+    // Setup input buffer with data to compress
+    input->src = ptr;
+    input->size = size;
+    input->pos = 0;
+
+    // Initialize compression stream on first call
+    if (state->cstream == NULL) {
+        state->output.size = ZSTD_CStreamOutSize();
+        state->output.dst = pg_malloc0(state->output.size);
+        state->cstream = _ZstdCStreamParams(CFH->compression_spec);
+        if (state->cstream == NULL)
+            pg_fatal("could not initialize compression library");
+    }
+
+    // Compress all input data
+    while (input->pos != input->size) {
+        output->pos = 0;
+
+        // Compress data chunk
+        size_t result = ZSTD_compressStream2(state->cstream, output, input, ZSTD_e_continue);
+        if (ZSTD_isError(result))
+            pg_fatal("could not write to file: %s", ZSTD_getErrorName(result));
+
+        // Write compressed data to file
+        size_t bytes_written = fwrite(output->dst, 1, output->pos, state->fp);
+        if (bytes_written != output->pos) {
+            errno = (errno) ? errno : ENOSPC;
+            pg_fatal("could not write to file: %m");
+        }
+    }
+}
+```

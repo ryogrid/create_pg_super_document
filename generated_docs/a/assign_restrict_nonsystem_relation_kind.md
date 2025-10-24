@@ -29,3 +29,15 @@ This function serves as the assign hook for the  GUC parameter. It receives the 
 - The actual validation and parsing logic is handled by the check hook, making this assign function very simple
 - The flags stored in the global variable control which types of non-system relations are subject to restrictions
 - Part of PostgreSQL's mechanism for controlling access to different types of database objects
+
+## Simplified Source
+
+```c
+void assign_restrict_nonsystem_relation_kind(const char *newval, void *extra) {
+    // Extract parsed flags from extra parameter
+    int *flags = (int *) extra;
+
+    // Apply the restriction flags to global variable
+    restrict_nonsystem_relation_kind = *flags;
+}
+```

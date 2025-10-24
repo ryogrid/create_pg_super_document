@@ -37,3 +37,15 @@ The function leverages the existing TocEntrySizeCompareQsort comparator but inve
 - By reusing TocEntrySizeCompareQsort logic, it maintains consistency in sorting criteria across different data structures
 - The function is located at src/bin/pg_dump/pg_backup_archiver.c:4504-4518
 - Part of the parallel processing optimization system in pg_dump/pg_restore
+
+## Simplified Source
+
+```c
+static int
+TocEntrySizeCompareBinaryheap(void *p1, void *p2, void *arg)
+{
+    // Create max-heap by inverting qsort comparator result
+    // Largest entries will have highest priority
+    return -TocEntrySizeCompareQsort(&p1, &p2);
+}
+```

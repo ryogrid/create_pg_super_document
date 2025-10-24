@@ -33,3 +33,33 @@ This function prepares string values for insertion into BKI data files, which ar
 - Returns a newly allocated string that must be freed by the caller
 - Used primarily during template1 database bootstrap process
 - Handles both the escaping and the quote wrapping in a single operation
+
+## Simplified Source
+
+```c
+static char *escape_quotes_bki(const char *src)
+{
+    char *result;
+    char *data = escape_quotes(src);  // First escape quotes
+    char *resultp;
+    char *datap;
+
+    // Allocate space for escaped data + 2 quotes + null terminator
+    result = (char *) pg_malloc(strlen(data) + 3);
+    resultp = result;
+
+    // Add opening single quote
+    *resultp++ = '\'';
+
+    // Copy escaped data
+    for (datap = data; *datap; datap++)
+        *resultp++ = *datap;
+
+    // Add closing single quote and null terminator
+    *resultp++ = '\'';
+    *resultp = '\0';
+
+    free(data);  // Clean up intermediate result
+    return result;
+}
+```

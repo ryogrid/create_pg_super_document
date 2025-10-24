@@ -41,3 +41,29 @@ Once the caller obtains the base address, they can access the full range of lock
 - Callers must know how many locks they requested in their tranche to avoid accessing beyond their allocated range
 - The function assumes that named tranches are allocated contiguously after fixed locks in MainLWLockArray
 - This is part of the extension API for LWLock management, allowing extensions to get typed access to their lock resources
+
+## Simplified Source
+
+```c
+LWLockPadded *GetNamedLWLockTranche(const char *tranche_name)
+{
+    // Start searching after fixed LWLocks
+    int lock_pos = NUM_FIXED_LWLOCKS;
+
+    // Search through all named tranche requests
+    for (int i = 0; i < NamedLWLockTrancheRequests; i++) {
+        // Check if this is the tranche we're looking for
+        if (strcmp(NamedLWLockTrancheRequestArray[i].tranche_name, tranche_name) == 0) {
+            // Found it - return pointer to base of this tranche
+            return &MainLWLockArray[lock_pos];
+        }
+
+        // Move to next tranche position
+        lock_pos += NamedLWLockTrancheRequestArray[i].num_lwlocks;
+    }
+
+    // Tranche not found - this is an error
+    elog(ERROR, "requested tranche is not registered");
+    return NULL;  // Keep compiler happy
+}
+```

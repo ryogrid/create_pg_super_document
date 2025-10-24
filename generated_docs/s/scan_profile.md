@@ -42,3 +42,49 @@ The scanner maintains a simple state machine to handle comment parsing correctly
 - Gracefully handles EOF by returning when no more options are found
 - Verbose output helps with debugging profile file parsing
 - The comment handling correctly deals with nested comment-like patterns by tracking the exact position where comments begin
+
+## Simplified Source
+
+```c
+static void scan_profile(FILE *f)
+{
+    int comment, i;
+    char *p;
+    char buf[BUFSIZ];
+
+    while (1) {
+        p = buf;
+        comment = 0;
+
+        // Read characters until whitespace or EOF
+        while ((i = getc(f)) != EOF) {
+            if (i == '*' && !comment && p > buf && p[-1] == '/') {
+                // Start of C comment
+                comment = p - buf;
+                *p++ = i;
+            } else if (i == '/' && comment && p > buf && p[-1] == '*') {
+                // End of C comment - backtrack to remove comment
+                p = buf + comment - 1;
+                comment = 0;
+            } else if (isspace((unsigned char)i)) {
+                // Whitespace ends option (unless in comment)
+                if (p > buf && !comment)
+                    break;
+            } else {
+                // Regular character - add to buffer
+                *p++ = i;
+            }
+        }
+
+        // Process completed option
+        if (p != buf) {
+            *p++ = 0;  // Null terminate
+            if (verbose)
+                printf("profile: %s\n", buf);
+            set_option(buf);
+        } else if (i == EOF) {
+            return;  // End of file
+        }
+    }
+}
+```

@@ -37,3 +37,25 @@ This internal utility function determines the correct combination of file open f
 - Direct I/O is only enabled when explicitly configured via io_direct_flags settings
 - The O_RDWR flag allows both reading and writing operations on the opened files
 - PG_BINARY ensures proper handling of binary data across different platforms
+
+## Simplified Source
+
+```c
+static inline int _mdfd_open_flags(void)
+{
+    // Start with basic read-write and binary mode flags
+    int flags = O_RDWR | PG_BINARY;
+
+    // Add direct I/O flag if enabled for data files
+    if (io_direct_flags & IO_DIRECT_DATA)
+        flags |= PG_O_DIRECT;
+
+    return flags;
+}
+```
+
+**Key Points:**
+- Constructs file open flags for magnetic disk storage operations
+- Always includes read-write (O_RDWR) and binary mode (PG_BINARY) flags
+- Conditionally adds direct I/O flag (PG_O_DIRECT) when configured
+- Static inline for performance optimization during frequent file operations

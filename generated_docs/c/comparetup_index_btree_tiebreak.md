@@ -50,3 +50,78 @@ The function ensures that B-tree indexes maintain their required physical unique
 - The final ItemPointer comparison should never result in equality for valid tuples, hence the Assert(false) at the end
 - This function is critical for maintaining B-tree index integrity and ensuring deterministic sort order
 - NULL values in keys are tracked to properly handle uniqueness constraints with NULLS NOT DISTINCT semantics
+
+## Simplified Source
+
+```c
+static int
+comparetup_index_btree_tiebreak(const SortTuple *a, const SortTuple *b,
+                                Tuplesortstate *state)
+{
+    TuplesortPublic *base = TuplesortstateGetPublic(state);
+    TuplesortIndexBTreeArg *arg = (TuplesortIndexBTreeArg *) base->arg;
+    IndexTuple tuple1 = (IndexTuple) a->tuple;
+    IndexTuple tuple2 = (IndexTuple) b->tuple;
+    TupleDesc tupDes = RelationGetDescr(arg->index.indexRel);
+    bool equal_hasnull = false;
+    int32 compare;
+
+    // Handle abbreviated key comparison if enabled
+    if (base->sortKeys->abbrev_converter) {
+        Datum datum1 = index_getattr(tuple1, 1, tupDes, &isnull1);
+        Datum datum2 = index_getattr(tuple2, 1, tupDes, &isnull2);
+
+        compare = ApplySortAbbrevFullComparator(datum1, isnull1, datum2, isnull2,
+                                                base->sortKeys);
+        if (compare != 0)
+            return compare;
+    }
+
+    // Track if any equal keys have NULLs
+    if (a->isnull1)
+        equal_hasnull = true;
+
+    // Compare remaining sort keys (2 through nKeys)
+    SortSupport sortKey = base->sortKeys + 1;
+    for (int nkey = 2; nkey <= base->nKeys; nkey++, sortKey++) {
+        Datum datum1 = index_getattr(tuple1, nkey, tupDes, &isnull1);
+        Datum datum2 = index_getattr(tuple2, nkey, tupDes, &isnull2);
+
+        compare = ApplySortComparator(datum1, isnull1, datum2, isnull2, sortKey);
+        if (compare != 0)
+            return compare;
+
+        if (isnull1)
+            equal_hasnull = true;
+    }
+
+    // Check for uniqueness violations if required
+    if (arg->enforceUnique && !(!arg->uniqueNullsNotDistinct && equal_hasnull)) {
+        // Build error message and report unique violation
+        Datum values[INDEX_MAX_KEYS];
+        bool isnull[INDEX_MAX_KEYS];
+
+        index_deform_tuple(tuple1, tupDes, values, isnull);
+        char *key_desc = BuildIndexValueDescription(arg->index.indexRel, values, isnull);
+
+        ereport(ERROR, (errcode(ERRCODE_UNIQUE_VIOLATION),
+                       errmsg("could not create unique index \"%s\"",
+                             RelationGetRelationName(arg->index.indexRel)),
+                       key_desc ? errdetail("Key %s is duplicated.", key_desc) :
+                                 errdetail("Duplicate keys exist.")));
+    }
+
+    // Final tiebreaker: compare ItemPointers (heap TIDs)
+    BlockNumber blk1 = ItemPointerGetBlockNumber(&tuple1->t_tid);
+    BlockNumber blk2 = ItemPointerGetBlockNumber(&tuple2->t_tid);
+    if (blk1 != blk2)
+        return (blk1 < blk2) ? -1 : 1;
+
+    OffsetNumber pos1 = ItemPointerGetOffsetNumber(&tuple1->t_tid);
+    OffsetNumber pos2 = ItemPointerGetOffsetNumber(&tuple2->t_tid);
+    if (pos1 != pos2)
+        return (pos1 < pos2) ? -1 : 1;
+
+    return 0;  // Should never reach here
+}
+```

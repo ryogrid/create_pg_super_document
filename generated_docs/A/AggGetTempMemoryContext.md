@@ -33,3 +33,20 @@ The function is explicitly not useful for transition functions since the returne
 - The returned context comes from aggstate->tmpcontext->ecxt_per_tuple_memory
 - Should not be used by transition functions as the behavior is not guaranteed to be safe
 - Not suitable for window function aggregates in the current implementation
+
+## Simplified Source
+
+```c
+MemoryContext AggGetTempMemoryContext(FunctionCallInfo fcinfo)
+{
+    if (fcinfo->context && IsA(fcinfo->context, AggState))
+    {
+        AggState *aggstate = (AggState *) fcinfo->context;
+
+        // Return the temporary per-tuple memory context
+        return aggstate->tmpcontext->ecxt_per_tuple_memory;
+    }
+
+    return NULL; // Not in aggregate context
+}
+```

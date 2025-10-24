@@ -31,3 +31,12 @@ This function provides a simple accessor to retrieve the count of tuples stored 
 - Simple O(1) operation that just returns a stored counter value
 - Useful for statistics, capacity planning, and debugging
 - Count resets to 0 only when  is called or a new tuplestore is created
+
+## Simplified Source
+
+```c
+int64 tuplestore_tuple_count(Tuplestorestate *state) {
+    // Simply return the tuple counter maintained by the tuplestore
+    return state->tuples;
+}
+```

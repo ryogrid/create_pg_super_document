@@ -34,3 +34,17 @@ The pg_ndistinct_recv function serves as the binary input routine for the pg_ndi
 - The pg_ndistinct type is designed to be created only through internal statistics processes
 - The PG_RETURN_VOID() at the end is included only to keep the compiler quiet, as the ereport() call will never return
 - Located in src/backend/statistics/mvdistinct.c:392-407
+
+## Simplified Source
+
+```c
+Datum pg_ndistinct_recv(PG_FUNCTION_ARGS)
+{
+    // Reject binary input for pg_ndistinct type - internal use only
+    ereport(ERROR,
+            (errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+             errmsg("cannot accept a value of type %s", "pg_ndistinct")));
+
+    PG_RETURN_VOID(); // Never reached, keeps compiler quiet
+}
+```

@@ -43,3 +43,26 @@ This enables efficient O(log n) searching through the sorted ranges in a multira
 - The function assumes the key contains exactly two consecutive RangeBound structures
 - Located in `src/backend/utils/adt/multirangetypes.c` at lines 1976-1992
 - Essential for the efficient implementation of range-to-multirange overlap checking
+
+## Simplified Source
+
+```c
+static int
+multirange_range_overlaps_bsearch_comparison(TypeCacheEntry *typcache,
+                                             RangeBound *lower, RangeBound *upper,
+                                             void *key, bool *match)
+{
+    RangeBound *keyLower = (RangeBound *) key;
+    RangeBound *keyUpper = (RangeBound *) key + 1;
+
+    // Check position relative to current range
+    if (range_cmp_bounds(typcache, keyUpper, lower) < 0)
+        return -1;  // Key is to the left
+    if (range_cmp_bounds(typcache, keyLower, upper) > 0)
+        return 1;   // Key is to the right
+
+    // Any overlap is a match for overlap checking
+    *match = true;
+    return 0;
+}
+```

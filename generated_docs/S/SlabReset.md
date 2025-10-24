@@ -46,3 +46,58 @@ This function implements a complete reset operation for a slab memory context, f
 - More efficient than SlabDelete + SlabContextCreate for reusing contexts
 - Uses safe iteration macros that allow modification during iteration
 - Asserts that all memory is properly freed (mem_allocated == 0) at the end
+
+## Simplified Source
+
+```c
+void
+SlabReset(MemoryContext context)
+{
+    SlabContext *slab = (SlabContext *) context;
+    dlist_mutable_iter miter;
+    int i;
+
+    Assert(SlabIsValid(slab));
+
+#ifdef MEMORY_CONTEXT_CHECKING
+    // Check for corruption and leaks before freeing
+    SlabCheck(context);
+#endif
+
+    // Free any retained empty blocks
+    dclist_foreach_modify(miter, &slab->emptyblocks)
+    {
+        SlabBlock *block = dlist_container(SlabBlock, node, miter.cur);
+
+        dclist_delete_from(&slab->emptyblocks, miter.cur);
+
+#ifdef CLOBBER_FREED_MEMORY
+        wipe_mem(block, slab->blockSize);
+#endif
+        free(block);
+        context->mem_allocated -= slab->blockSize;
+    }
+
+    // Free all blocks in all blocklists
+    for (i = 0; i < SLAB_BLOCKLIST_COUNT; i++)
+    {
+        dlist_foreach_modify(miter, &slab->blocklist[i])
+        {
+            SlabBlock *block = dlist_container(SlabBlock, node, miter.cur);
+
+            dlist_delete(miter.cur);
+
+#ifdef CLOBBER_FREED_MEMORY
+            wipe_mem(block, slab->blockSize);
+#endif
+            free(block);
+            context->mem_allocated -= slab->blockSize;
+        }
+    }
+
+    // Reset to initial state
+    slab->curBlocklistIndex = 0;
+
+    Assert(context->mem_allocated == 0);
+}
+```

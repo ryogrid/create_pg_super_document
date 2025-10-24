@@ -30,3 +30,38 @@ This function performs character validation for UTF-8 encoding by first determin
 - Uses pg_utf8_islegal() for comprehensive RFC3629 compliance checking, including overlong sequence detection
 - Part of PostgreSQL's core UTF-8 validation infrastructure, critical for data integrity in Unicode text processing
 - The validation ensures no security vulnerabilities from overlong encodings that could bypass ASCII-based security checks
+
+## Simplified Source
+
+```c
+static int pg_utf8_verifychar(const unsigned char *s, int len) {
+    int char_length;
+
+    // Handle ASCII characters (0xxxxxxx)
+    if ((*s & 0x80) == 0) {
+        if (*s == '\0')
+            return -1;  // Reject null bytes
+        return 1;
+    }
+
+    // Determine character length based on leading byte pattern
+    if ((*s & 0xe0) == 0xc0)      // 110xxxxx = 2-byte char
+        char_length = 2;
+    else if ((*s & 0xf0) == 0xe0) // 1110xxxx = 3-byte char
+        char_length = 3;
+    else if ((*s & 0xf8) == 0xf0) // 11110xxx = 4-byte char
+        char_length = 4;
+    else
+        char_length = 1;          // Invalid leading byte
+
+    // Check if we have enough bytes in buffer
+    if (char_length > len)
+        return -1;
+
+    // Validate the complete UTF-8 sequence
+    if (!pg_utf8_islegal(s, char_length))
+        return -1;
+
+    return char_length;
+}
+```

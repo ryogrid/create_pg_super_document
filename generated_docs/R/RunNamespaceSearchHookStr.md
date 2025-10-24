@@ -36,3 +36,21 @@ The function follows PostgreSQL's object access hook pattern, where extensions r
 - Part of PostgreSQL's extensible object access control system that allows third-party extensions to implement custom security policies
 - This is the string-based variant; there's also RunNamespaceSearchHook() that works with OIDs
 - Extensions should be careful to only set result to false when denying access, never to true, to ensure multiple extensions work together correctly
+
+## Simplified Source
+
+```c
+bool RunNamespaceSearchHookStr(const char *objectName, bool ereport_on_violation) {
+    // Initialize namespace search argument structure
+    ObjectAccessNamespaceSearch ns_arg;
+    memset(&ns_arg, 0, sizeof(ObjectAccessNamespaceSearch));
+    ns_arg.ereport_on_violation = ereport_on_violation;
+    ns_arg.result = true;  // Default to allow access
+
+    // Call the registered string-based object access hook
+    (*object_access_hook_str)(OAT_NAMESPACE_SEARCH, NamespaceRelationId,
+                              objectName, 0, &ns_arg);
+
+    return ns_arg.result;
+}
+```

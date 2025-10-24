@@ -36,3 +36,24 @@ The function returns the removed element without deallocating it, allowing the c
 - Does not deallocate the removed element's memory
 - Essential for FIFO queue operations in lexeme processing
 - Ensures list consistency by updating tail pointer when list becomes empty
+
+## Simplified Source
+
+```c
+static ParsedLex *
+LPLRemoveHead(ListParsedLex *list)
+{
+    // Get current head element
+    ParsedLex *res = list->head;
+
+    // Advance head to next element
+    if (list->head)
+        list->head = list->head->next;
+
+    // If list is now empty, clear tail pointer
+    if (list->head == NULL)
+        list->tail = NULL;
+
+    return res;
+}
+```

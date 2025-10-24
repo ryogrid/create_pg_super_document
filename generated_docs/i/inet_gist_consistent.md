@@ -48,3 +48,114 @@ The function supports all inet comparison strategies including equality, orderin
 - For internal pages with mixed address families (family = 0), the function conservatively returns true
 - The implementation mirrors the logic in network_cmp_internal() for consistent ordering
 - Error handling includes an assertion for unknown strategies with elog(ERROR)
+
+## Simplified Source
+
+```c
+Datum inet_gist_consistent(PG_FUNCTION_ARGS) {
+    GISTENTRY *entry = (GISTENTRY *) PG_GETARG_POINTER(0);
+    inet *query = PG_GETARG_INET_PP(1);
+    StrategyNumber strategy = (StrategyNumber) PG_GETARG_UINT16(2);
+    bool *recheck = (bool *) PG_GETARG_POINTER(4);
+    GistInetKey *key = DatumGetInetKeyP(entry->key);
+
+    // All operators served by this function are exact
+    *recheck = false;
+
+    // Check 1: Handle mixed address families in internal nodes
+    if (gk_ip_family(key) == 0) {
+        return PG_RETURN_BOOL(true);  // Mixed families - could match anything
+    }
+
+    // Check 2: Different address families between key and query
+    if (gk_ip_family(key) != ip_family(query)) {
+        switch (strategy) {
+            case INETSTRAT_LT:
+            case INETSTRAT_LE:
+                return PG_RETURN_BOOL(gk_ip_family(key) < ip_family(query));
+            case INETSTRAT_GE:
+            case INETSTRAT_GT:
+                return PG_RETURN_BOOL(gk_ip_family(key) > ip_family(query));
+            case INETSTRAT_NE:
+                return PG_RETURN_BOOL(true);
+            default:
+                return PG_RETURN_BOOL(false);
+        }
+    }
+
+    // Check 3: Network bit count validation for subnet operations
+    switch (strategy) {
+        case INETSTRAT_SUB:
+            if (GIST_LEAF(entry) && gk_ip_minbits(key) <= ip_bits(query))
+                return PG_RETURN_BOOL(false);
+            break;
+        case INETSTRAT_SUBEQ:
+            if (GIST_LEAF(entry) && gk_ip_minbits(key) < ip_bits(query))
+                return PG_RETURN_BOOL(false);
+            break;
+        case INETSTRAT_SUPEQ:
+        case INETSTRAT_EQ:
+            if (gk_ip_minbits(key) > ip_bits(query))
+                return PG_RETURN_BOOL(false);
+            break;
+        case INETSTRAT_SUP:
+            if (gk_ip_minbits(key) >= ip_bits(query))
+                return PG_RETURN_BOOL(false);
+            break;
+    }
+
+    // Check 4: Compare network portions
+    int common_bits = Min(gk_ip_commonbits(key), gk_ip_minbits(key));
+    common_bits = Min(common_bits, ip_bits(query));
+    int network_comparison = bitncmp(gk_ip_addr(key), ip_addr(query), common_bits);
+
+    // Handle network-only comparison strategies
+    switch (strategy) {
+        case INETSTRAT_SUB:
+        case INETSTRAT_SUBEQ:
+        case INETSTRAT_OVERLAPS:
+        case INETSTRAT_SUPEQ:
+        case INETSTRAT_SUP:
+            return PG_RETURN_BOOL(network_comparison == 0);
+    }
+
+    // Continue with ordering strategies if at leaf level
+    if (GIST_LEAF(entry)) {
+        // Compare netmask bit counts
+        switch (strategy) {
+            case INETSTRAT_LT:
+            case INETSTRAT_LE:
+                if (gk_ip_minbits(key) != ip_bits(query))
+                    return PG_RETURN_BOOL(gk_ip_minbits(key) < ip_bits(query));
+                break;
+            case INETSTRAT_EQ:
+                if (gk_ip_minbits(key) != ip_bits(query))
+                    return PG_RETURN_BOOL(false);
+                break;
+            case INETSTRAT_GE:
+            case INETSTRAT_GT:
+                if (gk_ip_minbits(key) != ip_bits(query))
+                    return PG_RETURN_BOOL(gk_ip_minbits(key) > ip_bits(query));
+                break;
+            case INETSTRAT_NE:
+                if (gk_ip_minbits(key) != ip_bits(query))
+                    return PG_RETURN_BOOL(true);
+                break;
+        }
+
+        // Final comparison of complete addresses
+        int address_comparison = bitncmp(gk_ip_addr(key), ip_addr(query), gk_ip_maxbits(key));
+        switch (strategy) {
+            case INETSTRAT_LT:  return PG_RETURN_BOOL(address_comparison < 0);
+            case INETSTRAT_LE:  return PG_RETURN_BOOL(address_comparison <= 0);
+            case INETSTRAT_EQ:  return PG_RETURN_BOOL(address_comparison == 0);
+            case INETSTRAT_GE:  return PG_RETURN_BOOL(address_comparison >= 0);
+            case INETSTRAT_GT:  return PG_RETURN_BOOL(address_comparison > 0);
+            case INETSTRAT_NE:  return PG_RETURN_BOOL(address_comparison != 0);
+        }
+    }
+
+    // For internal nodes with matching network portions, descend
+    return PG_RETURN_BOOL(network_comparison == 0);
+}
+```

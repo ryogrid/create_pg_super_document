@@ -42,3 +42,74 @@ For each transform found, it creates a  structure containing the type OID, langu
 - If type or language information cannot be found, the transform name remains empty
 - Each transform's dumpability is determined by selectDumpableObject()
 - Memory is properly managed by freeing the language name after use
+
+## Simplified Source
+
+```c
+TransformInfo *
+getTransforms(Archive *fout, int *numTransforms)
+{
+    PGresult *res;
+    int ntups, i;
+    TransformInfo *transforminfo;
+
+    // Transforms didn't exist pre-9.5
+    if (fout->remoteVersion < 90500) {
+        *numTransforms = 0;
+        return NULL;
+    }
+
+    // Query pg_transform catalog for all transforms
+    query = createPQExpBuffer();
+    appendPQExpBufferStr(query, "SELECT tableoid, oid, "
+                                "trftype, trflang, trffromsql::oid, trftosql::oid "
+                                "FROM pg_transform "
+                                "ORDER BY 3,4");
+
+    res = ExecuteSqlQuery(fout, query->data, PGRES_TUPLES_OK);
+    ntups = PQntuples(res);
+    *numTransforms = ntups;
+
+    // Allocate array for transform info
+    transforminfo = (TransformInfo *) pg_malloc(ntups * sizeof(TransformInfo));
+
+    // Get column indices for result fields
+    i_tableoid = PQfnumber(res, "tableoid");
+    i_oid = PQfnumber(res, "oid");
+    i_trftype = PQfnumber(res, "trftype");
+    i_trflang = PQfnumber(res, "trflang");
+    i_trffromsql = PQfnumber(res, "trffromsql");
+    i_trftosql = PQfnumber(res, "trftosql");
+
+    // Process each transform
+    for (i = 0; i < ntups; i++) {
+        // Set object type and catalog info
+        transforminfo[i].dobj.objType = DO_TRANSFORM;
+        transforminfo[i].dobj.catId.tableoid = atooid(PQgetvalue(res, i, i_tableoid));
+        transforminfo[i].dobj.catId.oid = atooid(PQgetvalue(res, i, i_oid));
+        AssignDumpId(&transforminfo[i].dobj);
+
+        // Store transform properties
+        transforminfo[i].trftype = atooid(PQgetvalue(res, i, i_trftype));
+        transforminfo[i].trflang = atooid(PQgetvalue(res, i, i_trflang));
+        transforminfo[i].trffromsql = atooid(PQgetvalue(res, i, i_trffromsql));
+        transforminfo[i].trftosql = atooid(PQgetvalue(res, i, i_trftosql));
+
+        // Create descriptive name for sorting: "typename languagename"
+        typeInfo = findTypeByOid(transforminfo[i].trftype);
+        lanname = get_language_name(fout, transforminfo[i].trflang);
+        if (typeInfo && lanname) {
+            appendPQExpBuffer(&namebuf, "%s %s", typeInfo->dobj.name, lanname);
+        }
+        transforminfo[i].dobj.name = namebuf.data;
+
+        // Determine if transform should be dumped
+        selectDumpableObject(&(transforminfo[i].dobj), fout);
+    }
+
+    // Cleanup and return
+    PQclear(res);
+    destroyPQExpBuffer(query);
+    return transforminfo;
+}
+```

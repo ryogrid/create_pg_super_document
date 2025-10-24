@@ -33,3 +33,22 @@ This function provides a context-aware wrapper around the lowerstr() function. I
 - The function follows PostgreSQL's memory context switching pattern for temporary allocations
 - Used primarily during dictionary import operations where case-insensitive processing is required
 - The result string is allocated in the build context and will be cleaned up when NIFinishBuild() is called
+
+## Simplified Source
+
+```c
+static char *
+lowerstr_ctx(IspellDict *Conf, const char *src)
+{
+    // Switch to build context for memory allocation
+    MemoryContext saveCtx = MemoryContextSwitchTo(Conf->buildCxt);
+
+    // Convert string to lowercase
+    char *dst = lowerstr(src);
+
+    // Restore previous memory context
+    MemoryContextSwitchTo(saveCtx);
+
+    return dst;
+}
+```

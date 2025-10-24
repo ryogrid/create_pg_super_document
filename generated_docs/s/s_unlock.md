@@ -37,3 +37,24 @@ The function provides a clean abstraction for spinlock release while allowing th
 - Must only be called by the process/thread that currently holds the lock
 - Part of the low-level synchronization primitives used throughout PostgreSQL
 - The volatile qualifier is essential for proper memory ordering and compiler behavior
+
+## Simplified Source
+
+```c
+void s_unlock(volatile slock_t *lock)
+{
+#ifdef TAS_ACTIVE_WORD
+    // HP PA-RISC architecture uses special active word mechanism
+    *TAS_ACTIVE_WORD(lock) = -1;
+#else
+    // Standard implementation for most platforms
+    *lock = 0;
+#endif
+}
+```
+
+**Key Points:**
+- Releases a previously acquired spinlock by resetting its value
+- Platform-specific implementation: HP PA-RISC uses -1, others use 0
+- Must only be called by the process/thread that currently holds the lock
+- Part of PostgreSQL's low-level synchronization primitives

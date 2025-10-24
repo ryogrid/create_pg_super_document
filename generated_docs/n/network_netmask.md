@@ -38,3 +38,39 @@ This function creates the netmask (subnet mask) corresponding to a given inet or
 - Essential for network administration and subnet calculations
 - Part of PostgreSQL's comprehensive network address manipulation functions
 - Located in src/backend/utils/adt/network.c:1374-1415
+
+## Simplified Source
+
+```c
+Datum network_netmask(PG_FUNCTION_ARGS) {
+    inet *ip = PG_GETARG_INET_PP(0);  // Input network address
+    inet *dst = (inet *) palloc0(sizeof(inet));  // Result netmask
+
+    int bits = ip_bits(ip);           // Network prefix length
+    unsigned char *b = ip_addr(dst);  // Destination address bytes
+    int byte = 0;
+
+    // Build netmask by setting network bits to 1
+    while (bits > 0) {
+        unsigned char mask;
+
+        if (bits >= 8) {
+            mask = 0xff;        // Set all 8 bits in this byte
+            bits -= 8;
+        } else {
+            mask = 0xff << (8 - bits);  // Set only remaining network bits
+            bits = 0;
+        }
+
+        b[byte] = mask;  // Set the mask byte
+        byte++;
+    }
+
+    // Set metadata for netmask result
+    ip_family(dst) = ip_family(ip);
+    ip_bits(dst) = ip_maxbits(ip);  // Full address length (32 or 128)
+    SET_INET_VARSIZE(dst);
+
+    PG_RETURN_INET_P(dst);
+}
+```

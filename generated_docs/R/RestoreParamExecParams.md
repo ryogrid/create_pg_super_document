@@ -43,3 +43,34 @@ This restoration process is essential for maintaining data consistency and enabl
 - Memory layout parsing relies on the fixed-size integer headers for parameter count and IDs
 - This function is called during parallel worker initialization to establish the parameter context
 - Located in src/backend/executor/execParallel.c:409-437
+
+## Simplified Source
+
+```c
+static void RestoreParamExecParams(char *start_address, EState *estate) {
+    int nparams;
+
+    // Read the number of parameters from shared memory
+    memcpy(&nparams, start_address, sizeof(int));
+    start_address += sizeof(int);
+
+    // Restore each parameter
+    for (int i = 0; i < nparams; i++) {
+        int paramid;
+        ParamExecData *prm;
+
+        // Read parameter ID
+        memcpy(&paramid, start_address, sizeof(int));
+        start_address += sizeof(int);
+
+        // Get the parameter slot in estate
+        prm = &(estate->es_param_exec_vals[paramid]);
+
+        // Restore the parameter value and null flag
+        prm->value = datumRestore(&start_address, &prm->isnull);
+
+        // Workers don't execute parameter subplans
+        prm->execPlan = NULL;
+    }
+}
+```

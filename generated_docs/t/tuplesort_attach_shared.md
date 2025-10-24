@@ -32,3 +32,14 @@ This function allows worker processes to connect to the shared tuple sorting inf
 - This is a companion function to tuplesort_initialize_shared() - the leader initializes, workers attach
 - The function primarily handles SharedFileSet attachment for coordinated file operations across processes
 - Essential for establishing the shared infrastructure needed for parallel tuple sorting
+
+## Simplified Source
+
+```c
+void
+tuplesort_attach_shared(Sharedsort *shared, dsm_segment *seg)
+{
+    // Attach worker process to the shared file system
+    SharedFileSetAttach(&shared->fileset, seg);
+}
+```

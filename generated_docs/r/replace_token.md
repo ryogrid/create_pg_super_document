@@ -40,3 +40,46 @@ Swap:        8388608           0     8388608 (standard library function)
 - Efficiently handles size differences between token and replacement strings
 - Part of initdb utility's template processing system
 - Designed to avoid dependencies on regular expression libraries for simple text substitution
+
+## Simplified Source
+
+```c
+static char **replace_token(char **lines, const char *token, const char *replacement)
+{
+    int toklen, replen, diff;
+
+    toklen = strlen(token);
+    replen = strlen(replacement);
+    diff = replen - toklen;  // Size difference between replacement and token
+
+    // Process each line in the array
+    for (int i = 0; lines[i]; i++)
+    {
+        char *where;
+        char *newline;
+        int pre;
+
+        // Find first occurrence of token in this line
+        where = strstr(lines[i], token);
+        if (where == NULL)
+            continue;  // No token found, skip this line
+
+        // Allocate new line with adjusted size
+        newline = (char *) pg_malloc(strlen(lines[i]) + diff + 1);
+
+        // Calculate position of token
+        pre = where - lines[i];
+
+        // Copy parts: [before token] + [replacement] + [after token]
+        memcpy(newline, lines[i], pre);                           // Before token
+        memcpy(newline + pre, replacement, replen);               // Replacement
+        strcpy(newline + pre + replen, lines[i] + pre + toklen);  // After token
+
+        // Replace old line with new one
+        free(lines[i]);
+        lines[i] = newline;
+    }
+
+    return lines;
+}
+```

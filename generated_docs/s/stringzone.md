@@ -45,3 +45,120 @@ It follows RFC 8536 requirements for TZ string generation and returns a compatib
 - Processes the last zone in the provided zone array
 - Generates strings in the format: `STD[offset][DST[offset],start[/time],end[/time]]`
 - Part of PostgreSQL's timezone compilation system for creating binary timezone files
+
+## Simplified Source
+
+```c
+static int stringzone(char *result, struct zone const *zpfirst, ptrdiff_t zonecount) {
+    const struct zone *zp;
+    struct rule *stdrp, *dstrp;
+    ptrdiff_t i;
+    int compat = 0;
+    size_t len;
+    int offsetlen;
+
+    result[0] = '\0';
+
+    // Check for truncated future timestamps (RFC 8536)
+    if (hi_time < max_time)
+        return -1;
+
+    // Process the last zone in the array
+    zp = zpfirst + zonecount - 1;
+    stdrp = dstrp = NULL;
+
+    // Find standard and daylight saving time rules
+    for (i = 0; i < zp->z_nrules; ++i) {
+        struct rule *rp = &zp->z_rules[i];
+
+        // Skip rules that don't run through "max"
+        if (rp->r_hiwasnum || rp->r_hiyear != ZIC_MAX)
+            continue;
+
+        if (!rp->r_isdst) {
+            if (stdrp == NULL)
+                stdrp = rp;
+            else
+                return -1;  // Multiple standard time rules
+        } else {
+            if (dstrp == NULL)
+                dstrp = rp;
+            else
+                return -1;  // Multiple DST rules
+        }
+    }
+
+    // Handle case with no perpetual rules
+    if (stdrp == NULL && dstrp == NULL) {
+        // Find latest rules
+        struct rule *stdabbrrp = NULL;
+        for (i = 0; i < zp->z_nrules; ++i) {
+            struct rule *rp = &zp->z_rules[i];
+            if (!rp->r_isdst && rule_cmp(stdabbrrp, rp) < 0)
+                stdabbrrp = rp;
+            if (rule_cmp(stdrp, rp) < 0)
+                stdrp = rp;
+        }
+
+        // Handle perpetual DST by creating synthetic rules
+        if (stdrp != NULL && stdrp->r_isdst) {
+            // Create synthetic DST and standard rules
+            // ... (simplified synthetic rule creation)
+        }
+    }
+
+    // Build the TZ string
+    if (stdrp == NULL && (zp->z_nrules != 0 || zp->z_isdst))
+        return -1;
+
+    // Add standard time abbreviation and offset
+    const char *abbrvar = (stdrp == NULL) ? "" : stdrp->r_abbrvar;
+    len = doabbr(result, zp, abbrvar, false, 0, true);
+
+    offsetlen = stringoffset(result + len, -zp->z_stdoff);
+    if (!offsetlen) {
+        result[0] = '\0';
+        return -1;
+    }
+    len += offsetlen;
+
+    // If no DST, we're done
+    if (dstrp == NULL)
+        return compat;
+
+    // Add DST abbreviation and offset
+    len += doabbr(result + len, zp, dstrp->r_abbrvar,
+                  dstrp->r_isdst, dstrp->r_save, true);
+
+    if (dstrp->r_save != SECSPERMIN * MINSPERHOUR) {
+        offsetlen = stringoffset(result + len,
+                                -(zp->z_stdoff + dstrp->r_save));
+        if (!offsetlen) {
+            result[0] = '\0';
+            return -1;
+        }
+        len += offsetlen;
+    }
+
+    // Add DST transition rules
+    result[len++] = ',';
+    int c = stringrule(result + len, dstrp, dstrp->r_save, zp->z_stdoff);
+    if (c < 0) {
+        result[0] = '\0';
+        return -1;
+    }
+    if (compat < c) compat = c;
+
+    len += strlen(result + len);
+    result[len++] = ',';
+
+    c = stringrule(result + len, stdrp, dstrp->r_save, zp->z_stdoff);
+    if (c < 0) {
+        result[0] = '\0';
+        return -1;
+    }
+    if (compat < c) compat = c;
+
+    return compat;
+}
+```

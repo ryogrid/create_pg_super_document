@@ -35,3 +35,26 @@ The offset calculation is crucial for the multirange data structure's space effi
 - The function uses an optimization where it stops traversing when it finds an item with an explicit offset
 - The offset calculation works backwards from the target index for efficiency
 - Returns the accumulated byte offset needed to locate the bounds of the specified range
+
+## Simplified Source
+
+```c
+static uint32
+multirange_get_bounds_offset(const MultirangeType *multirange, int32 i)
+{
+    uint32 *items = MultirangeGetItemsPtr(multirange);
+    uint32  offset = 0;
+
+    // Accumulate offsets/lengths backward until we find an absolute offset
+    while (i > 0)
+    {
+        offset += MULTIRANGE_ITEM_GET_OFFLEN(items[i - 1]);
+        // Stop if this item has an absolute offset stored
+        if (MULTIRANGE_ITEM_HAS_OFF(items[i - 1]))
+            break;
+        i--;
+    }
+
+    return offset;
+}
+```

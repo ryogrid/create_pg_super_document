@@ -43,3 +43,27 @@ This validation is crucial during timezone selection to ensure only working, rea
 - Part of the defensive programming approach in timezone handling
 - Returns boolean result making it suitable for conditional logic in timezone selection
 - Handles edge cases like NULL pointers and empty strings gracefully
+
+## Simplified Source
+
+```c
+static bool validate_zone(const char *tzname)
+{
+    pg_tz *tz;
+
+    // Check for NULL or empty timezone name
+    if (!tzname || !tzname[0])
+        return false;
+
+    // Try to load the timezone definition
+    tz = pg_load_tz(tzname);
+    if (!tz)
+        return false;  // Invalid timezone name
+
+    // Check if timezone meets PostgreSQL's acceptability criteria
+    if (!pg_tz_acceptable(tz))
+        return false;  // Timezone uses features we don't support
+
+    return true;  // Timezone is valid and acceptable
+}
+```

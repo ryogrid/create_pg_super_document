@@ -35,3 +35,22 @@ The function returns 0 if no blocks with free space are found, indicating that a
 - The prioritization of fuller blocks is a key optimization for memory fragmentation reduction
 - Returns 0 when no blocks with free space are available, signaling the need for new block allocation
 - The function uses PostgreSQL's doubly-linked list implementation (dlist) for efficient list operations
+
+## Simplified Source
+
+```c
+static int32
+SlabFindNextBlockListIndex(SlabContext *slab)
+{
+    // Start at index 1 since blocklist[0] contains full blocks
+    for (int i = 1; i < SLAB_BLOCKLIST_COUNT; i++)
+    {
+        // Return first blocklist that has available blocks
+        if (!dlist_is_empty(&slab->blocklist[i]))
+            return i;
+    }
+
+    // No blocks with free space found
+    return 0;
+}
+```

@@ -44,3 +44,40 @@ The function iterates through all blocks in the context's doubly-linked list, di
 - The nextBlockSize is reset to initBlockSize to restart the block size growth sequence
 - Assertions ensure the context maintains exactly one block (the keeper block) after reset
 - The function maintains the invariant that there is always at least one block in the context
+
+## Simplified Source
+
+```c
+void GenerationReset(MemoryContext context) {
+    GenerationContext *set = (GenerationContext *) context;
+
+    // Validate the context
+    Assert(GenerationIsValid(set));
+
+    // Check for memory corruption in debug builds
+    #ifdef MEMORY_CONTEXT_CHECKING
+    GenerationCheck(context);
+    #endif
+
+    // Clear the free block pointer
+    set->freeblock = NULL;
+
+    // Free all blocks except the keeper block
+    dlist_mutable_iter miter;
+    dlist_foreach_modify(miter, &set->blocks) {
+        GenerationBlock *block = dlist_container(GenerationBlock, node, miter.cur);
+
+        if (IsKeeperBlock(set, block)) {
+            // Keep the initial block but mark it empty
+            GenerationBlockMarkEmpty(block);
+        } else {
+            // Free all other blocks
+            GenerationBlockFree(set, block);
+        }
+    }
+
+    // Reset allocation state to use keeper block
+    set->block = KeeperBlock(set);
+    set->nextBlockSize = set->initBlockSize;
+}
+```

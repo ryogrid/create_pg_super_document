@@ -52,3 +52,79 @@ This function takes no parameters but uses several local variables:
 - The test is exhaustive and may take considerable time to complete due to the large number of codepoints tested
 - Uses global variables  and  for version comparison logic
 - Exits immediately upon finding the first discrepancy to provide fast feedback during development
+
+## Simplified Source
+
+```c
+static void icu_test() {
+    int successful = 0;
+    int pg_skipped_codepoints = 0;
+    int icu_skipped_codepoints = 0;
+
+    // Test all Unicode codepoints from 0 to 0x10FFFF
+    for (pg_wchar code = 0; code <= 0x10ffff; code++) {
+        uint8_t pg_category = unicode_category(code);
+        uint8_t icu_category = u_charType(code);
+
+        // Get property flags from both PostgreSQL and ICU
+        bool prop_alphabetic = pg_u_prop_alphabetic(code);
+        bool prop_lowercase = pg_u_prop_lowercase(code);
+        bool prop_uppercase = pg_u_prop_uppercase(code);
+        // ... other properties
+
+        bool icu_prop_alphabetic = u_hasBinaryProperty(code, UCHAR_ALPHABETIC);
+        bool icu_prop_lowercase = u_hasBinaryProperty(code, UCHAR_LOWERCASE);
+        bool icu_prop_uppercase = u_hasBinaryProperty(code, UCHAR_UPPERCASE);
+        // ... other ICU properties
+
+        // Get character class results from both implementations
+        bool isalpha = pg_u_isalpha(code);
+        bool icu_isalpha = u_isUAlphabetic(code);
+        // ... other character classes
+
+        // Handle version mismatches by skipping unassigned codepoints
+        if (pg_category == PG_U_UNASSIGNED && icu_category != PG_U_UNASSIGNED &&
+            pg_unicode_version < icu_unicode_version) {
+            pg_skipped_codepoints++;
+            continue;
+        }
+
+        if (icu_category == PG_U_UNASSIGNED && pg_category != PG_U_UNASSIGNED &&
+            icu_unicode_version < pg_unicode_version) {
+            icu_skipped_codepoints++;
+            continue;
+        }
+
+        // Verify category matches
+        if (pg_category != icu_category) {
+            printf("category_test: FAILURE for codepoint 0x%06x\n", code);
+            exit(1);
+        }
+
+        // Verify property matches
+        if (prop_alphabetic != icu_prop_alphabetic ||
+            prop_lowercase != icu_prop_lowercase ||
+            prop_uppercase != icu_prop_uppercase /* ... other property checks */) {
+            printf("category_test: FAILURE for codepoint 0x%06x\n", code);
+            exit(1);
+        }
+
+        // Verify character class matches
+        if (isalpha != icu_isalpha /* ... other class checks */) {
+            printf("category_test: FAILURE for codepoint 0x%06x\n", code);
+            exit(1);
+        }
+
+        if (pg_category != PG_U_UNASSIGNED)
+            successful++;
+    }
+
+    // Report results
+    if (pg_skipped_codepoints > 0)
+        printf("category_test: skipped %d codepoints unassigned in Postgres\n", pg_skipped_codepoints);
+    if (icu_skipped_codepoints > 0)
+        printf("category_test: skipped %d codepoints unassigned in ICU\n", icu_skipped_codepoints);
+
+    printf("category_test: ICU test: %d codepoints successful\n", successful);
+}
+```

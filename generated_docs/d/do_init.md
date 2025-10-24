@@ -53,3 +53,41 @@ This function takes no parameters but operates on several global variables:
 - Version compatibility is enforced through the find_other_exec_or_die call
 - The constructed command string includes proper quoting to handle paths with spaces
 - Memory allocated by `psprintf` for the command string is not explicitly freed (process termination handles cleanup)
+
+## Simplified Source
+
+```c
+static void
+do_init(void)
+{
+    char *cmd;
+
+    // Locate initdb executable if not specified
+    if (exec_path == NULL)
+        exec_path = find_other_exec_or_die(argv0, "initdb", "initdb (PostgreSQL) " PG_VERSION "\n");
+
+    // Set default values for options if not provided
+    if (pgdata_opt == NULL)
+        pgdata_opt = "";
+    if (post_opts == NULL)
+        post_opts = "";
+
+    // Build command string based on silent mode setting
+    if (!silent_mode) {
+        // Normal mode - allow output
+        cmd = psprintf("\"%s\" %s%s", exec_path, pgdata_opt, post_opts);
+    } else {
+        // Silent mode - redirect output to null device
+        cmd = psprintf("\"%s\" %s%s > \"%s\"", exec_path, pgdata_opt, post_opts, DEVNULL);
+    }
+
+    // Flush all output streams before system call
+    fflush(NULL);
+
+    // Execute initdb and check for success
+    if (system(cmd) != 0) {
+        write_stderr(_("%s: database system initialization failed\n"), progname);
+        exit(1);
+    }
+}
+```

@@ -50,3 +50,32 @@ The extracted first-column key (datum1) and its null flag (isnull1) are cached i
 - This function is the counterpart to writetup_index and must handle the same serialization format
 - LogicalTapeReadExact ensures complete reads and handles I/O errors appropriately
 - The function assumes the IndexTuple format with the first column being the primary sort key
+
+## Simplified Source
+
+```c
+static void
+readtup_index(Tuplesortstate *state, SortTuple *stup,
+              LogicalTape *tape, unsigned int len)
+{
+    TuplesortPublic *base = TuplesortstateGetPublic(state);
+    TuplesortIndexArg *arg = (TuplesortIndexArg *) base->arg;
+
+    // Calculate actual tuple length and allocate memory
+    unsigned int tuplen = len - sizeof(unsigned int);
+    IndexTuple tuple = (IndexTuple) tuplesort_readtup_alloc(state, tuplen);
+
+    // Read tuple data from tape
+    LogicalTapeReadExact(tape, tuple, tuplen);
+
+    // Skip trailing length word if random access is enabled
+    if (base->sortopt & TUPLESORT_RANDOMACCESS)
+        LogicalTapeReadExact(tape, &tuplen, sizeof(tuplen));
+
+    // Populate SortTuple and extract first column key for optimization
+    stup->tuple = (void *) tuple;
+    stup->datum1 = index_getattr(tuple, 1,
+                                 RelationGetDescr(arg->indexRel),
+                                 &stup->isnull1);
+}
+```

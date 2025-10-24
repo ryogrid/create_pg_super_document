@@ -44,3 +44,36 @@ The aliasing system allows dictionaries to reference complex flag combinations t
 - Error handling includes validation for both parsing failures and range violations
 - Part of PostgreSQL's Hunspell-compatible spell checking implementation
 - Enables efficient storage of complex flag combinations in dictionary files
+
+## Simplified Source
+
+```c
+static char *
+getAffixFlagSet(IspellDict *Conf, char *s)
+{
+    // If using flag aliases and string is not empty
+    if (Conf->useFlagAliases && *s != '\0')
+    {
+        // Parse the string as a numeric index
+        int index = strtol(s, &end, 10);
+
+        // Validate parsing was successful
+        if (s == end || errno == ERANGE)
+            ereport(ERROR, "invalid affix alias");
+
+        // Return the flag set from AffixData array if valid index
+        if (index > 0 && index < Conf->nAffixData)
+            return Conf->AffixData[index];
+        else if (index > Conf->nAffixData)
+            ereport(ERROR, "invalid affix alias");
+
+        // Return empty string for index 0
+        return VoidString;
+    }
+    else
+    {
+        // Return the original string when not using aliases
+        return s;
+    }
+}
+```

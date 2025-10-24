@@ -51,3 +51,32 @@ This operation is crucial for index-only scans and other scenarios where the ori
 - Memory is allocated using palloc, which is automatically freed at transaction end
 - The reconstructed inet maintains all the original information including IP family and network mask bits
 - File location: src/backend/utils/adt/network_gist.c:590-619
+
+## Simplified Source
+
+```c
+Datum
+inet_gist_fetch(PG_FUNCTION_ARGS)
+{
+    GISTENTRY *entry = (GISTENTRY *) PG_GETARG_POINTER(0);
+    GistInetKey *key = DatumGetInetKeyP(entry->key);
+    GISTENTRY *retval;
+    inet *dst;
+
+    // Allocate and initialize new inet structure
+    dst = (inet *) palloc0(sizeof(inet));
+
+    // Copy data from GistInetKey to inet
+    ip_family(dst) = gk_ip_family(key);
+    ip_bits(dst) = gk_ip_minbits(key);
+    memcpy(ip_addr(dst), gk_ip_addr(key), ip_addrsize(dst));
+    SET_INET_VARSIZE(dst);
+
+    // Create return GISTENTRY with reconstructed inet
+    retval = palloc(sizeof(GISTENTRY));
+    gistentryinit(*retval, InetPGetDatum(dst), entry->rel, entry->page,
+                  entry->offset, false);
+
+    PG_RETURN_POINTER(retval);
+}
+```

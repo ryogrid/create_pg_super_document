@@ -49,3 +49,41 @@ This function converts a PostgreSQL type OID into a human-readable, formatted ty
 - Uses PostgreSQL's format_type() function which already handles quoting
 - Memory management: result is owned by TypeInfo cache or leaked if no TypeInfo exists
 - Not suitable for generating target names in DDL commands due to potential lack of schema qualification
+
+## Simplified Source
+
+```c
+static const char *getFormattedTypeName(Archive *fout, Oid oid, OidOptions opts)
+{
+    // Handle special zero OID cases
+    if (oid == 0) {
+        if (opts & zeroAsStar)
+            return "*";
+        else if (opts & zeroAsNone)
+            return "NONE";
+    }
+
+    // Check cache first
+    TypeInfo *typeInfo = findTypeByOid(oid);
+    if (typeInfo && typeInfo->ftypname)
+        return typeInfo->ftypname;
+
+    // Query database for formatted type name
+    PQExpBuffer query = createPQExpBuffer();
+    appendPQExpBuffer(query,
+        "SELECT pg_catalog.format_type('%u'::pg_catalog.oid, NULL)", oid);
+
+    PGresult *res = ExecuteSqlQueryForSingleRow(fout, query->data);
+    char *result = pg_strdup(PQgetvalue(res, 0, 0));
+
+    // Cleanup query resources
+    PQclear(res);
+    destroyPQExpBuffer(query);
+
+    // Cache result for future use
+    if (typeInfo)
+        typeInfo->ftypname = result;
+
+    return result;
+}
+```

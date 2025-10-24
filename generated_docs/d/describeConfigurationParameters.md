@@ -40,3 +40,79 @@ The describeConfigurationParameters function generates and executes a SQL query 
 - Output title changes based on whether a pattern was provided
 - Results are ordered by parameter name for consistent presentation
 - The showSystem parameter is accepted but not currently used in the function logic
+
+## Simplified Source
+
+```c
+bool describeConfigurationParameters(const char *pattern, bool verbose, bool showSystem) {
+    PQExpBufferData buf;
+    PGresult *res;
+    printQueryOpt myopt = pset.popt;
+
+    initPQExpBuffer(&buf);
+
+    // Build base query for parameter name and current value
+    printfPQExpBuffer(&buf,
+        "SELECT s.name AS \"%s\", "
+        "pg_catalog.current_setting(s.name) AS \"%s\"",
+        gettext_noop("Parameter"),
+        gettext_noop("Value"));
+
+    // Add verbose columns if requested
+    if (verbose) {
+        appendPQExpBuffer(&buf,
+            ", s.vartype AS \"%s\", s.context AS \"%s\", ",
+            gettext_noop("Type"),
+            gettext_noop("Context"));
+
+        // Include ACL column for PostgreSQL 15+
+        if (pset.sversion >= 150000)
+            printACLColumn(&buf, "p.paracl");
+        else
+            appendPQExpBuffer(&buf, "NULL AS \"%s\"",
+                            gettext_noop("Access privileges"));
+    }
+
+    // Add FROM clause and optional JOIN
+    appendPQExpBufferStr(&buf, "\nFROM pg_catalog.pg_settings s\n");
+
+    if (verbose && pset.sversion >= 150000)
+        appendPQExpBufferStr(&buf,
+            "  LEFT JOIN pg_catalog.pg_parameter_acl p\n"
+            "  ON pg_catalog.lower(s.name) = p.parname\n");
+
+    // Add WHERE clause based on pattern
+    if (pattern) {
+        // Pattern-based filtering
+        processSQLNamePattern(pset.db, &buf, pattern,
+                            false, false,
+                            NULL, "pg_catalog.lower(s.name)", NULL,
+                            NULL, NULL, NULL);
+    } else {
+        // Show only non-default parameters
+        appendPQExpBufferStr(&buf,
+            "WHERE s.source <> 'default' AND\n"
+            "      s.setting IS DISTINCT FROM s.boot_val\n");
+    }
+
+    appendPQExpBufferStr(&buf, "ORDER BY 1;");
+
+    // Execute query and display results
+    res = PSQLexec(buf.data);
+    termPQExpBuffer(&buf);
+    if (!res)
+        return false;
+
+    // Set appropriate title based on filtering
+    if (pattern)
+        myopt.title = _("List of configuration parameters");
+    else
+        myopt.title = _("List of non-default configuration parameters");
+
+    myopt.translate_header = true;
+    printQuery(res, &myopt, pset.queryFout, false, pset.logfile);
+
+    PQclear(res);
+    return true;
+}
+```

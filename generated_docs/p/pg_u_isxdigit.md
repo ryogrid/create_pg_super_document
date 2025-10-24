@@ -32,3 +32,20 @@ This function determines if a given Unicode code point represents a valid hexade
 - This dual-mode approach provides flexibility for different internationalization requirements
 - The function is used in text processing and parsing operations where hexadecimal digit recognition is needed
 - Returns a boolean value: true if the character is a hexadecimal digit according to the specified mode, false otherwise
+
+## Simplified Source
+
+```c
+bool pg_u_isxdigit(pg_wchar code, bool posix) {
+    if (posix) {
+        // POSIX mode: only ASCII hex digits (0-9, A-F, a-f)
+        return (('0' <= code && code <= '9') ||
+                ('A' <= code && code <= 'F') ||
+                ('a' <= code && code <= 'f'));
+    } else {
+        // Unicode mode: decimal numbers + Unicode hex digit property
+        return unicode_category(code) == PG_U_DECIMAL_NUMBER ||
+               pg_u_prop_hex_digit(code);
+    }
+}
+```

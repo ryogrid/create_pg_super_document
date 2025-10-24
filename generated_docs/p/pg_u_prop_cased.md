@@ -42,3 +42,23 @@ A character is considered cased if any of these conditions are true, making this
 - Optimized for ASCII with direct property lookup
 - Critical for implementing Unicode-compliant text processing in PostgreSQL
 - Located in src/common/unicode_category.c:144-158
+
+## Simplified Source
+
+```c
+bool pg_u_prop_cased(pg_wchar code) {
+    // Fast path for ASCII characters
+    if (code < 0x80)
+        return unicode_opt_ascii[code].properties & PG_U_PROP_CASED;
+
+    // Check if character has any case-related properties:
+    // 1. Titlecase letter category, OR
+    // 2. Lowercase property, OR
+    // 3. Uppercase property
+    uint32 category_mask = PG_U_CATEGORY_MASK(unicode_category(code));
+
+    return category_mask & PG_U_LT_MASK ||
+           pg_u_prop_lowercase(code) ||
+           pg_u_prop_uppercase(code);
+}
+```

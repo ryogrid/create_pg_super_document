@@ -36,3 +36,12 @@ The function performs simple pointer arithmetic to determine contiguous free spa
 - Used heavily in allocation decision logic throughout generation memory management
 - Enables efficient space checking without walking allocated chunks
 - Essential component of the generation context's block reuse strategy
+
+## Simplified Source
+
+```c
+static inline Size GenerationBlockFreeBytes(GenerationBlock *block) {
+    // Calculate free space by subtracting current position from end
+    return (block->endptr - block->freeptr);
+}
+```

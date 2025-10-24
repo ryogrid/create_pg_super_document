@@ -44,3 +44,40 @@ The function constructs a SELECT statement where each column is represented as "
 - Handles collation specifications to ensure CREATE OR REPLACE VIEW operations preserve collations
 - Only adds collation clauses for non-default collations to avoid redundancy
 - Essential for resolving circular dependency issues in complex database schemas during pg_dump operations
+
+## Simplified Source
+
+```c
+static PQExpBuffer
+createDummyViewAsClause(Archive *fout, const TableInfo *tbinfo)
+{
+    PQExpBuffer result = createPQExpBuffer();
+
+    appendPQExpBufferStr(result, "SELECT");
+
+    // Create NULL placeholder for each column
+    for (int j = 0; j < tbinfo->numatts; j++)
+    {
+        if (j > 0)
+            appendPQExpBufferChar(result, ',');
+        appendPQExpBufferStr(result, "\n    ");
+
+        // Add typed NULL value
+        appendPQExpBuffer(result, "NULL::%s", tbinfo->atttypnames[j]);
+
+        // Add collation if non-default
+        if (OidIsValid(tbinfo->attcollation[j]))
+        {
+            CollInfo *coll = findCollationByOid(tbinfo->attcollation[j]);
+            if (coll)
+                appendPQExpBuffer(result, " COLLATE %s",
+                                fmtQualifiedDumpable(coll));
+        }
+
+        // Add column alias
+        appendPQExpBuffer(result, " AS %s", fmtId(tbinfo->attnames[j]));
+    }
+
+    return result;
+}
+```
