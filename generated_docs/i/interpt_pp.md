@@ -45,3 +45,40 @@ The function is part of PostgreSQL's regression testing suite, specifically desi
 - Returns the intersection point of the first pair of intersecting segments found
 - The function assumes that if lseg_intersect returns true, lseg_interpt will not return NULL
 - Located in src/test/regress/regress.c, indicating it's part of the test suite rather than core functionality
+
+## Simplified Source
+
+```c
+Datum
+interpt_pp(PG_FUNCTION_ARGS)
+{
+    PATH *path1 = PG_GETARG_PATH_P(0);
+    PATH *path2 = PG_GETARG_PATH_P(1);
+    LSEG seg1, seg2;
+    bool found = false;
+
+    // Check all segment pairs between the two paths
+    for (int i = 0; i < path1->npts - 1 && !found; i++) {
+        regress_lseg_construct(&seg1, &path1->p[i], &path1->p[i + 1]);
+
+        for (int j = 0; j < path2->npts - 1 && !found; j++) {
+            regress_lseg_construct(&seg2, &path2->p[j], &path2->p[j + 1]);
+
+            // Check if segments intersect
+            if (DatumGetBool(DirectFunctionCall2(lseg_intersect,
+                                               LsegPGetDatum(&seg1),
+                                               LsegPGetDatum(&seg2)))) {
+                found = true;
+            }
+        }
+    }
+
+    if (!found)
+        PG_RETURN_NULL();
+
+    // Return the intersection point
+    PG_RETURN_DATUM(DirectFunctionCall2(lseg_interpt,
+                                       LsegPGetDatum(&seg1),
+                                       LsegPGetDatum(&seg2)));
+}
+```

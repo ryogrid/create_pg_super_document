@@ -42,3 +42,27 @@ This function doesn't send any data over the network; it only changes the intern
 - Part of PostgreSQL's performance optimization features for batch operations
 - Located in src/interfaces/libpq/fe-exec.c:3042-3072
 - Essential for high-performance applications that need to minimize query latency
+
+## Simplified Source
+
+```c
+int PQenterPipelineMode(PGconn *conn) {
+    // Validate connection
+    if (!conn)
+        return 0;
+
+    // Already in pipeline mode - succeed immediately
+    if (conn->pipelineStatus != PQ_PIPELINE_OFF)
+        return 1;
+
+    // Check connection is idle before enabling pipeline mode
+    if (conn->asyncStatus != PGASYNC_IDLE) {
+        libpq_append_conn_error(conn, "cannot enter pipeline mode, connection not idle");
+        return 0;
+    }
+
+    // Enable pipeline mode
+    conn->pipelineStatus = PQ_PIPELINE_ON;
+    return 1;
+}
+```

@@ -47,3 +47,34 @@ The function is a critical component in PostgreSQL's timezone system, providing 
 - Memory allocation failure during GMT state initialization will cause the function to return NULL
 - The GMT state is initialized exactly once and reused for all subsequent calls, providing efficiency for repeated GMT conversions
 - Critical for PostgreSQL's timezone infrastructure, especially for operations requiring GMT as a reference point
+
+## Simplified Source
+
+```c
+static struct pg_tm *
+gmtsub(pg_time_t const *timep, int32 offset,
+       struct pg_tm *tmp)
+{
+    // Static GMT timezone state - initialized once on first use
+    static struct state *gmtptr = NULL;
+
+    // Lazy initialization of GMT state
+    if (gmtptr == NULL) {
+        gmtptr = (struct state *) malloc(sizeof(struct state));
+        if (gmtptr == NULL)
+            return NULL;  // Memory allocation failed
+        gmtload(gmtptr);  // Load GMT timezone data
+    }
+
+    // Convert timestamp using GMT state and offset
+    struct pg_tm *result = timesub(timep, offset, gmtptr, tmp);
+
+    // Set timezone abbreviation based on offset
+    if (offset != 0)
+        tmp->tm_zone = wildabbr;      // Generic abbreviation for offset
+    else
+        tmp->tm_zone = gmtptr->chars; // Actual GMT abbreviation
+
+    return result;
+}
+```

@@ -41,3 +41,39 @@ This function takes no parameters but uses several global variables:
 - Considers line length limits when determining parentheses alignment
 - Critical for maintaining consistent code indentation throughout the formatting process
 - Part of the pg_bsd_indent tool's core indentation calculation logic
+
+## Simplified Source
+
+```c
+int compute_code_target(void) {
+    // Base indentation from nesting level
+    int target_col = ps.ind_size * ps.ind_level + 1;
+
+    if (ps.paren_level) {
+        if (!lineup_to_parens) {
+            // Simple continuation indentation
+            target_col += continuation_indent * ps.paren_level;
+        } else if (lineup_to_parens_always) {
+            // Always align to opening parenthesis
+            target_col = paren_target;
+        } else {
+            // Smart alignment considering line length
+            int t = paren_target;
+            int w = count_spaces(t, s_code) - max_col;
+
+            if (w > 0 && count_spaces(target_col, s_code) <= max_col) {
+                t -= w + 1;
+                if (t > target_col)
+                    target_col = t;
+            } else {
+                target_col = t;
+            }
+        }
+    } else if (ps.ind_stmt) {
+        // Add continuation indent for statements
+        target_col += continuation_indent;
+    }
+
+    return target_col;
+}
+```

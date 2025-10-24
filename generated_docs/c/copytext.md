@@ -43,3 +43,26 @@ The `copytext` function is a PostgreSQL C function that creates a complete copy 
 - Uses `memcpy` for efficient data copying between varlena structures
 - Critical for understanding PostgreSQL's internal data representation and memory management
 - Follows PostgreSQL's version 1 calling convention
+
+## Simplified Source
+
+```c
+Datum copytext(PG_FUNCTION_ARGS) {
+    // Get the input text argument
+    text *t = PG_GETARG_TEXT_PP(0);
+
+    // Calculate size and allocate memory for the copy with full header
+    text *new_t = (text *) palloc(VARSIZE_ANY_EXHDR(t) + VARHDRSZ);
+
+    // Set the size in the new text's header
+    SET_VARSIZE(new_t, VARSIZE_ANY_EXHDR(t) + VARHDRSZ);
+
+    // Copy the actual text data from source to destination
+    memcpy(VARDATA(new_t),        // destination data area
+           VARDATA_ANY(t),        // source data area
+           VARSIZE_ANY_EXHDR(t)); // number of bytes to copy
+
+    // Return the new text copy
+    PG_RETURN_TEXT_P(new_t);
+}
+```

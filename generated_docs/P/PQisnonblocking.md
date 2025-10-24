@@ -36,3 +36,16 @@ The function returns a boolean-style integer where:
 - Commonly used in pipeline and asynchronous processing scenarios to verify connection mode
 - Safe to call at any time during connection lifetime
 - The function serves as the public API counterpart to PQsetnonblocking for querying blocking status
+
+## Simplified Source
+
+```c
+int PQisnonblocking(const PGconn *conn) {
+    // Return false for invalid or bad connections
+    if (!conn || conn->status == CONNECTION_BAD)
+        return false;
+
+    // Query internal blocking status
+    return pqIsnonblocking(conn);
+}
+```

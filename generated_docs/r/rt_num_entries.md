@@ -29,3 +29,12 @@ This function provides a simple interface to retrieve the current count of keys 
 - Returns uint64 to support large key counts
 - Used primarily in test scenarios to verify the correctness of radix tree operations
 - The function assumes the tree parameter is valid and non-NULL
+
+## Simplified Source
+
+```c
+static uint64 rt_num_entries(rt_radix_tree *tree) {
+    // Return the number of keys stored in the radix tree
+    return tree->ctl->num_keys;
+}
+```

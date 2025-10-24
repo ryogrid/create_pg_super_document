@@ -35,3 +35,14 @@ The function delegates all its work to PLy_output, passing the NOTICE log level 
 - The actual message processing, formatting, and integration with PostgreSQL's ereport system is handled by PLy_output
 - NOTICE messages are typically sent to clients and are visible by default to provide user feedback
 - NOTICE level is commonly used for informational messages that don't indicate problems but provide useful information about the operation being performed
+
+## Simplified Source
+
+```c
+static PyObject *
+PLy_notice(PyObject *self, PyObject *args, PyObject *kw)
+{
+    // Simple wrapper that routes notice-level messages to core logging function
+    return PLy_output(NOTICE, self, args, kw);
+}
+```

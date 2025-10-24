@@ -38,3 +38,19 @@ The function assumes it is called exactly once per leaked resource and that ther
 - Used primarily for debugging and testing resource management functionality
 - The XXX comment indicates a design assumption that should be maintained
 - Memory for the returned string is allocated using psprintf, following PostgreSQL memory management conventions
+
+## Simplified Source
+
+```c
+static char *
+PrintManyTest(Datum res)
+{
+    ManyTestResource *mres = (ManyTestResource *) DatumGetPointer(res);
+
+    // Track leaked resource count for statistics
+    mres->kind->nleaked++;
+
+    // Return formatted description of the leaked resource
+    return psprintf("many-test resource from %s", mres->kind->desc.name);
+}
+```

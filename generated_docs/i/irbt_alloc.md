@@ -34,3 +34,12 @@ The function provides a standardized interface for node allocation that the Red-
 - Part of PostgreSQL's Red-Black Tree testing framework
 - The allocated memory size is specifically sizeof(IntRBTreeNode) but returned as generic RBTNode*
 - Follows the standard Red-Black Tree allocator interface pattern
+
+## Simplified Source
+
+```c
+static RBTNode *irbt_alloc(void *arg) {
+    // Allocate memory for an IntRBTreeNode and return as generic RBTNode
+    return (RBTNode *) palloc(sizeof(IntRBTreeNode));
+}
+```

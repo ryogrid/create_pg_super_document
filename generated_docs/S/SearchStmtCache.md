@@ -33,3 +33,31 @@ This function implements the search mechanism for the ECPG prepared statement ca
 - Static function - only accessible within the prepare.c compilation unit
 - Part of the automatic statement preparation system in ECPG
 - Cache entries are identified by non-empty stmtID fields
+
+## Simplified Source
+
+```c
+static int SearchStmtCache(const char *ecpgQuery) {
+    // Quick exit if cache not initialized
+    if (stmtCacheEntries == NULL)
+        return 0;
+
+    // Get starting position in cache via hash
+    int entryNumber = HashStmt(ecpgQuery);
+
+    // Linear search within hash bucket
+    for (int i = 0; i < stmtCacheEntPerBucket; i++) {
+        // Check if this slot is in use
+        if (stmtCacheEntries[entryNumber].stmtID[0]) {
+            // Compare full query strings
+            if (strcmp(ecpgQuery, stmtCacheEntries[entryNumber].ecpgQuery) == 0) {
+                return entryNumber;  // Found exact match
+            }
+        }
+        entryNumber++;  // Try next slot in bucket
+    }
+
+    // Not found in this bucket
+    return 0;
+}
+```

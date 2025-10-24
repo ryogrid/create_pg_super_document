@@ -35,3 +35,44 @@ The function handles end-of-file conditions gracefully, returning NULL if no dat
 - Updates the file position (th->pos) after successful reads
 - Respects logical file boundaries within the tar archive (th->fileLen)
 - Provides fgets()-like semantics for tar archive file reading
+
+## Simplified Source
+
+```c
+static char *tarGets(char *buf, size_t len, TAR_MEMBER *th)
+{
+    size_t cnt = 0;
+    char c = ' ';
+    int eof = 0;
+
+    // Don't read past logical file end
+    if (len > (th->fileLen - th->pos))
+        len = th->fileLen - th->pos;
+
+    // Read characters until newline or buffer full
+    while (cnt < len && c != '\n') {
+        if (_tarReadRaw(th->AH, &c, 1, th, NULL) <= 0) {
+            eof = 1;
+            break;
+        }
+        buf[cnt++] = c;
+    }
+
+    // Handle EOF and null-terminate
+    char *result;
+    if (eof && cnt == 0) {
+        result = NULL;  // No data read
+    } else {
+        buf[cnt++] = '\0';
+        result = buf;
+    }
+
+    // Update position
+    if (result) {
+        size_t actual_len = strlen(result);
+        th->pos += actual_len;
+    }
+
+    return result;
+}
+```

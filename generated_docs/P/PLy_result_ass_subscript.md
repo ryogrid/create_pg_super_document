@@ -37,3 +37,16 @@ This implementation allows PLyResultObject to behave like a mutable Python seque
 - The function is typically assigned to the mp_ass_subscript slot of the Python mapping protocol for PLyResultObject
 - Error handling is delegated to PyObject_SetItem, which will return -1 and set appropriate Python exceptions for invalid operations
 - This functionality allows for in-place modification of query result data, which can be useful for data transformation operations in PL/Python procedures
+
+## Simplified Source
+
+```c
+static int
+PLy_result_ass_subscript(PyObject *arg, PyObject *item, PyObject *value)
+{
+    PLyResultObject *result_obj = (PLyResultObject *) arg;
+
+    // Delegate assignment to the rows object
+    return PyObject_SetItem(result_obj->rows, item, value);
+}
+```

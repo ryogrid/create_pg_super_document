@@ -38,3 +38,27 @@ The function handles the extraction of name data using the appropriate OpenSSL A
 - Performs safe casting from unsigned char to char since certificate names are ASCII
 - Validates that name_entry is not NULL before processing
 - Part of the certificate hostname verification chain in PostgreSQL's TLS implementation
+
+## Simplified Source
+
+```c
+static int openssl_verify_peer_name_matches_certificate_name(PGconn *conn, ASN1_STRING *name_entry, char **store_name) {
+    // Validate input
+    if (name_entry == NULL) {
+        libpq_append_conn_error(conn, "SSL certificate's name entry is missing");
+        return -1;
+    }
+
+    // Extract name data using appropriate OpenSSL API
+    const unsigned char *namedata;
+#ifdef HAVE_ASN1_STRING_GET0_DATA
+    namedata = ASN1_STRING_get0_data(name_entry);
+#else
+    namedata = ASN1_STRING_data(name_entry);
+#endif
+    int len = ASN1_STRING_length(name_entry);
+
+    // Delegate to generic verification function
+    return pq_verify_peer_name_matches_certificate_name(conn, (const char *) namedata, len, store_name);
+}
+```

@@ -33,3 +33,16 @@ The  function is responsible for converting PostgreSQL's internal  data type rep
 - The  format specifier automatically chooses between decimal and scientific notation
 - Part of the PostgreSQL tutorial demonstrating custom data type implementation
 - Located in src/tutorial/complex.c:53-70
+
+## Simplified Source
+
+```c
+Datum complex_out(PG_FUNCTION_ARGS) {
+    Complex *complex = (Complex *) PG_GETARG_POINTER(0);
+    char *result;
+
+    // Format as "(x,y)" without spaces
+    result = psprintf("(%g,%g)", complex->x, complex->y);
+    PG_RETURN_CSTRING(result);
+}
+```

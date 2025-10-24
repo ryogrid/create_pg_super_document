@@ -33,3 +33,25 @@ This function creates a new PLySubtransactionObject instance that represents a s
 - This is the constructor function for subtransaction objects in PL/Python
 - The object must be properly entered and exited to function correctly
 - Located in src/pl/plpython/plpy_subxactobject.c:54-70
+
+## Simplified Source
+
+```c
+PyObject *
+PLy_subtransaction_new(PyObject *self, PyObject *unused)
+{
+    PLySubtransactionObject *subtxn_obj;
+
+    // Create new subtransaction object
+    subtxn_obj = PyObject_New(PLySubtransactionObject, &PLy_SubtransactionType);
+
+    if (subtxn_obj == NULL)
+        return NULL;
+
+    // Initialize state to default values
+    subtxn_obj->started = false;
+    subtxn_obj->exited = false;
+
+    return (PyObject *) subtxn_obj;
+}
+```

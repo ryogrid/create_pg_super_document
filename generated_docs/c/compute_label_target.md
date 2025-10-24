@@ -39,3 +39,22 @@ This function takes no parameters but uses several global variables:
 - Case/default labels use special indentation rules separate from regular code blocks
 - Regular goto labels are typically outdented from the current block level for visibility
 - Critical for maintaining consistent label formatting in the pg_bsd_indent tool
+
+## Simplified Source
+
+```c
+int compute_label_target(void) {
+    // Case labels: use case indentation
+    if (ps.pcase) {
+        return (int) (case_ind * ps.ind_size) + 1;
+    }
+
+    // Preprocessor directives: always at column 1
+    if (*s_lab == '#') {
+        return 1;
+    }
+
+    // Regular goto labels: outdented from current level
+    return ps.ind_size * (ps.ind_level - label_offset) + 1;
+}
+```

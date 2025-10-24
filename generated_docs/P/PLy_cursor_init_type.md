@@ -32,3 +32,13 @@ The function is essential for the PL/Python cursor functionality as it ensures t
 - The function will raise a PostgreSQL ERROR if PyType_Ready() fails, preventing the PL/Python extension from loading
 - PLy_CursorType is defined as a static PyTypeObject in the same file with methods for fetch, close, iteration, and deallocation
 - Part of the broader PL/Python cursor infrastructure that enables efficient streaming of query results
+
+## Simplified Source
+
+```c
+void PLy_cursor_init_type(void) {
+    // Initialize Python cursor type for PL/Python
+    if (PyType_Ready(&PLy_CursorType) < 0)
+        elog(ERROR, "could not initialize PLy_CursorType");
+}
+```

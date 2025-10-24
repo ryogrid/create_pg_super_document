@@ -44,3 +44,48 @@ While ARMv8 doesn't strictly require aligned memory access, the implementation p
 - The function is typically selected at runtime through pg_comp_crc32c_choose based on CPU capabilities
 - Alignment optimization makes this implementation significantly faster than generic implementations on supported hardware
 - Part of PostgreSQL's hardware-accelerated checksum infrastructure alongside SSE4.2 (x86) and LoongArch implementations
+
+## Simplified Source
+
+```c
+pg_crc32c pg_comp_crc32c_armv8(pg_crc32c crc, const void *data, size_t len) {
+    const unsigned char *p = data;
+    const unsigned char *pend = p + len;
+
+    // Process leading bytes to achieve 8-byte alignment for performance
+    // ARMv8 allows unaligned access but aligned is much faster
+    if (!PointerIsAligned(p, uint16) && p + 1 <= pend) {
+        crc = __crc32cb(crc, *p);
+        p += 1;
+    }
+    if (!PointerIsAligned(p, uint32) && p + 2 <= pend) {
+        crc = __crc32ch(crc, *(uint16 *) p);
+        p += 2;
+    }
+    if (!PointerIsAligned(p, uint64) && p + 4 <= pend) {
+        crc = __crc32cw(crc, *(uint32 *) p);
+        p += 4;
+    }
+
+    // Process aligned 8-byte chunks for maximum efficiency
+    while (p + 8 <= pend) {
+        crc = __crc32cd(crc, *(uint64 *) p);
+        p += 8;
+    }
+
+    // Process remaining bytes in decreasing size order
+    if (p + 4 <= pend) {
+        crc = __crc32cw(crc, *(uint32 *) p);
+        p += 4;
+    }
+    if (p + 2 <= pend) {
+        crc = __crc32ch(crc, *(uint16 *) p);
+        p += 2;
+    }
+    if (p < pend) {
+        crc = __crc32cb(crc, *p);
+    }
+
+    return crc;
+}
+```

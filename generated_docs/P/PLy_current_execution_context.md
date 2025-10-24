@@ -36,3 +36,15 @@ The function performs validation to ensure that there is indeed an active Python
 - Part of the execution context management system that maintains a stack of contexts
 - Essential for operations that need access to current procedure information, memory contexts, and execution environment settings
 - The function provides a safe way to access execution context with built-in error checking
+
+## Simplified Source
+
+```c
+PLyExecutionContext *PLy_current_execution_context(void) {
+    // Ensure Python function is currently executing
+    if (PLy_execution_contexts == NULL)
+        elog(ERROR, "no Python function is currently executing");
+
+    return PLy_execution_contexts;
+}
+```

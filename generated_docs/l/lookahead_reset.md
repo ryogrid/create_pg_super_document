@@ -37,3 +37,15 @@ This function takes no parameters but modifies several global variables:
 - Critical for maintaining parsing state consistency in pg_bsd_indent
 - Commonly used in parsing contexts where multiple lookahead attempts may be needed
 - Simple but crucial for preventing buffer synchronization issues between main parsing and lookahead operations
+
+## Simplified Source
+
+```c
+void lookahead_reset(void) {
+    // Reset main lookahead buffer to start position
+    lookahead_ptr = lookahead_start;
+
+    // Set up saved buffer for processing
+    lookahead_bp_save = bp_save;
+}
+```

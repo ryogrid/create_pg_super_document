@@ -44,3 +44,27 @@ This is particularly important for PostgreSQL archives since some operations req
 - Returns false for streams like pipes or sockets that don't support seeking
 - Enables archive code to choose appropriate strategies based on stream capabilities
 - Simple but essential function for robust file handling in archive operations
+
+## Simplified Source
+
+```c
+bool checkSeek(FILE *fp) {
+    pgoff_t tpos;
+
+    // Test if we can get current file position
+    tpos = ftello(fp);
+    if (tpos < 0) {
+        return false;
+    }
+
+    // Test if we can seek to a specific position
+    // Use SEEK_SET with current position rather than SEEK_CUR
+    // because some platforms incorrectly report success for SEEK_CUR
+    // on unseekable streams
+    if (fseeko(fp, tpos, SEEK_SET) != 0) {
+        return false;
+    }
+
+    return true;
+}
+```

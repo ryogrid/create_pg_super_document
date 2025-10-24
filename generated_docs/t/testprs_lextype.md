@@ -33,3 +33,27 @@ The testprs_lextype function returns a description of the lexical types (token t
 - Array is null-terminated with lexid 0
 - Provides both short aliases and longer descriptions for each token type
 - Essential for PostgreSQL's text search and parsing infrastructure integration
+
+## Simplified Source
+
+```c
+Datum testprs_lextype(PG_FUNCTION_ARGS) {
+    // Allocate array for 2 token types plus terminator
+    LexDescr *descr = (LexDescr *) palloc(sizeof(LexDescr) * 3);
+
+    // Define word token type (lexid 3)
+    descr[0].lexid = 3;
+    descr[0].alias = pstrdup("word");
+    descr[0].descr = pstrdup("Word");
+
+    // Define blank/space token type (lexid 12)
+    descr[1].lexid = 12;
+    descr[1].alias = pstrdup("blank");
+    descr[1].descr = pstrdup("Space symbols");
+
+    // Terminate array
+    descr[2].lexid = 0;
+
+    PG_RETURN_POINTER(descr);
+}
+```

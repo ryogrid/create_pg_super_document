@@ -33,3 +33,21 @@ This function serves as a semantic callback for the JSON parser testing framewor
 - Output includes newlines for proper JSON formatting and readability
 - Works in conjunction with `do_object_start` to handle complete object boundaries
 - Sets `elem_is_first` to false, which affects how subsequent elements are formatted
+
+## Simplified Source
+
+```c
+static JsonParseErrorType
+do_object_end(void *state)
+{
+    DoState *_state = (DoState *) state;
+
+    // Output closing brace for JSON object
+    printf("\n}\n");
+
+    // Clear first element flag
+    _state->elem_is_first = false;
+
+    return JSON_SUCCESS;
+}
+```

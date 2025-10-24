@@ -45,3 +45,33 @@ This function creates a temporary directory specifically for storing Unix-domain
 - Addresses path length constraints of Unix socket paths
 - Enables testing in builds where DEFAULT_PGSOCKET_DIR is not writable
 - Located in src/test/regress/pg_regress.c:500-540
+
+## Simplified Source
+
+```c
+static const char *make_temp_sockdir(void) {
+    // Create unique directory template using TMPDIR or /tmp
+    char *template = psprintf("%s/pg_regress-XXXXXX",
+                             getenv("TMPDIR") ? getenv("TMPDIR") : "/tmp");
+
+    // Create secure temp directory (mode 0700)
+    temp_sockdir = mkdtemp(template);
+    if (temp_sockdir == NULL)
+        bail("could not create directory \"%s\": %m", template);
+
+    // Prepare socket file paths for cleanup
+    UNIXSOCK_PATH(sockself, port, temp_sockdir);
+    snprintf(socklock, sizeof(socklock), "%s.lock", sockself);
+
+    // Set up cleanup on normal exit
+    atexit(remove_temp);
+
+    // Set up cleanup on signals (omit SIGQUIT for quick exit)
+    pqsignal(SIGHUP, signal_remove_temp);
+    pqsignal(SIGINT, signal_remove_temp);
+    pqsignal(SIGPIPE, signal_remove_temp);
+    pqsignal(SIGTERM, signal_remove_temp);
+
+    return temp_sockdir;
+}
+```

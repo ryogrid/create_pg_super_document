@@ -42,3 +42,66 @@ This function processes a TOC file that contains a list of dump IDs specifying t
 - Uses pg_get_line_buf for robust line reading with proper memory management
 - Provides warnings for invalid lines but continues processing
 - Fatal errors occur for file I/O problems or missing TOC entries
+
+## Simplified Source
+
+```c
+void SortTocFromFile(Archive *AHX)
+{
+    ArchiveHandle *AH = (ArchiveHandle *) AHX;
+    RestoreOptions *ropt = AH->public.ropt;
+    FILE *fh;
+    StringInfoData linebuf;
+
+    // Initialize idWanted array
+    ropt->idWanted = (bool *) pg_malloc0(sizeof(bool) * AH->maxDumpId);
+
+    // Open TOC file
+    fh = fopen(ropt->tocFile, PG_BINARY_R);
+    if (!fh)
+        pg_fatal("could not open TOC file \"%s\": %m", ropt->tocFile);
+
+    initStringInfo(&linebuf);
+
+    // Process each line in the file
+    while (pg_get_line_buf(fh, &linebuf)) {
+        char *cmnt;
+        char *endptr;
+        DumpId id;
+        TocEntry *te;
+
+        // Remove comments (after ';')
+        cmnt = strchr(linebuf.data, ';');
+        if (cmnt != NULL) {
+            cmnt[0] = '\0';
+            linebuf.len = cmnt - linebuf.data;
+        }
+
+        // Skip blank lines
+        if (strspn(linebuf.data, " \t\r\n") == linebuf.len)
+            continue;
+
+        // Parse and validate dump ID
+        id = strtol(linebuf.data, &endptr, 10);
+        if (endptr == linebuf.data || id <= 0 || id > AH->maxDumpId ||
+            ropt->idWanted[id - 1]) {
+            pg_log_warning("line ignored: %s", linebuf.data);
+            continue;
+        }
+
+        // Find corresponding TOC entry
+        te = getTocEntryByDumpId(AH, id);
+        if (!te)
+            pg_fatal("could not find entry for ID %d", id);
+
+        // Mark as wanted and move to desired position
+        ropt->idWanted[id - 1] = true;
+        _moveBefore(AH->toc, te);
+    }
+
+    // Cleanup
+    pg_free(linebuf.data);
+    if (fclose(fh) != 0)
+        pg_fatal("could not close TOC file: %m");
+}
+```

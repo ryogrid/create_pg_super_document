@@ -31,3 +31,15 @@ This function performs the necessary initialization of the PLy_ResultType Python
 - Failure to initialize results in a PostgreSQL ERROR, which terminates the current transaction
 - The PLy_ResultType includes methods like colnames(), coltypes(), nrows(), and status()
 - This is part of the PL/Python extension's object model for representing query results
+
+## Simplified Source
+
+```c
+void
+PLy_result_init_type(void)
+{
+    // Initialize the PLyResult Python type - must succeed or abort transaction
+    if (PyType_Ready(&PLy_ResultType) < 0)
+        elog(ERROR, "could not initialize PLy_ResultType");
+}
+```

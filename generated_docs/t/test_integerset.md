@@ -36,6 +36,37 @@ The function is designed to be called from SQL as a PostgreSQL function, returni
 ## Notes and Other Information
 - This is a SQL-callable function that can be invoked from PostgreSQL SQL interface
 - Tests multiple boundary conditions including 0, 1, and PG_UINT64_MAX values
-- Utilizes a predefined array  to run pattern-based tests
+- Utilizes a predefined array to run pattern-based tests
 - Located in: src/test/modules/test_integerset/test_integerset.c:107-134
 - Part of PostgreSQL's test module infrastructure for validating IntegerSet functionality
+
+## Simplified Source
+
+```c
+Datum
+test_integerset(PG_FUNCTION_ARGS)
+{
+    // Test corner cases
+    test_empty();
+    test_huge_distances();
+    test_single_value(0);
+    test_single_value(1);
+    test_single_value(PG_UINT64_MAX - 1);
+    test_single_value(PG_UINT64_MAX);
+
+    // Test single values with filler data
+    test_single_value_and_filler(0, 1000, 2000);
+    test_single_value_and_filler(1, 1000, 2000);
+    test_single_value_and_filler(1, 1000, 2000000);
+    test_single_value_and_filler(PG_UINT64_MAX - 1, 1000, 2000);
+    test_single_value_and_filler(PG_UINT64_MAX, 1000, 2000);
+
+    // Run pattern tests with many entries
+    for (int i = 0; i < lengthof(test_specs); i++)
+    {
+        test_pattern(&test_specs[i]);
+    }
+
+    PG_RETURN_VOID();
+}
+```

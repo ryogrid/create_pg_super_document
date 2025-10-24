@@ -31,3 +31,17 @@ This function selects a random int32 uniformly from the range [0, PG_INT32_MAX],
 - The 'p' suffix indicates 'positive' values only
 - Part of PostgreSQL's unified PRNG interface for consistent random number generation
 - Less commonly used than other PRNG functions, primarily in specialized contexts
+
+## Simplified Source
+
+```c
+int32
+pg_prng_int32p(pg_prng_state *state)
+{
+    uint64 v = xoroshiro128ss(state);
+
+    // Use 33-bit right shift to ensure non-negative result
+    // This gives uniform distribution over [0, PG_INT32_MAX]
+    return (int32) (v >> 33);
+}
+```

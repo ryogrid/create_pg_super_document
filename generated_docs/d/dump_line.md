@@ -43,3 +43,88 @@ This function takes no parameters but operates on several global variables and b
 - Resets all buffers and parser state after outputting each line
 - Critical for maintaining proper C code formatting and indentation consistency
 - Part of the pg_bsd_indent tool which is PostgreSQL's version of the BSD indent utility
+
+## Simplified Source
+
+```c
+void dump_line(void) {
+    int cur_col, target_col = 1;
+    static int not_first_line;
+
+    // Reset procedure name if set
+    if (ps.procname[0]) {
+        ps.ind_level = 0;
+        ps.procname[0] = 0;
+    }
+
+    // Handle blank lines
+    if (s_code == e_code && s_lab == e_lab && s_com == e_com) {
+        if (suppress_blanklines > 0)
+            suppress_blanklines--;
+        else {
+            ps.bl_line = true;
+            n_real_blanklines++;
+        }
+        return;
+    }
+
+    // Format and output line sections
+    if (!inhibit_formatting) {
+        suppress_blanklines = 0;
+        ps.bl_line = false;
+
+        // Handle blank line requests
+        if (prefix_blankline_requested && not_first_line) {
+            // Adjust blank lines based on settings
+        }
+
+        // Output any pending blank lines
+        while (--n_real_blanklines >= 0)
+            putc('\n', output);
+        n_real_blanklines = 0;
+
+        // Process label section
+        if (e_lab != s_lab) {
+            cur_col = pad_output(1, compute_label_target());
+            // Output label with special handling for #else/#endif
+            fprintf(output, "%.*s", (int)(e_lab - s_lab), s_lab);
+            cur_col = count_spaces(cur_col, s_lab);
+        } else {
+            cur_col = 1;
+        }
+
+        // Process code section
+        if (s_code != e_code) {
+            target_col = compute_code_target();
+            cur_col = pad_output(cur_col, target_col);
+            // Output code
+            for (char *p = s_code; p < e_code; p++) {
+                putc(*p, output);
+            }
+            cur_col = count_spaces(cur_col, s_code);
+        }
+
+        // Process comment section
+        if (s_com != e_com) {
+            int target = ps.com_col + ps.comment_delta;
+            if (cur_col > target) {
+                putc('\n', output);
+                cur_col = 1;
+            }
+            pad_output(cur_col, target);
+            fwrite(s_com, e_com - s_com, 1, output);
+        }
+
+        // End line
+        putc('\n', output);
+        ++ps.out_lines;
+    }
+
+    // Reset buffers and state
+    *(e_lab = s_lab) = '\0';
+    *(e_code = s_code) = '\0';
+    *(e_com = s_com = combuf + 1) = '\0';
+    ps.ind_level = ps.i_l_follow;
+    not_first_line = 1;
+}
+```

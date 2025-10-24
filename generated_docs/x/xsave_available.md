@@ -36,3 +36,22 @@ The implementation uses platform-specific CPUID intrinsics:
 - OSXSAVE support is a prerequisite for safely using extended SIMD instruction sets like AVX-512
 - The function will cause a compile-time error on platforms that don't provide CPUID intrinsics
 - The checked bit (ECX bit 27) specifically indicates OS-level XSAVE support, not just CPU capability
+
+## Simplified Source
+
+```c
+static inline bool xsave_available(void) {
+    unsigned int cpuid_regs[4] = {0, 0, 0, 0};
+
+    // Query CPUID leaf 1 using platform-specific intrinsics
+    #if defined(HAVE__GET_CPUID)
+        __get_cpuid(1, &cpuid_regs[0], &cpuid_regs[1], &cpuid_regs[2], &cpuid_regs[3]);
+    #elif defined(HAVE__CPUID)
+        __cpuid(cpuid_regs, 1);
+    #endif
+
+    // Check OSXSAVE bit (bit 27) in ECX register
+    // This indicates OS has enabled XSAVE feature for extended state management
+    return (cpuid_regs[2] & (1 << 27)) != 0;
+}
+```

@@ -35,3 +35,33 @@ This function serves as PostgreSQL's robust, thread-safe interface for convertin
 - Ultimate fallback generates "operating system error [number]" message
 - Uses internationalization support with _() macro for the fallback message
 - Located in src/port/strerror.c:46-84
+
+## Simplified Source
+
+```c
+char *pg_strerror_r(int errnum, char *buf, size_t buflen)
+{
+    char *str;
+
+    // Handle Windows socket errors specially
+#ifdef WIN32
+    if (errnum >= 10000 && errnum <= 11999)
+        return win32_socket_strerror(errnum, buf, buflen);
+#endif
+
+    // Try platform's strerror_r() first
+    str = gnuish_strerror_r(errnum, buf, buflen);
+
+    // If we get empty/invalid result, try symbolic errno name
+    if (str == NULL || *str == '\0' || *str == '?')
+        str = get_errno_symbol(errnum);
+
+    // Final fallback: numeric error message
+    if (str == NULL) {
+        snprintf(buf, buflen, _("operating system error %d"), errnum);
+        str = buf;
+    }
+
+    return str;
+}
+```

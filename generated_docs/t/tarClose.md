@@ -38,3 +38,22 @@ The function enforces the tar format's limitation of not supporting compression 
 - Enforces that compression is not supported with tar format
 - Frees memory allocated for targetFile string
 - Sets file handle to NULL after closing for safety
+
+## Simplified Source
+
+```c
+static void tarClose(ArchiveHandle *AH, TAR_MEMBER *th)
+{
+    // Verify no compression
+    if (AH->compression_spec.algorithm != PG_COMPRESSION_NONE)
+        pg_fatal("compression is not supported by tar archive format");
+
+    // For write mode, add file to tar archive
+    if (th->mode == 'w')
+        _tarAddFile(AH, th);  // This closes the temp file
+
+    // Cleanup
+    free(th->targetFile);
+    th->nFH = NULL;
+}
+```

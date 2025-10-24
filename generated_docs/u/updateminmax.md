@@ -33,3 +33,25 @@ The function serves as a bounds tracker for timezone data processing, ensuring t
 - Simple but critical function for tracking the temporal scope of timezone rules
 - Called frequently during timezone rule processing to maintain accurate bounds
 - The tracked range helps optimize memory allocation and processing decisions later in the compilation process
+
+## Simplified Source
+
+```c
+static void updateminmax(const zic_t x) {
+    // Update global minimum year if x is smaller
+    if (min_year > x) {
+        min_year = x;
+    }
+
+    // Update global maximum year if x is larger
+    if (max_year < x) {
+        max_year = x;
+    }
+}
+```
+
+**Key simplifications:**
+- Added descriptive comments explaining each update operation
+- Used clear formatting to show the two separate comparisons
+- Explained the purpose of tracking min/max years in global variables
+- Function is already quite simple, so preserved original logic with just added clarity

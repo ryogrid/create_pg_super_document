@@ -30,3 +30,22 @@ The function implements platform-specific synchronization using critical section
 - Uses Windows critical sections for thread safety on that platform
 - Essential for proper signal handling and cleanup in multi-threaded backup operations
 - The pstate reference allows signal handlers to access worker thread information for cancellation
+
+## Simplified Source
+
+```c
+static void
+set_cancel_pstate(ParallelState *pstate)
+{
+    // Thread-safe update of global parallel state pointer
+#ifdef WIN32
+    EnterCriticalSection(&signal_info_lock);
+#endif
+
+    signal_info.pstate = pstate;
+
+#ifdef WIN32
+    LeaveCriticalSection(&signal_info_lock);
+#endif
+}
+```

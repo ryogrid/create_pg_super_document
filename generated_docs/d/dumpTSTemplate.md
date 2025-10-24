@@ -46,3 +46,69 @@ The function constructs both creation and drop statements, handles binary upgrad
 - Templates serve as blueprints for creating dictionaries and define the function interface
 - Uses qualified names to handle schema-qualified template names properly
 - Comments are dumped without owner information (empty string passed to dumpComment)
+
+## Simplified Source
+
+```c
+static void
+dumpTSTemplate(Archive *fout, const TSTemplateInfo *tmplinfo)
+{
+    DumpOptions *dopt = fout->dopt;
+    PQExpBuffer q;
+    PQExpBuffer delq;
+    char       *qtmplname;
+
+    // Skip in data-only dump mode
+    if (dopt->dataOnly)
+        return;
+
+    q = createPQExpBuffer();
+    delq = createPQExpBuffer();
+
+    qtmplname = pg_strdup(fmtId(tmplinfo->dobj.name));
+
+    // Build CREATE TEXT SEARCH TEMPLATE statement
+    appendPQExpBuffer(q, "CREATE TEXT SEARCH TEMPLATE %s (\n",
+                      fmtQualifiedDumpable(tmplinfo));
+
+    // Add optional INIT function
+    if (tmplinfo->tmplinit != InvalidOid)
+        appendPQExpBuffer(q, "    INIT = %s,\n",
+                          convertTSFunction(fout, tmplinfo->tmplinit));
+
+    // Add required LEXIZE function
+    appendPQExpBuffer(q, "    LEXIZE = %s );\n",
+                      convertTSFunction(fout, tmplinfo->tmpllexize));
+
+    // Build DROP statement
+    appendPQExpBuffer(delq, "DROP TEXT SEARCH TEMPLATE %s;\n",
+                      fmtQualifiedDumpable(tmplinfo));
+
+    // Handle binary upgrade mode
+    if (dopt->binary_upgrade)
+        binary_upgrade_extension_member(q, &tmplinfo->dobj,
+                                        "TEXT SEARCH TEMPLATE", qtmplname,
+                                        tmplinfo->dobj.namespace->dobj.name);
+
+    // Archive the template definition
+    if (tmplinfo->dobj.dump & DUMP_COMPONENT_DEFINITION)
+        ArchiveEntry(fout, tmplinfo->dobj.catId, tmplinfo->dobj.dumpId,
+                     ARCHIVE_OPTS(.tag = tmplinfo->dobj.name,
+                                  .namespace = tmplinfo->dobj.namespace->dobj.name,
+                                  .description = "TEXT SEARCH TEMPLATE",
+                                  .section = SECTION_PRE_DATA,
+                                  .createStmt = q->data,
+                                  .dropStmt = delq->data));
+
+    // Dump template comments
+    if (tmplinfo->dobj.dump & DUMP_COMPONENT_COMMENT)
+        dumpComment(fout, "TEXT SEARCH TEMPLATE", qtmplname,
+                    tmplinfo->dobj.namespace->dobj.name, "",
+                    tmplinfo->dobj.catId, 0, tmplinfo->dobj.dumpId);
+
+    // Cleanup
+    destroyPQExpBuffer(q);
+    destroyPQExpBuffer(delq);
+    free(qtmplname);
+}
+```

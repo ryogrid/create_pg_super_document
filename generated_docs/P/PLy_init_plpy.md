@@ -40,3 +40,31 @@ This function performs comprehensive initialization of the PL/Python environment
 - Includes error handling to ensure the plpy module is successfully imported
 - The function bridges PostgreSQL's internal functionality with Python's module system
 - Critical for enabling PL/Python functions to interact with the database through the plpy interface
+
+## Simplified Source
+
+```c
+void PLy_init_plpy(void) {
+    PyObject *main_mod, *main_dict, *plpy_mod;
+
+    // Initialize all PL/Python types
+    PLy_plan_init_type();
+    PLy_result_init_type();
+    PLy_subtransaction_init_type();
+    PLy_cursor_init_type();
+
+    // Create the plpy module
+    PyModule_Create(&PLy_module);
+
+    // Add plpy module to Python's main namespace
+    main_mod = PyImport_AddModule("__main__");
+    main_dict = PyModule_GetDict(main_mod);
+    plpy_mod = PyImport_AddModule("plpy");
+    if (plpy_mod == NULL)
+        PLy_elog(ERROR, "could not import \"plpy\" module");
+
+    PyDict_SetItemString(main_dict, "plpy", plpy_mod);
+    if (PyErr_Occurred())
+        PLy_elog(ERROR, "could not import \"plpy\" module");
+}
+```

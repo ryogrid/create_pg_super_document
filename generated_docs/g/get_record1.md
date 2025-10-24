@@ -51,3 +51,23 @@ This function showcases the complex parameter passing required for ECPG cursor f
 - The function expects that the cursor 'mycur' has been previously opened via open_cur1
 - Requires variables to have been previously registered and allocated via get_var1
 - Each field has both a data target and a null indicator target for complete SQL NULL handling
+
+## Simplified Source
+
+```c
+static void get_record1(void) {
+    // Fetch record from cursor into bound variables
+    ECPGdo(__LINE__, 0, 1, NULL, 0, ECPGst_normal,
+           "fetch mycur",
+           ECPGt_EOIT,
+           // Bind data and null indicator variables for retrieved fields
+           ECPGt_int, &((MYTYPE*)ECPGget_var(0))->id, 1, 1, sizeof(struct mytype),
+           ECPGt_int, &((MYNULLTYPE*)ECPGget_var(1))->id, 1, 1, sizeof(struct mynulltype),
+           // Additional field bindings for t, d1, d2, c fields...
+           ECPGt_EORT);
+
+    // Check for SQL errors and exit if necessary
+    if (sqlca.sqlcode < 0)
+        exit(1);
+}
+```

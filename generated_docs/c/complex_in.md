@@ -35,3 +35,26 @@ The  function is responsible for converting external string representations of c
 - Allocates memory using PostgreSQL's palloc() for the result structure
 - Part of the PostgreSQL tutorial demonstrating custom data type implementation
 - Located in src/tutorial/complex.c:31-52
+
+## Simplified Source
+
+```c
+Datum complex_in(PG_FUNCTION_ARGS) {
+    char *str = PG_GETARG_CSTRING(0);
+    double x, y;
+    Complex *result;
+
+    // Parse input string format: "( x , y )"
+    if (sscanf(str, " ( %lf , %lf )", &x, &y) != 2)
+        ereport(ERROR,
+                (errcode(ERRCODE_INVALID_TEXT_REPRESENTATION),
+                 errmsg("invalid input syntax for type %s: \"%s\"",
+                        "complex", str)));
+
+    // Allocate and populate result structure
+    result = (Complex *) palloc(sizeof(Complex));
+    result->x = x;
+    result->y = y;
+    PG_RETURN_POINTER(result);
+}
+```

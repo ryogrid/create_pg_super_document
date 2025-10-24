@@ -35,3 +35,12 @@ This function simply delegates to  with a NULL end pointer, which causes the und
 - More convenient than  when processing complete strings
 - Essential for layout calculations throughout the indent tool
 - Part of the original codebase design from 1976, providing a clean API separation between bounded and unbounded string processing
+
+## Simplified Source
+
+```c
+int count_spaces(int cur, char *buffer) {
+    // Simple wrapper that processes entire null-terminated string
+    return count_spaces_until(cur, buffer, NULL);
+}
+```

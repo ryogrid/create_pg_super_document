@@ -45,3 +45,34 @@ This is a critical function for robust network communication in libpq, ensuring 
 - Essential for preventing connection errors from terminating client applications
 - The sigpipe_pending detection is important for proper signal handling when SIGPIPE was already blocked
 - Part of libpq's robust error handling strategy for network communication failures
+
+## Simplified Source
+
+```c
+int pq_block_sigpipe(sigset_t *osigset, bool *sigpipe_pending) {
+    sigset_t sigpipe_sigset;
+    sigset_t sigset;
+
+    // Create signal set containing only SIGPIPE
+    sigemptyset(&sigpipe_sigset);
+    sigaddset(&sigpipe_sigset, SIGPIPE);
+
+    // Block SIGPIPE and save previous mask
+    SOCK_ERRNO_SET(pthread_sigmask(SIG_BLOCK, &sigpipe_sigset, osigset));
+    if (SOCK_ERRNO)
+        return -1;
+
+    // Check if SIGPIPE was already blocked and pending
+    if (sigismember(osigset, SIGPIPE)) {
+        // Check for pending SIGPIPE signal
+        if (sigpending(&sigset) != 0)
+            return -1;
+
+        *sigpipe_pending = sigismember(&sigset, SIGPIPE);
+    } else {
+        *sigpipe_pending = false;
+    }
+
+    return 0;
+}
+```

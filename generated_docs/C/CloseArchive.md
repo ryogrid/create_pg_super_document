@@ -34,3 +34,21 @@ The function includes error handling to detect and report issues during the file
 - The function casts the Archive pointer to ArchiveHandle to access internal structure members
 - Used by both pg_dump (for writing archives) and pg_restore (for reading archives)
 - Proper cleanup is essential to ensure data integrity and prevent resource leaks
+
+## Simplified Source
+
+```c
+void
+CloseArchive(Archive *AHX)
+{
+    ArchiveHandle *AH = (ArchiveHandle *) AHX;
+
+    // Call format-specific close function
+    AH->ClosePtr(AH);
+
+    // Close the output file handle
+    errno = 0;
+    if (!EndCompressFileHandle(AH->OF))
+        pg_fatal("could not close output file: %m");
+}
+```

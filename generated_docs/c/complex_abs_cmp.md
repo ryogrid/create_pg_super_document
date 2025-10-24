@@ -41,3 +41,16 @@ This function is essential for PostgreSQL's B-tree operator class implementation
 - The function follows PostgreSQL's V1 calling convention
 - Located in the tutorial code demonstrating how to implement custom data types with proper B-tree support in PostgreSQL
 - Critical for enabling sorting, indexing, and range queries on complex number data
+
+## Simplified Source
+
+```c
+Datum complex_abs_cmp(PG_FUNCTION_ARGS) {
+    // Extract the two complex numbers from function arguments
+    Complex *a = (Complex *) PG_GETARG_POINTER(0);
+    Complex *b = (Complex *) PG_GETARG_POINTER(1);
+
+    // Return three-way comparison result (-1, 0, or 1)
+    PG_RETURN_INT32(complex_abs_cmp_internal(a, b));
+}
+```

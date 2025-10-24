@@ -34,3 +34,16 @@ This function is part of the test infrastructure located in `src/test/modules/te
 - The callback mechanism allows for custom processing or monitoring of data during COPY TO operations
 - This is primarily used for testing and demonstration purposes rather than production functionality
 - The function generates NOTICE-level messages that will be visible to clients connected to the PostgreSQL server
+
+## Simplified Source
+
+```c
+static void
+to_cb(void *data, int len)
+{
+    // Log data received during COPY TO operation
+    ereport(NOTICE,
+            (errmsg("COPY TO callback called with data \"%s\" and length %d",
+                    (char *) data, len)));
+}
+```

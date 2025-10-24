@@ -44,6 +44,27 @@ The macro implements a dynamic buffer expansion strategy that ensures the code f
 ## Notes and Other Information
 - This macro is essential for the dynamic memory management strategy of pg_bsd_indent
 - The 400-byte safety margin provides reasonable buffer space to reduce frequent reallocations
-- The macro updates three key pointers after reallocation: , , and 
+- The macro updates three key pointers after reallocation: , , and
 - Error handling is immediate and fatal - the program exits if memory allocation fails
 - Used extensively throughout the indentation process to ensure buffer capacity before writing formatted code
+
+## Simplified Source
+
+```c
+#define CHECK_SIZE_CODE(desired_size) \
+    if (e_code + (desired_size) >= l_code) { \
+        // Calculate new buffer size with safety margin
+        int nsize = l_code - s_code + 400 + desired_size; \
+        int code_len = e_code - s_code; \
+
+        // Reallocate buffer
+        codebuf = (char *) realloc(codebuf, nsize); \
+        if (codebuf == NULL) \
+            err(1, NULL); \
+
+        // Update all buffer pointers
+        e_code = codebuf + code_len + 1; \
+        l_code = codebuf + nsize - 5; \
+        s_code = codebuf + 1; \
+    }
+```

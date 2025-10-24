@@ -32,3 +32,14 @@ The want_bloat function is a simple predicate that checks the global bloat varia
 - Used extensively throughout the timezone compilation process to control output verbosity
 - Affects the size and compatibility of generated timezone data files
 - The bloat variable is typically set via command-line options in the zic utility
+
+## Simplified Source
+
+```c
+static bool
+want_bloat(void)
+{
+    // Return true if bloat mode is enabled (bloat >= 0)
+    return 0 <= bloat;
+}
+```

@@ -37,3 +37,15 @@ This function is a PostgreSQL-callable wrapper that implements the "<" operator 
 - Uses the centralized comparison logic in `complex_abs_cmp_internal` to ensure consistency
 - Located in src/tutorial/complex.c:148-158
 - Requires PG_FUNCTION_INFO_V1 declaration for PostgreSQL function registration
+
+## Simplified Source
+
+```c
+Datum complex_abs_lt(PG_FUNCTION_ARGS) {
+    Complex *a = (Complex *) PG_GETARG_POINTER(0);
+    Complex *b = (Complex *) PG_GETARG_POINTER(1);
+
+    // Return true if |a| < |b|
+    PG_RETURN_BOOL(complex_abs_cmp_internal(a, b) < 0);
+}
+```

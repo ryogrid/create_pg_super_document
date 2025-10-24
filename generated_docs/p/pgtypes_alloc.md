@@ -43,3 +43,19 @@ The function is designed to return zero-filled memory, which is important for in
 - Used extensively throughout the pgtypes library for allocating memory for various PostgreSQL data type representations
 - The zero-initialization is crucial for proper initialization of complex data structures used by PostgreSQL data types
 - Located in `src/interfaces/ecpg/pgtypeslib/common.c:10-19`
+
+## Simplified Source
+
+```c
+char *pgtypes_alloc(long size) {
+    // Allocate zero-initialized memory
+    char *new = (char *) calloc(1L, size);
+
+    // Set errno if allocation failed
+    if (!new) {
+        errno = ENOMEM;
+    }
+
+    return new;
+}
+```

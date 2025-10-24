@@ -47,3 +47,37 @@ The function uses elog(ERROR, ...) to report any test failures, which will abort
 - Boundary testing with key±1 helps verify that the search function doesn't have off-by-one errors or false positives
 - The Vector8 type and associated macros indicate this is testing 8-byte vectorized search operations
 - Part of PostgreSQL's test module infrastructure for validating linear search functionality
+
+## Simplified Source
+
+```c
+static void test_lfind8_internal(uint8 key) {
+    uint8 charbuf[LEN_WITH_TAIL(Vector8)];
+    const int len_no_tail = LEN_NO_TAIL(Vector8);
+    const int len_with_tail = LEN_WITH_TAIL(Vector8);
+
+    // Test 1: Tail search (one-byte-at-a-time path)
+    memset(charbuf, 0xFF, len_with_tail);
+    charbuf[len_with_tail - 1] = key;
+
+    // Test boundary conditions: key-1 should not exist, key should exist, key+1 should not exist
+    if (key > 0x00 && pg_lfind8(key - 1, charbuf, len_with_tail))
+        elog(ERROR, "pg_lfind8() found nonexistent element '0x%x'", key - 1);
+    if (key < 0xFF && !pg_lfind8(key, charbuf, len_with_tail))
+        elog(ERROR, "pg_lfind8() did not find existing element '0x%x'", key);
+    if (key < 0xFE && pg_lfind8(key + 1, charbuf, len_with_tail))
+        elog(ERROR, "pg_lfind8() found nonexistent element '0x%x'", key + 1);
+
+    // Test 2: Vector operations (SIMD path)
+    memset(charbuf, 0xFF, len_with_tail);
+    charbuf[len_no_tail - 1] = key;
+
+    // Same boundary tests for vectorized path
+    if (key > 0x00 && pg_lfind8(key - 1, charbuf, len_no_tail))
+        elog(ERROR, "pg_lfind8() found nonexistent element '0x%x'", key - 1);
+    if (key < 0xFF && !pg_lfind8(key, charbuf, len_no_tail))
+        elog(ERROR, "pg_lfind8() did not find existing element '0x%x'", key);
+    if (key < 0xFE && pg_lfind8(key + 1, charbuf, len_no_tail))
+        elog(ERROR, "pg_lfind8() found nonexistent element '0x%x'", key + 1);
+}
+```

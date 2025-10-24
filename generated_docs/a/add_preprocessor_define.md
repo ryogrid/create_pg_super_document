@@ -39,3 +39,37 @@ The function handles memory management carefully by creating copies of strings t
 - Memory optimization: cmdvalue field points directly into the duplicated string rather than allocating separate memory
 - The `used` field is initialized to NULL, likely for tracking macro usage during preprocessing
 - No validation is performed on macro names or values - accepts any string input
+
+## Simplified Source
+
+```c
+static void add_preprocessor_define(char *define) {
+    // Create a copy to avoid relying on argv storage
+    char *define_copy = mm_strdup(define);
+    struct _defines *newdef = mm_alloc(sizeof(struct _defines));
+
+    // Look for equals sign to separate name and value
+    char *ptr = strchr(define_copy, '=');
+    if (ptr != NULL) {
+        // Has explicit value - strip spaces between name and '='
+        char *tmp = ptr - 1;
+        while (tmp >= define_copy && *tmp == ' ') {
+            tmp--;
+        }
+        tmp[1] = '\0';
+        newdef->cmdvalue = ptr + 1;  // Point to value part
+    } else {
+        // No value specified - default to "1"
+        newdef->cmdvalue = "1";
+    }
+
+    // Set up the definition structure
+    newdef->name = define_copy;
+    newdef->value = mm_strdup(newdef->cmdvalue);
+    newdef->used = NULL;
+
+    // Add to front of the defines list
+    newdef->next = defines;
+    defines = newdef;
+}
+```

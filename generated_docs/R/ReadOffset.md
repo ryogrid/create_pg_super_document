@@ -35,3 +35,47 @@ ReadOffset is the counterpart to WriteOffset, reading a PostgreSQL file offset f
 - Validates offset data and fails with pg_fatal if offset is too large for the platform
 - Reconstructs little-endian serialized data back into native pgoff_t format
 - Part of pg_dump's custom archive format deserialization system
+
+## Simplified Source
+
+```c
+int ReadOffset(ArchiveHandle *AH, pgoff_t *o) {
+    int offsetFlg;
+
+    // Initialize output to zero
+    *o = 0;
+
+    // Handle legacy archive versions (< 1.7)
+    if (AH->version < K_VERS_1_7) {
+        int i = ReadInt(AH);
+        if (i < 0) return K_OFFSET_POS_NOT_SET;
+        if (i == 0) return K_OFFSET_NO_DATA;
+        *o = (pgoff_t) i;
+        return K_OFFSET_POS_SET;
+    }
+
+    // Read offset state flag from archive
+    offsetFlg = AH->ReadBytePtr(AH) & 0xFF;
+
+    // Validate offset flag
+    if (offsetFlg != K_OFFSET_POS_NOT_SET &&
+        offsetFlg != K_OFFSET_NO_DATA &&
+        offsetFlg != K_OFFSET_POS_SET) {
+        pg_fatal("unexpected data offset flag %d", offsetFlg);
+    }
+
+    // Read offset bytes in little-endian format
+    for (int off = 0; off < AH->offSize; off++) {
+        if (off < sizeof(pgoff_t)) {
+            *o |= ((pgoff_t)(AH->ReadBytePtr(AH))) << (off * 8);
+        } else {
+            // Ensure no overflow beyond pgoff_t size
+            if (AH->ReadBytePtr(AH) != 0) {
+                pg_fatal("file offset in dump file is too large");
+            }
+        }
+    }
+
+    return offsetFlg;
+}
+```

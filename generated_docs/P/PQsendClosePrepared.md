@@ -33,3 +33,12 @@ The function sends a Close message ('C') with statement type ('S') to the Postgr
 - Applications must call PQgetResult after this function to complete the operation
 - The prepared statement name must match exactly with a statement that exists on the server
 - Part of libpq's asynchronous command interface for non-blocking database operations
+
+## Simplified Source
+
+```c
+int PQsendClosePrepared(PGconn *conn, const char *stmt) {
+    // Send Close command for prepared statement ('S' type)
+    return PQsendTypedCommand(conn, PqMsg_Close, 'S', stmt);
+}
+```

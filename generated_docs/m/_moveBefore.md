@@ -36,3 +36,20 @@ This function is similar to `_moveAfter` but places the entry before the specifi
 - No bounds checking or error handling is performed - the caller is responsible for ensuring valid inputs
 - Unlike `_moveAfter`, this function does not take an ArchiveHandle parameter, making it slightly more streamlined
 - Used primarily in TOC sorting operations where entries need to be reordered based on dependencies or user-specified ordering
+
+## Simplified Source
+
+```c
+static void _moveBefore(TocEntry *pos, TocEntry *te)
+{
+    // Unlink 'te' from its current position
+    te->prev->next = te->next;
+    te->next->prev = te->prev;
+
+    // Insert 'te' before 'pos'
+    te->prev = pos->prev;
+    te->next = pos;
+    pos->prev->next = te;
+    pos->prev = te;
+}
+```

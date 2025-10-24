@@ -34,3 +34,22 @@ pqBuildStartupPacket3 serves as a memory-allocating wrapper around the build_sta
 - Part of the libpq protocol 3 implementation for PostgreSQL client-server communication
 - The actual packet construction logic is delegated to the build_startup_packet helper function
 - Memory allocation failure is handled by returning NULL, allowing callers to detect and handle out-of-memory conditions
+
+## Simplified Source
+
+```c
+char *pqBuildStartupPacket3(PGconn *conn, int *packetlen,
+                           const PQEnvironmentOption *options) {
+    // First pass: determine required packet size
+    *packetlen = build_startup_packet(conn, NULL, options);
+
+    // Allocate memory for the packet
+    char *startpacket = (char *) malloc(*packetlen);
+    if (!startpacket)
+        return NULL;
+
+    // Second pass: fill the allocated buffer with packet data
+    *packetlen = build_startup_packet(conn, startpacket, options);
+    return startpacket;
+}
+```

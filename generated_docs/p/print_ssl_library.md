@@ -33,3 +33,17 @@ This function is primarily used for testing and verification purposes in the lib
 - It provides a simple way to verify SSL configuration without establishing an actual database connection
 - The function handles the case where SSL is not compiled in or not available gracefully by checking for NULL return from PQsslAttribute
 - Located in src/interfaces/libpq/test/libpq_testclient.c:16-26
+
+## Simplified Source
+```c
+static void print_ssl_library() {
+    // Get SSL library name from libpq
+    const char *lib = PQsslAttribute(NULL, "library");
+
+    // Print result or error message
+    if (!lib)
+        fprintf(stderr, "SSL is not enabled\n");
+    else
+        printf("%s\n", lib);
+}
+```

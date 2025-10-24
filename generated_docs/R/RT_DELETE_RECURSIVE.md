@@ -46,3 +46,44 @@ This function recursively traverses the radix tree from the root towards the lea
 - Uses a recursive approach with shift-based key chunk processing to navigate tree levels
 - Returns true if the key was found and deleted, false if the key was not present in the tree
 - The function is part of PostgreSQL's generic radix tree template system, allowing for type-safe radix tree implementations
+
+## Simplified Source
+
+```c
+// Macro that generates function name for recursive deletion
+#define RT_DELETE_RECURSIVE RT_MAKE_NAME(delete_recursive)
+
+// The actual generated function performs recursive tree deletion:
+static bool delete_recursive(RT_RADIX_TREE *tree, RT_PTR_ALLOC *parent_slot,
+                            uint64 key, int shift)
+{
+    // Extract key chunk for current tree level
+    RT_PTR_ALLOC *node = *parent_slot;
+    int chunk = RT_GET_KEY_CHUNK(key, shift);
+
+    // Search for child slot containing the key chunk
+    RT_PTR_ALLOC *child_slot = RT_NODE_SEARCH(node, chunk);
+    if (!child_slot)
+        return false;  // Key not found
+
+    if (shift == 0) {
+        // At leaf level: delete the value
+        if (RT_CHILDPTR_IS_VALUE(*child_slot)) {
+            RT_FREE_LEAF(*child_slot);
+            RT_NODE_DELETE(node, chunk);
+            return true;  // Successfully deleted
+        }
+        return false;  // Key not found
+    } else {
+        // At inner node: recurse to next level
+        bool deleted = delete_recursive(tree, child_slot, key, shift - RT_SPAN);
+
+        if (deleted && node_is_empty(node)) {
+            // Clean up empty node
+            cleanup_empty_node(parent_slot);
+        }
+
+        return deleted;
+    }
+}
+```

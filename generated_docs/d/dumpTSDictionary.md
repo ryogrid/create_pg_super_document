@@ -48,3 +48,88 @@ The function performs a database query to retrieve the template namespace and na
 - Generates both CREATE and DROP statements for complete dump/restore capability
 - Part of PostgreSQL's text search infrastructure dumping functionality
 - Uses qualified names to handle schema-qualified dictionary and template names properly
+
+## Simplified Source
+
+```c
+static void
+dumpTSDictionary(Archive *fout, const TSDictInfo *dictinfo)
+{
+    DumpOptions *dopt = fout->dopt;
+    PQExpBuffer q;
+    PQExpBuffer delq;
+    PQExpBuffer query;
+    char       *qdictname;
+    PGresult   *res;
+    char       *nspname;
+    char       *tmplname;
+
+    // Skip in data-only dump mode
+    if (dopt->dataOnly)
+        return;
+
+    q = createPQExpBuffer();
+    delq = createPQExpBuffer();
+    query = createPQExpBuffer();
+
+    qdictname = pg_strdup(fmtId(dictinfo->dobj.name));
+
+    // Fetch template namespace and name
+    appendPQExpBuffer(query, "SELECT nspname, tmplname "
+                      "FROM pg_ts_template p, pg_namespace n "
+                      "WHERE p.oid = '%u' AND n.oid = tmplnamespace",
+                      dictinfo->dicttemplate);
+    res = ExecuteSqlQueryForSingleRow(fout, query->data);
+    nspname = PQgetvalue(res, 0, 0);
+    tmplname = PQgetvalue(res, 0, 1);
+
+    // Build CREATE TEXT SEARCH DICTIONARY statement
+    appendPQExpBuffer(q, "CREATE TEXT SEARCH DICTIONARY %s (\n",
+                      fmtQualifiedDumpable(dictinfo));
+
+    appendPQExpBufferStr(q, "    TEMPLATE = ");
+    appendPQExpBuffer(q, "%s.", fmtId(nspname));
+    appendPQExpBufferStr(q, fmtId(tmplname));
+
+    PQclear(res);
+
+    // Add initialization options if present
+    if (dictinfo->dictinitoption)
+        appendPQExpBuffer(q, ",\n    %s", dictinfo->dictinitoption);
+
+    appendPQExpBufferStr(q, " );\n");
+
+    // Build DROP statement
+    appendPQExpBuffer(delq, "DROP TEXT SEARCH DICTIONARY %s;\n",
+                      fmtQualifiedDumpable(dictinfo));
+
+    // Handle binary upgrade mode
+    if (dopt->binary_upgrade)
+        binary_upgrade_extension_member(q, &dictinfo->dobj,
+                                        "TEXT SEARCH DICTIONARY", qdictname,
+                                        dictinfo->dobj.namespace->dobj.name);
+
+    // Archive the dictionary definition
+    if (dictinfo->dobj.dump & DUMP_COMPONENT_DEFINITION)
+        ArchiveEntry(fout, dictinfo->dobj.catId, dictinfo->dobj.dumpId,
+                     ARCHIVE_OPTS(.tag = dictinfo->dobj.name,
+                                  .namespace = dictinfo->dobj.namespace->dobj.name,
+                                  .owner = dictinfo->rolname,
+                                  .description = "TEXT SEARCH DICTIONARY",
+                                  .section = SECTION_PRE_DATA,
+                                  .createStmt = q->data,
+                                  .dropStmt = delq->data));
+
+    // Dump dictionary comments
+    if (dictinfo->dobj.dump & DUMP_COMPONENT_COMMENT)
+        dumpComment(fout, "TEXT SEARCH DICTIONARY", qdictname,
+                    dictinfo->dobj.namespace->dobj.name, dictinfo->rolname,
+                    dictinfo->dobj.catId, 0, dictinfo->dobj.dumpId);
+
+    // Cleanup
+    destroyPQExpBuffer(q);
+    destroyPQExpBuffer(delq);
+    destroyPQExpBuffer(query);
+    free(qdictname);
+}
+```

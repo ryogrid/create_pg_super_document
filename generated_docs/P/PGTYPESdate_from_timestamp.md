@@ -33,3 +33,19 @@ PGTYPESdate_from_timestamp performs a conversion from a PostgreSQL timestamp (wh
 - Part of the ECPG pgtypeslib interface for PostgreSQL type conversions
 - Located in src/interfaces/ecpg/pgtypeslib/datetime.c:31-46
 - The function suppresses compiler warnings by initializing dDate to 0
+
+## Simplified Source
+
+```c
+date PGTYPESdate_from_timestamp(timestamp dt)
+{
+    date result = 0; // Initialize to suppress compiler warning
+
+    if (!TIMESTAMP_NOT_FINITE(dt)) {
+        // Convert timestamp microseconds to days
+        result = (dt / USECS_PER_DAY);
+    }
+
+    return result;
+}
+```

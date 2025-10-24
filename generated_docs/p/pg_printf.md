@@ -32,3 +32,22 @@ The function is designed to ensure consistent printf-style formatting behavior a
 - The function is typically accessed through macro redefinitions that replace standard printf calls throughout the PostgreSQL codebase
 - Returns the number of characters written to stdout, following standard printf semantics
 - Provides the most commonly used interface for formatted output in PostgreSQL, ensuring consistent behavior across platforms
+
+## Simplified Source
+
+```c
+int pg_printf(const char *fmt, ...)
+{
+    int len;
+    va_list args;
+
+    // Convert variable arguments to va_list
+    va_start(args, fmt);
+
+    // Delegate to vfprintf with stdout
+    len = pg_vfprintf(stdout, fmt, args);
+
+    va_end(args);
+    return len;
+}
+```

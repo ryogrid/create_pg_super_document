@@ -36,3 +36,29 @@ The implementation uses a sense-reversing barrier algorithm with a mutex and con
 - Part of PostgreSQL's portability layer for missing POSIX thread components
 - If mutex initialization fails, the condition variable is properly cleaned up
 - The barrier can be reused multiple times after initialization
+
+## Simplified Source
+
+```c
+int pthread_barrier_init(pthread_barrier_t *barrier, const void *attr, int count) {
+    // Initialize barrier state
+    barrier->sense = false;     // Sense-reversing flag for reuse
+    barrier->count = count;     // Total threads required
+    barrier->arrived = 0;       // Threads arrived so far
+
+    // Initialize condition variable for thread signaling
+    int error = pthread_cond_init(&barrier->cond, NULL);
+    if (error != 0)
+        return error;
+
+    // Initialize mutex for protecting barrier state
+    error = pthread_mutex_init(&barrier->mutex, NULL);
+    if (error != 0) {
+        // Cleanup on failure
+        pthread_cond_destroy(&barrier->cond);
+        return error;
+    }
+
+    return 0;  // Success
+}
+```

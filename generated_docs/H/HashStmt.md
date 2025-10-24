@@ -32,3 +32,28 @@ This function implements a hash algorithm specifically designed for ECPG prepare
 - Returns a bucket entry number (1-based indexing) to avoid using array position 0
 - [Hash](Hash.md) collision handling is managed by the cache search and insertion functions that call this
 - Static function - only accessible within the prepare.c compilation unit
+
+## Simplified Source
+
+```c
+static int HashStmt(const char *ecpgQuery) {
+    // Use first 50 characters for hashing
+    int stmtLength = strlen(ecpgQuery);
+    int hashLength = (stmtLength < 50) ? stmtLength : 50;
+
+    // Generate 64-bit hash with rotation
+    uint64 hashValue = 0;
+    for (int i = 0; i < hashLength; i++) {
+        hashValue += (unsigned char) ecpgQuery[i];
+
+        // Rotate left by 13 bits for better distribution
+        hashValue = hashValue << 13;
+        uint64 rotatedBits = (hashValue & UINT64CONST(0x1fff00000000)) >> 32;
+        hashValue = (hashValue & UINT64CONST(0xffffffff)) | rotatedBits;
+    }
+
+    // Map to bucket and ensure 1-based indexing
+    int bucketNumber = hashValue % stmtCacheNBuckets;
+    return bucketNumber * stmtCacheEntPerBucket + 1;
+}
+```

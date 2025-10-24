@@ -31,3 +31,15 @@ This approach is safe because PostgreSQL never enters the Tcl event loop, so the
 - This function is part of a complete set of Tcl notifier overrides that includes pltcl_InitNotifier, pltcl_FinalizeNotifier, pltcl_SetTimer, pltcl_CreateFileHandler, pltcl_DeleteFileHandler, pltcl_ServiceModeHook, and pltcl_WaitForEvent
 - The empty implementation is intentional and by design - it prevents potential threading issues while maintaining compatibility with Tcl's notifier interface
 - Located in src/pl/tcl/pltcl.c:368-372
+
+## Simplified Source
+
+```c
+static void
+pltcl_AlertNotifier(ClientData clientData)
+{
+    // No-op function: intentionally empty
+    // Prevents Tcl's notifier alert mechanism from causing
+    // threading issues in PostgreSQL's single-threaded backend
+}
+```

@@ -32,3 +32,12 @@ PQcancelErrorMessage returns the error message associated with the most recent o
 - Widely used in testing frameworks and error handling routines
 - Essential for debugging cancellation failures and providing meaningful error feedback
 - The error message persists until the next operation on the cancel connection or until the connection is reset
+
+## Simplified Source
+
+```c
+char *PQcancelErrorMessage(const PGcancelConn *cancelConn) {
+    // Extract error message from the embedded connection structure
+    return PQerrorMessage(&cancelConn->conn);
+}
+```

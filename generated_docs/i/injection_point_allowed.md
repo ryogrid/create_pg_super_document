@@ -36,3 +36,29 @@ This function implements the conditional logic for injection points in PostgreSQ
 - Returns  if the injection point should execute,  otherwise
 - The function uses a switch statement pattern that can be easily extended for additional condition types
 - Part of PostgreSQL's testing infrastructure for creating controlled test environments
+
+## Simplified Source
+
+```c
+static bool
+injection_point_allowed(InjectionPointCondition *condition)
+{
+    bool result = true;
+
+    // Check condition type and evaluate accordingly
+    switch (condition->type)
+    {
+        case INJ_CONDITION_PID:
+            // Only allow if current process matches target PID
+            if (MyProcPid != condition->pid)
+                result = false;
+            break;
+
+        case INJ_CONDITION_ALWAYS:
+            // Always allow execution
+            break;
+    }
+
+    return result;
+}
+```

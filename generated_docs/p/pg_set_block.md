@@ -38,3 +38,25 @@ The function uses platform-specific system calls:
 - This function is the complement to `pg_set_noblock()` and is used to restore standard blocking socket behavior
 - Primarily used when transitioning from asynchronous to synchronous socket operations
 - Should be used with proper error handling to ensure socket state changes are successful
+
+## Simplified Source
+
+```c
+bool
+pg_set_block(pgsocket sock)
+{
+#if !defined(WIN32)
+    // Unix/Linux: Use fcntl to clear O_NONBLOCK flag
+    int flags = fcntl(sock, F_GETFL);
+    if (flags < 0)
+        return false;
+    if (fcntl(sock, F_SETFL, (flags & ~O_NONBLOCK)) == -1)
+        return false;
+    return true;
+#else
+    // Windows: Use ioctlsocket to disable non-blocking mode
+    unsigned long ioctlsocket_ret = 0;
+    return (ioctlsocket(sock, FIONBIO, &ioctlsocket_ret) == 0);
+#endif
+}
+```

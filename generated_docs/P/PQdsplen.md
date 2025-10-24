@@ -35,3 +35,12 @@ This function provides a wrapper around pg_encoding_dsplen() to determine how ma
 - Used extensively in psql and frontend utilities for proper text layout
 - Part of libpq's comprehensive multibyte character support system
 - Essential for calculating column widths and text positioning in formatted output
+
+## Simplified Source
+
+```c
+int PQdsplen(const char *s, int encoding) {
+    // Calculate display width of character using specified encoding
+    return pg_encoding_dsplen(encoding, s);
+}
+```

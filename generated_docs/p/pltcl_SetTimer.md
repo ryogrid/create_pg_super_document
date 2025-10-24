@@ -34,3 +34,15 @@ As part of the complete notifier subsystem override, this function replaces Tcl'
 - Uses the CONST86 macro for Tcl version compatibility
 - The empty implementation is safe because PostgreSQL never uses Tcl's event loop or timer functionality
 - Part of the broader strategy to prevent Tcl multithreading from breaking PostgreSQL's backend architecture
+
+## Simplified Source
+
+```c
+static void
+pltcl_SetTimer(CONST86 Tcl_Time *timePtr)
+{
+    // No-op function: intentionally empty
+    // PostgreSQL never uses Tcl's event loop or timer functionality
+    // Prevents Tcl's default timer mechanism from interfering
+}
+```

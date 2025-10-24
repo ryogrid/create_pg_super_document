@@ -37,3 +37,15 @@ The function checks if the global tidstore pointer is NULL and immediately throw
 - Essential for maintaining proper test execution order and preventing crashes from uninitialized state
 - Simple but effective defensive programming practice that makes debugging test issues much easier
 - The global tidstore variable is expected to be initialized by the test_create function before any other operations
+
+## Simplified Source
+
+```c
+static void
+check_tidstore_available(void)
+{
+    // Ensure tidstore is initialized before use
+    if (tidstore == NULL)
+        elog(ERROR, "tidstore is not created");
+}
+```

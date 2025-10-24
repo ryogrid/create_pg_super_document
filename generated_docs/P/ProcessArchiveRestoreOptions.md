@@ -47,3 +47,51 @@ If strict name checking is enabled, the function calls StrictNamesCheck to valid
 - The function handles both dump and restore scenarios with different validation strictness
 - Strict name checking is optional and controlled by restore options
 - Critical for determining the scope of restore operations based on user-specified criteria
+
+## Simplified Source
+
+```c
+void
+ProcessArchiveRestoreOptions(Archive *AHX)
+{
+    ArchiveHandle *AH = (ArchiveHandle *) AHX;
+    RestoreOptions *ropt = AH->public.ropt;
+    TocEntry *te;
+    teSection curSection;
+
+    // Process each TOC entry to determine what should be restored
+    curSection = SECTION_PRE_DATA;
+    for (te = AH->toc->next; te != AH->toc; te = te->next) {
+
+        // Validate section ordering when writing archives
+        if (AH->mode != archModeRead) {
+            switch (te->section) {
+                case SECTION_NONE:
+                    break;  // Can be anywhere
+                case SECTION_PRE_DATA:
+                    if (curSection != SECTION_PRE_DATA)
+                        pg_log_warning("archive items not in correct section order");
+                    break;
+                case SECTION_DATA:
+                    if (curSection == SECTION_POST_DATA)
+                        pg_log_warning("archive items not in correct section order");
+                    break;
+                case SECTION_POST_DATA:
+                    break;  // OK regardless of current section
+                default:
+                    pg_fatal("unexpected section code %d", (int) te->section);
+            }
+        }
+
+        if (te->section != SECTION_NONE)
+            curSection = te->section;
+
+        // Determine if this entry should be processed
+        te->reqs = _tocEntryRequired(te, curSection, AH);
+    }
+
+    // Enforce strict name checking if enabled
+    if (ropt->strict_names)
+        StrictNamesCheck(ropt);
+}
+```

@@ -34,3 +34,22 @@ This function is a minimal implementation of an index build routine for PostgreS
 - Does not perform any actual indexing work, making it safe for testing purposes
 - Located in src/test/modules/dummy_index_am/dummy_index_am.c:139-156
 - Serves as a template for implementing actual index build functions in custom access methods
+
+## Simplified Source
+
+```c
+static IndexBuildResult *
+dibuild(Relation heap, Relation index, IndexInfo *indexInfo)
+{
+    IndexBuildResult *result;
+
+    // Allocate result structure
+    result = (IndexBuildResult *) palloc(sizeof(IndexBuildResult));
+
+    // Set dummy values - no actual indexing performed
+    result->heap_tuples = 0;     // Pretend no tuples were scanned
+    result->index_tuples = 0;    // No index tuples created
+
+    return result;
+}
+```

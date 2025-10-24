@@ -36,3 +36,22 @@ This function handles critical failures that make continued testing impossible b
 - The function never returns - it always terminates the process with exit code 2
 - Critical for maintaining test suite integrity by preventing cascading failures
 - The `noatexit` parameter helps prevent recursive exit handler calls that could cause deadlocks or infinite loops
+
+## Simplified Source
+
+```c
+static void bail_out(bool noatexit, const char *fmt, ...) {
+    va_list ap;
+
+    // Format and emit TAP bail-out message
+    va_start(ap, fmt);
+    emit_tap_output_v(BAIL, fmt, ap);
+    va_end(ap);
+
+    // Exit process: _exit(2) skips handlers, exit(2) runs them
+    if (noatexit)
+        _exit(2);
+
+    exit(2);
+}
+```

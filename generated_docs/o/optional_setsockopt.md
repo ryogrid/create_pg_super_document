@@ -36,3 +36,19 @@ optional_setsockopt is an internal utility function in the libpq cancel mechanis
 - Returns true for success or when the option is skipped (negative value), false only when setsockopt actually fails
 - Used extensively in PQcancel to configure socket options like keepalive settings in a robust manner
 - Location: src/interfaces/libpq/fe-cancel.c:432-463
+
+## Simplified Source
+
+```c
+static bool optional_setsockopt(int fd, int protoid, int optid, int value) {
+    // Skip setting option if value is negative
+    if (value < 0)
+        return true;
+
+    // Attempt to set socket option, return false if it fails
+    if (setsockopt(fd, protoid, optid, (char *) &value, sizeof(value)) < 0)
+        return false;
+
+    return true;
+}
+```

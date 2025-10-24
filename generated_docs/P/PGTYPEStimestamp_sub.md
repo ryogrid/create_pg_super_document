@@ -31,3 +31,19 @@ This function performs timestamp subtraction by computing the difference between
 - The resulting interval has month field set to 0, representing pure time duration
 - Part of the ECPG pgtypes library for embedded SQL applications
 - Used by compatibility layer functions for Informix-style operations
+
+## Simplified Source
+
+```c
+int PGTYPEStimestamp_sub(timestamp *ts1, timestamp *ts2, interval *iv) {
+    // Check for infinite timestamps
+    if (TIMESTAMP_NOT_FINITE(*ts1) || TIMESTAMP_NOT_FINITE(*ts2))
+        return PGTYPES_TS_ERR_EINFTIME;
+
+    // Calculate time difference
+    iv->time = (*ts1 - *ts2);
+    iv->month = 0;  // Pure time duration, no month component
+
+    return 0;
+}
+```

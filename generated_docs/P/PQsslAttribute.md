@@ -55,3 +55,58 @@ Supported attributes include:
 - The function is declared in the public libpq-fe.h header, making it part of the official libpq API
 - Works in conjunction with PQsslAttributeNames to provide complete SSL introspection capabilities
 - Located in src/interfaces/libpq/fe-secure-openssl.c:1841-1907
+
+## Simplified Source
+
+```c
+const char *
+PQsslAttribute(PGconn *conn, const char *attribute_name)
+{
+    static char sslbits_str[12];
+    static char alpn_str[256];
+
+    // Handle special case: library query without connection
+    if (!conn) {
+        if (strcmp(attribute_name, "library") == 0)
+            return "OpenSSL";
+        return NULL;
+    }
+
+    // No attributes available for non-SSL connections
+    if (conn->ssl == NULL)
+        return NULL;
+
+    // Return requested SSL attribute
+    if (strcmp(attribute_name, "library") == 0)
+        return "OpenSSL";
+
+    if (strcmp(attribute_name, "key_bits") == 0) {
+        int sslbits;
+        SSL_get_cipher_bits(conn->ssl, &sslbits);
+        snprintf(sslbits_str, sizeof(sslbits_str), "%d", sslbits);
+        return sslbits_str;
+    }
+
+    if (strcmp(attribute_name, "cipher") == 0)
+        return SSL_get_cipher(conn->ssl);
+
+    if (strcmp(attribute_name, "compression") == 0)
+        return SSL_get_current_compression(conn->ssl) ? "on" : "off";
+
+    if (strcmp(attribute_name, "protocol") == 0)
+        return SSL_get_version(conn->ssl);
+
+    if (strcmp(attribute_name, "alpn") == 0) {
+        const unsigned char *data;
+        unsigned int len;
+        SSL_get0_alpn_selected(conn->ssl, &data, &len);
+        if (data == NULL || len == 0 || len > sizeof(alpn_str) - 1)
+            return "";
+        memcpy(alpn_str, data, len);
+        alpn_str[len] = 0;
+        return alpn_str;
+    }
+
+    return NULL; // Unknown attribute
+}
+```

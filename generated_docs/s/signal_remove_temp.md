@@ -36,3 +36,16 @@ This function serves as a signal handler for various termination signals during 
 - Essential for proper cleanup during abnormal program termination
 - Works in conjunction with remove_temp() to ensure no temporary files are left behind
 - Located in src/test/regress/pg_regress.c:479-499
+
+## Simplified Source
+
+```c
+static void signal_remove_temp(SIGNAL_ARGS) {
+    // Clean up temporary socket directory
+    remove_temp();
+
+    // Restore default signal handler and re-raise signal
+    pqsignal(postgres_signal_arg, SIG_DFL);
+    raise(postgres_signal_arg);
+}
+```

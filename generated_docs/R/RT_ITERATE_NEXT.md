@@ -57,3 +57,37 @@ The function handles both embedded values (for small data) and pointer-based val
 - Maintains iteration state across calls using the iterator's level stack
 - Part of PostgreSQL's generic radix tree implementation located in src/include/lib/radixtree.h:188
 - Should be used between RT_BEGIN_ITERATE and RT_END_ITERATE calls
+
+## Simplified Source
+
+```c
+// Macro that generates function name for radix tree iteration
+#define RT_ITERATE_NEXT RT_MAKE_NAME(iterate_next)
+
+// The actual generated function performs depth-first tree traversal:
+RT_VALUE_TYPE *iterate_next(RT_ITER *iter, uint64 *key_p)
+{
+    // Main iteration loop through tree levels
+    while (iter->level < iter->max_level) {
+        // Get next child pointer at current level
+        RT_PTR_ALLOC *slot = RT_NODE_ITERATE_NEXT(current_node, &iter->key);
+
+        if (slot) {
+            if (iter->level == 0) {
+                // At leaf level: return the value and key
+                *key_p = iter->key;
+                return get_value_from_slot(slot);
+            } else {
+                // At inner node: descend to next level
+                iter->level--;
+                setup_next_level_iteration(slot);
+            }
+        } else {
+            // No more children: ascend to parent level
+            iter->level++;
+        }
+    }
+
+    return NULL;  // Iteration complete
+}
+```

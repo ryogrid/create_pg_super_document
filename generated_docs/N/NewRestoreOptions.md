@@ -45,3 +45,23 @@ The function ensures consistent initialization of restore options across differe
   - compression_spec.level: 0 (compression level zero)
 - Designed for future expansion where additional initialization might be needed
 - Critical for proper initialization of restore behavior across pg_dump utilities
+
+## Simplified Source
+
+```c
+RestoreOptions *
+NewRestoreOptions(void)
+{
+    // Allocate zero-initialized options structure
+    RestoreOptions *opts = (RestoreOptions *) pg_malloc0(sizeof(RestoreOptions));
+
+    // Set non-zero default values
+    opts->format = archUnknown;
+    opts->cparams.promptPassword = TRI_DEFAULT;
+    opts->dumpSections = DUMP_UNSECTIONED;
+    opts->compression_spec.algorithm = PG_COMPRESSION_NONE;
+    opts->compression_spec.level = 0;
+
+    return opts;
+}
+```

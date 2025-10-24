@@ -37,3 +37,26 @@ This function is essential for receiving 64-bit values (positions, offsets, size
 - Essential for interpreting 64-bit large object position and size responses from the server
 - Handles the conversion by leveraging the existing 32-bit conversion function
 - Used specifically in 64-bit variants of large object positioning functions
+
+## Simplified Source
+
+```c
+static pg_int64 lo_ntoh64(pg_int64 net64) {
+    union {
+        pg_int64 i64;
+        uint32 i32[2];
+    } swap;
+    pg_int64 result;
+
+    swap.i64 = net64;
+
+    // Extract and convert high order 32 bits
+    result = (uint32) pg_ntoh32(swap.i32[0]);
+    result <<= 32;
+
+    // Add converted low order 32 bits
+    result |= (uint32) pg_ntoh32(swap.i32[1]);
+
+    return result;
+}
+```

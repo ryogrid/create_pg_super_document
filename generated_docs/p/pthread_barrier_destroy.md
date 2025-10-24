@@ -34,3 +34,17 @@ The function performs the cleanup in the correct order, destroying the condition
 - Part of PostgreSQL's pthread barrier implementation for systems lacking native support
 - The barrier object should not be used after destruction without re-initialization
 - Failure to call this function results in resource leaks of mutex and condition variable objects
+
+## Simplified Source
+
+```c
+int pthread_barrier_destroy(pthread_barrier_t *barrier) {
+    // Clean up condition variable used for thread signaling
+    pthread_cond_destroy(&barrier->cond);
+
+    // Clean up mutex used for protecting barrier state
+    pthread_mutex_destroy(&barrier->mutex);
+
+    return 0;  // Always succeeds
+}
+```

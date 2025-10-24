@@ -48,3 +48,69 @@ The parsing process includes whitespace handling, temporary null termination for
 - Part of the ECPG pgtypes library for date/time manipulation
 - Located in src/interfaces/ecpg/pgtypeslib/dt_common.c:2457-2518
 - Extensively used by PGTYPEStimestamp_defmt_scan for various format specifier parsing
+
+## Simplified Source
+
+```c
+static int pgtypes_defmt_scan(union un_fmt_comb *scan_val, int scan_type, char **pstr, char *pfmt)
+{
+    char last_char;
+    int err = 0;
+    char *pstr_end;
+    char *strtol_end = NULL;
+
+    // Skip leading whitespace
+    while (**pstr == ' ')
+        (*pstr)++;
+
+    // Find where this token ends using format pattern
+    pstr_end = find_end_token(*pstr, pfmt);
+    if (!pstr_end) {
+        return 1; // Error: no match found
+    }
+
+    // Temporarily null-terminate for safe parsing
+    last_char = *pstr_end;
+    *pstr_end = '\0';
+
+    // Parse based on expected type
+    switch (scan_type) {
+        case PGTYPES_TYPE_UINT:
+            // Parse unsigned integer, allowing blank padding
+            while (**pstr == ' ')
+                (*pstr)++;
+            errno = 0;
+            scan_val->uint_val = (unsigned int) strtol(*pstr, &strtol_end, 10);
+            if (errno)
+                err = 1;
+            break;
+
+        case PGTYPES_TYPE_UINT_LONG:
+            // Parse unsigned long integer
+            while (**pstr == ' ')
+                (*pstr)++;
+            errno = 0;
+            scan_val->luint_val = (unsigned long int) strtol(*pstr, &strtol_end, 10);
+            if (errno)
+                err = 1;
+            break;
+
+        case PGTYPES_TYPE_STRING_MALLOCED:
+            // Duplicate string with memory allocation
+            scan_val->str_val = pgtypes_strdup(*pstr);
+            if (scan_val->str_val == NULL)
+                err = 1;
+            break;
+    }
+
+    // Advance string pointer past parsed token
+    if (strtol_end && *strtol_end)
+        *pstr = strtol_end;
+    else
+        *pstr = pstr_end;
+
+    // Restore original character
+    *pstr_end = last_char;
+    return err;
+}
+```

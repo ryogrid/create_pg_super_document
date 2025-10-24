@@ -38,3 +38,18 @@ The function is designed to be SSL implementation-agnostic, providing a way for 
 - This provides a more flexible alternative to PQgetssl for future SSL library support
 - The design suggests potential future support for other SSL implementations
 - Located in src/interfaces/libpq/fe-secure-openssl.c:1804-1813
+
+## Simplified Source
+
+```c
+void *
+PQsslStruct(PGconn *conn, const char *struct_name)
+{
+    // Return SSL structure by name (currently only "OpenSSL" supported)
+    if (!conn)
+        return NULL;
+    if (strcmp(struct_name, "OpenSSL") == 0)
+        return conn->ssl;
+    return NULL;
+}
+```

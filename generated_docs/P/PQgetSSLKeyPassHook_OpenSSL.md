@@ -45,3 +45,14 @@ When the returned function is called, it receives:
 - This is a getter function paired with PQsetSSLKeyPassHook_OpenSSL for setting the hook
 - Thread safety depends on the OpenSSL version and how the callback is implemented
 - The passphrase callback is global to all connections using the same libpq instance
+
+## Simplified Source
+
+```c
+PQsslKeyPassHook_OpenSSL_type
+PQgetSSLKeyPassHook_OpenSSL(void)
+{
+    // Return the currently installed SSL key passphrase callback
+    return PQsslKeyPassHook;
+}
+```

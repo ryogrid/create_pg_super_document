@@ -35,4 +35,25 @@ The function is implemented as a static function within the pg_regress.c file, m
 - Uses "r" mode for file opening, which is read-only
 - Properly closes the file handle after determining the size
 - Part of the PostgreSQL regression testing infrastructure
-- Error handling includes diagnostic output using the  function
+- Error handling includes diagnostic output using the diag function
+
+## Simplified Source
+
+```c
+static long file_size(const char *file) {
+    FILE *f = fopen(file, "r");
+
+    // Return -1 if file can't be opened
+    if (!f) {
+        diag("could not open file \"%s\" for reading: %m", file);
+        return -1;
+    }
+
+    // Seek to end and get position (file size)
+    fseek(f, 0, SEEK_END);
+    long size = ftell(f);
+    fclose(f);
+
+    return size;
+}
+```

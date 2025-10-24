@@ -35,3 +35,23 @@ The function uses conditional compilation to support different CPUID access meth
 - The SSE 4.2 instruction set includes the CRC32 instruction that can significantly accelerate CRC-32C computations
 - Part of PostgreSQL's runtime CPU feature detection system for optimal performance
 - The function is called only once during the first CRC computation to determine the best implementation to use
+
+## Simplified Source
+
+```c
+static bool pg_crc32c_sse42_available(void) {
+    unsigned int exx[4] = {0, 0, 0, 0};
+
+    // Get CPU feature information using platform-specific CPUID
+#if defined(HAVE__GET_CPUID)
+    __get_cpuid(1, &exx[0], &exx[1], &exx[2], &exx[3]);
+#elif defined(HAVE__CPUID)
+    __cpuid(exx, 1);
+#else
+#error cpuid instruction not available
+#endif
+
+    // Check SSE 4.2 bit (bit 20) in ECX register
+    return (exx[2] & (1 << 20)) != 0;
+}
+```

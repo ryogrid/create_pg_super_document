@@ -45,3 +45,68 @@ The function implements several sophisticated features:
 - NOTE_END handling allows for clean termination of multi-line diagnostic output
 - This function is the single point where all TAP protocol formatting rules are enforced
 - The dual output mechanism ensures test results are captured in log files for later analysis
+
+## Simplified Source
+
+```c
+static void emit_tap_output_v(TAPtype type, const char *fmt, va_list argp) {
+    va_list argp_logfile;
+    FILE *fp;
+    int save_errno = errno;  // Preserve errno for %m placeholders
+
+    // Route output: DIAG/BAIL to stderr, others to stdout
+    if (type == DIAG || type == BAIL)
+        fp = stderr;
+    else
+        fp = stdout;
+
+    // Handle NOTE_END: just print newline and return
+    if (type == NOTE_END) {
+        in_note = false;
+        fprintf(fp, "\n");
+        if (logfile)
+            fprintf(logfile, "\n");
+        return;
+    }
+
+    // Copy va_list for dual output to console and logfile
+    va_copy(argp_logfile, argp);
+
+    // Prefix non-protocol output with '#' per TAP spec
+    if ((type == NOTE || type == DIAG || type == BAIL) ||
+        (type == NOTE_DETAIL && !in_note)) {
+        fprintf(fp, "# ");
+        if (logfile)
+            fprintf(logfile, "# ");
+    }
+
+    // Output formatted message to both destinations
+    errno = save_errno;
+    vfprintf(fp, fmt, argp);
+    if (logfile) {
+        errno = save_errno;
+        vfprintf(logfile, fmt, argp_logfile);
+    }
+
+    // Track multi-line note state
+    if (type == NOTE_DETAIL)
+        in_note = true;
+
+    // BAIL messages need additional protocol output
+    if (type == BAIL) {
+        fprintf(stdout, "Bail out!");
+        if (logfile)
+            fprintf(logfile, "Bail out!");
+    }
+
+    va_end(argp_logfile);
+
+    // Add newline for most message types
+    if (type != NOTE_DETAIL) {
+        fprintf(fp, "\n");
+        if (logfile)
+            fprintf(logfile, "\n");
+    }
+    fflush(NULL);
+}
+```

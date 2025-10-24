@@ -50,3 +50,22 @@ This is a foundational function in the pg_dump architecture, creating the centra
 - [Archive](../A/Archive.md) format can be archUnknown, in which case the format is automatically discovered
 - The function establishes the foundation for all subsequent dump operations including TOC management, data serialization, and worker coordination
 - Memory allocated by this function should be properly cleaned up using appropriate cleanup functions
+
+## Simplified Source
+
+```c
+Archive *
+CreateArchive(const char *FileSpec, const ArchiveFormat fmt,
+              const pg_compress_specification compression_spec,
+              bool dosync, ArchiveMode mode,
+              SetupWorkerPtrType setupDumpWorker,
+              DataDirSyncMethod sync_method)
+{
+    // Allocate and initialize new archive handle
+    ArchiveHandle *AH = _allocAH(FileSpec, fmt, compression_spec,
+                                 dosync, mode, setupDumpWorker, sync_method);
+
+    // Return as public interface
+    return (Archive *) AH;
+}
+```

@@ -40,3 +40,33 @@ The function ensures proper null-termination of the output string and tracks the
 - Ensures null-termination of the output string
 - Performs buffer size checking to prevent overflow
 - Used specifically in IPv6 address formatting contexts
+
+## Simplified Source
+
+```c
+static int
+decoct(const u_char *src, int bytes, char *dst, size_t size)
+{
+    char *odst = dst;
+    char *t;
+    int b;
+
+    // Convert each byte to decimal notation
+    for (b = 1; b <= bytes; b++) {
+        if (size <= sizeof "255.")
+            return 0;  // Buffer too small
+
+        t = dst;
+        dst += SPRINTF((dst, "%u", *src++));
+
+        // Add dot separator except after last byte
+        if (b != bytes) {
+            *dst++ = '.';
+            *dst = '\0';
+        }
+        size -= (size_t) (dst - t);
+    }
+
+    return (dst - odst);  // Return number of characters written
+}
+```

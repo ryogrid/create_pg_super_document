@@ -37,3 +37,23 @@ The `makepoint` function is a PostgreSQL C function that takes two Point argumen
 - The function creates a hybrid point by mixing coordinates from two input points
 - Follows PostgreSQL's version 1 calling convention
 - Shows proper handling of pass-by-reference composite types
+
+## Simplified Source
+
+```c
+Datum makepoint(PG_FUNCTION_ARGS) {
+    // Get the two input Point arguments
+    Point *pointx = PG_GETARG_POINT_P(0);
+    Point *pointy = PG_GETARG_POINT_P(1);
+
+    // Allocate memory for the new Point
+    Point *new_point = (Point *) palloc(sizeof(Point));
+
+    // Create hybrid point: x from first point, y from second point
+    new_point->x = pointx->x;
+    new_point->y = pointy->y;
+
+    // Return the new Point
+    PG_RETURN_POINT_P(new_point);
+}
+```

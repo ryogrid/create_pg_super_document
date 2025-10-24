@@ -38,3 +38,35 @@ This function serves as a lookup table that maps ECPGdtype enumeration values to
 - Returns NULL after error reporting for unrecognized types, though this may not be reached in practice
 - Essential for generating proper ECPG runtime calls in the preprocessed C code
 - Used specifically in SQL descriptor handling where dynamic attribute access is required
+
+## Simplified Source
+
+```c
+const char *
+get_dtype(enum ECPGdtype type)
+{
+    // Map ECPGdtype enum values to their string representations
+    switch (type)
+    {
+        case ECPGd_count:        return "ECPGd_count";
+        case ECPGd_data:         return "ECPGd_data";
+        case ECPGd_di_code:      return "ECPGd_di_code";
+        case ECPGd_di_precision: return "ECPGd_di_precision";
+        case ECPGd_indicator:    return "ECPGd_indicator";
+        case ECPGd_key_member:   return "ECPGd_key_member";
+        case ECPGd_length:       return "ECPGd_length";
+        case ECPGd_name:         return "ECPGd_name";
+        case ECPGd_nullable:     return "ECPGd_nullable";
+        case ECPGd_octet:        return "ECPGd_octet";
+        case ECPGd_precision:    return "ECPGd_precision";
+        case ECPGd_ret_length:   return "ECPGd_ret_length";
+        case ECPGd_ret_octet:    return "ECPGd_ret_octet";
+        case ECPGd_scale:        return "ECPGd_scale";
+        case ECPGd_type:         return "ECPGd_type";
+        case ECPGd_cardinality:  return "ECPGd_cardinality";
+        default:
+            mmerror(PARSE_ERROR, ET_ERROR, "unrecognized descriptor item code %d", type);
+            return NULL;
+    }
+}
+```

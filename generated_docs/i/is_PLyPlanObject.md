@@ -29,3 +29,12 @@ This utility function performs a type check to determine if the provided Python 
 - Used for type validation before casting PyObject to PLyPlanObject
 - Essential for type safety when handling Python objects that may or may not be plan objects
 - The function assumes the input PyObject pointer is valid (non-NULL)
+
+## Simplified Source
+
+```c
+bool is_PLyPlanObject(PyObject *ob) {
+    // Check if object type matches PLy_PlanType
+    return ob->ob_type == &PLy_PlanType;
+}
+```

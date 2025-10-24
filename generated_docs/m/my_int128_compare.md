@@ -28,3 +28,16 @@ This function provides a simple three-way comparison for 128-bit integers. It se
 - This is a static inline function defined in the testint128.c test utility
 - Used as a reference implementation for validating other 128-bit integer comparison functions
 - Returns -1 if x < y, 1 if x > y, and 0 if x == y following standard comparison function conventions
+
+## Simplified Source
+
+```c
+static inline int my_int128_compare(int128 x, int128 y) {
+    // Three-way comparison: return -1, 0, or 1
+    if (x < y)
+        return -1;
+    if (x > y)
+        return 1;
+    return 0;
+}
+```

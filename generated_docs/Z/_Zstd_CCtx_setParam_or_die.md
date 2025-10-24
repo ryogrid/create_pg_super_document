@@ -35,3 +35,20 @@ This function provides a wrapper around the ZSTD library's  function with error 
 - Uses PostgreSQL's  function which terminates the program on error
 - Provides descriptive error messages including the parameter name and ZSTD error description
 - Part of PostgreSQL's pg_dump utility's ZSTD compression support
+
+## Simplified Source
+
+```c
+static void
+_Zstd_CCtx_setParam_or_die(ZSTD_CStream *cstream,
+                           ZSTD_cParameter param, int value, char *paramname)
+{
+    // Set compression parameter on ZSTD stream
+    size_t result = ZSTD_CCtx_setParameter(cstream, param, value);
+
+    // Fatal error if parameter setting fails
+    if (ZSTD_isError(result))
+        pg_fatal("could not set compression parameter \"%s\": %s",
+                paramname, ZSTD_getErrorName(result));
+}
+```

@@ -32,3 +32,12 @@ The function is registered with PostgreSQL's error reporting system during inlin
 - Part of PostgreSQL's error context callback mechanism for DO statements
 - The function currently doesn't use the exec_ctx parameter, as noted in the comment in plpython3_inline_handler
 - Helps users identify that errors occurred specifically within a DO block rather than a named function or procedure
+
+## Simplified Source
+
+```c
+static void plpython_inline_error_callback(void *arg) {
+    // Provide context for errors in anonymous DO blocks
+    errcontext("PL/Python anonymous code block");
+}
+```

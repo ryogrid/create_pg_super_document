@@ -39,3 +39,17 @@ This function performs cleanup of the temporary Unix socket directory used durin
 - Errors are intentionally ignored since temporary directory leaks are considered unimportant
 - Uses Assert to verify temp_sockdir is not NULL before proceeding
 - Located in src/test/regress/pg_regress.c:467-478
+
+## Simplified Source
+
+```c
+static void remove_temp(void) {
+    Assert(temp_sockdir);
+
+    // Clean up socket files and directory
+    // Errors ignored - temp directory leaks are non-critical
+    unlink(sockself);   // Remove socket file
+    unlink(socklock);   // Remove lock file
+    rmdir(temp_sockdir); // Remove directory
+}
+```

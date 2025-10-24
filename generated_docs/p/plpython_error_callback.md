@@ -32,3 +32,21 @@ The callback enhances error messages by adding contextual information such as "P
 - Only provides context information if there is a current procedure (curr_proc is not NULL)
 - Part of PostgreSQL's error context callback mechanism, which allows language handlers to provide meaningful error context
 - Helps debugging by clearly identifying which PL/Python function or procedure was executing when an error occurred
+
+## Simplified Source
+
+```c
+static void plpython_error_callback(void *arg) {
+    PLyExecutionContext *exec_ctx = (PLyExecutionContext *) arg;
+
+    // Add context information to error messages
+    if (exec_ctx->curr_proc) {
+        if (exec_ctx->curr_proc->is_procedure)
+            errcontext("PL/Python procedure \"%s\"",
+                       PLy_procedure_name(exec_ctx->curr_proc));
+        else
+            errcontext("PL/Python function \"%s\"",
+                       PLy_procedure_name(exec_ctx->curr_proc));
+    }
+}
+```

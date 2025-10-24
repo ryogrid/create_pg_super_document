@@ -32,3 +32,15 @@ The print2 function is a simple error handling routine specifically designed for
 - Part of PostgreSQL's ECPG testing framework
 - Used for error reporting in "whenever" preprocessor test scenarios
 - Works in conjunction with sqlprint() to provide comprehensive error information
+
+## Simplified Source
+
+```c
+static void print2(void) {
+    // Print error message to stderr
+    fprintf(stderr, "Found another error\n");
+
+    // Display SQL diagnostic information
+    sqlprint();
+}
+```

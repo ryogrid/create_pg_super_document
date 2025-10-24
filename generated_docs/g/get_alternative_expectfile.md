@@ -33,3 +33,41 @@ The function allocates memory for the new filename, finds the last dot in the or
 - The numeric suffix is designed to be single-digit (1-9) based on the size calculation
 - Used specifically in the regression testing framework to support multiple valid expected outputs for the same test
 - Memory management is carefully handled with proper cleanup on allocation failures
+
+## Simplified Source
+
+```c
+/*
+ * In: filename.ext, Return: filename_i.ext, where 0 < i <= 9
+ */
+static char *
+get_alternative_expectfile(const char *expectfile, int i)
+{
+    int filename_size = strlen(expectfile) + 2 + 1;
+    char *temp_copy = malloc(filename_size);
+    char *result = malloc(filename_size);
+
+    if (!temp_copy || !result) {
+        free(temp_copy);
+        free(result);
+        return NULL;
+    }
+
+    // Copy filename and find the last dot
+    strcpy(temp_copy, expectfile);
+    char *last_dot = strrchr(temp_copy, '.');
+
+    if (!last_dot) {
+        free(temp_copy);
+        free(result);
+        return NULL;
+    }
+
+    // Split filename at the dot and rebuild with suffix
+    *last_dot = '\0';
+    snprintf(result, filename_size, "%s_%d.%s", temp_copy, i, last_dot + 1);
+
+    free(temp_copy);
+    return result;
+}
+```

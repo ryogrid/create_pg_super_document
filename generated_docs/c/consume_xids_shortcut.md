@@ -37,3 +37,27 @@ This internal function implements a performance optimization for bulk XID consum
 - Part of the optimization strategy to avoid calling GetNewTransactionId repeatedly
 - Goes slow (returns 0) near interesting values like SLRU page switches to ensure proper SLRU extension occurs
 - The shortcut mechanism significantly speeds up bulk XID consumption for testing XID wraparound scenarios
+
+## Simplified Source
+
+```c
+static int64
+consume_xids_shortcut(void)
+{
+    FullTransactionId nextXid;
+    uint32 consumed;
+
+    // Get exclusive access to transaction ID generation
+    LWLockAcquire(XidGenLock, LW_EXCLUSIVE);
+    nextXid = TransamVariables->nextXid;
+
+    // Calculate how many XIDs we can safely skip
+    consumed = XidSkip(nextXid);
+    if (consumed > 0)
+        TransamVariables->nextXid.value += (uint64) consumed;
+
+    LWLockRelease(XidGenLock);
+
+    return consumed;
+}
+```

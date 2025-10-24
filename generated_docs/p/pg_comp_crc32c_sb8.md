@@ -43,3 +43,51 @@ The function handles both big-endian and little-endian architectures through con
 - The function maintains 4-byte alignment for optimal memory access performance during bulk processing
 - Endianness handling is compile-time optimized through preprocessor conditionals
 - Located in `src/port/pg_crc32c_sb8.c:35-99` with lookup table definitions continuing to line 1169
+
+## Simplified Source
+
+```c
+pg_crc32c pg_comp_crc32c_sb8(pg_crc32c crc, const void *data, size_t len) {
+    const unsigned char *p = data;
+    const uint32 *p4;
+
+    // Process initial bytes to achieve 4-byte alignment
+    while (len > 0 && ((uintptr_t) p & 3)) {
+        crc = CRC8(*p++);
+        len--;
+    }
+
+    // Process 8 bytes at a time using slicing-by-8 algorithm
+    p4 = (const uint32 *) p;
+    while (len >= 8) {
+        uint32 a = *p4++ ^ crc;  // First 4 bytes XOR with current CRC
+        uint32 b = *p4++;        // Next 4 bytes
+
+        // Extract bytes with endianness handling
+#ifdef WORDS_BIGENDIAN
+        const uint8 c0 = b, c1 = b >> 8, c2 = b >> 16, c3 = b >> 24;
+        const uint8 c4 = a, c5 = a >> 8, c6 = a >> 16, c7 = a >> 24;
+#else
+        const uint8 c0 = b >> 24, c1 = b >> 16, c2 = b >> 8, c3 = b;
+        const uint8 c4 = a >> 24, c5 = a >> 16, c6 = a >> 8, c7 = a;
+#endif
+
+        // Compute CRC using 8 parallel table lookups
+        crc = pg_crc32c_table[0][c0] ^ pg_crc32c_table[1][c1] ^
+              pg_crc32c_table[2][c2] ^ pg_crc32c_table[3][c3] ^
+              pg_crc32c_table[4][c4] ^ pg_crc32c_table[5][c5] ^
+              pg_crc32c_table[6][c6] ^ pg_crc32c_table[7][c7];
+
+        len -= 8;
+    }
+
+    // Process remaining bytes one at a time
+    p = (const unsigned char *) p4;
+    while (len > 0) {
+        crc = CRC8(*p++);
+        len--;
+    }
+
+    return crc;
+}
+```

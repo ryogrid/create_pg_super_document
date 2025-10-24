@@ -43,3 +43,33 @@ The function implements proper error handling by checking if the key is within t
 - Automatically maintains tree statistics by decrementing num_keys counter on successful deletion
 - Includes validation for shared memory trees with magic number verification
 - Part of PostgreSQL's generic radix tree template system, allowing for type-safe implementations across different data types
+
+## Simplified Source
+
+```c
+// Macro that generates function name for public deletion interface
+#define RT_DELETE RT_MAKE_NAME(delete)
+
+// The actual generated function provides public delete API:
+bool delete(RT_RADIX_TREE *tree, uint64 key)
+{
+    // Validate tree and key range
+    Assert(tree != NULL);
+    if (key > tree->max_val)
+        return false;  // Key out of range
+
+    // Validate shared memory tree if applicable
+    if (tree->shared_memory)
+        Assert(tree->magic == RT_MAGIC);
+
+    // Delegate to recursive deletion function
+    bool deleted = RT_DELETE_RECURSIVE(tree, &tree->root, key, tree->max_shift);
+
+    // Update statistics on successful deletion
+    if (deleted) {
+        tree->num_keys--;
+    }
+
+    return deleted;
+}
+```

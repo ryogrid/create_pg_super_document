@@ -36,3 +36,20 @@ This function serves as a semantic action callback that gets invoked when the JS
 - Critical for maintaining proper JSON array formatting in the test output by managing comma placement
 - Works in coordination with `do_array_start`, `do_array_end`, and `do_array_element_end` functions
 - The `elem_is_first` flag management ensures that the first array element doesn't get preceded by a comma
+
+## Simplified Source
+
+```c
+static JsonParseErrorType do_array_element_start(void *state, bool isnull) {
+    DoState *_state = (DoState *) state;
+
+    // Add comma separator if not the first element
+    if (!_state->elem_is_first)
+        printf(",\n");
+
+    // Mark that we're no longer on the first element
+    _state->elem_is_first = false;
+
+    return JSON_SUCCESS;
+}
+```

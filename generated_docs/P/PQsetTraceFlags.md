@@ -34,3 +34,20 @@ PQsetTraceFlags allows fine-grained control over the behavior of protocol tracin
 - PQTRACE_SUPPRESS_TIMESTAMPS is useful for cleaner output when timestamps aren't needed
 - PQTRACE_REGRESS_MODE helps create consistent output for automated testing
 - Part of libpq's comprehensive tracing and debugging infrastructure
+
+## Simplified Source
+
+```c
+void PQsetTraceFlags(PGconn *conn, int flags) {
+    // Validate connection parameter
+    if (conn == NULL)
+        return;
+
+    // Only set flags if tracing is active
+    if (conn->Pfdebug == NULL)
+        return;
+
+    // Set the trace flags
+    conn->traceFlags = flags;
+}
+```

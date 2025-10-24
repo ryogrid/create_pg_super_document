@@ -37,3 +37,28 @@ The function initializes the dumpSections bitmask on first call (when it equals 
 - First call clears all bits, subsequent calls add specific section bits
 - Invalid section names cause program termination with helpful error messages
 - Part of the pg_dump/pg_restore utility suite for PostgreSQL database backup and restore
+
+## Simplified Source
+
+```c
+void set_dump_section(const char *arg, int *dumpSections)
+{
+    // Initialize on first call
+    if (*dumpSections == DUMP_UNSECTIONED)
+        *dumpSections = 0;
+
+    // Set appropriate section bit
+    if (strcmp(arg, "pre-data") == 0)
+        *dumpSections |= DUMP_PRE_DATA;
+    else if (strcmp(arg, "data") == 0)
+        *dumpSections |= DUMP_DATA;
+    else if (strcmp(arg, "post-data") == 0)
+        *dumpSections |= DUMP_POST_DATA;
+    else {
+        // Invalid section name
+        pg_log_error("unrecognized section name: \"%s\"", arg);
+        pg_log_error_hint("Try \"%s --help\" for more information.", progname);
+        exit_nicely(1);
+    }
+}
+```

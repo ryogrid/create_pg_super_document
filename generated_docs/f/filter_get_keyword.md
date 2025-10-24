@@ -32,3 +32,32 @@ This function searches for keywords (strings of non-whitespace characters) in th
 - Uses standard C library isspace() function with explicit unsigned char casting for proper handling of extended ASCII characters
 - Part of pg_dump's filtering mechanism for selectively dumping database objects
 - Returns a pointer directly into the original buffer rather than allocating new memory
+
+## Simplified Source
+
+```c
+static const char *filter_get_keyword(const char **line, int *size) {
+    const char *ptr = *line;
+    const char *result = NULL;
+
+    Assert(*line != NULL);
+    *size = 0;
+
+    // Skip initial whitespace
+    while (isspace((unsigned char) *ptr))
+        ptr++;
+
+    // Extract keyword (sequence of non-whitespace characters)
+    if (*ptr != '\0' && !isspace((unsigned char) *ptr)) {
+        result = ptr++;
+
+        while (*ptr != '\0' && !isspace((unsigned char) *ptr))
+            ptr++;
+
+        *size = ptr - result;
+    }
+
+    *line = ptr;
+    return result;
+}
+```

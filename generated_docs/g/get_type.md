@@ -137,4 +137,49 @@ The  function serves as a type-to-string converter within the ECPG preprocessor'
 - Includes PostgreSQL-specific types like decimal, numeric, interval, timestamp, bytea
 - Handles special ECPG types like ECPGt_NO_INDICATOR, ECPGt_char_variable, ECPGt_const
 - The function uses a comprehensive switch statement with explicit break statements for clarity
-- Located in  at lines 133-240
+- Located in src/interfaces/ecpg/preproc/type.c at lines 133-240
+
+## Simplified Source
+
+```c
+static const char *get_type(enum ECPGttype type) {
+    // Convert ECPG type enumeration to string representation
+    switch (type) {
+        // Basic C types
+        case ECPGt_char:                return "ECPGt_char";
+        case ECPGt_unsigned_char:       return "ECPGt_unsigned_char";
+        case ECPGt_short:               return "ECPGt_short";
+        case ECPGt_unsigned_short:      return "ECPGt_unsigned_short";
+        case ECPGt_int:                 return "ECPGt_int";
+        case ECPGt_unsigned_int:        return "ECPGt_unsigned_int";
+        case ECPGt_long:                return "ECPGt_long";
+        case ECPGt_unsigned_long:       return "ECPGt_unsigned_long";
+        case ECPGt_long_long:           return "ECPGt_long_long";
+        case ECPGt_unsigned_long_long:  return "ECPGt_unsigned_long_long";
+        case ECPGt_float:               return "ECPGt_float";
+        case ECPGt_double:              return "ECPGt_double";
+        case ECPGt_bool:                return "ECPGt_bool";
+
+        // PostgreSQL specific types
+        case ECPGt_varchar:             return "ECPGt_varchar";
+        case ECPGt_bytea:               return "ECPGt_bytea";
+        case ECPGt_decimal:             return "ECPGt_decimal";
+        case ECPGt_numeric:             return "ECPGt_numeric";
+        case ECPGt_interval:            return "ECPGt_interval";
+        case ECPGt_date:                return "ECPGt_date";
+        case ECPGt_timestamp:           return "ECPGt_timestamp";
+        case ECPGt_string:              return "ECPGt_string";
+
+        // Special ECPG types
+        case ECPGt_NO_INDICATOR:        return "ECPGt_NO_INDICATOR";
+        case ECPGt_char_variable:       return "ECPGt_char_variable";
+        case ECPGt_const:               return "ECPGt_const";
+        case ECPGt_descriptor:          return "ECPGt_descriptor";
+        case ECPGt_sqlda:               return "ECPGt_sqlda";
+
+        default:
+            mmerror(PARSE_ERROR, ET_ERROR, "unrecognized variable type code %d", type);
+            return NULL;
+    }
+}
+```

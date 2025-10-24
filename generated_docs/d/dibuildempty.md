@@ -30,3 +30,14 @@ This function is responsible for building an empty index for the initialization 
 - The empty implementation is appropriate since dummy indexes do not store any persistent data
 - Located in src/test/modules/dummy_index_am/dummy_index_am.c:157-165
 - Serves as a template for implementing actual index initialization in custom access methods
+
+## Simplified Source
+
+```c
+static void
+dibuildempty(Relation index)
+{
+    // No need to build an init fork for a dummy index
+    // This is a no-op implementation for testing purposes
+}
+```

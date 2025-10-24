@@ -43,3 +43,24 @@ The function carefully handles the domain requirements of the Box-Muller transfo
 - The generated values follow the standard normal distribution N(0,1)
 - For different normal distributions, users should apply linear transformation to the result
 - Located in src/common/pg_prng.c at lines 290-312
+
+## Simplified Source
+
+```c
+double
+pg_prng_double_normal(pg_prng_state *state)
+{
+    double u1, u2, z0;
+
+    // Generate two uniform random numbers in (0, 1] to avoid log(0)
+    // pg_prng_double generates [0, 1), so we use (1.0 - value)
+    u1 = 1.0 - pg_prng_double(state);
+    u2 = 1.0 - pg_prng_double(state);
+
+    // Apply Box-Muller transform to get normal distribution
+    // z0 = sqrt(-2 * ln(u1)) * sin(2π * u2)
+    z0 = sqrt(-2.0 * log(u1)) * sin(2.0 * M_PI * u2);
+
+    return z0;
+}
+```

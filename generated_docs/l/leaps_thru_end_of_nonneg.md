@@ -42,3 +42,17 @@ The function is specifically designed for non-negative years and defines year 0 
 - Critical component for accurate date calculations in PostgreSQL's timezone and timestamp handling
 - The Gregorian calendar rules implemented here are essential for correct historical and future date computations
 - Part of PostgreSQL's timezone infrastructure that ensures accurate leap year handling across different calendar calculations
+
+## Simplified Source
+
+```c
+static int
+leaps_thru_end_of_nonneg(int y)
+{
+    // Apply Gregorian calendar leap year rules:
+    // - Every 4 years is a leap year
+    // - Every 100 years is NOT a leap year
+    // - Every 400 years IS a leap year
+    return y / 4 - y / 100 + y / 400;
+}
+```

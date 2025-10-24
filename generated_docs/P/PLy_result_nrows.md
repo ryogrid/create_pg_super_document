@@ -30,3 +30,18 @@ This function is a Python method implementation that provides access to the numb
 - Proper reference counting is maintained by incrementing the reference count before returning the nrows object
 - The nrows value is set when the PLyResultObject is initially created from a PostgreSQL result
 - This provides a Python-accessible way to get row counts without needing to know PostgreSQL's internal result handling
+
+## Simplified Source
+
+```c
+static PyObject *
+PLy_result_nrows(PyObject *self, PyObject *args)
+{
+    // Cast to PLyResultObject to access stored data
+    PLyResultObject *ob = (PLyResultObject *) self;
+
+    // Return row count with proper reference counting
+    Py_INCREF(ob->nrows);
+    return ob->nrows;
+}
+```

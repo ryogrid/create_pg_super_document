@@ -34,3 +34,16 @@ This implementation allows PLyResultObject to behave like a Python sequence or m
 - This enables natural Python syntax for accessing query results: result[0], result[1], etc.
 - The function is typically assigned to the mp_subscript slot of the Python mapping protocol for PLyResultObject
 - Error handling is delegated to PyObject_GetItem, which will raise appropriate Python exceptions for invalid indices
+
+## Simplified Source
+
+```c
+static PyObject *
+PLy_result_subscript(PyObject *arg, PyObject *item)
+{
+    PLyResultObject *result_obj = (PLyResultObject *) arg;
+
+    // Delegate indexing to the rows object
+    return PyObject_GetItem(result_obj->rows, item);
+}
+```

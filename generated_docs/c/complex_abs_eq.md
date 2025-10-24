@@ -37,3 +37,16 @@ This function is a PostgreSQL-callable wrapper that implements the "=" operator 
 - Uses the centralized comparison logic in `complex_abs_cmp_internal` to ensure consistency
 - Located in src/tutorial/complex.c:170-180
 - Requires PG_FUNCTION_INFO_V1 declaration for PostgreSQL function registration
+
+## Simplified Source
+
+```c
+Datum complex_abs_eq(PG_FUNCTION_ARGS) {
+    // Extract the two complex numbers from function arguments
+    Complex *a = (Complex *) PG_GETARG_POINTER(0);
+    Complex *b = (Complex *) PG_GETARG_POINTER(1);
+
+    // Compare magnitudes and return true if equal
+    PG_RETURN_BOOL(complex_abs_cmp_internal(a, b) == 0);
+}
+```

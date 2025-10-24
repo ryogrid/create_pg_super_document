@@ -38,3 +38,19 @@ buildWorkerResponse constructs standardized response messages that worker proces
 - The act parameter is currently unused but maintained for potential future extensions
 - Provides a standardized communication protocol between workers and leader for status reporting
 - The response enables the leader to track completion of individual tasks and aggregate error information across all workers
+
+## Simplified Source
+
+```c
+static void
+buildWorkerResponse(ArchiveHandle *AH, TocEntry *te, T_Action act, int status,
+                    char *buf, int buflen)
+{
+    // Format response: "OK <dumpId> <status> <errorCount>"
+    // Include error count only if worker ignored errors
+    snprintf(buf, buflen, "OK %d %d %d",
+             te->dumpId,
+             status,
+             status == WORKER_IGNORED_ERRORS ? AH->public.n_errors : 0);
+}
+```

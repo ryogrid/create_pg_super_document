@@ -33,3 +33,19 @@ The function works by scanning backwards from the end of the string, removing '0
 - Primarily used in ECPG (Embedded C for PostgreSQL) for formatting datetime and interval values
 - The function assumes the input string represents a valid decimal number with a decimal point
 - No bounds checking is performed - the caller must ensure the string is properly formatted
+
+## Simplified Source
+
+```c
+void TrimTrailingZeros(char *str)
+{
+    int len = strlen(str);
+
+    // Remove trailing zeros but keep at least 2 fractional digits
+    // Stop when we hit a non-zero or when removing would leave < 2 fractional digits
+    while (*(str + len - 1) == '0' && *(str + len - 3) != '.') {
+        len--;
+        *(str + len) = '\0';
+    }
+}
+```

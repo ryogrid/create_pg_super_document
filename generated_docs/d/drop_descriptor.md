@@ -38,3 +38,39 @@ The function implements a safe linked list removal by maintaining a pointer to t
 - Generates specific warning messages for missing descriptors, distinguishing between default and named connections
 - Part of the ECPG preprocessor's descriptor lifecycle management system
 - The error messages use ET_WARNING rather than ET_ERROR, indicating non-fatal issues
+
+## Simplified Source
+
+```c
+void drop_descriptor(char *name, char *connection) {
+    // Validate name format
+    if (name[0] != '"')
+        return;
+
+    // Search for matching descriptor
+    struct descriptor **lastptr = &descriptors;
+    for (struct descriptor *i = descriptors; i; lastptr = &i->next, i = i->next) {
+        if (strcmp(name, i->name) == 0) {
+            // Check connection match (both NULL or both equal)
+            bool connection_matches = (!connection && !i->connection) ||
+                                    (connection && i->connection &&
+                                     strcmp(connection, i->connection) == 0);
+
+            if (connection_matches) {
+                // Remove node and free memory
+                *lastptr = i->next;
+                free(i->connection);
+                free(i->name);
+                free(i);
+                return;
+            }
+        }
+    }
+
+    // Report error if not found
+    if (connection)
+        mmerror(PARSE_ERROR, ET_WARNING, "descriptor %s bound to connection %s does not exist", name, connection);
+    else
+        mmerror(PARSE_ERROR, ET_WARNING, "descriptor %s bound to the default connection does not exist", name);
+}
+```

@@ -35,3 +35,53 @@ The function processes the input file line by line, detecting lines that start w
 - Handles memory management properly using PostgreSQL's StringInfo utilities
 - Exits with error code 2 if file operations fail
 - Part of the PostgreSQL ECPG (Embedded SQL in C) testing infrastructure located at src/interfaces/ecpg/test/pg_regress_ecpg.c:34-92
+
+## Simplified Source
+
+```c
+static void ecpg_filter_source(const char *sourcefile, const char *outfile) {
+    FILE *s, *t;
+    StringInfoData linebuf;
+
+    // Open input and output files
+    s = fopen(sourcefile, "r");
+    if (!s) {
+        fprintf(stderr, "Could not open file %s for reading\n", sourcefile);
+        exit(2);
+    }
+    t = fopen(outfile, "w");
+    if (!t) {
+        fprintf(stderr, "Could not open file %s for writing\n", outfile);
+        exit(2);
+    }
+
+    initStringInfo(&linebuf);
+
+    // Process each line from input file
+    while (pg_get_line_buf(s, &linebuf)) {
+        // Check if line starts with "#line "
+        if (strstr(linebuf.data, "#line ") == linebuf.data) {
+            char *p = strchr(linebuf.data, '"');
+            int plen = 1;
+
+            // Skip over path components (. and /)
+            while (*p && (*(p + plen) == '.' || strchr(p + plen, '/') != NULL)) {
+                plen++;
+            }
+
+            // Remove path prefix if found
+            if (plen > 1) {
+                memmove(p + 1, p + plen, strlen(p + plen) + 1);
+            }
+        }
+
+        // Write the processed line to output
+        fputs(linebuf.data, t);
+    }
+
+    // Cleanup
+    pfree(linebuf.data);
+    fclose(s);
+    fclose(t);
+}
+```

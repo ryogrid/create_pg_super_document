@@ -39,3 +39,27 @@ The function performs overflow checking on the month calculation to prevent inte
 - Employs nested multiplication with INT64CONST macros to prevent intermediate overflow in time calculations
 - Designed to be the inverse operation of interval2tm function
 - Critical for parsing interval strings in client applications
+
+## Simplified Source
+
+```c
+static int
+tm2interval(struct tm *tm, fsec_t fsec, interval *span)
+{
+    // Check for month overflow before conversion
+    double total_months = (double)tm->tm_year * MONTHS_PER_YEAR + tm->tm_mon;
+    if (total_months > INT_MAX || total_months < INT_MIN)
+        return -1;
+
+    // Convert years and months to total months
+    span->month = tm->tm_year * MONTHS_PER_YEAR + tm->tm_mon;
+
+    // Convert all time components to microseconds
+    span->time = (((((((tm->tm_mday * INT64CONST(24)) +
+                       tm->tm_hour) * INT64CONST(60)) +
+                     tm->tm_min) * INT64CONST(60)) +
+                   tm->tm_sec) * USECS_PER_SEC) + fsec;
+
+    return 0;
+}
+```

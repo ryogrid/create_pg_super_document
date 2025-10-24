@@ -33,3 +33,15 @@ As part of the complete notifier subsystem replacement, this function prevents T
 - Works in conjunction with other notifier functions like `pltcl_InitNotifier` to provide a complete replacement for Tcl's built-in notifier
 - The empty implementation is safe because PostgreSQL never enters the Tcl event loop
 - This approach maintains compatibility with Tcl's API while preventing multithreading issues
+
+## Simplified Source
+
+```c
+static void
+pltcl_FinalizeNotifier(ClientData clientData)
+{
+    // No-op function: intentionally empty
+    // Prevents Tcl's default notifier finalization which could
+    // interfere with PostgreSQL's single-threaded backend
+}
+```

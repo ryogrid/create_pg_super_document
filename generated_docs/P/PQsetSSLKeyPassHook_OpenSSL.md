@@ -46,3 +46,14 @@ Where:
 - The hook function may be called multiple times during a single connection attempt if multiple encrypted keys need passwords
 - This is part of PostgreSQL's libpq SSL/TLS functionality and requires proper SSL configuration
 - Thread safety: Applications must ensure proper synchronization when setting hooks in multi-threaded environments
+
+## Simplified Source
+
+```c
+void
+PQsetSSLKeyPassHook_OpenSSL(PQsslKeyPassHook_OpenSSL_type hook)
+{
+    // Set the SSL key passphrase callback hook
+    PQsslKeyPassHook = hook;
+}
+```

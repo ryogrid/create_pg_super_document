@@ -39,3 +39,16 @@ This implementation ensures consistent whitespace handling across the ECPG prepr
 - The whitespace character set is deliberately limited to common ASCII characters for consistent cross-platform behavior
 - This function is essential for proper parsing of embedded SQL statements where whitespace handling must be precise and predictable
 - The implementation mirrors the whitespace recognition logic used by the flex scanner in the ECPG preprocessor
+
+## Simplified Source
+
+```c
+static bool ecpg_isspace(char ch) {
+    // Check for standard whitespace characters recognized by flex scanner
+    return (ch == ' '  ||  // Space
+            ch == '\t' ||  // Tab
+            ch == '\n' ||  // Newline
+            ch == '\r' ||  // Carriage return
+            ch == '\f');   // Form feed
+}
+```

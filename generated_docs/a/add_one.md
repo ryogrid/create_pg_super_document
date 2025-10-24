@@ -31,3 +31,15 @@ The  function is a PostgreSQL C function that takes a single 32-bit integer para
 - The function follows PostgreSQL's version 1 calling convention
 - Uses standard PostgreSQL macros for argument handling and return values
 - Serves as a template for more complex user-defined functions
+
+## Simplified Source
+
+```c
+Datum add_one(PG_FUNCTION_ARGS) {
+    // Get the integer argument from the function call
+    int32 arg = PG_GETARG_INT32(0);
+
+    // Return the argument plus one
+    PG_RETURN_INT32(arg + 1);
+}
+```

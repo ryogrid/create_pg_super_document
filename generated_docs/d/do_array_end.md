@@ -34,3 +34,19 @@ This function serves as a semantic action callback that gets invoked when the JS
 - Sets `elem_is_first` to false, which resets the element state after array completion
 - The output includes both a newline before the closing bracket and after it, ensuring proper formatting in the test output
 - This function works in conjunction with `do_array_start` and other array/element handling functions to provide complete array parsing semantics
+
+## Simplified Source
+
+```c
+static JsonParseErrorType do_array_end(void *state) {
+    DoState *_state = (DoState *) state;
+
+    // Output closing bracket with newlines for array end
+    printf("\n]\n");
+
+    // Reset first element flag
+    _state->elem_is_first = false;
+
+    return JSON_SUCCESS;
+}
+```

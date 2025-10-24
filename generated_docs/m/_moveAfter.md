@@ -34,3 +34,20 @@ The operation is performed in two phases:
 - The function assumes that both `pos` and `te` are valid non-NULL pointers to properly linked TOC entries
 - No bounds checking or error handling is performed - the caller is responsible for ensuring valid inputs
 - The ArchiveHandle parameter is not used in the current implementation but is kept for API consistency
+
+## Simplified Source
+
+```c
+static void _moveAfter(ArchiveHandle *AH, TocEntry *pos, TocEntry *te)
+{
+    // Unlink 'te' from its current position
+    te->prev->next = te->next;
+    te->next->prev = te->prev;
+
+    // Insert 'te' after 'pos'
+    te->prev = pos;
+    te->next = pos->next;
+    pos->next->prev = te;
+    pos->next = te;
+}
+```

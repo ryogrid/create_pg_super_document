@@ -34,3 +34,15 @@ The rescan operation is typically used in nested loop joins or when query execut
 - The function body is empty with a comment "nothing to do", emphasizing its placeholder nature
 - Part of PostgreSQL's extensible index access method framework testing infrastructure
 - Returns void as rescan operations modify the existing scan state rather than creating new structures
+
+## Simplified Source
+
+```c
+static void
+direscan(IndexScanDesc scan, ScanKey scankey, int nscankeys,
+         ScanKey orderbys, int norderbys)
+{
+    // Dummy implementation - no rescan logic needed
+    // Would normally restart scan with new conditions
+}
+```

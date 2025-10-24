@@ -31,3 +31,16 @@ PQinitOpenSSL is an exported function that allows applications to have granular 
 - Provides more granular control compared to PQinitSSL by allowing separate SSL and crypto library initialization flags
 - Applications should call this before making any PostgreSQL connections if they want to control SSL initialization
 - Useful when applications have complex SSL/crypto initialization requirements or are using multiple SSL-enabled libraries
+
+## Simplified Source
+
+```c
+void
+PQinitOpenSSL(int do_ssl, int do_crypto)
+{
+#ifdef USE_SSL
+    // Initialize SSL and crypto libraries separately based on flags
+    pgtls_init_library(do_ssl, do_crypto);
+#endif
+}
+```

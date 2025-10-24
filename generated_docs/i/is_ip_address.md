@@ -34,4 +34,22 @@ The function is primarily used in SSL/TLS certificate validation contexts where 
 - IPv6 support is conditional on the  preprocessor definition
 - The function uses dummy variables (, ) since it only needs to validate format, not store the parsed addresses
 - Return value:  if the host string is a valid IP address,  otherwise
-- Located in 
+- Located in src/interfaces/libpq/fe-secure-openssl.c
+
+## Simplified Source
+
+```c
+static bool is_ip_address(const char *host) {
+    struct in_addr dummy4;
+#ifdef HAVE_INET_PTON
+    struct in6_addr dummy6;
+#endif
+
+    // Check IPv4 format and optionally IPv6 format
+    return inet_aton(host, &dummy4)
+#ifdef HAVE_INET_PTON
+        || (inet_pton(AF_INET6, host, &dummy6) == 1)
+#endif
+        ;
+}
+```

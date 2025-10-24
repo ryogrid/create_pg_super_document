@@ -34,3 +34,24 @@ This function is part of the xid_wraparound test module and serves as a SQL-call
 - Returns a FullTransactionId representing the last consumed transaction ID
 - Part of testing infrastructure for XID wraparound scenarios in PostgreSQL
 - Complementary to consume_xids function - this consumes until a target, while consume_xids consumes a specific count
+
+## Simplified Source
+
+```c
+Datum
+consume_xids_until(PG_FUNCTION_ARGS)
+{
+    FullTransactionId targetxid = PG_GETARG_FULLTRANSACTIONID(0);
+    FullTransactionId lastxid;
+
+    // Validate target XID is normal/valid
+    if (!FullTransactionIdIsNormal(targetxid))
+        elog(ERROR, "targetxid %llu is not normal",
+             (unsigned long long) U64FromFullTransactionId(targetxid));
+
+    // Consume XIDs until target is reached
+    lastxid = consume_xids_common(targetxid, 0);
+
+    PG_RETURN_FULLTRANSACTIONID(lastxid);
+}
+```

@@ -32,3 +32,20 @@ The function uses PyUnicode_FromFormat to create a Unicode string with the forma
 - The function accesses the status, nrows, and rows members of the PLyResultObject structure
 - The output format provides a comprehensive view of the result object's state, useful for debugging and logging
 - This function is typically assigned to the tp_str slot of the Python type object for PLyResultObject
+
+## Simplified Source
+
+```c
+static PyObject *
+PLy_result_str(PyObject *arg)
+{
+    PLyResultObject *result_obj = (PLyResultObject *) arg;
+
+    // Create formatted string showing result object state
+    return PyUnicode_FromFormat("<%s status=%S nrows=%S rows=%S>",
+                               Py_TYPE(result_obj)->tp_name,
+                               result_obj->status,
+                               result_obj->nrows,
+                               result_obj->rows);
+}
+```

@@ -34,3 +34,19 @@ This function serves as a thin wrapper around PLy_spi_execute_plan, providing th
 - All actual execution logic is delegated to PLy_spi_execute_plan, making this a pure interface adapter
 - Returns NULL on argument parsing failure, otherwise returns the result from PLy_spi_execute_plan
 - Part of the PL/Python plan object method interface for executing prepared SQL statements from Python code
+
+## Simplified Source
+
+```c
+static PyObject *PLy_plan_execute(PyObject *self, PyObject *args) {
+    PyObject *list = NULL;
+    long limit = 0;
+
+    // Parse optional arguments: parameter list and limit
+    if (!PyArg_ParseTuple(args, "|Ol", &list, &limit))
+        return NULL;
+
+    // Delegate to actual execution function
+    return PLy_spi_execute_plan(self, list, limit);
+}
+```

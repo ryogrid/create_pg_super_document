@@ -42,3 +42,23 @@ The function may be called multiple times for interconnected matviews, progressi
 - Multiple calls may occur to handle cascading dependencies between interconnected matviews
 - The postponed_def flag moves the CREATE MATERIALIZED VIEW statement to the post-data phase
 - This approach is less elegant than the view-rule splitting but necessary due to matview implementation constraints
+
+## Simplified Source
+
+```c
+static void
+repairMatViewBoundaryMultiLoop(DumpableObject *boundaryobj,
+                              DumpableObject *nextobj)
+{
+    // Break dependency in the loop
+    removeObjectDependency(boundaryobj, nextobj->dumpId);
+
+    // If next object is a materialized view, postpone its definition
+    if (nextobj->objType == DO_TABLE) {
+        TableInfo *nextinfo = (TableInfo *) nextobj;
+
+        if (nextinfo->relkind == RELKIND_MATVIEW)
+            nextinfo->postponed_def = true;  // Move to post-data phase
+    }
+}
+```

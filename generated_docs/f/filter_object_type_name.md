@@ -44,3 +44,38 @@ This function provides a mapping from FilterObjectType enumeration values to des
 - Uses pg_unreachable() to handle impossible cases, which helps with compiler optimizations
 - The strings returned are user-facing and should be suitable for error messages
 - The function is exhaustive and handles all known filter object types used in pg_dump operations
+
+## Simplified Source
+
+```c
+const char *filter_object_type_name(FilterObjectType fot) {
+    switch (fot) {
+        case FILTER_OBJECT_TYPE_NONE:
+            return "comment or empty line";
+        case FILTER_OBJECT_TYPE_TABLE_DATA:
+            return "table data";
+        case FILTER_OBJECT_TYPE_TABLE_DATA_AND_CHILDREN:
+            return "table data and children";
+        case FILTER_OBJECT_TYPE_DATABASE:
+            return "database";
+        case FILTER_OBJECT_TYPE_EXTENSION:
+            return "extension";
+        case FILTER_OBJECT_TYPE_FOREIGN_DATA:
+            return "foreign data";
+        case FILTER_OBJECT_TYPE_FUNCTION:
+            return "function";
+        case FILTER_OBJECT_TYPE_INDEX:
+            return "index";
+        case FILTER_OBJECT_TYPE_SCHEMA:
+            return "schema";
+        case FILTER_OBJECT_TYPE_TABLE:
+            return "table";
+        case FILTER_OBJECT_TYPE_TABLE_AND_CHILDREN:
+            return "table and children";
+        case FILTER_OBJECT_TYPE_TRIGGER:
+            return "trigger";
+    }
+
+    pg_unreachable();
+}
+```

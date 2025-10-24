@@ -33,3 +33,12 @@ The version number is encoded as an integer where the format typically follows P
 - Returns a compile-time constant, so the value is determined when libpq is built
 - Useful for applications that need to adapt their behavior based on libpq version capabilities
 - Part of the public libpq API for client applications
+
+## Simplified Source
+
+```c
+int PQlibVersion(void) {
+    // Return the PostgreSQL version number this libpq was built against
+    return PG_VERSION_NUM;
+}
+```

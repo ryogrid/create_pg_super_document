@@ -35,3 +35,18 @@ The function uses a straightforward linear search algorithm. As noted in the sou
 - Function is marked as static, indicating it's only used within the win32.c file
 - The destination buffer must be large enough to hold the error description string
 - Part of the Windows-specific libpq implementation for PostgreSQL client library
+
+## Simplified Source
+```c
+static int LookupWSErrorMessage(DWORD err, char *dest) {
+    // Linear search through WSErrors table for matching error code
+    for (struct WSErrorEntry *e = WSErrors; e->description; e++) {
+        if (e->error == err) {
+            strcpy(dest, e->description);
+            return 1;  // Found and copied
+        }
+    }
+
+    return 0;  // Error code not found
+}
+```

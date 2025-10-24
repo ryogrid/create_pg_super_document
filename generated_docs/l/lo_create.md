@@ -38,3 +38,42 @@ The lo_create function creates a new large object in the PostgreSQL database wit
 - Preferred over lo_creat() for new applications
 - If specified OID already exists, the function will fail
 - The created large object must be opened with lo_open before reading or writing
+
+## Simplified Source
+
+```c
+Oid lo_create(PGconn *conn, Oid lobjId) {
+    PQArgBlock argv[1];
+    PGresult *res;
+    int retval;
+    int result_len;
+
+    // Initialize large object subsystem
+    if (lo_initialize(conn) < 0)
+        return InvalidOid;
+
+    // Check if lo_create function is available (requires PostgreSQL 8.1+)
+    if (conn->lobjfuncs->fn_lo_create == 0) {
+        libpq_append_conn_error(conn, "cannot determine OID of function %s", "lo_create");
+        return InvalidOid;
+    }
+
+    // Prepare OID argument (InvalidOid for system assignment)
+    argv[0].isint = 1;
+    argv[0].len = 4;
+    argv[0].u.integer = lobjId;
+
+    // Call backend lo_create function via fastpath interface
+    res = PQfn(conn, conn->lobjfuncs->fn_lo_create,
+               &retval, &result_len, 1, argv, 1);
+
+    // Return new large object OID or InvalidOid on error
+    if (PQresultStatus(res) == PGRES_COMMAND_OK) {
+        PQclear(res);
+        return (Oid) retval;
+    } else {
+        PQclear(res);
+        return InvalidOid;
+    }
+}
+```

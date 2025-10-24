@@ -34,6 +34,23 @@ The function extracts the operation info from the WAL record by masking off the 
 ## Notes and Other Information
 - This is a test-only implementation designed for validating custom WAL resource manager functionality
 - The function purposely does no actual work since it's testing the framework, not real data recovery
-- Located in 
-- Part of the custom resource manager registered with ID 
+- Located in
+- Part of the custom resource manager registered with ID
 - Any unrecognized operation code will cause a system PANIC, ensuring strict validation during testing
+
+## Simplified Source
+
+```c
+void
+testcustomrmgrs_redo(XLogReaderState *record)
+{
+    // Extract operation code from WAL record
+    uint8 info = XLogRecGetInfo(record) & ~XLR_INFO_MASK;
+
+    // Validate operation code - only TEST_CUSTOM_RMGRS_MESSAGE is supported
+    if (info != XLOG_TEST_CUSTOM_RMGRS_MESSAGE)
+        elog(PANIC, "testcustomrmgrs_redo: unknown op code %u", info);
+
+    // No actual redo work needed for test module
+}
+```

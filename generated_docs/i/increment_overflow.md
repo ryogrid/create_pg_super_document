@@ -37,3 +37,23 @@ This function is essential for safe date/time calculations where intermediate va
 - Uses overflow detection logic courtesy of Paul Eggert
 - Critical for preventing integer overflow in timezone and date calculations
 - The function is static and used internally within the timezone subsystem
+
+## Simplified Source
+
+```c
+static bool
+increment_overflow(int *ip, int j)
+{
+    int i = *ip;
+
+    // Check for overflow before performing addition:
+    // - If i >= 0: overflow if j > INT_MAX - i
+    // - If i < 0:  overflow if j < INT_MIN - i
+    if ((i >= 0) ? (j > INT_MAX - i) : (j < INT_MIN - i))
+        return true;  // Overflow would occur
+
+    // Safe to add - perform the increment
+    *ip += j;
+    return false;  // No overflow
+}
+```

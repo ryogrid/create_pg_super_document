@@ -35,3 +35,17 @@ The function is part of PostgreSQL's parallel restore architecture, where multip
 - The ReopenPtr function pointer is format-specific and handles the details of reopening connections for different archive formats
 - This function is part of the parallel restore infrastructure that allows multiple workers to restore data concurrently
 - The minimal setup reflects that restore workers primarily need to read from archives, which is less complex than the dump process that requires analyzing database schema and dependencies
+
+## Simplified Source
+
+```c
+static void
+setupRestoreWorker(Archive *AHX)
+{
+    // Cast public interface to internal handle
+    ArchiveHandle *AH = (ArchiveHandle *) AHX;
+
+    // Reopen archive connection for worker process
+    AH->ReopenPtr(AH);
+}
+```

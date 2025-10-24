@@ -40,3 +40,49 @@ The `lo_truncate64` function provides the same functionality as `lo_truncate` bu
 - Essential for applications working with large objects exceeding 2GB in size
 - Function checks availability at runtime and returns error if backend function is not available
 - Used primarily in specialized applications dealing with very large binary data
+
+## Simplified Source
+
+```c
+int lo_truncate64(PGconn *conn, int fd, pg_int64 len) {
+    PQArgBlock argv[2];
+    PGresult *res;
+    int retval;
+    int result_len;
+
+    // Initialize large object function lookup table
+    if (lo_initialize(conn) < 0)
+        return -1;
+
+    // Check if 64-bit truncate function is available
+    if (conn->lobjfuncs->fn_lo_truncate64 == 0) {
+        libpq_append_conn_error(conn, "cannot determine OID of function %s",
+                               "lo_truncate64");
+        return -1;
+    }
+
+    // Prepare arguments: file descriptor and 64-bit length
+    argv[0].isint = 1;
+    argv[0].len = 4;
+    argv[0].u.integer = fd;
+
+    // Convert length to network byte order for backend
+    len = lo_hton64(len);
+    argv[1].isint = 0; // Binary data, not integer
+    argv[1].len = 8;   // 64-bit value
+    argv[1].u.ptr = (int *) &len;
+
+    // Call backend lo_truncate64 function
+    res = PQfn(conn, conn->lobjfuncs->fn_lo_truncate64,
+               &retval, &result_len, 1, argv, 2);
+
+    // Check result and return status
+    if (PQresultStatus(res) == PGRES_COMMAND_OK) {
+        PQclear(res);
+        return retval; // Success: return backend result
+    } else {
+        PQclear(res);
+        return -1; // Failure
+    }
+}
+```

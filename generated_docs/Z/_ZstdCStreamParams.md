@@ -35,3 +35,28 @@ This function creates a new ZSTD compression stream using `ZSTD_createCStream()`
 - Uses PostgreSQL's fatal error handling if stream creation fails
 - Part of PostgreSQL's pg_dump utility's ZSTD compression support
 - The returned stream must be properly cleaned up by the caller using ZSTD library functions
+
+## Simplified Source
+
+```c
+static ZSTD_CStream *
+_ZstdCStreamParams(pg_compress_specification compress)
+{
+    // Create ZSTD compression stream
+    ZSTD_CStream *cstream = ZSTD_createCStream();
+    if (cstream == NULL)
+        pg_fatal("could not initialize compression library");
+
+    // Set compression level
+    _Zstd_CCtx_setParam_or_die(cstream, ZSTD_c_compressionLevel,
+                               compress.level, "level");
+
+    // Enable long-distance matching if requested
+    if (compress.options & PG_COMPRESSION_OPTION_LONG_DISTANCE)
+        _Zstd_CCtx_setParam_or_die(cstream,
+                                   ZSTD_c_enableLongDistanceMatching,
+                                   compress.long_distance, "long");
+
+    return cstream;
+}
+```

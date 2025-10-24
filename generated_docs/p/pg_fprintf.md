@@ -34,3 +34,22 @@ The function accepts a variable number of arguments following the format string,
 - The function is typically accessed through macro redefinitions that replace standard fprintf calls
 - Returns the number of characters written to the stream, following standard fprintf semantics
 - Provides consistent formatting behavior across different operating systems and C library implementations
+
+## Simplified Source
+
+```c
+int pg_fprintf(FILE *stream, const char *fmt, ...)
+{
+    int len;
+    va_list args;
+
+    // Convert variable arguments to va_list
+    va_start(args, fmt);
+
+    // Delegate to vfprintf implementation
+    len = pg_vfprintf(stream, fmt, args);
+
+    va_end(args);
+    return len;
+}
+```

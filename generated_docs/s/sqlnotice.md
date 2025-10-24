@@ -30,3 +30,16 @@ The  function is a simple callback handler designed for use in ECPG (Embedded SQ
 - It serves as a demonstration of how notice callbacks can be implemented in ECPG applications
 - The output format is designed for test verification and debugging purposes
 - File location: src/interfaces/ecpg/test/expected/preproc-init.c:117-125
+
+## Simplified Source
+
+```c
+static void sqlnotice(const char *notice, short trans) {
+    // Handle null notice parameter with default value
+    if (!notice)
+        notice = "-empty-";
+
+    // Print notice and transaction info for ECPG test
+    printf("in sqlnotice (%s, %d)\n", notice, trans);
+}
+```

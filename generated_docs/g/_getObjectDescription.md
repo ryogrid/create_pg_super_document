@@ -42,3 +42,55 @@ The function uses string comparisons to determine the object type from the TOC e
 - For complex objects like functions and operators, it cleverly reuses the DROP statement syntax by removing the "DROP " prefix
 - Objects without owners (constraints, indexes, etc.) result in no output, which is correct behavior since they inherit ownership from their parent objects
 - Large objects (BLOBs) receive special formatting as "LARGE OBJECT" followed by their numeric identifier
+
+## Simplified Source
+
+```c
+static void _getObjectDescription(PQExpBuffer buf, const TocEntry *te) {
+    const char *type = te->desc;
+
+    // Objects with simple name formatting
+    if (strcmp(type, "TABLE") == 0 || strcmp(type, "VIEW") == 0 ||
+        strcmp(type, "SEQUENCE") == 0 || strcmp(type, "DOMAIN") == 0 ||
+        strcmp(type, "TYPE") == 0 || strcmp(type, "SCHEMA") == 0 ||
+        // ... (and other simple types)
+        strcmp(type, "SUBSCRIPTION") == 0) {
+
+        appendPQExpBuffer(buf, "%s ", type);
+        if (te->namespace && *te->namespace) {
+            appendPQExpBuffer(buf, "%s.", fmtId(te->namespace));
+        }
+        appendPQExpBufferStr(buf, fmtId(te->tag));
+    }
+    // Large objects have numeric names
+    else if (strcmp(type, "BLOB") == 0) {
+        appendPQExpBuffer(buf, "LARGE OBJECT %s", te->tag);
+    }
+    // Complex objects (functions, operators, etc.) - extract from DROP statement
+    else if (strcmp(type, "FUNCTION") == 0 || strcmp(type, "PROCEDURE") == 0 ||
+             strcmp(type, "AGGREGATE") == 0 || strcmp(type, "OPERATOR") == 0) {
+
+        // Remove "DROP " prefix and clean up the statement
+        char *first = pg_strdup(te->dropStmt + 5);
+        char *last = first + strlen(first) - 1;
+
+        // Strip trailing semicolons and newlines
+        while (last >= first && (*last == '\n' || *last == ';')) {
+            last--;
+        }
+        *(last + 1) = '\0';
+
+        appendPQExpBufferStr(buf, first);
+        free(first);
+        return;
+    }
+    // Objects without owners (constraints, indexes, etc.) - do nothing
+    else if (strcmp(type, "INDEX") == 0 || strcmp(type, "CONSTRAINT") == 0 ||
+             strcmp(type, "TRIGGER") == 0 || strcmp(type, "RULE") == 0) {
+        // No action needed - these objects don't have separate owners
+    }
+    else {
+        pg_fatal("don't know how to set owner for object type \"%s\"", type);
+    }
+}
+```

@@ -46,3 +46,41 @@ The function searches through the object's dependencies to find its parent exten
 - The objname parameter should already be quoted, while objnamespace should not be quoted
 - Generates SQL comments explaining the purpose for binary upgrade handling
 - Used extensively throughout pg_dump for various object types to maintain extension relationships
+
+## Simplified Source
+
+```c
+static void binary_upgrade_extension_member(PQExpBuffer upgrade_buffer,
+                                          const DumpableObject *dobj,
+                                          const char *objtype,
+                                          const char *objname,
+                                          const char *objnamespace)
+{
+    // Skip if not an extension member
+    if (!dobj->ext_member)
+        return;
+
+    // Find parent extension by searching dependencies
+    DumpableObject *extobj = NULL;
+    for (int i = 0; i < dobj->nDeps; i++) {
+        extobj = findObjectByDumpId(dobj->dependencies[i]);
+        if (extobj && extobj->objType == DO_EXTENSION)
+            break;
+        extobj = NULL;
+    }
+
+    if (extobj == NULL)
+        pg_fatal("could not find parent extension for %s %s", objtype, objname);
+
+    // Generate ALTER EXTENSION ADD command
+    appendPQExpBufferStr(upgrade_buffer,
+        "\n-- For binary upgrade, handle extension membership the hard way\n");
+    appendPQExpBuffer(upgrade_buffer, "ALTER EXTENSION %s ADD %s ",
+                      fmtId(extobj->name), objtype);
+
+    if (objnamespace && *objnamespace)
+        appendPQExpBuffer(upgrade_buffer, "%s.", fmtId(objnamespace));
+
+    appendPQExpBuffer(upgrade_buffer, "%s;\n", objname);
+}
+```

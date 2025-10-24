@@ -36,3 +36,25 @@ This function is essential for 64-bit large object operations that need to commu
 - Counterpart to lo_ntoh64 for bidirectional byte order conversion
 - Essential for 64-bit large object position and size operations across different architectures
 - Handles the conversion by leveraging the existing 32-bit conversion function
+
+## Simplified Source
+
+```c
+static pg_int64 lo_hton64(pg_int64 host64) {
+    union {
+        pg_int64 i64;
+        uint32 i32[2];
+    } swap;
+    uint32 t;
+
+    // Convert high order 32 bits (MSB first for network order)
+    t = (uint32) (host64 >> 32);
+    swap.i32[0] = pg_hton32(t);
+
+    // Convert low order 32 bits
+    t = (uint32) host64;
+    swap.i32[1] = pg_hton32(t);
+
+    return swap.i64;
+}
+```

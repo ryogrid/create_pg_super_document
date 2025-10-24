@@ -43,3 +43,27 @@ The function was authored by Paul Vixie (ISC) in October 1998 and is part of Pos
 - Can handle addresses like 192.5.5.1/28 which have nonzero host parts
 - Safely handles both PostgreSQL and system address family constants
 - Part of PostgreSQL's portable network utility functions in src/port/
+
+## Simplified Source
+
+```c
+char *
+pg_inet_net_ntop(int af, const void *src, int bits, char *dst, size_t size)
+{
+    // Dispatch to appropriate address family handler
+    switch (af) {
+        case PGSQL_AF_INET:
+            return inet_net_ntop_ipv4(src, bits, dst, size);
+
+        case PGSQL_AF_INET6:
+#if AF_INET6 != PGSQL_AF_INET6
+        case AF_INET6:
+#endif
+            return inet_net_ntop_ipv6(src, bits, dst, size);
+
+        default:
+            errno = EAFNOSUPPORT;
+            return NULL;
+    }
+}
+```

@@ -38,3 +38,12 @@ The Sync message serves as a synchronization point in pipeline mode, marking bou
 - Allows for better batching performance in pipeline mode
 - Cannot be called during COPY operations
 - Data will eventually be sent when buffer fills up or explicit flush occurs
+
+## Simplified Source
+
+```c
+int PQsendPipelineSync(PGconn *conn) {
+    // Send sync message without immediate flush (buffered)
+    return pqPipelineSyncInternal(conn, false);
+}
+```

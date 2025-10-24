@@ -30,3 +30,13 @@ This function performs the necessary initialization of the PLy_PlanType Python t
 - The PLy_PlanType defines the Python class "PLyPlan" with methods like cursor(), execute(), and status()
 - Failure to initialize results in a PostgreSQL ERROR, preventing the extension from loading
 - The function is part of the PL/Python infrastructure for executing prepared SQL statements from Python code
+
+## Simplified Source
+
+```c
+void PLy_plan_init_type(void) {
+    // Initialize PLy_PlanType for Python interpreter
+    if (PyType_Ready(&PLy_PlanType) < 0)
+        elog(ERROR, "could not initialize PLy_PlanType");
+}
+```

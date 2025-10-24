@@ -31,3 +31,21 @@ This function is part of PostgreSQL's timezone compilation utility (zic) and ens
 - Designed to be locale-independent, ensuring consistent behavior across different system configurations
 - Part of the timezone compilation utilities in PostgreSQL
 - Uses explicit case enumeration rather than character range comparison for maximum portability
+
+## Simplified Source
+
+```c
+/* Is A an alphabetic character in the C locale? */
+static bool is_alpha(char a) {
+    // Check if character is an ASCII letter (A-Z or a-z)
+    // Uses explicit cases for locale independence
+    return (a >= 'A' && a <= 'Z') || (a >= 'a' && a <= 'z');
+}
+```
+
+**Key simplifications:**
+- Replaced the lengthy switch statement with simple range checks
+- Added clear comment explaining the locale-independence requirement
+- Used logical OR to combine uppercase and lowercase checks
+- Preserved the essential alphabetic character detection logic
+- Note: Original uses explicit cases for maximum portability; this simplified version uses ranges which are equivalent for ASCII but more readable

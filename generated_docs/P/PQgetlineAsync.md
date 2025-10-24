@@ -46,3 +46,16 @@ Key characteristics:
 - Designed for applications that cannot block on I/O operations
 - Must be used in conjunction with PQendcopy when end-of-data is detected
 - More suitable than PQgetline for modern asynchronous applications
+
+## Simplified Source
+
+```c
+int PQgetlineAsync(PGconn *conn, char *buffer, int bufsize) {
+    // Validate connection parameter
+    if (!conn)
+        return -1;
+
+    // Delegate to protocol 3 implementation for async line reading
+    return pqGetlineAsync3(conn, buffer, bufsize);
+}
+```

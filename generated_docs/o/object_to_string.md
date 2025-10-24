@@ -32,3 +32,26 @@ The function serves as a bridge between Pythons object system and PostgreSQLs st
 - Properly manages Python object reference counting by decrementing the temporary string object
 - The returned string must be freed by the caller using pfree() when no longer needed
 - This function is critical for error reporting and logging functionality in PL/Python procedures
+
+## Simplified Source
+
+```c
+static char *
+object_to_string(PyObject *obj)
+{
+    // Check if input object exists
+    if (obj) {
+        // Convert Python object to string using Python's built-in str()
+        PyObject *so = PyObject_Str(obj);
+
+        if (so != NULL) {
+            // Extract C string and duplicate in PostgreSQL memory context
+            char *str = pstrdup(PLyUnicode_AsString(so));
+            Py_DECREF(so);  // Clean up temporary string object
+            return str;
+        }
+    }
+
+    return NULL;  // Return NULL if conversion failed or object was NULL
+}
+```

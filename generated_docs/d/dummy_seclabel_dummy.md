@@ -35,3 +35,15 @@ The function is declared with PG_FUNCTION_INFO_V1 macro at the module level, mak
 - Part of PostgreSQLs function call interface (version 1)
 - Returns Datum type as required by PostgreSQLs function interface
 - Can be called from SQL but provides no meaningful functionality
+
+## Simplified Source
+
+```c
+Datum
+dummy_seclabel_dummy(PG_FUNCTION_ARGS)
+{
+    // Placeholder function for extension loading
+    // No actual functionality - just returns void
+    PG_RETURN_VOID();
+}
+```

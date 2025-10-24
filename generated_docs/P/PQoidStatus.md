@@ -33,3 +33,28 @@ PQoidStatus is specifically designed to extract OID information from INSERT comm
 - Buffer overflow protection ensures the extracted OID doesn't exceed buffer size
 - Part of the libpq client interface for PostgreSQL database connectivity
 - OIDs are largely deprecated in modern PostgreSQL versions, making this function less commonly used
+
+## Simplified Source
+
+```c
+char *PQoidStatus(const PGresult *res) {
+    // Static buffer to hold the OID string
+    static char buf[24];
+    size_t len;
+
+    // Return empty string for NULL result or non-INSERT commands
+    if (!res || strncmp(res->cmdStatus, "INSERT ", 7) != 0)
+        return "";
+
+    // Extract numeric OID portion after "INSERT "
+    len = strspn(res->cmdStatus + 7, "0123456789");
+    if (len > sizeof(buf) - 1)
+        len = sizeof(buf) - 1;
+
+    // Copy OID digits to buffer and null-terminate
+    memcpy(buf, res->cmdStatus + 7, len);
+    buf[len] = '\0';
+
+    return buf;
+}
+```

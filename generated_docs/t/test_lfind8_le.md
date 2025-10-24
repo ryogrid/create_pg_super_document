@@ -51,3 +51,21 @@ This function takes no specific parameters but uses the PostgreSQL function call
 - Located in src/test/modules/test_lfind/test_lfind.c as part of PostgreSQL's test infrastructure
 - Complements test_lfind8 by testing the <= variant rather than exact equality search
 - The <= search logic is more complex than equality and requires careful boundary testing to ensure correct comparison semantics
+
+## Simplified Source
+
+```c
+Datum test_lfind8_le(PG_FUNCTION_ARGS) {
+    // Test pg_lfind8_le with comprehensive set of boundary values
+    test_lfind8_le_internal(0);      // Min value
+    test_lfind8_le_internal(1);      // Low boundary
+    test_lfind8_le_internal(0x7F);   // Signed/unsigned boundary
+    test_lfind8_le_internal(0x80);   // Mid-range
+    test_lfind8_le_internal(0x81);   // Mid-range
+    test_lfind8_le_internal(0xFD);   // High boundary
+    test_lfind8_le_internal(0xFE);   // Near max
+    test_lfind8_le_internal(0xFF);   // Max value
+
+    PG_RETURN_VOID();
+}
+```

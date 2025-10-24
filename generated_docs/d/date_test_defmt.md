@@ -36,3 +36,34 @@ Like `date_test_strdate`, this function maintains a static counter and provides 
 - Extensively tested in main() with various date format patterns
 - Handles both successful parsing and error conditions
 - Located in the expected output file for regression testing
+
+## Simplified Source
+
+```c
+static void
+date_test_defmt(const char *fmt, const char *input)
+{
+    static int i;  // Test counter
+    char dbuf[11];
+    date d;
+    int q, r;
+
+    // Parse formatted string to date structure
+    r = rdefmtdate(&d, fmt, input);
+    printf("r: %d ", r);
+
+    if (r == 0)  // Success
+    {
+        // Convert date back to standard string
+        q = rdatestr(d, dbuf);
+        printf("q: %d ", q);
+
+        if (q == 0)
+            printf("date %d: %s\n", i++, dbuf);
+        else
+            printf("\n");
+    }
+    else
+        check_return(r);  // Handle error
+}
+```

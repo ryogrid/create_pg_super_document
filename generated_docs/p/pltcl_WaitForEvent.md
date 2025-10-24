@@ -33,3 +33,16 @@ By always returning 0, PostgreSQL's implementation ensures that the Tcl event lo
 - The return value of 0 indicates that no events were processed, which is the desired behavior to prevent event loop execution
 - CONST86 is a Tcl compatibility macro that expands to 'const' on modern systems but provides compatibility with older Tcl versions
 - Located in src/pl/tcl/pltcl.c:389-392
+
+## Simplified Source
+
+```c
+static int
+pltcl_WaitForEvent(CONST86 Tcl_Time *timePtr)
+{
+    // Always return 0 to indicate no events are available
+    // Prevents Tcl event loop from blocking PostgreSQL's execution
+    // Normal Tcl would wait for file/timer events here
+    return 0;
+}
+```

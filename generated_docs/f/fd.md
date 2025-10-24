@@ -52,3 +52,15 @@ The `fd` function is a test function that takes both a string pointer and an int
 - Part of the ECPG test infrastructure for validating embedded SQL functionality
 - Uses const-correctness for the string parameter
 - Unlike other test functions in the same file, this function doesn't appear to be directly called by main() based on the reference analysis
+
+## Simplified Source
+
+```c
+static int fd(const char *x, int i) {
+    // Print both parameters for ECPG test verification
+    printf("in fd (%s, %d)\n", x, i);
+
+    // Return ASCII value of first character multiplied by integer
+    return (*x) * i;
+}
+```

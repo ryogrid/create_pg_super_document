@@ -36,3 +36,39 @@ The  function manages the output of accumulated Large Object data stored in the 
 - Uses a temporary hack by setting writingLO to false to prevent recursive calls to ahwrite
 - Assumes no partial writes when using lo_write - any mismatch in written bytes is treated as an error
 - Always resets the buffer usage counter to zero after processing
+
+## Simplified Source
+
+```c
+static void dump_lo_buf(ArchiveHandle *AH)
+{
+    if (AH->connection) {
+        // Direct database connection: write using libpq
+        int res = lo_write(AH->connection, AH->loFd, AH->lo_buf, AH->lo_buf_used);
+
+        pg_log_debug("wrote %zu bytes of large object data (result = %d)",
+                     AH->lo_buf_used, res);
+
+        // Check for write errors
+        if (res != AH->lo_buf_used)
+            warn_or_exit_horribly(AH, "could not write to large object: %s",
+                                  PQerrorMessage(AH->connection));
+    } else {
+        // File-based output: generate SQL statement
+        PQExpBuffer buf = createPQExpBuffer();
+
+        appendByteaLiteralAHX(buf, (const unsigned char *) AH->lo_buf,
+                              AH->lo_buf_used, AH);
+
+        // Temporarily disable writingLO to prevent recursion
+        AH->writingLO = false;
+        ahprintf(AH, "SELECT pg_catalog.lowrite(0, %s);\n", buf->data);
+        AH->writingLO = true;
+
+        destroyPQExpBuffer(buf);
+    }
+
+    // Reset buffer for next use
+    AH->lo_buf_used = 0;
+}
+```

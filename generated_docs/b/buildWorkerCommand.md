@@ -38,3 +38,20 @@ buildWorkerCommand constructs text-based command messages that the leader proces
 - Static function scope limits visibility to the parallel.c module
 - Asserts false for any action type other than ACT_DUMP or ACT_RESTORE
 - The dumpId serves as a unique identifier for the table of contents entry across the entire backup/restore operation
+
+## Simplified Source
+
+```c
+static void
+buildWorkerCommand(ArchiveHandle *AH, TocEntry *te, T_Action act,
+                   char *buf, int buflen)
+{
+    // Format command string based on action type
+    if (act == ACT_DUMP)
+        snprintf(buf, buflen, "DUMP %d", te->dumpId);
+    else if (act == ACT_RESTORE)
+        snprintf(buf, buflen, "RESTORE %d", te->dumpId);
+    else
+        Assert(false);  // Invalid action type
+}
+```

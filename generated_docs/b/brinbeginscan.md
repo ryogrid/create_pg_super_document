@@ -52,3 +52,31 @@ The created `BrinOpaque` structure contains:
 - The opaque data structure lifetime is managed by the scan descriptor and will be cleaned up when the scan ends
 - The revmap structure is essential for BRIN scans as it provides the mapping between heap page ranges and their corresponding index tuples
 - Unlike B-tree indexes, BRIN scans work by examining summary information for page ranges rather than individual tuples
+
+## Simplified Source
+
+```c
+IndexScanDesc
+brinbeginscan(Relation r, int nkeys, int norderbys)
+{
+    IndexScanDesc scan;
+    BrinOpaque *opaque;
+
+    // Create generic index scan descriptor
+    scan = RelationGetIndexScan(r, nkeys, norderbys);
+
+    // Allocate BRIN-specific scan state
+    opaque = palloc_object(BrinOpaque);
+
+    // Initialize revmap and read pages-per-range from metapage
+    opaque->bo_rmAccess = brinRevmapInitialize(r, &opaque->bo_pagesPerRange);
+
+    // Build BRIN descriptor with index metadata
+    opaque->bo_bdesc = brin_build_desc(r);
+
+    // Attach opaque data to scan descriptor
+    scan->opaque = opaque;
+
+    return scan;
+}
+```

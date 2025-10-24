@@ -39,3 +39,13 @@ The function serves as the counterpart to memory allocation functions within the
 - The function performs no validation on the input pointer - it directly calls the standard `free()` function
 - Essential for proper memory management when using PostgreSQL ECPG pgtypes library functions
 - Located in `src/interfaces/ecpg/pgtypeslib/common.c:145-148`
+
+## Simplified Source
+
+```c
+void PGTYPESchar_free(char *ptr)
+{
+    // Simple wrapper around free() for platform compatibility
+    free(ptr);
+}
+```

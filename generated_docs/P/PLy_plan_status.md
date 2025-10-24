@@ -29,3 +29,18 @@ This function serves as a Python method interface for querying the status of a p
 - Currently serves as a placeholder implementation that always indicates the plan is valid/ready
 - Part of the PL/Python plan object method interface
 - The function increments the reference count of Py_True before returning it, following Python C API conventions
+
+## Simplified Source
+
+```c
+static PyObject *PLy_plan_status(PyObject *self, PyObject *args) {
+    // Validate no arguments are passed
+    if (PyArg_ParseTuple(args, ":status")) {
+        // Return True (placeholder implementation)
+        Py_INCREF(Py_True);
+        return Py_True;
+        // TODO: return PyLong_FromLong(self->status);
+    }
+    return NULL;
+}
+```

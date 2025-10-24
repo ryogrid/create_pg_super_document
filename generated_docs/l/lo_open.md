@@ -40,3 +40,39 @@ The  function provides access to an existing large object in PostgreSQL by openi
 - The function automatically initializes the large object function lookup table on first use
 - Access mode determines what operations are permitted on the opened large object
 - Used extensively in pg_dump utilities and test programs for large object manipulation
+
+## Simplified Source
+
+```c
+int lo_open(PGconn *conn, Oid lobjId, int mode) {
+    int fd;
+    int result_len;
+    PQArgBlock argv[2];
+    PGresult *res;
+
+    // Initialize large object function lookup table
+    if (lo_initialize(conn) < 0)
+        return -1;
+
+    // Prepare arguments: large object ID and access mode
+    argv[0].isint = 1;
+    argv[0].len = 4;
+    argv[0].u.integer = lobjId;
+
+    argv[1].isint = 1;
+    argv[1].len = 4;
+    argv[1].u.integer = mode;
+
+    // Call backend lo_open function
+    res = PQfn(conn, conn->lobjfuncs->fn_lo_open, &fd, &result_len, 1, argv, 2);
+
+    // Check result and return file descriptor or error
+    if (PQresultStatus(res) == PGRES_COMMAND_OK) {
+        PQclear(res);
+        return fd; // Success: return file descriptor
+    } else {
+        PQclear(res);
+        return -1; // Failure
+    }
+}
+```

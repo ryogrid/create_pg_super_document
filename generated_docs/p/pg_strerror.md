@@ -29,3 +29,15 @@ This function serves as PostgreSQL's standardized interface for converting error
 - Not thread-safe due to the static buffer usage
 - For thread-safe operations, use pg_strerror_r() directly
 - Located in src/port/strerror.c:35-45
+
+## Simplified Source
+
+```c
+char *pg_strerror(int errnum)
+{
+    static char errorstr_buf[PG_STRERROR_R_BUFLEN];
+
+    // Delegate to thread-safe version with static buffer
+    return pg_strerror_r(errnum, errorstr_buf, sizeof(errorstr_buf));
+}
+```

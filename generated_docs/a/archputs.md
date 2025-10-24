@@ -33,3 +33,13 @@ The function is part of pg_dump's archiver module, which manages the output form
 - The function provides a clean abstraction over the more complex `WriteData` interface
 - Part of the convenience functions suite that includes `archprintf` for formatted output
 - Located in `src/bin/pg_dump/pg_backup_archiver.c:1629-1635`
+
+## Simplified Source
+
+```c
+void archputs(const char *s, Archive *AH)
+{
+    // Write string to archive with automatic length calculation
+    WriteData(AH, s, strlen(s));
+}
+```

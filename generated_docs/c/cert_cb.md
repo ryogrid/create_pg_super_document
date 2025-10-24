@@ -33,3 +33,21 @@ The callback operates on the principle that PostgreSQL libpq only supports sendi
 - Does not modify the SSL context or perform actual certificate selection
 - Part of PostgreSQL's client certificate authentication tracking mechanism
 - The callback is registered during SSL initialization and invoked automatically by OpenSSL during handshake
+
+## Simplified Source
+
+```c
+static int cert_cb(SSL *ssl, void *arg) {
+    PGconn *conn = arg;
+
+    // Mark that server requested client certificate
+    conn->ssl_cert_requested = true;
+
+    // Check if we have a certificate to send
+    if (SSL_get_certificate(ssl))
+        conn->ssl_cert_sent = true;
+
+    // Signal successful callback completion
+    return 1;
+}
+```

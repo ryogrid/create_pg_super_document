@@ -52,3 +52,19 @@ The function exists in multiple architecture-specific variants:
 - This pattern provides optimal performance with minimal runtime overhead after initialization
 - The slicing-by-8 (`pg_comp_crc32c_sb8`) implementation serves as the universal fallback for CPUs without hardware CRC support
 - Part of PostgreSQL's performance optimization strategy for frequently-used operations like checksumming
+
+## Simplified Source
+
+```c
+static pg_crc32c pg_comp_crc32c_choose(pg_crc32c crc, const void *data, size_t len) {
+    // Runtime CPU feature detection and function pointer selection
+    if (pg_crc32c_armv8_available())
+        pg_comp_crc32c = pg_comp_crc32c_armv8;  // Use hardware acceleration
+    else
+        pg_comp_crc32c = pg_comp_crc32c_sb8;    // Fall back to software
+
+    // Call the selected implementation and return result
+    // Future calls will go directly to the chosen function
+    return pg_comp_crc32c(crc, data, len);
+}
+```

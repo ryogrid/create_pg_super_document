@@ -32,3 +32,33 @@ This function is responsible for interpreting status messages sent back from wor
 - Error counts from workers are accumulated in the main ArchiveHandle to provide overall error tracking
 - The function uses assertions to validate message integrity and consistency
 - This is part of the parallel dump infrastructure that coordinates multiple worker processes
+
+## Simplified Source
+
+```c
+static int
+parseWorkerResponse(ArchiveHandle *AH, TocEntry *te, const char *msg)
+{
+    DumpId dumpId;
+    int nBytes, n_errors;
+    int status = 0;
+
+    // Parse "OK" response format: "OK <dumpId> <status> <errorCount>"
+    if (messageStartsWith(msg, "OK ")) {
+        sscanf(msg, "OK %d %d %d%n", &dumpId, &status, &n_errors, &nBytes);
+
+        // Validate parsed data
+        Assert(dumpId == te->dumpId);           // Verify correct entry
+        Assert(nBytes == strlen(msg));          // Ensure full message parsed
+
+        // Accumulate worker errors in main archive handle
+        AH->public.n_errors += n_errors;
+    }
+    else {
+        // Invalid response format
+        pg_fatal("invalid message received from worker: \"%s\"", msg);
+    }
+
+    return status;
+}
+```

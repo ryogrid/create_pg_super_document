@@ -37,3 +37,33 @@ The function handles NULL pointer cases by treating NULL as "less than" any vali
 - Handles NULL pointers gracefully: NULL sorts before any non-NULL rule
 - Uses the `!!` idiom to convert boolean expressions to 0 or 1
 - Part of PostgreSQL's timezone compilation system for organizing daylight saving time rules
+
+## Simplified Source
+
+```c
+static int rule_cmp(struct rule const *a, struct rule const *b) {
+    // Handle NULL pointers: NULL sorts before any non-NULL rule
+    if (!a) return -!!b;  // Returns -1 if b exists, 0 if both NULL
+    if (!b) return 1;     // a exists but b is NULL, so a > b
+
+    // Primary comparison: sort by high year (earlier years first)
+    if (a->r_hiyear != b->r_hiyear) {
+        return a->r_hiyear < b->r_hiyear ? -1 : 1;
+    }
+
+    // Secondary comparison: sort by month (earlier months first)
+    if (a->r_month != b->r_month) {
+        return a->r_month - b->r_month;
+    }
+
+    // Tertiary comparison: sort by day of month (earlier days first)
+    return a->r_dayofmonth - b->r_dayofmonth;
+}
+```
+
+**Key simplifications:**
+- Added descriptive comments explaining the three-level comparison hierarchy
+- Clarified the NULL pointer handling logic with the `!!` idiom explanation
+- Explained the sorting priority: year → month → day
+- Made the comparison logic more readable with explicit if statements
+- Preserved the essential rule comparison algorithm for qsort

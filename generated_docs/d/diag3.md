@@ -35,3 +35,27 @@ The function also manages error state by setting the global `found_err` flag whe
 - Uses special comment formatting when output stream is stdout to avoid interfering with formatted code
 - Companion to `diag2` function which handles messages without integer arguments
 - The function assumes the format string `msg` contains exactly one integer format specifier
+
+## Simplified Source
+
+```c
+void diag3(int level, const char *msg, int a) {
+    // Mark error if level is non-zero
+    if (level)
+        found_err = 1;
+
+    // Format message prefix
+    const char *prefix = level == 0 ? "Warning" : "Error";
+
+    // Output to stdout as INDENT comment or stderr as standard message
+    if (output == stdout) {
+        fprintf(stdout, "/**INDENT** %s@%d: ", prefix, line_no);
+        fprintf(stdout, msg, a);
+        fprintf(stdout, " */\n");
+    } else {
+        fprintf(stderr, "%s@%d: ", prefix, line_no);
+        fprintf(stderr, msg, a);
+        fprintf(stderr, "\n");
+    }
+}
+```

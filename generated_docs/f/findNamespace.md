@@ -41,3 +41,22 @@ The function provides a fatal error if the namespace cannot be found, which indi
 - Simple wrapper that adds error checking to findNamespaceByOid
 - Part of the object lookup infrastructure in pg_dump
 - Helps maintain referential integrity during the dump process
+
+## Simplified Source
+
+```c
+static NamespaceInfo *
+findNamespace(Oid nsoid)
+{
+    NamespaceInfo *nsinfo;
+
+    // Look up namespace by OID
+    nsinfo = findNamespaceByOid(nsoid);
+
+    // Fatal error if not found - ensures dump consistency
+    if (nsinfo == NULL)
+        pg_fatal("schema with OID %u does not exist", nsoid);
+
+    return nsinfo;
+}
+```

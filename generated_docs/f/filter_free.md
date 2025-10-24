@@ -33,3 +33,23 @@ This function performs cleanup operations for a FilterStateData structure that w
 - Errors during file closure are logged but do not cause the program to exit
 - Part of the cleanup phase in the filter infrastructure used by pg_dump utilities
 - Sets the file pointer to NULL after successful closure for safety
+
+## Simplified Source
+
+```c
+void filter_free(FilterStateData *fstate) {
+    if (!fstate)
+        return;
+
+    // Free the line buffer
+    free(fstate->linebuff.data);
+    fstate->linebuff.data = NULL;
+
+    // Close file if it's not stdin
+    if (fstate->fp && fstate->fp != stdin) {
+        if (fclose(fstate->fp) != 0)
+            pg_log_error("could not close filter file \"%s\": %m", fstate->filename);
+        fstate->fp = NULL;
+    }
+}
+```

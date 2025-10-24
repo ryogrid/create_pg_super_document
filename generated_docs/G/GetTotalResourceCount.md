@@ -31,3 +31,20 @@ The function performs the calculation: `nremembered - nforgotten - nreleased` fo
 - Used specifically for testing PostgreSQL's ResourceOwner functionality
 - The function accesses the nremembered, nforgotten, and nreleased counters maintained by the ManyTestResourceKind structure to track resource lifecycle events
 - Located in src/test/modules/test_resowner/test_resowner_many.c at lines 181-193
+
+## Simplified Source
+
+```c
+static int
+GetTotalResourceCount(ManyTestResourceKind *kinds, int nkinds)
+{
+    int ntotal = 0;
+
+    // Sum active resources across all kinds
+    // Active = remembered - forgotten - released
+    for (int i = 0; i < nkinds; i++)
+        ntotal += kinds[i].nremembered - kinds[i].nforgotten - kinds[i].nreleased;
+
+    return ntotal;
+}
+```

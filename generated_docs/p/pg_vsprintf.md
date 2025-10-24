@@ -37,3 +37,26 @@ pg_vsprintf provides a portable alternative to the standard vsprintf function. U
 - Should be avoided in favor of pg_vsnprintf for safer code - only use when buffer size is definitively known to be sufficient
 - Part of PostgreSQL's portable printf implementation providing consistent behavior across platforms
 - The nchars field is initialized but not really used since there's no buffer limit to track overflow
+
+## Simplified Source
+
+```c
+int pg_vsprintf(char *str, const char *fmt, va_list args)
+{
+    PrintfTarget target;
+
+    // Set up target for unlimited buffer formatting
+    target.bufstart = target.bufptr = str;
+    target.bufend = NULL;  // NULL indicates no size limit
+    target.failed = false;
+
+    // Perform the actual formatting
+    dopr(&target, fmt, args);
+
+    // Null-terminate the result
+    *target.bufptr = '\0';
+
+    // Return character count or -1 on failure
+    return target.failed ? -1 : (target.bufptr - target.bufstart);
+}
+```

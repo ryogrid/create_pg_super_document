@@ -32,3 +32,23 @@ WriteOffset is a utility function in pg_dump's archiver module that writes a Pos
 - Uses little-endian serialization to ensure cross-platform compatibility
 - The wasSet flag allows the reader to distinguish between valid zero offsets and unset offsets
 - Part of pg_dump's custom archive format implementation
+
+## Simplified Source
+
+```c
+size_t WriteOffset(ArchiveHandle *AH, pgoff_t o, int wasSet)
+{
+    int off;
+
+    // Write the "was set" flag first
+    AH->WriteBytePtr(AH, wasSet);
+
+    // Write pgoff_t in little-endian byte order for portability
+    for (off = 0; off < sizeof(pgoff_t); off++) {
+        AH->WriteBytePtr(AH, o & 0xFF);
+        o >>= 8;
+    }
+
+    return sizeof(pgoff_t) + 1;
+}
+```

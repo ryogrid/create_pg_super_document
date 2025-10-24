@@ -45,3 +45,59 @@ The function uses buffered reading (LO_BUFSIZE chunks) for efficient data transf
 - Handles partial write scenarios and file system errors
 - Part of the client-side libpq large object interface
 - Complementary function to lo_import for large object file operations
+
+## Simplified Source
+
+```c
+int lo_export(PGconn *conn, Oid lobjId, const char *filename) {
+    int result = 1;
+    int fd;
+    int nbytes, tmp;
+    char buf[LO_BUFSIZE];
+    int lobj;
+    char sebuf[PG_STRERROR_R_BUFLEN];
+
+    // Open the large object for reading
+    lobj = lo_open(conn, lobjId, INV_READ);
+    if (lobj == -1)
+        return -1;
+
+    // Create/truncate the destination file
+    fd = open(filename, O_CREAT | O_WRONLY | O_TRUNC | PG_BINARY, 0666);
+    if (fd < 0) {
+        int save_errno = errno;
+        (void) lo_close(conn, lobj);
+        pqClearConnErrorState(conn);
+        libpq_append_conn_error(conn, "could not open file \"%s\": %s",
+                                filename, strerror_r(save_errno, sebuf, sizeof(sebuf)));
+        return -1;
+    }
+
+    // Copy data from large object to file in chunks
+    while ((nbytes = lo_read(conn, lobj, buf, LO_BUFSIZE)) > 0) {
+        tmp = write(fd, buf, nbytes);
+        if (tmp != nbytes) {
+            int save_errno = errno;
+            (void) lo_close(conn, lobj);
+            (void) close(fd);
+            pqClearConnErrorState(conn);
+            libpq_append_conn_error(conn, "could not write to file \"%s\": %s",
+                                    filename, strerror_r(save_errno, sebuf, sizeof(sebuf)));
+            return -1;
+        }
+    }
+
+    // Handle read errors and close large object
+    if (nbytes < 0 || lo_close(conn, lobj) != 0)
+        result = -1;
+
+    // Close file and check for final errors
+    if (close(fd) != 0 && result >= 0) {
+        libpq_append_conn_error(conn, "could not write to file \"%s\": %s",
+                                filename, strerror_r(errno, sebuf, sizeof(sebuf)));
+        result = -1;
+    }
+
+    return result;
+}
+```

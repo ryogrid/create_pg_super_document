@@ -39,3 +39,18 @@ The function requires XSAVE intrinsics to be available and returns false if they
 - The 0xe6 bitmask specifically checks for SSE (bit 1), AVX (bit 2), and all AVX-512 state bits (bits 5, 6, 7)
 - This function is part of the runtime feature detection chain for enabling AVX-512 optimizations
 - Proper ZMM register support requires both CPU capability and OS enablement
+
+## Simplified Source
+
+```c
+static inline bool zmm_regs_available(void) {
+    #ifdef HAVE_XSAVE_INTRINSICS
+        // Query XCR0 register to check if OS enabled ZMM register state
+        // 0xe6 = bits 1,2,5,6,7 (SSE, AVX, and all AVX-512 state bits)
+        return (_xgetbv(0) & 0xe6) == 0xe6;
+    #else
+        // No XSAVE intrinsics available at compile time
+        return false;
+    #endif
+}
+```

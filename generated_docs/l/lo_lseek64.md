@@ -41,3 +41,51 @@ The lo_lseek64 function is the client-side implementation for seeking within a P
 - Requires backend support for lo_lseek64 function (checks fn_lo_lseek64 != 0)
 - Handles network byte order conversion with lo_hton64/lo_ntoh64
 - Validates result length is 8 bytes to ensure proper 64-bit return value
+
+## Simplified Source
+
+```c
+pg_int64 lo_lseek64(PGconn *conn, int fd, pg_int64 offset, int whence) {
+    PQArgBlock argv[3];
+    PGresult *res;
+    pg_int64 retval;
+    int result_len;
+
+    // Initialize large object subsystem
+    if (lo_initialize(conn) < 0)
+        return -1;
+
+    // Check if 64-bit lseek function is available
+    if (conn->lobjfuncs->fn_lo_lseek64 == 0) {
+        libpq_append_conn_error(conn, "cannot determine OID of function %s", "lo_lseek64");
+        return -1;
+    }
+
+    // Prepare arguments: fd, 64-bit offset (network byte order), whence
+    argv[0].isint = 1;
+    argv[0].len = 4;
+    argv[0].u.integer = fd;
+
+    offset = lo_hton64(offset);  // Convert to network byte order
+    argv[1].isint = 0;
+    argv[1].len = 8;
+    argv[1].u.ptr = (int *) &offset;
+
+    argv[2].isint = 1;
+    argv[2].len = 4;
+    argv[2].u.integer = whence;
+
+    // Call backend lo_lseek64 function via fastpath interface
+    res = PQfn(conn, conn->lobjfuncs->fn_lo_lseek64,
+               (void *) &retval, &result_len, 0, argv, 3);
+
+    // Return new 64-bit position or -1 on error
+    if (PQresultStatus(res) == PGRES_COMMAND_OK && result_len == 8) {
+        PQclear(res);
+        return lo_ntoh64(retval);  // Convert from network byte order
+    } else {
+        PQclear(res);
+        return -1;
+    }
+}
+```

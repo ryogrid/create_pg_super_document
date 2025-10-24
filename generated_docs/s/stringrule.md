@@ -40,3 +40,94 @@ The function formats the rule into POSIX timezone format (e.g., "M3.2.0" for sec
 - Optimizes output by omitting the 'J' prefix for January and February dates
 - Applies complex time offset calculations for UTC, standard time, and wall clock time conversions
 - Part of PostgreSQL's timezone compilation system (zic) for generating binary timezone files
+
+## Simplified Source
+
+```c
+static int stringrule(char *result, struct rule *const rp, zic_t save, zic_t stdoff) {
+    zic_t transition_time = rp->r_tod;
+    int compatibility_year = 0;
+
+    if (rp->r_dycode == DC_DOM) {
+        // Day-of-month rule (e.g., "March 15th")
+
+        // Reject Feb 29 to avoid leap year issues
+        if (rp->r_dayofmonth == 29 && rp->r_month == TM_FEBRUARY) {
+            return -1;
+        }
+
+        // Calculate day-of-year
+        int day_of_year = 0;
+        for (int month = 0; month < rp->r_month; month++) {
+            day_of_year += len_months[0][month];
+        }
+
+        // Format as either "N" or "JN" (omit J for Jan/Feb)
+        if (rp->r_month <= 1) {
+            result += sprintf(result, "%d", day_of_year + rp->r_dayofmonth - 1);
+        } else {
+            result += sprintf(result, "J%d", day_of_year + rp->r_dayofmonth);
+        }
+    } else {
+        // Day-of-week rule (e.g., "first Sunday in March")
+
+        int week, weekday = rp->r_wday, weekday_offset;
+
+        if (rp->r_dycode == DC_DOWGEQ) {
+            // "First X on or after day N"
+            weekday_offset = (rp->r_dayofmonth - 1) % DAYSPERWEEK;
+            if (weekday_offset) compatibility_year = 2013;
+            weekday -= weekday_offset;
+            transition_time += weekday_offset * SECSPERDAY;
+            week = 1 + (rp->r_dayofmonth - 1) / DAYSPERWEEK;
+        } else if (rp->r_dycode == DC_DOWLEQ) {
+            // "Last X on or before day N"
+            if (rp->r_dayofmonth == len_months[1][rp->r_month]) {
+                week = 5;  // Last week of month
+            } else {
+                weekday_offset = rp->r_dayofmonth % DAYSPERWEEK;
+                if (weekday_offset) compatibility_year = 2013;
+                weekday -= weekday_offset;
+                transition_time += weekday_offset * SECSPERDAY;
+                week = rp->r_dayofmonth / DAYSPERWEEK;
+            }
+        } else {
+            return -1;  // Unsupported rule type
+        }
+
+        // Normalize weekday
+        if (weekday < 0) weekday += DAYSPERWEEK;
+
+        // Format as "M<month>.<week>.<weekday>"
+        result += sprintf(result, "M%d.%d.%d", rp->r_month + 1, week, weekday);
+    }
+
+    // Apply time offset corrections based on time type
+    if (rp->r_todisut) transition_time += stdoff;      // UTC time
+    if (rp->r_todisstd && !rp->r_isdst) transition_time += save;  // Standard time
+
+    // Add time specification if not default (2:00 AM)
+    if (transition_time != 2 * SECSPERMIN * MINSPERHOUR) {
+        *result++ = '/';
+        if (!stringoffset(result, transition_time)) {
+            return -1;
+        }
+
+        // Update compatibility year based on time value
+        if (transition_time < 0) {
+            if (compatibility_year < 2013) compatibility_year = 2013;
+        } else if (transition_time >= SECSPERDAY) {
+            if (compatibility_year < 1994) compatibility_year = 1994;
+        }
+    }
+
+    return compatibility_year;
+}
+```
+
+**Key simplifications:**
+- Added descriptive variable names (`compatibility_year`, `transition_time`, etc.)
+- Grouped related logic with clear comments explaining each rule type
+- Explained the complex offset calculations and their purposes
+- Clarified the POSIX format being generated (M<month>.<week>.<weekday>)
+- Preserved the essential timezone rule conversion logic

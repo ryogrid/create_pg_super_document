@@ -44,3 +44,32 @@ This function is primarily used in test code to provide meaningful output when d
 - Part of the ECPG test suite infrastructure for validating Informix compatibility features
 - The function always prints a newline after the error description for clean output formatting
 - Located in test expected output files, indicating its role in regression testing
+
+## Simplified Source
+
+```c
+static void
+check_return(int ret)
+{
+    // Map ECPG Informix error codes to human-readable messages
+    switch(ret)
+    {
+        case ECPG_INFORMIX_ENOTDMY:
+            printf("(ECPG_INFORMIX_ENOTDMY)");
+            break;
+        case ECPG_INFORMIX_ENOSHORTDATE:
+            printf("(ECPG_INFORMIX_ENOSHORTDATE)");
+            break;
+        case ECPG_INFORMIX_BAD_DAY:
+            printf("(ECPG_INFORMIX_BAD_DAY)");
+            break;
+        case ECPG_INFORMIX_BAD_MONTH:
+            printf("(ECPG_INFORMIX_BAD_MONTH)");
+            break;
+        default:
+            printf("(unknown ret: %d)", ret);
+            break;
+    }
+    printf("\n");
+}
+```

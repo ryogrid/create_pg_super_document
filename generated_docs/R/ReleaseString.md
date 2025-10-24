@@ -30,3 +30,12 @@ This function serves as a resource release callback in the PostgreSQL resource o
 - The function provides visibility into resource cleanup operations through notice-level logging
 - It follows the standard PostgreSQL resource release callback signature pattern
 - Used in conjunction with resource owner registration to demonstrate proper resource management and cleanup
+
+## Simplified Source
+
+```c
+static void ReleaseString(Datum res) {
+    // Log the string being released for testing/debugging purposes
+    elog(NOTICE, "releasing string: %s", DatumGetPointer(res));
+}
+```

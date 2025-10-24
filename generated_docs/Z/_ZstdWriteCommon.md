@@ -39,3 +39,36 @@ This function encapsulates the core ZSTD compression loop used by both `WriteDat
 - The loop continues until either all input is processed or compression is complete (res == 0)
 - Critical for proper ZSTD compression flow in PostgreSQL's pg_dump utility
 - Handles both incremental compression and final compression phases
+
+## Simplified Source
+
+```c
+static void
+_ZstdWriteCommon(ArchiveHandle *AH, CompressorState *cs, bool flush)
+{
+    ZstdCompressorState *zstdcs = (ZstdCompressorState *) cs->private_data;
+    ZSTD_inBuffer *input = &zstdcs->input;
+    ZSTD_outBuffer *output = &zstdcs->output;
+
+    // Process input data until all consumed or flushed
+    while (input->pos != input->size || flush)
+    {
+        output->pos = 0;
+
+        // Compress data stream
+        size_t result = ZSTD_compressStream2(zstdcs->cstream, output, input,
+                                           flush ? ZSTD_e_end : ZSTD_e_continue);
+
+        if (ZSTD_isError(result))
+            pg_fatal("could not compress data: %s", ZSTD_getErrorName(result));
+
+        // Write output if non-zero (avoid EOF marker confusion)
+        if (output->pos > 0)
+            cs->writeF(AH, output->dst, output->pos);
+
+        // Break if compression complete
+        if (result == 0)
+            break;
+    }
+}
+```

@@ -33,9 +33,24 @@ The function assumes that when this repair is applied, there are no other object
 
 ## Notes and Other Information
 - Specifically handles view-rule circular dependencies in pg_dump
-- Applies to both regular views and materialized views 
+- Applies to both regular views and materialized views
 - Assumes a simple two-object loop with no other dependencies involved
 - Preserves the explicit view-to-rule dependency while breaking the implicit rule-to-view dependency
 - Relies on pre-set dump flags for correct object handling
 - Part of pg_dump's targeted dependency loop resolution system
 - Ensures ON SELECT rules are dumped before their associated views for proper restoration order
+
+## Simplified Source
+
+```c
+static void
+repairViewRuleLoop(DumpableObject *viewobj,
+                   DumpableObject *ruleobj)
+{
+    // Break circular dependency by removing rule's dependency on view
+    // This preserves view-to-rule dependency while eliminating rule-to-view
+    removeObjectDependency(ruleobj, viewobj->dumpId);
+
+    // Note: Object flags are already correctly set for this case
+}
+```

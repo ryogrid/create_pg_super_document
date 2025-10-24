@@ -302,7 +302,22 @@ Text creation and manipulation
 ## Notes and Other Information
 - Returns a constant string literal that doesn't need to be freed
 - Returns NULL for unrecognized operation codes, following PostgreSQL RMGR API conventions
-- Only recognizes the single  operation type defined by this test module
-- Located in 
-- Part of the test custom resource manager registered with ID 
+- Only recognizes the single operation type defined by this test module
+- Located in
+- Part of the test custom resource manager registered with ID
 - Used primarily for debugging and WAL record introspection rather than operational functionality
+
+## Simplified Source
+
+```c
+const char *
+testcustomrmgrs_identify(uint8 info)
+{
+    // Check if operation code matches the test message type
+    if ((info & ~XLR_INFO_MASK) == XLOG_TEST_CUSTOM_RMGRS_MESSAGE)
+        return "TEST_CUSTOM_RMGRS_MESSAGE";
+
+    // Return NULL for unrecognized operation codes
+    return NULL;
+}
+```

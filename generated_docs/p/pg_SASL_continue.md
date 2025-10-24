@@ -44,3 +44,63 @@ The function manages the iterative nature of SASL authentication, where multiple
 - Ensures proper memory management by freeing allocated buffers in all code paths
 - The authentication exchange continues until the SASL mechanism reports completion or failure
 - Error conditions include memory allocation failures, incomplete authentication on final messages, and missing client responses during ongoing exchanges
+
+## Simplified Source
+
+```c
+static int pg_SASL_continue(PGconn *conn, int payloadlen, bool final) {
+    char *output;
+    int outputlen;
+    int res;
+    char *challenge;
+    SASLStatus status;
+
+    // Allocate and read SASL challenge from server
+    challenge = malloc(payloadlen + 1);
+    if (!challenge) {
+        libpq_append_conn_error(conn, "out of memory allocating SASL buffer (%d)", payloadlen);
+        return STATUS_ERROR;
+    }
+
+    if (pqGetnchar(challenge, payloadlen, conn)) {
+        free(challenge);
+        return STATUS_ERROR;
+    }
+    challenge[payloadlen] = '\0';  // NULL-terminate for safety
+
+    // Process challenge through SASL mechanism
+    status = conn->sasl->exchange(conn->sasl_state,
+                                  challenge, payloadlen,
+                                  &output, &outputlen);
+    free(challenge);
+
+    // Validate final message state
+    if (final && status == SASL_CONTINUE) {
+        if (outputlen != 0)
+            free(output);
+        libpq_append_conn_error(conn, "AuthenticationSASLFinal received from server, but SASL authentication was not completed");
+        return STATUS_ERROR;
+    }
+
+    // Check for missing client response during ongoing exchange
+    if (output == NULL && status == SASL_CONTINUE) {
+        libpq_append_conn_error(conn, "no client response found after SASL exchange success");
+        return STATUS_ERROR;
+    }
+
+    // Send response back to server if available
+    if (output) {
+        res = pqPacketSend(conn, PqMsg_SASLResponse, output, outputlen);
+        free(output);
+
+        if (res != STATUS_OK)
+            return STATUS_ERROR;
+    }
+
+    // Check for authentication failure
+    if (status == SASL_FAILED)
+        return STATUS_ERROR;
+
+    return STATUS_OK;
+}
+```

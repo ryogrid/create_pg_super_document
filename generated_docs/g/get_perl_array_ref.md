@@ -35,3 +35,32 @@ The function performs validation to ensure the input is a valid reference and th
 - Uses Perl SvOK, SvROK, SvTYPE, and SvRV macros for type checking and reference validation
 - The special handling of PostgreSQL::InServer::ARRAY objects allows for seamless integration between Perl arrays and PostgreSQL internal array representation
 - Throws an ERROR (via elog) if a PostgreSQL::InServer::ARRAY object is malformed
+
+## Simplified Source
+```c
+static SV *get_perl_array_ref(SV *sv) {
+    dTHX;
+
+    // Check if SV is valid and is a reference
+    if (SvOK(sv) && SvROK(sv)) {
+        // Case 1: Direct array reference
+        if (SvTYPE(SvRV(sv)) == SVt_PVAV)
+            return sv;
+
+        // Case 2: PostgreSQL::InServer::ARRAY object
+        else if (sv_isa(sv, "PostgreSQL::InServer::ARRAY")) {
+            HV *hv = (HV *) SvRV(sv);
+            SV **sav = hv_fetch_string(hv, "array");
+
+            // Validate extracted array reference
+            if (*sav && SvOK(*sav) && SvROK(*sav) &&
+                SvTYPE(SvRV(*sav)) == SVt_PVAV)
+                return *sav;
+
+            elog(ERROR, "could not get array reference from PostgreSQL::InServer::ARRAY object");
+        }
+    }
+
+    return NULL;  // Not an array reference
+}
+```

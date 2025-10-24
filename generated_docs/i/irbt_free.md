@@ -35,3 +35,12 @@ The function accepts a generic RBTNode pointer and deallocates the memory using 
 - Part of PostgreSQL's Red-Black Tree testing framework
 - Follows the standard Red-Black Tree deallocator interface pattern
 - Simple wrapper function that provides the required interface without additional complexity
+
+## Simplified Source
+
+```c
+static void irbt_free(RBTNode *node, void *arg) {
+    // Free the node memory using PostgreSQL's memory manager
+    pfree(node);
+}
+```

@@ -33,3 +33,18 @@ This function is part of the timezone compilation infrastructure in PostgreSQL, 
 - It specifically compares the `r_name` member of rule structures
 - Returns the result of strcmp directly, maintaining the standard comparison semantics
 - Used in the timezone rule association process to ensure rules are processed in a consistent alphabetical order
+
+## Simplified Source
+
+```c
+static int
+rcomp(const void *cp1, const void *cp2)
+{
+    // Cast void pointers to rule structures and compare rule names
+    const struct rule *rule1 = (const struct rule *) cp1;
+    const struct rule *rule2 = (const struct rule *) cp2;
+
+    // Return lexicographic comparison of rule names
+    return strcmp(rule1->r_name, rule2->r_name);
+}
+```

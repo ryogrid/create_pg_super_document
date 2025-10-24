@@ -44,3 +44,43 @@ The  function provides functionality to overwrite a specific segment of data in 
 - Properly manages memory by freeing the allocated buffer after use
 - The function will break out of the write loop if a write operation fails (nbytes <= 0)
 - Used primarily for testing and demonstrating large object modification capabilities
+
+## Simplified Source
+
+```c
+static void
+overwrite(PGconn *conn, Oid lobjId, int start, int len)
+{
+    int lobj_fd;
+    char *buf;
+    int nbytes, nwritten, i;
+
+    // Open large object for writing
+    lobj_fd = lo_open(conn, lobjId, INV_WRITE);
+    if (lobj_fd < 0)
+        fprintf(stderr, "cannot open large object %u", lobjId);
+
+    // Seek to starting position and prepare buffer with 'X' pattern
+    lo_lseek(conn, lobj_fd, start, SEEK_SET);
+    buf = malloc(len + 1);
+    for (i = 0; i < len; i++)
+        buf[i] = 'X';
+    buf[i] = '\0';
+
+    // Write data in chunks until complete
+    nwritten = 0;
+    while (len - nwritten > 0) {
+        nbytes = lo_write(conn, lobj_fd, buf + nwritten, len - nwritten);
+        nwritten += nbytes;
+        if (nbytes <= 0) {
+            fprintf(stderr, "\nWRITE FAILED!\n");
+            break;
+        }
+    }
+
+    // Cleanup
+    free(buf);
+    fprintf(stderr, "\n");
+    lo_close(conn, lobj_fd);
+}
+```

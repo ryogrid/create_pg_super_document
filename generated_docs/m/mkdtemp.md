@@ -37,3 +37,16 @@ This implementation includes safeguards against denial-of-service attacks by lim
 - If the function fails,  is set appropriately by the underlying system calls
 - The implementation is thread-safe through the use of static variables with proper synchronization in the  helper function
 - Part of PostgreSQL's portability layer located in  to provide consistent functionality across different platforms
+
+## Simplified Source
+
+```c
+char *
+mkdtemp(char *path)
+{
+    _DIAGASSERT(path != NULL);
+
+    // Use GETTEMP helper to create a unique directory
+    return GETTEMP(path, NULL, 1) ? path : NULL;
+}
+```

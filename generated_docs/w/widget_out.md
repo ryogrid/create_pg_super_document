@@ -42,3 +42,21 @@ This function serves as the output converter for the custom WIDGET data type, tr
 - Located in src/test/regress/regress.c as part of the test suite
 - Demonstrates the standard pattern for implementing output functions in PostgreSQL user-defined types
 - The WIDGET type was originally called "circle" but renamed to avoid conflicts with built-in types
+
+## Simplified Source
+
+```c
+Datum
+widget_out(PG_FUNCTION_ARGS)
+{
+    WIDGET *widget = (WIDGET *) PG_GETARG_POINTER(0);
+
+    // Format widget as "(x,y,radius)" string
+    char *str = psprintf("(%g,%g,%g)",
+                        widget->center.x,
+                        widget->center.y,
+                        widget->radius);
+
+    PG_RETURN_CSTRING(str);
+}
+```

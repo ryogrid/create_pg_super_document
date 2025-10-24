@@ -32,3 +32,23 @@ This function takes no parameters and returns a boolean value.
 - The function relies on the global  variable being set by a previous system call
 - This is part of PostgreSQL's cross-platform file handling infrastructure, addressing Windows-specific file system semantics
 - The STATUS_DELETE_PENDING condition is a Windows NTFS feature that allows files to persist until all handles are closed
+
+## Simplified Source
+
+```c
+static bool
+lstat_error_was_status_delete_pending(void)
+{
+    // Return false if errno is not ENOENT
+    if (errno != ENOENT)
+        return false;
+
+#if defined(WIN32) && !defined(__CYGWIN__)
+    // Check if the NT status indicates deletion pending
+    if (pg_RtlGetLastNtStatus() == STATUS_DELETE_PENDING)
+        return true;
+#endif
+
+    return false;
+}
+```

@@ -38,3 +38,33 @@ This function addresses a limitation in Windows' standard strerror() function, w
 - Specifically handles Winsock error code range (10000-11999) as referenced in WinError.h
 - Uses ZeroMemory to ensure clean buffer initialization
 - Located in src/port/strerror.c:275-310
+
+## Simplified Source
+
+```c
+static char *win32_socket_strerror(int errnum, char *buf, size_t buflen)
+{
+    static HANDLE handleDLL = INVALID_HANDLE_VALUE;
+
+    // Lazy load netmsg.dll for Winsock error messages
+    if (handleDLL == INVALID_HANDLE_VALUE) {
+        handleDLL = LoadLibraryEx("netmsg.dll", NULL,
+                                  DONT_RESOLVE_DLL_REFERENCES | LOAD_LIBRARY_AS_DATAFILE);
+        if (handleDLL == NULL) {
+            snprintf(buf, buflen, "winsock error %d (could not load netmsg.dll)", errnum);
+            return buf;
+        }
+    }
+
+    // Try to format the error message from Windows
+    ZeroMemory(buf, buflen);
+    if (FormatMessage(FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_FROM_HMODULE,
+                      handleDLL, errnum, MAKELANGID(LANG_ENGLISH, SUBLANG_DEFAULT),
+                      buf, buflen - 1, NULL) == 0) {
+        // Fallback if FormatMessage fails
+        snprintf(buf, buflen, "unrecognized winsock error %d", errnum);
+    }
+
+    return buf;
+}
+```

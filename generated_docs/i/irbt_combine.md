@@ -35,3 +35,18 @@ The function performs a strict equality check between the existing node's key an
 - Part of PostgreSQL's Red-Black Tree testing framework
 - Will terminate execution with ERROR if keys don't match, indicating a library bug
 - The function signature follows the standard Red-Black Tree combiner interface pattern
+
+## Simplified Source
+
+```c
+static void irbt_combine(RBTNode *existing, const RBTNode *newdata, void *arg) {
+    // Cast nodes to integer-specific types
+    const IntRBTreeNode *eexist = (const IntRBTreeNode *) existing;
+    const IntRBTreeNode *enew = (const IntRBTreeNode *) newdata;
+
+    // Validate that only identical keys are combined
+    if (eexist->key != enew->key)
+        elog(ERROR, "red-black tree combines %d into %d",
+             enew->key, eexist->key);
+}
+```

@@ -38,3 +38,12 @@ However, it's important to note that individual PGconn objects are not inherentl
 - Applications should still synchronize access to individual PGconn objects across threads
 - The function takes no parameters and has no side effects
 - Useful for applications that need to verify thread safety capability at runtime
+
+## Simplified Source
+
+```c
+int PQisthreadsafe(void) {
+    // libpq is always thread-safe in modern PostgreSQL
+    return true;
+}
+```

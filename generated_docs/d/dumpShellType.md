@@ -38,3 +38,41 @@ The function generates a simple CREATE TYPE statement without any implementation
 - Owner changes are deferred until after the type is fully implemented to avoid backend errors
 - Archived in SECTION_PRE_DATA to ensure proper dependency ordering
 - The shell type's owner is derived from the base type's role name
+
+## Simplified Source
+
+```c
+static void
+dumpShellType(Archive *fout, const ShellTypeInfo *stinfo)
+{
+    DumpOptions *dopt = fout->dopt;
+    PQExpBuffer q;
+
+    // Skip in data-only dump mode
+    if (dopt->dataOnly)
+        return;
+
+    q = createPQExpBuffer();
+
+    // Handle binary upgrade mode
+    if (dopt->binary_upgrade)
+        binary_upgrade_set_type_oids_by_type_oid(fout, q,
+                                                  stinfo->baseType->dobj.catId.oid,
+                                                  false, false);
+
+    // Generate simple CREATE TYPE statement (shell type)
+    appendPQExpBuffer(q, "CREATE TYPE %s;\n", fmtQualifiedDumpable(stinfo));
+
+    // Archive the shell type definition
+    if (stinfo->dobj.dump & DUMP_COMPONENT_DEFINITION)
+        ArchiveEntry(fout, stinfo->dobj.catId, stinfo->dobj.dumpId,
+                     ARCHIVE_OPTS(.tag = stinfo->dobj.name,
+                                  .namespace = stinfo->dobj.namespace->dobj.name,
+                                  .owner = stinfo->baseType->rolname,
+                                  .description = "SHELL TYPE",
+                                  .section = SECTION_PRE_DATA,
+                                  .createStmt = q->data));
+
+    destroyPQExpBuffer(q);
+}
+```

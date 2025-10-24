@@ -43,3 +43,25 @@ The formatting ensures vertical alignment of test names and runtimes across all 
 - Visual indicators distinguish parallel tests ('+') from sequential tests ('-')
 - When a test fails, "not " is prepended to the output, and successful tests are indented with spaces to maintain alignment
 - The output format was designed to be compatible with both human readers and automated TAP parsers, particularly the meson TAP parser which consumes leading whitespace
+
+## Simplified Source
+
+```c
+static void test_status_print(bool ok, const char *testname, double runtime, bool parallel) {
+    int testnumber = fail_count + success_count;
+
+    // Format TAP output with aligned columns:
+    // - "ok"/"not ok" status
+    // - Test number (padded to 5 chars)
+    // - '+' for parallel, '-' for sequential
+    // - Test name (padded for alignment)
+    // - Runtime in milliseconds
+    emit_tap_output(TEST_STATUS, "%sok %-5i%*s %c %-*s %8.0f ms",
+                    (ok ? "" : "not "),
+                    testnumber,
+                    (ok ? (int) strlen("not ") : 0), "",  // Alignment spacing
+                    (parallel ? '+' : '-'),
+                    TESTNAME_WIDTH, testname,
+                    runtime);
+}
+```

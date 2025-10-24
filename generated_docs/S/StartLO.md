@@ -37,3 +37,21 @@ The function is designed to work within the context of a data dumper routine, wh
 - Part of a paired operation with EndLO to bracket large object data output
 - The actual large object data writing occurs between StartLO and EndLO calls
 - Format-specific implementations handle the details of how large objects are stored in each archive format
+
+## Simplified Source
+
+```c
+int StartLO(Archive *AHX, Oid oid)
+{
+    ArchiveHandle *AH = (ArchiveHandle *) AHX;
+
+    // Check if current format supports large objects
+    if (!AH->StartLOPtr)
+        pg_fatal("large-object output not supported in chosen format");
+
+    // Delegate to format-specific large object start handler
+    AH->StartLOPtr(AH, AH->currToc, oid);
+
+    return 1;
+}
+```

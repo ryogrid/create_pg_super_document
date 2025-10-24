@@ -39,3 +39,20 @@ The function validates that it's safe to change the result mode using canChangeR
 - Part of libpq's partial result mode system for handling large datasets efficiently
 - The chunk size parameter allows tuning the balance between memory usage and network efficiency
 - Cannot be used with already-retrieved results or when no query is active
+
+## Simplified Source
+
+```c
+int PQsetChunkedRowsMode(PGconn *conn, int chunkSize) {
+    // Validate chunk size and check if we can change result mode
+    if (chunkSize > 0 && canChangeResultMode(conn)) {
+        // Enable chunked rows processing mode
+        conn->partialResMode = true;
+        conn->singleRowMode = false;  // Not single-row mode
+        conn->maxChunkSize = chunkSize;
+        return 1;
+    } else {
+        return 0;  // Invalid chunk size or cannot change mode
+    }
+}
+```

@@ -37,3 +37,21 @@ The function uses the parameter configuration structure where each entry contain
 - This function is typically called early in program initialization before processing command-line arguments or profile files
 - The table-driven approach makes the parameter system extensible and maintainable
 - All global configuration variables are reset to known good states, ensuring reproducible behavior
+
+## Simplified Source
+
+```c
+void set_defaults(void) {
+    struct pro *p;
+
+    // Special case: float cannot be initialized from table
+    ps.case_indent = 0.0;
+
+    // Set all parameters to their default values
+    for (p = pro; p->p_name; p++) {
+        if (p->p_type != PRO_SPECIAL) {
+            *p->p_obj = p->p_default;
+        }
+    }
+}
+```

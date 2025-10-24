@@ -35,3 +35,22 @@ pg_sprintf provides a portable alternative to the standard sprintf function. It 
 - Part of PostgreSQL's comprehensive portable printf implementation
 - Always null-terminates the output string
 - Used when formatted string output to an unbounded buffer is needed with direct arguments
+
+## Simplified Source
+
+```c
+int pg_sprintf(char *str, const char *fmt, ...)
+{
+    int len;
+    va_list args;
+
+    // Convert variable arguments to va_list
+    va_start(args, fmt);
+
+    // Delegate to vsprintf implementation
+    len = pg_vsprintf(str, fmt, args);
+
+    va_end(args);
+    return len;
+}
+```

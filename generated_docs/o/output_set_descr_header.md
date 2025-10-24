@@ -44,3 +44,28 @@ The generated code follows this pattern:
 - The whenever_action(3) call handles SQL exception processing for the generated code
 - This is the counterpart to output_get_descr_header, providing set functionality instead of get
 - This is specifically for SQL descriptor header operations, not individual descriptor items
+
+## Simplified Source
+
+```c
+void output_set_descr_header(char *desc_name) {
+    // Generate ECPGset_desc_header function call
+    fprintf(base_yyout, "{ ECPGset_desc_header(__LINE__, %s, (int)(", desc_name);
+
+    // Process each assignment to set header values
+    for (struct assignment *results = assignments; results != NULL; results = results->next) {
+        if (results->value == ECPGd_count) {
+            // Handle count assignment - generate numeric lvalue code
+            ECPGnumeric_lvalue(results->variable);
+        } else {
+            // Warn about unsupported header items
+            mmerror(PARSE_ERROR, ET_WARNING, "descriptor header item \"%d\" does not exist", results->value);
+        }
+    }
+
+    // Complete the function call and add error handling
+    drop_assignments();
+    fprintf(base_yyout, "));\\n");
+    whenever_action(3);
+}
+```

@@ -44,3 +44,54 @@ This comprehensive approach ensures that environment variable changes are visibl
 - Returns -1 on failure (memory allocation or invalid format), 0 on success
 - Critical for maintaining environment variable consistency in Windows builds where multiple CRTs may be loaded simultaneously
 - The comprehensive CRT module list ensures compatibility across different development environments and third-party libraries
+
+## Simplified Source
+
+```c
+int pgwin32_putenv(const char *envval)
+{
+    char *envcpy;
+    char *cp;
+    static const char *const modulenames[] = {
+        "msvcrt", "msvcr70", "msvcr80", "msvcr90", "msvcr100",
+        "msvcr110", "msvcr120", "ucrtbase", NULL
+    };
+    int i;
+
+    // Parse the "NAME=VALUE" string
+    envcpy = strdup(envval);
+    if (!envcpy)
+        return -1;
+
+    cp = strchr(envcpy, '=');
+    if (cp == NULL) {
+        free(envcpy);
+        return -1;
+    }
+    *cp = '\0';
+    cp++;
+
+    // Update Windows process environment (visible to child processes)
+    if (*cp) {
+        if (!SetEnvironmentVariable(envcpy, cp)) {
+            free(envcpy);
+            return -1;
+        }
+    }
+    free(envcpy);
+
+    // Update environment in all loaded CRT modules
+    for (i = 0; modulenames[i]; i++) {
+        HMODULE hmodule = NULL;
+        if (GetModuleHandleEx(0, modulenames[i], &hmodule) && hmodule) {
+            PUTENVPROC putenvFunc = (PUTENVPROC)GetProcAddress(hmodule, "_putenv");
+            if (putenvFunc)
+                putenvFunc(envval);
+            FreeLibrary(hmodule);
+        }
+    }
+
+    // Update our own CRT environment
+    return _putenv(envval);
+}
+```

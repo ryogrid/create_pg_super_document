@@ -36,3 +36,25 @@ The function captures the current `errno` value at the beginning to ensure the c
 - Part of a minimal implementation of BSD error functions, cut down to just what's needed for the indent tool
 - Preserves the original `errno` value to ensure accurate error reporting
 - Follows the BSD convention of appending system error descriptions to user messages
+
+## Simplified Source
+
+```c
+void err(int eval, const char *fmt, ...) {
+    int code = errno;
+    va_list ap;
+
+    va_start(ap, fmt);
+
+    // Print user message if provided
+    if (fmt != NULL) {
+        vfprintf(stderr, fmt, ap);
+        fprintf(stderr, ": ");
+    }
+
+    // Print system error and exit
+    fprintf(stderr, "%s\n", strerror(code));
+    va_end(ap);
+    exit(eval);
+}
+```

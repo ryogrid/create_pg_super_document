@@ -36,3 +36,14 @@ The function delegates all its work to PLy_output, passing the WARNING log level
 - WARNING messages are typically sent to clients to alert users of potential issues
 - WARNING level is used for situations that are not errors but may indicate problems or unexpected conditions that users should be aware of
 - Distinguished from NOTICE messages which are for expected informational content, while WARNING is for unexpected or potentially problematic situations
+
+## Simplified Source
+
+```c
+static PyObject *
+PLy_warning(PyObject *self, PyObject *args, PyObject *kw)
+{
+    // Simple wrapper that routes warning-level messages to core logging function
+    return PLy_output(WARNING, self, args, kw);
+}
+```

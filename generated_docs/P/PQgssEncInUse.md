@@ -40,3 +40,16 @@ This function is useful for applications that need to verify the security status
 - GSSAPI encryption mode is controlled by the 'gssencmode' connection parameter (disable, prefer, require)
 - Used by psql to display connection security information in \conninfo command
 - The function is thread-safe as it only performs read operations on connection fields
+
+## Simplified Source
+
+```c
+int PQgssEncInUse(PGconn *conn) {
+    // Check if connection and GSSAPI context are valid
+    if (!conn || !conn->gctx)
+        return 0;
+
+    // Return GSSAPI encryption status
+    return conn->gssenc;
+}
+```

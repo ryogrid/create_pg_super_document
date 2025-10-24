@@ -35,3 +35,34 @@ The descriptor is added to the beginning of the list, implementing a stack-like 
 - Memory is allocated separately for name and connection strings to ensure proper lifetime management
 - Connection parameter can be NULL, in which case the connection field is also set to NULL
 - Part of the ECPG preprocessor's descriptor management system for handling SQL descriptor declarations
+
+## Simplified Source
+
+```c
+void add_descriptor(char *name, char *connection) {
+    // Validate name format (must start with quote)
+    if (name[0] != '"')
+        return;
+
+    // Create new descriptor node
+    struct descriptor *new = (struct descriptor *) mm_alloc(sizeof(struct descriptor));
+
+    // Link to existing list
+    new->next = descriptors;
+
+    // Copy name
+    new->name = mm_alloc(strlen(name) + 1);
+    strcpy(new->name, name);
+
+    // Handle optional connection string
+    if (connection) {
+        new->connection = mm_alloc(strlen(connection) + 1);
+        strcpy(new->connection, connection);
+    } else {
+        new->connection = connection;  // NULL
+    }
+
+    // Update list head
+    descriptors = new;
+}
+```

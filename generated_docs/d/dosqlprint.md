@@ -33,3 +33,12 @@ This function is part of the expected output generation for ECPG compatibility t
 - The function name follows Informix naming conventions ("doSQLprint" style)
 - Part of the expected test output framework, not production database code
 - Accesses the global sqlca structure which is standard in embedded SQL programming
+
+## Simplified Source
+
+```c
+static void dosqlprint(void) {
+    // Print SQL error message from global sqlca structure
+    printf("doSQLprint: Error: %s\n", sqlca.sqlerrm.sqlerrmc);
+}
+```

@@ -43,3 +43,57 @@ The function uses the ADD_STARTUP_OPTION macro to efficiently handle parameter s
 - Terminates the packet with a null byte as required by PostgreSQL protocol
 - Part of the libpq protocol 3 implementation for PostgreSQL client-server communication
 - Static function used internally within the fe-protocol3.c module
+
+## Simplified Source
+
+```c
+static int build_startup_packet(const PGconn *conn, char *packet,
+                               const PQEnvironmentOption *options) {
+    int packet_len = 0;
+
+    // Add protocol version (network byte order)
+    if (packet) {
+        ProtocolVersion pv = pg_hton32(conn->pversion);
+        memcpy(packet + packet_len, &pv, sizeof(ProtocolVersion));
+    }
+    packet_len += sizeof(ProtocolVersion);
+
+    // Add connection parameters (user, database, etc.)
+    // Each parameter is added as key=value pairs with null terminators
+
+    // Add user parameter if specified
+    if (conn->pguser && conn->pguser[0]) {
+        ADD_STARTUP_OPTION("user", conn->pguser);
+    }
+
+    // Add database parameter if specified
+    if (conn->dbName && conn->dbName[0]) {
+        ADD_STARTUP_OPTION("database", conn->dbName);
+    }
+
+    // Add replication parameter if specified
+    if (conn->replication && conn->replication[0]) {
+        ADD_STARTUP_OPTION("replication", conn->replication);
+    }
+
+    // Add other standard options (application_name, client_encoding, etc.)
+    if (conn->pguser && conn->pguser[0]) {
+        ADD_STARTUP_OPTION("application_name", conn->appname);
+    }
+
+    // Process environment options
+    for (const PQEnvironmentOption *next_eo = options; next_eo->envname; next_eo++) {
+        const char *val = getenv(next_eo->envname);
+        if (val && val[0]) {
+            ADD_STARTUP_OPTION(next_eo->pgname, val);
+        }
+    }
+
+    // Terminate with null byte
+    if (packet)
+        packet[packet_len] = '\0';
+    packet_len++;
+
+    return packet_len;
+}
+```

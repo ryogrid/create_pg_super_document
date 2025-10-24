@@ -48,3 +48,35 @@ This approach ensures that PostgreSQL only uses hardware acceleration when it's 
 - The function may only be called once during program initialization due to function pointer replacement mechanism
 - Frontend and backend builds have slightly different behavior (frontend skips error logging)
 - Critical for PostgreSQL performance on ARM platforms where CRC-32C is heavily used for data integrity
+
+## Simplified Source
+
+```c
+static bool pg_crc32c_armv8_available(void) {
+    uint64 data = 42;
+    int result;
+
+    // Set up signal handler to catch illegal instruction exceptions
+    pqsignal(SIGILL, illegal_instruction_handler);
+    if (sigsetjmp(illegal_instruction_jump, 1) == 0) {
+        // Test hardware CRC vs software CRC for correctness
+        result = (pg_comp_crc32c_armv8(0, &data, sizeof(data)) ==
+                  pg_comp_crc32c_sb8(0, &data, sizeof(data)));
+    } else {
+        // Caught SIGILL - hardware CRC not available
+        result = -1;
+    }
+
+    // Restore default signal handling
+    pqsignal(SIGILL, SIG_DFL);
+
+#ifndef FRONTEND
+    // Ensure hardware and software implementations agree
+    if (result == 0)
+        elog(ERROR, "crc32 hardware and software results disagree");
+    elog(DEBUG1, "using armv8 crc32 hardware = %d", (result > 0));
+#endif
+
+    return (result > 0);
+}
+```

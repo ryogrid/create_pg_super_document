@@ -35,3 +35,32 @@ This function converts a Perl hash entry key to a properly encoded C string that
 - Uses Perl's temporary variable management system to safely handle the mortal SV created by HeSVKEY_force
 - Critical for proper handling of Unicode column names and hash keys in PL/Perl
 - Located in src/pl/plperl/plperl.c at lines 323-379
+
+## Simplified Source
+```c
+static char *hek2cstr(HE *he) {
+    dTHX;
+    char *ret;
+    SV *sv;
+
+    // Set up temporary variable management
+    ENTER;
+    SAVETMPS;
+
+    // Convert hash entry key to SV for proper encoding handling
+    sv = HeSVKEY_force(he);
+
+    // Set UTF8 flag if needed (handles Unicode Bug for chars 128-255)
+    if (HeUTF8(he))
+        SvUTF8_on(sv);
+
+    // Convert to C string in database encoding
+    ret = sv2cstr(sv);
+
+    // Clean up temporary variables
+    FREETMPS;
+    LEAVE;
+
+    return ret;
+}
+```

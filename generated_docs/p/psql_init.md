@@ -29,3 +29,14 @@ This function performs the initialization setup for the PostgreSQL regression te
 - Works with the global dblist variable to maintain the list of databases for testing
 - The "regression" database is the standard default database used by PostgreSQL regression tests
 - This function is part of the initialization sequence in the regression test framework
+
+## Simplified Source
+
+```c
+static void
+psql_init(int argc, char **argv)
+{
+    /* set default regression database name */
+    add_stringlist_item(&dblist, "regression");
+}
+```

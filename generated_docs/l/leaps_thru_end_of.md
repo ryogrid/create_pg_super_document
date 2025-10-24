@@ -39,3 +39,20 @@ The function ensures consistent leap year counting across the entire range of re
 - Used extensively by the  function, which is core to PostgreSQL's time conversion functionality
 - The design separates the complexity of negative year handling from the optimized positive year calculation
 - Ensures mathematical correctness for date calculations spanning from prehistoric to future time periods
+
+## Simplified Source
+
+```c
+static int
+leaps_thru_end_of(const int y)
+{
+    // Handle negative and non-negative years differently
+    if (y < 0) {
+        // For negative years, transform to positive and apply adjustment
+        return -1 - leaps_thru_end_of_nonneg(-1 - y);
+    } else {
+        // For non-negative years, use direct calculation
+        return leaps_thru_end_of_nonneg(y);
+    }
+}
+```

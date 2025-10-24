@@ -32,3 +32,22 @@ The `atcomp` function is a comparison function designed to be used with the stan
 - This function is static and only accessible within the zic.c compilation unit
 - Part of PostgreSQL's timezone data compilation infrastructure for organizing transition times
 - The function uses void pointers to match the qsort callback signature requirements
+
+## Simplified Source
+
+```c
+static int atcomp(const void *avp, const void *bvp) {
+    // Extract the 'at' field from both attype structures
+    const zic_t time_a = ((const struct attype *) avp)->at;
+    const zic_t time_b = ((const struct attype *) bvp)->at;
+
+    // Standard qsort comparison: return -1 if a < b, 0 if equal, 1 if a > b
+    return (time_a < time_b) ? -1 : (time_a > time_b);
+}
+```
+
+**Key simplifications:**
+- Added descriptive variable names (`time_a`, `time_b` instead of `a`, `b`)
+- Added comments explaining the structure casting and comparison logic
+- Clarified the qsort callback contract in comments
+- Preserved the essential three-way comparison logic

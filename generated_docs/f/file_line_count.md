@@ -37,3 +37,29 @@ This function is part of the PostgreSQL regression testing infrastructure, used 
 - Part of the PostgreSQL regression testing infrastructure
 - Used in test result comparison to provide detailed information about differences
 - The function counts actual newline characters, so files without a trailing newline may report one fewer line than expected by some text editors
+
+## Simplified Source
+
+```c
+static int
+file_line_count(const char *file)
+{
+    int line_count = 0;
+    FILE *f = fopen(file, "r");
+
+    if (!f) {
+        diag("could not open file \"%s\" for reading: %m", file);
+        return -1;
+    }
+
+    // Count newline characters
+    int c;
+    while ((c = fgetc(f)) != EOF) {
+        if (c == '\n')
+            line_count++;
+    }
+
+    fclose(f);
+    return line_count;
+}
+```

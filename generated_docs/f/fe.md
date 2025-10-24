@@ -52,3 +52,15 @@ The `fe` function is a test function that takes an enumeration parameter of type
 - Part of the ECPG test infrastructure for validating embedded SQL functionality
 - Uses explicit casting `(int) x` to convert enum values to integers for both printing and returning
 - The function validates that enum types can be properly processed through the ECPG preprocessor
+
+## Simplified Source
+
+```c
+static int fe(enum e x) {
+    // Print enum value as integer for ECPG test verification
+    printf("in fe (%d)\n", (int) x);
+
+    // Return enum value cast to integer
+    return (int)x;
+}
+```

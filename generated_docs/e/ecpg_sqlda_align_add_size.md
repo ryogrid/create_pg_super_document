@@ -35,3 +35,26 @@ The alignment process follows standard memory alignment rules: if the current of
 
 ## Notes and Other Information
 This is a fundamental utility function for SQLDA memory layout calculations. It's heavily used throughout the ECPG SQLDA implementation to ensure proper memory alignment for different data types. The function allows for flexible usage by accepting NULL pointers for either output parameter when only one result is needed. Memory alignment is crucial for performance and correctness on many architectures, especially when dealing with structured data that will be accessed by both C code and database operations.
+
+## Simplified Source
+
+```c
+static void ecpg_sqlda_align_add_size(long offset, int alignment, int size,
+                                      long *current, long *next) {
+    // Align offset to required boundary
+    if (offset % alignment) {
+        offset += alignment - (offset % alignment);
+    }
+
+    // Store current variable's aligned offset
+    if (current) {
+        *current = offset;
+    }
+
+    // Calculate next variable's starting position
+    offset += size;
+    if (next) {
+        *next = offset;
+    }
+}
+```

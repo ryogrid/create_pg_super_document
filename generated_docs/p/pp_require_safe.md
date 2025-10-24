@@ -60,3 +60,32 @@ This approach ensures that PL/Perl functions can use standard Perl syntax like "
 - Contains compiler-specific code to handle variations in Perl's DIE macro behavior
 - Part of PL/Perl's defense-in-depth security architecture
 - Returns Perl OP pointer (standard for Perl opcode implementations)
+
+## Simplified Source
+```c
+static OP *pp_require_safe(pTHX) {
+    dVAR;
+    dSP;
+    SV *sv, **svp;
+    char *name;
+    STRLEN len;
+
+    // Get module name from Perl stack
+    sv = POPs;
+    name = SvPV(sv, len);
+
+    // Check for valid module name
+    if (!(name && len > 0 && *name))
+        RETPUSHNO;
+
+    // Check if module is already loaded in %INC
+    svp = hv_fetch(GvHVn(PL_incgv), name, len, 0);
+    if (svp && *svp != &PL_sv_undef)
+        RETPUSHYES;
+
+    // Module not loaded - security violation
+    DIE(aTHX_ "Unable to load %s into plperl", name);
+
+    return NULL;  // Handle Perl version compatibility
+}
+```

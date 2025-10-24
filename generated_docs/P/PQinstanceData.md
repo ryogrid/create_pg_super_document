@@ -26,3 +26,24 @@ PQinstanceData provides access to the instance data previously stored for an eve
 
 ## Notes and Other Information
 Returns the data pointer associated with the event procedure, or NULL if the procedure is not found or no data has been set. The function accepts const parameters, indicating it does not modify the connection. Applications should check for NULL return values before using the returned pointer.
+
+## Simplified Source
+
+```c
+void *PQinstanceData(const PGconn *conn, PGEventProc proc) {
+    int i;
+
+    // Validate parameters
+    if (!conn || !proc)
+        return NULL;
+
+    // Search for the matching event procedure
+    for (i = 0; i < conn->nEvents; i++) {
+        if (conn->events[i].proc == proc)
+            return conn->events[i].data;
+    }
+
+    // Event procedure not found
+    return NULL;
+}
+```

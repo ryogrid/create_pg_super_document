@@ -38,3 +38,20 @@ The implementation is straightforward but essential for maintaining code portabi
 - Does not perform input validation on the variable name, relying on pgwin32_putenv() for error handling
 - Essential component of the Windows environment variable management trio alongside pgwin32_putenv() and pgwin32_setenv()
 - Ensures that environment variable removal is consistently applied across all CRT modules loaded in the process
+
+## Simplified Source
+
+```c
+int pgwin32_unsetenv(const char *name) {
+    // Create "name=" string to unset the environment variable
+    char *envbuf = malloc(strlen(name) + 2);
+    if (!envbuf)
+        return -1;
+
+    sprintf(envbuf, "%s=", name);
+    int result = pgwin32_putenv(envbuf);
+    free(envbuf);
+
+    return result;
+}
+```

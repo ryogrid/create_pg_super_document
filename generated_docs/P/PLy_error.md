@@ -34,3 +34,14 @@ The function accepts both positional and keyword arguments, allowing for flexibl
 - When called, this will typically terminate the current transaction with an ERROR
 - Part of the PL/Python extension's public API available to stored procedure authors
 - The ERROR level corresponds to PostgreSQL's standard error severity that aborts transactions
+
+## Simplified Source
+
+```c
+static PyObject *
+PLy_error(PyObject *self, PyObject *args, PyObject *kw)
+{
+    // Simple wrapper that routes error-level messages to core logging function
+    return PLy_output(ERROR, self, args, kw);
+}
+```

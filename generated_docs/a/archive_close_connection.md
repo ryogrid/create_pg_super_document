@@ -55,3 +55,45 @@ The function uses GetMyPSlot() to determine whether the calling context is a lea
 - The Windows socket closure is essential for proper leader-worker communication termination
 - Provides graceful cleanup even during abnormal process termination
 - Works in conjunction with the broader PostgreSQL error handling and cleanup framework
+
+## Simplified Source
+
+```c
+static void
+archive_close_connection(int code, void *arg)
+{
+    ShutdownInformation *si = (ShutdownInformation *) arg;
+
+    if (si->pstate)
+    {
+        // Parallel mode: determine if we're leader or worker
+        ParallelSlot *slot = GetMyPSlot(si->pstate);
+
+        if (!slot)
+        {
+            // We're the leader: shut down workers then our connection
+            ShutdownWorkersHard(si->pstate);
+            if (si->AHX)
+                DisconnectDatabase(si->AHX);
+        }
+        else
+        {
+            // We're a worker: close our DB connection
+            if (slot->AH)
+                DisconnectDatabase(&(slot->AH->public));
+
+            // Windows: close communication sockets for proper EOF signaling
+#ifdef WIN32
+            closesocket(slot->pipeRevRead);
+            closesocket(slot->pipeRevWrite);
+#endif
+        }
+    }
+    else
+    {
+        // Non-parallel mode: just close the main connection
+        if (si->AHX)
+            DisconnectDatabase(si->AHX);
+    }
+}
+```

@@ -30,3 +30,14 @@ In a real index access method, this function would typically free any allocated 
 - Part of PostgreSQL's extensible index access method framework testing infrastructure
 - Returns void as cleanup operations don't need to return values
 - Completes the scan lifecycle along with dibeginscan and direscan functions
+
+## Simplified Source
+
+```c
+static void
+diendscan(IndexScanDesc scan)
+{
+    // Dummy implementation - no cleanup needed
+    // Would normally free resources and cleanup scan state
+}
+```

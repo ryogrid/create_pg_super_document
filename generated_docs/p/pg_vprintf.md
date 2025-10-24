@@ -32,3 +32,13 @@ The function serves as a thin wrapper that simply redirects the formatting reque
 - The function is typically accessed through macro redefinitions that replace standard vprintf calls
 - Returns the number of characters written to stdout, following standard vprintf semantics
 - Commonly used within other variadic functions that need to delegate printf-style formatting to PostgreSQL's internal implementation
+
+## Simplified Source
+
+```c
+int pg_vprintf(const char *fmt, va_list args)
+{
+    // Simply delegate to vfprintf with stdout
+    return pg_vfprintf(stdout, fmt, args);
+}
+```

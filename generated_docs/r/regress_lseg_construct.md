@@ -33,3 +33,20 @@ This is a utility function used in PostgreSQL's regression testing framework tha
 - Simply copies x and y coordinates from the two input points to the line segment's endpoint array
 - Part of the geometric testing utilities in src/test/regress/regress.c
 - The comment indicates it's modeled after lseg_construct but with the assumption of pre-allocated space
+
+## Simplified Source
+
+```c
+/* like lseg_construct, but assume space already allocated */
+static void
+regress_lseg_construct(LSEG *lseg, Point *pt1, Point *pt2)
+{
+    // Copy coordinates from first point
+    lseg->p[0].x = pt1->x;
+    lseg->p[0].y = pt1->y;
+
+    // Copy coordinates from second point
+    lseg->p[1].x = pt2->x;
+    lseg->p[1].y = pt2->y;
+}
+```

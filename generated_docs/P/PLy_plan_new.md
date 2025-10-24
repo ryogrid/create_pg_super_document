@@ -34,3 +34,25 @@ This function allocates and initializes a new PLyPlanObject instance using the P
   - mcxt: NULL (no memory context)
 - The object must be properly populated after creation before it can be used for executing SQL
 - Memory management follows Python reference counting semantics
+
+## Simplified Source
+
+```c
+PyObject *PLy_plan_new(void) {
+    PLyPlanObject *ob;
+
+    // Allocate new PLyPlanObject instance
+    if ((ob = PyObject_New(PLyPlanObject, &PLy_PlanType)) == NULL)
+        return NULL;
+
+    // Initialize all fields to safe defaults
+    ob->plan = NULL;
+    ob->nargs = 0;
+    ob->types = NULL;
+    ob->values = NULL;
+    ob->args = NULL;
+    ob->mcxt = NULL;
+
+    return (PyObject *) ob;
+}
+```

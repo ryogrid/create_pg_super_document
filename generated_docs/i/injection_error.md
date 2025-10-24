@@ -34,3 +34,20 @@ This function serves as one of the available callback functions that can be atta
 - The private_data is expected to contain an  structure for conditional execution
 - Critical for testing error recovery, transaction rollback, and cleanup mechanisms in PostgreSQL
 - The generated error message includes the injection point name for debugging purposes
+
+## Simplified Source
+
+```c
+void
+injection_error(const char *name, const void *private_data)
+{
+    InjectionPointCondition *condition = (InjectionPointCondition *) private_data;
+
+    // Check if this injection point should execute
+    if (!injection_point_allowed(condition))
+        return;
+
+    // Trigger an ERROR with injection point name
+    elog(ERROR, "error triggered for injection point %s", name);
+}
+```

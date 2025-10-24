@@ -29,3 +29,14 @@ The function is designed to be called indirectly through a volatile function poi
 - The function is declared static, making it internal to the explicit_bzero.c compilation unit
 - It's accessed indirectly through the volatile function pointer bzero_p to help prevent compiler optimizations from eliminating the memory clearing operation
 - The implementation deliberately avoids using bzero() directly since it cannot be assumed to be present on all systems
+
+## Simplified Source
+
+```c
+static void
+bzero2(void *buf, size_t len)
+{
+    // Simple wrapper around memset to zero memory
+    memset(buf, 0, len);
+}
+```

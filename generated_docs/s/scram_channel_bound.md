@@ -32,3 +32,26 @@ This function verifies that a SCRAM authentication exchange not only completed s
 - Returns false for any incomplete, failed, or non-channel-bound authentication attempts
 - Channel binding provides mutual authentication - the server authenticates itself to the client
 - Located in src/interfaces/libpq/fe-auth-scram.c:154-177
+
+## Simplified Source
+
+```c
+static bool scram_channel_bound(void *opaq) {
+    fe_scram_state *state = (fe_scram_state *) opaq;
+
+    // Check if SCRAM exchange was performed
+    if (state == NULL)
+        return false;
+
+    // Check if SCRAM exchange completed successfully
+    if (state->state != FE_SCRAM_FINISHED)
+        return false;
+
+    // Check if channel binding mechanism was used (SCRAM-SHA-256-PLUS)
+    if (strcmp(state->sasl_mechanism, SCRAM_SHA_256_PLUS_NAME) != 0)
+        return false;
+
+    // All checks passed - channel binding was used
+    return true;
+}
+```

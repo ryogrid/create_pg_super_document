@@ -33,3 +33,18 @@ The tarWrite function serves as a wrapper around the standard C library fwrite()
 - Updates the position counter (th->pos) to maintain accurate position tracking within the tar member
 - This is a static function, meaning it's only accessible within the pg_backup_tar.c file
 - Serves as the fundamental building block for all tar archive data writing operations in pg_dump
+
+## Simplified Source
+
+```c
+static size_t tarWrite(const void *buf, size_t len, TAR_MEMBER *th)
+{
+    // Write data to file handle
+    size_t result = fwrite(buf, 1, len, th->nFH);
+
+    // Update position tracking
+    th->pos += result;
+
+    return result;
+}
+```

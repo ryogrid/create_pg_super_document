@@ -33,3 +33,27 @@ The function calculates whether the value fits in octal by checking if it's less
 - This is part of PostgreSQL's portable tar implementation used primarily in backup utilities like pg_basebackup
 - The function modifies the buffer in-place and assumes the caller has allocated sufficient space
 - The choice between octal and binary format is automatic based on the value size relative to the field width
+
+## Simplified Source
+
+```c
+void print_tar_number(char *s, int len, uint64 val)
+{
+    // Check if value fits in octal format (POSIX standard)
+    if (val < (((uint64)1) << ((len - 1) * 3))) {
+        // Use POSIX octal format with trailing space
+        s[--len] = ' ';
+        while (len) {
+            s[--len] = (val & 7) + '0';  // Extract octal digit
+            val >>= 3;                   // Shift for next digit
+        }
+    } else {
+        // Use GNU binary format for large values
+        s[0] = '\200';  // GNU extension marker
+        while (len > 1) {
+            s[--len] = (val & 255);  // Store byte in MSB-first order
+            val >>= 8;               // Shift for next byte
+        }
+    }
+}
+```

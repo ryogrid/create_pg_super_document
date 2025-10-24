@@ -33,3 +33,31 @@ This function performs complete cleanup of a fe_scram_state structure by systema
 - Should be called whenever a SCRAM authentication session ends to prevent memory leaks
 - Part of the libpq client library's memory management for SCRAM authentication
 - Located in src/interfaces/libpq/fe-auth-scram.c:178-204
+
+## Simplified Source
+
+```c
+static void scram_free(void *opaq) {
+    fe_scram_state *state = (fe_scram_state *) opaq;
+
+    // Free credential information
+    free(state->password);
+    free(state->sasl_mechanism);
+
+    // Free client message components
+    free(state->client_nonce);
+    free(state->client_first_message_bare);
+    free(state->client_final_message_without_proof);
+
+    // Free server's first message components
+    free(state->server_first_message);
+    free(state->salt);
+    free(state->nonce);
+
+    // Free server's final message
+    free(state->server_final_message);
+
+    // Free the state structure itself
+    free(state);
+}
+```

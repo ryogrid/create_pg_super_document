@@ -40,3 +40,36 @@ parseWorkerCommand is the counterpart to buildWorkerCommand, responsible for int
 - Fatal error termination for unrecognized commands ensures worker process integrity
 - The function design mirrors buildWorkerCommand for consistency in the command protocol
 - Validates both command format and data integrity before proceeding with the requested operation
+
+## Simplified Source
+
+```c
+static void
+parseWorkerCommand(ArchiveHandle *AH, TocEntry **te, T_Action *act,
+                   const char *msg)
+{
+    DumpId dumpId;
+    int nBytes;
+
+    // Parse DUMP command
+    if (messageStartsWith(msg, "DUMP ")) {
+        *act = ACT_DUMP;
+        sscanf(msg, "DUMP %d%n", &dumpId, &nBytes);
+        Assert(nBytes == strlen(msg));  // Ensure full message parsed
+        *te = getTocEntryByDumpId(AH, dumpId);
+        Assert(*te != NULL);
+    }
+    // Parse RESTORE command
+    else if (messageStartsWith(msg, "RESTORE ")) {
+        *act = ACT_RESTORE;
+        sscanf(msg, "RESTORE %d%n", &dumpId, &nBytes);
+        Assert(nBytes == strlen(msg));  // Ensure full message parsed
+        *te = getTocEntryByDumpId(AH, dumpId);
+        Assert(*te != NULL);
+    }
+    // Invalid command format
+    else {
+        pg_fatal("unrecognized command received from leader: \"%s\"", msg);
+    }
+}
+```

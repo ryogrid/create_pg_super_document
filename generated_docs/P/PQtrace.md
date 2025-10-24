@@ -32,3 +32,24 @@ PQtrace enables protocol-level tracing for a PostgreSQL connection. It allows de
 - Sets the traceFlags to 0, indicating default tracing behavior
 - Part of libpq's debugging and diagnostic capabilities
 - The debug_port parameter allows flexibility in directing trace output to files, stdout, stderr, or other streams
+
+## Simplified Source
+
+```c
+void PQtrace(PGconn *conn, FILE *debug_port) {
+    // Validate connection parameter
+    if (conn == NULL)
+        return;
+
+    // Disable any existing tracing first
+    PQuntrace(conn);
+
+    // Validate debug port parameter
+    if (debug_port == NULL)
+        return;
+
+    // Enable tracing with default flags
+    conn->Pfdebug = debug_port;
+    conn->traceFlags = 0;
+}
+```

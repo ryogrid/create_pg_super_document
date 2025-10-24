@@ -45,3 +45,36 @@ The PostgreSQL tab rules add special logic to prevent using tabs in certain scen
 - Uses  global variable to calculate optimal tab placement
 - The  flag provides additional control over when tabs vs spaces are used
 - Essential for maintaining consistent indentation and alignment in formatted code output
+
+## Simplified Source
+
+```c
+static int pad_output(int current, int target) {
+    int curr;
+
+    // No padding needed if already at or past target
+    if (current >= target)
+        return current;
+
+    curr = current;
+
+    // Use tabs when enabled and efficient
+    if (use_tabs) {
+        int tcur;
+        while ((tcur = tabsize * (1 + (curr - 1) / tabsize) + 1) <= target) {
+            // Apply PostgreSQL tab rules if enabled
+            char tab_char = (!postgres_tab_rules ||
+                           tcur != curr + 1 ||
+                           target >= tcur + tabsize) ? '\t' : ' ';
+            putc(tab_char, output);
+            curr = tcur;
+        }
+    }
+
+    // Fill remaining space with spaces
+    while (curr++ < target)
+        putc(' ', output);
+
+    return target;
+}
+```

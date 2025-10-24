@@ -34,3 +34,35 @@ This static function generates corresponding C code for various ECPG WHENEVER ac
 - Generates different C code patterns based on the action type
 - Includes fallback handling for unimplemented action codes
 - Essential for translating ECPG WHENEVER directives into executable C code
+
+## Simplified Source
+
+```c
+static void print_action(struct when *w) {
+    // Generate appropriate C code based on action type
+    switch (w->code) {
+        case W_SQLPRINT:
+            fprintf(base_yyout, "sqlprint();");
+            break;
+        case W_GOTO:
+            fprintf(base_yyout, "goto %s;", w->command);
+            break;
+        case W_DO:
+            fprintf(base_yyout, "%s;", w->command);
+            break;
+        case W_STOP:
+            fprintf(base_yyout, "exit (1);");
+            break;
+        case W_BREAK:
+            fprintf(base_yyout, "break;");
+            break;
+        case W_CONTINUE:
+            fprintf(base_yyout, "continue;");
+            break;
+        default:
+            // Placeholder for unimplemented actions
+            fprintf(base_yyout, "{/* %d not implemented yet */}", w->code);
+            break;
+    }
+}
+```

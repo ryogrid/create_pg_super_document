@@ -40,3 +40,22 @@ This is acknowledged as a workaround solution since the ideal approach of splitt
 - The postponed_def flag causes the CREATE FUNCTION statement to be deferred to the post-data phase
 - This approach parallels the strategy used for materialized views in repairMatViewBoundaryMultiLoop
 - The solution prioritizes successful dump completion over optimal dump ordering when complex dependency cycles occur involving functions
+
+## Simplified Source
+
+```c
+static void
+repairFunctionBoundaryMultiLoop(DumpableObject *boundaryobj,
+                               DumpableObject *nextobj)
+{
+    // Break dependency in the loop
+    removeObjectDependency(boundaryobj, nextobj->dumpId);
+
+    // If next object is a function, postpone its definition
+    if (nextobj->objType == DO_FUNC) {
+        FuncInfo *nextinfo = (FuncInfo *) nextobj;
+
+        nextinfo->postponed_def = true;  // Move to post-data phase
+    }
+}
+```

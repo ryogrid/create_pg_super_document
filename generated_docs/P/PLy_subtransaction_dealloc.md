@@ -30,3 +30,14 @@ This function serves as the deallocation handler for PLySubtransactionObject ins
 - The comment explicitly states that Python requires this function to be defined
 - No actual deallocation logic is performed within this function
 - Located in src/pl/plpython/plpy_subxactobject.c:71-83
+
+## Simplified Source
+
+```c
+static void
+PLy_subtransaction_dealloc(PyObject *subxact)
+{
+    // Empty deallocation function - required by Python's type system
+    // No cleanup needed for subtransaction objects
+}
+```

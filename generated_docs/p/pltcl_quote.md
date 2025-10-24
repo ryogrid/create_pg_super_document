@@ -47,3 +47,43 @@ The escaping logic allocates a buffer of up to twice the original string length 
 - Registered as a built-in Tcl command "quote" available to PL/Tcl functions
 - Essential for building dynamic SQL queries safely from within Tcl stored procedures
 - The escaped string is returned as the Tcl command result
+
+## Simplified Source
+
+```c
+static int
+pltcl_quote(ClientData cdata, Tcl_Interp *interp,
+           int objc, Tcl_Obj *const objv[])
+{
+    const char *input_str;
+    char *output_str, *output_ptr;
+    Tcl_Size length;
+
+    // Validate arguments: command requires exactly one string parameter
+    if (objc != 2) {
+        Tcl_WrongNumArgs(interp, 1, objv, "string");
+        return TCL_ERROR;
+    }
+
+    // Get input string and allocate output buffer (worst case: double size)
+    input_str = Tcl_GetStringFromObj(objv[1], &length);
+    output_str = palloc(length * 2 + 1);
+    output_ptr = output_str;
+
+    // Escape string: double single quotes and backslashes for SQL safety
+    while (*input_str) {
+        if (*input_str == '\'')          // Single quote
+            *output_ptr++ = '\'';        // Add extra quote
+        else if (*input_str == '\\')     // Backslash
+            *output_ptr++ = '\\';        // Add extra backslash
+
+        *output_ptr++ = *input_str++;    // Copy original character
+    }
+
+    // Return escaped string as Tcl command result
+    *output_ptr = '\0';
+    Tcl_SetObjResult(interp, Tcl_NewStringObj(output_str, -1));
+    pfree(output_str);
+    return TCL_OK;
+}
+```

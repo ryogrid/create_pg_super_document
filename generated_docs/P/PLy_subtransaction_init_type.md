@@ -30,3 +30,15 @@ This function initializes the PLy_SubtransactionType Python type object by calli
 - Failure to initialize the type results in a PostgreSQL ERROR, preventing the PLPython extension from loading
 - The function is part of the broader PLPython type system initialization
 - Located in src/pl/plpython/plpy_subxactobject.c:46-53
+
+## Simplified Source
+
+```c
+void
+PLy_subtransaction_init_type(void)
+{
+    // Initialize the PLy_SubtransactionType Python type
+    if (PyType_Ready(&PLy_SubtransactionType) < 0)
+        elog(ERROR, "could not initialize PLy_SubtransactionType");
+}
+```

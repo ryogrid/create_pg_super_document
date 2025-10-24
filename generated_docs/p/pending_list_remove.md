@@ -34,3 +34,18 @@ The function safely handles the circular list structure by updating both the pre
 - The circular list design ensures that removal operations work correctly even for single-entry lists
 - Used during pg_dump/pg_restore operations when entries become ready for processing or need to be reorganized
 - The function is located at src/bin/pg_dump/pg_backup_archiver.c:4471-4481
+
+## Simplified Source
+
+```c
+static void pending_list_remove(TocEntry *te)
+{
+    // Update neighbors to bypass this entry
+    te->pending_prev->pending_next = te->pending_next;
+    te->pending_next->pending_prev = te->pending_prev;
+
+    // Clear this entry's pointers
+    te->pending_prev = NULL;
+    te->pending_next = NULL;
+}
+```

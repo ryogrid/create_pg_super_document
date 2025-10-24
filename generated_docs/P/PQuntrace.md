@@ -31,3 +31,22 @@ PQuntrace disables protocol-level tracing that was previously enabled by PQtrace
 - Safe to call multiple times or when tracing is already disabled
 - Essential for proper resource cleanup when tracing is no longer needed
 - Part of the libpq tracing subsystem's resource management
+
+## Simplified Source
+
+```c
+void PQuntrace(PGconn *conn) {
+    // Validate connection parameter
+    if (conn == NULL)
+        return;
+
+    // Flush and disable trace output
+    if (conn->Pfdebug) {
+        fflush(conn->Pfdebug);
+        conn->Pfdebug = NULL;
+    }
+
+    // Reset trace flags
+    conn->traceFlags = 0;
+}
+```

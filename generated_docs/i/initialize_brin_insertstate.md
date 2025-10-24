@@ -45,3 +45,34 @@ The returned `BrinInsertState` structure contains:
 - The state is cached in `IndexInfo->ii_AmCache` to avoid redundant initialization
 - The revmap (reverse map) is a critical BRIN component that tracks which index tuples correspond to which ranges of table pages
 - The pages per range value determines the granularity of the BRIN index - larger values mean fewer index tuples but less precise filtering
+
+## Simplified Source
+
+```c
+static BrinInsertState *
+initialize_brin_insertstate(Relation idxRel, IndexInfo *indexInfo)
+{
+    BrinInsertState *bistate;
+    MemoryContext oldcxt;
+
+    // Switch to index memory context for persistent allocation
+    oldcxt = MemoryContextSwitchTo(indexInfo->ii_Context);
+
+    // Allocate and initialize insertion state
+    bistate = palloc0(sizeof(BrinInsertState));
+
+    // Build BRIN descriptor with index metadata
+    bistate->bis_desc = brin_build_desc(idxRel);
+
+    // Initialize revmap for page-to-tuple mapping
+    bistate->bis_rmAccess = brinRevmapInitialize(idxRel, &bistate->bis_pages_per_range);
+
+    // Cache state in IndexInfo for reuse
+    indexInfo->ii_AmCache = bistate;
+
+    // Restore previous memory context
+    MemoryContextSwitchTo(oldcxt);
+
+    return bistate;
+}
+```

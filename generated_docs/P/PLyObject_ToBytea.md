@@ -39,3 +39,49 @@ This specialized conversion function handles the conversion from Python objects 
 
 ## Notes and Other Information
 The function includes comprehensive error handling and memory management. It uses PostgreSQL's PG_TRY/PG_FINALLY block to ensure that Python reference counts are properly managed even if PostgreSQL exceptions occur during memory allocation or data copying. The comment emphasizes that this specialized approach is both necessary (to handle embedded nulls) and more efficient than generic conversion. The function properly handles Python's None as a NULL value and correctly formats the resulting bytea with PostgreSQL's variable-length object structure.
+
+## Simplified Source
+
+```c
+static Datum
+PLyObject_ToBytea(PLyObToDatum *arg, PyObject *plrv,
+                  bool *isnull, bool inarray)
+{
+    PyObject *bytes_obj = NULL;
+    Datum result = (Datum) 0;
+
+    // Handle NULL case
+    if (plrv == Py_None)
+    {
+        *isnull = true;
+        return (Datum) 0;
+    }
+    *isnull = false;
+
+    // Convert Python object to bytes
+    bytes_obj = PyObject_Bytes(plrv);
+    if (!bytes_obj)
+        PLy_elog(ERROR, "could not create bytes representation of Python object");
+
+    PG_TRY();
+    {
+        // Extract byte data and create PostgreSQL bytea
+        char *byte_data = PyBytes_AsString(bytes_obj);
+        size_t data_len = PyBytes_Size(bytes_obj);
+        size_t total_size = data_len + VARHDRSZ;
+        bytea *pg_bytea = palloc(total_size);
+
+        // Set up bytea structure
+        SET_VARSIZE(pg_bytea, total_size);
+        memcpy(VARDATA(pg_bytea), byte_data, data_len);
+        result = PointerGetDatum(pg_bytea);
+    }
+    PG_FINALLY();
+    {
+        Py_XDECREF(bytes_obj);
+    }
+    PG_END_TRY();
+
+    return result;
+}
+```

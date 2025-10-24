@@ -36,3 +36,20 @@ The function examines the filename extension and applies type-specific filtering
 - Part of the test result normalization pipeline to ensure consistent regression test output
 - The comment indicates that only stderr files require filtering "at the moment", suggesting planned expansion
 - Located at src/interfaces/ecpg/test/pg_regress_ecpg.c:239-253
+
+## Simplified Source
+
+```c
+static void ecpg_postprocess_result(const char *filename) {
+    int nlen = strlen(filename);
+
+    // Check if this is a stderr file that needs filtering
+    if (nlen > 7 && strcmp(filename + nlen - 7, ".stderr") == 0) {
+        char *tmpfile = psprintf("%s.tmp", filename);
+
+        // Apply stderr filtering to normalize connection error messages
+        ecpg_filter_stderr(filename, tmpfile);
+        pfree(tmpfile);
+    }
+}
+```

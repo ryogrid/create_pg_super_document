@@ -35,3 +35,29 @@ The function uses pointer comparison for identification, meaning it removes the 
 - Only removes the first occurrence of the variable if multiple entries exist
 - Uses a  flag to track whether the variable was located, though the current implementation doesn't use this information
 - The function gracefully handles the case where the variable is not found in the list
+
+## Simplified Source
+
+```c
+void
+remove_variable_from_list(struct arguments **list, struct variable *var)
+{
+    struct arguments *p, *prev = NULL;
+
+    // Search for the variable in the argument list
+    for (p = *list; p; p = p->next)
+    {
+        if (p->variable == var)
+        {
+            // Found it - unlink from list
+            if (prev)
+                prev->next = p->next;  // Remove from middle/end
+            else
+                *list = p->next;       // Remove from head
+            return;
+        }
+        prev = p;
+    }
+    // Variable not found - no action needed
+}
+```

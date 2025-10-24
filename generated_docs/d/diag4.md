@@ -42,3 +42,27 @@ The level parameter determines whether the message is treated as a warning (leve
 - Uses the current  to provide context for where issues were detected
 - The dual-parameter design allows for flexible message formatting with numeric context
 - Essential for providing user feedback about formatting issues and problems in the input code
+
+## Simplified Source
+
+```c
+void diag4(int level, const char *msg, int a, int b) {
+    // Mark error if level is non-zero
+    if (level)
+        found_err = 1;
+
+    // Format message prefix
+    const char *prefix = level == 0 ? "Warning" : "Error";
+
+    // Output to stdout as INDENT comment or stderr as standard message
+    if (output == stdout) {
+        fprintf(stdout, "/**INDENT** %s@%d: ", prefix, line_no);
+        fprintf(stdout, msg, a, b);
+        fprintf(stdout, " */\n");
+    } else {
+        fprintf(stderr, "%s@%d: ", prefix, line_no);
+        fprintf(stderr, msg, a, b);
+        fprintf(stderr, "\n");
+    }
+}
+```

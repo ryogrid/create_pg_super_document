@@ -44,3 +44,23 @@ This design ensures that the PostgreSQL query planner will never select the dumm
 - Part of the dummy_index_am test module framework
 - Other parameters are set to placeholder values since high costs make them irrelevant
 - Follows the standard PostgreSQL index AM cost estimation interface specification
+
+## Simplified Source
+
+```c
+static void
+dicostestimate(PlannerInfo *root, IndexPath *path, double loop_count,
+               Cost *indexStartupCost, Cost *indexTotalCost,
+               Selectivity *indexSelectivity, double *indexCorrelation,
+               double *indexPages)
+{
+    // Tell planner to never use this index by setting prohibitive costs
+    *indexStartupCost = 1.0e10;
+    *indexTotalCost = 1.0e10;
+
+    // Set placeholder values for other parameters
+    *indexSelectivity = 1;
+    *indexCorrelation = 0;
+    *indexPages = 1;
+}
+```

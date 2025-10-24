@@ -32,3 +32,38 @@ The function creates a dynamically allocated buffer that is 2 characters larger 
 - The function preserves the errno value from the system() call
 - The extra quotes help handle Windows paths and arguments that contain spaces
 - Located in src/port/system.c as part of the platform abstraction layer
+
+## Simplified Source
+
+```c
+int pgwin32_system(const char *command)
+{
+    size_t cmdlen = strlen(command);
+    char *buf;
+    int save_errno;
+    int res;
+
+    // Allocate buffer for command with surrounding quotes
+    buf = malloc(cmdlen + 3);  // +2 for quotes, +1 for null terminator
+    if (buf == NULL) {
+        errno = ENOMEM;
+        return -1;
+    }
+
+    // Create quoted command: "original_command"
+    buf[0] = '"';
+    memcpy(&buf[1], command, cmdlen);
+    buf[cmdlen + 1] = '"';
+    buf[cmdlen + 2] = '\0';
+
+    // Execute the quoted command
+    res = system(buf);
+
+    // Clean up while preserving errno
+    save_errno = errno;
+    free(buf);
+    errno = save_errno;
+
+    return res;
+}
+```

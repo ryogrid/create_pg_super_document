@@ -40,3 +40,57 @@ The output format is optimized to be as compact as possible:
 - Used primarily in timezone abbreviation generation where numeric offsets need to be displayed
 - The 99:59:59 limit prevents unrealistic timezone offsets that could cause display issues
 - Output format follows common timezone offset conventions used in various standards
+
+## Simplified Source
+
+```c
+static char const *abbroffset(char *buf, zic_t offset) {
+    char sign = '+';
+
+    // Handle negative offsets
+    if (offset < 0) {
+        offset = -offset;
+        sign = '-';
+    }
+
+    // Break down offset into hours, minutes, seconds
+    int seconds = offset % SECSPERMIN;
+    offset /= SECSPERMIN;
+    int minutes = offset % MINSPERHOUR;
+    int hours = offset / MINSPERHOUR;
+
+    // Validate offset magnitude (must be < 100 hours)
+    if (hours >= 100) {
+        error(_("%%z UT offset magnitude exceeds 99:59:59"));
+        return "%z";
+    }
+
+    // Format the offset string: ±HH[MM[SS]]
+    char *p = buf;
+    *p++ = sign;
+    *p++ = '0' + hours / 10;
+    *p++ = '0' + hours % 10;
+
+    // Add minutes if present (or if seconds are present)
+    if (minutes || seconds) {
+        *p++ = '0' + minutes / 10;
+        *p++ = '0' + minutes % 10;
+
+        // Add seconds if present
+        if (seconds) {
+            *p++ = '0' + seconds / 10;
+            *p++ = '0' + seconds % 10;
+        }
+    }
+    *p = '\0';
+
+    return buf;
+}
+```
+
+**Key simplifications:**
+- Added descriptive comments for each processing phase
+- Clarified variable names (`hours` instead of reusing `offset`)
+- Explained the conditional formatting logic (±HH[MM[SS]])
+- Added clear error handling explanation
+- Preserved the essential offset-to-string conversion algorithm

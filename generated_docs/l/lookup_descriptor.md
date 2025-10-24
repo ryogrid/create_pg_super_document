@@ -41,3 +41,37 @@ The function implements the following logic:
 - Warning messages are issued when descriptors are not found, distinguishing between default and named connections
 - The requirement for names to start with double quotes suggests this is part of SQL parsing where quoted identifiers are expected
 - This is part of the ECPG (Embedded SQL in C) preprocessor functionality for handling SQL descriptors
+
+## Simplified Source
+
+```c
+struct descriptor *lookup_descriptor(char *name, char *connection) {
+    // Validate name format
+    if (name[0] != '"')
+        return NULL;
+
+    // Search for matching descriptor
+    for (struct descriptor *i = descriptors; i; i = i->next) {
+        if (strcmp(name, i->name) == 0) {
+            // Check for exact connection match
+            if ((!connection && !i->connection) ||
+                (connection && i->connection && strcmp(connection, i->connection) == 0))
+                return i;
+
+            // Bind connection to descriptor if descriptor has no connection
+            if (connection && !i->connection) {
+                i->connection = mm_strdup(connection);
+                return i;
+            }
+        }
+    }
+
+    // Report error if not found
+    if (connection)
+        mmerror(PARSE_ERROR, ET_WARNING, "descriptor %s bound to connection %s does not exist", name, connection);
+    else
+        mmerror(PARSE_ERROR, ET_WARNING, "descriptor %s bound to the default connection does not exist", name);
+
+    return NULL;
+}
+```

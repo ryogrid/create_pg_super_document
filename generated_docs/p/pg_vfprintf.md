@@ -40,3 +40,34 @@ pg_vfprintf provides a portable alternative to the standard vfprintf function. I
 - Error handling preserves the original errno value when failures occur
 - Part of PostgreSQL's comprehensive portable printf implementation
 - Provides consistent formatting behavior across different platforms and C library implementations
+
+## Simplified Source
+
+```c
+int pg_vfprintf(FILE *stream, const char *fmt, va_list args)
+{
+    PrintfTarget target;
+    char buffer[1024];  // Internal buffer for efficiency
+
+    // Validate stream parameter
+    if (stream == NULL) {
+        errno = EINVAL;
+        return -1;
+    }
+
+    // Set up target for stream output with buffering
+    target.bufstart = target.bufptr = buffer;
+    target.bufend = buffer + sizeof(buffer);
+    target.stream = stream;
+    target.nchars = 0;
+    target.failed = false;
+
+    // Perform the formatting
+    dopr(&target, fmt, args);
+
+    // Flush any remaining buffer contents to stream
+    flushbuffer(&target);
+
+    return target.failed ? -1 : target.nchars;
+}
+```

@@ -38,3 +38,22 @@ This ensures that all memory allocated during scan initialization (brinbeginscan
 - The function assumes the scan->opaque field contains a valid BrinOpaque structure
 - Part of the standard index access method interface that all PostgreSQL index types must implement
 - No return value since cleanup operations are expected to always succeed
+
+## Simplified Source
+
+```c
+void
+brinendscan(IndexScanDesc scan)
+{
+    BrinOpaque *opaque = (BrinOpaque *) scan->opaque;
+
+    // Terminate revmap access structure
+    brinRevmapTerminate(opaque->bo_rmAccess);
+
+    // Free BRIN descriptor and metadata
+    brin_free_desc(opaque->bo_bdesc);
+
+    // Free the opaque scan state structure
+    pfree(opaque);
+}
+```

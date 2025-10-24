@@ -49,3 +49,113 @@ This function takes no parameters but operates on several global variables:
 - Synchronizes environment clearing with PostgreSQL/Test/Utils.pm for consistency
 - Creates temporary socket directory when needed for Unix socket connections
 - Part of the PostgreSQL regression testing framework (pg_regress)
+
+## Simplified Source
+
+```c
+static void initialize_environment(void) {
+    // Set basic PostgreSQL environment variables
+    setenv("PGAPPNAME", "pg_regress", 1);
+    setenv("PG_ABS_SRCDIR", inputdir, 1);
+    setenv("PG_ABS_BUILDDIR", outputdir, 1);
+    setenv("PG_LIBDIR", dlpath, 1);
+    setenv("PG_DLSUFFIX", DLSUFFIX, 1);
+
+    // Clear locale settings if requested
+    if (nolocale) {
+        unsetenv("LC_COLLATE");
+        unsetenv("LC_CTYPE");
+        unsetenv("LC_MONETARY");
+        unsetenv("LC_NUMERIC");
+        unsetenv("LC_TIME");
+        unsetenv("LANG");
+
+        // Set LANG=C on platforms that need it
+#if defined(WIN32) || defined(__CYGWIN__) || defined(__darwin__)
+        setenv("LANG", "C", 1);
+#endif
+    }
+
+    // Force English messages for consistent test output
+    unsetenv("LANGUAGE");
+    unsetenv("LC_ALL");
+    setenv("LC_MESSAGES", "C", 1);
+
+    // Set client encoding if specified
+    if (encoding)
+        setenv("PGCLIENTENCODING", encoding, 1);
+    else
+        unsetenv("PGCLIENTENCODING");
+
+    // Set consistent timezone and date format
+    setenv("PGTZ", "America/Los_Angeles", 1);
+    setenv("PGDATESTYLE", "Postgres, MDY", 1);
+
+    // Set intervalstyle while preserving existing PGOPTIONS
+    const char *my_pgoptions = "-c intervalstyle=postgres_verbose";
+    const char *old_pgoptions = getenv("PGOPTIONS");
+    if (!old_pgoptions)
+        old_pgoptions = "";
+    char *new_pgoptions = psprintf("%s %s", old_pgoptions, my_pgoptions);
+    setenv("PGOPTIONS", new_pgoptions, 1);
+    free(new_pgoptions);
+
+    if (temp_instance) {
+        // Clear all PostgreSQL connection variables for temp instance
+        unsetenv("PGCHANNELBINDING");
+        unsetenv("PGCONNECT_TIMEOUT");
+        unsetenv("PGDATA");
+        unsetenv("PGDATABASE");
+        unsetenv("PGUSER");
+        // ... (many more unsetenv calls)
+
+        // Set connection parameters for temp instance
+        if (hostname != NULL)
+            setenv("PGHOST", hostname, 1);
+        else {
+            sockdir = getenv("PG_REGRESS_SOCK_DIR");
+            if (!sockdir)
+                sockdir = make_temp_sockdir();
+            setenv("PGHOST", sockdir, 1);
+        }
+        unsetenv("PGHOSTADDR");
+        if (port != -1) {
+            char s[16];
+            snprintf(s, sizeof(s), "%d", port);
+            setenv("PGPORT", s, 1);
+        }
+    } else {
+        // Honor existing environment, override with command-line options
+        if (hostname != NULL) {
+            setenv("PGHOST", hostname, 1);
+            unsetenv("PGHOSTADDR");
+        }
+        if (port != -1) {
+            char s[16];
+            snprintf(s, sizeof(s), "%d", port);
+            setenv("PGPORT", s, 1);
+        }
+        if (user != NULL)
+            setenv("PGUSER", user, 1);
+
+        unsetenv("PGDATABASE");  // Never inherit database name
+
+        // Report connection info
+        const char *pghost = getenv("PGHOST");
+        const char *pgport = getenv("PGPORT");
+        if (!pghost && DEFAULT_PGSOCKET_DIR[0] == '\0')
+            pghost = "localhost";
+
+        if (pghost && pgport)
+            note("using postmaster on %s, port %s", pghost, pgport);
+        else if (pghost && !pgport)
+            note("using postmaster on %s, default port", pghost);
+        else if (!pghost && pgport)
+            note("using postmaster on Unix socket, port %s", pgport);
+        else
+            note("using postmaster on Unix socket, default port");
+    }
+
+    load_resultmap();
+}
+```

@@ -39,3 +39,34 @@ This function sets up the Python interpreter's global namespace for PL/Python op
 - Function is marked as static, indicating internal use within the compilation unit
 - Includes comprehensive error checking with appropriate cleanup via reference counting
 - Part of the PL/Python initialization sequence that must complete successfully before executing Python procedures
+
+## Simplified Source
+
+```c
+static void PLy_init_interp(void) {
+    static PyObject *PLy_interp_safe_globals = NULL;
+    PyObject *mainmod;
+
+    // Import Python's main module
+    mainmod = PyImport_AddModule("__main__");
+    if (mainmod == NULL || PyErr_Occurred())
+        PLy_elog(ERROR, "could not import \"__main__\" module");
+
+    Py_INCREF(mainmod);
+
+    // Set up global dictionaries for PL/Python execution
+    PLy_interp_globals = PyModule_GetDict(mainmod);
+    PLy_interp_safe_globals = PyDict_New();
+    if (PLy_interp_safe_globals == NULL)
+        PLy_elog(ERROR, NULL);
+
+    // Make 'GD' (global dictionary) available to Python functions
+    PyDict_SetItemString(PLy_interp_globals, "GD", PLy_interp_safe_globals);
+
+    Py_DECREF(mainmod);
+
+    // Final validation
+    if (PLy_interp_globals == NULL || PyErr_Occurred())
+        PLy_elog(ERROR, "could not initialize globals");
+}
+```

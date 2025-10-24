@@ -40,3 +40,51 @@ The function follows PostgreSQL's configuration precedence where local directory
 - The function gracefully handles missing profile files by simply skipping them (no error is reported)
 - Profile files are processed in order: home directory first, then current directory, allowing local overrides
 - Part of the PostgreSQL BSD indent tool infrastructure for code formatting
+
+## Simplified Source
+
+```c
+/*
+ * set_profile reads $HOME/.indent.pro and ./.indent.pro and handles arguments
+ * given in these files.
+ */
+void set_profile(const char *profile_name) {
+    FILE *profile_file;
+    char filename[MAXPGPATH];
+    static char default_profile[] = ".indent.pro";
+
+    // Load profile from home directory or custom location
+    if (profile_name == NULL) {
+        // Use default profile in home directory
+        snprintf(filename, sizeof(filename), "%s/%s", getenv("HOME"), default_profile);
+    } else {
+        // Use specified profile (skip first 2 chars, typically "--")
+        snprintf(filename, sizeof(filename), "%s", profile_name + 2);
+    }
+
+    // Try to open and process the profile file
+    option_source = filename;
+    if ((profile_file = fopen(filename, "r")) != NULL) {
+        scan_profile(profile_file);
+        fclose(profile_file);
+    }
+
+    // Always try to load .indent.pro from current directory (can override home settings)
+    option_source = default_profile;
+    if ((profile_file = fopen(default_profile, "r")) != NULL) {
+        scan_profile(profile_file);
+        fclose(profile_file);
+    }
+
+    // Reset option source to indicate command line processing
+    option_source = "Command line";
+}
+```
+
+**Key simplifications:**
+- Added descriptive variable names (`profile_file`, `filename`, `default_profile`)
+- Added clear comments explaining the two-stage loading process
+- Explained the precedence order (home directory first, then current directory)
+- Clarified the purpose of skipping first 2 characters in profile_name
+- Made the file opening and processing logic more readable
+- Preserved the essential profile loading and configuration hierarchy

@@ -44,3 +44,50 @@ The function includes validation to prevent extremely large offsets (>= HOURSPER
 - Used in POSIX timezone string generation where offsets need to be human-readable
 - Validates against unreasonably large offsets and returns empty string for invalid values
 - Essential component in timezone rule string formatting and display
+
+## Simplified Source
+
+```c
+static int stringoffset(char *result, zic_t offset) {
+    bool negative = offset < 0;
+    int len = negative;
+
+    // Handle negative offsets
+    if (negative) {
+        offset = -offset;
+        result[0] = '-';
+    }
+
+    // Break down offset into hours, minutes, seconds
+    int seconds = offset % SECSPERMIN;
+    offset /= SECSPERMIN;
+    int minutes = offset % MINSPERHOUR;
+    int hours = offset / MINSPERHOUR;
+
+    // Validate offset is reasonable (< 1 week)
+    if (hours >= HOURSPERDAY * DAYSPERWEEK) {
+        result[0] = '\0';
+        return 0;
+    }
+
+    // Format as H[:MM[:SS]] - only include parts that are non-zero
+    len += sprintf(result + len, "%d", hours);
+
+    if (minutes != 0 || seconds != 0) {
+        len += sprintf(result + len, ":%02d", minutes);
+
+        if (seconds != 0) {
+            len += sprintf(result + len, ":%02d", seconds);
+        }
+    }
+
+    return len;
+}
+```
+
+**Key simplifications:**
+- Added descriptive comments for each processing phase
+- Clarified the progressive formatting logic (H, then :MM if needed, then :SS if needed)
+- Explained the validation logic for reasonable offset bounds
+- Made the conditional formatting structure more readable
+- Preserved the essential offset-to-string conversion algorithm

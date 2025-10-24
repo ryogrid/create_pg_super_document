@@ -56,3 +56,78 @@ Each event trigger is processed through the standard dumpable object system, all
 - The function processes event triggers in OID order for consistent dump output
 - Event triggers can be filtered by events (DDL command start, DDL command end, SQL drop, table rewrite)
 - Tags allow event triggers to be more selective about which DDL commands they respond to
+
+## Simplified Source
+
+```c
+EventTriggerInfo *
+getEventTriggers(Archive *fout, int *numEventTriggers)
+{
+    PQExpBuffer query;
+    PGresult   *res;
+    EventTriggerInfo *evtinfo;
+    int         ntups;
+
+    // Check version compatibility - event triggers introduced in 9.3
+    if (fout->remoteVersion < 90300) {
+        *numEventTriggers = 0;
+        return NULL;
+    }
+
+    // Build query to retrieve event trigger information
+    query = createPQExpBuffer();
+    appendPQExpBufferStr(query,
+                         "SELECT e.tableoid, e.oid, evtname, evtenabled, "
+                         "evtevent, evtowner, "
+                         "array_to_string(array("
+                         "select quote_literal(x) "
+                         " from unnest(evttags) as t(x)), ', ') as evttags, "
+                         "e.evtfoid::regproc as evtfname "
+                         "FROM pg_event_trigger e "
+                         "ORDER BY e.oid");
+
+    // Execute query and get results
+    res = ExecuteSqlQuery(fout, query->data, PGRES_TUPLES_OK);
+    ntups = PQntuples(res);
+    *numEventTriggers = ntups;
+
+    // Allocate memory for event trigger info array
+    evtinfo = (EventTriggerInfo *) pg_malloc(ntups * sizeof(EventTriggerInfo));
+
+    // Get column indices for result processing
+    int i_tableoid = PQfnumber(res, "tableoid");
+    int i_oid = PQfnumber(res, "oid");
+    int i_evtname = PQfnumber(res, "evtname");
+    int i_evtevent = PQfnumber(res, "evtevent");
+    int i_evtowner = PQfnumber(res, "evtowner");
+    int i_evttags = PQfnumber(res, "evttags");
+    int i_evtfname = PQfnumber(res, "evtfname");
+    int i_evtenabled = PQfnumber(res, "evtenabled");
+
+    // Process each event trigger result
+    for (int i = 0; i < ntups; i++) {
+        // Initialize dump object metadata
+        evtinfo[i].dobj.objType = DO_EVENT_TRIGGER;
+        evtinfo[i].dobj.catId.tableoid = atooid(PQgetvalue(res, i, i_tableoid));
+        evtinfo[i].dobj.catId.oid = atooid(PQgetvalue(res, i, i_oid));
+        AssignDumpId(&evtinfo[i].dobj);
+
+        // Copy event trigger properties
+        evtinfo[i].dobj.name = pg_strdup(PQgetvalue(res, i, i_evtname));
+        evtinfo[i].evtname = pg_strdup(PQgetvalue(res, i, i_evtname));
+        evtinfo[i].evtevent = pg_strdup(PQgetvalue(res, i, i_evtevent));
+        evtinfo[i].evtowner = getRoleName(PQgetvalue(res, i, i_evtowner));
+        evtinfo[i].evttags = pg_strdup(PQgetvalue(res, i, i_evttags));
+        evtinfo[i].evtfname = pg_strdup(PQgetvalue(res, i, i_evtfname));
+        evtinfo[i].evtenabled = *(PQgetvalue(res, i, i_evtenabled));
+
+        // Determine if this trigger should be dumped
+        selectDumpableObject(&(evtinfo[i].dobj), fout);
+    }
+
+    // Cleanup and return results
+    PQclear(res);
+    destroyPQExpBuffer(query);
+    return evtinfo;
+}
+```

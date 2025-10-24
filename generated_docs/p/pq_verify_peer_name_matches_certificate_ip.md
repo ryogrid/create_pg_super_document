@@ -52,3 +52,66 @@ The verification process includes generating a human-readable string representat
 - Network byte order comparison ensures correct cross-platform behavior
 - The function treats hostname-to-IP conversion failures as mismatches rather than errors
 - Generates detailed error messages for debugging certificate validation issues
+
+## Simplified Source
+
+```c
+int pq_verify_peer_name_matches_certificate_ip(PGconn *conn,
+                                               const unsigned char *ipdata,
+                                               size_t iplen,
+                                               char **store_name) {
+    char *addrstr;
+    int match = 0;
+    char *host = conn->connhost[conn->whichhost].host;
+    int family;
+    char tmp[sizeof "ffff:ffff:ffff:ffff:ffff:ffff:255.255.255.255"];
+
+    *store_name = NULL;
+
+    // Validate hostname is specified
+    if (!(host && host[0] != '\0')) {
+        libpq_append_conn_error(conn, "host name must be specified");
+        return -1;
+    }
+
+    if (iplen == 4) {
+        // IPv4 address verification
+        struct in_addr addr;
+        family = AF_INET;
+
+        if (inet_aton(host, &addr)) {
+            if (memcmp(ipdata, &addr.s_addr, iplen) == 0)
+                match = 1;
+        }
+    }
+#ifdef HAVE_INET_PTON
+    else if (iplen == 16) {
+        // IPv6 address verification
+        struct in6_addr addr;
+        family = AF_INET6;
+
+        if (inet_pton(AF_INET6, host, &addr) == 1) {
+            if (memcmp(ipdata, &addr.s6_addr, iplen) == 0)
+                match = 1;
+        }
+    }
+#endif
+    else {
+        // Invalid IP address length
+        libpq_append_conn_error(conn,
+                               "certificate contains IP address with invalid length %zu",
+                               iplen);
+        return -1;
+    }
+
+    // Generate human-readable representation of certificate IP
+    addrstr = pg_inet_net_ntop(family, ipdata, 8 * iplen, tmp, sizeof(tmp));
+    if (!addrstr) {
+        libpq_append_conn_error(conn, "could not convert certificate's IP address to string");
+        return -1;
+    }
+
+    *store_name = strdup(addrstr);
+    return match;
+}
+```

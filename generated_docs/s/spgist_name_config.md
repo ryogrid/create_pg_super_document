@@ -38,3 +38,22 @@ The function configures the SP-GiST to:
 - This is part of a test module demonstrating SP-GiST operator class implementation
 - The suffixing mechanism (longValuesOK = true) allows the index to handle values longer than the page size by storing partial data
 - The canReturnData setting enables covering index functionality where indexed values can be returned without accessing the heap
+
+## Simplified Source
+
+```c
+Datum
+spgist_name_config(PG_FUNCTION_ARGS)
+{
+    spgConfigOut *cfg = (spgConfigOut *) PG_GETARG_POINTER(1);
+
+    // Configure SP-GiST index structure
+    cfg->prefixType = TEXTOID;        // Prefix type: TEXT
+    cfg->labelType = INT2OID;         // Label type: smallint
+    cfg->leafType = TEXTOID;          // Leaf type: TEXT
+    cfg->canReturnData = true;        // Enable covering indexes
+    cfg->longValuesOK = true;         // Support long values via suffixing
+
+    PG_RETURN_VOID();
+}
+```

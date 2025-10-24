@@ -44,3 +44,42 @@ The function includes additional error checking to ensure that the  server funct
 - Performs network byte order conversion for proper cross-platform 64-bit integer handling
 - [Result](../R/Result.md) length must be exactly 8 bytes for the operation to be considered successful
 - Part of PostgreSQL's extended large object interface for handling very large objects
+
+## Simplified Source
+
+```c
+pg_int64 lo_tell64(PGconn *conn, int fd) {
+    pg_int64 retval;
+    PQArgBlock argv[1];
+    PGresult *res;
+    int result_len;
+
+    // Initialize large object subsystem
+    if (lo_initialize(conn) < 0)
+        return -1;
+
+    // Check if 64-bit tell function is available
+    if (conn->lobjfuncs->fn_lo_tell64 == 0) {
+        libpq_append_conn_error(conn, "cannot determine OID of function %s", "lo_tell64");
+        return -1;
+    }
+
+    // Prepare file descriptor argument
+    argv[0].isint = 1;
+    argv[0].len = 4;
+    argv[0].u.integer = fd;
+
+    // Call backend lo_tell64 function via fastpath interface
+    res = PQfn(conn, conn->lobjfuncs->fn_lo_tell64,
+               (void *) &retval, &result_len, 0, argv, 1);
+
+    // Return current 64-bit position or -1 on error
+    if (PQresultStatus(res) == PGRES_COMMAND_OK && result_len == 8) {
+        PQclear(res);
+        return lo_ntoh64(retval);  // Convert from network byte order
+    } else {
+        PQclear(res);
+        return -1;
+    }
+}
+```

@@ -39,3 +39,36 @@ The function first ensures that the large object function OIDs are properly init
 - For large objects exceeding 2GB, use  instead
 - The function blocks until the server responds with the current position
 - Part of PostgreSQL's libpq large object interface
+
+## Simplified Source
+
+```c
+int lo_tell(PGconn *conn, int fd) {
+    int retval;
+    PQArgBlock argv[1];
+    PGresult *res;
+    int result_len;
+
+    // Initialize large object subsystem
+    if (lo_initialize(conn) < 0)
+        return -1;
+
+    // Prepare file descriptor argument
+    argv[0].isint = 1;
+    argv[0].len = 4;
+    argv[0].u.integer = fd;
+
+    // Call backend lo_tell function via fastpath interface
+    res = PQfn(conn, conn->lobjfuncs->fn_lo_tell,
+               &retval, &result_len, 1, argv, 1);
+
+    // Return current position or -1 on error
+    if (PQresultStatus(res) == PGRES_COMMAND_OK) {
+        PQclear(res);
+        return retval;
+    } else {
+        PQclear(res);
+        return -1;
+    }
+}
+```

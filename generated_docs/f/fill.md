@@ -41,4 +41,17 @@ This is typically used for creating consistent column widths, padding fields to 
 - Uses putc for character-by-character output rather than bulk string operations
 - Simple and efficient implementation suitable for small padding operations
 - No error checking or validation is performed on input parameters
-- The loop condition  ensures proper handling of boundary conditions
+- The loop condition ensures proper handling of boundary conditions
+
+## Simplified Source
+
+```c
+static void fill(int length, int max, char filler, FILE *fp) {
+    // Calculate how many filler characters are needed
+    int count = max - length;
+
+    // Output filler characters to reach target width
+    while (count-- >= 0)
+        putc(filler, fp);
+}
+```

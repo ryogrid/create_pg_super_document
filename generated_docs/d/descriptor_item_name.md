@@ -48,3 +48,30 @@ The function uses a comprehensive switch statement to handle all descriptor item
 - The function provides complete coverage of all ECPG descriptor types supported by the preprocessor
 - [String](../S/String.md) constants are uppercase following SQL naming conventions
 - Essential for mapping between internal representation and external SQL standards
+
+## Simplified Source
+
+```c
+static const char *descriptor_item_name(enum ECPGdtype itemcode) {
+    // Map ECPG descriptor type codes to SQL standard names
+    switch (itemcode) {
+        case ECPGd_cardinality:    return "CARDINALITY";
+        case ECPGd_count:          return "COUNT";
+        case ECPGd_data:           return "DATA";
+        case ECPGd_di_code:        return "DATETIME_INTERVAL_CODE";
+        case ECPGd_di_precision:   return "DATETIME_INTERVAL_PRECISION";
+        case ECPGd_indicator:      return "INDICATOR";
+        case ECPGd_key_member:     return "KEY_MEMBER";
+        case ECPGd_length:         return "LENGTH";
+        case ECPGd_name:           return "NAME";
+        case ECPGd_nullable:       return "NULLABLE";
+        case ECPGd_octet:          return "OCTET_LENGTH";
+        case ECPGd_precision:      return "PRECISION";
+        case ECPGd_ret_length:     return "RETURNED_LENGTH";
+        case ECPGd_ret_octet:      return "RETURNED_OCTET_LENGTH";
+        case ECPGd_scale:          return "SCALE";
+        case ECPGd_type:           return "TYPE";
+        default:                   return NULL;
+    }
+}
+```

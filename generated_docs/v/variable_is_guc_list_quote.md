@@ -29,3 +29,17 @@ This function determines if a PostgreSQL configuration parameter is of the GUC_L
 - Case-insensitive comparison using pg_strcasecmp
 - Essential for generating syntactically correct ALTER statements for configuration parameters
 - The hardcoded approach is a compromise due to lack of backend introspection capabilities
+
+## Simplified Source
+
+```c
+bool variable_is_guc_list_quote(const char *name) {
+    // Check if the GUC variable is a known list-type parameter that needs special quoting
+    return (pg_strcasecmp(name, "local_preload_libraries") == 0 ||
+            pg_strcasecmp(name, "search_path") == 0 ||
+            pg_strcasecmp(name, "session_preload_libraries") == 0 ||
+            pg_strcasecmp(name, "shared_preload_libraries") == 0 ||
+            pg_strcasecmp(name, "temp_tablespaces") == 0 ||
+            pg_strcasecmp(name, "unix_socket_directories") == 0);
+}
+```

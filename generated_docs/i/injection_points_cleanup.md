@@ -35,3 +35,24 @@ This function serves as a  callback that performs cleanup of injection points th
 - Uses PostgreSQL's list iteration macros (, , ) for traversing the injection point names
 - The  and  parameters follow PostgreSQL's callback convention but are not used in this implementation
 - Critical for proper resource cleanup in testing scenarios involving injection points
+
+## Simplified Source
+
+```c
+static void
+injection_points_cleanup(int code, Datum arg)
+{
+    ListCell *lc;
+
+    // Exit early if no local injection points to clean up
+    if (!injection_point_local)
+        return;
+
+    // Detach all locally attached injection points
+    foreach(lc, inj_list_local)
+    {
+        char *name = strVal(lfirst(lc));
+        InjectionPointDetach(name);
+    }
+}
+```

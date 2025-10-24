@@ -37,3 +37,17 @@ The function is designed to be called early in application startup, typically th
 - The separation of SSL and crypto library initialization allows applications to have fine-grained control over OpenSSL initialization when integrating with other libraries that also use OpenSSL
 - Global variables pq_init_ssl_lib and pq_init_crypto_lib default to true, meaning PostgreSQL will initialize both SSL and crypto libraries by default
 - Location: src/interfaces/libpq/fe-secure-openssl.c:104-115
+
+## Simplified Source
+
+```c
+void pgtls_init_library(bool do_ssl, int do_crypto) {
+    // Prevent changes while connections are active
+    if (crypto_open_connections != 0)
+        return;
+
+    // Set SSL and crypto library initialization flags
+    pq_init_ssl_lib = do_ssl;
+    pq_init_crypto_lib = do_crypto;
+}
+```

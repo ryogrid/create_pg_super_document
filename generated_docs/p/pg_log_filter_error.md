@@ -39,3 +39,25 @@ This function provides a standardized way to report errors encountered while par
 - Part of the error handling infrastructure for the filter parsing system
 - Supports variable argument lists like printf for flexible error message formatting
 - Used extensively throughout the filter parsing code to provide consistent error reporting
+
+## Simplified Source
+
+```c
+void pg_log_filter_error(FilterStateData *fstate, const char *fmt, ...) {
+    va_list argp;
+    char buf[256];
+
+    // Format the variable arguments into a buffer
+    va_start(argp, fmt);
+    vsnprintf(buf, sizeof(buf), fmt, argp);
+    va_end(argp);
+
+    // Log error with appropriate context (stdin vs file)
+    if (fstate->fp == stdin)
+        pg_log_error("invalid format in filter read from standard input on line %d: %s",
+                     fstate->lineno, buf);
+    else
+        pg_log_error("invalid format in filter read from file \"%s\" on line %d: %s",
+                     fstate->filename, fstate->lineno, buf);
+}
+```

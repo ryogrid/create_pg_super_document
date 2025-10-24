@@ -46,3 +46,101 @@ The implementation is portable across different architectures, avoiding assumpti
 - Uses temporary buffer to build output, then copies to destination
 - Returns EMSGSIZE error if output buffer is too small
 - Portable implementation that works across different architectures
+
+## Simplified Source
+
+```c
+static char *
+inet_net_ntop_ipv6(const u_char *src, int bits, char *dst, size_t size)
+{
+    char tmp[sizeof "ffff:ffff:ffff:ffff:ffff:ffff:255.255.255.255/128"];
+    char *tp;
+    struct { int base, len; } best, cur;
+    u_int words[NS_IN6ADDRSZ / NS_INT16SZ];
+    int i;
+
+    // Validate bits parameter
+    if ((bits < -1) || (bits > 128)) {
+        errno = EINVAL;
+        return NULL;
+    }
+
+    // Convert bytes to 16-bit words and find longest zero run
+    memset(words, '\0', sizeof words);
+    for (i = 0; i < NS_IN6ADDRSZ; i++)
+        words[i / 2] |= (src[i] << ((1 - (i % 2)) << 3));
+
+    // Find the longest run of zeros for :: compression
+    best.base = -1;
+    cur.base = -1;
+    best.len = 0;
+    cur.len = 0;
+
+    for (i = 0; i < (NS_IN6ADDRSZ / NS_INT16SZ); i++) {
+        if (words[i] == 0) {
+            if (cur.base == -1)
+                cur.base = i, cur.len = 1;
+            else
+                cur.len++;
+        } else {
+            if (cur.base != -1) {
+                if (best.base == -1 || cur.len > best.len)
+                    best = cur;
+                cur.base = -1;
+            }
+        }
+    }
+    if (cur.base != -1) {
+        if (best.base == -1 || cur.len > best.len)
+            best = cur;
+    }
+    if (best.base != -1 && best.len < 2)
+        best.base = -1;
+
+    // Format the IPv6 address
+    tp = tmp;
+    for (i = 0; i < (NS_IN6ADDRSZ / NS_INT16SZ); i++) {
+        // Handle zero compression with ::
+        if (best.base != -1 && i >= best.base && i < (best.base + best.len)) {
+            if (i == best.base)
+                *tp++ = ':';
+            continue;
+        }
+
+        // Add colon separator
+        if (i != 0)
+            *tp++ = ':';
+
+        // Check for embedded IPv4 address
+        if (i == 6 && best.base == 0 && (best.len == 6 ||
+                (best.len == 7 && words[7] != 0x0001) ||
+                (best.len == 5 && words[5] == 0xffff))) {
+            int n = decoct(src + 12, 4, tp, sizeof tmp - (tp - tmp));
+            if (n == 0) {
+                errno = EMSGSIZE;
+                return NULL;
+            }
+            tp += strlen(tp);
+            break;
+        }
+        tp += SPRINTF((tp, "%x", words[i]));
+    }
+
+    // Handle trailing :: compression
+    if (best.base != -1 && (best.base + best.len) == (NS_IN6ADDRSZ / NS_INT16SZ))
+        *tp++ = ':';
+    *tp = '\0';
+
+    // Add CIDR prefix if specified
+    if (bits != -1 && bits != 128)
+        tp += SPRINTF((tp, "/%u", bits));
+
+    // Check buffer size and copy result
+    if ((size_t) (tp - tmp) > size) {
+        errno = EMSGSIZE;
+        return NULL;
+    }
+    strcpy(dst, tmp);
+    return dst;
+}
+```

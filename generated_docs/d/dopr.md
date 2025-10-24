@@ -52,3 +52,184 @@ The function includes extensive formatting control support, including field widt
 - Supports size modifiers (l, ll, z, h) for integer conversions
 - The function is designed to be portable across different platforms and C library implementations
 - Critical component in PostgreSQL's strategy to ensure consistent printf behavior across all supported platforms
+
+## Simplified Source
+
+```c
+static void dopr(PrintfTarget *target, const char *format, va_list args)
+{
+    int save_errno = errno;
+    const char *first_pct = NULL;
+    bool have_dollar = false;
+    PrintfArgValue argvalues[PG_NL_ARGMAX + 1];
+
+    // Main format string processing loop
+    while (*format != '\0') {
+        // Handle literal text (non-% characters)
+        if (*format != '%') {
+            const char *next_pct = strchrnul(format + 1, '%');
+            dostr(format, next_pct - format, target);
+            if (target->failed || *next_pct == '\0')
+                break;
+            format = next_pct;
+        }
+
+        // Remember first conversion spec for %n$ processing
+        if (first_pct == NULL)
+            first_pct = format;
+
+        format++; // Skip '%'
+
+        // Fast path for simple %s
+        if (*format == 's') {
+            format++;
+            char *strvalue = va_arg(args, char *);
+            if (strvalue == NULL) strvalue = "(null)";
+            dostr(strvalue, strlen(strvalue), target);
+            if (target->failed) break;
+            continue;
+        }
+
+        // Parse conversion spec components
+        int fieldwidth = 0, precision = 0, zpad = 0;
+        int leftjust = 0, forcesign = 0, fmtpos = 0;
+        int longflag = 0, longlongflag = 0, pointflag = 0;
+        int accum = 0;
+        bool have_star = false, afterstar = false;
+
+        // Parse flags, width, precision, modifiers
+        int ch;
+        while ((ch = *format++)) {
+            switch (ch) {
+                case '-': leftjust = 1; continue;
+                case '+': forcesign = 1; continue;
+                case '0': if (accum == 0 && !pointflag) zpad = '0'; /* fall through */
+                case '1'...'9': accum = accum * 10 + (ch - '0'); continue;
+                case '.':
+                    if (!have_star) fieldwidth = accum;
+                    pointflag = 1; accum = 0; continue;
+                case '*':
+                    // Handle width/precision from argument
+                    if (!have_dollar) {
+                        int starval = va_arg(args, int);
+                        if (pointflag) {
+                            precision = starval < 0 ? 0 : starval;
+                            if (precision == 0) pointflag = 0;
+                        } else {
+                            fieldwidth = starval < 0 ? -starval : starval;
+                            if (starval < 0) leftjust = 1;
+                        }
+                    } else {
+                        afterstar = true;
+                    }
+                    have_star = true; accum = 0; continue;
+                case '$':
+                    // Switch to positional parameter mode
+                    if (!have_dollar) {
+                        if (!find_arguments(first_pct, args, argvalues))
+                            goto bad_format;
+                        have_dollar = true;
+                    }
+                    if (afterstar) {
+                        // Process delayed star value
+                        int starval = argvalues[accum].i;
+                        // ... star processing logic
+                        afterstar = false;
+                    } else {
+                        fmtpos = accum;
+                    }
+                    accum = 0; continue;
+                case 'l':
+                    if (longflag) longlongflag = 1;
+                    else longflag = 1;
+                    continue;
+                case 'z': /* size_t modifier */ continue;
+                case 'h': case '\'': /* ignored */ continue;
+
+                // Conversion specifiers
+                case 'd': case 'i': case 'o': case 'u': case 'x': case 'X': {
+                    // Process integer conversion
+                    if (!have_star) {
+                        if (pointflag) precision = accum;
+                        else fieldwidth = accum;
+                    }
+                    long long numvalue;
+                    if (have_dollar) {
+                        numvalue = longlongflag ? argvalues[fmtpos].ll :
+                                   longflag ? argvalues[fmtpos].l :
+                                   argvalues[fmtpos].i;
+                    } else {
+                        numvalue = longlongflag ? va_arg(args, long long) :
+                                   longflag ? va_arg(args, long) :
+                                   va_arg(args, int);
+                    }
+                    // Cast to unsigned for o,u,x,X formats
+                    if (ch == 'o' || ch == 'u' || ch == 'x' || ch == 'X') {
+                        numvalue = longlongflag ? (unsigned long long)numvalue :
+                                   longflag ? (unsigned long)numvalue :
+                                   (unsigned int)numvalue;
+                    }
+                    fmtint(numvalue, ch, forcesign, leftjust, fieldwidth,
+                           zpad, precision, pointflag, target);
+                    break;
+                }
+                case 'c': {
+                    // Character conversion
+                    int cvalue = have_dollar ? argvalues[fmtpos].i : va_arg(args, int);
+                    fmtchar((unsigned char)cvalue, leftjust, fieldwidth, target);
+                    break;
+                }
+                case 's': {
+                    // String conversion
+                    char *strvalue = have_dollar ? argvalues[fmtpos].cptr : va_arg(args, char *);
+                    if (strvalue == NULL) strvalue = "(null)";
+                    if (!have_star) {
+                        if (pointflag) precision = accum;
+                        else fieldwidth = accum;
+                    }
+                    fmtstr(strvalue, leftjust, fieldwidth, precision, pointflag, target);
+                    break;
+                }
+                case 'p': {
+                    // Pointer conversion
+                    void *ptrvalue = have_dollar ? argvalues[fmtpos].cptr : va_arg(args, void *);
+                    fmtptr(ptrvalue, target);
+                    break;
+                }
+                case 'e': case 'E': case 'f': case 'g': case 'G': {
+                    // Floating point conversion
+                    double fvalue = have_dollar ? argvalues[fmtpos].d : va_arg(args, double);
+                    if (!have_star) {
+                        if (pointflag) precision = accum;
+                        else fieldwidth = accum;
+                    }
+                    fmtfloat(fvalue, ch, forcesign, leftjust, fieldwidth,
+                             zpad, precision, pointflag, target);
+                    break;
+                }
+                case 'm': {
+                    // PostgreSQL extension: errno message
+                    char errbuf[PG_STRERROR_R_BUFLEN];
+                    const char *errm = strerror_r(save_errno, errbuf, sizeof(errbuf));
+                    dostr(errm, strlen(errm), target);
+                    break;
+                }
+                case '%':
+                    dopr_outch('%', target);
+                    break;
+                default:
+                    goto bad_format;
+            }
+            break; // Exit format parsing loop after conversion
+        }
+
+        if (target->failed)
+            break;
+    }
+    return;
+
+bad_format:
+    errno = EINVAL;
+    target->failed = true;
+}
+```

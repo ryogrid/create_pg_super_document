@@ -43,3 +43,40 @@ The  function provides functionality to extract and display a specific segment o
 - Properly manages memory by freeing the allocated buffer after use
 - Error handling includes basic fprintf statements for debugging
 - The function will break out of the read loop if no more data is available (nbytes <= 0)
+
+## Simplified Source
+
+```c
+static void
+pickout(PGconn *conn, Oid lobjId, int start, int len)
+{
+    int lobj_fd;
+    char *buf;
+    int nbytes, nread;
+
+    // Open large object for reading
+    lobj_fd = lo_open(conn, lobjId, INV_READ);
+    if (lobj_fd < 0)
+        fprintf(stderr, "cannot open large object %u", lobjId);
+
+    // Seek to starting position and allocate buffer
+    lo_lseek(conn, lobj_fd, start, SEEK_SET);
+    buf = malloc(len + 1);
+
+    // Read data in chunks until complete
+    nread = 0;
+    while (len - nread > 0) {
+        nbytes = lo_read(conn, lobj_fd, buf, len - nread);
+        buf[nbytes] = '\0';
+        fprintf(stderr, ">>> %s", buf);
+        nread += nbytes;
+        if (nbytes <= 0)
+            break;  // No more data available
+    }
+
+    // Cleanup
+    free(buf);
+    fprintf(stderr, "\n");
+    lo_close(conn, lobj_fd);
+}
+```

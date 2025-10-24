@@ -28,3 +28,16 @@ PQsslInUse is a simple utility function that checks if SSL encryption is active 
 - Returns non-zero (specifically the value of conn->ssl_in_use) if SSL is active
 - This is a read-only query function that does not modify the connection state
 - Commonly used by client applications to verify security status before transmitting sensitive data
+
+## Simplified Source
+
+```c
+int
+PQsslInUse(PGconn *conn)
+{
+    // Check if connection exists and SSL is active
+    if (!conn)
+        return 0;
+    return conn->ssl_in_use;
+}
+```

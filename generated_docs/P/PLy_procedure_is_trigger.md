@@ -30,3 +30,12 @@ This function is used internally within the PL/Python language handler to differ
 - The function performs a simple comparison: returns true if prorettype equals TRIGGEROID, false otherwise
 - Essential for proper categorization of PL/Python functions during validation and execution phases
 - [Trigger](../T/Trigger.md) functions have different parameter passing conventions and execution contexts compared to regular functions
+
+## Simplified Source
+
+```c
+static bool PLy_procedure_is_trigger(Form_pg_proc procStruct) {
+    // Check if function returns TRIGGER type
+    return (procStruct->prorettype == TRIGGEROID);
+}
+```

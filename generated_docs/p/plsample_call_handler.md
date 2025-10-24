@@ -40,9 +40,45 @@ This function uses the standard PostgreSQL  macro which provides access to:
   - This is a top-level entry point function, typically registered as a language handler in the PostgreSQL system catalogs
 
 ## Notes and Other Information
-- Located in 
+- Located in
 - This is part of PostgreSQL's test infrastructure, serving as an example implementation of a procedural language
 - The function includes a framework for cleanup operations in the PG_FINALLY block, though the current implementation doesn't require any specific cleanup
 - Event trigger functionality is recognized but not yet implemented (contains TODO comment)
 - Follows PostgreSQL's standard pattern for language handlers that need to support multiple call contexts
 - The return value is a Datum, which is PostgreSQL's generic data type for function return values
+
+## Simplified Source
+
+```c
+Datum
+plsample_call_handler(PG_FUNCTION_ARGS)
+{
+    Datum retval = (Datum) 0;
+
+    PG_TRY();
+    {
+        // Route to appropriate handler based on call context
+        if (CALLED_AS_TRIGGER(fcinfo))
+        {
+            // Handle trigger function call
+            retval = PointerGetDatum(plsample_trigger_handler(fcinfo));
+        }
+        else if (CALLED_AS_EVENT_TRIGGER(fcinfo))
+        {
+            // Event trigger handling (TODO: not implemented)
+        }
+        else
+        {
+            // Handle regular function call
+            retval = plsample_func_handler(fcinfo);
+        }
+    }
+    PG_FINALLY();
+    {
+        // Cleanup block (currently empty)
+    }
+    PG_END_TRY();
+
+    return retval;
+}
+```

@@ -38,3 +38,27 @@ The function handles the GEN_IPADD type from Subject Alternative Names (SAN), wh
 - Part of the certificate hostname/IP verification chain in PostgreSQL's TLS implementation
 - Supports both IPv4 (4 bytes) and IPv6 (16 bytes) addresses as determined by the length
 - The binary format allows exact matching without string parsing ambiguities
+
+## Simplified Source
+
+```c
+static int openssl_verify_peer_name_matches_certificate_ip(PGconn *conn, ASN1_OCTET_STRING *addr_entry, char **store_name) {
+    // Validate input
+    if (addr_entry == NULL) {
+        libpq_append_conn_error(conn, "SSL certificate's address entry is missing");
+        return -1;
+    }
+
+    // Extract binary IP address data using appropriate OpenSSL API
+    const unsigned char *addrdata;
+#ifdef HAVE_ASN1_STRING_GET0_DATA
+    addrdata = ASN1_STRING_get0_data(addr_entry);
+#else
+    addrdata = ASN1_STRING_data(addr_entry);
+#endif
+    int len = ASN1_STRING_length(addr_entry);
+
+    // Delegate to generic IP verification function
+    return pq_verify_peer_name_matches_certificate_ip(conn, addrdata, len, store_name);
+}
+```

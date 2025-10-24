@@ -41,3 +41,16 @@ If standard_conforming_strings is disabled, all backslashes in the output are do
 - For new applications, consider using PQescapeByteaConn() which supports both hex and escape encoding formats
 - The escaped result includes a null terminator and the total length includes this terminator
 - This is the connection-independent version that uses default encoding settings
+
+## Simplified Source
+
+```c
+unsigned char *
+PQescapeBytea(const unsigned char *from, size_t from_length, size_t *to_length) {
+    // Call internal escaping with default settings
+    // No connection context, use global std_strings, traditional escape format
+    return PQescapeByteaInternal(NULL, from, from_length, to_length,
+                                static_std_strings,
+                                false /* no hex encoding */);
+}
+```

@@ -31,3 +31,16 @@ This function serves as a validation callback for string-type relation options i
 - The function is declared as static, meaning it has internal linkage and is only accessible within the same compilation unit
 - Used as a validation callback in relation option definitions to demonstrate how custom validation can be implemented
 - Located in src/test/modules/dummy_index_am/dummy_index_am.c:64-75
+
+## Simplified Source
+
+```c
+static void
+validate_string_option(const char *value)
+{
+    // Report the new option value as a notice
+    ereport(NOTICE,
+            (errmsg("new option value for string parameter %s",
+                    value ? value : "NULL")));
+}
+```

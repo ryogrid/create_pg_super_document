@@ -45,3 +45,29 @@ The `concat_text` function is a PostgreSQL C function that takes two text argume
 - Shows advanced varlena manipulation beyond simple copying
 - Critical example for understanding string operations in PostgreSQL C functions
 - Follows PostgreSQL's version 1 calling convention
+
+## Simplified Source
+
+```c
+Datum concat_text(PG_FUNCTION_ARGS) {
+    // Get the two text arguments
+    text *arg1 = PG_GETARG_TEXT_PP(0);
+    text *arg2 = PG_GETARG_TEXT_PP(1);
+
+    // Calculate sizes of each text's data portion
+    int32 arg1_size = VARSIZE_ANY_EXHDR(arg1);
+    int32 arg2_size = VARSIZE_ANY_EXHDR(arg2);
+    int32 new_text_size = arg1_size + arg2_size + VARHDRSZ;
+
+    // Allocate memory for the concatenated result
+    text *new_text = (text *) palloc(new_text_size);
+    SET_VARSIZE(new_text, new_text_size);
+
+    // Copy first text, then append second text
+    memcpy(VARDATA(new_text), VARDATA_ANY(arg1), arg1_size);
+    memcpy(VARDATA(new_text) + arg1_size, VARDATA_ANY(arg2), arg2_size);
+
+    // Return the concatenated text
+    PG_RETURN_TEXT_P(new_text);
+}
+```

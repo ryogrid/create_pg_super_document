@@ -35,3 +35,23 @@ The assignments are stored as a linked list where each new assignment becomes th
 - The global 'assignments' variable maintains the linked list of assignments
 - Memory for the variable name is allocated separately and the string is copied to avoid dependencies on the original string's lifetime
 - Part of the ECPG preprocessor's mechanism for handling SQL descriptor assignments in embedded SQL code
+
+## Simplified Source
+
+```c
+void push_assignment(char *var, enum ECPGdtype value) {
+    // Create new assignment node
+    struct assignment *new = (struct assignment *) mm_alloc(sizeof(struct assignment));
+
+    // Link to existing list (stack behavior)
+    new->next = assignments;
+
+    // Copy variable name
+    new->variable = mm_alloc(strlen(var) + 1);
+    strcpy(new->variable, var);
+
+    // Set value and update list head
+    new->value = value;
+    assignments = new;
+}
+```

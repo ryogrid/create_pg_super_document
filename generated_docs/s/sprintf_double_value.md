@@ -41,3 +41,21 @@ This function is essential for maintaining data consistency when converting floa
 - Handles both positive and negative infinity cases explicitly
 - The delimiter parameter allows flexible formatting for various output contexts
 - This function is static and only used within the execute.c module for internal formatting operations
+
+## Simplified Source
+
+```c
+static void sprintf_double_value(char *ptr, double value, const char *delim) {
+    // Handle special IEEE 754 values
+    if (isnan(value)) {
+        sprintf(ptr, "%s%s", "NaN", delim);
+    } else if (isinf(value)) {
+        // Format infinity with sign
+        const char *inf_str = (value < 0) ? "-Infinity" : "Infinity";
+        sprintf(ptr, "%s%s", inf_str, delim);
+    } else {
+        // Format normal values with 15-digit precision
+        sprintf(ptr, "%.15g%s", value, delim);
+    }
+}
+```

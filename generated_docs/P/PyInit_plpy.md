@@ -33,3 +33,21 @@ This function serves as the entry point for initializing the plpy Python module 
 - This is a standard Python C extension initialization function following Python's module initialization protocol
 - The function creates the base module structure and then delegates exception setup to PLy_add_exceptions
 - Returns NULL on failure (following Python C API conventions)
+
+## Simplified Source
+
+```c
+PyMODINIT_FUNC PyInit_plpy(void) {
+    PyObject *m;
+
+    // Create the plpy Python module
+    m = PyModule_Create(&PLy_module);
+    if (m == NULL)
+        return NULL;
+
+    // Add PostgreSQL-specific exceptions to module
+    PLy_add_exceptions(m);
+
+    return m;
+}
+```

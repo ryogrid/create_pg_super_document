@@ -35,3 +35,35 @@ This function iterates through all connection options defined in PQconninfoOptio
 - Performs deep copying of string values to avoid shared memory issues
 - Handles memory management by freeing existing destination values before copying new ones
 - Location: src/interfaces/libpq/fe-connect.c:956-996
+
+## Simplified Source
+
+```c
+bool pqCopyPGconn(PGconn *srcConn, PGconn *dstConn) {
+    const internalPQconninfoOption *option;
+
+    // Iterate through all connection options
+    for (option = PQconninfoOptions; option->keyword; option++) {
+        if (option->connofs >= 0) {
+            // Get source value
+            const char **src_value = (const char **) ((char *) srcConn + option->connofs);
+
+            if (*src_value) {
+                // Get destination pointer and free existing value
+                char **dst_value = (char **) ((char *) dstConn + option->connofs);
+
+                if (*dst_value)
+                    free(*dst_value);
+
+                // Copy the string value
+                *dst_value = strdup(*src_value);
+                if (*dst_value == NULL) {
+                    libpq_append_conn_error(dstConn, "out of memory");
+                    return false;
+                }
+            }
+        }
+    }
+    return true;
+}
+```

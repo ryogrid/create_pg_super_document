@@ -36,3 +36,21 @@ The function performs a nested loop comparison, checking each of te1's exclusive
 - The dependencies array contains dump IDs of objects that this entry depends on
 - Essential for maintaining data consistency and preventing worker deadlocks during parallel restoration
 - Simple O(n*m) algorithm where n = te1->nLockDeps and m = te2->nDeps
+
+## Simplified Source
+
+```c
+static bool has_lock_conflicts(TocEntry *te1, TocEntry *te2) {
+    // Check if te1's exclusive lock requirements conflict with te2's dependencies
+    for (int j = 0; j < te1->nLockDeps; j++) {
+        for (int k = 0; k < te2->nDeps; k++) {
+            // If te1 needs exclusive lock on object that te2 depends on
+            if (te1->lockDeps[j] == te2->dependencies[k]) {
+                return true;  // Conflict found
+            }
+        }
+    }
+
+    return false;  // No conflicts
+}
+```

@@ -30,3 +30,16 @@ PQinitSSL is an exported function that provides applications with control over S
 - Calls pgtls_init_library with the same value for both SSL and crypto initialization
 - Applications should call this before making any PostgreSQL connections if they want to control SSL initialization
 - Typically called with 0 by applications that have already initialized OpenSSL to prevent double initialization
+
+## Simplified Source
+
+```c
+void
+PQinitSSL(int do_init)
+{
+#ifdef USE_SSL
+    // Initialize both SSL and crypto libraries if SSL support is compiled in
+    pgtls_init_library(do_init, do_init);
+#endif
+}
+```

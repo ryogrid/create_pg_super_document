@@ -38,3 +38,23 @@ This function processes the results of a security label query (typically generat
 - Uses appendStringLiteralConn for safe string literal formatting with connection-specific escaping
 - Part of PostgreSQLs security label infrastructure for mandatory access control systems
 - Each generated command is terminated with a semicolon and newline for proper SQL formatting
+
+## Simplified Source
+
+```c
+void emitShSecLabels(PGconn *conn, PGresult *res, PQExpBuffer buffer,
+                     const char *objtype, const char *objname) {
+    // Generate SECURITY LABEL commands for each row in the result set
+    for (int i = 0; i < PQntuples(res); i++) {
+        char *provider = PQgetvalue(res, i, 0);
+        char *label = PQgetvalue(res, i, 1);
+
+        // Build: SECURITY LABEL FOR provider ON objtype objname IS 'label';
+        appendPQExpBuffer(buffer, "SECURITY LABEL FOR %s ON %s",
+                         fmtId(provider), objtype);
+        appendPQExpBuffer(buffer, " %s IS ", fmtId(objname));
+        appendStringLiteralConn(buffer, label, conn);
+        appendPQExpBufferStr(buffer, ";\n");
+    }
+}
+```

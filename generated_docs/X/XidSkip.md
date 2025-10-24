@@ -34,3 +34,37 @@ This internal function implements an optimization for transaction ID consumption
 - Considers page boundaries for three different SLRU structures to ensure consistency
 - Used as part of the shortcut mechanism to avoid expensive individual XID processing
 - The function aims to skip to just before the next SLRU page extension point where interesting processing occurs
+
+## Simplified Source
+
+```c
+static inline uint32
+XidSkip(FullTransactionId fullxid)
+{
+    uint32 low = XidFromFullTransactionId(fullxid);
+    uint32 rem, distance;
+
+    // Don't skip if too close to wraparound boundaries
+    if (low < 5 || low >= UINT32_MAX - 5)
+        return 0;
+
+    distance = UINT32_MAX - 5 - low;
+
+    // Check distance to next COMMIT_TS page boundary
+    rem = low % COMMIT_TS_XACTS_PER_PAGE;
+    if (rem == 0) return 0;
+    distance = Min(distance, COMMIT_TS_XACTS_PER_PAGE - rem);
+
+    // Check distance to next SUBTRANS page boundary
+    rem = low % SUBTRANS_XACTS_PER_PAGE;
+    if (rem == 0) return 0;
+    distance = Min(distance, SUBTRANS_XACTS_PER_PAGE - rem);
+
+    // Check distance to next CLOG page boundary
+    rem = low % CLOG_XACTS_PER_PAGE;
+    if (rem == 0) return 0;
+    distance = Min(distance, CLOG_XACTS_PER_PAGE - rem);
+
+    return distance;
+}
+```

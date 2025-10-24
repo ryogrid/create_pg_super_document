@@ -37,3 +37,34 @@ pg_vsnprintf provides a safe, portable alternative to the standard vsnprintf fun
 - Always null-terminates the output string within the specified buffer size
 - Part of PostgreSQL's portable printf implementation that provides consistent behavior across platforms
 - Uses a PrintfTarget structure to track buffer state, character counts, and error conditions
+
+## Simplified Source
+
+```c
+int pg_vsnprintf(char *str, size_t count, const char *fmt, va_list args) {
+    PrintfTarget target;
+    char onebyte[1];
+
+    // Handle C99 edge case: str == NULL when count == 0
+    if (count == 0) {
+        str = onebyte;      // Use local buffer
+        count = 1;
+    }
+
+    // Initialize target structure for formatting
+    target.bufstart = target.bufptr = str;
+    target.bufend = str + count - 1;    // Leave space for null terminator
+    target.stream = NULL;               // Buffer mode, not stream
+    target.nchars = 0;
+    target.failed = false;
+
+    // Perform the actual formatting
+    dopr(&target, fmt, args);
+
+    // Ensure null termination
+    *(target.bufptr) = '\0';
+
+    // Return character count or error
+    return target.failed ? -1 : (target.bufptr - target.bufstart + target.nchars);
+}
+```

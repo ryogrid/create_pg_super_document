@@ -217,3 +217,20 @@ write_data_to_archive_lz4_doc.md: A null-terminated string containing the path t
 - Distinguishes between non-existent paths and paths that exist but are not directories
 - Handles permission issues gracefully - if  fails due to permissions, returns false
 - More robust than attempting to open a directory, as it specifically tests for directory type
+
+## Simplified Source
+
+```c
+static bool
+directory_exists(const char *dir)
+{
+    struct stat st;
+
+    // Check if path exists and get file info
+    if (stat(dir, &st) != 0)
+        return false;
+
+    // Return true if it's a directory
+    return S_ISDIR(st.st_mode);
+}
+```

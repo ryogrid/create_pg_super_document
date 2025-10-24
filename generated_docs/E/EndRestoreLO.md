@@ -32,3 +32,27 @@ This function completes the restoration of an individual Large Object. It ensure
 - In connected mode, uses lo_close() and resets loFd to -1
 - In disconnected mode, generates "SELECT pg_catalog.lo_close(0);" SQL statement
 - Must be called after StartRestoreLO to properly complete the LO restoration process
+
+## Simplified Source
+
+```c
+void EndRestoreLO(ArchiveHandle *AH, Oid oid)
+{
+    // Flush any remaining buffered LO data
+    if (AH->lo_buf_used > 0)
+        dump_lo_buf(AH);
+
+    // Mark LO restoration as complete
+    AH->writingLO = false;
+
+    // Close the Large Object handle
+    if (AH->connection) {
+        // Connected mode: use libpq function
+        lo_close(AH->connection, AH->loFd);
+        AH->loFd = -1;
+    } else {
+        // Disconnected mode: generate SQL
+        ahprintf(AH, "SELECT pg_catalog.lo_close(0);\n\n");
+    }
+}
+```

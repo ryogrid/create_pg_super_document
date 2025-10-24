@@ -35,3 +35,19 @@ This function serves as an OpenSSL TLS initialization hook that sets up a custom
 - ROT13 transformation provides no real security - it's purely for testing purposes
 - Warns users when ssl_passphrase_command is set, as this module overrides that functionality
 - Part of PostgreSQL's SSL testing infrastructure for validating custom passphrase handling
+
+## Simplified Source
+
+```c
+static void
+set_rot13(SSL_CTX *context, bool isServerStart)
+{
+    // Warn if ssl_passphrase_command is configured
+    if (ssl_passphrase_command[0])
+        ereport(WARNING,
+                (errmsg("\"ssl_passphrase_command\" setting ignored by ssl_passphrase_func module")));
+
+    // Set ROT13 password callback for SSL context
+    SSL_CTX_set_default_passwd_cb(context, rot13_passphrase);
+}
+```

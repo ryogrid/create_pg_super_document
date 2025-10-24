@@ -32,3 +32,12 @@ This function performs simple memory deallocation for a decimal type structure. 
 - Should be called for every decimal value that was dynamically allocated
 - Must not be called on static or stack-allocated decimal structures
 - Located in src/interfaces/ecpg/pgtypeslib/numeric.c:392-406
+
+## Simplified Source
+
+```c
+void PGTYPESdecimal_free(decimal *var) {
+    // Free the allocated decimal structure
+    free(var);
+}
+```

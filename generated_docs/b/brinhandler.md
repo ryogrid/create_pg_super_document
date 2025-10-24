@@ -67,3 +67,37 @@ The returned `IndexAmRoutine` structure contains key configuration settings:
 - BRIN indexes have very low storage overhead compared to B-tree indexes but provide less precise selectivity
 - The `amcanparallel` flag is set to false, meaning BRIN does not support parallel index scans, but parallel building is supported
 - BRIN indexes work best with larger `pages_per_range` settings for tables with good clustering
+
+## Simplified Source
+
+```c
+Datum brinhandler(PG_FUNCTION_ARGS) {
+    // Create and initialize the access method routine structure
+    IndexAmRoutine *amroutine = makeNode(IndexAmRoutine);
+
+    // Set BRIN index capabilities and characteristics
+    amroutine->amstrategies = 0;
+    amroutine->amsupport = BRIN_LAST_OPTIONAL_PROCNUM;
+    amroutine->amcanorder = false;        // Cannot provide ordered output
+    amroutine->amcanunique = false;       // Cannot enforce uniqueness
+    amroutine->amcanmulticol = true;      // Supports multi-column indexes
+    amroutine->amoptionalkey = true;      // Supports optional key searches
+    amroutine->amsearchnulls = true;      // Can search for null values
+    amroutine->amstorage = true;          // Has storage capability
+    amroutine->amsummarizing = true;      // Summarizing index type
+    amroutine->amcanbuildparallel = true; // Supports parallel building
+
+    // Set up callback functions for index operations
+    amroutine->ambuild = brinbuild;
+    amroutine->aminsert = brininsert;
+    amroutine->ambulkdelete = brinbulkdelete;
+    amroutine->amvacuumcleanup = brinvacuumcleanup;
+    amroutine->amcostestimate = brincostestimate;
+    amroutine->ambeginscan = brinbeginscan;
+    amroutine->amgetbitmap = bringetbitmap;
+    amroutine->amendscan = brinendscan;
+
+    // Return the configured access method routine
+    PG_RETURN_POINTER(amroutine);
+}
+```

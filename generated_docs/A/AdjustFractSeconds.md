@@ -41,3 +41,23 @@ The function operates by:
 - The function uses rint() to ensure proper rounding when converting fractional seconds to microseconds
 - It's primarily used in interval parsing and decoding operations within the ECPG pgtypeslib
 - The scale parameter allows for different precision handling depending on the context of use
+
+## Simplified Source
+
+```c
+static void AdjustFractSeconds(double frac, struct tm *tm, fsec_t *fsec, int scale)
+{
+    // Skip processing if no fractional value
+    if (frac == 0)
+        return;
+
+    // Scale the fractional value and extract whole seconds
+    frac *= scale;
+    int sec = (int) frac;
+    tm->tm_sec += sec;
+
+    // Convert remaining fractional part to microseconds
+    frac -= sec;
+    *fsec += rint(frac * 1000000);
+}
+```

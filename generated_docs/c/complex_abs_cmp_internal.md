@@ -39,3 +39,20 @@ The magnitude is calculated as x² + y² for each complex number, avoiding the s
 - Part of the B-tree index operator class implementation for complex numbers
 - Avoids computing actual square root for performance, using x² + y² comparison instead
 - Located in src/tutorial/complex.c:132-147
+
+## Simplified Source
+
+```c
+static int complex_abs_cmp_internal(Complex * a, Complex * b) {
+    // Calculate magnitudes (x² + y²) for both complex numbers
+    double amag = Mag(a),
+           bmag = Mag(b);
+
+    // Three-way comparison of magnitudes
+    if (amag < bmag)
+        return -1;
+    if (amag > bmag)
+        return 1;
+    return 0;
+}
+```

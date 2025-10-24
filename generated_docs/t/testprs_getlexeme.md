@@ -33,3 +33,35 @@ The testprs_getlexeme function is the core parsing function that extracts indivi
 - Updates parser position as it processes the input buffer
 - Provides both token text pointer and length through output parameters
 - Part of PostgreSQL's test infrastructure for parser functionality testing
+
+## Simplified Source
+
+```c
+Datum testprs_getlexeme(PG_FUNCTION_ARGS) {
+    ParserState *pst = (ParserState *) PG_GETARG_POINTER(0);
+    char **t = (char **) PG_GETARG_POINTER(1);
+    int *tlen = (int *) PG_GETARG_POINTER(2);
+
+    int startpos = pst->pos;
+    int type;
+    *t = pst->buffer + pst->pos;
+
+    // Determine token type and advance position
+    if (pst->pos < pst->len && pst->buffer[pst->pos] == ' ') {
+        // Blank type: skip all consecutive spaces
+        type = 12;
+        while (pst->pos < pst->len && pst->buffer[pst->pos] == ' ')
+            pst->pos++;
+    } else {
+        // Word type: advance to next space
+        type = 3;
+        while (pst->pos < pst->len && pst->buffer[pst->pos] != ' ')
+            pst->pos++;
+    }
+
+    *tlen = pst->pos - startpos;
+
+    // Return 0 if no more tokens, otherwise return token type
+    return PG_RETURN_INT32(*tlen == 0 ? 0 : type);
+}
+```

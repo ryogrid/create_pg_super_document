@@ -32,3 +32,15 @@ The `add_one_float8` function is a PostgreSQL C function that takes a single dou
 - Uses standard PostgreSQL macros for floating-point argument handling and return values
 - Follows PostgreSQL's version 1 calling convention
 - Demonstrates proper handling of PostgreSQL's float8 data type
+
+## Simplified Source
+
+```c
+Datum add_one_float8(PG_FUNCTION_ARGS) {
+    // Get the floating-point argument (macros hide pass-by-reference nature)
+    float8 arg = PG_GETARG_FLOAT8(0);
+
+    // Return the argument plus 1.0
+    PG_RETURN_FLOAT8(arg + 1.0);
+}
+```

@@ -55,3 +55,27 @@ LC_ALL=: The locale string to set, or NULL to query the current locale
 - The returned string should not be modified by the caller (standard setlocale() behavior)
 - Uses  macro to safely cast away const qualifier from the result of map_locale()
 - Handles NULL locale argument by passing it through unchanged to the underlying setlocale()
+
+## Simplified Source
+
+```c
+char *pgwin32_setlocale(int category, const char *locale) {
+    const char *argument;
+    char *result;
+
+    // Map input locale to fix Windows-specific naming issues
+    if (locale == NULL)
+        argument = NULL;
+    else
+        argument = map_locale(locale_map_argument, locale);
+
+    // Call the real setlocale() function
+    result = setlocale(category, argument);
+
+    // Map output result to fix encoding issues
+    if (result)
+        result = unconstify(char *, map_locale(locale_map_result, result));
+
+    return result;
+}
+```

@@ -33,3 +33,16 @@ The empty implementation ensures that while the Tcl notifier interface is satisf
 - According to comments in the code, DeleteFileHandler is one of the notifier functions that "ever seem to get called within Postgres", unlike some others that are never used
 - This function pairs with pltcl_CreateFileHandler - since the create function does nothing, the delete function also needs to do nothing
 - Located in src/pl/tcl/pltcl.c:379-383
+
+## Simplified Source
+
+```c
+static void
+pltcl_DeleteFileHandler(int fd)
+{
+    // No-op function: intentionally empty
+    // Since pltcl_CreateFileHandler doesn't create any handlers,
+    // this deletion function has nothing to delete
+    // Maintains compatibility with Tcl's notifier interface
+}
+```

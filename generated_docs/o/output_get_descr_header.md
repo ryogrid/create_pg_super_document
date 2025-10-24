@@ -42,3 +42,28 @@ The generated code follows this pattern:
 - The function automatically cleans up the assignments list after processing
 - The whenever_action(3) call handles SQL exception processing for the generated code
 - This is specifically for SQL descriptor header operations, not individual descriptor items
+
+## Simplified Source
+
+```c
+void output_get_descr_header(char *desc_name) {
+    // Generate ECPGget_desc_header function call
+    fprintf(base_yyout, "{ ECPGget_desc_header(__LINE__, %s, &(", desc_name);
+
+    // Process each assignment in the list
+    for (struct assignment *results = assignments; results != NULL; results = results->next) {
+        if (results->value == ECPGd_count) {
+            // Handle count assignment - generate numeric lvalue code
+            ECPGnumeric_lvalue(results->variable);
+        } else {
+            // Warn about unsupported header items
+            mmerror(PARSE_ERROR, ET_WARNING, "descriptor header item \"%d\" does not exist", results->value);
+        }
+    }
+
+    // Complete the function call and add error handling
+    drop_assignments();
+    fprintf(base_yyout, "));\\n");
+    whenever_action(3);
+}
+```

@@ -36,3 +36,27 @@ When called with a string argument, it creates a cursor for a simple SQL query v
 - Error handling clears Python exceptions between argument parsing attempts to try both patterns
 - Returns NULL and sets a Python exception if neither argument pattern matches
 - Part of the broader PL/Python cursor system that enables efficient iteration over query results
+
+## Simplified Source
+
+```c
+PyObject *PLy_cursor(PyObject *self, PyObject *args) {
+    char *query;
+    PyObject *plan;
+    PyObject *planargs = NULL;
+
+    // Try parsing as query string first
+    if (PyArg_ParseTuple(args, "s", &query))
+        return PLy_cursor_query(query);
+
+    PyErr_Clear();
+
+    // Try parsing as plan object with optional arguments
+    if (PyArg_ParseTuple(args, "O|O", &plan, &planargs))
+        return PLy_cursor_plan(plan, planargs);
+
+    // Neither pattern matched - raise error
+    PLy_exception_set(PLy_exc_error, "plpy.cursor expected a query or a plan");
+    return NULL;
+}
+```

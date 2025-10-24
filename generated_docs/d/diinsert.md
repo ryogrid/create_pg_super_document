@@ -45,3 +45,18 @@ This function implements the tuple insertion interface for PostgreSQL's dummy in
 - Located in src/test/modules/dummy_index_am/dummy_index_am.c:166-179
 - Serves as a template for implementing actual tuple insertion in custom access methods
 - The function signature matches the standard PostgreSQL index access method interface
+
+## Simplified Source
+
+```c
+static bool
+diinsert(Relation index, Datum *values, bool *isnull,
+         ItemPointer ht_ctid, Relation heapRel,
+         IndexUniqueCheck checkUnique,
+         bool indexUnchanged,
+         IndexInfo *indexInfo)
+{
+    // Nothing to do - this is a dummy implementation
+    return false;
+}
+```

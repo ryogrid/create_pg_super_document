@@ -27,3 +27,27 @@ PQresultSetInstanceData allows applications to associate custom data with a prev
 
 ## Notes and Other Information
 The event procedure must have been previously registered and copied to the result object before instance data can be set. Returns true on success, false if the procedure is not found or invalid parameters are provided. The data pointer is stored as-is without copying, so the caller must ensure the data remains valid for the lifetime of the result object.
+
+## Simplified Source
+
+```c
+int PQresultSetInstanceData(PGresult *result, PGEventProc proc, void *data) {
+    int i;
+
+    // Validate parameters
+    if (!result || !proc)
+        return false;
+
+    // Find the matching event procedure in result
+    for (i = 0; i < result->nEvents; i++) {
+        if (result->events[i].proc == proc) {
+            // Set the instance data
+            result->events[i].data = data;
+            return true;
+        }
+    }
+
+    // Event procedure not found
+    return false;
+}
+```

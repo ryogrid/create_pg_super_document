@@ -39,3 +39,36 @@ The `lo_close` function closes a previously opened large object file descriptor,
 - Automatically handles communication with the PostgreSQL backend to complete the close operation
 - Used extensively in cleanup paths and error handling throughout the large object API
 - Essential for proper resource management in applications that work with large objects
+
+## Simplified Source
+
+```c
+int lo_close(PGconn *conn, int fd) {
+    PQArgBlock argv[1];
+    PGresult *res;
+    int retval;
+    int result_len;
+
+    // Initialize large object function lookup table
+    if (lo_initialize(conn) < 0)
+        return -1;
+
+    // Prepare argument: file descriptor to close
+    argv[0].isint = 1;
+    argv[0].len = 4;
+    argv[0].u.integer = fd;
+
+    // Call backend lo_close function
+    res = PQfn(conn, conn->lobjfuncs->fn_lo_close,
+               &retval, &result_len, 1, argv, 1);
+
+    // Check result and return status
+    if (PQresultStatus(res) == PGRES_COMMAND_OK) {
+        PQclear(res);
+        return retval; // Success: return backend result
+    } else {
+        PQclear(res);
+        return -1; // Failure
+    }
+}
+```

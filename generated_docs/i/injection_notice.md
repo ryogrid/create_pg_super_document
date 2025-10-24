@@ -30,3 +30,20 @@ The `injection_notice` function serves as a callback action for injection points
 - The function provides a non-disruptive way to verify injection point execution during testing
 - Uses NOTICE log level which is visible to clients by default, making it suitable for test verification
 - Part of the injection_points test module located in src/test/modules/injection_points/
+
+## Simplified Source
+
+```c
+void
+injection_notice(const char *name, const void *private_data)
+{
+    InjectionPointCondition *condition = (InjectionPointCondition *) private_data;
+
+    // Check if this injection point should execute
+    if (!injection_point_allowed(condition))
+        return;
+
+    // Log a NOTICE message with injection point name
+    elog(NOTICE, "notice triggered for injection point %s", name);
+}
+```

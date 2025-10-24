@@ -40,3 +40,16 @@ This function is designed to work within PostgreSQL's operator framework and fol
 - The function follows PostgreSQL's V1 calling convention
 - Returns true if |a| > |b|, false otherwise
 - Located in the tutorial code demonstrating how to implement custom data types in PostgreSQL
+
+## Simplified Source
+
+```c
+Datum complex_abs_gt(PG_FUNCTION_ARGS) {
+    // Extract the two complex numbers from function arguments
+    Complex *a = (Complex *) PG_GETARG_POINTER(0);
+    Complex *b = (Complex *) PG_GETARG_POINTER(1);
+
+    // Compare magnitudes and return true if first > second
+    PG_RETURN_BOOL(complex_abs_cmp_internal(a, b) > 0);
+}
+```

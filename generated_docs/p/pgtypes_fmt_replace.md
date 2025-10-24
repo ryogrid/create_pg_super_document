@@ -63,3 +63,94 @@ Key features include:
 - The function updates both `output` and `pstr_len` parameters to reflect the new buffer state after writing
 - Critical component of the PostgreSQL ECPG formatting system for date, time, and numeric data types
 - Located in `src/interfaces/ecpg/pgtypeslib/common.c:30-144`
+
+## Simplified Source
+
+```c
+int pgtypes_fmt_replace(union un_fmt_comb replace_val, int replace_type, char **output, int *pstr_len)
+{
+    int i = 0;
+
+    switch (replace_type) {
+        case PGTYPES_TYPE_NOTHING:
+            break;
+
+        case PGTYPES_TYPE_STRING_CONSTANT:
+        case PGTYPES_TYPE_STRING_MALLOCED:
+            // Copy string to output buffer
+            i = strlen(replace_val.str_val);
+            if (i + 1 <= *pstr_len) {
+                memcpy(*output, replace_val.str_val, i + 1);
+                *pstr_len -= i;
+                *output += i;
+                if (replace_type == PGTYPES_TYPE_STRING_MALLOCED)
+                    free(replace_val.str_val);
+                return 0;
+            }
+            return -1;
+
+        case PGTYPES_TYPE_CHAR:
+            // Copy single character
+            if (*pstr_len >= 2) {
+                (*output)[0] = replace_val.char_val;
+                (*output)[1] = '\0';
+                (*pstr_len)--;
+                (*output)++;
+                return 0;
+            }
+            return -1;
+
+        case PGTYPES_TYPE_DOUBLE_NF:
+        case PGTYPES_TYPE_INT64:
+        case PGTYPES_TYPE_UINT:
+        case PGTYPES_TYPE_UINT_2_LZ:
+        case PGTYPES_TYPE_UINT_2_LS:
+        case PGTYPES_TYPE_UINT_3_LZ:
+        case PGTYPES_TYPE_UINT_4_LZ:
+            {
+                // Format numeric values with appropriate format specifiers
+                char *temp_buffer = pgtypes_alloc(PGTYPES_FMT_NUM_MAX_DIGITS);
+                if (!temp_buffer)
+                    return ENOMEM;
+
+                // Format based on type
+                switch (replace_type) {
+                    case PGTYPES_TYPE_DOUBLE_NF:
+                        i = snprintf(temp_buffer, PGTYPES_FMT_NUM_MAX_DIGITS, "%0.0g", replace_val.double_val);
+                        break;
+                    case PGTYPES_TYPE_INT64:
+                        i = snprintf(temp_buffer, PGTYPES_FMT_NUM_MAX_DIGITS, INT64_FORMAT, replace_val.int64_val);
+                        break;
+                    case PGTYPES_TYPE_UINT:
+                        i = snprintf(temp_buffer, PGTYPES_FMT_NUM_MAX_DIGITS, "%u", replace_val.uint_val);
+                        break;
+                    case PGTYPES_TYPE_UINT_2_LZ:
+                        i = snprintf(temp_buffer, PGTYPES_FMT_NUM_MAX_DIGITS, "%02u", replace_val.uint_val);
+                        break;
+                    case PGTYPES_TYPE_UINT_2_LS:
+                        i = snprintf(temp_buffer, PGTYPES_FMT_NUM_MAX_DIGITS, "%2u", replace_val.uint_val);
+                        break;
+                    case PGTYPES_TYPE_UINT_3_LZ:
+                        i = snprintf(temp_buffer, PGTYPES_FMT_NUM_MAX_DIGITS, "%03u", replace_val.uint_val);
+                        break;
+                    case PGTYPES_TYPE_UINT_4_LZ:
+                        i = snprintf(temp_buffer, PGTYPES_FMT_NUM_MAX_DIGITS, "%04u", replace_val.uint_val);
+                        break;
+                }
+
+                // Check buffer space and copy result
+                if (i < 0 || i >= PGTYPES_FMT_NUM_MAX_DIGITS || *pstr_len <= strlen(temp_buffer)) {
+                    free(temp_buffer);
+                    return -1;
+                }
+
+                strcpy(*output, temp_buffer);
+                *output += strlen(temp_buffer);
+                *pstr_len -= strlen(temp_buffer);
+                free(temp_buffer);
+            }
+            break;
+    }
+    return 0;
+}
+```

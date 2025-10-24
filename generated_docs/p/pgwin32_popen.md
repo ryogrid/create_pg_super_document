@@ -35,3 +35,38 @@ The function creates a pipe to the specified command, allowing the caller to rea
 - The extra quotes help handle Windows paths and arguments that contain spaces
 - Must be paired with  to properly close the pipe and wait for command completion
 - Located in src/port/system.c as part of the platform abstraction layer
+
+## Simplified Source
+
+```c
+FILE *pgwin32_popen(const char *command, const char *type)
+{
+    size_t cmdlen = strlen(command);
+    char *buf;
+    int save_errno;
+    FILE *res;
+
+    // Allocate buffer for command with surrounding quotes
+    buf = malloc(cmdlen + 3);  // +2 for quotes, +1 for null terminator
+    if (buf == NULL) {
+        errno = ENOMEM;
+        return NULL;
+    }
+
+    // Create quoted command: "original_command"
+    buf[0] = '"';
+    memcpy(&buf[1], command, cmdlen);
+    buf[cmdlen + 1] = '"';
+    buf[cmdlen + 2] = '\0';
+
+    // Open pipe with quoted command
+    res = _popen(buf, type);
+
+    // Clean up while preserving errno
+    save_errno = errno;
+    free(buf);
+    errno = save_errno;
+
+    return res;
+}
+```

@@ -33,3 +33,12 @@ The function returns 0 if the operation is successful and EOF if it fails. Howev
 - The deprecation is due to inadequate return value semantics that don't provide sufficient error information
 - Located in src/interfaces/libpq/fe-exec.c:2918-2927
 - Part of the PostgreSQL COPY protocol implementation in libpq
+
+## Simplified Source
+
+```c
+int PQputline(PGconn *conn, const char *string) {
+    // Simple wrapper: send the string with its length calculated by strlen
+    return PQputnbytes(conn, string, strlen(string));
+}
+```

@@ -33,3 +33,16 @@ This function is essential for prepared statement introspection, allowing applic
 - The returned count indicates how many parameters must be provided to PQexecPrepared() or similar functions
 - Essential for prepared statement parameter validation in client applications
 - Part of the prepared statement introspection API alongside PQparamtype()
+
+## Simplified Source
+
+```c
+int PQnparams(const PGresult *res) {
+    // Return 0 for invalid result pointer
+    if (!res)
+        return 0;
+
+    // Return the parameter count from prepared statement result
+    return res->numParameters;
+}
+```

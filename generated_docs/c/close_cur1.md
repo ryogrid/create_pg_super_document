@@ -39,3 +39,18 @@ The function demonstrates the ECPG translation of embedded SQL cursor close oper
 - The function expects that the cursor 'mycur' has been previously opened and used
 - Simpler than open_cur1 and get_record1 as it doesn't require complex parameter binding
 - Completes the cursor lifecycle: declare/open → fetch → close
+
+## Simplified Source
+
+```c
+static void close_cur1(void) {
+    // Close the cursor to release resources
+    ECPGdo(__LINE__, 0, 1, NULL, 0, ECPGst_normal,
+           "close mycur",
+           ECPGt_EOIT, ECPGt_EORT);
+
+    // Check for SQL errors and exit if necessary
+    if (sqlca.sqlcode < 0)
+        exit(1);
+}
+```

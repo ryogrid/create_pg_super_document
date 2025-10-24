@@ -38,3 +38,33 @@ The function works on both Unix (fork-based) and Windows (thread-based) platform
 - Registers and unregisters the archive handle with the slot for proper signal handling
 - Calls the archive-specific SetupWorkerPtr function to perform format-specific initialization
 - Handles both process-based (Unix fork) and thread-based (Windows) parallel execution models
+
+## Simplified Source
+
+```c
+static void
+RunWorker(ArchiveHandle *AH, ParallelSlot *slot)
+{
+    // Set up pipe file descriptors for communication
+    int pipefd[2];
+    pipefd[PIPE_READ] = slot->pipeRevRead;
+    pipefd[PIPE_WRITE] = slot->pipeRevWrite;
+
+    // Clone archive for isolated worker state and DB connection
+    AH = CloneArchive(AH);
+
+    // Register archive with slot for signal handling
+    set_cancel_slot_archive(slot, AH);
+
+    // Call archive-specific worker setup function
+    (AH->SetupWorkerPtr)((Archive *) AH);
+
+    // Execute commands from main process until done
+    WaitForCommands(AH, pipefd);
+
+    // Cleanup: unregister archive, disconnect DB, destroy clone
+    set_cancel_slot_archive(slot, NULL);
+    DisconnectDatabase(&(AH->public));
+    DeCloneArchive(AH);
+}
+```

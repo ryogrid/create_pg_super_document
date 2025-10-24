@@ -42,3 +42,27 @@ The supported OpenSSL attributes include: "library", "key_bits", "cipher", "comp
 - The function is declared in the public libpq-fe.h header, making it part of the official libpq API
 - Designed to work with PQsslAttribute function for querying specific attribute values
 - Located in src/interfaces/libpq/fe-secure-openssl.c:1814-1840
+
+## Simplified Source
+
+```c
+const char *const *
+PQsslAttributeNames(PGconn *conn)
+{
+    // Supported OpenSSL attribute names
+    static const char *const openssl_attrs[] = {
+        "library", "key_bits", "cipher", "compression", "protocol", "alpn", NULL
+    };
+    static const char *const empty_attrs[] = {NULL};
+
+    // Return default attributes if no connection specified
+    if (!conn)
+        return openssl_attrs;
+
+    // Return empty list for non-SSL connections
+    if (conn->ssl == NULL)
+        return empty_attrs;
+
+    return openssl_attrs;
+}
+```

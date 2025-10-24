@@ -31,3 +31,14 @@ PGTYPESdate_new is a memory allocation function specifically designed for creati
 - Memory allocated by this function should be freed using PGTYPESdate_free to prevent memory leaks
 - This is part of the ECPG pgtypeslib interface for handling PostgreSQL date types in C applications
 - Located in src/interfaces/ecpg/pgtypeslib/datetime.c:15-24
+
+## Simplified Source
+
+```c
+date *PGTYPESdate_new(void)
+{
+    // Allocate memory for a new date object
+    date *result = (date *) pgtypes_alloc(sizeof(date));
+    return result; // May be NULL if allocation fails
+}
+```

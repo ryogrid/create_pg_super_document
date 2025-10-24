@@ -34,3 +34,16 @@ The function handles NULL input gracefully by returning 0, making it safe to use
 - Part of the core libpq result inspection API
 - Often the first function called when examining query results
 - Used by virtually all PostgreSQL client applications that process query results
+
+## Simplified Source
+
+```c
+int PQntuples(const PGresult *res) {
+    // Return 0 for NULL result
+    if (!res)
+        return 0;
+
+    // Return the number of tuples (rows) in the result
+    return res->ntups;
+}
+```

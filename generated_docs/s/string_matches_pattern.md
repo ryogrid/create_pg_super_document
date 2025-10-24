@@ -38,3 +38,48 @@ This function implements a simplified pattern matching algorithm that mimics the
 - No implicit end-of-string anchor (no "$" at pattern end)
 - Could be extended to support more regex features if needed
 - Located in src/test/regress/pg_regress.c:541-614
+
+## Simplified Source
+
+```c
+static bool string_matches_pattern(const char *str, const char *pattern) {
+    while (*str && *pattern) {
+        // Handle ".*" pattern (zero or more characters)
+        if (*pattern == '.' && pattern[1] == '*') {
+            pattern += 2;
+
+            // Trailing ".*" matches everything
+            if (*pattern == '\0')
+                return true;
+
+            // Find position where rest of pattern can match
+            while (*str) {
+                // Optimization: only recurse if first chars might match
+                if (*str == *pattern || *pattern == '.') {
+                    if (string_matches_pattern(str, pattern))
+                        return true;
+                }
+                str++;
+            }
+            return false;  // No match found
+        }
+        // Handle single char wildcard "." or literal match
+        else if (*pattern != '.' && *str != *pattern) {
+            return false;  // No match
+        }
+
+        str++;
+        pattern++;
+    }
+
+    // Check if we've consumed all pattern
+    if (*pattern == '\0')
+        return true;
+
+    // Handle remaining ".*" patterns at end
+    while (*pattern == '.' && pattern[1] == '*')
+        pattern += 2;
+
+    return (*pattern == '\0');
+}
+```

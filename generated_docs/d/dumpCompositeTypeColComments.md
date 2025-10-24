@@ -41,3 +41,81 @@ The function creates archive entries for each column comment with proper depende
 - Comments are archived in SECTION_NONE with dependencies on the parent type
 - The function reuses query results from the caller to avoid redundant database queries
 - Skips comments for dropped columns to maintain dump consistency
+
+## Simplified Source
+
+```c
+static void
+dumpCompositeTypeColComments(Archive *fout, const TypeInfo *tyinfo, PGresult *res)
+{
+    CommentItem *comments;
+    int         ncomments;
+    PQExpBuffer query;
+    PQExpBuffer target;
+    int         ntups;
+
+    // Skip if comments are disabled
+    if (fout->dopt->no_comments)
+        return;
+
+    // Search for comments associated with type's pg_class OID
+    ncomments = findComments(RelationRelationId, tyinfo->typrelid, &comments);
+    if (ncomments <= 0)
+        return;
+
+    // Build COMMENT ON statements
+    query = createPQExpBuffer();
+    target = createPQExpBuffer();
+
+    ntups = PQntuples(res);
+    int i_attnum = PQfnumber(res, "attnum");
+    int i_attname = PQfnumber(res, "attname");
+    int i_attisdropped = PQfnumber(res, "attisdropped");
+
+    // Process each comment
+    while (ncomments > 0) {
+        const char *attname = NULL;
+
+        // Find matching attribute for this comment
+        for (int i = 0; i < ntups; i++) {
+            if (atoi(PQgetvalue(res, i, i_attnum)) == comments->objsubid &&
+                PQgetvalue(res, i, i_attisdropped)[0] != 't') {
+                attname = PQgetvalue(res, i, i_attname);
+                break;
+            }
+        }
+
+        // Generate comment statement if attribute found
+        if (attname) {
+            const char *descr = comments->descr;
+
+            resetPQExpBuffer(target);
+            appendPQExpBuffer(target, "COLUMN %s.", fmtId(tyinfo->dobj.name));
+            appendPQExpBufferStr(target, fmtId(attname));
+
+            resetPQExpBuffer(query);
+            appendPQExpBuffer(query, "COMMENT ON COLUMN %s.", fmtQualifiedDumpable(tyinfo));
+            appendPQExpBuffer(query, "%s IS ", fmtId(attname));
+            appendStringLiteralAH(query, descr, fout);
+            appendPQExpBufferStr(query, ";\n");
+
+            // Archive the comment statement
+            ArchiveEntry(fout, nilCatalogId, createDumpId(),
+                         ARCHIVE_OPTS(.tag = target->data,
+                                      .namespace = tyinfo->dobj.namespace->dobj.name,
+                                      .owner = tyinfo->rolname,
+                                      .description = "COMMENT",
+                                      .section = SECTION_NONE,
+                                      .createStmt = query->data,
+                                      .deps = &(tyinfo->dobj.dumpId),
+                                      .nDeps = 1));
+        }
+
+        comments++;
+        ncomments--;
+    }
+
+    destroyPQExpBuffer(query);
+    destroyPQExpBuffer(target);
+}
+```

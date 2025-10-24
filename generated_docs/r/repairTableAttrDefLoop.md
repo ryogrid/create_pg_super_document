@@ -29,3 +29,16 @@ This function is part of PostgreSQL's pg_dump dependency resolution system. It s
 - The function follows the same pattern as CHECK constraint loop repair, as noted in the source comments
 - It's part of a larger system for breaking circular dependencies in pg_dump's object dependency graph
 - The repair is accomplished by simply removing one direction of the dependency relationship
+
+## Simplified Source
+
+```c
+static void
+repairTableAttrDefLoop(DumpableObject *tableobj,
+                      DumpableObject *attrdefobj)
+{
+    // Break circular dependency - attribute defaults behave like CHECK constraints
+    // Remove attrdef's dependency on table to break the loop
+    removeObjectDependency(attrdefobj, tableobj->dumpId);
+}
+```

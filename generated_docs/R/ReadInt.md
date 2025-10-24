@@ -36,3 +36,34 @@ ReadInt is the counterpart to WriteInt, deserializing a signed integer from an a
 - Uses little-endian byte reconstruction with explicit sign handling
 - Accumulates byte values using bit shifting to rebuild the original magnitude
 - Part of pg_dump's custom archive format foundation for integer deserialization
+
+## Simplified Source
+
+```c
+int ReadInt(ArchiveHandle *AH) {
+    int res = 0;
+    int sign = 0;  // Default positive
+    int bitShift = 0;
+
+    // Read sign byte for newer archive versions
+    if (AH->version > K_VERS_1_0) {
+        sign = AH->ReadBytePtr(AH);
+    }
+
+    // Read integer bytes and reconstruct value
+    for (int b = 0; b < AH->intSize; b++) {
+        int bv = AH->ReadBytePtr(AH) & 0xFF;
+        if (bv != 0) {
+            res = res + (bv << bitShift);
+        }
+        bitShift += 8;
+    }
+
+    // Apply sign if negative
+    if (sign) {
+        res = -res;
+    }
+
+    return res;
+}
+```

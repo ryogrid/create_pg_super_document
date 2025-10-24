@@ -39,3 +39,27 @@ The function demonstrates typical ECPG usage patterns including:
 - The function is static, meaning it's only accessible within the same compilation unit
 - Part of the prepareas test case which tests prepared statement functionality in ECPG
 - The SELECT query retrieves exactly two integer values which are immediately printed for verification
+
+## Simplified Source
+
+```c
+static void check_result_of_insert(void) {
+    // Declare variables for storing query results
+    int ivar1 = 0, ivar2 = 0;
+
+    // Execute SELECT query to retrieve test data
+    ECPGdo(__LINE__, 0, 1, NULL, 0, ECPGst_normal,
+           "select c1, c2 from test", ECPGt_EOIT,
+           ECPGt_int, &(ivar1), (long)1, (long)1, sizeof(int),
+           ECPGt_NO_INDICATOR, NULL, 0L, 0L, 0L,
+           ECPGt_int, &(ivar2), (long)1, (long)1, sizeof(int),
+           ECPGt_NO_INDICATOR, NULL, 0L, 0L, 0L, ECPGt_EORT);
+
+    // Check for SQL errors and print if any
+    if (sqlca.sqlcode < 0)
+        sqlprint();
+
+    // Display retrieved values for verification
+    printf("%d %d\n", ivar1, ivar2);
+}
+```

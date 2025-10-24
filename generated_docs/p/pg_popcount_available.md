@@ -35,3 +35,23 @@ The function uses platform-specific CPUID access methods - either  (GCC) or  (MS
 - The POPCNT instruction significantly accelerates bit counting operations
 - Part of PostgreSQL's adaptive optimization strategy for bit manipulation functions
 - CPUID function 1 provides processor info and feature bits, with POPCNT support indicated by ECX bit 23
+
+## Simplified Source
+
+```c
+static bool pg_popcount_available(void) {
+    unsigned int exx[4] = {0, 0, 0, 0};
+
+    // Get CPU feature information using platform-specific CPUID
+#if defined(HAVE__GET_CPUID)
+    __get_cpuid(1, &exx[0], &exx[1], &exx[2], &exx[3]);
+#elif defined(HAVE__CPUID)
+    __cpuid(exx, 1);
+#else
+#error cpuid instruction not available
+#endif
+
+    // Check POPCNT bit (bit 23) in ECX register
+    return (exx[2] & (1 << 23)) != 0;
+}
+```

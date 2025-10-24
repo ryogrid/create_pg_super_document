@@ -35,3 +35,14 @@ This function implements a simple logical ordering comparison for SLRU (Simple L
 - This callback function is required by the SLRU system to understand the logical ordering of pages
 - The function pointer is assigned to TestSlruCtl->PagePrecedes during SLRU initialization
 - In production SLRU implementations, page precedence logic may be more complex depending on the specific use case
+
+## Simplified Source
+
+```c
+static bool
+test_slru_page_precedes_logically(int64 page1, int64 page2)
+{
+    // Simple numeric comparison for page ordering
+    return page1 < page2;
+}
+```

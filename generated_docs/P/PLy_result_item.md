@@ -33,3 +33,23 @@ This function provides the implementation for Python's item access operation (sq
 - Supports negative indexing through PyList_GetItem's built-in handling
 - This function enables natural Python idioms like 'first_row = result[0]' to work with database results
 - Only handles single item access; slice operations would be handled by a separate sq_slice function if implemented
+
+## Simplified Source
+
+```c
+static PyObject *
+PLy_result_item(PyObject *arg, Py_ssize_t idx)
+{
+    // Cast to PLyResultObject to access stored rows
+    PLyResultObject *ob = (PLyResultObject *) arg;
+
+    // Get the row at specified index from rows list
+    PyObject *rv = PyList_GetItem(ob->rows, idx);
+
+    // Increment reference count before returning (proper Python memory management)
+    if (rv != NULL)
+        Py_INCREF(rv);
+
+    return rv;  // Returns NULL if index out of bounds
+}
+```

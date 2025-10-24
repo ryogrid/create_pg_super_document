@@ -38,3 +38,24 @@ The function operates in read mode (archModeRead) and configures the archive to 
 - The returned Archive pointer is actually an ArchiveHandle cast to Archive type
 - This is a public function in the pg_dump/pg_restore architecture
 - The function is typically called during the initialization phase of pg_restore operations
+
+## Simplified Source
+
+```c
+Archive *
+OpenArchive(const char *FileSpec, const ArchiveFormat fmt)
+{
+    ArchiveHandle *AH;
+    pg_compress_specification compression_spec = {0};
+
+    // Initialize compression spec (no compression by default)
+    compression_spec.algorithm = PG_COMPRESSION_NONE;
+
+    // Allocate archive handle for reading
+    AH = _allocAH(FileSpec, fmt, compression_spec, true,
+                  archModeRead, setupRestoreWorker,
+                  DATA_DIR_SYNC_METHOD_FSYNC);
+
+    return (Archive *) AH;
+}
+```

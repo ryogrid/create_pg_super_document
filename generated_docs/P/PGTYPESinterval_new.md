@@ -37,3 +37,17 @@ The function performs a simple memory allocation for an interval structure and r
 - Memory allocated by this function should be freed using appropriate pgtypes deallocation functions
 - Provides a clean abstraction for interval memory management in embedded C programs
 - Used in conjunction with other PGTYPESinterval_* functions for complete interval handling
+
+## Simplified Source
+
+```c
+interval *
+PGTYPESinterval_new(void)
+{
+    // Allocate memory for a new interval structure
+    interval *result = (interval *) pgtypes_alloc(sizeof(interval));
+
+    // Return the allocated interval (may be NULL if allocation fails)
+    return result;
+}
+```

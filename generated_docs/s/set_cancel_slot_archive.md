@@ -31,3 +31,22 @@ The function uses platform-specific synchronization (critical sections on Window
 - Uses Windows critical sections for thread safety on that platform
 - Allows signal handlers to iterate through worker slots and cancel their database connections
 - Essential part of the cleanup mechanism when backup operations are interrupted
+
+## Simplified Source
+
+```c
+static void
+set_cancel_slot_archive(ParallelSlot *slot, ArchiveHandle *AH)
+{
+    // Thread-safe assignment of archive handle to worker slot
+#ifdef WIN32
+    EnterCriticalSection(&signal_info_lock);
+#endif
+
+    slot->AH = AH;
+
+#ifdef WIN32
+    LeaveCriticalSection(&signal_info_lock);
+#endif
+}
+```

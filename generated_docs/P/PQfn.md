@@ -48,3 +48,38 @@ The function is incompatible with pipeline mode and requires the connection to b
 - Handles error state management appropriately for query cycle boundaries
 - Located in src/interfaces/libpq/fe-exec.c:2980-3041
 - Essential for PostgreSQL's large object interface implementation
+
+## Simplified Source
+
+```c
+PGresult *PQfn(PGconn *conn, int fnid, int *result_buf, int *result_len,
+               int result_is_int, const PQArgBlock *args, int nargs) {
+    // Initialize result length
+    *result_len = 0;
+
+    // Validate connection
+    if (!conn)
+        return NULL;
+
+    // Clear error state if starting new query cycle (not in pipeline)
+    if (conn->cmd_queue_head == NULL)
+        pqClearConnErrorState(conn);
+
+    // Check pipeline mode restriction
+    if (conn->pipelineStatus != PQ_PIPELINE_OFF) {
+        libpq_append_conn_error(conn, "%s not allowed in pipeline mode", "PQfn");
+        return NULL;
+    }
+
+    // Validate connection state
+    if (conn->sock == PGINVALID_SOCKET || conn->asyncStatus != PGASYNC_IDLE ||
+        pgHavePendingResult(conn)) {
+        libpq_append_conn_error(conn, "connection in wrong state");
+        return NULL;
+    }
+
+    // Delegate to protocol 3 function call implementation
+    return pqFunctionCall3(conn, fnid, result_buf, result_len,
+                          result_is_int, args, nargs);
+}
+```

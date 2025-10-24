@@ -40,3 +40,31 @@ All matching is performed case-insensitively since DNS is inherently case-insens
 - The pattern must start with '*.' to be considered a valid wildcard pattern
 - The function performs length validation to ensure the pattern can theoretically match the string before attempting detailed comparison
 - Returns false for any malformed or potentially unsafe wildcard patterns
+
+## Simplified Source
+
+```c
+static bool wildcard_certificate_match(const char *pattern, const char *string) {
+    int lenpat = strlen(pattern);
+    int lenstr = strlen(string);
+
+    // Rule 1 & 2: Must start with "*." for valid wildcard
+    if (lenpat < 3 || pattern[0] != '*' || pattern[1] != '.')
+        return false;
+
+    // Pattern cannot be longer than string to match
+    if (lenpat > lenstr)
+        return false;
+
+    // Check if string ends with pattern (minus the wildcard)
+    if (pg_strcasecmp(pattern + 1, string + lenstr - lenpat + 1) != 0)
+        return false;
+
+    // Rule 3: '*' does not match '.', so no dots allowed in matched portion
+    if (strchr(string, '.') < string + lenstr - lenpat)
+        return false;
+
+    // All checks passed - we have a valid match
+    return true;
+}
+```

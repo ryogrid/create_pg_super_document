@@ -30,3 +30,18 @@ The  function creates a hard link using the POSIX  system call with the  flag. T
 - Uses AT_FDCWD to specify current working directory for both target and linkname paths
 - The AT_SYMLINK_FOLLOW flag ensures that symbolic links in the target are resolved before creating the hard link
 - This function is used as a fallback or alternative linking mechanism in the timezone compilation process
+
+## Simplified Source
+
+```c
+static int
+hardlinkerr(char const *target, char const *linkname)
+{
+    // Create hard link using linkat with AT_SYMLINK_FOLLOW
+    // This follows symbolic links in the target path
+    int result = linkat(AT_FDCWD, target, AT_FDCWD, linkname, AT_SYMLINK_FOLLOW);
+
+    // Return 0 on success, errno on failure
+    return (result == 0) ? 0 : errno;
+}
+```

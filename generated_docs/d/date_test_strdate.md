@@ -34,3 +34,34 @@ The function maintains a static counter to number the successful conversions and
 - Uses static variable  to maintain a counter across function calls
 - Handles both successful conversions and error cases
 - Located in the expected output file for regression testing
+
+## Simplified Source
+
+```c
+static void
+date_test_strdate(const char *input)
+{
+    static int i;  // Test counter
+    date d;
+    int r, q;
+    char dbuf[11];
+
+    // Parse string to date structure
+    r = rstrdate(input, &d);
+    printf("r: %d ", r);
+
+    if (r == 0)  // Success
+    {
+        // Convert date back to string
+        q = rdatestr(d, dbuf);
+        printf("q: %d ", q);
+
+        if (q == 0)
+            printf("date %d: %s\n", i++, dbuf);
+        else
+            printf("\n");
+    }
+    else
+        check_return(r);  // Handle error
+}
+```

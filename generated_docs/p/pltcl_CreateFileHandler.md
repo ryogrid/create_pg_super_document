@@ -36,3 +36,17 @@ The empty implementation ensures that while the Tcl notifier interface is satisf
 - The empty implementation is intentional and by design - it prevents potential threading issues while maintaining compatibility with Tcl's notifier interface
 - In a typical Tcl application, file handlers are used for non-blocking I/O operations, but PostgreSQL's architecture doesn't require this functionality from the embedded Tcl interpreter
 - Located in src/pl/tcl/pltcl.c:373-378
+
+## Simplified Source
+
+```c
+static void
+pltcl_CreateFileHandler(int fd, int mask,
+                       Tcl_FileProc *proc, ClientData clientData)
+{
+    // No-op function: intentionally empty
+    // Prevents Tcl's file handler registration from causing
+    // threading complications in PostgreSQL's backend
+    // Normal Tcl would monitor file descriptor events here
+}
+```

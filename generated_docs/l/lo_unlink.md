@@ -42,3 +42,36 @@ The function communicates with the PostgreSQL server using the internal large ob
 - Will fail if the large object doesn't exist or if the user lacks appropriate permissions
 - Part of PostgreSQL's large object management interface
 - Should be used with caution as deleted large objects cannot be recovered without backup restoration
+
+## Simplified Source
+
+```c
+int lo_unlink(PGconn *conn, Oid lobjId) {
+    PQArgBlock argv[1];
+    PGresult *res;
+    int result_len;
+    int retval;
+
+    // Initialize large object subsystem
+    if (lo_initialize(conn) < 0)
+        return -1;
+
+    // Prepare large object OID argument
+    argv[0].isint = 1;
+    argv[0].len = 4;
+    argv[0].u.integer = lobjId;
+
+    // Call backend lo_unlink function via fastpath interface
+    res = PQfn(conn, conn->lobjfuncs->fn_lo_unlink,
+               &retval, &result_len, 1, argv, 1);
+
+    // Return success (1) or failure (-1)
+    if (PQresultStatus(res) == PGRES_COMMAND_OK) {
+        PQclear(res);
+        return retval;
+    } else {
+        PQclear(res);
+        return -1;
+    }
+}
+```

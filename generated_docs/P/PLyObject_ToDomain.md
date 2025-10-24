@@ -36,3 +36,24 @@ The function maintains the same interface as other conversion functions, support
 
 ## Notes and Other Information
 This function exemplifies PostgreSQL's layered type system where domain types build upon base types. The separation of base type conversion and constraint validation ensures proper code reuse and maintains consistency with PostgreSQL's internal domain handling. The function properly delegates memory context and other conversion parameters to maintain proper resource management throughout the conversion process.
+
+## Simplified Source
+
+```c
+static Datum
+PLyObject_ToDomain(PLyObToDatum *arg, PyObject *plrv,
+                   bool *isnull, bool inarray)
+{
+    Datum result;
+    PLyObToDatum *base_converter = arg->u.domain.base;
+
+    // Convert to base type first
+    result = base_converter->func(base_converter, plrv, isnull, inarray);
+
+    // Apply domain constraints validation
+    domain_check(result, *isnull, arg->typoid,
+                 &arg->u.domain.domain_info, arg->mcxt);
+
+    return result;
+}
+```

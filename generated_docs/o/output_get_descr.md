@@ -49,3 +49,41 @@ The generated code follows this pattern:
 - ECPGd_EODT marks the end of the descriptor type list in generated code
 - The whenever_action(2 | 1) call combines multiple error handling modes
 - This handles individual descriptor items, complementing output_get_descr_header for header operations
+
+## Simplified Source
+
+```c
+void output_get_descr(char *desc_name, char *index) {
+    // Generate ECPGget_desc function call with descriptor name and index
+    fprintf(base_yyout, "{ ECPGget_desc(__LINE__, %s, %s,", desc_name, index);
+
+    // Process each assignment to get descriptor items
+    for (struct assignment *results = assignments; results != NULL; results = results->next) {
+        const struct variable *v = find_variable(results->variable);
+        char *str_zero = mm_strdup("0");
+
+        // Handle special cases with warnings
+        switch (results->value) {
+            case ECPGd_nullable:
+                mmerror(PARSE_ERROR, ET_WARNING, "nullable is always 1");
+                break;
+            case ECPGd_key_member:
+                mmerror(PARSE_ERROR, ET_WARNING, "key_member is always 0");
+                break;
+            default:
+                break;
+        }
+
+        // Generate type information and variable dump
+        fprintf(base_yyout, "%s,", get_dtype(results->value));
+        ECPGdump_a_type(base_yyout, v->name, v->type, v->brace_level,
+                        NULL, NULL, -1, NULL, NULL, str_zero, NULL, NULL);
+        free(str_zero);
+    }
+
+    // Complete the descriptor call
+    drop_assignments();
+    fputs("ECPGd_EODT);\\n", base_yyout);
+    whenever_action(2 | 1);
+}
+```

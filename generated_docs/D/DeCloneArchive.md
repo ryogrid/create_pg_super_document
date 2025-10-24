@@ -32,3 +32,30 @@ DeCloneArchive performs cleanup operations for an ArchiveHandle clone created by
 - Should be called as the final step when a parallel worker thread completes its work
 - Paired with CloneArchive for proper resource management in parallel operations
 - The function assumes the caller has already properly closed any database connections
+
+## Simplified Source
+
+```c
+void DeCloneArchive(ArchiveHandle *AH)
+{
+    // Verify connection is closed
+    Assert(AH->connection == NULL);
+
+    // Format-specific cleanup
+    AH->DeClonePtr(AH);
+
+    // Free SQL parsing state
+    if (AH->sqlparse.curCmd)
+        destroyPQExpBuffer(AH->sqlparse.curCmd);
+
+    // Free connection-local state
+    free(AH->currUser);
+    free(AH->currSchema);
+    free(AH->currTablespace);
+    free(AH->currTableAm);
+    free(AH->savedPassword);
+
+    // Free the archive handle itself
+    free(AH);
+}
+```

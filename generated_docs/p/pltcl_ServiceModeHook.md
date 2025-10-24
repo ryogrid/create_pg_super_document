@@ -32,3 +32,15 @@ However, since PostgreSQL never enters the Tcl event loop and the notifier capab
 - The empty implementation is intentional and by design - it prevents potential threading issues while maintaining compatibility with Tcl's notifier interface
 - Service mode hooks are typically used in event-driven applications to manage resources or state transitions during event processing, but PostgreSQL doesn't require this functionality
 - Located in src/pl/tcl/pltcl.c:384-388
+
+## Simplified Source
+
+```c
+static void
+pltcl_ServiceModeHook(int mode)
+{
+    // No-op function: intentionally empty
+    // Would normally handle entering/exiting Tcl event service mode
+    // Disabled to prevent threading complications in PostgreSQL
+}
+```

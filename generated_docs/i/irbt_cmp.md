@@ -33,3 +33,16 @@ The implementation uses direct subtraction for comparison, with a noted assumpti
 - The function assumes non-negative key values to avoid integer overflow in subtraction
 - Part of PostgreSQL's Red-Black Tree testing framework located in src/test/modules/test_rbtree/
 - Follows the standard three-way comparison pattern (-1, 0, +1) for tree ordering
+
+## Simplified Source
+
+```c
+static int irbt_cmp(const RBTNode *a, const RBTNode *b, void *arg) {
+    // Cast generic nodes to integer-specific nodes
+    const IntRBTreeNode *ea = (const IntRBTreeNode *) a;
+    const IntRBTreeNode *eb = (const IntRBTreeNode *) b;
+
+    // Compare keys using simple subtraction
+    return ea->key - eb->key;
+}
+```

@@ -35,3 +35,14 @@ The _PG_fini function is the counterpart to _PG_init and together they provide t
 - Part of a test module for LDAP password transformation functionality
 - Currently has no implementation but serves as a placeholder for future cleanup needs
 - The corresponding _PG_init function in this module sets up an LDAP password hook
+
+## Simplified Source
+
+```c
+void
+_PG_fini(void)
+{
+    // Placeholder cleanup function for module unloading
+    // No cleanup operations needed for this test module
+}
+```

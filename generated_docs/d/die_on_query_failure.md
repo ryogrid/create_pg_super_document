@@ -37,3 +37,17 @@ This function is designed as a fatal error handler - once called, it will always
 - It provides a two-level error reporting: the main error message shows the database connection error, while the detail shows the actual query
 - This function is specifically designed for pg_dump context and relies on the ArchiveHandle structure for database connection access
 - The error output follows PostgreSQL's standard error message format with primary message and detail lines
+
+## Simplified Source
+
+```c
+static void die_on_query_failure(ArchiveHandle *AH, const char *query)
+{
+    // Log database error and the failed query
+    pg_log_error("query failed: %s", PQerrorMessage(AH->connection));
+    pg_log_error_detail("Query was: %s", query);
+
+    // Exit with error status
+    exit(1);
+}
+```

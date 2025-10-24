@@ -32,3 +32,21 @@ This function serves as a semantic callback for the JSON parser testing framewor
 - The function always returns JSON_SUCCESS, indicating successful processing
 - The output format includes a newline after the opening brace for readability
 - Used in conjunction with other do_* functions to handle different JSON parsing events
+
+## Simplified Source
+
+```c
+static JsonParseErrorType
+do_object_start(void *state)
+{
+    DoState *_state = (DoState *) state;
+
+    // Output opening brace for JSON object
+    printf("{\n");
+
+    // Reset flag for first element in object
+    _state->elem_is_first = true;
+
+    return JSON_SUCCESS;
+}
+```

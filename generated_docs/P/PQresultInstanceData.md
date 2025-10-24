@@ -26,3 +26,20 @@ PQresultInstanceData provides access to the instance data previously stored for 
 
 ## Notes and Other Information
 Returns the data pointer associated with the event procedure, or NULL if the procedure is not found or no data has been set. The function accepts const parameters, indicating it does not modify the result object. Applications should check for NULL return values before using the returned pointer. This is the result-specific counterpart to PQinstanceData for connection objects.
+
+## Simplified Source
+```c
+void *PQresultInstanceData(const PGresult *result, PGEventProc proc) {
+    // Validate input parameters
+    if (!result || !proc)
+        return NULL;
+
+    // Search through registered events for matching procedure
+    for (int i = 0; i < result->nEvents; i++) {
+        if (result->events[i].proc == proc)
+            return result->events[i].data;
+    }
+
+    return NULL;  // Event procedure not found
+}
+```

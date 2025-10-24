@@ -45,3 +45,113 @@ The function operates in several phases:
 - Uses careful overflow checking throughout to prevent integer overflow
 - The function is static and used internally within the timezone subsystem
 - Critical for PostgreSQL's timezone conversion functionality
+
+## Simplified Source
+
+```c
+static struct pg_tm *
+timesub(const pg_time_t *timep, int32 offset,
+        const struct state *sp, struct pg_tm *tmp)
+{
+    pg_time_t tdays;
+    int64 rem;
+    int y = EPOCH_YEAR;
+    int64 corr = 0;
+    bool hit = false;
+
+    // Apply leap second corrections if timezone state available
+    if (sp != NULL) {
+        for (int i = sp->leapcnt - 1; i >= 0; i--) {
+            const struct lsinfo *lp = &sp->lsis[i];
+            if (*timep >= lp->ls_trans) {
+                corr = lp->ls_corr;
+                hit = (*timep == lp->ls_trans &&
+                      (i == 0 ? 0 : lp[-1].ls_corr) < corr);
+                break;
+            }
+        }
+    }
+
+    // Convert timestamp to days and remaining seconds
+    tdays = *timep / SECSPERDAY;
+    rem = *timep % SECSPERDAY;
+
+    // Adjust year and days to handle year boundaries
+    while (tdays < 0 || tdays >= year_lengths[isleap(y)]) {
+        // Calculate year adjustment needed
+        int newy = y;
+        pg_time_t tdelta = tdays / DAYSPERLYEAR;
+        int idelta = (tdelta == 0) ? (tdays < 0 ? -1 : 1) : tdelta;
+
+        if (increment_overflow(&newy, idelta))
+            goto out_of_range;
+
+        // Adjust for leap days between years
+        int leapdays = leaps_thru_end_of(newy - 1) - leaps_thru_end_of(y - 1);
+        tdays -= ((pg_time_t)(newy - y)) * DAYSPERNYEAR + leapdays;
+        y = newy;
+    }
+
+    int idays = tdays;
+
+    // Apply timezone offset and leap second correction
+    rem += offset - corr;
+
+    // Normalize seconds and days
+    while (rem < 0) {
+        rem += SECSPERDAY;
+        --idays;
+    }
+    while (rem >= SECSPERDAY) {
+        rem -= SECSPERDAY;
+        ++idays;
+    }
+
+    // Normalize days and years
+    while (idays < 0) {
+        if (increment_overflow(&y, -1))
+            goto out_of_range;
+        idays += year_lengths[isleap(y)];
+    }
+    while (idays >= year_lengths[isleap(y)]) {
+        idays -= year_lengths[isleap(y)];
+        if (increment_overflow(&y, 1))
+            goto out_of_range;
+    }
+
+    // Set year (adjusted for tm_year base)
+    tmp->tm_year = y;
+    if (increment_overflow(&tmp->tm_year, -TM_YEAR_BASE))
+        goto out_of_range;
+
+    tmp->tm_yday = idays;
+
+    // Calculate day of week
+    tmp->tm_wday = (EPOCH_WDAY +
+                   ((y - EPOCH_YEAR) % DAYSPERWEEK) * (DAYSPERNYEAR % DAYSPERWEEK) +
+                   leaps_thru_end_of(y - 1) - leaps_thru_end_of(EPOCH_YEAR - 1) +
+                   idays) % DAYSPERWEEK;
+    if (tmp->tm_wday < 0)
+        tmp->tm_wday += DAYSPERWEEK;
+
+    // Break down remaining seconds into time components
+    tmp->tm_hour = rem / SECSPERHOUR;
+    rem %= SECSPERHOUR;
+    tmp->tm_min = rem / SECSPERMIN;
+    tmp->tm_sec = (rem % SECSPERMIN) + hit;  // Add 1 for leap second
+
+    // Calculate month and day of month
+    const int *month_lengths = mon_lengths[isleap(y)];
+    for (tmp->tm_mon = 0; idays >= month_lengths[tmp->tm_mon]; tmp->tm_mon++)
+        idays -= month_lengths[tmp->tm_mon];
+    tmp->tm_mday = idays + 1;
+
+    tmp->tm_isdst = 0;
+    tmp->tm_gmtoff = offset;
+    return tmp;
+
+out_of_range:
+    errno = EOVERFLOW;
+    return NULL;
+}
+```

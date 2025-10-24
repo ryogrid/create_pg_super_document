@@ -36,3 +36,19 @@ The function performs a critical safety check by verifying that  is not NULL bef
 - The function provides a layer of safety by validating the dumping context before delegating to format-specific implementations
 - Error handling is strict - any attempt to call this function outside proper context results in program termination
 - The actual writing mechanism varies depending on the archive format (custom, tar, directory, etc.) through the WriteDataPtr function pointer
+
+## Simplified Source
+
+```c
+void WriteData(Archive *AHX, const void *data, size_t dLen)
+{
+    ArchiveHandle *AH = (ArchiveHandle *) AHX;
+
+    // Ensure we're in a valid dumping context
+    if (!AH->currToc)
+        pg_fatal("WriteData cannot be called outside DataDumper routine context");
+
+    // Delegate to format-specific write function
+    AH->WriteDataPtr(AH, data, dLen);
+}
+```

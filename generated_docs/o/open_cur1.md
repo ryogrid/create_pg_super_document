@@ -49,3 +49,23 @@ This function showcases the complex parameter passing required for ECPG cursor o
 - Demonstrates proper binding of both data fields and their null indicators
 - Uses ECPGget_var to dynamically retrieve variable addresses at runtime
 - The function expects that variables have been previously registered via ECPGset_var
+
+## Simplified Source
+
+```c
+static void open_cur1(void) {
+    // Declare cursor with SELECT statement and bind variables
+    ECPGdo(__LINE__, 0, 1, NULL, 0, ECPGst_normal,
+           "declare mycur cursor for select * from a1",
+           ECPGt_EOIT,
+           // Bind data and null indicator variables for multiple fields
+           ECPGt_int, &((MYTYPE*)ECPGget_var(0))->id, 1, 1, sizeof(struct mytype),
+           ECPGt_int, &((MYNULLTYPE*)ECPGget_var(1))->id, 1, 1, sizeof(struct mynulltype),
+           // Additional field bindings for t, d1, d2, c fields...
+           ECPGt_EORT);
+
+    // Check for SQL errors and exit if necessary
+    if (sqlca.sqlcode < 0)
+        exit(1);
+}
+```

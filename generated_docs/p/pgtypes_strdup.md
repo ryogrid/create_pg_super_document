@@ -38,3 +38,19 @@ This function is essential for creating independent copies of strings used in Po
 - Used throughout the pgtypes library for string operations involving PostgreSQL date, timestamp, and interval data types
 - Provides consistent memory management semantics across the pgtypes library
 - Located in `src/interfaces/ecpg/pgtypeslib/common.c:20-29`
+
+## Simplified Source
+
+```c
+char *pgtypes_strdup(const char *str) {
+    // Duplicate the string using standard library
+    char *new = (char *) strdup(str);
+
+    // Set errno if duplication failed
+    if (!new) {
+        errno = ENOMEM;
+    }
+
+    return new;
+}
+```

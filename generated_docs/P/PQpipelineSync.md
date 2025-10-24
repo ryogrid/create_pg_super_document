@@ -42,3 +42,12 @@ The function validates that the connection is in pipeline mode, checks the async
 - Creates a PGQUERY_SYNC entry in the command queue
 - Critical for error recovery and batch boundary management in pipeline mode
 - Cannot be called during COPY operations
+
+## Simplified Source
+
+```c
+int PQpipelineSync(PGconn *conn) {
+    // Send sync message with immediate flush enabled
+    return pqPipelineSyncInternal(conn, true);
+}
+```

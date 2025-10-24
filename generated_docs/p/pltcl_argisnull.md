@@ -49,3 +49,44 @@ The function performs several validation steps: ensuring correct syntax (exactly
 - Returns "argno out of range" error for invalid argument numbers
 - Registered as built-in Tcl command "argisnull" available to PL/Tcl functions
 - Essential for implementing NULL-aware logic in Tcl stored procedures
+
+## Simplified Source
+
+```c
+static int
+pltcl_argisnull(ClientData cdata, Tcl_Interp *interp,
+               int objc, Tcl_Obj *const objv[])
+{
+    int argno;
+    FunctionCallInfo fcinfo = pltcl_current_call_state->fcinfo;
+
+    // Validate command syntax: requires exactly one argument number
+    if (objc != 2) {
+        Tcl_WrongNumArgs(interp, 1, objv, "argno");
+        return TCL_ERROR;
+    }
+
+    // Check this is called from a function, not a trigger
+    if (fcinfo == NULL) {
+        Tcl_SetObjResult(interp,
+                        Tcl_NewStringObj("argisnull cannot be used in triggers", -1));
+        return TCL_ERROR;
+    }
+
+    // Get and validate the argument number
+    if (Tcl_GetIntFromObj(interp, objv[1], &argno) != TCL_OK)
+        return TCL_ERROR;
+
+    // Convert from 1-based to 0-based indexing and validate range
+    argno--;
+    if (argno < 0 || argno >= fcinfo->nargs) {
+        Tcl_SetObjResult(interp,
+                        Tcl_NewStringObj("argno out of range", -1));
+        return TCL_ERROR;
+    }
+
+    // Return boolean indicating if the argument is NULL
+    Tcl_SetObjResult(interp, Tcl_NewBooleanObj(PG_ARGISNULL(argno)));
+    return TCL_OK;
+}
+```

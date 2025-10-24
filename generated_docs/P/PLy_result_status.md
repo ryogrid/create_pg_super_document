@@ -31,3 +31,18 @@ This function is a Python method implementation that provides access to the stat
 - The status value is set when the PLyResultObject is initially created from a PostgreSQL PGresult
 - Status strings follow PostgreSQL's standard command tag format (e.g., 'SELECT n', 'INSERT oid n', 'UPDATE n', 'DELETE n')
 - This provides Python code with access to the same status information available through PostgreSQL's libpq interface
+
+## Simplified Source
+
+```c
+static PyObject *
+PLy_result_status(PyObject *self, PyObject *args)
+{
+    // Cast to PLyResultObject to access stored data
+    PLyResultObject *ob = (PLyResultObject *) self;
+
+    // Return status string with proper reference counting
+    Py_INCREF(ob->status);
+    return ob->status;
+}
+```

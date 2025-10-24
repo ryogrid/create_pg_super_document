@@ -38,3 +38,20 @@ The function validates that it's safe to change the result mode using canChangeR
 - Particularly useful for large result sets to reduce memory usage
 - Part of libpq's partial result mode system introduced to handle large datasets efficiently
 - Cannot be used with already-retrieved results or when no query is active
+
+## Simplified Source
+
+```c
+int PQsetSingleRowMode(PGconn *conn) {
+    // Check if we can change the result mode
+    if (canChangeResultMode(conn)) {
+        // Enable single-row processing mode
+        conn->partialResMode = true;
+        conn->singleRowMode = true;
+        conn->maxChunkSize = 1;  // One row at a time
+        return 1;
+    } else {
+        return 0;  // Cannot change mode
+    }
+}
+```

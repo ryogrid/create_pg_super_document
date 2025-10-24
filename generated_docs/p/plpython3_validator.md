@@ -41,3 +41,41 @@ This function serves as the validation handler for PL/Python functions and trigg
 - Part of PostgreSQL's procedural language validation infrastructure
 - Handles both regular functions and trigger functions through PLy_procedure_is_trigger check
 - Uses InvalidOid for trigger validation since triggers aren't bound to specific tables during validation
+
+## Simplified Source
+
+```c
+Datum plpython3_validator(PG_FUNCTION_ARGS) {
+    Oid funcoid = PG_GETARG_OID(0);
+    HeapTuple tuple;
+    Form_pg_proc procStruct;
+    bool is_trigger;
+
+    // Security and configuration checks
+    if (!CheckFunctionValidatorAccess(fcinfo->flinfo->fn_oid, funcoid))
+        PG_RETURN_VOID();
+
+    if (!check_function_bodies)
+        PG_RETURN_VOID();
+
+    // Initialize PL/Python environment
+    PLy_initialize();
+
+    // Get function definition from system catalog
+    tuple = SearchSysCache1(PROCOID, ObjectIdGetDatum(funcoid));
+    if (!HeapTupleIsValid(tuple))
+        elog(ERROR, "cache lookup failed for function %u", funcoid);
+
+    procStruct = (Form_pg_proc) GETSTRUCT(tuple);
+
+    // Determine if this is a trigger function
+    is_trigger = PLy_procedure_is_trigger(procStruct);
+
+    ReleaseSysCache(tuple);
+
+    // Validate by compiling the Python procedure
+    PLy_procedure_get(funcoid, InvalidOid, is_trigger);
+
+    PG_RETURN_VOID();
+}
+```

@@ -33,3 +33,24 @@ This function recursively traverses and deallocates an entire `_stringlist` link
 - Sets the head pointer to NULL after complete deallocation to prevent use-after-free bugs
 - Complements `add_stringlist_item` by providing proper cleanup functionality
 - Critical for preventing memory leaks in long-running test processes
+
+## Simplified Source
+
+```c
+static void
+free_stringlist(_stringlist **listhead)
+{
+    // Handle NULL or empty list
+    if (listhead == NULL || *listhead == NULL)
+        return;
+
+    // Recursively free the rest of the list
+    if ((*listhead)->next != NULL)
+        free_stringlist(&((*listhead)->next));
+
+    // Free the string content and node
+    free((*listhead)->str);
+    free(*listhead);
+    *listhead = NULL;
+}
+```

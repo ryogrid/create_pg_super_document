@@ -34,3 +34,12 @@ The function delegates all its work to PLy_output, passing the LOG level constan
 - Part of a family of logging functions (PLy_debug, PLy_info, PLy_notice, PLy_warning, PLy_log) that provide different log levels
 - The actual message processing, formatting, and integration with PostgreSQL's ereport system is handled by PLy_output
 - LOG level messages are visible when PostgreSQL's log_min_messages setting is configured to LOG or lower
+
+## Simplified Source
+
+```c
+static PyObject *PLy_log(PyObject *self, PyObject *args, PyObject *kw) {
+    // Delegate to PLy_output with LOG level
+    return PLy_output(LOG, self, args, kw);
+}
+```

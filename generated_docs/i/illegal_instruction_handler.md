@@ -36,3 +36,13 @@ The function works in conjunction with a sigsetjmp/siglongjmp mechanism to imple
 - Uses setjmp/longjmp mechanism which is generally discouraged but necessary here for signal handling
 - The handler must be carefully managed to avoid interfering with normal program operation
 - Only active during the brief window of CPU feature detection, then restored to default handling
+
+## Simplified Source
+
+```c
+static void illegal_instruction_handler(SIGNAL_ARGS) {
+    // Jump back to the saved context when illegal instruction occurs
+    // This allows graceful handling of unsupported ARMv8 CRC instructions
+    siglongjmp(illegal_instruction_jump, 1);
+}
+```

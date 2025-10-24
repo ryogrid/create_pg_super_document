@@ -30,3 +30,12 @@ PQcancelSocket is a utility function that extracts the socket file descriptor fr
 - The function provides a type-safe way to access the socket from a cancel connection
 - Primarily used in testing scenarios and backend-frontend helper functions
 - The socket can be used for polling, monitoring connection status, or implementing custom timeout mechanisms during query cancellation
+
+## Simplified Source
+
+```c
+int PQcancelSocket(const PGcancelConn *cancelConn) {
+    // Extract socket from the embedded connection structure
+    return PQsocket(&cancelConn->conn);
+}
+```

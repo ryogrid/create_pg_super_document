@@ -46,3 +46,31 @@ The function validates that it's being called in the correct context (not from a
 - Registered as built-in Tcl command "return_null" available to PL/Tcl functions
 - Provides explicit NULL return semantics distinct from returning empty values
 - Essential for proper NULL handling in Tcl stored procedures where NULL has specific database meaning
+
+## Simplified Source
+
+```c
+static int
+pltcl_returnnull(ClientData cdata, Tcl_Interp *interp,
+                 int objc, Tcl_Obj *const objv[])
+{
+    FunctionCallInfo fcinfo = pltcl_current_call_state->fcinfo;
+
+    // Check for correct usage: no arguments
+    if (objc != 1) {
+        Tcl_WrongNumArgs(interp, 1, objv, "");
+        return TCL_ERROR;
+    }
+
+    // Ensure we're in a function context, not a trigger
+    if (fcinfo == NULL) {
+        Tcl_SetObjResult(interp,
+                        Tcl_NewStringObj("return_null cannot be used in triggers", -1));
+        return TCL_ERROR;
+    }
+
+    // Set NULL flag and return immediately
+    fcinfo->isnull = true;
+    return TCL_RETURN;
+}
+```

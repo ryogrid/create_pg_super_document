@@ -37,3 +37,20 @@ ECPGdo_descriptor provides a simplified interface for executing SQL statements t
 - Sets up standard descriptor execution with end-of-input/end-of-result markers
 - Located in src/interfaces/ecpg/ecpglib/execute.c:2292-2298
 - The function simplifies descriptor usage by providing sensible defaults for most parameters
+
+## Simplified Source
+
+```c
+bool ECPGdo_descriptor(int line, const char *connection,
+                       const char *descriptor, const char *query) {
+    // Legacy wrapper for descriptor-based SQL execution
+    // Delegates to ECPGdo with PostgreSQL compatibility settings
+    return ECPGdo(line, ECPG_COMPAT_PGSQL, true, connection, '\0', 0, query,
+                  ECPGt_EOIT,                      // End of input marker
+                  ECPGt_descriptor, descriptor,    // Use SQL descriptor
+                  0L, 0L, 0L,                     // Descriptor parameters
+                  ECPGt_NO_INDICATOR, NULL,       // No indicator variables
+                  0L, 0L, 0L,
+                  ECPGt_EORT);                    // End of result marker
+}
+```

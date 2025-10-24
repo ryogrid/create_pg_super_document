@@ -40,3 +40,24 @@ The  function provides functionality to truncate a PostgreSQL large object to a 
 - The function name includes 'my_' prefix to distinguish it from system truncate functions
 - Essential for testing large object operations that require precise size control in 64-bit environments
 - Error messages are output to stderr for debugging purposes
+
+## Simplified Source
+
+```c
+static void
+my_truncate(PGconn *conn, Oid lobjId, pg_int64 len)
+{
+    int lobj_fd;
+
+    // Open large object with read/write access
+    lobj_fd = lo_open(conn, lobjId, INV_READ | INV_WRITE);
+    if (lobj_fd < 0)
+        fprintf(stderr, "cannot open large object %u", lobjId);
+
+    // Truncate to specified length
+    if (lo_truncate64(conn, lobj_fd, len) < 0)
+        fprintf(stderr, "error in lo_truncate64: %s", PQerrorMessage(conn));
+
+    lo_close(conn, lobj_fd);
+}
+```

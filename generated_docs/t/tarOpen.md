@@ -44,3 +44,53 @@ The function handles platform-specific differences, particularly between Unix-li
 - Does not support compression - will fail if compression is enabled
 - On Windows, uses a retry loop to handle temporary file creation in case of name collisions
 - Sets restrictive file permissions using umask for security when creating temporary files
+
+## Simplified Source
+
+```c
+static TAR_MEMBER *tarOpen(ArchiveHandle *AH, const char *filename, char mode)
+{
+    lclContext *ctx = (lclContext *) AH->formatData;
+    TAR_MEMBER *tm;
+
+    if (mode == 'r') {
+        // Find file in archive
+        tm = _tarPositionTo(AH, filename);
+        if (!tm) {
+            if (filename)
+                pg_fatal("could not find file \"%s\" in archive", filename);
+            else
+                return NULL;  // No files left
+        }
+
+        // Set up for reading (no compression support)
+        if (AH->compression_spec.algorithm == PG_COMPRESSION_NONE)
+            tm->nFH = ctx->tarFH;
+        else
+            pg_fatal("compression is not supported by tar archive format");
+    } else {
+        // Create new TAR_MEMBER for writing
+        tm = pg_malloc0_object(TAR_MEMBER);
+
+        // Create temporary file with secure permissions
+        int old_umask = umask(S_IRWXG | S_IRWXO);
+        tm->tmpFH = tmpfile();  // Simplified - Unix path
+        if (tm->tmpFH == NULL)
+            pg_fatal("could not generate temporary file name: %m");
+        umask(old_umask);
+
+        // Set up for writing (no compression support)
+        if (AH->compression_spec.algorithm == PG_COMPRESSION_NONE)
+            tm->nFH = tm->tmpFH;
+        else
+            pg_fatal("compression is not supported by tar archive format");
+
+        tm->AH = AH;
+        tm->targetFile = pg_strdup(filename);
+    }
+
+    tm->mode = mode;
+    tm->tarFH = ctx->tarFH;
+    return tm;
+}
+```

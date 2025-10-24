@@ -33,3 +33,47 @@ This function serves as a comprehensive errno-to-symbol mapping utility that con
 - Serves as the second-level fallback in PostgreSQL's error reporting hierarchy
 - Extensive errno coverage includes file system, networking, process, and system call errors
 - Located in src/port/strerror.c:113-274
+
+## Simplified Source
+
+```c
+static char *get_errno_symbol(int errnum)
+{
+    switch (errnum) {
+        // File system errors
+        case EACCES: return "EACCES";
+        case ENOENT: return "ENOENT";
+        case ENOTDIR: return "ENOTDIR";
+        case EISDIR: return "EISDIR";
+        case EEXIST: return "EEXIST";
+        case EFAULT: return "EFAULT";
+        case EPERM: return "EPERM";
+        case EROFS: return "EROFS";
+
+        // Resource errors
+        case ENOMEM: return "ENOMEM";
+        case ENOSPC: return "ENOSPC";
+        case EMFILE: return "EMFILE";
+        case ENFILE: return "ENFILE";
+        case ENOBUFS: return "ENOBUFS";
+
+        // Network errors
+        case ECONNREFUSED: return "ECONNREFUSED";
+        case ECONNRESET: return "ECONNRESET";
+        case EHOSTUNREACH: return "EHOSTUNREACH";
+        case ENETUNREACH: return "ENETUNREACH";
+        case ETIMEDOUT: return "ETIMEDOUT";
+
+        // Process/system errors
+        case EINTR: return "EINTR";
+        case EINVAL: return "EINVAL";
+        case EIO: return "EIO";
+        case EPIPE: return "EPIPE";
+        case ERANGE: return "ERANGE";
+
+        // ... (50+ total errno mappings)
+    }
+
+    return NULL;  // Unknown errno
+}
+```

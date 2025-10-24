@@ -35,3 +35,26 @@ This function initializes a FilterStateData structure for processing filter file
 - Error handling is delegated to the application-specific exit function passed as parameter
 - The function initializes the line number counter to 0 and sets up a string buffer for line processing
 - When filename is "-", the function uses stdin instead of opening a file
+
+## Simplified Source
+
+```c
+void filter_init(FilterStateData *fstate, const char *filename, exit_function f_exit) {
+    // Initialize filter state structure
+    fstate->filename = filename;
+    fstate->lineno = 0;
+    fstate->exit_nicely = f_exit;
+    initStringInfo(&fstate->linebuff);
+
+    // Open file or use stdin if filename is "-"
+    if (strcmp(filename, "-") != 0) {
+        fstate->fp = fopen(filename, "r");
+        if (!fstate->fp) {
+            pg_log_error("could not open filter file \"%s\": %m", filename);
+            fstate->exit_nicely(1);
+        }
+    } else {
+        fstate->fp = stdin;
+    }
+}
+```

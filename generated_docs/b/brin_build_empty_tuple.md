@@ -37,3 +37,35 @@ This function implements a lazy initialization pattern for empty BRIN tuples. Wh
 - The empty tuple length is stored in bs_emptyTupleLen for reuse
 - The function switches memory contexts to ensure the empty tuple persists throughout the index build
 - Subsequent calls are very efficient, only requiring a single field update
+
+## Simplified Source
+
+```c
+static void
+brin_build_empty_tuple(BrinBuildState *state, BlockNumber blkno)
+{
+    // Lazy initialization: create empty tuple only once
+    if (state->bs_emptyTuple == NULL)
+    {
+        MemoryContext oldcxt;
+        BrinMemTuple *dtuple;
+
+        // Create new empty memory tuple
+        dtuple = brin_new_memtuple(state->bs_bdesc);
+
+        // Switch to persistent memory context
+        oldcxt = MemoryContextSwitchTo(state->bs_context);
+
+        // Form persistent empty tuple and store length
+        state->bs_emptyTuple = brin_form_tuple(state->bs_bdesc, blkno, dtuple,
+                                               &state->bs_emptyTupleLen);
+
+        MemoryContextSwitchTo(oldcxt);
+    }
+    else
+    {
+        // Reuse existing empty tuple, just update block number
+        state->bs_emptyTuple->bt_blkno = blkno;
+    }
+}
+```

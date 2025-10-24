@@ -33,3 +33,20 @@ This function constructs a full path by concatenating a directory path and filen
 - Returns true only for regular files, not directories, symlinks, or other file types
 - Used primarily in archive format detection logic to check for specific marker files
 - [Path](../P/Path.md) construction uses forward slash separator, appropriate for Unix-like systems
+
+## Simplified Source
+
+```c
+static bool _fileExistsInDirectory(const char *dir, const char *filename) {
+    struct stat st;
+    char buf[MAXPGPATH];
+
+    // Construct full path, checking for overflow
+    if (snprintf(buf, MAXPGPATH, "%s/%s", dir, filename) >= MAXPGPATH) {
+        pg_fatal("directory name too long: \"%s\"", dir);
+    }
+
+    // Check if file exists and is a regular file
+    return (stat(buf, &st) == 0 && S_ISREG(st.st_mode));
+}
+```

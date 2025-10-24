@@ -41,3 +41,30 @@ Internally, it constructs the "NAME=VALUE" string format required by pgwin32_put
 - Memory allocation failure during string construction will cause the function to return -1
 - Provides a higher-level interface compared to pgwin32_putenv(), handling string formatting and validation automatically
 - Essential for maintaining code portability between Unix and Windows builds of PostgreSQL
+
+## Simplified Source
+
+```c
+int pgwin32_setenv(const char *name, const char *value, int overwrite) {
+    // Validate input parameters
+    if (name == NULL || name[0] == '\0' || strchr(name, '=') != NULL || value == NULL) {
+        errno = EINVAL;
+        return -1;
+    }
+
+    // Don't overwrite if not requested and variable exists
+    if (overwrite == 0 && getenv(name) != NULL)
+        return 0;
+
+    // Create "name=value" string and set environment variable
+    char *envstr = malloc(strlen(name) + strlen(value) + 2);
+    if (!envstr)
+        return -1;
+
+    sprintf(envstr, "%s=%s", name, value);
+    int result = pgwin32_putenv(envstr);
+    free(envstr);
+
+    return result;
+}
+```

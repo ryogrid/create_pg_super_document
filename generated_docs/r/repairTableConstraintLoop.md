@@ -39,3 +39,16 @@ This is the simplest form of constraint loop repair, used when no other objects 
 - This approach avoids making the constraint a separate dumpable object, which would require post-data phase handling
 - The automatic dependency being removed is the built-in PostgreSQL dependency that constraints have on their parent tables
 - This is the most efficient repair mechanism for simple table-constraint cycles since it requires minimal reorganization of the dump structure
+
+## Simplified Source
+
+```c
+static void
+repairTableConstraintLoop(DumpableObject *tableobj,
+                         DumpableObject *constraintobj)
+{
+    // Break circular dependency by removing constraint's dependency on table
+    // This preserves table-to-constraint dependency for integrated dump
+    removeObjectDependency(constraintobj, tableobj->dumpId);
+}
+```

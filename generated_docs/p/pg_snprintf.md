@@ -35,3 +35,23 @@ pg_snprintf provides a safe, portable alternative to the standard snprintf funct
 - Provides the same safety guarantees as pg_vsnprintf including buffer bounds checking and null-termination
 - Part of PostgreSQL's comprehensive portable printf implementation
 - Used throughout PostgreSQL codebase where formatted string output to a buffer is needed with direct arguments
+
+## Simplified Source
+
+```c
+int pg_snprintf(char *str, size_t count, const char *fmt, ...) {
+    int len;
+    va_list args;
+
+    // Convert variadic arguments to va_list
+    va_start(args, fmt);
+
+    // Delegate to pg_vsnprintf for actual formatting
+    len = pg_vsnprintf(str, count, fmt, args);
+
+    // Clean up va_list
+    va_end(args);
+
+    return len;  // Return character count or error
+}
+```

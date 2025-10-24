@@ -31,8 +31,23 @@ This function is a wrapper around the  function that formats an unescaped string
   - [escape_fmt_id](escape_fmt_id.md)
 
 ## Notes and Other Information
-- This is a test module function located in 
-- The function currently ignores the  and  parameters
-- Always returns  indicating successful operation
+- This is a test module function located in
+- The function currently ignores the and parameters
+- Always returns indicating successful operation
 - Part of the PostgreSQL test escape module for validating string escaping functionality
 - The function signature suggests it was designed to handle potential error conditions, but the current implementation doesn't utilize error reporting
+
+## Simplified Source
+
+```c
+static bool
+escape_append_literal(PGconn *conn, PQExpBuffer target,
+                      const char *unescaped, size_t unescaped_len,
+                      PQExpBuffer escape_err)
+{
+    // Append escaped string literal using client encoding
+    appendStringLiteral(target, unescaped, PQclientEncoding(conn), 1);
+
+    return true;
+}
+```

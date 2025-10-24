@@ -46,3 +46,47 @@ The function accesses pre-processed field data from the fields array, which was 
 - HTML output includes proper table cell alignment attributes
 - Standard format includes decorative borders after each row
 - Field separators are only added between fields, not after the last field (except in standard format)
+
+## Simplified Source
+
+```c
+static void output_row(FILE *fout, const PQprintOpt *po, const int nFields, char **fields,
+                      unsigned char *fieldNotNum, int *fieldMax, char *border,
+                      const int row_index) {
+    // Start row output based on format
+    if (po->html3)
+        fputs("<tr>", fout);
+    else if (po->standard)
+        fputs(po->fieldSep, fout);
+
+    // Output each field in the row
+    for (int field_index = 0; field_index < nFields; field_index++) {
+        char *field_value = fields[row_index * nFields + field_index];
+
+        if (po->html3) {
+            // HTML format with alignment
+            fprintf(fout, "<td align=\"%s\">%s</td>",
+                   fieldNotNum[field_index] ? "left" : "right",
+                   field_value ? field_value : "");
+        } else {
+            // Text format with proper alignment and width
+            fprintf(fout, fieldNotNum[field_index] ?
+                   (po->standard ? " %-*s " : "%-*s") :  // left align
+                   (po->standard ? " %*s " : "%*s"),     // right align
+                   fieldMax[field_index],
+                   field_value ? field_value : "");
+
+            // Add field separator if needed
+            if (po->standard || field_index + 1 < nFields)
+                fputs(po->fieldSep, fout);
+        }
+    }
+
+    // End row output
+    if (po->html3)
+        fputs("</tr>", fout);
+    else if (po->standard)
+        fprintf(fout, "\n%s", border);
+    fputc('\n', fout);
+}
+```

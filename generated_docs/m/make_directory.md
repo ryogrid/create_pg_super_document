@@ -221,3 +221,16 @@ write_data_to_archive_lz4_doc.md: A null-terminated string containing the path o
 - The function will fail if any parent directories in the path don't exist (does not create parent directories)
 - Uses POSIX permission constants for maximum portability
 - Fatal error handling ensures that test execution stops if directory creation fails
+
+## Simplified Source
+
+```c
+/* Create a directory */
+static void
+make_directory(const char *dir)
+{
+    // Create directory with full permissions (0777)
+    if (mkdir(dir, S_IRWXU | S_IRWXG | S_IRWXO) < 0)
+        bail("could not create directory \"%s\": %m", dir);
+}
+```

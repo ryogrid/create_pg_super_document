@@ -32,3 +32,19 @@ This function is part of the incremental JSON parser test framework in PostgreSQ
 - The function always returns , indicating successful processing
 - The  flag management is crucial for proper formatting of the output JSON representation
 - This function works in conjunction with  and other array/element handling functions to provide complete array parsing semantics
+
+## Simplified Source
+
+```c
+static JsonParseErrorType do_array_start(void *state) {
+    DoState *_state = (DoState *) state;
+
+    // Output opening bracket for array
+    printf("[\n");
+
+    // Mark first element flag for comma handling
+    _state->elem_is_first = true;
+
+    return JSON_SUCCESS;
+}
+```

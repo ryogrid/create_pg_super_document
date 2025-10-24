@@ -36,3 +36,24 @@ The function maintains a static counter for successful conversions and provides 
 - Uses a 200-byte buffer for formatted output
 - Handles both successful formatting and error conditions
 - Located in the expected output file for regression testing
+
+## Simplified Source
+
+```c
+static void
+date_test_fmt(date d, const char *fmt)
+{
+    static int i;  // Test counter
+    char buf[200];
+    int r;
+
+    // Format date structure to string
+    r = rfmtdate(d, fmt, buf);
+    printf("r: %d ", r);
+
+    if (r != 0)
+        check_return(r);  // Handle error
+    else
+        printf("date: %d: %s\n", i++, buf);  // Display formatted result
+}
+```

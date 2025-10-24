@@ -35,3 +35,21 @@ The function serves as a validation tool to ensure that TidStoreMemoryUsage retu
 - Part of the PostgreSQL testing infrastructure to validate TidStore memory management capabilities
 - The 'fullness' concept here is purely for testing validation, not for actual capacity management
 - Essential for verifying that memory usage tracking works correctly across different TidStore operations
+
+## Simplified Source
+
+```c
+Datum
+test_is_full(PG_FUNCTION_ARGS)
+{
+    bool is_full;
+
+    // Ensure tidstore is available
+    check_tidstore_available();
+
+    // Check if memory usage has grown beyond empty baseline
+    is_full = (TidStoreMemoryUsage(tidstore) > tidstore_empty_size);
+
+    PG_RETURN_BOOL(is_full);
+}
+```

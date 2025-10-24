@@ -38,3 +38,38 @@ This synchronization is critical because Perl maintains its own internal locale 
 - Critical for maintaining consistency between PostgreSQL's locale settings and Perl's internal locale state
 - Located in src/pl/plperl/plperl.c at lines 4181-4247
 - Part of the PL/Perl procedural language extension's locale management system
+
+## Simplified Source
+```c
+static char *setlocale_perl(int category, char *locale) {
+    dTHX;
+    char *RETVAL = setlocale(category, locale);
+
+    if (RETVAL) {
+        // Update Perl's locale state for each relevant category
+
+#ifdef USE_LOCALE_CTYPE
+        if (category == LC_CTYPE || category == LC_ALL) {
+            char *newctype = (category == LC_ALL) ? setlocale(LC_CTYPE, NULL) : RETVAL;
+            new_ctype(newctype);
+        }
+#endif
+
+#ifdef USE_LOCALE_COLLATE
+        if (category == LC_COLLATE || category == LC_ALL) {
+            char *newcoll = (category == LC_ALL) ? setlocale(LC_COLLATE, NULL) : RETVAL;
+            new_collate(newcoll);
+        }
+#endif
+
+#ifdef USE_LOCALE_NUMERIC
+        if (category == LC_NUMERIC || category == LC_ALL) {
+            char *newnum = (category == LC_ALL) ? setlocale(LC_NUMERIC, NULL) : RETVAL;
+            new_numeric(newnum);
+        }
+#endif
+    }
+
+    return RETVAL;
+}
+```

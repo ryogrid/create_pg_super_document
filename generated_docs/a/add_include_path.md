@@ -33,3 +33,27 @@ The `add_include_path` function is a utility function in the ECPG (Embedded SQL 
 - No validation is performed on the input path parameter
 - The function stores a reference to the provided path string rather than creating a copy, so the caller must ensure the string remains valid
 - Multiple calls to this function from main() suggest it handles various standard include paths and user-specified paths
+
+## Simplified Source
+
+```c
+static void add_include_path(char *path) {
+    // Create new include path node
+    struct _include_path *new = mm_alloc(sizeof(struct _include_path));
+    new->path = path;
+    new->next = NULL;
+
+    // Add to the end of the include paths list
+    if (include_paths == NULL) {
+        // First path - set as list head
+        include_paths = new;
+    } else {
+        // Find the end of the list and append
+        struct _include_path *current = include_paths;
+        while (current->next != NULL) {
+            current = current->next;
+        }
+        current->next = new;
+    }
+}
+```

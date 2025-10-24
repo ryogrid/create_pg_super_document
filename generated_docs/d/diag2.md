@@ -37,3 +37,27 @@ The function maintains error state management by setting the global `found_err` 
 - Uses special comment formatting when output stream is stdout to maintain clean code formatting
 - Companion to `diag3` function which handles messages requiring integer arguments
 - Essential for providing user feedback during code indentation processing
+
+## Simplified Source
+
+```c
+void diag2(int level, const char *msg) {
+    // Mark error if level is non-zero
+    if (level)
+        found_err = 1;
+
+    // Format message prefix
+    const char *prefix = level == 0 ? "Warning" : "Error";
+
+    // Output to stdout as INDENT comment or stderr as standard message
+    if (output == stdout) {
+        fprintf(stdout, "/**INDENT** %s@%d: ", prefix, line_no);
+        fprintf(stdout, "%s", msg);
+        fprintf(stdout, " */\n");
+    } else {
+        fprintf(stderr, "%s@%d: ", prefix, line_no);
+        fprintf(stderr, "%s", msg);
+        fprintf(stderr, "\n");
+    }
+}
+```

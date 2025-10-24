@@ -45,3 +45,48 @@ While LoongArch doesn't require memory alignment for correctness, aligned memory
 - The function is part of PostgreSQL's multi-architecture CRC32C implementation strategy, providing hardware acceleration on LoongArch systems
 - Located in 
 - The implementation follows PostgreSQL's portable CRC32C interface, making it interchangeable with other architecture-specific implementations
+
+## Simplified Source
+
+```c
+pg_crc32c pg_comp_crc32c_loongarch(pg_crc32c crc, const void *data, size_t len) {
+    const unsigned char *p = data;
+    const unsigned char *pend = p + len;
+
+    // Process leading bytes to achieve 8-byte alignment for performance
+    // LoongArch allows unaligned access but aligned is much faster
+    if (!PointerIsAligned(p, uint16) && p + 1 <= pend) {
+        crc = __builtin_loongarch_crcc_w_b_w(*p, crc);
+        p += 1;
+    }
+    if (!PointerIsAligned(p, uint32) && p + 2 <= pend) {
+        crc = __builtin_loongarch_crcc_w_h_w(*(uint16 *) p, crc);
+        p += 2;
+    }
+    if (!PointerIsAligned(p, uint64) && p + 4 <= pend) {
+        crc = __builtin_loongarch_crcc_w_w_w(*(uint32 *) p, crc);
+        p += 4;
+    }
+
+    // Process aligned 8-byte chunks for maximum efficiency
+    while (p + 8 <= pend) {
+        crc = __builtin_loongarch_crcc_w_d_w(*(uint64 *) p, crc);
+        p += 8;
+    }
+
+    // Process remaining bytes in decreasing size order
+    if (p + 4 <= pend) {
+        crc = __builtin_loongarch_crcc_w_w_w(*(uint32 *) p, crc);
+        p += 4;
+    }
+    if (p + 2 <= pend) {
+        crc = __builtin_loongarch_crcc_w_h_w(*(uint16 *) p, crc);
+        p += 2;
+    }
+    if (p < pend) {
+        crc = __builtin_loongarch_crcc_w_b_w(*p, crc);
+    }
+
+    return crc;
+}
+```

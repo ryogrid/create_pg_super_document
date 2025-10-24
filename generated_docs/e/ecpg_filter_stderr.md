@@ -37,3 +37,53 @@ The function operates by reading the result file line by line, identifying conne
 - Exits with error code 2 if file operations fail
 - The comment suggests potential future unification with ecpg_filter_source for a more general pattern matching system
 - Part of the PostgreSQL ECPG testing infrastructure located at src/interfaces/ecpg/test/pg_regress_ecpg.c:93-147
+
+## Simplified Source
+
+```c
+static void ecpg_filter_stderr(const char *resultfile, const char *tmpfile) {
+    FILE *s, *t;
+    StringInfoData linebuf;
+
+    // Open result file for reading and temp file for writing
+    s = fopen(resultfile, "r");
+    if (!s) {
+        fprintf(stderr, "Could not open file %s for reading\n", resultfile);
+        exit(2);
+    }
+    t = fopen(tmpfile, "w");
+    if (!t) {
+        fprintf(stderr, "Could not open file %s for writing\n", tmpfile);
+        exit(2);
+    }
+
+    initStringInfo(&linebuf);
+
+    // Process each line to filter connection error messages
+    while (pg_get_line_buf(s, &linebuf)) {
+        char *p1 = strstr(linebuf.data, "connection to server ");
+
+        if (p1) {
+            char *p2 = strstr(p1, "failed: ");
+
+            // Remove variable connection details between markers
+            if (p2) {
+                memmove(p1 + 21, p2, strlen(p2) + 1);
+            }
+        }
+
+        fputs(linebuf.data, t);
+    }
+
+    // Cleanup and replace original file
+    pfree(linebuf.data);
+    fclose(s);
+    fclose(t);
+
+    if (rename(tmpfile, resultfile) != 0) {
+        fprintf(stderr, "Could not overwrite file %s with %s\n",
+                resultfile, tmpfile);
+        exit(2);
+    }
+}
+```

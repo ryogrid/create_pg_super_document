@@ -29,3 +29,12 @@ This is a simple memory deallocation function that frees the memory pointed to b
 - This is a standard cleanup pattern in C programming for heap-allocated structures
 - The function is declared in pgtypes_interval.h header file
 - Part of the ECPG pgtypes library which provides client-side data type support for PostgreSQL
+
+## Simplified Source
+
+```c
+void PGTYPESinterval_free(interval *intvl) {
+    // Free the allocated interval structure
+    free(intvl);
+}
+```

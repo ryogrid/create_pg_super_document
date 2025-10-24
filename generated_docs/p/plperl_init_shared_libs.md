@@ -33,3 +33,19 @@ This function is called during Perl interpreter initialization to register essen
 - Part of the critical initialization sequence for PL/Perl interpreters
 - The PostgreSQL::InServer::SPI module is bootstrapped separately in select_perl_context() rather than here
 - Essential for enabling dynamic loading capabilities and PostgreSQL-specific utility functions in Perl
+
+## Simplified Source
+```c
+static void plperl_init_shared_libs(pTHX) {
+    char *file = __FILE__;
+
+    // Register DynaLoader for dynamic loading of Perl extensions
+    newXS("DynaLoader::boot_DynaLoader", boot_DynaLoader, file);
+
+    // Register PostgreSQL utility module
+    newXS("PostgreSQL::InServer::Util::bootstrap",
+          boot_PostgreSQL__InServer__Util, file);
+
+    // Note: SPI module bootstrap is handled in select_perl_context()
+}
+```

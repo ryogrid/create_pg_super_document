@@ -34,3 +34,16 @@ The function returns a boolean-style integer value indicating the format type. W
 - Most simple applications use text format for easier debugging and development
 - Part of the libpq result format inspection API
 - Binary format handling requires careful attention to byte order and data type specifics
+
+## Simplified Source
+
+```c
+int PQbinaryTuples(const PGresult *res) {
+    // Return 0 for NULL result
+    if (!res)
+        return 0;
+
+    // Return whether the result uses binary format
+    return res->binary;
+}
+```

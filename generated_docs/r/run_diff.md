@@ -34,3 +34,32 @@ This function is a wrapper around the system() call for executing diff commands 
 - Uses fflush(NULL) before system() call to ensure all pending output is written
 - Part of PostgreSQL's regression testing infrastructure for comparing expected vs actual test outputs
 - Considers exit status > 1 as an error condition, which may indicate diff command failure or system issues
+
+## Simplified Source
+
+```c
+/*
+ * Run a "diff" command and also check that it didn't crash
+ */
+static int
+run_diff(const char *cmd, const char *filename)
+{
+    // Flush output and run the diff command
+    fflush(NULL);
+    int status = system(cmd);
+
+    // Check if command crashed or returned unexpected status
+    if (!WIFEXITED(status) || WEXITSTATUS(status) > 1) {
+        bail("diff command failed with status %d: %s", status, cmd);
+    }
+
+#ifdef WIN32
+    // On Windows, check if diff command was not found
+    if (WEXITSTATUS(status) == 1 && file_size(filename) <= 0) {
+        bail("diff command not found: %s", cmd);
+    }
+#endif
+
+    return WEXITSTATUS(status);
+}
+```

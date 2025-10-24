@@ -32,3 +32,15 @@ The testprs_end function serves as the cleanup function for the test parser modu
 - Pairs with testprs_start function which allocates the ParserState
 - Uses pfree instead of standard free() to work within PostgreSQL's memory management
 - Part of the standard parser lifecycle: start → getlexeme (multiple calls) → end
+
+## Simplified Source
+
+```c
+Datum testprs_end(PG_FUNCTION_ARGS) {
+    ParserState *pst = (ParserState *) PG_GETARG_POINTER(0);
+
+    // Clean up parser state memory
+    pfree(pst);
+    PG_RETURN_VOID();
+}
+```

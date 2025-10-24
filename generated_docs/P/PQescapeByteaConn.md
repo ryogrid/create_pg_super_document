@@ -37,3 +37,25 @@ PQescapeByteaConn provides a connection-aware interface for bytea escaping that 
 - Clears connection error state before processing to ensure clean error reporting
 - Part of the public libpq API for safe bytea handling in client applications
 - Preferred over PQescapeBytea when a connection context is available for optimal format selection
+
+## Simplified Source
+
+```c
+unsigned char *
+PQescapeByteaConn(PGconn *conn, const unsigned char *from, size_t from_length,
+                  size_t *to_length) {
+    // Validate connection handle
+    if (!conn)
+        return NULL;
+
+    // Clear any previous error state
+    if (conn->cmd_queue_head == NULL)
+        pqClearConnErrorState(conn);
+
+    // Call internal escaping with connection-specific settings
+    // Use hex format for PostgreSQL 9.0+ servers, std_strings setting
+    return PQescapeByteaInternal(conn, from, from_length, to_length,
+                                conn->std_strings,
+                                (conn->sversion >= 90000));
+}
+```

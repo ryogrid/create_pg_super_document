@@ -34,3 +34,29 @@ For octal format, it reads digits from '0' to '7' and stops when it encounters a
 - Used primarily in PostgreSQL's backup and restore utilities for processing tar archive headers
 - The function is robust against malformed input - octal parsing stops at invalid characters
 - Part of the portable tar implementation that allows PostgreSQL tools to work with standard tar formats
+
+## Simplified Source
+
+```c
+uint64 read_tar_number(const char *s, int len)
+{
+    uint64 result = 0;
+
+    if (*s == '\200') {
+        // GNU binary format: read MSB-first bytes
+        while (--len) {
+            result <<= 8;
+            result |= (unsigned char)(*++s);
+        }
+    } else {
+        // POSIX octal format: read octal digits
+        while (len-- && *s >= '0' && *s <= '7') {
+            result <<= 3;
+            result |= (*s - '0');
+            s++;
+        }
+    }
+
+    return result;
+}
+```

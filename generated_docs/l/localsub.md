@@ -46,3 +46,75 @@ The function implements a "drop-in replacement" design that avoids calling the s
 - Includes compatibility notes referencing System V Release 2.0 behavior differences
 - The recursive approach for out-of-range timestamps ensures consistent behavior across the entire supported time range
 - Critical component of PostgreSQL's timezone conversion system, enabling accurate local time calculations for database timestamp operations
+
+## Simplified Source
+
+```c
+static struct pg_tm *
+localsub(struct state const *sp, pg_time_t const *timep,
+         struct pg_tm *const tmp)
+{
+    const pg_time_t t = *timep;
+
+    // Handle null timezone state - fallback to GMT
+    if (sp == NULL)
+        return gmtsub(timep, 0, tmp);
+
+    // Handle out-of-range timestamps using year extrapolation
+    if ((sp->goback && t < sp->ats[0]) ||
+        (sp->goahead && t > sp->ats[sp->timecnt - 1]))
+    {
+        // Calculate adjustment based on repeating year cycles
+        pg_time_t newt = t;
+        pg_time_t seconds = (t < sp->ats[0]) ?
+            sp->ats[0] - t : t - sp->ats[sp->timecnt - 1];
+        pg_time_t years = (seconds / SECSPERREPEAT + 1) * YEARSPERREPEAT;
+
+        // Adjust timestamp to fall within valid range
+        if (t < sp->ats[0])
+            newt += years * AVGSECSPERYEAR;
+        else
+            newt -= years * AVGSECSPERYEAR;
+
+        // Recursively process adjusted timestamp
+        struct pg_tm *result = localsub(sp, &newt, tmp);
+        if (result) {
+            // Apply year adjustment to result
+            int64 newy = result->tm_year + (t < sp->ats[0] ? -years : years);
+            if (INT_MIN <= newy && newy <= INT_MAX)
+                result->tm_year = newy;
+            else
+                return NULL;
+        }
+        return result;
+    }
+
+    // Find appropriate timezone type using binary search
+    int timezone_type;
+    if (sp->timecnt == 0 || t < sp->ats[0]) {
+        timezone_type = sp->defaulttype;
+    } else {
+        // Binary search for transition time
+        int lo = 1, hi = sp->timecnt;
+        while (lo < hi) {
+            int mid = (lo + hi) >> 1;
+            if (t < sp->ats[mid])
+                hi = mid;
+            else
+                lo = mid + 1;
+        }
+        timezone_type = sp->types[lo - 1];
+    }
+
+    // Get timezone info and convert timestamp
+    const struct ttinfo *ttisp = &sp->ttis[timezone_type];
+    struct pg_tm *result = timesub(&t, ttisp->tt_utoff, sp, tmp);
+
+    if (result) {
+        result->tm_isdst = ttisp->tt_isdst;
+        result->tm_zone = &sp->chars[ttisp->tt_desigidx];
+    }
+
+    return result;
+}
+```

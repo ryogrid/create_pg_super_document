@@ -34,3 +34,12 @@ The function returns immediately after sending the command, and the application 
 - No parameter information is returned since portals are already bound to specific values
 - Enables non-blocking operation patterns in client applications
 - Part of the asynchronous command interface that allows better application responsiveness
+
+## Simplified Source
+
+```c
+int PQsendDescribePortal(PGconn *conn, const char *portal) {
+    // Send Describe command for portal ('P' type)
+    return PQsendTypedCommand(conn, PqMsg_Describe, 'P', portal);
+}
+```

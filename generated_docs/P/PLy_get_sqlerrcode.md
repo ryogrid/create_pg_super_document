@@ -35,3 +35,28 @@ The function uses PostgreSQL's MAKE_SQLSTATE macro to convert the 5-character st
 - Silent failure mode - doesn't raise errors for invalid/missing sqlstate
 - Part of the PL/Python error handling subsystem
 - Function is located in src/pl/plpython/plpy_elog.c:357-380
+
+## Simplified Source
+
+```c
+static void PLy_get_sqlerrcode(PyObject *exc, int *sqlerrcode) {
+    PyObject *sqlstate;
+    char *buffer;
+
+    // Extract sqlstate attribute from exception
+    sqlstate = PyObject_GetAttrString(exc, "sqlstate");
+    if (sqlstate == NULL)
+        return;
+
+    // Convert to C string and validate format
+    buffer = PLyUnicode_AsString(sqlstate);
+    if (strlen(buffer) == 5 &&
+        strspn(buffer, "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ") == 5) {
+        // Convert 5-character SQLSTATE to internal format
+        *sqlerrcode = MAKE_SQLSTATE(buffer[0], buffer[1], buffer[2],
+                                    buffer[3], buffer[4]);
+    }
+
+    Py_DECREF(sqlstate);
+}
+```

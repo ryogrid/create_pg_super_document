@@ -31,3 +31,23 @@ This specialized conversion function handles the conversion from Python objects 
 
 ## Notes and Other Information
 This function serves as a bridge between Python's flexible truthiness concept and PostgreSQL's strict boolean type system. The comment in the source emphasizes that this cannot go through generic conversion mechanisms because Python allows many more objects to be considered boolean than PostgreSQL's parser would accept. The function is straightforward but crucial for maintaining semantic correctness when converting Python objects to PostgreSQL booleans. It properly handles NULL representation by detecting Python's None object and setting the isnull flag accordingly.
+
+## Simplified Source
+
+```c
+static Datum
+PLyObject_ToBool(PLyObToDatum *arg, PyObject *plrv,
+                 bool *isnull, bool inarray)
+{
+    // Handle NULL case
+    if (plrv == Py_None)
+    {
+        *isnull = true;
+        return (Datum) 0;
+    }
+
+    // Convert Python truthiness to PostgreSQL boolean
+    *isnull = false;
+    return BoolGetDatum(PyObject_IsTrue(plrv));
+}
+```

@@ -34,3 +34,24 @@ The algorithm adds 8 * ' ' (8 times the ASCII value of space, which is 32) to ac
 - Returns an integer that should match the checksum stored in the header for valid tar files
 - Essential for both creating valid tar headers and validating existing ones in PostgreSQL's backup utilities
 - Part of PostgreSQL's portable tar implementation used across various backup and restore tools
+
+## Simplified Source
+
+```c
+int tarChecksum(char *header)
+{
+    int i, sum;
+
+    // Start with checksum field value (8 spaces per POSIX)
+    sum = 8 * ' ';
+
+    // Sum all bytes except the checksum field (bytes 148-155)
+    for (i = 0; i < 512; i++) {
+        if (i < 148 || i >= 156) {
+            sum += 0xFF & header[i];  // Treat as unsigned byte
+        }
+    }
+
+    return sum;
+}
+```

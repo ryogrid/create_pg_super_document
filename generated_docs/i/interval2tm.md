@@ -40,3 +40,38 @@ The function performs straightforward arithmetic operations to extract each time
 - The function assumes input interval data is valid and well-formed
 - Uses progressive subtraction approach to extract time components from the total microseconds
 - Designed specifically for interval formatting and display purposes in client applications
+
+## Simplified Source
+
+```c
+static int
+interval2tm(interval span, struct tm *tm, fsec_t *fsec)
+{
+    // Extract years and months from the month field
+    if (span.month != 0) {
+        tm->tm_year = span.month / MONTHS_PER_YEAR;
+        tm->tm_mon = span.month % MONTHS_PER_YEAR;
+    } else {
+        tm->tm_year = 0;
+        tm->tm_mon = 0;
+    }
+
+    // Break down microseconds into time components
+    int64 time = span.time;
+
+    // Extract days, hours, minutes, seconds progressively
+    tm->tm_mday = time / USECS_PER_DAY;
+    time -= tm->tm_mday * USECS_PER_DAY;
+
+    tm->tm_hour = time / USECS_PER_HOUR;
+    time -= tm->tm_hour * USECS_PER_HOUR;
+
+    tm->tm_min = time / USECS_PER_MINUTE;
+    time -= tm->tm_min * USECS_PER_MINUTE;
+
+    tm->tm_sec = time / USECS_PER_SEC;
+    *fsec = time - (tm->tm_sec * USECS_PER_SEC);
+
+    return 0;
+}
+```

@@ -33,3 +33,12 @@ The function delegates all its work to PLy_output, passing the DEBUG2 log level 
 - Debug messages are typically only visible when PostgreSQL's log_min_messages setting is configured to DEBUG2 or lower
 - Part of a family of logging functions (PLy_debug, PLy_info, PLy_notice, PLy_warning, PLy_log) that provide different log levels
 - The actual message processing, formatting, and integration with PostgreSQL's ereport system is handled by PLy_output
+
+## Simplified Source
+
+```c
+static PyObject *PLy_debug(PyObject *self, PyObject *args, PyObject *kw) {
+    // Delegate to PLy_output with DEBUG2 log level
+    return PLy_output(DEBUG2, self, args, kw);
+}
+```

@@ -9,7 +9,8 @@ Writes the file header for a custom-format archive in pg_dump, containing magic 
 ## Definition
 
 ```c
-struct tm	crtm;
+void
+WriteHead(ArchiveHandle *AH)
 ```
 ## Detailed Description
 This function creates the standard header for PostgreSQL custom-format archive files. The header contains critical metadata needed for archive identification and proper restoration:
@@ -24,7 +25,7 @@ This function creates the standard header for PostgreSQL custom-format archive f
 The header format is standardized to ensure archive files can be correctly identified and processed by compatible versions of pg_restore and other PostgreSQL tools.
 
 ## Parameters / Member Variables
-- : ArchiveHandle pointer containing archive state, version info, creation metadata, and database connection details
+- `*AH`: ArchiveHandle pointer containing archive state, version info, creation metadata, and database connection details
 
 ## Dependencies
 - Functions called/Symbols referenced:
@@ -45,3 +46,40 @@ The header format is standardized to ensure archive files can be correctly ident
 - Header format must remain backward-compatible across PostgreSQL versions
 - Compression algorithm is stored as part of header metadata for proper decompression during restore
 - Database connection information is preserved to maintain restore context
+
+## Simplified Source
+
+```c
+void WriteHead(ArchiveHandle *AH) {
+    struct tm crtm;
+
+    // Write magic signature to identify PostgreSQL dump file
+    AH->WriteBufPtr(AH, "PGDMP", 5);
+
+    // Write version information for format compatibility
+    AH->WriteBytePtr(AH, ARCHIVE_MAJOR(AH->version));
+    AH->WriteBytePtr(AH, ARCHIVE_MINOR(AH->version));
+    AH->WriteBytePtr(AH, ARCHIVE_REV(AH->version));
+
+    // Write architecture-specific information
+    AH->WriteBytePtr(AH, AH->intSize);
+    AH->WriteBytePtr(AH, AH->offSize);
+    AH->WriteBytePtr(AH, AH->format);
+    AH->WriteBytePtr(AH, AH->compression_spec.algorithm);
+
+    // Write creation timestamp components
+    crtm = *localtime(&AH->createDate);
+    WriteInt(AH, crtm.tm_sec);
+    WriteInt(AH, crtm.tm_min);
+    WriteInt(AH, crtm.tm_hour);
+    WriteInt(AH, crtm.tm_mday);
+    WriteInt(AH, crtm.tm_mon);
+    WriteInt(AH, crtm.tm_year);
+    WriteInt(AH, crtm.tm_isdst);
+
+    // Write database and version information
+    WriteStr(AH, PQdb(AH->connection));        // Database name
+    WriteStr(AH, AH->public.remoteVersionStr); // Server version
+    WriteStr(AH, PG_VERSION);                  // pg_dump version
+}
+```

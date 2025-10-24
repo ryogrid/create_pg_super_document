@@ -40,3 +40,16 @@ The function returns the context as a void pointer to maintain API compatibility
 - The underlying gss_ctx_id_t type is defined by the system's GSSAPI implementation (typically MIT Kerberos or Heimdal)
 - Applications using this function should include appropriate GSSAPI headers (gssapi.h) and link against GSSAPI libraries
 - The security context contains sensitive security information and should be handled appropriately
+
+## Simplified Source
+
+```c
+void *PQgetgssctx(PGconn *conn) {
+    // Validate connection parameter
+    if (!conn)
+        return NULL;
+
+    // Return the GSSAPI security context
+    return conn->gctx;
+}
+```

@@ -28,3 +28,12 @@ This function serves as a comparison callback for the standard librarys bsearch(
 - Returns negative, zero, or positive value based on the comparison result
 - Used specifically for binary search operations on type name arrays
 - Part of the pg_bsd_indent tools lexical analysis functionality
+
+## Simplified Source
+
+```c
+static int strcmp_type(const void *e1, const void *e2) {
+    // Compare search key (e1) with array element string pointer (e2)
+    return strcmp(e1, *(const char * const *)e2);
+}
+```

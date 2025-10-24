@@ -33,3 +33,14 @@ This function serves as a convenience wrapper around Perl's SvREFCNT_dec macro. 
 - The dTHX macro ensures the correct interpreter context is available for the SvREFCNT_dec operation
 - Located in src/pl/plperl/plperl.c at lines 312-322
 - The inline qualifier suggests this function is performance-critical and called frequently
+
+## Simplified Source
+```c
+static inline void SvREFCNT_dec_current(SV *sv) {
+    // Set up current Perl interpreter context
+    dTHX;
+
+    // Decrement reference count for the scalar value
+    SvREFCNT_dec(sv);
+}
+```

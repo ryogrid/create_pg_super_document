@@ -35,3 +35,14 @@ FATAL errors are reserved for serious conditions that require terminating the da
 - Should be used sparingly and only for serious system-level problems
 - Part of the PL/Python extension's public API available to stored procedure authors
 - More severe than ERROR - while ERROR aborts transactions, FATAL terminates sessions
+
+## Simplified Source
+
+```c
+static PyObject *
+PLy_fatal(PyObject *self, PyObject *args, PyObject *kw)
+{
+    // Simple wrapper that routes fatal-level messages to core logging function
+    return PLy_output(FATAL, self, args, kw);
+}
+```

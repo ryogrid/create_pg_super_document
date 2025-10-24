@@ -35,3 +35,12 @@ The function delegates all its work to PLy_output, passing the INFO log level co
 - The actual message processing, formatting, and integration with PostgreSQL's ereport system is handled by PLy_output
 - INFO level messages are visible when PostgreSQL's log_min_messages setting is configured to INFO or lower
 - Unlike LOG level messages, INFO messages may be sent to both server log and clients depending on configuration
+
+## Simplified Source
+
+```c
+static PyObject *PLy_info(PyObject *self, PyObject *args, PyObject *kw) {
+    // Delegate to PLy_output with INFO level
+    return PLy_output(INFO, self, args, kw);
+}
+```

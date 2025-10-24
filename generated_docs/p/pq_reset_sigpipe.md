@@ -49,3 +49,31 @@ The function is designed to be safe regarding errno preservation - it saves and 
 - This is part of PostgreSQL's libpq client library's secure connection handling
 - The function is located in src/interfaces/libpq/fe-secure.c (lines 569-596)
 - Should be used as part of a pair with pq_block_sigpipe() for proper SIGPIPE handling around socket operations
+
+## Simplified Source
+
+```c
+void pq_reset_sigpipe(sigset_t *osigset, bool sigpipe_pending, bool got_epipe) {
+    int save_errno = SOCK_ERRNO;
+    int signo;
+    sigset_t sigset;
+
+    // Clear SIGPIPE only if error occurred and none was pending before
+    if (got_epipe && !sigpipe_pending) {
+        if (sigpending(&sigset) == 0 && sigismember(&sigset, SIGPIPE)) {
+            sigset_t sigpipe_sigset;
+
+            // Create SIGPIPE signal set and wait for it
+            sigemptyset(&sigpipe_sigset);
+            sigaddset(&sigpipe_sigset, SIGPIPE);
+            sigwait(&sigpipe_sigset, &signo);
+        }
+    }
+
+    // Restore original signal mask
+    pthread_sigmask(SIG_SETMASK, osigset, NULL);
+
+    // Preserve original errno
+    SOCK_ERRNO_SET(save_errno);
+}
+```

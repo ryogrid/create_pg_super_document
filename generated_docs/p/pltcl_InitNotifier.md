@@ -36,3 +36,16 @@ This hack is particularly important when the Tcl library has been compiled with 
 - This is one of several notifier functions implemented for completeness, though most are never actually called within PostgreSQL
 - The override is critical for maintaining PostgreSQL's single-threaded backend architecture
 - Only `InitNotifier` and `DeleteFileHandler` from the notifier subsystem are typically called within PostgreSQL
+
+## Simplified Source
+
+```c
+static ClientData
+pltcl_InitNotifier(void)
+{
+    static int fake_thread_key;  /* Provides valid address for ClientData */
+
+    // Return fake thread key to disable Tcl's multithreading
+    return (ClientData) &(fake_thread_key);
+}
+```

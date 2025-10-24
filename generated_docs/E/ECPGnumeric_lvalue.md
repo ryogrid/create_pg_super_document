@@ -39,3 +39,32 @@ The function supports various integer types including signed and unsigned varian
 - Supports both signed and unsigned integer types of various sizes
 - The const qualifier (ECPGt_const) is also accepted as a valid numeric type
 - Part of the ECPG preprocessor's type safety system for SQL descriptor operations
+
+## Simplified Source
+
+```c
+static void ECPGnumeric_lvalue(char *name) {
+    // Find variable by name
+    const struct variable *v = find_variable(name);
+
+    // Check if type is numeric
+    switch (v->type->type) {
+        case ECPGt_short:
+        case ECPGt_int:
+        case ECPGt_long:
+        case ECPGt_long_long:
+        case ECPGt_unsigned_short:
+        case ECPGt_unsigned_int:
+        case ECPGt_unsigned_long:
+        case ECPGt_unsigned_long_long:
+        case ECPGt_const:
+            // Output variable name for valid numeric types
+            fputs(name, base_yyout);
+            break;
+        default:
+            // Report error for non-numeric types
+            mmerror(PARSE_ERROR, ET_ERROR, "variable \"%s\" must have a numeric type", name);
+            break;
+    }
+}
+```

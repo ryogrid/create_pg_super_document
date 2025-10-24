@@ -36,3 +36,37 @@ The function uses a switch statement to handle all possible combinations of the 
 - The function handles Windows-specific file creation semantics that differ from POSIX
 - Comments in the code note when certain flag combinations like O_EXCL without O_CREAT are meaningless
 - Returns 0 as a fallback case that should never be reached according to the comment
+
+## Simplified Source
+
+```c
+static int openFlagsToCreateFileFlags(int openFlags) {
+    // Extract relevant file creation flags
+    switch (openFlags & (O_CREAT | O_TRUNC | O_EXCL)) {
+        // No special flags or invalid O_EXCL alone -> open existing file
+        case 0:
+        case O_EXCL:
+            return OPEN_EXISTING;
+
+        // Create file if it doesn't exist, open if it does
+        case O_CREAT:
+            return OPEN_ALWAYS;
+
+        // Truncate existing file (O_EXCL meaningless here)
+        case O_TRUNC:
+        case O_TRUNC | O_EXCL:
+            return TRUNCATE_EXISTING;
+
+        // Always create new file, overwriting existing
+        case O_CREAT | O_TRUNC:
+            return CREATE_ALWAYS;
+
+        // Create new file only, fail if exists
+        case O_CREAT | O_EXCL:
+        case O_CREAT | O_TRUNC | O_EXCL:
+            return CREATE_NEW;
+    }
+
+    return 0; // Should never reach here
+}
+```

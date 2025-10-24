@@ -37,3 +37,16 @@ The function follows the standard C pattern for variadic wrapper functions, usin
 - This is the primary interface used throughout the codebase for TAP output generation
 - Several convenience macros (plan, note, diag, bail) are defined that wrap calls to this function
 - The actual TAP formatting, file output routing, and protocol compliance is handled by emit_tap_output_v
+
+## Simplified Source
+
+```c
+static void emit_tap_output(TAPtype type, const char *fmt, ...) {
+    va_list argp;
+
+    // Convert variadic args to va_list and forward to core implementation
+    va_start(argp, fmt);
+    emit_tap_output_v(type, fmt, argp);
+    va_end(argp);
+}
+```

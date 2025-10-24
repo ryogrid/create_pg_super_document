@@ -46,3 +46,25 @@ The function implements several important behaviors:
 - Modern applications should use PQgetCopyData for all COPY operations
 - Maintained for backward compatibility with legacy code
 - Does not work with COPY BINARY operations (returns EOF)
+
+## Simplified Source
+
+```c
+int PQgetline(PGconn *conn, char *buffer, int length) {
+    // Validate input parameters
+    if (!buffer || length <= 0)
+        return EOF;
+
+    *buffer = '\0';
+
+    // Need at least 3 chars for end-of-copy terminator "\."
+    if (length < 3)
+        return EOF;
+
+    if (!conn)
+        return EOF;
+
+    // Delegate to internal implementation
+    return pqGetline3(conn, buffer, length);
+}
+```

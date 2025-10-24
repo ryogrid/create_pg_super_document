@@ -42,3 +42,17 @@ The function is typically called early in the process lifecycle, immediately aft
 - Essential for preventing resource leaks and ensuring proper connection cleanup
 - Part of the robust error handling and cleanup framework in PostgreSQL dump utilities
 - Works in conjunction with the parallel dump infrastructure to handle cleanup in multi-threaded scenarios
+
+## Simplified Source
+
+```c
+void
+on_exit_close_archive(Archive *AHX)
+{
+    // Store archive handle for cleanup handler
+    shutdown_info.AHX = AHX;
+
+    // Register cleanup function to run on process exit
+    on_exit_nicely(archive_close_connection, &shutdown_info);
+}
+```

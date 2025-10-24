@@ -31,3 +31,57 @@ PQregisterEventProc allows applications to register callback functions that will
 
 ## Notes and Other Information
 The same procedure cannot be registered multiple times on the same connection. The name parameter must be non-empty and is copied internally. The function returns true on success, false on failure. Memory allocation failures or duplicate registrations will cause failure. The passThrough pointer is stored and passed to the event procedure unchanged.
+
+## Simplified Source
+
+```c
+int PQregisterEventProc(PGconn *conn, PGEventProc proc, const char *name, void *passThrough) {
+    int i;
+    PGEventRegister regevt;
+
+    // Validate required parameters
+    if (!proc || !conn || !name || !*name)
+        return false;
+
+    // Check if procedure is already registered
+    for (i = 0; i < conn->nEvents; i++) {
+        if (conn->events[i].proc == proc)
+            return false;
+    }
+
+    // Expand events array if needed
+    if (conn->nEvents >= conn->eventArraySize) {
+        PGEvent *e;
+        int newSize = conn->eventArraySize ? conn->eventArraySize * 2 : 8;
+
+        e = conn->events ? realloc(conn->events, newSize * sizeof(PGEvent))
+                        : malloc(newSize * sizeof(PGEvent));
+        if (!e)
+            return false;
+
+        conn->eventArraySize = newSize;
+        conn->events = e;
+    }
+
+    // Add new event entry
+    conn->events[conn->nEvents].proc = proc;
+    conn->events[conn->nEvents].name = strdup(name);
+    if (!conn->events[conn->nEvents].name)
+        return false;
+    conn->events[conn->nEvents].passThrough = passThrough;
+    conn->events[conn->nEvents].data = NULL;
+    conn->events[conn->nEvents].resultInitialized = false;
+    conn->nEvents++;
+
+    // Call registration event
+    regevt.conn = conn;
+    if (!proc(PGEVT_REGISTER, &regevt, passThrough)) {
+        // Rollback on failure
+        conn->nEvents--;
+        free(conn->events[conn->nEvents].name);
+        return false;
+    }
+
+    return true;
+}
+```

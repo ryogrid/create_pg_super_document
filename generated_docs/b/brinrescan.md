@@ -38,3 +38,21 @@ Unlike some other index types, BRIN rescan is relatively lightweight since BRIN 
 - No preprocessing or optimization of scan keys is currently performed
 - This is a standard index access method interface function required for all PostgreSQL index types
 - Future optimizations could include scan key preprocessing similar to other index types like B-tree
+
+## Simplified Source
+
+```c
+void
+brinrescan(IndexScanDesc scan, ScanKey scankey, int nscankeys,
+           ScanKey orderbys, int norderbys)
+{
+    // Update scan keys if provided
+    if (scankey && scan->numberOfKeys > 0)
+        memmove(scan->keyData, scankey,
+                scan->numberOfKeys * sizeof(ScanKeyData));
+
+    // Note: Future optimization opportunity exists here for scan key
+    // preprocessing similar to B-tree indexes to remove redundant
+    // keys or detect impossible conditions
+}
+```

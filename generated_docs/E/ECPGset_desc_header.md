@@ -35,3 +35,20 @@ The function performs minimal validation - it only checks that the descriptor ex
 - The count field typically represents the number of descriptor items or fields
 - Used in conjunction with other descriptor manipulation functions
 - Part of the SQL descriptor management system in ECPG
+
+## Simplified Source
+
+```c
+bool ECPGset_desc_header(int lineno, const char *desc_name, int count) {
+    // Find the descriptor by name
+    struct descriptor *desc = ecpg_find_desc(lineno, desc_name);
+
+    // Check if descriptor exists
+    if (desc == NULL)
+        return false;
+
+    // Set the count field and return success
+    desc->count = count;
+    return true;
+}
+```

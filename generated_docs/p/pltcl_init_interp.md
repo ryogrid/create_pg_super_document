@@ -44,3 +44,50 @@ The function handles both trusted and untrusted interpreter modes, with trusted 
 - Installs comprehensive command set: elog, quote, argisnull, return_null, return_next, spi_exec, spi_prepare, spi_execp, subtransaction, commit, rollback
 - If start procedure fails, the interpreter is properly cleaned up and the exception is re-thrown
 - The function is static, indicating it's only used within the pltcl.c module
+
+## Simplified Source
+
+```c
+static void
+pltcl_init_interp(pltcl_interp_desc *interp_desc, Oid prolang, bool pltrusted)
+{
+    Tcl_Interp *interp;
+    char interpname[32];
+
+    // Create subsidiary Tcl interpreter
+    snprintf(interpname, sizeof(interpname), "subsidiary_%u", interp_desc->user_id);
+    interp = Tcl_CreateSlave(pltcl_hold_interp, interpname, pltrusted ? 1 : 0);
+    if (interp == NULL)
+        elog(ERROR, "could not create subsidiary Tcl interpreter");
+
+    // Initialize query hash table for prepared statements
+    Tcl_InitHashTable(&interp_desc->query_hash, TCL_STRING_KEYS);
+
+    // Install PostgreSQL database commands
+    Tcl_CreateObjCommand(interp, "elog", pltcl_elog, NULL, NULL);
+    Tcl_CreateObjCommand(interp, "quote", pltcl_quote, NULL, NULL);
+    Tcl_CreateObjCommand(interp, "argisnull", pltcl_argisnull, NULL, NULL);
+    Tcl_CreateObjCommand(interp, "return_null", pltcl_returnnull, NULL, NULL);
+    Tcl_CreateObjCommand(interp, "return_next", pltcl_returnnext, NULL, NULL);
+    Tcl_CreateObjCommand(interp, "spi_exec", pltcl_SPI_execute, NULL, NULL);
+    Tcl_CreateObjCommand(interp, "spi_prepare", pltcl_SPI_prepare, NULL, NULL);
+    Tcl_CreateObjCommand(interp, "spi_execp", pltcl_SPI_execute_plan, NULL, NULL);
+    Tcl_CreateObjCommand(interp, "subtransaction", pltcl_subtransaction, NULL, NULL);
+    Tcl_CreateObjCommand(interp, "commit", pltcl_commit, NULL, NULL);
+    Tcl_CreateObjCommand(interp, "rollback", pltcl_rollback, NULL, NULL);
+
+    // Call start procedure with proper cleanup on failure
+    PG_TRY();
+    {
+        interp_desc->interp = interp;
+        call_pltcl_start_proc(prolang, pltrusted);
+    }
+    PG_CATCH();
+    {
+        interp_desc->interp = NULL;
+        Tcl_DeleteInterp(interp);
+        PG_RE_THROW();
+    }
+    PG_END_TRY();
+}
+```

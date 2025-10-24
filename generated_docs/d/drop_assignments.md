@@ -35,3 +35,21 @@ As a static function, it's only accessible within the descriptor.c file and serv
 - Called by various output functions to clean up assignments after processing descriptor operations
 - Ensures no memory leaks in the assignment tracking system
 - Uses standard free() rather than a custom deallocator, contrasting with the mm_alloc used in push_assignment
+
+## Simplified Source
+
+```c
+static void drop_assignments(void) {
+    // Traverse and free all assignment nodes
+    while (assignments) {
+        struct assignment *old_head = assignments;
+
+        // Move to next node
+        assignments = old_head->next;
+
+        // Free variable string and node
+        free(old_head->variable);
+        free(old_head);
+    }
+}
+```

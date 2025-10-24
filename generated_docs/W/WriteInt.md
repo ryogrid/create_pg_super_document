@@ -35,3 +35,26 @@ WriteInt is a fundamental serialization function in pg_dump's archiver that writ
 - Designed to be format-independent and portable across architectures
 - Comment warns about maintaining backward compatibility when modifying the format
 - Part of pg_dump's custom archive format foundation for integer serialization
+
+## Simplified Source
+
+```c
+size_t WriteInt(ArchiveHandle *AH, int i) {
+    // Write sign byte (1 for negative, 0 for positive)
+    if (i < 0) {
+        AH->WriteBytePtr(AH, 1);
+        i = -i;  // Work with absolute value
+    } else {
+        AH->WriteBytePtr(AH, 0);
+    }
+
+    // Write integer bytes in little-endian format
+    for (int b = 0; b < AH->intSize; b++) {
+        AH->WriteBytePtr(AH, i & 0xFF);
+        i >>= 8;
+    }
+
+    // Return total bytes written (sign byte + integer bytes)
+    return AH->intSize + 1;
+}
+```

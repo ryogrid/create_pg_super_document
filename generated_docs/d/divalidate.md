@@ -32,3 +32,15 @@ However, since the dummy index AM is designed for testing and doesn't perform ac
 - In production index AMs, this function would perform actual compatibility checking
 - Used during index creation to validate that the specified operator class is suitable
 - Follows the standard PostgreSQL index AM validation interface specification
+
+## Simplified Source
+
+```c
+static bool
+divalidate(Oid opclassoid)
+{
+    // Dummy AM accepts any operator class as valid
+    // No validation needed for test purposes
+    return true;
+}
+```

@@ -48,3 +48,26 @@ The `BrinInsertState` structure being cleaned up contains:
 - The BRIN descriptor cleanup is handled automatically via PostgreSQL memory context management
 - This function ensures that resources allocated during `initialize_brin_insertstate()` are properly released
 - Called once per command, not once per tuple insertion, making it efficient for bulk operations
+
+## Simplified Source
+
+```c
+void
+brininsertcleanup(Relation index, IndexInfo *indexInfo)
+{
+    BrinInsertState *bistate = (BrinInsertState *) indexInfo->ii_AmCache;
+
+    // Exit early if no cached state
+    if (bistate == NULL)
+        return;
+
+    // Clear cache pointer first to avoid dangling references
+    indexInfo->ii_AmCache = NULL;
+
+    // Clean up revmap access structure
+    brinRevmapTerminate(bistate->bis_rmAccess);
+
+    // Free the insertion state structure
+    pfree(bistate);
+}
+```

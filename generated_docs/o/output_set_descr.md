@@ -40,3 +40,60 @@ The `output_set_descr` function is part of the ECPG preprocessor that handles SQ
 - Outputs to `base_yyout` file stream as part of the preprocessing phase
 - Calls `whenever_action(2 | 1)` to handle error conditions according to WHENEVER statements
 - Part of the ECPG preprocessor located in src/interfaces/ecpg/preproc/descriptor.c:275-334
+
+## Simplified Source
+
+```c
+void output_set_descr(char *desc_name, char *index) {
+    // Generate ECPGset_desc function call
+    fprintf(base_yyout, "{ ECPGset_desc(__LINE__, %s, %s,", desc_name, index);
+
+    // Process each assignment to set descriptor items
+    for (struct assignment *results = assignments; results != NULL; results = results->next) {
+        const struct variable *v = find_variable(results->variable);
+
+        switch (results->value) {
+            // Unimplemented items - fatal error
+            case ECPGd_cardinality:
+            case ECPGd_di_code:
+            case ECPGd_di_precision:
+            case ECPGd_precision:
+            case ECPGd_scale:
+                mmfatal(PARSE_ERROR, "descriptor item \"%s\" is not implemented",
+                        descriptor_item_name(results->value));
+                break;
+
+            // Read-only items - cannot be set
+            case ECPGd_key_member:
+            case ECPGd_name:
+            case ECPGd_nullable:
+            case ECPGd_octet:
+            case ECPGd_ret_length:
+            case ECPGd_ret_octet:
+                mmfatal(PARSE_ERROR, "descriptor item \"%s\" cannot be set",
+                        descriptor_item_name(results->value));
+                break;
+
+            // Settable items - generate type information
+            case ECPGd_data:
+            case ECPGd_indicator:
+            case ECPGd_length:
+            case ECPGd_type: {
+                char *str_zero = mm_strdup("0");
+                fprintf(base_yyout, "%s,", get_dtype(results->value));
+                ECPGdump_a_type(base_yyout, v->name, v->type, v->brace_level,
+                               NULL, NULL, -1, NULL, NULL, str_zero, NULL, NULL);
+                free(str_zero);
+                break;
+            }
+            default:
+                break;
+        }
+    }
+
+    // Complete the descriptor call
+    drop_assignments();
+    fputs("ECPGd_EODT);\\n", base_yyout);
+    whenever_action(2 | 1);
+}
+```

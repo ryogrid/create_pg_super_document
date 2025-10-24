@@ -36,3 +36,28 @@ The function calculates the number of characters currently in the buffer by comp
 - Always resets the buffer pointer regardless of write success or failure, maintaining buffer consistency
 - Part of PostgreSQL's buffered output strategy that improves performance by reducing the number of system calls
 - Critical for maintaining proper error handling and preserving errno values in the printf implementation
+
+## Simplified Source
+
+```c
+static void flushbuffer(PrintfTarget *target)
+{
+    size_t nc = target->bufptr - target->bufstart;
+
+    // Only write if not already failed and buffer has content
+    if (!target->failed && nc > 0) {
+        size_t written;
+
+        // Write buffer contents to stream
+        written = fwrite(target->bufstart, 1, nc, target->stream);
+        target->nchars += written;
+
+        // Mark as failed if partial write occurred
+        if (written != nc)
+            target->failed = true;
+    }
+
+    // Always reset buffer pointer to start
+    target->bufptr = target->bufstart;
+}
+```

@@ -37,3 +37,18 @@ The function maintains consistency with the large object archival protocol by op
 - The function gracefully handles formats that don't require explicit end-of-LO processing
 - Proper pairing with StartLO is essential for maintaining archive format integrity
 - Format-specific implementations may use this signal for finalizing LO data, updating metadata, or cleaning up resources
+
+## Simplified Source
+
+```c
+int EndLO(Archive *AHX, Oid oid)
+{
+    ArchiveHandle *AH = (ArchiveHandle *) AHX;
+
+    // Call format-specific end handler if available
+    if (AH->EndLOPtr)
+        AH->EndLOPtr(AH, AH->currToc, oid);
+
+    return 1;
+}
+```

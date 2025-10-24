@@ -40,3 +40,24 @@ Both instruction sets must be available for the function to return true. The fun
 - The function will cause a compile-time error on platforms without CPUID intrinsic support
 - This is part of the CPU feature detection chain for enabling AVX-512 optimized population count implementations
 - CPUID leaf 7, subleaf 0 contains structured extended feature information
+
+## Simplified Source
+
+```c
+static inline bool avx512_popcnt_available(void) {
+    unsigned int cpuid_regs[4] = {0, 0, 0, 0};
+
+    // Query CPUID leaf 7, subleaf 0 for extended features
+    #if defined(HAVE__GET_CPUID_COUNT)
+        __get_cpuid_count(7, 0, &cpuid_regs[0], &cpuid_regs[1], &cpuid_regs[2], &cpuid_regs[3]);
+    #elif defined(HAVE__CPUIDEX)
+        __cpuidex(cpuid_regs, 7, 0);
+    #endif
+
+    // Check for both required AVX-512 instruction sets:
+    // ECX bit 14: AVX512-VPOPCNTDQ (vector population count)
+    // EBX bit 30: AVX512-BW (byte and word operations)
+    return (cpuid_regs[2] & (1 << 14)) != 0 &&   // avx512-vpopcntdq
+           (cpuid_regs[1] & (1 << 30)) != 0;     // avx512-bw
+}
+```

@@ -35,3 +35,12 @@ This function is called by the GUC system after successful validation to make th
 - The function directly modifies the global session_timezone variable that affects all time-related operations in the current session
 - This is part of PostgreSQL's GUC (Grand Unified Configuration) system architecture where check and assign hooks are paired
 - The session_timezone variable is used throughout PostgreSQL for timezone conversions and display formatting
+
+## Simplified Source
+
+```c
+void assign_timezone(const char *newval, void *extra) {
+    // Apply the validated timezone by setting the global session variable
+    session_timezone = *((pg_tz **) extra);
+}
+```

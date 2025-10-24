@@ -36,3 +36,22 @@ The conversion logic:
 - Only owner permissions are set, no group or other permissions
 - Execute permission is always granted, as noted in the comment about not simulating _S_IEXEC using CMD's PATHEXT extensions
 - Part of PostgreSQL's Windows compatibility layer for translating file system metadata
+
+## Simplified Source
+
+```c
+static unsigned short fileattr_to_unixmode(int attr) {
+    unsigned short uxmode = 0;
+
+    // Set file type: directory or regular file
+    uxmode |= (attr & FILE_ATTRIBUTE_DIRECTORY) ? _S_IFDIR : _S_IFREG;
+
+    // Set read/write permissions: readonly files get only read permission
+    uxmode |= (attr & FILE_ATTRIBUTE_READONLY) ? _S_IREAD : (_S_IREAD | _S_IWRITE);
+
+    // Always grant execute permission (no PATHEXT simulation needed)
+    uxmode |= _S_IEXEC;
+
+    return uxmode;
+}
+```

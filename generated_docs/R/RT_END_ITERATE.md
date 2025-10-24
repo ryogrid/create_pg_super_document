@@ -44,3 +44,17 @@ This function is part of the resource management pattern for radix tree iteratio
 - Part of PostgreSQL's generic radix tree implementation located in src/include/lib/radixtree.h:189
 - Complements RT_BEGIN_ITERATE in the iteration lifecycle
 - Simple but essential for proper resource management
+
+## Simplified Source
+
+```c
+// Macro that generates function name for ending radix tree iteration
+#define RT_END_ITERATE RT_MAKE_NAME(end_iterate)
+
+// The actual generated function performs cleanup:
+void end_iterate(RT_ITER *iter)
+{
+    // Free the iterator memory allocated by RT_BEGIN_ITERATE
+    pfree(iter);
+}
+```

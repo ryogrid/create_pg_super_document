@@ -30,3 +30,14 @@ This function serves as a resource print callback in the PostgreSQL resource own
 - The formatted output helps identify and track string resources during testing and debugging
 - Used in conjunction with resource owner registration to provide human-readable resource descriptions
 - Follows the standard PostgreSQL resource print callback signature pattern
+
+## Simplified Source
+
+```c
+static char *
+PrintString(Datum res)
+{
+    // Convert Datum to string pointer and format with prefix
+    return psprintf("test string \"%s\"", DatumGetPointer(res));
+}
+```

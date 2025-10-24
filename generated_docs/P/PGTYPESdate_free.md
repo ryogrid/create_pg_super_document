@@ -31,3 +31,13 @@ PGTYPESdate_free is a memory deallocation function that frees the memory occupie
 - After calling this function, the pointer should not be used again unless it is reassigned
 - Part of the ECPG pgtypeslib interface for managing PostgreSQL date types in C applications
 - Located in src/interfaces/ecpg/pgtypeslib/datetime.c:25-30
+
+## Simplified Source
+
+```c
+void PGTYPESdate_free(date *d)
+{
+    // Free memory allocated for date object
+    free(d);
+}
+```

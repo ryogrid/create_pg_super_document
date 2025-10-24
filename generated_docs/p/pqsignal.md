@@ -49,3 +49,44 @@ This design ensures portable, predictable signal handling behavior across Postgr
 - On Windows, provides limited emulation of reliable signals with different semantics than Unix
 - Uses Assert() statements to validate signal number bounds
 - Located in src/port/pqsignal.c:135-175
+
+## Simplified Source
+
+```c
+pqsigfunc pqsignal(int signo, pqsigfunc func) {
+    pqsigfunc orig_func = pqsignal_handlers[signo];
+
+    // Validate signal number
+    Assert(signo > 0 && signo < PG_NSIG);
+
+    // If custom handler provided, store it and use wrapper
+    if (func != SIG_IGN && func != SIG_DFL) {
+        pqsignal_handlers[signo] = func;
+        func = wrapper_handler;  // Use our protective wrapper
+    }
+
+    #if !(defined(WIN32) && defined(FRONTEND))
+        // Unix/Linux: Use sigaction for reliable signal handling
+        struct sigaction act, oact;
+        act.sa_handler = func;
+        sigemptyset(&act.sa_mask);
+        act.sa_flags = SA_RESTART;  // Auto-restart interrupted syscalls
+
+        // Special handling for SIGCHLD
+        #ifdef SA_NOCLDSTOP
+            if (signo == SIGCHLD)
+                act.sa_flags |= SA_NOCLDSTOP;
+        #endif
+
+        if (sigaction(signo, &act, &oact) < 0)
+            return SIG_ERR;
+
+        // Return original user handler if wrapper was previously installed
+        return (oact.sa_handler == wrapper_handler) ? orig_func : oact.sa_handler;
+    #else
+        // Windows: Forward to native signal system
+        pqsigfunc ret = signal(signo, func);
+        return (ret == wrapper_handler) ? orig_func : ret;
+    #endif
+}
+```

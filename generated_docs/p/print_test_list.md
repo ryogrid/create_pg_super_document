@@ -41,3 +41,25 @@ The  function is a static helper function in the libpq_pipeline test utility tha
   - uniqviol: Tests unique constraint violations in pipeline mode
 - The function is part of the PostgreSQL test suite for verifying libpq's pipeline execution capabilities
 - Used for test discovery and documentation purposes in the test framework
+
+## Simplified Source
+
+```c
+static void
+print_test_list(void)
+{
+    // Print all available libpq pipeline test names
+    printf("cancel\n");
+    printf("disallowed_in_pipeline\n");
+    printf("multi_pipelines\n");
+    printf("nosync\n");
+    printf("pipeline_abort\n");
+    printf("pipeline_idle\n");
+    printf("pipelined_insert\n");
+    printf("prepared\n");
+    printf("simple_pipeline\n");
+    printf("singlerow\n");
+    printf("transaction\n");
+    printf("uniqviol\n");
+}
+```

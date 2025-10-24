@@ -30,8 +30,21 @@ This is part of the SSL information functions suite in libpq, designed to give a
 
 ## Notes and Other Information
 - Returns NULL if the connection parameter is NULL
-- Returns the raw SSL object pointer stored in the connection structure  
+- Returns the raw SSL object pointer stored in the connection structure
 - The function is declared in the public libpq-fe.h header, making it part of the official libpq API
 - Applications using this function should be prepared to handle OpenSSL-specific data types
 - The SSL object is only valid when an SSL connection has been established
 - Located in src/interfaces/libpq/fe-secure-openssl.c:1796-1803
+
+## Simplified Source
+
+```c
+void *
+PQgetssl(PGconn *conn)
+{
+    // Return the OpenSSL object for the connection
+    if (!conn)
+        return NULL;
+    return conn->ssl;
+}
+```

@@ -45,3 +45,28 @@ The initialization is protected by a static flag  to ensure it only runs once pe
 - Uses static variables to maintain state and prevent duplicate initialization
 - The WSA initialization is required for socket operations in threaded Windows applications
 - Error handling includes fatal error reporting if WSAStartup fails
+
+## Simplified Source
+
+```c
+void init_parallel_dump_utils(void) {
+#ifdef WIN32
+    if (!parallel_init_done) {
+        WSADATA wsaData;
+        int err;
+
+        // Prepare for threaded operation
+        tls_index = TlsAlloc();
+        mainThreadId = GetCurrentThreadId();
+
+        // Initialize Windows socket access
+        err = WSAStartup(MAKEWORD(2, 2), &wsaData);
+        if (err != 0)
+            pg_fatal("%s() failed: error code %d", "WSAStartup", err);
+
+        parallel_init_done = true;
+    }
+#endif
+    // No-op on non-Windows platforms
+}
+```

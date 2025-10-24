@@ -36,3 +36,19 @@ The `PGTYPESdecimal_new` function serves as the primary constructor for creating
 - Proper error handling ensures NULL is returned if memory allocation fails
 - The returned decimal should be freed using appropriate cleanup functions when no longer needed
 - This function is primarily used in test code and generated ECPG applications that require Informix-style decimal handling
+
+## Simplified Source
+
+```c
+decimal *PGTYPESdecimal_new(void) {
+    // Allocate memory for the decimal structure
+    decimal *var = (decimal *) pgtypes_alloc(sizeof(decimal));
+    if (var == NULL)
+        return NULL;
+
+    // Initialize structure to zero
+    memset(var, 0, sizeof(decimal));
+
+    return var;
+}
+```

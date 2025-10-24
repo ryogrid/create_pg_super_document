@@ -45,3 +45,56 @@ The function uses PostgreSQL's SRF infrastructure to manage state between calls 
 - The first result row provides metadata about the compiled pattern
 - Subsequent rows provide detailed information about each match found
 - Located in src/test/modules/test_regex/test_regex.c:80-160
+
+## Simplified Source
+
+```c
+Datum test_regex(PG_FUNCTION_ARGS) {
+    FuncCallContext *funcctx;
+    test_regex_ctx *matchctx;
+    ArrayType *result_ary;
+
+    if (SRF_IS_FIRSTCALL()) {
+        // First call: setup and compile pattern
+        text *pattern = PG_GETARG_TEXT_PP(0);
+        text *flags = PG_GETARG_TEXT_PP(2);
+        Oid collation = PG_GET_COLLATION();
+        test_re_flags re_flags;
+        regex_t cpattern;
+
+        // Initialize SRF context
+        funcctx = SRF_FIRSTCALL_INIT();
+        MemoryContext oldcontext = MemoryContextSwitchTo(funcctx->multi_call_memory_ctx);
+
+        // Parse flags and compile pattern
+        parse_test_flags(&re_flags, flags);
+        test_re_compile(pattern, re_flags.cflags, collation, &cpattern);
+
+        // Setup match context and workspace
+        matchctx = setup_test_matches(PG_GETARG_TEXT_P_COPY(1), &cpattern,
+                                      &re_flags, collation, true);
+        matchctx->elems = (Datum *) palloc(sizeof(Datum) * (matchctx->npatterns + 1));
+        matchctx->nulls = (bool *) palloc(sizeof(bool) * (matchctx->npatterns + 1));
+
+        MemoryContextSwitchTo(oldcontext);
+        funcctx->user_fctx = (void *) matchctx;
+
+        // Return pattern info (equivalent to "regexp -about")
+        result_ary = build_test_info_result(&cpattern, &re_flags);
+        pg_regfree(&cpattern);
+        SRF_RETURN_NEXT(funcctx, PointerGetDatum(result_ary));
+    } else {
+        // Subsequent calls: return match details
+        funcctx = SRF_PERCALL_SETUP();
+        matchctx = (test_regex_ctx *) funcctx->user_fctx;
+
+        if (matchctx->next_match < matchctx->nmatches) {
+            result_ary = build_test_match_result(matchctx);
+            matchctx->next_match++;
+            SRF_RETURN_NEXT(funcctx, PointerGetDatum(result_ary));
+        }
+    }
+
+    SRF_RETURN_DONE(funcctx);
+}
+```

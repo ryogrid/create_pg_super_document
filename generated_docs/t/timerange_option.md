@@ -39,3 +39,52 @@ The function performs comprehensive validation including:
 - Uses errno checking to detect integer overflow during parsing
 - Handles edge cases like maximum integer values and range validation
 - Part of the PostgreSQL timezone compiler (zic) utility for creating timezone data files
+
+## Simplified Source
+
+```c
+static bool
+timerange_option(char *timerange)
+{
+    int64 lo = min_time, hi = max_time;
+    char *lo_end = timerange, *hi_end;
+
+    // Parse lower bound if specified with '@' prefix
+    if (*timerange == '@') {
+        errno = 0;
+        lo = strtoimax(timerange + 1, &lo_end, 10);
+
+        // Check for parsing errors or overflow
+        if (lo_end == timerange + 1 || (lo == PG_INT64_MAX && errno == ERANGE))
+            return false;
+    }
+
+    hi_end = lo_end;
+
+    // Parse upper bound if specified with '/@' delimiter
+    if (lo_end[0] == '/' && lo_end[1] == '@') {
+        errno = 0;
+        hi = strtoimax(lo_end + 2, &hi_end, 10);
+
+        // Check for parsing errors
+        if (hi_end == lo_end + 2 || hi == PG_INT64_MIN)
+            return false;
+
+        // Adjust for potential overflow
+        hi -= !(hi == PG_INT64_MAX && errno == ERANGE);
+    }
+
+    // Validate range constraints
+    if (*hi_end ||                    // Extra characters in input
+        hi < lo ||                    // Invalid range order
+        max_time < lo ||              // Lower bound too high
+        hi < min_time)                // Upper bound too low
+        return false;
+
+    // Set global time range variables within system limits
+    lo_time = (lo < min_time) ? min_time : lo;
+    hi_time = (max_time < hi) ? max_time : hi;
+
+    return true;
+}
+```

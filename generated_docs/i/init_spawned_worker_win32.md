@@ -33,3 +33,25 @@ The function extracts the ArchiveHandle and ParallelSlot from the WorkerInfo str
 - Uses _endthreadex(0) for proper Windows thread termination
 - Returns 0 to satisfy the function signature requirements, though the thread exits before returning
 - Part of the Windows threading implementation that parallels the Unix fork-based approach
+
+## Simplified Source
+
+```c
+static unsigned __stdcall
+init_spawned_worker_win32(WorkerInfo *wi)
+{
+    // Extract worker parameters
+    ArchiveHandle *AH = wi->AH;
+    ParallelSlot *slot = wi->slot;
+
+    // Free temporary WorkerInfo structure
+    free(wi);
+
+    // Run the main worker logic
+    RunWorker(AH, slot);
+
+    // Terminate thread properly on Windows
+    _endthreadex(0);
+    return 0;
+}
+```

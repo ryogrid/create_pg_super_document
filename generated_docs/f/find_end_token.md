@@ -41,3 +41,59 @@ For example, given str="28the day12" and fmt="the day%h", it finds "the day" as 
 - Contains special case handling for space-only delimiters at the end of patterns
 - Part of the ECPG pgtypes library for date/time manipulation
 - Located in src/interfaces/ecpg/pgtypeslib/dt_common.c:2352-2456
+
+## Simplified Source
+
+```c
+static char *find_end_token(char *str, char *fmt)
+{
+    // Find where current token ends by locating the next delimiter in format string
+    char *end_position = NULL;
+    char *next_percent, *subst_location = NULL;
+    int scan_offset = 0;
+    char last_char;
+
+    // Return immediately if at end of format string
+    if (!*fmt) {
+        return fmt;
+    }
+
+    // Skip consecutive % format specifiers to find literal text
+    while (fmt[scan_offset] == '%' && fmt[scan_offset + 1]) {
+        scan_offset += 2;
+    }
+
+    // Find next % sign which marks start of next format specifier
+    next_percent = strchr(fmt + scan_offset, '%');
+
+    if (next_percent) {
+        // Extract literal text between current position and next %
+        subst_location = next_percent;
+        while (*(subst_location - 1) == ' ' && subst_location - 1 > fmt + scan_offset)
+            subst_location--;
+
+        // Temporarily null-terminate to isolate the delimiter pattern
+        last_char = *subst_location;
+        *subst_location = '\0';
+
+        // Skip leading spaces in input string for flexible parsing
+        while (*str == ' ')
+            str++;
+
+        // Find where this delimiter pattern occurs in input string
+        end_position = strstr(str, fmt + scan_offset);
+        *subst_location = last_char;
+    } else {
+        // No more format specifiers - token goes to end of string
+        end_position = str + strlen(str);
+    }
+
+    // Handle special case: space-only delimiter that can't be found
+    if (!end_position && (fmt + scan_offset)[0] == ' ' &&
+        fmt + scan_offset + 1 == subst_location) {
+        end_position = str + strlen(str);
+    }
+
+    return end_position;
+}
+```

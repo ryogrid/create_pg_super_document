@@ -302,3 +302,15 @@ Text creation and manipulation
 - Part of the dummy_index_am test module framework
 - Follows the standard PostgreSQL index AM vacuum cleanup interface specification
 - Called after dibulkdelete operations to finalize vacuum processing
+
+## Simplified Source
+
+```c
+static IndexBulkDeleteResult *
+divacuumcleanup(IndexVacuumInfo *info, IndexBulkDeleteResult *stats)
+{
+    // Index has not been modified, so returning NULL is fine
+    // No cleanup operations needed for dummy index
+    return NULL;
+}
+```

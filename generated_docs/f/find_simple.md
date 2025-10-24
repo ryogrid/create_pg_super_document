@@ -34,3 +34,20 @@ The function uses a simple linear search algorithm, comparing each variable's na
 - Forms the base layer of ECPG's variable resolution hierarchy
 - The allvariables global list contains all variables known to the ECPG preprocessor
 - Simple and reliable implementation suitable for typical embedded SQL variable counts
+
+## Simplified Source
+
+```c
+static struct variable *
+find_simple(char *name)
+{
+    // Linear search through global variable list
+    for (struct variable *p = allvariables; p; p = p->next)
+    {
+        if (strcmp(p->name, name) == 0)
+            return p;
+    }
+
+    return NULL;  // Variable not found
+}
+```

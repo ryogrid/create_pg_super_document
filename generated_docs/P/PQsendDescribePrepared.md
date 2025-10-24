@@ -32,3 +32,12 @@ The function returns immediately after sending the command, and the application 
 - Uses the PostgreSQL protocol Describe message with type 'S' for prepared statements
 - Enables non-blocking operation patterns in client applications
 - Part of the asynchronous command interface that allows better application responsiveness
+
+## Simplified Source
+
+```c
+int PQsendDescribePrepared(PGconn *conn, const char *stmt) {
+    // Send Describe command for prepared statement ('S' type)
+    return PQsendTypedCommand(conn, PqMsg_Describe, 'S', stmt);
+}
+```

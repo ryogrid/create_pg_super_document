@@ -44,3 +44,41 @@ The  function provides functionality to export a PostgreSQL large object to an e
 - Performs the inverse operation of importFile - extracting data from large objects to external files
 - Part of the testlo.c example demonstrating bidirectional large object file operations in PostgreSQL
 - Properly handles partial writes by checking if the number of bytes written matches what was read
+
+## Simplified Source
+
+```c
+static void exportFile(PGconn *conn, Oid lobjId, char *filename) {
+    int lobj_fd, fd;
+    char buf[BUFSIZE];
+    int nbytes, tmp;
+
+    // Open large object for reading
+    lobj_fd = lo_open(conn, lobjId, INV_READ);
+    if (lobj_fd < 0) {
+        fprintf(stderr, "cannot open large object %u", lobjId);
+        return;
+    }
+
+    // Create/truncate output file
+    fd = open(filename, O_CREAT | O_WRONLY | O_TRUNC, 0666);
+    if (fd < 0) {
+        fprintf(stderr, "cannot open unix file\"%s\"", filename);
+        lo_close(conn, lobj_fd);
+        return;
+    }
+
+    // Copy large object contents to file in chunks
+    while ((nbytes = lo_read(conn, lobj_fd, buf, BUFSIZE)) > 0) {
+        tmp = write(fd, buf, nbytes);
+        if (tmp < nbytes) {
+            fprintf(stderr, "error while writing \"%s\"", filename);
+            break;
+        }
+    }
+
+    // Clean up file descriptors
+    lo_close(conn, lobj_fd);
+    close(fd);
+}
+```

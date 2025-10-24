@@ -37,3 +37,47 @@ The function was authored by Paul Vixie (ISC) in October 1998 and serves as the 
 - Omits "/32" suffix for full addresses (32-bit masks)
 - Returns EMSGSIZE error if output buffer is too small
 - Assumes network byte order input format
+
+## Simplified Source
+
+```c
+static char *
+inet_net_ntop_ipv4(const u_char *src, int bits, char *dst, size_t size)
+{
+    char *odst = dst;
+    char *t;
+    int len = 4;
+    int b;
+
+    // Validate bits parameter
+    if (bits < 0 || bits > 32) {
+        errno = EINVAL;
+        return NULL;
+    }
+
+    // Format all four octets with dots
+    for (b = len; b > 0; b--) {
+        if (size <= sizeof ".255")
+            goto emsgsize;
+
+        t = dst;
+        if (dst != odst)
+            *dst++ = '.';
+        dst += SPRINTF((dst, "%u", *src++));
+        size -= (size_t) (dst - t);
+    }
+
+    // Add CIDR suffix unless it's a full /32 address
+    if (bits != 32) {
+        if (size <= sizeof "/32")
+            goto emsgsize;
+        dst += SPRINTF((dst, "/%u", bits));
+    }
+
+    return odst;
+
+emsgsize:
+    errno = EMSGSIZE;
+    return NULL;
+}
+```

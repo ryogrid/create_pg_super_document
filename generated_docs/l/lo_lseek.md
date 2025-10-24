@@ -37,3 +37,44 @@ The lo_lseek function is the client-side implementation for seeking within a Pos
 - Located in src/interfaces/libpq/fe-lobj.c:344-384
 - Communicates with backend via fastpath function calls
 - whence parameter follows standard C library semantics (SEEK_SET=0, SEEK_CUR=1, SEEK_END=2)
+
+## Simplified Source
+
+```c
+int lo_lseek(PGconn *conn, int fd, int offset, int whence) {
+    PQArgBlock argv[3];
+    PGresult *res;
+    int retval;
+    int result_len;
+
+    // Initialize large object subsystem
+    if (lo_initialize(conn) < 0)
+        return -1;
+
+    // Prepare arguments: fd, offset, whence
+    argv[0].isint = 1;
+    argv[0].len = 4;
+    argv[0].u.integer = fd;
+
+    argv[1].isint = 1;
+    argv[1].len = 4;
+    argv[1].u.integer = offset;
+
+    argv[2].isint = 1;
+    argv[2].len = 4;
+    argv[2].u.integer = whence;
+
+    // Call backend lo_lseek function via fastpath interface
+    res = PQfn(conn, conn->lobjfuncs->fn_lo_lseek,
+               &retval, &result_len, 1, argv, 3);
+
+    // Return new position or -1 on error
+    if (PQresultStatus(res) == PGRES_COMMAND_OK) {
+        PQclear(res);
+        return retval;
+    } else {
+        PQclear(res);
+        return -1;
+    }
+}
+```

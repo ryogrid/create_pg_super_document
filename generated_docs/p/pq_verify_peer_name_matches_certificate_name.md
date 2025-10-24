@@ -50,3 +50,51 @@ The verification process uses case-insensitive comparison for exact matches and 
 - Uses case-insensitive hostname comparison following DNS conventions
 - The function handles both the common name and subject alternative names from certificates
 - Memory allocation failures and malformed certificate names trigger appropriate error messages in the connection context
+
+## Simplified Source
+
+```c
+int pq_verify_peer_name_matches_certificate_name(PGconn *conn,
+                                                 const char *namedata, size_t namelen,
+                                                 char **store_name) {
+    char *name;
+    int result;
+    char *host = conn->connhost[conn->whichhost].host;
+
+    *store_name = NULL;
+
+    // Validate hostname is specified
+    if (!(host && host[0] != '\0')) {
+        libpq_append_conn_error(conn, "host name must be specified");
+        return -1;
+    }
+
+    // Create null-terminated copy of certificate name
+    name = malloc(namelen + 1);
+    if (name == NULL) {
+        libpq_append_conn_error(conn, "out of memory");
+        return -1;
+    }
+    memcpy(name, namedata, namelen);
+    name[namelen] = '\0';
+
+    // Security check: reject embedded nulls (CVE-2009-4034 protection)
+    if (namelen != strlen(name)) {
+        free(name);
+        libpq_append_conn_error(conn, "SSL certificate's name contains embedded null");
+        return -1;
+    }
+
+    // Try exact match first
+    if (pg_strcasecmp(name, host) == 0) {
+        result = 1;  // Exact match
+    } else if (wildcard_certificate_match(name, host)) {
+        result = 1;  // Wildcard match
+    } else {
+        result = 0;  // No match
+    }
+
+    *store_name = name;
+    return result;
+}
+```

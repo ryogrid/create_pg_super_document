@@ -39,3 +39,47 @@ The  function provides functionality to import external files into PostgreSQL as
 - Error handling includes basic fprintf statements for debugging
 - Returns the OID of the created large object for further reference
 - Part of the testlo.c example demonstrating large object operations in PostgreSQL
+
+## Simplified Source
+
+```c
+static Oid importFile(PGconn *conn, char *filename) {
+    Oid lobjId;
+    int lobj_fd, fd;
+    char buf[BUFSIZE];
+    int nbytes, tmp;
+
+    // Open the input file
+    fd = open(filename, O_RDONLY, 0666);
+    if (fd < 0) {
+        fprintf(stderr, "cannot open unix file\"%s\"\n", filename);
+        return 0;
+    }
+
+    // Create new large object with read/write permissions
+    lobjId = lo_creat(conn, INV_READ | INV_WRITE);
+    if (lobjId == 0) {
+        fprintf(stderr, "cannot create large object");
+        close(fd);
+        return 0;
+    }
+
+    // Open large object for writing
+    lobj_fd = lo_open(conn, lobjId, INV_WRITE);
+
+    // Copy file contents to large object in chunks
+    while ((nbytes = read(fd, buf, BUFSIZE)) > 0) {
+        tmp = lo_write(conn, lobj_fd, buf, nbytes);
+        if (tmp < nbytes) {
+            fprintf(stderr, "error while reading \"%s\"", filename);
+            break;
+        }
+    }
+
+    // Clean up file descriptors
+    close(fd);
+    lo_close(conn, lobj_fd);
+
+    return lobjId;
+}
+```

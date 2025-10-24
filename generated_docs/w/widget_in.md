@@ -49,3 +49,39 @@ This function serves as the input converter for the custom WIDGET data type, whi
 - The parsing logic walks through the input string character by character to locate delimiters
 - Located in src/test/regress/regress.c as part of the test suite
 - Demonstrates how to implement input functions for user-defined data types in PostgreSQL
+
+## Simplified Source
+
+```c
+Datum
+widget_in(PG_FUNCTION_ARGS)
+{
+    char *input_str = PG_GETARG_CSTRING(0);
+    char *p, *coord[NARGS];
+    int i;
+    WIDGET *result;
+
+    // Parse coordinates from input string "(x,y,radius)"
+    for (i = 0, p = input_str; *p && i < NARGS && *p != RDELIM; p++) {
+        if (*p == DELIM || (*p == LDELIM && i == 0)) {
+            coord[i++] = p + 1;
+        }
+    }
+
+    // Check if we found all required arguments
+    if (i < NARGS) {
+        ereport(ERROR,
+                (errcode(ERRCODE_INVALID_TEXT_REPRESENTATION),
+                 errmsg("invalid input syntax for type %s: \"%s\"",
+                        "widget", input_str)));
+    }
+
+    // Create and populate WIDGET structure
+    result = (WIDGET *) palloc(sizeof(WIDGET));
+    result->center.x = atof(coord[0]);
+    result->center.y = atof(coord[1]);
+    result->radius = atof(coord[2]);
+
+    PG_RETURN_POINTER(result);
+}
+```

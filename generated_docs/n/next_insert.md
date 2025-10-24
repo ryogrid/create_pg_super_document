@@ -32,3 +32,46 @@ The `next_insert` function scans SQL statement text starting from a given positi
 - Distinguishes between $n parameter placeholders and $tag$ dollar-quoted strings
 - Handles escape sequences differently based on standard_conforming_strings setting
 - Essential for parameter substitution in ECPG prepared statement processing
+
+## Simplified Source
+
+```c
+static int next_insert(char *text, int pos, bool questionmarks, bool std_strings) {
+    bool string = false;  // Track if we're inside a string literal
+    int p = pos;
+
+    // Scan through the text character by character
+    for (; text[p] != '\0'; p++) {
+
+        // Handle escape sequences in non-standard strings
+        if (string && !std_strings && text[p] == '\\') {
+            p++;  // Skip escaped character
+        }
+        // Toggle string mode on single quotes
+        else if (text[p] == '\'') {
+            string = !string;
+        }
+        // Only look for placeholders outside of strings
+        else if (!string) {
+
+            // Check for PostgreSQL-style parameter ($n)
+            if (text[p] == '$' && isdigit(text[p + 1])) {
+                // Scan past all digits
+                int i;
+                for (i = p + 1; isdigit(text[i]); i++);
+
+                // If next char isn't letter/underscore, it's a parameter
+                if (!isalpha(text[i]) && isascii(text[i]) && text[i] != '_') {
+                    return p;  // Found parameter placeholder
+                }
+            }
+            // Check for question mark placeholder
+            else if (questionmarks && text[p] == '?') {
+                return p;  // Found question mark placeholder
+            }
+        }
+    }
+
+    return -1;  // No placeholder found
+}
+```

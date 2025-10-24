@@ -35,3 +35,18 @@ This function modifies Perl's internal operation dispatch table (PL_ppaddr) to c
 - Part of PL/Perl's comprehensive security model for running untrusted code safely
 - Located in src/pl/plperl/plperl.c at lines 490-508
 - The function directly manipulates Perl's internal dispatch table for maximum security effectiveness
+
+## Simplified Source
+```c
+static void set_interp_require(bool trusted) {
+    if (trusted) {
+        // Use safe implementations that restrict module loading
+        PL_ppaddr[OP_REQUIRE] = pp_require_safe;
+        PL_ppaddr[OP_DOFILE] = pp_require_safe;
+    } else {
+        // Use original Perl implementations (unrestricted)
+        PL_ppaddr[OP_REQUIRE] = pp_require_orig;
+        PL_ppaddr[OP_DOFILE] = pp_require_orig;
+    }
+}
+```

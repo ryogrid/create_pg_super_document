@@ -40,3 +40,26 @@ This function is essential for worker processes/threads to identify their own co
 - Uses conditional compilation to handle platform differences between Windows threading and Unix process models
 - The function assumes that worker identification (threadId or pid) has been properly initialized in the ParallelSlot structures
 - Essential for maintaining thread/process-specific state in parallel dump operations
+
+## Simplified Source
+
+```c
+static ParallelSlot *
+GetMyPSlot(ParallelState *pstate)
+{
+    // Search through all worker slots to find our own
+    for (int i = 0; i < pstate->numWorkers; i++)
+    {
+        // Platform-specific worker identification
+#ifdef WIN32
+        if (pstate->parallelSlot[i].threadId == GetCurrentThreadId())
+#else
+        if (pstate->parallelSlot[i].pid == getpid())
+#endif
+            return &(pstate->parallelSlot[i]);
+    }
+
+    // Return NULL if no slot found (we are the leader)
+    return NULL;
+}
+```

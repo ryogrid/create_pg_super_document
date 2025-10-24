@@ -31,3 +31,17 @@ This function provides the implementation for Python's len() builtin function wh
 - The function is assigned to both sequence (sq_length) and mapping (mp_length) slots in the type structure
 - No error checking is needed since PyList_Size() handles NULL lists gracefully
 - Enables idiomatic Python code like 'if len(result) > 0:' to work with database results
+
+## Simplified Source
+
+```c
+static Py_ssize_t
+PLy_result_length(PyObject *arg)
+{
+    // Cast to PLyResultObject to access stored rows
+    PLyResultObject *ob = (PLyResultObject *) arg;
+
+    // Return number of rows using Python's list size function
+    return PyList_Size(ob->rows);
+}
+```

@@ -47,3 +47,21 @@ This function takes no specific parameters but uses the PostgreSQL function call
 - Uses PostgreSQL's standard error reporting mechanism via elog() in the internal function
 - The function will abort execution on the first test failure, making it suitable for regression testing
 - Located in src/test/modules/test_lfind/test_lfind.c as part of PostgreSQL's test infrastructure
+
+## Simplified Source
+
+```c
+Datum test_lfind8(PG_FUNCTION_ARGS) {
+    // Test pg_lfind8 with comprehensive set of boundary values
+    test_lfind8_internal(0);      // Min value
+    test_lfind8_internal(1);      // Low boundary
+    test_lfind8_internal(0x7F);   // Signed/unsigned boundary
+    test_lfind8_internal(0x80);   // Mid-range
+    test_lfind8_internal(0x81);   // Mid-range
+    test_lfind8_internal(0xFD);   // High boundary
+    test_lfind8_internal(0xFE);   // Near max
+    test_lfind8_internal(0xFF);   // Max value
+
+    PG_RETURN_VOID();
+}
+```

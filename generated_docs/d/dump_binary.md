@@ -35,3 +35,18 @@ This function is part of the test infrastructure for PostgreSQL's embedded SQL p
 - The  operation ensures that the byte value is treated as unsigned when converting to hexadecimal
 - The output format is: 
 - This function is part of the ECPG regression test suite, which tests the embedded SQL functionality of PostgreSQL
+
+## Simplified Source
+
+```c
+static void dump_binary(char *buf, int len, int ind) {
+    // Print buffer length and indicator value
+    printf("len=%d, ind=%d, data=0x", len, ind);
+
+    // Output each byte as hexadecimal
+    for (int i = 0; i < len; ++i)
+        printf("%02x", 0xff & buf[i]);
+
+    printf("\n");
+}
+```

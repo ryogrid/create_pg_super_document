@@ -42,3 +42,21 @@ This function maintains uniformity in floating-point string representation acros
 - The delimiter parameter enables flexible formatting for various output contexts
 - This function is static and only used within the execute.c module for internal formatting operations
 - Despite using "%.15g", actual precision is limited by the float type's ~7 significant digits
+
+## Simplified Source
+
+```c
+static void sprintf_float_value(char *ptr, float value, const char *delim) {
+    // Handle special IEEE 754 values
+    if (isnan(value)) {
+        sprintf(ptr, "%s%s", "NaN", delim);
+    } else if (isinf(value)) {
+        // Format infinity with sign
+        const char *inf_str = (value < 0) ? "-Infinity" : "Infinity";
+        sprintf(ptr, "%s%s", inf_str, delim);
+    } else {
+        // Format normal values (limited by float precision)
+        sprintf(ptr, "%.15g%s", value, delim);
+    }
+}
+```

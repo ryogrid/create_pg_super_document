@@ -40,3 +40,19 @@ This provides a consistent starting point for subsequent time/date calculations 
 - All tm structure fields are set to 0, which may not represent valid dates but provides a clean initialization state
 - Used primarily in interval parsing and decoding operations within ECPG
 - The inline declaration suggests it's intended for performance-critical initialization operations
+
+## Simplified Source
+
+```c
+static inline void ClearPgTm(struct tm *tm, fsec_t *fsec)
+{
+    // Initialize all time structure fields to zero
+    tm->tm_year = 0;
+    tm->tm_mon = 0;
+    tm->tm_mday = 0;
+    tm->tm_hour = 0;
+    tm->tm_min = 0;
+    tm->tm_sec = 0;
+    *fsec = 0;
+}
+```

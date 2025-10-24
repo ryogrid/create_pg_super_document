@@ -33,3 +33,21 @@ The function adds new callbacks to the end of the list and increments the index 
 - The callback signature is: void (*on_exit_nicely_callback)(int code, void *arg)
 - Used primarily for cleanup operations like closing files, releasing resources, etc.
 - Part of the graceful shutdown mechanism for pg_dump utilities
+
+## Simplified Source
+
+```c
+void on_exit_nicely(on_exit_nicely_callback function, void *arg)
+{
+    // Check if we have space for another callback
+    if (on_exit_nicely_index >= MAX_ON_EXIT_NICELY)
+        pg_fatal("out of on_exit_nicely slots");
+
+    // Register the callback and its argument
+    on_exit_nicely_list[on_exit_nicely_index].function = function;
+    on_exit_nicely_list[on_exit_nicely_index].arg = arg;
+
+    // Move to next slot
+    on_exit_nicely_index++;
+}
+```

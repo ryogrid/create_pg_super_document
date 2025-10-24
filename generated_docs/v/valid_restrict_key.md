@@ -38,3 +38,14 @@ The function uses strspn() to count how many characters from the beginning of th
 - This function is typically used in conjunction with generate_restrict_key() for security validation
 - Located at src/bin/pg_dump/dumputils.c:955-960
 - Part of the PostgreSQL dump utility suite's security framework
+
+## Simplified Source
+
+```c
+bool valid_restrict_key(const char *restrict_key) {
+    // Validate restrict key: must be non-null, non-empty, and contain only alphanumeric chars
+    return restrict_key != NULL &&
+           restrict_key[0] != '\0' &&
+           strspn(restrict_key, restrict_chars) == strlen(restrict_key);
+}
+```

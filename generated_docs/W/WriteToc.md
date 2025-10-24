@@ -36,3 +36,67 @@ This function serializes the complete Table of Contents structure to the archive
 - The function writes a hardcoded "false" value that appears to be a legacy field
 - Each TOC entry includes comprehensive metadata: dump ID, OIDs, tag, description, section, SQL statements, namespace, tablespace, table access method, relation kind, and owner
 - This function is critical for archive integrity as it creates the roadmap for restoration operations
+
+## Simplified Source
+
+```c
+void WriteToc(ArchiveHandle *AH) {
+    TocEntry *te;
+    char workbuf[32];
+    int tocCount = 0;
+
+    // Count entries that will be dumped
+    for (te = AH->toc->next; te != AH->toc; te = te->next) {
+        if ((te->reqs & (REQ_SCHEMA | REQ_DATA | REQ_SPECIAL)) != 0) {
+            tocCount++;
+        }
+    }
+
+    // Write total count of TOC entries
+    WriteInt(AH, tocCount);
+
+    // Write each TOC entry
+    for (te = AH->toc->next; te != AH->toc; te = te->next) {
+        // Skip entries that don't meet requirements
+        if ((te->reqs & (REQ_SCHEMA | REQ_DATA | REQ_SPECIAL)) == 0) {
+            continue;
+        }
+
+        // Write entry metadata
+        WriteInt(AH, te->dumpId);
+        WriteInt(AH, te->dataDumper ? 1 : 0);
+
+        // Write OIDs as strings for historical compatibility
+        sprintf(workbuf, "%u", te->catalogId.tableoid);
+        WriteStr(AH, workbuf);
+        sprintf(workbuf, "%u", te->catalogId.oid);
+        WriteStr(AH, workbuf);
+
+        // Write object properties
+        WriteStr(AH, te->tag);
+        WriteStr(AH, te->desc);
+        WriteInt(AH, te->section);
+        WriteStr(AH, te->defn);
+        WriteStr(AH, te->dropStmt);
+        WriteStr(AH, te->copyStmt);
+        WriteStr(AH, te->namespace);
+        WriteStr(AH, te->tablespace);
+        WriteStr(AH, te->tableam);
+        WriteInt(AH, te->relkind);
+        WriteStr(AH, te->owner);
+        WriteStr(AH, "false");  // Legacy field
+
+        // Write dependencies list
+        for (int i = 0; i < te->nDeps; i++) {
+            sprintf(workbuf, "%d", te->dependencies[i]);
+            WriteStr(AH, workbuf);
+        }
+        WriteStr(AH, NULL);  // Terminate dependencies list
+
+        // Call format-specific extension if available
+        if (AH->WriteExtraTocPtr) {
+            AH->WriteExtraTocPtr(AH, te);
+        }
+    }
+}
+```

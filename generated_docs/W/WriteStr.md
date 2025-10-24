@@ -9,14 +9,15 @@ WriteStr serializes a C string to an archive stream with length-prefixed format,
 ## Definition
 
 ```c
-struct stat st;
+size_t
+WriteStr(ArchiveHandle *AH, const char *c)
 ```
 ## Detailed Description
 WriteStr serializes a C string to an archive stream using a length-prefixed format. For non-NULL strings, it first writes the string length as an integer using WriteInt, followed by the string content using the archive's bulk write function. For NULL strings, it writes -1 as the length indicator to distinguish them from empty strings. This design ensures that NULL strings can be properly reconstructed during deserialization.
 
 ## Parameters / Member Variables
-- : Archive handle containing the output stream and function pointers for writing
-- : Pointer to the C string to be written (can be NULL)
+- `*AH`: Archive handle containing the output stream and function pointers for writing
+- `*c`: Pointer to the C string to be written (can be NULL)
 
 ## Dependencies
 - Functions called/Symbols referenced:
@@ -35,3 +36,24 @@ WriteStr serializes a C string to an archive stream using a length-prefixed form
 - NULL strings are encoded as length -1 to distinguish from empty strings
 - Empty strings (length 0) are handled correctly with zero-length content
 - Part of pg_dump's string serialization foundation used throughout archive formats
+
+## Simplified Source
+
+```c
+size_t WriteStr(ArchiveHandle *AH, const char *c) {
+    size_t res;
+
+    if (c) {
+        // Write non-NULL string with length prefix
+        int len = strlen(c);
+        res = WriteInt(AH, len);           // Write string length
+        AH->WriteBufPtr(AH, c, len);       // Write string content
+        res += len;
+    } else {
+        // Write NULL string as length -1
+        res = WriteInt(AH, -1);
+    }
+
+    return res;
+}
+```

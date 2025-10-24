@@ -33,3 +33,19 @@ The testprs_start function is part of PostgreSQL's test parser module, designed 
 - The allocated ParserState structure contains buffer pointer, length, and current position
 - Uses palloc0 for zero-initialized memory allocation within PostgreSQL's memory context system
 - Returns a pointer to the initialized parser state for use by subsequent parsing functions
+
+## Simplified Source
+
+```c
+Datum testprs_start(PG_FUNCTION_ARGS) {
+    // Allocate and initialize parser state
+    ParserState *pst = (ParserState *) palloc0(sizeof(ParserState));
+
+    // Set up buffer and parsing parameters
+    pst->buffer = (char *) PG_GETARG_POINTER(0);
+    pst->len = PG_GETARG_INT32(1);
+    pst->pos = 0;  // Start at beginning
+
+    PG_RETURN_POINTER(pst);
+}
+```

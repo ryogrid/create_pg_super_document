@@ -38,3 +38,16 @@ This function is essential for error handling and result processing in libpq-bas
 - Essential for proper error handling in PostgreSQL client applications
 - The function is thread-safe as it only reads from the result structure
 - The function is located at src/interfaces/libpq/fe-exec.c:3411-3418
+
+## Simplified Source
+
+```c
+ExecStatusType PQresultStatus(const PGresult *res) {
+    // Return error status for NULL result
+    if (!res)
+        return PGRES_FATAL_ERROR;
+
+    // Return the stored execution status
+    return res->resultStatus;
+}
+```

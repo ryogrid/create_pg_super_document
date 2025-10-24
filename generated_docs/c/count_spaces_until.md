@@ -47,3 +47,37 @@ This bounded version is particularly useful when analyzing comment text or parti
 - Processing stops when encountering null terminator or reaching the  pointer, whichever comes first
 - Essential for precise positioning calculations in comment formatting and code alignment
 - More flexible than  due to its ability to process partial strings
+
+## Simplified Source
+
+```c
+int count_spaces_until(int cur, char *buffer, char *end) {
+    char *buf;
+
+    // Process each character until null terminator or end boundary
+    for (buf = buffer; *buf != '\0' && buf != end; ++buf) {
+        switch (*buf) {
+        case '\n':
+        case 014:  // form feed
+            cur = 1;
+            break;
+
+        case '\t':
+            // Advance to next tab stop
+            cur = tabsize * (1 + (cur - 1) / tabsize) + 1;
+            break;
+
+        case 010:  // backspace
+            --cur;
+            break;
+
+        default:
+            // Regular character
+            ++cur;
+            break;
+        }
+    }
+
+    return cur;
+}
+```

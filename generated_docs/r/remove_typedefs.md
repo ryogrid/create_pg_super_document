@@ -42,3 +42,40 @@ This cleanup mechanism ensures that typedefs defined in inner scopes (higher bra
 - Essential for proper memory management and scope semantics in ECPG
 - The brace_level parameter typically corresponds to C block nesting depth
 - Prevents typedef pollution across scope boundaries in embedded SQL processing
+
+## Simplified Source
+
+```c
+void
+remove_typedefs(int brace_level)
+{
+    struct typedefs *p, *prev, *next;
+
+    // Traverse the global types list
+    for (p = types, prev = NULL; p; p = next)
+    {
+        next = p->next;
+
+        // Remove typedefs defined at or deeper than specified brace level
+        if (p->brace_level >= brace_level)
+        {
+            // Unlink from list
+            if (prev)
+                prev->next = next;
+            else
+                types = next;
+
+            // Free memory for complex types
+            if (p->type->type_enum == ECPGt_struct || p->type->type_enum == ECPGt_union)
+                free(p->struct_member_list);
+
+            // Free typedef components
+            free(p->type);
+            free(p->name);
+            free(p);
+        }
+        else
+            prev = p;
+    }
+}
+```

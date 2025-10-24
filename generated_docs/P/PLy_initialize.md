@@ -43,3 +43,39 @@ This function handles the initialization of the PL/Python environment within a P
 - Initializes global variables like explicit_subtransactions and PLy_execution_contexts
 - Part of PostgreSQL's procedural language infrastructure for Python support
 - The function is marked as static, indicating it's only used within the same compilation unit
+
+## Simplified Source
+
+```c
+static void PLy_initialize(void) {
+    static bool inited = false;
+
+    // Check for Python version conflicts - only one major version allowed
+    if (*plpython_version_bitmask_ptr != (1 << PY_MAJOR_VERSION))
+        ereport(FATAL,
+                (errmsg("multiple Python libraries are present in session"),
+                 errdetail("Only one Python major version can be used in one session.")));
+
+    // Skip if already initialized
+    if (inited)
+        return;
+
+    // Initialize Python interpreter and PL/Python infrastructure
+    PyImport_AppendInittab("plpy", PyInit_plpy);
+    Py_Initialize();
+    PyImport_ImportModule("plpy");
+    PLy_init_interp();
+    PLy_init_plpy();
+
+    // Check for initialization errors
+    if (PyErr_Occurred())
+        PLy_elog(FATAL, "untrapped error in initialization");
+
+    // Initialize procedure caches and global state
+    init_procedure_caches();
+    explicit_subtransactions = NIL;
+    PLy_execution_contexts = NULL;
+
+    inited = true;
+}
+```

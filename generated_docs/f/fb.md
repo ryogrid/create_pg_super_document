@@ -31,3 +31,15 @@ The `fb` function is a test function that takes an integer parameter and returns
 - Returns the same integer value that was passed as input
 - Part of the ECPG test infrastructure for validating embedded SQL functionality
 - The function prints its parameter for debugging/verification purposes
+
+## Simplified Source
+
+```c
+static int fb(int x) {
+    // Print parameter value for ECPG test verification
+    printf("in fb (%d)\n", x);
+
+    // Return the input parameter unchanged
+    return x;
+}
+```
