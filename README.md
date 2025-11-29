@@ -548,3 +548,7 @@ This multi-agent approach demonstrates how AI can be effectively orchestrated to
 - [The Internals of PostgreSQL by Hironobu Suzuki @ InterDB](https://www.interdb.jp/pg/)
 - [What information is available to learn PostgreSQL internals? - wiki.postgresql.org](https://wiki.postgresql.org/wiki/Developer_FAQ#What_information_is_available_to_learn_PostgreSQL_internals?)
 - [DeepWiki about PostgreSQL 17.6 codebase (commit hash is "af4c9ce3fb89a9f196ecd2e2109b8fc6")](https://deepwiki.com/ryogrid/postgres_17_6)
+
+# Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=ryogrid/create_pg_super_document&type=Date)](https://star-history.com/#ryogrid/create_pg_super_document&Date)
