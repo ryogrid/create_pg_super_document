@@ -25,9 +25,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Inject Google Analytics
-        if: ${{ vars.GA_MEASUREMENT_ID != '' || secrets.GA_MEASUREMENT_ID != '' }}
+        if: ${{ vars.GA_MEASUREMENT_ID != '' }}
         run: |
-          GA_ID="${{ vars.GA_MEASUREMENT_ID }}${{ secrets.GA_MEASUREMENT_ID }}"
+          GA_ID="${{ vars.GA_MEASUREMENT_ID }}"
           GA_SCRIPT="<!-- Google Analytics --><script async src=\"https://www.googletagmanager.com/gtag/js?id=${GA_ID}\"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','${GA_ID}');</script>"
           sed -i "s|</head>|${GA_SCRIPT}</head>|" ./generated_docs/_layouts/default.html
       - name: Setup Pages
