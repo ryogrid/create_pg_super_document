@@ -1,0 +1,101 @@
+%% Figure 8: Standby Response Processing Sequence
+%% Shows how standby reply is processed and triggers waiter release
+
+sequenceDiagram
+    autonumber
+    participant SR as Standby<br/>walreceiver
+    participant PR as ProcessRepliesIfAny
+    participant PSM as ProcessStandbyMessage
+    participant PSRM as ProcessStandbyReplyMessage
+    participant WS as WalSnd (shared mem)
+    participant SRR as SyncRepReleaseWaiters
+    participant SRGS as SyncRepGetSyncRecPtr
+    participant WSC as WalSndCtl
+
+    Note over SR: Standby sends reply with<br/>write/flush/apply positions
+
+    SR->>PR: Reply message arrives on socket
+
+    PR->>PR: pq_getbyte_if_available()
+    PR->>PR: pq_getmessage(&reply_message)
+    PR->>PSM: ProcessStandbyMessage()
+
+    PSM->>PSM: msgtype = pq_getmsgbyte()
+
+    alt msgtype == 'r' (StandbyStatusUpdate)
+        PSM->>PSRM: ProcessStandbyReplyMessage()
+
+        Note over PSRM: Parse reply message fields
+        PSRM->>PSRM: writePtr = pq_getmsgint64()
+        PSRM->>PSRM: flushPtr = pq_getmsgint64()
+        PSRM->>PSRM: applyPtr = pq_getmsgint64()
+        PSRM->>PSRM: replyTime = pq_getmsgint64()
+        PSRM->>PSRM: replyRequested = pq_getmsgbyte()
+
+        Note over PSRM: Calculate lag times
+        PSRM->>PSRM: writeLag = LagTrackerRead(WRITE, writePtr)
+        PSRM->>PSRM: flushLag = LagTrackerRead(FLUSH, flushPtr)
+        PSRM->>PSRM: applyLag = LagTrackerRead(APPLY, applyPtr)
+
+        alt replyRequested
+            PSRM->>PSRM: WalSndKeepalive(false)
+        end
+
+        rect rgb(255, 248, 220)
+            Note over PSRM,WS: Update shared memory
+            PSRM->>WS: SpinLockAcquire(&walsnd->mutex)
+            PSRM->>WS: walsnd->write = writePtr
+            PSRM->>WS: walsnd->flush = flushPtr
+            PSRM->>WS: walsnd->apply = applyPtr
+            PSRM->>WS: walsnd->writeLag = writeLag
+            PSRM->>WS: walsnd->flushLag = flushLag
+            PSRM->>WS: walsnd->applyLag = applyLag
+            PSRM->>WS: walsnd->replyTime = replyTime
+            PSRM->>WS: SpinLockRelease(&walsnd->mutex)
+        end
+
+        alt !am_cascading_walsender
+            PSRM->>SRR: SyncRepReleaseWaiters()
+
+            alt sync_standby_priority == 0 OR state not STREAMING/STOPPING
+                SRR-->>PSRM: Return early (not sync standby)
+            else Is potential sync standby
+                SRR->>SRR: LWLockAcquire(SyncRepLock, LW_EXCLUSIVE)
+                SRR->>SRGS: SyncRepGetSyncRecPtr(&write, &flush, &apply, &am_sync)
+
+                SRGS->>SRGS: SyncRepGetCandidateStandbys()
+                Note over SRGS: Scan all WalSnd slots<br/>Collect sync candidates
+
+                alt Priority mode
+                    SRGS->>SRGS: SyncRepGetOldestSyncRecPtr()
+                else Quorum mode
+                    SRGS->>SRGS: SyncRepGetNthLatestSyncRecPtr()
+                end
+
+                SRGS-->>SRR: Return writePtr, flushPtr, applyPtr, am_sync
+
+                alt got_recptr AND am_sync
+                    SRR->>WSC: Update lsn[WRITE] if < writePtr
+                    SRR->>SRR: SyncRepWakeQueue(WRITE)
+                    SRR->>WSC: Update lsn[FLUSH] if < flushPtr
+                    SRR->>SRR: SyncRepWakeQueue(FLUSH)
+                    SRR->>WSC: Update lsn[APPLY] if < applyPtr
+                    SRR->>SRR: SyncRepWakeQueue(APPLY)
+                end
+
+                SRR->>SRR: LWLockRelease(SyncRepLock)
+            end
+        end
+
+        alt MyReplicationSlot AND flushPtr valid
+            PSRM->>PSRM: PhysicalConfirmReceivedLocation(flushPtr)
+            Note over PSRM: Update slot restart_lsn
+        end
+
+    else msgtype == 'h' (HotStandbyFeedback)
+        PSM->>PSM: ProcessStandbyHSFeedbackMessage()
+        Note over PSM: Update xmin for vacuum
+    end
+
+    PSM-->>PR: Return
+    PR-->>PR: Continue processing more messages

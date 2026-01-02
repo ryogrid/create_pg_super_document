@@ -1,0 +1,59 @@
+%% Figure 5: Walsender State Machine
+%% Shows WalSndState transitions
+
+stateDiagram-v2
+    [*] --> STARTUP: WalSndMain()<br/>InitWalSenderSlot()
+
+    STARTUP --> BACKUP: BASE_BACKUP command
+    STARTUP --> CATCHUP: START_REPLICATION<br/>not yet caught up
+
+    BACKUP --> CATCHUP: Backup complete<br/>START_REPLICATION
+    BACKUP --> [*]: Backup complete<br/>no streaming
+
+    CATCHUP --> STREAMING: WalSndCaughtUp = true<br/>sentPtr >= flushPtr
+    CATCHUP --> STOPPING: got_STOPPING = true<br/>(SIGUSR2 or shutdown)
+
+    STREAMING --> CATCHUP: More WAL to send<br/>WalSndCaughtUp = false
+    STREAMING --> STOPPING: got_STOPPING = true
+
+    STOPPING --> [*]: All WAL sent and<br/>confirmed by standby
+
+    note right of STARTUP
+        WalSndState = WALSNDSTATE_STARTUP
+        Initial state after fork
+        Waiting for replication command
+    end note
+
+    note right of BACKUP
+        WalSndState = WALSNDSTATE_BACKUP
+        Performing pg_basebackup
+        Not streaming WAL
+    end note
+
+    note right of CATCHUP
+        WalSndState = WALSNDSTATE_CATCHUP
+        Actively streaming WAL
+        Behind flush position
+        sync_standby_priority not effective
+    end note
+
+    note right of STREAMING
+        WalSndState = WALSNDSTATE_STREAMING
+        Caught up with primary
+        Can participate in sync rep
+        SyncRepReleaseWaiters active
+    end note
+
+    note right of STOPPING
+        WalSndState = WALSNDSTATE_STOPPING
+        Graceful shutdown in progress
+        Finish sending remaining WAL
+        Wait for confirmation before exit
+    end note
+
+    state "State Check in SyncRepReleaseWaiters" as SRC {
+        state if_state <<choice>>
+        [*] --> if_state
+        if_state --> CanRelease: state == STREAMING<br/>OR state == STOPPING
+        if_state --> CannotRelease: state == STARTUP<br/>OR state == BACKUP<br/>OR state == CATCHUP
+    }

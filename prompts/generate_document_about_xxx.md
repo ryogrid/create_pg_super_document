@@ -58,7 +58,7 @@ Prioritize symbols involved in:
 After Stage 1 completes, invoke the detail-documenter subagent:
 
 ```
-Using the architecture analysis from Stage 1, create detailed documentation for the WAL subsystem.
+Using the architecture analysis from Stage 1, create detailed documentation for the XXX xxxxxxx.
 
 Input files:
 - architecture_map.json
@@ -95,13 +95,14 @@ Documentation Requirements:
      * WalSndLoop (main replication loop)
      * ApplyWalRecord (replay mechanism)
 
-Generate component files organized by subsystem:
+Generate xxxxxxx files organized by yyyyyy:
 ** modification for consistency with topic is needed **
-- component_wal_generation.md
-- component_wal_writing.md
-- component_replication_sender.md
-- component_replication_receiver.md
-- component_recovery.md
+- xxxxxx_aaaaaaa.md
+- xxxxxx_bbbbbbb.md
+- xxxxxx_ccccccc.md
+- xxxxxx_ddddddd.md
+- xxxxxx_eeeeeee.md
+- xxxxxx_fffffff.md
 - diagrams/*.mermaid
 ```
 
@@ -148,7 +149,7 @@ Integration Requirements:
    - Maintain coherent reading experience
    
    Otherwise:
-   - Single wal_complete_documentation.md
+   - Single xxx_xxxxxxx_documentation.md
    - Internal navigation via TOC
 
 5. Additional Deliverables:
@@ -165,7 +166,7 @@ Integration Requirements:
 1. Execute each stage sequentially - do not proceed until previous stage completes successfully
 2. Capture all output files from each subagent
 3. Validate expected outputs before proceeding to next stage
-4. Report progress after each stage: "[Stage N Complete] Generated: <file list>"
+4. Report progress after each stage: "[Stage N Complete] Generated: <file list>
 
 ### Error Handling
 - **Subagent failure**: Retry once with modified parameters, then proceed with partial results

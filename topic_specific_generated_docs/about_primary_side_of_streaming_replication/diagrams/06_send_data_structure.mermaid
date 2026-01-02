@@ -1,0 +1,69 @@
+%% Figure 6: WAL Transmission Data Structure
+%% Shows CopyData message format and MAX_SEND_SIZE
+
+flowchart TB
+    subgraph "XLogSendPhysical Message Construction"
+        A[Determine SendRqstPtr<br/>GetFlushRecPtr or GetStandbyFlushRecPtr]
+        B[Calculate send range<br/>startptr = sentPtr<br/>endptr = min startptr + MAX_SEND_SIZE, SendRqstPtr]
+        C{endptr > SendRqstPtr?}
+        D[endptr = SendRqstPtr<br/>WalSndCaughtUp = true]
+        E[Round down to page boundary<br/>endptr -= endptr % XLOG_BLCKSZ]
+        F[nbytes = endptr - startptr]
+    end
+
+    subgraph "CopyData Message Format"
+        direction TB
+        MSG[CopyData Message 'd']
+
+        subgraph "Message Header (25 bytes)"
+            H1["msgtype: 'w' (1 byte)"]
+            H2["dataStart: XLogRecPtr (8 bytes)<br/>Start position of WAL data"]
+            H3["walEnd: XLogRecPtr (8 bytes)<br/>Current flush position"]
+            H4["sendTime: TimestampTz (8 bytes)<br/>Server timestamp"]
+        end
+
+        subgraph "WAL Data Payload"
+            P1["WAL data bytes (variable)<br/>Up to MAX_SEND_SIZE"]
+        end
+    end
+
+    subgraph "Size Constants"
+        S1["MAX_SEND_SIZE = 16MB<br/>(with libpq default)"]
+        S2["XLOG_BLCKSZ = 8KB<br/>(default WAL page size)"]
+        S3["wal_segment_size = 16MB<br/>(default segment size)"]
+    end
+
+    subgraph "Data Sources"
+        DS1[WAL Buffers<br/>WALReadFromBuffers]
+        DS2[WAL Files<br/>WALRead]
+    end
+
+    A --> B
+    B --> C
+    C -->|Yes| D
+    C -->|No| E
+    D --> F
+    E --> F
+
+    F --> MSG
+    MSG --> H1
+    H1 --> H2
+    H2 --> H3
+    H3 --> H4
+    H4 --> P1
+
+    DS1 --> P1
+    DS2 --> P1
+
+    subgraph "Boundary Considerations"
+        BC1["WAL Record: Can span pages<br/>but never split across messages"]
+        BC2["Page Boundary: Always safe cut point<br/>Continuation records at page start"]
+        BC3["Segment Boundary: Forces fsync<br/>before next segment"]
+    end
+
+    style MSG fill:#e3f2fd
+    style H1 fill:#bbdefb
+    style H2 fill:#bbdefb
+    style H3 fill:#bbdefb
+    style H4 fill:#bbdefb
+    style P1 fill:#c8e6c9

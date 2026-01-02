@@ -1,0 +1,68 @@
+%% Figure 10: SyncRepQueue States
+%% Shows state transitions for backend in sync rep queue
+
+stateDiagram-v2
+    [*] --> NOT_WAITING: Backend running normally
+
+    NOT_WAITING --> WAITING: SyncRepWaitForLSN called<br/>MyProc->syncRepState = SYNC_REP_WAITING<br/>SyncRepQueueInsert(mode)
+
+    state "In Queue" as InQueue {
+        WAITING --> WAITING: WaitLatch returns<br/>but syncRepState unchanged
+
+        note right of WAITING
+            Backend is in SyncRepQueue[mode]
+            Ordered by waitLSN
+            Sleeping on procLatch
+        end note
+    }
+
+    WAITING --> WAIT_COMPLETE: Walsender calls SyncRepWakeQueue<br/>proc->syncRepState = SYNC_REP_WAIT_COMPLETE<br/>SetLatch(&proc->procLatch)
+
+    WAITING --> CANCELLED: ProcDiePending or QueryCancelPending<br/>SyncRepCancelWait() called
+
+    WAIT_COMPLETE --> NOT_WAITING: Backend wakes up<br/>Sees WAIT_COMPLETE<br/>Resets state to NOT_WAITING
+
+    CANCELLED --> NOT_WAITING: SyncRepCancelWait removes from queue<br/>Resets state to NOT_WAITING
+
+    state "SyncRepQueue Structure" as QueueStruct {
+        state "SyncRepQueue[SYNC_REP_WAIT_WRITE]" as Q0
+        state "SyncRepQueue[SYNC_REP_WAIT_FLUSH]" as Q1
+        state "SyncRepQueue[SYNC_REP_WAIT_APPLY]" as Q2
+
+        Q0: Wait for remote_write
+        Q1: Wait for on (remote_flush)
+        Q2: Wait for remote_apply
+    }
+
+    state "Queue Operations" as QueueOps {
+        state "SyncRepQueueInsert" as Insert
+        state "SyncRepWakeQueue" as Wake
+        state "SyncRepCancelWait" as Cancel
+
+        Insert: Adds to queue in LSN order<br/>O(n) walk from tail
+        Wake: Removes and wakes procs<br/>where waitLSN <= lsn[mode]
+        Cancel: Removes single proc<br/>Resets syncRepState
+    }
+
+    state "WalSndCtl->lsn Array" as LsnArray {
+        state "lsn[WRITE]" as L0
+        state "lsn[FLUSH]" as L1
+        state "lsn[APPLY]" as L2
+
+        L0: Highest confirmed write LSN
+        L1: Highest confirmed flush LSN
+        L2: Highest confirmed apply LSN
+    }
+
+    note right of WAIT_COMPLETE
+        Backend removed from queue
+        by walsender
+        pg_write_barrier before
+        state change
+    end note
+
+    note right of CANCELLED
+        Cleanup on interrupt
+        Transaction still committed
+        but warning issued
+    end note

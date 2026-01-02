@@ -1,0 +1,63 @@
+%% Figure 4: WAL Buffer State Transitions
+%% Shows the lifecycle of WAL buffer pages
+
+stateDiagram-v2
+    [*] --> Uninitialized: System startup
+
+    state "Buffer Page Lifecycle" as BPL {
+        Uninitialized --> Initialized: AdvanceXLInsertBuffer<br/>(WALBufMappingLock)
+
+        Initialized --> BeingWritten: CopyXLogRecordToWAL<br/>(WALInsertLock held)
+
+        BeingWritten --> Completed: WALInsertLockRelease<br/>(insertingAt = 0)
+
+        BeingWritten --> BeingWritten: Cross page boundary<br/>WALInsertLockUpdateInsertingAt
+
+        Completed --> PendingWrite: More records may be added<br/>or page boundary reached
+
+        PendingWrite --> Written: XLogWrite pg_pwrite<br/>(WALWriteLock held)
+
+        Written --> Flushed: issue_xlog_fsync<br/>(segment complete or flush requested)
+
+        Flushed --> Recyclable: Buffer no longer needed<br/>logFlushResult advanced past it
+
+        Recyclable --> Initialized: AdvanceXLInsertBuffer<br/>reuses buffer slot
+    }
+
+    state "Atomic Tracking Variables" as ATV {
+        state "xlblocks[idx]" as XB
+        state "logInsertResult" as LIR
+        state "logWriteResult" as LWR
+        state "logFlushResult" as LFR
+
+        XB: End LSN of buffer page
+        LIR: Last byte+1 inserted
+        LWR: Last byte+1 written
+        LFR: Last byte+1 flushed
+    }
+
+    note right of Initialized
+        xlblocks[idx] set to page end LSN
+        InitializedUpTo advanced
+    end note
+
+    note right of BeingWritten
+        insertingAt tracks progress
+        Others can see via LWLockWaitForVar
+    end note
+
+    note right of Completed
+        logInsertResult updated atomically
+        Buffer ready for write
+    end note
+
+    note right of Written
+        logWriteResult updated atomically
+        Data on disk but not durable
+    end note
+
+    note right of Flushed
+        logFlushResult updated atomically
+        Data durable on disk
+        Walsenders can now send
+    end note

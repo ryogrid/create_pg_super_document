@@ -1,0 +1,87 @@
+%% Figure 7: Walsender Single Iteration
+%% Shows one iteration of WalSndLoop
+
+sequenceDiagram
+    autonumber
+    participant WL as WalSndLoop
+    participant PR as ProcessRepliesIfAny
+    participant SD as send_data<br/>(XLogSendPhysical)
+    participant PQ as pq_flush_if_writable
+    participant CT as WalSndCheckTimeOut
+    participant KA as WalSndKeepaliveIfNecessary
+    participant WT as WalSndWait
+
+    Note over WL: Start of iteration
+
+    WL->>WL: ResetLatch(MyLatch)
+    WL->>WL: CHECK_FOR_INTERRUPTS()
+
+    alt ConfigReloadPending
+        WL->>WL: ProcessConfigFile(PGC_SIGHUP)
+        WL->>WL: SyncRepInitConfig()
+    end
+
+    WL->>PR: ProcessRepliesIfAny()
+    PR->>PR: pq_getbyte_if_available()
+
+    alt Message available
+        PR->>PR: ProcessStandbyMessage()
+        Note over PR: Updates WalSnd->write/flush/apply<br/>Calls SyncRepReleaseWaiters
+    end
+
+    PR-->>WL: Return
+
+    alt streamingDoneReceiving AND streamingDoneSending AND !pq_is_send_pending()
+        WL->>WL: Break loop (exit)
+    end
+
+    alt !pq_is_send_pending()
+        WL->>SD: send_data() / XLogSendPhysical()
+        SD->>SD: GetFlushRecPtr() -> SendRqstPtr
+        SD->>SD: Calculate startptr, endptr
+        SD->>SD: WALReadFromBuffers / WALRead
+        SD->>SD: pq_putmessage_noblock('d', ...)
+        SD->>SD: Update MyWalSnd->sentPtr
+        SD-->>WL: Return (sets WalSndCaughtUp)
+    else pq_is_send_pending()
+        WL->>WL: WalSndCaughtUp = false
+    end
+
+    WL->>PQ: pq_flush_if_writable()
+    alt Flush error
+        WL->>WL: WalSndShutdown()
+    end
+
+    alt WalSndCaughtUp AND !pq_is_send_pending()
+        alt MyWalSnd->state == WALSNDSTATE_CATCHUP
+            WL->>WL: WalSndSetState(WALSNDSTATE_STREAMING)
+            Note over WL: Now participating in sync rep
+        end
+
+        alt got_SIGUSR2
+            WL->>WL: WalSndDone(send_data)
+        end
+    end
+
+    WL->>CT: WalSndCheckTimeOut()
+    CT->>CT: Check wal_sender_timeout
+    alt Timeout exceeded
+        CT->>CT: WalSndShutdown()
+    end
+
+    WL->>KA: WalSndKeepaliveIfNecessary()
+    alt Half timeout elapsed without reply
+        KA->>KA: WalSndKeepalive(true)
+        Note over KA: Request reply from standby
+    end
+
+    alt Should wait (caught up OR send pending)
+        WL->>WL: Calculate sleeptime
+        WL->>WL: Set wakeEvents flags
+        WL->>WT: WalSndWait(wakeEvents, sleeptime)
+        WT->>WT: ConditionVariablePrepareToSleep(wal_flush_cv)
+        WT->>WT: WaitEventSetWait()
+        WT->>WT: ConditionVariableCancelSleep()
+    end
+
+    Note over WL: End of iteration, loop continues

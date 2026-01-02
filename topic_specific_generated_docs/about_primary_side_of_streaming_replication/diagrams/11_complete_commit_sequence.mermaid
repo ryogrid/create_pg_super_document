@@ -1,0 +1,100 @@
+%% Figure 11: Complete Commit Sequence with Synchronous Replication
+%% Shows end-to-end flow from commit to client response
+
+sequenceDiagram
+    autonumber
+    participant CL as Client
+    participant BE as Backend
+    participant XI as XLogInsert
+    participant XF as XLogFlush
+    participant DISK as WAL Disk
+    participant WS as Walsender
+    participant NET as Network
+    participant SR as Standby<br/>walreceiver
+    participant SDISK as Standby<br/>WAL Disk
+    participant SREP as Standby<br/>Startup
+
+    CL->>BE: COMMIT
+
+    Note over BE: RecordTransactionCommit()
+
+    rect rgb(230, 245, 255)
+        Note over BE,XI: Phase 1: WAL Record Insertion
+        BE->>XI: XLogInsert(RM_XACT_ID, XLOG_XACT_COMMIT)
+        XI->>XI: XLogRecordAssemble()
+        XI->>XI: XLogInsertRecord()
+        Note over XI: Acquire WALInsertLock<br/>Reserve space (CurrBytePos)<br/>Copy to WAL buffer<br/>Release lock
+        XI-->>BE: Return commitLSN
+    end
+
+    rect rgb(255, 245, 230)
+        Note over BE,DISK: Phase 2: WAL Flush
+        BE->>XF: XLogFlush(commitLSN)
+        XF->>XF: WaitXLogInsertionsToFinish()
+        XF->>XF: LWLockAcquireOrWait(WALWriteLock)
+        XF->>DISK: XLogWrite() + issue_xlog_fsync()
+        Note over XF: Update logWriteResult, logFlushResult
+        XF->>XF: WalSndWakeupProcessRequests()
+        Note over XF: ConditionVariableBroadcast
+    end
+
+    rect rgb(245, 255, 230)
+        Note over BE: Phase 3: Sync Rep Wait (if configured)
+        BE->>BE: SyncRepWaitForLSN(commitLSN, true)
+        BE->>BE: Insert into SyncRepQueue
+        BE->>BE: WaitLatch(SYNC_REP)
+        Note over BE: Backend now sleeping
+    end
+
+    rect rgb(255, 230, 245)
+        Note over WS,SR: Phase 4: WAL Transmission
+        WS->>WS: Woken by wal_flush_cv
+        WS->>WS: XLogSendPhysical()
+        WS->>WS: GetFlushRecPtr() -> commitLSN+
+        WS->>WS: WALReadFromBuffers()
+        WS->>NET: pq_putmessage_noblock('d', wal_data)
+        NET->>SR: CopyData message with WAL
+    end
+
+    rect rgb(230, 255, 245)
+        Note over SR,SREP: Phase 5: Standby Processing
+        SR->>SR: Receive WAL data
+        SR->>SDISK: Write to WAL file
+        SR->>SDISK: Flush (based on config)
+        SR->>SR: Update walrcv->flushedUpto
+
+        opt If synchronous_commit >= remote_apply
+            SREP->>SREP: Apply WAL records
+            SREP->>SR: Update shared xlrec
+        end
+    end
+
+    rect rgb(245, 230, 255)
+        Note over SR,WS: Phase 6: Standby Reply
+        SR->>NET: StandbyStatusUpdate message
+        Note over SR: write=X, flush=Y, apply=Z
+        NET->>WS: Reply arrives
+    end
+
+    rect rgb(255, 255, 230)
+        Note over WS,BE: Phase 7: Release Waiters
+        WS->>WS: ProcessStandbyReplyMessage()
+        WS->>WS: Update WalSnd->write/flush/apply
+        WS->>WS: SyncRepReleaseWaiters()
+        WS->>WS: SyncRepGetSyncRecPtr()
+        WS->>WS: Update WalSndCtl->lsn[]
+        WS->>WS: SyncRepWakeQueue()
+        Note over WS: For each waiting backend<br/>where waitLSN <= lsn[mode]
+        WS->>BE: SetLatch(&proc->procLatch)
+    end
+
+    rect rgb(230, 240, 255)
+        Note over BE,CL: Phase 8: Commit Complete
+        BE->>BE: Woken from WaitLatch
+        BE->>BE: Check syncRepState == WAIT_COMPLETE
+        BE->>BE: Reset syncRepState to NOT_WAITING
+        BE->>BE: Complete commit cleanup
+        BE-->>CL: COMMIT response
+    end
+
+    Note over CL: Transaction durably committed<br/>on both primary and standby

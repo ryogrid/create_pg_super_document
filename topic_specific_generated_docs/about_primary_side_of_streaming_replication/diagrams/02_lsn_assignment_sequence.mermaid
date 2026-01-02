@@ -1,0 +1,71 @@
+%% Figure 2: LSN Assignment Sequence in XLogInsertRecord
+%% Shows the exact timing and mechanism of LSN assignment
+
+sequenceDiagram
+    autonumber
+    participant BE as Backend
+    participant XI as XLogInsert
+    participant XIR as XLogInsertRecord
+    participant WAIL as WALInsertLockAcquire
+    participant RXIL as ReserveXLogInsertLocation
+    participant SLOCK as insertpos_lck (spinlock)
+    participant INSERT as XLogCtlInsert
+    participant COPY as CopyXLogRecordToWAL
+    participant BUF as WAL Buffers
+
+    BE->>XI: XLogInsert(rmid, info)
+    XI->>XI: XLogRecordAssemble()<br/>Prepare record data
+
+    Note over XI,XIR: Record header ready, FPW checked
+
+    XI->>XIR: XLogInsertRecord(rdata, fpw_lsn, flags)
+
+    rect rgb(255, 235, 235)
+        Note over XIR: START_CRIT_SECTION()
+    end
+
+    XIR->>WAIL: WALInsertLockAcquire()
+    WAIL->>WAIL: Select lock (MyLockNo)<br/>based on MyProcNumber
+    WAIL-->>XIR: Acquired WALInsertLocks[MyLockNo]
+
+    Note over XIR: Check RedoRecPtr, fullPageWrites<br/>Retry if FPW state changed
+
+    XIR->>RXIL: ReserveXLogInsertLocation(size, &StartPos, &EndPos, &PrevPtr)
+
+    rect rgb(255, 220, 220)
+        Note over RXIL,SLOCK: Critical spinlock section
+        RXIL->>SLOCK: SpinLockAcquire(&insertpos_lck)
+        RXIL->>INSERT: startbytepos = CurrBytePos
+        RXIL->>INSERT: prevbytepos = PrevBytePos
+        RXIL->>INSERT: CurrBytePos = startbytepos + size
+        RXIL->>INSERT: PrevBytePos = startbytepos
+        RXIL->>SLOCK: SpinLockRelease(&insertpos_lck)
+    end
+
+    Note over RXIL: Convert byte positions to XLogRecPtr
+    RXIL->>RXIL: StartPos = XLogBytePosToRecPtr(startbytepos)
+    RXIL->>RXIL: EndPos = XLogBytePosToEndRecPtr(endbytepos)
+    RXIL->>RXIL: PrevPtr = XLogBytePosToRecPtr(prevbytepos)
+    RXIL-->>XIR: Return StartPos, EndPos, PrevPtr
+
+    Note over XIR: LSN is now assigned!<br/>StartPos = record's LSN
+
+    XIR->>XIR: Calculate CRC with xl_prev set
+    XIR->>COPY: CopyXLogRecordToWAL(tot_len, StartPos, EndPos)
+
+    loop For each page crossed
+        COPY->>BUF: GetXLogBuffer(CurrPos)
+        COPY->>COPY: WALInsertLockUpdateInsertingAt(CurrPos)
+        COPY->>BUF: memcpy record data
+    end
+
+    COPY-->>XIR: Record copied to buffer
+
+    XIR->>XIR: WALInsertLockRelease()
+
+    rect rgb(235, 255, 235)
+        Note over XIR: END_CRIT_SECTION()
+    end
+
+    XIR-->>XI: Return EndPos (end of record)
+    XI-->>BE: Return EndPos as record LSN

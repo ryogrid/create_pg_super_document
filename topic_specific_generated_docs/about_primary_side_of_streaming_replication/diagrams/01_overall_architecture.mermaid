@@ -1,0 +1,86 @@
+%% Figure 1: Overall Synchronous Streaming Replication Architecture
+%% Shows the relationship between primary components and standby
+
+graph TB
+    subgraph "Primary Server"
+        subgraph "Backend Process"
+            BE[Backend<br/>Transaction]
+            XI[XLogInsert]
+            XIR[XLogInsertRecord]
+            XF[XLogFlush]
+            SRWL[SyncRepWaitForLSN]
+        end
+
+        subgraph "WAL Buffer Management"
+            WB[(WAL Buffers<br/>XLogCtl->pages)]
+            XCI[XLogCtlInsert<br/>CurrBytePos/PrevBytePos]
+            IL[WALInsertLocks]
+        end
+
+        subgraph "WAL Writer Process"
+            WW[WalWriter]
+            XBF[XLogBackgroundFlush]
+        end
+
+        subgraph "Walsender Process"
+            WSM[WalSndMain]
+            WSL[WalSndLoop]
+            XSP[XLogSendPhysical]
+            PSRM[ProcessStandbyReplyMessage]
+            SRR[SyncRepReleaseWaiters]
+        end
+
+        subgraph "Shared Memory"
+            XLogCtl[XLogCtlData<br/>logWriteResult<br/>logFlushResult]
+            WSC[WalSndCtlData<br/>SyncRepQueue<br/>lsn array]
+            WS[WalSnd<br/>write/flush/apply]
+        end
+
+        DISK[(WAL Segment Files)]
+    end
+
+    subgraph "Standby Server"
+        WR[WalReceiver]
+        STARTUP[Startup Process<br/>Recovery]
+        SDISK[(WAL Files)]
+    end
+
+    %% Data flow
+    BE --> XI
+    XI --> XIR
+    XIR --> |"1. Reserve space"| XCI
+    XIR --> |"2. Acquire lock"| IL
+    XIR --> |"3. Copy record"| WB
+
+    XF --> |"4. Write/Fsync"| DISK
+    XF --> |"Update"| XLogCtl
+    XF --> |"Wake walsenders"| WSL
+
+    SRWL --> |"5. Wait on queue"| WSC
+
+    WW --> XBF
+    XBF --> DISK
+
+    WSL --> XSP
+    XSP --> |"Read from"| WB
+    XSP --> |"Read from"| DISK
+    XSP --> |"6. Send WAL"| WR
+
+    WR --> |"7. Reply LSNs"| PSRM
+    PSRM --> |"Update"| WS
+    PSRM --> SRR
+    SRR --> |"8. Wake waiters"| WSC
+
+    WR --> SDISK
+    WR --> STARTUP
+
+    %% Styling
+    classDef process fill:#e1f5fe,stroke:#01579b
+    classDef shmem fill:#fff3e0,stroke:#e65100
+    classDef disk fill:#f3e5f5,stroke:#4a148c
+    classDef standby fill:#e8f5e9,stroke:#1b5e20
+
+    class BE,XI,XIR,XF,SRWL,WW,XBF,WSM,WSL,XSP,PSRM,SRR process
+    class WB,XCI,IL,XLogCtl,WSC,WS shmem
+    class DISK,SDISK disk
+    class WR,STARTUP standby

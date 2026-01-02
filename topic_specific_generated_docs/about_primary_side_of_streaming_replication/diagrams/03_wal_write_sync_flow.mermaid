@@ -1,0 +1,117 @@
+%% Figure 3: WAL Write/Sync Flow
+%% Shows XLogFlush and XLogWrite operation with group commit
+
+flowchart TB
+    subgraph "XLogFlush Entry"
+        A[XLogFlush called with target LSN]
+        B{Already flushed?<br/>record <= LogwrtResult.Flush}
+        C[Quick return]
+    end
+
+    subgraph "Group Commit Loop"
+        D[START_CRIT_SECTION]
+        E[RefreshXLogWriteResult]
+        F{record <= Flush?}
+        G[Get LogwrtRqst.Write<br/>under info_lck]
+        H[WaitXLogInsertionsToFinish<br/>Wait for in-progress insertions]
+        I{LWLockAcquireOrWait<br/>WALWriteLock}
+        J[Lock released while waiting<br/>Loop back to recheck]
+        K[Lock acquired]
+    end
+
+    subgraph "CommitDelay Optimization"
+        L{CommitDelay > 0 AND<br/>enableFsync AND<br/>MinimumActiveBackends?}
+        M[pg_usleep CommitDelay]
+        N[WaitXLogInsertionsToFinish again<br/>to catch more commits]
+    end
+
+    subgraph "XLogWrite Operation"
+        O[Set WriteRqst.Write/Flush = insertpos]
+        P[XLogWrite WriteRqst, tli, false]
+
+        subgraph "Write Loop"
+            Q[curridx = XLogRecPtrToBufIdx]
+            R{LogwrtResult.Write < WriteRqst.Write?}
+            S[Read xlblocks for current buffer]
+            T{Segment switch needed?}
+            U[XLogFileClose / XLogFileInit]
+            V[Accumulate pages for batch write]
+            W{Last iteration OR<br/>cache boundary OR<br/>segment end?}
+            X[pg_pwrite batch to disk]
+            Y{finishing_seg?}
+            Z[issue_xlog_fsync<br/>WalSndWakeupRequest]
+        end
+
+        subgraph "Fsync Phase"
+            AA{Flush < WriteRqst.Flush?}
+            AB[issue_xlog_fsync]
+            AC[WalSndWakeupRequest]
+        end
+
+        subgraph "Update Shared Memory"
+            AD[SpinLockAcquire info_lck]
+            AE[Update LogwrtRqst if behind]
+            AF[SpinLockRelease info_lck]
+            AG[pg_atomic_write_u64 logWriteResult]
+            AH[pg_write_barrier]
+            AI[pg_atomic_write_u64 logFlushResult]
+        end
+    end
+
+    subgraph "Cleanup"
+        AJ[LWLockRelease WALWriteLock]
+        AK[END_CRIT_SECTION]
+        AL[WalSndWakeupProcessRequests]
+    end
+
+    A --> B
+    B -->|Yes| C
+    B -->|No| D
+    D --> E
+    E --> F
+    F -->|Yes| AK
+    F -->|No| G
+    G --> H
+    H --> I
+    I -->|Not acquired| J
+    J --> E
+    I -->|Acquired| K
+    K --> L
+    L -->|Yes| M
+    M --> N
+    N --> O
+    L -->|No| O
+    O --> P
+    P --> Q
+    Q --> R
+    R -->|Yes| S
+    S --> T
+    T -->|Yes| U
+    U --> V
+    T -->|No| V
+    V --> W
+    W -->|Yes| X
+    X --> Y
+    Y -->|Yes| Z
+    Z --> R
+    Y -->|No| R
+    W -->|No| R
+    R -->|No| AA
+    AA -->|Yes| AB
+    AB --> AC
+    AC --> AD
+    AA -->|No| AD
+    AD --> AE
+    AE --> AF
+    AF --> AG
+    AG --> AH
+    AH --> AI
+    AI --> AJ
+    AJ --> AK
+    AK --> AL
+
+    style A fill:#e3f2fd
+    style P fill:#fff3e0
+    style X fill:#ffebee
+    style AB fill:#ffebee
+    style AI fill:#e8f5e9

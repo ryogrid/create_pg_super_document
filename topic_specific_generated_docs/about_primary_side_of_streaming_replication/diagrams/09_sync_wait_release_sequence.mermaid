@@ -1,0 +1,107 @@
+%% Figure 9: Sync Wait/Release Sequence
+%% Shows interaction between waiting backend and releasing walsender
+
+sequenceDiagram
+    autonumber
+    participant BE as Backend<br/>(committing)
+    participant XF as XLogFlush
+    participant SRWL as SyncRepWaitForLSN
+    participant SRQ as SyncRepQueue
+    participant WSL as WalSndLoop<br/>(walsender)
+    participant SRR as SyncRepReleaseWaiters
+    participant SRW as SyncRepWakeQueue
+
+    Note over BE: Transaction commit record inserted
+
+    BE->>XF: XLogFlush(commitLSN)
+
+    Note over XF: Write and fsync WAL to disk
+
+    XF->>XF: WalSndWakeupProcessRequests()
+    Note over XF: Wake walsenders via CV broadcast
+
+    XF-->>BE: Return (WAL durable on primary)
+
+    BE->>SRWL: SyncRepWaitForLSN(commitLSN, true)
+
+    Note over SRWL: Fast exit checks
+    SRWL->>SRWL: Check SyncRepRequested()
+    SRWL->>SRWL: Check sync_standbys_status flags
+
+    SRWL->>SRWL: LWLockAcquire(SyncRepLock, LW_EXCLUSIVE)
+
+    alt Already satisfied (lsn <= WalSndCtl->lsn[mode])
+        SRWL->>SRWL: LWLockRelease(SyncRepLock)
+        SRWL-->>BE: Return immediately
+    end
+
+    rect rgb(255, 240, 240)
+        Note over SRWL,SRQ: Insert into wait queue
+        SRWL->>SRWL: MyProc->waitLSN = commitLSN
+        SRWL->>SRWL: MyProc->syncRepState = SYNC_REP_WAITING
+        SRWL->>SRQ: SyncRepQueueInsert(mode)
+        Note over SRQ: Maintain LSN order in queue
+        SRWL->>SRWL: LWLockRelease(SyncRepLock)
+    end
+
+    loop Wait for confirmation
+        SRWL->>SRWL: ResetLatch(MyLatch)
+        SRWL->>SRWL: Check syncRepState
+
+        alt syncRepState == SYNC_REP_WAIT_COMPLETE
+            Note over SRWL: Walsender confirmed our LSN
+            SRWL->>SRWL: Break out of loop
+        end
+
+        alt ProcDiePending OR QueryCancelPending
+            SRWL->>SRWL: SyncRepCancelWait()
+            SRWL->>SRWL: Break with warning
+        end
+
+        SRWL->>SRWL: WaitLatch(WAIT_EVENT_SYNC_REP)
+    end
+
+    par Walsender processing (concurrent)
+        Note over WSL: Walsender woken by CV broadcast
+
+        WSL->>WSL: XLogSendPhysical()
+        Note over WSL: Send WAL to standby
+
+        Note over WSL: Standby confirms receipt
+        WSL->>WSL: ProcessStandbyReplyMessage()
+        Note over WSL: Updates WalSnd->flush with standby position
+
+        WSL->>SRR: SyncRepReleaseWaiters()
+
+        SRR->>SRR: LWLockAcquire(SyncRepLock, LW_EXCLUSIVE)
+        SRR->>SRR: SyncRepGetSyncRecPtr()
+        Note over SRR: Calculate confirmed positions<br/>across all sync standbys
+
+        SRR->>SRR: Update WalSndCtl->lsn[mode]
+
+        SRR->>SRW: SyncRepWakeQueue(mode)
+
+        rect rgb(220, 255, 220)
+            Note over SRW,SRQ: Wake waiting backends
+            loop For each proc in SyncRepQueue[mode]
+                SRW->>SRQ: Check proc->waitLSN <= lsn[mode]
+                alt LSN satisfied
+                    SRW->>SRQ: dlist_delete_thoroughly()
+                    SRW->>SRW: pg_write_barrier()
+                    SRW->>SRQ: proc->syncRepState = SYNC_REP_WAIT_COMPLETE
+                    SRW->>SRWL: SetLatch(&proc->procLatch)
+                end
+            end
+        end
+
+        SRR->>SRR: LWLockRelease(SyncRepLock)
+    end
+
+    Note over SRWL: Latch set, loop iteration continues
+    SRWL->>SRWL: Check syncRepState == WAIT_COMPLETE
+    SRWL->>SRWL: pg_read_barrier()
+    SRWL->>SRWL: Reset syncRepState and waitLSN
+
+    SRWL-->>BE: Return (sync rep confirmed)
+
+    BE->>BE: Continue with commit cleanup
