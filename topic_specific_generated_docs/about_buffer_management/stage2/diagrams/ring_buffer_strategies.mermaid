@@ -1,0 +1,60 @@
+graph LR
+    subgraph "Strategy Selection"
+        NORM["BAS_NORMAL<br/>Returns NULL<br/>(no ring)"]
+        BULK_R["BAS_BULKREAD<br/>Sequential Scan<br/>Ring: 256 KB (32 buffers)"]
+        BULK_W["BAS_BULKWRITE<br/>COPY IN, CREATE TABLE AS<br/>Ring: 16 MB (2048 buffers)"]
+        VAC["BAS_VACUUM<br/>VACUUM<br/>Ring: 2 MB (256 buffers)"]
+    end
+
+    subgraph "Ring Buffer Lifecycle"
+        ALLOC["Ring allocated<br/>by GetAccessStrategy()"]
+        EMPTY["Slots initially<br/>InvalidBuffer"]
+        FILL["Fill slot from<br/>clock sweep<br/>(AddBufferToRing)"]
+        REUSE["Reuse slot<br/>(GetBufferFromRing)"]
+    end
+
+    subgraph "Reuse Decision"
+        CHECK{"Buffer in<br/>current slot?"}
+        UNPIN{"Unpinned AND<br/>usagecount <= 1?"}
+        DIRTY{"Dirty AND<br/>needs WAL flush?"}
+        STRAT{"Strategy type?"}
+    end
+
+    subgraph "Outcomes"
+        OK["Reuse buffer<br/>from ring"]
+        ESCAPE["Allocate new buffer<br/>via clock sweep<br/>(replaces ring slot)"]
+        REJECT["BAS_BULKREAD only:<br/>Remove from ring<br/>Try another victim"]
+        FLUSH_REUSE["Flush dirty buffer<br/>Then reuse"]
+    end
+
+    BULK_R --> ALLOC
+    BULK_W --> ALLOC
+    VAC --> ALLOC
+
+    ALLOC --> EMPTY --> FILL --> REUSE
+
+    REUSE --> CHECK
+    CHECK -->|"No (InvalidBuffer)"| ESCAPE
+    CHECK -->|"Yes"| UNPIN
+    UNPIN -->|"No (pinned or hot)"| ESCAPE
+    UNPIN -->|"Yes"| DIRTY
+    DIRTY -->|"No (clean)"| OK
+    DIRTY -->|"Yes"| STRAT
+    STRAT -->|"BAS_BULKREAD"| REJECT
+    STRAT -->|"BAS_BULKWRITE"| FLUSH_REUSE
+    STRAT -->|"BAS_VACUUM"| FLUSH_REUSE
+
+    subgraph "Ring Sizes (capped at NBuffers/8)"
+        RS1["BAS_BULKREAD: 256 KB<br/>Fits in L2 cache<br/>Efficient OS->shared transfer"]
+        RS2["BAS_BULKWRITE: 16 MB<br/>Large enough to avoid<br/>frequent WAL flushes"]
+        RS3["BAS_VACUUM: 2 MB<br/>Configurable via<br/>vacuum_buffer_usage_limit"]
+    end
+
+    style NORM fill:#e0e0e0
+    style BULK_R fill:#bbdefb
+    style BULK_W fill:#c8e6c9
+    style VAC fill:#fff9c4
+    style OK fill:#4caf50,color:white
+    style REJECT fill:#f44336,color:white
+    style ESCAPE fill:#ff9800,color:white
+    style FLUSH_REUSE fill:#2196f3,color:white

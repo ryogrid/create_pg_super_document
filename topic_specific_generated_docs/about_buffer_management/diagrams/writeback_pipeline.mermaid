@@ -1,0 +1,58 @@
+flowchart LR
+    subgraph "Trigger Sources"
+        CP["Checkpoint<br/>(BufferSync)"]
+        BG["Background Writer<br/>(BgBufferSync)"]
+        BE["Backend Eviction<br/>(GetVictimBuffer)"]
+    end
+
+    subgraph "Write Phase"
+        SYNC["SyncOneBuffer()"]
+        FLUSH["FlushBuffer()"]
+        SIO["StartBufferIO()<br/>Set BM_IO_IN_PROGRESS"]
+        WAL["XLogFlush(page LSN)<br/>WAL-before-data"]
+        CSUM["PageSetChecksumCopy()<br/>Copy page + compute checksum"]
+        WRITE["smgrwrite()<br/>mdwritev()<br/>FileWriteV()<br/>pwritev()"]
+        TIO["TerminateBufferIO()<br/>Clear BM_IO_IN_PROGRESS<br/>Maybe clear BM_DIRTY"]
+    end
+
+    subgraph "Writeback Advisory"
+        SCHED["ScheduleBufferTagForWriteback()<br/>Add tag to pending list"]
+        BATCH{Batch full?}
+        ISSUE["IssuePendingWritebacks()<br/>Sort + coalesce adjacent blocks"]
+        WB["smgrwriteback()<br/>mdwriteback()<br/>FileWriteback()"]
+        FADV["sync_file_range() or<br/>posix_fadvise(DONTNEED)"]
+    end
+
+    subgraph "Fsync Phase (Checkpoint only)"
+        FSYNC["smgrDoPendingSyncs()<br/>fsync() on each modified file"]
+        DONE["Checkpoint Complete<br/>Data on stable storage"]
+    end
+
+    subgraph "Kernel"
+        KC["Kernel Page Cache"]
+        DISK["Physical Disk"]
+    end
+
+    CP --> SYNC
+    BG --> SYNC
+    BE --> FLUSH
+
+    SYNC --> FLUSH
+    FLUSH --> SIO --> WAL --> CSUM --> WRITE --> TIO
+
+    WRITE -->|"Data to kernel"| KC
+    TIO --> SCHED --> BATCH
+    BATCH -->|"Yes"| ISSUE --> WB --> FADV
+    BATCH -->|"No"| WAIT["Wait for more"]
+    FADV -->|"Advisory flush"| KC
+
+    CP -->|"After all writes"| FSYNC
+    FSYNC -->|"Force to disk"| DISK
+    KC -->|"Eventually"| DISK
+
+    style CP fill:#4caf50,color:white
+    style BG fill:#2196f3,color:white
+    style BE fill:#ff9800,color:white
+    style WAL fill:#f44336,color:white
+    style FSYNC fill:#9c27b0,color:white
+    style DISK fill:#795548,color:white

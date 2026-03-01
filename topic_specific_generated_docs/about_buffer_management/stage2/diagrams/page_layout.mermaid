@@ -1,0 +1,50 @@
+graph TB
+    subgraph "Page Layout (8192 bytes default)"
+        subgraph "PageHeaderData (24 bytes)"
+            LSN["pd_lsn (8 bytes)<br/>WAL LSN of last change"]
+            CKSUM["pd_checksum (2 bytes)"]
+            FLAGS["pd_flags (2 bytes)<br/>PD_HAS_FREE_LINES | PD_PAGE_FULL | PD_ALL_VISIBLE"]
+            LOWER["pd_lower (2 bytes)<br/>Start of free space"]
+            UPPER["pd_upper (2 bytes)<br/>End of free space"]
+            SPECIAL["pd_special (2 bytes)<br/>Start of special space"]
+            PGVER["pd_pagesize_version (2 bytes)<br/>8192 | version 4"]
+            PRUNE["pd_prune_xid (4 bytes)<br/>Oldest prunable XID"]
+        end
+
+        subgraph "Line Pointer Array (4 bytes each, grows downward)"
+            LP1["ItemId[1]: lp_off=8100 | lp_flags=LP_NORMAL | lp_len=40"]
+            LP2["ItemId[2]: lp_off=8060 | lp_flags=LP_NORMAL | lp_len=36"]
+            LP3["ItemId[3]: lp_off=0 | lp_flags=LP_DEAD | lp_len=0"]
+            LP4["ItemId[4]: lp_off=8020 | lp_flags=LP_NORMAL | lp_len=28"]
+            LPN["ItemId[N]: ..."]
+        end
+
+        FREE["FREE SPACE<br/>(pd_lower to pd_upper)<br/>Available for new tuples and line pointers"]
+
+        subgraph "Tuple Data (grows upward from pd_upper)"
+            T4["Tuple 4 (28 bytes) @ offset 8020"]
+            T2["Tuple 2 (36 bytes) @ offset 8060"]
+            T1["Tuple 1 (40 bytes) @ offset 8100"]
+        end
+
+        subgraph "Special Space (access method opaque data)"
+            SP["Btree: BTPageOpaqueData<br/>or empty for heap pages<br/>(from pd_special to page end)"]
+        end
+    end
+
+    LSN --> CKSUM --> FLAGS --> LOWER --> UPPER --> SPECIAL --> PGVER --> PRUNE
+    PRUNE --> LP1
+    LP1 --> LP2 --> LP3 --> LP4 --> LPN
+    LPN -.->|"pd_lower"| FREE
+    FREE -.->|"pd_upper"| T4
+    T4 --> T2 --> T1
+    T1 -.->|"pd_special"| SP
+
+    LP1 -.->|"lp_off=8100"| T1
+    LP2 -.->|"lp_off=8060"| T2
+    LP4 -.->|"lp_off=8020"| T4
+
+    style LSN fill:#e3f2fd
+    style FREE fill:#e8f5e9
+    style SP fill:#fff3e0
+    style LP3 fill:#ffcdd2

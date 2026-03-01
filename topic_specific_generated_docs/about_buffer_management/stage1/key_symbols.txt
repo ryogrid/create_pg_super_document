@@ -1,0 +1,33 @@
+PostgreSQL Buffer Management - Top 30 Symbols by Importance
+============================================================
+
+ 1. BufferAlloc          (score: 0.98) - BUFFER_ALLOC       - Core buffer allocation logic: lookup, victim selection, pool management without I/O
+ 2. ReadBufferExtended   (score: 0.97) - BUFFER_ACCESS      - Comprehensive buffer reading with read modes, fork selection, and access strategies
+ 3. BufferDesc           (score: 0.97) - DESCRIPTOR_METADATA - Shared descriptor/state for a single buffer: tag, atomic state, content_lock (64B aligned)
+ 4. ReadBuffer_common    (score: 0.96) - BUFFER_ACCESS      - Central unified function implementing all ReadBuffer variants
+ 5. ReadBuffer           (score: 0.95) - BUFFER_ACCESS      - Simplified interface for reading relation blocks (main fork, default params)
+ 6. MarkBufferDirty      (score: 0.95) - DIRTY_MANAGEMENT   - Marks buffer as dirty for write-back at checkpoint or eviction
+ 7. BufferTag            (score: 0.95) - DESCRIPTOR_METADATA - Identifies disk block in buffer: spcOid, dbOid, relNumber, forkNum, blockNum
+ 8. PageHeaderData       (score: 0.94) - PAGE_LAYOUT        - Page header structure: pd_lsn, checksum, flags, lower/upper/special pointers
+ 9. FlushBuffer          (score: 0.94) - DIRTY_MANAGEMENT   - Writes buffer to disk enforcing WAL-before-data with checksum handling
+10. BufferSync           (score: 0.93) - CHECKPOINT         - Checkpoint: writes all dirty buffers with tablespace load balancing
+11. StrategyGetBuffer    (score: 0.93) - REPLACEMENT_POLICY - Clock sweep + ring buffer replacement strategy for victim selection
+12. LockBuffer           (score: 0.93) - CONCURRENCY_CONTROL - Acquires/releases content lock (shared or exclusive) on a buffer
+13. PinBuffer            (score: 0.92) - PIN_MANAGEMENT     - Pins shared buffer (refcount++) preventing eviction during use
+14. XLogFlush            (score: 0.92) - WAL_INTEGRATION    - Ensures WAL flushed to disk up to specified LSN (group commit)
+15. InitBufferPool       (score: 0.92) - INITIALIZATION     - Initializes shared buffer pool: descriptors, blocks, CVs, freelist
+16. UnpinBuffer          (score: 0.90) - PIN_MANAGEMENT     - Decrements pin count, makes buffer available for replacement
+17. BgBufferSync         (score: 0.90) - BGWRITER           - Background writer: adaptive dirty buffer cleaning with rate tracking
+18. ReleaseBuffer        (score: 0.88) - PIN_MANAGEMENT     - Public API for unpinning both shared and local buffers
+19. GetVictimBuffer      (score: 0.88) - BUFFER_ALLOC       - Finds and prepares buffer for reuse by evicting current contents
+20. LockBufHdr           (score: 0.87) - CONCURRENCY_CONTROL - Acquires buffer header spinlock via atomic BM_LOCKED flag
+21. SyncOneBuffer        (score: 0.86) - CHECKPOINT         - Processes single buffer during checkpoint/bgwriter: check + write
+22. BufTableLookup       (score: 0.85) - HASH_TABLE         - Hash table lookup: BufferTag -> buffer ID (partition-locked)
+23. PageInit             (score: 0.85) - PAGE_LAYOUT        - Initializes page structure in buffer pool
+24. LockBufferForCleanup (score: 0.85) - CONCURRENCY_CONTROL - Exclusive lock + wait for all other pins to drain
+25. smgropen             (score: 0.85) - STORAGE_MANAGER    - Opens/creates SMgrRelation with transaction-scoped lifetime
+26. BufTableInsert       (score: 0.83) - HASH_TABLE         - Inserts tag->buffer mapping, returns conflict buffer if exists
+27. StartBufferIO        (score: 0.82) - IO_MANAGEMENT      - Sets BM_IO_IN_PROGRESS, ensures single-process I/O per buffer
+28. PageAddItemExtended  (score: 0.82) - PAGE_LAYOUT        - Adds item to page with space allocation and line pointer management
+29. PinBufferForBlock    (score: 0.82) - BUFFER_ACCESS      - Internal: pins buffer for block, handles shared/local routing
+30. BufferStrategyControl(score: 0.82) - REPLACEMENT_POLICY - Shared control: spinlock, clock hand, freelist, alloc statistics

@@ -1,0 +1,49 @@
+flowchart TD
+    Start["StrategyGetBuffer() called"] --> CheckStrategy{Strategy<br/>object?}
+
+    CheckStrategy -->|"Yes"| Ring["GetBufferFromRing()"]
+    Ring --> RingResult{Ring buffer<br/>available?}
+    RingResult -->|"Yes"| ReturnRing["Return ring buffer<br/>(spinlock held)"]
+    RingResult -->|"No"| WakeBGW
+
+    CheckStrategy -->|"No / NULL"| WakeBGW
+
+    WakeBGW["Wake background writer<br/>(if registered)"] --> CountAlloc["Increment numBufferAllocs<br/>(atomic)"]
+
+    CountAlloc --> CheckFree{Free list<br/>non-empty?}
+
+    CheckFree -->|"Yes"| AcqSpin["SpinLockAcquire<br/>(buffer_strategy_lock)"]
+    AcqSpin --> PopFree["Pop buffer from free list<br/>buf = firstFreeBuffer<br/>firstFreeBuffer = buf->freeNext"]
+    PopFree --> RelSpin["SpinLockRelease"]
+    RelSpin --> CheckFreeState["LockBufHdr(buf)"]
+    CheckFreeState --> FreeOK{refcount=0 AND<br/>usagecount=0?}
+    FreeOK -->|"Yes"| ReturnFree["Return free buffer<br/>(spinlock held)"]
+    FreeOK -->|"No"| CheckFree
+
+    CheckFree -->|"No"| InitCounter["trycounter = NBuffers"]
+    InitCounter --> Tick["ClockSweepTick()<br/>victim = atomic_fetch_add(nextVictimBuffer, 1) % NBuffers"]
+    Tick --> LockVictim["LockBufHdr(victim)"]
+
+    LockVictim --> CheckRef{refcount = 0?}
+
+    CheckRef -->|"No (pinned)"| DecrTry{trycounter > 0?}
+    DecrTry -->|"Yes"| UnlockSkip["UnlockBufHdr(victim)<br/>trycounter--"]
+    UnlockSkip --> Tick
+    DecrTry -->|"No"| Error["ERROR: no unpinned<br/>buffers available"]
+
+    CheckRef -->|"Yes (unpinned)"| CheckUsage{usagecount = 0?}
+    CheckUsage -->|"No"| Decrement["Decrement usagecount by 1<br/>trycounter = NBuffers"]
+    Decrement --> UnlockCont["UnlockBufHdr(victim)"]
+    UnlockCont --> Tick
+
+    CheckUsage -->|"Yes"| AddRing{Strategy?}
+    AddRing -->|"Yes"| DoAdd["AddBufferToRing(strategy, buf)"]
+    DoAdd --> ReturnVictim
+    AddRing -->|"No"| ReturnVictim["Return victim buffer<br/>(spinlock held)"]
+
+    style Start fill:#4caf50,color:white
+    style ReturnRing fill:#2196f3,color:white
+    style ReturnFree fill:#2196f3,color:white
+    style ReturnVictim fill:#2196f3,color:white
+    style Error fill:#f44336,color:white
+    style Decrement fill:#ff9800

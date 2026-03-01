@@ -1,0 +1,99 @@
+graph TB
+    subgraph "Access Methods"
+        HEAP["Heap AM<br/>heap_fetch, heap_insert, ..."]
+        BTREE["B-tree AM<br/>_bt_getbuf, _bt_search, ..."]
+        GIN["GIN/GiST/BRIN AMs"]
+    end
+
+    subgraph "Buffer Manager (bufmgr.c)"
+        RB["ReadBuffer / ReadBufferExtended"]
+        MBD["MarkBufferDirty"]
+        LB["LockBuffer"]
+        REL["ReleaseBuffer"]
+        BA["BufferAlloc<br/>(hash lookup + victim selection)"]
+        FB["FlushBuffer<br/>(WAL flush + write)"]
+    end
+
+    subgraph "Replacement Strategy (freelist.c)"
+        SGB["StrategyGetBuffer<br/>(clock sweep)"]
+        GBR["GetBufferFromRing<br/>(ring buffer)"]
+        SF["StrategyFreeBuffer"]
+    end
+
+    subgraph "Hash Table (buf_table.c)"
+        BTL["BufTableLookup"]
+        BTI["BufTableInsert"]
+        BTD["BufTableDelete"]
+    end
+
+    subgraph "Storage Manager (smgr.c)"
+        SO["smgropen"]
+        SR["smgrreadv / smgrread"]
+        SW["smgrwritev / smgrwrite"]
+        SE["smgrextend"]
+        SWB["smgrwriteback"]
+        SN["smgrnblocks"]
+    end
+
+    subgraph "MD Layer (md.c)"
+        MDR["mdreadv<br/>(segment lookup + FileReadV)"]
+        MDW["mdwritev<br/>(segment lookup + FileWriteV)"]
+        MDE["mdextend"]
+        MDWB["mdwriteback<br/>(FileWriteback)"]
+        MDN["mdnblocks"]
+    end
+
+    subgraph "VFD Layer (fd.c)"
+        FR["FileReadV / FileRead"]
+        FW["FileWriteV / FileWrite"]
+        FWB["FileWriteback"]
+        FP["FilePrefetch"]
+    end
+
+    subgraph "Operating System"
+        PREAD["preadv() / pread()"]
+        PWRITE["pwritev() / pwrite()"]
+        SFR["sync_file_range() / posix_fadvise()"]
+        FSYNC["fsync()"]
+    end
+
+    HEAP --> RB
+    BTREE --> RB
+    GIN --> RB
+    HEAP --> MBD
+    HEAP --> LB
+    HEAP --> REL
+
+    RB --> BA
+    BA --> BTL
+    BA --> BTI
+    BA --> SGB
+    BA --> GBR
+    FB --> SW
+
+    SGB --> SF
+
+    SR --> MDR
+    SW --> MDW
+    SE --> MDE
+    SWB --> MDWB
+    SN --> MDN
+
+    MDR --> FR
+    MDW --> FW
+    MDWB --> FWB
+
+    FR --> PREAD
+    FW --> PWRITE
+    FWB --> SFR
+
+    style HEAP fill:#e3f2fd
+    style BTREE fill:#e3f2fd
+    style RB fill:#c8e6c9
+    style BA fill:#c8e6c9
+    style FB fill:#c8e6c9
+    style SGB fill:#fff9c4
+    style SO fill:#ffe0b2
+    style MDR fill:#f8bbd0
+    style FR fill:#e1bee7
+    style PREAD fill:#d7ccc8

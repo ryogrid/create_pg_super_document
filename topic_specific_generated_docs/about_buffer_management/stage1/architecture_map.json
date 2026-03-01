@@ -1,0 +1,1500 @@
+{
+  "metadata": {
+    "analysis_date": "2026-03-01",
+    "entry_points": ["ReadBuffer", "ReadBufferExtended", "InitBufferPool", "BufferSync", "BgBufferSync"],
+    "total_symbols": 68,
+    "max_depth": 5,
+    "functional_areas": 13
+  },
+  "symbols": {
+    "ReadBuffer": {
+      "overview": "Simplified interface for reading relation blocks using default parameters and main fork access.",
+      "importance_score": 0.95,
+      "category": "BUFFER_ACCESS",
+      "depth_from_entry": 0,
+      "source_file": "src/backend/storage/buffer/bufmgr.c",
+      "references_from": ["ReadBufferExtended"],
+      "references_to": ["heap_fetch", "heap_delete", "heap_update", "heap_lock_tuple", "_bt_getbuf", "ginFindLeafPage", "gistdoinsert", "SpGistNewBuffer", "ReleaseAndReadBuffer"],
+      "metrics": {
+        "ref_count": 65,
+        "is_entry_point": true,
+        "is_critical_path": true
+      }
+    },
+    "ReadBufferExtended": {
+      "overview": "Comprehensive buffer reading function supporting multiple read modes, fork selection, and buffer access strategies for relation block access.",
+      "importance_score": 0.97,
+      "category": "BUFFER_ACCESS",
+      "depth_from_entry": 0,
+      "source_file": "src/backend/storage/buffer/bufmgr.c",
+      "references_from": ["ReadBuffer_common"],
+      "references_to": ["ReadBuffer", "lazy_scan_heap", "brin_vacuum_scan", "vm_readbuf", "btvacuumpage", "log_newpage_range", "fsm_readbuf"],
+      "metrics": {
+        "ref_count": 40,
+        "is_entry_point": true,
+        "is_critical_path": true
+      }
+    },
+    "ReadBuffer_common": {
+      "overview": "Central unified function implementing common logic for all ReadBuffer variants, handling different read modes and delegating to appropriate buffer management functions.",
+      "importance_score": 0.96,
+      "category": "BUFFER_ACCESS",
+      "depth_from_entry": 1,
+      "source_file": "src/backend/storage/buffer/bufmgr.c",
+      "references_from": ["ExtendBufferedRel", "PinBufferForBlock", "StartReadBuffer", "WaitReadBuffers"],
+      "references_to": ["ReadBufferExtended", "ReadBufferWithoutRelcache"],
+      "metrics": {
+        "ref_count": 10,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "ReadBufferWithoutRelcache": {
+      "overview": "Reads a buffer without requiring a relation cache entry, used during WAL replay and recovery.",
+      "importance_score": 0.72,
+      "category": "BUFFER_ACCESS",
+      "depth_from_entry": 0,
+      "source_file": "src/backend/storage/buffer/bufmgr.c",
+      "references_from": ["ReadBuffer_common"],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 5,
+        "is_entry_point": true,
+        "is_critical_path": false
+      }
+    },
+    "ReadRecentBuffer": {
+      "overview": "Optimized buffer access function that attempts to pin a block using a recently observed buffer identifier, avoiding buffer table lookups.",
+      "importance_score": 0.68,
+      "category": "BUFFER_ACCESS",
+      "depth_from_entry": 1,
+      "source_file": "src/backend/storage/buffer/bufmgr.c",
+      "references_from": ["PinBuffer"],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 4,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    },
+    "StartReadBuffers": {
+      "overview": "Public API for initiating asynchronous read operations on multiple contiguous database blocks with scatter-gather I/O optimization.",
+      "importance_score": 0.78,
+      "category": "BUFFER_ACCESS",
+      "depth_from_entry": 0,
+      "source_file": "src/backend/storage/buffer/bufmgr.c",
+      "references_from": ["PinBufferForBlock", "BufferAlloc"],
+      "references_to": ["read_stream_next_buffer"],
+      "metrics": {
+        "ref_count": 8,
+        "is_entry_point": true,
+        "is_critical_path": true
+      }
+    },
+    "WaitReadBuffers": {
+      "overview": "Performs asynchronous batch reading of multiple database pages from storage, implementing scatter-gather I/O and handling both local and shared buffer validation.",
+      "importance_score": 0.77,
+      "category": "BUFFER_ACCESS",
+      "depth_from_entry": 1,
+      "source_file": "src/backend/storage/buffer/bufmgr.c",
+      "references_from": ["smgrreadv", "PageIsVerifiedExtended", "TerminateBufferIO"],
+      "references_to": ["StartReadBuffers"],
+      "metrics": {
+        "ref_count": 6,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "PinBufferForBlock": {
+      "overview": "Core internal function that pins a buffer for a given block, handling both shared and local buffers with appropriate I/O context and statistics tracking.",
+      "importance_score": 0.82,
+      "category": "BUFFER_ACCESS",
+      "depth_from_entry": 1,
+      "source_file": "src/backend/storage/buffer/bufmgr.c",
+      "references_from": ["BufferAlloc", "LocalBufferAlloc", "PinBuffer", "PinLocalBuffer"],
+      "references_to": ["ReadBuffer_common", "StartReadBuffers"],
+      "metrics": {
+        "ref_count": 6,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "BufferAlloc": {
+      "overview": "Core buffer allocation logic for shared buffers: lookup, victim selection, and buffer pool management without performing actual I/O operations.",
+      "importance_score": 0.98,
+      "category": "BUFFER_ALLOC",
+      "depth_from_entry": 2,
+      "source_file": "src/backend/storage/buffer/bufmgr.c",
+      "references_from": ["InitBufferTag", "BufTableHashCode", "BufMappingPartitionLock", "BufTableLookup", "GetBufferDescriptor", "PinBuffer", "GetVictimBuffer", "BufTableInsert", "UnpinBuffer", "StrategyFreeBuffer", "LockBufHdr", "UnlockBufHdr"],
+      "references_to": ["PinBufferForBlock"],
+      "metrics": {
+        "ref_count": 18,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "GetVictimBuffer": {
+      "overview": "Finds and prepares a buffer to be reused by evicting its current contents, handling dirty buffers and ensuring proper cleanup.",
+      "importance_score": 0.88,
+      "category": "BUFFER_ALLOC",
+      "depth_from_entry": 3,
+      "source_file": "src/backend/storage/buffer/bufmgr.c",
+      "references_from": ["StrategyGetBuffer", "FlushBuffer", "StrategyRejectBuffer", "BufTableDelete", "UnpinBuffer"],
+      "references_to": ["BufferAlloc", "ExtendBufferedRelShared"],
+      "metrics": {
+        "ref_count": 8,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "PinBuffer": {
+      "overview": "Makes a shared buffer unavailable for replacement by incrementing its reference count and managing usage count based on the access strategy.",
+      "importance_score": 0.92,
+      "category": "PIN_MANAGEMENT",
+      "depth_from_entry": 2,
+      "source_file": "src/backend/storage/buffer/bufmgr.c",
+      "references_from": ["pg_atomic_read_u32", "WaitBufHdrUnlocked", "pg_atomic_compare_exchange_u32", "ResourceOwnerRememberBuffer"],
+      "references_to": ["BufferAlloc", "ReadRecentBuffer", "ExtendBufferedRelShared"],
+      "metrics": {
+        "ref_count": 12,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "PinBuffer_Locked": {
+      "overview": "Pins a buffer that is already locked via buffer header spinlock, used when the caller already holds the BM_LOCKED flag.",
+      "importance_score": 0.70,
+      "category": "PIN_MANAGEMENT",
+      "depth_from_entry": 3,
+      "source_file": "src/backend/storage/buffer/bufmgr.c",
+      "references_from": ["UnlockBufHdr", "ResourceOwnerRememberBuffer"],
+      "references_to": ["SyncOneBuffer"],
+      "metrics": {
+        "ref_count": 5,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    },
+    "UnpinBuffer": {
+      "overview": "Decrements the pin count of a shared buffer and removes it from the current resource owner's buffer tracking, making buffer available for replacement.",
+      "importance_score": 0.90,
+      "category": "PIN_MANAGEMENT",
+      "depth_from_entry": 2,
+      "source_file": "src/backend/storage/buffer/bufmgr.c",
+      "references_from": ["ResourceOwnerForgetBuffer", "UnpinBufferNoOwner"],
+      "references_to": ["BufferAlloc", "GetVictimBuffer", "SyncOneBuffer", "ReleaseBuffer"],
+      "metrics": {
+        "ref_count": 10,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "ReleaseBuffer": {
+      "overview": "Primary public interface for unpinning both shared and local buffers in PostgreSQL's buffer management system.",
+      "importance_score": 0.88,
+      "category": "PIN_MANAGEMENT",
+      "depth_from_entry": 0,
+      "source_file": "src/backend/storage/buffer/bufmgr.c",
+      "references_from": ["UnpinBuffer", "UnpinLocalBuffer"],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 50,
+        "is_entry_point": true,
+        "is_critical_path": true
+      }
+    },
+    "UnlockReleaseBuffer": {
+      "overview": "Convenience function that unlocks a buffer's content lock and releases the buffer pin in a single operation.",
+      "importance_score": 0.75,
+      "category": "PIN_MANAGEMENT",
+      "depth_from_entry": 0,
+      "source_file": "src/backend/storage/buffer/bufmgr.c",
+      "references_from": ["LockBuffer", "ReleaseBuffer"],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 40,
+        "is_entry_point": true,
+        "is_critical_path": false
+      }
+    },
+    "ReleaseAndReadBuffer": {
+      "overview": "Combines releasing a currently pinned buffer and reading a new buffer, optimizing when the same buffer is already loaded.",
+      "importance_score": 0.72,
+      "category": "BUFFER_ACCESS",
+      "depth_from_entry": 0,
+      "source_file": "src/backend/storage/buffer/bufmgr.c",
+      "references_from": ["ReleaseBuffer", "ReadBuffer"],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 15,
+        "is_entry_point": true,
+        "is_critical_path": false
+      }
+    },
+    "LockBuffer": {
+      "overview": "Acquires or releases the content lock for a buffer, providing exclusive or shared access to buffer contents.",
+      "importance_score": 0.93,
+      "category": "CONCURRENCY_CONTROL",
+      "depth_from_entry": 0,
+      "source_file": "src/backend/storage/buffer/bufmgr.c",
+      "references_from": ["BufferDescriptorGetContentLock", "LWLockAcquire", "LWLockRelease"],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 80,
+        "is_entry_point": true,
+        "is_critical_path": true
+      }
+    },
+    "ConditionalLockBuffer": {
+      "overview": "Non-blocking function that attempts to acquire exclusive content lock on a buffer without waiting.",
+      "importance_score": 0.62,
+      "category": "CONCURRENCY_CONTROL",
+      "depth_from_entry": 0,
+      "source_file": "src/backend/storage/buffer/bufmgr.c",
+      "references_from": ["BufferDescriptorGetContentLock", "LWLockConditionalAcquire"],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 10,
+        "is_entry_point": true,
+        "is_critical_path": false
+      }
+    },
+    "LockBufferForCleanup": {
+      "overview": "Acquires exclusive lock on a buffer and waits until no other backends hold pins, enabling safe deletion of items from the buffer.",
+      "importance_score": 0.85,
+      "category": "CONCURRENCY_CONTROL",
+      "depth_from_entry": 0,
+      "source_file": "src/backend/storage/buffer/bufmgr.c",
+      "references_from": ["LockBufHdr", "UnlockBufHdr", "CheckBufferIsPinnedOnce", "ResolveRecoveryConflictWithBufferPin", "ProcWaitForSignal"],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 20,
+        "is_entry_point": true,
+        "is_critical_path": true
+      }
+    },
+    "LockBufHdr": {
+      "overview": "Acquires exclusive lock on a buffer header by atomically setting the BM_LOCKED flag in the buffer state.",
+      "importance_score": 0.87,
+      "category": "CONCURRENCY_CONTROL",
+      "depth_from_entry": 2,
+      "source_file": "src/backend/storage/buffer/bufmgr.c",
+      "references_from": ["pg_atomic_fetch_or_u32", "SpinlockLoop"],
+      "references_to": ["BufferAlloc", "StrategyGetBuffer", "MarkBufferDirty", "SyncOneBuffer", "LockBufferForCleanup", "InvalidateBuffer"],
+      "metrics": {
+        "ref_count": 25,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "StartBufferIO": {
+      "overview": "Initiates I/O operations on a buffer by setting the BM_IO_IN_PROGRESS flag, ensuring only one process performs I/O on a buffer at a time.",
+      "importance_score": 0.82,
+      "category": "IO_MANAGEMENT",
+      "depth_from_entry": 3,
+      "source_file": "src/backend/storage/buffer/bufmgr.c",
+      "references_from": ["LockBufHdr", "WaitIO", "UnlockBufHdr", "ResourceOwnerRememberBufferIO"],
+      "references_to": ["FlushBuffer", "WaitReadBuffers"],
+      "metrics": {
+        "ref_count": 6,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "TerminateBufferIO": {
+      "overview": "Completes I/O operations on a buffer by clearing BM_IO_IN_PROGRESS, updating buffer state flags, and notifying waiting processes.",
+      "importance_score": 0.80,
+      "category": "IO_MANAGEMENT",
+      "depth_from_entry": 3,
+      "source_file": "src/backend/storage/buffer/bufmgr.c",
+      "references_from": ["LockBufHdr", "UnlockBufHdr", "ConditionVariableBroadcast", "ResourceOwnerForgetBufferIO"],
+      "references_to": ["FlushBuffer", "WaitReadBuffers", "AbortBufferIO"],
+      "metrics": {
+        "ref_count": 6,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "WaitIO": {
+      "overview": "Blocks the current process until the IO_IN_PROGRESS flag on a specified buffer is cleared, ensuring I/O operations complete before proceeding.",
+      "importance_score": 0.75,
+      "category": "IO_MANAGEMENT",
+      "depth_from_entry": 3,
+      "source_file": "src/backend/storage/buffer/bufmgr.c",
+      "references_from": ["ConditionVariableSleep", "ConditionVariableCancelSleep", "BufferDescriptorGetIOCV"],
+      "references_to": ["StartBufferIO"],
+      "metrics": {
+        "ref_count": 4,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "MarkBufferDirty": {
+      "overview": "Marks a buffer's contents as modified (dirty), indicating data needs writing to disk during next checkpoint or buffer eviction.",
+      "importance_score": 0.95,
+      "category": "DIRTY_MANAGEMENT",
+      "depth_from_entry": 0,
+      "source_file": "src/backend/storage/buffer/bufmgr.c",
+      "references_from": ["GetBufferDescriptor", "pg_atomic_read_u32", "WaitBufHdrUnlocked", "pg_atomic_compare_exchange_u32", "MarkLocalBufferDirty"],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 100,
+        "is_entry_point": true,
+        "is_critical_path": true
+      }
+    },
+    "MarkBufferDirtyHint": {
+      "overview": "Marks a buffer dirty for non-critical hint bit updates, with special handling for WAL logging and race conditions.",
+      "importance_score": 0.78,
+      "category": "DIRTY_MANAGEMENT",
+      "depth_from_entry": 0,
+      "source_file": "src/backend/storage/buffer/bufmgr.c",
+      "references_from": ["XLogRecPtrIsInvalid", "XLogSaveBufferForHint", "LockBufHdr", "UnlockBufHdr"],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 25,
+        "is_entry_point": true,
+        "is_critical_path": false
+      }
+    },
+    "FlushBuffer": {
+      "overview": "Physically writes a shared buffer's contents to disk, implementing WAL-before-data rule and handling checksums, I/O tracking, and buffer state management.",
+      "importance_score": 0.94,
+      "category": "DIRTY_MANAGEMENT",
+      "depth_from_entry": 2,
+      "source_file": "src/backend/storage/buffer/bufmgr.c",
+      "references_from": ["StartBufferIO", "smgropen", "BufTagGetRelFileLocator", "LockBufHdr", "BufferGetLSN", "XLogFlush", "BufHdrGetBlock", "PageSetChecksumCopy", "smgrwrite", "TerminateBufferIO", "ScheduleBufferTagForWriteback"],
+      "references_to": ["GetVictimBuffer", "SyncOneBuffer", "FlushRelationBuffers", "FlushDatabaseBuffers", "FlushOneBuffer", "EvictUnpinnedBuffer"],
+      "metrics": {
+        "ref_count": 15,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "BufferSync": {
+      "overview": "Writes out all dirty buffers in the shared buffer pool to disk, implementing core checkpoint buffer synchronization with load balancing across tablespaces.",
+      "importance_score": 0.93,
+      "category": "CHECKPOINT",
+      "depth_from_entry": 0,
+      "source_file": "src/backend/storage/buffer/bufmgr.c",
+      "references_from": ["GetBufferDescriptor", "LockBufHdr", "UnlockBufHdr", "BufTagGetRelNumber", "BufTagGetForkNum", "SyncOneBuffer", "CheckpointWriteDelay", "IssuePendingWritebacks", "WritebackContextInit"],
+      "references_to": ["CheckPointBuffers"],
+      "metrics": {
+        "ref_count": 5,
+        "is_entry_point": true,
+        "is_critical_path": true
+      }
+    },
+    "SyncOneBuffer": {
+      "overview": "Processes a single buffer during checkpoint or background writer operations, determining if the buffer needs writing and performing the actual I/O.",
+      "importance_score": 0.86,
+      "category": "CHECKPOINT",
+      "depth_from_entry": 1,
+      "source_file": "src/backend/storage/buffer/bufmgr.c",
+      "references_from": ["GetBufferDescriptor", "LockBufHdr", "UnlockBufHdr", "PinBuffer_Locked", "BufferDescriptorGetContentLock", "FlushBuffer", "UnpinBuffer", "ScheduleBufferTagForWriteback"],
+      "references_to": ["BufferSync", "BgBufferSync"],
+      "metrics": {
+        "ref_count": 4,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "CheckPointBuffers": {
+      "overview": "Flushes all dirty blocks in the buffer pool to disk during checkpoint operations, ensuring data durability at specific recovery points.",
+      "importance_score": 0.82,
+      "category": "CHECKPOINT",
+      "depth_from_entry": 0,
+      "source_file": "src/backend/storage/buffer/bufmgr.c",
+      "references_from": ["BufferSync"],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 3,
+        "is_entry_point": true,
+        "is_critical_path": true
+      }
+    },
+    "BgBufferSync": {
+      "overview": "Periodically writes out dirty buffers in the background, implementing LRU-based buffer cleaning with sophisticated allocation rate tracking and adaptive scanning.",
+      "importance_score": 0.90,
+      "category": "BGWRITER",
+      "depth_from_entry": 0,
+      "source_file": "src/backend/storage/buffer/bufmgr.c",
+      "references_from": ["StrategySyncStart", "SyncOneBuffer"],
+      "references_to": ["BackgroundWriterMain"],
+      "metrics": {
+        "ref_count": 4,
+        "is_entry_point": true,
+        "is_critical_path": true
+      }
+    },
+    "InitBufferPool": {
+      "overview": "Initializes the shared buffer pool during shared-memory initialization: buffer descriptors, buffer blocks, condition variables, and checkpoint data structures.",
+      "importance_score": 0.92,
+      "category": "INITIALIZATION",
+      "depth_from_entry": 0,
+      "source_file": "src/backend/storage/buffer/buf_init.c",
+      "references_from": ["ShmemInitStruct", "GetBufferDescriptor", "ClearBufferTag", "pg_atomic_init_u32", "LWLockInitialize", "BufferDescriptorGetContentLock", "ConditionVariableInit", "BufferDescriptorGetIOCV", "StrategyInitialize", "WritebackContextInit"],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 3,
+        "is_entry_point": true,
+        "is_critical_path": true
+      }
+    },
+    "BufferShmemSize": {
+      "overview": "Calculates total shared memory required for PostgreSQL's buffer pool: buffer descriptors, data pages, condition variables, and related structures.",
+      "importance_score": 0.75,
+      "category": "INITIALIZATION",
+      "depth_from_entry": 0,
+      "source_file": "src/backend/storage/buffer/buf_init.c",
+      "references_from": ["StrategyShmemSize"],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 3,
+        "is_entry_point": true,
+        "is_critical_path": false
+      }
+    },
+    "InitBufferPoolAccess": {
+      "overview": "Initializes a backend's access to the shared buffer pool by setting up private reference counting and registering cleanup handlers.",
+      "importance_score": 0.70,
+      "category": "INITIALIZATION",
+      "depth_from_entry": 0,
+      "source_file": "src/backend/storage/buffer/bufmgr.c",
+      "references_from": [],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 2,
+        "is_entry_point": true,
+        "is_critical_path": false
+      }
+    },
+    "StrategyGetBuffer": {
+      "overview": "Core buffer replacement function: selects next candidate buffer using either ring buffer strategy or clock sweep algorithm.",
+      "importance_score": 0.93,
+      "category": "REPLACEMENT_POLICY",
+      "depth_from_entry": 3,
+      "source_file": "src/backend/storage/buffer/freelist.c",
+      "references_from": ["GetBufferFromRing", "GetBufferDescriptor", "LockBufHdr", "UnlockBufHdr", "ClockSweepTick", "AddBufferToRing", "SetLatch"],
+      "references_to": ["GetVictimBuffer"],
+      "metrics": {
+        "ref_count": 4,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "StrategyFreeBuffer": {
+      "overview": "Adds a buffer to the free list, making it available for immediate reuse.",
+      "importance_score": 0.72,
+      "category": "REPLACEMENT_POLICY",
+      "depth_from_entry": 3,
+      "source_file": "src/backend/storage/buffer/freelist.c",
+      "references_from": ["SpinLockAcquire", "SpinLockRelease"],
+      "references_to": ["BufferAlloc", "InvalidateBuffer"],
+      "metrics": {
+        "ref_count": 4,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    },
+    "StrategyRejectBuffer": {
+      "overview": "Allows buffer manager to reconsider buffer selection when a chosen dirty buffer would require expensive WAL flushing, optimized for bulk read.",
+      "importance_score": 0.68,
+      "category": "REPLACEMENT_POLICY",
+      "depth_from_entry": 3,
+      "source_file": "src/backend/storage/buffer/freelist.c",
+      "references_from": [],
+      "references_to": ["GetVictimBuffer"],
+      "metrics": {
+        "ref_count": 2,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    },
+    "StrategyInitialize": {
+      "overview": "Initializes the buffer cache replacement strategy including buffer lookup hashtable and shared strategy control structures.",
+      "importance_score": 0.78,
+      "category": "REPLACEMENT_POLICY",
+      "depth_from_entry": 1,
+      "source_file": "src/backend/storage/buffer/freelist.c",
+      "references_from": ["InitBufTable", "ShmemInitStruct", "SpinLockInit", "pg_atomic_init_u32"],
+      "references_to": ["InitBufferPool"],
+      "metrics": {
+        "ref_count": 2,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "StrategySyncStart": {
+      "overview": "Provides background buffer sync process with optimal starting point for synchronization and buffer allocation activity statistics.",
+      "importance_score": 0.70,
+      "category": "REPLACEMENT_POLICY",
+      "depth_from_entry": 1,
+      "source_file": "src/backend/storage/buffer/freelist.c",
+      "references_from": ["pg_atomic_read_u32", "pg_atomic_exchange_u32"],
+      "references_to": ["BgBufferSync"],
+      "metrics": {
+        "ref_count": 2,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    },
+    "StrategyNotifyBgWriter": {
+      "overview": "Sets or clears allocation notification latch for background writer process to enable wake-up from hibernation.",
+      "importance_score": 0.58,
+      "category": "REPLACEMENT_POLICY",
+      "depth_from_entry": 1,
+      "source_file": "src/backend/storage/buffer/freelist.c",
+      "references_from": ["SpinLockAcquire", "SpinLockRelease"],
+      "references_to": ["BackgroundWriterMain"],
+      "metrics": {
+        "ref_count": 2,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    },
+    "GetAccessStrategy": {
+      "overview": "Creates a BufferAccessStrategy object with predefined ring sizes for different access patterns (BULKREAD=256KB, BULKWRITE=16MB, VACUUM=2MB).",
+      "importance_score": 0.76,
+      "category": "REPLACEMENT_POLICY",
+      "depth_from_entry": 0,
+      "source_file": "src/backend/storage/buffer/freelist.c",
+      "references_from": ["GetAccessStrategyWithSize"],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 15,
+        "is_entry_point": true,
+        "is_critical_path": false
+      }
+    },
+    "BufferStrategyControl": {
+      "overview": "Shared control structure for the buffer replacement strategy: spinlock, clock sweep hand, freelist head/tail, and allocation statistics.",
+      "importance_score": 0.82,
+      "category": "REPLACEMENT_POLICY",
+      "depth_from_entry": 2,
+      "source_file": "src/backend/storage/buffer/freelist.c",
+      "references_from": [],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 12,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "BufferAccessStrategyData": {
+      "overview": "Private per-backend structure for ring buffer strategy: tracks buffer ring slots for strategies like BAS_BULKREAD, BAS_BULKWRITE, BAS_VACUUM.",
+      "importance_score": 0.74,
+      "category": "REPLACEMENT_POLICY",
+      "depth_from_entry": 1,
+      "source_file": "src/backend/storage/buffer/freelist.c",
+      "references_from": [],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 8,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    },
+    "BufTableLookup": {
+      "overview": "Looks up a BufferTag in the shared buffer mapping hash table, returning buffer ID or -1 if not found.",
+      "importance_score": 0.85,
+      "category": "HASH_TABLE",
+      "depth_from_entry": 2,
+      "source_file": "src/backend/storage/buffer/buf_table.c",
+      "references_from": ["hash_search_with_hash_value"],
+      "references_to": ["BufferAlloc"],
+      "metrics": {
+        "ref_count": 5,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "BufTableInsert": {
+      "overview": "Inserts a hashtable entry for a given tag and buffer ID, returning -1 on success or existing buffer ID on conflict.",
+      "importance_score": 0.83,
+      "category": "HASH_TABLE",
+      "depth_from_entry": 2,
+      "source_file": "src/backend/storage/buffer/buf_table.c",
+      "references_from": ["hash_search_with_hash_value"],
+      "references_to": ["BufferAlloc"],
+      "metrics": {
+        "ref_count": 4,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "BufTableDelete": {
+      "overview": "Deletes a hashtable entry for a given tag (which must exist). Caller must hold exclusive lock on BufMappingLock.",
+      "importance_score": 0.80,
+      "category": "HASH_TABLE",
+      "depth_from_entry": 2,
+      "source_file": "src/backend/storage/buffer/buf_table.c",
+      "references_from": ["hash_search_with_hash_value"],
+      "references_to": ["GetVictimBuffer", "InvalidateBuffer"],
+      "metrics": {
+        "ref_count": 4,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "BufTableHashCode": {
+      "overview": "Computes hash code for a BufferTag to determine buffer partition locking.",
+      "importance_score": 0.78,
+      "category": "HASH_TABLE",
+      "depth_from_entry": 2,
+      "source_file": "src/backend/storage/buffer/buf_table.c",
+      "references_from": ["get_hash_value"],
+      "references_to": ["BufferAlloc", "PrefetchSharedBuffer", "InvalidateBuffer"],
+      "metrics": {
+        "ref_count": 8,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "InitBufTable": {
+      "overview": "Initializes the shared memory hash table for buffer tag to buffer ID mapping.",
+      "importance_score": 0.72,
+      "category": "HASH_TABLE",
+      "depth_from_entry": 1,
+      "source_file": "src/backend/storage/buffer/buf_table.c",
+      "references_from": ["ShmemInitHash"],
+      "references_to": ["StrategyInitialize"],
+      "metrics": {
+        "ref_count": 2,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "BufferDesc": {
+      "overview": "Shared descriptor/state data for a single shared buffer: tag, state (atomic), wait_backend_pgprocno, freeNext, content_lock. Kept under 64 bytes for cache line alignment.",
+      "importance_score": 0.97,
+      "category": "DESCRIPTOR_METADATA",
+      "depth_from_entry": 1,
+      "source_file": "src/include/storage/buf_internals.h",
+      "references_from": [],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 80,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "BufferTag": {
+      "overview": "Identifies which disk block a buffer contains: spcOid, dbOid, relNumber, forkNum, blockNum. Used as hash key in buffer mapping table.",
+      "importance_score": 0.95,
+      "category": "DESCRIPTOR_METADATA",
+      "depth_from_entry": 1,
+      "source_file": "src/include/storage/buf_internals.h",
+      "references_from": [],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 60,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "BufferLookupEnt": {
+      "overview": "Entry for buffer lookup hashtable: maps BufferTag key to buffer ID.",
+      "importance_score": 0.65,
+      "category": "HASH_TABLE",
+      "depth_from_entry": 2,
+      "source_file": "src/backend/storage/buffer/buf_table.c",
+      "references_from": [],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 6,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    },
+    "InvalidateBuffer": {
+      "overview": "Marks a shared buffer as invalid and returns it to the freelist, handling complex synchronization for safe buffer reclamation during relation drops.",
+      "importance_score": 0.76,
+      "category": "BUFFER_LIFECYCLE",
+      "depth_from_entry": 2,
+      "source_file": "src/backend/storage/buffer/bufmgr.c",
+      "references_from": ["LockBufHdr", "UnlockBufHdr", "BufTableHashCode", "BufMappingPartitionLock", "BufTableDelete", "StrategyFreeBuffer"],
+      "references_to": ["DropRelationBuffers", "FindAndDropRelationBuffers"],
+      "metrics": {
+        "ref_count": 4,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    },
+    "DropRelationBuffers": {
+      "overview": "Removes pages of specified relation forks from the buffer pool with block numbers >= firstDelBlock, used during file deletion or truncation.",
+      "importance_score": 0.70,
+      "category": "BUFFER_LIFECYCLE",
+      "depth_from_entry": 0,
+      "source_file": "src/backend/storage/buffer/bufmgr.c",
+      "references_from": ["InvalidateBuffer", "FindAndDropRelationBuffers"],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 5,
+        "is_entry_point": true,
+        "is_critical_path": false
+      }
+    },
+    "DropRelationsAllBuffers": {
+      "overview": "Removes all pages of all forks from multiple relations from the buffer pool.",
+      "importance_score": 0.68,
+      "category": "BUFFER_LIFECYCLE",
+      "depth_from_entry": 0,
+      "source_file": "src/backend/storage/buffer/bufmgr.c",
+      "references_from": ["InvalidateBuffer"],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 4,
+        "is_entry_point": true,
+        "is_critical_path": false
+      }
+    },
+    "FlushRelationBuffers": {
+      "overview": "Writes all dirty pages of a specific relation to disk, ensuring kernel has up-to-date view of relation data.",
+      "importance_score": 0.68,
+      "category": "DIRTY_MANAGEMENT",
+      "depth_from_entry": 0,
+      "source_file": "src/backend/storage/buffer/bufmgr.c",
+      "references_from": ["GetBufferDescriptor", "LockBufHdr", "FlushBuffer"],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 4,
+        "is_entry_point": true,
+        "is_critical_path": false
+      }
+    },
+    "FlushOneBuffer": {
+      "overview": "Flushes a previously locked and pinned buffer to the OS, providing a simple interface for flushing a single specific buffer.",
+      "importance_score": 0.65,
+      "category": "DIRTY_MANAGEMENT",
+      "depth_from_entry": 0,
+      "source_file": "src/backend/storage/buffer/bufmgr.c",
+      "references_from": ["FlushBuffer"],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 3,
+        "is_entry_point": true,
+        "is_critical_path": false
+      }
+    },
+    "FlushDatabaseBuffers": {
+      "overview": "Writes all dirty buffers for a given database to disk.",
+      "importance_score": 0.60,
+      "category": "DIRTY_MANAGEMENT",
+      "depth_from_entry": 0,
+      "source_file": "src/backend/storage/buffer/bufmgr.c",
+      "references_from": ["GetBufferDescriptor", "LockBufHdr", "FlushBuffer"],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 2,
+        "is_entry_point": true,
+        "is_critical_path": false
+      }
+    },
+    "PageHeaderData": {
+      "overview": "Fundamental structure defining header layout for all PostgreSQL database pages: pd_lsn, pd_checksum, pd_flags, pd_lower, pd_upper, pd_special, pd_pagesize_version, pd_prune_xid, pd_linp[].",
+      "importance_score": 0.94,
+      "category": "PAGE_LAYOUT",
+      "depth_from_entry": 1,
+      "source_file": "src/include/storage/bufpage.h",
+      "references_from": [],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 80,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "PageInit": {
+      "overview": "Initializes page contents in the buffer pool, setting up basic page structure and metadata without calculating initial checksum.",
+      "importance_score": 0.85,
+      "category": "PAGE_LAYOUT",
+      "depth_from_entry": 1,
+      "source_file": "src/backend/storage/page/bufpage.c",
+      "references_from": ["PageSetPageSizeAndVersion"],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 50,
+        "is_entry_point": true,
+        "is_critical_path": true
+      }
+    },
+    "PageAddItemExtended": {
+      "overview": "Adds an item to a page at a specified or automatically determined offset, handling space allocation, line pointer management, and data placement.",
+      "importance_score": 0.82,
+      "category": "PAGE_LAYOUT",
+      "depth_from_entry": 1,
+      "source_file": "src/backend/storage/page/bufpage.c",
+      "references_from": [],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 30,
+        "is_entry_point": true,
+        "is_critical_path": true
+      }
+    },
+    "PageRepairFragmentation": {
+      "overview": "Removes fragmentation from a heap page by eliminating unused line pointers and compacting remaining tuples.",
+      "importance_score": 0.70,
+      "category": "PAGE_LAYOUT",
+      "depth_from_entry": 1,
+      "source_file": "src/backend/storage/page/bufpage.c",
+      "references_from": [],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 8,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    },
+    "PageGetFreeSpace": {
+      "overview": "Returns size of free (allocatable) space on a page, reduced by space needed for a new line pointer.",
+      "importance_score": 0.68,
+      "category": "PAGE_LAYOUT",
+      "depth_from_entry": 1,
+      "source_file": "src/backend/storage/page/bufpage.c",
+      "references_from": [],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 15,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    },
+    "PageGetHeapFreeSpace": {
+      "overview": "Returns free space on a heap page with heap-specific line pointer limits enforced.",
+      "importance_score": 0.66,
+      "category": "PAGE_LAYOUT",
+      "depth_from_entry": 1,
+      "source_file": "src/backend/storage/page/bufpage.c",
+      "references_from": [],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 8,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    },
+    "PageIsVerifiedExtended": {
+      "overview": "Validates page header and checksum when page is read from disk, providing protection against corrupted data.",
+      "importance_score": 0.80,
+      "category": "PAGE_LAYOUT",
+      "depth_from_entry": 2,
+      "source_file": "src/backend/storage/page/bufpage.c",
+      "references_from": [],
+      "references_to": ["WaitReadBuffers"],
+      "metrics": {
+        "ref_count": 6,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "PageSetChecksumCopy": {
+      "overview": "Creates a copy of a page with calculated checksum for safe writing, protecting against concurrent modifications.",
+      "importance_score": 0.76,
+      "category": "PAGE_LAYOUT",
+      "depth_from_entry": 3,
+      "source_file": "src/backend/storage/page/checksum.c",
+      "references_from": [],
+      "references_to": ["FlushBuffer"],
+      "metrics": {
+        "ref_count": 4,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "PageSetChecksumInplace": {
+      "overview": "Calculates and sets checksum directly on a page in private memory, used when concurrent modifications are guaranteed not to occur.",
+      "importance_score": 0.65,
+      "category": "PAGE_LAYOUT",
+      "depth_from_entry": 3,
+      "source_file": "src/backend/storage/page/checksum.c",
+      "references_from": [],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 4,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    },
+    "XLogFlush": {
+      "overview": "Ensures all WAL data through a specified position is flushed to disk, implementing group commit optimization and handling both normal and recovery scenarios.",
+      "importance_score": 0.92,
+      "category": "WAL_INTEGRATION",
+      "depth_from_entry": 3,
+      "source_file": "src/backend/access/transam/xlog.c",
+      "references_from": [],
+      "references_to": ["FlushBuffer"],
+      "metrics": {
+        "ref_count": 20,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "PageGetLSN": {
+      "overview": "Returns the LSN (Log Sequence Number) stored in a page header, used to enforce WAL-before-data rule.",
+      "importance_score": 0.82,
+      "category": "WAL_INTEGRATION",
+      "depth_from_entry": 2,
+      "source_file": "src/include/storage/bufpage.h",
+      "references_from": ["PageXLogRecPtrGet"],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 30,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "PageSetLSN": {
+      "overview": "Sets the LSN value in a page header after WAL record insertion.",
+      "importance_score": 0.80,
+      "category": "WAL_INTEGRATION",
+      "depth_from_entry": 2,
+      "source_file": "src/include/storage/bufpage.h",
+      "references_from": ["PageXLogRecPtrSet"],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 25,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "BufferGetLSNAtomic": {
+      "overview": "Returns page LSN with atomic semantics suitable for concurrent access without holding content lock.",
+      "importance_score": 0.72,
+      "category": "WAL_INTEGRATION",
+      "depth_from_entry": 2,
+      "source_file": "src/backend/storage/buffer/bufmgr.c",
+      "references_from": ["BufferDescriptorGetContentLock", "PageGetLSN"],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 8,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    },
+    "smgropen": {
+      "overview": "Returns an SMgrRelation object for the specified relation, creating if necessary, with transaction-scoped lifetime management.",
+      "importance_score": 0.85,
+      "category": "STORAGE_MANAGER",
+      "depth_from_entry": 3,
+      "source_file": "src/backend/storage/smgr/smgr.c",
+      "references_from": [],
+      "references_to": ["FlushBuffer"],
+      "metrics": {
+        "ref_count": 30,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "smgrread": {
+      "overview": "Lightweight inline wrapper function that reads a single block from storage into a buffer.",
+      "importance_score": 0.80,
+      "category": "STORAGE_MANAGER",
+      "depth_from_entry": 3,
+      "source_file": "src/include/storage/smgr.h",
+      "references_from": ["smgrreadv"],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 5,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "smgrwrite": {
+      "overview": "Lightweight inline wrapper that writes a single block from a buffer to storage.",
+      "importance_score": 0.80,
+      "category": "STORAGE_MANAGER",
+      "depth_from_entry": 3,
+      "source_file": "src/include/storage/smgr.h",
+      "references_from": ["smgrwritev"],
+      "references_to": ["FlushBuffer"],
+      "metrics": {
+        "ref_count": 5,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "smgrreadv": {
+      "overview": "Reads a range of blocks from a relation into multiple supplied buffers in a single vectorized operation.",
+      "importance_score": 0.82,
+      "category": "STORAGE_MANAGER",
+      "depth_from_entry": 4,
+      "source_file": "src/backend/storage/smgr/smgr.c",
+      "references_from": ["mdreadv"],
+      "references_to": ["WaitReadBuffers"],
+      "metrics": {
+        "ref_count": 4,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "smgrwritev": {
+      "overview": "Performs vectorized write operations on existing blocks of a relation.",
+      "importance_score": 0.78,
+      "category": "STORAGE_MANAGER",
+      "depth_from_entry": 4,
+      "source_file": "src/backend/storage/smgr/smgr.c",
+      "references_from": ["mdwritev"],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 4,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "smgrextend": {
+      "overview": "Adds a new block to a relation file, extending the file beyond its current end-of-file position.",
+      "importance_score": 0.75,
+      "category": "STORAGE_MANAGER",
+      "depth_from_entry": 4,
+      "source_file": "src/backend/storage/smgr/smgr.c",
+      "references_from": ["mdextend"],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 5,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    },
+    "smgrprefetch": {
+      "overview": "Initiates asynchronous read operations for specified blocks to improve I/O performance through prefetching.",
+      "importance_score": 0.70,
+      "category": "STORAGE_MANAGER",
+      "depth_from_entry": 4,
+      "source_file": "src/backend/storage/smgr/smgr.c",
+      "references_from": ["mdprefetch"],
+      "references_to": ["PrefetchSharedBuffer", "PrefetchLocalBuffer"],
+      "metrics": {
+        "ref_count": 5,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    },
+    "smgrnblocks": {
+      "overview": "Returns number of blocks in a relation, utilizing caching to optimize repeated queries.",
+      "importance_score": 0.72,
+      "category": "STORAGE_MANAGER",
+      "depth_from_entry": 3,
+      "source_file": "src/backend/storage/smgr/smgr.c",
+      "references_from": ["mdnblocks"],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 15,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    },
+    "smgrwriteback": {
+      "overview": "Triggers kernel writeback for a specified range of blocks, encouraging OS to write dirty pages to disk.",
+      "importance_score": 0.68,
+      "category": "STORAGE_MANAGER",
+      "depth_from_entry": 4,
+      "source_file": "src/backend/storage/smgr/smgr.c",
+      "references_from": ["mdwriteback"],
+      "references_to": ["IssuePendingWritebacks"],
+      "metrics": {
+        "ref_count": 3,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    },
+    "smgrimmedsync": {
+      "overview": "Forces relation to stable storage synchronously, primarily used for building new relations where WAL logging is bypassed.",
+      "importance_score": 0.62,
+      "category": "STORAGE_MANAGER",
+      "depth_from_entry": 4,
+      "source_file": "src/backend/storage/smgr/smgr.c",
+      "references_from": ["mdimmedsync"],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 3,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    },
+    "mdreadv": {
+      "overview": "Performs vectored read operations on multiple blocks from a relation, handling segment boundaries, short reads, and error conditions.",
+      "importance_score": 0.78,
+      "category": "MD_LAYER",
+      "depth_from_entry": 5,
+      "source_file": "src/backend/storage/smgr/md.c",
+      "references_from": ["mdopenfork", "FileReadV"],
+      "references_to": ["smgrreadv"],
+      "metrics": {
+        "ref_count": 2,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "mdwritev": {
+      "overview": "Writes multiple database blocks at appropriate locations within relation files for updating already-existing blocks.",
+      "importance_score": 0.76,
+      "category": "MD_LAYER",
+      "depth_from_entry": 5,
+      "source_file": "src/backend/storage/smgr/md.c",
+      "references_from": ["mdopenfork", "FileWriteV"],
+      "references_to": ["smgrwritev"],
+      "metrics": {
+        "ref_count": 2,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "mdextend": {
+      "overview": "Extends a relation by adding a block at specified position, writing beyond the current end-of-file.",
+      "importance_score": 0.70,
+      "category": "MD_LAYER",
+      "depth_from_entry": 5,
+      "source_file": "src/backend/storage/smgr/md.c",
+      "references_from": ["mdopenfork", "FileWrite"],
+      "references_to": ["smgrextend"],
+      "metrics": {
+        "ref_count": 2,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    },
+    "mdwriteback": {
+      "overview": "Tells kernel to write pages back to storage, flushing multiple consecutive blocks from buffer cache to disk.",
+      "importance_score": 0.65,
+      "category": "MD_LAYER",
+      "depth_from_entry": 5,
+      "source_file": "src/backend/storage/smgr/md.c",
+      "references_from": ["mdopenfork", "FileWriteback"],
+      "references_to": ["smgrwriteback"],
+      "metrics": {
+        "ref_count": 2,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    },
+    "mdnblocks": {
+      "overview": "Retrieves total number of blocks in a relation, with side effect of opening all active segments.",
+      "importance_score": 0.68,
+      "category": "MD_LAYER",
+      "depth_from_entry": 5,
+      "source_file": "src/backend/storage/smgr/md.c",
+      "references_from": ["mdopenfork", "FileSize"],
+      "references_to": ["smgrnblocks"],
+      "metrics": {
+        "ref_count": 2,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    },
+    "WritebackContext": {
+      "overview": "Structure managing batching and coordination of pending writeback requests in buffer management system.",
+      "importance_score": 0.72,
+      "category": "WRITEBACK",
+      "depth_from_entry": 1,
+      "source_file": "src/include/storage/buf_internals.h",
+      "references_from": [],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 10,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    },
+    "WritebackContextInit": {
+      "overview": "Initializes a WritebackContext for managing batching of dirty buffer writebacks with configurable coalescing limits.",
+      "importance_score": 0.62,
+      "category": "WRITEBACK",
+      "depth_from_entry": 1,
+      "source_file": "src/backend/storage/buffer/bufmgr.c",
+      "references_from": [],
+      "references_to": ["InitBufferPool", "BufferSync"],
+      "metrics": {
+        "ref_count": 4,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    },
+    "IssuePendingWritebacks": {
+      "overview": "Issues all pending writeback requests previously scheduled to the OS for improved IO scheduling performance.",
+      "importance_score": 0.70,
+      "category": "WRITEBACK",
+      "depth_from_entry": 2,
+      "source_file": "src/backend/storage/buffer/bufmgr.c",
+      "references_from": ["smgrwriteback"],
+      "references_to": ["BufferSync", "BgBufferSync"],
+      "metrics": {
+        "ref_count": 4,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    },
+    "ScheduleBufferTagForWriteback": {
+      "overview": "Adds a dirty buffer to the pending writeback queue for batched I/O operations.",
+      "importance_score": 0.68,
+      "category": "WRITEBACK",
+      "depth_from_entry": 2,
+      "source_file": "src/backend/storage/buffer/bufmgr.c",
+      "references_from": ["IssuePendingWritebacks"],
+      "references_to": ["FlushBuffer", "SyncOneBuffer"],
+      "metrics": {
+        "ref_count": 4,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    },
+    "PrefetchBuffer": {
+      "overview": "High-level interface for prefetching relation blocks that routes to appropriate buffer pool implementation based on relation type.",
+      "importance_score": 0.72,
+      "category": "PREFETCH",
+      "depth_from_entry": 0,
+      "source_file": "src/backend/storage/buffer/bufmgr.c",
+      "references_from": ["PrefetchSharedBuffer", "PrefetchLocalBuffer"],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 10,
+        "is_entry_point": true,
+        "is_critical_path": false
+      }
+    },
+    "PrefetchSharedBuffer": {
+      "overview": "Implements buffer prefetching for shared buffers by checking cache and initiating asynchronous I/O if needed.",
+      "importance_score": 0.68,
+      "category": "PREFETCH",
+      "depth_from_entry": 1,
+      "source_file": "src/backend/storage/buffer/bufmgr.c",
+      "references_from": ["BufTableHashCode", "BufTableLookup", "smgrprefetch"],
+      "references_to": ["PrefetchBuffer"],
+      "metrics": {
+        "ref_count": 5,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    },
+    "LocalBufferAlloc": {
+      "overview": "Finds or creates a local buffer for a page of a temporary relation. Local buffer equivalent of BufferAlloc.",
+      "importance_score": 0.78,
+      "category": "LOCAL_BUFFERS",
+      "depth_from_entry": 2,
+      "source_file": "src/backend/storage/buffer/localbuf.c",
+      "references_from": ["InitBufferTag", "InitLocalBuffers", "hash_search", "GetLocalBufferDescriptor", "BufferTagsEqual", "PinLocalBuffer", "GetLocalVictimBuffer"],
+      "references_to": ["PinBufferForBlock"],
+      "metrics": {
+        "ref_count": 3,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "PinLocalBuffer": {
+      "overview": "Pins a local buffer by incrementing its reference count, preventing reuse while the buffer is being accessed.",
+      "importance_score": 0.65,
+      "category": "LOCAL_BUFFERS",
+      "depth_from_entry": 2,
+      "source_file": "src/backend/storage/buffer/localbuf.c",
+      "references_from": ["ResourceOwnerRememberBuffer"],
+      "references_to": ["LocalBufferAlloc", "PinBufferForBlock"],
+      "metrics": {
+        "ref_count": 3,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    },
+    "UnpinLocalBuffer": {
+      "overview": "Unpins a local buffer, making it available for replacement by subsequent local buffer allocation.",
+      "importance_score": 0.62,
+      "category": "LOCAL_BUFFERS",
+      "depth_from_entry": 2,
+      "source_file": "src/backend/storage/buffer/localbuf.c",
+      "references_from": ["ResourceOwnerForgetBuffer"],
+      "references_to": ["ReleaseBuffer"],
+      "metrics": {
+        "ref_count": 3,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    },
+    "MarkLocalBufferDirty": {
+      "overview": "Marks a local buffer as dirty, indicating data needs writing back when buffer is recycled.",
+      "importance_score": 0.60,
+      "category": "LOCAL_BUFFERS",
+      "depth_from_entry": 1,
+      "source_file": "src/backend/storage/buffer/localbuf.c",
+      "references_from": ["pg_atomic_read_u32", "pg_atomic_unlocked_write_u32"],
+      "references_to": ["MarkBufferDirty"],
+      "metrics": {
+        "ref_count": 2,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    },
+    "InitLocalBuffers": {
+      "overview": "Initializes local buffer structures on first use in a session, allocating descriptors and setting up the local hash table.",
+      "importance_score": 0.65,
+      "category": "LOCAL_BUFFERS",
+      "depth_from_entry": 2,
+      "source_file": "src/backend/storage/buffer/localbuf.c",
+      "references_from": ["ShmemInitHash"],
+      "references_to": ["LocalBufferAlloc", "PrefetchLocalBuffer"],
+      "metrics": {
+        "ref_count": 3,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    },
+    "GetLocalBufferStorage": {
+      "overview": "Allocates memory for local buffers using an efficient block allocation strategy to minimize memory management overhead.",
+      "importance_score": 0.58,
+      "category": "LOCAL_BUFFERS",
+      "depth_from_entry": 3,
+      "source_file": "src/backend/storage/buffer/localbuf.c",
+      "references_from": [],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 2,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    },
+    "ExtendBufferedRel": {
+      "overview": "Convenience wrapper that extends a buffered relation by exactly one block.",
+      "importance_score": 0.72,
+      "category": "BUFFER_ACCESS",
+      "depth_from_entry": 1,
+      "source_file": "src/backend/storage/buffer/bufmgr.c",
+      "references_from": ["ExtendBufferedRelBy"],
+      "references_to": ["ReadBuffer_common"],
+      "metrics": {
+        "ref_count": 15,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    },
+    "EvictUnpinnedBuffer": {
+      "overview": "Attempts to evict the current block in a shared buffer, intended for testing and development only.",
+      "importance_score": 0.45,
+      "category": "BUFFER_LIFECYCLE",
+      "depth_from_entry": 0,
+      "source_file": "src/backend/storage/buffer/bufmgr.c",
+      "references_from": ["FlushBuffer", "InvalidateBuffer"],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 2,
+        "is_entry_point": true,
+        "is_critical_path": false
+      }
+    }
+  },
+  "categories": {
+    "BUFFER_ACCESS": [
+      "ReadBuffer", "ReadBufferExtended", "ReadBuffer_common", "ReadBufferWithoutRelcache",
+      "ReadRecentBuffer", "StartReadBuffers", "WaitReadBuffers", "PinBufferForBlock",
+      "ReleaseAndReadBuffer", "ExtendBufferedRel"
+    ],
+    "BUFFER_ALLOC": [
+      "BufferAlloc", "GetVictimBuffer"
+    ],
+    "PIN_MANAGEMENT": [
+      "PinBuffer", "PinBuffer_Locked", "UnpinBuffer", "ReleaseBuffer",
+      "UnlockReleaseBuffer"
+    ],
+    "CONCURRENCY_CONTROL": [
+      "LockBuffer", "ConditionalLockBuffer", "LockBufferForCleanup", "LockBufHdr"
+    ],
+    "IO_MANAGEMENT": [
+      "StartBufferIO", "TerminateBufferIO", "WaitIO"
+    ],
+    "DIRTY_MANAGEMENT": [
+      "MarkBufferDirty", "MarkBufferDirtyHint", "FlushBuffer",
+      "FlushRelationBuffers", "FlushOneBuffer", "FlushDatabaseBuffers"
+    ],
+    "CHECKPOINT": [
+      "BufferSync", "SyncOneBuffer", "CheckPointBuffers"
+    ],
+    "BGWRITER": [
+      "BgBufferSync"
+    ],
+    "INITIALIZATION": [
+      "InitBufferPool", "BufferShmemSize", "InitBufferPoolAccess"
+    ],
+    "REPLACEMENT_POLICY": [
+      "StrategyGetBuffer", "StrategyFreeBuffer", "StrategyRejectBuffer",
+      "StrategyInitialize", "StrategySyncStart", "StrategyNotifyBgWriter",
+      "GetAccessStrategy", "BufferStrategyControl", "BufferAccessStrategyData"
+    ],
+    "HASH_TABLE": [
+      "BufTableLookup", "BufTableInsert", "BufTableDelete",
+      "BufTableHashCode", "InitBufTable", "BufferLookupEnt"
+    ],
+    "DESCRIPTOR_METADATA": [
+      "BufferDesc", "BufferTag"
+    ],
+    "BUFFER_LIFECYCLE": [
+      "InvalidateBuffer", "DropRelationBuffers", "DropRelationsAllBuffers",
+      "EvictUnpinnedBuffer"
+    ],
+    "PAGE_LAYOUT": [
+      "PageHeaderData", "PageInit", "PageAddItemExtended", "PageRepairFragmentation",
+      "PageGetFreeSpace", "PageGetHeapFreeSpace", "PageIsVerifiedExtended",
+      "PageSetChecksumCopy", "PageSetChecksumInplace"
+    ],
+    "WAL_INTEGRATION": [
+      "XLogFlush", "PageGetLSN", "PageSetLSN", "BufferGetLSNAtomic"
+    ],
+    "STORAGE_MANAGER": [
+      "smgropen", "smgrread", "smgrwrite", "smgrreadv", "smgrwritev",
+      "smgrextend", "smgrprefetch", "smgrnblocks", "smgrwriteback", "smgrimmedsync"
+    ],
+    "MD_LAYER": [
+      "mdreadv", "mdwritev", "mdextend", "mdwriteback", "mdnblocks"
+    ],
+    "WRITEBACK": [
+      "WritebackContext", "WritebackContextInit", "IssuePendingWritebacks",
+      "ScheduleBufferTagForWriteback"
+    ],
+    "PREFETCH": [
+      "PrefetchBuffer", "PrefetchSharedBuffer"
+    ],
+    "LOCAL_BUFFERS": [
+      "LocalBufferAlloc", "PinLocalBuffer", "UnpinLocalBuffer",
+      "MarkLocalBufferDirty", "InitLocalBuffers", "GetLocalBufferStorage"
+    ]
+  },
+  "critical_paths": [
+    {
+      "name": "Buffer Read Path",
+      "description": "Normal path for reading a page into the buffer pool",
+      "path": ["ReadBuffer", "ReadBufferExtended", "ReadBuffer_common", "PinBufferForBlock", "BufferAlloc", "BufTableLookup", "PinBuffer"]
+    },
+    {
+      "name": "Buffer Allocation with Eviction",
+      "description": "Path when a buffer must be evicted to make room for a new page",
+      "path": ["BufferAlloc", "GetVictimBuffer", "StrategyGetBuffer", "FlushBuffer", "XLogFlush", "smgrwrite", "mdwritev"]
+    },
+    {
+      "name": "Checkpoint Write Path",
+      "description": "Path for writing dirty buffers during checkpoint",
+      "path": ["CheckPointBuffers", "BufferSync", "SyncOneBuffer", "FlushBuffer", "PageSetChecksumCopy", "smgrwrite", "mdwritev"]
+    },
+    {
+      "name": "Background Writer Path",
+      "description": "Path for background buffer cleaning by bgwriter",
+      "path": ["BgBufferSync", "StrategySyncStart", "SyncOneBuffer", "FlushBuffer", "ScheduleBufferTagForWriteback", "IssuePendingWritebacks"]
+    },
+    {
+      "name": "Buffer Pool Initialization",
+      "description": "Startup path for initializing shared buffer structures",
+      "path": ["InitBufferPool", "ShmemInitStruct", "StrategyInitialize", "InitBufTable", "WritebackContextInit"]
+    },
+    {
+      "name": "WAL-Before-Data Enforcement",
+      "description": "Ensures WAL is flushed before dirty buffer is written to disk",
+      "path": ["FlushBuffer", "LockBufHdr", "BufferGetLSN", "XLogFlush", "PageSetChecksumCopy", "smgrwrite"]
+    },
+    {
+      "name": "Clock Sweep Replacement",
+      "description": "Buffer replacement via clock sweep algorithm",
+      "path": ["GetVictimBuffer", "StrategyGetBuffer", "ClockSweepTick", "LockBufHdr", "GetBufferDescriptor"]
+    },
+    {
+      "name": "Local Buffer Access Path",
+      "description": "Path for temporary table buffer access without shared memory",
+      "path": ["ReadBuffer_common", "PinBufferForBlock", "LocalBufferAlloc", "PinLocalBuffer", "GetLocalBufferStorage"]
+    }
+  ]
+}

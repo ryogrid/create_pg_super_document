@@ -1,0 +1,31 @@
+graph TD
+    subgraph "Lock Hierarchy (acquire top-to-bottom)"
+        RL["Relation-level Lock<br/>(AccessShareLock, RowExclusiveLock, etc.)<br/>Duration: transaction"]
+        PL["Buffer Mapping Partition Lock<br/>(LWLock: shared for lookup, exclusive for insert/delete)<br/>128 partitions, acquire in partition order"]
+        CL["Buffer Content Lock<br/>(LWLock: SHARE or EXCLUSIVE per buffer)<br/>Duration: short-term operation"]
+        IO["I/O Lock<br/>(BM_IO_IN_PROGRESS flag + condition variable)<br/>Duration: single I/O operation"]
+        HS["Buffer Header Spinlock<br/>(BM_LOCKED bit in atomic state word)<br/>Duration: few instructions only"]
+        SL["Strategy Spinlock<br/>(buffer_strategy_lock)<br/>Duration: freelist/clock-hand access"]
+    end
+
+    RL --> PL
+    PL --> CL
+    CL --> IO
+    IO --> HS
+    PL --> HS
+    SL -.->|"independent<br/>never held with<br/>other locks"| HS
+
+    subgraph "Rules"
+        R1["1. Pin before Lock: always pin a buffer before locking it"]
+        R2["2. Partition before Header: never acquire partition lock while holding header spinlock"]
+        R3["3. Content before I/O: lock buffer contents before starting I/O"]
+        R4["4. Never I/O under Spinlock: no I/O or memory allocation while holding header spinlock"]
+        R5["5. Partition Order: multiple partition locks must be acquired in ascending order"]
+    end
+
+    style RL fill:#e3f2fd
+    style PL fill:#e8f5e9
+    style CL fill:#fff3e0
+    style IO fill:#fce4ec
+    style HS fill:#f3e5f5
+    style SL fill:#e0f2f1

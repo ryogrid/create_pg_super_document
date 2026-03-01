@@ -1,0 +1,29 @@
+stateDiagram-v2
+    [*] --> Free: Buffer initialized
+
+    Free --> Pinned: PinBuffer() / PinBuffer_Locked()
+    note right of Free: refcount=0, usagecount=0\nEligible for eviction
+
+    Pinned --> PinnedShared: LockBuffer(BUFFER_LOCK_SHARE)
+    Pinned --> PinnedExclusive: LockBuffer(BUFFER_LOCK_EXCLUSIVE)
+    note right of Pinned: refcount>=1, content unlocked\nSafe from eviction, unsafe to read data
+
+    PinnedShared --> Pinned: LockBuffer(BUFFER_LOCK_UNLOCK)
+    note right of PinnedShared: refcount>=1, shared lock held\nSafe to read page contents\nHint bits may be updated by others
+
+    PinnedExclusive --> Pinned: LockBuffer(BUFFER_LOCK_UNLOCK)
+    note right of PinnedExclusive: refcount>=1, exclusive lock held\nSafe to read AND modify page\nMarkBufferDirty() allowed here
+
+    PinnedExclusive --> CleanupLock: LockBufferForCleanup()\nwait for refcount=1
+    note right of CleanupLock: refcount=1 (only caller)\nexclusive lock held\nSafe to physically remove tuples
+
+    CleanupLock --> Pinned: LockBuffer(BUFFER_LOCK_UNLOCK)
+
+    Pinned --> Free: UnpinBuffer() / ReleaseBuffer()\n(when private refcount reaches 0)
+
+    state "I/O States" as IO {
+        IOIdle --> IOInProgress: StartBufferIO()\nsets BM_IO_IN_PROGRESS
+        IOInProgress --> IOIdle: TerminateBufferIO()\nclears BM_IO_IN_PROGRESS\nbroadcasts CV
+        IOIdle --> IOWaiting: WaitIO()\nwaits on condition variable
+        IOWaiting --> IOIdle: Woken by TerminateBufferIO()
+    }

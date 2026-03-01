@@ -1,0 +1,52 @@
+graph TB
+    subgraph "Shared Memory Region"
+        subgraph "Buffer Descriptors (64 bytes each, cache-line aligned)"
+            BD0["BufferDesc[0]<br/>tag | buf_id=0 | state | freeNext | content_lock"]
+            BD1["BufferDesc[1]<br/>tag | buf_id=1 | state | freeNext | content_lock"]
+            BD2["BufferDesc[2]<br/>..."]
+            BDN["BufferDesc[N-1]<br/>tag | buf_id=N-1 | state | freeNext | content_lock"]
+        end
+
+        subgraph "Buffer Blocks (8KB each, I/O aligned)"
+            BB0["Block[0]<br/>8192 bytes"]
+            BB1["Block[1]<br/>8192 bytes"]
+            BB2["Block[2]<br/>..."]
+            BBN["Block[N-1]<br/>8192 bytes"]
+        end
+
+        subgraph "I/O Condition Variables"
+            CV0["CV[0]"]
+            CV1["CV[1]"]
+            CV2["..."]
+            CVN["CV[N-1]"]
+        end
+
+        subgraph "Checkpoint Sort Array"
+            CK["CkptBufferIds[NBuffers]<br/>(CkptSortItem: tsId, relNum, fork, block, buf_id)"]
+        end
+
+        subgraph "Hash Table (Partitioned, 128 locks)"
+            HT["SharedBufHash<br/>BufferTag → buf_id<br/>NBuffers + 128 entries"]
+        end
+
+        subgraph "Strategy Control"
+            SC["BufferStrategyControl<br/>spinlock | nextVictimBuffer | freelist | stats | bgwprocno"]
+        end
+    end
+
+    BD0 -.->|"buf_id=0"| BB0
+    BD1 -.->|"buf_id=1"| BB1
+    BDN -.->|"buf_id=N-1"| BBN
+
+    BD0 -.-> CV0
+    BD1 -.-> CV1
+    BDN -.-> CVN
+
+    style BD0 fill:#e1f5fe
+    style BD1 fill:#e1f5fe
+    style BDN fill:#e1f5fe
+    style BB0 fill:#fff3e0
+    style BB1 fill:#fff3e0
+    style BBN fill:#fff3e0
+    style HT fill:#e8f5e9
+    style SC fill:#fce4ec

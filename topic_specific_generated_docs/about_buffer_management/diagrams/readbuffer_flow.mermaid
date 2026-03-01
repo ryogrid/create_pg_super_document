@@ -1,0 +1,64 @@
+flowchart TD
+    A["ReadBuffer(rel, blockNum)"] --> B["ReadBufferExtended(rel, MAIN_FORKNUM, blockNum, RBM_NORMAL, NULL)"]
+    B --> C["ReadBuffer_common()"]
+
+    C --> D{blockNum == P_NEW?}
+    D -->|Yes| E["ExtendBufferedRel()"]
+
+    D -->|No| F{mode == ZERO_AND_LOCK<br/>or ZERO_AND_CLEANUP_LOCK?}
+    F -->|Yes| G["PinBufferForBlock()"]
+    G --> H["ZeroAndLockBuffer()"]
+    H --> Z["Return pinned+locked buffer"]
+
+    F -->|No| I["StartReadBuffer()"]
+    I --> J["PinBufferForBlock()"]
+    J --> K{"Shared or<br/>Local buffer?"}
+
+    K -->|Shared| L["BufferAlloc()"]
+    K -->|Local| M["LocalBufferAlloc()"]
+
+    L --> N["InitBufferTag + BufTableHashCode"]
+    N --> O["LWLockAcquire(partition, SHARED)"]
+    O --> P["BufTableLookup()"]
+
+    P --> Q{Found in<br/>hash table?}
+    Q -->|Yes| R["PinBuffer(buf, strategy)"]
+    R --> S["LWLockRelease(partition)"]
+    S --> T{BM_VALID?}
+    T -->|Yes| Z2["Return: foundPtr=true"]
+    T -->|No| U["Need I/O: foundPtr=false"]
+
+    Q -->|No| V["LWLockRelease(partition)"]
+    V --> W["GetVictimBuffer(strategy)"]
+    W --> X["LWLockAcquire(partition, EXCLUSIVE)"]
+    X --> Y["BufTableInsert()"]
+
+    Y --> AA{Collision?<br/>Another backend<br/>inserted same tag}
+    AA -->|Yes| AB["UnpinBuffer(victim)"]
+    AB --> AC["StrategyFreeBuffer(victim)"]
+    AC --> AD["PinBuffer(existing)"]
+    AD --> S
+
+    AA -->|No| AE["LockBufHdr(victim)"]
+    AE --> AF["Set tag, BM_TAG_VALID, usage=1"]
+    AF --> AG["UnlockBufHdr + LWLockRelease"]
+    AG --> U
+
+    U --> AH{"StartReadBuffer<br/>returned true?"}
+    AH -->|Yes| AI["WaitReadBuffers()"]
+    AI --> AJ["StartBufferIO()"]
+    AJ --> AK["smgrreadv() - disk read"]
+    AK --> AL["PageIsVerifiedExtended()"]
+    AL --> AM["TerminateBufferIO(BM_VALID)"]
+    AM --> Z2
+
+    AH -->|No| Z2
+
+    E --> Z
+    M --> U
+
+    style A fill:#4caf50,color:white
+    style Z fill:#2196f3,color:white
+    style Z2 fill:#2196f3,color:white
+    style W fill:#ff9800,color:white
+    style AK fill:#f44336,color:white
