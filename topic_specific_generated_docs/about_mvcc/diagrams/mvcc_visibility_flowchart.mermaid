@@ -1,0 +1,100 @@
+%% HeapTupleSatisfiesMVCC Decision Flowchart
+%% Source: src/backend/access/heap/heapam_visibility.c:937-1145
+%% This is the primary MVCC visibility check used for normal queries
+
+flowchart TD
+    START["HeapTupleSatisfiesMVCC(tuple, snapshot, buffer)"] --> XMIN_COMMITTED{"Is xmin hint bit<br/>COMMITTED set?"}
+
+    XMIN_COMMITTED -->|"No"| XMIN_INVALID{"Is xmin hint bit<br/>INVALID set?"}
+    XMIN_INVALID -->|"Yes"| INVISIBLE1["INVISIBLE<br/>(inserter aborted)"]
+
+    XMIN_INVALID -->|"No"| MOVED_CHECK{"HEAP_MOVED_OFF<br/>or MOVED_IN?"}
+    MOVED_CHECK -->|"Yes"| LEGACY["Legacy pre-9.0<br/>VACUUM FULL handling"]
+
+    MOVED_CHECK -->|"No"| CURRENT_XMIN{"Is xmin the<br/>current transaction?"}
+
+    CURRENT_XMIN -->|"Yes"| CID_CHECK{"Is cmin >= <br/>snapshot.curcid?"}
+    CID_CHECK -->|"Yes"| INVISIBLE2["INVISIBLE<br/>(inserted after scan started)"]
+    CID_CHECK -->|"No"| XMAX_INVALID_SELF{"Is xmax INVALID?"}
+    XMAX_INVALID_SELF -->|"Yes"| VISIBLE1["VISIBLE<br/>(inserted by us, not deleted)"]
+    XMAX_INVALID_SELF -->|"No"| LOCK_ONLY_SELF{"XMAX_LOCK_ONLY?"}
+    LOCK_ONLY_SELF -->|"Yes"| VISIBLE2["VISIBLE<br/>(only locked, not deleted)"]
+    LOCK_ONLY_SELF -->|"No"| XMAX_CURRENT{"Is xmax the<br/>current transaction?"}
+    XMAX_CURRENT -->|"No"| VISIBLE3["VISIBLE<br/>(deleting subxact aborted)"]
+    XMAX_CURRENT -->|"Yes"| CMAX_CHECK{"Is cmax >= <br/>snapshot.curcid?"}
+    CMAX_CHECK -->|"Yes"| VISIBLE4["VISIBLE<br/>(deleted after scan)"]
+    CMAX_CHECK -->|"No"| INVISIBLE3["INVISIBLE<br/>(deleted before scan)"]
+
+    CURRENT_XMIN -->|"No"| IN_SNAPSHOT{"XidInMVCCSnapshot<br/>(xmin, snapshot)?"}
+    IN_SNAPSHOT -->|"Yes"| INVISIBLE4["INVISIBLE<br/>(inserter still in progress<br/>per snapshot)"]
+    IN_SNAPSHOT -->|"No"| DID_COMMIT{"TransactionIdDidCommit<br/>(xmin)?"}
+    DID_COMMIT -->|"Yes"| SET_COMMITTED["SetHintBits<br/>(XMIN_COMMITTED)"]
+    DID_COMMIT -->|"No"| SET_INVALID["SetHintBits<br/>(XMIN_INVALID)"]
+    SET_INVALID --> INVISIBLE5["INVISIBLE<br/>(inserter aborted/crashed)"]
+
+    SET_COMMITTED --> XMIN_DONE["xmin confirmed committed"]
+
+    XMIN_COMMITTED -->|"Yes"| FROZEN_CHECK{"Is xmin FROZEN?"}
+    FROZEN_CHECK -->|"Yes"| XMIN_DONE
+    FROZEN_CHECK -->|"No"| SNAPSHOT_RECHECK{"XidInMVCCSnapshot<br/>(xmin, snapshot)?"}
+    SNAPSHOT_RECHECK -->|"Yes"| INVISIBLE6["INVISIBLE<br/>(committed but still<br/>in-progress per snapshot)"]
+    SNAPSHOT_RECHECK -->|"No"| XMIN_DONE
+
+    XMIN_DONE --> XMAX_INVALID_MAIN{"Is xmax INVALID?"}
+    XMAX_INVALID_MAIN -->|"Yes"| VISIBLE5["VISIBLE<br/>(no deleter)"]
+
+    XMAX_INVALID_MAIN -->|"No"| LOCK_ONLY_MAIN{"XMAX_LOCK_ONLY?"}
+    LOCK_ONLY_MAIN -->|"Yes"| VISIBLE6["VISIBLE<br/>(only locked)"]
+
+    LOCK_ONLY_MAIN -->|"No"| MULTI_CHECK{"XMAX_IS_MULTI?"}
+    MULTI_CHECK -->|"Yes"| MULTI_RESOLVE["Resolve MultiXactId<br/>to update xid"]
+    MULTI_RESOLVE --> MULTI_CURRENT{"xmax is current xact?"}
+    MULTI_CURRENT -->|"Yes"| MULTI_CID{"cmax >= curcid?"}
+    MULTI_CID -->|"Yes"| VISIBLE7["VISIBLE"]
+    MULTI_CID -->|"No"| INVISIBLE7["INVISIBLE"]
+    MULTI_CURRENT -->|"No"| MULTI_SNAP{"XidInMVCCSnapshot?"}
+    MULTI_SNAP -->|"Yes"| VISIBLE8["VISIBLE<br/>(deleter still running)"]
+    MULTI_SNAP -->|"No"| MULTI_COMMIT{"DidCommit?"}
+    MULTI_COMMIT -->|"Yes"| INVISIBLE8["INVISIBLE<br/>(deleter committed)"]
+    MULTI_COMMIT -->|"No"| VISIBLE9["VISIBLE<br/>(deleter aborted)"]
+
+    MULTI_CHECK -->|"No"| XMAX_COMMITTED_CHECK{"Is xmax hint bit<br/>COMMITTED set?"}
+    XMAX_COMMITTED_CHECK -->|"No"| XMAX_CURRENT_MAIN{"xmax is current xact?"}
+    XMAX_CURRENT_MAIN -->|"Yes"| XMAX_CID{"cmax >= curcid?"}
+    XMAX_CID -->|"Yes"| VISIBLE10["VISIBLE"]
+    XMAX_CID -->|"No"| INVISIBLE9["INVISIBLE"]
+    XMAX_CURRENT_MAIN -->|"No"| XMAX_IN_SNAP{"XidInMVCCSnapshot<br/>(xmax)?"}
+    XMAX_IN_SNAP -->|"Yes"| VISIBLE11["VISIBLE<br/>(deleter in progress)"]
+    XMAX_IN_SNAP -->|"No"| XMAX_DID_COMMIT{"DidCommit(xmax)?"}
+    XMAX_DID_COMMIT -->|"No"| VISIBLE12["VISIBLE + SetHintBits<br/>(XMAX_INVALID)"]
+    XMAX_DID_COMMIT -->|"Yes"| SET_XMAX_COMMITTED["SetHintBits<br/>(XMAX_COMMITTED)"]
+    SET_XMAX_COMMITTED --> INVISIBLE10["INVISIBLE<br/>(deleter committed)"]
+
+    XMAX_COMMITTED_CHECK -->|"Yes"| XMAX_SNAP_RECHECK{"XidInMVCCSnapshot<br/>(xmax)?"}
+    XMAX_SNAP_RECHECK -->|"Yes"| VISIBLE13["VISIBLE<br/>(committed but still<br/>in-progress per snapshot)"]
+    XMAX_SNAP_RECHECK -->|"No"| INVISIBLE11["INVISIBLE<br/>(deleter committed<br/>before snapshot)"]
+
+    style VISIBLE1 fill:#c8e6c9
+    style VISIBLE2 fill:#c8e6c9
+    style VISIBLE3 fill:#c8e6c9
+    style VISIBLE4 fill:#c8e6c9
+    style VISIBLE5 fill:#c8e6c9
+    style VISIBLE6 fill:#c8e6c9
+    style VISIBLE7 fill:#c8e6c9
+    style VISIBLE8 fill:#c8e6c9
+    style VISIBLE9 fill:#c8e6c9
+    style VISIBLE10 fill:#c8e6c9
+    style VISIBLE11 fill:#c8e6c9
+    style VISIBLE12 fill:#c8e6c9
+    style VISIBLE13 fill:#c8e6c9
+    style INVISIBLE1 fill:#ffcdd2
+    style INVISIBLE2 fill:#ffcdd2
+    style INVISIBLE3 fill:#ffcdd2
+    style INVISIBLE4 fill:#ffcdd2
+    style INVISIBLE5 fill:#ffcdd2
+    style INVISIBLE6 fill:#ffcdd2
+    style INVISIBLE7 fill:#ffcdd2
+    style INVISIBLE8 fill:#ffcdd2
+    style INVISIBLE9 fill:#ffcdd2
+    style INVISIBLE10 fill:#ffcdd2
+    style INVISIBLE11 fill:#ffcdd2

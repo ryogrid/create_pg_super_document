@@ -1,0 +1,30 @@
+ 1. HeapTupleSatisfiesMVCC (0.98) - visibility - Primary MVCC visibility determination function; checks tuple xmin/xmax against snapshot boundaries, frozen status, hint bits, and command IDs
+ 2. HeapTupleHeaderData (0.97) - tuple - Core 23-byte tuple header structure: t_xmin, t_xmax, t_cid/t_xvac, t_ctid, t_infomask, t_infomask2, t_hoff
+ 3. SnapshotData (0.96) - snapshot - Core snapshot structure with xmin/xmax boundaries, xip[] in-progress array, subxip[] subtransaction array, curcid, and reference counting
+ 4. GetSnapshotData (0.96) - snapshot - Constructs MVCC snapshot by scanning ProcArray dense arrays for in-progress transactions
+ 5. CommitTransaction (0.95) - transaction - Complete transaction commit: deferred triggers, WAL/CLOG recording, ProcArray clearing, lock release
+ 6. StartTransaction (0.94) - transaction - Transaction initialization: memory contexts, TRANS_INPROGRESS state, virtual XID assignment
+ 7. PGPROC (0.94) - concurrency - Per-backend shared memory struct: xid, xmin, subxid cache, lock state; mirrored in ProcGlobal dense arrays
+ 8. heap_insert (0.93) - tuple - Inserts heap tuple: assigns xmin, finds buffer, writes tuple + WAL, handles speculative insertion
+ 9. heap_update (0.93) - tuple - Creates new tuple version: sets old xmax, inserts new version, handles HOT updates and TOAST
+10. heap_delete (0.92) - tuple - Marks tuple deleted by setting xmax: visibility check, conflict detection, WAL logging
+11. TransactionIdIsInProgress (0.92) - concurrency - Checks if XID is running by scanning ProcArray; handles subtransaction overflow via pg_subtrans
+12. XidInMVCCSnapshot (0.91) - visibility - Tests if XID is in-progress per MVCC snapshot: checks xmin/xmax bounds and searches xip[] array
+13. TransactionIdDidCommit (0.90) - clog - Queries CLOG for commit status; recursively checks subtransaction parents via pg_subtrans
+14. AbortTransaction (0.90) - transaction - Complete transaction rollback: WAL abort record, CLOG update, ProcArray clearing, resource cleanup
+15. RecordTransactionCommit (0.89) - transaction - Records commit to WAL and CLOG; decides sync vs async commit; returns latest subtransaction XID
+16. HeapTupleSatisfiesUpdate (0.88) - visibility - Detailed visibility for UPDATE/DELETE: returns status codes enabling proper concurrency conflict handling
+17. lazy_vacuum_heap_rel (0.88) - vacuum - VACUUM second pass: converts LP_DEAD items to LP_UNUSED for space reclaim
+18. SetHintBits (0.87) - visibility - Caches transaction status in tuple infomask; checks WAL flush safety before setting commit hints
+19. GetTransactionSnapshot (0.87) - snapshot - Gets appropriate snapshot per isolation level: fresh for READ COMMITTED, reused for REPEATABLE READ
+20. HeapTupleSatisfiesVacuum (0.86) - visibility - Wrapper for VacuumHorizon with OldestXmin boundary checking for VACUUM decisions
+21. ProcArrayEndTransaction (0.86) - concurrency - Clears PGPROC.xid, advances latestCompletedXid/xactCompletionCount; group clearing optimization
+22. TransactionIdSetTreeStatus (0.85) - clog - Records commit/abort for transaction tree in CLOG; ensures atomicity across CLOG pages
+23. TransactionIdIsCurrentTransactionId (0.85) - transaction - Checks if XID belongs to current transaction including subtransactions and parallel workers
+24. heap_prepare_freeze_tuple (0.85) - vacuum - Analyzes tuple for freezing eligibility; prepares freeze plan for xmin/xmax/xvac fields
+25. HeapTupleSatisfiesVacuumHorizon (0.84) - visibility - Core vacuum visibility: returns HTSV_Result and dead_after XID for recently-dead tuples
+26. GetNewTransactionId (0.84) - transaction - Allocates next FullTransactionId; checks wraparound limits; assigns to PGPROC
+27. heap_page_prune_and_freeze (0.83) - vacuum - Page-level maintenance: prunes HOT chains, defragments page, freezes eligible tuples
+28. HeapTupleSatisfiesVisibility (0.82) - visibility - Central dispatcher routing to specific visibility function based on SnapshotType
+29. PushActiveSnapshot (0.80) - snapshot - Pushes snapshot onto active stack for use by table access methods; handles reference counting
+30. vacuum_get_cutoffs (0.80) - vacuum - Computes OldestXmin and freeze cutoff thresholds for VACUUM operations

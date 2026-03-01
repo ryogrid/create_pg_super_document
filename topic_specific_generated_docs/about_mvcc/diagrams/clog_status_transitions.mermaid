@@ -1,0 +1,91 @@
+%% CLOG Status Transitions State Diagram
+%% Source: src/backend/access/transam/clog.c
+%%         src/backend/access/transam/transam.c
+%%         src/include/access/clog.h
+%%
+%% CLOG stores 2 bits per transaction (4 transactions per byte)
+%% Status codes: IN_PROGRESS(00), COMMITTED(01), ABORTED(10), SUB_COMMITTED(11)
+
+stateDiagram-v2
+    direction TB
+
+    state "CLOG Transaction Status (2 bits per XID)" as clog {
+
+        [*] --> IN_PROGRESS : GetNewTransactionId()\nallocates XID\nExtendCLOG() zeros page
+
+        IN_PROGRESS --> COMMITTED : TransactionIdCommitTree()\nvia TransactionIdSetTreeStatus()\n\nSynchronous: WAL flush first\nthen CLOG update\n\nAsynchronous: CLOG update\nwith commit LSN stored
+
+        IN_PROGRESS --> ABORTED : TransactionIdAbortTree()\nvia TransactionIdSetTreeStatus()\n\nAlways safe (crash = abort)
+
+        IN_PROGRESS --> SUB_COMMITTED : TransactionIdSetTreeStatus()\nIntermediate state for\nsubtransactions on different\nCLOG pages than parent
+
+        SUB_COMMITTED --> COMMITTED : Parent transaction commits\nTransactionIdSetTreeStatus()\nsets final COMMITTED status
+
+        SUB_COMMITTED --> ABORTED : Parent transaction aborts\nTransactionIdAbortTree()\nsets ABORTED status
+
+        note right of IN_PROGRESS
+            Default state: 00
+            Page zeroed on allocation
+            Transaction is running
+        end note
+
+        note right of COMMITTED
+            Final state: 01
+            TransactionIdDidCommit() returns true
+            Hint bits can be set safely
+        end note
+
+        note right of ABORTED
+            Final state: 10
+            TransactionIdDidAbort() returns true
+            Crash-aborted txns remain IN_PROGRESS
+            (treated as aborted by convention)
+        end note
+
+        note right of SUB_COMMITTED
+            Intermediate state: 11
+            Only for subtransactions
+            TransactionIdDidCommit() recurses
+            to parent via pg_subtrans
+        end note
+    }
+
+    state "CLOG Page Organization" as pages {
+        state "SLRU Page (8KB)" as page {
+            [*] --> BYTE0 : 4 XIDs per byte
+            BYTE0 : Byte 0 contains XIDs 0-3
+            BYTE0 --> BYTE1
+            BYTE1 : Byte 1 contains XIDs 4-7
+            BYTE1 --> BYTEN
+            BYTEN : ...
+            BYTEN --> BYTE8191
+            BYTE8191 : Byte 8191 contains XIDs 32764-32767
+        }
+        note right of page
+            CLOG_XACTS_PER_PAGE = BLCKSZ * 4 = 32768
+            CLOG_BITS_PER_XACT = 2
+            CLOG_XACTS_PER_BYTE = 4
+
+            Group LSN tracking:
+            CLOG_XACTS_PER_LSN_GROUP = 32
+            CLOG_LSNS_PER_PAGE = 1024 per page
+
+            Segment files: pg_xact/0000, 0001, ...
+        end note
+    }
+
+    state "Group Update Optimization" as group {
+        [*] --> LEADER_WAIT : Backend cannot acquire\nSLRU bank lock
+        LEADER_WAIT --> JOIN_GROUP : Add self to\nclogGroupFirst list
+        JOIN_GROUP --> IS_LEADER : First in group
+        JOIN_GROUP --> IS_FOLLOWER : Already a leader exists
+
+        IS_FOLLOWER --> SLEEPING : Sleep on semaphore
+        SLEEPING --> DONE : Leader wakes us up\nafter updating CLOG
+
+        IS_LEADER --> ACQUIRE_LOCK : Acquire SLRU bank lock
+        ACQUIRE_LOCK --> UPDATE_ALL : Walk group list\nUpdate all XIDs
+        UPDATE_ALL --> RELEASE_LOCK : Release lock
+        RELEASE_LOCK --> WAKE_ALL : Wake all followers
+        WAKE_ALL --> DONE
+    }

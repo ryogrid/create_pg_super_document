@@ -1,0 +1,73 @@
+%% VACUUM Cleanup Flow Diagram
+%% Source: src/backend/access/heap/vacuumlazy.c
+%%         src/backend/access/heap/pruneheap.c
+%%         src/backend/commands/vacuum.c
+
+flowchart TD
+    START["VACUUM initiated<br/>(manual or autovacuum)"] --> CUTOFFS["vacuum_get_cutoffs()<br/>─────────<br/>Compute OldestXmin<br/>Compute FreezeLimit<br/>Compute MultiXactCutoff<br/>Determine aggressive mode"]
+
+    CUTOFFS --> AGGRESSIVE_CHECK{"Is aggressive<br/>VACUUM needed?"}
+    AGGRESSIVE_CHECK -->|"Yes: relfrozenxid too old"| SCAN_ALL["Scan ALL pages<br/>(ignore visibility map)"]
+    AGGRESSIVE_CHECK -->|"No"| SCAN_SELECTIVE["Scan only non-all-visible<br/>pages (use visibility map)"]
+
+    SCAN_ALL --> SCAN_PASS
+    SCAN_SELECTIVE --> SCAN_PASS
+
+    subgraph SCAN_PASS["Pass 1: Heap Scan (Prune + Freeze)"]
+        direction TB
+        READ_PAGE["Read next heap page"] --> PRUNE["heap_page_prune_and_freeze()<br/>─────────<br/>1. Prune HOT chains<br/>2. Identify dead items (LP_DEAD)<br/>3. Freeze eligible tuples<br/>4. Defragment page"]
+
+        PRUNE --> HTSV{"HeapTupleSatisfiesVacuumHorizon()<br/>for each tuple"}
+
+        HTSV -->|"HEAPTUPLE_DEAD"| MARK_DEAD["Mark line pointer LP_DEAD<br/>Record TID in dead_items array"]
+        HTSV -->|"HEAPTUPLE_LIVE"| CHECK_FREEZE{"Eligible for<br/>freezing?"}
+        HTSV -->|"HEAPTUPLE_RECENTLY_DEAD"| KEEP["Keep tuple<br/>(still visible to some xact)"]
+        HTSV -->|"HEAPTUPLE_INSERT_IN_PROGRESS"| KEEP
+        HTSV -->|"HEAPTUPLE_DELETE_IN_PROGRESS"| KEEP
+
+        CHECK_FREEZE -->|"xmin < FreezeLimit"| FREEZE["heap_prepare_freeze_tuple()<br/>─────────<br/>Replace xmin with FrozenXID<br/>Clear/freeze xmax if needed<br/>Resolve MultiXactIds"]
+        CHECK_FREEZE -->|"Not yet"| KEEP
+
+        MARK_DEAD --> DEAD_FULL{"dead_items array<br/>full?"}
+        DEAD_FULL -->|"Yes"| VACUUM_PASS["Trigger Pass 2 early<br/>(vacuum indexes + heap)"]
+        DEAD_FULL -->|"No"| MORE_TUPLES{"More tuples<br/>on page?"}
+
+        FREEZE --> MORE_TUPLES
+        KEEP --> MORE_TUPLES
+
+        MORE_TUPLES -->|"Yes"| HTSV
+        MORE_TUPLES -->|"No"| UPDATE_VM["Update Visibility Map<br/>if page is now all-visible<br/>or all-frozen"]
+        UPDATE_VM --> MORE_PAGES{"More pages<br/>to scan?"}
+        MORE_PAGES -->|"Yes"| READ_PAGE
+        MORE_PAGES -->|"No"| INDEX_VACUUM
+
+        VACUUM_PASS --> INDEX_VACUUM
+    end
+
+    subgraph INDEX_VACUUM["Index Vacuum Phase"]
+        direction TB
+        IV_START["For each index on the relation"] --> IV_SCAN["ambulkdelete()<br/>Remove index entries pointing<br/>to LP_DEAD heap items"]
+        IV_SCAN --> IV_CLEANUP["amvacuumcleanup()<br/>Update index statistics"]
+    end
+
+    INDEX_VACUUM --> HEAP_VACUUM
+
+    subgraph HEAP_VACUUM["Pass 2: Heap Vacuum (lazy_vacuum_heap_rel)"]
+        direction TB
+        HV_START["Process dead_items array"] --> HV_PAGE["For each page with LP_DEAD items"]
+        HV_PAGE --> HV_CONVERT["Convert LP_DEAD to LP_UNUSED<br/>(ItemIdSetUnused)"]
+        HV_CONVERT --> HV_DEFRAG["Page defragmentation<br/>(PageRepairFragmentation)"]
+        HV_DEFRAG --> HV_VM["Update Visibility Map"]
+    end
+
+    HEAP_VACUUM --> TRUNCATE{"Can truncate<br/>trailing empty pages?"}
+    TRUNCATE -->|"Yes"| DO_TRUNCATE["RelationTruncate()<br/>Remove empty pages from end of file"]
+    TRUNCATE -->|"No"| UPDATE_STATS
+
+    DO_TRUNCATE --> UPDATE_STATS["Update pg_class statistics<br/>─────────<br/>relfrozenxid<br/>relminmxid<br/>reltuples<br/>relpages"]
+
+    UPDATE_STATS --> CLOG_TRUNCATE["vac_truncate_clog()<br/>─────────<br/>Advance datfrozenxid<br/>Truncate pg_xact<br/>Truncate pg_subtrans<br/>Truncate pg_multixact"]
+
+    style FREEZE fill:#bbdefb
+    style MARK_DEAD fill:#ffcdd2
+    style HV_CONVERT fill:#c8e6c9

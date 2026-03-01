@@ -1,0 +1,56 @@
+%% Isolation Level Comparison Diagram
+%% Source: src/backend/utils/time/snapmgr.c (GetTransactionSnapshot)
+%%         src/backend/storage/lmgr/predicate.c (SSI)
+
+graph LR
+    subgraph "READ COMMITTED"
+        direction TB
+        RC_DESC["Default isolation level<br/>New snapshot per statement"]
+
+        RC_T1["BEGIN"] --> RC_S1["Statement 1<br/>Snapshot A"]
+        RC_S1 --> RC_S2["Statement 2<br/>Snapshot B (fresh)"]
+        RC_S2 --> RC_S3["Statement 3<br/>Snapshot C (fresh)"]
+        RC_S3 --> RC_END["COMMIT"]
+
+        RC_NOTE["Behavior:<br/>- Each statement sees latest committed data<br/>- Non-repeatable reads possible<br/>- Phantom reads possible<br/>- No predicate locks<br/>- GetTransactionSnapshot() calls<br/>  GetSnapshotData() each time"]
+    end
+
+    subgraph "REPEATABLE READ"
+        direction TB
+        RR_DESC["Snapshot frozen at first query"]
+
+        RR_T1["BEGIN"] --> RR_S1["Statement 1<br/>Snapshot A"]
+        RR_S1 --> RR_S2["Statement 2<br/>Snapshot A (reused)"]
+        RR_S2 --> RR_S3["Statement 3<br/>Snapshot A (reused)"]
+        RR_S3 --> RR_END["COMMIT"]
+
+        RR_NOTE["Behavior:<br/>- All statements see same snapshot<br/>- No non-repeatable reads<br/>- No phantom reads<br/>- Serialization errors on write conflicts<br/>  (ERROR: could not serialize access)<br/>- GetTransactionSnapshot() returns<br/>  FirstXactSnapshot after first call"]
+    end
+
+    subgraph "SERIALIZABLE"
+        direction TB
+        SER_DESC["REPEATABLE READ + SSI"]
+
+        SER_T1["BEGIN"] --> SER_S1["Statement 1<br/>Snapshot A<br/>+ SIREAD locks"]
+        SER_S1 --> SER_S2["Statement 2<br/>Snapshot A (reused)<br/>+ SIREAD locks"]
+        SER_S2 --> SER_S3["Statement 3<br/>Snapshot A (reused)<br/>+ SIREAD locks"]
+        SER_S3 --> SER_PRE["PreCommit_CheckFor<br/>SerializationFailure()"]
+        SER_PRE --> SER_END["COMMIT"]
+
+        SER_NOTE["Behavior:<br/>- Same snapshot as REPEATABLE READ<br/>- Plus Serializable Snapshot Isolation (SSI)<br/>- Tracks rw-dependencies via predicate locks<br/>- Detects dangerous structures at commit<br/>- CheckForSerializableConflictIn() on writes<br/>- CheckForSerializableConflictOut() on reads<br/>- May abort to prevent anomalies"]
+    end
+
+    subgraph "Snapshot Reuse Optimization"
+        direction TB
+        OPT_DESC["xactCompletionCount check"]
+        OPT1["GetSnapshotDataReuse() checks<br/>if xactCompletionCount changed<br/>since last snapshot"]
+        OPT2["If unchanged: reuse snapshot<br/>without scanning ProcArray"]
+        OPT3["If changed: full ProcArray scan"]
+        OPT1 --> OPT2
+        OPT1 --> OPT3
+    end
+
+    style RC_DESC fill:#e8f5e9
+    style RR_DESC fill:#e3f2fd
+    style SER_DESC fill:#fce4ec
+    style OPT_DESC fill:#fff3e0

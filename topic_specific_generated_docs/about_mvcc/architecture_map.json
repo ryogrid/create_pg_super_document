@@ -1,0 +1,804 @@
+{
+  "metadata": {
+    "title": "PostgreSQL MVCC Architecture Map",
+    "version": "17.6",
+    "generated": "2026-03-01",
+    "total_symbols": 74,
+    "functional_areas": 7
+  },
+  "symbols": {
+    "HeapTupleSatisfiesMVCC": {
+      "importance": 0.98,
+      "category": "visibility",
+      "source_file": "src/backend/access/heap/heapam_visibility.c",
+      "brief_description": "Primary MVCC visibility check: determines if a heap tuple is visible to a given MVCC snapshot by examining xmin/xmax against snapshot boundaries, hint bits, and command IDs",
+      "references_to": ["HeapTupleSatisfiesVisibility"],
+      "references_from": ["XidInMVCCSnapshot", "TransactionIdDidCommit", "SetHintBits", "TransactionIdIsCurrentTransactionId", "HeapTupleHeaderGetRawXmin", "HeapTupleHeaderGetRawXmax", "HeapTupleHeaderGetCmin", "HeapTupleHeaderGetCmax", "HeapTupleGetUpdateXid"],
+      "tier": 1
+    },
+    "GetSnapshotData": {
+      "importance": 0.96,
+      "category": "snapshot",
+      "source_file": "src/backend/storage/ipc/procarray.c",
+      "brief_description": "Constructs an MVCC snapshot by scanning the ProcArray to determine which transactions are in-progress, setting xmin/xmax boundaries and populating the xip[] array",
+      "references_to": ["GetTransactionSnapshot", "GetLatestSnapshot", "GetNonHistoricCatalogSnapshot", "SetTransactionSnapshot", "GetSerializableTransactionSnapshotInt"],
+      "references_from": ["ProcArrayStruct", "GetMaxSnapshotXidCount", "GetMaxSnapshotSubxidCount", "GetSnapshotDataReuse", "RecoveryInProgress", "XidFromFullTransactionId", "GetCurrentCommandId", "KnownAssignedXidsGetAndSetXmin"],
+      "tier": 1
+    },
+    "StartTransaction": {
+      "importance": 0.94,
+      "category": "transaction",
+      "source_file": "src/backend/access/transam/xact.c",
+      "brief_description": "Initializes a new PostgreSQL transaction: allocates memory contexts, sets transaction state to TRANS_INPROGRESS, assigns virtual transaction ID, and initializes all subsystem state",
+      "references_to": ["StartTransactionCommand"],
+      "references_from": ["VirtualXactLockTableInsert", "AtStart_Memory", "AtStart_ResourceOwner", "AtStart_Cache", "AtStart_Inval"],
+      "tier": 1
+    },
+    "CommitTransaction": {
+      "importance": 0.95,
+      "category": "transaction",
+      "source_file": "src/backend/access/transam/xact.c",
+      "brief_description": "Handles complete transaction commit: fires deferred triggers, records commit in WAL/CLOG via RecordTransactionCommit, clears ProcArray entry, releases locks and resources, and resets transaction state",
+      "references_to": ["CommitTransactionCommand"],
+      "references_from": ["RecordTransactionCommit", "ProcArrayEndTransaction", "AfterTriggerFireDeferred", "AtEOXact_RelationCache", "AtEOXact_Inval", "AtEOXact_Snapshot", "AtEOXact_MultiXact", "smgrDoPendingDeletes"],
+      "tier": 1
+    },
+    "AbortTransaction": {
+      "importance": 0.90,
+      "category": "transaction",
+      "source_file": "src/backend/access/transam/xact.c",
+      "brief_description": "Handles complete transaction rollback: records abort in WAL/CLOG, clears ProcArray, releases all locks and resources, and performs comprehensive cleanup of all transaction-related state",
+      "references_to": ["AbortCurrentTransaction"],
+      "references_from": ["RecordTransactionAbort", "ProcArrayEndTransaction", "AtAbort_Memory", "AtAbort_ResourceOwner", "AtEOXact_Snapshot"],
+      "tier": 1
+    },
+    "heap_insert": {
+      "importance": 0.93,
+      "category": "tuple",
+      "source_file": "src/backend/access/heap/heapam.c",
+      "brief_description": "Inserts a tuple into a heap relation: assigns xmin to current transaction ID, finds buffer space, writes tuple, logs to WAL, and handles speculative insertion and visibility map updates",
+      "references_to": ["simple_heap_insert", "heapam_tuple_insert"],
+      "references_from": ["GetCurrentTransactionId", "heap_prepare_insert", "RelationGetBufferForTuple", "CheckForSerializableConflictIn", "RelationPutHeapTuple", "XLogInsert", "CacheInvalidateHeapTuple"],
+      "tier": 1
+    },
+    "heap_delete": {
+      "importance": 0.92,
+      "category": "tuple",
+      "source_file": "src/backend/access/heap/heapam.c",
+      "brief_description": "Deletes a tuple by setting xmax to current transaction ID: performs visibility check via HeapTupleSatisfiesUpdate, handles concurrent update conflicts, writes WAL, and manages visibility map",
+      "references_to": ["simple_heap_delete", "heapam_tuple_delete"],
+      "references_from": ["HeapTupleSatisfiesUpdate", "GetCurrentTransactionId", "CheckForSerializableConflictIn", "CheckForSerializableConflictOut", "compute_new_xmax_infomask", "XLogInsert"],
+      "tier": 1
+    },
+    "heap_update": {
+      "importance": 0.93,
+      "category": "tuple",
+      "source_file": "src/backend/access/heap/heapam.c",
+      "brief_description": "Updates a tuple by creating a new version: marks old tuple's xmax, inserts new tuple with new xmin, handles HOT updates when possible, manages TOAST, and maintains tuple chain via t_ctid",
+      "references_to": ["simple_heap_update", "heapam_tuple_update"],
+      "references_from": ["HeapTupleSatisfiesUpdate", "GetCurrentTransactionId", "RelationGetBufferForTuple", "CheckForSerializableConflictIn", "CheckForSerializableConflictOut", "compute_new_xmax_infomask", "XLogInsert"],
+      "tier": 1
+    },
+    "TransactionIdIsInProgress": {
+      "importance": 0.92,
+      "category": "concurrency",
+      "source_file": "src/backend/storage/ipc/procarray.c",
+      "brief_description": "Determines if a transaction is currently running by scanning ProcArray: checks cached subxids, handles subtransaction overflow via pg_subtrans, essential for non-MVCC visibility checks",
+      "references_to": ["HeapTupleSatisfiesSelf", "HeapTupleSatisfiesUpdate", "HeapTupleSatisfiesDirty", "HeapTupleSatisfiesVacuumHorizon"],
+      "references_from": ["TransactionIdIsCurrentTransactionId", "ProcArrayStruct", "RecoveryInProgress", "KnownAssignedXidExists", "SubTransGetTopmostTransaction", "TransactionIdDidAbort"],
+      "tier": 1
+    },
+    "lazy_vacuum_heap_rel": {
+      "importance": 0.88,
+      "category": "vacuum",
+      "source_file": "src/backend/access/heap/vacuumlazy.c",
+      "brief_description": "Second pass of VACUUM: converts LP_DEAD items identified in the first pass to LP_UNUSED, allowing the space to be reclaimed for new tuple storage",
+      "references_to": ["table_relation_vacuum"],
+      "references_from": ["visibilitymap_get_status", "lazy_vacuum_heap_page", "pgstat_progress_update_param"],
+      "tier": 1
+    },
+    "HeapTupleHeaderData": {
+      "importance": 0.97,
+      "category": "tuple",
+      "source_file": "src/include/access/htup_details.h",
+      "brief_description": "Core data structure for heap tuple headers: contains t_xmin (inserting xact), t_xmax (deleting xact), t_cid/t_xvac (command ID or vacuum xact), t_ctid (tuple chain pointer), t_infomask (visibility flags), and t_hoff (header size)",
+      "references_to": [],
+      "references_from": [],
+      "tier": 1
+    },
+    "SnapshotData": {
+      "importance": 0.96,
+      "category": "snapshot",
+      "source_file": "src/include/utils/snapshot.h",
+      "brief_description": "Core snapshot structure: contains snapshot_type, xmin/xmax boundaries, xip[] array of in-progress transaction IDs, subxip[] for subtransactions, curcid for command-level visibility, and reference counting for lifetime management",
+      "references_to": [],
+      "references_from": [],
+      "tier": 1
+    },
+    "PGPROC": {
+      "importance": 0.94,
+      "category": "concurrency",
+      "source_file": "src/include/storage/proc.h",
+      "brief_description": "Per-process shared memory structure: stores xid (current transaction), xmin (oldest relevant xid), subxid cache, lock info, and process state; mirrored in dense ProcGlobal arrays for efficient scanning",
+      "references_to": [],
+      "references_from": [],
+      "tier": 1
+    },
+    "XidInMVCCSnapshot": {
+      "importance": 0.91,
+      "category": "visibility",
+      "source_file": "src/backend/utils/time/snapmgr.c",
+      "brief_description": "Determines if a transaction ID is considered in-progress per an MVCC snapshot: checks xmin/xmax boundaries and searches the xip[] array, with special handling for subtransactions and recovery snapshots",
+      "references_to": ["HeapTupleSatisfiesMVCC", "find_inheritance_children_extended", "asyncQueueProcessPageEntries", "RelationGetPartitionDesc"],
+      "references_from": ["TransactionIdPrecedes", "TransactionIdFollowsOrEquals"],
+      "tier": 1
+    },
+    "heap_prepare_freeze_tuple": {
+      "importance": 0.85,
+      "category": "vacuum",
+      "source_file": "src/backend/access/heap/heapam.c",
+      "brief_description": "Analyzes a tuple's xmin/xmax/xvac fields against freeze cutoffs and prepares a freeze plan: determines which transaction IDs can be frozen (replaced with FrozenTransactionId) while maintaining MVCC consistency",
+      "references_to": ["heap_page_prune_and_freeze"],
+      "references_from": ["FreezeMultiXactId", "TransactionIdDidCommit", "TransactionIdPrecedes"],
+      "tier": 1
+    },
+    "HeapTupleSatisfiesUpdate": {
+      "importance": 0.88,
+      "category": "visibility",
+      "source_file": "src/backend/access/heap/heapam_visibility.c",
+      "brief_description": "Determines tuple visibility for UPDATE/DELETE operations: returns detailed status codes (HeapTupleMayBeUpdated, HeapTupleUpdated, HeapTupleBeingUpdated, etc.) enabling proper concurrency conflict handling",
+      "references_to": ["heap_delete", "heap_update", "heap_lock_tuple"],
+      "references_from": ["TransactionIdIsInProgress", "TransactionIdDidCommit", "TransactionIdIsCurrentTransactionId", "SetHintBits", "HeapTupleGetUpdateXid"],
+      "tier": 2
+    },
+    "HeapTupleSatisfiesVacuum": {
+      "importance": 0.86,
+      "category": "visibility",
+      "source_file": "src/backend/access/heap/heapam_visibility.c",
+      "brief_description": "Wrapper around HeapTupleSatisfiesVacuumHorizon that determines if tuples can be safely removed by VACUUM, adding OldestXmin boundary checking to the core vacuum visibility logic",
+      "references_to": ["HeapTupleSatisfiesVisibility"],
+      "references_from": ["HeapTupleSatisfiesVacuumHorizon"],
+      "tier": 2
+    },
+    "GetTransactionSnapshot": {
+      "importance": 0.87,
+      "category": "snapshot",
+      "source_file": "src/backend/utils/time/snapmgr.c",
+      "brief_description": "Obtains the appropriate snapshot for a new query: in READ COMMITTED returns a fresh snapshot via GetSnapshotData, in REPEATABLE READ/SERIALIZABLE returns the transaction-level snapshot taken at first query",
+      "references_to": ["exec_simple_query", "PortalRun"],
+      "references_from": ["GetSnapshotData", "CopySnapshot", "GetSerializableTransactionSnapshot", "IsolationUsesXactSnapshot"],
+      "tier": 2
+    },
+    "PushActiveSnapshot": {
+      "importance": 0.80,
+      "category": "snapshot",
+      "source_file": "src/backend/utils/time/snapmgr.c",
+      "brief_description": "Pushes a snapshot onto the active snapshot stack, making it the current active snapshot used by table access methods for visibility checks; handles reference counting and copying",
+      "references_to": [],
+      "references_from": ["CopySnapshot", "ActiveSnapshotSet"],
+      "tier": 2
+    },
+    "PopActiveSnapshot": {
+      "importance": 0.78,
+      "category": "snapshot",
+      "source_file": "src/backend/utils/time/snapmgr.c",
+      "brief_description": "Removes the topmost snapshot from the active snapshot stack, decrements its reference count, and frees it if no longer referenced by any registered snapshot holder",
+      "references_to": [],
+      "references_from": ["FreeSnapshot"],
+      "tier": 2
+    },
+    "RecordTransactionCommit": {
+      "importance": 0.89,
+      "category": "transaction",
+      "source_file": "src/backend/access/transam/xact.c",
+      "brief_description": "Records a transaction's commit to persistent storage: writes commit WAL record, decides sync vs async commit, calls TransactionIdCommitTree to update CLOG, and returns the latest XID among transaction and subtransactions",
+      "references_to": ["CommitTransaction"],
+      "references_from": ["XLogInsert", "TransactionIdCommitTree", "TransactionIdAsyncCommitTree", "SyncRepWaitForLSN"],
+      "tier": 2
+    },
+    "SetHintBits": {
+      "importance": 0.87,
+      "category": "visibility",
+      "source_file": "src/backend/access/heap/heapam_visibility.c",
+      "brief_description": "Sets commit/abort hint bits on tuple headers to cache transaction status: checks WAL flush state to ensure crash safety before setting HEAP_XMIN_COMMITTED, HEAP_XMIN_INVALID, HEAP_XMAX_COMMITTED, or HEAP_XMAX_INVALID",
+      "references_to": ["HeapTupleSatisfiesMVCC", "HeapTupleSatisfiesSelf", "HeapTupleSatisfiesUpdate", "HeapTupleSatisfiesDirty", "HeapTupleSatisfiesVacuumHorizon", "HeapTupleSatisfiesToast"],
+      "references_from": ["TransactionIdGetCommitLSN", "BufferIsPermanent", "XLogNeedsFlush", "BufferGetLSNAtomic", "MarkBufferDirtyHint"],
+      "tier": 2
+    },
+    "TransactionIdDidCommit": {
+      "importance": 0.90,
+      "category": "clog",
+      "source_file": "src/backend/access/transam/transam.c",
+      "brief_description": "Determines if a transaction committed by querying CLOG: handles subtransactions by recursively checking parent transaction status via pg_subtrans, used extensively by all visibility functions",
+      "references_to": ["HeapTupleSatisfiesMVCC", "HeapTupleSatisfiesSelf", "HeapTupleSatisfiesUpdate", "HeapTupleSatisfiesDirty", "HeapTupleSatisfiesVacuumHorizon", "HeapTupleSatisfiesHistoricMVCC", "FreezeMultiXactId", "heap_pre_freeze_checks"],
+      "references_from": ["TransactionIdGetStatus", "SubTransGetParent", "TransactionIdDidCommit"],
+      "tier": 2
+    },
+    "TransactionIdSetTreeStatus": {
+      "importance": 0.85,
+      "category": "clog",
+      "source_file": "src/backend/access/transam/clog.c",
+      "brief_description": "Records commit/abort state of a transaction and its subtransaction tree in CLOG: ensures atomicity when spanning multiple CLOG pages by setting parent last, uses group update optimization",
+      "references_to": ["TransactionIdCommitTree", "TransactionIdAbortTree", "TransactionIdAsyncCommitTree"],
+      "references_from": ["TransactionIdSetPageStatus", "TransactionIdSetStatusBit"],
+      "tier": 2
+    },
+    "ProcArrayEndTransaction": {
+      "importance": 0.86,
+      "category": "concurrency",
+      "source_file": "src/backend/storage/ipc/procarray.c",
+      "brief_description": "Marks a transaction as no longer running in ProcArray: clears PGPROC.xid, advances latestCompletedXid and xactCompletionCount, uses group clearing optimization to reduce lock contention",
+      "references_to": ["CommitTransaction", "AbortTransaction"],
+      "references_from": ["ProcArrayEndTransactionInternal", "ProcArrayGroupClearXid", "LWLockAcquire"],
+      "tier": 2
+    },
+    "GetNewTransactionId": {
+      "importance": 0.84,
+      "category": "transaction",
+      "source_file": "src/backend/access/transam/varsup.c",
+      "brief_description": "Allocates the next FullTransactionId: holds XidGenLock, checks wraparound safety limits, assigns XID to PGPROC, and records subtransaction parent relationship",
+      "references_to": ["GetCurrentTransactionId", "AssignTransactionId"],
+      "references_from": ["TransamVariables", "SubTransSetParent", "XLogRecordSetXidAndFlags"],
+      "tier": 2
+    },
+    "heap_page_prune_and_freeze": {
+      "importance": 0.83,
+      "category": "vacuum",
+      "source_file": "src/backend/access/heap/pruneheap.c",
+      "brief_description": "Core page maintenance: prunes dead tuples by following HOT chains, defragments the page, and optionally freezes tuple transaction IDs using heap_prepare_freeze_tuple to advance relation freeze horizons",
+      "references_to": ["lazy_scan_prune", "heap_page_prune_opt"],
+      "references_from": ["heap_prepare_freeze_tuple", "heap_execute_freeze_tuple", "HeapTupleSatisfiesVacuumHorizon", "heap_prune_chain"],
+      "tier": 2
+    },
+    "vacuum_get_cutoffs": {
+      "importance": 0.80,
+      "category": "vacuum",
+      "source_file": "src/backend/commands/vacuum.c",
+      "brief_description": "Computes OldestXmin and freeze cutoff points for VACUUM: determines aggressive vs normal vacuum thresholds, sets relfrozenxid/relminmxid targets based on vacuum_freeze_min_age and table_freeze_age",
+      "references_to": ["lazy_scan_heap"],
+      "references_from": ["GetOldestNonRemovableTransactionId", "TransactionIdPrecedes"],
+      "tier": 2
+    },
+    "HeapTupleSatisfiesSelf": {
+      "importance": 0.75,
+      "category": "visibility",
+      "source_file": "src/backend/access/heap/heapam_visibility.c",
+      "brief_description": "Visibility check for 'self' semantics: tuple is visible if inserted by any committed transaction or the current transaction, and not deleted by a committed transaction, including current command changes",
+      "references_to": ["HeapTupleSatisfiesVisibility"],
+      "references_from": ["TransactionIdIsCurrentTransactionId", "TransactionIdIsInProgress", "TransactionIdDidCommit", "SetHintBits"],
+      "tier": 2
+    },
+    "CreateSharedProcArray": {
+      "importance": 0.72,
+      "category": "concurrency",
+      "source_file": "src/backend/storage/ipc/procarray.c",
+      "brief_description": "Initializes the shared ProcArray during postmaster startup: allocates shared memory for ProcArrayStruct, sets up tracking for maxProcs backends including prepared transactions",
+      "references_to": [],
+      "references_from": ["ShmemInitStruct", "ProcArrayShmemSize"],
+      "tier": 2
+    },
+    "HeapTupleSatisfiesVisibility": {
+      "importance": 0.82,
+      "category": "visibility",
+      "source_file": "src/backend/access/heap/heapam_visibility.c",
+      "brief_description": "Central visibility dispatcher: routes to the appropriate HeapTupleSatisfies* function based on snapshot type (MVCC, Self, Any, Toast, Dirty, Historic MVCC, NonVacuumable)",
+      "references_to": ["heapam_scan_analyze_next_tuple", "heapgettup", "heapgettup_pagemode"],
+      "references_from": ["HeapTupleSatisfiesMVCC", "HeapTupleSatisfiesSelf", "HeapTupleSatisfiesAny", "HeapTupleSatisfiesToast", "HeapTupleSatisfiesDirty", "HeapTupleSatisfiesHistoricMVCC", "HeapTupleSatisfiesNonVacuumable"],
+      "tier": 2
+    },
+    "HeapTupleSatisfiesDirty": {
+      "importance": 0.72,
+      "category": "visibility",
+      "source_file": "src/backend/access/heap/heapam_visibility.c",
+      "brief_description": "Dirty-read visibility: like SatisfiesSelf but includes effects of in-progress transactions, returns xids of concurrent transactions in the snapshot for caller to handle conflicts",
+      "references_to": ["HeapTupleSatisfiesVisibility"],
+      "references_from": ["TransactionIdIsInProgress", "TransactionIdDidCommit", "SetHintBits", "TransactionIdIsCurrentTransactionId"],
+      "tier": 3
+    },
+    "HeapTupleSatisfiesVacuumHorizon": {
+      "importance": 0.84,
+      "category": "visibility",
+      "source_file": "src/backend/access/heap/heapam_visibility.c",
+      "brief_description": "Core vacuum visibility workhorse: determines HTSV_Result status (live, dead, recently dead, inserting, deleting) and returns the specific dead_after TransactionId for recently-dead tuples",
+      "references_to": ["HeapTupleSatisfiesVacuum", "HeapTupleSatisfiesNonVacuumable"],
+      "references_from": ["TransactionIdIsInProgress", "TransactionIdDidCommit", "SetHintBits", "TransactionIdIsCurrentTransactionId"],
+      "tier": 2
+    },
+    "HeapTupleSatisfiesNonVacuumable": {
+      "importance": 0.68,
+      "category": "visibility",
+      "source_file": "src/backend/access/heap/heapam_visibility.c",
+      "brief_description": "Determines if a tuple is surely dead to everyone (vacuumable): wraps HeapTupleSatisfiesVacuumHorizon and checks the dead_after xid against GlobalVisState to make the final determination",
+      "references_to": ["HeapTupleSatisfiesVisibility"],
+      "references_from": ["HeapTupleSatisfiesVacuumHorizon", "GlobalVisTestIsRemovableXid"],
+      "tier": 3
+    },
+    "HeapTupleSatisfiesHistoricMVCC": {
+      "importance": 0.60,
+      "category": "visibility",
+      "source_file": "src/backend/access/heap/heapam_visibility.c",
+      "brief_description": "Historic MVCC visibility for logical decoding: uses inverted snapshot semantics where xip[] contains committed (not in-progress) transactions, enabling catalog access in historical contexts",
+      "references_to": ["HeapTupleSatisfiesVisibility"],
+      "references_from": ["TransactionIdDidCommit", "HistoricSnapshotGetTupleCids"],
+      "tier": 3
+    },
+    "TransactionIdIsCurrentTransactionId": {
+      "importance": 0.85,
+      "category": "transaction",
+      "source_file": "src/backend/access/transam/xact.c",
+      "brief_description": "Determines if a transaction ID belongs to the current transaction: checks main XID, subtransaction XIDs, and parallel worker contexts; used by all visibility functions to detect own-transaction tuples",
+      "references_to": ["HeapTupleSatisfiesMVCC", "HeapTupleSatisfiesSelf", "HeapTupleSatisfiesUpdate", "HeapTupleSatisfiesDirty", "TransactionIdIsInProgress"],
+      "references_from": ["GetTopTransactionIdIfAny", "TransactionIdEquals"],
+      "tier": 2
+    },
+    "GetCurrentTransactionId": {
+      "importance": 0.78,
+      "category": "transaction",
+      "source_file": "src/backend/access/transam/xact.c",
+      "brief_description": "Returns the current transaction's XID, assigning one via GetNewTransactionId if not yet assigned (lazy XID assignment); triggers full transaction ID allocation on first modifying operation",
+      "references_to": ["heap_insert", "heap_delete", "heap_update"],
+      "references_from": ["GetNewTransactionId", "AssignTransactionId"],
+      "tier": 2
+    },
+    "RecordTransactionAbort": {
+      "importance": 0.78,
+      "category": "transaction",
+      "source_file": "src/backend/access/transam/xact.c",
+      "brief_description": "Records transaction abort: writes abort WAL record, calls TransactionIdAbortTree to update CLOG status, cleans up invalidation messages and pending relation deletions",
+      "references_to": ["AbortTransaction"],
+      "references_from": ["XLogInsert", "TransactionIdAbortTree"],
+      "tier": 2
+    },
+    "ProcArrayAdd": {
+      "importance": 0.70,
+      "category": "concurrency",
+      "source_file": "src/backend/storage/ipc/procarray.c",
+      "brief_description": "Adds a PGPROC to the shared process array in sorted order: maintains dense arrays for xids, subxidStates, and statusFlags, requiring both ProcArrayLock and XidGenLock",
+      "references_to": ["InitProcessPhase2"],
+      "references_from": ["LWLockAcquire", "ProcArrayStruct"],
+      "tier": 3
+    },
+    "ProcArrayRemove": {
+      "importance": 0.70,
+      "category": "concurrency",
+      "source_file": "src/backend/storage/ipc/procarray.c",
+      "brief_description": "Removes a PGPROC from the shared process array: maintains sorted order by compacting the array, optionally advances latestCompletedXid for 2PC transaction cleanup",
+      "references_to": ["CleanupTransaction"],
+      "references_from": ["LWLockAcquire", "ProcArrayStruct"],
+      "tier": 3
+    },
+    "ProcArrayGroupClearXid": {
+      "importance": 0.72,
+      "category": "concurrency",
+      "source_file": "src/backend/storage/ipc/procarray.c",
+      "brief_description": "Group XID clearing optimization: batches multiple backends' XID clear operations under a single ProcArrayLock acquisition, reducing lock contention at commit time",
+      "references_to": ["ProcArrayEndTransaction"],
+      "references_from": ["ProcArrayEndTransactionInternal", "LWLockAcquire"],
+      "tier": 3
+    },
+    "GetOldestNonRemovableTransactionId": {
+      "importance": 0.80,
+      "category": "concurrency",
+      "source_file": "src/backend/storage/ipc/procarray.c",
+      "brief_description": "Computes the oldest XID for which deleted tuples must be preserved: scans all backend xmins and xids, considers replication slots, used by VACUUM to determine cleanup horizon",
+      "references_to": ["vacuum_get_cutoffs", "GetOldestActiveTransactionId"],
+      "references_from": ["LWLockAcquire", "TransactionIdOlder", "TransactionIdIsNormal"],
+      "tier": 2
+    },
+    "TransactionIdGetStatus": {
+      "importance": 0.78,
+      "category": "clog",
+      "source_file": "src/backend/access/transam/clog.c",
+      "brief_description": "Low-level CLOG lookup: reads the 2-bit transaction status (in-progress, committed, aborted, sub-committed) from the SLRU-managed pg_xact pages and returns the associated LSN",
+      "references_to": ["TransactionIdDidCommit", "TransactionIdDidAbort"],
+      "references_from": ["SimpleLruReadPage", "TransactionIdToPage", "GetLSNIndex"],
+      "tier": 2
+    },
+    "TransactionIdSetPageStatus": {
+      "importance": 0.76,
+      "category": "clog",
+      "source_file": "src/backend/access/transam/clog.c",
+      "brief_description": "Records transaction status on a single CLOG page: uses group update optimization where one backend processes a batch of status updates, reducing SLRU lock contention",
+      "references_to": ["TransactionIdSetTreeStatus"],
+      "references_from": ["TransactionIdSetPageStatusInternal", "LWLockAcquire"],
+      "tier": 3
+    },
+    "TransactionIdDidAbort": {
+      "importance": 0.74,
+      "category": "clog",
+      "source_file": "src/backend/access/transam/transam.c",
+      "brief_description": "Determines if a transaction explicitly aborted by checking CLOG: does NOT consider crashed transactions as aborted, requiring callers to use process-of-elimination for crash detection",
+      "references_to": ["TransactionIdIsInProgress", "RecordTransactionAbort"],
+      "references_from": ["TransactionIdGetStatus", "SubTransGetParent"],
+      "tier": 3
+    },
+    "TransactionIdCommitTree": {
+      "importance": 0.76,
+      "category": "clog",
+      "source_file": "src/backend/access/transam/transam.c",
+      "brief_description": "Marks a transaction and all its subtransactions as committed in CLOG: delegates to TransactionIdSetTreeStatus for the actual page-level updates",
+      "references_to": ["RecordTransactionCommit"],
+      "references_from": ["TransactionIdSetTreeStatus"],
+      "tier": 3
+    },
+    "TransactionIdAbortTree": {
+      "importance": 0.72,
+      "category": "clog",
+      "source_file": "src/backend/access/transam/transam.c",
+      "brief_description": "Marks a transaction and all its subtransactions as aborted in CLOG: delegates to TransactionIdSetTreeStatus, used during transaction abort and 2PC abort processing",
+      "references_to": ["RecordTransactionAbort"],
+      "references_from": ["TransactionIdSetTreeStatus"],
+      "tier": 3
+    },
+    "TransactionIdGetCommitLSN": {
+      "importance": 0.70,
+      "category": "clog",
+      "source_file": "src/backend/access/transam/transam.c",
+      "brief_description": "Returns the WAL LSN associated with a transaction's commit record: used by SetHintBits to determine if it is safe to set commit hint bits based on WAL flush position",
+      "references_to": ["SetHintBits"],
+      "references_from": ["TransactionIdGetStatus"],
+      "tier": 3
+    },
+    "GetSnapshotDataReuse": {
+      "importance": 0.68,
+      "category": "snapshot",
+      "source_file": "src/backend/storage/ipc/procarray.c",
+      "brief_description": "Optimization that checks if an existing snapshot's data is still valid by comparing xactCompletionCount: avoids expensive ProcArray scan when no transactions have completed since last snapshot",
+      "references_to": ["GetSnapshotData"],
+      "references_from": ["TransamVariables"],
+      "tier": 3
+    },
+    "CopySnapshot": {
+      "importance": 0.68,
+      "category": "snapshot",
+      "source_file": "src/backend/utils/time/snapmgr.c",
+      "brief_description": "Creates a deep copy of an MVCC snapshot: allocates memory for the snapshot struct and its xip[]/subxip[] arrays, marks the copy as owned rather than static",
+      "references_to": ["GetTransactionSnapshot", "PushActiveSnapshot"],
+      "references_from": ["MemoryContextAlloc"],
+      "tier": 3
+    },
+    "RegisterSnapshot": {
+      "importance": 0.65,
+      "category": "snapshot",
+      "source_file": "src/backend/utils/time/snapmgr.c",
+      "brief_description": "Registers a snapshot with the current resource owner to prevent premature deallocation: increments reference count and adds to the RegisteredSnapshots heap",
+      "references_to": [],
+      "references_from": ["RegisterSnapshotOnOwner", "pairingheap_add"],
+      "tier": 3
+    },
+    "AtEOXact_Snapshot": {
+      "importance": 0.70,
+      "category": "snapshot",
+      "source_file": "src/backend/utils/time/snapmgr.c",
+      "brief_description": "End-of-transaction snapshot cleanup: frees all active and registered snapshots, resets the snapshot stack, handles exported snapshot files, and updates global xmin state",
+      "references_to": ["CommitTransaction", "AbortTransaction"],
+      "references_from": ["SnapshotResetXmin", "FreeSnapshot"],
+      "tier": 3
+    },
+    "GetCurrentCommandId": {
+      "importance": 0.72,
+      "category": "transaction",
+      "source_file": "src/backend/access/transam/xact.c",
+      "brief_description": "Returns the current command ID within the transaction: used to distinguish visibility of changes made by different SQL commands within the same transaction",
+      "references_to": ["GetSnapshotData", "HeapTupleSatisfiesMVCC"],
+      "references_from": [],
+      "tier": 3
+    },
+    "SubTransSetParent": {
+      "importance": 0.68,
+      "category": "transaction",
+      "source_file": "src/backend/access/transam/subtrans.c",
+      "brief_description": "Records the parent transaction ID of a subtransaction in pg_subtrans: establishes the parent-child hierarchy used by SubTransGetTopmostTransaction for subtransaction resolution",
+      "references_to": ["GetNewTransactionId"],
+      "references_from": ["SimpleLruReadPage", "SimpleLruWritePage"],
+      "tier": 3
+    },
+    "SubTransGetTopmostTransaction": {
+      "importance": 0.70,
+      "category": "transaction",
+      "source_file": "src/backend/access/transam/subtrans.c",
+      "brief_description": "Traverses the subtransaction hierarchy via pg_subtrans to find the topmost (root) transaction: essential for resolving subtransaction visibility in TransactionIdIsInProgress",
+      "references_to": ["TransactionIdIsInProgress"],
+      "references_from": ["SubTransGetParent"],
+      "tier": 3
+    },
+    "SimpleLruInit": {
+      "importance": 0.65,
+      "category": "clog",
+      "source_file": "src/backend/access/transam/slru.c",
+      "brief_description": "Initializes an SLRU (Simple Least Recently Used) cache in shared memory: sets up buffer pool, per-buffer locks, and page directory; used by CLOG, pg_subtrans, pg_multixact, and commit_ts",
+      "references_to": [],
+      "references_from": ["ShmemInitStruct", "LWLockNewTrancheId"],
+      "tier": 3
+    },
+    "vac_truncate_clog": {
+      "importance": 0.72,
+      "category": "vacuum",
+      "source_file": "src/backend/commands/vacuum.c",
+      "brief_description": "Truncates old CLOG, commit timestamp, and MultiXact segments: scans pg_database for system-wide oldest datfrozenxid/datminmxid, then calls TruncateCLOG and related truncation functions",
+      "references_to": [],
+      "references_from": ["SetTransactionIdLimit", "TruncateCLOG", "AdvanceOldestClogXid"],
+      "tier": 3
+    },
+    "FreezeMultiXactId": {
+      "importance": 0.74,
+      "category": "vacuum",
+      "source_file": "src/backend/access/heap/heapam.c",
+      "brief_description": "Determines how to handle MultiXactId during freezing: checks each member's status, decides whether to keep, replace with a simpler representation, or invalidate the MultiXactId entirely",
+      "references_to": ["heap_prepare_freeze_tuple"],
+      "references_from": ["MultiXactIdGetUpdateXid", "TransactionIdDidCommit", "TransactionIdPrecedes"],
+      "tier": 3
+    },
+    "heap_execute_freeze_tuple": {
+      "importance": 0.70,
+      "category": "vacuum",
+      "source_file": "src/backend/access/heap/heapam.c",
+      "brief_description": "Applies a prepared freeze plan to a tuple: sets xmin to FrozenTransactionId if frozen, clears or replaces xmax, and updates infomask bits to reflect the new frozen state",
+      "references_to": ["heap_page_prune_and_freeze"],
+      "references_from": [],
+      "tier": 3
+    },
+    "HeapTupleHeaderIsOnlyLocked": {
+      "importance": 0.68,
+      "category": "visibility",
+      "source_file": "src/backend/access/heap/heapam_visibility.c",
+      "brief_description": "Determines if a tuple is only locked (not updated/deleted): checks HEAP_XMAX_LOCK_ONLY flag and for MultiXacts verifies the updating transaction has not committed",
+      "references_to": [],
+      "references_from": ["HEAP_XMAX_IS_LOCKED_ONLY", "TransactionIdDidCommit", "MultiXactIdGetUpdateXid"],
+      "tier": 3
+    },
+    "HeapTupleHeaderAdvanceConflictHorizon": {
+      "importance": 0.65,
+      "category": "vacuum",
+      "source_file": "src/backend/access/heap/heapam.c",
+      "brief_description": "Advances the snapshot conflict horizon by examining committed xids from tuple headers during HOT pruning or index deletion, preventing recovery conflicts in hot standby",
+      "references_to": [],
+      "references_from": ["TransactionIdDidCommit", "TransactionIdPrecedes"],
+      "tier": 3
+    },
+    "heap_lock_tuple": {
+      "importance": 0.78,
+      "category": "tuple",
+      "source_file": "src/backend/access/heap/heapam.c",
+      "brief_description": "Acquires row-level locks on heap tuples: supports shared/exclusive and key-share/no-key-exclusive lock modes, manages MultiXact creation for concurrent lockers, handles wait/no-wait semantics",
+      "references_to": [],
+      "references_from": ["HeapTupleSatisfiesUpdate", "compute_new_xmax_infomask", "MultiXactIdExpand", "CheckForSerializableConflictIn"],
+      "tier": 2
+    },
+    "heap_hot_search_buffer": {
+      "importance": 0.72,
+      "category": "tuple",
+      "source_file": "src/backend/access/heap/heapam.c",
+      "brief_description": "Searches a HOT chain for the first visible tuple: follows t_ctid links from root to find the version satisfying the given snapshot, tracking whether all chain members are dead",
+      "references_to": [],
+      "references_from": ["HeapTupleSatisfiesVisibility", "ItemPointerGetOffsetNumber"],
+      "tier": 3
+    },
+    "HeapTupleGetUpdateXid": {
+      "importance": 0.72,
+      "category": "tuple",
+      "source_file": "src/backend/access/heap/heapam.c",
+      "brief_description": "Extracts the updating transaction ID from a tuple header: for MultiXact xmax values, resolves to the actual updating member's XID via MultiXactIdGetUpdateXid",
+      "references_to": ["HeapTupleSatisfiesMVCC", "HeapTupleSatisfiesSelf", "HeapTupleSatisfiesUpdate"],
+      "references_from": ["MultiXactIdGetUpdateXid"],
+      "tier": 3
+    },
+    "GlobalVisTestIsRemovableXid": {
+      "importance": 0.68,
+      "category": "vacuum",
+      "source_file": "src/backend/storage/ipc/procarray.c",
+      "brief_description": "Tests if a transaction ID is globally visible and thus safe to remove: converts 32-bit XID to full XID and checks against global visibility state, used by page-level pruning decisions",
+      "references_to": ["HeapTupleSatisfiesNonVacuumable"],
+      "references_from": ["FullTransactionIdFromAllowableAt"],
+      "tier": 3
+    },
+    "PreCommit_CheckForSerializationFailure": {
+      "importance": 0.65,
+      "category": "concurrency",
+      "source_file": "src/backend/storage/lmgr/predicate.c",
+      "brief_description": "Checks for dangerous serialization conflict structures at commit time: detects read-write dependency cycles that would violate serializable isolation, marking conflicting transactions for rollback",
+      "references_to": ["CommitTransaction"],
+      "references_from": ["SHMQueueNext", "ReleasePredicateLocks"],
+      "tier": 3
+    },
+    "CheckForSerializableConflictIn": {
+      "importance": 0.68,
+      "category": "concurrency",
+      "source_file": "src/backend/storage/lmgr/predicate.c",
+      "brief_description": "Detects write-after-read conflicts for SSI: checks if a write operation conflicts with predicate locks held by other serializable transactions, creating rw-dependency edges",
+      "references_to": ["heap_insert", "heap_delete", "heap_update"],
+      "references_from": ["PredicateLockTupleRowVersionLink", "FlagRWConflict"],
+      "tier": 3
+    },
+    "CheckForSerializableConflictOut": {
+      "importance": 0.66,
+      "category": "concurrency",
+      "source_file": "src/backend/storage/lmgr/predicate.c",
+      "brief_description": "Detects read-after-write conflicts for SSI: checks if reading a tuple written by a concurrent serializable transaction creates a dangerous dependency cycle",
+      "references_to": ["heap_delete", "heap_update"],
+      "references_from": ["FlagRWConflict"],
+      "tier": 3
+    },
+    "GetOldestActiveTransactionId": {
+      "importance": 0.68,
+      "category": "concurrency",
+      "source_file": "src/backend/storage/ipc/procarray.c",
+      "brief_description": "Returns the oldest currently active transaction ID across all databases: scans ProcArray for the minimum xid, used for checkpoint and hot standby conflict resolution",
+      "references_to": [],
+      "references_from": ["LWLockAcquire", "TransactionIdOlder"],
+      "tier": 3
+    },
+    "heap_page_prune_opt": {
+      "importance": 0.70,
+      "category": "vacuum",
+      "source_file": "src/backend/access/heap/pruneheap.c",
+      "brief_description": "Opportunistic page pruning triggered during regular heap scans: checks heuristics (page has dead items, enough time since last prune) before calling heap_page_prune_and_freeze",
+      "references_to": [],
+      "references_from": ["heap_page_prune_and_freeze", "GlobalVisTestIsRemovableXid"],
+      "tier": 3
+    },
+    "PROC_HDR": {
+      "importance": 0.75,
+      "category": "concurrency",
+      "source_file": "src/include/storage/proc.h",
+      "brief_description": "Global shared memory structure containing the allProcs array and dense mirrored arrays (xids[], subxidStates[], statusFlags[]) indexed by pgxactoff for efficient ProcArray traversal",
+      "references_to": [],
+      "references_from": [],
+      "tier": 2
+    },
+    "TransamVariablesData": {
+      "importance": 0.78,
+      "category": "transaction",
+      "source_file": "src/include/access/transam.h",
+      "brief_description": "Shared memory structure tracking global transaction state: nextXid, oldestXid, latestCompletedXid, xactCompletionCount, and various wraparound safety limits protected by different LWLocks",
+      "references_to": [],
+      "references_from": [],
+      "tier": 2
+    },
+    "HeapTupleFields": {
+      "importance": 0.80,
+      "category": "tuple",
+      "source_file": "src/include/access/htup_details.h",
+      "brief_description": "Physical storage of transaction fields in heap tuple header: t_xmin (inserting transaction), t_xmax (deleting/locking transaction), and union of t_cid (command ID) / t_xvac (old vacuum xact)",
+      "references_to": [],
+      "references_from": [],
+      "tier": 2
+    },
+    "SnapshotType": {
+      "importance": 0.72,
+      "category": "snapshot",
+      "source_file": "src/include/utils/snapshot.h",
+      "brief_description": "Enum defining snapshot behaviors: SNAPSHOT_MVCC (standard isolation), SNAPSHOT_SELF (own-transaction visibility), SNAPSHOT_ANY, SNAPSHOT_TOAST, SNAPSHOT_DIRTY, SNAPSHOT_HISTORIC_MVCC, SNAPSHOT_NON_VACUUMABLE",
+      "references_to": [],
+      "references_from": [],
+      "tier": 3
+    }
+  },
+  "categories": {
+    "visibility": [
+      "HeapTupleSatisfiesMVCC",
+      "HeapTupleSatisfiesUpdate",
+      "HeapTupleSatisfiesVacuum",
+      "HeapTupleSatisfiesVacuumHorizon",
+      "HeapTupleSatisfiesSelf",
+      "HeapTupleSatisfiesDirty",
+      "HeapTupleSatisfiesNonVacuumable",
+      "HeapTupleSatisfiesHistoricMVCC",
+      "HeapTupleSatisfiesVisibility",
+      "SetHintBits",
+      "XidInMVCCSnapshot",
+      "HeapTupleHeaderIsOnlyLocked"
+    ],
+    "transaction": [
+      "StartTransaction",
+      "CommitTransaction",
+      "AbortTransaction",
+      "RecordTransactionCommit",
+      "RecordTransactionAbort",
+      "GetNewTransactionId",
+      "GetCurrentTransactionId",
+      "TransactionIdIsCurrentTransactionId",
+      "GetCurrentCommandId",
+      "SubTransSetParent",
+      "SubTransGetTopmostTransaction",
+      "TransamVariablesData"
+    ],
+    "tuple": [
+      "HeapTupleHeaderData",
+      "HeapTupleFields",
+      "heap_insert",
+      "heap_delete",
+      "heap_update",
+      "heap_lock_tuple",
+      "heap_hot_search_buffer",
+      "HeapTupleGetUpdateXid"
+    ],
+    "snapshot": [
+      "SnapshotData",
+      "SnapshotType",
+      "GetSnapshotData",
+      "GetSnapshotDataReuse",
+      "GetTransactionSnapshot",
+      "PushActiveSnapshot",
+      "PopActiveSnapshot",
+      "CopySnapshot",
+      "RegisterSnapshot",
+      "AtEOXact_Snapshot"
+    ],
+    "concurrency": [
+      "PGPROC",
+      "PROC_HDR",
+      "TransactionIdIsInProgress",
+      "ProcArrayEndTransaction",
+      "ProcArrayAdd",
+      "ProcArrayRemove",
+      "ProcArrayGroupClearXid",
+      "CreateSharedProcArray",
+      "GetOldestNonRemovableTransactionId",
+      "GetOldestActiveTransactionId",
+      "PreCommit_CheckForSerializationFailure",
+      "CheckForSerializableConflictIn",
+      "CheckForSerializableConflictOut"
+    ],
+    "clog": [
+      "TransactionIdDidCommit",
+      "TransactionIdDidAbort",
+      "TransactionIdSetTreeStatus",
+      "TransactionIdGetStatus",
+      "TransactionIdSetPageStatus",
+      "TransactionIdCommitTree",
+      "TransactionIdAbortTree",
+      "TransactionIdGetCommitLSN",
+      "SimpleLruInit"
+    ],
+    "vacuum": [
+      "lazy_vacuum_heap_rel",
+      "heap_page_prune_and_freeze",
+      "heap_page_prune_opt",
+      "vacuum_get_cutoffs",
+      "heap_prepare_freeze_tuple",
+      "heap_execute_freeze_tuple",
+      "FreezeMultiXactId",
+      "HeapTupleHeaderAdvanceConflictHorizon",
+      "GlobalVisTestIsRemovableXid",
+      "vac_truncate_clog"
+    ]
+  },
+  "critical_paths": [
+    {
+      "name": "Transaction Commit",
+      "description": "Path from SQL command completion to durable commit with ProcArray cleanup",
+      "symbols": ["CommitTransaction", "RecordTransactionCommit", "TransactionIdCommitTree", "TransactionIdSetTreeStatus", "TransactionIdSetPageStatus", "ProcArrayEndTransaction", "ProcArrayGroupClearXid"]
+    },
+    {
+      "name": "MVCC Visibility Check",
+      "description": "Path from table scan through snapshot-based visibility determination",
+      "symbols": ["HeapTupleSatisfiesVisibility", "HeapTupleSatisfiesMVCC", "XidInMVCCSnapshot", "TransactionIdDidCommit", "TransactionIdGetStatus", "SetHintBits"]
+    },
+    {
+      "name": "VACUUM Dead Tuple Removal",
+      "description": "Path from vacuum initiation through tuple pruning, freezing, and space reclaim",
+      "symbols": ["vacuum_get_cutoffs", "GetOldestNonRemovableTransactionId", "heap_page_prune_and_freeze", "HeapTupleSatisfiesVacuumHorizon", "heap_prepare_freeze_tuple", "FreezeMultiXactId", "heap_execute_freeze_tuple", "lazy_vacuum_heap_rel"]
+    },
+    {
+      "name": "Snapshot Acquisition",
+      "description": "Path from query start through snapshot construction and activation",
+      "symbols": ["GetTransactionSnapshot", "GetSnapshotData", "GetSnapshotDataReuse", "CopySnapshot", "PushActiveSnapshot"]
+    },
+    {
+      "name": "Tuple Update",
+      "description": "Path from UPDATE through visibility check, new version creation, and WAL logging",
+      "symbols": ["heap_update", "HeapTupleSatisfiesUpdate", "GetCurrentTransactionId", "CheckForSerializableConflictIn", "CheckForSerializableConflictOut", "SetHintBits"]
+    },
+    {
+      "name": "Transaction ID Lifecycle",
+      "description": "Path from XID allocation through subtransaction tracking to completion",
+      "symbols": ["GetNewTransactionId", "SubTransSetParent", "TransactionIdIsInProgress", "TransactionIdIsCurrentTransactionId", "ProcArrayEndTransaction"]
+    },
+    {
+      "name": "CLOG Status Resolution",
+      "description": "Path from visibility check through CLOG lookup to hint bit optimization",
+      "symbols": ["TransactionIdDidCommit", "TransactionIdGetStatus", "SimpleLruInit", "TransactionIdGetCommitLSN", "SetHintBits"]
+    }
+  ]
+}

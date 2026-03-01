@@ -1,0 +1,89 @@
+%% MVCC-Related Shared Memory Structures
+%% Source: src/include/storage/proc.h (PGPROC, PROC_HDR)
+%%         src/include/utils/snapshot.h (SnapshotData)
+%%         src/backend/access/transam/clog.c
+%%         src/backend/storage/ipc/procarray.c
+
+graph TB
+    subgraph "Shared Memory"
+        direction TB
+
+        subgraph PROCGLOBAL["PROC_HDR (ProcGlobal)"]
+            direction LR
+            PG_ALLPROCS["allProcs[]<br/>─────────<br/>Array of all PGPROC<br/>structures"]
+            PG_XIDS["xids[]<br/>─────────<br/>Dense mirror of<br/>PGPROC.xid"]
+            PG_SUBXID["subxidStates[]<br/>─────────<br/>Dense mirror of<br/>PGPROC.subxidStatus<br/>(count + overflowed)"]
+            PG_STATUS["statusFlags[]<br/>─────────<br/>Dense mirror of<br/>PGPROC.statusFlags<br/>(PROC_IN_VACUUM etc)"]
+            PG_GROUP["procArrayGroupFirst<br/>clogGroupFirst<br/>─────────<br/>Atomic heads for<br/>group clearing"]
+        end
+
+        subgraph PGPROC_INST["PGPROC (per-backend)"]
+            direction LR
+            PP_XID["xid<br/>─────────<br/>Top-level XID<br/>(mirrored)"]
+            PP_XMIN["xmin<br/>─────────<br/>Oldest XID this<br/>backend needs"]
+            PP_VXID["vxid<br/>─────────<br/>procNumber + lxid<br/>Virtual XID"]
+            PP_SUBXID["subxidStatus<br/>─────────<br/>count (0-64)<br/>overflowed flag"]
+            PP_SUBXIDS["subxids.xids[64]<br/>─────────<br/>Cached subtxn XIDs<br/>PGPROC_MAX_CACHED_SUBXIDS"]
+            PP_LOCKS["procArrayGroupMember<br/>clogGroupMember<br/>─────────<br/>Group optimization<br/>state"]
+        end
+
+        subgraph PROCARRAYDATA["ProcArrayStruct"]
+            PA_NPROCS["numProcs<br/>─────────<br/>Count of active<br/>backends"]
+            PA_PGPROCNOS["pgprocnos[]<br/>─────────<br/>Maps dense index<br/>to PGPROC array index"]
+            PA_REPLSLOT["replication_slot_xmin<br/>replication_slot_catalog_xmin<br/>─────────<br/>Xmin from replication slots"]
+        end
+
+        subgraph TRANSAMVARS["TransamVariablesData"]
+            TV_NEXTXID["nextXid<br/>─────────<br/>Next XID to assign<br/>(FullTransactionId)"]
+            TV_OLDEST["oldestXid<br/>oldestXidDB<br/>─────────<br/>Oldest unfrozen XID<br/>in any database"]
+            TV_LIMITS["xidVacLimit<br/>xidWarnLimit<br/>xidStopLimit<br/>xidWrapLimit<br/>─────────<br/>Wraparound protection"]
+            TV_LATEST["latestCompletedXid<br/>─────────<br/>Newest completed XID<br/>(used for snapshot xmax)"]
+            TV_COMPLETION["xactCompletionCount<br/>─────────<br/>Incremented on each<br/>xact completion<br/>(snapshot reuse)"]
+        end
+
+        subgraph CLOG["CLOG (pg_xact via SLRU)"]
+            CL_PAGES["SLRU Buffer Pool<br/>─────────<br/>2 bits per XID<br/>4 XIDs per byte<br/>~32K XIDs per 8KB page"]
+            CL_STATUS["Status Values:<br/>00 = IN_PROGRESS<br/>01 = COMMITTED<br/>10 = ABORTED<br/>11 = SUB_COMMITTED"]
+            CL_LSN["group_lsn[]<br/>─────────<br/>Per-group commit LSN<br/>for hint bit safety"]
+        end
+
+        subgraph SUBTRANS["pg_subtrans (SLRU)"]
+            ST_PAGES["SLRU Buffer Pool<br/>─────────<br/>Parent XID per entry<br/>Maps child -> parent"]
+        end
+    end
+
+    subgraph "Backend-Local Memory"
+        direction TB
+
+        subgraph SNAPSHOT["SnapshotData"]
+            SN_BOUNDS["xmin, xmax<br/>─────────<br/>Visibility boundaries"]
+            SN_XIP["xip[xcnt]<br/>─────────<br/>In-progress top-level XIDs"]
+            SN_SUBXIP["subxip[subxcnt]<br/>─────────<br/>In-progress subtxn XIDs<br/>suboverflowed flag"]
+            SN_CURCID["curcid<br/>─────────<br/>Current command ID"]
+            SN_REFS["active_count<br/>regd_count<br/>─────────<br/>Reference counts"]
+        end
+
+        subgraph SNAPSTACK["Active Snapshot Stack"]
+            AS_TOP["ActiveSnapshot (top)"]
+            AS_MID["Previous snapshot"]
+            AS_BOT["Bottom snapshot"]
+        end
+    end
+
+    PG_XIDS -.->|"mirrors"| PP_XID
+    PG_SUBXID -.->|"mirrors"| PP_SUBXID
+    PG_STATUS -.->|"mirrors"| PP_LOCKS
+
+    PA_PGPROCNOS -->|"indexes into"| PG_ALLPROCS
+
+    PG_XIDS -->|"scanned by"| SN_XIP
+    TV_LATEST -->|"determines"| SN_BOUNDS
+    PP_XMIN -->|"set from"| SN_BOUNDS
+
+    PP_XID -->|"written to"| CL_PAGES
+    PP_SUBXIDS -->|"written to"| ST_PAGES
+
+    style PROCGLOBAL fill:#e3f2fd
+    style PGPROC_INST fill:#e8f5e9
+    style CLOG fill:#fff3e0
+    style SNAPSHOT fill:#f3e5f5

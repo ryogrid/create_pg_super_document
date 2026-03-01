@@ -1,0 +1,45 @@
+%% PostgreSQL Tuple Version Chain Diagram
+%% Shows how INSERT, UPDATE, and DELETE create and link tuple versions
+%% Source: src/include/access/htup_details.h, src/backend/access/heap/heapam.c
+
+graph LR
+    subgraph "Page N"
+        direction TB
+
+        subgraph "INSERT (xid=100)"
+            T1["Tuple V1<br/>─────────<br/>t_xmin = 100<br/>t_xmax = 0 (invalid)<br/>t_ctid = (N,1)<br/>infomask: XMAX_INVALID<br/>─────────<br/>data: name='Alice'"]
+        end
+
+        subgraph "After UPDATE (xid=200)"
+            T1_old["Tuple V1 (old)<br/>─────────<br/>t_xmin = 100<br/>t_xmax = 200<br/>t_ctid = (N,2)<br/>infomask: XMIN_COMMITTED<br/>infomask2: HOT_UPDATED<br/>─────────<br/>data: name='Alice'"]
+            T2["Tuple V2 (new)<br/>─────────<br/>t_xmin = 200<br/>t_xmax = 0 (invalid)<br/>t_ctid = (N,2)<br/>infomask: UPDATED,XMAX_INVALID<br/>infomask2: HEAP_ONLY_TUPLE<br/>─────────<br/>data: name='Bob'"]
+        end
+
+        subgraph "After DELETE (xid=300)"
+            T2_del["Tuple V2 (deleted)<br/>─────────<br/>t_xmin = 200<br/>t_xmax = 300<br/>t_ctid = (N,2)<br/>infomask: UPDATED<br/>─────────<br/>data: name='Bob'"]
+        end
+    end
+
+    subgraph "Index Entry"
+        IDX["Index<br/>key='Alice'<br/>TID=(N,1)"]
+    end
+
+    IDX -->|"points to root"| T1
+    T1 -->|"t_ctid chain"| T1_old
+    T1_old -->|"t_ctid points to V2"| T2
+    T2 -->|"after delete"| T2_del
+
+    subgraph "Lifecycle"
+        direction TB
+        L1["1. heap_insert()<br/>Sets t_xmin = CurrentXID<br/>t_xmax = InvalidXID<br/>t_ctid = self"]
+        L2["2. heap_update()<br/>Old: sets t_xmax = CurrentXID<br/>Old: t_ctid -> new tuple<br/>New: t_xmin = CurrentXID<br/>New: HEAP_UPDATED flag"]
+        L3["3. heap_delete()<br/>Sets t_xmax = CurrentXID<br/>t_ctid remains self<br/>Tuple NOT physically removed"]
+        L4["4. VACUUM<br/>Physically removes dead tuples<br/>Reclaims space on page<br/>Updates visibility map"]
+
+        L1 --> L2 --> L3 --> L4
+    end
+
+    style T1 fill:#c8e6c9
+    style T2 fill:#c8e6c9
+    style T1_old fill:#fff9c4
+    style T2_del fill:#ffcdd2

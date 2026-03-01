@@ -1,0 +1,59 @@
+%% PostgreSQL Transaction Lifecycle State Diagram
+%% Source: src/backend/access/transam/xact.c (TransState enum, lines 139-147)
+%% Shows both the low-level TransState and high-level TBlockState transitions
+
+stateDiagram-v2
+    direction TB
+
+    state "Transaction States (TransState)" as txn {
+        [*] --> TRANS_DEFAULT : Backend idle
+
+        TRANS_DEFAULT --> TRANS_START : StartTransaction()
+        note right of TRANS_START : Allocate memory contexts\nAssign virtual XID\nSet isolation level
+
+        TRANS_START --> TRANS_INPROGRESS : Initialization complete
+        note right of TRANS_INPROGRESS : Active transaction\nXID assigned lazily on first write\nvia GetNewTransactionId()
+
+        TRANS_INPROGRESS --> TRANS_COMMIT : CommitTransaction()
+        note right of TRANS_COMMIT : RecordTransactionCommit()\nWAL commit record\nCLOG update\nProcArrayEndTransaction()
+
+        TRANS_INPROGRESS --> TRANS_ABORT : AbortTransaction()
+        note right of TRANS_ABORT : RecordTransactionAbort()\nWAL abort record\nCLOG update\nProcArrayEndTransaction()
+
+        TRANS_INPROGRESS --> TRANS_PREPARE : PrepareTransaction()
+        note right of TRANS_PREPARE : Two-phase commit\nPersist state to disk
+
+        TRANS_COMMIT --> TRANS_DEFAULT : CleanupTransaction()
+        TRANS_ABORT --> TRANS_DEFAULT : CleanupTransaction()
+        TRANS_PREPARE --> TRANS_DEFAULT : CleanupTransaction()
+    }
+
+    state "Transaction Block States (TBlockState)" as tblock {
+        [*] --> TBLOCK_DEFAULT
+
+        TBLOCK_DEFAULT --> TBLOCK_STARTED : Single query (implicit)
+        TBLOCK_DEFAULT --> TBLOCK_BEGIN : BEGIN command
+
+        TBLOCK_STARTED --> TBLOCK_DEFAULT : Query completes
+
+        TBLOCK_BEGIN --> TBLOCK_INPROGRESS : Query execution begins
+        TBLOCK_INPROGRESS --> TBLOCK_END : COMMIT received
+        TBLOCK_INPROGRESS --> TBLOCK_ABORT_PENDING : ROLLBACK received
+        TBLOCK_INPROGRESS --> TBLOCK_ABORT : Error occurs
+
+        TBLOCK_END --> TBLOCK_DEFAULT : CommitTransaction()
+        TBLOCK_ABORT --> TBLOCK_ABORT_END : ROLLBACK received
+        TBLOCK_ABORT_END --> TBLOCK_DEFAULT : AbortTransaction()
+        TBLOCK_ABORT_PENDING --> TBLOCK_DEFAULT : AbortTransaction()
+
+        state "Subtransaction States" as sub {
+            TBLOCK_SUBBEGIN --> TBLOCK_SUBINPROGRESS : SAVEPOINT started
+            TBLOCK_SUBINPROGRESS --> TBLOCK_SUBRELEASE : RELEASE SAVEPOINT
+            TBLOCK_SUBINPROGRESS --> TBLOCK_SUBABORT : Error in subxact
+            TBLOCK_SUBINPROGRESS --> TBLOCK_SUBABORT_PENDING : ROLLBACK TO
+            TBLOCK_SUBABORT --> TBLOCK_SUBABORT_END : ROLLBACK
+            TBLOCK_SUBABORT --> TBLOCK_SUBABORT_RESTART : ROLLBACK TO
+        }
+
+        TBLOCK_INPROGRESS --> TBLOCK_SUBBEGIN : SAVEPOINT
+    }

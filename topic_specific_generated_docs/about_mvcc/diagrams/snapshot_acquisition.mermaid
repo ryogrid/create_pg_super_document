@@ -1,0 +1,80 @@
+%% Snapshot Acquisition Sequence Diagram
+%% Source: src/backend/storage/ipc/procarray.c (GetSnapshotData)
+%%         src/backend/utils/time/snapmgr.c (GetTransactionSnapshot, PushActiveSnapshot)
+
+sequenceDiagram
+    participant Client
+    participant Executor
+    participant SnapMgr as SnapMgr<br/>(snapmgr.c)
+    participant ProcArray as ProcArray<br/>(procarray.c)
+    participant ShmemArrays as Shared Memory<br/>(ProcGlobal dense arrays)
+    participant PGPROC as MyProc<br/>(PGPROC)
+
+    Client->>Executor: Execute query
+
+    alt READ COMMITTED isolation
+        Executor->>SnapMgr: GetTransactionSnapshot()
+        Note over SnapMgr: Fresh snapshot per statement
+        SnapMgr->>ProcArray: GetSnapshotData(snapshot)
+    else REPEATABLE READ / SERIALIZABLE
+        Executor->>SnapMgr: GetTransactionSnapshot()
+        Note over SnapMgr: Reuse FirstXactSnapshot<br/>if already taken
+        alt First statement in transaction
+            SnapMgr->>ProcArray: GetSnapshotData(snapshot)
+        else Subsequent statements
+            SnapMgr-->>Executor: Return cached snapshot
+        end
+    end
+
+    rect rgb(230, 240, 255)
+        Note over ProcArray,ShmemArrays: GetSnapshotData() -- holds ProcArrayLock (SHARED)
+
+        ProcArray->>ProcArray: Check GetSnapshotDataReuse()<br/>via xactCompletionCount
+
+        alt Snapshot can be reused
+            ProcArray-->>SnapMgr: Return reused snapshot
+        else Must build new snapshot
+            ProcArray->>ShmemArrays: Read latestCompletedXid
+            Note over ProcArray: xmax = latestCompletedXid + 1
+            Note over ProcArray: xmin = xmax (initial)
+
+            ProcArray->>ShmemArrays: Read own xid from xids[mypgxactoff]
+            Note over ProcArray: If own xid < xmin, update xmin
+
+            loop For each backend (pgxactoff = 0..numProcs)
+                ProcArray->>ShmemArrays: Read xids[pgxactoff]
+                Note over ProcArray: Skip InvalidTransactionId<br/>Skip own backend<br/>Skip xid >= xmax<br/>Skip VACUUM/LOGICAL_DECODING
+
+                alt xid < xmin
+                    Note over ProcArray: Update xmin = xid
+                end
+
+                ProcArray->>ProcArray: Add xid to snapshot->xip[count++]
+
+                alt Subtransaction data not overflowed
+                    ProcArray->>ShmemArrays: Read subxidStates[pgxactoff]
+                    ProcArray->>ShmemArrays: Copy subxids to snapshot->subxip[]
+                else Subtransaction cache overflowed
+                    Note over ProcArray: Set suboverflowed = true
+                end
+            end
+
+            ProcArray->>PGPROC: Set MyProc->xmin = xmin<br/>(if not already set)
+
+            ProcArray->>ProcArray: Update GlobalVisState bounds
+
+            ProcArray-->>SnapMgr: Return populated snapshot
+        end
+    end
+
+    SnapMgr->>SnapMgr: Set snapshot->curcid = GetCurrentCommandId()
+
+    SnapMgr->>Executor: Return snapshot
+
+    Executor->>SnapMgr: PushActiveSnapshot(snapshot)
+    Note over SnapMgr: Push onto ActiveSnapshotStack<br/>Increment active_count
+
+    Executor->>Executor: Execute query using snapshot<br/>HeapTupleSatisfiesMVCC() checks<br/>each tuple against snapshot
+
+    Executor->>SnapMgr: PopActiveSnapshot()
+    Note over SnapMgr: Pop from stack<br/>Decrement active_count<br/>Free if no more references
