@@ -1,0 +1,94 @@
+%% Hash Join Two-Phase Execution
+%% Shows the build phase (hash table construction) and probe phase (tuple matching)
+%% with multi-batch overflow handling for the Hybrid Hash Join algorithm.
+%%
+%% Source: src/backend/executor/nodeHashjoin.c (ExecHashJoinImpl, lines 219-669)
+%%         src/backend/executor/nodeHash.c (MultiExecPrivateHash, lines 130-203)
+
+stateDiagram-v2
+    [*] --> HJ_BUILD_HASHTABLE
+
+    state "Phase 1: Build" as build {
+        HJ_BUILD_HASHTABLE --> check_empty_outer: Start
+        check_empty_outer --> empty_opt: Outer empty + no inner fill needed
+        check_empty_outer --> create_table: Outer not empty or need inner fill
+
+        empty_opt --> [*]: Return NULL (skip entire join)
+
+        create_table --> MultiExecHash: ExecHashTableCreate()
+        MultiExecHash --> check_empty_inner: Hash all inner tuples
+
+        state "MultiExecHash Loop" as MultiExecHash {
+            fetch_inner: Fetch inner tuple
+            compute_hash: ExecHashGetHashValue()
+            check_skew: Check skew bucket
+            insert_bucket: ExecHashTableInsert()
+            save_batch: Save to batch file (batchno > 0)
+            check_mem: Check work_mem limit
+            double_batch: Double nbatch, redistribute
+
+            fetch_inner --> compute_hash: tuple available
+            compute_hash --> check_skew
+            check_skew --> insert_bucket: batch 0 or skew match
+            check_skew --> save_batch: batch > 0
+            insert_bucket --> check_mem
+            check_mem --> double_batch: exceeds work_mem
+            check_mem --> fetch_inner: within limit
+            double_batch --> fetch_inner
+            save_batch --> fetch_inner
+        }
+
+        check_empty_inner --> done_early: totalTuples==0 + no outer fill
+        check_empty_inner --> ready: Hash table populated
+
+        done_early --> [*]: Return NULL
+    }
+
+    state "Phase 2: Probe" as probe {
+        ready --> HJ_NEED_NEW_OUTER
+
+        HJ_NEED_NEW_OUTER --> get_outer: Fetch outer tuple
+        get_outer --> compute_outer_hash: tuple available
+        get_outer --> check_fill_inner: outer exhausted
+
+        compute_outer_hash --> check_batch: ExecHashGetBucketAndBatch()
+        check_batch --> save_outer_batch: wrong batch
+        check_batch --> HJ_SCAN_BUCKET: correct batch
+
+        save_outer_batch --> HJ_NEED_NEW_OUTER: Loop (save to outer batch file)
+
+        HJ_SCAN_BUCKET --> test_match: ExecScanHashBucket() finds match
+        HJ_SCAN_BUCKET --> HJ_FILL_OUTER_TUPLE: No more matches in bucket
+
+        test_match --> test_joinqual: Check joinqual + otherqual
+        test_joinqual --> return_tuple: Both quals pass
+        test_joinqual --> HJ_SCAN_BUCKET: Quals fail (continue scanning)
+
+        return_tuple --> HJ_SCAN_BUCKET: Resume scanning (inner join)
+        return_tuple --> HJ_NEED_NEW_OUTER: single_match / anti join
+
+        HJ_FILL_OUTER_TUPLE --> emit_null_inner: LEFT/ANTI + no match
+        HJ_FILL_OUTER_TUPLE --> HJ_NEED_NEW_OUTER: Has match or INNER join
+        emit_null_inner --> HJ_NEED_NEW_OUTER
+
+        check_fill_inner --> HJ_FILL_INNER_TUPLES: RIGHT/FULL join
+        check_fill_inner --> HJ_NEED_NEW_BATCH: No inner fill needed
+
+        HJ_FILL_INNER_TUPLES --> emit_null_outer: Unmatched inner found
+        HJ_FILL_INNER_TUPLES --> HJ_NEED_NEW_BATCH: All inner tuples scanned
+        emit_null_outer --> HJ_FILL_INNER_TUPLES
+    }
+
+    state "Batch Iteration" as batches {
+        HJ_NEED_NEW_BATCH --> load_batch: ExecHashJoinNewBatch()
+        load_batch --> HJ_NEED_NEW_OUTER: Batch loaded successfully
+        load_batch --> [*]: No more batches (join complete)
+
+        state "ExecHashJoinNewBatch" as load_batch {
+            skip_empty: Skip if inner or outer batch file empty
+            load_inner: Load inner tuples from batch file into hash table
+            setup_outer: Set up outer batch file for reading
+            skip_empty --> load_inner: Non-empty batch
+            load_inner --> setup_outer
+        }
+    }

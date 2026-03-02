@@ -1,0 +1,90 @@
+%% PostgreSQL Volcano Model -- Tuple Flow Sequence Diagram
+%% Demonstrates pull-based execution through: SeqScan -> HashJoin -> Sort -> Limit
+%% Source: src/backend/executor/execProcnode.c, nodeHashjoin.c, nodeSort.c, nodeLimit.c
+
+sequenceDiagram
+    participant EP as ExecutePlan
+    participant LIM as Limit
+    participant SORT as Sort
+    participant HJ as HashJoin
+    participant HASH as Hash (build)
+    participant SS_I as SeqScan (inner)
+    participant SS_O as SeqScan (outer)
+
+    Note over EP,SS_I: === INITIALIZATION PHASE (ExecInitNode) ===
+    EP->>LIM: ExecInitLimit()
+    LIM->>SORT: ExecInitSort()
+    SORT->>HJ: ExecInitHashJoin()
+    HJ->>HASH: ExecInitHash()
+    HASH->>SS_I: ExecInitSeqScan() [inner/build]
+    HJ->>SS_O: ExecInitSeqScan() [outer/probe]
+
+    Note over EP,SS_I: === EXECUTION PHASE (ExecProcNode) ===
+    EP->>LIM: ExecProcNode() -- request tuple #1
+
+    Note over LIM: First call to Limit
+    LIM->>SORT: ExecProcNode() -- need first sorted tuple
+
+    Note over SORT: Sort must materialize ALL input first
+    SORT->>HJ: ExecProcNode() -- fetch all join results
+
+    Note over HJ: HJ_BUILD_HASHTABLE state
+    HJ->>HASH: MultiExecProcNode() -- build hash table
+    loop Build Phase: scan entire inner relation
+        HASH->>SS_I: ExecProcNode()
+        SS_I-->>HASH: TupleTableSlot (inner tuple)
+        Note over HASH: Hash tuple into bucket
+    end
+    SS_I-->>HASH: NULL (end of inner)
+    HASH-->>HJ: HashJoinTable (complete)
+
+    Note over HJ: HJ_NEED_NEW_OUTER state
+    HJ->>SS_O: ExecProcNode() -- get outer tuple
+    SS_O-->>HJ: TupleTableSlot (outer tuple #1)
+
+    Note over HJ: HJ_SCAN_BUCKET state
+    Note over HJ: Hash outer tuple, probe bucket
+    Note over HJ: ExecQual(joinqual) -- check match
+    HJ-->>SORT: TupleTableSlot (joined result)
+    Note over SORT: tuplesort_puttupleslot()
+
+    loop Sort continues fetching from HashJoin
+        SORT->>HJ: ExecProcNode()
+        alt Match found in current bucket
+            HJ-->>SORT: TupleTableSlot (joined result)
+        else Bucket exhausted
+            HJ->>SS_O: ExecProcNode() -- next outer
+            SS_O-->>HJ: TupleTableSlot (outer tuple)
+            Note over HJ: Hash and probe new outer tuple
+            HJ-->>SORT: TupleTableSlot (joined result)
+        end
+        Note over SORT: tuplesort_puttupleslot()
+    end
+
+    Note over SORT: All input consumed
+    HJ-->>SORT: NULL (end of join)
+    Note over SORT: tuplesort_performsort()
+
+    Note over SORT: Return first sorted tuple
+    SORT-->>LIM: TupleTableSlot (smallest tuple)
+    LIM-->>EP: TupleTableSlot (tuple #1)
+    Note over EP: dest->receiveSlot()
+
+    EP->>LIM: ExecProcNode() -- request tuple #2
+    LIM->>SORT: ExecProcNode()
+    Note over SORT: tuplesort_gettupleslot()
+    SORT-->>LIM: TupleTableSlot (next sorted)
+    LIM-->>EP: TupleTableSlot (tuple #2)
+
+    Note over EP,SS_I: ... continues until LIMIT count reached ...
+
+    EP->>LIM: ExecProcNode() -- request beyond limit
+    LIM-->>EP: NULL (limit reached)
+
+    Note over EP,SS_I: === CLEANUP PHASE (ExecEndNode) ===
+    EP->>LIM: ExecEndLimit()
+    LIM->>SORT: ExecEndSort()
+    SORT->>HJ: ExecEndHashJoin()
+    HJ->>HASH: ExecEndHash()
+    HASH->>SS_I: ExecEndSeqScan()
+    HJ->>SS_O: ExecEndSeqScan()

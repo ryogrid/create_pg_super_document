@@ -1,0 +1,84 @@
+%% PostgreSQL Expression Evaluation Pipeline
+%% Source: src/backend/executor/execExpr.c, execExprInterp.c
+%% Shows: Expr tree -> ExecInitExpr -> ExprEvalStep array -> ExecEvalExpr interpreter
+
+flowchart LR
+    subgraph INPUT["Planner Output (Expr Tree)"]
+        direction TB
+        EXPR["Expr *node<br/>(e.g., OpExpr)"]
+        EXPR --> VAR1["Var (attno=1)"]
+        EXPR --> CONST1["Const (42)"]
+    end
+
+    subgraph COMPILE["Compilation Phase (ExecInitExpr)"]
+        direction TB
+        INIT["ExecInitExpr(node, parent)"]
+        INIT --> CREATE["Create ExprState"]
+        CREATE --> SETUP["ExecCreateExprSetupSteps()<br/>Emit FETCHSOME steps"]
+        SETUP --> REC["ExecInitExprRec(node, state, ...)<br/>Recursive walk of Expr tree"]
+
+        REC --> STEP_GEN["Generate ExprEvalStep per node"]
+        STEP_GEN --> DONE_STEP["Append EEOP_DONE step"]
+        DONE_STEP --> READY["ExecReadyExpr(state)<br/>Set evalfunc pointer"]
+    end
+
+    subgraph STEPS["Compiled Step Array (ExprState.steps)"]
+        direction TB
+        S0["Step 0: EEOP_INNER_FETCHSOME<br/>Deform inner tuple, natts=1"]
+        S1["Step 1: EEOP_INNER_VAR<br/>attnum=0 -> resvalue/resnull"]
+        S2["Step 2: EEOP_CONST<br/>value=42, isnull=false"]
+        S3["Step 3: EEOP_FUNCEXPR_STRICT<br/>fn=int4eq, nargs=2"]
+        S4["Step 4: EEOP_DONE<br/>Return final result"]
+
+        S0 --> S1 --> S2 --> S3 --> S4
+    end
+
+    subgraph DISPATCH["Evaluation Dispatch"]
+        direction TB
+        EVAL["ExecEvalExpr(state, econtext, &isNull)"]
+        EVAL --> EVALFUNC["state->evalfunc(state, econtext, &isNull)"]
+        EVALFUNC --> CHOICE{evalfunc set to?}
+        CHOICE -->|Default| INTERP["ExecInterpExpr<br/>(interpreter)"]
+        CHOICE -->|JIT compiled| JIT_FN["LLVM compiled function<br/>(replaces interpreter)"]
+    end
+
+    subgraph INTERP_DETAIL["ExecInterpExpr Interpreter Loop"]
+        direction TB
+        DISPATCH_LOOP["Dispatch Loop"]
+
+        DISPATCH_LOOP --> DM{Dispatch method?}
+        DM -->|GCC| GOTO["Computed GOTO<br/>(EEO_DISPATCH / EEO_NEXT)"]
+        DM -->|Other| SWITCH["switch(opcode)<br/>EEO_SWITCH"]
+
+        GOTO --> HANDLER["Step Handler"]
+        SWITCH --> HANDLER
+
+        HANDLER --> H1["EEOP_*_FETCHSOME<br/>slot_getsomeattrs()"]
+        HANDLER --> H2["EEOP_*_VAR<br/>Load value from slot"]
+        HANDLER --> H3["EEOP_CONST<br/>Load constant"]
+        HANDLER --> H4["EEOP_FUNCEXPR*<br/>Call function via FmgrInfo"]
+        HANDLER --> H5["EEOP_QUAL<br/>Short-circuit on false"]
+        HANDLER --> H6["EEOP_DONE<br/>Return result"]
+
+        H1 --> NEXT_STEP["Advance to next step"]
+        H2 --> NEXT_STEP
+        H3 --> NEXT_STEP
+        H4 --> NEXT_STEP
+        H5 --> NEXT_STEP
+        H6 --> RETURN_VAL["Return Datum"]
+
+        NEXT_STEP --> DISPATCH_LOOP
+    end
+
+    subgraph CALLERS["Key Callers"]
+        direction TB
+        EXECQUAL["ExecQual(state, econtext)<br/>Boolean qual evaluation<br/>flags: EEO_FLAG_IS_QUAL"]
+        EXECPROJ["ExecProject(projInfo)<br/>Target list projection<br/>Returns TupleTableSlot"]
+        EXECEVAL_SW["ExecEvalExprSwitchContext()<br/>Switch to per-tuple memory<br/>before evaluation"]
+    end
+
+    INPUT --> COMPILE
+    COMPILE --> STEPS
+    STEPS --> DISPATCH
+    DISPATCH --> INTERP_DETAIL
+    CALLERS --> DISPATCH

@@ -1,0 +1,105 @@
+%% ModifyTable Dispatch Flow
+%% Shows how ExecModifyTable routes tuples to INSERT/UPDATE/DELETE/MERGE handlers,
+%% including trigger ordering, partition routing, ON CONFLICT, and MERGE dispatch.
+%%
+%% Source: src/backend/executor/nodeModifyTable.c
+%%         ExecModifyTable (lines 3945-4360)
+%%         ExecInsert (lines 759-1233)
+%%         ExecMerge (lines 2760-2860)
+
+flowchart TB
+    subgraph "Statement Level"
+        START([ExecModifyTable first call]) --> BS[BEFORE STATEMENT triggers]
+        BS --> LOOP
+    end
+
+    subgraph "Per-Tuple Loop"
+        LOOP[Fetch tuple from subplan] --> CHECK{Tuple available?}
+        CHECK -->|No| AS[AFTER STATEMENT triggers]
+        AS --> DONE([Return NULL])
+        CHECK -->|Yes| DISPATCH{operation?}
+
+        DISPATCH -->|CMD_INSERT| INSERT_PATH
+        DISPATCH -->|CMD_UPDATE| UPDATE_PATH
+        DISPATCH -->|CMD_DELETE| DELETE_PATH
+        DISPATCH -->|CMD_MERGE| MERGE_PATH
+    end
+
+    subgraph "INSERT Pipeline"
+        INSERT_PATH[ExecInsert] --> PART{Partitioned table?}
+        PART -->|Yes| FIND[ExecFindPartition]
+        FIND --> ROUTE[ExecPrepareTupleRouting]
+        ROUTE --> BR_INS
+        PART -->|No| BR_INS[BEFORE ROW INSERT trigger]
+        BR_INS --> BR_CHECK{Trigger returned NULL?}
+        BR_CHECK -->|Yes| SKIP_INS[Skip this row]
+        BR_CHECK -->|No| GEN[Compute generated columns]
+        GEN --> CONSTR[ExecConstraints - CHECK constraints]
+        CONSTR --> OC{ON CONFLICT?}
+        OC -->|None| PLAIN_INS[table_tuple_insert]
+        OC -->|DO UPDATE / DO NOTHING| SPEC[Speculative Insert Protocol]
+        PLAIN_INS --> IDX_INS[ExecInsertIndexTuples]
+        IDX_INS --> AR_INS[AFTER ROW INSERT trigger]
+        AR_INS --> RET_INS{RETURNING?}
+        RET_INS -->|Yes| PROJ_INS[Project RETURNING]
+        RET_INS -->|No| LOOP
+        PROJ_INS --> RETURN_INS([Return RETURNING tuple])
+    end
+
+    subgraph "Speculative Insert"
+        SPEC --> SPEC_INS[table_tuple_insert SPECULATIVE]
+        SPEC_INS --> SPEC_IDX[Check arbiter indexes]
+        SPEC_IDX --> CONFLICT{Conflict?}
+        CONFLICT -->|No| CONFIRM[table_tuple_complete_speculative]
+        CONFIRM --> AR_INS
+        CONFLICT -->|Yes| ABORT[table_tuple_abort_speculative]
+        ABORT --> OC_ACTION{Action?}
+        OC_ACTION -->|DO NOTHING| SKIP_INS
+        OC_ACTION -->|DO UPDATE| LOCK_ROW[Lock conflicting row]
+        LOCK_ROW --> EVAL_SET[Evaluate SET expressions]
+        EVAL_SET --> DO_UPDATE[ExecUpdate on existing row]
+        DO_UPDATE --> AR_INS
+    end
+
+    subgraph "UPDATE Pipeline"
+        UPDATE_PATH[ExecUpdate] --> BR_UPD[BEFORE ROW UPDATE trigger]
+        BR_UPD --> CROSS{Partition key changed?}
+        CROSS -->|Yes| CROSS_DEL[DELETE from old partition]
+        CROSS_DEL --> CROSS_INS[INSERT into new partition]
+        CROSS -->|No| TBL_UPD[table_tuple_update]
+        TBL_UPD --> UPD_RESULT{Result?}
+        UPD_RESULT -->|TM_Ok| IDX_UPD[Update indexes if needed]
+        UPD_RESULT -->|TM_Updated| EPQ_UPD[EvalPlanQual recheck]
+        EPQ_UPD --> TBL_UPD
+        IDX_UPD --> AR_UPD[AFTER ROW UPDATE trigger]
+        AR_UPD --> LOOP
+    end
+
+    subgraph "DELETE Pipeline"
+        DELETE_PATH[ExecDelete] --> BR_DEL[BEFORE ROW DELETE trigger]
+        BR_DEL --> TBL_DEL[table_tuple_delete]
+        TBL_DEL --> DEL_RESULT{Result?}
+        DEL_RESULT -->|TM_Ok| AR_DEL[AFTER ROW DELETE trigger]
+        DEL_RESULT -->|TM_Updated| EPQ_DEL[EvalPlanQual recheck]
+        EPQ_DEL --> TBL_DEL
+        AR_DEL --> LOOP
+    end
+
+    subgraph "MERGE Dispatch"
+        MERGE_PATH[ExecMerge] --> MATCH{Target row exists?}
+        MATCH -->|Yes tupleid valid| MATCHED[ExecMergeMatched]
+        MATCH -->|No| NOT_MATCHED[ExecMergeNotMatched]
+
+        MATCHED --> WHEN_M{Evaluate WHEN MATCHED clauses}
+        WHEN_M -->|UPDATE action| UPDATE_PATH
+        WHEN_M -->|DELETE action| DELETE_PATH
+        WHEN_M -->|DO NOTHING| LOOP
+
+        NOT_MATCHED --> WHEN_NM{Evaluate WHEN NOT MATCHED clauses}
+        WHEN_NM -->|INSERT action| INSERT_PATH
+        WHEN_NM -->|DO NOTHING| LOOP
+    end
+
+    SKIP_INS --> LOOP
+    CROSS_INS --> LOOP
+    RETURN_INS --> LOOP

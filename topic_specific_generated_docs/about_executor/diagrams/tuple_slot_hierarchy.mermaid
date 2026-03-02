@@ -1,0 +1,121 @@
+%% PostgreSQL TupleTableSlot Type Hierarchy and TupleTableSlotOps
+%% Source: src/include/executor/tuptable.h, src/backend/executor/execTuples.c
+
+classDiagram
+    class TupleTableSlot {
+        +NodeTag type
+        +uint16 tts_flags
+        +AttrNumber tts_nvalid
+        +const TupleTableSlotOps* tts_ops
+        +TupleDesc tts_tupleDescriptor
+        +Datum* tts_values
+        +bool* tts_isnull
+        +MemoryContext tts_mcxt
+        +ItemPointerData tts_tid
+        +Oid tts_tableOid
+    }
+
+    class TupleTableSlotOps {
+        <<interface>>
+        +size_t base_slot_size
+        +init(slot)
+        +release(slot)
+        +clear(slot)
+        +getsomeattrs(slot, natts)
+        +getsysattr(slot, attnum, isnull)
+        +is_current_xact_tuple(slot)
+        +materialize(slot)
+        +copyslot(dstslot, srcslot)
+        +get_heap_tuple(slot) : HeapTuple
+        +get_minimal_tuple(slot) : MinimalTuple
+        +copy_heap_tuple(slot) : HeapTuple
+        +copy_minimal_tuple(slot) : MinimalTuple
+    }
+
+    class VirtualTupleTableSlot {
+        +TupleTableSlot base
+        +char* data
+        ---
+        Ops: TTSOpsVirtual
+        No physical tuple
+        Datum/isnull are authoritative
+        No system columns
+        Used for: projections, computed results
+    }
+
+    class HeapTupleTableSlot {
+        +TupleTableSlot base
+        +HeapTuple tuple
+        +uint32 off
+        +HeapTupleData tupdata
+        ---
+        Ops: TTSOpsHeapTuple
+        palloc'd physical tuple
+        Owned by slot when SHOULDFREE
+        Has system columns
+        Used for: materialized tuples
+    }
+
+    class MinimalTupleTableSlot {
+        +TupleTableSlot base
+        +HeapTuple tuple
+        +MinimalTuple mintuple
+        +HeapTupleData minhdr
+        +uint32 off
+        ---
+        Ops: TTSOpsMinimalTuple
+        Compact format, no system columns
+        Used for: hash tables, tuplestores
+        minhdr.t_data points before mintuple
+    }
+
+    class BufferHeapTupleTableSlot {
+        +HeapTupleTableSlot base
+        +Buffer buffer
+        ---
+        Ops: TTSOpsBufferHeapTuple
+        Tuple lives in shared buffer
+        Pin held on buffer page
+        SHOULDFREE not set
+        Used for: heap scan results
+    }
+
+    TupleTableSlot <|-- VirtualTupleTableSlot
+    TupleTableSlot <|-- HeapTupleTableSlot
+    TupleTableSlot <|-- MinimalTupleTableSlot
+    HeapTupleTableSlot <|-- BufferHeapTupleTableSlot
+
+    TupleTableSlot --> TupleTableSlotOps : tts_ops
+
+    class TTSOpsVirtual {
+        <<singleton>>
+    }
+    class TTSOpsHeapTuple {
+        <<singleton>>
+    }
+    class TTSOpsMinimalTuple {
+        <<singleton>>
+    }
+    class TTSOpsBufferHeapTuple {
+        <<singleton>>
+    }
+
+    TupleTableSlotOps <|.. TTSOpsVirtual
+    TupleTableSlotOps <|.. TTSOpsHeapTuple
+    TupleTableSlotOps <|.. TTSOpsMinimalTuple
+    TupleTableSlotOps <|.. TTSOpsBufferHeapTuple
+
+    VirtualTupleTableSlot ..> TTSOpsVirtual
+    HeapTupleTableSlot ..> TTSOpsHeapTuple
+    MinimalTupleTableSlot ..> TTSOpsMinimalTuple
+    BufferHeapTupleTableSlot ..> TTSOpsBufferHeapTuple
+
+    class FlagBits {
+        <<enumeration>>
+        TTS_FLAG_EMPTY = 0x02
+        TTS_FLAG_SHOULDFREE = 0x04
+        TTS_FLAG_SLOW = 0x08
+        TTS_FLAG_FIXED = 0x10
+    }
+
+    TupleTableSlot ..> FlagBits : tts_flags

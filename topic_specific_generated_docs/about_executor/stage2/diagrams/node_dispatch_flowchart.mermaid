@@ -1,0 +1,104 @@
+%% PostgreSQL Executor Node Dispatch Flowchart
+%% Source: src/backend/executor/execProcnode.c
+%% Shows ExecInitNode, ExecProcNode, and ExecEndNode dispatch mechanisms
+
+flowchart TB
+    subgraph INIT["ExecInitNode(Plan *node, EState *estate, int eflags)"]
+        direction TB
+        I_START([Plan node]) --> I_NULL{node == NULL?}
+        I_NULL -->|Yes| I_RET_NULL[return NULL]
+        I_NULL -->|No| I_STACK[check_stack_depth]
+        I_STACK --> I_SWITCH{switch nodeTag}
+
+        I_SWITCH -->|T_Result| I_Result[ExecInitResult]
+        I_SWITCH -->|T_ModifyTable| I_ModTable[ExecInitModifyTable]
+        I_SWITCH -->|T_Append| I_Append[ExecInitAppend]
+        I_SWITCH -->|T_SeqScan| I_SeqScan[ExecInitSeqScan]
+        I_SWITCH -->|T_IndexScan| I_IdxScan[ExecInitIndexScan]
+        I_SWITCH -->|T_NestLoop| I_NL[ExecInitNestLoop]
+        I_SWITCH -->|T_MergeJoin| I_MJ[ExecInitMergeJoin]
+        I_SWITCH -->|T_HashJoin| I_HJ[ExecInitHashJoin]
+        I_SWITCH -->|T_Sort| I_Sort[ExecInitSort]
+        I_SWITCH -->|T_Agg| I_Agg[ExecInitAgg]
+        I_SWITCH -->|T_Limit| I_Limit[ExecInitLimit]
+        I_SWITCH -->|...38 more types...| I_Other[ExecInit*]
+
+        I_Result --> I_POST
+        I_ModTable --> I_POST
+        I_Append --> I_POST
+        I_SeqScan --> I_POST
+        I_IdxScan --> I_POST
+        I_NL --> I_POST
+        I_MJ --> I_POST
+        I_HJ --> I_POST
+        I_Sort --> I_POST
+        I_Agg --> I_POST
+        I_Limit --> I_POST
+        I_Other --> I_POST
+
+        I_POST[ExecSetExecProcNode:\nInstall ExecProcNodeFirst wrapper] --> I_INITPLAN[Initialize initPlan SubPlans\nvia ExecInitSubPlan]
+        I_INITPLAN --> I_INSTR{es_instrument set?}
+        I_INSTR -->|Yes| I_ALLOC[InstrAlloc:\nallocate Instrumentation]
+        I_INSTR -->|No| I_RETURN
+        I_ALLOC --> I_RETURN[return PlanState *result]
+    end
+
+    subgraph PROC["ExecProcNode(PlanState *node) -- inline in executor.h"]
+        direction TB
+        P_START([PlanState]) --> P_CALL[node->ExecProcNode]
+
+        P_CALL --> P_FIRST{First call?}
+        P_FIRST -->|Yes| P_FIRST_FN["ExecProcNodeFirst()"]
+        P_FIRST -->|No| P_DIRECT[Direct to node function]
+
+        P_FIRST_FN --> P_DEPTH[check_stack_depth]
+        P_DEPTH --> P_INSTR_CHK{instrument set?}
+        P_INSTR_CHK -->|Yes| P_SET_INSTR["Set ExecProcNode = ExecProcNodeInstr"]
+        P_INSTR_CHK -->|No| P_SET_REAL["Set ExecProcNode = ExecProcNodeReal"]
+
+        P_SET_INSTR --> P_INSTR_CALL["ExecProcNodeInstr()"]
+        P_INSTR_CALL --> P_INSTR_START["InstrStartNode()"]
+        P_INSTR_START --> P_REAL_CALL["ExecProcNodeReal(node)"]
+        P_REAL_CALL --> P_INSTR_STOP["InstrStopNode()"]
+        P_INSTR_STOP --> P_RESULT([TupleTableSlot])
+
+        P_SET_REAL --> P_DIRECT
+        P_DIRECT --> P_RESULT
+    end
+
+    subgraph MULTI["MultiExecProcNode(PlanState *node)"]
+        direction TB
+        M_START([PlanState]) --> M_STACK[check_stack_depth]
+        M_STACK --> M_CHG{chgParam != NULL?}
+        M_CHG -->|Yes| M_RESCAN[ExecReScan]
+        M_CHG -->|No| M_SWITCH
+        M_RESCAN --> M_SWITCH{switch nodeTag}
+
+        M_SWITCH -->|T_HashState| M_HASH[MultiExecHash]
+        M_SWITCH -->|T_BitmapIndexScanState| M_BIS[MultiExecBitmapIndexScan]
+        M_SWITCH -->|T_BitmapAndState| M_BA[MultiExecBitmapAnd]
+        M_SWITCH -->|T_BitmapOrState| M_BO[MultiExecBitmapOr]
+
+        M_HASH --> M_RESULT([Node * -- HashJoinTable or TIDBitmap])
+        M_BIS --> M_RESULT
+        M_BA --> M_RESULT
+        M_BO --> M_RESULT
+    end
+
+    subgraph ENDN["ExecEndNode(PlanState *node)"]
+        direction TB
+        E_START([PlanState]) --> E_NULL{node == NULL?}
+        E_NULL -->|Yes| E_DONE[return]
+        E_NULL -->|No| E_STACK[check_stack_depth]
+        E_STACK --> E_FREE_CHG[bms_free chgParam]
+        E_FREE_CHG --> E_SWITCH{switch nodeTag}
+
+        E_SWITCH -->|T_ResultState| E_Result[ExecEndResult]
+        E_SWITCH -->|T_SeqScanState| E_SeqScan[ExecEndSeqScan]
+        E_SWITCH -->|T_HashJoinState| E_HJ[ExecEndHashJoin]
+        E_SWITCH -->|T_SortState| E_Sort[ExecEndSort]
+        E_SWITCH -->|T_AggState| E_Agg[ExecEndAgg]
+        E_SWITCH -->|T_LimitState| E_Limit[ExecEndLimit]
+        E_SWITCH -->|...30+ more types...| E_Other[ExecEnd*]
+        E_SWITCH -->|T_ValuesScanState\nT_NamedTuplestoreScanState\nT_WorkTableScanState| E_NOOP[No cleanup needed]
+    end

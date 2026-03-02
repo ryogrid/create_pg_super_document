@@ -1,0 +1,94 @@
+%% PostgreSQL Executor Node Type Taxonomy (43 Types)
+%% Source: src/backend/executor/execProcnode.c dispatch tables
+%% Organized by functional category
+
+graph TB
+    ROOT["Plan Node Types<br/>(43 total)"]
+
+    ROOT --> CTRL["Control Nodes (8)"]
+    ROOT --> SCAN["Scan Nodes (17)"]
+    ROOT --> JOIN["Join Nodes (3)"]
+    ROOT --> MATL["Materialization (4)"]
+    ROOT --> AGGR["Aggregation (5)"]
+    ROOT --> PARA["Parallel (2)"]
+    ROOT --> MODF["Modification (2)"]
+    ROOT --> AUX["Auxiliary (2)"]
+
+    subgraph ctrl_detail["Control Nodes"]
+        CTRL --> C1["Result"]
+        CTRL --> C2["ProjectSet"]
+        CTRL --> C3["ModifyTable"]
+        CTRL --> C4["Append"]
+        CTRL --> C5["MergeAppend"]
+        CTRL --> C6["RecursiveUnion"]
+        CTRL --> C7["BitmapAnd"]
+        CTRL --> C8["BitmapOr"]
+    end
+
+    subgraph scan_detail["Scan Nodes"]
+        SCAN --> S_HEAP["Heap Scans"]
+        S_HEAP --> S1["SeqScan"]
+        S_HEAP --> S2["SampleScan"]
+
+        SCAN --> S_IDX["Index Scans"]
+        S_IDX --> S3["IndexScan"]
+        S_IDX --> S4["IndexOnlyScan"]
+        S_IDX --> S5["BitmapIndexScan *"]
+        S_IDX --> S6["BitmapHeapScan"]
+        S_IDX --> S7["TidScan"]
+        S_IDX --> S8["TidRangeScan"]
+
+        SCAN --> S_VIRT["Virtual Scans"]
+        S_VIRT --> S9["SubqueryScan"]
+        S_VIRT --> S10["FunctionScan"]
+        S_VIRT --> S11["TableFuncScan"]
+        S_VIRT --> S12["ValuesScan"]
+        S_VIRT --> S13["CteScan"]
+        S_VIRT --> S14["NamedTuplestoreScan"]
+        S_VIRT --> S15["WorkTableScan"]
+
+        SCAN --> S_EXT["External Scans"]
+        S_EXT --> S16["ForeignScan"]
+        S_EXT --> S17["CustomScan"]
+    end
+
+    subgraph join_detail["Join Nodes"]
+        JOIN --> J1["NestLoop<br/>(parameterized inner)"]
+        JOIN --> J2["MergeJoin<br/>(sorted inputs)"]
+        JOIN --> J3["HashJoin<br/>(build + probe)"]
+    end
+
+    subgraph mat_detail["Materialization Nodes"]
+        MATL --> M1["Material<br/>(tuplestore)"]
+        MATL --> M2["Sort<br/>(tuplesort)"]
+        MATL --> M3["IncrementalSort<br/>(presorted groups)"]
+        MATL --> M4["Memoize<br/>(parameterized cache)"]
+    end
+
+    subgraph agg_detail["Aggregation / Grouping Nodes"]
+        AGGR --> A1["Group"]
+        AGGR --> A2["Agg<br/>(PLAIN/SORTED/HASHED/MIXED)"]
+        AGGR --> A3["WindowAgg<br/>(window functions)"]
+        AGGR --> A4["Unique"]
+        AGGR --> A5["SetOp"]
+    end
+
+    subgraph par_detail["Parallel Nodes"]
+        PARA --> P1["Gather<br/>(collect from workers)"]
+        PARA --> P2["GatherMerge<br/>(merge-sort from workers)"]
+    end
+
+    subgraph mod_detail["Data Modification / Locking"]
+        MODF --> D1["ModifyTable<br/>(INSERT/UPDATE/DELETE/MERGE)"]
+        MODF --> D2["LockRows<br/>(SELECT FOR UPDATE)"]
+    end
+
+    subgraph aux_detail["Auxiliary Nodes"]
+        AUX --> X1["Hash *<br/>(build hash table for HashJoin)"]
+        AUX --> X2["Limit<br/>(LIMIT/OFFSET)"]
+    end
+
+    style S5 fill:#f9f,stroke:#333
+    style X1 fill:#f9f,stroke:#333
+
+    %% Note: * = Uses MultiExecProcNode instead of ExecProcNode

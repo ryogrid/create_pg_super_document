@@ -1,0 +1,90 @@
+%% Parallel Query Architecture
+%% Shows the complete lifecycle of parallel query execution including
+%% DSM setup, worker launch, tuple flow, and instrumentation reporting.
+%%
+%% Source: src/backend/executor/execParallel.c
+%%         src/backend/executor/nodeGather.c
+%%         src/backend/executor/nodeGatherMerge.c
+
+sequenceDiagram
+    participant Planner
+    participant Leader as Leader Process
+    participant DSM as DSM Segment
+    participant W1 as Worker 1
+    participant W2 as Worker 2
+
+    Note over Planner,Leader: Planning Phase
+    Planner->>Leader: PlannedStmt with Gather node<br>(nworkers=2)
+
+    Note over Leader,DSM: Initialization Phase (lazy, on first ExecProcNode)
+    Leader->>Leader: ExecInitGather()
+    Leader->>Leader: ExecInitParallelPlan()
+
+    Leader->>DSM: ExecSerializePlan()<br>Store serialized PlannedStmt
+
+    Leader->>DSM: ExecParallelEstimate()<br>Calculate DSM size per node
+
+    Leader->>DSM: Allocate DSM segment
+    Note over DSM: Contents:<br>- FixedParallelExecutorState<br>- Serialized plan text<br>- ParamListInfo<br>- shm_mq[0] for Worker 1<br>- shm_mq[1] for Worker 2<br>- SharedExecutorInstrumentation<br>- Per-node parallel state
+
+    Leader->>DSM: ExecParallelInitializeDSM()<br>Per-node shared state setup
+
+    Leader->>DSM: ExecParallelSetupTupleQueues()<br>Create shm_mq per worker
+
+    Note over Leader,W2: Worker Launch Phase
+    Leader->>W1: LaunchParallelWorkers()<br>fork + RegisterDynamicBackgroundWorker
+    Leader->>W2: fork
+
+    Note over W1,W2: Worker Initialization
+    W1->>DSM: ParallelQueryMain() - attach to DSM
+    W1->>DSM: shm_toc_lookup(PARALLEL_KEY_PLANNEDSTMT)
+    W1->>W1: stringToNode() - deserialize plan
+    W1->>W1: ExecutorStart() - build PlanState tree
+    W1->>DSM: ExecParallelInitializeWorker()<br>Attach to per-node shared state
+
+    W2->>DSM: ParallelQueryMain() - attach to DSM
+    W2->>W2: Deserialize + ExecutorStart()
+    W2->>DSM: ExecParallelInitializeWorker()
+
+    Note over Leader,W2: Execution Phase (concurrent)
+
+    par Worker 1 execution
+        loop Until plan exhausted
+            W1->>W1: ExecProcNode() on plan subtree
+            W1->>DSM: shm_mq_send(tuple) to queue[0]
+        end
+    and Worker 2 execution
+        loop Until plan exhausted
+            W2->>W2: ExecProcNode() on plan subtree
+            W2->>DSM: shm_mq_send(tuple) to queue[1]
+        end
+    and Leader collection
+        loop Until all sources exhausted
+            alt Gather (unordered)
+                Leader->>DSM: Round-robin: TupleQueueReaderNext()
+                DSM-->>Leader: tuple from worker N
+            else GatherMerge (ordered)
+                Leader->>Leader: binaryheap_first() - get min
+                Leader->>DSM: Replace with next from same source
+                DSM-->>Leader: sorted tuple
+            end
+            Leader->>Leader: ExecProcNode(local plan subtree)
+            Note over Leader: Also executes plan locally<br>("leader as worker")
+            Leader-->>Leader: Return tuple to upper nodes
+        end
+    end
+
+    Note over Leader,W2: Shutdown Phase
+
+    W1->>DSM: Copy Instrumentation data<br>(for EXPLAIN ANALYZE)
+    W1->>DSM: Report BufferUsage + WalUsage
+    W1->>W1: ExecutorFinish() + ExecutorEnd()
+    W1->>W1: exit()
+
+    W2->>DSM: Copy Instrumentation data
+    W2->>W2: ExecutorEnd() + exit()
+
+    Leader->>Leader: ExecShutdownGather()
+    Leader->>Leader: WaitForParallelWorkersToFinish()
+    Leader->>DSM: ExecParallelRetrieveInstrumentation()<br>Aggregate per-node stats from workers
+    Leader->>DSM: Detach and destroy DSM segment

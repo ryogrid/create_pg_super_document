@@ -1,0 +1,107 @@
+%% PostgreSQL Executor Lifecycle State Diagram
+%% Source: src/backend/executor/execMain.c
+%% Shows the complete executor lifecycle from QueryDesc creation through cleanup
+
+stateDiagram-v2
+    [*] --> QueryDescCreated: CreateQueryDesc()
+
+    QueryDescCreated --> ExecutorStart: ExecutorStart(queryDesc, eflags)
+
+    state ExecutorStart {
+        [*] --> Hook_Start: ExecutorStart_hook?
+        Hook_Start --> standard_ExecutorStart: hook or direct
+
+        state standard_ExecutorStart {
+            [*] --> CheckReadOnly: ExecCheckXactReadOnly()
+            CheckReadOnly --> CreateEState: CreateExecutorState()
+            CreateEState --> SwitchContext: MemoryContextSwitchTo(es_query_cxt)
+            SwitchContext --> SetupParams: Copy params, snapshots
+            SetupParams --> RegisterSnapshots: RegisterSnapshot()
+            RegisterSnapshots --> SetupTriggers: AfterTriggerBeginQuery()
+            SetupTriggers --> RunInitPlan: InitPlan()
+
+            state RunInitPlan {
+                [*] --> CheckPerms: ExecCheckPermissions()
+                CheckPerms --> InitRangeTable: ExecInitRangeTable()
+                InitRangeTable --> SetupRowMarks: Build ExecRowMark array
+                SetupRowMarks --> InitSubplans: ExecInitNode() per subplan
+                InitSubplans --> BuildPlanTree: ExecInitNode(planTree)
+                BuildPlanTree --> SetupJunkFilter: if CMD_SELECT
+                SetupJunkFilter --> [*]
+            }
+
+            RunInitPlan --> [*]
+        }
+    }
+
+    ExecutorStart --> ExecutorRun: ExecutorRun(queryDesc, direction, count)
+
+    state ExecutorRun {
+        [*] --> Hook_Run: ExecutorRun_hook?
+        Hook_Run --> standard_ExecutorRun: hook or direct
+
+        state standard_ExecutorRun {
+            [*] --> StartInstr: InstrStartNode(totaltime)
+            StartInstr --> StartDest: dest->rStartup()
+            StartDest --> RunExecutePlan: ExecutePlan()
+
+            state RunExecutePlan {
+                [*] --> ResetPerTuple: ResetPerTupleExprContext()
+                ResetPerTuple --> FetchTuple: ExecProcNode(planstate)
+                FetchTuple --> CheckNull: TupIsNull(slot)?
+                CheckNull --> FilterJunk: No -- apply junk filter
+                CheckNull --> ShutdownCheck: Yes -- break
+                FilterJunk --> SendTuple: dest->receiveSlot()
+                SendTuple --> CountTuple: es_processed++
+                CountTuple --> CheckCount: count reached?
+                CheckCount --> ResetPerTuple: No -- loop
+                CheckCount --> ShutdownCheck: Yes -- break
+            }
+
+            RunExecutePlan --> StopDest: dest->rShutdown()
+            StopDest --> StopInstr: InstrStopNode(totaltime)
+            StopInstr --> [*]
+        }
+    }
+
+    ExecutorRun --> ExecutorRun: May be called multiple times\n(e.g., cursor FETCH)
+    ExecutorRun --> ExecutorFinish: ExecutorFinish(queryDesc)
+
+    state ExecutorFinish {
+        [*] --> Hook_Finish: ExecutorFinish_hook?
+        Hook_Finish --> standard_ExecutorFinish: hook or direct
+
+        state standard_ExecutorFinish {
+            [*] --> PostprocessPlan: ExecPostprocessPlan()
+            PostprocessPlan --> EndTriggers: AfterTriggerEndQuery()
+            EndTriggers --> MarkFinished: es_finished = true
+            MarkFinished --> [*]
+        }
+    }
+
+    ExecutorFinish --> ExecutorEnd: ExecutorEnd(queryDesc)
+
+    state ExecutorEnd {
+        [*] --> Hook_End: ExecutorEnd_hook?
+        Hook_End --> standard_ExecutorEnd: hook or direct
+
+        state standard_ExecutorEnd {
+            [*] --> EndPlanTree: ExecEndPlan()
+
+            state ExecEndPlan_Detail {
+                [*] --> EndNodes: ExecEndNode(planstate)
+                EndNodes --> EndSubplans: ExecEndNode per subplan
+                EndSubplans --> ResetTupleTable: ExecResetTupleTable()
+                ResetTupleTable --> CloseResultRels: ExecCloseResultRelations()
+                CloseResultRels --> CloseRangeRels: ExecCloseRangeTableRelations()
+                CloseRangeRels --> [*]
+            }
+
+            EndPlanTree --> UnregSnaps: UnregisterSnapshot()
+            UnregSnaps --> FreeEState: FreeExecutorState()
+            FreeEState --> ClearFields: queryDesc fields = NULL
+            ClearFields --> [*]
+        }
+    }
+
+    ExecutorEnd --> [*]

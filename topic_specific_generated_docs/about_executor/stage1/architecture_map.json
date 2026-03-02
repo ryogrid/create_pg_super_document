@@ -1,0 +1,2089 @@
+{
+  "metadata": {
+    "subsystem": "PostgreSQL Executor",
+    "analysis_date": "2026-03-02",
+    "source_version": "PostgreSQL 17.6",
+    "total_symbols": 120,
+    "analysis_depth": 5,
+    "entry_points": [
+      "ExecutorStart",
+      "ExecutorRun",
+      "ExecutorFinish",
+      "ExecutorEnd"
+    ]
+  },
+  "symbols": {
+    "ExecutorStart": {
+      "overview": "Entry point that must be called at the beginning of any execution of any query plan, providing a hook mechanism for plugins while delegating to standard_ExecutorStart.",
+      "importance_score": 1.0,
+      "category": "EXECUTOR_LIFECYCLE",
+      "depth_from_entry": 0,
+      "source_file": "src/backend/executor/execMain.c",
+      "references_from": ["QueryDesc", "pgstat_report_query_id", "standard_ExecutorStart"],
+      "references_to": ["PortalRunSelect", "ProcessQuery", "refresh_matview_datafill", "SPI_execute_plan_extended"],
+      "metrics": {
+        "ref_count": 25,
+        "is_entry_point": true,
+        "is_critical_path": true
+      }
+    },
+    "standard_ExecutorStart": {
+      "overview": "Standard implementation of ExecutorStart that creates EState, sets up parameters, snapshots, triggers, and calls InitPlan to build the plan state tree.",
+      "importance_score": 0.98,
+      "category": "EXECUTOR_LIFECYCLE",
+      "depth_from_entry": 1,
+      "source_file": "src/backend/executor/execMain.c",
+      "references_from": ["CreateExecutorState", "InitPlan", "AfterTriggerBeginQuery", "RegisterSnapshot", "GetCurrentCommandId"],
+      "references_to": ["ExecutorStart"],
+      "metrics": {
+        "ref_count": 20,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "ExecutorRun": {
+      "overview": "Main routine of the executor module that accepts a query descriptor and executes the query plan, providing a hook mechanism for plugins.",
+      "importance_score": 1.0,
+      "category": "EXECUTOR_LIFECYCLE",
+      "depth_from_entry": 0,
+      "source_file": "src/backend/executor/execMain.c",
+      "references_from": ["QueryDesc", "standard_ExecutorRun"],
+      "references_to": ["PortalRunSelect", "ProcessQuery", "SPI_execute_plan_extended"],
+      "metrics": {
+        "ref_count": 25,
+        "is_entry_point": true,
+        "is_critical_path": true
+      }
+    },
+    "standard_ExecutorRun": {
+      "overview": "Standard implementation of ExecutorRun that sets up the per-query context, invokes ExecutePlan, and handles instrumentation timing.",
+      "importance_score": 0.97,
+      "category": "EXECUTOR_LIFECYCLE",
+      "depth_from_entry": 1,
+      "source_file": "src/backend/executor/execMain.c",
+      "references_from": ["ExecutePlan", "InstrStartNode", "InstrStopNode"],
+      "references_to": ["ExecutorRun"],
+      "metrics": {
+        "ref_count": 15,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "ExecutorFinish": {
+      "overview": "Must be called after the last ExecutorRun call to perform cleanup operations such as firing AFTER triggers.",
+      "importance_score": 0.90,
+      "category": "EXECUTOR_LIFECYCLE",
+      "depth_from_entry": 0,
+      "source_file": "src/backend/executor/execMain.c",
+      "references_from": ["standard_ExecutorFinish"],
+      "references_to": ["PortalRunSelect", "ProcessQuery"],
+      "metrics": {
+        "ref_count": 15,
+        "is_entry_point": true,
+        "is_critical_path": true
+      }
+    },
+    "ExecutorEnd": {
+      "overview": "Hook-enabled wrapper function that must be called at the end of execution of any query plan for cleanup.",
+      "importance_score": 0.90,
+      "category": "EXECUTOR_LIFECYCLE",
+      "depth_from_entry": 0,
+      "source_file": "src/backend/executor/execMain.c",
+      "references_from": ["standard_ExecutorEnd"],
+      "references_to": ["PortalRunSelect", "ProcessQuery"],
+      "metrics": {
+        "ref_count": 15,
+        "is_entry_point": true,
+        "is_critical_path": true
+      }
+    },
+    "InitPlan": {
+      "overview": "Initializes the query execution plan by opening files, allocating storage, setting up execution state, and building the plan state tree via ExecInitNode.",
+      "importance_score": 0.95,
+      "category": "EXECUTOR_LIFECYCLE",
+      "depth_from_entry": 2,
+      "source_file": "src/backend/executor/execMain.c",
+      "references_from": ["ExecInitNode", "ExecInitRangeTable", "ExecInitResultRelation", "InitResultRelInfo"],
+      "references_to": ["standard_ExecutorStart"],
+      "metrics": {
+        "ref_count": 10,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "ExecutePlan": {
+      "overview": "Processes the query plan until a specified number of tuples have been retrieved, calling ExecProcNode repeatedly on the root plan node.",
+      "importance_score": 0.94,
+      "category": "EXECUTOR_LIFECYCLE",
+      "depth_from_entry": 2,
+      "source_file": "src/backend/executor/execMain.c",
+      "references_from": ["ExecProcNode", "ResetPerTupleExprContext"],
+      "references_to": ["standard_ExecutorRun"],
+      "metrics": {
+        "ref_count": 8,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "ExecEndPlan": {
+      "overview": "Cleans up at end of an ExecutorRun, releasing result relations, closing range table relations, and calling ExecEndNode on the plan tree.",
+      "importance_score": 0.80,
+      "category": "EXECUTOR_LIFECYCLE",
+      "depth_from_entry": 2,
+      "source_file": "src/backend/executor/execMain.c",
+      "references_from": ["ExecEndNode", "ExecCloseResultRelations", "ExecCloseRangeTableRelations"],
+      "references_to": ["standard_ExecutorEnd"],
+      "metrics": {
+        "ref_count": 5,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "ExecInitNode": {
+      "overview": "Recursively initializes all nodes in a plan tree, dispatching on NodeTag to create the corresponding PlanState tree. Central dispatch for all node initialization.",
+      "importance_score": 0.99,
+      "category": "VOLCANO_DISPATCH",
+      "depth_from_entry": 2,
+      "source_file": "src/backend/executor/execProcnode.c",
+      "references_from": ["ExecInitResult", "ExecInitProjectSet", "ExecInitModifyTable", "ExecInitAppend", "ExecInitMergeAppend", "ExecInitRecursiveUnion", "ExecInitBitmapAnd", "ExecInitBitmapOr", "ExecInitSeqScan", "ExecInitSampleScan", "ExecInitIndexScan", "ExecInitIndexOnlyScan", "ExecInitBitmapIndexScan", "ExecInitBitmapHeapScan", "ExecInitTidScan", "ExecInitTidRangeScan", "ExecInitSubqueryScan", "ExecInitFunctionScan", "ExecInitTableFuncScan", "ExecInitValuesScan", "ExecInitCteScan", "ExecInitNamedTuplestoreScan", "ExecInitWorkTableScan", "ExecInitForeignScan", "ExecInitCustomScan", "ExecInitNestLoop", "ExecInitMergeJoin", "ExecInitHashJoin", "ExecInitMaterial", "ExecInitSort", "ExecInitIncrementalSort", "ExecInitMemoize", "ExecInitGroup", "ExecInitAgg", "ExecInitWindowAgg", "ExecInitUnique", "ExecInitGather", "ExecInitGatherMerge", "ExecInitHash", "ExecInitSetOp", "ExecInitLockRows", "ExecInitLimit", "ExecSetExecProcNode", "ExecInitSubPlan", "InstrAlloc"],
+      "references_to": ["InitPlan", "ExecInitAppend", "ExecInitNestLoop", "ExecInitHashJoin", "ExecInitMergeJoin", "ExecInitSubqueryScan"],
+      "metrics": {
+        "ref_count": 50,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "ExecProcNode": {
+      "overview": "Central function that processes a single plan node and returns the next tuple, implementing the iterator (Volcano) model via function pointer dispatch.",
+      "importance_score": 0.99,
+      "category": "VOLCANO_DISPATCH",
+      "depth_from_entry": 2,
+      "source_file": "src/include/executor/executor.h",
+      "references_from": ["ExecReScan"],
+      "references_to": ["ExecutePlan", "ExecNestLoop", "ExecHashJoinImpl", "ExecMergeJoin", "ExecModifyTable", "ExecGather", "ExecAppend", "ExecSort", "ExecAgg"],
+      "metrics": {
+        "ref_count": 80,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "ExecEndNode": {
+      "overview": "Recursively cleans up all nodes in the plan tree, dispatching on NodeTag to call node-specific cleanup functions.",
+      "importance_score": 0.90,
+      "category": "VOLCANO_DISPATCH",
+      "depth_from_entry": 2,
+      "source_file": "src/backend/executor/execProcnode.c",
+      "references_from": ["ExecEndResult", "ExecEndProjectSet", "ExecEndModifyTable", "ExecEndAppend", "ExecEndSeqScan", "ExecEndIndexScan", "ExecEndNestLoop", "ExecEndMergeJoin", "ExecEndHashJoin", "ExecEndSort", "ExecEndAgg", "ExecEndWindowAgg", "ExecEndGather", "ExecEndGatherMerge", "ExecEndLimit"],
+      "references_to": ["ExecEndPlan"],
+      "metrics": {
+        "ref_count": 30,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "ExecSetExecProcNode": {
+      "overview": "Sets or changes the execution procedure function for a plan node, installing wrapper functions for stack depth checking and instrumentation.",
+      "importance_score": 0.75,
+      "category": "VOLCANO_DISPATCH",
+      "depth_from_entry": 3,
+      "source_file": "src/backend/executor/execProcnode.c",
+      "references_from": ["ExecProcNodeFirst"],
+      "references_to": ["ExecInitNode"],
+      "metrics": {
+        "ref_count": 10,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    },
+    "MultiExecProcNode": {
+      "overview": "Executes plan nodes that return complex data structures (hash tables, bitmaps) rather than individual tuples.",
+      "importance_score": 0.80,
+      "category": "VOLCANO_DISPATCH",
+      "depth_from_entry": 3,
+      "source_file": "src/backend/executor/execProcnode.c",
+      "references_from": ["MultiExecHash", "MultiExecBitmapIndexScan", "MultiExecBitmapAnd", "MultiExecBitmapOr"],
+      "references_to": ["ExecHashJoinImpl", "ExecBitmapHeapScan"],
+      "metrics": {
+        "ref_count": 12,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "ExecReScan": {
+      "overview": "Central function that resets a plan node so its output can be re-scanned, handling parameter changes and dispatching to node-type-specific rescan functions.",
+      "importance_score": 0.88,
+      "category": "VOLCANO_DISPATCH",
+      "depth_from_entry": 3,
+      "source_file": "src/backend/executor/execAmi.c",
+      "references_from": [],
+      "references_to": ["ExecProcNode", "ExecNestLoop", "ExecMergeJoin"],
+      "metrics": {
+        "ref_count": 35,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "ExecShutdownNode": {
+      "overview": "Provides controlled shutdown for query plan execution trees, allowing nodes to stop asynchronous operations and release resources.",
+      "importance_score": 0.60,
+      "category": "VOLCANO_DISPATCH",
+      "depth_from_entry": 3,
+      "source_file": "src/backend/executor/execProcnode.c",
+      "references_from": [],
+      "references_to": ["ExecEndPlan"],
+      "metrics": {
+        "ref_count": 5,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    },
+    "ExecSetTupleBound": {
+      "overview": "Propagates tuple count limits down through a plan tree to enable performance optimizations in child nodes (e.g., top-N sort).",
+      "importance_score": 0.55,
+      "category": "VOLCANO_DISPATCH",
+      "depth_from_entry": 3,
+      "source_file": "src/backend/executor/execProcnode.c",
+      "references_from": [],
+      "references_to": ["ExecLimit", "ExecGather"],
+      "metrics": {
+        "ref_count": 8,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    },
+    "ExecScan": {
+      "overview": "Core tuple processing function that coordinates tuple retrieval, qualification checking (ExecQual), and projection (ExecProject) for all scan node types.",
+      "importance_score": 0.95,
+      "category": "SCAN_INFRASTRUCTURE",
+      "depth_from_entry": 3,
+      "source_file": "src/backend/executor/execScan.c",
+      "references_from": ["ExecQual", "ExecProject", "ResetExprContext", "TupIsNull", "ExecClearTuple", "InstrCountFiltered1"],
+      "references_to": ["ExecSeqScan", "ExecIndexScan", "ExecIndexOnlyScan", "ExecBitmapHeapScan", "ExecTidScan", "ExecTidRangeScan", "ExecSubqueryScan", "ExecFunctionScan", "ExecValuesScan", "ExecCteScan", "ExecNamedTuplestoreScan", "ExecWorkTableScan", "ExecForeignScan", "ExecSampleScan", "ExecTableFuncScan"],
+      "metrics": {
+        "ref_count": 20,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "ExecSeqScan": {
+      "overview": "Main execution function for sequential scans that retrieves the next qualifying tuple by delegating to ExecScan with sequential scan-specific access methods.",
+      "importance_score": 0.85,
+      "category": "SCAN_NODES",
+      "depth_from_entry": 3,
+      "source_file": "src/backend/executor/nodeSeqscan.c",
+      "references_from": ["ExecScan"],
+      "references_to": ["ExecProcNode"],
+      "metrics": {
+        "ref_count": 8,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "ExecInitSeqScan": {
+      "overview": "Initializes a sequential scan node by creating the execution state, setting up the scan relation, and initializing tuple slots and projection.",
+      "importance_score": 0.80,
+      "category": "SCAN_NODES",
+      "depth_from_entry": 3,
+      "source_file": "src/backend/executor/nodeSeqscan.c",
+      "references_from": ["ExecOpenScanRelation", "ExecInitScanTupleSlot", "ExecInitResultTupleSlotTL", "ExecAssignScanProjectionInfo"],
+      "references_to": ["ExecInitNode"],
+      "metrics": {
+        "ref_count": 5,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    },
+    "ExecIndexScan": {
+      "overview": "Main execution function for index scans that retrieves tuples from an index while handling runtime keys and ordering requirements.",
+      "importance_score": 0.85,
+      "category": "SCAN_NODES",
+      "depth_from_entry": 3,
+      "source_file": "src/backend/executor/nodeIndexscan.c",
+      "references_from": ["ExecScan"],
+      "references_to": ["ExecProcNode"],
+      "metrics": {
+        "ref_count": 8,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "ExecInitIndexScan": {
+      "overview": "Initializes the execution state for an index scan node, setting up scan keys, opening relations, and preparing data structures.",
+      "importance_score": 0.78,
+      "category": "SCAN_NODES",
+      "depth_from_entry": 3,
+      "source_file": "src/backend/executor/nodeIndexscan.c",
+      "references_from": ["ExecOpenScanRelation", "ExecInitScanTupleSlot"],
+      "references_to": ["ExecInitNode"],
+      "metrics": {
+        "ref_count": 5,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    },
+    "ExecIndexOnlyScan": {
+      "overview": "Execution function for index-only scans that retrieves tuples directly from the index without accessing the heap when possible.",
+      "importance_score": 0.78,
+      "category": "SCAN_NODES",
+      "depth_from_entry": 3,
+      "source_file": "src/backend/executor/nodeIndexonlyscan.c",
+      "references_from": ["ExecScan"],
+      "references_to": ["ExecProcNode"],
+      "metrics": {
+        "ref_count": 6,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "ExecInitIndexOnlyScan": {
+      "overview": "Initializes execution state for an index-only scan node, setting up scan keys, opening relations, and configuring for index-only access.",
+      "importance_score": 0.70,
+      "category": "SCAN_NODES",
+      "depth_from_entry": 3,
+      "source_file": "src/backend/executor/nodeIndexonlyscan.c",
+      "references_from": [],
+      "references_to": ["ExecInitNode"],
+      "metrics": {
+        "ref_count": 5,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    },
+    "ExecBitmapHeapScan": {
+      "overview": "Execution function for bitmap heap scans that fetches qualifying tuples from heap pages identified by a TIDBitmap.",
+      "importance_score": 0.78,
+      "category": "SCAN_NODES",
+      "depth_from_entry": 3,
+      "source_file": "src/backend/executor/nodeBitmapHeapscan.c",
+      "references_from": ["ExecScan"],
+      "references_to": ["ExecProcNode"],
+      "metrics": {
+        "ref_count": 6,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "ExecInitBitmapHeapScan": {
+      "overview": "Initializes a bitmap heap scan execution node by setting up state, opening relations, and initializing child bitmap index scan nodes.",
+      "importance_score": 0.70,
+      "category": "SCAN_NODES",
+      "depth_from_entry": 3,
+      "source_file": "src/backend/executor/nodeBitmapHeapscan.c",
+      "references_from": ["ExecInitNode"],
+      "references_to": ["ExecInitNode"],
+      "metrics": {
+        "ref_count": 5,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    },
+    "ExecInitBitmapIndexScan": {
+      "overview": "Initializes a bitmap index scan node by setting up execution state, opening index, building scan keys, and preparing the index scan descriptor.",
+      "importance_score": 0.65,
+      "category": "SCAN_NODES",
+      "depth_from_entry": 3,
+      "source_file": "src/backend/executor/nodeBitmapIndexscan.c",
+      "references_from": [],
+      "references_to": ["ExecInitNode"],
+      "metrics": {
+        "ref_count": 5,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    },
+    "MultiExecBitmapIndexScan": {
+      "overview": "Builds a TIDBitmap by scanning the index, returning the bitmap structure rather than individual tuples.",
+      "importance_score": 0.65,
+      "category": "SCAN_NODES",
+      "depth_from_entry": 4,
+      "source_file": "src/backend/executor/nodeBitmapIndexscan.c",
+      "references_from": [],
+      "references_to": ["MultiExecProcNode"],
+      "metrics": {
+        "ref_count": 5,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "ExecNestLoop": {
+      "overview": "Executes a nested loop join between outer and inner relations, returning tuples that satisfy join and qualification conditions with support for parameterized rescans.",
+      "importance_score": 0.88,
+      "category": "JOIN_NODES",
+      "depth_from_entry": 3,
+      "source_file": "src/backend/executor/nodeNestloop.c",
+      "references_from": ["ExecProcNode", "ExecReScan", "ExecQual", "ExecProject"],
+      "references_to": ["ExecProcNode"],
+      "metrics": {
+        "ref_count": 12,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "ExecInitNestLoop": {
+      "overview": "Initializes a NestLoopState for nested loop joins, setting up child plan nodes, expression contexts, and join-specific state.",
+      "importance_score": 0.78,
+      "category": "JOIN_NODES",
+      "depth_from_entry": 3,
+      "source_file": "src/backend/executor/nodeNestloop.c",
+      "references_from": ["ExecInitNode"],
+      "references_to": ["ExecInitNode"],
+      "metrics": {
+        "ref_count": 5,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    },
+    "ExecMergeJoin": {
+      "overview": "Core execution function implementing the merge join algorithm using a sophisticated state machine (EXEC_MJ_* states) to join two pre-sorted input streams.",
+      "importance_score": 0.88,
+      "category": "JOIN_NODES",
+      "depth_from_entry": 3,
+      "source_file": "src/backend/executor/nodeMergejoin.c",
+      "references_from": ["ExecProcNode", "ExecQual", "ExecProject"],
+      "references_to": ["ExecProcNode"],
+      "metrics": {
+        "ref_count": 10,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "ExecInitMergeJoin": {
+      "overview": "Initializes a MergeJoinState by setting up data structures, expression contexts, child nodes, and join-specific configuration.",
+      "importance_score": 0.75,
+      "category": "JOIN_NODES",
+      "depth_from_entry": 3,
+      "source_file": "src/backend/executor/nodeMergejoin.c",
+      "references_from": ["ExecInitNode"],
+      "references_to": ["ExecInitNode"],
+      "metrics": {
+        "ref_count": 5,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    },
+    "ExecHashJoinImpl": {
+      "overview": "Core Hybrid Hash Join implementation handling both parallel and non-parallel execution through an inline-optimized state machine with build and probe phases.",
+      "importance_score": 0.92,
+      "category": "JOIN_NODES",
+      "depth_from_entry": 3,
+      "source_file": "src/backend/executor/nodeHashjoin.c",
+      "references_from": ["ExecProcNode", "MultiExecProcNode", "ExecHashTableCreate", "ExecScanHashBucket", "ExecQual", "ExecProject", "ExecHashGetBucketAndBatch", "ExecHashJoinSaveTuple", "ExecHashJoinNewBatch"],
+      "references_to": ["ExecProcNode"],
+      "metrics": {
+        "ref_count": 15,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "ExecInitHashJoin": {
+      "overview": "Initializes a HashJoin node during query plan startup, setting up state structures, child nodes, expression contexts, and tuple slots.",
+      "importance_score": 0.78,
+      "category": "JOIN_NODES",
+      "depth_from_entry": 3,
+      "source_file": "src/backend/executor/nodeHashjoin.c",
+      "references_from": ["ExecInitNode"],
+      "references_to": ["ExecInitNode"],
+      "metrics": {
+        "ref_count": 5,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    },
+    "ExecHashTableCreate": {
+      "overview": "Creates and initializes an empty hash table for hash join operations, configuring memory contexts, hash functions, and batch processing parameters.",
+      "importance_score": 0.78,
+      "category": "JOIN_NODES",
+      "depth_from_entry": 4,
+      "source_file": "src/backend/executor/nodeHash.c",
+      "references_from": [],
+      "references_to": ["ExecHashJoinImpl"],
+      "metrics": {
+        "ref_count": 8,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "MultiExecHash": {
+      "overview": "Main execution function for Hash nodes that builds hash tables for hash joins, supporting both single-backend and parallel execution with optional batching.",
+      "importance_score": 0.82,
+      "category": "JOIN_NODES",
+      "depth_from_entry": 4,
+      "source_file": "src/backend/executor/nodeHash.c",
+      "references_from": ["ExecProcNode"],
+      "references_to": ["MultiExecProcNode"],
+      "metrics": {
+        "ref_count": 8,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "ExecScanHashBucket": {
+      "overview": "Scans a hash bucket for tuples matching the current outer tuple in a hash join, handling both regular and skew buckets.",
+      "importance_score": 0.72,
+      "category": "JOIN_NODES",
+      "depth_from_entry": 4,
+      "source_file": "src/backend/executor/nodeHash.c",
+      "references_from": [],
+      "references_to": ["ExecHashJoinImpl"],
+      "metrics": {
+        "ref_count": 6,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "ExecHashJoinNewBatch": {
+      "overview": "Switches to the next batch in a multi-batch hash join, loading the saved inner tuples and preparing for probing.",
+      "importance_score": 0.68,
+      "category": "JOIN_NODES",
+      "depth_from_entry": 4,
+      "source_file": "src/backend/executor/nodeHashjoin.c",
+      "references_from": [],
+      "references_to": ["ExecHashJoinImpl"],
+      "metrics": {
+        "ref_count": 4,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "ExecInitHash": {
+      "overview": "Initializes the HashState structure, child nodes, and hash key expressions for hash table construction.",
+      "importance_score": 0.68,
+      "category": "JOIN_NODES",
+      "depth_from_entry": 3,
+      "source_file": "src/backend/executor/nodeHash.c",
+      "references_from": ["ExecInitNode"],
+      "references_to": ["ExecInitNode"],
+      "metrics": {
+        "ref_count": 5,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    },
+    "ExecAgg": {
+      "overview": "Main execution function for aggregate nodes that processes tuples according to the chosen strategy: AGG_PLAIN, AGG_SORTED, AGG_HASHED, or AGG_MIXED.",
+      "importance_score": 0.90,
+      "category": "AGGREGATION",
+      "depth_from_entry": 3,
+      "source_file": "src/backend/executor/nodeAgg.c",
+      "references_from": ["agg_fill_hash_table", "agg_retrieve_hash_table", "agg_retrieve_direct"],
+      "references_to": ["ExecProcNode"],
+      "metrics": {
+        "ref_count": 12,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "ExecInitAgg": {
+      "overview": "Initializes aggregate execution state including data structures, memory contexts, function lookups, and hash tables for aggregate computation.",
+      "importance_score": 0.82,
+      "category": "AGGREGATION",
+      "depth_from_entry": 3,
+      "source_file": "src/backend/executor/nodeAgg.c",
+      "references_from": ["ExecInitNode", "ExecBuildAggTrans"],
+      "references_to": ["ExecInitNode"],
+      "metrics": {
+        "ref_count": 8,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    },
+    "ExecWindowAgg": {
+      "overview": "Main execution function for window aggregation that processes tuples through a tuplestore and evaluates window functions, producing exactly the same number of output rows as input.",
+      "importance_score": 0.82,
+      "category": "AGGREGATION",
+      "depth_from_entry": 3,
+      "source_file": "src/backend/executor/nodeWindowAgg.c",
+      "references_from": ["ExecProcNode"],
+      "references_to": ["ExecProcNode"],
+      "metrics": {
+        "ref_count": 8,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "ExecInitWindowAgg": {
+      "overview": "Initializes WindowAgg execution nodes, setting up window function processing infrastructure, frame management, and run condition evaluation.",
+      "importance_score": 0.72,
+      "category": "AGGREGATION",
+      "depth_from_entry": 3,
+      "source_file": "src/backend/executor/nodeWindowAgg.c",
+      "references_from": ["ExecInitNode"],
+      "references_to": ["ExecInitNode"],
+      "metrics": {
+        "ref_count": 5,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    },
+    "ExecModifyTable": {
+      "overview": "Main execution function for ModifyTable that processes INSERT/UPDATE/DELETE/MERGE operations while handling triggers, tuple routing, and RETURNING clauses.",
+      "importance_score": 0.95,
+      "category": "DATA_MODIFICATION",
+      "depth_from_entry": 3,
+      "source_file": "src/backend/executor/nodeModifyTable.c",
+      "references_from": ["ExecProcNode", "ExecInsert", "ExecUpdate", "ExecDelete", "ExecMerge", "ExecMergeNotMatched", "ExecProcessReturning", "ExecPendingInserts", "ExecPrepareTupleRouting"],
+      "references_to": ["ExecProcNode"],
+      "metrics": {
+        "ref_count": 15,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "ExecInitModifyTable": {
+      "overview": "Initializes ModifyTable plan node execution state for DML operations including result relations, triggers, constraints, projections, and partitioning.",
+      "importance_score": 0.85,
+      "category": "DATA_MODIFICATION",
+      "depth_from_entry": 3,
+      "source_file": "src/backend/executor/nodeModifyTable.c",
+      "references_from": ["ExecInitNode", "InitResultRelInfo", "ExecOpenIndices", "ExecInitMerge"],
+      "references_to": ["ExecInitNode"],
+      "metrics": {
+        "ref_count": 8,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    },
+    "ExecInsert": {
+      "overview": "Handles insertion of a single tuple into a table/partition and its indexes, supporting foreign tables, batch inserts, ON CONFLICT handling, and RETURNING.",
+      "importance_score": 0.88,
+      "category": "DATA_MODIFICATION",
+      "depth_from_entry": 4,
+      "source_file": "src/backend/executor/nodeModifyTable.c",
+      "references_from": ["ExecPrepareTupleRouting", "ExecFindPartition", "ExecOnConflictUpdate", "ExecInsertIndexTuples", "ExecConstraints"],
+      "references_to": ["ExecModifyTable"],
+      "metrics": {
+        "ref_count": 10,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "ExecUpdate": {
+      "overview": "Main function for executing UPDATE operations, handling regular table updates, foreign table updates, view updates, and cross-partition updates.",
+      "importance_score": 0.85,
+      "category": "DATA_MODIFICATION",
+      "depth_from_entry": 4,
+      "source_file": "src/backend/executor/nodeModifyTable.c",
+      "references_from": ["ExecUpdatePrologue", "ExecUpdateAct", "ExecUpdateEpilogue", "ExecCrossPartitionUpdate"],
+      "references_to": ["ExecModifyTable"],
+      "metrics": {
+        "ref_count": 8,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "ExecDelete": {
+      "overview": "Executes deletion of a tuple from a table, handling foreign tables, triggers, concurrent modifications, and RETURNING clauses.",
+      "importance_score": 0.82,
+      "category": "DATA_MODIFICATION",
+      "depth_from_entry": 4,
+      "source_file": "src/backend/executor/nodeModifyTable.c",
+      "references_from": ["ExecDeletePrologue", "ExecDeleteAct", "ExecDeleteEpilogue"],
+      "references_to": ["ExecModifyTable"],
+      "metrics": {
+        "ref_count": 6,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "ExecMerge": {
+      "overview": "Performs MERGE operations handling both MATCHED and NOT MATCHED cases including concurrent update scenarios.",
+      "importance_score": 0.78,
+      "category": "DATA_MODIFICATION",
+      "depth_from_entry": 4,
+      "source_file": "src/backend/executor/nodeModifyTable.c",
+      "references_from": ["ExecMergeMatched", "ExecMergeNotMatched"],
+      "references_to": ["ExecModifyTable"],
+      "metrics": {
+        "ref_count": 6,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "ExecOnConflictUpdate": {
+      "overview": "Handles the UPDATE portion of INSERT ON CONFLICT DO UPDATE by locking and updating the conflicting tuple if the ON CONFLICT condition is satisfied.",
+      "importance_score": 0.72,
+      "category": "DATA_MODIFICATION",
+      "depth_from_entry": 5,
+      "source_file": "src/backend/executor/nodeModifyTable.c",
+      "references_from": [],
+      "references_to": ["ExecInsert"],
+      "metrics": {
+        "ref_count": 4,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "ExecCrossPartitionUpdate": {
+      "overview": "Handles cross-partition UPDATE operations by deleting from the source partition and inserting into the destination partition.",
+      "importance_score": 0.68,
+      "category": "DATA_MODIFICATION",
+      "depth_from_entry": 5,
+      "source_file": "src/backend/executor/nodeModifyTable.c",
+      "references_from": ["ExecInsert", "ExecDelete"],
+      "references_to": ["ExecUpdate"],
+      "metrics": {
+        "ref_count": 4,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    },
+    "ExecFindPartition": {
+      "overview": "Returns the ResultRelInfo for the leaf partition a tuple belongs to, performing partition key evaluation and hierarchy traversal.",
+      "importance_score": 0.75,
+      "category": "DATA_MODIFICATION",
+      "depth_from_entry": 5,
+      "source_file": "src/backend/executor/execPartition.c",
+      "references_from": ["ExecInitPartitionInfo"],
+      "references_to": ["ExecInsert", "ExecPrepareTupleRouting"],
+      "metrics": {
+        "ref_count": 6,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "ExecPrepareTupleRouting": {
+      "overview": "Prepares for routing a tuple to the appropriate partition by determining the target and converting tuple format if necessary.",
+      "importance_score": 0.72,
+      "category": "DATA_MODIFICATION",
+      "depth_from_entry": 4,
+      "source_file": "src/backend/executor/nodeModifyTable.c",
+      "references_from": ["ExecFindPartition"],
+      "references_to": ["ExecModifyTable"],
+      "metrics": {
+        "ref_count": 5,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "ExecInitPartitionInfo": {
+      "overview": "Locks a partition and initializes a complete ResultRelInfo for it, setting up indexes, constraints, projections, and conflict handling.",
+      "importance_score": 0.68,
+      "category": "DATA_MODIFICATION",
+      "depth_from_entry": 5,
+      "source_file": "src/backend/executor/execPartition.c",
+      "references_from": [],
+      "references_to": ["ExecFindPartition"],
+      "metrics": {
+        "ref_count": 5,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    },
+    "ExecInitPartitionPruning": {
+      "overview": "Initializes data structures for runtime partition pruning and performs initial pruning during executor startup.",
+      "importance_score": 0.65,
+      "category": "DATA_MODIFICATION",
+      "depth_from_entry": 4,
+      "source_file": "src/backend/executor/execPartition.c",
+      "references_from": [],
+      "references_to": ["ExecInitAppend", "ExecInitMergeAppend"],
+      "metrics": {
+        "ref_count": 4,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    },
+    "ExecBatchInsert": {
+      "overview": "Inserts a batch of tuples into a table using the table AM batch insert interface for better performance.",
+      "importance_score": 0.62,
+      "category": "DATA_MODIFICATION",
+      "depth_from_entry": 5,
+      "source_file": "src/backend/executor/nodeModifyTable.c",
+      "references_from": [],
+      "references_to": ["ExecInsert"],
+      "metrics": {
+        "ref_count": 3,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    },
+    "InitResultRelInfo": {
+      "overview": "Initializes a ResultRelInfo structure for a result relation in DML operations.",
+      "importance_score": 0.65,
+      "category": "DATA_MODIFICATION",
+      "depth_from_entry": 3,
+      "source_file": "src/backend/executor/execMain.c",
+      "references_from": [],
+      "references_to": ["InitPlan", "ExecInitModifyTable"],
+      "metrics": {
+        "ref_count": 8,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    },
+    "EvalPlanQual": {
+      "overview": "Implements EvalPlanQual mechanism to recheck modified tuples under READ COMMITTED isolation level.",
+      "importance_score": 0.72,
+      "category": "DATA_MODIFICATION",
+      "depth_from_entry": 4,
+      "source_file": "src/backend/executor/execMain.c",
+      "references_from": [],
+      "references_to": ["ExecUpdate", "ExecDelete", "ExecLockRows"],
+      "metrics": {
+        "ref_count": 8,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "ExecSort": {
+      "overview": "Executes tuple sorting operations using tuplesort, optimized for single-column datum sorts versus multi-column tuple sorts.",
+      "importance_score": 0.82,
+      "category": "MATERIALIZATION",
+      "depth_from_entry": 3,
+      "source_file": "src/backend/executor/nodeSort.c",
+      "references_from": ["ExecProcNode"],
+      "references_to": ["ExecProcNode"],
+      "metrics": {
+        "ref_count": 8,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "ExecInitSort": {
+      "overview": "Initializes the runtime state for a Sort plan node, creating the SortState and setting up execution parameters.",
+      "importance_score": 0.72,
+      "category": "MATERIALIZATION",
+      "depth_from_entry": 3,
+      "source_file": "src/backend/executor/nodeSort.c",
+      "references_from": ["ExecInitNode"],
+      "references_to": ["ExecInitNode"],
+      "metrics": {
+        "ref_count": 5,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    },
+    "ExecIncrementalSort": {
+      "overview": "Execution function for incremental sort that sorts groups of presorted tuples, avoiding full materialization.",
+      "importance_score": 0.68,
+      "category": "MATERIALIZATION",
+      "depth_from_entry": 3,
+      "source_file": "src/backend/executor/nodeIncrementalSort.c",
+      "references_from": ["ExecProcNode"],
+      "references_to": ["ExecProcNode"],
+      "metrics": {
+        "ref_count": 5,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    },
+    "ExecMaterial": {
+      "overview": "Materializes tuples from an outer plan into a tuplestore, returning them one at a time on subsequent calls.",
+      "importance_score": 0.68,
+      "category": "MATERIALIZATION",
+      "depth_from_entry": 3,
+      "source_file": "src/backend/executor/nodeMaterial.c",
+      "references_from": ["ExecProcNode"],
+      "references_to": ["ExecProcNode"],
+      "metrics": {
+        "ref_count": 5,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    },
+    "ExecMemoize": {
+      "overview": "Implements memoization of results from a parameterized plan node, caching results indexed by parameter values.",
+      "importance_score": 0.65,
+      "category": "MATERIALIZATION",
+      "depth_from_entry": 3,
+      "source_file": "src/backend/executor/nodeMemoize.c",
+      "references_from": ["ExecProcNode"],
+      "references_to": ["ExecProcNode"],
+      "metrics": {
+        "ref_count": 5,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    },
+    "ExecResult": {
+      "overview": "Core execution function for the Result plan node that returns tuples from an outer plan or generates tuples from constant expressions.",
+      "importance_score": 0.75,
+      "category": "CONTROL_NODES",
+      "depth_from_entry": 3,
+      "source_file": "src/backend/executor/nodeResult.c",
+      "references_from": ["ExecProcNode", "ExecQual", "ExecProject"],
+      "references_to": ["ExecProcNode"],
+      "metrics": {
+        "ref_count": 8,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    },
+    "ExecAppend": {
+      "overview": "Main execution function for Append nodes iterating over multiple subplans, supporting synchronous and asynchronous execution modes.",
+      "importance_score": 0.78,
+      "category": "CONTROL_NODES",
+      "depth_from_entry": 3,
+      "source_file": "src/backend/executor/nodeAppend.c",
+      "references_from": ["ExecProcNode"],
+      "references_to": ["ExecProcNode"],
+      "metrics": {
+        "ref_count": 8,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    },
+    "ExecInitAppend": {
+      "overview": "Initializes the Append node execution state including runtime partition pruning and subplan setup.",
+      "importance_score": 0.72,
+      "category": "CONTROL_NODES",
+      "depth_from_entry": 3,
+      "source_file": "src/backend/executor/nodeAppend.c",
+      "references_from": ["ExecInitNode", "ExecInitPartitionPruning"],
+      "references_to": ["ExecInitNode"],
+      "metrics": {
+        "ref_count": 5,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    },
+    "ExecLimit": {
+      "overview": "Implements LIMIT/OFFSET filtering via a state machine that controls tuple flow from a subplan.",
+      "importance_score": 0.72,
+      "category": "CONTROL_NODES",
+      "depth_from_entry": 3,
+      "source_file": "src/backend/executor/nodeLimit.c",
+      "references_from": ["ExecProcNode", "ExecSetTupleBound"],
+      "references_to": ["ExecProcNode"],
+      "metrics": {
+        "ref_count": 8,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    },
+    "ExecRecursiveUnion": {
+      "overview": "Execution function for recursive union implementing WITH RECURSIVE queries through iterative fixed-point computation.",
+      "importance_score": 0.68,
+      "category": "CONTROL_NODES",
+      "depth_from_entry": 3,
+      "source_file": "src/backend/executor/nodeRecursiveunion.c",
+      "references_from": ["ExecProcNode"],
+      "references_to": ["ExecProcNode"],
+      "metrics": {
+        "ref_count": 5,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    },
+    "ExecProjectSet": {
+      "overview": "Execution function for ProjectSet nodes that evaluate set-returning functions in the target list.",
+      "importance_score": 0.65,
+      "category": "CONTROL_NODES",
+      "depth_from_entry": 3,
+      "source_file": "src/backend/executor/nodeProjectSet.c",
+      "references_from": ["ExecProcNode"],
+      "references_to": ["ExecProcNode"],
+      "metrics": {
+        "ref_count": 5,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    },
+    "ExecGroup": {
+      "overview": "Execution function for Group nodes that filters duplicate groups from pre-sorted input.",
+      "importance_score": 0.60,
+      "category": "AGGREGATION",
+      "depth_from_entry": 3,
+      "source_file": "src/backend/executor/nodeGroup.c",
+      "references_from": ["ExecProcNode"],
+      "references_to": ["ExecProcNode"],
+      "metrics": {
+        "ref_count": 5,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    },
+    "ExecUnique": {
+      "overview": "Execution function for Unique nodes that filters duplicate tuples from pre-sorted input.",
+      "importance_score": 0.58,
+      "category": "AGGREGATION",
+      "depth_from_entry": 3,
+      "source_file": "src/backend/executor/nodeUnique.c",
+      "references_from": ["ExecProcNode"],
+      "references_to": ["ExecProcNode"],
+      "metrics": {
+        "ref_count": 5,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    },
+    "ExecSetOp": {
+      "overview": "Execution function for set operations (INTERSECT, EXCEPT) using sorted or hashed strategies.",
+      "importance_score": 0.60,
+      "category": "AGGREGATION",
+      "depth_from_entry": 3,
+      "source_file": "src/backend/executor/nodeSetOp.c",
+      "references_from": ["ExecProcNode"],
+      "references_to": ["ExecProcNode"],
+      "metrics": {
+        "ref_count": 5,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    },
+    "ExecLockRows": {
+      "overview": "Execution function for LockRows nodes that acquires row-level locks for SELECT FOR UPDATE/SHARE.",
+      "importance_score": 0.68,
+      "category": "DATA_MODIFICATION",
+      "depth_from_entry": 3,
+      "source_file": "src/backend/executor/nodeLockRows.c",
+      "references_from": ["ExecProcNode", "EvalPlanQual"],
+      "references_to": ["ExecProcNode"],
+      "metrics": {
+        "ref_count": 6,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "ExecGather": {
+      "overview": "Main execution function for Gather plan nodes coordinating parallel query execution by collecting tuples from multiple worker processes.",
+      "importance_score": 0.85,
+      "category": "PARALLEL_EXECUTION",
+      "depth_from_entry": 3,
+      "source_file": "src/backend/executor/nodeGather.c",
+      "references_from": ["ExecProcNode", "ExecParallelCreateReaders"],
+      "references_to": ["ExecProcNode"],
+      "metrics": {
+        "ref_count": 10,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "ExecInitGather": {
+      "overview": "Initializes execution state for Gather plan nodes for coordinating parallel query execution.",
+      "importance_score": 0.75,
+      "category": "PARALLEL_EXECUTION",
+      "depth_from_entry": 3,
+      "source_file": "src/backend/executor/nodeGather.c",
+      "references_from": ["ExecInitNode"],
+      "references_to": ["ExecInitNode"],
+      "metrics": {
+        "ref_count": 5,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    },
+    "ExecGatherMerge": {
+      "overview": "Execution function for GatherMerge nodes that collects and merge-sorts tuples from parallel worker processes.",
+      "importance_score": 0.78,
+      "category": "PARALLEL_EXECUTION",
+      "depth_from_entry": 3,
+      "source_file": "src/backend/executor/nodeGatherMerge.c",
+      "references_from": ["ExecProcNode"],
+      "references_to": ["ExecProcNode"],
+      "metrics": {
+        "ref_count": 8,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "ExecInitGatherMerge": {
+      "overview": "Initializes GatherMerge node execution state for merge-sorting tuples from parallel workers.",
+      "importance_score": 0.70,
+      "category": "PARALLEL_EXECUTION",
+      "depth_from_entry": 3,
+      "source_file": "src/backend/executor/nodeGatherMerge.c",
+      "references_from": ["ExecInitNode"],
+      "references_to": ["ExecInitNode"],
+      "metrics": {
+        "ref_count": 5,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    },
+    "ExecParallelInitializeDSM": {
+      "overview": "Recursively traverses a plan tree initializing the DSM segment for each plan node requiring shared memory coordination in parallel execution.",
+      "importance_score": 0.75,
+      "category": "PARALLEL_EXECUTION",
+      "depth_from_entry": 4,
+      "source_file": "src/backend/executor/execParallel.c",
+      "references_from": [],
+      "references_to": ["ExecGather", "ExecGatherMerge"],
+      "metrics": {
+        "ref_count": 5,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "ExecParallelCreateReaders": {
+      "overview": "Creates TupleQueueReader objects for each launched parallel worker, enabling reading of results from shared memory queues.",
+      "importance_score": 0.70,
+      "category": "PARALLEL_EXECUTION",
+      "depth_from_entry": 4,
+      "source_file": "src/backend/executor/execParallel.c",
+      "references_from": [],
+      "references_to": ["ExecGather"],
+      "metrics": {
+        "ref_count": 4,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "ParallelQueryMain": {
+      "overview": "Main entrypoint for parallel query worker processes that executes the serialized query plan and writes results to the tuple queue.",
+      "importance_score": 0.78,
+      "category": "PARALLEL_EXECUTION",
+      "depth_from_entry": 3,
+      "source_file": "src/backend/executor/execParallel.c",
+      "references_from": ["ExecutorStart", "ExecutorRun", "ExecutorFinish", "ExecutorEnd"],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 5,
+        "is_entry_point": true,
+        "is_critical_path": true
+      }
+    },
+    "ExecInitExpr": {
+      "overview": "Prepares an expression tree for execution by building and returning an ExprState implementing the given expression node tree.",
+      "importance_score": 0.92,
+      "category": "EXPRESSION_EVAL",
+      "depth_from_entry": 3,
+      "source_file": "src/backend/executor/execExpr.c",
+      "references_from": ["ExecInitExprRec"],
+      "references_to": ["ExecInitSeqScan", "ExecInitIndexScan", "ExecInitAgg", "ExecInitNestLoop"],
+      "metrics": {
+        "ref_count": 50,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "ExecInitExprRec": {
+      "overview": "Core recursive function that compiles expression nodes into execution steps, generating a sequence of ExprEvalStep operations.",
+      "importance_score": 0.88,
+      "category": "EXPRESSION_EVAL",
+      "depth_from_entry": 4,
+      "source_file": "src/backend/executor/execExpr.c",
+      "references_from": [],
+      "references_to": ["ExecInitExpr"],
+      "metrics": {
+        "ref_count": 15,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "ExecInitQual": {
+      "overview": "Prepares a conjunctive boolean expression (qualification list) for execution by ExecQual, optimized for WHERE clause evaluation.",
+      "importance_score": 0.88,
+      "category": "EXPRESSION_EVAL",
+      "depth_from_entry": 3,
+      "source_file": "src/backend/executor/execExpr.c",
+      "references_from": ["ExecInitExprRec"],
+      "references_to": ["ExecInitSeqScan", "ExecInitIndexScan", "ExecInitNestLoop", "ExecInitMergeJoin", "ExecInitHashJoin"],
+      "metrics": {
+        "ref_count": 40,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "ExecEvalExpr": {
+      "overview": "Primary interface for evaluating SQL expressions, delegating to compiled evaluation functions (ExecInterpExpr or JIT-compiled functions).",
+      "importance_score": 0.90,
+      "category": "EXPRESSION_EVAL",
+      "depth_from_entry": 3,
+      "source_file": "src/include/executor/executor.h",
+      "references_from": [],
+      "references_to": ["ExecQual", "ExecProject"],
+      "metrics": {
+        "ref_count": 30,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "ExecInterpExpr": {
+      "overview": "Core interpreter function that executes expressions by evaluating a sequence of ExprEvalStep opcodes in a switch/computed-goto dispatch loop.",
+      "importance_score": 0.88,
+      "category": "EXPRESSION_EVAL",
+      "depth_from_entry": 4,
+      "source_file": "src/backend/executor/execExprInterp.c",
+      "references_from": [],
+      "references_to": ["ExecEvalExpr"],
+      "metrics": {
+        "ref_count": 10,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "ExecQual": {
+      "overview": "Evaluates a qualification (boolean) expression and returns true/false, the core function for WHERE clause evaluation.",
+      "importance_score": 0.92,
+      "category": "EXPRESSION_EVAL",
+      "depth_from_entry": 3,
+      "source_file": "src/include/executor/executor.h",
+      "references_from": ["ExecEvalExprSwitchContext"],
+      "references_to": ["ExecScan", "ExecNestLoop", "ExecMergeJoin", "ExecHashJoinImpl", "ExecResult"],
+      "metrics": {
+        "ref_count": 50,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "ExecProject": {
+      "overview": "Performs tuple projection by evaluating target list expressions and constructing a result tuple in the target slot.",
+      "importance_score": 0.90,
+      "category": "EXPRESSION_EVAL",
+      "depth_from_entry": 3,
+      "source_file": "src/include/executor/executor.h",
+      "references_from": ["ExecEvalExprSwitchContext", "ExecClearTuple"],
+      "references_to": ["ExecScan", "ExecNestLoop", "ExecMergeJoin", "ExecHashJoinImpl", "ExecResult"],
+      "metrics": {
+        "ref_count": 40,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "ExecBuildProjectionInfo": {
+      "overview": "Builds a ProjectionInfo node for evaluating a target list in a given expression context and storing results into a tuple slot.",
+      "importance_score": 0.75,
+      "category": "EXPRESSION_EVAL",
+      "depth_from_entry": 4,
+      "source_file": "src/backend/executor/execExpr.c",
+      "references_from": [],
+      "references_to": ["ExecInitSeqScan", "ExecInitIndexScan", "ExecInitNestLoop"],
+      "metrics": {
+        "ref_count": 15,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    },
+    "ExecBuildAggTrans": {
+      "overview": "Builds compiled expression state for aggregate transition computation, used by aggregate execution.",
+      "importance_score": 0.68,
+      "category": "EXPRESSION_EVAL",
+      "depth_from_entry": 4,
+      "source_file": "src/backend/executor/execExpr.c",
+      "references_from": [],
+      "references_to": ["ExecInitAgg"],
+      "metrics": {
+        "ref_count": 5,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    },
+    "ExecInitInterpreter": {
+      "overview": "One-time initialization for the expression evaluation interpreter, setting up dispatch tables for computed goto optimization.",
+      "importance_score": 0.55,
+      "category": "EXPRESSION_EVAL",
+      "depth_from_entry": 5,
+      "source_file": "src/backend/executor/execExprInterp.c",
+      "references_from": [],
+      "references_to": ["ExecInterpExpr"],
+      "metrics": {
+        "ref_count": 3,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    },
+    "TupleTableSlot": {
+      "overview": "Core data structure for storing tuples in the executor. Supports virtual, heap, minimal, and buffer tuple slot types via the TupleTableSlotOps vtable.",
+      "importance_score": 0.95,
+      "category": "TUPLE_TABLE",
+      "depth_from_entry": 2,
+      "source_file": "src/include/executor/tuptable.h",
+      "references_from": [],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 200,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "TupleTableSlotOps": {
+      "overview": "Virtual method table for TupleTableSlot operations: init, release, clear, getsomeattrs, getsysattr, materialize, copyslot, get_heap_tuple, etc.",
+      "importance_score": 0.82,
+      "category": "TUPLE_TABLE",
+      "depth_from_entry": 2,
+      "source_file": "src/include/executor/tuptable.h",
+      "references_from": [],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 50,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "ExecStoreHeapTuple": {
+      "overview": "Stores a physical HeapTuple into a TTSOpsHeapTuple type slot with configurable memory ownership.",
+      "importance_score": 0.72,
+      "category": "TUPLE_TABLE",
+      "depth_from_entry": 4,
+      "source_file": "src/backend/executor/execTuples.c",
+      "references_from": [],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 20,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    },
+    "ExecStoreMinimalTuple": {
+      "overview": "Stores a MinimalTuple into a TTSOpsMinimalTuple type slot, optimized path for minimal tuples.",
+      "importance_score": 0.70,
+      "category": "TUPLE_TABLE",
+      "depth_from_entry": 4,
+      "source_file": "src/backend/executor/execTuples.c",
+      "references_from": [],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 15,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    },
+    "ExecStoreVirtualTuple": {
+      "overview": "Marks a TupleTableSlot as containing a valid virtual tuple after the caller has populated Datum/isnull arrays.",
+      "importance_score": 0.70,
+      "category": "TUPLE_TABLE",
+      "depth_from_entry": 4,
+      "source_file": "src/backend/executor/execTuples.c",
+      "references_from": [],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 15,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    },
+    "ExecStoreBufferHeapTuple": {
+      "overview": "Stores a HeapTuple that resides in a disk buffer page into a BufferHeapTupleTableSlot, maintaining a pin on the buffer.",
+      "importance_score": 0.68,
+      "category": "TUPLE_TABLE",
+      "depth_from_entry": 4,
+      "source_file": "src/backend/executor/execTuples.c",
+      "references_from": [],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 10,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "ExecClearTuple": {
+      "overview": "Clears the contents of a TupleTableSlot, making it empty and ready for reuse.",
+      "importance_score": 0.72,
+      "category": "TUPLE_TABLE",
+      "depth_from_entry": 4,
+      "source_file": "src/include/executor/tuptable.h",
+      "references_from": [],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 50,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    },
+    "ExecMaterializeSlot": {
+      "overview": "Forces a slot into the materialized state, making the tuple a local copy independent of external storage.",
+      "importance_score": 0.65,
+      "category": "TUPLE_TABLE",
+      "depth_from_entry": 4,
+      "source_file": "src/include/executor/tuptable.h",
+      "references_from": [],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 15,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    },
+    "slot_getsomeattrs_int": {
+      "overview": "Internal workhorse that ensures a TupleTableSlot has valid values for all attributes up to a specified number.",
+      "importance_score": 0.68,
+      "category": "TUPLE_TABLE",
+      "depth_from_entry": 5,
+      "source_file": "src/backend/executor/execTuples.c",
+      "references_from": [],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 10,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "ExecInitResultTupleSlotTL": {
+      "overview": "Convenience function that initializes both the result tuple descriptor and result tuple slot for a plan node using the plan's target list.",
+      "importance_score": 0.72,
+      "category": "TUPLE_TABLE",
+      "depth_from_entry": 4,
+      "source_file": "src/backend/executor/execTuples.c",
+      "references_from": [],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 40,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    },
+    "ExecInitScanTupleSlot": {
+      "overview": "Initializes the scan tuple slot for a scan node with a specified tuple descriptor and slot operations.",
+      "importance_score": 0.68,
+      "category": "TUPLE_TABLE",
+      "depth_from_entry": 4,
+      "source_file": "src/backend/executor/execTuples.c",
+      "references_from": [],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 20,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    },
+    "MakeTupleTableSlot": {
+      "overview": "Low-level function to create a new TupleTableSlot with a specific tuple descriptor and operations.",
+      "importance_score": 0.60,
+      "category": "TUPLE_TABLE",
+      "depth_from_entry": 5,
+      "source_file": "src/backend/executor/execTuples.c",
+      "references_from": [],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 8,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    },
+    "CreateExecutorState": {
+      "overview": "Creates and initializes an EState node, the root of working storage for an entire Executor invocation including the per-query memory context.",
+      "importance_score": 0.85,
+      "category": "MEMORY_MANAGEMENT",
+      "depth_from_entry": 2,
+      "source_file": "src/backend/executor/execUtils.c",
+      "references_from": [],
+      "references_to": ["standard_ExecutorStart"],
+      "metrics": {
+        "ref_count": 15,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "FreeExecutorState": {
+      "overview": "Releases an EState with all working storage, cleaning up expression contexts, JIT resources, and the per-query memory context.",
+      "importance_score": 0.72,
+      "category": "MEMORY_MANAGEMENT",
+      "depth_from_entry": 2,
+      "source_file": "src/backend/executor/execUtils.c",
+      "references_from": [],
+      "references_to": ["standard_ExecutorEnd"],
+      "metrics": {
+        "ref_count": 10,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "CreateExprContext": {
+      "overview": "Creates a standard ExprContext for expression evaluation within an EState with per-query and per-tuple memory contexts.",
+      "importance_score": 0.80,
+      "category": "MEMORY_MANAGEMENT",
+      "depth_from_entry": 3,
+      "source_file": "src/backend/executor/execUtils.c",
+      "references_from": [],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 25,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "ExecAssignExprContext": {
+      "overview": "Creates an ExprContext and assigns it to a plan node's ps_ExprContext field.",
+      "importance_score": 0.68,
+      "category": "MEMORY_MANAGEMENT",
+      "depth_from_entry": 4,
+      "source_file": "src/backend/executor/execUtils.c",
+      "references_from": ["CreateExprContext"],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 40,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    },
+    "QueryDesc": {
+      "overview": "Structure that encapsulates everything the executor needs to execute a query: planned statement, snapshots, destination, parameters, and runtime state.",
+      "importance_score": 0.92,
+      "category": "EXECUTOR_LIFECYCLE",
+      "depth_from_entry": 1,
+      "source_file": "src/include/executor/execdesc.h",
+      "references_from": [],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 100,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "CreateQueryDesc": {
+      "overview": "Constructs and initializes a QueryDesc structure encapsulating all information needed to execute a planned query statement.",
+      "importance_score": 0.78,
+      "category": "EXECUTOR_LIFECYCLE",
+      "depth_from_entry": 1,
+      "source_file": "src/backend/tcop/pquery.c",
+      "references_from": [],
+      "references_to": ["PortalRunSelect"],
+      "metrics": {
+        "ref_count": 10,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "EState": {
+      "overview": "Per-query execution state containing snapshots, range tables, result relations, parameters, memory contexts, and all working state for the executor.",
+      "importance_score": 0.95,
+      "category": "MEMORY_MANAGEMENT",
+      "depth_from_entry": 1,
+      "source_file": "src/include/nodes/execnodes.h",
+      "references_from": [],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 200,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "PlanState": {
+      "overview": "Base state node for all executor plan nodes, containing the plan pointer, EState reference, ExecProcNode function pointer, instrumentation, qual, subtrees, and projection info.",
+      "importance_score": 0.95,
+      "category": "VOLCANO_DISPATCH",
+      "depth_from_entry": 2,
+      "source_file": "src/include/nodes/execnodes.h",
+      "references_from": [],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 200,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "ExprContext": {
+      "overview": "Holds current context for expression evaluation including scan/inner/outer tuple slots, memory contexts, parameter values, and aggregate values.",
+      "importance_score": 0.88,
+      "category": "MEMORY_MANAGEMENT",
+      "depth_from_entry": 2,
+      "source_file": "src/include/nodes/execnodes.h",
+      "references_from": [],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 150,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "ExprState": {
+      "overview": "Compiled expression state containing an array of ExprEvalStep operations and the evalfunc function pointer for expression evaluation.",
+      "importance_score": 0.85,
+      "category": "EXPRESSION_EVAL",
+      "depth_from_entry": 3,
+      "source_file": "src/include/nodes/execnodes.h",
+      "references_from": [],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 100,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "ProjectionInfo": {
+      "overview": "Information for tuple projection containing the ExprState for computing the target list and the expression context.",
+      "importance_score": 0.75,
+      "category": "EXPRESSION_EVAL",
+      "depth_from_entry": 3,
+      "source_file": "src/include/nodes/execnodes.h",
+      "references_from": [],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 50,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "PortalRunSelect": {
+      "overview": "Executes a portal's query in SELECT mode, handling both forward and backward access by bridging to ExecutorRun.",
+      "importance_score": 0.82,
+      "category": "EXECUTOR_LIFECYCLE",
+      "depth_from_entry": 0,
+      "source_file": "src/backend/tcop/pquery.c",
+      "references_from": ["ExecutorStart", "ExecutorRun", "ExecutorFinish", "ExecutorEnd"],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 8,
+        "is_entry_point": true,
+        "is_critical_path": true
+      }
+    },
+    "InstrAlloc": {
+      "overview": "Allocates and initializes Instrumentation structures for query execution performance monitoring (EXPLAIN ANALYZE).",
+      "importance_score": 0.60,
+      "category": "INSTRUMENTATION",
+      "depth_from_entry": 3,
+      "source_file": "src/backend/executor/instrument.c",
+      "references_from": [],
+      "references_to": ["ExecInitNode"],
+      "metrics": {
+        "ref_count": 8,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    },
+    "InstrStartNode": {
+      "overview": "Captures starting state for performance instrumentation when entering a plan node, recording timing and buffer usage baselines.",
+      "importance_score": 0.58,
+      "category": "INSTRUMENTATION",
+      "depth_from_entry": 3,
+      "source_file": "src/backend/executor/instrument.c",
+      "references_from": [],
+      "references_to": ["standard_ExecutorRun"],
+      "metrics": {
+        "ref_count": 10,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    },
+    "InstrStopNode": {
+      "overview": "Completes performance instrumentation when exiting a plan node, calculating elapsed time and resource consumption.",
+      "importance_score": 0.58,
+      "category": "INSTRUMENTATION",
+      "depth_from_entry": 3,
+      "source_file": "src/backend/executor/instrument.c",
+      "references_from": [],
+      "references_to": ["standard_ExecutorRun"],
+      "metrics": {
+        "ref_count": 10,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    },
+    "SPI_connect": {
+      "overview": "Establishes a connection to PostgreSQL's Server Programming Interface, enabling stored procedures and functions to execute SQL within the server.",
+      "importance_score": 0.75,
+      "category": "SPI",
+      "depth_from_entry": 0,
+      "source_file": "src/backend/executor/spi.c",
+      "references_from": [],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 30,
+        "is_entry_point": true,
+        "is_critical_path": false
+      }
+    },
+    "SPI_execute": {
+      "overview": "Parses, plans, and executes a SQL query string, providing a high-level interface for internal SQL execution.",
+      "importance_score": 0.75,
+      "category": "SPI",
+      "depth_from_entry": 1,
+      "source_file": "src/backend/executor/spi.c",
+      "references_from": ["SPI_execute_plan"],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 20,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    },
+    "SPI_execute_plan": {
+      "overview": "Executes a previously prepared SQL plan with parameter values for parameterized query execution.",
+      "importance_score": 0.72,
+      "category": "SPI",
+      "depth_from_entry": 1,
+      "source_file": "src/backend/executor/spi.c",
+      "references_from": ["ExecutorStart", "ExecutorRun", "ExecutorFinish", "ExecutorEnd"],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 15,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    },
+    "SPI_prepare": {
+      "overview": "Parses and plans a SQL query with parameter placeholders, returning a reusable plan for repeated execution.",
+      "importance_score": 0.68,
+      "category": "SPI",
+      "depth_from_entry": 1,
+      "source_file": "src/backend/executor/spi.c",
+      "references_from": [],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 10,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    },
+    "SPI_finish": {
+      "overview": "Disconnects from the Server Programming Interface, cleaning up SPI state and restoring the previous memory context.",
+      "importance_score": 0.65,
+      "category": "SPI",
+      "depth_from_entry": 1,
+      "source_file": "src/backend/executor/spi.c",
+      "references_from": [],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 25,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    },
+    "ExecInitSubPlan": {
+      "overview": "Initializes a SubPlanState for executing subplans/initplans, setting up hash tables, projection nodes, and equality functions.",
+      "importance_score": 0.72,
+      "category": "SUBPLAN",
+      "depth_from_entry": 3,
+      "source_file": "src/backend/executor/nodeSubplan.c",
+      "references_from": [],
+      "references_to": ["ExecInitNode"],
+      "metrics": {
+        "ref_count": 8,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    },
+    "ExecSubPlan": {
+      "overview": "Main execution function for SubPlan nodes, handling correlated and uncorrelated subqueries.",
+      "importance_score": 0.72,
+      "category": "SUBPLAN",
+      "depth_from_entry": 4,
+      "source_file": "src/backend/executor/nodeSubplan.c",
+      "references_from": [],
+      "references_to": ["ExecInterpExpr"],
+      "metrics": {
+        "ref_count": 5,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    },
+    "ExecCheckPermissions": {
+      "overview": "Checks table-level permissions for all range table entries, with a plugin hook for custom permission checking.",
+      "importance_score": 0.62,
+      "category": "EXECUTOR_LIFECYCLE",
+      "depth_from_entry": 2,
+      "source_file": "src/backend/executor/execMain.c",
+      "references_from": [],
+      "references_to": ["InitPlan"],
+      "metrics": {
+        "ref_count": 5,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    },
+    "ExecConstraints": {
+      "overview": "Checks NOT NULL constraints and checks constraints for a tuple being inserted or updated.",
+      "importance_score": 0.65,
+      "category": "DATA_MODIFICATION",
+      "depth_from_entry": 5,
+      "source_file": "src/backend/executor/execMain.c",
+      "references_from": [],
+      "references_to": ["ExecInsert", "ExecUpdate"],
+      "metrics": {
+        "ref_count": 8,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    },
+    "ExecInsertIndexTuples": {
+      "overview": "Inserts index entries for a newly inserted or updated tuple, checking for constraint violations.",
+      "importance_score": 0.68,
+      "category": "DATA_MODIFICATION",
+      "depth_from_entry": 5,
+      "source_file": "src/backend/executor/execIndexing.c",
+      "references_from": [],
+      "references_to": ["ExecInsert", "ExecUpdate"],
+      "metrics": {
+        "ref_count": 8,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "ExecOpenIndices": {
+      "overview": "Opens all indexes for a result relation to prepare for index tuple insertion.",
+      "importance_score": 0.58,
+      "category": "DATA_MODIFICATION",
+      "depth_from_entry": 4,
+      "source_file": "src/backend/executor/execIndexing.c",
+      "references_from": [],
+      "references_to": ["ExecInitModifyTable"],
+      "metrics": {
+        "ref_count": 8,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    },
+    "ExecWithCheckOptions": {
+      "overview": "Verifies WITH CHECK OPTION constraints for views and security barriers.",
+      "importance_score": 0.58,
+      "category": "DATA_MODIFICATION",
+      "depth_from_entry": 5,
+      "source_file": "src/backend/executor/execMain.c",
+      "references_from": [],
+      "references_to": ["ExecInsert", "ExecUpdate"],
+      "metrics": {
+        "ref_count": 5,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    },
+    "ExecInitStoredGenerated": {
+      "overview": "Initializes computation of GENERATED ALWAYS AS stored columns for a result relation.",
+      "importance_score": 0.55,
+      "category": "DATA_MODIFICATION",
+      "depth_from_entry": 4,
+      "source_file": "src/backend/executor/nodeModifyTable.c",
+      "references_from": [],
+      "references_to": ["ExecInitModifyTable"],
+      "metrics": {
+        "ref_count": 3,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    },
+    "ExecComputeStoredGenerated": {
+      "overview": "Computes values of GENERATED ALWAYS AS stored columns for a tuple being inserted or updated.",
+      "importance_score": 0.55,
+      "category": "DATA_MODIFICATION",
+      "depth_from_entry": 5,
+      "source_file": "src/backend/executor/nodeModifyTable.c",
+      "references_from": [],
+      "references_to": ["ExecInsert", "ExecUpdate"],
+      "metrics": {
+        "ref_count": 5,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    },
+    "ExecSetupTransitionCaptureState": {
+      "overview": "Sets up trigger transition table capture state for AFTER triggers with transition tables.",
+      "importance_score": 0.55,
+      "category": "DATA_MODIFICATION",
+      "depth_from_entry": 4,
+      "source_file": "src/backend/executor/nodeModifyTable.c",
+      "references_from": [],
+      "references_to": ["ExecInitModifyTable"],
+      "metrics": {
+        "ref_count": 3,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    },
+    "BuildTupleHashTable": {
+      "overview": "Creates a hash table for tuple grouping operations, used by aggregation and set operations.",
+      "importance_score": 0.65,
+      "category": "AGGREGATION",
+      "depth_from_entry": 4,
+      "source_file": "src/backend/executor/execGrouping.c",
+      "references_from": [],
+      "references_to": ["ExecInitAgg", "ExecInitSetOp"],
+      "metrics": {
+        "ref_count": 8,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    },
+    "ExecScanReScan": {
+      "overview": "Generic rescan function for scan nodes, resetting the scan descriptor and clearing the scan tuple.",
+      "importance_score": 0.60,
+      "category": "SCAN_INFRASTRUCTURE",
+      "depth_from_entry": 4,
+      "source_file": "src/backend/executor/execScan.c",
+      "references_from": [],
+      "references_to": ["ExecReScan"],
+      "metrics": {
+        "ref_count": 15,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    },
+    "ExecAssignScanProjectionInfo": {
+      "overview": "Sets up projection info for a scan node based on whether the scan tuple matches the target list.",
+      "importance_score": 0.62,
+      "category": "SCAN_INFRASTRUCTURE",
+      "depth_from_entry": 4,
+      "source_file": "src/backend/executor/execScan.c",
+      "references_from": [],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 20,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    },
+    "ExecOpenScanRelation": {
+      "overview": "Opens a scan relation for a scan node, acquiring the appropriate lock.",
+      "importance_score": 0.62,
+      "category": "SCAN_INFRASTRUCTURE",
+      "depth_from_entry": 4,
+      "source_file": "src/backend/executor/execUtils.c",
+      "references_from": [],
+      "references_to": ["ExecInitSeqScan", "ExecInitIndexScan"],
+      "metrics": {
+        "ref_count": 15,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    },
+    "TTSOpsVirtual": {
+      "overview": "TupleTableSlotOps implementation for virtual tuple slots that store only Datum/isnull arrays without a physical tuple.",
+      "importance_score": 0.62,
+      "category": "TUPLE_TABLE",
+      "depth_from_entry": 3,
+      "source_file": "src/backend/executor/execTuples.c",
+      "references_from": [],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 30,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    },
+    "TTSOpsBufferHeapTuple": {
+      "overview": "TupleTableSlotOps implementation for tuples residing in disk buffer pages, maintaining buffer pins.",
+      "importance_score": 0.62,
+      "category": "TUPLE_TABLE",
+      "depth_from_entry": 3,
+      "source_file": "src/backend/executor/execTuples.c",
+      "references_from": [],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 20,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "TTSOpsMinimalTuple": {
+      "overview": "TupleTableSlotOps implementation for MinimalTuple slots used in hash joins and aggregation.",
+      "importance_score": 0.60,
+      "category": "TUPLE_TABLE",
+      "depth_from_entry": 3,
+      "source_file": "src/backend/executor/execTuples.c",
+      "references_from": [],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 15,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    },
+    "TTSOpsHeapTuple": {
+      "overview": "TupleTableSlotOps implementation for palloc'd HeapTuple slots.",
+      "importance_score": 0.58,
+      "category": "TUPLE_TABLE",
+      "depth_from_entry": 3,
+      "source_file": "src/backend/executor/execTuples.c",
+      "references_from": [],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 10,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    },
+    "ExecInitMerge": {
+      "overview": "Initializes MERGE-specific execution state within ModifyTable, setting up action lists for MATCHED and NOT MATCHED clauses.",
+      "importance_score": 0.62,
+      "category": "DATA_MODIFICATION",
+      "depth_from_entry": 4,
+      "source_file": "src/backend/executor/nodeModifyTable.c",
+      "references_from": [],
+      "references_to": ["ExecInitModifyTable"],
+      "metrics": {
+        "ref_count": 3,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    },
+    "ExecMergeMatched": {
+      "overview": "Handles the MATCHED case of MERGE, evaluating conditions and dispatching to UPDATE or DELETE actions.",
+      "importance_score": 0.62,
+      "category": "DATA_MODIFICATION",
+      "depth_from_entry": 5,
+      "source_file": "src/backend/executor/nodeModifyTable.c",
+      "references_from": ["ExecUpdate", "ExecDelete"],
+      "references_to": ["ExecMerge"],
+      "metrics": {
+        "ref_count": 3,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    },
+    "ExecMergeNotMatched": {
+      "overview": "Handles the NOT MATCHED case of MERGE, evaluating conditions and dispatching to INSERT actions.",
+      "importance_score": 0.60,
+      "category": "DATA_MODIFICATION",
+      "depth_from_entry": 5,
+      "source_file": "src/backend/executor/nodeModifyTable.c",
+      "references_from": ["ExecInsert"],
+      "references_to": ["ExecModifyTable"],
+      "metrics": {
+        "ref_count": 3,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    }
+  },
+  "categories": {
+    "EXECUTOR_LIFECYCLE": ["ExecutorStart", "standard_ExecutorStart", "ExecutorRun", "standard_ExecutorRun", "ExecutorFinish", "ExecutorEnd", "InitPlan", "ExecutePlan", "ExecEndPlan", "QueryDesc", "CreateQueryDesc", "PortalRunSelect", "ExecCheckPermissions"],
+    "VOLCANO_DISPATCH": ["ExecInitNode", "ExecProcNode", "ExecEndNode", "ExecSetExecProcNode", "MultiExecProcNode", "ExecReScan", "ExecShutdownNode", "ExecSetTupleBound", "PlanState"],
+    "SCAN_INFRASTRUCTURE": ["ExecScan", "ExecScanReScan", "ExecAssignScanProjectionInfo", "ExecOpenScanRelation"],
+    "SCAN_NODES": ["ExecSeqScan", "ExecInitSeqScan", "ExecIndexScan", "ExecInitIndexScan", "ExecIndexOnlyScan", "ExecInitIndexOnlyScan", "ExecBitmapHeapScan", "ExecInitBitmapHeapScan", "ExecInitBitmapIndexScan", "MultiExecBitmapIndexScan"],
+    "JOIN_NODES": ["ExecNestLoop", "ExecInitNestLoop", "ExecMergeJoin", "ExecInitMergeJoin", "ExecHashJoinImpl", "ExecInitHashJoin", "ExecHashTableCreate", "MultiExecHash", "ExecScanHashBucket", "ExecHashJoinNewBatch", "ExecInitHash"],
+    "AGGREGATION": ["ExecAgg", "ExecInitAgg", "ExecWindowAgg", "ExecInitWindowAgg", "ExecGroup", "ExecUnique", "ExecSetOp", "BuildTupleHashTable"],
+    "DATA_MODIFICATION": ["ExecModifyTable", "ExecInitModifyTable", "ExecInsert", "ExecUpdate", "ExecDelete", "ExecMerge", "ExecOnConflictUpdate", "ExecCrossPartitionUpdate", "ExecFindPartition", "ExecPrepareTupleRouting", "ExecInitPartitionInfo", "ExecInitPartitionPruning", "ExecBatchInsert", "InitResultRelInfo", "EvalPlanQual", "ExecLockRows", "ExecConstraints", "ExecInsertIndexTuples", "ExecOpenIndices", "ExecWithCheckOptions", "ExecInitStoredGenerated", "ExecComputeStoredGenerated", "ExecSetupTransitionCaptureState", "ExecInitMerge", "ExecMergeMatched", "ExecMergeNotMatched"],
+    "MATERIALIZATION": ["ExecSort", "ExecInitSort", "ExecIncrementalSort", "ExecMaterial", "ExecMemoize"],
+    "CONTROL_NODES": ["ExecResult", "ExecAppend", "ExecInitAppend", "ExecLimit", "ExecRecursiveUnion", "ExecProjectSet"],
+    "PARALLEL_EXECUTION": ["ExecGather", "ExecInitGather", "ExecGatherMerge", "ExecInitGatherMerge", "ExecParallelInitializeDSM", "ExecParallelCreateReaders", "ParallelQueryMain"],
+    "EXPRESSION_EVAL": ["ExecInitExpr", "ExecInitExprRec", "ExecInitQual", "ExecEvalExpr", "ExecInterpExpr", "ExecQual", "ExecProject", "ExecBuildProjectionInfo", "ExecBuildAggTrans", "ExecInitInterpreter", "ExprState", "ProjectionInfo"],
+    "TUPLE_TABLE": ["TupleTableSlot", "TupleTableSlotOps", "ExecStoreHeapTuple", "ExecStoreMinimalTuple", "ExecStoreVirtualTuple", "ExecStoreBufferHeapTuple", "ExecClearTuple", "ExecMaterializeSlot", "slot_getsomeattrs_int", "ExecInitResultTupleSlotTL", "ExecInitScanTupleSlot", "MakeTupleTableSlot", "TTSOpsVirtual", "TTSOpsBufferHeapTuple", "TTSOpsMinimalTuple", "TTSOpsHeapTuple"],
+    "MEMORY_MANAGEMENT": ["EState", "ExprContext", "CreateExecutorState", "FreeExecutorState", "CreateExprContext", "ExecAssignExprContext"],
+    "INSTRUMENTATION": ["InstrAlloc", "InstrStartNode", "InstrStopNode"],
+    "SPI": ["SPI_connect", "SPI_execute", "SPI_execute_plan", "SPI_prepare", "SPI_finish"],
+    "SUBPLAN": ["ExecInitSubPlan", "ExecSubPlan"]
+  },
+  "critical_paths": [
+    {
+      "name": "Executor Startup",
+      "description": "Query execution initialization: building plan state tree from plan tree",
+      "path": ["PortalRunSelect", "ExecutorStart", "standard_ExecutorStart", "CreateExecutorState", "InitPlan", "ExecInitNode", "ExecInitSeqScan"]
+    },
+    {
+      "name": "Tuple Fetch (Sequential Scan)",
+      "description": "Pull-model tuple retrieval from a sequential scan through qualification and projection",
+      "path": ["ExecutePlan", "ExecProcNode", "ExecSeqScan", "ExecScan", "ExecQual", "ExecProject"]
+    },
+    {
+      "name": "Hash Join Execution",
+      "description": "Two-phase hash join: build hash table then probe for matches",
+      "path": ["ExecProcNode", "ExecHashJoinImpl", "MultiExecProcNode", "MultiExecHash", "ExecHashTableCreate", "ExecScanHashBucket", "ExecQual", "ExecProject"]
+    },
+    {
+      "name": "Nested Loop Join",
+      "description": "Nested loop with parameterized inner rescan",
+      "path": ["ExecProcNode", "ExecNestLoop", "ExecProcNode", "ExecReScan", "ExecQual", "ExecProject"]
+    },
+    {
+      "name": "Merge Join Execution",
+      "description": "Merge join state machine processing sorted inputs",
+      "path": ["ExecProcNode", "ExecMergeJoin", "ExecProcNode", "ExecQual", "ExecProject"]
+    },
+    {
+      "name": "Aggregation Pipeline",
+      "description": "Hash or sorted aggregation with transition and final functions",
+      "path": ["ExecProcNode", "ExecAgg", "agg_fill_hash_table", "ExecProcNode", "agg_retrieve_hash_table"]
+    },
+    {
+      "name": "ModifyTable (INSERT)",
+      "description": "Tuple insertion with partition routing, constraints, triggers, and index updates",
+      "path": ["ExecProcNode", "ExecModifyTable", "ExecPrepareTupleRouting", "ExecFindPartition", "ExecInsert", "ExecConstraints", "ExecInsertIndexTuples"]
+    },
+    {
+      "name": "Parallel Gather",
+      "description": "Parallel query coordination: DSM setup, worker launch, tuple collection",
+      "path": ["ExecProcNode", "ExecGather", "ExecParallelInitializeDSM", "ExecParallelCreateReaders", "ParallelQueryMain", "ExecutorStart", "ExecutorRun"]
+    },
+    {
+      "name": "Expression Evaluation",
+      "description": "Expression compilation and interpreted evaluation",
+      "path": ["ExecInitExpr", "ExecInitExprRec", "ExecEvalExpr", "ExecInterpExpr"]
+    },
+    {
+      "name": "Executor Shutdown",
+      "description": "Clean shutdown of the entire executor tree",
+      "path": ["ExecutorFinish", "ExecutorEnd", "ExecEndPlan", "ExecEndNode", "FreeExecutorState"]
+    }
+  ]
+}

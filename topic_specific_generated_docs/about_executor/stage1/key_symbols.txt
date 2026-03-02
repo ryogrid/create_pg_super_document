@@ -1,0 +1,64 @@
+# Key Executor Symbols (Top 40+ by Importance Score)
+# Format: SymbolName (score: X.XX) - Category - Brief description
+# Source: PostgreSQL 17.6 executor subsystem analysis
+
+ 1. ExecutorStart           (score: 1.00) - EXECUTOR_LIFECYCLE   - Entry point for query execution initialization; hook-enabled
+ 2. ExecutorRun             (score: 1.00) - EXECUTOR_LIFECYCLE   - Main executor routine; drives tuple retrieval via ExecutePlan
+ 3. ExecInitNode            (score: 0.99) - VOLCANO_DISPATCH     - Central dispatch that recursively builds PlanState tree from Plan tree
+ 4. ExecProcNode            (score: 0.99) - VOLCANO_DISPATCH     - Pull-model tuple retrieval via function pointer on PlanState node
+ 5. standard_ExecutorStart  (score: 0.98) - EXECUTOR_LIFECYCLE   - Creates EState, registers snapshots, calls InitPlan
+ 6. standard_ExecutorRun    (score: 0.97) - EXECUTOR_LIFECYCLE   - Invokes ExecutePlan within per-query memory context
+ 7. TupleTableSlot          (score: 0.95) - TUPLE_TABLE          - Core tuple storage abstraction with virtual method table
+ 8. EState                  (score: 0.95) - MEMORY_MANAGEMENT    - Per-query execution state: snapshots, range tables, memory contexts
+ 9. PlanState               (score: 0.95) - VOLCANO_DISPATCH     - Base state node with ExecProcNode function pointer and subtrees
+10. ExecScan                (score: 0.95) - SCAN_INFRASTRUCTURE  - Generic scan loop: fetch tuple, apply qual, project
+11. ExecModifyTable         (score: 0.95) - DATA_MODIFICATION    - Drives INSERT/UPDATE/DELETE/MERGE with trigger and routing support
+12. InitPlan                (score: 0.95) - EXECUTOR_LIFECYCLE   - Builds plan state tree, opens relations, sets up result relations
+13. ExecutePlan             (score: 0.94) - EXECUTOR_LIFECYCLE   - Iterates ExecProcNode on root node until count/EOF
+14. ExecInitExpr            (score: 0.92) - EXPRESSION_EVAL      - Compiles expression tree into ExprState step array
+15. ExecQual                (score: 0.92) - EXPRESSION_EVAL      - Boolean qualification evaluation for WHERE/JOIN clauses
+16. ExecHashJoinImpl        (score: 0.92) - JOIN_NODES           - Hybrid Hash Join state machine with build/probe phases
+17. QueryDesc               (score: 0.92) - EXECUTOR_LIFECYCLE   - Encapsulates everything executor needs: plan, snapshots, dest
+18. ExecProject             (score: 0.90) - EXPRESSION_EVAL      - Tuple projection: evaluate target list into result slot
+19. ExecEvalExpr            (score: 0.90) - EXPRESSION_EVAL      - Primary interface dispatching to compiled eval function
+20. ExecutorFinish          (score: 0.90) - EXECUTOR_LIFECYCLE   - Post-execution cleanup, fires AFTER triggers
+21. ExecutorEnd             (score: 0.90) - EXECUTOR_LIFECYCLE   - Final cleanup, releases all executor resources
+22. ExecEndNode             (score: 0.90) - VOLCANO_DISPATCH     - Recursive cleanup dispatch for all plan node types
+23. ExecAgg                 (score: 0.90) - AGGREGATION          - Aggregate execution: plain, sorted, hashed, mixed strategies
+24. ExecInitExprRec         (score: 0.88) - EXPRESSION_EVAL      - Core recursive compiler: expression nodes to eval steps
+25. ExecInitQual            (score: 0.88) - EXPRESSION_EVAL      - Compiles qualification list for ExecQual evaluation
+26. ExecInterpExpr          (score: 0.88) - EXPRESSION_EVAL      - Step-based expression interpreter (switch/computed goto)
+27. ExecNestLoop            (score: 0.88) - JOIN_NODES           - Nested loop join with parameterized inner rescan
+28. ExecMergeJoin           (score: 0.88) - JOIN_NODES           - Merge join state machine on sorted inputs
+29. ExecReScan              (score: 0.88) - VOLCANO_DISPATCH     - Resets plan node for rescanning, handles parameter changes
+30. ExprContext             (score: 0.88) - MEMORY_MANAGEMENT    - Expression evaluation context: tuple slots + memory contexts
+31. ExecInsert              (score: 0.88) - DATA_MODIFICATION    - Single-tuple INSERT with partitioning, ON CONFLICT, RETURNING
+32. ExecUpdate              (score: 0.85) - DATA_MODIFICATION    - UPDATE execution with cross-partition and foreign table support
+33. ExecInitModifyTable     (score: 0.85) - DATA_MODIFICATION    - Initializes DML state: result relations, triggers, constraints
+34. CreateExecutorState     (score: 0.85) - MEMORY_MANAGEMENT    - Creates EState with per-query memory context
+35. ExecGather              (score: 0.85) - PARALLEL_EXECUTION   - Collects tuples from parallel workers
+36. ExprState               (score: 0.85) - EXPRESSION_EVAL      - Compiled expression: step array + evalfunc pointer
+37. ExecSeqScan             (score: 0.85) - SCAN_NODES           - Sequential scan delegating to ExecScan
+38. ExecIndexScan           (score: 0.85) - SCAN_NODES           - Index scan with runtime key evaluation
+39. ExecSort                (score: 0.82) - MATERIALIZATION      - Tuple sorting via tuplesort with top-N optimization
+40. ExecInitAgg             (score: 0.82) - AGGREGATION          - Initializes aggregate state, hash tables, function lookups
+41. TupleTableSlotOps       (score: 0.82) - TUPLE_TABLE          - Virtual method table for slot operations
+42. MultiExecHash           (score: 0.82) - JOIN_NODES           - Builds hash table for hash join (parallel/serial)
+43. ExecDelete              (score: 0.82) - DATA_MODIFICATION    - DELETE execution with triggers and RETURNING
+44. ExecWindowAgg           (score: 0.82) - AGGREGATION          - Window function evaluation over tuplestore
+45. PortalRunSelect         (score: 0.82) - EXECUTOR_LIFECYCLE   - Portal-to-executor bridge for SELECT queries
+46. ExecBuildProjectionInfo (score: 0.75) - EXPRESSION_EVAL      - Builds ProjectionInfo for target list evaluation
+47. ExecAppend              (score: 0.78) - CONTROL_NODES        - Iterates over multiple subplans (UNION ALL, partitioned)
+48. ExecInitHashJoin        (score: 0.78) - JOIN_NODES           - Initializes hash join state and child nodes
+49. ExecGatherMerge         (score: 0.78) - PARALLEL_EXECUTION   - Merge-sorts tuples from parallel workers
+50. ExecMerge               (score: 0.78) - DATA_MODIFICATION    - MERGE operation: MATCHED/NOT MATCHED dispatch
+51. ParallelQueryMain       (score: 0.78) - PARALLEL_EXECUTION   - Worker process entry point for parallel query
+52. CreateQueryDesc         (score: 0.78) - EXECUTOR_LIFECYCLE   - Constructs QueryDesc with plan, snapshots, parameters
+53. ExecBitmapHeapScan      (score: 0.78) - SCAN_NODES           - Fetches tuples from bitmap-identified heap pages
+54. ExecHashTableCreate     (score: 0.78) - JOIN_NODES           - Creates hash table structure for hash join
+55. ExecFindPartition       (score: 0.75) - DATA_MODIFICATION    - Determines target partition for tuple routing
+56. ExecInitGather          (score: 0.75) - PARALLEL_EXECUTION   - Initializes parallel Gather node state
+57. ExecParallelInitializeDSM (score: 0.75) - PARALLEL_EXECUTION - Sets up DSM for parallel node coordination
+58. ProjectionInfo          (score: 0.75) - EXPRESSION_EVAL      - ExprState + ExprContext for projection
+59. SPI_connect             (score: 0.75) - SPI                  - Establishes SPI connection for internal SQL
+60. SPI_execute             (score: 0.75) - SPI                  - High-level parse/plan/execute of SQL string

@@ -1,0 +1,76 @@
+%% Merge Join State Machine
+%% Complete diagram of the 11-state finite state machine in ExecMergeJoin.
+%%
+%% Source: src/backend/executor/nodeMergejoin.c (lines 105-115 for state defines,
+%%         lines 598-1437 for ExecMergeJoin implementation)
+%%
+%% States are named EXEC_MJ_* as defined in the source code.
+%% Transitions show the condition that triggers the state change.
+
+stateDiagram-v2
+    [*] --> INITIALIZE_OUTER: First call
+
+    state "1: INITIALIZE_OUTER" as INITIALIZE_OUTER
+    state "2: INITIALIZE_INNER" as INITIALIZE_INNER
+    state "3: JOINTUPLES" as JOINTUPLES
+    state "4: NEXTOUTER" as NEXTOUTER
+    state "5: TESTOUTER" as TESTOUTER
+    state "6: NEXTINNER" as NEXTINNER
+    state "7: SKIP_TEST" as SKIP_TEST
+    state "8: SKIPOUTER_ADVANCE" as SKIPOUTER_ADVANCE
+    state "9: SKIPINNER_ADVANCE" as SKIPINNER_ADVANCE
+    state "10: ENDOUTER" as ENDOUTER
+    state "11: ENDINNER" as ENDINNER
+
+    %% INITIALIZE_OUTER transitions
+    INITIALIZE_OUTER --> INITIALIZE_INNER: outer MATCHABLE
+    INITIALIZE_OUTER --> INITIALIZE_OUTER: outer NONMATCHABLE\n(emit fill for LEFT join)
+    INITIALIZE_OUTER --> ENDOUTER: outer ENDOFJOIN\n+ doFillInner
+    INITIALIZE_OUTER --> [*]: outer ENDOFJOIN\n+ no fill
+
+    %% INITIALIZE_INNER transitions
+    INITIALIZE_INNER --> SKIP_TEST: inner MATCHABLE
+    INITIALIZE_INNER --> INITIALIZE_INNER: inner NONMATCHABLE\n(emit fill for RIGHT join)
+    INITIALIZE_INNER --> ENDINNER: inner ENDOFJOIN\n+ doFillOuter
+    INITIALIZE_INNER --> [*]: inner ENDOFJOIN\n+ no fill
+
+    %% SKIP_TEST: main synchronization point
+    SKIP_TEST --> JOINTUPLES: outer == inner\n(mark inner position)
+    SKIP_TEST --> SKIPOUTER_ADVANCE: outer < inner
+    SKIP_TEST --> SKIPINNER_ADVANCE: outer > inner
+
+    %% JOINTUPLES: matching keys found
+    JOINTUPLES --> NEXTINNER: default (check next inner)
+    JOINTUPLES --> NEXTOUTER: ANTI join match\nor single_match
+
+    %% NEXTINNER: advance inner within matching group
+    NEXTINNER --> JOINTUPLES: inner still == outer
+    NEXTINNER --> NEXTOUTER: inner > outer\nor inner NONMATCHABLE\nor inner ENDOFJOIN
+
+    %% NEXTOUTER: advance to next outer tuple
+    NEXTOUTER --> TESTOUTER: new outer MATCHABLE
+    NEXTOUTER --> NEXTOUTER: new outer NONMATCHABLE\n(emit fill for LEFT join)
+    NEXTOUTER --> ENDOUTER: outer ENDOFJOIN\n+ doFillInner
+    NEXTOUTER --> [*]: outer ENDOFJOIN\n+ no fill
+
+    %% TESTOUTER: check new outer against marked inner
+    TESTOUTER --> JOINTUPLES: new outer == marked inner\n(restore inner to mark)
+    TESTOUTER --> SKIP_TEST: new outer != marked inner
+
+    %% SKIPOUTER_ADVANCE: skip non-matching outer tuples
+    SKIPOUTER_ADVANCE --> SKIP_TEST: new outer MATCHABLE
+    SKIPOUTER_ADVANCE --> SKIPOUTER_ADVANCE: new outer NONMATCHABLE\n(emit fill for LEFT join)
+    SKIPOUTER_ADVANCE --> ENDOUTER: outer ENDOFJOIN
+
+    %% SKIPINNER_ADVANCE: skip non-matching inner tuples
+    SKIPINNER_ADVANCE --> SKIP_TEST: new inner MATCHABLE
+    SKIPINNER_ADVANCE --> SKIPINNER_ADVANCE: new inner NONMATCHABLE\n(emit fill for RIGHT join)
+    SKIPINNER_ADVANCE --> ENDINNER: inner ENDOFJOIN
+
+    %% ENDOUTER: outer exhausted, emit remaining inner fills
+    ENDOUTER --> ENDOUTER: emit unmatched inner tuple\n(RIGHT/FULL join)
+    ENDOUTER --> [*]: inner also exhausted
+
+    %% ENDINNER: inner exhausted, emit remaining outer fills
+    ENDINNER --> ENDINNER: emit unmatched outer tuple\n(LEFT/FULL join)
+    ENDINNER --> [*]: outer also exhausted
