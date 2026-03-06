@@ -46,12 +46,25 @@
         margin: 0.25rem 0 0;
         padding-left: 1.2rem;
       }
+      .topic-docs-banner {
+        margin: 0.5rem 0 1.25rem;
+        padding: 0.65rem 1rem;
+        border-left: 4px solid var(--link);
+        background: #eff6ff;
+        border-radius: 0 4px 4px 0;
+        font-size: 0.95rem;
+        color: var(--text);
+      }
     </style>
   </head>
   <body>
     <main role="main">
       <div class="container">
-        <h1><a href="/create_pg_super_document/index.html"><strong>PostgreSQL 17.6 LLM Generated Symbol Documents</strong></a></h1><br>
+        <h1><a href="/create_pg_super_document/index.html"><strong>PostgreSQL 17.6 LLM Generated Symbol Documents</strong></a></h1>
+        <div class="topic-docs-banner">
+          For documentation on PostgreSQL features and subsystems (WAL, MVCC, executor, buffer management, streaming replication, etc.),
+          see the <a href="https://github.com/ryogrid/create_pg_super_document/blob/master/topic_specific_generated_docs/README.md">Topic-Specific Implementation Docs</a>.
+        </div>
         {{ content }}
         {% include doc-footer.html %}
       </div>
