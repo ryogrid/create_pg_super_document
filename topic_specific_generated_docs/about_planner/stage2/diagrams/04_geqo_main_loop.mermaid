@@ -1,0 +1,45 @@
+%% GEQO main loop.
+%% Source: src/backend/optimizer/geqo/geqo_main.c (geqo)
+%% Source: src/backend/optimizer/geqo/geqo_eval.c (geqo_eval, gimme_tree, merge_clump)
+flowchart TB
+    Start["make_rel_from_joinlist:<br/>levels_needed >= geqo_threshold (default 12)"] --> Init["geqo()<br/>geqo_main.c:71"]
+    Init --> Seed["geqo_set_seed(Geqo_seed)"]
+    Seed --> Sizing["pool_size = gimme_pool_size(nr_rel)<br/>= clamp(2^(nr_rel+1),<br/>10*Geqo_effort, 50*Geqo_effort)<br/><br/>num_generations = gimme_number_generations(pool_size)<br/>(default = pool_size)"]
+    Sizing --> Pool["alloc_pool / random_init_pool<br/>build pool_size random tours<br/>(genes are 1..nr_rel permutations)"]
+    Pool --> Sort["sort_pool by fitness<br/>(cheapest_total_path of decoded join tree)"]
+
+    Sort --> Loop{"generation<br/>< num_generations ?"}
+    Loop -- yes --> Sel["geqo_selection(momma, daddy)<br/>(linear-bias rank selection,<br/>Geqo_selection_bias)"]
+    Sel --> Cross{"recombination<br/>operator (compile-time)"}
+    Cross -- "ERX (default)" --> ERX["gimme_edge_table<br/>+ gimme_tour"]
+    Cross -- "PMX/CX/PX/OX1/OX2" --> Other["pmx() / cx() / px() / ox1() / ox2()"]
+    ERX --> Mutate["maybe geqo_mutation()<br/>(only on CX no-diff)"]
+    Other --> Mutate
+    Mutate --> Eval["kid->worth =<br/>geqo_eval(root, kid->string,<br/>num_gene)"]
+
+    subgraph EVAL["geqo_eval (geqo_eval.c)"]
+        EvalA["save join_rel_list length<br/>create scratch MemoryContext"] --> EvalB["joinrel = gimme_tree(root, tour)"]
+        EvalB --> EvalC{"joinrel != NULL ?"}
+        EvalC -- yes --> EvalD["fitness =<br/>joinrel->cheapest_total_path->total_cost"]
+        EvalC -- no  --> EvalE["fitness = DBL_MAX"]
+        EvalD --> EvalF["truncate join_rel_list,<br/>delete scratch context"]
+        EvalE --> EvalF
+    end
+    Eval --> EVAL
+
+    subgraph TREE["gimme_tree (with merge_clump heuristic)"]
+        T1["clumps := []"] --> T2{"for each gene g in tour"}
+        T2 --> T3["cur := single-rel clump for initial_rels[g-1]"]
+        T3 --> T4["clumps := merge_clump(clumps, cur, force=false)<br/>(only desirable joins:<br/>have_relevant_joinclause OR<br/>have_join_order_restriction)"]
+        T4 --> T2
+        T2 --> T5{"len(clumps) > 1 ?"}
+        T5 -- yes --> T6["force pass:<br/>merge_clump(force=true)"]
+        T5 -- no  --> T7["return clumps[0].joinrel"]
+        T6 --> T7
+    end
+    EvalB --> TREE
+
+    EVAL --> Spread["spread_chromo(kid, pool)<br/>(replace worse individuals)"]
+    Spread --> Loop
+    Loop -- no --> Best["best_tour := pool->data[0].string<br/>best_rel := gimme_tree(root, best_tour)"]
+    Best --> Out["return best_rel<br/>(=> standard upper-rel processing)"]

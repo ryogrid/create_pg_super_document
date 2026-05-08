@@ -1,0 +1,34 @@
+%% Parallel path generation: partial_pathlist -> generate_gather_paths -> Gather/GatherMerge.
+%% Source: src/backend/optimizer/path/allpaths.c, src/backend/optimizer/util/pathnode.c
+flowchart TB
+    Gate["standard_planner: parallelModeOK?<br/>= max_parallel_hazard != UNSAFE<br/>&& not in parallel worker<br/>&& CMD_SELECT && cursor allows"] --> SetupRel["set_rel_consider_parallel<br/>(per base rel: quals parallel-safe?)"]
+
+    SetupRel --> CompW["compute_parallel_worker(rel,<br/>pages, index_pages,<br/>max_parallel_workers_per_gather)<br/>(allpaths.c)<br/>uses log2(pages / min_parallel_table_scan_size)"]
+
+    CompW --> PartialBase["create_plain_partial_paths /<br/>create_partial_bitmap_paths"]
+    PartialBase --> PPL["rel->partial_pathlist<br/>(maintained via add_partial_path,<br/>simpler than add_path:<br/>only pathkeys + total_cost,<br/>no parameterization)"]
+
+    PPL --> JoinPP["Join level:<br/>try_partial_nestloop_path<br/>try_partial_mergejoin_path<br/>try_partial_hashjoin_path<br/>(both inputs partial /<br/>parallel-aware)"]
+
+    JoinPP --> PPLJoin["joinrel->partial_pathlist"]
+
+    PPLJoin --> Gather["After all paths added:<br/>generate_gather_paths(rel)<br/>generate_useful_gather_paths(rel)"]
+
+    Gather --> GatherChoice{"gather variant"}
+    GatherChoice -- "no useful sort" --> Gpath["create_gather_path<br/>=> GatherPath in pathlist"]
+    GatherChoice -- "preserves sort order<br/>(useful for query_pathkeys / merge)" --> Gmerge["create_gather_merge_path<br/>=> GatherMergePath in pathlist"]
+
+    Gpath --> SetCheap["set_cheapest(rel)"]
+    Gmerge --> SetCheap
+
+    %% Top-level scan/join rel handling
+    SetCheap --> Top{"rel = topmost<br/>scan/join rel?"}
+    Top -- "no" --> Done["proceed to next level"]
+    Top -- "yes (deferred)" --> ApplyTL["apply_scanjoin_target_to_paths<br/>then generate_useful_gather_paths<br/>after final tlist known"]
+
+    %% Upper-level partial paths
+    ApplyTL --> Upper["Upper rels (group/agg/window):<br/>partial paths with<br/>AGGSPLIT_INITIAL_SERIAL,<br/>then Gather + AGGSPLIT_FINAL_DESERIAL<br/>(see grouping_planner)"]
+
+    %% Notes
+    Done -.- Note1["add_partial_path policies:<br/>- no parameterized partials<br/>- compares only pathkeys + total_cost<br/>- pfree dominated paths"]
+    Upper -.- Note2["Parallel hash:<br/>create_hashjoin_path with<br/>parallel_aware = true,<br/>controlled by enable_parallel_hash"]

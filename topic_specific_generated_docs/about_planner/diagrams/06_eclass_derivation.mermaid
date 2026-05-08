@@ -1,0 +1,35 @@
+%% EquivalenceClass derivation pipeline.
+%% Source: src/backend/optimizer/path/equivclass.c
+flowchart TB
+    Quals["Mergejoinable equality quals<br/>collected by deconstruct_jointree<br/>via distribute_qual_to_rels"] --> ProcEq["process_equivalence(rinfo)<br/>equivclass.c"]
+
+    ProcEq --> Lookup{"Either side already<br/>in some EC?"}
+    Lookup -- "Both sides new" --> NewEC["Create new EquivalenceClass<br/>add 2 EquivalenceMembers<br/>(left expr, right expr)"]
+    Lookup -- "Only one side known" --> AddTo["add_eq_member to existing EC"]
+    Lookup -- "Both sides already in<br/>different ECs" --> Merge["merge_equivalence_classes<br/>=> ec_merged pointer chain"]
+
+    NewEC --> Done1["Append to root->eq_classes"]
+    AddTo --> Done1
+    Merge --> Done1
+
+    Done1 --> Const["Mark ec_has_const if<br/>any pseudoconstant member"]
+    Const --> Vol["Mark ec_has_volatile if sole<br/>member is volatile expr"]
+
+    Vol --> ECMergeDone["After all quals processed:<br/>root->ec_merging_done = true<br/>(set in query_planner)"]
+
+    ECMergeDone --> BaseImp["generate_base_implied_equalities<br/>=> for ec_has_const ECs:<br/>create var = const restrictinfos<br/>at every base rel,<br/>else mark ec_broken if<br/>can't generate complete<br/>transitive set"]
+
+    BaseImp --> JoinImp["generate_join_implied_equalities<br/>(called per join from<br/>add_paths_to_joinrel via<br/>build_joinrel_restrictlist)"]
+
+    JoinImp --> JoinImpStep1["For each EC overlapping<br/>both join inputs:<br/>derive var = var clauses<br/>across the join,<br/>caching in ec->ec_derives"]
+
+    JoinImpStep1 --> Broken{"ec_broken?"}
+    Broken -- "yes" --> BrokenPath["generate_join_implied_equalities_broken<br/>fall back to original ec_sources<br/>(copy any source clauses<br/>that connect the two sides)"]
+    Broken -- "no" --> NormalPath["generate_join_implied_equalities_normal<br/>generate fresh = clauses<br/>based on new EM pairs"]
+
+    BrokenPath --> Use
+    NormalPath --> Use["Resulting RestrictInfos<br/>fed into joinrel->joininfo<br/>and consumed by:<br/>- mergejoin (matches against pathkeys)<br/>- hashjoin (looks at hashjoinoperator)<br/>- nestloop param paths"]
+
+    %% PathKey link
+    ECMergeDone --> Pathkey["make_canonical_pathkey<br/>(EC, opfamily, strategy)<br/>=> shared singleton PathKey"]
+    Pathkey --> SortGen["build_index_pathkeys,<br/>build_join_pathkeys,<br/>make_pathkeys_for_sortclauses<br/>all hand back canonical PathKey lists"]

@@ -1,0 +1,41 @@
+%% SpecialJoinInfo construction and join_is_legal decision tree.
+%% Source: src/backend/optimizer/plan/initsplan.c (deconstruct_jointree, make_outerjoininfo)
+%% Source: src/backend/optimizer/path/joinrels.c (join_is_legal)
+flowchart TB
+    JT["jointree (FromExpr / JoinExpr)"] --> Recurse["deconstruct_recurse<br/>(initsplan.c)"]
+
+    Recurse --> Out{"node type?"}
+    Out -- "RangeTblRef" --> Base["Base relation:<br/>add to qualscope"]
+    Out -- "FromExpr (inner)" --> FE["For each child:<br/>recurse, union qualscopes,<br/>then deconstruct_distribute<br/>per qual via<br/>distribute_qual_to_rels"]
+    Out -- "JoinExpr LEFT/SEMI/ANTI/FULL" --> OJ["Outer join:<br/>recurse left+right,<br/>then make_outerjoininfo<br/>=> SpecialJoinInfo"]
+
+    OJ --> SJ["SpecialJoinInfo:<br/>min_lefthand /<br/>min_righthand /<br/>syn_lefthand /<br/>syn_righthand /<br/>jointype / ojrelid /<br/>commute_above_l /<br/>commute_below_l /<br/>lhs_strict"]
+
+    SJ --> CommSetup["Compute commute_above/below_*<br/>per identity-3 logic:<br/>'lower OJ may commute above this'<br/>(README: Valid OUTER JOIN Optimizations)"]
+
+    CommSetup --> Clones["For pushable quals that<br/>could be evaluated either<br/>above or below the OJ:<br/>distribute_qual_to_rels makes<br/>two clones (Pbc / Pb*c)<br/>with same rinfo_serial<br/>but different required_relids /<br/>incompatible_relids"]
+
+    %% join_is_legal decision tree
+    SJ --> JIL["join_is_legal(rel1, rel2)<br/>joinrels.c:350"]
+    JIL --> Q1{"For every SJ in<br/>root->join_info_list:<br/>does its min_righthand overlap<br/>joinrelids?"}
+    Q1 -- no --> NextSJ["irrelevant SJ -- skip"]
+    Q1 -- yes --> Q2{"joinrelids fully<br/>inside min_righthand?<br/>(still building RHS)"}
+    Q2 -- yes --> NextSJ
+    Q2 -- no --> Q3{"SJ already done<br/>within rel1 or rel2?"}
+    Q3 -- yes --> NextSJ
+    Q3 -- no --> Q4{"jointype = SEMI<br/>and partial overlap?"}
+    Q4 -- yes --> Q4a["Require unique-ification:<br/>set unique_ified flag"]
+    Q4 -- no --> Q5{"min_lefthand or<br/>min_righthand straddles<br/>rel1 / rel2 boundary<br/>(missing parts)?"}
+    Q5 -- yes --> Reject["return false<br/>(join is illegal at this level)"]
+    Q5 -- no --> Q6{"FULL JOIN<br/>commutation rules?"}
+    Q6 -- yes --> Reverse["determine reversed flag<br/>or must_be_leftjoin"]
+    Q6 -- no --> Match["match_sjinfo := this SJ"]
+
+    Q4a --> Match
+    Reverse --> Match
+    Match --> Done["return true<br/>*sjinfo_p, *reversed_p"]
+    NextSJ --> Q1
+    Reject --> RejectEnd["caller skips this pair"]
+
+    %% Identity 3 / Pbc-Pb*c notes
+    Clones -. "RestrictInfo->is_clone /<br/>has_clone propagate;<br/>add_path picks the version<br/>whose required_relids the<br/>candidate satisfies" .- ApplyClone["Path generation:<br/>distribute_restrictinfo_to_rels<br/>chooses clone matching the<br/>actual join level"]

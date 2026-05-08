@@ -1,0 +1,31 @@
+%% Pathkey / sort-order propagation through indexscan, sort, mergejoin.
+%% Source: src/backend/optimizer/path/pathkeys.c
+flowchart LR
+    subgraph IDX["Index path"]
+        IDX1["IndexOptInfo:<br/>sortopfamily / reverse_sort / nulls_first"] --> IDX2["build_index_pathkeys<br/>=> List of PathKey,<br/>each pinned to a canonical EC"]
+        IDX2 --> IDX3["IndexPath.path.pathkeys<br/>(may be truncated if<br/>useful_pathkeys not contained)"]
+    end
+
+    subgraph SORT["Sort / IncrementalSort"]
+        S1["pathkeys_contained_in(<br/>desired, child->pathkeys)?"] -- "yes" --> S2["No sort needed:<br/>reuse child"]
+        S1 -- "partial prefix" --> S3["create_incremental_sort_path<br/>(presorted_keys = prefix len)"]
+        S1 -- "no overlap" --> S4["create_sort_path<br/>=> child sorted by full pathkeys"]
+    end
+    IDX3 --> SORT
+
+    subgraph MERGE["MergeJoin"]
+        M1["select_mergejoin_clauses<br/>(in joinpath.c) per RestrictInfo<br/>=> outerkeys / innerkeys<br/>= make_inner_pathkeys_for_merge<br/>+ make_outer_pathkeys_for_merge"]
+        M1 --> M2["sort_inner_and_outer:<br/>add_path of MergePath with<br/>both sides sorted<br/><br/>match_unsorted_outer:<br/>iterate outer paths whose<br/>pathkeys cover the merge keys,<br/>sort the inner only"]
+        M2 --> M3["MergePath.pathkeys =<br/>build_join_pathkeys(<br/>outer pathkeys, JOIN_INNER)<br/>=> inner-join can preserve outer order;<br/>full outer-join: trimmed"]
+    end
+
+    SORT --> MERGE
+
+    subgraph QPK["Query pathkeys"]
+        QP1["root->group_pathkeys<br/>root->sort_pathkeys<br/>root->distinct_pathkeys<br/>root->query_pathkeys"]
+        QP1 --> QP2["get_cheapest_path_for_pathkeys<br/>and pathkeys_count_contained_in<br/>at upper-rel building<br/>(grouping_planner)"]
+    end
+    MERGE --> QPK
+    IDX3 --> QPK
+
+    QPK --> Final["Final cheapest fractional path<br/>chosen by:<br/>get_cheapest_fractional_path"]

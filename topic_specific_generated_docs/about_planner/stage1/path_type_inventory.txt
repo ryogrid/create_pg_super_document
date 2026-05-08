@@ -1,0 +1,76 @@
+# PostgreSQL Planner — Path Subtype Inventory
+#
+# One row per `typedef struct .*Path` in src/include/nodes/pathnodes.h
+# (PathKey, PathTarget, ParamPathInfo, JoinPathExtraData are non-Path
+# helper structures and are listed at the end for completeness.)
+#
+# Columns (tab-separated):
+#   NodeTag | Struct | pathnodes.h:line | Constructor (pathnode.c)
+#   | CostFunction (costsize.c) | PlanCounterpart (plannodes.h)
+#   | PlanCreator (createplan.c)
+#
+# "inline" means cost is set inside the constructor itself rather than
+# via a dedicated cost_*() function.  "—" means there is no
+# corresponding artifact (e.g., bitmap inner path for BitmapAnd/Or has
+# no plain plan node — they appear as BitmapAnd/BitmapOr inside a
+# BitmapHeapScan).
+
+NodeTag	Struct	pathnodes.h:line	Constructor	CostFunction	PlanCounterpart	PlanCreator
+T_Path	Path	1621	create_seqscan_path / create_samplescan_path / create_functionscan_path / create_tablefuncscan_path / create_valuesscan_path / create_ctescan_path / create_namedtuplestorescan_path / create_resultscan_path / create_worktablescan_path	cost_seqscan / cost_samplescan / cost_functionscan / cost_tablefuncscan / cost_valuesscan / cost_ctescan / cost_namedtuplestorescan / cost_resultscan	SeqScan / SampleScan / FunctionScan / TableFuncScan / ValuesScan / CteScan / NamedTuplestoreScan / Result / WorkTableScan	create_seqscan_plan / create_samplescan_plan / create_functionscan_plan / create_tablefuncscan_plan / create_valuesscan_plan / create_ctescan_plan / create_namedtuplestorescan_plan / create_resultscan_plan / create_worktablescan_plan
+T_IndexPath	IndexPath	1709	create_index_path	cost_index	IndexScan / IndexOnlyScan	create_indexscan_plan
+T_BitmapHeapPath	BitmapHeapPath	1784	create_bitmap_heap_path	cost_bitmap_heap_scan	BitmapHeapScan	create_bitmap_scan_plan
+T_BitmapAndPath	BitmapAndPath	1796	create_bitmap_and_path	cost_bitmap_and_node	BitmapAnd	create_bitmap_scan_plan (recurses)
+T_BitmapOrPath	BitmapOrPath	1809	create_bitmap_or_path	cost_bitmap_or_node	BitmapOr	create_bitmap_scan_plan (recurses)
+T_TidPath	TidPath	1823	create_tidscan_path	cost_tidscan	TidScan	create_tidscan_plan
+T_TidRangePath	TidRangePath	1835	create_tidrangescan_path	cost_tidrangescan	TidRangeScan	create_tidrangescan_plan
+T_SubqueryScanPath	SubqueryScanPath	1849	create_subqueryscan_path	cost_subqueryscan	SubqueryScan	create_subqueryscan_plan
+T_ForeignPath	ForeignPath	1869	create_foreignscan_path / create_foreign_join_path / create_foreign_upper_path	inline (FDW computes)	ForeignScan	create_foreignscan_plan
+T_CustomPath	CustomPath	1905	(extension callback PlanCustomPath)	inline (extension)	CustomScan	create_customscan_plan
+T_AppendPath	AppendPath	1931	create_append_path	cost_append	Append	create_append_plan
+T_MergeAppendPath	MergeAppendPath	1955	create_merge_append_path	cost_merge_append	MergeAppend	create_merge_append_plan
+T_GroupResultPath	GroupResultPath	1969	create_group_result_path	inline	Result	create_group_result_plan
+T_MaterialPath	MaterialPath	1981	create_material_path	cost_material	Material	create_material_plan
+T_MemoizePath	MemoizePath	1992	create_memoize_path	cost_memoize_rescan	Memoize	create_memoize_plan
+T_UniquePath	UniquePath	2027	create_unique_path	inline	Unique / Agg	create_unique_plan
+T_GatherPath	GatherPath	2041	create_gather_path	cost_gather	Gather	create_gather_plan
+T_GatherMergePath	GatherMergePath	2053	create_gather_merge_path	cost_gather_merge	GatherMerge	create_gather_merge_plan
+T_NestPath	NestPath	2092	create_nestloop_path	initial_cost_nestloop / final_cost_nestloop	NestLoop	create_nestloop_plan
+T_MergePath	MergePath	2132	create_mergejoin_path	initial_cost_mergejoin / final_cost_mergejoin	MergeJoin	create_mergejoin_plan
+T_HashPath	HashPath	2151	create_hashjoin_path	initial_cost_hashjoin / final_cost_hashjoin	HashJoin (with Hash inner)	create_hashjoin_plan
+T_ProjectionPath	ProjectionPath	2173	create_projection_path / create_set_projection_path	inline	Result (or merged into child)	create_projection_plan
+T_ProjectSetPath	ProjectSetPath	2185	create_set_projection_path	inline	ProjectSet	create_project_set_plan
+T_SortPath	SortPath	2199	create_sort_path	cost_sort	Sort	create_sort_plan
+T_IncrementalSortPath	IncrementalSortPath	2211	create_incremental_sort_path	cost_incremental_sort	IncrementalSort	create_incrementalsort_plan
+T_GroupPath	GroupPath	2225	create_group_path	cost_group	Group	create_group_plan
+T_UpperUniquePath	UpperUniquePath	2239	create_upper_unique_path	inline	Unique	create_upper_unique_plan
+T_AggPath	AggPath	2253	create_agg_path	cost_agg	Agg	create_agg_plan
+T_GroupingSetsPath	GroupingSetsPath	2295	create_groupingsets_path	cost_agg (per rollup)	Agg (chained)	create_groupingsets_plan
+T_MinMaxAggPath	MinMaxAggPath	2308	create_minmaxagg_path	inline (build_minmax_path subpath)	Result	create_minmaxagg_plan
+T_WindowAggPath	WindowAggPath	2318	create_windowagg_path	cost_windowagg	WindowAgg	create_windowagg_plan
+T_SetOpPath	SetOpPath	2332	create_setop_path	inline	SetOp	create_setop_plan
+T_RecursiveUnionPath	RecursiveUnionPath	2347	create_recursiveunion_path	cost_recursive_union	RecursiveUnion	create_recursiveunion_plan
+T_LockRowsPath	LockRowsPath	2360	create_lockrows_path	inline	LockRows	create_lockrows_plan
+T_ModifyTablePath	ModifyTablePath	2375	create_modifytable_path	inline	ModifyTable	create_modifytable_plan
+T_LimitPath	LimitPath	2400	create_limit_path	inline (uses parent rows / limit_offset)	Limit	create_limit_plan
+
+# --- Helper structures (NOT Path subtypes — listed for completeness) ---
+T_PathKey	PathKey	1463	make_canonical_pathkey / make_pathkey_from_sortinfo / make_pathkey_from_sortop	—	—	—
+(none)	PathTarget	1528	create_pathtarget / make_pathtarget_from_tlist	—	—	—
+T_ParamPathInfo	ParamPathInfo	1575	get_baserel_parampathinfo / get_joinrel_parampathinfo / get_appendrel_parampathinfo	—	—	—
+(none)	JoinPathExtraData	3230	(populated inline by add_paths_to_joinrel)	—	—	—
+
+# Notes
+# 1. Plain `Path` is reused for many NodeTags: T_SeqScan, T_SampleScan,
+#    T_FunctionScan, T_TableFuncScan, T_ValuesScan, T_CteScan,
+#    T_NamedTuplestoreScan, T_WorkTableScan, T_Result. The Path struct
+#    discriminates only on Path.pathtype.
+# 2. UniquePath is sometimes turned into a HashAgg (Agg, AGG_HASHED) or
+#    Sort+Unique by create_unique_plan depending on UniquePath.umethod.
+# 3. GroupingSetsPath produces an Agg chain via create_groupingsets_plan,
+#    which generates one Agg node per rollup with a Sort/HashAgg input.
+# 4. ModifyTablePath cost is mostly the cost of its subpath; ModifyTable
+#    itself adds little overhead beyond per-tuple write cost (handled
+#    inside create_modifytable_path).
+# 5. ForeignPath/CustomPath delegate cost computation to the FDW or
+#    extension that produced the path; createplan invokes
+#    GetForeignPlan() / PlanCustomPath() to obtain the executor node.

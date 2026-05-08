@@ -1,0 +1,208 @@
+%% PlannerInfo / RelOptInfo / Path object model.
+%% Sources: src/include/nodes/pathnodes.h
+classDiagram
+    class PlannerGlobal {
+      +List* subplans
+      +List* finalrtable
+      +List* paramExecTypes
+      +bool parallelModeOK
+      +bool parallelModeNeeded
+      +Index lastPHId
+      +int lastPlanNodeId
+    }
+
+    class PlannerInfo {
+      +Query* parse
+      +PlannerGlobal* glob
+      +Index query_level
+      +PlannerInfo* parent_root
+      +RelOptInfo** simple_rel_array
+      +Relids all_baserels
+      +Relids outer_join_rels
+      +Relids all_query_rels
+      +List* join_rel_list
+      +List** join_rel_level
+      +List* eq_classes
+      +List* canon_pathkeys
+      +List* join_info_list
+      +List* placeholder_list
+      +List* append_rel_list
+      +RelOptInfo* upper_rels[NUM_UPPERRELS]
+      +PathTarget* upper_targets[NUM_UPPERRELS]
+      +List* processed_tlist
+      +List* query_pathkeys
+      +List* group_pathkeys
+      +List* sort_pathkeys
+      +List* distinct_pathkeys
+      +bool hasJoinRTEs
+      +bool hasLateralRTEs
+      +bool ec_merging_done
+    }
+
+    class RelOptInfo {
+      +RelOptKind reloptkind
+      +Relids relids
+      +Cardinality rows
+      +PathTarget* reltarget
+      +List* pathlist
+      +List* partial_pathlist
+      +Path* cheapest_startup_path
+      +Path* cheapest_total_path
+      +Path* cheapest_unique_path
+      +List* cheapest_parameterized_paths
+      +Index relid (baserel)
+      +RTEKind rtekind
+      +List* indexlist
+      +BlockNumber pages
+      +Cardinality tuples
+      +Bitmapset* eclass_indexes
+      +List* baserestrictinfo
+      +List* joininfo
+      +bool has_eclass_joins
+      +Relids lateral_relids
+      +Relids nulling_relids
+      +RelOptInfo* parent
+      +PartitionScheme part_scheme
+      +int nparts
+    }
+
+    class Path {
+      +NodeTag pathtype
+      +RelOptInfo* parent
+      +PathTarget* pathtarget
+      +ParamPathInfo* param_info
+      +bool parallel_aware
+      +bool parallel_safe
+      +int parallel_workers
+      +Cardinality rows
+      +Cost startup_cost
+      +Cost total_cost
+      +List* pathkeys
+    }
+
+    class ParamPathInfo {
+      +Relids ppi_req_outer
+      +Cardinality ppi_rows
+      +List* ppi_clauses
+      +Bitmapset* ppi_serials
+    }
+
+    class PathTarget {
+      +List* exprs
+      +Index* sortgrouprefs
+      +QualCost cost
+      +int width
+      +VolatileFunctionStatus has_volatile_expr
+    }
+
+    class JoinPath {
+      +JoinType jointype
+      +bool inner_unique
+      +Path* outerjoinpath
+      +Path* innerjoinpath
+      +List* joinrestrictinfo
+    }
+
+    class IndexPath {
+      +IndexOptInfo* indexinfo
+      +List* indexclauses
+      +ScanDirection indexscandir
+      +Cost indextotalcost
+      +Selectivity indexselectivity
+    }
+
+    class BitmapHeapPath {
+      +Path* bitmapqual
+    }
+
+    class AppendPath {
+      +List* subpaths
+      +int first_partial_path
+    }
+
+    class GatherPath {
+      +Path* subpath
+      +bool single_copy
+      +int num_workers
+    }
+
+    class RestrictInfo {
+      +Expr* clause
+      +bool is_pushed_down
+      +bool can_join
+      +bool pseudoconstant
+      +bool has_clone
+      +bool is_clone
+      +Index security_level
+      +Relids clause_relids
+      +Relids required_relids
+      +Relids incompatible_relids
+      +Relids outer_relids
+      +int rinfo_serial
+      +EquivalenceClass* parent_ec
+      +List* mergeopfamilies
+      +Oid hashjoinoperator
+    }
+
+    class EquivalenceClass {
+      +List* ec_opfamilies
+      +Oid ec_collation
+      +List* ec_members
+      +List* ec_sources
+      +List* ec_derives
+      +Relids ec_relids
+      +bool ec_has_const
+      +bool ec_has_volatile
+      +bool ec_broken
+      +Index ec_sortref
+      +EquivalenceClass* ec_merged
+    }
+
+    class PathKey {
+      +EquivalenceClass* pk_eclass
+      +Oid pk_opfamily
+      +int pk_strategy
+      +bool pk_nulls_first
+    }
+
+    class SpecialJoinInfo {
+      +Relids min_lefthand
+      +Relids min_righthand
+      +Relids syn_lefthand
+      +Relids syn_righthand
+      +JoinType jointype
+      +Index ojrelid
+      +Relids commute_above_l
+      +Relids commute_below_l
+      +bool lhs_strict
+    }
+
+    class AppendRelInfo {
+      +Index parent_relid
+      +Index child_relid
+      +List* translated_vars
+      +AttrNumber* parent_colnos
+    }
+
+    PlannerGlobal "1" --> "*" PlannerInfo : subroots
+    PlannerInfo "1" --> "1" PlannerGlobal : glob
+    PlannerInfo "1" --> "*" RelOptInfo : simple_rel_array / join_rel_list
+    PlannerInfo "1" --> "*" EquivalenceClass : eq_classes
+    PlannerInfo "1" --> "*" PathKey : canon_pathkeys
+    PlannerInfo "1" --> "*" SpecialJoinInfo : join_info_list
+    PlannerInfo "1" --> "*" AppendRelInfo : append_rel_list
+    RelOptInfo "1" --> "*" Path : pathlist / partial_pathlist
+    RelOptInfo "1" --> "1" PathTarget : reltarget
+    RelOptInfo "1" --> "*" RestrictInfo : baserestrictinfo / joininfo
+    Path "1" --> "1" RelOptInfo : parent
+    Path "1" --> "0..1" ParamPathInfo : param_info
+    Path "1" --> "1" PathTarget : pathtarget
+    Path "1" --> "*" PathKey : pathkeys
+    JoinPath --|> Path
+    IndexPath --|> Path
+    BitmapHeapPath --|> Path
+    AppendPath --|> Path
+    GatherPath --|> Path
+    EquivalenceClass "1" --> "*" RestrictInfo : ec_sources / ec_derives
+    PathKey "1" --> "1" EquivalenceClass : pk_eclass
+    RestrictInfo "1" --> "0..1" EquivalenceClass : parent_ec

@@ -1,0 +1,25 @@
+%% Plan-time and run-time partition pruning.
+%% Source: src/backend/partitioning/partprune.c, src/backend/optimizer/util/inherit.c
+flowchart TB
+    Inherit["expand_partitioned_rtentry<br/>(inherit.c)"] --> Children["Build RTE_RELATION 'other rel'<br/>per live child partition<br/>(AppendRelInfo)"]
+
+    Children --> Constraint["Per-child apply_child_basequals<br/>(prune by partition_qual against<br/>RestrictInfos / parent quals)"]
+
+    Constraint --> AppendRel["set_append_rel_size<br/>set_append_rel_pathlist<br/>(allpaths.c)<br/>=> AppendPath / MergeAppendPath"]
+
+    AppendRel --> Need{"Run-time pruning<br/>useful?<br/>(parameterized quals<br/>not yet known at plan time<br/>= Param / external value)"}
+
+    Need -- "yes" --> Make["make_partition_pruneinfo<br/>(partprune.c)"]
+    Make --> Steps["gen_partprune_steps<br/>per partkey:<br/>match_clause_to_partition_key,<br/>build PartitionPruneStep tree<br/>(PARTPRUNE_OP, COMBINE_AND, COMBINE_OR)"]
+
+    Steps --> Stash["Attach PartitionPruneInfo to<br/>Append/MergeAppend Plan node<br/>(executor processes at<br/>InitPlan and per-rescan)"]
+    Stash --> RTPrune["At execution:<br/>ExecCreatePartitionPruneState<br/>evaluates steps using<br/>actual Param values to skip<br/>scanning unmatched children"]
+
+    Need -- "no (only constants)" --> PlanTime["Plan-time pruning:<br/>match_clause_to_partition_key<br/>called from set_append_rel_size,<br/>excluded children get<br/>relid -> live_parts cleared"]
+
+    PlanTime --> NoOther["Excluded children get<br/>set_dummy_rel_pathlist (or skipped)<br/>so their paths never reach Append"]
+
+    %% Joins
+    AppendRel --> PWJ{"enable_partitionwise_join<br/>and matching schemes?"}
+    PWJ -- "yes" --> TryPWJ["try_partitionwise_join<br/>(joinrels.c):<br/>build_child_join_sjinfo,<br/>compute_partition_bounds,<br/>get_matching_part_pairs<br/>=> per-partition join,<br/>then Append on top"]
+    PWJ -- "no" --> Plain["Plain join over<br/>Append paths"]

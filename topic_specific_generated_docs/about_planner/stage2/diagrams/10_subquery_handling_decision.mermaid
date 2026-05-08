@@ -1,0 +1,55 @@
+%% Subquery handling decision: pull-up vs SubqueryScan vs SubPlan/InitPlan.
+%% Source: src/backend/optimizer/prep/prepjointree.c, src/backend/optimizer/plan/subselect.c
+flowchart TB
+    Q["Subquery encountered<br/>during planning"] --> Where{"Where is it?"}
+
+    Where -- "RTE_SUBQUERY in FROM" --> RTESubq["pull_up_subqueries (prepjointree.c:934)"]
+    Where -- "WITH (CTE)" --> CTE["SS_process_ctes (subselect.c)"]
+    Where -- "ANY/ALL/EXISTS SubLink" --> SL["pull_up_sublinks (prepjointree.c:453)"]
+    Where -- "Scalar SubLink<br/>(=, comparison, expr context)" --> Scalar["SS_process_sublinks<br/>=> SubPlan / InitPlan"]
+
+    %% FROM subquery
+    RTESubq --> Simple{"is_simple_subquery?<br/>- no LIMIT/OFFSET<br/>- no DISTINCT/HAVING<br/>- no aggs/window/SRF/CTE<br/>- no security barrier conflicts<br/>- jointree non-empty"}
+    Simple -- "yes" --> Inline["Inline subquery's range table<br/>and jointree into parent.<br/>flatten_join_alias_vars later<br/>renames Vars."]
+    Simple -- "no" --> Keep["Keep as RTE_SUBQUERY:<br/>SubqueryScanPath /<br/>create_subqueryscan_plan"]
+
+    Simple -- "is UNION ALL of simples" --> UA["pull_up_simple_union_all<br/>=> AppendRel"]
+
+    %% CTE
+    CTE --> CTEK{"recursive ?"}
+    CTEK -- "yes" --> Worktable["WorkTableScan via<br/>RecursiveUnion plan"]
+    CTEK -- "no, MATERIALIZED forced<br/>or referenced multiple times<br/>or non-inlineable" --> CTEPlan["Plan CTE separately,<br/>store as CteScan<br/>+ put plan in glob->subplans<br/>as InitPlan-like SubPlan"]
+    CTEK -- "no, inline_cte applicable" --> InlineCTE["inline_cte_walker<br/>(subselect.c) inlines<br/>single-use non-volatile CTE"]
+
+    %% Predicate SubLinks
+    SL --> SLK{"SubLink kind"}
+    SLK -- "ANY (scalar IN ...)" --> ANY["convert_ANY_sublink_to_join<br/>=> JOIN_SEMI"]
+    SLK -- "EXISTS (...)" --> EX["convert_EXISTS_sublink_to_join<br/>+ simplify_EXISTS_query<br/>=> JOIN_SEMI"]
+    SLK -- "NOT EXISTS / ALL" --> Antij["may convert to JOIN_ANTI<br/>(only when correlated;<br/>see convert_EXISTS_to_ANY)"]
+
+    ANY --> SuccessSL{"top-level WHERE<br/>or ON of inner join?"}
+    EX --> SuccessSL
+    Antij --> SuccessSL
+    SuccessSL -- "yes" --> ToJoin["Replace SubLink with JoinExpr,<br/>add new RTE for the subquery,<br/>continue planning"]
+    SuccessSL -- "no" --> StaySL["Leave as SubLink ->fallback<br/>SS_process_sublinks turns it<br/>into a SubPlan"]
+
+    %% Scalar SubLink path
+    Scalar --> ScalarK{"correlated?"}
+    ScalarK -- "no -- runs once" --> InitPlan["build_subplan with useHashTable=false<br/>and parParam = NIL<br/>=> InitPlan<br/>(executed at start, value cached)"]
+    ScalarK -- "yes -- per-tuple" --> SubPlan["build_subplan as SubPlan<br/>or AlternativeSubPlan<br/>(executor evaluates per row)"]
+
+    %% Hash optimization
+    Scalar --> Hash{"ANY (subquery)<br/>cannot be join-pulled,<br/>but RHS is small<br/>and operators hash-equal?"}
+    Hash -- "yes" --> HashSP["build_subplan with<br/>useHashTable=true<br/>(SubPlan with hashtable)"]
+
+    Inline --> Done["Subquery's RTEs become<br/>peers of parent's base rels"]
+    Keep --> Done
+    UA --> Done
+    Worktable --> Done
+    CTEPlan --> Done
+    InlineCTE --> Done
+    ToJoin --> Done
+    StaySL --> Done
+    InitPlan --> Done
+    SubPlan --> Done
+    HashSP --> Done

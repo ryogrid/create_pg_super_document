@@ -1,0 +1,37 @@
+%% Dynamic-programming join search level expansion.
+%% Source: src/backend/optimizer/path/joinrels.c (join_search_one_level)
+%% Source: src/backend/optimizer/path/allpaths.c (standard_join_search)
+flowchart TB
+    Init["root->join_rel_level[1] := initial_rels<br/>(N base rels / sub-joinlists)"] --> L2["lev = 2"]
+
+    subgraph LEVEL2["join_search_one_level(2)"]
+        L2 --> L2a["For each old_rel in joinrel_level[1]:<br/>iterate other initial_rels<br/>(skip already-overlapping)<br/>=> make_rels_by_clause_joins"]
+        L2a --> L2b["bushy loop: k=2..lev/2<br/>(skipped at lev=2)"]
+        L2b --> L2c["last-ditch:<br/>if no joins, force cartesian"]
+    end
+
+    LEVEL2 --> L2post["For each rel in joinrel_level[2]:<br/>generate_partitionwise_join_paths<br/>generate_useful_gather_paths<br/>set_cheapest"]
+
+    L2post --> L3["lev = 3"]
+
+    subgraph LEVEL3["join_search_one_level(3)"]
+        L3 --> L3a["L3a: clause-join level-2 rels<br/>against initial rels<br/>(left/right-deep growth)"]
+        L3a --> L3b["L3b: bushy joins where useful<br/>(NOT applicable: k=2 means<br/>other_level=1=k, halfway reached)"]
+    end
+
+    LEVEL3 --> Lk["...<br/>continue lev = 4..N"]
+
+    subgraph LEVELN["At each lev (general)"]
+        N1["For each old_rel in level[lev-1]:<br/>if has joininfo or eclass_joins<br/>or has_join_restriction<br/>=> make_rels_by_clause_joins<br/>else => cartesian via clauseless"]
+        N1 --> N2["bushy: for k = 2..lev/2:<br/>for each old in level[k]:<br/>for each new in level[lev-k]:<br/>if disjoint and<br/>have_relevant_joinclause()<br/>=> make_join_rel"]
+        N2 --> N3["For each rel in level[lev]:<br/>generate_partitionwise_join_paths<br/>generate_useful_gather_paths<br/>set_cheapest()"]
+    end
+
+    Lk --> LEVELN
+    LEVELN --> Final["level[levels_needed] should<br/>contain exactly 1 rel<br/>= the final scan/join rel"]
+
+    classDef gate fill:#fff5cc,stroke:#aa8800
+    class L2c,N1 gate
+
+    %% Worst-case complexity
+    Final -.- Note["Search space:<br/>O(3^n - 2^(n+1) + 1) joinrels<br/>(see optimizer/README)<br/>=> GEQO once n >= geqo_threshold"]

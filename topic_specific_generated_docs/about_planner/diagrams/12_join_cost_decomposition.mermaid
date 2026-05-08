@@ -1,0 +1,28 @@
+%% Cost decomposition: HashJoin / MergeJoin / NestLoop.
+%% Source: src/backend/optimizer/path/costsize.c
+flowchart TB
+    subgraph HJ["HashJoin (initial_cost_hashjoin / final_cost_hashjoin)"]
+        H1["initial_cost_hashjoin:<br/>startup_cost = inner_path->total_cost<br/>+ outer_path->startup_cost<br/>+ hash bucket build (cpu_operator_cost * inner_rows)<br/><br/>total_cost = startup<br/>+ outer_path->total_cost<br/>- outer_startup<br/>+ probe (cpu_operator_cost * outer_rows<br/>* num_hashclauses)<br/>+ output (cpu_tuple_cost * joinrows)"] --> H2["final_cost_hashjoin:<br/>recompute with bucket distribution<br/>(left_bucketsize / right_bucketsize<br/>from estimate_hash_bucket_stats);<br/>account for batches when<br/>inner doesn't fit work_mem<br/>(virtualbuckets, nbatch);<br/>add I/O for spilled batches:<br/>2 * seq_page_cost * (inner_pages + outer_pages)<br/>per batch beyond 1"]
+
+        H2 --> H3["Build phase: load inner,<br/>hash on hashclauses operator;<br/>nbatch = nearest power of 2<br/>so each batch's hashtable<br/>fits in work_mem<br/>(nbatch capped at HJ_MAX_BATCHES)"]
+        H3 --> H4["Probe phase: scan outer,<br/>hash key, look up bucket;<br/>output matches.<br/>Memoize-style flushing for batches > 1"]
+    end
+
+    subgraph MJ["MergeJoin (initial_cost_mergejoin / final_cost_mergejoin)"]
+        M1["initial_cost_mergejoin:<br/>startup = outer_path->startup<br/>+ inner_path->startup<br/>+ optional sort costs (cost_sort)<br/>for sides not already ordered;<br/>+ initial mergejoin overhead<br/>(scan past matching tuples)"] --> M2["final_cost_mergejoin:<br/>compute mergeclause selectivities<br/>(cached in scansel_cache);<br/>account for early termination when<br/>outer values exceed inner range;<br/>add rescan cost for inner duplicates<br/>(materialize when needed:<br/>materialize_inner_path)"]
+    end
+
+    subgraph NL["NestLoop (initial_cost_nestloop / final_cost_nestloop)"]
+        N1["initial_cost_nestloop:<br/>startup = outer_startup<br/>+ inner_path->startup;<br/>total = outer_total<br/>+ outer_rows * inner_path->rescan_cost<br/>(or inner_total if non-rescannable);<br/>+ join qual eval<br/>(cpu_operator_cost * num quals * outer_rows)"] --> N2["final_cost_nestloop:<br/>add output cost,<br/>handle SEMI/ANTI early-exit<br/>(semi_outer_rows, semi_inner_rows<br/>from compute_semi_anti_join_factors)"]
+        N2 --> N3["If inner is parameterized<br/>(IndexScan with outer Var as<br/>parameter): use inner's<br/>parameterized cost, not full scan"]
+    end
+
+    Compare["compare_path_costs / set_cheapest:<br/>tradeoff matrix<br/>(see component_cost_model)"]
+
+    H4 --> Compare
+    M2 --> Compare
+    N3 --> Compare
+
+    %% GUC influences
+    GUCs["GUCs influencing cost equations:<br/>- seq_page_cost / random_page_cost<br/>- cpu_tuple_cost / cpu_index_tuple_cost / cpu_operator_cost<br/>- effective_cache_size<br/>- work_mem (controls hashjoin batches and sort spill)<br/>- parallel_setup_cost / parallel_tuple_cost<br/>- enable_hashjoin / enable_mergejoin / enable_nestloop<br/>(false adds disable_cost = 1e10)"]
+    Compare -.- GUCs

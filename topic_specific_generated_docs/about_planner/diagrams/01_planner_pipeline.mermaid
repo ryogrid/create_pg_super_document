@@ -1,0 +1,64 @@
+%% End-to-end planner pipeline.
+%% Source: src/backend/optimizer/plan/planner.c, planmain.c, allpaths.c, createplan.c, setrefs.c
+flowchart TB
+    A["pg_plan_query()<br/>(top-level caller)"] --> B["planner()<br/>planner.c:275"]
+    B --> C{"planner_hook<br/>installed?"}
+    C -- yes --> C1["plugin's<br/>planner replacement"]
+    C -- no  --> D["standard_planner()<br/>planner.c:288"]
+
+    D --> D1["set up PlannerGlobal<br/>parallelModeOK assessment<br/>(max_parallel_hazard)"]
+    D1 --> D2["determine tuple_fraction<br/>from cursor options"]
+    D2 --> E["subquery_planner()<br/>planner.c:629<br/>(may recurse)"]
+
+    subgraph PRE["subquery_planner: preprocessing"]
+        E1["SS_process_ctes"] --> E2["transform_MERGE_to_join"]
+        E2 --> E3["replace_empty_jointree"]
+        E3 --> E4["pull_up_sublinks"]
+        E4 --> E5["preprocess_function_rtes"]
+        E5 --> E6["pull_up_subqueries"]
+        E6 --> E7["flatten_simple_union_all"]
+        E7 --> E8["preprocess_expression()<br/>tlist + quals + RTEs<br/>(canonicalize_qual,<br/>SS_process_sublinks)"]
+        E8 --> E9["reduce_outer_joins"]
+        E9 --> E10["remove_useless_result_rtes"]
+    end
+
+    E --> PRE
+    PRE --> F["grouping_planner()<br/>planner.c:1335"]
+
+    subgraph GP["grouping_planner: scan/join + upper rels"]
+        F1["preprocess_grouping_sets / minmax<br/>preprocess_targetlist<br/>preprocess_aggrefs<br/>preprocess_limit"] --> F2["query_planner()<br/>planmain.c:53"]
+        F2 --> F3["UPPERREL_GROUP_AGG<br/>(create_grouping_paths)"]
+        F3 --> F4["UPPERREL_WINDOW<br/>(create_window_paths)"]
+        F4 --> F5["UPPERREL_DISTINCT<br/>(create_distinct_paths)"]
+        F5 --> F6["UPPERREL_ORDERED<br/>(create_ordered_paths)"]
+        F6 --> F7["UPPERREL_FINAL<br/>(adds ModifyTable / LockRows / Limit)"]
+    end
+    F --> GP
+
+    subgraph QP["query_planner: scan/join phase"]
+        G1["build_base_rel_tlists<br/>find_placeholders_in_jointree<br/>find_lateral_references"] --> G2["deconstruct_jointree<br/>(initsplan.c:740)"]
+        G2 --> G3["reconsider_outer_join_clauses<br/>generate_base_implied_equalities"]
+        G3 --> G4["qp_callback (compute query_pathkeys)"]
+        G4 --> G5["fix_placeholder_input_needed_levels<br/>remove_useless_joins<br/>reduce_unique_semijoins"]
+        G5 --> G6["add_other_rels_to_query<br/>(inheritance/partition expansion)"]
+        G6 --> G7["make_one_rel()<br/>allpaths.c:171"]
+    end
+    F2 --> QP
+
+    subgraph MOR["make_one_rel: paths"]
+        H1["set_base_rel_sizes<br/>set_base_rel_pathlists<br/>(per-rtekind dispatch)"] --> H2["make_rel_from_joinlist<br/>allpaths.c:3306"]
+        H2 --> H3{"levels >=<br/>geqo_threshold ?"}
+        H3 -- "yes" --> H4["geqo()<br/>geqo_main.c"]
+        H3 -- "no"  --> H5["standard_join_search()<br/>allpaths.c:3411<br/>(DP via join_search_one_level)"]
+    end
+    G7 --> MOR
+
+    PRE -. "SS_finalize_plan / SS_charge_for_initplans" .-> Z1
+    GP --> I["set_cheapest()<br/>on UPPERREL_FINAL"]
+    I --> J["create_plan()<br/>createplan.c:338<br/>(Path tree -> Plan tree)"]
+    J --> K["SS_finalize_plan<br/>(extParam/allParam,<br/>parallel-mode flag)"]
+    K --> L["set_plan_references()<br/>setrefs.c:287<br/>(flatten rtable, fix Vars)"]
+    L --> M["PlannedStmt"]
+    M --> N["ExecutorStart()"]
+
+    Z1["initPlans, subplans"] --> J
