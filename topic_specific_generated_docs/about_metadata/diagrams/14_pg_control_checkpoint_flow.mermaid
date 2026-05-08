@@ -1,0 +1,43 @@
+%% Checkpoint flow: ControlFileData fields, CheckPointGuts dispatch,
+%% post-checkpoint pg_control rewrite.
+
+flowchart TB
+    START["CreateCheckPoint()<br/>xlog.c"]
+    START --> COMPUTE["compute redo pointer<br/>(WAL insert position)"]
+    COMPUTE --> XLI_REDO["XLogInsert(XLOG_CHECKPOINT_REDO)"]
+    XLI_REDO --> CCG["CheckPointGuts(CheckPointStartPtr, flags)"]
+
+    subgraph CCG_DISPATCH["CheckPointGuts dispatch (in order)"]
+        D1["CheckPointRelationMap()<br/>relmapper.c"]
+        D2["CheckPointReplicationSlots()"]
+        D3["CheckPointSnapBuild()"]
+        D4["CheckPointLogicalRewriteHeap()"]
+        D5["CheckPointReplicationOrigin()"]
+        D6["CheckPointCLOG()<br/>(SimpleLruWriteAll)"]
+        D7["CheckPointCommitTs()"]
+        D8["CheckPointSUBTRANS()"]
+        D9["CheckPointMultiXact()"]
+        D10["CheckPointPredicate()"]
+        D11["CheckPointBuffers()<br/>bufmgr.c"]
+        D12["ProcessSyncRequests()<br/>fsync everything queued"]
+        D13["CheckPointTwoPhase()"]
+    end
+
+    CCG --> D1
+    D1 --> D2 --> D3 --> D4 --> D5
+    D5 --> D6 --> D7 --> D8 --> D9 --> D10
+    D10 --> D11 --> D12 --> D13
+
+    D13 --> XLI_DONE["XLogInsert(XLOG_CHECKPOINT_SHUTDOWN<br/>or XLOG_CHECKPOINT_ONLINE)"]
+    XLI_DONE --> UPD["UpdateControlFile()<br/>writes ControlFileData<br/>atomically (single sector)"]
+
+    UPD --> FIELDS
+
+    subgraph FIELDS["ControlFileData fields rewritten"]
+        F1["state = DB_IN_PRODUCTION /<br/>     DB_SHUTDOWNED"]
+        F2["time = now()"]
+        F3["checkPoint = LSN of XLI_DONE"]
+        F4["checkPointCopy = CheckPoint struct<br/>(redo, nextXid, nextOid, nextMulti,<br/>nextMultiOffset, oldestXid, oldestMulti,<br/>oldestCommitTsXid, newestCommitTsXid)"]
+        F5["minRecoveryPoint, etc."]
+        F6["crc"]
+    end

@@ -1,0 +1,38 @@
+%% MultiXact two-SLRU duality: pg_multixact/offsets and pg_multixact/members.
+%% offsets: 4 B per multi (offset into members)
+%% members: variable-length array of (TransactionId, MultiXactStatus)
+
+flowchart LR
+    subgraph CALL["Caller wants xmax to be a multi-row lock"]
+        REQ["MultiXactIdCreate(xid1, status1, xid2, status2)"]
+    end
+
+    REQ --> NEWID["GetNewMultiXactId()<br/>multixact.c"]
+    NEWID --> WAL["XLogInsert<br/>XLOG_MULTIXACT_CREATE_ID"]
+    NEWID --> RNM["RecordNewMultiXact()"]
+
+    subgraph OFFSETS["pg_multixact/offsets (MultiXactOffsetCtl)"]
+        OFFP["page = mid / 2048<br/>MULTIXACT_OFFSETS_PER_PAGE"]
+        OFFE["entry = MultiXactOffset (4 B)<br/>= absolute offset into members"]
+    end
+
+    RNM --> OFFP
+    OFFP --> OFFE
+
+    subgraph MEMBERS["pg_multixact/members (MultiXactMemberCtl)"]
+        MEMP["page = offset /<br/>MULTIXACT_MEMBERS_PER_PAGE"]
+        MEMG["per group of 4 entries:<br/>1 byte of status flags<br/>+ 4 × TransactionId"]
+        MEMENT1["TransactionId xid1<br/>+ status1"]
+        MEMENT2["TransactionId xid2<br/>+ status2"]
+    end
+
+    OFFE -->|points at| MEMP
+    MEMP --> MEMG
+    MEMG --> MEMENT1
+    MEMG --> MEMENT2
+
+    READ["GetMultiXactIdMembers()"]
+    READ --> OFFP
+    READ --> MEMP
+
+    note["Wraparound:<br/>SetOffsetVacuumLimit<br/>oldestMulti / nextMulti<br/>tracked separately in pg_control."]

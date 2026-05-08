@@ -1,0 +1,20 @@
+%% SLRU page-state machine for one slot.
+
+stateDiagram-v2
+    [*] --> EMPTY: SimpleLruInit
+    EMPTY --> READ_IN_PROGRESS: SimpleLruReadPage<br/>start I/O
+    READ_IN_PROGRESS --> VALID: I/O complete<br/>(buffer_locks released)
+    READ_IN_PROGRESS --> EMPTY: I/O error
+    EMPTY --> VALID: SimpleLruZeroPage<br/>(synchronous, no I/O)
+    VALID --> VALID: re-read / re-mark dirty
+    VALID --> WRITE_IN_PROGRESS: SimpleLruWritePage<br/>(dirty → flushing)
+    WRITE_IN_PROGRESS --> VALID: I/O complete,<br/>!re_dirtied
+    WRITE_IN_PROGRESS --> WRITE_IN_PROGRESS: re-dirtied while writing<br/>page_dirty stays true
+    VALID --> EMPTY: SlruSelectLRUPage evicts<br/>(or SimpleLruTruncate)
+
+    note right of VALID
+        page_dirty bit decoupled from
+        SlruPageStatus enum.
+        bank_lock guards transitions;
+        buffer_locks guards I/O.
+    end note

@@ -1,0 +1,27 @@
+%% VM clear/set protocol: pin VM before locking heap (deadlock avoidance);
+%% bit-set is LSN-aware; bit-clear is implicit in heap WAL.
+
+sequenceDiagram
+    participant Inserter
+    participant VM as Visibility Map
+    participant HeapPg as Heap page
+    participant WAL
+    participant Vacuum
+
+    rect rgb(245,245,245)
+    Note over Inserter: INSERT path (heap_insert)
+    Inserter->>VM: visibilitymap_pin(blk)<br/>BEFORE heap-page lock
+    Inserter->>HeapPg: LockBuffer(BUFFER_LOCK_EXCLUSIVE)
+    Inserter->>HeapPg: insert tuple
+    Inserter->>VM: visibilitymap_clear(blk)<br/>(if PD_ALL_VISIBLE was set)
+    Inserter->>WAL: XLogInsert(XLOG_HEAP_INSERT)
+    Note over WAL: clear is implicit in<br/>heap_xlog_insert redo
+    end
+
+    rect rgb(245,245,245)
+    Note over Vacuum: VACUUM path
+    Vacuum->>HeapPg: scan tuples,<br/>determine all-visible
+    Vacuum->>WAL: XLogInsert(XLOG_HEAP2_VISIBLE)<br/>recptr = recptr_returned
+    Vacuum->>VM: visibilitymap_set(blk, recptr,<br/>cutoff_xid, FLAGS)
+    Note over VM: VM page LSN is updated<br/>to recptr (high-water mark);<br/>VM page LSN must not regress<br/>past youngest tuple it claims.
+    end

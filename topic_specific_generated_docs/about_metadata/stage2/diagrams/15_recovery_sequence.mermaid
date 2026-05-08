@@ -1,0 +1,39 @@
+%% Recovery sequence: ReadControlFile -> StartupXLOG -> Startup* hooks -> WAL
+%% replay -> Trim* -> consistent.
+
+sequenceDiagram
+    participant Postmaster
+    participant Startup as Startup process
+    participant CF as pg_control
+    participant WAL
+    participant SLRU as SLRU subsystems
+    participant Standby as Standby readers
+
+    Postmaster->>Startup: fork
+    Startup->>CF: ReadControlFile()
+    CF-->>Startup: ControlFileData<br/>{checkPointCopy.redo,<br/>nextXid, nextOid,<br/>nextMulti, oldestXid,...}
+
+    Note over Startup: Validate magic, CRC,<br/>pg_control_version,<br/>catalog_version_no.
+
+    Startup->>SLRU: BootStrap* / *ShmemInit
+    Startup->>SLRU: StartupCLOG()<br/>(no-op: lazy reads)
+    Startup->>SLRU: StartupCommitTs()
+    Startup->>SLRU: StartupSUBTRANS(oldestActiveXID)<br/>(zero-fills the in-RAM page<br/>covering oldestActiveXID)
+    Startup->>SLRU: StartupMultiXact()<br/>(MultiXactSetNextMXact;<br/>load from pg_control)
+
+    Startup->>WAL: PerformWalRecovery()<br/>from checkPointCopy.redo
+
+    loop for each WAL record
+        WAL-->>Startup: record
+        Startup->>SLRU: rmgr-specific redo<br/>(clog_redo, multixact_redo,<br/>commit_ts_redo, relmap_redo,<br/>smgr_redo, heap_xlog_visible,<br/>xact_redo_commit/abort)
+    end
+
+    Startup->>Startup: PromoteIsTriggered()?<br/>Reach end of WAL?
+
+    Startup->>SLRU: TrimCLOG()<br/>zeros the rest of the<br/>last accessed page
+    Startup->>SLRU: TrimMultiXact()<br/>same for offsets+members
+
+    Startup->>CF: UpdateControlFile<br/>(state = DB_IN_PRODUCTION)
+    Startup->>Postmaster: ready;<br/>broadcast PM_RUN
+
+    Postmaster->>Standby: open for connections

@@ -1,0 +1,39 @@
+%% FSM 3-level tree: root, midlevel, leaf pages.
+%% Each FSM page itself contains a binary heap of slots.
+
+flowchart TB
+    subgraph FSM["FSM_FORKNUM (1 byte per heap page,<br/>256 categories of free space)"]
+        ROOT["FSM_ROOT_LEVEL = 2 (root)<br/>Each slot summarises a<br/>FSM_NODES_PER_PAGE-th<br/>region of the relation."]
+        MID0["FSM_MIDDLE_LEVEL = 1"]
+        MID1["midlevel page 1"]
+        MIDDOTS["..."]
+        LEAF0["FSM_LEAF_LEVEL = 0<br/>leaf page 0<br/>(SlotsPerFSMPage * 1 B<br/>per heap block)"]
+        LEAF1["leaf page 1"]
+        LEAFDOTS["..."]
+    end
+
+    ROOT --> MID0
+    ROOT --> MID1
+    ROOT --> MIDDOTS
+    MID0 --> LEAF0
+    MID0 --> LEAF1
+    MID1 --> LEAFDOTS
+
+    subgraph PAGE["FSM page-internal binary heap (fsmpage.c)"]
+        TREE0["node 0 = max(node 1, node 2)"]
+        TREE1["node 1<br/>(internal)"]
+        TREE2["node 2<br/>(internal)"]
+        TLEAF["leaf nodes:<br/>SlotsPerFSMPage<br/>= NodesPerPage / 2 + 1"]
+    end
+
+    LEAF0 --> TREE0
+    TREE0 --> TREE1
+    TREE0 --> TREE2
+    TREE1 --> TLEAF
+    TREE2 --> TLEAF
+
+    subgraph SEARCH["fsm_search() top-down walk"]
+        SR["Start at root,<br/>fsm_search_avail picks<br/>leftmost slot ≥ minvalue"]
+        SR --> DESC["Descend to that midlevel page,<br/>repeat fsm_search_avail"]
+        DESC --> LD["Descend to leaf page,<br/>fsm_search_avail returns<br/>physical block #"]
+    end

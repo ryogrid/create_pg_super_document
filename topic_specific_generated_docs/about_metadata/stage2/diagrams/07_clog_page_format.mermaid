@@ -1,0 +1,29 @@
+%% CLOG page format: 2 bits per XID, 4 XIDs per byte.
+%% CLOG_XACTS_PER_PAGE = BLCKSZ * 4 = 32768 (with 8 KB pages).
+
+flowchart LR
+    subgraph PAGE["One CLOG page (BLCKSZ = 8192 B)"]
+        direction TB
+        BYTE0["byte 0:  &#91;XID3 XID2 XID1 XID0&#93;"]
+        BYTE1["byte 1:  &#91;XID7 XID6 XID5 XID4&#93;"]
+        DOTS["...                "]
+        BYTEN["byte 8191: &#91;XID32767 ... XID32764&#93;"]
+    end
+
+    subgraph LSN["Async-commit LSN groups"]
+        L0["group_lsn&#91;0&#93;: LSN of XIDs 0..31"]
+        L1["group_lsn&#91;1&#93;: LSN of XIDs 32..63"]
+        LDOTS["..."]
+        LN["group_lsn&#91;1023&#93;: LSN of XIDs 32736..32767"]
+
+        note1["CLOG_XACTS_PER_LSN_GROUP = 32<br/>CLOG_LSNS_PER_PAGE = 1024<br/>(CLOG_XACTS_PER_PAGE / 32)"]
+    end
+
+    PAGE --> LSN
+
+    subgraph BITS["2-bit XidStatus values"]
+        IP["00 IN_PROGRESS"]
+        CO["01 COMMITTED"]
+        AB["10 ABORTED"]
+        SC["11 SUB_COMMITTED"]
+    end

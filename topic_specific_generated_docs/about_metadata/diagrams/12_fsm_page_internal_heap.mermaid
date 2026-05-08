@@ -1,0 +1,47 @@
+%% Page-internal binary heap inside one FSM page.
+%% fsm_search_avail walks from the root.
+
+flowchart TB
+    subgraph TREE["FSMPage::fp_nodes[] binary heap"]
+        N0["node[0]<br/>= max(node[1], node[2])"]
+        N1["node[1]<br/>= max(node[3], node[4])"]
+        N2["node[2]<br/>= max(node[5], node[6])"]
+        N3["node[3]<br/>= max(leafA, leafB)"]
+        N4["node[4]"]
+        N5["node[5]"]
+        N6["node[6]"]
+        LEAF1["leaf: heap blk N+0 (1 B)"]
+        LEAF2["leaf: heap blk N+1"]
+        LEAFD["..."]
+    end
+
+    N0 --> N1
+    N0 --> N2
+    N1 --> N3
+    N1 --> N4
+    N2 --> N5
+    N2 --> N6
+    N3 --> LEAF1
+    N3 --> LEAF2
+
+    subgraph SEARCH["fsm_search_avail(buf, minvalue)"]
+        START["Start at root node 0"]
+        CHECKL["if root &lt; minvalue: return -1"]
+        DESC1["Else: pick left child if<br/>node[2*i+1] ≥ minvalue,<br/>else right child"]
+        DESC2["Stop at leaf, return its slot"]
+    end
+
+    START --> CHECKL
+    CHECKL --> DESC1
+    DESC1 --> DESC2
+
+    subgraph UPDATE["fsm_set_avail(buf, slot, newvalue)"]
+        US["Set fp_nodes[leafIndex(slot)]<br/>= newvalue"]
+        UP["Propagate up:<br/>parent = max(left, right)"]
+        UC["Stop when parent unchanged"]
+    end
+
+    US --> UP
+    UP --> UC
+
+    note["fp_next_slot is also stored<br/>in the page (for round-robin<br/>insert spreading)."]

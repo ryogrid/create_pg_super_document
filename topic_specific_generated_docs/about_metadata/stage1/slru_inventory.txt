@@ -1,0 +1,158 @@
+PostgreSQL SLRU instances. Each entry is one independent SLRU.
+Discovered by: grep -nE 'SimpleLruInit\(' src/backend/access/transam/*.c
+                   src/backend/commands/async.c src/backend/storage/lmgr/predicate.c
+
+Format:
+  SlruCtl                : C identifier of the SlruCtl pointer
+  Source file            : where SimpleLruInit() is called
+  On-disk directory      : 2nd argument to SimpleLruInit (under PGDATA, except pg_notify which lives in PGDATA root)
+  Page-number formula    : the *ToPage helper near the top of the source file
+  Per-page data          : entry size and entries-per-page
+  WAL-logged             : whether SLRU page writes are WAL-protected (lsn group)
+  Checkpoint hook        : function called from CheckPointGuts
+  Truncate policy        : when SimpleLruTruncate fires and on what cutoff
+  Redo callback          : rmgr redo function, info-byte names
+
+================================================================================
+1. CLOG  (transaction commit/abort log)
+================================================================================
+SlruCtl              : XactCtl
+Source file          : src/backend/access/transam/clog.c (SimpleLruInit at line 811)
+On-disk directory    : pg_xact
+Page-number formula  : TransactionIdToPage(xid) = xid / CLOG_XACTS_PER_PAGE
+                       CLOG_XACTS_PER_PAGE = BLCKSZ * CLOG_XACTS_PER_BYTE = BLCKSZ * 4 = 32768
+Per-page data        : 2 bits per XID; 4 XIDs per byte; 32768 XIDs per 8KB page
+WAL-logged           : YES — uses CLOG_LSNS_PER_PAGE (CLOG_XACTS_PER_PAGE / 32 = 1024) async-LSN
+                       slots per page; SimpleLruInit's nlsns argument is CLOG_LSNS_PER_PAGE,
+                       so that XLogFlush() is called before a CLOG page is written when
+                       async-commit transactions affected it.
+Checkpoint hook      : CheckPointCLOG  (calls SimpleLruWriteAll)
+Truncate policy      : TruncateCLOG, called from vac_truncate_clog after vacuum advances
+                       the cluster-wide oldestXid (datfrozenxid). Cutoff is the page
+                       containing oldestXid; emits XLOG_CLOG_TRUNCATE first.
+Redo callback        : clog_redo (clog.c:1107)
+                       XLOG_CLOG_ZEROPAGE   = 0x00 (info byte; clog.h:55)
+                       XLOG_CLOG_TRUNCATE   = 0x10 (info byte; clog.h:56)
+
+================================================================================
+2. SUBTRANS  (subtransaction parent linkage)
+================================================================================
+SlruCtl              : SubTransCtl
+Source file          : src/backend/access/transam/subtrans.c (SimpleLruInit at line 244)
+On-disk directory    : pg_subtrans
+Page-number formula  : TransactionIdToPage(xid) = xid / SUBTRANS_XACTS_PER_PAGE
+                       SUBTRANS_XACTS_PER_PAGE = BLCKSZ / sizeof(TransactionId) = 2048
+Per-page data        : 4 bytes per XID (parent TransactionId); 2048 XIDs per 8KB page
+WAL-logged           : NO — SUBTRANS is NOT crash-safe via WAL. It is reconstructed at
+                       runtime from SubTransSetParent calls. Pages older than
+                       oldestActiveXID are zeroed at startup.
+Checkpoint hook      : CheckPointSUBTRANS  (calls SimpleLruWriteAll for the subset of
+                       pages still in shmem; on-disk pages are not authoritative)
+Truncate policy      : TruncateSUBTRANS, called as part of vac_truncate_clog using
+                       oldestActiveXact. No WAL emitted — recovery rebuilds the file.
+Redo callback        : (none; subtrans has no rmgr)
+
+================================================================================
+3. MultiXact / Offsets
+================================================================================
+SlruCtl              : MultiXactOffsetCtl
+Source file          : src/backend/access/transam/multixact.c (SimpleLruInit at line 1965)
+On-disk directory    : pg_multixact/offsets
+Page-number formula  : MultiXactIdToOffsetPage(multi) = multi / MULTIXACT_OFFSETS_PER_PAGE
+                       MULTIXACT_OFFSETS_PER_PAGE = BLCKSZ / sizeof(MultiXactOffset) = 2048
+Per-page data        : 4 bytes per MultiXactId (offset into the members file); 2048 MXIDs/page
+WAL-logged           : YES, but at insert time — every MultiXactId allocation emits
+                       XLOG_MULTIXACT_CREATE_ID, and zero-page extensions emit
+                       XLOG_MULTIXACT_ZERO_OFF_PAGE.
+Checkpoint hook      : CheckPointMultiXact  (drives both Offset+Member SLRUs;
+                       calls MultiXactGetCheckptMulti and updates pg_control's
+                       nextMulti / nextMultiOffset / oldestMulti / oldestMultiDB).
+Truncate policy      : TruncateMultiXact, called from vac_truncate_clog after vacuum
+                       advances oldestMulti. Emits XLOG_MULTIXACT_TRUNCATE_ID first;
+                       also drives the members truncation.
+Redo callback        : multixact_redo (multixact.c)
+                       XLOG_MULTIXACT_ZERO_OFF_PAGE = 0x00 (multixact.h:68)
+                       XLOG_MULTIXACT_ZERO_MEM_PAGE = 0x10 (multixact.h:69)
+                       XLOG_MULTIXACT_CREATE_ID     = 0x20 (multixact.h:70)
+                       XLOG_MULTIXACT_TRUNCATE_ID   = 0x30 (multixact.h:71)
+
+================================================================================
+4. MultiXact / Members
+================================================================================
+SlruCtl              : MultiXactMemberCtl
+Source file          : src/backend/access/transam/multixact.c (SimpleLruInit at line 1972)
+On-disk directory    : pg_multixact/members
+Page-number formula  : MXOffsetToMemberPage(offset) = offset / MULTIXACT_MEMBERS_PER_PAGE
+                       MULTIXACT_MEMBERS_PER_PAGE = BLCKSZ / MULTIXACT_MEMBER_SAFE_MULTIPLIER
+                       (variable due to flag-byte packing; effectively ~ 1635 entries/page).
+Per-page data        : Variable: TransactionId (4 bytes) + MultiXactStatus packed in flag-byte
+                       group of 4 entries. Layout governed by MXOffsetToFlagsOffset and
+                       MXOffsetToMemberOffset.
+WAL-logged           : YES — see XLOG_MULTIXACT_ZERO_MEM_PAGE for new pages and
+                       XLOG_MULTIXACT_CREATE_ID for member writes.
+Checkpoint hook      : (driven by CheckPointMultiXact)
+Truncate policy      : Driven by TruncateMultiXact: members are truncated up to the
+                       offset belonging to newOldestMulti.
+Redo callback        : (same as Offsets — multixact_redo)
+
+================================================================================
+5. CommitTs  (commit timestamps + RepOriginId)
+================================================================================
+SlruCtl              : CommitTsCtl
+Source file          : src/backend/access/transam/commit_ts.c (SimpleLruInit at line 556)
+On-disk directory    : pg_commit_ts
+Page-number formula  : TransactionIdToCTsPage(xid) = xid / COMMIT_TS_XACTS_PER_PAGE
+                       COMMIT_TS_XACTS_PER_PAGE = BLCKSZ / sizeof(CommitTimestampEntry) = 819
+                       CommitTimestampEntry = TimestampTz (8 bytes) + RepOriginId (2 bytes)
+Per-page data        : 10 bytes per XID; 819 XIDs per 8KB page
+WAL-logged           : YES (when track_commit_timestamp = on). XLOG_COMMIT_TS_SETTS only
+                       emitted when a non-default RepOriginId is being recorded.
+Checkpoint hook      : CheckPointCommitTs  (no-op when track_commit_timestamp = off)
+Truncate policy      : TruncateCommitTs, called from vac_truncate_clog after vacuum
+                       advances oldestCommitTsXid. Emits XLOG_COMMIT_TS_TRUNCATE.
+Redo callback        : commit_ts_redo (commit_ts.c:1023)
+                       XLOG_COMMIT_TS_ZEROPAGE = 0x00 (commit_ts.h:46)
+                       XLOG_COMMIT_TS_TRUNCATE = 0x10 (commit_ts.h:47)
+                       (XLOG_COMMIT_TS_SETTS is recorded inline in xact code path)
+
+================================================================================
+6. Notify  (LISTEN/NOTIFY message queue)
+================================================================================
+SlruCtl              : NotifyCtl
+Source file          : src/backend/commands/async.c (SimpleLruInit at line 538)
+On-disk directory    : pg_notify
+Page-number formula  : asyncQueuePageDiff -- positions are (pageno, offset) tuples;
+                       wraparound handled by long_segment_names.
+Per-page data        : Variable-length AsyncQueueEntry records (channel + payload)
+WAL-logged           : NO — pg_notify is volatile across server restarts; on startup,
+                       the directory is wiped via SlruScanDirectory(SlruScanDirCbDeleteAll).
+                       SimpleLruInit is called with sync_handler = SYNC_HANDLER_NONE.
+Checkpoint hook      : (none; pg_notify is not flushed at checkpoint)
+Truncate policy      : asyncQueueAdvanceTail removes pages once every backend has read
+                       past them. SimpleLruTruncate not used directly; segments are
+                       deleted via SlruDeleteSegment.
+Redo callback        : (none; not WAL-logged)
+
+================================================================================
+7. Serial  (Serializable Snapshot Isolation old-committed-xact tracking)
+================================================================================
+SlruCtl              : SerialSlruCtl
+Source file          : src/backend/storage/lmgr/predicate.c (SimpleLruInit at line 814)
+On-disk directory    : pg_serial
+Page-number formula  : SerialPage(xid) = xid / SERIAL_ENTRIESPERPAGE
+                       SERIAL_ENTRIESPERPAGE = BLCKSZ / sizeof(SerCommitSeqNo) = 1024
+Per-page data        : 8 bytes per XID (SerCommitSeqNo)
+WAL-logged           : NO — predicate-lock state is volatile. SimpleLruInit is called
+                       with sync_handler = SYNC_HANDLER_NONE.
+Checkpoint hook      : CheckPointPredicate  (drains the SLRU and the predicate-lock
+                       data structures into a stable form for checkpointer)
+Truncate policy      : SerialSetActiveSerXmin advances the SLRU truncation point as
+                       transactions retire. SimpleLruTruncate is invoked as part.
+Redo callback        : (none; not WAL-logged)
+
+--------------------------------------------------------------------------------
+Summary: 7 SLRU instances total.
+        Crash-safe via WAL: CLOG, CommitTs, MultiXact (offsets+members).
+        Reconstructed from runtime state: SUBTRANS.
+        Volatile (not crash-safe; wiped at start): Notify, Serial.
+--------------------------------------------------------------------------------

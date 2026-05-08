@@ -1,0 +1,63 @@
+%% System catalog stack: SQL DDL down to physical pg_catalog tables.
+
+flowchart TB
+    SQL["CREATE TABLE / CREATE INDEX /<br/>ALTER / DROP / GRANT"]
+    SQL --> UTIL["ProcessUtility() dispatcher"]
+
+    UTIL --> HC[heap_create_with_catalog<br/>heap.c]
+    UTIL --> IC[index_create<br/>index.c]
+    UTIL --> AC[ExecGrantStmt_oids<br/>aclchk.c]
+    UTIL --> DR[performDeletion<br/>dependency.c]
+
+    subgraph PERCAT["Per-catalog helpers (src/backend/catalog/pg_*.c)"]
+        PG_PROC[pg_proc.c<br/>ProcedureCreate]
+        PG_TYPE[pg_type.c<br/>TypeCreate]
+        PG_CONS[pg_constraint.c<br/>CreateConstraintEntry]
+        PG_DEP[pg_depend.c<br/>recordDependency*]
+        PG_NS[pg_namespace.c]
+    end
+
+    HC --> PG_TYPE
+    HC --> APAT[AddNewAttributeTuples]
+    HC --> APRT[AddNewRelationTuple]
+    IC --> APAT
+    DR --> PG_DEP
+
+    APAT --> CTI[CatalogTupleInsert<br/>indexing.c:233]
+    APRT --> CTI
+    PG_PROC --> CTI
+    PG_TYPE --> CTI
+    PG_CONS --> CTI
+    PG_DEP --> CTI
+
+    CTI --> HEAPI["heap_insert<br/>(plain heap routine)"]
+    CTI --> CII[CatalogIndexInsert]
+    CTI --> CIHT[CacheInvalidateHeapTuple<br/>inval.c]
+
+    HEAPI --> PHYS[(Physical page<br/>shared_buffers)]
+    CII --> PHYS
+
+    subgraph CATALOGS["pg_catalog tables"]
+        PGCLASS[pg_class<br/>1259 nailed mapped]
+        PGATTR[pg_attribute<br/>1249 nailed mapped]
+        PGTYPE[pg_type<br/>1247 nailed mapped]
+        PGPROC[pg_proc<br/>1255 nailed mapped]
+        PGINDEX[pg_index 2610]
+        PGDEP[pg_depend 2608]
+        PGNS[pg_namespace 2615]
+        PGCONS[pg_constraint 2606]
+        OTHERS[...46 other catalogs]
+    end
+
+    PHYS --> PGCLASS
+    PHYS --> PGATTR
+    PHYS --> PGTYPE
+    PHYS --> PGPROC
+    PHYS --> PGINDEX
+    PHYS --> PGDEP
+    PHYS --> PGNS
+    PHYS --> PGCONS
+    PHYS --> OTHERS
+
+    CIHT --> CCINV[catcache invalidation]
+    CIHT --> RCINV[relcache invalidation]

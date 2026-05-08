@@ -1,0 +1,53 @@
+%% sinval distribution: per-backend invalidation messages flow through the
+%% shared ring buffer.
+
+flowchart LR
+    subgraph A["Backend A (DDL committer)"]
+        AMUT["catalog mutation"]
+        AOUTBOX["TransInvalidationInfo<br/>(per-txn outbox)"]
+        AXACT["xactGetCommittedInvalidationMessages"]
+        AWAL["XLogInsert XACT_COMMIT<br/>(messages on the wire)"]
+        ASEND["SendSharedInvalidMessages"]
+
+        AMUT --> AOUTBOX
+        AOUTBOX --> AXACT
+        AXACT --> AWAL
+        AOUTBOX --> ASEND
+    end
+
+    subgraph SHM["Shared Memory"]
+        RING[("SharedInvalidStateData<br/>ring buffer<br/>sinvaladt.c")]
+        WLOCK["SInvalWriteLock"]
+        RLOCK["SInvalReadLock"]
+        SIGNAL["sigusr1 / catchup signal"]
+    end
+
+    ASEND --> WLOCK
+    WLOCK --> RING
+    ASEND --> SIGNAL
+
+    subgraph B["Backend B (consumer)"]
+        BTRIG["Trigger:<br/>LockRelationOid /<br/>RelationIdGetRelation /<br/>idle interrupt"]
+        BAIM["AcceptInvalidation<br/>Messages()"]
+        BRECV["ReceiveSharedInvalidMessages"]
+        BLEX["LocalExecuteInvalidationMessage"]
+        BCATCH["catcache + relcache flush"]
+    end
+
+    SIGNAL -.-> BTRIG
+    BTRIG --> BAIM
+    BAIM --> BRECV
+    RING --> RLOCK
+    RLOCK --> BRECV
+    BRECV --> BLEX
+    BLEX --> BCATCH
+
+    subgraph OVF["Overflow handling"]
+        OVERFLOW["queue full"]
+        SIRESET["SI_RESET<br/>flag per backend"]
+        WIPE["next AcceptInvalidationMessages<br/>wipes ALL caches"]
+    end
+
+    RING -.->|backend too slow| OVERFLOW
+    OVERFLOW --> SIRESET
+    SIRESET --> WIPE

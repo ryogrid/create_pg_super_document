@@ -1,0 +1,46 @@
+%% SLRU on-disk layout: SLRU_PAGES_PER_SEGMENT pages per segment file,
+%% bank-lock partitioning of buffer slots.
+
+flowchart TB
+    subgraph DISK["On-disk SLRU directory (e.g. pg_xact)"]
+        SEG0["segment 0000<br/>32 pages × 8 KB = 256 KB"]
+        SEG1["segment 0001<br/>32 pages × 8 KB"]
+        SEG2["segment 0002<br/>32 pages × 8 KB"]
+        DOTS["..."]
+    end
+
+    SEG0 --> P0["page 0"]
+    SEG0 --> P1["page 1"]
+    SEG0 --> P31["...page 31"]
+    P0 -.->|read| SLRU
+    P1 -.->|read| SLRU
+
+    subgraph SLRU["SLRU shared memory (SlruSharedData)"]
+        SLOTS["page_buffer[ num_slots ]<br/>page_status[ num_slots ]<br/>page_dirty[ num_slots ]<br/>page_number[ num_slots ]<br/>page_lru_count[ num_slots ]"]
+
+        subgraph BANK0["Bank 0  (bank_locks[0])"]
+            S0["slot 0"]
+            S1["slot 1"]
+            SDOTS0["..."]
+        end
+
+        subgraph BANK1["Bank 1  (bank_locks[1])"]
+            S16["slot 16"]
+            S17["slot 17"]
+            SDOTS1["..."]
+        end
+
+        subgraph BANK2["Bank 2  (bank_locks[2])"]
+            S32["slot 32"]
+            SDOTS2["..."]
+        end
+    end
+
+    READ["SimpleLruReadPage<br/>SimpleLruGetBankLock<br/>(pageno %% nbanks)"]
+    READ -->|bank 0| BANK0
+    READ -->|bank 1| BANK1
+    READ -->|bank 2| BANK2
+
+    LRU["SlruSelectLRUPage<br/>(per-bank scan)"]
+    LRU -->|max bank_cur_lru_count<br/>- page_lru_count| EVICT["evict slot,<br/>SimpleLruWritePage<br/>if dirty"]
+    LRU --> ASSIGN["assign new page<br/>SimpleLruZeroPage<br/>or read-from-disk"]

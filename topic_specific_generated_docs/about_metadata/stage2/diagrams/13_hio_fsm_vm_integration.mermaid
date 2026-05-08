@@ -1,0 +1,30 @@
+%% Heap-extension fast path: hio.c uses FSM and VM together.
+
+sequenceDiagram
+    participant Caller as heap_insert()
+    participant HIO as RelationGetBufferForTuple<br/>(hio.c)
+    participant FSM as freespace.c
+    participant VM as visibilitymap.c
+    participant BUF as bufmgr
+
+    Caller->>HIO: targetBlock unknown,<br/>need page with len bytes free
+    HIO->>FSM: GetPageWithFreeSpace(rel, len)
+    FSM->>FSM: fsm_search top-down
+    FSM-->>HIO: blockNumber (hint)
+
+    HIO->>VM: visibilitymap_pin(rel, blockNumber, &vmbuffer)
+    Note over HIO,VM: Pin the VM page<br/>BEFORE acquiring heap-page lock<br/>(deadlock avoidance vs vacuum).
+    HIO->>BUF: ReadBufferBI(rel, blockNumber)
+    HIO->>BUF: LockBuffer(BUFFER_LOCK_EXCLUSIVE)
+
+    alt page no longer has space (concurrent insert)
+        HIO->>BUF: UnlockReleaseBuffer
+        HIO->>FSM: RecordAndGetPageWithFreeSpace<br/>(record actual free, find next)
+    else page accepted
+        HIO->>VM: visibilitymap_clear(rel, blockNumber, vmbuffer, FLAGS)
+        Note over VM: VM clear is local to backend;<br/>no separate WAL — heap WAL<br/>record's redo will replay it.
+        HIO-->>Caller: buffer + targetBlock
+    end
+
+    Caller->>BUF: PageAddItem (insert tuple)
+    Caller->>BUF: XLogInsert XLOG_HEAP_INSERT

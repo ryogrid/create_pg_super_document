@@ -1,0 +1,144 @@
+PostgreSQL system catalogs (pg_catalog schema). Total: 63 catalog tables.
+
+Discovery method:
+  for f in src/include/catalog/pg_*.h; do grep -E "^CATALOG\(...\," $f; done
+
+Flag legend:
+  shared    : BKI_SHARED_RELATION  -- single physical relation visible from every database
+              (lives in pg_global tablespace)
+  nailed    : BKI_BOOTSTRAP        -- formrdesc-bootstrapped relcache entry; the relcache
+              cannot be initialized without these existing in C-side metadata
+  mapped    : entry in pg_filenode.map (the relfilenode is NOT recorded in pg_class because
+              we cannot safely update pg_class for these catalogs)
+              By inspection of relmapper.c MAX_MAPPINGS=64 and IsSharedRelation() in catalog.c,
+              the mapped catalogs are: the 4 nailed local (pg_class, pg_attribute, pg_proc,
+              pg_type) plus all 11 shared ones, plus their indexes and toast tables.
+  .dat      : has src/include/catalog/<name>.dat boot data
+  .c        : has src/backend/catalog/<name>.c C-side helper
+
+Format per row:
+  name  | OID  | flags                            | .dat | .c   | brief purpose
+        | (.h is always src/include/catalog/<name>.h; key indexes from indexing.h within <name>.h)
+
+================================================================================
+SHARED CATALOGS (11)  --  BKI_SHARED_RELATION; mapped via global pg_filenode.map
+================================================================================
+pg_authid                | 1260 | shared,mapped                  | yes  | no  | Roles (login users + groups). Indexes: AuthIdOidIndex (2676), AuthIdRolnameIndex (2677). Holds rolname, rolsuper, rolpassword, etc.
+pg_auth_members          | 1261 | shared,mapped                  | no   | no  | Role -> member-role grants. Indexes: AuthMemRoleMem (2694), AuthMemMemRole (2695), AuthMemOid (8395), AuthMemGrantor (8396).
+pg_database              | 1262 | shared,mapped                  | yes  | no  | Databases. Holds datname, datdba, encoding, datfrozenxid, datminmxid, dattablespace. Indexes: DatabaseNameIndex (2671), DatabaseOidIndex (2672).
+pg_db_role_setting       | 2964 | shared,mapped                  | no   | yes | ALTER DATABASE/ROLE SET defaults. Index: DbRoleSettingDatidRolid (2965).
+pg_parameter_acl         | 6243 | shared,mapped                  | no   | yes | GRANT on configuration parameters. Indexes: ParameterAclOidIndex (6244), ParameterAclParnameIndex (6245).
+pg_replication_origin    | 6000 | shared,mapped                  | no   | no  | Logical replication origin -> name + remote LSN. Indexes: ReplicationOriginIdent (6001), ReplicationOriginName (6002).
+pg_shdepend              | 1214 | shared,mapped                  | no   | yes | Shared (cross-database) dependencies. Indexes: SharedDependDepender (1232), SharedDependReference (1233).
+pg_shdescription         | 2396 | shared,mapped                  | no   | no  | COMMENTs on shared objects. Index: SharedDescriptionObjIndex (2397).
+pg_shseclabel            | 3592 | shared,mapped                  | no   | no  | Security labels on shared objects. Index: SharedSecLabelObjectIndex (3593).
+pg_subscription          | 6100 | shared,mapped                  | no   | yes | Logical replication subscriptions. Indexes: SubscriptionObjectIndex (6114), SubscriptionNameIndex (6115).
+pg_tablespace            | 1213 | shared,mapped                  | yes  | no  | Tablespaces. Indexes: TablespaceOidIndex (2697), TablespaceNameIndex (2698).
+
+================================================================================
+LOCAL NAILED CATALOGS (4)  --  BKI_BOOTSTRAP; mapped via local pg_filenode.map
+================================================================================
+pg_class                 | 1259 | nailed,mapped                  | yes  | yes | The relation table. Holds relfilenode, relam, reltuples, relfrozenxid, relminmxid, relallvisible. Indexes: ClassOidIndex (2662), ClassNameNspIndex (2663), ClassTblspcRelfilenodeIndex (3455).
+pg_attribute             | 1249 | nailed,mapped                  | no   | no  | One row per column of every relation. Indexes: AttributeRelidNameIndex (2658), AttributeRelidNumIndex (2659).
+pg_proc                  | 1255 | nailed,mapped                  | yes  | yes | Functions and procedures. Indexes: ProcedureOidIndex (2690), ProcedureNameArgsNspIndex (2691).
+pg_type                  | 1247 | nailed,mapped                  | yes  | yes | Data types. Indexes: TypeOidIndex (2703), TypeNameNspIndex (2704).
+
+================================================================================
+LOCAL CATALOGS (48)  --  per-database, regular relfilenode in pg_class.relfilenode
+================================================================================
+pg_aggregate             | 2600 | local                          | yes  | yes | Aggregate functions. Index: AggregateFnoidIndex (2650).
+pg_am                    | 2601 | local                          | yes  | no  | Index access methods (btree, hash, gist, gin, spgist, brin) and table AMs. Indexes: AmOidIndex (2651), AmNameIndex (2652).
+pg_amop                  | 2602 | local                          | yes  | no  | Operators that belong to an opfamily. Indexes: AccessMethodOperatorOidIndex (2756), AccessMethodOperatorIndex (2754), AccessMethodStrategyIndex (2755).
+pg_amproc                | 2603 | local                          | yes  | no  | Support procedures of an opfamily. Indexes: AccessMethodProcedureOidIndex (2757), AccessMethodProcedureIndex (2655).
+pg_attrdef               | 2604 | local                          | no   | yes | Default expressions for columns. Indexes: AttrDefaultOidIndex (2657), AttrDefaultIndex (2656).
+pg_cast                  | 2605 | local                          | yes  | yes | Type casts. Indexes: CastOidIndex (2660), CastSourceTargetIndex (2661).
+pg_collation             | 3456 | local                          | yes  | yes | Collations. Indexes: CollationOidIndex (3085), CollationNameEncNspIndex (3164).
+pg_constraint            | 2606 | local                          | no   | yes | Check / unique / FK / exclusion constraints. Indexes: ConstraintOidIndex (2667), ConstraintRelidTypidNameIndex (2664), ConstraintNameNspIndex (2665), ConstraintTypidIndex (2666).
+pg_conversion            | 2607 | local                          | yes  | yes | Encoding conversion functions. Indexes: ConversionOidIndex (2669), ConversionNameNspIndex (2668), ConversionDefaultIndex (2670).
+pg_default_acl           | 826  | local                          | no   | no  | ALTER DEFAULT PRIVILEGES. Indexes: DefaultAclOidIndex (827), DefaultAclRoleNspObjIndex (828).
+pg_depend                | 2608 | local                          | no   | yes | Object-graph dependencies. Indexes: DependDependerIndex (2673), DependReferenceIndex (2674).
+pg_description           | 2609 | local                          | no   | no  | COMMENT ON for non-shared objects. Index: DescriptionObjIndex (2675).
+pg_enum                  | 3501 | local                          | no   | yes | Enum-type label values. Indexes: EnumOidIndex (3502), EnumTypIdLabelIndex (3503), EnumTypIdSortOrderIndex (3534).
+pg_event_trigger         | 3466 | local                          | no   | no  | Event trigger registrations. Indexes: EventTriggerNameIndex (3467), EventTriggerOidIndex (3468).
+pg_extension             | 3079 | local                          | no   | no  | Installed extensions. Indexes: ExtensionOidIndex (3080), ExtensionNameIndex (3081).
+pg_foreign_data_wrapper  | 2328 | local                          | no   | no  | FDW handlers. Indexes: ForeignDataWrapperOidIndex (112), ForeignDataWrapperNameIndex (548).
+pg_foreign_server        | 1417 | local                          | no   | no  | Foreign servers. Indexes: ForeignServerOidIndex (113), ForeignServerNameIndex (549).
+pg_foreign_table         | 3118 | local                          | no   | no  | Foreign-table-specific options. Index: ForeignTableRelidIndex (3119).
+pg_index                 | 2610 | local                          | no   | no  | Per-index metadata: indkey, indclass, indpred, indisvalid, indisready, indislive. Indexes: IndexRelidIndex (2678), IndexIndrelidIndex (2679).
+pg_inherits              | 2611 | local                          | no   | yes | Inheritance / partition relationships. Indexes: InheritsRelidSeqnoIndex (2680), InheritsParentIndex (2187).
+pg_init_privs            | 3394 | local                          | no   | no  | Original privileges of objects (for pg_dump --no-privileges). Index: InitPrivsObjIndex (3395).
+pg_language              | 2612 | local                          | yes  | no  | Procedural languages. Indexes: LanguageOidIndex (2681), LanguageNameIndex (2682).
+pg_largeobject           | 2613 | local                          | no   | yes | Large object data chunks. Index: LargeObjectLOidPNIndex (2683).
+pg_largeobject_metadata  | 2995 | local                          | no   | no  | Large object owner + ACL. Index: LargeObjectMetadataOidIndex (2996).
+pg_namespace             | 2615 | local                          | yes  | yes | Schemas. Indexes: NamespaceOidIndex (2684), NamespaceNameIndex (2685).
+pg_opclass               | 2616 | local                          | yes  | no  | Operator classes. Indexes: OpclassOidIndex (2687), OpclassAmNameNspIndex (2686).
+pg_operator              | 2617 | local                          | yes  | yes | Operators. Indexes: OperatorOidIndex (2688), OperatorNameNspIndex (2689).
+pg_opfamily              | 2753 | local                          | yes  | no  | Operator families. Indexes: OpfamilyOidIndex (2755), OpfamilyAmNameNspIndex (2754).
+pg_partitioned_table     | 3350 | local                          | no   | no  | Per-partitioned-table metadata: partkey, partattrs, partclass. Index: PartitionedRelidIndex (3351).
+pg_policy                | 3256 | local                          | no   | no  | Row-level security policies. Indexes: PolicyOidIndex (3257), PolicyPolrelidPolnameIndex (3258).
+pg_publication           | 6104 | local                          | no   | yes | Logical replication publications. Indexes: PublicationObjectIndex (6110), PublicationNameIndex (6111).
+pg_publication_namespace | 6237 | local                          | no   | no  | Publications -> schemas mapping. Indexes: PublicationNamespaceObjectIndex (6238), PublicationNamespacePnnspidPnpubidIndex (6239).
+pg_publication_rel       | 6106 | local                          | no   | no  | Publications -> tables mapping. Indexes: PublicationRelObjectIndex (6112), PublicationRelPrrelidPrpubidIndex (6113).
+pg_range                 | 3541 | local                          | yes  | yes | Range-type metadata: rngsubtype, rngmultitypid, rngcollation. Indexes: RangeTypidIndex (3542), RangeMultiRangeTypidIndex (2228).
+pg_rewrite               | 2618 | local                          | no   | no  | Rules for views and updatable views. Indexes: RewriteOidIndex (2692), RewriteRelRulenameIndex (2693).
+pg_seclabel              | 3596 | local                          | no   | no  | Security labels (for sepgsql etc.). Index: SecLabelObjectIndex (3597).
+pg_sequence              | 2224 | local                          | no   | no  | Sequence metadata: seqstart, seqincrement, seqmin, seqmax, seqcycle. Index: SequenceRelidIndex (5002).
+pg_statistic             | 2619 | local                          | no   | no  | Per-column statistics for the planner. Index: StatisticRelidAttnumInhIndex (2696).
+pg_statistic_ext         | 3381 | local                          | no   | no  | Extended statistics objects (CREATE STATISTICS). Indexes: StatisticExtOidIndex (3380), StatisticExtNameIndex (3997), StatisticExtRelidIndex (3379).
+pg_statistic_ext_data    | 3429 | local                          | no   | no  | Computed extended-stats data. Index: StatisticExtDataStxoidInhIndex (3430).
+pg_subscription_rel      | 6102 | local                          | no   | no  | Per-subscription per-relation state (initial sync). Index: SubscriptionRelSrrelidSrsubidIndex (6117).
+pg_transform             | 3576 | local                          | no   | no  | Datatype transforms for procedural languages. Indexes: TransformOidIndex (3574), TransformTypeLangIndex (3575).
+pg_trigger               | 2620 | local                          | no   | no  | Triggers. Indexes: TriggerOidIndex (2702), TriggerRelidNameIndex (2701), TriggerConstraintIndex (2699).
+pg_ts_config             | 3602 | local                          | yes  | no  | Text-search configurations. Indexes: TSConfigOidIndex (3712), TSConfigNameNspIndex (3608).
+pg_ts_config_map         | 3603 | local                          | yes  | no  | TS-config token-type -> dictionary maps. Index: TSConfigMapIndex (3609).
+pg_ts_dict               | 3600 | local                          | yes  | no  | Text-search dictionaries. Indexes: TSDictionaryOidIndex (3604), TSDictionaryNameNspIndex (3605).
+pg_ts_parser             | 3601 | local                          | yes  | no  | Text-search parsers. Indexes: TSParserOidIndex (3606), TSParserNameNspIndex (3607).
+pg_ts_template           | 3764 | local                          | yes  | no  | Text-search templates. Indexes: TSTemplateOidIndex (3766), TSTemplateNameNspIndex (3765).
+pg_user_mapping          | 1418 | local                          | no   | no  | User mappings for foreign servers. Indexes: UserMappingOidIndex (174), UserMappingUserServerIndex (175).
+
+================================================================================
+Notes
+================================================================================
+
+* Total = 11 shared + 4 nailed + 48 local = 63 catalogs (compare against the
+  request's >= 60).
+
+* The cluster control file pg_control (catalog/pg_control.h) is NOT a heap
+  relation; it is a single binary file pg_control written atomically. It is
+  declared here so that its format is documented but it is not part of pg_catalog.
+
+* CATALOG_VERSION_NO (catversion.h) is bumped any time a catalog header changes
+  or a system index is added/removed. ReadControlFile rejects a cluster whose
+  catalog_version_no does not match.
+
+* Bootstrap data:
+  - .dat files are read by genbki.pl and emitted into postgres.bki.
+  - postgres --boot consumes postgres.bki via bootparse.y / bootscanner.l
+    and inserts the rows directly.
+  - The 4 nailed catalogs (pg_class, pg_attribute, pg_proc, pg_type) plus
+    the shared variants get formrdesc()-built relcache entries during the
+    Phase-2/Phase-3 relcache initialization.
+
+* Per-catalog C-side helper files:
+  - heap.c, index.c, indexing.c, dependency.c, namespace.c, storage.c,
+    toasting.c, aclchk.c, objectaccess.c, objectaddress.c, partition.c
+    are general infrastructure (counted separately).
+  - pg_aggregate.c, pg_attrdef.c, pg_cast.c, pg_class.c, pg_collation.c,
+    pg_constraint.c, pg_conversion.c, pg_db_role_setting.c, pg_depend.c,
+    pg_enum.c, pg_inherits.c, pg_largeobject.c, pg_namespace.c, pg_operator.c,
+    pg_parameter_acl.c, pg_proc.c, pg_publication.c, pg_range.c, pg_shdepend.c,
+    pg_subscription.c, pg_type.c -- these are catalog-specific helpers
+    (e.g. CreateTypeEntry, CreateConstraintEntry, get_role_oid).
+
+* Shared and nailed catalogs cannot be tracked through pg_class.relfilenode
+  because:
+  - For shared relations there is no single pg_class to update across all
+    databases; the same physical file is visible from every database, but
+    each database has its own pg_class.
+  - For nailed relations the relcache must be operational before pg_class
+    itself can be opened, so we cannot rely on a pg_class lookup to find
+    pg_class's own filenode.
+  Hence relmapper.c keeps a small file (pg_filenode.map -- under PGDATA/global
+  for shared, under PGDATA/base/<dbid> for local) that maps catalog Oid ->
+  RelFileNumber. The mapping is updated atomically and replicated via
+  XLOG_RELMAP_UPDATE.

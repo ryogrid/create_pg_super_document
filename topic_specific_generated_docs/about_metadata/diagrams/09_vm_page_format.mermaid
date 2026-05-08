@@ -1,0 +1,34 @@
+%% Visibility Map page format: 2 bits per heap page.
+
+flowchart LR
+    subgraph HEAP["Heap relation"]
+        H0["heap block 0"]
+        H1["heap block 1"]
+        H2["heap block 2"]
+        H3["heap block 3"]
+        HDOTS["..."]
+    end
+
+    subgraph VM["VM fork (VM_FORKNUM)"]
+        VMP["one VM page (BLCKSZ)"]
+        BYTE0["byte 0:  &#91;blk3 blk2 blk1 blk0&#93;<br/>2 bits each"]
+        BYTE1["byte 1:  &#91;blk7 blk6 blk5 blk4&#93;"]
+        VDOTS["..."]
+    end
+
+    H0 -.-> BYTE0
+    H1 -.-> BYTE0
+    H2 -.-> BYTE0
+    H3 -.-> BYTE0
+
+    subgraph BITS["per-block 2-bit status"]
+        AV["bit 0 ALL_VISIBLE = 0x01<br/>(every tuple is visible to every snapshot)"]
+        AF["bit 1 ALL_FROZEN  = 0x02<br/>(no tuple has xmin/xmax that vacuum cares about)"]
+    end
+
+    subgraph SIZE["Sizing constants (visibilitymapdefs.h)"]
+        HBPB["HEAPBLOCKS_PER_BYTE = 4"]
+        HBPP["HEAPBLOCKS_PER_PAGE =<br/>(BLCKSZ - SizeOfPageHeaderData) * 4<br/>(typically 32672)"]
+    end
+
+    HEAP -->|relation grows N blocks| ROUNDUP["VM size =<br/>ceil(N / HEAPBLOCKS_PER_PAGE)<br/>VM pages"]

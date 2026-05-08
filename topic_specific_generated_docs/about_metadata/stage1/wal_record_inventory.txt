@@ -1,0 +1,243 @@
+PostgreSQL metadata-affecting WAL records.
+
+Sources scanned:
+  src/include/access/rmgrlist.h    -- the master PG_RMGR list
+  src/include/access/clog.h        -- CLOG_*
+  src/include/access/commit_ts.h   -- COMMIT_TS_*
+  src/include/access/multixact.h   -- XLOG_MULTIXACT_*
+  src/include/access/xact.h        -- XLOG_XACT_*
+  src/include/access/heapam_xlog.h -- XLOG_HEAP2_VISIBLE
+  src/include/catalog/pg_control.h -- XLOG_CHECKPOINT_*, XLOG_NEXTOID,
+                                       XLOG_FPI, XLOG_FPI_FOR_HINT
+  src/include/catalog/storage_xlog.h -- XLOG_SMGR_*
+  src/include/commands/dbcommands_xlog.h -- XLOG_DBASE_*
+  src/include/commands/tablespace.h -- XLOG_TBLSPC_*
+  src/include/utils/relmapper.h    -- XLOG_RELMAP_UPDATE
+
+Format:
+  rmgr ID  | info-byte | record name & payload struct | redo function | what it makes durable | file:line ref
+
+================================================================================
+RM_XLOG_ID  ("XLOG", rmgrlist.h:28)  redo: xlog_redo
+================================================================================
+ 1. XLOG_CHECKPOINT_SHUTDOWN  (info 0x00)
+    payload: CheckPoint (pg_control.h:35)
+    Makes durable: a complete snapshot of cluster metadata cursors (nextXid, nextOid,
+    nextMulti, nextMultiOffset, oldestXid, oldestMulti, oldestCommitTsXid,
+    newestCommitTsXid, redo, fullPageWrites). Also written into pg_control.
+    Ref: src/include/catalog/pg_control.h:68
+
+ 2. XLOG_CHECKPOINT_ONLINE  (info 0x10)
+    payload: CheckPoint
+    Same as SHUTDOWN but with oldestActiveXid set, used for replica startup.
+    Ref: src/include/catalog/pg_control.h:69
+
+ 3. XLOG_NEXTOID  (info 0x30)
+    payload: Oid (next OID checkpoint)
+    Makes durable: the OID counter advance. Emitted by GetNewObjectId every
+    VAR_OID_PREFETCH OIDs so a crash never reuses an OID.
+    Ref: src/include/catalog/pg_control.h:71  (emit site: src/backend/access/transam/varsup.c)
+
+ 4. XLOG_FPI  (info 0xB0)
+    payload: full-page image (no extra data; the registered buffer carries the page)
+    Makes durable: a full-page image of a non-WAL-logged change, written to ensure
+    a torn-page-safe initial image. Used by VACUUM page-prune in some cases.
+    Ref: src/include/catalog/pg_control.h:79
+
+ 5. XLOG_FPI_FOR_HINT  (info 0xA0)
+    payload: full-page image
+    Makes durable: a full-page image emitted as a side-effect of MarkBufferDirtyHint
+    when checksums or wal_log_hints are enabled. Required for hint-bit-only changes
+    (HEAP_XMIN_COMMITTED etc.) so a torn page does not corrupt the bits.
+    Ref: src/include/catalog/pg_control.h:78
+
+ 6. XLOG_CHECKPOINT_REDO  (info 0xE0)
+    payload: (small marker)
+    Makes durable: the precise WAL location where redo will start; inserted at the
+    moment the redo pointer is computed in CreateCheckPoint.
+    Ref: src/include/catalog/pg_control.h:82
+
+================================================================================
+RM_XACT_ID  ("Transaction", rmgrlist.h:29)  redo: xact_redo (-> xact_redo_commit/abort)
+================================================================================
+ 7. XLOG_XACT_COMMIT  (info 0x00)
+    payload: xl_xact_commit (xact.h ~line 318)
+             includes: xl_xact_xinfo, xl_xact_dbinfo, xl_xact_subxacts (sub-XID array),
+             xl_xact_relfilelocators (dropped relfilenodes), xl_xact_invals
+             (SharedInvalidationMessage[]), xl_xact_twophase, xl_xact_origin
+    Makes durable: the entire metadata effect of a top-level transaction --
+        - CLOG status of every XID in the tree (TransactionIdCommitTree)
+        - file unlinks for dropped relations (smgrDoPendingDeletes)
+        - cache invalidation messages for every backend (sinval broadcast)
+        - timestamp (for commit_ts SLRU)
+    Ref: src/include/access/xact.h:169
+
+ 8. XLOG_XACT_PREPARE  (info 0x10)
+    payload: TwoPhaseFileHeader + sub-XIDs + locks + invalidation messages + relations
+    Makes durable: a 2PC PREPARE; the corresponding COMMIT or ABORT comes later.
+    Ref: src/include/access/xact.h:170
+
+ 9. XLOG_XACT_ABORT  (info 0x20)
+    payload: xl_xact_abort (xact.h ~line 334)
+    Makes durable: aborted XID tree in CLOG (TransactionIdAbortTree) plus dropped
+    relfilenode list (used to undo storage created during the transaction).
+    Ref: src/include/access/xact.h:171
+
+10. XLOG_XACT_COMMIT_PREPARED  (info 0x30)
+    payload: xl_xact_commit_prepared (xl_xact_commit + 2PC xid)
+    Makes durable: the commit half of a previously prepared transaction.
+    Ref: src/include/access/xact.h:172
+
+11. XLOG_XACT_ABORT_PREPARED  (info 0x40)
+    payload: xl_xact_abort_prepared
+    Ref: src/include/access/xact.h:173
+
+12. XLOG_XACT_ASSIGNMENT  (info 0x50)
+    payload: xl_xact_assignment (parent XID + sub-XID array)
+    Makes durable: the top-XID assignment for a list of sub-XIDs (helps standby
+    snapshot-building when a backend exceeds the in-shmem subxid cache).
+    Ref: src/include/access/xact.h:174
+
+13. XLOG_XACT_INVALIDATIONS  (info 0x60)
+    payload: SharedInvalidationMessage[]
+    Makes durable: cache invalidations emitted mid-transaction (logical decoding
+    needs them so it can correctly re-emit DDL effects).
+    Ref: src/include/access/xact.h:175
+
+================================================================================
+RM_SMGR_ID  ("Storage", rmgrlist.h:30)  redo: smgr_redo (storage.c:965)
+================================================================================
+14. XLOG_SMGR_CREATE  (info 0x10)
+    payload: xl_smgr_create (RelFileLocator + ForkNumber)
+    Makes durable: physical creation of a relfilenode file/fork. Emitted from
+    log_smgrcreate (storage.c:186); replay creates the file on a standby.
+    Ref: src/include/catalog/storage_xlog.h:30
+
+15. XLOG_SMGR_TRUNCATE  (info 0x20)
+    payload: xl_smgr_truncate (RelFileLocator + nblocks per fork + flags)
+    Makes durable: physical truncation of a relation (heap, FSM, VM forks).
+    Emitted by RelationTruncate; redo invokes smgrtruncate +
+    visibilitymap_prepare_truncate + FreeSpaceMapPrepareTruncateRel.
+    Ref: src/include/catalog/storage_xlog.h:31
+
+================================================================================
+RM_CLOG_ID  ("CLOG", rmgrlist.h:31)  redo: clog_redo (clog.c:1107)
+================================================================================
+16. XLOG_CLOG_ZEROPAGE   (info 0x00; named CLOG_ZEROPAGE in clog.h)
+    payload: int64 pageno
+    Makes durable: zeroing of a fresh CLOG page. Replay calls SimpleLruZeroPage +
+    SimpleLruWritePage so the file exists before any commit record references it.
+    Ref: src/include/access/clog.h:55
+
+17. XLOG_CLOG_TRUNCATE   (info 0x10; CLOG_TRUNCATE)
+    payload: xl_clog_truncate (pageno + oldestXact + oldestXactDb)
+    Makes durable: cluster-wide CLOG truncation. Replay calls AdvanceOldestClogXid
+    then SimpleLruTruncate.
+    Ref: src/include/access/clog.h:56
+
+================================================================================
+RM_DBASE_ID  ("Database", rmgrlist.h:32)  redo: dbase_redo
+================================================================================
+18. XLOG_DBASE_CREATE_FILE_COPY  (info 0x00)
+    payload: xl_dbase_create_file_copy_rec
+    Makes durable: CREATE DATABASE via filesystem copy of source database's directory
+    (legacy strategy). Replay re-runs the directory copy.
+    Ref: src/include/commands/dbcommands_xlog.h:21
+
+19. XLOG_DBASE_CREATE_WAL_LOG  (info 0x10)
+    payload: xl_dbase_create_wal_log_rec
+    Makes durable: CREATE DATABASE STRATEGY = WAL_LOG. The actual page contents
+    are subsequently replicated via per-relation WAL records.
+    Ref: src/include/commands/dbcommands_xlog.h:22
+
+20. XLOG_DBASE_DROP  (info 0x20)
+    payload: xl_dbase_drop_rec (db_id + tablespace_ids[])
+    Makes durable: DROP DATABASE -- recursive directory removal across tablespaces.
+    Ref: src/include/commands/dbcommands_xlog.h:23
+
+================================================================================
+RM_TBLSPC_ID  ("Tablespace", rmgrlist.h:33)  redo: tblspc_redo
+================================================================================
+21. XLOG_TBLSPC_CREATE  (info 0x00)
+    payload: xl_tblspc_create_rec (tablespace OID + symlink target)
+    Makes durable: tablespace symlink creation under pg_tblspc.
+    Ref: src/include/commands/tablespace.h:25
+
+22. XLOG_TBLSPC_DROP  (info 0x10)
+    payload: xl_tblspc_drop_rec (tablespace OID)
+    Makes durable: tablespace symlink + directory removal.
+    Ref: src/include/commands/tablespace.h:26
+
+================================================================================
+RM_MULTIXACT_ID  ("MultiXact", rmgrlist.h:34)  redo: multixact_redo
+================================================================================
+23. XLOG_MULTIXACT_ZERO_OFF_PAGE  (info 0x00)
+    payload: int64 pageno
+    Makes durable: zeroing of a fresh pg_multixact/offsets page.
+    Ref: src/include/access/multixact.h:68
+
+24. XLOG_MULTIXACT_ZERO_MEM_PAGE  (info 0x10)
+    payload: int64 pageno
+    Makes durable: zeroing of a fresh pg_multixact/members page.
+    Ref: src/include/access/multixact.h:69
+
+25. XLOG_MULTIXACT_CREATE_ID  (info 0x20)
+    payload: xl_multixact_create (mid, moff, nmembers, MultiXactMember[])
+    Makes durable: creation of one MultiXactId. Replay calls RecordNewMultiXact
+    and updates nextMulti / nextMultiOffset cursors.
+    Ref: src/include/access/multixact.h:70
+
+26. XLOG_MULTIXACT_TRUNCATE_ID  (info 0x30)
+    payload: xl_multixact_truncate (oldestMultiDB, startTruncOff, endTruncOff,
+             startTruncMemb, endTruncMemb)
+    Makes durable: truncation of both offsets and members SLRUs.
+    Ref: src/include/access/multixact.h:71
+
+================================================================================
+RM_RELMAP_ID  ("RelMap", rmgrlist.h:35)  redo: relmap_redo
+================================================================================
+27. XLOG_RELMAP_UPDATE  (info 0x00)
+    payload: xl_relmap_update (dbid, tsid, nbytes, char data[])
+    Makes durable: a complete new RelMapFile contents for either pg_global/
+    pg_filenode.map (shared) or one database's pg_filenode.map. Replay calls
+    write_relmap_file with the supplied bytes; this is how nailed/shared catalog
+    relfilenode reassignments (VACUUM FULL, CLUSTER) propagate to a standby.
+    Ref: src/include/utils/relmapper.h:25
+
+================================================================================
+RM_HEAP2_ID  ("Heap2", rmgrlist.h:37)  redo: heap2_redo
+================================================================================
+28. XLOG_HEAP2_VISIBLE  (info 0x40)
+    payload: xl_heap_visible (cutoff_xid + flags)
+    Makes durable: VM bit-set (ALL_VISIBLE / ALL_FROZEN) by VACUUM. The VM page
+    LSN is updated to ensure freezing is durable. (VM bit-clear is implicit in
+    every heap_xlog_* mutating record.)
+    Ref: src/include/access/heapam_xlog.h:62
+
+================================================================================
+RM_COMMIT_TS_ID  ("CommitTs", rmgrlist.h:46)  redo: commit_ts_redo (commit_ts.c:1023)
+================================================================================
+29. XLOG_COMMIT_TS_ZEROPAGE  (info 0x00; named COMMIT_TS_ZEROPAGE)
+    payload: int64 pageno
+    Makes durable: zeroing of a fresh pg_commit_ts page.
+    Ref: src/include/access/commit_ts.h:46
+
+30. XLOG_COMMIT_TS_TRUNCATE  (info 0x10; COMMIT_TS_TRUNCATE)
+    payload: xl_commit_ts_truncate (pageno + oldestXid)
+    Makes durable: pg_commit_ts truncation; advances oldestCommitTsXid.
+    Ref: src/include/access/commit_ts.h:47
+
+================================================================================
+Implicit metadata effects of other rmgr records (not separate WAL records,
+but worth listing because they update metadata cursors)
+================================================================================
+* RM_XACT_ID's XLOG_XACT_COMMIT implicitly updates CLOG via TransactionIdCommitTree
+  during xact_redo_commit, and broadcasts cache invalidations.
+* RM_XACT_ID's XLOG_XACT_ABORT implicitly updates CLOG via TransactionIdAbortTree.
+* RM_HEAP_ID heap mutations implicitly clear the VM ALL_VISIBLE bit during their
+  redo (visibilitymap_clear; not WAL-logged separately).
+
+--------------------------------------------------------------------------------
+Total: 30 distinct metadata-affecting WAL record types across 9 rmgrs
+       (XLOG, XACT, SMGR, CLOG, DBASE, TBLSPC, MULTIXACT, RELMAP, HEAP2, COMMIT_TS)
+--------------------------------------------------------------------------------

@@ -1,0 +1,61 @@
+%% End-to-end metadata persistence pipeline.
+%% Flow: backend mutates a catalog inside a transaction, the change is queued
+%% locally, committed via an XACT WAL record, replayed at checkpoint, and finally
+%% propagated to a standby's caches.
+
+flowchart TB
+    subgraph BACKEND["Backend (in-transaction)"]
+        DDL["SQL DDL<br/>e.g. CREATE TABLE"]
+        DDL --> HEAP["heap_create_with_catalog()<br/>src/backend/catalog/heap.c"]
+        HEAP --> CTI["CatalogTupleInsert()<br/>indexing.c:233"]
+        CTI --> HI["heap_insert (catalog row)"]
+        CTI --> CIHT["CacheInvalidateHeapTuple()<br/>inval.c"]
+        CIHT --> OUTBOX["TransInvalidationInfo<br/>(per-txn outbox)"]
+        HEAP --> RCS["RelationCreateStorage()<br/>storage.c:121<br/>emits XLOG_SMGR_CREATE"]
+        RCS --> PEND["pendingDeletes list<br/>(unlink on abort)"]
+    end
+
+    subgraph COMMIT["Commit path"]
+        REC["RecordTransactionCommit()<br/>xact.c"]
+        REC --> XGCM["xactGetCommittedInvalidationMessages()<br/>inval.c"]
+        XGCM --> XLI["XLogInsert(RM_XACT_ID,<br/>XLOG_XACT_COMMIT)"]
+        REC --> TICT["TransactionIdCommitTree()<br/>+ TransactionTreeSetCommitTsData()"]
+        TICT --> CLOG["CLOG: 2 bits/XID<br/>pg_xact"]
+        TICT --> CTS["pg_commit_ts<br/>(if track_commit_timestamp)"]
+        XLI --> WAL[("WAL stream")]
+        REC --> ATEOX["AtEOXact_Inval()<br/>local sinval broadcast"]
+        REC --> SDP["smgrDoPendingDeletes()<br/>file unlink at commit"]
+    end
+
+    subgraph CHECKPOINT["Checkpoint"]
+        CCP["CreateCheckPoint()<br/>xlog.c"]
+        CCP --> CCG["CheckPointGuts()"]
+        CCG --> CCRMAP["CheckPointRelationMap"]
+        CCG --> CCCLOG["CheckPointCLOG"]
+        CCG --> CCCTS["CheckPointCommitTs"]
+        CCG --> CCSUB["CheckPointSUBTRANS"]
+        CCG --> CCMX["CheckPointMultiXact"]
+        CCG --> CCBUF["CheckPointBuffers"]
+        CCP --> UCF["UpdateControlFile()<br/>pg_control"]
+    end
+
+    subgraph STANDBY["Standby replay"]
+        SRX["StartupXLOG()<br/>+ ReadControlFile()"]
+        SRX --> RDISP["rmgr dispatch<br/>(rmgrlist.h)"]
+        RDISP --> XR["xact_redo_commit()"]
+        XR --> SCLOG["TransactionIdCommitTree<br/>(replays CLOG bits)"]
+        XR --> PCIM["ProcessCommitted<br/>InvalidationMessages()"]
+        PCIM --> SINV[("Shared sinval ring")]
+        XR --> SDP2["smgrDoPendingDeletes<br/>(unlink files)"]
+        RDISP --> CLOGR["clog_redo()<br/>(zeropage / truncate)"]
+        RDISP --> RMR["relmap_redo()"]
+        RDISP --> SMGR["smgr_redo()"]
+        RDISP --> H2V["heap_xlog_visible()<br/>VM bit-set"]
+    end
+
+    OUTBOX --> XGCM
+    PEND --> SDP
+    WAL --> CCP
+    WAL --> SRX
+    UCF --> SRX
+    SINV --> CACHES["Per-backend<br/>catcache + relcache<br/>flush"]

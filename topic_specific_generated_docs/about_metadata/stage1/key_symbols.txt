@@ -1,0 +1,63 @@
+Top symbols of the PostgreSQL Metadata subsystem, ranked by importance score.
+Format: Symbol (score: 0.XX) - CATEGORY - Brief description
+
+ 1. ControlFileData (score: 0.96) - PERSISTENCE_CONTROL_FILE - The pg_control struct: cluster anchor (system_identifier, checkPoint, redo, nextXid, nextMulti, oldestXid/Multi/CommitTs, wal_level).
+ 2. CheckPointGuts (score: 0.95) - PERSISTENCE_CHECKPOINT - Inner checkpoint dispatcher: flushes RelationMap, CLOG, CommitTs, SUBTRANS, MultiXact, Predicate, Buffers, TwoPhase. Single integration point for every metadata subsystem.
+ 3. StartupXLOG (score: 0.95) - PERSISTENCE_RECOVERY - Startup-process main entry: reads pg_control, sets metadata cursors, runs Startup* and Trim* hooks, replays WAL.
+ 4. RecordTransactionCommit (score: 0.94) - PERSISTENCE_COMMIT - Builds xl_xact_commit (subxids + dropped relfilenodes + invalidations + timestamp), inserts XLOG_XACT_COMMIT, calls TransactionIdCommitTree.
+ 5. RelationData (score: 0.94) - CACHE_RELCACHE - The relcache entry struct (rd_*): runtime view of one relation. Caches Form_pg_class, TupleDesc, RelFileLocator, AM routines, RowSecurityDesc.
+ 6. CreateCheckPoint (score: 0.93) - PERSISTENCE_CHECKPOINT - Top-level checkpoint driver. Computes redo, calls CheckPointGuts, writes XLOG_CHECKPOINT_*, updates pg_control.
+ 7. CheckPoint (score: 0.92) - PERSISTENCE_CHECKPOINT - WAL record body holding redo, TLI, fullPageWrites, wal_level, nextXid, nextOid, nextMulti, oldest* cursors. Stashed in pg_control.
+ 8. heap_create_with_catalog (score: 0.92) - CATALOG_MODIFY_API - Inserts pg_class+pg_attribute+pg_type rows, creates storage, records dependencies. CREATE TABLE entry point.
+ 9. CatalogTupleInsert (score: 0.92) - CATALOG_INDEXING - Sanctioned catalog mutator: heap_insert + CatalogIndexInsert. Plain heap_insert is forbidden in catalog code.
+10. CacheInvalidateHeapTuple (score: 0.92) - INVAL_API - Catalog-mutator hook: queues catcache + relcache + snapshot invalidations. Called from CatalogTuple*.
+11. RelationIdGetRelation (score: 0.92) - CACHE_RELCACHE - Returns ref-counted Relation for an Oid; on miss calls RelationBuildDesc.
+12. CatCache (score: 0.92) - CACHE_CATCACHE - Per-syscache hash-table-of-CatCTup struct: cc_relisshared, cc_indexoid, cc_keyno, cc_hashfunc.
+13. SearchCatCacheInternal (score: 0.92) - CACHE_CATCACHE - Hot lookup path: hash key, walk bucket, on miss scan catalog index.
+14. TransactionIdSetTreeStatus (score: 0.92) - SLRU_CLOG - Marks an entire xact tree (top + sub) with XidStatus in CLOG.
+15. TransactionIdGetStatus (score: 0.92) - SLRU_CLOG - Reads 2-bit status for an XID. Used by every visibility check.
+16. SlruCtlData (score: 0.92) - SLRU_FRAMEWORK - Per-SLRU control: SlruShared pointer, nbanks, sync_handler, PagePrecedes callback, on-disk Dir.
+17. SearchSysCache1 (score: 0.90) - CACHE_SYSCACHE - Most-used syscache front door: dispatch to underlying CatCache.
+18. index_create (score: 0.90) - CATALOG_MODIFY_API - Creates pg_class+pg_attribute+pg_index rows, records deps, optionally builds index.
+19. CatalogTupleUpdate (score: 0.88) - CATALOG_INDEXING - Sanctioned update: heap_update + CatalogIndexInsert. Bumps xmin like a normal MVCC update.
+20. RelationBuildDesc (score: 0.88) - CACHE_RELCACHE - Builds RelationData from scratch: ScanPgRelation, AllocateRelationDesc, RelationBuildTupleDesc, RelationBuildRuleLock, RelationInitPhysicalAddr, RelationInit{Table,Index}Access*.
+21. heap_drop_with_catalog (score: 0.85) - CATALOG_MODIFY_API - Removes pg_class/pg_attribute/pg_index rows, RelationDropStorage, deleteDependencyRecordsFor.
+22. CatalogTupleDelete (score: 0.85) - CATALOG_INDEXING - Sanctioned delete: simple_heap_delete; indexes get dead pointers cleaned by vacuum.
+23. recordDependencyOn (score: 0.85) - CATALOG_DEPENDENCY - Inserts a single pg_depend row. Basis of the object graph.
+24. performDeletion (score: 0.85) - CATALOG_DEPENDENCY - Recursive object dropper: findDependentObjects + reportDependentObjects + deleteOneObject loop.
+25. RangeVarGetRelid (score: 0.85) - CATALOG_NAMESPACE - Resolve schema-qualified name -> Oid with locking and search_path semantics.
+26. RelationCreateStorage (score: 0.85) - CATALOG_STORAGE_BRIDGE - Creates relfilenode file, emits XLOG_SMGR_CREATE, records pending-delete for abort.
+27. RelationMapOidToFilenumber (score: 0.85) - RELMAPPER - Mapped-catalog filenumber lookup. Bootstraps RelationInitPhysicalAddr for nailed catalogs.
+28. SlruSharedData (score: 0.85) - SLRU_FRAMEWORK - Shmem state per SLRU: page_buffer[], page_status[], page_dirty[], bank_locks, group_lsn[].
+29. SimpleLruInit (score: 0.85) - SLRU_FRAMEWORK - Init function for one SLRU instance; called by CLOG/SUBTRANS/MultiXact/CommitTs/Notify/Serial.
+30. AcceptInvalidationMessages (score: 0.85) - INVAL_API - Drains per-backend sinval queue. Called whenever we open a relation or take a lock.
+31. visibilitymap_clear (score: 0.85) - VISIBILITYMAP - Clears ALL_VISIBLE/ALL_FROZEN bits when heap page is modified. Always durable.
+32. xact_redo_commit (score: 0.85) - PERSISTENCE_RECOVERY - XLOG_XACT_COMMIT redo: TransactionIdCommitTree + ProcessCommittedInvalidationMessages + smgrDoPendingDeletes.
+33. GetNewTransactionId (score: 0.84) - PERSISTENCE_COMMIT - Allocates next XID; extends CLOG/SUBTRANS/CommitTs as needed; emits XLOG_*_ZEROPAGE.
+34. visibilitymap_set (score: 0.82) - VISIBILITYMAP - Sets ALL_VISIBLE/ALL_FROZEN with heap LSN as high-water mark. Emits XLOG_HEAP2_VISIBLE.
+35. UpdateControlFile (score: 0.82) - PERSISTENCE_CONTROL_FILE - Atomic CRC + write of ControlFileData. Called every checkpoint.
+36. GetPageWithFreeSpace (score: 0.85) - FREESPACE_FSM - Top-level FSM lookup: returns a heap block with at least spaceNeeded bytes free.
+37. ReadControlFile (score: 0.78) - PERSISTENCE_CONTROL_FILE - Reads pg_control at startup, validates magic + CRC + catversion compatibility.
+38. CatCList (score: 0.70) - CACHE_CATCACHE - Cached partial-key search result; backs SearchSysCacheList.
+39. RelationCacheInitializePhase3 (score: 0.78) - CACHE_RELCACHE - Nails pg_class/pg_attribute/pg_proc/pg_type via formrdesc, then loads pg_internal.init.
+40. RelationClearRelation (score: 0.78) - CACHE_RELCACHE - Invalidates a Relation: rebuild=true (after CCI) or destroy (full sinval). Handles live-pointer problem.
+41. CatCacheInvalidate (score: 0.78) - CACHE_CATCACHE - Flushes CatCache entries matching hashValue; called by sinval message processing.
+42. SendSharedInvalidMessages (score: 0.78) - INVAL_SINVAL - Pushes invalidation messages into the shmem ring buffer.
+43. ReceiveSharedInvalidMessages (score: 0.78) - INVAL_SINVAL - Drains messages, detects overflow, triggers SI_RESET.
+44. write_relmap_file (score: 0.78) - RELMAPPER - Atomic temp+fsync+rename+fsync write of pg_filenode.map; emits XLOG_RELMAP_UPDATE.
+45. RelationDropStorage (score: 0.78) - CATALOG_STORAGE_BRIDGE - Schedules relfilenode unlink at commit; actual unlink in smgrDoPendingDeletes.
+46. smgrDoPendingDeletes (score: 0.78) - CATALOG_STORAGE_BRIDGE - On commit, executes queued unlink()s; also called from xact_redo_commit on standby.
+47. xactGetCommittedInvalidationMessages (score: 0.78) - INVAL_API - Drains outbox into xl_xact_commit so standby gets the same messages.
+48. ProcessCommittedInvalidationMessages (score: 0.78) - INVAL_API - Replay-time entry that broadcasts messages via SendSharedInvalidMessages.
+49. SimpleLruReadPage (score: 0.78) - SLRU_FRAMEWORK - Brings a page into shmem; honors per-bank LWLock; reads from disk on miss.
+50. visibilitymap_get_status (score: 0.78) - VISIBILITYMAP - Returns 2-bit status for a heap block. Used by index-only scans and vacuum.
+51. SimpleLruWriteAll (score: 0.70) - SLRU_FRAMEWORK - Checkpoint hook: flushes every dirty slot in this SLRU.
+52. SimpleLruTruncate (score: 0.70) - SLRU_FRAMEWORK - Removes segment files older than cutoffPage.
+53. ExtendCLOG (score: 0.70) - SLRU_CLOG - Zeros a fresh CLOG page; emits XLOG_CLOG_ZEROPAGE.
+54. TruncateCLOG (score: 0.70) - SLRU_CLOG - Emits XLOG_CLOG_TRUNCATE; SimpleLruTruncate; advances oldestXid.
+55. visibilitymap_pin (score: 0.70) - VISIBILITYMAP - Pins VM page covering heapBlk before heap-page lock (deadlock-avoidance).
+56. RelationGetBufferForTuple (score: 0.70) - FREESPACE_FSM - Picks heap page for tuple insert: GetPageWithFreeSpace + GetVisibilityMapPins. The bridge between FSM, VM, and bufmgr.
+57. fsm_search (score: 0.70) - FREESPACE_FSM - Top-down tree walk: fsm_search_avail at each level until a leaf with enough free bytes is found.
+58. MultiXactIdCreate (score: 0.78) - SLRU_MULTIXACT - Builds MultiXactId from two members; the typical xmax-promotion path.
+59. TransactionTreeSetCommitTsData (score: 0.70) - SLRU_COMMITTS - Sets commit timestamp + RepOriginId for an entire xact tree in pg_commit_ts.
+60. SubTransGetTopmostTransaction (score: 0.70) - SLRU_SUBTRANS - Walks parent chain back to top-level XID; used in visibility checks.

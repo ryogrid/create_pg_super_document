@@ -1,0 +1,2377 @@
+{
+  "_doc": "PostgreSQL Metadata subsystem dependency map. Importance score is in [0.0, 1.0]; higher means more central to the metadata story (catalog data model, catalog modification API, cache stack, SLRU, VM, FSM, persistence). Categories follow the 15 sections of the request brief. Depth-from-entry is measured from the conceptual entry points (CatalogTupleInsert, RelationIdGetRelation, SearchSysCache1, CreateCheckPoint, StartupXLOG, RecordTransactionCommit, visibilitymap_set, fsm_search). All file:line references are from this PostgreSQL source tree.",
+  "symbols": {
+    "ControlFileData": {
+      "overview": "Cluster control file struct in pg_control. Anchors recovery: system_identifier, state, checkPoint, redo, nextXid, oldestXid, nextMulti, nextMultiOffset, oldestMulti, oldestCommitTsXid, newestCommitTsXid, wal_level, plus parameter settings. Updated atomically via UpdateControlFile.",
+      "importance_score": 0.96,
+      "category": "PERSISTENCE_CONTROL_FILE",
+      "depth_from_entry": 0,
+      "references_from": ["CheckPoint", "DBState"],
+      "references_to": ["ReadControlFile", "WriteControlFile", "UpdateControlFile", "CreateCheckPoint", "StartupXLOG"],
+      "metrics": {"ref_count": 60, "is_entry_point": true, "is_critical_path": true, "file": "src/include/catalog/pg_control.h:104"}
+    },
+    "CheckPoint": {
+      "overview": "Body of a CheckPoint XLOG record carrying redo, ThisTimeLineID, fullPageWrites, wal_level, nextXid, nextOid, nextMulti, nextMultiOffset, oldestXid, oldestMulti, oldestCommitTsXid, newestCommitTsXid, oldestActiveXid. A copy is stashed in pg_control for disaster recovery.",
+      "importance_score": 0.92,
+      "category": "PERSISTENCE_CHECKPOINT",
+      "depth_from_entry": 1,
+      "references_from": ["XLogRecPtr", "FullTransactionId", "MultiXactId", "MultiXactOffset", "TransactionId"],
+      "references_to": ["CreateCheckPoint", "RecoveryRestartPoint", "ControlFileData"],
+      "metrics": {"ref_count": 50, "is_entry_point": false, "is_critical_path": true, "file": "src/include/catalog/pg_control.h:35"}
+    },
+    "CreateCheckPoint": {
+      "overview": "Top-level checkpoint driver. Computes redo pointer, drains WAL insertion locks, calls CheckPointGuts to flush per-subsystem dirty state, writes XLOG_CHECKPOINT_ONLINE/SHUTDOWN, and updates pg_control via UpdateControlFile.",
+      "importance_score": 0.93,
+      "category": "PERSISTENCE_CHECKPOINT",
+      "depth_from_entry": 0,
+      "references_from": ["CheckPointGuts", "UpdateControlFile", "XLogInsert", "GetXLogInsertRecPtr"],
+      "references_to": ["CheckpointerMain", "RequestCheckpoint"],
+      "metrics": {"ref_count": 35, "is_entry_point": true, "is_critical_path": true, "file": "src/backend/access/transam/xlog.c:6863"}
+    },
+    "CheckPointGuts": {
+      "overview": "Inner checkpoint dispatcher; in order: CheckPointRelationMap, CheckPointReplicationSlots, CheckPointSnapBuild, CheckPointLogicalRewriteHeap, CheckPointReplicationOrigin, CheckPointCLOG, CheckPointCommitTs, CheckPointSUBTRANS, CheckPointMultiXact, CheckPointPredicate, CheckPointBuffers, ProcessSyncRequests, CheckPointTwoPhase. The single integration point that flushes every metadata subsystem.",
+      "importance_score": 0.95,
+      "category": "PERSISTENCE_CHECKPOINT",
+      "depth_from_entry": 1,
+      "references_from": ["CheckPointCLOG", "CheckPointCommitTs", "CheckPointSUBTRANS", "CheckPointMultiXact", "CheckPointPredicate", "CheckPointBuffers", "CheckPointTwoPhase", "CheckPointRelationMap"],
+      "references_to": ["CreateCheckPoint", "CreateRestartPoint"],
+      "metrics": {"ref_count": 14, "is_entry_point": false, "is_critical_path": true, "file": "src/backend/access/transam/xlog.c:7504"}
+    },
+    "StartupXLOG": {
+      "overview": "Startup-process main entry point: reads pg_control, finds redo pointer, sets XID/Multi/CommitTs cursors, invokes StartupCLOG/SUBTRANS/MultiXact/CommitTs, replays WAL via xlog_redo dispatch, runs Trim* and reaches consistent state.",
+      "importance_score": 0.95,
+      "category": "PERSISTENCE_RECOVERY",
+      "depth_from_entry": 0,
+      "references_from": ["ReadControlFile", "StartupCLOG", "StartupSUBTRANS", "StartupMultiXact", "StartupCommitTs", "TrimCLOG", "TrimMultiXact", "ReadCheckpointRecord"],
+      "references_to": ["PostmasterMain"],
+      "metrics": {"ref_count": 30, "is_entry_point": true, "is_critical_path": true, "file": "src/backend/access/transam/xlog.c:5384"}
+    },
+    "ReadControlFile": {
+      "overview": "Reads pg_control at startup, validates magic+CRC, checks pg_control_version + catalog_version_no compatibility, and copies fields into shared XLogCtl.",
+      "importance_score": 0.78,
+      "category": "PERSISTENCE_CONTROL_FILE",
+      "depth_from_entry": 1,
+      "references_from": ["ControlFileData"],
+      "references_to": ["StartupXLOG", "BootStrapXLOG"],
+      "metrics": {"ref_count": 8, "is_entry_point": false, "is_critical_path": true, "file": "src/backend/access/transam/xlog.c:4216"}
+    },
+    "UpdateControlFile": {
+      "overview": "Recomputes CRC and atomically writes ControlFileData back to pg_control. Called every checkpoint and during state transitions.",
+      "importance_score": 0.82,
+      "category": "PERSISTENCE_CONTROL_FILE",
+      "depth_from_entry": 1,
+      "references_from": ["ControlFileData"],
+      "references_to": ["CreateCheckPoint", "BootStrapXLOG", "RestoreArchivedFile"],
+      "metrics": {"ref_count": 14, "is_entry_point": false, "is_critical_path": true, "file": "src/backend/access/transam/xlog.c:4216"}
+    },
+    "WriteControlFile": {
+      "overview": "Bootstrap-only initial writer of pg_control, called once per cluster.",
+      "importance_score": 0.55,
+      "category": "PERSISTENCE_CONTROL_FILE",
+      "depth_from_entry": 1,
+      "references_from": ["ControlFileData"],
+      "references_to": ["BootStrapXLOG"],
+      "metrics": {"ref_count": 2, "is_entry_point": false, "is_critical_path": false, "file": "src/backend/access/transam/xlog.c:4216"}
+    },
+    "RecordTransactionCommit": {
+      "overview": "Builds an xl_xact_commit record (sub-XIDs, dropped relfilenodes, invalidation messages, timestamp), inserts XLOG_XACT_COMMIT, then updates CLOG via TransactionIdCommitTree. The single point where a transaction's metadata effects (catalog mutations, dropped storage, cache invalidations) become durable.",
+      "importance_score": 0.94,
+      "category": "PERSISTENCE_COMMIT",
+      "depth_from_entry": 0,
+      "references_from": ["TransactionIdCommitTree", "XLogInsert", "xactGetCommittedInvalidationMessages", "smgrGetPendingDeletes"],
+      "references_to": ["CommitTransaction"],
+      "metrics": {"ref_count": 25, "is_entry_point": true, "is_critical_path": true, "file": "src/backend/access/transam/xact.c:1304"}
+    },
+    "TransactionIdCommitTree": {
+      "overview": "Records the entire transaction tree (top + sub-XIDs) as committed in CLOG. Calls TransactionIdSetTreeStatus with TRANSACTION_STATUS_COMMITTED. Invoked both at primary commit and during xact_redo_commit on standbys.",
+      "importance_score": 0.86,
+      "category": "PERSISTENCE_COMMIT",
+      "depth_from_entry": 1,
+      "references_from": ["TransactionIdSetTreeStatus"],
+      "references_to": ["RecordTransactionCommit", "xact_redo_commit"],
+      "metrics": {"ref_count": 8, "is_entry_point": false, "is_critical_path": true, "file": "src/backend/access/transam/transam.c:240"}
+    },
+    "TransactionIdAbortTree": {
+      "overview": "Records the entire transaction tree as aborted in CLOG. Called from RecordTransactionAbort and xact_redo_abort.",
+      "importance_score": 0.78,
+      "category": "PERSISTENCE_COMMIT",
+      "depth_from_entry": 1,
+      "references_from": ["TransactionIdSetTreeStatus"],
+      "references_to": ["RecordTransactionAbort", "xact_redo_abort"],
+      "metrics": {"ref_count": 6, "is_entry_point": false, "is_critical_path": true, "file": "src/backend/access/transam/transam.c:270"}
+    },
+    "xact_redo_commit": {
+      "overview": "Redo callback for XLOG_XACT_COMMIT. Calls TransactionIdCommitTree (CLOG), ProcessCommittedInvalidationMessages (sinval broadcast), and smgrDoPendingDeletes. The standby learns about catalog changes here.",
+      "importance_score": 0.85,
+      "category": "PERSISTENCE_RECOVERY",
+      "depth_from_entry": 1,
+      "references_from": ["TransactionIdCommitTree", "ProcessCommittedInvalidationMessages", "smgrDoPendingDeletes"],
+      "references_to": ["xact_redo"],
+      "metrics": {"ref_count": 5, "is_entry_point": false, "is_critical_path": true, "file": "src/backend/access/transam/xact.c:6068"}
+    },
+    "xact_redo": {
+      "overview": "Top-level rmgr redo dispatch for RM_XACT_ID. Branches on XLOG_XACT_COMMIT/ABORT/PREPARE/COMMIT_PREPARED/ABORT_PREPARED/INVALIDATIONS.",
+      "importance_score": 0.7,
+      "category": "PERSISTENCE_RECOVERY",
+      "depth_from_entry": 1,
+      "references_from": ["xact_redo_commit", "xact_redo_abort"],
+      "references_to": ["rmgrlist"],
+      "metrics": {"ref_count": 4, "is_entry_point": false, "is_critical_path": true, "file": "src/backend/access/transam/xact.c"}
+    },
+    "GetNewTransactionId": {
+      "overview": "Allocates the next XID, extends CLOG/SUBTRANS/CommitTs as needed, registers the XID in PGPROC. Triggers ExtendCLOG/ExtendSUBTRANS/ExtendCommitTs and emits XLOG_CLOG_ZEROPAGE / COMMIT_TS_ZEROPAGE if a fresh page is needed.",
+      "importance_score": 0.84,
+      "category": "PERSISTENCE_COMMIT",
+      "depth_from_entry": 1,
+      "references_from": ["ExtendCLOG", "ExtendSUBTRANS", "ExtendCommitTs", "AdvanceNextFullTransactionIdPastXid"],
+      "references_to": ["AssignTransactionId"],
+      "metrics": {"ref_count": 12, "is_entry_point": false, "is_critical_path": true, "file": "src/backend/access/transam/varsup.c:77"}
+    },
+    "GetNewObjectId": {
+      "overview": "Allocates the next OID, emits XLOG_NEXTOID every VAR_OID_PREFETCH OIDs to advance ShmemVariableCache->nextOid durably across crashes.",
+      "importance_score": 0.7,
+      "category": "PERSISTENCE_COMMIT",
+      "depth_from_entry": 1,
+      "references_from": ["XLogInsert"],
+      "references_to": ["GetNewOidWithIndex"],
+      "metrics": {"ref_count": 8, "is_entry_point": false, "is_critical_path": false, "file": "src/backend/access/transam/varsup.c:555"}
+    },
+
+    "heap_create_with_catalog": {
+      "overview": "End-to-end relation creator: inserts pg_class + pg_attribute + pg_type rows, calls heap_create to set up storage (RelationCreateStorage), records dependencies, fires object_access_hook. Entry point for CREATE TABLE.",
+      "importance_score": 0.92,
+      "category": "CATALOG_MODIFY_API",
+      "depth_from_entry": 0,
+      "references_from": ["heap_create", "AddNewRelationTuple", "AddNewAttributeTuples", "AddNewRelationType", "RelationCreateStorage", "CatalogTupleInsert", "recordDependencyOn", "InvokeObjectPostCreateHook"],
+      "references_to": ["DefineRelation"],
+      "metrics": {"ref_count": 35, "is_entry_point": true, "is_critical_path": true, "file": "src/backend/catalog/heap.c:1105"}
+    },
+    "heap_create": {
+      "overview": "Constructs a Relation descriptor and creates the relfilenode storage via RelationCreateStorage; does NOT insert pg_class/pg_attribute rows.",
+      "importance_score": 0.78,
+      "category": "CATALOG_MODIFY_API",
+      "depth_from_entry": 1,
+      "references_from": ["RelationCreateStorage", "RelationBuildLocalRelation"],
+      "references_to": ["heap_create_with_catalog", "index_create"],
+      "metrics": {"ref_count": 12, "is_entry_point": false, "is_critical_path": true, "file": "src/backend/catalog/heap.c:290"}
+    },
+    "heap_drop_with_catalog": {
+      "overview": "Drops a relation: removes pg_class, pg_attribute, pg_index/related catalog rows; calls RelationDropStorage to schedule pending unlink at commit; removes dependency rows.",
+      "importance_score": 0.85,
+      "category": "CATALOG_MODIFY_API",
+      "depth_from_entry": 0,
+      "references_from": ["DeleteRelationTuple", "DeleteAttributeTuples", "RelationDropStorage", "RemoveStatistics", "deleteDependencyRecordsFor"],
+      "references_to": ["doDeletion", "RemoveRelations"],
+      "metrics": {"ref_count": 18, "is_entry_point": true, "is_critical_path": true, "file": "src/backend/catalog/heap.c:1767"}
+    },
+    "AddNewRelationTuple": {
+      "overview": "Inserts the pg_class row for a new relation. Centralizes setting reltype, relam, relfilenode, etc.",
+      "importance_score": 0.7,
+      "category": "CATALOG_MODIFY_API",
+      "depth_from_entry": 1,
+      "references_from": ["InsertPgClassTuple", "CatalogTupleInsert"],
+      "references_to": ["heap_create_with_catalog"],
+      "metrics": {"ref_count": 5, "is_entry_point": false, "is_critical_path": true, "file": "src/backend/catalog/heap.c:969"}
+    },
+    "AddNewAttributeTuples": {
+      "overview": "Inserts pg_attribute rows for every column of a relation, plus all six system columns.",
+      "importance_score": 0.7,
+      "category": "CATALOG_MODIFY_API",
+      "depth_from_entry": 1,
+      "references_from": ["InsertPgAttributeTuples", "CatalogTuplesMultiInsertWithInfo"],
+      "references_to": ["heap_create_with_catalog", "index_create"],
+      "metrics": {"ref_count": 5, "is_entry_point": false, "is_critical_path": true, "file": "src/backend/catalog/heap.c:821"}
+    },
+    "InsertPgClassTuple": {
+      "overview": "Builds a Form_pg_class tuple from a Relation and inserts/updates it in pg_class via CatalogTupleInsert/Update.",
+      "importance_score": 0.66,
+      "category": "CATALOG_MODIFY_API",
+      "depth_from_entry": 2,
+      "references_from": ["CatalogTupleInsertWithInfo", "CatalogTupleUpdate"],
+      "references_to": ["AddNewRelationTuple", "index_update_stats"],
+      "metrics": {"ref_count": 8, "is_entry_point": false, "is_critical_path": true, "file": "src/backend/catalog/heap.c:896"}
+    },
+    "DeleteRelationTuple": {
+      "overview": "Removes a row from pg_class for a dropped relation.",
+      "importance_score": 0.55,
+      "category": "CATALOG_MODIFY_API",
+      "depth_from_entry": 2,
+      "references_from": ["CatalogTupleDelete"],
+      "references_to": ["heap_drop_with_catalog"],
+      "metrics": {"ref_count": 3, "is_entry_point": false, "is_critical_path": false, "file": "src/backend/catalog/heap.c:1559"}
+    },
+    "RelationRemoveInheritance": {
+      "overview": "Deletes pg_inherits rows where the relation is a child.",
+      "importance_score": 0.42,
+      "category": "CATALOG_MODIFY_API",
+      "depth_from_entry": 2,
+      "references_from": ["CatalogTupleDelete"],
+      "references_to": ["heap_drop_with_catalog"],
+      "metrics": {"ref_count": 2, "is_entry_point": false, "is_critical_path": false, "file": "src/backend/catalog/heap.c:1526"}
+    },
+    "CheckAttributeType": {
+      "overview": "Recursive type-validity check used during relation/attribute creation.",
+      "importance_score": 0.45,
+      "category": "CATALOG_MODIFY_API",
+      "depth_from_entry": 2,
+      "references_from": [],
+      "references_to": ["CheckAttributeNamesTypes", "ATPrepCmd"],
+      "metrics": {"ref_count": 4, "is_entry_point": false, "is_critical_path": false, "file": "src/backend/catalog/heap.c:549"}
+    },
+
+    "index_create": {
+      "overview": "Creates an index relation: pg_class row, pg_attribute rows, pg_index row, dependency rows, builds storage, optionally builds the index. Heart of CREATE INDEX, REINDEX, and bootstrap.",
+      "importance_score": 0.9,
+      "category": "CATALOG_MODIFY_API",
+      "depth_from_entry": 0,
+      "references_from": ["heap_create", "UpdateIndexRelation", "CatalogTupleInsert", "recordDependencyOn", "index_build"],
+      "references_to": ["DefineIndex", "ReindexRelation"],
+      "metrics": {"ref_count": 25, "is_entry_point": true, "is_critical_path": true, "file": "src/backend/catalog/index.c:724"}
+    },
+    "index_drop": {
+      "overview": "Drops an index: removes pg_index/pg_class rows, deletes pg_attribute rows, drops storage. Has a concurrent path that splits the work across transactions.",
+      "importance_score": 0.78,
+      "category": "CATALOG_MODIFY_API",
+      "depth_from_entry": 0,
+      "references_from": ["RelationDropStorage", "CatalogTupleDelete"],
+      "references_to": ["doDeletion"],
+      "metrics": {"ref_count": 8, "is_entry_point": true, "is_critical_path": true, "file": "src/backend/catalog/index.c:2114"}
+    },
+    "index_constraint_create": {
+      "overview": "Creates the matching pg_constraint row for a unique/primary-key/exclusion index.",
+      "importance_score": 0.6,
+      "category": "CATALOG_MODIFY_API",
+      "depth_from_entry": 1,
+      "references_from": ["CreateConstraintEntry", "recordDependencyOn"],
+      "references_to": ["index_create"],
+      "metrics": {"ref_count": 5, "is_entry_point": false, "is_critical_path": false, "file": "src/backend/catalog/index.c:1881"}
+    },
+    "index_update_stats": {
+      "overview": "Updates pg_class.relpages/reltuples/relallvisible after VACUUM or index build. Uses systable_inplace_update_finish for locked, atomic update without bumping xmin.",
+      "importance_score": 0.6,
+      "category": "CATALOG_MODIFY_API",
+      "depth_from_entry": 1,
+      "references_from": ["heap_inplace_update_and_unlock"],
+      "references_to": ["index_build", "vac_update_relstats"],
+      "metrics": {"ref_count": 5, "is_entry_point": false, "is_critical_path": false, "file": "src/backend/catalog/index.c:2781"}
+    },
+    "ReindexRelationConcurrently": {
+      "overview": "Builds a new index alongside the old one, swaps via index_concurrently_swap, then drops the old.",
+      "importance_score": 0.55,
+      "category": "CATALOG_MODIFY_API",
+      "depth_from_entry": 1,
+      "references_from": ["index_concurrently_create_copy", "index_concurrently_build", "index_concurrently_swap", "index_concurrently_set_dead"],
+      "references_to": ["ReindexIndex"],
+      "metrics": {"ref_count": 4, "is_entry_point": false, "is_critical_path": false, "file": "src/backend/catalog/index.c"}
+    },
+
+    "CatalogTupleInsert": {
+      "overview": "Sanctioned catalog mutator: heap_insert + CatalogIndexInsert. Keeps heap and every system index of the catalog in sync. Plain heap_insert is forbidden in catalog code.",
+      "importance_score": 0.92,
+      "category": "CATALOG_INDEXING",
+      "depth_from_entry": 0,
+      "references_from": ["heap_insert", "CatalogOpenIndexes", "CatalogIndexInsert", "CatalogCloseIndexes", "CatalogTupleCheckConstraints"],
+      "references_to": ["heap_create_with_catalog", "index_create", "many catalog/pg_*.c helpers"],
+      "metrics": {"ref_count": 200, "is_entry_point": true, "is_critical_path": true, "file": "src/backend/catalog/indexing.c:233"}
+    },
+    "CatalogTupleInsertWithInfo": {
+      "overview": "Faster variant when caller already opened the indexes via CatalogOpenIndexes.",
+      "importance_score": 0.7,
+      "category": "CATALOG_INDEXING",
+      "depth_from_entry": 1,
+      "references_from": ["heap_insert", "CatalogIndexInsert"],
+      "references_to": ["AddNewRelationTuple", "InsertPgAttributeTuples"],
+      "metrics": {"ref_count": 25, "is_entry_point": false, "is_critical_path": true, "file": "src/backend/catalog/indexing.c:256"}
+    },
+    "CatalogTuplesMultiInsertWithInfo": {
+      "overview": "Bulk insert variant using TupleTableSlot to amortize index updates.",
+      "importance_score": 0.55,
+      "category": "CATALOG_INDEXING",
+      "depth_from_entry": 1,
+      "references_from": ["heap_multi_insert", "CatalogIndexInsert"],
+      "references_to": ["InsertPgAttributeTuples"],
+      "metrics": {"ref_count": 6, "is_entry_point": false, "is_critical_path": false, "file": "src/backend/catalog/indexing.c:273"}
+    },
+    "CatalogTupleUpdate": {
+      "overview": "Sanctioned update: heap_update + CatalogIndexInsert. Bumps xmin like a normal MVCC update.",
+      "importance_score": 0.88,
+      "category": "CATALOG_INDEXING",
+      "depth_from_entry": 0,
+      "references_from": ["heap_update", "CatalogIndexInsert", "CatalogTupleCheckConstraints"],
+      "references_to": ["many catalog/pg_*.c helpers"],
+      "metrics": {"ref_count": 180, "is_entry_point": true, "is_critical_path": true, "file": "src/backend/catalog/indexing.c:313"}
+    },
+    "CatalogTupleUpdateWithInfo": {
+      "overview": "CatalogTupleUpdate variant with pre-opened indexes.",
+      "importance_score": 0.65,
+      "category": "CATALOG_INDEXING",
+      "depth_from_entry": 1,
+      "references_from": ["heap_update", "CatalogIndexInsert"],
+      "references_to": ["various catalog updaters"],
+      "metrics": {"ref_count": 15, "is_entry_point": false, "is_critical_path": false, "file": "src/backend/catalog/indexing.c:337"}
+    },
+    "CatalogTupleDelete": {
+      "overview": "Sanctioned delete: simple_heap_delete (which goes through heap_delete). Indexes are NOT updated here because btree leaves dead pointers that vacuum cleans up.",
+      "importance_score": 0.85,
+      "category": "CATALOG_INDEXING",
+      "depth_from_entry": 0,
+      "references_from": ["simple_heap_delete"],
+      "references_to": ["many catalog/pg_*.c helpers"],
+      "metrics": {"ref_count": 170, "is_entry_point": true, "is_critical_path": true, "file": "src/backend/catalog/indexing.c:365"}
+    },
+    "CatalogIndexInsert": {
+      "overview": "Inserts an index entry into every index of a system catalog.",
+      "importance_score": 0.78,
+      "category": "CATALOG_INDEXING",
+      "depth_from_entry": 1,
+      "references_from": ["FormIndexDatum", "index_insert"],
+      "references_to": ["CatalogTupleInsert", "CatalogTupleUpdate"],
+      "metrics": {"ref_count": 8, "is_entry_point": false, "is_critical_path": true, "file": "src/backend/catalog/indexing.c:75"}
+    },
+    "CatalogOpenIndexes": {
+      "overview": "Opens every index on a catalog and prepares an ExecState-style structure for repeated insertions (CatalogIndexState).",
+      "importance_score": 0.6,
+      "category": "CATALOG_INDEXING",
+      "depth_from_entry": 1,
+      "references_from": ["RelationGetIndexList", "BuildIndexInfo"],
+      "references_to": ["CatalogTupleInsert", "CatalogTupleUpdate"],
+      "metrics": {"ref_count": 8, "is_entry_point": false, "is_critical_path": false, "file": "src/backend/catalog/indexing.c:43"}
+    },
+    "CatalogCloseIndexes": {
+      "overview": "Closes the indexes opened by CatalogOpenIndexes.",
+      "importance_score": 0.45,
+      "category": "CATALOG_INDEXING",
+      "depth_from_entry": 1,
+      "references_from": [],
+      "references_to": ["CatalogTupleInsert", "CatalogTupleUpdate"],
+      "metrics": {"ref_count": 8, "is_entry_point": false, "is_critical_path": false, "file": "src/backend/catalog/indexing.c:61"}
+    },
+
+    "recordDependencyOn": {
+      "overview": "Inserts a single pg_depend row. The basis of all object-graph tracking.",
+      "importance_score": 0.85,
+      "category": "CATALOG_DEPENDENCY",
+      "depth_from_entry": 0,
+      "references_from": ["recordMultipleDependencies"],
+      "references_to": ["CatalogTupleInsert", "many DefineXxx callers"],
+      "metrics": {"ref_count": 80, "is_entry_point": true, "is_critical_path": true, "file": "src/backend/catalog/pg_depend.c"}
+    },
+    "recordSharedDependencyOn": {
+      "overview": "Records a pg_shdepend row for cross-database object references (e.g., owner role).",
+      "importance_score": 0.65,
+      "category": "CATALOG_DEPENDENCY",
+      "depth_from_entry": 1,
+      "references_from": ["CatalogTupleInsert"],
+      "references_to": ["DefineXxx"],
+      "metrics": {"ref_count": 12, "is_entry_point": false, "is_critical_path": false, "file": "src/backend/catalog/pg_shdepend.c"}
+    },
+    "deleteDependencyRecordsFor": {
+      "overview": "Removes pg_depend rows for a soon-to-be-dropped object.",
+      "importance_score": 0.65,
+      "category": "CATALOG_DEPENDENCY",
+      "depth_from_entry": 1,
+      "references_from": ["CatalogTupleDelete"],
+      "references_to": ["doDeletion"],
+      "metrics": {"ref_count": 8, "is_entry_point": false, "is_critical_path": false, "file": "src/backend/catalog/pg_depend.c"}
+    },
+    "performDeletion": {
+      "overview": "Top-level recursive object dropper: builds the dependency closure via findDependentObjects, reports it, and calls deleteOneObject for each.",
+      "importance_score": 0.85,
+      "category": "CATALOG_DEPENDENCY",
+      "depth_from_entry": 0,
+      "references_from": ["findDependentObjects", "reportDependentObjects", "deleteObjectsInList", "AcquireDeletionLock", "ReleaseDeletionLock"],
+      "references_to": ["RemoveRelations", "doDeletion entry points"],
+      "metrics": {"ref_count": 25, "is_entry_point": true, "is_critical_path": true, "file": "src/backend/catalog/dependency.c:273"}
+    },
+    "performMultipleDeletions": {
+      "overview": "Performs deletion of multiple objects with a shared dependency closure (for ordered DROP).",
+      "importance_score": 0.6,
+      "category": "CATALOG_DEPENDENCY",
+      "depth_from_entry": 1,
+      "references_from": ["findDependentObjects", "deleteObjectsInList"],
+      "references_to": ["DropObjectsByOid"],
+      "metrics": {"ref_count": 6, "is_entry_point": false, "is_critical_path": false, "file": "src/backend/catalog/dependency.c:332"}
+    },
+    "findDependentObjects": {
+      "overview": "Recursively walks pg_depend to compute the full set of objects that depend on a target.",
+      "importance_score": 0.78,
+      "category": "CATALOG_DEPENDENCY",
+      "depth_from_entry": 1,
+      "references_from": ["object_address_present_add_flags"],
+      "references_to": ["performDeletion", "performMultipleDeletions"],
+      "metrics": {"ref_count": 8, "is_entry_point": false, "is_critical_path": true, "file": "src/backend/catalog/dependency.c:432"}
+    },
+    "AcquireDeletionLock": {
+      "overview": "Takes a strong lock on a soon-to-be-dropped object so a second backend cannot use or drop it concurrently.",
+      "importance_score": 0.5,
+      "category": "CATALOG_DEPENDENCY",
+      "depth_from_entry": 2,
+      "references_from": ["LockDatabaseObject", "LockSharedObject", "LockRelationOid"],
+      "references_to": ["performDeletion"],
+      "metrics": {"ref_count": 5, "is_entry_point": false, "is_critical_path": false, "file": "src/backend/catalog/dependency.c:1496"}
+    },
+    "ReleaseDeletionLock": {
+      "overview": "Symmetric release of the lock taken by AcquireDeletionLock.",
+      "importance_score": 0.42,
+      "category": "CATALOG_DEPENDENCY",
+      "depth_from_entry": 2,
+      "references_from": [],
+      "references_to": ["performDeletion"],
+      "metrics": {"ref_count": 4, "is_entry_point": false, "is_critical_path": false, "file": "src/backend/catalog/dependency.c:1528"}
+    },
+    "doDeletion": {
+      "overview": "Switches on classId and dispatches to the per-class dropper (RemoveRelations, RemoveFunctionById, RemoveAttrDefaultById, ...).",
+      "importance_score": 0.7,
+      "category": "CATALOG_DEPENDENCY",
+      "depth_from_entry": 1,
+      "references_from": ["heap_drop_with_catalog", "RemoveFunctionById", "RemoveTypeById", "..."],
+      "references_to": ["deleteOneObject"],
+      "metrics": {"ref_count": 8, "is_entry_point": false, "is_critical_path": true, "file": "src/backend/catalog/dependency.c:1352"}
+    },
+    "DropObjectById": {
+      "overview": "Drops one object given its ObjectAddress; thin wrapper around doDeletion.",
+      "importance_score": 0.55,
+      "category": "CATALOG_DEPENDENCY",
+      "depth_from_entry": 1,
+      "references_from": ["doDeletion"],
+      "references_to": ["dropdb"],
+      "metrics": {"ref_count": 5, "is_entry_point": false, "is_critical_path": false, "file": "src/backend/catalog/dependency.c:1189"}
+    },
+
+    "RangeVarGetRelid": {
+      "overview": "Resolve a RangeVar (schema-qualified name) to an Oid, with locking and search-path semantics. The single most-used name resolution function.",
+      "importance_score": 0.85,
+      "category": "CATALOG_NAMESPACE",
+      "depth_from_entry": 0,
+      "references_from": ["recomputeNamespacePath", "RelnameGetRelid", "LookupExplicitNamespace", "LockRelationOid"],
+      "references_to": ["DefineRelation", "ProcessUtility paths"],
+      "metrics": {"ref_count": 80, "is_entry_point": true, "is_critical_path": true, "file": "src/backend/catalog/namespace.c"}
+    },
+    "RangeVarGetCreationNamespace": {
+      "overview": "Decides which schema a CREATE statement should target (search_path or explicit qualifier).",
+      "importance_score": 0.6,
+      "category": "CATALOG_NAMESPACE",
+      "depth_from_entry": 1,
+      "references_from": ["recomputeNamespacePath"],
+      "references_to": ["DefineRelation", "DefineFunction"],
+      "metrics": {"ref_count": 25, "is_entry_point": false, "is_critical_path": false, "file": "src/backend/catalog/namespace.c"}
+    },
+    "LookupExplicitNamespace": {
+      "overview": "Resolves a schema name to its Oid with permission checks.",
+      "importance_score": 0.55,
+      "category": "CATALOG_NAMESPACE",
+      "depth_from_entry": 1,
+      "references_from": ["get_namespace_oid", "ACLCHECK"],
+      "references_to": ["RangeVarGetRelid"],
+      "metrics": {"ref_count": 15, "is_entry_point": false, "is_critical_path": false, "file": "src/backend/catalog/namespace.c"}
+    },
+    "recomputeNamespacePath": {
+      "overview": "Rebuilds the cached active search_path list when search_path GUC changes or sinval invalidates the cache.",
+      "importance_score": 0.55,
+      "category": "CATALOG_NAMESPACE",
+      "depth_from_entry": 1,
+      "references_from": ["get_namespace_oid"],
+      "references_to": ["RangeVarGetRelid", "FuncnameGetCandidates"],
+      "metrics": {"ref_count": 15, "is_entry_point": false, "is_critical_path": false, "file": "src/backend/catalog/namespace.c"}
+    },
+
+    "RelationCreateStorage": {
+      "overview": "Creates the on-disk file for a new relfilenode and emits XLOG_SMGR_CREATE. Records a pending-delete entry so abort can unlink the file.",
+      "importance_score": 0.85,
+      "category": "CATALOG_STORAGE_BRIDGE",
+      "depth_from_entry": 0,
+      "references_from": ["smgrcreate", "log_smgrcreate", "AddPendingSync"],
+      "references_to": ["heap_create", "RelationSetNewRelfilenumber"],
+      "metrics": {"ref_count": 18, "is_entry_point": true, "is_critical_path": true, "file": "src/backend/catalog/storage.c:121"}
+    },
+    "RelationDropStorage": {
+      "overview": "Schedules a relfilenode unlink at commit time. Adds a PendingRelDelete entry; the actual unlink happens in smgrDoPendingDeletes after WAL emit.",
+      "importance_score": 0.78,
+      "category": "CATALOG_STORAGE_BRIDGE",
+      "depth_from_entry": 1,
+      "references_from": [],
+      "references_to": ["heap_drop_with_catalog", "index_drop"],
+      "metrics": {"ref_count": 10, "is_entry_point": false, "is_critical_path": true, "file": "src/backend/catalog/storage.c:206"}
+    },
+    "log_smgrcreate": {
+      "overview": "Builds and inserts XLOG_SMGR_CREATE so the standby/recovery creates the same file.",
+      "importance_score": 0.65,
+      "category": "CATALOG_STORAGE_BRIDGE",
+      "depth_from_entry": 1,
+      "references_from": ["XLogInsert"],
+      "references_to": ["RelationCreateStorage"],
+      "metrics": {"ref_count": 6, "is_entry_point": false, "is_critical_path": true, "file": "src/backend/catalog/storage.c:186"}
+    },
+    "smgrDoPendingDeletes": {
+      "overview": "On commit, performs all queued unlink() calls; on abort, undoes the create-storage path. Called by CommitTransaction and xact_redo_commit.",
+      "importance_score": 0.78,
+      "category": "CATALOG_STORAGE_BRIDGE",
+      "depth_from_entry": 1,
+      "references_from": ["smgrdounlinkall"],
+      "references_to": ["CommitTransaction", "xact_redo_commit"],
+      "metrics": {"ref_count": 10, "is_entry_point": false, "is_critical_path": true, "file": "src/backend/catalog/storage.c:657"}
+    },
+    "smgrDoPendingSyncs": {
+      "overview": "On commit (under wal_level=minimal), fsyncs the new relfilenodes that skipped WAL.",
+      "importance_score": 0.55,
+      "category": "CATALOG_STORAGE_BRIDGE",
+      "depth_from_entry": 1,
+      "references_from": ["FlushRelationBuffers", "smgrimmedsync"],
+      "references_to": ["CommitTransaction"],
+      "metrics": {"ref_count": 5, "is_entry_point": false, "is_critical_path": false, "file": "src/backend/catalog/storage.c:725"}
+    },
+    "RelationTruncate": {
+      "overview": "Truncates a relation's storage and emits XLOG_SMGR_TRUNCATE.",
+      "importance_score": 0.6,
+      "category": "CATALOG_STORAGE_BRIDGE",
+      "depth_from_entry": 1,
+      "references_from": ["smgrtruncate", "FreeSpaceMapPrepareTruncateRel", "visibilitymap_prepare_truncate"],
+      "references_to": ["heap_truncate_one_rel", "ATExecSetTableSpace"],
+      "metrics": {"ref_count": 8, "is_entry_point": false, "is_critical_path": false, "file": "src/backend/catalog/storage.c:288"}
+    },
+    "smgr_redo": {
+      "overview": "Redo callback for RM_SMGR_ID. Replays XLOG_SMGR_CREATE and XLOG_SMGR_TRUNCATE.",
+      "importance_score": 0.6,
+      "category": "PERSISTENCE_RECOVERY",
+      "depth_from_entry": 1,
+      "references_from": ["smgrcreate", "smgrtruncate"],
+      "references_to": ["rmgrlist"],
+      "metrics": {"ref_count": 4, "is_entry_point": false, "is_critical_path": true, "file": "src/backend/catalog/storage.c:965"}
+    },
+
+    "NewHeapCreateToastTable": {
+      "overview": "Adds a TOAST table to a relation that exceeds the inline-tuple size threshold; creates the toast heap, its index, and links pg_class.reltoastrelid.",
+      "importance_score": 0.6,
+      "category": "CATALOG_TOAST",
+      "depth_from_entry": 1,
+      "references_from": ["heap_create_with_catalog", "index_create", "recordDependencyOn"],
+      "references_to": ["CreateToastTable", "AlterTableCmd"],
+      "metrics": {"ref_count": 6, "is_entry_point": false, "is_critical_path": false, "file": "src/backend/catalog/toasting.c"}
+    },
+
+    "ExecGrantStmt_oids": {
+      "overview": "Per-object workhorse for GRANT/REVOKE; updates aclitem arrays in the catalog row via CatalogTupleUpdate.",
+      "importance_score": 0.55,
+      "category": "CATALOG_ACL",
+      "depth_from_entry": 1,
+      "references_from": ["CatalogTupleUpdate"],
+      "references_to": ["ExecuteGrantStmt"],
+      "metrics": {"ref_count": 8, "is_entry_point": false, "is_critical_path": false, "file": "src/backend/catalog/aclchk.c"}
+    },
+
+    "get_object_address": {
+      "overview": "Resolves a parsed ObjectType + name list to an ObjectAddress (classId, objectId, objectSubId). The frontdoor for DDL.",
+      "importance_score": 0.7,
+      "category": "CATALOG_OBJADDR",
+      "depth_from_entry": 0,
+      "references_from": ["get_object_address_unqualified", "get_relation_by_qualified_name", "get_object_address_attribute", "get_object_address_type", "get_object_address_opcf"],
+      "references_to": ["AlterObjectOwner_internal", "ExecAlterOwnerStmt", "many DDL paths"],
+      "metrics": {"ref_count": 30, "is_entry_point": true, "is_critical_path": true, "file": "src/backend/catalog/objectaddress.c:922"}
+    },
+    "RunObjectPostCreateHook": {
+      "overview": "Fires object_access_hook with OAT_POST_CREATE for an object just created. Used by sepgsql, pg_audit.",
+      "importance_score": 0.45,
+      "category": "CATALOG_OBJACCESS",
+      "depth_from_entry": 1,
+      "references_from": ["object_access_hook"],
+      "references_to": ["heap_create_with_catalog", "index_create", "ExecCreateStmt"],
+      "metrics": {"ref_count": 30, "is_entry_point": false, "is_critical_path": false, "file": "src/backend/catalog/objectaccess.c:32"}
+    },
+    "RunObjectDropHook": {
+      "overview": "Fires object_access_hook with OAT_DROP. Symmetric to RunObjectPostCreateHook.",
+      "importance_score": 0.42,
+      "category": "CATALOG_OBJACCESS",
+      "depth_from_entry": 1,
+      "references_from": ["object_access_hook"],
+      "references_to": ["doDeletion"],
+      "metrics": {"ref_count": 8, "is_entry_point": false, "is_critical_path": false, "file": "src/backend/catalog/objectaccess.c:54"}
+    },
+    "RelationGetPartitionDesc": {
+      "overview": "Builds (and caches in partcache) the PartitionDesc for a partitioned table from pg_inherits and pg_class.",
+      "importance_score": 0.55,
+      "category": "CATALOG_PARTITION",
+      "depth_from_entry": 1,
+      "references_from": ["find_inheritance_children_extended", "partition_bounds_create"],
+      "references_to": ["expand_inherited_rtentry", "ExecInitPartitionInfo"],
+      "metrics": {"ref_count": 12, "is_entry_point": false, "is_critical_path": false, "file": "src/backend/utils/cache/partcache.c"}
+    },
+
+    "RelationData": {
+      "overview": "The relcache entry struct (rd_*). Caches a Relation's pg_class form, TupleDesc, RelFileLocator, indexes, AM routines, RowSecurityDesc, etc. The runtime view of a table or index.",
+      "importance_score": 0.94,
+      "category": "CACHE_RELCACHE",
+      "depth_from_entry": 0,
+      "references_from": ["Form_pg_class", "TupleDesc", "RelFileLocator", "IndexAmRoutine"],
+      "references_to": ["RelationIdGetRelation", "RelationBuildDesc", "RelationClose"],
+      "metrics": {"ref_count": 500, "is_entry_point": true, "is_critical_path": true, "file": "src/include/utils/rel.h"}
+    },
+    "RelationIdGetRelation": {
+      "overview": "Returns a reference-counted Relation for the given Oid: looks up RelIdCacheHash; if miss, calls RelationBuildDesc to construct it.",
+      "importance_score": 0.92,
+      "category": "CACHE_RELCACHE",
+      "depth_from_entry": 0,
+      "references_from": ["RelationBuildDesc", "RelationIncrementReferenceCount"],
+      "references_to": ["table_open", "index_open", "relation_open"],
+      "metrics": {"ref_count": 80, "is_entry_point": true, "is_critical_path": true, "file": "src/backend/utils/cache/relcache.c:2063"}
+    },
+    "RelationClose": {
+      "overview": "Decrements the relation refcount and may free the Relation if zombie.",
+      "importance_score": 0.7,
+      "category": "CACHE_RELCACHE",
+      "depth_from_entry": 0,
+      "references_from": ["RelationDecrementReferenceCount", "RelationCloseCleanup"],
+      "references_to": ["table_close", "index_close"],
+      "metrics": {"ref_count": 70, "is_entry_point": true, "is_critical_path": true, "file": "src/backend/utils/cache/relcache.c:2194"}
+    },
+    "RelationBuildDesc": {
+      "overview": "Builds a RelationData from scratch: ScanPgRelation, AllocateRelationDesc, RelationBuildTupleDesc, RelationBuildRuleLock, RelationInitPhysicalAddr, RelationInitTableAccessMethod / RelationInitIndexAccessInfo. Inserts into RelIdCacheHash.",
+      "importance_score": 0.88,
+      "category": "CACHE_RELCACHE",
+      "depth_from_entry": 1,
+      "references_from": ["ScanPgRelation", "AllocateRelationDesc", "RelationBuildTupleDesc", "RelationBuildRuleLock", "RelationInitPhysicalAddr", "RelationInitTableAccessMethod", "RelationInitIndexAccessInfo"],
+      "references_to": ["RelationIdGetRelation"],
+      "metrics": {"ref_count": 18, "is_entry_point": false, "is_critical_path": true, "file": "src/backend/utils/cache/relcache.c:1040"}
+    },
+    "RelationInitTableAccessMethod": {
+      "overview": "Resolves pg_am.amhandler -> TableAmRoutine and stores it in rd_tableam.",
+      "importance_score": 0.6,
+      "category": "CACHE_RELCACHE",
+      "depth_from_entry": 2,
+      "references_from": ["GetTableAmRoutine"],
+      "references_to": ["RelationBuildDesc"],
+      "metrics": {"ref_count": 5, "is_entry_point": false, "is_critical_path": false, "file": "src/backend/utils/cache/relcache.c:1810"}
+    },
+    "RelationCacheInitialize": {
+      "overview": "Phase-1 relcache init: sets up RelIdCacheHash. Called extremely early in backend start.",
+      "importance_score": 0.58,
+      "category": "CACHE_RELCACHE",
+      "depth_from_entry": 1,
+      "references_from": ["hash_create"],
+      "references_to": ["InitPostgres"],
+      "metrics": {"ref_count": 3, "is_entry_point": false, "is_critical_path": false, "file": "src/backend/utils/cache/relcache.c:3997"}
+    },
+    "RelationCacheInitializePhase2": {
+      "overview": "Phase-2: nails the four shared catalogs (pg_database, pg_authid, pg_auth_members, pg_shseclabel, pg_subscription) via formrdesc, before pg_class is reachable.",
+      "importance_score": 0.7,
+      "category": "CACHE_RELCACHE",
+      "depth_from_entry": 1,
+      "references_from": ["formrdesc", "RelationMapInitializePhase2", "load_relcache_init_file"],
+      "references_to": ["InitPostgres"],
+      "metrics": {"ref_count": 4, "is_entry_point": false, "is_critical_path": true, "file": "src/backend/utils/cache/relcache.c:4043"}
+    },
+    "RelationCacheInitializePhase3": {
+      "overview": "Phase-3: nails pg_class, pg_attribute, pg_proc, pg_type via formrdesc, then loads or builds the per-database pg_internal.init relcache file.",
+      "importance_score": 0.78,
+      "category": "CACHE_RELCACHE",
+      "depth_from_entry": 1,
+      "references_from": ["formrdesc", "load_critical_index", "write_relcache_init_file", "load_relcache_init_file"],
+      "references_to": ["InitPostgres"],
+      "metrics": {"ref_count": 5, "is_entry_point": false, "is_critical_path": true, "file": "src/backend/utils/cache/relcache.c:4102"}
+    },
+    "formrdesc": {
+      "overview": "Creates a hardcoded relcache entry for a 'nailed' catalog (pg_class, pg_attribute, pg_proc, pg_type, plus the shared variants) using the BKI schema macros embedded in the header. Bootstraps the relcache before the relcache itself is usable.",
+      "importance_score": 0.75,
+      "category": "CACHE_RELCACHE",
+      "depth_from_entry": 2,
+      "references_from": ["BuildHardcodedDescriptor", "RelationMapOidToFilenumber"],
+      "references_to": ["RelationCacheInitializePhase2", "RelationCacheInitializePhase3"],
+      "metrics": {"ref_count": 9, "is_entry_point": false, "is_critical_path": true, "file": "src/backend/utils/cache/relcache.c:1875"}
+    },
+    "load_critical_index": {
+      "overview": "Bootstraps the index that backs a nailed catalog (e.g. ClassOidIndexId for pg_class), so the relcache can scan pg_class to build other relations.",
+      "importance_score": 0.6,
+      "category": "CACHE_RELCACHE",
+      "depth_from_entry": 2,
+      "references_from": ["RelationBuildDesc"],
+      "references_to": ["RelationCacheInitializePhase3"],
+      "metrics": {"ref_count": 3, "is_entry_point": false, "is_critical_path": true, "file": "src/backend/utils/cache/relcache.c:4387"}
+    },
+    "RelationClearRelation": {
+      "overview": "Invalidates a Relation: either rebuilds in place (rebuild=true, used after CCI) or destroys it (rebuild=false, on full sinval). Handles the live-pointer problem by careful rd_isnailed/rd_refcnt logic.",
+      "importance_score": 0.78,
+      "category": "CACHE_RELCACHE",
+      "depth_from_entry": 1,
+      "references_from": ["RelationDestroyRelation", "RelationReloadIndexInfo", "RelationReloadNailed"],
+      "references_to": ["RelationFlushRelation", "RelationCacheInvalidateEntry"],
+      "metrics": {"ref_count": 12, "is_entry_point": false, "is_critical_path": true, "file": "src/backend/utils/cache/relcache.c:2561"}
+    },
+    "RelationFlushRelation": {
+      "overview": "If the Relation has no live references, destroy it immediately; otherwise mark it for rebuild on next access.",
+      "importance_score": 0.55,
+      "category": "CACHE_RELCACHE",
+      "depth_from_entry": 1,
+      "references_from": ["RelationClearRelation"],
+      "references_to": ["RelationCacheInvalidateEntry"],
+      "metrics": {"ref_count": 6, "is_entry_point": false, "is_critical_path": true, "file": "src/backend/utils/cache/relcache.c:2866"}
+    },
+    "RelationCacheInvalidate": {
+      "overview": "Invalidates ALL relcache entries (sinval reset). Walks the hash table and calls RelationClearRelation.",
+      "importance_score": 0.65,
+      "category": "CACHE_RELCACHE",
+      "depth_from_entry": 1,
+      "references_from": ["RelationClearRelation"],
+      "references_to": ["InvalidateSystemCaches"],
+      "metrics": {"ref_count": 5, "is_entry_point": false, "is_critical_path": true, "file": "src/backend/utils/cache/relcache.c:3013"}
+    },
+    "write_relcache_init_file": {
+      "overview": "Serializes the current relcache contents (pg_class + pg_attribute + pg_index for nailed and a few hot catalogs) to pg_internal.init. Subsequent backends skip the catalog scan.",
+      "importance_score": 0.65,
+      "category": "CACHE_RELCACHE",
+      "depth_from_entry": 1,
+      "references_from": ["write_item"],
+      "references_to": ["RelationCacheInitializePhase3"],
+      "metrics": {"ref_count": 4, "is_entry_point": false, "is_critical_path": false, "file": "src/backend/utils/cache/relcache.c:6491"}
+    },
+    "load_relcache_init_file": {
+      "overview": "Symmetric reader; produces relcache entries directly from pg_internal.init without any catalog access.",
+      "importance_score": 0.55,
+      "category": "CACHE_RELCACHE",
+      "depth_from_entry": 1,
+      "references_from": [],
+      "references_to": ["RelationCacheInitializePhase2", "RelationCacheInitializePhase3"],
+      "metrics": {"ref_count": 4, "is_entry_point": false, "is_critical_path": false, "file": "src/backend/utils/cache/relcache.c:6075"}
+    },
+    "RelationCacheInitFileRemove": {
+      "overview": "Deletes pg_internal.init at server start so the first backend rebuilds it. Triggered when starting from a non-clean state.",
+      "importance_score": 0.45,
+      "category": "CACHE_RELCACHE",
+      "depth_from_entry": 1,
+      "references_from": ["RelationCacheInitFileRemoveInDir"],
+      "references_to": ["StartupXLOG"],
+      "metrics": {"ref_count": 2, "is_entry_point": false, "is_critical_path": false, "file": "src/backend/utils/cache/relcache.c:6806"}
+    },
+    "RelationCacheInitFilePostInvalidate": {
+      "overview": "Releases the lock taken before deleting the init file (the matching post-invalidate companion to PreInvalidate).",
+      "importance_score": 0.4,
+      "category": "CACHE_RELCACHE",
+      "depth_from_entry": 1,
+      "references_from": [],
+      "references_to": ["RelationCacheInvalidate"],
+      "metrics": {"ref_count": 2, "is_entry_point": false, "is_critical_path": false, "file": "src/backend/utils/cache/relcache.c:6791"}
+    },
+    "RelationSetNewRelfilenumber": {
+      "overview": "VACUUM FULL / CLUSTER / TRUNCATE helper: assigns a new RelFileNumber to a relation and updates pg_class (or pg_filenode.map for mapped catalogs).",
+      "importance_score": 0.6,
+      "category": "CACHE_RELCACHE",
+      "depth_from_entry": 1,
+      "references_from": ["GetNewRelFileNumber", "RelationCreateStorage", "RelationMapUpdateMap"],
+      "references_to": ["heap_truncate_one_rel", "ATExecSetTableSpace"],
+      "metrics": {"ref_count": 8, "is_entry_point": false, "is_critical_path": false, "file": "src/backend/utils/cache/relcache.c:3769"}
+    },
+    "RelidByRelfilenumber": {
+      "overview": "Reverse mapping RelFileNumber -> Oid via a per-database hash, built lazily by scanning pg_class. Used by WAL replay tools and pg_buffercache.",
+      "importance_score": 0.5,
+      "category": "CACHE_RELCACHE",
+      "depth_from_entry": 1,
+      "references_from": ["RelfilenumberMapInvalidateCallback"],
+      "references_to": ["pg_buffercache_pages", "pg_walfile_dump"],
+      "metrics": {"ref_count": 4, "is_entry_point": false, "is_critical_path": false, "file": "src/backend/utils/cache/relfilenumbermap.c"}
+    },
+
+    "CatCache": {
+      "overview": "Per-syscache hash-table-of-CatCTup struct: cc_relisshared, cc_indexoid, cc_keyno, cc_hashfunc, cc_fastequal, cc_lists. Holds tuple-level cache for one (relation, key) pair.",
+      "importance_score": 0.92,
+      "category": "CACHE_CATCACHE",
+      "depth_from_entry": 0,
+      "references_from": ["CatCTup", "CatCList"],
+      "references_to": ["InitCatCache", "SearchCatCacheInternal"],
+      "metrics": {"ref_count": 200, "is_entry_point": true, "is_critical_path": true, "file": "src/include/utils/catcache.h"}
+    },
+    "CatCList": {
+      "overview": "Cached result of a partial-key search (e.g. all rows of pg_proc with proname=X). Backs SearchSysCacheList.",
+      "importance_score": 0.7,
+      "category": "CACHE_CATCACHE",
+      "depth_from_entry": 1,
+      "references_from": ["CatCache", "CatCTup"],
+      "references_to": ["SearchCatCacheList", "ReleaseCatCacheList"],
+      "metrics": {"ref_count": 30, "is_entry_point": false, "is_critical_path": true, "file": "src/include/utils/catcache.h"}
+    },
+    "InitCatCache": {
+      "overview": "Constructs a CatCache (without contacting the catalog yet); installs hash equality fast paths.",
+      "importance_score": 0.65,
+      "category": "CACHE_CATCACHE",
+      "depth_from_entry": 1,
+      "references_from": ["GetCCHashEqFuncs"],
+      "references_to": ["InitCatalogCache"],
+      "metrics": {"ref_count": 5, "is_entry_point": false, "is_critical_path": true, "file": "src/backend/utils/cache/catcache.c:878"}
+    },
+    "CatalogCacheInitializeCache": {
+      "overview": "Lazily completes a CatCache: opens its catalog, fetches the TupleDesc, resolves the underlying index. Called on first lookup.",
+      "importance_score": 0.7,
+      "category": "CACHE_CATCACHE",
+      "depth_from_entry": 1,
+      "references_from": ["table_open", "index_open"],
+      "references_to": ["SearchCatCacheInternal"],
+      "metrics": {"ref_count": 5, "is_entry_point": false, "is_critical_path": true, "file": "src/backend/utils/cache/catcache.c:1086"}
+    },
+    "SearchCatCacheInternal": {
+      "overview": "Hot path of all syscache lookups: hash key, walk bucket list, on hit increment refcount and return. On miss calls SearchCatCacheMiss to scan the catalog index.",
+      "importance_score": 0.92,
+      "category": "CACHE_CATCACHE",
+      "depth_from_entry": 1,
+      "references_from": ["CatalogCacheComputeHashValue", "SearchCatCacheMiss"],
+      "references_to": ["SearchCatCache1", "SearchCatCache2", "SearchCatCache3", "SearchCatCache4"],
+      "metrics": {"ref_count": 30, "is_entry_point": false, "is_critical_path": true, "file": "src/backend/utils/cache/catcache.c:1363"}
+    },
+    "SearchCatCacheList": {
+      "overview": "Multi-row search (partial keys); returns a CatCList that the caller iterates. Used by FuncnameGetCandidates and similar.",
+      "importance_score": 0.7,
+      "category": "CACHE_CATCACHE",
+      "depth_from_entry": 1,
+      "references_from": ["CatalogCacheComputeHashValue", "systable_beginscan"],
+      "references_to": ["SearchSysCacheList"],
+      "metrics": {"ref_count": 18, "is_entry_point": false, "is_critical_path": true, "file": "src/backend/utils/cache/catcache.c:1697"}
+    },
+    "CatCacheRemoveCList": {
+      "overview": "Drops a CatCList and decrements refs on its members.",
+      "importance_score": 0.5,
+      "category": "CACHE_CATCACHE",
+      "depth_from_entry": 2,
+      "references_from": [],
+      "references_to": ["ReleaseCatCacheList", "CatCacheInvalidate"],
+      "metrics": {"ref_count": 6, "is_entry_point": false, "is_critical_path": false, "file": "src/backend/utils/cache/catcache.c:570"}
+    },
+    "CatCacheRemoveCTup": {
+      "overview": "Drops a CatCTup; takes care of removing it from the bucket and releasing its tuple.",
+      "importance_score": 0.5,
+      "category": "CACHE_CATCACHE",
+      "depth_from_entry": 2,
+      "references_from": [],
+      "references_to": ["CatCacheInvalidate", "ReleaseCatCache"],
+      "metrics": {"ref_count": 6, "is_entry_point": false, "is_critical_path": false, "file": "src/backend/utils/cache/catcache.c:528"}
+    },
+    "CatCacheInvalidate": {
+      "overview": "Flushes all entries of a CatCache that match a given hashValue; called by sinval message processing.",
+      "importance_score": 0.78,
+      "category": "CACHE_CATCACHE",
+      "depth_from_entry": 1,
+      "references_from": ["CatCacheRemoveCTup", "CatCacheRemoveCList"],
+      "references_to": ["LocalExecuteInvalidationMessage", "SysCacheInvalidate"],
+      "metrics": {"ref_count": 5, "is_entry_point": false, "is_critical_path": true, "file": "src/backend/utils/cache/catcache.c:625"}
+    },
+    "ResetCatalogCaches": {
+      "overview": "Wipes every CatCache (for SI_RESET); used when sinval queue overflows.",
+      "importance_score": 0.55,
+      "category": "CACHE_CATCACHE",
+      "depth_from_entry": 1,
+      "references_from": ["ResetCatalogCache"],
+      "references_to": ["InvalidateSystemCaches"],
+      "metrics": {"ref_count": 3, "is_entry_point": false, "is_critical_path": true, "file": "src/backend/utils/cache/catcache.c:798"}
+    },
+    "PrepareToInvalidateCacheTuple": {
+      "overview": "For a given (catalog, oldtuple, newtuple), figures out which CatCaches contain affected entries and queues invalidation messages for each.",
+      "importance_score": 0.7,
+      "category": "CACHE_CATCACHE",
+      "depth_from_entry": 1,
+      "references_from": ["CatalogCacheComputeTupleHashValue"],
+      "references_to": ["CacheInvalidateHeapTuple"],
+      "metrics": {"ref_count": 4, "is_entry_point": false, "is_critical_path": true, "file": "src/backend/utils/cache/catcache.c:2356"}
+    },
+
+    "SearchSysCache1": {
+      "overview": "Most-used syscache front door: dispatch to the underlying CatCache via the cacheinfo[] table.",
+      "importance_score": 0.9,
+      "category": "CACHE_SYSCACHE",
+      "depth_from_entry": 0,
+      "references_from": ["SearchCatCacheInternal"],
+      "references_to": ["thousands of callers"],
+      "metrics": {"ref_count": 2000, "is_entry_point": true, "is_critical_path": true, "file": "src/backend/utils/cache/syscache.c:221"}
+    },
+    "SearchSysCache2": {
+      "overview": "Two-key syscache lookup; e.g. SearchSysCache2(RELNAMENSP, namekey, oidkey).",
+      "importance_score": 0.78,
+      "category": "CACHE_SYSCACHE",
+      "depth_from_entry": 0,
+      "references_from": ["SearchCatCacheInternal"],
+      "references_to": ["many DDL/parser sites"],
+      "metrics": {"ref_count": 200, "is_entry_point": true, "is_critical_path": true, "file": "src/backend/utils/cache/syscache.c:232"}
+    },
+    "SearchSysCache3": {
+      "overview": "Three-key syscache lookup.",
+      "importance_score": 0.6,
+      "category": "CACHE_SYSCACHE",
+      "depth_from_entry": 0,
+      "references_from": ["SearchCatCacheInternal"],
+      "references_to": ["various"],
+      "metrics": {"ref_count": 50, "is_entry_point": true, "is_critical_path": false, "file": "src/backend/utils/cache/syscache.c:243"}
+    },
+    "SearchSysCache4": {
+      "overview": "Four-key syscache lookup (e.g. AMOPSTRATEGY).",
+      "importance_score": 0.55,
+      "category": "CACHE_SYSCACHE",
+      "depth_from_entry": 0,
+      "references_from": ["SearchCatCacheInternal"],
+      "references_to": ["various"],
+      "metrics": {"ref_count": 30, "is_entry_point": false, "is_critical_path": false, "file": "src/backend/utils/cache/syscache.c:254"}
+    },
+    "ReleaseSysCache": {
+      "overview": "Decrements the refcount on a HeapTuple obtained from SearchSysCache.",
+      "importance_score": 0.78,
+      "category": "CACHE_SYSCACHE",
+      "depth_from_entry": 0,
+      "references_from": ["ReleaseCatCache"],
+      "references_to": ["thousands of callers"],
+      "metrics": {"ref_count": 2000, "is_entry_point": true, "is_critical_path": true, "file": "src/backend/utils/cache/syscache.c:269"}
+    },
+    "SearchSysCacheLocked1": {
+      "overview": "Locked variant: fetches the row, then takes a tuple-level lock so concurrent inplace-updates cannot overwrite it.",
+      "importance_score": 0.55,
+      "category": "CACHE_SYSCACHE",
+      "depth_from_entry": 1,
+      "references_from": ["SearchSysCache1", "LockTuple"],
+      "references_to": ["DDL paths needing strict serialization"],
+      "metrics": {"ref_count": 5, "is_entry_point": false, "is_critical_path": false, "file": "src/backend/utils/cache/syscache.c:287"}
+    },
+    "SearchSysCacheCopy": {
+      "overview": "Returns a heap_copytuple of the cached row so the caller can keep it past ReleaseSysCache.",
+      "importance_score": 0.65,
+      "category": "CACHE_SYSCACHE",
+      "depth_from_entry": 1,
+      "references_from": ["SearchSysCache", "heap_copytuple"],
+      "references_to": ["many"],
+      "metrics": {"ref_count": 200, "is_entry_point": false, "is_critical_path": false, "file": "src/backend/utils/cache/syscache.c:380"}
+    },
+    "SearchSysCacheAttName": {
+      "overview": "Two-step lookup pg_attribute by relid + attname (uses ATTNAME).",
+      "importance_score": 0.55,
+      "category": "CACHE_SYSCACHE",
+      "depth_from_entry": 1,
+      "references_from": ["SearchSysCache2"],
+      "references_to": ["transformAExprIn", "ColumnRef analyses"],
+      "metrics": {"ref_count": 25, "is_entry_point": false, "is_critical_path": false, "file": "src/backend/utils/cache/syscache.c:481"}
+    },
+    "SearchSysCacheAttNum": {
+      "overview": "ATTNUM lookup: pg_attribute by relid + attnum.",
+      "importance_score": 0.55,
+      "category": "CACHE_SYSCACHE",
+      "depth_from_entry": 1,
+      "references_from": ["SearchSysCache2"],
+      "references_to": ["various"],
+      "metrics": {"ref_count": 25, "is_entry_point": false, "is_critical_path": false, "file": "src/backend/utils/cache/syscache.c:544"}
+    },
+    "SysCacheGetAttr": {
+      "overview": "Extracts a Datum from a cached HeapTuple, using the cached TupleDesc.",
+      "importance_score": 0.7,
+      "category": "CACHE_SYSCACHE",
+      "depth_from_entry": 1,
+      "references_from": ["heap_getattr"],
+      "references_to": ["many"],
+      "metrics": {"ref_count": 200, "is_entry_point": false, "is_critical_path": false, "file": "src/backend/utils/cache/syscache.c:601"}
+    },
+    "SysCacheGetAttrNotNull": {
+      "overview": "Like SysCacheGetAttr but errors out if NULL; eliminates per-call boilerplate.",
+      "importance_score": 0.55,
+      "category": "CACHE_SYSCACHE",
+      "depth_from_entry": 1,
+      "references_from": ["SysCacheGetAttr"],
+      "references_to": ["many"],
+      "metrics": {"ref_count": 50, "is_entry_point": false, "is_critical_path": false, "file": "src/backend/utils/cache/syscache.c:632"}
+    },
+    "GetSysCacheOid": {
+      "overview": "Convenience helper that does a syscache lookup and returns the OID column.",
+      "importance_score": 0.6,
+      "category": "CACHE_SYSCACHE",
+      "depth_from_entry": 1,
+      "references_from": ["SearchSysCache"],
+      "references_to": ["many"],
+      "metrics": {"ref_count": 100, "is_entry_point": false, "is_critical_path": false, "file": "src/backend/utils/cache/syscache.c:449"}
+    },
+    "GetSysCacheHashValue": {
+      "overview": "Computes the cache hash for a key tuple without doing a lookup; used by inval.c when broadcasting.",
+      "importance_score": 0.55,
+      "category": "CACHE_SYSCACHE",
+      "depth_from_entry": 1,
+      "references_from": ["CatalogCacheComputeHashValue"],
+      "references_to": ["RegisterCatcacheInvalidation"],
+      "metrics": {"ref_count": 4, "is_entry_point": false, "is_critical_path": true, "file": "src/backend/utils/cache/syscache.c:662"}
+    },
+    "SysCacheInvalidate": {
+      "overview": "Wrapper around CatCacheInvalidate that takes a cacheId (SysCacheIdentifier) and dispatches to the right CatCache.",
+      "importance_score": 0.55,
+      "category": "CACHE_SYSCACHE",
+      "depth_from_entry": 1,
+      "references_from": ["CatCacheInvalidate"],
+      "references_to": ["LocalExecuteInvalidationMessage"],
+      "metrics": {"ref_count": 3, "is_entry_point": false, "is_critical_path": true, "file": "src/backend/utils/cache/syscache.c:699"}
+    },
+    "RelationInvalidatesSnapshotsOnly": {
+      "overview": "Returns true if changes to the given relid only invalidate snapshots, not catalog caches (e.g., pg_largeobject).",
+      "importance_score": 0.45,
+      "category": "CACHE_SYSCACHE",
+      "depth_from_entry": 2,
+      "references_from": [],
+      "references_to": ["CacheInvalidateHeapTuple"],
+      "metrics": {"ref_count": 3, "is_entry_point": false, "is_critical_path": false, "file": "src/backend/utils/cache/syscache.c:723"}
+    },
+    "RelationHasSysCache": {
+      "overview": "Returns true if the relation has at least one CatCache built on it.",
+      "importance_score": 0.4,
+      "category": "CACHE_SYSCACHE",
+      "depth_from_entry": 2,
+      "references_from": ["SysCacheRelationOid"],
+      "references_to": ["CacheInvalidateHeapTuple"],
+      "metrics": {"ref_count": 3, "is_entry_point": false, "is_critical_path": false, "file": "src/backend/utils/cache/syscache.c:746"}
+    },
+    "RelationSupportsSysCache": {
+      "overview": "Returns true if either the relation or one of its supporting indexes is registered in syscache.",
+      "importance_score": 0.4,
+      "category": "CACHE_SYSCACHE",
+      "depth_from_entry": 2,
+      "references_from": ["SysCacheSupportingRelOid"],
+      "references_to": ["RelationCacheInvalidate"],
+      "metrics": {"ref_count": 3, "is_entry_point": false, "is_critical_path": false, "file": "src/backend/utils/cache/syscache.c:771"}
+    },
+
+    "CacheInvalidateHeapTuple": {
+      "overview": "Catalog-mutator hook: queues catcache + relcache + snapshot invalidations for the given (relation, old, new) tuple. Called from CatalogTupleInsert/Update/Delete.",
+      "importance_score": 0.92,
+      "category": "INVAL_API",
+      "depth_from_entry": 0,
+      "references_from": ["PrepareToInvalidateCacheTuple", "RegisterCatcacheInvalidation", "RegisterRelcacheInvalidation", "RegisterSnapshotInvalidation"],
+      "references_to": ["CatalogTupleInsert", "CatalogTupleUpdate", "CatalogTupleDelete", "heap_inplace_update_and_unlock"],
+      "metrics": {"ref_count": 25, "is_entry_point": true, "is_critical_path": true, "file": "src/backend/utils/cache/inval.c:1207"}
+    },
+    "CacheInvalidateHeapTupleByRelid": {
+      "overview": "Variant that takes a relid instead of a Relation pointer.",
+      "importance_score": 0.55,
+      "category": "INVAL_API",
+      "depth_from_entry": 1,
+      "references_from": [],
+      "references_to": ["CacheInvalidateHeapTuple"],
+      "metrics": {"ref_count": 3, "is_entry_point": false, "is_critical_path": false, "file": "src/backend/utils/cache/inval.c"}
+    },
+    "CacheInvalidateRelcache": {
+      "overview": "Queues a relcache invalidation for a single Relation. Used for things like rule/trigger creation.",
+      "importance_score": 0.7,
+      "category": "INVAL_API",
+      "depth_from_entry": 1,
+      "references_from": ["RegisterRelcacheInvalidation"],
+      "references_to": ["DefineQueryRewrite", "CreateTrigger"],
+      "metrics": {"ref_count": 30, "is_entry_point": false, "is_critical_path": true, "file": "src/backend/utils/cache/inval.c:1363"}
+    },
+    "CacheInvalidateRelcacheByRelid": {
+      "overview": "Variant that takes a relid; opens the relation just to read pg_class.relisshared etc.",
+      "importance_score": 0.55,
+      "category": "INVAL_API",
+      "depth_from_entry": 1,
+      "references_from": [],
+      "references_to": ["CacheInvalidateRelcache"],
+      "metrics": {"ref_count": 8, "is_entry_point": false, "is_critical_path": false, "file": "src/backend/utils/cache/inval.c:1422"}
+    },
+    "CacheInvalidateRelcacheAll": {
+      "overview": "Forces every backend to throw away all relcache entries.",
+      "importance_score": 0.5,
+      "category": "INVAL_API",
+      "depth_from_entry": 1,
+      "references_from": [],
+      "references_to": ["sinval reset paths"],
+      "metrics": {"ref_count": 4, "is_entry_point": false, "is_critical_path": false, "file": "src/backend/utils/cache/inval.c:1387"}
+    },
+    "CacheInvalidateCatalog": {
+      "overview": "Invalidates every cache on a given catalog (the per-catalog cousin of CacheInvalidateRelcache).",
+      "importance_score": 0.55,
+      "category": "INVAL_API",
+      "depth_from_entry": 1,
+      "references_from": ["RegisterCatalogInvalidation"],
+      "references_to": ["VacuumStmt"],
+      "metrics": {"ref_count": 5, "is_entry_point": false, "is_critical_path": false, "file": "src/backend/utils/cache/inval.c:1339"}
+    },
+    "CacheInvalidateSmgr": {
+      "overview": "Notifies every backend that the SMgrRelation cache for a given (db, rel) should drop its entry. Sent on TRUNCATE/UNLINK.",
+      "importance_score": 0.5,
+      "category": "INVAL_API",
+      "depth_from_entry": 1,
+      "references_from": ["SendSharedInvalidMessages"],
+      "references_to": ["smgrtruncate"],
+      "metrics": {"ref_count": 4, "is_entry_point": false, "is_critical_path": false, "file": "src/backend/utils/cache/inval.c:1462"}
+    },
+    "CacheInvalidateRelmap": {
+      "overview": "Notifies every backend that pg_filenode.map (for the given dbid or shared) has changed.",
+      "importance_score": 0.55,
+      "category": "INVAL_API",
+      "depth_from_entry": 1,
+      "references_from": ["SendSharedInvalidMessages"],
+      "references_to": ["RelationMapUpdateMap", "perform_relmap_update"],
+      "metrics": {"ref_count": 4, "is_entry_point": false, "is_critical_path": true, "file": "src/backend/utils/cache/inval.c:1492"}
+    },
+    "RegisterCatcacheInvalidation": {
+      "overview": "Adds a catcache-invalidation message to the per-transaction outbox.",
+      "importance_score": 0.65,
+      "category": "INVAL_API",
+      "depth_from_entry": 1,
+      "references_from": ["AddCatcacheInvalidationMessage"],
+      "references_to": ["CacheInvalidateHeapTuple"],
+      "metrics": {"ref_count": 4, "is_entry_point": false, "is_critical_path": true, "file": "src/backend/utils/cache/inval.c:545"}
+    },
+    "RegisterRelcacheInvalidation": {
+      "overview": "Adds a relcache-invalidation message to the per-transaction outbox.",
+      "importance_score": 0.65,
+      "category": "INVAL_API",
+      "depth_from_entry": 1,
+      "references_from": ["AddRelcacheInvalidationMessage"],
+      "references_to": ["CacheInvalidateRelcache"],
+      "metrics": {"ref_count": 4, "is_entry_point": false, "is_critical_path": true, "file": "src/backend/utils/cache/inval.c:571"}
+    },
+    "RegisterSnapshotInvalidation": {
+      "overview": "Adds a snapshot-invalidation message (for relations like pg_largeobject that only need snapshot resets).",
+      "importance_score": 0.5,
+      "category": "INVAL_API",
+      "depth_from_entry": 1,
+      "references_from": ["AddSnapshotInvalidationMessage"],
+      "references_to": ["CacheInvalidateHeapTuple"],
+      "metrics": {"ref_count": 3, "is_entry_point": false, "is_critical_path": false, "file": "src/backend/utils/cache/inval.c:601"}
+    },
+    "PrepareInvalidationState": {
+      "overview": "Lazily initializes the per-transaction outbox (TransInvalidationInfo) when first invalidation is queued.",
+      "importance_score": 0.55,
+      "category": "INVAL_API",
+      "depth_from_entry": 2,
+      "references_from": [],
+      "references_to": ["RegisterCatcacheInvalidation", "RegisterRelcacheInvalidation"],
+      "metrics": {"ref_count": 5, "is_entry_point": false, "is_critical_path": true, "file": "src/backend/utils/cache/inval.c:612"}
+    },
+    "AddRelcacheInvalidationMessage": {
+      "overview": "Appends a single SHAREDINVALRELCACHE_ID message to the outbox group.",
+      "importance_score": 0.5,
+      "category": "INVAL_API",
+      "depth_from_entry": 2,
+      "references_from": ["AddInvalidationMessage"],
+      "references_to": ["RegisterRelcacheInvalidation"],
+      "metrics": {"ref_count": 2, "is_entry_point": false, "is_critical_path": false, "file": "src/backend/utils/cache/inval.c:442"}
+    },
+    "AddCatcacheInvalidationMessage": {
+      "overview": "Appends a single SHAREDINVALCATCACHE_ID message to the outbox group.",
+      "importance_score": 0.5,
+      "category": "INVAL_API",
+      "depth_from_entry": 2,
+      "references_from": ["AddInvalidationMessage"],
+      "references_to": ["RegisterCatcacheInvalidation"],
+      "metrics": {"ref_count": 2, "is_entry_point": false, "is_critical_path": false, "file": "src/backend/utils/cache/inval.c:396"}
+    },
+    "AddSnapshotInvalidationMessage": {
+      "overview": "Appends a SHAREDINVALSNAPSHOT_ID message.",
+      "importance_score": 0.42,
+      "category": "INVAL_API",
+      "depth_from_entry": 2,
+      "references_from": ["AddInvalidationMessage"],
+      "references_to": ["RegisterSnapshotInvalidation"],
+      "metrics": {"ref_count": 2, "is_entry_point": false, "is_critical_path": false, "file": "src/backend/utils/cache/inval.c:474"}
+    },
+    "xactGetCommittedInvalidationMessages": {
+      "overview": "Drains the outbox into the array embedded in xl_xact_commit. The standby gets the same messages and replays them via ProcessCommittedInvalidationMessages.",
+      "importance_score": 0.78,
+      "category": "INVAL_API",
+      "depth_from_entry": 1,
+      "references_from": ["AppendInvalidationMessages"],
+      "references_to": ["RecordTransactionCommit"],
+      "metrics": {"ref_count": 4, "is_entry_point": false, "is_critical_path": true, "file": "src/backend/utils/cache/inval.c:883"}
+    },
+    "ProcessCommittedInvalidationMessages": {
+      "overview": "Replay-time entry point: broadcasts the messages via SendSharedInvalidMessages so every backend on the standby learns about catalog changes.",
+      "importance_score": 0.78,
+      "category": "INVAL_API",
+      "depth_from_entry": 1,
+      "references_from": ["SendSharedInvalidMessages"],
+      "references_to": ["xact_redo_commit"],
+      "metrics": {"ref_count": 5, "is_entry_point": false, "is_critical_path": true, "file": "src/backend/utils/cache/inval.c:962"}
+    },
+    "AtEOXact_Inval": {
+      "overview": "Commit-time hook: emits messages locally + via SendSharedInvalidMessages. Abort path discards the outbox.",
+      "importance_score": 0.7,
+      "category": "INVAL_API",
+      "depth_from_entry": 1,
+      "references_from": ["SendSharedInvalidMessages", "ProcessInvalidationMessages"],
+      "references_to": ["CommitTransaction"],
+      "metrics": {"ref_count": 4, "is_entry_point": false, "is_critical_path": true, "file": "src/backend/utils/cache/inval.c:1026"}
+    },
+    "AtEOSubXact_Inval": {
+      "overview": "Subtransaction-end hook: merges the subxact outbox into the parent (commit) or discards (abort).",
+      "importance_score": 0.55,
+      "category": "INVAL_API",
+      "depth_from_entry": 1,
+      "references_from": ["AppendInvalidationMessages"],
+      "references_to": ["CommitSubTransaction", "AbortSubTransaction"],
+      "metrics": {"ref_count": 3, "is_entry_point": false, "is_critical_path": false, "file": "src/backend/utils/cache/inval.c:1085"}
+    },
+    "CommandEndInvalidationMessages": {
+      "overview": "Per-command hook (CCI): processes queued invalidation messages locally so subsequent commands within the same transaction see the changes.",
+      "importance_score": 0.65,
+      "category": "INVAL_API",
+      "depth_from_entry": 1,
+      "references_from": ["ProcessInvalidationMessages", "LocalExecuteInvalidationMessage"],
+      "references_to": ["CommandCounterIncrement"],
+      "metrics": {"ref_count": 4, "is_entry_point": false, "is_critical_path": true, "file": "src/backend/utils/cache/inval.c:1173"}
+    },
+    "LocalExecuteInvalidationMessage": {
+      "overview": "Dispatches a single SharedInvalidationMessage to the right local cache (catcache, relcache, smgr, relmap, snapshot).",
+      "importance_score": 0.78,
+      "category": "INVAL_API",
+      "depth_from_entry": 1,
+      "references_from": ["CatCacheInvalidate", "RelationCacheInvalidateEntry", "RelationMapInvalidate", "InvalidateCatalogSnapshot"],
+      "references_to": ["AcceptInvalidationMessages", "CommandEndInvalidationMessages"],
+      "metrics": {"ref_count": 6, "is_entry_point": false, "is_critical_path": true, "file": "src/backend/utils/cache/inval.c:706"}
+    },
+    "AcceptInvalidationMessages": {
+      "overview": "Drains the per-backend sinval queue and applies messages locally. Called whenever we open a relation, take a lock, or otherwise need a current view.",
+      "importance_score": 0.85,
+      "category": "INVAL_API",
+      "depth_from_entry": 0,
+      "references_from": ["ReceiveSharedInvalidMessages"],
+      "references_to": ["LockRelationOid", "RelationIdGetRelation"],
+      "metrics": {"ref_count": 30, "is_entry_point": true, "is_critical_path": true, "file": "src/backend/utils/cache/inval.c:807"}
+    },
+    "InvalidateSystemCaches": {
+      "overview": "Wipes ALL local caches (catcache, relcache, plancache, snapshot). Used on sinval reset.",
+      "importance_score": 0.6,
+      "category": "INVAL_API",
+      "depth_from_entry": 1,
+      "references_from": ["ResetCatalogCaches", "RelationCacheInvalidate", "ResetPlanCache"],
+      "references_to": ["ReceiveSharedInvalidMessages"],
+      "metrics": {"ref_count": 5, "is_entry_point": false, "is_critical_path": true, "file": "src/backend/utils/cache/inval.c:793"}
+    },
+    "InvalidateSystemCachesExtended": {
+      "overview": "InvalidateSystemCaches with debug_discard support; primary target of debug_discard_caches GUC.",
+      "importance_score": 0.45,
+      "category": "INVAL_API",
+      "depth_from_entry": 1,
+      "references_from": ["ResetCatalogCachesExt"],
+      "references_to": ["debug_discard_caches"],
+      "metrics": {"ref_count": 3, "is_entry_point": false, "is_critical_path": false, "file": "src/backend/utils/cache/inval.c:675"}
+    },
+    "CacheRegisterSyscacheCallback": {
+      "overview": "Extension hook: register a callback to fire when a given SysCacheIdentifier is invalidated.",
+      "importance_score": 0.6,
+      "category": "INVAL_API",
+      "depth_from_entry": 1,
+      "references_from": [],
+      "references_to": ["CallSyscacheCallbacks"],
+      "metrics": {"ref_count": 30, "is_entry_point": false, "is_critical_path": false, "file": "src/backend/utils/cache/inval.c:1519"}
+    },
+    "CacheRegisterRelcacheCallback": {
+      "overview": "Symmetric for relcache invalidations.",
+      "importance_score": 0.55,
+      "category": "INVAL_API",
+      "depth_from_entry": 1,
+      "references_from": [],
+      "references_to": ["CallRelcacheCallbacks"],
+      "metrics": {"ref_count": 15, "is_entry_point": false, "is_critical_path": false, "file": "src/backend/utils/cache/inval.c:1561"}
+    },
+
+    "SendSharedInvalidMessages": {
+      "overview": "Pushes invalidation messages to the shared-memory ring buffer (SInvalShmem). Called at commit and during recovery replay.",
+      "importance_score": 0.78,
+      "category": "INVAL_SINVAL",
+      "depth_from_entry": 1,
+      "references_from": ["SIInsertDataEntries"],
+      "references_to": ["AtEOXact_Inval", "ProcessCommittedInvalidationMessages"],
+      "metrics": {"ref_count": 5, "is_entry_point": false, "is_critical_path": true, "file": "src/backend/storage/ipc/sinval.c:48"}
+    },
+    "ReceiveSharedInvalidMessages": {
+      "overview": "Drains messages from the ring buffer into a callback (LocalExecuteInvalidationMessage) and a reset callback. Detects queue overflow and triggers SI_RESET.",
+      "importance_score": 0.78,
+      "category": "INVAL_SINVAL",
+      "depth_from_entry": 1,
+      "references_from": ["SIGetDataEntries", "InvalidateSystemCaches"],
+      "references_to": ["AcceptInvalidationMessages"],
+      "metrics": {"ref_count": 5, "is_entry_point": false, "is_critical_path": true, "file": "src/backend/storage/ipc/sinval.c:70"}
+    },
+    "SIInsertDataEntries": {
+      "overview": "Atomically inserts N messages into the ring buffer; takes SInvalWriteLock + SInvalReadLock as needed; sets every backend's resetState if the buffer overflows.",
+      "importance_score": 0.7,
+      "category": "INVAL_SINVAL",
+      "depth_from_entry": 2,
+      "references_from": ["SICleanupQueue"],
+      "references_to": ["SendSharedInvalidMessages"],
+      "metrics": {"ref_count": 4, "is_entry_point": false, "is_critical_path": true, "file": "src/backend/storage/ipc/sinvaladt.c:370"}
+    },
+    "SIGetDataEntries": {
+      "overview": "Reads up to datasize messages from the ring buffer into the caller's local array, advancing the per-backend cursor.",
+      "importance_score": 0.65,
+      "category": "INVAL_SINVAL",
+      "depth_from_entry": 2,
+      "references_from": [],
+      "references_to": ["ReceiveSharedInvalidMessages"],
+      "metrics": {"ref_count": 3, "is_entry_point": false, "is_critical_path": true, "file": "src/backend/storage/ipc/sinvaladt.c:473"}
+    },
+    "SICleanupQueue": {
+      "overview": "Garbage-collects fully-consumed messages from the ring buffer; if a backend lags too much, sets its resetState to force an SI_RESET.",
+      "importance_score": 0.55,
+      "category": "INVAL_SINVAL",
+      "depth_from_entry": 2,
+      "references_from": [],
+      "references_to": ["SIInsertDataEntries"],
+      "metrics": {"ref_count": 3, "is_entry_point": false, "is_critical_path": true, "file": "src/backend/storage/ipc/sinvaladt.c:577"}
+    },
+    "SInvalShmemSize": {
+      "overview": "Reports shared-memory size for the sinval ring buffer.",
+      "importance_score": 0.4,
+      "category": "INVAL_SINVAL",
+      "depth_from_entry": 2,
+      "references_from": [],
+      "references_to": ["CalculateShmemSize"],
+      "metrics": {"ref_count": 2, "is_entry_point": false, "is_critical_path": false, "file": "src/backend/storage/ipc/sinvaladt.c:218"}
+    },
+    "CreateSharedInvalidationState": {
+      "overview": "Allocates and initializes the SharedInvalidStateData struct in shared memory.",
+      "importance_score": 0.45,
+      "category": "INVAL_SINVAL",
+      "depth_from_entry": 2,
+      "references_from": [],
+      "references_to": ["postmaster startup"],
+      "metrics": {"ref_count": 2, "is_entry_point": false, "is_critical_path": false, "file": "src/backend/storage/ipc/sinvaladt.c:234"}
+    },
+    "SharedInvalBackendInit": {
+      "overview": "Per-backend init: claims a slot in the sinval ring and links it into ProcGlobal.",
+      "importance_score": 0.5,
+      "category": "INVAL_SINVAL",
+      "depth_from_entry": 2,
+      "references_from": [],
+      "references_to": ["InitProcess"],
+      "metrics": {"ref_count": 2, "is_entry_point": false, "is_critical_path": false, "file": "src/backend/storage/ipc/sinvaladt.c:272"}
+    },
+
+    "RelationMapOidToFilenumber": {
+      "overview": "Looks up the RelFileNumber for a mapped catalog (pg_class itself, etc.) in the in-memory shared/local map. Used to bootstrap RelationInitPhysicalAddr for nailed catalogs.",
+      "importance_score": 0.85,
+      "category": "RELMAPPER",
+      "depth_from_entry": 0,
+      "references_from": ["shared_map", "local_map", "active_shared_updates", "active_local_updates"],
+      "references_to": ["RelationInitPhysicalAddr"],
+      "metrics": {"ref_count": 15, "is_entry_point": true, "is_critical_path": true, "file": "src/backend/utils/cache/relmapper.c:165"}
+    },
+    "RelationMapUpdateMap": {
+      "overview": "Records a new (oid -> filenumber) mapping. Goes into pending_xxx until CCI then active_xxx; the on-disk write happens at commit via perform_relmap_update.",
+      "importance_score": 0.75,
+      "category": "RELMAPPER",
+      "depth_from_entry": 0,
+      "references_from": ["apply_map_update"],
+      "references_to": ["RelationSetNewRelfilenumber"],
+      "metrics": {"ref_count": 8, "is_entry_point": true, "is_critical_path": true, "file": "src/backend/utils/cache/relmapper.c"}
+    },
+    "write_relmap_file": {
+      "overview": "Atomically writes a RelMapFile: build CRC, write to .tmp, fsync, rename to pg_filenode.map, fsync directory; optionally emits XLOG_RELMAP_UPDATE and sends sinval.",
+      "importance_score": 0.78,
+      "category": "RELMAPPER",
+      "depth_from_entry": 1,
+      "references_from": ["XLogInsert", "FileSync"],
+      "references_to": ["RelationMapFinishBootstrap", "perform_relmap_update", "RelationMapCopy"],
+      "metrics": {"ref_count": 6, "is_entry_point": false, "is_critical_path": true, "file": "src/backend/utils/cache/relmapper.c"}
+    },
+    "load_relmap_file": {
+      "overview": "Reads pg_filenode.map (shared or local), validates magic + CRC, copies into the in-memory map struct.",
+      "importance_score": 0.6,
+      "category": "RELMAPPER",
+      "depth_from_entry": 1,
+      "references_from": ["read_relmap_file"],
+      "references_to": ["RelationMapInitializePhase2", "RelationMapInitializePhase3"],
+      "metrics": {"ref_count": 5, "is_entry_point": false, "is_critical_path": true, "file": "src/backend/utils/cache/relmapper.c"}
+    },
+    "perform_relmap_update": {
+      "overview": "Commit-time helper: merges pending updates into the live map, writes the file (atomic + fsync), emits XLOG_RELMAP_UPDATE.",
+      "importance_score": 0.7,
+      "category": "RELMAPPER",
+      "depth_from_entry": 1,
+      "references_from": ["write_relmap_file", "merge_map_updates"],
+      "references_to": ["AtEOXact_RelationMap"],
+      "metrics": {"ref_count": 4, "is_entry_point": false, "is_critical_path": true, "file": "src/backend/utils/cache/relmapper.c"}
+    },
+    "AtCCI_RelationMap": {
+      "overview": "Promotes pending updates to active at CCI boundary.",
+      "importance_score": 0.5,
+      "category": "RELMAPPER",
+      "depth_from_entry": 1,
+      "references_from": ["merge_map_updates"],
+      "references_to": ["CommandCounterIncrement"],
+      "metrics": {"ref_count": 2, "is_entry_point": false, "is_critical_path": false, "file": "src/backend/utils/cache/relmapper.c"}
+    },
+    "AtEOXact_RelationMap": {
+      "overview": "End-of-xact relmap finalizer: on commit, perform_relmap_update; on abort, discards pending+active.",
+      "importance_score": 0.6,
+      "category": "RELMAPPER",
+      "depth_from_entry": 1,
+      "references_from": ["perform_relmap_update"],
+      "references_to": ["CommitTransaction", "AbortTransaction"],
+      "metrics": {"ref_count": 3, "is_entry_point": false, "is_critical_path": true, "file": "src/backend/utils/cache/relmapper.c"}
+    },
+    "AtPrepare_RelationMap": {
+      "overview": "Forbids relmap changes inside PREPARE TRANSACTION (relmap updates aren't 2PC-safe).",
+      "importance_score": 0.4,
+      "category": "RELMAPPER",
+      "depth_from_entry": 1,
+      "references_from": [],
+      "references_to": ["PrepareTransaction"],
+      "metrics": {"ref_count": 2, "is_entry_point": false, "is_critical_path": false, "file": "src/backend/utils/cache/relmapper.c"}
+    },
+    "CheckPointRelationMap": {
+      "overview": "Acquires RelationMappingLock so that no relmap update is mid-flight while pg_control is being updated.",
+      "importance_score": 0.5,
+      "category": "RELMAPPER",
+      "depth_from_entry": 1,
+      "references_from": [],
+      "references_to": ["CheckPointGuts"],
+      "metrics": {"ref_count": 2, "is_entry_point": false, "is_critical_path": true, "file": "src/backend/utils/cache/relmapper.c"}
+    },
+    "RelationMapInitialize": {
+      "overview": "Phase-1 init: zero in-memory state.",
+      "importance_score": 0.4,
+      "category": "RELMAPPER",
+      "depth_from_entry": 1,
+      "references_from": [],
+      "references_to": ["RelationCacheInitialize"],
+      "metrics": {"ref_count": 2, "is_entry_point": false, "is_critical_path": false, "file": "src/backend/utils/cache/relmapper.c"}
+    },
+    "RelationMapInitializePhase2": {
+      "overview": "Phase-2: load the global pg_filenode.map (for shared catalogs).",
+      "importance_score": 0.5,
+      "category": "RELMAPPER",
+      "depth_from_entry": 1,
+      "references_from": ["load_relmap_file"],
+      "references_to": ["RelationCacheInitializePhase2"],
+      "metrics": {"ref_count": 2, "is_entry_point": false, "is_critical_path": true, "file": "src/backend/utils/cache/relmapper.c"}
+    },
+    "RelationMapInitializePhase3": {
+      "overview": "Phase-3: load the per-database pg_filenode.map.",
+      "importance_score": 0.5,
+      "category": "RELMAPPER",
+      "depth_from_entry": 1,
+      "references_from": ["load_relmap_file"],
+      "references_to": ["RelationCacheInitializePhase3"],
+      "metrics": {"ref_count": 2, "is_entry_point": false, "is_critical_path": true, "file": "src/backend/utils/cache/relmapper.c"}
+    },
+    "relmap_redo": {
+      "overview": "Redo callback for RM_RELMAP_ID: replays XLOG_RELMAP_UPDATE by writing the new map file directly.",
+      "importance_score": 0.65,
+      "category": "RELMAPPER",
+      "depth_from_entry": 1,
+      "references_from": ["write_relmap_file"],
+      "references_to": ["rmgrlist"],
+      "metrics": {"ref_count": 3, "is_entry_point": false, "is_critical_path": true, "file": "src/backend/utils/cache/relmapper.c"}
+    },
+
+    "SlruCtlData": {
+      "overview": "Per-SLRU control struct: pointer to SlruShared in shmem, nbanks, long_segment_names flag, sync_handler, PagePrecedes callback, on-disk Dir.",
+      "importance_score": 0.92,
+      "category": "SLRU_FRAMEWORK",
+      "depth_from_entry": 0,
+      "references_from": ["SlruShared", "SyncRequestHandler"],
+      "references_to": ["XactCtl", "SubTransCtl", "MultiXactOffsetCtl", "MultiXactMemberCtl", "CommitTsCtl", "NotifyCtl", "SerialSlruCtl"],
+      "metrics": {"ref_count": 80, "is_entry_point": true, "is_critical_path": true, "file": "src/include/access/slru.h:127"}
+    },
+    "SlruSharedData": {
+      "overview": "Shmem state for one SLRU: page_buffer[], page_status[], page_dirty[], page_number[], page_lru_count[], buffer_locks, bank_locks, group_lsn[], latest_page_number.",
+      "importance_score": 0.85,
+      "category": "SLRU_FRAMEWORK",
+      "depth_from_entry": 1,
+      "references_from": ["SlruPageStatus"],
+      "references_to": ["SlruCtlData", "SimpleLruInit"],
+      "metrics": {"ref_count": 30, "is_entry_point": false, "is_critical_path": true, "file": "src/include/access/slru.h:61"}
+    },
+    "SimpleLruInit": {
+      "overview": "Init function for one SLRU instance: sets up shmem state, opens on-disk subdir, registers per-bank LWLocks and the sync handler. Called by CLOG/SUBTRANS/MultiXact/CommitTs/Notify/Serial during shmem init.",
+      "importance_score": 0.85,
+      "category": "SLRU_FRAMEWORK",
+      "depth_from_entry": 1,
+      "references_from": ["ShmemInitStruct", "GetNamedLWLockTranche"],
+      "references_to": ["CLOGShmemInit", "SUBTRANSShmemInit", "MultiXactShmemInit", "CommitTsShmemInit", "AsyncShmemInit", "SerialInit"],
+      "metrics": {"ref_count": 8, "is_entry_point": false, "is_critical_path": true, "file": "src/backend/access/transam/slru.c:252"}
+    },
+    "SimpleLruZeroPage": {
+      "overview": "Initializes a fresh SLRU page in shmem (page_status=VALID, page_dirty=true). Used by Extend* and during redo of XLOG_*_ZEROPAGE.",
+      "importance_score": 0.78,
+      "category": "SLRU_FRAMEWORK",
+      "depth_from_entry": 1,
+      "references_from": ["SlruSelectLRUPage"],
+      "references_to": ["ZeroCLOGPage", "ZeroSUBTRANSPage", "ZeroCommitTsPage", "ZeroMultiXactOffsetPage", "ZeroMultiXactMemberPage"],
+      "metrics": {"ref_count": 12, "is_entry_point": false, "is_critical_path": true, "file": "src/backend/access/transam/slru.c:375"}
+    },
+    "SimpleLruReadPage": {
+      "overview": "Brings a page into shmem: if a slot already holds it, return; otherwise allocate via SlruSelectLRUPage and call SlruPhysicalReadPage. Honors per-bank LWLock.",
+      "importance_score": 0.78,
+      "category": "SLRU_FRAMEWORK",
+      "depth_from_entry": 1,
+      "references_from": ["SlruSelectLRUPage", "SlruPhysicalReadPage", "SimpleLruWaitIO"],
+      "references_to": ["TransactionIdGetStatus", "SubTransGetParent", "MultiXactIdGetUpdateXid"],
+      "metrics": {"ref_count": 18, "is_entry_point": false, "is_critical_path": true, "file": "src/backend/access/transam/slru.c:502"}
+    },
+    "SimpleLruReadPage_ReadOnly": {
+      "overview": "Optimistic variant: tries with shared bank lock first; falls back to ReadPage with exclusive lock on miss.",
+      "importance_score": 0.7,
+      "category": "SLRU_FRAMEWORK",
+      "depth_from_entry": 1,
+      "references_from": ["SimpleLruReadPage"],
+      "references_to": ["TransactionIdGetStatus"],
+      "metrics": {"ref_count": 8, "is_entry_point": false, "is_critical_path": true, "file": "src/backend/access/transam/slru.c:605"}
+    },
+    "SimpleLruWritePage": {
+      "overview": "Wrapper around SlruInternalWritePage that flushes one slot to disk if dirty.",
+      "importance_score": 0.6,
+      "category": "SLRU_FRAMEWORK",
+      "depth_from_entry": 1,
+      "references_from": ["SlruInternalWritePage"],
+      "references_to": ["SlruSelectLRUPage"],
+      "metrics": {"ref_count": 6, "is_entry_point": false, "is_critical_path": true, "file": "src/backend/access/transam/slru.c:729"}
+    },
+    "SimpleLruWriteAll": {
+      "overview": "Checkpoint hook: flushes every dirty slot in this SLRU to disk.",
+      "importance_score": 0.7,
+      "category": "SLRU_FRAMEWORK",
+      "depth_from_entry": 1,
+      "references_from": ["SlruInternalWritePage"],
+      "references_to": ["CheckPointCLOG", "CheckPointCommitTs", "CheckPointSUBTRANS", "CheckPointMultiXact"],
+      "metrics": {"ref_count": 6, "is_entry_point": false, "is_critical_path": true, "file": "src/backend/access/transam/slru.c:1319"}
+    },
+    "SimpleLruTruncate": {
+      "overview": "Removes segment files older than cutoffPage; uses SlruScanDirectory + SlruInternalDeleteSegment + per-bank locks.",
+      "importance_score": 0.7,
+      "category": "SLRU_FRAMEWORK",
+      "depth_from_entry": 1,
+      "references_from": ["SlruScanDirectory", "SlruInternalDeleteSegment"],
+      "references_to": ["TruncateCLOG", "TruncateCommitTs", "TruncateSUBTRANS", "TruncateMultiXact"],
+      "metrics": {"ref_count": 6, "is_entry_point": false, "is_critical_path": true, "file": "src/backend/access/transam/slru.c:1405"}
+    },
+    "SlruInternalWritePage": {
+      "overview": "Marks a slot WRITE_IN_PROGRESS, calls SlruPhysicalWritePage, restores VALID; aware of in-progress reads.",
+      "importance_score": 0.65,
+      "category": "SLRU_FRAMEWORK",
+      "depth_from_entry": 2,
+      "references_from": ["SlruPhysicalWritePage"],
+      "references_to": ["SimpleLruWritePage", "SimpleLruWriteAll"],
+      "metrics": {"ref_count": 4, "is_entry_point": false, "is_critical_path": true, "file": "src/backend/access/transam/slru.c:652"}
+    },
+    "SlruPhysicalReadPage": {
+      "overview": "Opens a segment file, reads BLCKSZ bytes into the slot.",
+      "importance_score": 0.55,
+      "category": "SLRU_FRAMEWORK",
+      "depth_from_entry": 2,
+      "references_from": ["SlruFileName", "open"],
+      "references_to": ["SimpleLruReadPage"],
+      "metrics": {"ref_count": 3, "is_entry_point": false, "is_critical_path": true, "file": "src/backend/access/transam/slru.c:801"}
+    },
+    "SlruPhysicalWritePage": {
+      "overview": "Writes BLCKSZ bytes to the segment file; queues a sync request to the checkpointer.",
+      "importance_score": 0.6,
+      "category": "SLRU_FRAMEWORK",
+      "depth_from_entry": 2,
+      "references_from": ["SlruFileName", "RegisterSyncRequest"],
+      "references_to": ["SlruInternalWritePage"],
+      "metrics": {"ref_count": 4, "is_entry_point": false, "is_critical_path": true, "file": "src/backend/access/transam/slru.c:873"}
+    },
+    "SlruScanDirectory": {
+      "overview": "Iterates segment files in the SLRU directory, invoking a callback per file. Used for Truncate, BootStrap, async-pre-clean.",
+      "importance_score": 0.55,
+      "category": "SLRU_FRAMEWORK",
+      "depth_from_entry": 1,
+      "references_from": [],
+      "references_to": ["SimpleLruTruncate", "SlruScanDirCbDeleteAll"],
+      "metrics": {"ref_count": 6, "is_entry_point": false, "is_critical_path": false, "file": "src/backend/access/transam/slru.c:1788"}
+    },
+    "SlruSelectLRUPage": {
+      "overview": "Picks a victim slot in the same bank for replacement: first EMPTY, otherwise least-recently-used VALID slot. Writes it out if dirty.",
+      "importance_score": 0.65,
+      "category": "SLRU_FRAMEWORK",
+      "depth_from_entry": 2,
+      "references_from": ["SlruRecentlyUsed", "SlruInternalWritePage"],
+      "references_to": ["SimpleLruReadPage", "SimpleLruZeroPage"],
+      "metrics": {"ref_count": 4, "is_entry_point": false, "is_critical_path": true, "file": "src/backend/access/transam/slru.c:1166"}
+    },
+    "SimpleLruGetBankLock": {
+      "overview": "Inline helper: returns the LWLock for the given pageno's bank (low bits of pageno mod nbanks).",
+      "importance_score": 0.5,
+      "category": "SLRU_FRAMEWORK",
+      "depth_from_entry": 2,
+      "references_from": [],
+      "references_to": ["SimpleLruReadPage", "SimpleLruWritePage", "TransactionIdGetStatus"],
+      "metrics": {"ref_count": 8, "is_entry_point": false, "is_critical_path": true, "file": "src/include/access/slru.h:174"}
+    },
+    "SlruSyncFileTag": {
+      "overview": "Common sync-handler implementation: turns a FileTag into a path so the checkpointer can fsync it.",
+      "importance_score": 0.45,
+      "category": "SLRU_FRAMEWORK",
+      "depth_from_entry": 2,
+      "references_from": [],
+      "references_to": ["clogsyncfiletag", "committssyncfiletag", "multixactoffsetssyncfiletag", "multixactmemberssyncfiletag"],
+      "metrics": {"ref_count": 5, "is_entry_point": false, "is_critical_path": false, "file": "src/backend/access/transam/slru.c:1828"}
+    },
+
+    "TransactionIdSetTreeStatus": {
+      "overview": "Atomically marks all XIDs of a transaction tree (top + sub-XIDs) with the given XidStatus in CLOG. Spreads work over multiple calls to TransactionIdSetPageStatus when the tree spans CLOG pages.",
+      "importance_score": 0.92,
+      "category": "SLRU_CLOG",
+      "depth_from_entry": 0,
+      "references_from": ["set_status_by_pages", "TransactionIdSetPageStatus"],
+      "references_to": ["TransactionIdCommitTree", "TransactionIdAbortTree"],
+      "metrics": {"ref_count": 6, "is_entry_point": true, "is_critical_path": true, "file": "src/backend/access/transam/clog.c:183"}
+    },
+    "TransactionIdSetPageStatus": {
+      "overview": "Sets status for the XIDs that belong to one CLOG page. Uses TransactionGroupUpdateXidStatus to batch concurrent committers.",
+      "importance_score": 0.78,
+      "category": "SLRU_CLOG",
+      "depth_from_entry": 1,
+      "references_from": ["TransactionGroupUpdateXidStatus", "TransactionIdSetPageStatusInternal"],
+      "references_to": ["TransactionIdSetTreeStatus"],
+      "metrics": {"ref_count": 4, "is_entry_point": false, "is_critical_path": true, "file": "src/backend/access/transam/clog.c:293"}
+    },
+    "TransactionIdSetPageStatusInternal": {
+      "overview": "Inner page-update routine: locks the bank, sets status bits, updates async LSN if needed.",
+      "importance_score": 0.6,
+      "category": "SLRU_CLOG",
+      "depth_from_entry": 2,
+      "references_from": ["TransactionIdSetStatusBit"],
+      "references_to": ["TransactionIdSetPageStatus"],
+      "metrics": {"ref_count": 3, "is_entry_point": false, "is_critical_path": true, "file": "src/backend/access/transam/clog.c:364"}
+    },
+    "TransactionIdSetStatusBit": {
+      "overview": "Sets the 2 status bits for a single XID inside a CLOG page; honors LSN tracking for async commits (CLOG_LSNS_PER_PAGE).",
+      "importance_score": 0.55,
+      "category": "SLRU_CLOG",
+      "depth_from_entry": 3,
+      "references_from": [],
+      "references_to": ["TransactionIdSetPageStatusInternal"],
+      "metrics": {"ref_count": 3, "is_entry_point": false, "is_critical_path": true, "file": "src/backend/access/transam/clog.c:661"}
+    },
+    "TransactionGroupUpdateXidStatus": {
+      "overview": "Group-update optimization: a single backend updates many XIDs on the same page on behalf of multiple concurrent committers, reducing CLogControlLock contention.",
+      "importance_score": 0.65,
+      "category": "SLRU_CLOG",
+      "depth_from_entry": 2,
+      "references_from": ["proc_queue", "TransactionIdSetPageStatusInternal"],
+      "references_to": ["TransactionIdSetPageStatus"],
+      "metrics": {"ref_count": 4, "is_entry_point": false, "is_critical_path": true, "file": "src/backend/access/transam/clog.c:441"}
+    },
+    "TransactionIdGetStatus": {
+      "overview": "Reads the 2 status bits for an XID. Used by visibility checks (HeapTupleSatisfiesMVCC) and SubTransGetTopmostTransaction. Optionally returns the latest async-commit LSN.",
+      "importance_score": 0.92,
+      "category": "SLRU_CLOG",
+      "depth_from_entry": 0,
+      "references_from": ["SimpleLruReadPage_ReadOnly"],
+      "references_to": ["TransactionIdDidCommit", "TransactionIdDidAbort", "MarkBufferDirtyHint"],
+      "metrics": {"ref_count": 25, "is_entry_point": true, "is_critical_path": true, "file": "src/backend/access/transam/clog.c:735"}
+    },
+    "ExtendCLOG": {
+      "overview": "Called from GetNewTransactionId: if newestXact crosses a page boundary, zero the new page and emit XLOG_CLOG_ZEROPAGE.",
+      "importance_score": 0.7,
+      "category": "SLRU_CLOG",
+      "depth_from_entry": 1,
+      "references_from": ["ZeroCLOGPage", "WriteZeroPageXlogRec"],
+      "references_to": ["GetNewTransactionId"],
+      "metrics": {"ref_count": 3, "is_entry_point": false, "is_critical_path": true, "file": "src/backend/access/transam/clog.c:959"}
+    },
+    "TruncateCLOG": {
+      "overview": "Called from vac_truncate_clog after vacuum advances cluster-wide oldestXid; emits XLOG_CLOG_TRUNCATE then SimpleLruTruncate.",
+      "importance_score": 0.7,
+      "category": "SLRU_CLOG",
+      "depth_from_entry": 1,
+      "references_from": ["WriteTruncateXlogRec", "SimpleLruTruncate", "AdvanceOldestClogXid"],
+      "references_to": ["vac_truncate_clog"],
+      "metrics": {"ref_count": 4, "is_entry_point": false, "is_critical_path": true, "file": "src/backend/access/transam/clog.c:1000"}
+    },
+    "CheckPointCLOG": {
+      "overview": "Checkpoint hook: SimpleLruWriteAll flushes dirty CLOG pages.",
+      "importance_score": 0.6,
+      "category": "SLRU_CLOG",
+      "depth_from_entry": 1,
+      "references_from": ["SimpleLruWriteAll"],
+      "references_to": ["CheckPointGuts"],
+      "metrics": {"ref_count": 2, "is_entry_point": false, "is_critical_path": true, "file": "src/backend/access/transam/clog.c:937"}
+    },
+    "BootStrapCLOG": {
+      "overview": "Bootstrap: zeroes page 0 and writes it out before any transactions exist.",
+      "importance_score": 0.45,
+      "category": "SLRU_CLOG",
+      "depth_from_entry": 1,
+      "references_from": ["ZeroCLOGPage", "SimpleLruWritePage"],
+      "references_to": ["BootStrapXLOG"],
+      "metrics": {"ref_count": 2, "is_entry_point": false, "is_critical_path": false, "file": "src/backend/access/transam/clog.c:833"}
+    },
+    "StartupCLOG": {
+      "overview": "Resets in-shmem state at recovery start; doesn't read disk yet.",
+      "importance_score": 0.55,
+      "category": "SLRU_CLOG",
+      "depth_from_entry": 1,
+      "references_from": [],
+      "references_to": ["StartupXLOG"],
+      "metrics": {"ref_count": 2, "is_entry_point": false, "is_critical_path": true, "file": "src/backend/access/transam/clog.c:877"}
+    },
+    "TrimCLOG": {
+      "overview": "After redo finishes: zeroes the unused tail of the latest CLOG page so future xids start clean.",
+      "importance_score": 0.55,
+      "category": "SLRU_CLOG",
+      "depth_from_entry": 1,
+      "references_from": [],
+      "references_to": ["StartupXLOG"],
+      "metrics": {"ref_count": 2, "is_entry_point": false, "is_critical_path": true, "file": "src/backend/access/transam/clog.c:892"}
+    },
+    "clog_redo": {
+      "overview": "Redo callback for RM_CLOG_ID: replays XLOG_CLOG_ZEROPAGE (SimpleLruZeroPage + SimpleLruWritePage) and XLOG_CLOG_TRUNCATE (SimpleLruTruncate).",
+      "importance_score": 0.65,
+      "category": "SLRU_CLOG",
+      "depth_from_entry": 1,
+      "references_from": ["ZeroCLOGPage", "SimpleLruTruncate"],
+      "references_to": ["rmgrlist"],
+      "metrics": {"ref_count": 3, "is_entry_point": false, "is_critical_path": true, "file": "src/backend/access/transam/clog.c:1107"}
+    },
+
+    "SubTransSetParent": {
+      "overview": "Records the parent XID for a sub-XID. 4 bytes per XID. Called whenever a subtransaction acquires its first XID.",
+      "importance_score": 0.7,
+      "category": "SLRU_SUBTRANS",
+      "depth_from_entry": 0,
+      "references_from": ["SimpleLruReadPage", "SimpleLruZeroPage"],
+      "references_to": ["AssignTransactionId", "GetNewTransactionId"],
+      "metrics": {"ref_count": 5, "is_entry_point": true, "is_critical_path": true, "file": "src/backend/access/transam/subtrans.c:85"}
+    },
+    "SubTransGetParent": {
+      "overview": "Reads the parent XID for a given XID; returns InvalidTransactionId for top-level.",
+      "importance_score": 0.65,
+      "category": "SLRU_SUBTRANS",
+      "depth_from_entry": 0,
+      "references_from": ["SimpleLruReadPage_ReadOnly"],
+      "references_to": ["SubTransGetTopmostTransaction"],
+      "metrics": {"ref_count": 5, "is_entry_point": false, "is_critical_path": true, "file": "src/backend/access/transam/subtrans.c:122"}
+    },
+    "SubTransGetTopmostTransaction": {
+      "overview": "Walks parent chain back to top-level XID; used in visibility checks when an XID may be a sub-XID.",
+      "importance_score": 0.7,
+      "category": "SLRU_SUBTRANS",
+      "depth_from_entry": 1,
+      "references_from": ["SubTransGetParent"],
+      "references_to": ["HeapTupleSatisfiesMVCC", "TransactionIdIsCurrentTransactionId"],
+      "metrics": {"ref_count": 6, "is_entry_point": false, "is_critical_path": true, "file": "src/backend/access/transam/subtrans.c:163"}
+    },
+    "ExtendSUBTRANS": {
+      "overview": "Zeros a fresh SUBTRANS page when a new XID needs one. Not WAL-logged (subtrans is reconstructed from runtime calls).",
+      "importance_score": 0.5,
+      "category": "SLRU_SUBTRANS",
+      "depth_from_entry": 1,
+      "references_from": ["ZeroSUBTRANSPage"],
+      "references_to": ["GetNewTransactionId"],
+      "metrics": {"ref_count": 2, "is_entry_point": false, "is_critical_path": false, "file": "src/backend/access/transam/subtrans.c:379"}
+    },
+    "TruncateSUBTRANS": {
+      "overview": "Removes SUBTRANS segments older than oldestActiveXact.",
+      "importance_score": 0.45,
+      "category": "SLRU_SUBTRANS",
+      "depth_from_entry": 1,
+      "references_from": ["SimpleLruTruncate"],
+      "references_to": ["vac_truncate_clog"],
+      "metrics": {"ref_count": 2, "is_entry_point": false, "is_critical_path": false, "file": "src/backend/access/transam/subtrans.c:411"}
+    },
+    "StartupSUBTRANS": {
+      "overview": "Wipes SUBTRANS pages older than oldestActiveXID at recovery start. Subtrans is rebuilt by replaying live transactions.",
+      "importance_score": 0.55,
+      "category": "SLRU_SUBTRANS",
+      "depth_from_entry": 1,
+      "references_from": ["SimpleLruZeroPage", "SimpleLruWritePage"],
+      "references_to": ["StartupXLOG"],
+      "metrics": {"ref_count": 2, "is_entry_point": false, "is_critical_path": true, "file": "src/backend/access/transam/subtrans.c:309"}
+    },
+    "CheckPointSUBTRANS": {
+      "overview": "Flushes dirty SUBTRANS pages at checkpoint.",
+      "importance_score": 0.45,
+      "category": "SLRU_SUBTRANS",
+      "depth_from_entry": 1,
+      "references_from": ["SimpleLruWriteAll"],
+      "references_to": ["CheckPointGuts"],
+      "metrics": {"ref_count": 2, "is_entry_point": false, "is_critical_path": true, "file": "src/backend/access/transam/subtrans.c:355"}
+    },
+
+    "TransactionTreeSetCommitTsData": {
+      "overview": "Sets commit timestamp + RepOriginId for an entire xact tree in pg_commit_ts. Emits XLOG_COMMIT_TS_SETTS in some configurations (replication origins).",
+      "importance_score": 0.7,
+      "category": "SLRU_COMMITTS",
+      "depth_from_entry": 0,
+      "references_from": ["SetXidCommitTsInPage", "TransactionIdSetCommitTs", "WriteSetTimestampXlogRec"],
+      "references_to": ["RecordTransactionCommit"],
+      "metrics": {"ref_count": 4, "is_entry_point": true, "is_critical_path": true, "file": "src/backend/access/transam/commit_ts.c:141"}
+    },
+    "TransactionIdGetCommitTsData": {
+      "overview": "Reads the (TimestampTz, RepOriginId) tuple for an XID. SQL-exposed via pg_xact_commit_timestamp().",
+      "importance_score": 0.6,
+      "category": "SLRU_COMMITTS",
+      "depth_from_entry": 1,
+      "references_from": ["SimpleLruReadPage_ReadOnly"],
+      "references_to": ["pg_xact_commit_timestamp"],
+      "metrics": {"ref_count": 5, "is_entry_point": false, "is_critical_path": true, "file": "src/backend/access/transam/commit_ts.c:274"}
+    },
+    "GetLatestCommitTsData": {
+      "overview": "Returns the highest-XID commit timestamp seen on this server (used by logical replication subscriber).",
+      "importance_score": 0.45,
+      "category": "SLRU_COMMITTS",
+      "depth_from_entry": 1,
+      "references_from": ["commitTsShared"],
+      "references_to": ["pg_last_committed_xact"],
+      "metrics": {"ref_count": 2, "is_entry_point": false, "is_critical_path": false, "file": "src/backend/access/transam/commit_ts.c:360"}
+    },
+    "ExtendCommitTs": {
+      "overview": "Zeros a fresh page; emits XLOG_COMMIT_TS_ZEROPAGE; only active if track_commit_timestamp=on.",
+      "importance_score": 0.5,
+      "category": "SLRU_COMMITTS",
+      "depth_from_entry": 1,
+      "references_from": ["ZeroCommitTsPage", "WriteZeroPageXlogRec"],
+      "references_to": ["GetNewTransactionId"],
+      "metrics": {"ref_count": 2, "is_entry_point": false, "is_critical_path": false, "file": "src/backend/access/transam/commit_ts.c:849"}
+    },
+    "TruncateCommitTs": {
+      "overview": "Truncate companion: emits XLOG_COMMIT_TS_TRUNCATE and SimpleLruTruncate.",
+      "importance_score": 0.5,
+      "category": "SLRU_COMMITTS",
+      "depth_from_entry": 1,
+      "references_from": ["WriteTruncateXlogRec", "SimpleLruTruncate"],
+      "references_to": ["vac_truncate_clog"],
+      "metrics": {"ref_count": 2, "is_entry_point": false, "is_critical_path": false, "file": "src/backend/access/transam/commit_ts.c:890"}
+    },
+    "ActivateCommitTs": {
+      "overview": "Switch-on path: reads control flags, opens the SLRU dir, populates the appropriate range based on oldestCommitTsXid/newestCommitTsXid.",
+      "importance_score": 0.45,
+      "category": "SLRU_COMMITTS",
+      "depth_from_entry": 1,
+      "references_from": [],
+      "references_to": ["CommitTsParameterChange", "StartupCommitTs"],
+      "metrics": {"ref_count": 2, "is_entry_point": false, "is_critical_path": false, "file": "src/backend/access/transam/commit_ts.c:705"}
+    },
+    "StartupCommitTs": {
+      "overview": "Recovery init for commit_ts: load oldestCommitTsXid/newestCommitTsXid from pg_control and activate if needed.",
+      "importance_score": 0.5,
+      "category": "SLRU_COMMITTS",
+      "depth_from_entry": 1,
+      "references_from": ["ActivateCommitTs"],
+      "references_to": ["StartupXLOG"],
+      "metrics": {"ref_count": 2, "is_entry_point": false, "is_critical_path": true, "file": "src/backend/access/transam/commit_ts.c:632"}
+    },
+    "CheckPointCommitTs": {
+      "overview": "Flushes dirty pg_commit_ts pages at checkpoint.",
+      "importance_score": 0.45,
+      "category": "SLRU_COMMITTS",
+      "depth_from_entry": 1,
+      "references_from": ["SimpleLruWriteAll"],
+      "references_to": ["CheckPointGuts"],
+      "metrics": {"ref_count": 2, "is_entry_point": false, "is_critical_path": true, "file": "src/backend/access/transam/commit_ts.c:827"}
+    },
+    "commit_ts_redo": {
+      "overview": "Redo callback for RM_COMMIT_TS_ID: replays ZEROPAGE / TRUNCATE / SETTS.",
+      "importance_score": 0.5,
+      "category": "SLRU_COMMITTS",
+      "depth_from_entry": 1,
+      "references_from": [],
+      "references_to": ["rmgrlist"],
+      "metrics": {"ref_count": 3, "is_entry_point": false, "is_critical_path": true, "file": "src/backend/access/transam/commit_ts.c:1023"}
+    },
+
+    "MultiXactIdCreate": {
+      "overview": "Builds a new MultiXactId from two members (typical xmax-promotion path). Calls MultiXactIdExpand if a multi already exists.",
+      "importance_score": 0.78,
+      "category": "SLRU_MULTIXACT",
+      "depth_from_entry": 0,
+      "references_from": ["MultiXactIdExpand", "MultiXactIdCreateFromMembers"],
+      "references_to": ["heap_lock_tuple", "compute_new_xmax_infomask"],
+      "metrics": {"ref_count": 6, "is_entry_point": true, "is_critical_path": true, "file": "src/backend/access/transam/multixact.c:433"}
+    },
+    "MultiXactIdExpand": {
+      "overview": "Adds a new member to an existing multi (or creates a new multi if the original is dead).",
+      "importance_score": 0.65,
+      "category": "SLRU_MULTIXACT",
+      "depth_from_entry": 1,
+      "references_from": ["GetMultiXactIdMembers", "MultiXactIdCreateFromMembers"],
+      "references_to": ["heap_lock_tuple"],
+      "metrics": {"ref_count": 4, "is_entry_point": false, "is_critical_path": true, "file": "src/backend/access/transam/multixact.c"}
+    },
+    "GetNewMultiXactId": {
+      "overview": "Allocates the next MultiXactId, extends both pg_multixact/offsets and pg_multixact/members as needed; emits XLOG_MULTIXACT_ZERO_OFF_PAGE / XLOG_MULTIXACT_ZERO_MEM_PAGE.",
+      "importance_score": 0.7,
+      "category": "SLRU_MULTIXACT",
+      "depth_from_entry": 1,
+      "references_from": ["ExtendMultiXactOffset", "ExtendMultiXactMember"],
+      "references_to": ["MultiXactIdCreateFromMembers"],
+      "metrics": {"ref_count": 3, "is_entry_point": false, "is_critical_path": true, "file": "src/backend/access/transam/multixact.c"}
+    },
+    "RecordNewMultiXact": {
+      "overview": "Writes the offset and member entries for a new multi to the SLRU; emits XLOG_MULTIXACT_CREATE_ID.",
+      "importance_score": 0.6,
+      "category": "SLRU_MULTIXACT",
+      "depth_from_entry": 1,
+      "references_from": ["XLogInsert"],
+      "references_to": ["GetNewMultiXactId"],
+      "metrics": {"ref_count": 3, "is_entry_point": false, "is_critical_path": true, "file": "src/backend/access/transam/multixact.c"}
+    },
+    "MultiXactIdGetUpdateXid": {
+      "overview": "Given a multi locking a tuple, finds the XID that did the update (status >= NoKeyUpdate). Used by visibility.",
+      "importance_score": 0.55,
+      "category": "SLRU_MULTIXACT",
+      "depth_from_entry": 1,
+      "references_from": ["GetMultiXactIdMembers"],
+      "references_to": ["HeapTupleGetUpdateXid"],
+      "metrics": {"ref_count": 4, "is_entry_point": false, "is_critical_path": true, "file": "src/backend/access/transam/multixact.c"}
+    },
+    "GetMultiXactIdMembers": {
+      "overview": "Returns the array of members for a multi: reads pg_multixact/offsets to find the start, then pg_multixact/members.",
+      "importance_score": 0.65,
+      "category": "SLRU_MULTIXACT",
+      "depth_from_entry": 1,
+      "references_from": ["mXactCacheGetById", "SimpleLruReadPage_ReadOnly"],
+      "references_to": ["MultiXactIdIsRunning", "MultiXactIdGetUpdateXid"],
+      "metrics": {"ref_count": 8, "is_entry_point": false, "is_critical_path": true, "file": "src/backend/access/transam/multixact.c"}
+    },
+    "MultiXactIdIsRunning": {
+      "overview": "True if any member of the multi is still running. Optimistic check used by tuple-locking code.",
+      "importance_score": 0.55,
+      "category": "SLRU_MULTIXACT",
+      "depth_from_entry": 1,
+      "references_from": ["GetMultiXactIdMembers", "TransactionIdIsInProgress"],
+      "references_to": ["heap_lock_tuple"],
+      "metrics": {"ref_count": 3, "is_entry_point": false, "is_critical_path": false, "file": "src/backend/access/transam/multixact.c"}
+    },
+    "TruncateMultiXact": {
+      "overview": "Truncates pg_multixact/offsets to newOldestMulti and pg_multixact/members based on the recorded start offset; emits XLOG_MULTIXACT_TRUNCATE_ID.",
+      "importance_score": 0.6,
+      "category": "SLRU_MULTIXACT",
+      "depth_from_entry": 1,
+      "references_from": ["WriteMTruncateXlogRec", "SimpleLruTruncate"],
+      "references_to": ["vac_truncate_clog"],
+      "metrics": {"ref_count": 3, "is_entry_point": false, "is_critical_path": true, "file": "src/backend/access/transam/multixact.c"}
+    },
+    "SetOffsetVacuumLimit": {
+      "overview": "Computes the multixact-members truncation watermark from the size of the members SLRU vs MultiXactMemberFreezeThreshold.",
+      "importance_score": 0.45,
+      "category": "SLRU_MULTIXACT",
+      "depth_from_entry": 2,
+      "references_from": [],
+      "references_to": ["MultiXactAdvanceOldest"],
+      "metrics": {"ref_count": 2, "is_entry_point": false, "is_critical_path": false, "file": "src/backend/access/transam/multixact.c"}
+    },
+    "MultiXactAdvanceOldest": {
+      "overview": "Advances cluster-wide oldestMulti / oldestMultiDB after vacuum.",
+      "importance_score": 0.5,
+      "category": "SLRU_MULTIXACT",
+      "depth_from_entry": 1,
+      "references_from": [],
+      "references_to": ["vac_truncate_clog"],
+      "metrics": {"ref_count": 2, "is_entry_point": false, "is_critical_path": false, "file": "src/backend/access/transam/multixact.c"}
+    },
+    "CheckPointMultiXact": {
+      "overview": "Flushes both offsets and members SLRUs at checkpoint; updates oldestMulti in pg_control via MultiXactGetCheckptMulti.",
+      "importance_score": 0.55,
+      "category": "SLRU_MULTIXACT",
+      "depth_from_entry": 1,
+      "references_from": ["SimpleLruWriteAll", "MultiXactGetCheckptMulti"],
+      "references_to": ["CheckPointGuts"],
+      "metrics": {"ref_count": 2, "is_entry_point": false, "is_critical_path": true, "file": "src/backend/access/transam/multixact.c"}
+    },
+    "StartupMultiXact": {
+      "overview": "Recovery init: reads nextMulti / nextMultiOffset from pg_control and re-zeroes pages beyond.",
+      "importance_score": 0.55,
+      "category": "SLRU_MULTIXACT",
+      "depth_from_entry": 1,
+      "references_from": [],
+      "references_to": ["StartupXLOG"],
+      "metrics": {"ref_count": 2, "is_entry_point": false, "is_critical_path": true, "file": "src/backend/access/transam/multixact.c"}
+    },
+    "TrimMultiXact": {
+      "overview": "After redo end: zero pages beyond nextMulti/nextMultiOffset.",
+      "importance_score": 0.5,
+      "category": "SLRU_MULTIXACT",
+      "depth_from_entry": 1,
+      "references_from": [],
+      "references_to": ["StartupXLOG"],
+      "metrics": {"ref_count": 2, "is_entry_point": false, "is_critical_path": true, "file": "src/backend/access/transam/multixact.c"}
+    },
+    "multixact_redo": {
+      "overview": "Redo callback for RM_MULTIXACT_ID: replays ZERO_OFF_PAGE, ZERO_MEM_PAGE, CREATE_ID, TRUNCATE_ID.",
+      "importance_score": 0.6,
+      "category": "SLRU_MULTIXACT",
+      "depth_from_entry": 1,
+      "references_from": ["SimpleLruZeroPage", "RecordNewMultiXact", "SimpleLruTruncate"],
+      "references_to": ["rmgrlist"],
+      "metrics": {"ref_count": 4, "is_entry_point": false, "is_critical_path": true, "file": "src/backend/access/transam/multixact.c"}
+    },
+
+    "visibilitymap_clear": {
+      "overview": "Clears VISIBILITYMAP_ALL_VISIBLE / ALL_FROZEN bits when the heap page is modified. Always treated as durable (LSN updated, possibly an XLOG_FPI_FOR_HINT).",
+      "importance_score": 0.85,
+      "category": "VISIBILITYMAP",
+      "depth_from_entry": 0,
+      "references_from": ["MarkBufferDirty", "log_newpage_buffer"],
+      "references_to": ["heap_insert", "heap_update", "heap_delete", "heap_lock_tuple", "heap_multi_insert"],
+      "metrics": {"ref_count": 18, "is_entry_point": true, "is_critical_path": true, "file": "src/backend/access/heap/visibilitymap.c:138"}
+    },
+    "visibilitymap_set": {
+      "overview": "Sets VISIBILITYMAP_ALL_VISIBLE / ALL_FROZEN bits with the heap page LSN as a high-water mark, ensuring VM page LSN is at least as new as the youngest tuple it claims visible. Emits XLOG_HEAP2_VISIBLE.",
+      "importance_score": 0.82,
+      "category": "VISIBILITYMAP",
+      "depth_from_entry": 0,
+      "references_from": ["XLogInsert", "log_heap_visible"],
+      "references_to": ["lazy_scan_prune", "heap_xlog_freeze_page"],
+      "metrics": {"ref_count": 8, "is_entry_point": true, "is_critical_path": true, "file": "src/backend/access/heap/visibilitymap.c:244"}
+    },
+    "visibilitymap_pin": {
+      "overview": "Pins the VM page covering heapBlk before the heap page lock is taken (deadlock-avoidance vs vacuum).",
+      "importance_score": 0.7,
+      "category": "VISIBILITYMAP",
+      "depth_from_entry": 1,
+      "references_from": ["vm_readbuf"],
+      "references_to": ["RelationGetBufferForTuple", "GetVisibilityMapPins"],
+      "metrics": {"ref_count": 12, "is_entry_point": false, "is_critical_path": true, "file": "src/backend/access/heap/visibilitymap.c:191"}
+    },
+    "visibilitymap_pin_ok": {
+      "overview": "Returns true if the currently-pinned VM buffer covers heapBlk; lets callers re-use a pin after retry.",
+      "importance_score": 0.55,
+      "category": "VISIBILITYMAP",
+      "depth_from_entry": 1,
+      "references_from": [],
+      "references_to": ["RelationGetBufferForTuple"],
+      "metrics": {"ref_count": 4, "is_entry_point": false, "is_critical_path": false, "file": "src/backend/access/heap/visibilitymap.c:215"}
+    },
+    "visibilitymap_get_status": {
+      "overview": "Returns the 2-bit status for a heap block. Used by index-only scans (skip heap visibility check) and by vacuum (decide if scan needed).",
+      "importance_score": 0.78,
+      "category": "VISIBILITYMAP",
+      "depth_from_entry": 0,
+      "references_from": ["vm_readbuf"],
+      "references_to": ["IndexOnlyNext", "lazy_scan_strategy"],
+      "metrics": {"ref_count": 15, "is_entry_point": true, "is_critical_path": true, "file": "src/backend/access/heap/visibilitymap.c:336"}
+    },
+    "visibilitymap_count": {
+      "overview": "Counts ALL_VISIBLE and ALL_FROZEN pages by scanning the entire VM. Used by vacuum and pg_visibility.",
+      "importance_score": 0.5,
+      "category": "VISIBILITYMAP",
+      "depth_from_entry": 1,
+      "references_from": [],
+      "references_to": ["lazy_vacuum_rel", "pg_visibility"],
+      "metrics": {"ref_count": 4, "is_entry_point": false, "is_critical_path": false, "file": "src/backend/access/heap/visibilitymap.c:384"}
+    },
+    "visibilitymap_prepare_truncate": {
+      "overview": "Computes the new VM nblocks after a heap truncate; called from RelationTruncate.",
+      "importance_score": 0.5,
+      "category": "VISIBILITYMAP",
+      "depth_from_entry": 1,
+      "references_from": [],
+      "references_to": ["RelationTruncate"],
+      "metrics": {"ref_count": 3, "is_entry_point": false, "is_critical_path": false, "file": "src/backend/access/heap/visibilitymap.c:438"}
+    },
+    "vm_readbuf": {
+      "overview": "Reads/pins one VM page; calls vm_extend if extend=true and the page does not yet exist.",
+      "importance_score": 0.6,
+      "category": "VISIBILITYMAP",
+      "depth_from_entry": 2,
+      "references_from": ["vm_extend", "smgrnblocks", "ReadBufferExtended"],
+      "references_to": ["visibilitymap_pin", "visibilitymap_get_status", "visibilitymap_clear", "visibilitymap_set"],
+      "metrics": {"ref_count": 6, "is_entry_point": false, "is_critical_path": true, "file": "src/backend/access/heap/visibilitymap.c:538"}
+    },
+    "vm_extend": {
+      "overview": "Extends the VM_FORKNUM relation fork by zero-filling new pages; uses smgrextend.",
+      "importance_score": 0.5,
+      "category": "VISIBILITYMAP",
+      "depth_from_entry": 2,
+      "references_from": ["smgrextend"],
+      "references_to": ["vm_readbuf"],
+      "metrics": {"ref_count": 3, "is_entry_point": false, "is_critical_path": false, "file": "src/backend/access/heap/visibilitymap.c:612"}
+    },
+    "GetVisibilityMapPins": {
+      "overview": "Pre-pins the VM pages for a list of candidate heap blocks before any heap-page lock is taken; the deadlock-avoidance helper used by hio.c.",
+      "importance_score": 0.55,
+      "category": "VISIBILITYMAP",
+      "depth_from_entry": 1,
+      "references_from": ["visibilitymap_pin"],
+      "references_to": ["RelationGetBufferForTuple"],
+      "metrics": {"ref_count": 3, "is_entry_point": false, "is_critical_path": true, "file": "src/backend/access/heap/hio.c"}
+    },
+
+    "GetPageWithFreeSpace": {
+      "overview": "Top-level FSM lookup for an insert: returns a heap block with at least spaceNeeded bytes free, or InvalidBlockNumber.",
+      "importance_score": 0.85,
+      "category": "FREESPACE_FSM",
+      "depth_from_entry": 0,
+      "references_from": ["fsm_search"],
+      "references_to": ["RelationGetBufferForTuple"],
+      "metrics": {"ref_count": 12, "is_entry_point": true, "is_critical_path": true, "file": "src/backend/storage/freespace/freespace.c:137"}
+    },
+    "RecordAndGetPageWithFreeSpace": {
+      "overview": "Records actual free space on oldPage and finds another candidate. The combined update+search used after a tuple insert.",
+      "importance_score": 0.65,
+      "category": "FREESPACE_FSM",
+      "depth_from_entry": 1,
+      "references_from": ["fsm_set_and_search"],
+      "references_to": ["RelationGetBufferForTuple"],
+      "metrics": {"ref_count": 5, "is_entry_point": false, "is_critical_path": true, "file": "src/backend/storage/freespace/freespace.c:154"}
+    },
+    "RecordPageWithFreeSpace": {
+      "overview": "Updates a single FSM leaf; used by VACUUM to record post-pruning free space.",
+      "importance_score": 0.6,
+      "category": "FREESPACE_FSM",
+      "depth_from_entry": 1,
+      "references_from": ["fsm_set_and_search"],
+      "references_to": ["lazy_vacuum_rel"],
+      "metrics": {"ref_count": 4, "is_entry_point": false, "is_critical_path": false, "file": "src/backend/storage/freespace/freespace.c:194"}
+    },
+    "XLogRecordPageWithFreeSpace": {
+      "overview": "Logs a single FSM update during heap WAL replay (only used in the heap-extension path where the new page itself is WAL-logged).",
+      "importance_score": 0.5,
+      "category": "FREESPACE_FSM",
+      "depth_from_entry": 1,
+      "references_from": ["fsm_set_avail"],
+      "references_to": ["heap_xlog_insert", "heap_xlog_multi_insert"],
+      "metrics": {"ref_count": 4, "is_entry_point": false, "is_critical_path": false, "file": "src/backend/storage/freespace/freespace.c:211"}
+    },
+    "FreeSpaceMapVacuum": {
+      "overview": "Bottom-up reconciliation of the FSM tree after vacuum. Calls fsm_vacuum_page to push leaf maxima up.",
+      "importance_score": 0.6,
+      "category": "FREESPACE_FSM",
+      "depth_from_entry": 1,
+      "references_from": ["fsm_vacuum_page"],
+      "references_to": ["lazy_vacuum_rel"],
+      "metrics": {"ref_count": 4, "is_entry_point": false, "is_critical_path": false, "file": "src/backend/storage/freespace/freespace.c:358"}
+    },
+    "FreeSpaceMapVacuumRange": {
+      "overview": "Like FreeSpaceMapVacuum but only for a heap-block range. Used by parallel vacuum worker.",
+      "importance_score": 0.45,
+      "category": "FREESPACE_FSM",
+      "depth_from_entry": 1,
+      "references_from": ["fsm_vacuum_page"],
+      "references_to": ["parallel_vacuum_main"],
+      "metrics": {"ref_count": 3, "is_entry_point": false, "is_critical_path": false, "file": "src/backend/storage/freespace/freespace.c:377"}
+    },
+    "FreeSpaceMapPrepareTruncateRel": {
+      "overview": "Computes new FSM nblocks after a heap truncate and rebuilds upper-level entries.",
+      "importance_score": 0.5,
+      "category": "FREESPACE_FSM",
+      "depth_from_entry": 1,
+      "references_from": ["fsm_extend"],
+      "references_to": ["RelationTruncate"],
+      "metrics": {"ref_count": 3, "is_entry_point": false, "is_critical_path": false, "file": "src/backend/storage/freespace/freespace.c:275"}
+    },
+    "fsm_search": {
+      "overview": "Top-down tree walk: at each level, fsm_search_avail picks a slot whose value >= min_cat. Restarts on stale-pointer error.",
+      "importance_score": 0.7,
+      "category": "FREESPACE_FSM",
+      "depth_from_entry": 1,
+      "references_from": ["fsm_search_avail", "fsm_readbuf"],
+      "references_to": ["GetPageWithFreeSpace"],
+      "metrics": {"ref_count": 5, "is_entry_point": false, "is_critical_path": true, "file": "src/backend/storage/freespace/freespace.c:678"}
+    },
+    "fsm_set_and_search": {
+      "overview": "Atomic update + next-page search inside one buffer pin; used after a tuple insert to re-record free space.",
+      "importance_score": 0.6,
+      "category": "FREESPACE_FSM",
+      "depth_from_entry": 1,
+      "references_from": ["fsm_set_avail", "fsm_search_avail"],
+      "references_to": ["RecordAndGetPageWithFreeSpace"],
+      "metrics": {"ref_count": 4, "is_entry_point": false, "is_critical_path": true, "file": "src/backend/storage/freespace/freespace.c:646"}
+    },
+    "fsm_vacuum_page": {
+      "overview": "Recursively bubbles leaf maxima up to upper-level pages.",
+      "importance_score": 0.55,
+      "category": "FREESPACE_FSM",
+      "depth_from_entry": 2,
+      "references_from": ["fsm_set_avail"],
+      "references_to": ["FreeSpaceMapVacuum"],
+      "metrics": {"ref_count": 4, "is_entry_point": false, "is_critical_path": false, "file": "src/backend/storage/freespace/freespace.c:812"}
+    },
+    "fsm_get_location": {
+      "overview": "Translates heapblk -> (FSMAddress, slot). The arithmetic at the heart of FSM addressing.",
+      "importance_score": 0.55,
+      "category": "FREESPACE_FSM",
+      "depth_from_entry": 2,
+      "references_from": [],
+      "references_to": ["GetPageWithFreeSpace", "RecordPageWithFreeSpace"],
+      "metrics": {"ref_count": 6, "is_entry_point": false, "is_critical_path": true, "file": "src/backend/storage/freespace/freespace.c:491"}
+    },
+    "fsm_logical_to_physical": {
+      "overview": "Maps an FSMAddress (level + page#) to the physical block number using the closed-form formula y = n + (n/F+1)+(n/F^2+1)+...",
+      "importance_score": 0.5,
+      "category": "FREESPACE_FSM",
+      "depth_from_entry": 2,
+      "references_from": [],
+      "references_to": ["fsm_readbuf"],
+      "metrics": {"ref_count": 3, "is_entry_point": false, "is_critical_path": false, "file": "src/backend/storage/freespace/freespace.c:455"}
+    },
+    "fsm_get_parent": {
+      "overview": "Returns parent FSMAddress + slot of a given child.",
+      "importance_score": 0.45,
+      "category": "FREESPACE_FSM",
+      "depth_from_entry": 2,
+      "references_from": [],
+      "references_to": ["fsm_search", "fsm_vacuum_page"],
+      "metrics": {"ref_count": 3, "is_entry_point": false, "is_critical_path": false, "file": "src/backend/storage/freespace/freespace.c:517"}
+    },
+    "fsm_get_child": {
+      "overview": "Returns child FSMAddress for a slot on a parent page.",
+      "importance_score": 0.45,
+      "category": "FREESPACE_FSM",
+      "depth_from_entry": 2,
+      "references_from": [],
+      "references_to": ["fsm_search"],
+      "metrics": {"ref_count": 3, "is_entry_point": false, "is_critical_path": false, "file": "src/backend/storage/freespace/freespace.c:535"}
+    },
+    "fsm_readbuf": {
+      "overview": "Pins/reads an FSM page; uses RBM_ZERO_ON_ERROR to bypass checksum failures (FSM is hint-grade).",
+      "importance_score": 0.5,
+      "category": "FREESPACE_FSM",
+      "depth_from_entry": 2,
+      "references_from": ["fsm_extend", "ReadBufferExtended"],
+      "references_to": ["fsm_search", "RecordPageWithFreeSpace"],
+      "metrics": {"ref_count": 5, "is_entry_point": false, "is_critical_path": true, "file": "src/backend/storage/freespace/freespace.c:554"}
+    },
+    "fsm_extend": {
+      "overview": "Extends the FSM_FORKNUM relation fork by writing zero-pages.",
+      "importance_score": 0.45,
+      "category": "FREESPACE_FSM",
+      "depth_from_entry": 2,
+      "references_from": ["smgrextend"],
+      "references_to": ["fsm_readbuf"],
+      "metrics": {"ref_count": 3, "is_entry_point": false, "is_critical_path": false, "file": "src/backend/storage/freespace/freespace.c:629"}
+    },
+    "fsm_search_avail": {
+      "overview": "Per-page binary-tree walk: returns the leftmost leaf slot >= minvalue. Detects corrupted upper nodes and triggers fsm_rebuild_page.",
+      "importance_score": 0.6,
+      "category": "FREESPACE_FSM",
+      "depth_from_entry": 2,
+      "references_from": ["fsm_rebuild_page"],
+      "references_to": ["fsm_search"],
+      "metrics": {"ref_count": 4, "is_entry_point": false, "is_critical_path": true, "file": "src/backend/storage/freespace/fsmpage.c:158"}
+    },
+    "fsm_set_avail": {
+      "overview": "Sets a leaf slot's category and bubbles the change up through the page-internal tree.",
+      "importance_score": 0.55,
+      "category": "FREESPACE_FSM",
+      "depth_from_entry": 2,
+      "references_from": [],
+      "references_to": ["fsm_set_and_search", "fsm_vacuum_page"],
+      "metrics": {"ref_count": 4, "is_entry_point": false, "is_critical_path": true, "file": "src/backend/storage/freespace/fsmpage.c:63"}
+    },
+    "fsm_rebuild_page": {
+      "overview": "Repairs a corrupted page by recomputing all internal nodes from leaf values.",
+      "importance_score": 0.45,
+      "category": "FREESPACE_FSM",
+      "depth_from_entry": 3,
+      "references_from": [],
+      "references_to": ["fsm_search_avail"],
+      "metrics": {"ref_count": 2, "is_entry_point": false, "is_critical_path": false, "file": "src/backend/storage/freespace/fsmpage.c:342"}
+    },
+    "fsm_space_avail_to_cat": {
+      "overview": "Maps free-byte count -> 8-bit FSM category. There are 256 categories.",
+      "importance_score": 0.4,
+      "category": "FREESPACE_FSM",
+      "depth_from_entry": 2,
+      "references_from": [],
+      "references_to": ["RecordPageWithFreeSpace", "RecordAndGetPageWithFreeSpace"],
+      "metrics": {"ref_count": 4, "is_entry_point": false, "is_critical_path": false, "file": "src/backend/storage/freespace/freespace.c:392"}
+    },
+    "GetFreeIndexPage": {
+      "overview": "indexfsm.c entry point: returns a free index page (used by btree, gist, etc.).",
+      "importance_score": 0.5,
+      "category": "FREESPACE_FSM",
+      "depth_from_entry": 1,
+      "references_from": ["fsm_search"],
+      "references_to": ["_bt_getbuf", "ginNewBuffer"],
+      "metrics": {"ref_count": 6, "is_entry_point": false, "is_critical_path": false, "file": "src/backend/storage/freespace/indexfsm.c:38"}
+    },
+    "RecordFreeIndexPage": {
+      "overview": "Records that an index page is now free (binary 0/1 categories for indexes).",
+      "importance_score": 0.45,
+      "category": "FREESPACE_FSM",
+      "depth_from_entry": 1,
+      "references_from": ["fsm_set_avail"],
+      "references_to": ["btvacuumpage"],
+      "metrics": {"ref_count": 3, "is_entry_point": false, "is_critical_path": false, "file": "src/backend/storage/freespace/indexfsm.c:52"}
+    },
+    "IndexFreeSpaceMapVacuum": {
+      "overview": "Symmetric to FreeSpaceMapVacuum but for indexes.",
+      "importance_score": 0.42,
+      "category": "FREESPACE_FSM",
+      "depth_from_entry": 1,
+      "references_from": [],
+      "references_to": ["btvacuumcleanup"],
+      "metrics": {"ref_count": 2, "is_entry_point": false, "is_critical_path": false, "file": "src/backend/storage/freespace/indexfsm.c:71"}
+    },
+
+    "RelationGetBufferForTuple": {
+      "overview": "Picks a heap page for a new tuple: GetPageWithFreeSpace then GetVisibilityMapPins. The bridge between FSM, VM, and the buffer manager.",
+      "importance_score": 0.7,
+      "category": "FREESPACE_FSM",
+      "depth_from_entry": 0,
+      "references_from": ["GetPageWithFreeSpace", "GetVisibilityMapPins", "RelationExtensionLockWaiterCount"],
+      "references_to": ["heap_insert", "heap_multi_insert", "heap_update"],
+      "metrics": {"ref_count": 12, "is_entry_point": true, "is_critical_path": true, "file": "src/backend/access/heap/hio.c"}
+    },
+
+    "lazy_vacuum_rel": {
+      "overview": "Top-level VACUUM driver: scans heap (lazy_scan_heap), prunes/freezes (heap_page_prune), records free space (RecordPageWithFreeSpace), updates VM (visibilitymap_set), removes dead index entries, calls vac_update_relstats and FreeSpaceMapVacuum.",
+      "importance_score": 0.7,
+      "category": "VACUUM_INTEGRATION",
+      "depth_from_entry": 1,
+      "references_from": ["lazy_scan_heap", "heap_page_prune_and_freeze", "visibilitymap_set", "RecordPageWithFreeSpace", "FreeSpaceMapVacuum"],
+      "references_to": ["vacuum_rel"],
+      "metrics": {"ref_count": 8, "is_entry_point": false, "is_critical_path": true, "file": "src/backend/access/heap/vacuumlazy.c"}
+    },
+    "vac_truncate_clog": {
+      "overview": "Cluster-wide vacuum hook: scans pg_database for the minimum datfrozenxid/datminmxid; calls TruncateCLOG, TruncateCommitTs, TruncateMultiXact, SetTransactionIdLimit.",
+      "importance_score": 0.6,
+      "category": "VACUUM_INTEGRATION",
+      "depth_from_entry": 1,
+      "references_from": ["TruncateCLOG", "TruncateCommitTs", "TruncateMultiXact", "SetTransactionIdLimit"],
+      "references_to": ["vacuum_rel"],
+      "metrics": {"ref_count": 4, "is_entry_point": false, "is_critical_path": true, "file": "src/backend/commands/vacuum.c"}
+    },
+
+    "object_access_hook": {
+      "overview": "Function pointer fired by RunObjectPostCreateHook / RunObjectDropHook / RunObjectPostAlterHook. The single extension point for security or audit modules.",
+      "importance_score": 0.55,
+      "category": "EXTENSION_HOOKS",
+      "depth_from_entry": 1,
+      "references_from": [],
+      "references_to": ["sepgsql", "pg_audit"],
+      "metrics": {"ref_count": 50, "is_entry_point": false, "is_critical_path": false, "file": "src/include/catalog/objectaccess.h"}
+    }
+  },
+
+  "categories": {
+    "PERSISTENCE_CONTROL_FILE": ["ControlFileData", "ReadControlFile", "WriteControlFile", "UpdateControlFile"],
+    "PERSISTENCE_CHECKPOINT": ["CheckPoint", "CreateCheckPoint", "CheckPointGuts"],
+    "PERSISTENCE_RECOVERY": ["StartupXLOG", "xact_redo", "xact_redo_commit", "smgr_redo"],
+    "PERSISTENCE_COMMIT": ["RecordTransactionCommit", "TransactionIdCommitTree", "TransactionIdAbortTree", "GetNewTransactionId", "GetNewObjectId"],
+    "CATALOG_MODIFY_API": ["heap_create_with_catalog", "heap_create", "heap_drop_with_catalog", "AddNewRelationTuple", "AddNewAttributeTuples", "InsertPgClassTuple", "DeleteRelationTuple", "RelationRemoveInheritance", "CheckAttributeType", "index_create", "index_drop", "index_constraint_create", "index_update_stats", "ReindexRelationConcurrently"],
+    "CATALOG_INDEXING": ["CatalogTupleInsert", "CatalogTupleInsertWithInfo", "CatalogTuplesMultiInsertWithInfo", "CatalogTupleUpdate", "CatalogTupleUpdateWithInfo", "CatalogTupleDelete", "CatalogIndexInsert", "CatalogOpenIndexes", "CatalogCloseIndexes"],
+    "CATALOG_DEPENDENCY": ["recordDependencyOn", "recordSharedDependencyOn", "deleteDependencyRecordsFor", "performDeletion", "performMultipleDeletions", "findDependentObjects", "AcquireDeletionLock", "ReleaseDeletionLock", "doDeletion", "DropObjectById"],
+    "CATALOG_NAMESPACE": ["RangeVarGetRelid", "RangeVarGetCreationNamespace", "LookupExplicitNamespace", "recomputeNamespacePath"],
+    "CATALOG_STORAGE_BRIDGE": ["RelationCreateStorage", "RelationDropStorage", "log_smgrcreate", "smgrDoPendingDeletes", "smgrDoPendingSyncs", "RelationTruncate", "smgr_redo"],
+    "CATALOG_TOAST": ["NewHeapCreateToastTable"],
+    "CATALOG_ACL": ["ExecGrantStmt_oids"],
+    "CATALOG_OBJADDR": ["get_object_address"],
+    "CATALOG_OBJACCESS": ["RunObjectPostCreateHook", "RunObjectDropHook"],
+    "CATALOG_PARTITION": ["RelationGetPartitionDesc"],
+    "CACHE_RELCACHE": ["RelationData", "RelationIdGetRelation", "RelationClose", "RelationBuildDesc", "RelationInitTableAccessMethod", "RelationCacheInitialize", "RelationCacheInitializePhase2", "RelationCacheInitializePhase3", "formrdesc", "load_critical_index", "RelationClearRelation", "RelationFlushRelation", "RelationCacheInvalidate", "write_relcache_init_file", "load_relcache_init_file", "RelationCacheInitFileRemove", "RelationCacheInitFilePostInvalidate", "RelationSetNewRelfilenumber", "RelidByRelfilenumber"],
+    "CACHE_CATCACHE": ["CatCache", "CatCList", "InitCatCache", "CatalogCacheInitializeCache", "SearchCatCacheInternal", "SearchCatCacheList", "CatCacheRemoveCList", "CatCacheRemoveCTup", "CatCacheInvalidate", "ResetCatalogCaches", "PrepareToInvalidateCacheTuple"],
+    "CACHE_SYSCACHE": ["SearchSysCache1", "SearchSysCache2", "SearchSysCache3", "SearchSysCache4", "ReleaseSysCache", "SearchSysCacheLocked1", "SearchSysCacheCopy", "SearchSysCacheAttName", "SearchSysCacheAttNum", "SysCacheGetAttr", "SysCacheGetAttrNotNull", "GetSysCacheOid", "GetSysCacheHashValue", "SysCacheInvalidate", "RelationInvalidatesSnapshotsOnly", "RelationHasSysCache", "RelationSupportsSysCache"],
+    "INVAL_API": ["CacheInvalidateHeapTuple", "CacheInvalidateHeapTupleByRelid", "CacheInvalidateRelcache", "CacheInvalidateRelcacheByRelid", "CacheInvalidateRelcacheAll", "CacheInvalidateCatalog", "CacheInvalidateSmgr", "CacheInvalidateRelmap", "RegisterCatcacheInvalidation", "RegisterRelcacheInvalidation", "RegisterSnapshotInvalidation", "PrepareInvalidationState", "AddRelcacheInvalidationMessage", "AddCatcacheInvalidationMessage", "AddSnapshotInvalidationMessage", "xactGetCommittedInvalidationMessages", "ProcessCommittedInvalidationMessages", "AtEOXact_Inval", "AtEOSubXact_Inval", "CommandEndInvalidationMessages", "LocalExecuteInvalidationMessage", "AcceptInvalidationMessages", "InvalidateSystemCaches", "InvalidateSystemCachesExtended", "CacheRegisterSyscacheCallback", "CacheRegisterRelcacheCallback"],
+    "INVAL_SINVAL": ["SendSharedInvalidMessages", "ReceiveSharedInvalidMessages", "SIInsertDataEntries", "SIGetDataEntries", "SICleanupQueue", "SInvalShmemSize", "CreateSharedInvalidationState", "SharedInvalBackendInit"],
+    "RELMAPPER": ["RelationMapOidToFilenumber", "RelationMapUpdateMap", "write_relmap_file", "load_relmap_file", "perform_relmap_update", "AtCCI_RelationMap", "AtEOXact_RelationMap", "AtPrepare_RelationMap", "CheckPointRelationMap", "RelationMapInitialize", "RelationMapInitializePhase2", "RelationMapInitializePhase3", "relmap_redo"],
+    "SLRU_FRAMEWORK": ["SlruCtlData", "SlruSharedData", "SimpleLruInit", "SimpleLruZeroPage", "SimpleLruReadPage", "SimpleLruReadPage_ReadOnly", "SimpleLruWritePage", "SimpleLruWriteAll", "SimpleLruTruncate", "SlruInternalWritePage", "SlruPhysicalReadPage", "SlruPhysicalWritePage", "SlruScanDirectory", "SlruSelectLRUPage", "SimpleLruGetBankLock", "SlruSyncFileTag"],
+    "SLRU_CLOG": ["TransactionIdSetTreeStatus", "TransactionIdSetPageStatus", "TransactionIdSetPageStatusInternal", "TransactionIdSetStatusBit", "TransactionGroupUpdateXidStatus", "TransactionIdGetStatus", "ExtendCLOG", "TruncateCLOG", "CheckPointCLOG", "BootStrapCLOG", "StartupCLOG", "TrimCLOG", "clog_redo"],
+    "SLRU_SUBTRANS": ["SubTransSetParent", "SubTransGetParent", "SubTransGetTopmostTransaction", "ExtendSUBTRANS", "TruncateSUBTRANS", "StartupSUBTRANS", "CheckPointSUBTRANS"],
+    "SLRU_COMMITTS": ["TransactionTreeSetCommitTsData", "TransactionIdGetCommitTsData", "GetLatestCommitTsData", "ExtendCommitTs", "TruncateCommitTs", "ActivateCommitTs", "StartupCommitTs", "CheckPointCommitTs", "commit_ts_redo"],
+    "SLRU_MULTIXACT": ["MultiXactIdCreate", "MultiXactIdExpand", "GetNewMultiXactId", "RecordNewMultiXact", "MultiXactIdGetUpdateXid", "GetMultiXactIdMembers", "MultiXactIdIsRunning", "TruncateMultiXact", "SetOffsetVacuumLimit", "MultiXactAdvanceOldest", "CheckPointMultiXact", "StartupMultiXact", "TrimMultiXact", "multixact_redo"],
+    "VISIBILITYMAP": ["visibilitymap_clear", "visibilitymap_set", "visibilitymap_pin", "visibilitymap_pin_ok", "visibilitymap_get_status", "visibilitymap_count", "visibilitymap_prepare_truncate", "vm_readbuf", "vm_extend", "GetVisibilityMapPins"],
+    "FREESPACE_FSM": ["GetPageWithFreeSpace", "RecordAndGetPageWithFreeSpace", "RecordPageWithFreeSpace", "XLogRecordPageWithFreeSpace", "FreeSpaceMapVacuum", "FreeSpaceMapVacuumRange", "FreeSpaceMapPrepareTruncateRel", "fsm_search", "fsm_set_and_search", "fsm_vacuum_page", "fsm_get_location", "fsm_logical_to_physical", "fsm_get_parent", "fsm_get_child", "fsm_readbuf", "fsm_extend", "fsm_search_avail", "fsm_set_avail", "fsm_rebuild_page", "fsm_space_avail_to_cat", "GetFreeIndexPage", "RecordFreeIndexPage", "IndexFreeSpaceMapVacuum", "RelationGetBufferForTuple"],
+    "VACUUM_INTEGRATION": ["lazy_vacuum_rel", "vac_truncate_clog"],
+    "EXTENSION_HOOKS": ["object_access_hook"]
+  },
+
+  "critical_paths": [
+    ["heap_create_with_catalog", "heap_create", "RelationCreateStorage", "log_smgrcreate", "smgrcreate"],
+    ["CatalogTupleInsert", "CatalogIndexInsert", "CacheInvalidateHeapTuple", "PrepareToInvalidateCacheTuple", "RegisterCatcacheInvalidation"],
+    ["CatalogTupleUpdate", "heap_update", "CacheInvalidateHeapTuple", "RegisterRelcacheInvalidation"],
+    ["RecordTransactionCommit", "TransactionIdCommitTree", "TransactionIdSetTreeStatus", "TransactionIdSetPageStatus", "SimpleLruReadPage_ReadOnly"],
+    ["RecordTransactionCommit", "xactGetCommittedInvalidationMessages", "AtEOXact_Inval", "SendSharedInvalidMessages", "SIInsertDataEntries"],
+    ["xact_redo_commit", "ProcessCommittedInvalidationMessages", "SendSharedInvalidMessages", "LocalExecuteInvalidationMessage", "CatCacheInvalidate"],
+    ["AcceptInvalidationMessages", "ReceiveSharedInvalidMessages", "SIGetDataEntries", "LocalExecuteInvalidationMessage", "RelationCacheInvalidateEntry"],
+    ["RelationIdGetRelation", "RelationBuildDesc", "ScanPgRelation", "SearchSysCache1", "SearchCatCacheInternal"],
+    ["heap_update", "visibilitymap_clear", "MarkBufferDirty"],
+    ["lazy_vacuum_rel", "visibilitymap_set", "log_heap_visible", "XLogInsert"],
+    ["RelationGetBufferForTuple", "GetPageWithFreeSpace", "fsm_search", "fsm_search_avail", "fsm_readbuf"],
+    ["heap_insert", "RelationGetBufferForTuple", "RecordAndGetPageWithFreeSpace", "fsm_set_and_search"],
+    ["CreateCheckPoint", "CheckPointGuts", "CheckPointCLOG", "SimpleLruWriteAll", "SlruInternalWritePage", "SlruPhysicalWritePage"],
+    ["CreateCheckPoint", "CheckPointGuts", "CheckPointMultiXact", "MultiXactGetCheckptMulti", "UpdateControlFile"],
+    ["StartupXLOG", "ReadControlFile", "StartupCLOG", "StartupMultiXact", "StartupCommitTs", "TrimCLOG"],
+    ["RelationMapUpdateMap", "perform_relmap_update", "write_relmap_file", "XLogInsert"],
+    ["RelationCacheInitializePhase3", "formrdesc", "load_critical_index", "RelationMapOidToFilenumber"]
+  ]
+}
