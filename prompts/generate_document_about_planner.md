@@ -52,22 +52,6 @@ topic_specific_generated_docs/about_planner/
 
 ## Available Resources
 
-### MCP Server Capabilities
-You have access to a specialized MCP server with these functions:
-- `pg_symbol_overview(symbol)` - Get concise overview (low context usage)
-- `pg_symbol_document(symbol)` - Get detailed documentation
-- `pg_symbol_source(symbol)` - Retrieve source code for a symbol
-- `pg_references_from(symbol)` - Get symbols referenced by this symbol
-- `pg_references_to(symbol)` - Get symbols that reference this symbol
-
-**Environment setup**: The any-script MCP server is backed by Python scripts under `./scripts/` and DuckDB databases (`global_symbols.db`, `data/documents.duckdb`). Before invoking any MCP tool that depends on the local databases, activate the project venv:
-
-```bash
-source venv/bin/activate
-```
-
-If the MCP tool reports `snode_module.py not found` or a missing module error, the venv is not activated or required Python packages (notably `duckdb`) are missing. Fall back to direct source-tree exploration in that case — the `./src/` directory is the single source of truth regardless.
-
 ### Local Source Code (PostgreSQL `src/` directory)
 The PostgreSQL source tree is available locally at `./src/`. This is a direct copy of the upstream `src/` directory and should be actively referenced throughout all stages. Key directories for Planner documentation:
 
@@ -87,10 +71,8 @@ The PostgreSQL source tree is available locally at `./src/`. This is a direct co
 | `src/backend/optimizer/plan/README` | 158-line README on the plan-generation subdirectory |
 
 **Usage guidelines for source code**:
-- **Prefer direct source reading** over MCP `pg_symbol_source()` when exploring file-level structure, neighboring functions, or header definitions. Use `cat`, `grep`, `find`, and `head`/`tail` to navigate the tree.
-- **Use MCP tools** for targeted symbol lookups, cross-reference analysis, and pre-indexed documentation.
 - When documenting a function, always verify its actual signature and logic against the local source (`./src/...`) as the ground truth.
-- Use `grep -rn` to discover call sites, `#define` constants, and struct definitions that MCP may not fully index.
+- Use `grep -rn` to discover call sites, `#define` constants, and struct definitions.
 - When quoting source code in documentation, include the relative file path (e.g., `src/backend/optimizer/plan/planner.c:288`) for traceability.
 - **For the Path-type catalog**: enumerate subtypes by grepping `grep -nE 'typedef struct .*Path' src/include/nodes/pathnodes.h` and the `T_*Path` entries in `src/include/nodes/nodes.h`. Cross-check against `pathnode.c` for the constructor function for each type.
 - **For the Plan-creator catalog**: enumerate by grepping `grep -nE '^create_[a-z_]+_plan' src/backend/optimizer/plan/createplan.c` (or `grep -nE '^static Plan \*' src/backend/optimizer/plan/createplan.c`).
@@ -110,10 +92,7 @@ Invoke the architecture-analyzer subagent with the following instruction:
 ```
 Analyze the PostgreSQL Planner (Optimizer) subsystem architecture.
 
-Use BOTH the MCP server tools AND the local source tree (`./src/`) for analysis.
-Activate the project venv first (`source venv/bin/activate`) so MCP tools that
-require duckdb-backed lookups can operate; if MCP fails, continue using direct
-source reading.
+Use local source tree (`./src/`) for analysis.
 
 **Source exploration strategy for this stage**:
 - Begin by reading `src/backend/optimizer/README` end-to-end. This document
@@ -133,7 +112,6 @@ source reading.
   - `src/include/optimizer/paths.h`, `src/include/optimizer/pathnode.h`,
     `src/include/optimizer/cost.h`, `src/include/optimizer/planner.h`
 - Use `grep -rn 'FunctionName' ./src/` to trace call chains and discover symbols
-  the MCP index might miss.
 - Enumerate every Path subtype:
   `grep -nE 'typedef struct .*Path' src/include/nodes/pathnodes.h`
   Cross-reference with `T_*Path` entries in `src/include/nodes/nodes.h` and
@@ -141,8 +119,6 @@ source reading.
   (`grep -nE '^create_[a-z_]+_path' src/backend/optimizer/util/pathnode.c`).
 - Enumerate every plan creator function:
   `grep -nE '^create_[a-z_]+_plan' src/backend/optimizer/plan/createplan.c`
-- Cross-validate MCP `pg_references_from()` / `pg_references_to()` results
-  against `grep` results in the source tree.
 
 Build a comprehensive dependency map with depth 5 traversal. Focus on:
 
@@ -664,8 +640,6 @@ Integrate all documentation components into a cohesive, professional technical d
   large number of functions and Path subtypes).
 - Verify that all quoted code snippets in the documentation match the actual source.
 - Confirm file paths referenced in the documentation are valid: `ls ./src/path/to/file.c`.
-- If any discrepancies are found between MCP-sourced information and the local
-  source tree, the local source tree is authoritative.
 - Cross-check every path_catalog entry: verify the constructor name in pathnode.c
   and the cost function name in costsize.c.
 - Cross-check every plan_creator_catalog entry: verify the function exists in
@@ -904,17 +878,15 @@ Integration Requirements:
 5. Report progress after each stage
 
 ### Source Tree Primacy
-- The local `./src/` directory is the **single source of truth**. If MCP tool results conflict with the local source code, always prefer the local source.
+- The local `./src/` directory is the **single source of truth**.
 - `src/backend/optimizer/README` is the authoritative conceptual document — read it before relying on any synthesized description.
-- Subagents should use `./src/` for structural exploration (file layout, neighboring functions, header inclusions) and MCP tools for indexed cross-reference queries.
+- Subagents should use `./src/` for structural exploration (file layout, neighboring functions, header inclusions).
 - All generated documentation must include verifiable source file paths relative to `./src/`.
 
 ### Error Handling
-- **MCP venv/database errors**: If MCP tools report `snode_module.py not found` or missing modules, ensure `source venv/bin/activate` ran and that `global_symbols.db` and `data/documents.duckdb` exist; fall back to direct source-tree exploration if the venv cannot be repaired in scope.
 - **Subagent failure**: Retry once with modified parameters (e.g., reduce scope), then proceed with partial results and document gaps
 - **Missing expected files**: Log warning, attempt recovery using available data, note in quality_report.md
 - **Context limit approaching**: Save progress checkpoint, split remaining work into smaller focused chunks, resume from checkpoint. **For the catalogs**: if context limits are hit, process Path subtypes and plan creators in batches (scan paths first, then join paths, etc.)
-- **MCP server errors**: Implement exponential backoff (1s, 2s, 4s, max 3 retries) before failing gracefully
 - **Symbol not found**: Log missing symbol, attempt alternative names (e.g., with/without `create_` prefix, with/without `_path`/`_plan` suffix), continue with available data
 
 ### Progress Reporting
