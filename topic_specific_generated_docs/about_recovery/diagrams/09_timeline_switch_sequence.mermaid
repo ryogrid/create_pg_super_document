@@ -1,0 +1,26 @@
+sequenceDiagram
+    participant SP as Startup process
+    participant FN as findNewestTimeLine
+    participant WTL as writeTimeLineHistory
+    participant FS as Filesystem
+    participant CF as pg_control
+    participant ARC as Archive (if archive_command)
+    participant DOWN as Downstream replicas
+
+    Note over SP: end of recovery reached<br/>(promote signal OR target hit OR EOF)
+    SP->>SP: FinishWalRecovery() captures<br/>endOfLog, lastRec, lastPage
+    SP->>SP: oldTLI = ThisTimeLineID;<br/>switchpoint = endOfLog
+    SP->>FN: search highest TLI past oldTLI
+    FN-->>SP: nextTLI = oldTLI + 1
+    SP->>WTL: writeTimeLineHistory(nextTLI, oldTLI,<br/>switchpoint, "after standby")
+    WTL->>FS: writeTimeLineHistoryFile pg_wal/&lt;nextTLI&gt;.history
+    FS-->>WTL: fsync ok
+    WTL->>ARC: XLogArchiveNotify pg_wal/&lt;nextTLI&gt;.history
+    SP->>SP: ThisTimeLineID = nextTLI
+    SP->>SP: emit XLOG_END_OF_RECOVERY<br/>(ThisTimeLineID=nextTLI,<br/>PrevTimeLineID=oldTLI)
+    SP->>FS: RemoveNonParentXlogFiles<br/>(remove future segments on oldTLI)
+    SP->>SP: CreateCheckPoint(<br/>CHECKPOINT_END_OF_RECOVERY |<br/>CHECKPOINT_IMMEDIATE)
+    SP->>CF: state=DB_IN_PRODUCTION;<br/>checkPoint=newLSN<br/>(UpdateControlFile)
+    SP->>SP: SharedRecoveryState=DONE
+    Note over DOWN: cascading replicas
+    DOWN->>DOWN: ApplyWalRecord sees<br/>XLOG_END_OF_RECOVERY,<br/>checkTimeLineSwitch,<br/>updates expectedTLEs,<br/>switches to nextTLI

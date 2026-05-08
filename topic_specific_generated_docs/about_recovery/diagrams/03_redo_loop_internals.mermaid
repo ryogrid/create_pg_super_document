@@ -1,0 +1,50 @@
+flowchart TB
+    START[PerformWalRecovery entry] --> INIT[XLogRecoveryCtl-&gt;lastReplayed*<br/>= REDO start]
+    INIT --> RST[RmgrStartup<br/>per-rmgr init]
+    RST --> READ0[ReadRecord<br/>positioning at first record]
+    READ0 --> LOOP{record != NULL?}
+    LOOP -->|yes| HSP[HandleStartupProcInterrupts]
+    HSP --> PAU{recoveryPauseState<br/>!= NOT_PAUSED?}
+    PAU -->|yes| RPH[recoveryPausesHere false<br/>blocks on CV]
+    RPH --> SB
+    PAU -->|no| SB{recoveryStopsBefore?}
+    SB -->|yes| RT[reachedRecoveryTarget=true<br/>break]
+    SB -->|no| DLY{recoveryApplyDelay<br/>commit-time based}
+    DLY -->|wait| AWR
+    DLY -->|no wait| AWR[ApplyWalRecord]
+    AWR --> NEXT_XID[AdvanceNextFullTransactionIdPastXid]
+    NEXT_XID --> TLI{TLI switch?<br/>CHECKPOINT_SHUTDOWN<br/>END_OF_RECOVERY}
+    TLI -->|yes| CTLS[checkTimeLineSwitch]
+    TLI -->|no| KAX
+    CTLS --> KAX
+    KAX{standbyState<br/>>= INITIALIZED?}
+    KAX -->|yes| RKAT[RecordKnownAssignedTransactionIds]
+    KAX -->|no| RXR
+    RKAT --> RXR{rmid == RM_XLOG?}
+    RXR -->|yes| XR[xlogrecovery_redo<br/>BACKUP_END / OVERWRITE_CONTRECORD]
+    RXR -->|no| RMR
+    XR --> RMR
+    RMR[GetRmgr.rm_redo dispatch]
+    RMR --> RMR_OUT[(22 rmgr callbacks)]
+    RMR_OUT --> CONS{XLR_CHECK_CONSISTENCY?}
+    CONS -->|yes| VBC[verifyBackupPageConsistency]
+    CONS -->|no| LR
+    VBC --> LR[update lastReplayedReadRecPtr<br/>lastReplayedEndRecPtr<br/>lastReplayedTLI]
+    LR --> WSW{cascade_replication?}
+    WSW -->|yes| WS[WalSndWakeup]
+    WSW -->|no| CRC
+    WS --> CRC[CheckRecoveryConsistency]
+    CRC --> SA{recoveryStopsAfter?}
+    SA -->|yes| RT
+    SA -->|no| READ_NEXT[ReadRecord next]
+    READ_NEXT --> LOOP
+    LOOP -->|no| EOF[record==NULL: EOF]
+    EOF --> END[break out of loop]
+    RT --> END
+    END --> CLN[RmgrCleanup]
+    CLN --> ACT{recovery_target_action}
+    ACT -->|shutdown| PE[proc_exit 3]
+    ACT -->|pause| RPH2[recoveryPausesHere true]
+    RPH2 --> RTRN[return]
+    ACT -->|promote| RTRN
+    ACT -->|none target hit| RTRN

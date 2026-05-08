@@ -1,0 +1,20 @@
+stateDiagram-v2
+    [*] --> DB_STARTUP: pg_basebackup leaves this
+    DB_STARTUP --> DB_IN_CRASH_RECOVERY: pg_control was startup,<br/>no signal files
+    DB_IN_PRODUCTION --> DB_IN_CRASH_RECOVERY: kernel crash,<br/>cluster restarts,<br/>no signal files
+    DB_IN_PRODUCTION --> DB_SHUTDOWNING: SIGTERM (smart shutdown)
+    DB_SHUTDOWNING --> DB_SHUTDOWNED: clean shutdown checkpoint written
+    DB_SHUTDOWNED --> DB_IN_PRODUCTION: clean restart, no recovery needed
+
+    DB_STARTUP --> DB_IN_ARCHIVE_RECOVERY: recovery.signal/<br/>standby.signal present<br/>+ restore_command
+    DB_IN_CRASH_RECOVERY --> DB_IN_ARCHIVE_RECOVERY: pg_wal exhausted<br/>but more WAL needed<br/>(SwitchIntoArchiveRecovery)
+    DB_IN_CRASH_RECOVERY --> DB_IN_PRODUCTION: redo finished,<br/>no signal files<br/>(common case)
+
+    DB_IN_ARCHIVE_RECOVERY --> DB_IN_PRODUCTION: target reached<br/>+ recovery_target_action=promote<br/>+ TLI bump
+    DB_IN_ARCHIVE_RECOVERY --> DB_IN_PRODUCTION: standby promoted<br/>(TLI bump)
+
+    DB_IN_ARCHIVE_RECOVERY --> DB_SHUTDOWNING: shutdown during recovery
+    DB_SHUTDOWNING --> DB_SHUTDOWNED_IN_RECOVERY: shutdown completed,<br/>recovery not yet finished
+    DB_SHUTDOWNED_IN_RECOVERY --> DB_IN_ARCHIVE_RECOVERY: restart, resume recovery
+
+    DB_IN_ARCHIVE_RECOVERY --> DB_SHUTDOWNED_IN_RECOVERY: recovery_target_action=shutdown<br/>(proc_exit 3)

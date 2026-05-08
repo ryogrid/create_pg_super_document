@@ -1,0 +1,183 @@
+PostgreSQL recovery_target_* GUC Inventory
+==========================================
+Sources:
+  src/backend/utils/misc/guc_tables.c
+  src/backend/access/transam/xlogrecovery.c
+  src/include/access/xlogrecovery.h
+
+Each entry: name, type, default, parser hook (check_*), assign hook
+(assign_*), comparison field in the WAL record / runtime variable,
+stop predicate.
+
+Mutual-exclusion enforcement: validateRecoveryParameters
+(xlogrecovery.c:1109) plus per-GUC check hooks (each refuses to be set
+if another recovery_target_* is already armed via the 'extra' pointer
+mechanism).
+
+----
+1. recovery_target
+   GUC table:           guc_tables.c:4007
+   Type:                string (PGC_POSTMASTER, WAL_RECOVERY_TARGET)
+   Default:             "" (RECOVERY_TARGET_UNSET)
+   Backing store:       recovery_target_string -> recoveryTarget enum
+                        RecoveryTargetType (xlogrecovery.h:23)
+   Parser:              check_recovery_target  (xlogrecovery.c:4782)
+                        - only accepts "" or "immediate"
+   Assign:              assign_recovery_target (xlogrecovery.c:4796)
+                        - sets recoveryTarget = RECOVERY_TARGET_IMMEDIATE
+   Compare in record:   no record comparison; recoveryStopsAfter returns
+                        true at consistency point (reachedConsistency)
+   Stop predicate:      recoveryStopsAfter when target=immediate AND
+                        record's lsn >= minRecoveryPoint and we're past
+                        backupEndPoint.
+
+2. recovery_target_xid
+   GUC table:           guc_tables.c:4016
+   Type:                string -> TransactionId  (PGC_POSTMASTER)
+   Default:             ""
+   Backing store:       recovery_target_xid_string -> recoveryTargetXid
+   Parser:              check_recovery_target_xid  (xlogrecovery.c:5012)
+                        - parses to TransactionId, refuses if other
+                        recovery_target_* already set
+   Assign:              assign_recovery_target_xid (xlogrecovery.c:5035)
+                        - sets recoveryTargetXid; recoveryTarget = XID
+   Compare in record:   XLogRecGetXid(record) for COMMIT/ABORT/PREPARE
+                        records (rmid==RM_XACT_ID and matching info bit)
+   Stop predicate:      recoveryStopsBefore (if !inclusive, stop before
+                        applying matching XACT record)
+                        recoveryStopsAfter  (if inclusive)
+
+3. recovery_target_time
+   GUC table:           guc_tables.c:4025
+   Type:                string -> TimestampTz (PGC_POSTMASTER)
+   Default:             ""
+   Backing store:       recovery_target_time_string -> recoveryTargetTime
+   Parser:              check_recovery_target_time  (xlogrecovery.c:4895)
+                        - validates timestamp parse via DefElem fence
+   Assign:              assign_recovery_target_time (xlogrecovery.c:4950)
+                        - sets recoveryTargetTime; recoveryTarget = TIME
+                        (final timestamptz_in conversion deferred to
+                        validateRecoveryParameters because timezone may
+                        not be loaded yet)
+   Compare in record:   parsed.xact_time field of xl_xact_parsed_commit
+                        (or xl_xact_parsed_abort)
+   Stop predicate:      recoveryStopsBefore / recoveryStopsAfter on
+                        XACT_COMMIT / XACT_ABORT records when xact_time
+                        > recoveryTargetTime.
+
+4. recovery_target_lsn
+   GUC table:           guc_tables.c:4043
+   Type:                string -> XLogRecPtr (PGC_POSTMASTER)
+   Default:             ""
+   Backing store:       recovery_target_lsn_string -> recoveryTargetLSN
+   Parser:              check_recovery_target_lsn  (xlogrecovery.c:4812)
+   Assign:              assign_recovery_target_lsn (xlogrecovery.c:4835)
+                        - sets recoveryTargetLSN; recoveryTarget = LSN
+   Compare in record:   record->ReadRecPtr (record start LSN)
+   Stop predicate:      recoveryStopsBefore (if !inclusive, stop just
+                        before record at recoveryTargetLSN)
+                        recoveryStopsAfter  (if inclusive, stop at first
+                        record whose start is >= recoveryTargetLSN)
+
+5. recovery_target_name
+   GUC table:           guc_tables.c:4034
+   Type:                string (PGC_POSTMASTER)
+   Default:             ""
+   Backing store:       recovery_target_name_string -> recoveryTargetName
+   Parser:              check_recovery_target_name  (xlogrecovery.c:4854)
+                        - rejects if longer than MAXFNAMELEN-1
+   Assign:              assign_recovery_target_name (xlogrecovery.c:4870)
+                        - sets recoveryTargetName; recoveryTarget = NAME
+   Compare in record:   xl_restore_point.rp_name in XLOG_RESTORE_POINT
+   Stop predicate:      recoveryStopsAfter (xlogrecovery.c:2748):
+                        rmid==RM_XLOG_ID && info==XLOG_RESTORE_POINT &&
+                        strcmp(rp_name, recoveryTargetName)==0
+                        (named restore points are inherently inclusive)
+
+6. recovery_target_timeline
+   GUC table:           guc_tables.c:3997
+   Type:                string (PGC_POSTMASTER)
+   Default:             "latest"
+   Backing store:       recovery_target_timeline_string ->
+                        recoveryTargetTimeLineGoal
+                        (RecoveryTargetTimeLineGoal enum: CONTROLFILE,
+                         LATEST, NUMERIC) and recoveryTargetTLIRequested
+   Parser:              check_recovery_target_timeline (xlogrecovery.c:4966)
+                        - accepts "latest", "current", or a positive
+                        decimal/hex TLI
+   Assign:              assign_recovery_target_timeline (xlogrecovery.c:4999)
+                        - sets recoveryTargetTimeLineGoal and
+                        recoveryTargetTLIRequested
+   Resolution:          validateRecoveryParameters (xlogrecovery.c:1156)
+                        - LATEST -> findNewestTimeLine; NUMERIC ->
+                          existsTimeLineHistory check; CONTROLFILE keeps
+                          the value pre-loaded into recoveryTargetTLI
+   Compare in record:   N/A (a constraint, not a stop predicate); used
+                        by checkTimeLineSwitch to ensure replay follows
+                        the requested branch.
+
+7. recovery_target_inclusive
+   GUC table:           guc_tables.c:1767
+   Type:                bool (PGC_POSTMASTER)
+   Default:             true
+   Backing store:       recoveryTargetInclusive
+   Parser/Assign:       NULL/NULL (no hooks; standard bool)
+   Stop predicate use:  controls whether the stop test fires before
+                        (recoveryStopsBefore) or after (recoveryStopsAfter)
+                        applying the matching record - applicable to
+                        XID, TIME, LSN; not to NAME (always inclusive)
+                        nor to IMMEDIATE.
+
+8. recovery_target_action
+   GUC table:           guc_tables.c:4924
+   Type:                enum (PGC_POSTMASTER)
+   Default:             RECOVERY_TARGET_ACTION_PAUSE
+   Allowed values:      pause, promote, shutdown
+                        (recovery_target_action_options[])
+   Backing store:       recoveryTargetAction (RecoveryTargetAction enum
+                        in xlog_internal.h:322)
+   Parser/Assign:       NULL/NULL
+   Behavior:            after stop predicate fires:
+                        PAUSE -> SetRecoveryPause(true); user must
+                                pg_wal_replay_resume / pg_promote
+                        PROMOTE -> SignalPromotion; same path as
+                                'promote' file
+                        SHUTDOWN -> proc_exit(0) inside StartupXLOG,
+                                postmaster sees clean exit, cluster goes
+                                to DB_SHUTDOWNED_IN_RECOVERY and stops.
+                        Special: validateRecoveryParameters demotes
+                        PAUSE to SHUTDOWN if hot_standby is off.
+
+9. recovery_min_apply_delay
+   GUC table:           guc_tables.c:2172
+   Type:                int (ms; PGC_SIGHUP, REPLICATION_STANDBY)
+   Default:             0  (range 0..INT_MAX)
+   Backing store:       recovery_min_apply_delay
+   Parser/Assign:       NULL/NULL
+   Compare in record:   record's xact_time on XACT_COMMIT / COMMIT_PREPARED
+   Stop predicate:      none (it's a delay, not a stop). Implemented in
+                        recoveryApplyDelay (xlogrecovery.c:2510): waits
+                        until xact_time + recovery_min_apply_delay <= now
+                        before letting ApplyWalRecord process the commit.
+                        SIGHUP and recoveryPause checks inside the wait.
+
+10. restore_command  (recovery-related companion, not a recovery_target)
+    Listed because it co-validates with recovery_target_* in
+    validateRecoveryParameters: archive recovery without standby mode
+    REQUIRES restore_command to be set.
+
+11. recovery_end_command  (companion)
+    Run once just after StartupXLOG transitions out of recovery
+    (post-promotion). Typical use: tell an operator system that the
+    cluster has been promoted.
+
+12. archive_cleanup_command  (companion)
+    Run from CreateRestartPoint after pg_wal recycling, used to clean
+    up the WAL archive of segments older than the new restartpoint
+    (`%r` substitution).
+
+----
+Summary count: 9 recovery_target_* / recovery_min_apply_delay GUCs that
+control PITR/standby replay behavior; 3 supporting shell-command GUCs
+(restore_command, recovery_end_command, archive_cleanup_command) that
+participate in the same machinery.

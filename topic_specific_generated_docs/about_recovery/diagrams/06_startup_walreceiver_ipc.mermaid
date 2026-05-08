@@ -1,0 +1,36 @@
+sequenceDiagram
+    participant SP as Startup process
+    participant WR as walreceiver
+    participant SHM as WalRcvData (shmem)
+    participant PM as Postmaster
+    participant PRI as Primary walsender
+
+    Note over SP: WaitForWALToBecomeAvailable<br/>decides XLOG_FROM_STREAM
+    SP->>SHM: lock; receiveStart=LSN;<br/>receiveStartTLI=TLI;<br/>conninfo=...; slotname=...;<br/>walRcvState=STARTING; unlock
+    SP->>PM: SendPostmasterSignal(PMSIGNAL_START_WALRECEIVER)
+    PM->>WR: fork+exec WalReceiverMain
+    WR->>WR: load_file libpqwalreceiver
+    WR->>SHM: read receiveStart, conninfo
+    WR->>PRI: walrcv_connect(conninfo)
+    WR->>PRI: walrcv_identify_system
+    PRI-->>WR: system_identifier, current TLI
+    WR->>PRI: walrcv_startstreaming(receiveStart, slot)
+    SP->>SP: WaitLatch(&WalRcv->latch,<br/>WL_LATCH_SET|WL_TIMEOUT,<br/>wal_retrieve_retry_interval)
+
+    loop receive bytes
+        PRI-->>WR: 'w' WAL bytes
+        WR->>WR: XLogWalRcvWrite (pg_wal/seg)
+        WR->>WR: XLogWalRcvFlush (fsync)
+        WR->>SHM: writtenUpto/flushedUpto advance
+        WR->>SP: SetLatch(&WalRcv->latch)
+        SP->>SHM: GetWalRcvFlushRecPtr
+        SHM-->>SP: flushedUpto = NEW_LSN
+        SP->>SP: NEW_LSN >= RecPtr? yes
+        SP->>SP: continue redo (read pg_wal segment)
+    end
+
+    Note over SP: at promotion or shutdown
+    SP->>SHM: ShutdownWalRcv (set walRcvState=STOPPING)
+    SP->>WR: WalRcvForceReply force_reply=1<br/>(optional final reply)
+    WR->>PRI: walrcv_endstreaming + walrcv_disconnect
+    WR->>WR: proc_exit(0)

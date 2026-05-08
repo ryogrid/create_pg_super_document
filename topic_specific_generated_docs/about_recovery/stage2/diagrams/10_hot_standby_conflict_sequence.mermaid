@@ -1,0 +1,33 @@
+sequenceDiagram
+    participant Pri as Primary
+    participant WAL as WAL stream
+    participant SP as Startup (heap2_redo)
+    participant RC as ResolveRecoveryConflictWithSnapshot
+    participant PA as procarray
+    participant Bk as Standby backend (long SELECT)
+    participant Cancel as Cancel timeout
+
+    Note over Pri: VACUUM marks tuples xmin<800 as dead
+    Pri->>WAL: XLOG_HEAP2_PRUNE_VACUUM_SCAN<br/>(snapshotConflictHorizon=800)
+    WAL->>SP: heap2_redo dispatch
+    SP->>SP: extract horizon=800 from record
+    SP->>RC: ResolveRecoveryConflictWithSnapshot(800, rnode)
+    RC->>PA: GetConflictingVirtualXIDs(horizon=800)
+    PA-->>RC: [vxid_B] (B's xmin=500 < 800)
+    RC->>Bk: SendProcSignal(vxid_B,<br/>PROCSIG_RECOVERY_CONFLICT_SNAPSHOT)
+    Bk->>Bk: HandleRecoveryConflictInterrupt:<br/>RecoveryConflictPending=true<br/>Reasons[SNAPSHOT]=true<br/>InterruptPending=true
+    activate Cancel
+    Cancel->>Cancel: sleep up to<br/>max_standby_streaming_delay
+    deactivate Cancel
+    alt Backend hits CFI in time
+        Bk->>Bk: ProcessRecoveryConflictInterrupt
+        Bk->>Bk: ereport(ERROR,<br/>"canceling statement due to<br/>conflict with recovery")
+        Bk-->>RC: VXID released
+    else Timeout fires
+        RC->>Bk: CancelVirtualTransaction(vxid_B,<br/>PROCSIG_RECOVERY_CONFLICT_SNAPSHOT)
+        Bk->>Bk: next CFI: ERROR
+    end
+    RC-->>SP: return (no more conflicting VXIDs)
+    SP->>SP: XLogReadBufferForRedoExtended cleanup-lock OK
+    SP->>SP: apply prune to heap page
+    SP->>SP: PageSetLSN; MarkBufferDirty

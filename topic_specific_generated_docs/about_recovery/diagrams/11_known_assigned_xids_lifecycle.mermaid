@@ -1,0 +1,43 @@
+sequenceDiagram
+    participant Pri as Primary (LogStandbySnapshot)
+    participant WAL as WAL stream
+    participant SR as standby_redo
+    participant XR as xact_redo
+    participant AR as ApplyWalRecord (any record)
+    participant PA as ProcArrayApplyRecoveryInfo
+    participant KAX as KnownAssignedXids ring
+    participant SS as standbyState
+    participant Bk as Standby backend (GetSnapshotData)
+
+    Pri->>WAL: XLOG_RUNNING_XACTS<br/>(xids=[12345,12346], oldest=12340,<br/>nextXid=12350, subxid_overflow=false)
+    WAL->>SR: standby_redo (RM_STANDBY)
+    SR->>PA: ProcArrayApplyRecoveryInfo(running)
+    PA->>PA: lock ProcArrayLock excl
+    PA->>KAX: clear ring; add [12345,12346]<br/>oldest <- 12340
+    PA->>SS: STANDBY_INITIALIZED -> SNAPSHOT_READY<br/>(if !subxid_overflow)
+    PA->>PA: unlock
+    PA-->>SR: PMSIGNAL_BEGIN_HOT_STANDBY (first time)
+
+    Note over WAL,KAX: subsequent records add xids
+    Pri->>WAL: any record with xl_xid=12347
+    WAL->>AR: ApplyWalRecord
+    AR->>KAX: RecordKnownAssignedTransactionIds(12347)<br/>(when standbyState >= INITIALIZED)
+    KAX->>KAX: KnownAssignedXidsAdd(12347)
+
+    Pri->>WAL: XLOG_XACT_ASSIGNMENT<br/>(parent=12345, subxids=[s1,s2,s3])
+    WAL->>XR: xact_redo (RM_XACT, info=ASSIGNMENT)
+    XR->>KAX: ProcArrayApplyXidAssignment(parent, subxids)
+    KAX->>KAX: add subxids; SubTransSetParent
+
+    Pri->>WAL: XLOG_XACT_COMMIT (xid=12345)
+    WAL->>XR: xact_redo (RM_XACT, info=COMMIT)
+    XR->>KAX: ExpireTreeKnownAssignedTransactionIds(12345, subxids)
+    KAX->>KAX: KnownAssignedXidsRemove + invalidate
+
+    Note over Bk,KAX: standby snapshot construction
+    Bk->>KAX: GetSnapshotData walks ring
+    KAX-->>Bk: xip[] = [12346, 12347]<br/>(active in-flight)
+    Bk->>Bk: visibility check: xmin=12347, xmax=12348
+
+    Note over KAX: periodic compression
+    KAX->>KAX: KnownAssignedXidsCompress<br/>(removes invalid slots)

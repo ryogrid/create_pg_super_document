@@ -1,0 +1,281 @@
+PostgreSQL Redo Callback Inventory
+==================================
+Source: src/include/access/rmgrlist.h (PG_RMGR macro entries)
+Each entry: rmgr_id, name, redo_fn at file:line, info-byte families,
+state mutated, hot-standby implications.
+
+----
+1. RM_XLOG_ID = 0  "XLOG"
+   redo: xlog_redo  src/backend/access/transam/xlog.c:8251
+   info families:
+     XLOG_CHECKPOINT_SHUTDOWN (0x00) - full counter authority; standby
+       fakes empty RUNNING_XACTS; calls RecoveryRestartPoint
+     XLOG_CHECKPOINT_ONLINE   (0x10) - treats counters as minimum;
+       calls RecoveryRestartPoint
+     XLOG_NOOP                (0x20) - no state mutation
+     XLOG_NEXTOID             (0x30) - sets TransamVariables->nextOid
+     XLOG_SWITCH              (0x40) - segment switch (handled at decode)
+     XLOG_BACKUP_END          (0x50) - clears backupEndPoint via
+                                       xlogrecovery_redo path
+     XLOG_PARAMETER_CHANGE    (0x60) - replays primary GUC changes that
+                                       affect standby (max_connections,
+                                       max_worker_processes, max_wal_senders,
+                                       max_prepared_xacts, max_locks_per_xact,
+                                       wal_level, wal_log_hints,
+                                       track_commit_timestamp); may demote
+                                       hot standby if requirements break
+     XLOG_RESTORE_POINT       (0x70) - named PITR target; matched by
+                                       recoveryStopsAfter
+     XLOG_FPW_CHANGE          (0x80) - clears/sets fullPageWrites
+     XLOG_END_OF_RECOVERY     (0x90) - logs that primary promotion just
+                                       happened; triggers TLI bump
+     XLOG_FPI_FOR_HINT        (0xA0) - replays a torn-page-safe hint FPI
+     XLOG_FPI                 (0xB0) - replays a forced FPI (only path
+                                       in xlog_redo that uses block refs)
+     XLOG_OVERWRITE_CONTRECORD(0xD0) - handled by xlogrecovery_redo
+     XLOG_CHECKPOINT_REDO     (0xE0) - marks where REDO begins inside an
+                                       online checkpoint
+   state mutated: TransamVariables (nextXid/nextOid/oldestXid/oldestMulti),
+                  ControlFile (checkPointCopy.nextXid),
+                  XLogCtl->ckptFullXid, fullPageWrites flag,
+                  backupEndPoint clearing.
+   hot standby: triggers ProcArrayApplyRecoveryInfo on shutdown checkpoints;
+                XLOG_PARAMETER_CHANGE may force standby to ereport(FATAL)
+                if hot_standby parameters tighten.
+
+2. RM_XACT_ID = 1  "Transaction"
+   redo: xact_redo  src/backend/access/transam/xact.c:6301
+   info families (XLOG_XACT_OPMASK):
+     XLOG_XACT_COMMIT          (0x00) - xact_redo_commit
+     XLOG_XACT_PREPARE         (0x10) - PrepareRedoAdd
+     XLOG_XACT_ABORT           (0x20) - xact_redo_abort
+     XLOG_XACT_COMMIT_PREPARED (0x30) - xact_redo_commit + PrepareRedoRemove
+     XLOG_XACT_ABORT_PREPARED  (0x40) - xact_redo_abort + PrepareRedoRemove
+     XLOG_XACT_ASSIGNMENT      (0x50) - ProcArrayApplyXidAssignment
+     XLOG_XACT_INVALIDATIONS   (0x60) - currently ignored; real work in
+                                       commit-record-embedded inval msgs
+   state mutated: CLOG (TransactionIdCommitTree/AbortTree), pg_subtrans,
+                  TwoPhaseState shmem, KnownAssignedXids,
+                  smgr (drop relfilelocators of aborted xact or
+                  filenodesToDelete from commit record), shared
+                  invalidation queue.
+   hot standby: ExpireTreeKnownAssignedTransactionIds on commit/abort;
+                ProcessCommittedInvalidationMessages on commit;
+                COMMIT records can also trigger recovery_min_apply_delay.
+
+3. RM_SMGR_ID = 2  "Storage"
+   redo: smgr_redo  src/backend/catalog/storage.c:965
+   info families:
+     XLOG_SMGR_CREATE   (0x10) - smgrcreate of new relfilenode
+     XLOG_SMGR_TRUNCATE (0x20) - smgrtruncate to recorded block count
+   state mutated: filesystem (new fork files), shared buffers
+                  (drop/truncate via DropRelationsBuffers).
+   hot standby: SMGR_TRUNCATE indirectly conflicts via heap pruning that
+                accompanies TRUNCATE; smgr itself doesn't signal conflicts.
+
+4. RM_CLOG_ID = 3  "CLOG"
+   redo: clog_redo  src/backend/access/transam/clog.c:1107
+   info families:
+     CLOG_ZEROPAGE (0x00) - zeros a new clog page
+     CLOG_TRUNCATE (0x10) - advances oldestClogXid + truncates SLRU
+   state mutated: pg_xact SLRU pages.
+   hot standby: irrelevant (no MVCC implications for backends).
+
+5. RM_DBASE_ID = 4  "Database"
+   redo: dbase_redo  src/backend/commands/dbcommands.c:3270
+   info families:
+     XLOG_DBASE_CREATE_FILE_COPY (0x00) - copydir(template1, newdb)
+     XLOG_DBASE_CREATE_WAL_LOG   (0x10) - record-based DB creation
+     XLOG_DBASE_DROP             (0x20) - DropDatabaseBuffers + rmtree;
+                                          calls
+                                          ResolveRecoveryConflictWithDatabase
+   state mutated: filesystem directories, shared buffers.
+   hot standby: DROP path KICKS every backend connected to the dropped DB
+                (PROCSIG_RECOVERY_CONFLICT_DATABASE).
+
+6. RM_TBLSPC_ID = 5  "Tablespace"
+   redo: tblspc_redo  src/backend/commands/tablespace.c:1511
+   info families:
+     XLOG_TBLSPC_CREATE (0x00) - create_tablespace_directories + symlink
+     XLOG_TBLSPC_DROP   (0x10) - destroy_tablespace_directories;
+                                 calls ResolveRecoveryConflictWithTablespace
+                                 first
+   state mutated: pg_tblspc symlinks; filesystem directories.
+   hot standby: DROP path waits for backends with temp files in the
+                tablespace.
+
+7. RM_MULTIXACT_ID = 6  "MultiXact"
+   redo: multixact_redo  src/backend/access/transam/multixact.c:3386
+   info families:
+     XLOG_MULTIXACT_ZERO_OFF_PAGE (0x00) - zero offsets SLRU page
+     XLOG_MULTIXACT_ZERO_MEM_PAGE (0x10) - zero members SLRU page
+     XLOG_MULTIXACT_CREATE_ID     (0x20) - RecordNewMultiXact
+     XLOG_MULTIXACT_TRUNCATE_ID   (0x30) - TruncateMultiXact
+   state mutated: pg_multixact/offsets and pg_multixact/members SLRUs.
+   hot standby: lock-share visibility of multixact members is rebuilt
+                from these records.
+
+8. RM_RELMAP_ID = 7  "RelMap"
+   redo: relmap_redo  src/backend/utils/cache/relmapper.c:1096
+   info families:
+     XLOG_RELMAP_UPDATE (0x00) - rewrites pg_filenode.map
+   state mutated: pg_filenode.map for the affected database/global mapper.
+   hot standby: forces relcache invalidation for mapped relations.
+
+9. RM_STANDBY_ID = 8  "Standby"
+   redo: standby_redo  src/backend/storage/ipc/standby.c:1159
+   info families:
+     XLOG_STANDBY_LOCK    (0x00) - StandbyAcquireAccessExclusiveLock per
+                                   xl_standby_locks.locks[]
+     XLOG_RUNNING_XACTS   (0x10) - ProcArrayApplyRecoveryInfo +
+                                   pgstat_report_stat(true)
+     XLOG_INVALIDATIONS   (0x20) - ProcessCommittedInvalidationMessages
+                                   for primary-side StartTransactionCommand
+                                   sinval messages
+   state mutated: lock manager (virtual locks on behalf of primary xids),
+                  KnownAssignedXids, standbyState, sinval queue.
+   hot standby: this is THE rmgr for hot standby setup; gates the
+                STANDBY_INITIALIZED -> SNAPSHOT_PENDING -> SNAPSHOT_READY
+                state transitions.
+
+10. RM_HEAP2_ID = 9  "Heap2"
+    redo: heap2_redo  src/backend/access/heap/heapam.c:10384
+    info families (XLOG_HEAP_OPMASK):
+      XLOG_HEAP2_PRUNE_ON_ACCESS    (0x10) - heap_xlog_prune_freeze; on
+                                             standby calls
+                                             ResolveRecoveryConflictWithSnapshot
+                                             via snapshotConflictHorizon
+      XLOG_HEAP2_PRUNE_VACUUM_SCAN  (0x20) - same
+      XLOG_HEAP2_PRUNE_VACUUM_CLEANUP (0x30) - same
+      XLOG_HEAP2_VISIBLE            (0x40) - heap_xlog_visible
+                                             (sets VM bit; conflict-with-snapshot)
+      XLOG_HEAP2_MULTI_INSERT       (0x50) - heap_xlog_multi_insert
+      XLOG_HEAP2_LOCK_UPDATED       (0x60) - heap_xlog_lock_updated
+      XLOG_HEAP2_NEW_CID            (0x70) - logical-decoding only; no-op in redo
+      XLOG_HEAP2_REWRITE            (0x80) - heap_xlog_logical_rewrite
+    state mutated: heap pages, visibility map, KnownAssignedXids.
+    hot standby: PRUNE_* and VISIBLE both call
+                 ResolveRecoveryConflictWithSnapshot.
+
+11. RM_HEAP_ID = 10  "Heap"
+    redo: heap_redo  src/backend/access/heap/heapam.c:10338
+    info families (XLOG_HEAP_OPMASK):
+      XLOG_HEAP_INSERT     (0x00)
+      XLOG_HEAP_DELETE     (0x10)
+      XLOG_HEAP_UPDATE     (0x20)
+      XLOG_HEAP_TRUNCATE   (0x30) - no-op (logged by smgr; only kept for
+                                    logical decoding)
+      XLOG_HEAP_HOT_UPDATE (0x40)
+      XLOG_HEAP_CONFIRM    (0x50)
+      XLOG_HEAP_LOCK       (0x60)
+      XLOG_HEAP_INPLACE    (0x70)
+    state mutated: heap pages.
+    hot standby: heap_redo itself does NOT signal conflicts; that's
+                 heap2_redo's responsibility.
+
+12. RM_BTREE_ID = 11  "Btree"
+    redo: btree_redo  src/backend/access/nbtree/nbtxlog.c:1014
+    rm_startup: btree_xlog_startup (init incomplete-split tracker)
+    rm_cleanup: btree_xlog_cleanup (finish any leftover splits)
+    info families:
+      XLOG_BTREE_INSERT_LEAF, _UPPER, _META, _POST
+      XLOG_BTREE_SPLIT_L, _R, _R_HIGHKEY (legacy variants too)
+      XLOG_BTREE_DEDUP
+      XLOG_BTREE_VACUUM
+      XLOG_BTREE_DELETE - calls ResolveRecoveryConflictWithSnapshot
+      XLOG_BTREE_MARK_PAGE_HALFDEAD
+      XLOG_BTREE_UNLINK_PAGE, _UNLINK_PAGE_META
+      XLOG_BTREE_NEWROOT
+      XLOG_BTREE_REUSE_PAGE - emits snapshot-conflict horizon
+    state mutated: btree index pages; a separate hash-table of incomplete
+                   splits across the loop.
+    hot standby: snapshot conflicts on DELETE and REUSE_PAGE.
+
+13. RM_HASH_ID = 12  "Hash"
+    redo: hash_redo  src/backend/access/hash/hash_xlog.c:1067
+    info families:
+      INIT_META_PAGE, INIT_BITMAP_PAGE, INSERT, ADD_OVFL_PAGE,
+      SPLIT_ALLOCATE_PAGE, SPLIT_PAGE, SPLIT_COMPLETE, MOVE_PAGE_CONTENTS,
+      SQUEEZE_PAGE, DELETE, UPDATE_META_PAGE, VACUUM_ONE_PAGE
+    state mutated: hash index pages.
+    hot standby: VACUUM_ONE_PAGE emits snapshot-conflict horizon.
+
+14. RM_GIN_ID = 13  "Gin"
+    redo: gin_redo  src/backend/access/gin/ginxlog.c:726
+    rm_startup: gin_xlog_startup
+    rm_cleanup: gin_xlog_cleanup
+    info families:
+      CREATE_PTREE, INSERT, SPLIT, VACUUM_PAGE, VACUUM_DATA_LEAF_PAGE,
+      DELETE_PAGE, UPDATE_META_PAGE, INSERT_LISTPAGE, DELETE_LISTPAGE
+    state mutated: GIN index pages, GIN posting lists/trees.
+    hot standby: no direct conflict; relies on heap2_redo PRUNE.
+
+15. RM_GIST_ID = 14  "Gist"
+    redo: gist_redo  src/backend/access/gist/gistxlog.c:397
+    rm_startup: gist_xlog_startup
+    rm_cleanup: gist_xlog_cleanup
+    info families:
+      PAGE_UPDATE, DELETE, PAGE_REUSE, PAGE_SPLIT, ASSIGN_LSN, PAGE_DELETE
+    state mutated: GiST pages.
+    hot standby: PAGE_REUSE emits snapshot-conflict horizon.
+
+16. RM_SEQ_ID = 15  "Sequence"
+    redo: seq_redo  src/backend/commands/sequence.c:1834
+    info families:
+      XLOG_SEQ_LOG (0x00) - copies sequence tuple onto the page
+    state mutated: sequence relation page.
+    hot standby: no implications.
+
+17. RM_SPGIST_ID = 16  "SPGist"
+    redo: spg_redo  src/backend/access/spgist/spgxlog.c:935
+    rm_startup: spg_xlog_startup
+    rm_cleanup: spg_xlog_cleanup
+    info families:
+      ADD_LEAF, MOVE_LEAFS, ADD_NODE, SPLIT_TUPLE, PICKSPLIT,
+      VACUUM_LEAF, VACUUM_ROOT, VACUUM_REDIRECT
+    state mutated: SP-GiST pages, redirect tombstone state.
+    hot standby: VACUUM_REDIRECT emits snapshot-conflict horizon.
+
+18. RM_BRIN_ID = 17  "BRIN"
+    redo: brin_redo  src/backend/access/brin/brin_xlog.c:309
+    info families:
+      CREATE_INDEX, INSERT, UPDATE, SAMEPAGE_UPDATE, REVMAP_EXTEND,
+      DESUMMARIZE
+    state mutated: BRIN regular pages, BRIN revmap pages.
+    hot standby: no direct conflict.
+
+19. RM_COMMIT_TS_ID = 18  "CommitTs"
+    redo: commit_ts_redo  src/backend/access/transam/commit_ts.c:1023
+    info families:
+      COMMIT_TS_ZEROPAGE (0x00)
+      COMMIT_TS_TRUNCATE (0x10)
+    state mutated: pg_commit_ts SLRU.
+    hot standby: replicates commit-timestamp visibility.
+
+20. RM_REPLORIGIN_ID = 19  "ReplicationOrigin"
+    redo: replorigin_redo  src/backend/replication/logical/origin.c:827
+    info families:
+      XLOG_REPLORIGIN_SET  (0x00) - replorigin_advance
+      XLOG_REPLORIGIN_DROP (0x10) - removes origin entry
+    state mutated: pg_replication_origin progress in shared memory.
+    hot standby: no direct implications; matters for cascaded logical
+                 replication.
+
+21. RM_GENERIC_ID = 20  "Generic"
+    redo: generic_redo  src/backend/access/transam/generic_xlog.c:478
+    info families:
+      Single op: applies a list of page-deltas recorded via
+      generic_xlog.c by an extension.
+    state mutated: arbitrary buffer pages owned by an extension.
+    hot standby: extension-defined; default safe.
+
+22. RM_LOGICALMSG_ID = 21  "LogicalMessage"
+    redo: logicalmsg_redo  src/backend/replication/logical/message.c:87
+    info families:
+      XLOG_LOGICAL_MESSAGE (0x00) - no-op in redo (decoding only)
+    state mutated: none on redo path.
+    hot standby: no implications.
+
+----
+Summary count: 22 redo callbacks dispatched from RmgrTable[]
+(rmgr ids 0..21 as registered in rmgrlist.h).

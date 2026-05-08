@@ -1,0 +1,64 @@
+PostgreSQL Recovery Subsystem - Top 60 Key Symbols (ranked by importance)
+========================================================================
+Format: SymbolName (score) - Category - Brief description
+
+ 1. StartupXLOG (0.99) - LIFECYCLE_ENTRY - Top-level recovery driver in xlog.c:5384; reads pg_control, dispatches crash/archive/standby, drives PerformWalRecovery, finishes promotion.
+ 2. PerformWalRecovery (0.98) - REDO_LOOP - The redo loop in xlogrecovery.c:1652 (RmgrStartup -> ReadRecord/ApplyWalRecord with stop checks -> RmgrCleanup).
+ 3. ApplyWalRecord (0.95) - REDO_LOOP - Per-record dispatch: TLI switch, KnownAssignedXids tracking, GetRmgr(rmid).rm_redo, consistency check.
+ 4. InitWalRecovery (0.93) - RECOVERY_DRIVER - Initializes recovery state from pg_control + signal/backup-label files; allocates XLogReader/XLogPrefetcher.
+ 5. RecoveryInProgress (0.93) - HOT_STANDBY - Universal predicate consulted by every backend before any write path; backbone of read-only-during-recovery.
+ 6. WaitForWALToBecomeAvailable (0.92) - WAL_READ - Source-selection state machine across XLOG_FROM_PG_WAL, _ARCHIVE, _STREAM with retries.
+ 7. xlog_redo (0.90) - REDO_CALLBACK - RM_XLOG redo: checkpoints, OID, parameter change, FPI, end-of-recovery, restore points; calls RecoveryRestartPoint.
+ 8. ReadRecord (0.90) - WAL_READ - Wraps XLogPrefetcherReadRecord with source-failure recovery via WaitForWALToBecomeAvailable.
+ 9. StartupProcessMain (0.86) - LIFECYCLE_ENTRY - Postmaster-forked auxprocess entry; registers signals/timeouts and calls StartupXLOG.
+10. WalReceiverMain (0.86) - WALRECEIVER - Walreceiver auxprocess main loop; libpqwalreceiver dlopen, walrcv_startstreaming, write/flush/feedback.
+11. xact_redo (0.85) - REDO_CALLBACK - RM_XACT redo: COMMIT/ABORT/PREPARE/COMMIT_PREPARED/ABORT_PREPARED/ASSIGNMENT/INVALIDATIONS dispatch.
+12. heap_redo (0.85) - REDO_CALLBACK - RM_HEAP redo: INSERT/DELETE/UPDATE/HOT_UPDATE/CONFIRM/LOCK/INPLACE/TRUNCATE.
+13. heap2_redo (0.85) - REDO_CALLBACK - RM_HEAP2 redo: PRUNE_*, VISIBLE, MULTI_INSERT, LOCK_UPDATED, NEW_CID, REWRITE; triggers snapshot conflicts.
+14. CreateRestartPoint (0.83) - RESTARTPOINT - Restartpoint counterpart of CreateCheckPoint; flushes buffers, advances minRecoveryPoint, recycles WAL.
+15. FinishWalRecovery (0.83) - RECOVERY_DRIVER - Pre-promotion finalization: captures end-of-WAL state and partial-page bytes.
+16. XLogRecoveryCtl (0.83) - SHMEM_STATE - Shared-memory recovery state: lastReplayedReadRecPtr/lastReplayedEndRecPtr/lastReplayedTLI, recoveryPause, SharedHotStandbyActive.
+17. CheckRecoveryConsistency (0.81) - HOT_STANDBY - Sets reachedConsistency once replay >= minRecoveryPoint and past backupEndPoint; opens hot standby.
+18. ProcArrayApplyRecoveryInfo (0.81) - HOT_STANDBY - Consumes XLOG_RUNNING_XACTS to repopulate KnownAssignedXids and advance standbyState.
+19. xact_redo_commit (0.81) - REDO_CALLBACK - Replays commit: TransactionIdCommitTree, sinval messages, drop relfilenodes, expire KnownAssignedXids.
+20. XLogReadRecord (0.80) - WAL_READ - Reads/validates/decodes the next WAL record; handles continuation records across pages.
+21. ResolveRecoveryConflictWithSnapshot (0.78) - RECOVERY_CONFLICT - Resolver for PROCSIG_RECOVERY_CONFLICT_SNAPSHOT after replay of XLOG_HEAP2_PRUNE_*/BTREE_DELETE.
+22. RestoreArchivedFile (0.78) - ARCHIVE - Implements restore_command with %f/%p/%r substitution.
+23. RequestXLogStreaming (0.78) - WALRECEIVER - Spawns/restarts walreceiver via PMSIGNAL_START_WALRECEIVER; fills WalRcv->receiveStart.
+24. standby_redo (0.78) - REDO_CALLBACK - RM_STANDBY redo: STANDBY_LOCK, RUNNING_XACTS, INVALIDATIONS.
+25. btree_redo (0.78) - REDO_CALLBACK - RM_BTREE redo with rm_startup/rm_cleanup hooks; DELETE op triggers ResolveRecoveryConflictWithSnapshot.
+26. XLogCtl (0.78) - SHMEM_STATE - XLOG-side shared memory; SharedRecoveryState gates RecoveryInProgress's flip to false.
+27. XLogPageRead (0.78) - WAL_READ - Page-level read callback registered into XLogReaderRoutine.page_read.
+28. RmgrTable (0.70) - REDO_LOOP - Master redo dispatch table; one RmgrData per resource manager from rmgrlist.h.
+29. ReadControlFile (0.74) - CONTROLFILE - Reads pg_control and verifies CRC; pg_control->state drives crash vs archive recovery.
+30. ControlFileData (0.72) - CONTROLFILE - On-disk pg_control struct: state, checkPoint, minRecoveryPoint, backupStartPoint/EndPoint/EndRequired.
+31. CheckPoint (0.74) - CONTROLFILE - Body of CHECKPOINT WAL record; defines REDO start point and TLI succession.
+32. RecoveryRestartPoint (0.74) - RESTARTPOINT - Entry from xlog_redo on checkpoint records; signals checkpointer to issue CreateRestartPoint.
+33. KnownAssignedXids (0.74) - HOT_STANDBY - Standby's mirror of in-flight primary XIDs; consulted by GetSnapshotData on the standby.
+34. xact_redo_abort (0.74) - REDO_CALLBACK - Replays abort: TransactionIdAbortTree, drop relfilenodes from aborted xact, expire KnownAssignedXids.
+35. XLogReaderAllocate (0.74) - WAL_READ - Allocates XLogReaderState with caller-supplied XLogReaderRoutine; reused by walsender, pg_waldump, pg_rewind.
+36. recoveryStopsBefore (0.71) - RECOVERY_TARGET - Pre-apply stop predicate for recovery_target_xid/time/lsn/name when inclusive=false.
+37. recoveryStopsAfter (0.71) - RECOVERY_TARGET - Post-apply stop predicate (inclusive variant) plus XLOG_RESTORE_POINT named target handler.
+38. LogStandbySnapshot (0.71) - HOT_STANDBY - PRIMARY-side: emits XLOG_RUNNING_XACTS describing all running XIDs and access-exclusive locks.
+39. InitRecoveryTransactionEnvironment (0.71) - HOT_STANDBY - Sets up startup process to behave like a backend (vxid, procarray entry, KnownAssignedXids).
+40. XLogPrefetcherReadRecord (0.71) - PREFETCH - Optional prefetch wrapper that pre-issues block reads ahead of the redo loop.
+41. StandbyMode (0.71) - GLOBAL_STATE - True iff standby.signal was found; gates streaming source consultation and continuous-recovery loop.
+42. RecoverPreparedTransactions (0.66) - TWO_PHASE - Crash-recovery hook: scans pg_twophase, rebuilds GXACT entries, takes locks for prepared xacts.
+43. ArchiveRecoveryRequested (0.66) - GLOBAL_STATE - True iff recovery.signal or standby.signal was found; toggles InitWalRecovery into archive mode.
+44. CheckForStandbyTrigger (0.66) - PROMOTION - Polls IsPromoteSignaled and the promote file; sets standbyState=DISABLED to terminate redo loop.
+45. read_backup_label (0.66) - BACKUP_LABEL - Parses backup_label; redirects recovery start to backup's checkpoint instead of pg_control's.
+46. WalRcvData (0.66) - WALRECEIVER - Walreceiver shared-memory struct; receiveStart, flushedUpto, latestChunkStart, latch, force_reply.
+47. dbase_redo (0.62) - REDO_CALLBACK - RM_DBASE redo: CREATE_FILE_COPY/CREATE_WAL_LOG/DROP; the DROP triggers ResolveRecoveryConflictWithDatabase.
+48. RmgrData (0.62) - REDO_LOOP - Method-table struct (rm_redo/rm_startup/rm_cleanup/rm_mask/rm_decode) per resource manager.
+49. validateRecoveryParameters (0.62) - RECOVERY_TARGET - Cross-checks recovery_target_*, restore_command, primary_conninfo at startup.
+50. CheckPointGuts (0.62) - RESTARTPOINT - Flushes buffers and SLRUs; shared between checkpoints and restartpoints.
+51. ResolveRecoveryConflictWithVirtualXIDs (0.62) - RECOVERY_CONFLICT - Common subroutine for snapshot/tablespace/lock resolvers; signals + waits up to max_standby_*_delay.
+52. ProcessRecoveryConflictInterrupt (0.62) - RECOVERY_CONFLICT - Backend-side dispatcher per PROCSIG reason: ERROR / FATAL / release-pin / proc_exit.
+53. readTimeLineHistory (0.66) - TIMELINE - Parses <TLI>.history (fetching from archive if needed); foundation of every TLI cross-check.
+54. writeTimeLineHistory (0.62) - TIMELINE - Writes new history file at promotion: parent history + new line (parent TLI, switchpoint, reason).
+55. pg_promote (0.66) - PROMOTION - SQL-callable promotion: PMSIGNAL_PROMOTE; waits up to wait_seconds for SharedRecoveryState==RECOVERY_STATE_DONE.
+56. HotStandbyActive (0.66) - HOT_STANDBY - True once recovery hits consistency AND hot_standby=on AND consistent snapshot is available.
+57. standbyState (0.66) - GLOBAL_STATE - {DISABLED, INITIALIZED, SNAPSHOT_PENDING, SNAPSHOT_READY}; gates KnownAssignedXids tracking.
+58. GetRmgr (0.60) - REDO_LOOP - Inline RmgrTable[] lookup; sole indirection between ApplyWalRecord and per-rmgr rm_redo callbacks.
+59. XLogPrefetcherNextBlock (0.62) - PREFETCH - Per-record analyzer that issues PrefetchSharedBuffer for upcoming blocks; respects drop/truncate filters.
+60. XLogReaderRoutine (0.66) - WAL_READ - Callback table (page_read/segment_open/segment_close); abstraction shared by recovery, walsender, pg_waldump, pg_rewind.

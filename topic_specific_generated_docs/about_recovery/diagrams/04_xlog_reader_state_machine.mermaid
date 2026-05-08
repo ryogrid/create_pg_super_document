@@ -1,0 +1,23 @@
+stateDiagram-v2
+    [*] --> Allocated: XLogReaderAllocate
+    Allocated --> Positioned: XLogBeginRead recPtr
+    Positioned --> ReadingPage: XLogReadRecord
+    ReadingPage --> CallPageRead: routine.page_read<br/>requested page
+    CallPageRead --> CheckSegment: segment open?
+    CheckSegment --> SwitchSegment: no
+    SwitchSegment --> SegmentOpen: routine.segment_open<br/>(may invoke RestoreArchivedFile<br/>via WaitForWALToBecomeAvailable)
+    CheckSegment --> ReadBytes: yes
+    SegmentOpen --> ReadBytes
+    ReadBytes --> ValidatePage: ValidXLogPageHeader
+    ValidatePage --> ReadingPage: invalid<br/>back to caller -> source switch
+    ValidatePage --> HavePage: valid
+    HavePage --> ParseRecord: copy bytes; check xl_tot_len
+    ParseRecord --> ContinuationNeeded: record overflows page
+    ContinuationNeeded --> CallPageRead: read next page<br/>(skip page header)
+    ParseRecord --> CRCCheck: full record bytes available
+    CRCCheck --> Failed: CRC mismatch
+    Failed --> [*]: report_invalid_record<br/>caller logs at emode
+    CRCCheck --> Decoded: CRC OK<br/>DecodeXLogRecord populates blocks[]
+    Decoded --> Returned: ReadRecPtr/EndRecPtr set
+    Returned --> Positioned: caller calls XLogReadRecord again
+    Returned --> [*]: XLogReaderFree

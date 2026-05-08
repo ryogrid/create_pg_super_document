@@ -1,0 +1,37 @@
+flowchart TB
+    ENTRY[WaitForWALToBecomeAvailable<br/>RecPtr, randAccess, ...] --> CHECK[currentSource]
+    CHECK -->|XLOG_FROM_ANY| INIT_PICK
+    INIT_PICK{Mode?}
+    INIT_PICK -->|StandbyMode| STDBY_FIRST[try archive next]
+    INIT_PICK -->|ArchiveRecoveryRequested| AR_FIRST[try archive next]
+    INIT_PICK -->|crash| PG_FIRST[XLOG_FROM_PG_WAL only]
+    STDBY_FIRST --> ARCH
+    AR_FIRST --> ARCH
+    PG_FIRST --> PGREAD
+    ARCH[XLOG_FROM_ARCHIVE]
+    ARCH -->|RestoreArchivedFile<br/>%f, %p, %r substitution| RC{exit code 0?}
+    RC -->|yes| OPEN_ARCH[XLogFileRead<br/>opens RECOVERYXLOG]
+    OPEN_ARCH --> SUCCESS[return XLREAD_SUCCESS]
+    RC -->|no| FALL_PG[fall to XLOG_FROM_PG_WAL]
+    FALL_PG --> PGREAD
+    PGREAD[XLOG_FROM_PG_WAL] --> PGOPEN[XLogFileRead<br/>$PGDATA/pg_wal/&lt;seg&gt;]
+    PGOPEN -->|exists| SUCCESS
+    PGOPEN -->|missing| MODE2{StandbyMode?}
+    MODE2 -->|yes| STREAM[XLOG_FROM_STREAM]
+    MODE2 -->|no, but ArchiveRecoveryRequested| LOOP_BACK[loop: backoff<br/>wal_retrieve_retry_interval]
+    MODE2 -->|crash recovery| EOF[return XLREAD_FAIL<br/>EOF — end of redo]
+    LOOP_BACK --> CHECK
+    STREAM --> WR_RUN{walreceiver running?}
+    WR_RUN -->|no| REQ[RequestXLogStreaming<br/>receiveStart=replayLSN]
+    REQ --> WAIT
+    WR_RUN -->|yes| WAIT
+    WAIT[WaitLatch on WalRcv->latch<br/>up to wal_retrieve_retry_interval]
+    WAIT --> CHECK_WR{flushedUpto >= RecPtr?}
+    CHECK_WR -->|yes| BACK_PG[fall to XLOG_FROM_PG_WAL<br/>read what walreceiver wrote]
+    BACK_PG --> PGREAD
+    CHECK_WR -->|no, timer expired| PROMO{CheckForStandbyTrigger?}
+    PROMO -->|yes| FAIL_PROMO[return false — promote initiated]
+    PROMO -->|no| LOOP_BACK
+    SUCCESS --> RETURN[return]
+    EOF --> RETURN
+    FAIL_PROMO --> RETURN

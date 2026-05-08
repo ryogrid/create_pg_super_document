@@ -1,0 +1,48 @@
+flowchart TB
+    GUC[recovery_target_*<br/>GUCs at startup] --> CK{Per-GUC check_*<br/>hooks}
+    CK -->|conflict| FAIL[reject — only one<br/>recovery_target_* allowed]
+    CK -->|ok| ASSIGN[assign_* sets<br/>recoveryTarget enum<br/>+ specific value]
+    ASSIGN --> VRP[validateRecoveryParameters<br/>xlogrecovery.c:1109]
+    VRP -->|ArchiveRecoveryRequested| CHK1[check restore_command<br/>vs primary_conninfo]
+    VRP -->|hot_standby off| DEMO[recoveryTargetAction<br/>PAUSE -> SHUTDOWN]
+    VRP -->|recoveryTarget==TIME| TZ[timestamptz_in<br/>final parse]
+    VRP -->|recoveryTargetTimeLineGoal| TLI{TLI mode}
+    TLI -->|LATEST| FNT[findNewestTimeLine]
+    TLI -->|NUMERIC| EXISTS[existsTimeLineHistory rtli]
+    TLI -->|CONTROLFILE| KEEP[keep value from pg_control]
+    VRP --> READY[Recovery armed]
+    READY --> LOOP[PerformWalRecovery<br/>per-record loop]
+
+    LOOP -->|each record| RSB{recoveryStopsBefore<br/>xlogrecovery.c:2573}
+    RSB --> CHKAR{ArchiveRecoveryRequested?}
+    CHKAR -->|no — crash| NEXT[continue]
+    CHKAR -->|yes| IMM{IMMEDIATE<br/>+ reachedConsistency?}
+    IMM -->|yes| STOP[stop=true]
+    IMM -->|no| LSN_B{LSN exclusive<br/>+ ReadRecPtr>=target?}
+    LSN_B -->|yes| STOP
+    LSN_B -->|no| XACT_B{rmid==XACT?}
+    XACT_B -->|no| NEXT
+    XACT_B -->|yes| XID_B{XID exclusive<br/>+ recordXid==target?}
+    XID_B -->|yes| STOP
+    XID_B -->|no| TIME_B{TIME<br/>condition met?}
+    TIME_B -->|yes| STOP
+    TIME_B -->|no| NEXT
+
+    NEXT --> AWR[ApplyWalRecord]
+    AWR --> RSA{recoveryStopsAfter<br/>:2726}
+    RSA --> NAME_A{NAME<br/>+ XLOG_RESTORE_POINT<br/>+ rp_name match?}
+    NAME_A -->|yes| STOPA[stop=true]
+    NAME_A -->|no| LSN_A{LSN inclusive<br/>+ ReadRecPtr>=target?}
+    LSN_A -->|yes| STOPA
+    LSN_A -->|no| XID_A{XID inclusive<br/>+ recordXid==target?}
+    XID_A -->|yes| STOPA
+    XID_A -->|no| TIME_A{TIME inclusive<br/>+ recordXtime>target?}
+    TIME_A -->|yes| STOPA
+    TIME_A -->|no| LOOP
+
+    STOP --> ACT[recovery_target_action]
+    STOPA --> ACT
+    ACT -->|PAUSE| PAUSE[recoveryPausesHere true]
+    PAUSE -->|pg_wal_replay_resume| PROMO
+    ACT -->|PROMOTE| PROMO[FinishWalRecovery]
+    ACT -->|SHUTDOWN| EXIT[proc_exit 3]

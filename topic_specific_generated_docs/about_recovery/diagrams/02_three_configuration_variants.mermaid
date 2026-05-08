@@ -1,0 +1,31 @@
+graph TB
+    subgraph "Crash recovery"
+        C_ST[pg_control:<br/>state=DB_IN_PRODUCTION] --> C_DRV[StartupXLOG]
+        C_DRV --> C_LOOP[PerformWalRecovery]
+        C_LOOP -->|XLOG_FROM_PG_WAL only| C_PG[("$PGDATA/pg_wal/")]
+        C_LOOP -->|EOF| C_END[End redo loop]
+    end
+    subgraph "Archive recovery (PITR)"
+        A_FILES[recovery.signal<br/>+ recovery_target_*<br/>+ restore_command] --> A_DRV[StartupXLOG]
+        A_DRV --> A_LOOP[PerformWalRecovery]
+        A_LOOP -->|XLOG_FROM_ARCHIVE| A_ARCH[restore_command]
+        A_LOOP -->|XLOG_FROM_PG_WAL| A_PG[("pg_wal/")]
+        A_LOOP -->|recoveryStopsBefore/After<br/>OR EOF| A_END[End redo loop]
+        A_END --> A_ACT[recovery_target_action]
+    end
+    subgraph "Standby (continuous recovery)"
+        S_FILES[standby.signal<br/>+ primary_conninfo<br/>(optional restore_command)] --> S_DRV[StartupXLOG]
+        S_DRV --> S_LOOP[PerformWalRecovery]
+        S_LOOP -->|XLOG_FROM_ARCHIVE first| S_ARCH[restore_command]
+        S_LOOP -->|XLOG_FROM_PG_WAL| S_PG[("pg_wal/")]
+        S_LOOP -->|XLOG_FROM_STREAM<br/>RequestXLogStreaming| S_WR[walreceiver]
+        S_WR -->|libpqwalreceiver| S_PRI[Primary walsender]
+        S_LOOP -->|never EOF — wait| S_LOOP
+        S_LOOP -->|CheckForStandbyTrigger<br/>(promote)| S_END[End redo loop]
+    end
+    subgraph "Common path"
+        ALL_END[End redo loop reached] --> COMMON[FinishWalRecovery<br/>+ TLI bump<br/>+ XLOG_END_OF_RECOVERY<br/>+ DB_IN_PRODUCTION]
+    end
+    C_END --> ALL_END
+    A_END --> ALL_END
+    S_END --> ALL_END

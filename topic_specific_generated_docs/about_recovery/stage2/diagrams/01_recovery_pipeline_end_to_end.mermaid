@@ -1,0 +1,43 @@
+graph TB
+    PM[Postmaster] -->|fork+exec| SP[Startup Process<br/>postmaster/startup.c]
+    SP -->|StartupProcessMain| SPM[Register signals<br/>+ standby timeouts]
+    SPM --> SX[StartupXLOG<br/>xlog.c:5384]
+    SX -->|LocalProcessControlFile<br/>+ ReadControlFile| CF[(pg_control)]
+    SX -->|signal files| SIG{recovery.signal?<br/>standby.signal?<br/>backup_label?}
+    SIG -->|none + state=DB_IN_PRODUCTION| CR[Crash recovery]
+    SIG -->|recovery.signal| AR[Archive recovery]
+    SIG -->|standby.signal| ST[Standby mode]
+    SIG -->|backup_label| BL[read_backup_label<br/>overrides redo start]
+    CR --> IWR[InitWalRecovery<br/>xlogrecovery.c:512]
+    AR --> IWR
+    ST --> IWR
+    BL --> IWR
+    IWR -->|validateRecoveryParameters| VRP[Validate GUCs;<br/>resolve TLI]
+    IWR -->|XLogReaderAllocate<br/>+ XLogPrefetcherAllocate| RDR[Reader+Prefetcher]
+    IWR -->|readTimeLineHistory| TLH[(TLE history)]
+    IWR -->|ReadCheckpointRecord| CP[Position at REDO start]
+    SX --> PWR[PerformWalRecovery<br/>xlogrecovery.c:1652]
+    PWR -->|RmgrStartup| RST[per-rmgr init]
+    PWR --> LOOP{Redo loop}
+    LOOP -->|ReadRecord| RR[ReadRecord<br/>via prefetcher]
+    LOOP -->|recoveryPausesHere?| PAU[Pause check]
+    LOOP -->|recoveryStopsBefore?| RSB[Stop predicate]
+    LOOP -->|recoveryApplyDelay?| DLY[Apply-delay wait]
+    LOOP -->|ApplyWalRecord| AWR[ApplyWalRecord<br/>:1908]
+    AWR -->|GetRmgr.rm_redo| RM[(22 redo callbacks)]
+    LOOP -->|recoveryStopsAfter?| RSA[Stop predicate]
+    LOOP -->|next record| LOOP
+    LOOP -->|target hit OR EOF| ACT[recovery_target_action]
+    ACT -->|shutdown| EX3[proc_exit 3]
+    ACT -->|pause| PAUSE[recoveryPausesHere true]
+    ACT -->|promote| FWR[FinishWalRecovery<br/>:1458]
+    PAUSE -->|pg_wal_replay_resume| FWR
+    FWR --> RPT[RecoverPreparedTransactions]
+    RPT --> EOR[Write XLOG_END_OF_RECOVERY<br/>or end-of-recovery checkpoint]
+    EOR --> WTL[writeTimeLineHistory<br/>TLI bump]
+    WTL --> RNP[RemoveNonParentXlogFiles]
+    RNP --> UCF[UpdateControlFile<br/>state=DB_IN_PRODUCTION]
+    UCF --> RSD[SharedRecoveryState<br/>= RECOVERY_STATE_DONE]
+    RSD --> SWR[ShutdownWalRecovery]
+    SWR -->|PMSIGNAL_RECOVERY_COMPLETED| PM
+    PM -->|release backends| PROD[Production]

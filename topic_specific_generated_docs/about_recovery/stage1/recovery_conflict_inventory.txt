@@ -1,0 +1,183 @@
+PostgreSQL Recovery Conflict Inventory
+======================================
+Source: src/include/storage/procsignal.h (PROCSIG_RECOVERY_CONFLICT_*)
+        src/backend/storage/ipc/standby.c (Resolve* resolvers)
+        src/backend/tcop/postgres.c (backend-side dispatcher)
+
+Backend-side common path:
+  signal arrival -> HandleRecoveryConflictInterrupt
+                    (postgres.c:3062, sets RecoveryConflictPending)
+  next CFI -> ProcessRecoveryConflictInterrupts (postgres.c:3232)
+              -> ProcessRecoveryConflictInterrupt (postgres.c:3074)
+                 dispatches per reason.
+
+Common grace-period subroutine (signals + waits up to
+max_standby_archive_delay or max_standby_streaming_delay):
+  ResolveRecoveryConflictWithVirtualXIDs (standby.c:359)
+
+Each entry: enum value, conflict type, resolver(s), grace-period GUC,
+victim-selection policy.
+
+----
+1. PROCSIG_RECOVERY_CONFLICT_DATABASE
+   Enum:                procsignal.h:42
+   Conflict type:       database being dropped is in use by a backend
+   Trigger redo path:   dbase_redo XLOG_DBASE_DROP
+   Resolver (standby):  ResolveRecoveryConflictWithDatabase
+                        src/backend/storage/ipc/standby.c:568
+   Grace period GUC:    none - no waiting; victims are killed at once
+                        via CountDBBackends/CancelDBBackends
+   Victim policy:       every backend with MyDatabaseId == dbid
+   Backend handler:     ProcessRecoveryConflictInterrupt -> proc_exit(1)
+                        (cannot recover; the DB is gone)
+
+2. PROCSIG_RECOVERY_CONFLICT_TABLESPACE
+   Enum:                procsignal.h:43
+   Conflict type:       tablespace being dropped contains backend temp
+                        files (or other in-use file)
+   Trigger redo path:   tblspc_redo XLOG_TBLSPC_DROP
+   Resolver (standby):  ResolveRecoveryConflictWithTablespace
+                        src/backend/storage/ipc/standby.c:538
+                        -> ResolveRecoveryConflictWithVirtualXIDs
+   Grace period GUC:    max_standby_archive_delay /
+                        max_standby_streaming_delay
+   Victim policy:       virtual xacts whose temp namespace lives in the
+                        target tablespace (GetConflictingVirtualXIDs)
+   Backend handler:     ereport(ERROR) - aborts the transaction
+                        ("terminating connection due to conflict with
+                         recovery", DETAIL "User was using a tablespace
+                         that must be dropped.")
+
+3. PROCSIG_RECOVERY_CONFLICT_LOCK
+   Enum:                procsignal.h:44
+   Conflict type:       startup process needs an AccessExclusiveLock the
+                        backend is holding (or vice versa)
+   Trigger redo path:   standby_redo XLOG_STANDBY_LOCK ->
+                        StandbyAcquireAccessExclusiveLock when ProcSleep
+                        decides to wait
+   Resolver (standby):  ResolveRecoveryConflictWithLock
+                        src/backend/storage/ipc/standby.c:622
+                        -> ResolveRecoveryConflictWithVirtualXIDs
+   Grace period GUC:    max_standby_archive_delay /
+                        max_standby_streaming_delay (also
+                        deadlock_timeout for log emission and
+                        STANDBY_LOCK_TIMEOUT alarm)
+   Victim policy:       holders of the conflicting locktag
+                        (GetLockConflicts)
+   Backend handler:     ereport(ERROR) - aborts the transaction
+                        ("canceling statement due to conflict with
+                         recovery").
+
+4. PROCSIG_RECOVERY_CONFLICT_SNAPSHOT
+   Enum:                procsignal.h:45
+   Conflict type:       row a backend's snapshot still considered visible
+                        is being removed (heap pruning, btree page reuse,
+                        VM all-visible bit set)
+   Trigger redo paths:  heap2_redo XLOG_HEAP2_PRUNE_*
+                        heap2_redo XLOG_HEAP2_VISIBLE
+                        btree_redo XLOG_BTREE_DELETE,
+                                  XLOG_BTREE_REUSE_PAGE
+                        spg_redo  XLOG_SPGIST_VACUUM_REDIRECT
+                        gist_redo XLOG_GIST_PAGE_REUSE
+                        hash_redo XLOG_HASH_VACUUM_ONE_PAGE
+   Resolver (standby):  ResolveRecoveryConflictWithSnapshot
+                        src/backend/storage/ipc/standby.c:467
+                        (with FullXid variant
+                        ResolveRecoveryConflictWithSnapshotFullXid:511)
+                        -> ResolveRecoveryConflictWithVirtualXIDs
+   Grace period GUC:    max_standby_archive_delay /
+                        max_standby_streaming_delay
+   Victim policy:       GetConflictingVirtualXIDs(snapshotConflictHorizon)
+                        - all backends whose oldest xmin precedes the
+                        record's snapshotConflictHorizon
+   Backend handler:     ereport(ERROR), unless catalog rel and the
+                        backend is processing catalog tuples - then
+                        FATAL ("User query might have needed to see row
+                         versions that must be removed.")
+
+5. PROCSIG_RECOVERY_CONFLICT_LOGICALSLOT
+   Enum:                procsignal.h:46  (named PROCSIG_RECOVERY_CONFLICT_LOGICALSLOT
+                        - the bookkeeping mirror of the docs' "logical
+                          slot" conflict label)
+   Conflict type:       logical replication slot's catalog_xmin /
+                        restart_lsn would invalidate slots; when standby
+                        replays records that violate the slot's needs.
+   Trigger redo paths:  any record that advances the standby's
+                        latestRemovedXid past the slot's catalog_xmin
+                        OR drops a database the slot references.
+   Resolver (standby):  inline in slot.c:
+                        ReplicationSlotsDropDBSlots /
+                        InvalidatePossiblyObsoleteSlot
+                        (the conflict is delivered to the logical-decoding
+                         consumer which holds the slot, not to the slot's
+                         own LSN advance path)
+   Grace period GUC:    max_slot_wal_keep_size and the
+                        invalidate-on-conflict policy
+                        (max_standby_archive_delay /
+                         max_standby_streaming_delay also apply through
+                         the consumer's wait paths)
+   Victim policy:       backend that owns the active replication slot.
+   Backend handler:     ereport(ERROR) for logical decoding consumer;
+                        slot becomes invalidated.
+
+6. PROCSIG_RECOVERY_CONFLICT_BUFFERPIN
+   Enum:                procsignal.h:47
+   Conflict type:       startup process needs cleanup access to a buffer
+                        another backend has pinned (e.g. for VM bit or
+                        page reuse).
+   Trigger redo path:   any redo callback that calls
+                        LockBufferForCleanup; in practice
+                        heap2_redo XLOG_HEAP2_VISIBLE,
+                        btree_redo / hash_redo VACUUM-class records.
+   Resolver (standby):  ResolveRecoveryConflictWithBufferPin
+                        src/backend/storage/ipc/standby.c:792
+                        - sets STANDBY_TIMEOUT timer; on expiry, signals
+                        every pinned buffer's holder
+   Grace period GUC:    max_standby_archive_delay /
+                        max_standby_streaming_delay (used as
+                        STANDBY_TIMEOUT seed)
+   Victim policy:       backends holding pins on the buffer
+                        (SendRecoveryConflictWithBufferPin signals all
+                         active backends; only the actual holders are
+                         affected because non-holders ignore via
+                         RecoveryConflictPendingReasons[])
+   Backend handler:     ProcessRecoveryConflictInterrupt special-case:
+                        if blocking startup AND idle, just release the
+                        pin (no cancel); else ereport(ERROR).
+
+7. PROCSIG_RECOVERY_CONFLICT_STARTUP_DEADLOCK
+   Enum:                procsignal.h:48
+   Conflict type:       circular wait between startup process and a
+                        backend (the backend is waiting on a lock the
+                        startup process holds while pinning the buffer
+                        the startup process needs).
+   Trigger redo path:   detected by CheckRecoveryConflictDeadlock
+                        (standby.c:921) when STANDBY_DEADLOCK_TIMEOUT
+                        fires inside ResolveRecoveryConflictWithBufferPin
+   Resolver (standby):  CheckRecoveryConflictDeadlock signals
+                        PROCSIG_RECOVERY_CONFLICT_STARTUP_DEADLOCK to the
+                        candidate; effect: backend is canceled
+                        unconditionally.
+   Grace period GUC:    deadlock_timeout (and the standard
+                        max_standby_*_delay still applies for the
+                        outer wait)
+   Victim policy:       the backend chosen by the deadlock check.
+   Backend handler:     ereport(FATAL) - terminates the connection.
+                        Required because ERROR is insufficient: the
+                        deadlock cycle includes a non-transactional
+                        buffer pin, and only a backend exit guarantees
+                        release.
+
+----
+Summary count: 7 PROCSIG_RECOVERY_CONFLICT_* enum values,
+covering DATABASE, TABLESPACE, LOCK, SNAPSHOT, LOGICALSLOT, BUFFERPIN,
+and STARTUP_DEADLOCK.
+
+Two-stage delivery summary:
+  startup-side  (standby.c)  : Resolve* family -> SendProcSignal
+  backend-side  (postgres.c) : HandleRecoveryConflictInterrupt sets bits,
+                               ProcessRecoveryConflictInterrupt dispatches
+                               at next CFI to ERROR/FATAL/release-pin.
+
+Logging hook: log_recovery_conflict_waits=on routes long waits through
+LogRecoveryConflict (standby.c:282) once deadlock_timeout has elapsed.
