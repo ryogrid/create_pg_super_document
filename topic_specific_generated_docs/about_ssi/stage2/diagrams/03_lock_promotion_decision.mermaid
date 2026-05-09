@@ -1,0 +1,46 @@
+flowchart TB
+    subgraph "Lock Promotion Decision"
+        ACQUIRE["PredicateLockAcquire()<br/>Acquiring new lock"]
+        
+        MEMORY_CHECK{"Memory used<br/>by locks >threshold?<br/>max_predicate_locks"}
+        
+        MEMORY_CHECK -->|NO| GRANT_LOCK["Grant lock"]
+        MEMORY_CHECK -->|YES| NEED_PROMOTE["Promotion needed"]
+    end
+    
+    subgraph "Coalesce Decision"
+        NEED_PROMOTE --> COUNT_SAME{"Count locks on<br/>same parent?"}
+        
+        COUNT_SAME -->|tuple count| TUPLE_COUNT
+        COUNT_SAME -->|page count| PAGE_COUNT
+        COUNT_SAME -->|relation| RELATION_COUNT
+        
+        TUPLE_COUNT["Tuple locks > threshold"]
+        PAGE_COUNT["Page locks > threshold"]
+        RELATION_COUNT["Relation locks > threshold"]
+    end
+    
+    subgraph "Promotion Hierarchy"
+        TUPLE_COUNT -->|Promote tuples→page| PROMOTE_PAGE["PredicateLockPageSplit():<br/>Replace all tuple locks<br/>on page with one<br/>page lock"]
+        
+        PAGE_COUNT -->|Promote pages→relation| PROMOTE_RELATION["Promote all page locks<br/>on relation to one<br/>relation lock"]
+        
+        RELATION_COUNT -->|At limit| FORCE_PROMOTION["Forcibly promote:<br/>Remove oldest locks"]
+    end
+    
+    subgraph "Outcome"
+        PROMOTE_PAGE --> SPACE_FREED["Space freed in<br/>PredicateLockHash"]
+        PROMOTE_RELATION --> SPACE_FREED
+        FORCE_PROMOTION --> SPACE_FREED
+        
+        GRANT_LOCK --> INSERT["Insert new lock"]
+        SPACE_FREED --> INSERT
+    end
+    
+    subgraph "Invariants"
+        INV1["No two locks on<br/>same object at<br/>different granularities<br/>from same transaction"]
+        
+        INV2["Coarser lock covers<br/>all finer locks:<br/>Relation covers pages,<br/>pages cover tuples"]
+    end
+    
+    INSERT --> SUCCESS["Done"]

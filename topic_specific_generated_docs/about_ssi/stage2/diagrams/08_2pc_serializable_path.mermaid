@@ -1,0 +1,42 @@
+sequenceDiagram
+    participant Client
+    participant Backend as Backend Process
+    participant SharedMem as Shared Memory
+    participant WAL as WAL Buffer
+    
+    Note over Client,WAL: Two-Phase Commit with SSI
+    
+    Client->>Backend: BEGIN
+    Client->>Backend: SELECT (acquire locks)
+    Backend->>SharedMem: Create predicate locks
+    
+    Client->>Backend: PREPARE TRANSACTION 'xid'
+    activate Backend
+        Backend->>Backend: AtPrepare_PredicateLocks()
+        Note over Backend: Serialize locks to state file
+        
+        Backend->>WAL: Write XLOG_XACT_PREPARE
+        Backend->>WAL: Write predicate lock records
+        
+        Backend->>SharedMem: Mark as PREPARED
+        deactivate Backend
+    
+    Note over Client,SharedMem: Two-phase window<br/>Predicate locks preserved
+    
+    Client->>Backend: COMMIT PREPARED 'xid'
+    activate Backend
+        Backend->>Backend: PreCommit_CheckForSerializationFailure()
+        
+        alt Dangerous Structure Found
+            Backend->>Client: ERROR: serialization_failure
+            Note over Backend: Transaction marked DOOMED
+        else No Danger
+            Backend->>SharedMem: Record commitSeqNo
+            Backend->>WAL: Write XLOG_XACT_COMMIT
+            
+            Backend->>SharedMem: Move to FinishedList
+            Backend->>Backend: ReleasePredicateLocks()
+        end
+        deactivate Backend
+    
+    Client->>Backend: Done

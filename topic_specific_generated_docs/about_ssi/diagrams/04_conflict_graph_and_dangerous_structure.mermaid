@@ -1,0 +1,48 @@
+graph TB
+    subgraph "Dangerous Structure Pattern"
+        TIN["Transaction Tin<br/>(Reader)"]
+        TPIVOT["Transaction Tpivot<br/>(Pivot)"]
+        TOUT["Transaction Tout<br/>(Writer)"]
+        
+        EDGE1["rw-conflict<br/>Tin reads data<br/>written by Tpivot"]
+        EDGE2["rw-conflict<br/>Tpivot reads data<br/>written by Tout"]
+        
+        TIN -->|conflict-in| TPIVOT
+        TPIVOT -->|conflict-in| TOUT
+        
+        EDGE1 -.-> TIN
+        EDGE2 -.-> TPIVOT
+    end
+    
+    subgraph "Detection Timing"
+        TIMING1["Case 1: Tin and Tpivot ACTIVE<br/>Tout COMMITTED"]
+        TIMING2["Case 2: All three ACTIVE<br/>(potential anomaly)"]
+        TIMING3["Case 3: Tin ACTIVE<br/>Tpivot COMMITTED<br/>Tout COMMITTED"]
+    end
+    
+    subgraph "Algorithm"
+        CHECK_OUT["1. CheckForSerializableConflictOut():<br/>Tin (reader) detects Tout's write"]
+        CREATE_EDGE["2. FlagRWConflict()<br/>Creates edge Tin→Tout"]
+        SEARCH["3. OnConflict_CheckForSerializationFailure():<br/>Search for Tin→...→Tout path"]
+        FOUND_PATTERN["4. Pattern found:<br/>Tin→Tpivot→Tout"]
+        DANGER["Dangerous Structure!"]
+        
+        CHECK_OUT --> CREATE_EDGE
+        CREATE_EDGE --> SEARCH
+        SEARCH --> FOUND_PATTERN
+        FOUND_PATTERN --> DANGER
+    end
+    
+    subgraph "Outcome"
+        ABORT_DECISION["Determine victim:<br/>Tin or Tpivot?"]
+        MARK_DOOMED["Mark DOOMED"]
+        ABORT["SERIALIZATION_FAILURE<br/>at commit time"]
+        
+        ABORT_DECISION --> MARK_DOOMED
+        MARK_DOOMED --> ABORT
+    end
+    
+    TIMING1 --> CHECK_OUT
+    TIMING2 --> CHECK_OUT
+    TIMING3 --> CHECK_OUT
+    DANGER --> ABORT_DECISION

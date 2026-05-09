@@ -1,0 +1,74 @@
+graph TB
+    subgraph "Lock Acquisition Order"
+        L1["Level 1:<br/>SerializableFinishedListLock"]
+        L2["Level 2:<br/>SerializablePredicateListLock"]
+        L3["Level 3:<br/>perXactPredicateListLock"]
+        L4["Level 4:<br/>PredicateLockHashPartitionLock<br/>16 partitions"]
+        L5["Level 5:<br/>SerializableXactHashLock"]
+        L6["Level 6:<br/>SerialControlLock"]
+        L7["Level 7:<br/>SLRU Control Lock"]
+        
+        L1 --> L2
+        L2 --> L3
+        L3 --> L4
+        L4 --> L5
+        L5 --> L6
+        L6 --> L7
+    end
+    
+    subgraph "Shared Memory Structures"
+        SHMEM["Shared Memory Layout"]
+        
+        PXACT["PredXactListData<br/>Transaction pool manager<br/>avail/active lists"]
+        
+        XACTHASH["SerializableXidHash<br/>Xid→SERIALIZABLEXACT mapping"]
+        
+        TARGETHASH["PredicateLockTargetHash<br/>Lock targets"]
+        
+        LOCKHASH["PredicateLockHash<br/>Target→Transaction locks"]
+        
+        RWCONFLICT["RWConflictPool<br/>Pre-allocated conflict edges"]
+        
+        FINISHED["FinishedSerializableTransactions<br/>dlist of completed xacts"]
+        
+        SHMEM -.-> PXACT
+        SHMEM -.-> XACTHASH
+        SHMEM -.-> TARGETHASH
+        SHMEM -.-> LOCKHASH
+        SHMEM -.-> RWCONFLICT
+        SHMEM -.-> FINISHED
+    end
+    
+    subgraph "Per-Backend Local"
+        LOCAL["Backend-Local Data"]
+        
+        LOCALXACT["MySerializableXact<br/>Current transaction"]
+        
+        LOCALHASH["LocalPredicateLockHash<br/>Lock cache"]
+        
+        SNAPSHOT["CurrentSnapshot<br/>Transaction's snapshot"]
+        
+        LOCAL -.-> LOCALXACT
+        LOCAL -.-> LOCALHASH
+        LOCAL -.-> SNAPSHOT
+    end
+    
+    subgraph "Partition Strategy"
+        PARTITION["PredicateLockHash Partitions"]
+        P1["Partition 0-1"]
+        P2["Partition 2-3"]
+        P3["Partition .."]
+        P16["Partition 14-15"]
+        
+        PARTITION --> P1
+        PARTITION --> P2
+        PARTITION --> P3
+        PARTITION --> P16
+        
+        P1 -.->|LW_SHARED/EXCLUSIVE| L4
+        P2 -.->|Protected By| L4
+        P3 -.->|Partition Lock| L4
+        P16 -.->|Reduces contention| L4
+    end
+    
+    L4 --> PARTITION

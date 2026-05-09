@@ -1,0 +1,65 @@
+flowchart TB
+    subgraph "Transaction Cleanup Trigger"
+        COMMIT["Transaction Committed<br/>recordTransactionCommit()"]
+        ABORT["Transaction Aborted<br/>AbortTransaction()"]
+        
+        COMMIT --> TRIGGER1["ReleasePredicateLocks()<br/>isCommit = true"]
+        ABORT --> TRIGGER2["ReleasePredicateLocks()<br/>isCommit = false"]
+    end
+    
+    subgraph "Predicate Lock Release"
+        TRIGGER1 --> MOVE_FINISHED["Move SERIALIZABLEXACT<br/>to FinishedList"]
+        
+        TRIGGER2 --> IMMEDIATE_CLEANUP["Immediate cleanup:<br/>Remove all locks"]
+        
+        MOVE_FINISHED --> LOCKS_KEPT["Predicate locks KEPT<br/>for overlap tracking<br/>with future transactions"]
+    end
+    
+    subgraph "ReleaseOneSerializableXact()"
+        REL_XACT["Called for each<br/>old finished transaction"]
+        
+        CHECK_OVERLAP["Check if overlaps<br/>with any active?"]
+        
+        CHECK_OVERLAP -->|YES| KEEP_LOCKS2["Keep locks"]
+        CHECK_OVERLAP -->|NO| REMOVE_LOCKS["Remove locks from<br/>PredicateLockHash"]
+    end
+    
+    subgraph "SLRU Commit History"
+        SLRU_RECORD["SerialAdd():<br/>Record transaction<br/>commit sequence"]
+        
+        SLRU_RECORD --> CONFLICT_INFO["Store conflict info<br/>for crash recovery"]
+    end
+    
+    subgraph "RWConflict Cleanup"
+        CLEANUP_CONFLICTS["Clear all rw-conflicts<br/>involving this xact"]
+        
+        REMOVE_EDGES["Remove from<br/>inConflicts and<br/>outConflicts lists"]
+        
+        RETURN_POOL["Return conflict edges<br/>to RWConflictPool"]
+    end
+    
+    subgraph "SERIALIZABLEXACT Deallocation"
+        DEALLOC["Deallocate SERIALIZABLEXACT"]
+        
+        RETURN_POOL2["Return to<br/>PredXactList.availableList"]
+        
+        DEALLOC --> RETURN_POOL2
+    end
+    
+    subgraph "ClearOldPredicateLocks() - Periodic GC"
+        PERIODIC["Called by autovacuum<br/>periodically"]
+        
+        SCAN_FINISHED["Scan FinishedSerializableTransactions"]
+        
+        SCAN_FINISHED --> FOR_EACH["For each finished xact"]
+        
+        FOR_EACH --> REL_XACT
+    end
+    
+    LOCKS_KEPT --> REL_XACT
+    REMOVE_LOCKS --> CLEANUP_CONFLICTS
+    IMMEDIATE_CLEANUP --> CLEANUP_CONFLICTS
+    CLEANUP_CONFLICTS --> RETURN_POOL
+    RETURN_POOL --> DEALLOC
+    SLRU_RECORD --> KEEP_LOCKS2
+    PERIODIC --> SCAN_FINISHED

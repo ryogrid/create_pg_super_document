@@ -1,0 +1,52 @@
+graph TB
+    subgraph "Predicate Lock Hierarchy"
+        RELATION["RELATION-Level Lock<br/>Covers entire table<br/>Most coarse-grained"]
+        PAGE["PAGE-Level Lock<br/>Covers 8KB page<br/>Medium granularity"]
+        TUPLE["TUPLE-Level Lock<br/>Covers single row<br/>Finest granularity"]
+        
+        RELATION -->|covers| PAGE
+        PAGE -->|covers| TUPLE
+    end
+    
+    subgraph "Lock Target Encoding"
+        REL_ENCODING["Relation Lock:<br/>DatabaseOID | RelationOID | 0 | 0"]
+        PAGE_ENCODING["Page Lock:<br/>DatabaseOID | RelationOID | BlockNumber | 0"]
+        TUPLE_ENCODING["Tuple Lock:<br/>DatabaseOID | RelationOID | BlockNumber | OffsetNumber"]
+    end
+    
+    subgraph "Lock Acquisition"
+        SCAN_TYPE{Type of<br/>Access?}
+        SEQ_SCAN["Sequential Scan<br/>Full Table Read"]
+        INDEX_SCAN["Index Scan<br/>Specific Tuples"]
+        SINGLE_ROW["Point Lookup<br/>Single Row"]
+        
+        SCAN_TYPE -->|Seq Scan| SEQ_SCAN
+        SCAN_TYPE -->|Index| INDEX_SCAN
+        SCAN_TYPE -->|Point| SINGLE_ROW
+    end
+    
+    subgraph "Locking Strategy"
+        SEQ_SCAN --> ACQUIRE_REL["PredicateLockRelation()<br/>One lock for entire scan"]
+        
+        INDEX_SCAN --> FIRST_PAGE["PredicateLockPage()<br/>For each leaf page"]
+        INDEX_SCAN --> EACH_TUPLE["PredicateLockTID()<br/>For each visible tuple"]
+        
+        SINGLE_ROW --> DIRECT_TUPLE["PredicateLockTID()<br/>Direct tuple lock"]
+    end
+    
+    subgraph "Redundancy Check"
+        ACQUIRE_REL --> CHECK_REL{Relation<br/>lock exists?}
+        FIRST_PAGE --> CHECK_REL
+        EACH_TUPLE --> CHECK_REL
+        DIRECT_TUPLE --> CHECK_REL
+        
+        CHECK_REL -->|YES| SKIP["Skip acquiring<br/>Page/Tuple locks<br/>(redundant)"]
+        CHECK_REL -->|NO| CHECK_PAGE{Page lock<br/>exists?}
+        
+        CHECK_PAGE -->|YES| SKIP_TUPLE["Skip acquiring<br/>Tuple lock<br/>(page covers it)"]
+        CHECK_PAGE -->|NO| ACQUIRE["Acquire lock<br/>at granularity"]
+    end
+    
+    SKIP --> OK["Done"]
+    SKIP_TUPLE --> OK
+    ACQUIRE --> OK

@@ -1,0 +1,61 @@
+flowchart TD
+    subgraph "Subtransaction State"
+        PARENT["Parent Transaction<br/>SERIALIZABLEXACT"]
+        CHILD["Subtransaction<br/>SAVEPOINT"]
+        
+        PARENT_XID["topXid = parent_xid"]
+        CHILD_XID["xid = subtxn_xid<br/>topXid = parent_xid"]
+        
+        PARENT --> PARENT_XID
+        CHILD --> CHILD_XID
+    end
+    
+    subgraph "Lock Sharing"
+        LOCK_PARENT["Parent's predicate locks<br/>cover subtransaction too"]
+        
+        SUBTXN_ACQUIRE["Subtransaction acquires lock"]
+        RECORDED["Lock recorded in<br/>parent's predicateLocks list<br/>(same SERIALIZABLEXACT)"]
+        
+        SUBTXN_ACQUIRE --> RECORDED
+    end
+    
+    subgraph "Conflict Propagation"
+        PARENT_CONFLICT["Parent experiences<br/>conflict"]
+        CHILD_CONFLICT["Child (subtxn) has<br/>conflicting write"]
+        
+        PARENT_CONFLICT -->|Affects| CHILD_CONFLICT
+        CHILD_CONFLICT -->|Propagates to| PARENT_CONFLICT
+    end
+    
+    subgraph "Rollback Behavior"
+        ROLLBACK_CHILD["ROLLBACK TO SAVEPOINT"]
+        RELEASE_CHILD["Release child locks"]
+        KEEP_PARENT["Parent locks unchanged"]
+        
+        ROLLBACK_CHILD --> RELEASE_CHILD
+        RELEASE_CHILD --> KEEP_PARENT
+    end
+    
+    subgraph "Commit Behavior"
+        COMMIT_CHILD["SAVEPOINT release<br/>or implicit commit"]
+        MERGE_LOCKS["Child locks merge into<br/>parent's predicateLocks"]
+        NO_NEW_XACT["No new SERIALIZABLEXACT"]
+        
+        COMMIT_CHILD --> MERGE_LOCKS
+        MERGE_LOCKS --> NO_NEW_XACT
+    end
+    
+    subgraph "Final Commit"
+        FINAL_COMMIT["Outer transaction<br/>COMMIT"]
+        
+        FINAL_VALIDATION["PreCommit_CheckForSerializationFailure()<br/>Checks parent only"]
+        
+        FINAL_COMMIT --> FINAL_VALIDATION
+        FINAL_VALIDATION --> CHECK_DANGER{Dangerous<br/>structure?}
+    end
+    
+    LOCK_SHARING --> CONFLICT_PROPAGATION
+    CHILD_XID --> LOCK_SHARING
+    ROLLBACK_CHILD --> FINAL_COMMIT
+    COMMIT_CHILD --> FINAL_COMMIT
+    FINAL_VALIDATION --> OK["OK/Abort<br/>Parent decides<br/>entire outcome"]

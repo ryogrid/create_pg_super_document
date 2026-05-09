@@ -1,0 +1,48 @@
+flowchart TB
+    subgraph "MVCC Visibility"
+        TUPLE["Tuple with xmin/xmax"]
+        SNAPSHOT["Current Transaction's<br/>Snapshot<br/>(xmin, xmax, xip list)"]
+        
+        CHECK_VISIBILITY["Check if tuple<br/>is visible"]
+        
+        TUPLE --> CHECK_VISIBILITY
+        SNAPSHOT --> CHECK_VISIBILITY
+    end
+    
+    subgraph "Visibility Decision"
+        XMIN_CHECK{"xmin < xmin<br/>in progress?"}
+        XMAX_CHECK{"xmax set &<br/>not in progress?"}
+        
+        XMIN_CHECK -->|YES| VISIBLE["Tuple VISIBLE<br/>committed before snapshot"]
+        XMAX_CHECK -->|YES| INVISIBLE["Tuple INVISIBLE<br/>deleted/updated"]
+        XMIN_CHECK -->|NO| XMAX_CHECK
+    end
+    
+    subgraph "SSI Conflict Check"
+        VISIBLE --> CHECK_CONCURRENT{"Tuple xmin =<br/>concurrent<br/>transaction?"}
+        
+        CHECK_CONCURRENT -->|YES| CONFLICT_OUT["Conflict detected:<br/>We read their write"]
+        CHECK_CONCURRENT -->|NO| NO_CONFLICT["No concurrent write"]
+    end
+    
+    subgraph "Predicate Lock Acquisition"
+        CONFLICT_OUT --> PRED_LOCK["PredicateLockTID()<br/>Record lock on tuple"]
+        NO_CONFLICT --> PRED_LOCK
+        
+        PRED_LOCK --> LOCKHASH["Added to<br/>PredicateLockHash"]
+    end
+    
+    subgraph "Conflict Tracking"
+        LOCKHASH --> FlagRWConflict["FlagRWConflict():<br/>Create edge from<br/>our transaction to<br/>tuple's writer"]
+        
+        FlagRWConflict --> DANGEROUS_CHECK["OnConflict_CheckForSerializationFailure():<br/>Search for Tin→Tpivot→Tout<br/>dangerous pattern"]
+    end
+    
+    subgraph "Result"
+        DANGEROUS_CHECK --> ANOMALY{Dangerous<br/>Structure?}
+        
+        ANOMALY -->|YES| MARK_DOOMED["Mark us DOOMED<br/>Will abort at commit"]
+        ANOMALY -->|NO| CONTINUE["Continue execution"]
+    end
+    
+    INVISIBLE --> SKIP["Skip tuple,<br/>no conflict possible"]

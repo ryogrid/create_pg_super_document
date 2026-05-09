@@ -1,0 +1,55 @@
+flowchart TD
+    START["PreCommit_CheckForSerializationFailure()<br/>Commit validation begins"]
+    
+    CHECK_FLAGS{Transaction<br/>state?}
+    
+    ALREADY_DOOMED["Already marked<br/>DOOMED?"]
+    RAISE_ERROR["Raise ERROR<br/>SERIALIZATION_FAILURE"]
+    
+    NOT_DOOMED["Not marked DOOMED"]
+    GET_XACT["Get SERIALIZABLEXACT<br/>record"]
+    
+    SEARCH_STRUCTURES["Search for dangerous<br/>structures from this Xact"]
+    
+    SEARCH_LOOP["For each possible Tpivot<br/>and incoming edge"]
+    
+    CHECK_PATH["Search from Tpivot<br/>for path to committed Tout<br/>with outgoing edge to this Xact"]
+    
+    FOUND_DANGER{Dangerous<br/>Structure<br/>Found?}
+    
+    MARK_DOOMED["Mark as DOOMED"]
+    RAISE_ERROR2["Raise ERROR<br/>SERIALIZATION_FAILURE"]
+    
+    NO_DANGER["No dangerous<br/>structure found"]
+    COMMIT_OK["Allow commit<br/>to proceed"]
+    
+    CLEANUP1["ReleasePredicateLocks()"]
+    CLEANUP2["Record commitSeqNo"]
+    
+    END["Commit completed<br/>or rolled back"]
+    
+    START --> CHECK_FLAGS
+    
+    CHECK_FLAGS -->|Already DOOMED| ALREADY_DOOMED
+    ALREADY_DOOMED --> RAISE_ERROR
+    
+    CHECK_FLAGS -->|Normal| NOT_DOOMED
+    NOT_DOOMED --> GET_XACT
+    
+    GET_XACT --> SEARCH_STRUCTURES
+    SEARCH_STRUCTURES --> SEARCH_LOOP
+    SEARCH_LOOP --> CHECK_PATH
+    CHECK_PATH --> FOUND_DANGER
+    
+    FOUND_DANGER -->|YES| MARK_DOOMED
+    MARK_DOOMED --> RAISE_ERROR2
+    
+    FOUND_DANGER -->|NO| NO_DANGER
+    NO_DANGER --> COMMIT_OK
+    
+    RAISE_ERROR --> CLEANUP1
+    RAISE_ERROR2 --> CLEANUP1
+    COMMIT_OK --> CLEANUP1
+    
+    CLEANUP1 --> CLEANUP2
+    CLEANUP2 --> END

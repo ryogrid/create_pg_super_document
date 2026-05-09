@@ -1,0 +1,63 @@
+flowchart TB
+    subgraph "Monitoring Entry Points"
+        PG_LOCKS["pg_locks system view"]
+        GET_STATUS["GetPredicateLockStatusData()"]
+        PAGE_PRED["PageIsPredicateLocked()"]
+        
+        PG_LOCKS -->|Query| LOCKSVIEW["SELECT from pg_locks"]
+    end
+    
+    subgraph "Lock Status Extraction"
+        GET_STATUS --> SCAN_TARGETS["Scan PredicateLockTargetHash"]
+        SCAN_TARGETS --> FOR_EACH["For each target"]
+        
+        FOR_EACH --> BUILD_OUTPUT["Build output array:<br/>target, xid, pid, mode"]
+    end
+    
+    subgraph "PageIsPredicateLocked()"
+        PAGE_PRED --> CHECK_PAGE["Check if page has<br/>predicate locks"]
+        CHECK_PAGE --> RETURN_BOOL["Return bool"]
+    end
+    
+    subgraph "pg_locks Integration"
+        LOCKSVIEW --> KERNEL["Kernel calls<br/>pg_lock_status()"]
+        
+        KERNEL --> PRED_FILTER["Get predicate locks<br/>via GetPredicateLockStatusData()"]
+        
+        KERNEL --> REGULAR_FILTER["Also get regular<br/>locks"]
+        
+        PRED_FILTER --> COMBINE["Combine into<br/>single result set"]
+        REGULAR_FILTER --> COMBINE
+    end
+    
+    subgraph "Query Examples"
+        QUERY1["SELECT * FROM pg_locks<br/>WHERE locktype = 'predicate'"]
+        QUERY2["SELECT * FROM pg_locks<br/>WHERE pid = <my_pid>"]
+        QUERY3["SELECT * FROM pg_locks<br/>WHERE relation = '<table_oid>'"]
+        
+        QUERY1 --> LOCKSVIEW
+        QUERY2 --> LOCKSVIEW
+        QUERY3 --> LOCKSVIEW
+    end
+    
+    subgraph "Performance Monitoring"
+        STATS["GUC parameters:<br/>max_predicate_locks<br/>serializable_buffers"]
+        
+        STATS --> CHECK_UTIL["Check utilization"]
+        
+        CHECK_UTIL --> LOG_QUERY["SELECT pg_stat_statements<br/>for serialization failures"]
+    end
+    
+    subgraph "Log Analysis"
+        LOG["PostgreSQL log"]
+        
+        LOG --> PATTERN["Pattern matching:<br/>'serialization failure'"]
+        
+        PATTERN --> EXTRACT["Extract:<br/>failing transaction IDs<br/>conflict pattern"]
+    end
+    
+    COMBINE --> OUTPUT["Output:<br/>All locks<br/>predicate + regular"]
+    OUTPUT --> APP["Application monitoring"]
+    
+    STATS --> TUNE["Tuning decisions"]
+    EXTRACT --> PATTERN_ANALYSIS["Analyze conflict patterns"]

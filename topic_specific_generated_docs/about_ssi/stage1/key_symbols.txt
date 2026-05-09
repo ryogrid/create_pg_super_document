@@ -1,0 +1,63 @@
+Top Key Symbols by Importance Score
+================================================================================
+
+  1. OnConflict_CheckForSerializationFailure  | 0.98 | Conflict Graph & Danger Structure
+  2. GetSerializableTransactionSnapshot       | 0.95 | Transaction Lifecycle    
+  3. CheckForSerializableConflictOut          | 0.95 | RW-Conflict Detection    
+  4. CheckForSerializableConflictIn           | 0.95 | RW-Conflict Detection    
+  5. PreCommit_CheckForSerializationFailure   | 0.95 | Conflict Graph & Danger Structure
+  6. GetSerializableTransactionSnapshotInt    | 0.92 | Transaction Lifecycle    
+  7. PredicateLockRelation                    | 0.92 | Predicate Lock Acquisition
+  8. SERIALIZABLEXACT                         | 0.92 | DATA_STRUCTURE           
+  9. PREDICATELOCKTARGETTAG                   | 0.92 | DATA_STRUCTURE           
+ 10. PREDICATELOCK                            | 0.92 | DATA_STRUCTURE           
+ 11. PREDICATELOCKTARGET                      | 0.92 | DATA_STRUCTURE           
+ 12. RWConflictData                           | 0.92 | DATA_STRUCTURE           
+ 13. PredXactListData                         | 0.92 | DATA_STRUCTURE           
+ 14. SERIALIZABLEXID                          | 0.92 | DATA_STRUCTURE           
+ 15. LOCALPREDICATELOCK                       | 0.92 | DATA_STRUCTURE           
+ 16. SerialControlData                        | 0.92 | DATA_STRUCTURE           
+ 17. TwoPhasePredicateXactRecord              | 0.92 | DATA_STRUCTURE           
+ 18. TwoPhasePredicateLockRecord              | 0.92 | DATA_STRUCTURE           
+ 19. PredicateLockData                        | 0.92 | DATA_STRUCTURE           
+ 20. RWConflictPoolHeaderData                 | 0.92 | DATA_STRUCTURE           
+ 21. SERIALIZABLEXIDTAG                       | 0.92 | DATA_STRUCTURE           
+ 22. PREDICATELOCKTAG                         | 0.92 | DATA_STRUCTURE           
+ 23. TwoPhasePredicateRecord                  | 0.92 | DATA_STRUCTURE           
+ 24. PredicateLockTargetType                  | 0.92 | DATA_STRUCTURE           
+ 25. PGPROC                                   | 0.92 | DATA_STRUCTURE           
+ 26. dlist_head                               | 0.92 | DATA_STRUCTURE           
+ 27. dlist_node                               | 0.92 | DATA_STRUCTURE           
+ 28. ReleasePredicateLocks                    | 0.90 | Transaction Lifecycle    
+ 29. PredicateLockPage                        | 0.90 | Predicate Lock Acquisition
+ 30. FlagRWConflict                           | 0.90 | RW-Conflict Detection    
+ 31. GetSafeSnapshot                          | 0.90 | Read-Only Optimization   
+ 32. PredicateLockTID                         | 0.88 | Predicate Lock Acquisition
+ 33. TransferPredicateLocksToNewTarget        | 0.88 | Predicate Lock Transfer  
+ 34. CheckForSerializableConflictOutNeeded    | 0.88 | RW-Conflict Detection    
+ 35. CheckTargetForConflictsIn                | 0.88 | RW-Conflict Detection    
+ 36. ReleaseOneSerializableXact               | 0.88 | Summarization & Cleanup  
+ 37. RegisterPredicateLockingXid              | 0.85 | Transaction Lifecycle    
+ 38. PredicateLockAcquire                     | 0.85 | Predicate Lock Acquisition
+ 39. CheckTableForSerializableConflictIn      | 0.85 | RW-Conflict Detection    
+ 40. SetRWConflict                            | 0.85 | Conflict Graph & Danger Structure
+ 41. SummarizeOldestCommittedSxact            | 0.85 | Summarization & Cleanup  
+ 42. AtPrepare_PredicateLocks                 | 0.85 | Two-Phase Commit         
+ 43. predicatelock_twophase_recover           | 0.85 | Two-Phase Commit         
+ 44. SetSerializableTransactionSnapshot       | 0.82 | Transaction Lifecycle    
+ 45. CheckAndPromotePredicateLockRequest      | 0.82 | Predicate Lock Acquisition
+ 46. TransferPredicateLocksToHeapRelation     | 0.82 | Predicate Lock Transfer  
+ 47. ClearOldPredicateLocks                   | 0.82 | Summarization & Cleanup  
+ 48. PredicateLockTwoPhaseFinish              | 0.82 | Two-Phase Commit         
+ 49. CreatePredXact                           | 0.80 | Transaction Lifecycle    
+ 50. CreatePredicateLock                      | 0.80 | Predicate Lock Acquisition
+ 51. PredicateLockPageSplit                   | 0.80 | Predicate Lock Transfer  
+ 52. RWConflictExists                         | 0.80 | Conflict Graph & Danger Structure
+ 53. SetPossibleUnsafeConflict                | 0.80 | Conflict Graph & Danger Structure
+ 54. PostPrepare_PredicateLocks               | 0.80 | Two-Phase Commit         
+ 55. InitPredicateLocks                       | 0.80 | Synchronization & Memory 
+ 56. ReleasePredXact                          | 0.78 | Transaction Lifecycle    
+ 57. SerialAdd                                | 0.78 | Summarization & Cleanup  
+ 58. SetNewSxactGlobalXmin                    | 0.75 | Transaction Lifecycle    
+ 59. PredicateLockPageCombine                 | 0.75 | Predicate Lock Transfer  
+ 60. DropAllPredicateLocksFromTable           | 0.75 | Predicate Lock Transfer  

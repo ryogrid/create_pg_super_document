@@ -1,0 +1,61 @@
+flowchart TB
+    subgraph "Detection"
+        DETECT1["CheckForSerializableConflictOut():<br/>Reads data written by concurrent writer"]
+        DETECT2["OnConflict_CheckForSerializationFailure():<br/>Detects dangerous Tin→Tpivot→Tout pattern"]
+        
+        DETECT1 --> MARK_FLAG["Mark as POTENTIAL<br/>serialization anomaly"]
+        DETECT2 --> MARK_DOOMED["Mark as DOOMED"]
+    end
+    
+    subgraph "Executor Check"
+        DOOMED_FLAG{"Is transaction<br/>marked DOOMED?"}
+        
+        DOOMED_FLAG -->|YES| CHECK_STMT["Check before statement<br/>execution"]
+        DOOMED_FLAG -->|NO| CONTINUE["Continue execution"]
+    end
+    
+    subgraph "Commit Time"
+        PRECOMMIT["PreCommit_CheckForSerializationFailure()"]
+        FINAL_CHECK{"Dangerous<br/>structure found?"}
+        
+        FINAL_CHECK -->|YES| MARK_DOOMED2["Mark DOOMED<br/>if not already"]
+        FINAL_CHECK -->|NO| OK_TO_COMMIT["OK to commit"]
+    end
+    
+    subgraph "Error Generation"
+        ERRCODE["SQLSTATE: 40001<br/>(SERIALIZATION_FAILURE)"]
+        ERRMSG["Error message:<br/>Could not serialize<br/>access due to<br/>concurrent update"]
+        
+        MARK_DOOMED2 --> ERRCODE
+        ERRCODE --> ERRMSG
+    end
+    
+    subgraph "Propagation to Client"
+        EREPORT["ereport(ERROR, ...)<br/>Throw exception"]
+        XACT_ROLLBACK["Transaction rollback<br/>All changes undone"]
+        CLEANUP["ReleasePredicateLocks()"]
+        
+        ERRMSG --> EREPORT
+        EREPORT --> XACT_ROLLBACK
+        XACT_ROLLBACK --> CLEANUP
+    end
+    
+    subgraph "Client Handling"
+        RECV_ERROR["Receive ERROR 40001"]
+        RETRY_DECISION{"Retry<br/>transaction?"}
+        
+        RETRY_DECISION -->|Exponential Backoff| RETRY["BEGIN<br/>Retry"]
+        RETRY_DECISION -->|Give up| FAIL["Report to application"]
+    end
+    
+    DETECT1 --> MARK_FLAG
+    DETECT2 --> MARK_DOOMED
+    MARK_FLAG --> DOOMED_FLAG
+    MARK_DOOMED --> DOOMED_FLAG
+    CHECK_STMT --> PRECOMMIT
+    CONTINUE --> PRECOMMIT
+    PRECOMMIT --> FINAL_CHECK
+    OK_TO_COMMIT --> CLIENT_SUCCESS["Client: OK"]
+    CLEANUP --> RECV_ERROR
+    RECV_ERROR --> RETRY_DECISION
+    RETRY --> DETECT1

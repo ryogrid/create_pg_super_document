@@ -1,0 +1,49 @@
+flowchart TD
+    subgraph "Read-Only Transaction Detection"
+        BEGIN["BEGIN"]
+        FIRST_OP{First operation<br/>is WRITE?}
+        
+        FIRST_OP -->|YES| NOT_RO["Mark as potentially<br/>writable"]
+        FIRST_OP -->|NO| ONLY_READ["Only reading"]
+        
+        NOT_RO --> IS_RO_UNSAFE["Read-Only-Unsafe<br/>Must acquire locks"]
+        ONLY_READ --> IS_RO_SAFE["Read-Only-Safe<br/>Check if safe to skip locks"]
+    end
+    
+    subgraph "Safe Snapshot Determination"
+        GET_SAFE["GetSafeSnapshot()"]
+        
+        CHECK_CONCURRENT{Any concurrent<br/>writes to tables<br/>being read?}
+        
+        CHECK_CONCURRENT -->|YES| NOT_SAFE["Not safe<br/>Acquire locks normally"]
+        CHECK_CONCURRENT -->|NO| SAFE["Safe snapshot found"]
+        
+        GET_SAFE --> CHECK_CONCURRENT
+    end
+    
+    subgraph "If Safe: Defer"
+        DEFER["DEFERRABLE transaction<br/>Wait for safe snapshot"]
+        WAIT["Wait for all concurrent<br/>writers to finish"]
+        ACQUIRE["Acquire snapshot<br/>No predicate locks needed"]
+        
+        DEFER --> WAIT
+        WAIT --> ACQUIRE
+    end
+    
+    subgraph "If Not Safe"
+        NORMAL["Normal processing<br/>Acquire predicate locks"]
+        TRACK_CONFLICTS["Track possible<br/>unsafe conflicts"]
+        TRACK_CONFLICTS --> COMMIT_CHECK["Commit-time check:<br/>Still unsafe?"]
+        COMMIT_CHECK -->|Still unsafe| ERROR["Serialization failure"]
+        COMMIT_CHECK -->|Now safe| OK["Commit"]
+    end
+    
+    IS_RO_SAFE --> GET_SAFE
+    IS_RO_UNSAFE --> NORMAL
+    
+    SAFE --> DEFER
+    NOT_SAFE --> NORMAL
+    
+    ACQUIRE --> SUCCESS["Commit<br/>No conflicts possible"]
+    NORMAL --> OK
+    NORMAL --> ERROR

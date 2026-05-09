@@ -1,0 +1,1731 @@
+{
+  "symbols": {
+    "GetSerializableTransactionSnapshot": {
+      "overview": "Key SSI function in Transaction Lifecycle",
+      "importance_score": 0.95,
+      "category": "TRANSACTION_LIFECYCLE",
+      "depth_from_entry": 1,
+      "references_from": [],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 95,
+        "is_entry_point": true,
+        "is_critical_path": true
+      }
+    },
+    "GetSerializableTransactionSnapshotInt": {
+      "overview": "Key SSI function in Transaction Lifecycle",
+      "importance_score": 0.92,
+      "category": "TRANSACTION_LIFECYCLE",
+      "depth_from_entry": 1,
+      "references_from": [],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 92,
+        "is_entry_point": true,
+        "is_critical_path": true
+      }
+    },
+    "RegisterPredicateLockingXid": {
+      "overview": "Key SSI function in Transaction Lifecycle",
+      "importance_score": 0.85,
+      "category": "TRANSACTION_LIFECYCLE",
+      "depth_from_entry": 2,
+      "references_from": [],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 85,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    },
+    "CreatePredXact": {
+      "overview": "Key SSI function in Transaction Lifecycle",
+      "importance_score": 0.8,
+      "category": "TRANSACTION_LIFECYCLE",
+      "depth_from_entry": 2,
+      "references_from": [],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 80,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    },
+    "ReleasePredXact": {
+      "overview": "Key SSI function in Transaction Lifecycle",
+      "importance_score": 0.78,
+      "category": "TRANSACTION_LIFECYCLE",
+      "depth_from_entry": 2,
+      "references_from": [],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 78,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    },
+    "ReleasePredicateLocks": {
+      "overview": "Key SSI function in Transaction Lifecycle",
+      "importance_score": 0.9,
+      "category": "TRANSACTION_LIFECYCLE",
+      "depth_from_entry": 2,
+      "references_from": [],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 90,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "SetNewSxactGlobalXmin": {
+      "overview": "Key SSI function in Transaction Lifecycle",
+      "importance_score": 0.75,
+      "category": "TRANSACTION_LIFECYCLE",
+      "depth_from_entry": 3,
+      "references_from": [],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 75,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    },
+    "SetSerializableTransactionSnapshot": {
+      "overview": "Key SSI function in Transaction Lifecycle",
+      "importance_score": 0.82,
+      "category": "TRANSACTION_LIFECYCLE",
+      "depth_from_entry": 2,
+      "references_from": [],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 82,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    },
+    "PredicateLockRelation": {
+      "overview": "Key SSI function in Predicate Lock Acquisition",
+      "importance_score": 0.92,
+      "category": "PREDICATE_LOCK_ACQUISITION",
+      "depth_from_entry": 1,
+      "references_from": [],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 92,
+        "is_entry_point": true,
+        "is_critical_path": true
+      }
+    },
+    "PredicateLockPage": {
+      "overview": "Key SSI function in Predicate Lock Acquisition",
+      "importance_score": 0.9,
+      "category": "PREDICATE_LOCK_ACQUISITION",
+      "depth_from_entry": 2,
+      "references_from": [],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 90,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "PredicateLockTID": {
+      "overview": "Key SSI function in Predicate Lock Acquisition",
+      "importance_score": 0.88,
+      "category": "PREDICATE_LOCK_ACQUISITION",
+      "depth_from_entry": 2,
+      "references_from": [],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 88,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    },
+    "PredicateLockAcquire": {
+      "overview": "Key SSI function in Predicate Lock Acquisition",
+      "importance_score": 0.85,
+      "category": "PREDICATE_LOCK_ACQUISITION",
+      "depth_from_entry": 2,
+      "references_from": [],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 85,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    },
+    "CheckAndPromotePredicateLockRequest": {
+      "overview": "Key SSI function in Predicate Lock Acquisition",
+      "importance_score": 0.82,
+      "category": "PREDICATE_LOCK_ACQUISITION",
+      "depth_from_entry": 2,
+      "references_from": [],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 82,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    },
+    "CreatePredicateLock": {
+      "overview": "Key SSI function in Predicate Lock Acquisition",
+      "importance_score": 0.8,
+      "category": "PREDICATE_LOCK_ACQUISITION",
+      "depth_from_entry": 2,
+      "references_from": [],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 80,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    },
+    "DecrementParentLocks": {
+      "overview": "Key SSI function in Predicate Lock Acquisition",
+      "importance_score": 0.7,
+      "category": "PREDICATE_LOCK_ACQUISITION",
+      "depth_from_entry": 3,
+      "references_from": [],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 70,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    },
+    "MaxPredicateChildLocks": {
+      "overview": "Key SSI function in Predicate Lock Acquisition",
+      "importance_score": 0.65,
+      "category": "PREDICATE_LOCK_ACQUISITION",
+      "depth_from_entry": 3,
+      "references_from": [],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 65,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    },
+    "PredicateLockExists": {
+      "overview": "Key SSI function in Predicate Lock Acquisition",
+      "importance_score": 0.62,
+      "category": "PREDICATE_LOCK_ACQUISITION",
+      "depth_from_entry": 3,
+      "references_from": [],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 62,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    },
+    "TransferPredicateLocksToNewTarget": {
+      "overview": "Key SSI function in Predicate Lock Transfer",
+      "importance_score": 0.88,
+      "category": "PREDICATE_LOCK_TRANSFER",
+      "depth_from_entry": 2,
+      "references_from": [],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 88,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    },
+    "TransferPredicateLocksToHeapRelation": {
+      "overview": "Key SSI function in Predicate Lock Transfer",
+      "importance_score": 0.82,
+      "category": "PREDICATE_LOCK_TRANSFER",
+      "depth_from_entry": 2,
+      "references_from": [],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 82,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    },
+    "PredicateLockPageSplit": {
+      "overview": "Key SSI function in Predicate Lock Transfer",
+      "importance_score": 0.8,
+      "category": "PREDICATE_LOCK_TRANSFER",
+      "depth_from_entry": 2,
+      "references_from": [],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 80,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    },
+    "PredicateLockPageCombine": {
+      "overview": "Key SSI function in Predicate Lock Transfer",
+      "importance_score": 0.75,
+      "category": "PREDICATE_LOCK_TRANSFER",
+      "depth_from_entry": 3,
+      "references_from": [],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 75,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    },
+    "DropAllPredicateLocksFromTable": {
+      "overview": "Key SSI function in Predicate Lock Transfer",
+      "importance_score": 0.75,
+      "category": "PREDICATE_LOCK_TRANSFER",
+      "depth_from_entry": 3,
+      "references_from": [],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 75,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    },
+    "DeleteLockTarget": {
+      "overview": "Key SSI function in Predicate Lock Transfer",
+      "importance_score": 0.7,
+      "category": "PREDICATE_LOCK_TRANSFER",
+      "depth_from_entry": 3,
+      "references_from": [],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 70,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    },
+    "RemoveTargetIfNoLongerUsed": {
+      "overview": "Key SSI function in Predicate Lock Transfer",
+      "importance_score": 0.65,
+      "category": "PREDICATE_LOCK_TRANSFER",
+      "depth_from_entry": 3,
+      "references_from": [],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 65,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    },
+    "DeleteChildTargetLocks": {
+      "overview": "Key SSI function in Predicate Lock Transfer",
+      "importance_score": 0.68,
+      "category": "PREDICATE_LOCK_TRANSFER",
+      "depth_from_entry": 3,
+      "references_from": [],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 68,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    },
+    "CheckForSerializableConflictOut": {
+      "overview": "Key SSI function in RW-Conflict Detection",
+      "importance_score": 0.95,
+      "category": "RW-CONFLICT_DETECTION",
+      "depth_from_entry": 1,
+      "references_from": [],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 95,
+        "is_entry_point": true,
+        "is_critical_path": true
+      }
+    },
+    "CheckForSerializableConflictIn": {
+      "overview": "Key SSI function in RW-Conflict Detection",
+      "importance_score": 0.95,
+      "category": "RW-CONFLICT_DETECTION",
+      "depth_from_entry": 1,
+      "references_from": [],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 95,
+        "is_entry_point": true,
+        "is_critical_path": true
+      }
+    },
+    "CheckForSerializableConflictOutNeeded": {
+      "overview": "Key SSI function in RW-Conflict Detection",
+      "importance_score": 0.88,
+      "category": "RW-CONFLICT_DETECTION",
+      "depth_from_entry": 2,
+      "references_from": [],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 88,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    },
+    "CheckTargetForConflictsIn": {
+      "overview": "Key SSI function in RW-Conflict Detection",
+      "importance_score": 0.88,
+      "category": "RW-CONFLICT_DETECTION",
+      "depth_from_entry": 2,
+      "references_from": [],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 88,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    },
+    "CheckTableForSerializableConflictIn": {
+      "overview": "Key SSI function in RW-Conflict Detection",
+      "importance_score": 0.85,
+      "category": "RW-CONFLICT_DETECTION",
+      "depth_from_entry": 2,
+      "references_from": [],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 85,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    },
+    "FlagRWConflict": {
+      "overview": "Key SSI function in RW-Conflict Detection",
+      "importance_score": 0.9,
+      "category": "RW-CONFLICT_DETECTION",
+      "depth_from_entry": 2,
+      "references_from": [],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 90,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "XidIsConcurrent": {
+      "overview": "Key SSI function in RW-Conflict Detection",
+      "importance_score": 0.72,
+      "category": "RW-CONFLICT_DETECTION",
+      "depth_from_entry": 3,
+      "references_from": [],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 72,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    },
+    "OnConflict_CheckForSerializationFailure": {
+      "overview": "Key SSI function in Conflict Graph & Danger Structure",
+      "importance_score": 0.98,
+      "category": "CONFLICT_GRAPH_&_DANGER_STRUCTURE",
+      "depth_from_entry": 1,
+      "references_from": [],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 98,
+        "is_entry_point": true,
+        "is_critical_path": true
+      }
+    },
+    "PreCommit_CheckForSerializationFailure": {
+      "overview": "Key SSI function in Conflict Graph & Danger Structure",
+      "importance_score": 0.95,
+      "category": "CONFLICT_GRAPH_&_DANGER_STRUCTURE",
+      "depth_from_entry": 1,
+      "references_from": [],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 95,
+        "is_entry_point": true,
+        "is_critical_path": true
+      }
+    },
+    "SetRWConflict": {
+      "overview": "Key SSI function in Conflict Graph & Danger Structure",
+      "importance_score": 0.85,
+      "category": "CONFLICT_GRAPH_&_DANGER_STRUCTURE",
+      "depth_from_entry": 2,
+      "references_from": [],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 85,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    },
+    "RWConflictExists": {
+      "overview": "Key SSI function in Conflict Graph & Danger Structure",
+      "importance_score": 0.8,
+      "category": "CONFLICT_GRAPH_&_DANGER_STRUCTURE",
+      "depth_from_entry": 2,
+      "references_from": [],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 80,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    },
+    "ReleaseRWConflict": {
+      "overview": "Key SSI function in Conflict Graph & Danger Structure",
+      "importance_score": 0.75,
+      "category": "CONFLICT_GRAPH_&_DANGER_STRUCTURE",
+      "depth_from_entry": 3,
+      "references_from": [],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 75,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    },
+    "SetPossibleUnsafeConflict": {
+      "overview": "Key SSI function in Conflict Graph & Danger Structure",
+      "importance_score": 0.8,
+      "category": "CONFLICT_GRAPH_&_DANGER_STRUCTURE",
+      "depth_from_entry": 2,
+      "references_from": [],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 80,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    },
+    "FlagSxactUnsafe": {
+      "overview": "Key SSI function in Conflict Graph & Danger Structure",
+      "importance_score": 0.75,
+      "category": "CONFLICT_GRAPH_&_DANGER_STRUCTURE",
+      "depth_from_entry": 3,
+      "references_from": [],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 75,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    },
+    "GetSafeSnapshot": {
+      "overview": "Key SSI function in Read-Only Optimization",
+      "importance_score": 0.9,
+      "category": "READ-ONLY_OPTIMIZATION",
+      "depth_from_entry": 2,
+      "references_from": [],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 90,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "GetSafeSnapshotBlockingPids": {
+      "overview": "Key SSI function in Read-Only Optimization",
+      "importance_score": 0.7,
+      "category": "READ-ONLY_OPTIMIZATION",
+      "depth_from_entry": 3,
+      "references_from": [],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 70,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    },
+    "SerializationNeededForRead": {
+      "overview": "Key SSI function in Read-Only Optimization",
+      "importance_score": 0.72,
+      "category": "READ-ONLY_OPTIMIZATION",
+      "depth_from_entry": 3,
+      "references_from": [],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 72,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    },
+    "SerializationNeededForWrite": {
+      "overview": "Key SSI function in Read-Only Optimization",
+      "importance_score": 0.7,
+      "category": "READ-ONLY_OPTIMIZATION",
+      "depth_from_entry": 3,
+      "references_from": [],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 70,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    },
+    "SummarizeOldestCommittedSxact": {
+      "overview": "Key SSI function in Summarization & Cleanup",
+      "importance_score": 0.85,
+      "category": "SUMMARIZATION_&_CLEANUP",
+      "depth_from_entry": 2,
+      "references_from": [],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 85,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    },
+    "ReleaseOneSerializableXact": {
+      "overview": "Key SSI function in Summarization & Cleanup",
+      "importance_score": 0.88,
+      "category": "SUMMARIZATION_&_CLEANUP",
+      "depth_from_entry": 2,
+      "references_from": [],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 88,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    },
+    "ClearOldPredicateLocks": {
+      "overview": "Key SSI function in Summarization & Cleanup",
+      "importance_score": 0.82,
+      "category": "SUMMARIZATION_&_CLEANUP",
+      "depth_from_entry": 2,
+      "references_from": [],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 82,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    },
+    "SerialAdd": {
+      "overview": "Key SSI function in Summarization & Cleanup",
+      "importance_score": 0.78,
+      "category": "SUMMARIZATION_&_CLEANUP",
+      "depth_from_entry": 2,
+      "references_from": [],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 78,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    },
+    "SerialGetMinConflictCommitSeqNo": {
+      "overview": "Key SSI function in Summarization & Cleanup",
+      "importance_score": 0.75,
+      "category": "SUMMARIZATION_&_CLEANUP",
+      "depth_from_entry": 3,
+      "references_from": [],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 75,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    },
+    "SerialSetActiveSerXmin": {
+      "overview": "Key SSI function in Summarization & Cleanup",
+      "importance_score": 0.72,
+      "category": "SUMMARIZATION_&_CLEANUP",
+      "depth_from_entry": 3,
+      "references_from": [],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 72,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    },
+    "ReleasePredicateLocksLocal": {
+      "overview": "Key SSI function in Summarization & Cleanup",
+      "importance_score": 0.68,
+      "category": "SUMMARIZATION_&_CLEANUP",
+      "depth_from_entry": 3,
+      "references_from": [],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 68,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    },
+    "AtPrepare_PredicateLocks": {
+      "overview": "Key SSI function in Two-Phase Commit",
+      "importance_score": 0.85,
+      "category": "TWO-PHASE_COMMIT",
+      "depth_from_entry": 2,
+      "references_from": [],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 85,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    },
+    "PostPrepare_PredicateLocks": {
+      "overview": "Key SSI function in Two-Phase Commit",
+      "importance_score": 0.8,
+      "category": "TWO-PHASE_COMMIT",
+      "depth_from_entry": 2,
+      "references_from": [],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 80,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    },
+    "PredicateLockTwoPhaseFinish": {
+      "overview": "Key SSI function in Two-Phase Commit",
+      "importance_score": 0.82,
+      "category": "TWO-PHASE_COMMIT",
+      "depth_from_entry": 2,
+      "references_from": [],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 82,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    },
+    "predicatelock_twophase_recover": {
+      "overview": "Key SSI function in Two-Phase Commit",
+      "importance_score": 0.85,
+      "category": "TWO-PHASE_COMMIT",
+      "depth_from_entry": 2,
+      "references_from": [],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 85,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    },
+    "InitPredicateLocks": {
+      "overview": "Key SSI function in Synchronization & Memory",
+      "importance_score": 0.8,
+      "category": "SYNCHRONIZATION_&_MEMORY",
+      "depth_from_entry": 2,
+      "references_from": [],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 80,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    },
+    "PredicateLockShmemSize": {
+      "overview": "Key SSI function in Synchronization & Memory",
+      "importance_score": 0.75,
+      "category": "SYNCHRONIZATION_&_MEMORY",
+      "depth_from_entry": 3,
+      "references_from": [],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 75,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    },
+    "SerialInit": {
+      "overview": "Key SSI function in Synchronization & Memory",
+      "importance_score": 0.75,
+      "category": "SYNCHRONIZATION_&_MEMORY",
+      "depth_from_entry": 3,
+      "references_from": [],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 75,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    },
+    "CheckPointPredicate": {
+      "overview": "Key SSI function in Synchronization & Memory",
+      "importance_score": 0.7,
+      "category": "SYNCHRONIZATION_&_MEMORY",
+      "depth_from_entry": 3,
+      "references_from": [],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 70,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    },
+    "CreateLocalPredicateLockHash": {
+      "overview": "Key SSI function in Synchronization & Memory",
+      "importance_score": 0.68,
+      "category": "SYNCHRONIZATION_&_MEMORY",
+      "depth_from_entry": 3,
+      "references_from": [],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 68,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    },
+    "predicatelock_hash": {
+      "overview": "Key SSI function in Synchronization & Memory",
+      "importance_score": 0.65,
+      "category": "SYNCHRONIZATION_&_MEMORY",
+      "depth_from_entry": 3,
+      "references_from": [],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 65,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    },
+    "PredicateLockingNeededForRelation": {
+      "overview": "Key SSI function in Utilities & Helpers",
+      "importance_score": 0.7,
+      "category": "UTILITIES_&_HELPERS",
+      "depth_from_entry": 3,
+      "references_from": [],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 70,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    },
+    "PageIsPredicateLocked": {
+      "overview": "Key SSI function in Utilities & Helpers",
+      "importance_score": 0.65,
+      "category": "UTILITIES_&_HELPERS",
+      "depth_from_entry": 3,
+      "references_from": [],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 65,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    },
+    "GetPredicateLockStatusData": {
+      "overview": "Key SSI function in Utilities & Helpers",
+      "importance_score": 0.68,
+      "category": "UTILITIES_&_HELPERS",
+      "depth_from_entry": 3,
+      "references_from": [],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 68,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    },
+    "CoarserLockCovers": {
+      "overview": "Key SSI function in Utilities & Helpers",
+      "importance_score": 0.62,
+      "category": "UTILITIES_&_HELPERS",
+      "depth_from_entry": 3,
+      "references_from": [],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 62,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    },
+    "GetParentPredicateLockTag": {
+      "overview": "Key SSI function in Utilities & Helpers",
+      "importance_score": 0.6,
+      "category": "UTILITIES_&_HELPERS",
+      "depth_from_entry": 3,
+      "references_from": [],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 60,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    },
+    "SerialPagePrecedesLogically": {
+      "overview": "Key SSI function in Utilities & Helpers",
+      "importance_score": 0.58,
+      "category": "UTILITIES_&_HELPERS",
+      "depth_from_entry": 3,
+      "references_from": [],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 57,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    },
+    "RemoveScratchTarget": {
+      "overview": "Key SSI function in Lock Management Helpers",
+      "importance_score": 0.65,
+      "category": "LOCK_MANAGEMENT_HELPERS",
+      "depth_from_entry": 3,
+      "references_from": [],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 65,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    },
+    "RestoreScratchTarget": {
+      "overview": "Key SSI function in Lock Management Helpers",
+      "importance_score": 0.65,
+      "category": "LOCK_MANAGEMENT_HELPERS",
+      "depth_from_entry": 3,
+      "references_from": [],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 65,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    },
+    "ShareSerializableXact": {
+      "overview": "Key SSI function in Lock Management Helpers",
+      "importance_score": 0.7,
+      "category": "LOCK_MANAGEMENT_HELPERS",
+      "depth_from_entry": 3,
+      "references_from": [],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 70,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    },
+    "AttachSerializableXact": {
+      "overview": "Key SSI function in Lock Management Helpers",
+      "importance_score": 0.72,
+      "category": "LOCK_MANAGEMENT_HELPERS",
+      "depth_from_entry": 3,
+      "references_from": [],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 72,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    },
+    "check_serial_buffers": {
+      "overview": "Key SSI function in Lock Management Helpers",
+      "importance_score": 0.55,
+      "category": "LOCK_MANAGEMENT_HELPERS",
+      "depth_from_entry": 3,
+      "references_from": [],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 55,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    },
+    "SERIALIZABLEXACT": {
+      "overview": "Core transaction object for serializable mode, tracks conflicts, locks, and commit state",
+      "importance_score": 0.92,
+      "category": "DATA_STRUCTURE",
+      "depth_from_entry": 1,
+      "references_from": [],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 80,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "PREDICATELOCKTARGETTAG": {
+      "overview": "Identifies a database object that can be predicate-locked (relation/page/tuple)",
+      "importance_score": 0.92,
+      "category": "DATA_STRUCTURE",
+      "depth_from_entry": 1,
+      "references_from": [],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 80,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "PREDICATELOCK": {
+      "overview": "Individual predicate lock acquired by a transaction on a target",
+      "importance_score": 0.92,
+      "category": "DATA_STRUCTURE",
+      "depth_from_entry": 1,
+      "references_from": [],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 80,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "PREDICATELOCKTARGET": {
+      "overview": "Represents a database object on which predicate locks exist",
+      "importance_score": 0.92,
+      "category": "DATA_STRUCTURE",
+      "depth_from_entry": 1,
+      "references_from": [],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 80,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "RWConflictData": {
+      "overview": "Represents a read-write conflict between two transactions (or possible unsafe conflict for RO xact)",
+      "importance_score": 0.92,
+      "category": "DATA_STRUCTURE",
+      "depth_from_entry": 1,
+      "references_from": [],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 80,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "PredXactListData": {
+      "overview": "Shared memory list of active and available SERIALIZABLEXACT entries",
+      "importance_score": 0.92,
+      "category": "DATA_STRUCTURE",
+      "depth_from_entry": 1,
+      "references_from": [],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 80,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "SERIALIZABLEXID": {
+      "overview": "Maps TransactionId to its SERIALIZABLEXACT, enabling lookup after transaction completes",
+      "importance_score": 0.92,
+      "category": "DATA_STRUCTURE",
+      "depth_from_entry": 1,
+      "references_from": [],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 80,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "LOCALPREDICATELOCK": {
+      "overview": "Backend-local cache of predicate locks for optimization and promotion heuristics",
+      "importance_score": 0.92,
+      "category": "DATA_STRUCTURE",
+      "depth_from_entry": 1,
+      "references_from": [],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 80,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "SerialControlData": {
+      "overview": "Control structure for SLRU-based summarized commit sequence numbers",
+      "importance_score": 0.92,
+      "category": "DATA_STRUCTURE",
+      "depth_from_entry": 1,
+      "references_from": [],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 80,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "TwoPhasePredicateXactRecord": {
+      "overview": "Per-transaction record for 2PC recovery of serializable state",
+      "importance_score": 0.92,
+      "category": "DATA_STRUCTURE",
+      "depth_from_entry": 1,
+      "references_from": [],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 80,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "TwoPhasePredicateLockRecord": {
+      "overview": "Per-lock record for 2PC recovery of predicate lock state",
+      "importance_score": 0.92,
+      "category": "DATA_STRUCTURE",
+      "depth_from_entry": 1,
+      "references_from": [],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 80,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "PredicateLockData": {
+      "overview": "Snapshot of all predicate locks for pg_locks view reporting",
+      "importance_score": 0.92,
+      "category": "DATA_STRUCTURE",
+      "depth_from_entry": 1,
+      "references_from": [],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 80,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "RWConflictPoolHeaderData": {
+      "overview": "Pool of available RWConflict data structures",
+      "importance_score": 0.92,
+      "category": "DATA_STRUCTURE",
+      "depth_from_entry": 1,
+      "references_from": [],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 80,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "SERIALIZABLEXIDTAG": {
+      "overview": "Tag structure for SERIALIZABLEXID hash table lookup",
+      "importance_score": 0.92,
+      "category": "DATA_STRUCTURE",
+      "depth_from_entry": 1,
+      "references_from": [],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 80,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "PREDICATELOCKTAG": {
+      "overview": "Tag identifying individual predicate lock (target + transaction)",
+      "importance_score": 0.92,
+      "category": "DATA_STRUCTURE",
+      "depth_from_entry": 1,
+      "references_from": [],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 80,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "TwoPhasePredicateRecord": {
+      "overview": "Union record for 2PC WAL serialization of predicate locks",
+      "importance_score": 0.92,
+      "category": "DATA_STRUCTURE",
+      "depth_from_entry": 1,
+      "references_from": [],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 80,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "PredicateLockTargetType": {
+      "overview": "Enum defining lock granularity levels (RELATION, PAGE, TUPLE)",
+      "importance_score": 0.92,
+      "category": "DATA_STRUCTURE",
+      "depth_from_entry": 1,
+      "references_from": [],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 80,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "PGPROC": {
+      "overview": "PostgreSQL process structure, contains transaction state including serializable info",
+      "importance_score": 0.92,
+      "category": "DATA_STRUCTURE",
+      "depth_from_entry": 1,
+      "references_from": [],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 80,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "dlist_head": {
+      "overview": "Doubly-linked list header used throughout SSI for conflict lists",
+      "importance_score": 0.92,
+      "category": "DATA_STRUCTURE",
+      "depth_from_entry": 1,
+      "references_from": [],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 80,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "dlist_node": {
+      "overview": "Doubly-linked list node element",
+      "importance_score": 0.92,
+      "category": "DATA_STRUCTURE",
+      "depth_from_entry": 1,
+      "references_from": [],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 80,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "SXACT_FLAG_COMMITTED": {
+      "overview": "State flag: Transaction is committed",
+      "importance_score": 0.75,
+      "category": "STATE_FLAG",
+      "depth_from_entry": 2,
+      "references_from": [],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 40,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "SXACT_FLAG_PREPARED": {
+      "overview": "State flag: Transaction is prepared for commit",
+      "importance_score": 0.75,
+      "category": "STATE_FLAG",
+      "depth_from_entry": 2,
+      "references_from": [],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 40,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "SXACT_FLAG_ROLLED_BACK": {
+      "overview": "State flag: Transaction is rolled back",
+      "importance_score": 0.75,
+      "category": "STATE_FLAG",
+      "depth_from_entry": 2,
+      "references_from": [],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 40,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "SXACT_FLAG_DOOMED": {
+      "overview": "State flag: Transaction marked for abort",
+      "importance_score": 0.75,
+      "category": "STATE_FLAG",
+      "depth_from_entry": 2,
+      "references_from": [],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 40,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "SXACT_FLAG_CONFLICT_OUT": {
+      "overview": "State flag: Has conflict out to committed transaction",
+      "importance_score": 0.75,
+      "category": "STATE_FLAG",
+      "depth_from_entry": 2,
+      "references_from": [],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 40,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "SXACT_FLAG_READ_ONLY": {
+      "overview": "State flag: Transaction is read-only",
+      "importance_score": 0.75,
+      "category": "STATE_FLAG",
+      "depth_from_entry": 2,
+      "references_from": [],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 40,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "SXACT_FLAG_DEFERRABLE_WAITING": {
+      "overview": "State flag: DEFERRABLE transaction waiting",
+      "importance_score": 0.75,
+      "category": "STATE_FLAG",
+      "depth_from_entry": 2,
+      "references_from": [],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 40,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "SXACT_FLAG_RO_SAFE": {
+      "overview": "State flag: Read-only transaction is safe",
+      "importance_score": 0.75,
+      "category": "STATE_FLAG",
+      "depth_from_entry": 2,
+      "references_from": [],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 40,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "SXACT_FLAG_RO_UNSAFE": {
+      "overview": "State flag: Read-only transaction is unsafe",
+      "importance_score": 0.75,
+      "category": "STATE_FLAG",
+      "depth_from_entry": 2,
+      "references_from": [],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 40,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "SXACT_FLAG_SUMMARY_CONFLICT_IN": {
+      "overview": "State flag: Summary conflict in from SLRU",
+      "importance_score": 0.75,
+      "category": "STATE_FLAG",
+      "depth_from_entry": 2,
+      "references_from": [],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 40,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "SXACT_FLAG_SUMMARY_CONFLICT_OUT": {
+      "overview": "State flag: Summary conflict out to SLRU",
+      "importance_score": 0.75,
+      "category": "STATE_FLAG",
+      "depth_from_entry": 2,
+      "references_from": [],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 40,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "SXACT_FLAG_PARTIALLY_RELEASED": {
+      "overview": "State flag: Partially released for parallel",
+      "importance_score": 0.75,
+      "category": "STATE_FLAG",
+      "depth_from_entry": 2,
+      "references_from": [],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 40,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "PREDLOCKTAG_RELATION": {
+      "overview": "Relation-level predicate lock granularity",
+      "importance_score": 0.7,
+      "category": "LOCK_GRANULARITY",
+      "depth_from_entry": 2,
+      "references_from": [],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 35,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    },
+    "PREDLOCKTAG_PAGE": {
+      "overview": "Page-level predicate lock granularity",
+      "importance_score": 0.7,
+      "category": "LOCK_GRANULARITY",
+      "depth_from_entry": 2,
+      "references_from": [],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 35,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    },
+    "PREDLOCKTAG_TUPLE": {
+      "overview": "Tuple-level predicate lock granularity",
+      "importance_score": 0.7,
+      "category": "LOCK_GRANULARITY",
+      "depth_from_entry": 2,
+      "references_from": [],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 35,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    },
+    "SerializableXactHashLock": {
+      "overview": "Protects SERIALIZABLEXACT and SERIALIZABLEXID hash tables",
+      "importance_score": 0.85,
+      "category": "SYNCHRONIZATION",
+      "depth_from_entry": 2,
+      "references_from": [],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 50,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "SerializablePredicateListLock": {
+      "overview": "Protects predicate lock lists for transactions",
+      "importance_score": 0.85,
+      "category": "SYNCHRONIZATION",
+      "depth_from_entry": 2,
+      "references_from": [],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 50,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "SerializableFinishedListLock": {
+      "overview": "Protects list of finished transactions",
+      "importance_score": 0.85,
+      "category": "SYNCHRONIZATION",
+      "depth_from_entry": 2,
+      "references_from": [],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 50,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "PredicateLockTargetHash": {
+      "overview": "Hash table for predicate lock targets",
+      "importance_score": 0.85,
+      "category": "SYNCHRONIZATION",
+      "depth_from_entry": 2,
+      "references_from": [],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 50,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "PredicateLockHash": {
+      "overview": "Hash table for predicate locks",
+      "importance_score": 0.85,
+      "category": "SYNCHRONIZATION",
+      "depth_from_entry": 2,
+      "references_from": [],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 50,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "SerializableXidHash": {
+      "overview": "Hash table mapping XID to SERIALIZABLEXACT",
+      "importance_score": 0.85,
+      "category": "SYNCHRONIZATION",
+      "depth_from_entry": 2,
+      "references_from": [],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 50,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "SerialControlLock": {
+      "overview": "Protects SerialControlData",
+      "importance_score": 0.85,
+      "category": "SYNCHRONIZATION",
+      "depth_from_entry": 2,
+      "references_from": [],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 50,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "ScratchTargetTag": {
+      "overview": "Dummy entry for scratch space in predicate lock hash",
+      "importance_score": 0.85,
+      "category": "SYNCHRONIZATION",
+      "depth_from_entry": 2,
+      "references_from": [],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 50,
+        "is_entry_point": false,
+        "is_critical_path": true
+      }
+    },
+    "max_predicate_locks_per_xact": {
+      "overview": "Max predicate locks per transaction",
+      "importance_score": 0.65,
+      "category": "GUC_VARIABLE",
+      "depth_from_entry": 3,
+      "references_from": [],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 30,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    },
+    "max_predicate_locks_per_relation": {
+      "overview": "Max predicate locks per relation",
+      "importance_score": 0.65,
+      "category": "GUC_VARIABLE",
+      "depth_from_entry": 3,
+      "references_from": [],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 30,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    },
+    "max_predicate_locks_per_page": {
+      "overview": "Max predicate locks per page",
+      "importance_score": 0.65,
+      "category": "GUC_VARIABLE",
+      "depth_from_entry": 3,
+      "references_from": [],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 30,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    },
+    "serializable_buffers": {
+      "overview": "Number of buffers for SLRU serialization data",
+      "importance_score": 0.65,
+      "category": "GUC_VARIABLE",
+      "depth_from_entry": 3,
+      "references_from": [],
+      "references_to": [],
+      "metrics": {
+        "ref_count": 30,
+        "is_entry_point": false,
+        "is_critical_path": false
+      }
+    }
+  },
+  "categories": {
+    "TRANSACTION_LIFECYCLE": [
+      "GetSerializableTransactionSnapshot",
+      "GetSerializableTransactionSnapshotInt",
+      "RegisterPredicateLockingXid",
+      "CreatePredXact",
+      "ReleasePredXact",
+      "ReleasePredicateLocks",
+      "SetNewSxactGlobalXmin",
+      "SetSerializableTransactionSnapshot"
+    ],
+    "PREDICATE_LOCK_ACQUISITION": [
+      "PredicateLockRelation",
+      "PredicateLockPage",
+      "PredicateLockTID",
+      "PredicateLockAcquire",
+      "CheckAndPromotePredicateLockRequest",
+      "CreatePredicateLock",
+      "DecrementParentLocks",
+      "MaxPredicateChildLocks",
+      "PredicateLockExists"
+    ],
+    "PREDICATE_LOCK_TRANSFER": [
+      "TransferPredicateLocksToNewTarget",
+      "TransferPredicateLocksToHeapRelation",
+      "PredicateLockPageSplit",
+      "PredicateLockPageCombine",
+      "DropAllPredicateLocksFromTable",
+      "DeleteLockTarget",
+      "RemoveTargetIfNoLongerUsed",
+      "DeleteChildTargetLocks"
+    ],
+    "RW-CONFLICT_DETECTION": [
+      "CheckForSerializableConflictOut",
+      "CheckForSerializableConflictIn",
+      "CheckForSerializableConflictOutNeeded",
+      "CheckTargetForConflictsIn",
+      "CheckTableForSerializableConflictIn",
+      "FlagRWConflict",
+      "XidIsConcurrent"
+    ],
+    "CONFLICT_GRAPH_&_DANGER_STRUCTURE": [
+      "OnConflict_CheckForSerializationFailure",
+      "PreCommit_CheckForSerializationFailure",
+      "SetRWConflict",
+      "RWConflictExists",
+      "ReleaseRWConflict",
+      "SetPossibleUnsafeConflict",
+      "FlagSxactUnsafe"
+    ],
+    "READ-ONLY_OPTIMIZATION": [
+      "GetSafeSnapshot",
+      "GetSafeSnapshotBlockingPids",
+      "SerializationNeededForRead",
+      "SerializationNeededForWrite"
+    ],
+    "SUMMARIZATION_&_CLEANUP": [
+      "SummarizeOldestCommittedSxact",
+      "ReleaseOneSerializableXact",
+      "ClearOldPredicateLocks",
+      "SerialAdd",
+      "SerialGetMinConflictCommitSeqNo",
+      "SerialSetActiveSerXmin",
+      "ReleasePredicateLocksLocal"
+    ],
+    "TWO-PHASE_COMMIT": [
+      "AtPrepare_PredicateLocks",
+      "PostPrepare_PredicateLocks",
+      "PredicateLockTwoPhaseFinish",
+      "predicatelock_twophase_recover"
+    ],
+    "SYNCHRONIZATION_&_MEMORY": [
+      "InitPredicateLocks",
+      "PredicateLockShmemSize",
+      "SerialInit",
+      "CheckPointPredicate",
+      "CreateLocalPredicateLockHash",
+      "predicatelock_hash"
+    ],
+    "UTILITIES_&_HELPERS": [
+      "PredicateLockingNeededForRelation",
+      "PageIsPredicateLocked",
+      "GetPredicateLockStatusData",
+      "CoarserLockCovers",
+      "GetParentPredicateLockTag",
+      "SerialPagePrecedesLogically"
+    ],
+    "LOCK_MANAGEMENT_HELPERS": [
+      "RemoveScratchTarget",
+      "RestoreScratchTarget",
+      "ShareSerializableXact",
+      "AttachSerializableXact",
+      "check_serial_buffers"
+    ],
+    "DATA_STRUCTURE": [
+      "SERIALIZABLEXACT",
+      "PREDICATELOCKTARGETTAG",
+      "PREDICATELOCK",
+      "PREDICATELOCKTARGET",
+      "RWConflictData",
+      "PredXactListData",
+      "SERIALIZABLEXID",
+      "LOCALPREDICATELOCK",
+      "SerialControlData",
+      "TwoPhasePredicateXactRecord",
+      "TwoPhasePredicateLockRecord",
+      "PredicateLockData",
+      "RWConflictPoolHeaderData",
+      "SERIALIZABLEXIDTAG",
+      "PREDICATELOCKTAG",
+      "TwoPhasePredicateRecord",
+      "PredicateLockTargetType",
+      "PGPROC",
+      "dlist_head",
+      "dlist_node"
+    ],
+    "STATE_FLAG": [
+      "SXACT_FLAG_COMMITTED",
+      "SXACT_FLAG_PREPARED",
+      "SXACT_FLAG_ROLLED_BACK",
+      "SXACT_FLAG_DOOMED",
+      "SXACT_FLAG_CONFLICT_OUT",
+      "SXACT_FLAG_READ_ONLY",
+      "SXACT_FLAG_DEFERRABLE_WAITING",
+      "SXACT_FLAG_RO_SAFE",
+      "SXACT_FLAG_RO_UNSAFE",
+      "SXACT_FLAG_SUMMARY_CONFLICT_IN",
+      "SXACT_FLAG_SUMMARY_CONFLICT_OUT",
+      "SXACT_FLAG_PARTIALLY_RELEASED"
+    ],
+    "LOCK_GRANULARITY": [
+      "PREDLOCKTAG_RELATION",
+      "PREDLOCKTAG_PAGE",
+      "PREDLOCKTAG_TUPLE"
+    ],
+    "SYNCHRONIZATION": [
+      "SerializableXactHashLock",
+      "SerializablePredicateListLock",
+      "SerializableFinishedListLock",
+      "PredicateLockTargetHash",
+      "PredicateLockHash",
+      "SerializableXidHash",
+      "SerialControlLock",
+      "ScratchTargetTag"
+    ],
+    "GUC_VARIABLE": [
+      "max_predicate_locks_per_xact",
+      "max_predicate_locks_per_relation",
+      "max_predicate_locks_per_page",
+      "serializable_buffers"
+    ]
+  },
+  "critical_paths": [
+    [
+      "GetSerializableTransactionSnapshot",
+      "CreatePredXact",
+      "RegisterPredicateLockingXid"
+    ],
+    [
+      "PredicateLockRelation",
+      "PredicateLockAcquire",
+      "CreatePredicateLock"
+    ],
+    [
+      "CheckForSerializableConflictOut",
+      "FlagRWConflict",
+      "OnConflict_CheckForSerializationFailure"
+    ],
+    [
+      "CheckForSerializableConflictIn",
+      "CheckTargetForConflictsIn",
+      "FlagRWConflict"
+    ],
+    [
+      "OnConflict_CheckForSerializationFailure",
+      "ereport ERROR"
+    ],
+    [
+      "PreCommit_CheckForSerializationFailure",
+      "FlagRWConflict",
+      "Abort or DOOMED"
+    ],
+    [
+      "GetSafeSnapshot",
+      "SetPossibleUnsafeConflict",
+      "FlagSxactUnsafe"
+    ],
+    [
+      "ReleasePredicateLocks",
+      "ReleaseOneSerializableXact",
+      "ClearOldPredicateLocks"
+    ]
+  ]
+}

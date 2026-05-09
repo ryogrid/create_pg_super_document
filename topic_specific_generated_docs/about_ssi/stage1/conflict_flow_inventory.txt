@@ -1,0 +1,79 @@
+SSI Conflict Detection Flow Inventory
+====================================================================================================
+
+FLOW: TRANSACTION LIFECYCLE
+----------------------------------------------------------------------------------------------------
+  Step 1: GetSerializableTransactionSnapshot: Start transaction in serializable mode
+  Step 2: CreatePredXact: Create SERIALIZABLEXACT entry
+  Step 3: Initialize flags and conflict lists
+  Step 4: Register xid in SerializableXidHash when writes occur
+  Step 5: PreCommit_CheckForSerializationFailure: Dangerous structure detection
+  Step 6: FlagRWConflict: Mark conflicts if dangerous structure found
+  Step 7: OnConflict_CheckForSerializationFailure: Evaluate conflict graph
+  Step 8: Abort or mark DOOMED if cycle detected
+  Step 9: ReleasePredicateLocks: Clean up at commit/abort
+
+FLOW: PREDICATE LOCK ACQUISITION
+----------------------------------------------------------------------------------------------------
+  Step 1: PredicateLockRelation/Page/TID: Called during tuple read
+  Step 2: SerializationNeededForRead: Quick check if needed
+  Step 3: PredicateLockingNeededForRelation: Relation check
+  Step 4: PredicateLockAcquire: Core lock acquisition
+  Step 5: CheckAndPromotePredicateLockRequest: Check for coarser locks
+  Step 6: CreatePredicateLock: Create hash table entry
+  Step 7: Add to xact's predicateLocks list
+  Step 8: Update LocalPredicateLockHash for promotion tracking
+  Step 9: DecrementParentLocks if child locks increased
+
+FLOW: CONFLICT IN DETECTION
+----------------------------------------------------------------------------------------------------
+  Step 1: CheckForSerializableConflictIn: Called on write (insert/update/delete)
+  Step 2: CheckTableForSerializableConflictIn: For full table operations
+  Step 3: CheckTargetForConflictsIn: Check specific target
+  Step 4: Scan target's predicateLocks for overlapping transactions
+  Step 5: For each predicate lock: call FlagRWConflict(predlock->xact, writer)
+  Step 6: FlagRWConflict calls OnConflict_CheckForSerializationFailure
+  Step 7: If dangerous structure: mark pivot DOOMED or raise ERROR
+
+FLOW: CONFLICT OUT DETECTION
+----------------------------------------------------------------------------------------------------
+  Step 1: CheckForSerializableConflictOut: Called on tuple read with visible write
+  Step 2: Find xid's SERIALIZABLEXACT from SerializableXidHash
+  Step 3: If not found, check SLRU for old committed transaction
+  Step 4: Call FlagRWConflict(MySerializableXact, sxact)
+  Step 5: OnConflict_CheckForSerializationFailure evaluates graph
+  Step 6: If reader is pivot with incoming conflict: check for danger
+  Step 7: If writer already committed with conflict out: danger!
+
+FLOW: DANGEROUS STRUCTURE DETECTION
+----------------------------------------------------------------------------------------------------
+  Step 1: Pattern: Tin --rw--> Tpivot --rw--> Tout
+  Step 2: Tout must commit first for anomaly
+  Step 3: OnConflict_CheckForSerializationFailure: Main detection function
+  Step 4: Check 1: Is writer already committed with conflict out? -> FAILURE
+  Step 5: Check 2: Does writer have conflict out to prepared Tout? -> evaluate
+  Step 6: Check 3: Does reader have conflict in from T0? -> evaluate pivot
+  Step 7: If failure: mark writer DOOMED or abort reader/self
+
+FLOW: READ ONLY OPTIMIZATION
+----------------------------------------------------------------------------------------------------
+  Step 1: At snapshot time: detect if only readers active
+  Step 2: For read-only xact: create possibleUnsafeConflicts list
+  Step 3: Track all concurrent R/W transactions
+  Step 4: On R/W commit: check if it had conflict out
+  Step 5: If R/W committed without conflict out: mark RO as SAFE
+  Step 6: SetPossibleUnsafeConflict: Track potential conflicts
+  Step 7: FlagSxactUnsafe: Mark as RO_UNSAFE if conflict detected
+  Step 8: GetSafeSnapshot: Wait for SERIALIZABLE READ ONLY DEFERRABLE
+
+FLOW: CLEANUP AND SUMMARIZATION
+----------------------------------------------------------------------------------------------------
+  Step 1: ReleaseOneSerializableXact: Release committed transaction
+  Step 2: Clear inConflicts/outConflicts
+  Step 3: SummarizeOldestCommittedSxact: Move to SLRU
+  Step 4: SerialAdd: Store xid and minConflictCommitSeqNo in SLRU
+  Step 5: SetNewSxactGlobalXmin: Update oldest active xmin
+  Step 6: ClearOldPredicateLocks: Release per-xact lock info
+  Step 7: OldCommittedSxact: Dummy xact for summarized conflicts
+  Step 8: CanPartialClearThrough: Advance cleanup watermark
+

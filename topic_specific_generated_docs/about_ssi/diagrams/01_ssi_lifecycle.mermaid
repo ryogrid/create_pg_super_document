@@ -1,0 +1,57 @@
+graph TB
+    subgraph "Transaction Lifecycle"
+        BEGIN["BEGIN<br/>(Optional)"]
+        GET_SNAP["GetSerializableTransactionSnapshot()"]
+        ACTIVE["ACTIVE State<br/>Can read/write"]
+        PREPARE["PreCommit_CheckForSerializationFailure()<br/>Final validation"]
+        
+        BEGIN --> GET_SNAP
+        GET_SNAP --> ACTIVE
+        ACTIVE --> PREPARE
+    end
+    
+    subgraph "Read/Write Operations"
+        READ_OPS["SELECT<br/>Sequential/Index Scan"]
+        PRED_LOCK_READ["PredicateLockRelation/Page/TID()"]
+        CHECK_OUT["CheckForSerializableConflictOut()"]
+        
+        READ_OPS --> PRED_LOCK_READ
+        PRED_LOCK_READ --> CHECK_OUT
+    end
+    
+    subgraph "Write Operations"
+        WRITE_OPS["INSERT/UPDATE/DELETE"]
+        CHECK_IN["CheckForSerializableConflictIn()"]
+        FLAG_CONFLICT["FlagRWConflict()"]
+        
+        WRITE_OPS --> CHECK_IN
+        CHECK_IN --> FLAG_CONFLICT
+    end
+    
+    subgraph "Conflict Detection"
+        DANGEROUS["OnConflict_CheckForSerializationFailure()<br/>Detect Tin→Tpivot→Tout"]
+        FOUND["Dangerous Structure<br/>Found?"]
+        DOOMED["Mark Transaction DOOMED"]
+        
+        DANGEROUS --> FOUND
+        FOUND -->|YES| DOOMED
+    end
+    
+    subgraph "Commit Outcome"
+        OUTCOME{Is transaction<br/>DOOMED?}
+        COMMIT["COMMIT<br/>recordTransactionCommit()"]
+        ABORT["ABORT<br/>Raise ERROR 40001"]
+        CLEANUP["ReleasePredicateLocks()<br/>ReleaseOneSerializableXact()"]
+        
+        OUTCOME -->|NO| COMMIT
+        OUTCOME -->|YES| ABORT
+        COMMIT --> CLEANUP
+        ABORT --> CLEANUP
+    end
+    
+    ACTIVE --> READ_OPS
+    ACTIVE --> WRITE_OPS
+    WRITE_OPS --> DANGEROUS
+    READ_OPS --> DANGEROUS
+    DANGEROUS --> PREPARE
+    PREPARE --> OUTCOME

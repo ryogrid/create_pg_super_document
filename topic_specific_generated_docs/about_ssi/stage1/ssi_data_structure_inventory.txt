@@ -1,0 +1,65 @@
+SSI Data Structure Inventory
+====================================================================================================
+
+#   Structure                      File                                     Role                          
+----------------------------------------------------------------------------------------------------
+1   SERIALIZABLEXACT               include/storage/predicate_internals.h    Core transaction object for se
+    Key fields: vxid: virtual transaction ID, prepareSeqNo: sequence number at prepare, commitSeqNo: sequence number at commit
+
+2   PREDICATELOCKTARGETTAG         include/storage/predicate_internals.h    Identifies a database object t
+    Key fields: locktag_field1: database OID, locktag_field2: relation/index OID, locktag_field3: block number (InvalidBlockNumber for relation granularity)
+
+3   PREDICATELOCK                  include/storage/predicate_internals.h    Individual predicate lock acqu
+    Key fields: tag: identifies the lock (target + transaction), targetLink: list link in target's predicate locks, xactLink: list link in transaction's predicate locks
+
+4   PREDICATELOCKTARGET            include/storage/predicate_internals.h    Represents a database object o
+    Key fields: tag: unique identifier of lockable object, predicateLocks: list of PREDICATELOCK objects
+
+5   RWConflictData                 include/storage/predicate_internals.h    Represents a read-write confli
+    Key fields: outLink: link for conflicts out from sxact, inLink: link for conflicts in to sxact, sxactOut: reader transaction
+
+6   PredXactListData               include/storage/predicate_internals.h    Shared memory list of active a
+    Key fields: availableList: list of free entries, activeList: list of in-use entries, SxactGlobalXmin: global xmin for active transactions
+
+7   SERIALIZABLEXID                include/storage/predicate_internals.h    Maps TransactionId to its SERI
+    Key fields: tag: SERIALIZABLEXIDTAG with xid, myXact: pointer to SERIALIZABLEXACT
+
+8   LOCALPREDICATELOCK             include/storage/predicate_internals.h    Backend-local cache of predica
+    Key fields: tag: unique identifier of lockable object, held: whether lock is held or just children, childLocks: count of child locks
+
+9   SerialControlData              backend/storage/lmgr/predicate.c         Control structure for SLRU-bas
+    Key fields: headPage: newest initialized SLRU page, headXid: newest valid Xid in SLRU, tailXid: oldest xmin for active serializable transactions
+
+10  TwoPhasePredicateXactRecord    include/storage/predicate_internals.h    Per-transaction record for 2PC
+    Key fields: xmin: transaction's snapshot xmin, flags: transaction state flags
+
+11  TwoPhasePredicateLockRecord    include/storage/predicate_internals.h    Per-lock record for 2PC recove
+    Key fields: target: PREDICATELOCKTARGETTAG being locked, filler: padding for alignment
+
+12  PredicateLockData              include/storage/predicate_internals.h    Snapshot of all predicate lock
+    Key fields: nelements: number of predicate lock entries, locktags: array of PREDICATELOCKTARGETTAG, xacts: array of SERIALIZABLEXACT pointers
+
+13  RWConflictPoolHeaderData       include/storage/predicate_internals.h    Pool of available RWConflict d
+    Key fields: availableList: list of free conflict entries, element: pool header
+
+14  SERIALIZABLEXIDTAG             include/storage/predicate_internals.h    Tag structure for SERIALIZABLE
+    Key fields: xid: transaction ID being tracked
+
+15  PREDICATELOCKTAG               include/storage/predicate_internals.h    Tag identifying individual pre
+    Key fields: myTarget: pointer to PREDICATELOCKTARGET, myXact: pointer to SERIALIZABLEXACT
+
+16  TwoPhasePredicateRecord        include/storage/predicate_internals.h    Union record for 2PC WAL seria
+    Key fields: type: record type (XACT or LOCK), data: union of xactRecord or lockRecord
+
+17  PredicateLockTargetType        include/storage/predicate_internals.h    Enum defining lock granularity
+    Key fields: PREDLOCKTAG_RELATION: relation-level locks, PREDLOCKTAG_PAGE: page-level locks, PREDLOCKTAG_TUPLE: tuple-level locks
+
+18  PGPROC                         include/storage/proc.h                   PostgreSQL process structure, 
+    Key fields: SerializableXact: pointer to SERIALIZABLEXACT for this process
+
+19  dlist_head                     include/lib/ilist.h                      Doubly-linked list header used
+    Key fields: head: sentinel node for list
+
+20  dlist_node                     include/lib/ilist.h                      Doubly-linked list node elemen
+    Key fields: prev: previous node, next: next node
+

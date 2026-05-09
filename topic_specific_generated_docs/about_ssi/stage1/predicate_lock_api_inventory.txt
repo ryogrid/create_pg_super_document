@@ -1,0 +1,113 @@
+Predicate Lock API Inventory
+========================================================================================================================
+
+ 1. PredicateLockRelation
+    Signature: void PredicateLockRelation(Relation relation, Snapshot snapshot)
+    Role:      Acquire predicate lock on entire relation at tuple granularity
+    Callers:   heapam.c, nbtree, index access methods
+
+ 2. PredicateLockPage
+    Signature: void PredicateLockPage(Relation relation, BlockNumber blkno, Snapshot snapshot)
+    Role:      Acquire predicate lock on a specific page
+    Callers:   heapam.c, index page access
+
+ 3. PredicateLockTID
+    Signature: void PredicateLockTID(Relation relation, ItemPointer tid, Snapshot snapshot, TransactionId tuple_xid)
+    Role:      Acquire predicate lock on a specific tuple
+    Callers:   heapam.c, tuple read operations
+
+ 4. PredicateLockPageSplit
+    Signature: void PredicateLockPageSplit(Relation relation, BlockNumber oldblkno, BlockNumber newblkno)
+    Role:      Transfer predicate locks from old page to new page during page split
+    Callers:   nbtree, index split operations
+
+ 5. PredicateLockPageCombine
+    Signature: void PredicateLockPageCombine(Relation relation, BlockNumber oldblkno, BlockNumber newblkno)
+    Role:      Combine predicate locks from two pages
+    Callers:   nbtree, index combine operations
+
+ 6. TransferPredicateLocksToHeapRelation
+    Signature: void TransferPredicateLocksToHeapRelation(Relation relation)
+    Role:      Transfer all predicate locks from an index to the heap relation
+    Callers:   index deletion/rebuild operations
+
+ 7. TransferPredicateLocksToNewTarget
+    Signature: bool TransferPredicateLocksToNewTarget(PREDICATELOCKTARGETTAG oldtargettag, PREDICATELOCKTARGETTAG newtargettag, bool removeOld)
+    Role:      Transfer predicate locks from one target to another
+    Callers:   predicate.c internal, page split/combine
+
+ 8. CheckForSerializableConflictOut
+    Signature: void CheckForSerializableConflictOut(Relation relation, TransactionId xid, Snapshot snapshot)
+    Role:      Check for read-write conflict when reading modified tuple
+    Callers:   heapam.c tuple visibility checks
+
+ 9. CheckForSerializableConflictIn
+    Signature: void CheckForSerializableConflictIn(Relation relation, ItemPointer tid, BlockNumber blkno)
+    Role:      Check for write-read conflict when modifying data
+    Callers:   heapam.c insert/update/delete
+
+10. CheckTableForSerializableConflictIn
+    Signature: void CheckTableForSerializableConflictIn(Relation relation)
+    Role:      Check for conflicts on entire table (used in DDL)
+    Callers:   tablecmds.c, cluster.c
+
+11. ReleasePredicateLocks
+    Signature: void ReleasePredicateLocks(bool isCommit, bool isReadOnlySafe)
+    Role:      Release predicate locks at transaction end or when RO-safe
+    Callers:   xact.c transaction end, parallel.c
+
+12. PreCommit_CheckForSerializationFailure
+    Signature: void PreCommit_CheckForSerializationFailure(void)
+    Role:      Check for dangerous structures before commit (pre-commit validation)
+    Callers:   xact.c commit processing
+
+13. AtPrepare_PredicateLocks
+    Signature: void AtPrepare_PredicateLocks(void)
+    Role:      Write predicate lock state to 2PC file
+    Callers:   twophase.c prepare, 2PC support
+
+14. PostPrepare_PredicateLocks
+    Signature: void PostPrepare_PredicateLocks(TransactionId xid)
+    Role:      Cleanup local state after successful prepare
+    Callers:   twophase.c post-prepare
+
+15. PredicateLockTwoPhaseFinish
+    Signature: void PredicateLockTwoPhaseFinish(TransactionId xid, bool isCommit)
+    Role:      Release prepared transaction's predicate locks
+    Callers:   twophase.c finish
+
+16. predicatelock_twophase_recover
+    Signature: void predicatelock_twophase_recover(TransactionId xid, uint16 info, void *recdata, uint32 len)
+    Role:      Recover predicate locks from 2PC WAL records
+    Callers:   twophase.c recovery
+
+17. InitPredicateLocks
+    Signature: void InitPredicateLocks(void)
+    Role:      Initialize predicate locking shared memory structures
+    Callers:   ipci.c postmaster startup
+
+18. PredicateLockShmemSize
+    Signature: Size PredicateLockShmemSize(void)
+    Role:      Calculate shared memory size needed for predicate locking
+    Callers:   ipci.c memory calculation
+
+19. GetSerializableTransactionSnapshot
+    Signature: Snapshot GetSerializableTransactionSnapshot(Snapshot snapshot)
+    Role:      Acquire snapshot for serializable transaction
+    Callers:   snapmgr.c, transaction startup
+
+20. SetSerializableTransactionSnapshot
+    Signature: void SetSerializableTransactionSnapshot(Snapshot snapshot, VirtualTransactionId *sourcevxid, int sourcepid)
+    Role:      Import snapshot from another serializable transaction
+    Callers:   parallel.c, snapshot import
+
+21. RegisterPredicateLockingXid
+    Signature: void RegisterPredicateLockingXid(TransactionId xid)
+    Role:      Register transaction ID in SSI tracking
+    Callers:   xact.c, transaction ID assignment
+
+22. DropAllPredicateLocksFromTable
+    Signature: static void DropAllPredicateLocksFromTable(Relation relation, bool transfer)
+    Role:      Drop all predicate locks on table during DDL
+    Callers:   predicate.c internal, DDL operations
+
